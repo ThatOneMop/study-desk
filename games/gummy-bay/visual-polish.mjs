@@ -48,6 +48,11 @@ export function createVisualPolish({scene,camera,homes,buildings,reflectionMap})
   const sweet=box(mould,x,-.31,z,.09,.024,.09,M.gummy);cavities.push(sweet);
  }
  const packing=new THREE.Group();rig.add(packing);
+ // Same teal housing and metal feed deck as the world sealer.
+ box(packing,.13,-.395,-1.04,.48,.08,.40,M.paint);
+ box(packing,.13,-.35,-1.04,.45,.018,.38,M.metal);
+ box(packing,.34,-.28,-1.16,.035,.18,.06,M.paint);
+
  const packet=box(packing,.13,-.34,-1.02,.32,.014,.32,M.cream);
  const packSweet=box(packing,-.27,-.30,-1.02,.14,.07,.14,M.gummy);
  const foldA=box(packing,-.035,-.326,-1.02,.15,.014,.32,M.cream);

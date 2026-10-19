@@ -1,9 +1,10 @@
+import {StockroomCrafter,validCargo,findRoute} from './workshop-logistics.mjs';
 import {stationStatus} from './presentation.mjs';
 import {productionPlan,commitProduction,validateSave,backupSlot} from './business-core.mjs';
-import {createVisualPolish} from './visual-polish.mjs?v=19';
+import {createVisualPolish} from './visual-polish.mjs?v=20';
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
-import {stockSlots,taskFraction,restoreComfort} from './workshop-state.mjs';
+import {stockSlots,taskFraction,restoreComfort} from './workshop-state.mjs?v=20';
 import {createEffects} from './vendor/effects.js';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
@@ -56,7 +57,7 @@ function shelves(x,z){for(let i=0;i<3;i++){box(x,.45+i*.65,z,4,.1,.65,0xb7a17a);
 box(0,-.35,0,220,.6,185,0xa1b879);box(0,-.45,128,700,.1,140,0x80bcc8);box(0,-.22,81,220,.1,24,0xdccca0);for(let i=0;i<9;i++)box(0,-.38,86+i*6,240,.02,.12,0xb6d9d8);
 box(0,-.015,0,180,.04,12,0x7d857e);box(0,-.015,0,12,.04,145,0x7d857e);for(let z of [-9,9])box(0,.03,z,180,.15,5,0xd3c9ae);for(let x of [-9,9])box(x,.03,0,5,.15,145,0xd3c9ae);for(let x=-86;x<90;x+=7)box(x,.01,0,3,.015,.12,0xece3bb);for(let z=-68;z<70;z+=7)box(0,.01,z,.12,.015,3,0xece3bb);for(let x=-5;x<6;x+=1.5)box(x,.02,7.5,.7,.02,2.5,0xf0e8ce);for(let z=-5;z<6;z+=1.5)box(-7.5,.02,z,2.5,.02,.7,0xf0e8ce);box(-53,-.02,26,38,.08,27,0xc5b899);box(-32,-.01,26,32,.04,4,0xc5b899);
 room(-25,19,18,13,'PALM COURT MOTEL',0xe0c89f,0xbc8667);counter(-25,19);bobble(-25,17,0x89a3a3,0xd8af89);addPoint('reception','Palm Court · Rent a room',-25,22);
-room(-25,40,18,17,'ROOM 04',0xe4d6b3,0xbf8b70);box(-31,.5,44,2,1,3.1,0xb79d76,true);rounded(-31,1.06,44,2,.22,3.1,0xe8d7ad);rounded(-31,1.25,43.1,1.7,.22,.7,0xf9efd7);addPoint('bed','Rest until morning',-29,44);box(-18,.65,35,3.3,1.3,1.1,0xabc0b4,true);rounded(-18,1.35,35,2.4,.15,.8,0xf0ede0);cyl(-18,1.6,35,.04,.4,0x8b9d97);box(-17.8,1.78,35,.4,.06,.06,0x8b9d97);addPoint('sink','Sink · Fill watering can',-18,37);box(-18,.6,43,4,1.2,1.25,0xb59b71,true);box(-18,1.25,43,4.2,.12,1.4,0xe6cfa1);rounded(-19,1.48,43,.8,.3,.7,0xa8b98b);cyl(-17,1.47,43,.35,.35,0xe1c291);addPoint('craft','Gummy-making table',-18,45);sign('MAKE IT SWEET',-18,2.35,43.5,3,'#9c7759','#fff1c6');
+room(-25,40,18,17,'ROOM 04 · WORKSHOP',0xe4d6b3,0xbf8b70);box(-31,.5,44,2,1,3.1,0xb79d76,true);rounded(-31,1.06,44,2,.22,3.1,0xe8d7ad);rounded(-31,1.25,43.1,1.7,.22,.7,0xf9efd7);addPoint('bed','Rest until morning',-29,44);box(-18,.65,35,3.3,1.3,1.1,0xabc0b4,true);rounded(-18,1.35,35,2.4,.15,.8,0xf0ede0);cyl(-18,1.6,35,.04,.4,0x8b9d97);box(-17.8,1.78,35,.4,.06,.06,0x8b9d97);addPoint('sink','Sink · Fill watering can',-18,37);box(-18,.6,43,4,1.2,1.25,0xb59b71,true);box(-18,1.25,43,4.2,.12,1.4,0xe6cfa1);rounded(-19,1.48,43,.8,.3,.7,0xa8b98b);cyl(-17,1.47,43,.35,.35,0xe1c291);addPoint('craft','Gummy-making table',-18,45);sign('MAKE IT SWEET',-18,2.35,43.5,3,'#9c7759','#fff1c6');
 room(25,22,18,17,'MILO’S GARDEN GOODS',0xc7d3af,0x819c79);counter(25,23);shelves(19,16);shelves(31,16);bobble(25,21,0xa1ac70,0xc79570);addPoint('dealer','Milo · Seeds & soil',25,26);
 room(-24,-23,20,17,'HANK’S HARDWARE',0xe0c9a1,0x8fa7a1);counter(-24,-21);shelves(-31,-29);shelves(-17,-29);bobble(-24,-23,0xbd8c68,0xe0b68c);addPoint('hardware','Hank · Tents & equipment',-24,-18);
 room(24,-25,20,18,'THE CORNER STORE',0xe5d0a6,0xc78a70);counter(24,-23);shelves(17,-32);shelves(31,-32);bobble(24,-25,0x829fac,0xc88e67);addPoint('store','Corner store · Packaging',24,-20);
@@ -250,7 +251,7 @@ if(net.role!=='guest'){s.time+=dt*1.2;if(s.time>=1440){s.time-=1440;s.day++}s.he
 people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z)<12)g.rotation.y=Math.atan2(player.x-g.position.x,player.z-g.position.z);g.userData.head.rotation.z=Math.sin(now*1.7+i)*.035});if(track&&Math.hypot(player.x-track.x,player.z-track.z)<2.3)track=null;
 let day=Math.max(.08,Math.sin((s.time-360)/1440*Math.PI*2));sun.intensity=.25+day*3.1;hemi.intensity=.42+day*.85;let sky=new THREE.Color().lerpColors(new THREE.Color(0x293943),new THREE.Color(0xb9cfdb),day);scene.background.copy(sky);scene.fog.color.copy(sky);lights.forEach(l=>l.intensity=day<.3?8:0);
 }
-function frame(t){let dt=last?Math.min(.06,(t-last)/1000):0;last=t;now+=dt;if(work){let f=(performance.now()-work.start)/(work.seconds*1000);$('workProgress').style.width=Math.min(100,f*100)+'%';if(f>=1){work=null;$('work').style.display='none';watering.visible=false;save()}}update(dt);if(!active){camera.position.set(-43+Math.sin(now*.04),4.3,39);camera.lookAt(-57,1.5,25.5);sun.intensity=.65;hemi.intensity=.5;scene.background.set(0x172523);scene.fog.color.set(0x26352f)}uiTimer+=dt;if(uiTimer>.14){uiTimer=0;if(active)updateUI()}saveTimer+=dt;if(saveTimer>5){saveTimer=0;save()}networkTick(dt);arrow.position.y=3.1+Math.sin(now*2.5)*.2;renderFrame();requestAnimationFrame(frame)}
+function frame(t){let dt=last?Math.min(.06,(t-last)/1000):0;last=t;now+=dt;updateStationInput(dt);if(work){let f=(performance.now()-work.start)/(work.seconds*1000);$('workProgress').style.width=Math.min(100,f*100)+'%';if(f>=1){work=null;$('work').style.display='none';watering.visible=false;save()}}update(dt);if(!active){camera.position.set(-43+Math.sin(now*.04),4.3,39);camera.lookAt(-57,1.5,25.5);sun.intensity=.65;hemi.intensity=.5;scene.background.set(0x172523);scene.fog.color.set(0x26352f)}uiTimer+=dt;if(uiTimer>.14){uiTimer=0;if(active)updateUI()}saveTimer+=dt;if(saveTimer>5){saveTimer=0;save()}networkTick(dt);arrow.position.y=3.1+Math.sin(now*2.5)*.2;renderFrame();requestAnimationFrame(frame)}
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);resizeEffects()});let drag=false,touchLast=null;canvas.addEventListener('mouseenter',()=>mouseInside=true);canvas.addEventListener('mouseleave',()=>mouseInside=false);canvas.addEventListener('pointerdown',e=>{if(!panel){drag=true;canvas.setPointerCapture?.(e.pointerId)}});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);addEventListener('mousemove',e=>{if(active&&!panel&&(document.pointerLockElement===canvas||e.target===canvas)){mouseInside=true;mouseX=e.clientX;mouseY=e.clientY;let dx=Math.max(-80,Math.min(80,e.movementX||0)),dy=Math.max(-80,Math.min(80,e.movementY||0));yaw-=dx*lookSensitivity;pitch=Math.max(-1.35,Math.min(1.35,pitch-dy*lookSensitivity))}});canvas.addEventListener('touchstart',e=>{if(e.touches[0])touchLast={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});canvas.addEventListener('touchmove',e=>{if(panel||!touchLast)return;let t=e.touches[0];yaw-=(t.clientX-touchLast.x)*.004;pitch=Math.max(-1.3,Math.min(1.3,pitch-(t.clientY-touchLast.y)*.004));touchLast={x:t.clientX,y:t.clientY};e.preventDefault()},{passive:false});canvas.addEventListener('touchend',()=>touchLast=null);
 addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&e.key!=='Escape')return;let k=e.key.toLowerCase();if(['tab','arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();if(!active)return;if(k==='escape'){panel?close():menu('pause');return}if(['e','t','tab','j','m'].includes(k)&&e.repeat)return;if(k==='e'){act();return}if(['t','tab','j','m'].includes(k)){if(work)return;panel?close():menu({t:'phone',tab:'bag',j:'journal',m:'map'}[k]);return}if(!panel)keys[k]=true});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);addEventListener('blur',()=>{keys={};drag=false;save()});document.addEventListener('visibilitychange',()=>{keys={};save();last=0});window.addEventListener('pagehide',save);document.querySelectorAll('[data-key]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);keys[b.dataset.key]=true};b.onpointerup=b.onpointercancel=()=>keys[b.dataset.key]=false});
 Object.assign(window,{menu,slots,loadGame:load,closeMenu:close,action,act,trackPlace,trackCustomer,trackObjective,title,manualSave:()=>{save();toast(net.role==='guest'?'The host saves this shared world.':'Saved '+mode+' slot '+slot)},exportSave,importSave,confirmImport,modeName:()=>mode,slotNumber:()=>slot,hostCoop,joinCoop,acceptReply,copyCode,leaveCoop:()=>disconnect(true)});
@@ -557,9 +558,9 @@ function manualReady(k,a,b){
  if(k==='mix')return s.mixer&&s.ingredients[b]>0&&(s.gummies[a]>0||s.packs[a]>reservedQty(a));return false;
 }
 function paintStation(){if(!stationTask)return;let task=stationTask,step=MANUAL[task.k][task.step];$('stationHUD').innerHTML='<div class="overline">'+task.k.toUpperCase()+' / STEP '+(task.step+1)+' OF '+MANUAL[task.k].length+'</div><h2>'+step[0]+'</h2><p>'+(step[1]==='drag'?'Hold the mouse button and move across the work surface.':step[1]==='hold'?'Hold the mouse button over the work surface.':'Click the work surface '+step[2]+' time'+(step[2]>1?'s.':'.'))+'</p><div class="progress"><div style="width:'+Math.min(100,task.progress/step[2]*100)+'%"></div></div><button onclick="cancelStation()">Cancel [Esc]</button>';}
-function cancelStation(){stationTask=null;stationHeld=false;stationView.visible=false;$('stationHUD').hidden=true;panel='';}
+function cancelStation(){if(stationTask?.viewBefore){yaw=stationTask.viewBefore.yaw;pitch=stationTask.viewBefore.pitch;camera.rotation.set(pitch,yaw,0,'YXZ');}stationTask=null;stationHeld=false;stationView.visible=false;$('stationHUD').hidden=true;panel='';}
 const stationClose=close;close=function(){if(stationTask)cancelStation();locomotion.x=locomotion.z=0;stationClose();};window.closeMenu=close;window.cancelStation=cancelStation;
-const commitAction=action;action=function(k,a,b,c){if(stationTask||work||!active)return;if(MANUAL[k]){if(!manualReady(k,a,b))return;let type=['prepare','plant','water','harvest'].includes(k)?'tent':k==='fill'?'sink':k==='mix'?'mix':'craft';let p=points.find(p=>p.type===type&&pointVisible(p)&&(type!=='tent'||p.i===a));if(!p||Math.hypot(player.x-p.x,player.z-p.z)>5){toast('Walk to your '+type+' station first.');return;}close();panel='station';stationTask={k,a,b,c,step:0,progress:0};stationView.visible=true;stationPiece.material.color.set(STRAINS[k==='plant'?b:s.plants[a]?.t??a]?.color||0x98bd64);$('stationHUD').hidden=false;paintStation();return;}commitAction(k,a,b,c);};window.action=action;
+const commitAction=action;action=function(k,a,b,c){if(stationTask||work||!active)return;if(MANUAL[k]){if(!manualReady(k,a,b))return;let type=['prepare','plant','water','harvest'].includes(k)?'tent':k==='fill'?'sink':k==='mix'?'mix':'craft';let p=points.find(p=>p.type===type&&pointVisible(p)&&(type!=='tent'||p.i===a));if(!p||Math.hypot(player.x-p.x,player.z-p.z)>5){toast('Walk to your '+type+' station first.');return;}close();panel='station';stationTask={k,a,b,c,step:0,progress:0,viewBefore:{yaw,pitch}};if(comfort.stationFocus&&['craft','mix'].includes(type)){camera.lookAt(p.x,1.4,p.z-(type==='craft'?2:1.4));yaw=camera.rotation.y;pitch=camera.rotation.x;}stationView.visible=true;stationPiece.material.color.set(STRAINS[k==='plant'?b:s.plants[a]?.t??a]?.color||0x98bd64);$('stationHUD').hidden=false;paintStation();return;}commitAction(k,a,b,c);};window.action=action;
 function advanceStation(amount){if(!stationTask)return;const t=stationTask,step=MANUAL[t.k][t.step];t.progress+=amount;if(t.progress>=step[2]){t.step++;t.progress=0;stationHeld=false;if(t.step>=MANUAL[t.k].length){const args=[t.k,t.a,t.b,t.c];cancelStation();commitAction(...args);if(net.role!=='guest'){work=null;$('work').style.display='none';watering.visible=false;save();}playTone(620,.08,.025);return;}}paintStation();}
 canvas.addEventListener('pointerdown',()=>{if(!stationTask)return;stationHeld=true;const step=MANUAL[stationTask.k][stationTask.step];if(step[1]==='tap')advanceStation(1);});
 addEventListener('pointerup',()=>stationHeld=false);addEventListener('blur',()=>stationHeld=false);
@@ -569,7 +570,7 @@ let soundEnabled=true,audioContext=null,footstepAt=0;
 function playTone(hz,duration,volume){if(!soundEnabled||!audioContext)return;try{const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(hz,audioContext.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(30,hz*.45),audioContext.currentTime+duration);g.gain.setValueAtTime(volume,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+duration);o.connect(g);g.connect(audioContext.destination);o.start();o.stop(audioContext.currentTime+duration);}catch(e){}}
 addEventListener('pointerdown',()=>{const AC=window.AudioContext||window.webkitAudioContext;if(AC&&!audioContext)audioContext=new AC();audioContext?.resume();});
 function toggleSound(){soundEnabled=!soundEnabled;menu('settings')}window.toggleSound=toggleSound;
-let feelLast=performance.now();const feelRender=renderFrame;renderFrame=function(){let t=performance.now(),dt=Math.min(.06,(t-feelLast)/1000);feelLast=t;if(stationTask){let step=MANUAL[stationTask.k][stationTask.step];if(stationHeld&&step[1]==='hold')advanceStation(dt);stationTool.rotation.z=(stationHeld||stationAssist)?-.65:0;stationPiece.rotation.y=stationTask?.k==='mix'&&(stationHeld||stationAssist)?now*2:0;}
+let feelLast=performance.now();const feelRender=renderFrame;renderFrame=function(){let t=performance.now(),dt=Math.min(.06,(t-feelLast)/1000);feelLast=t;
  if(active&&!panel&&walk&&locomotion.jump===0&&now-footstepAt>(keys.shift?.28:.46)){footstepAt=now;playTone(keys.shift?105:85,.075,.026);}feelRender();};
 const sightUI=updateUI;updateUI=function(){sightUI();if(stationTask){$('prompt').style.display='none';return;}if(near){let dx=near.x-player.x,dz=near.z-player.z,d=Math.hypot(dx,dz);if(d>1.2&&(-Math.sin(yaw)*dx-Math.cos(yaw)*dz)/d<.4){near=null;$('prompt').style.display='none';}}};
 // Saved layouts and physical equipment placement.
@@ -585,7 +586,7 @@ function placementValid(i,p){const h=HOMES[s.house];if(!p||p.home!==s.house||![p
 const fixedBase=refreshBase;refreshBase=function(){fixedBase();tents.forEach((g,i)=>{let p=s.layout[s.house+':'+i];g.rotation.y=p?.r||0;if(p&&Number.isFinite(p.x)&&Number.isFinite(p.z))g.position.set(p.x,0,p.z);let point=points.find(p=>p.type==='tent'&&p.i===i);point.x=g.position.x+Math.sin(g.rotation.y)*1.6;point.z=g.position.z+Math.cos(g.rotation.y)*1.6;});};
 function beginPlacement(i){if(!s.installed?.includes(i)||stationTask||driving)return;close();placeMode={i,r:tents[i].rotation.y};placeGhost.visible=true;$('placementHUD').hidden=false;}
 function cancelPlacement(){placeMode=null;placeGhost.visible=false;$('placementHUD').hidden=true;}
-function confirmPlacement(){if(!placeMode)return;let p={x:placeGhost.position.x,z:placeGhost.position.z,r:placeMode.r,home:s.house};if(!placementValid(placeMode.i,p)){toast('Keep the tent inside your property, clear of walls, furniture and the doorway.');return;}let i=placeMode.i;cancelPlacement();action('placeTent',i,p);}
+function confirmPlacement(){if(!placeMode)return;let p={x:placeGhost.position.x,z:placeGhost.position.z,r:placeMode.r,home:s.house};if(!placementValid(placeMode.i,p)){toast(placementFailure||'Keep the tent inside your property, clear of walls, furniture and the doorway.');return;}let i=placeMode.i;cancelPlacement();action('placeTent',i,p);}
 Object.assign(window,{beginPlacement,cancelPlacement,confirmPlacement});
 // Stock rooms provide persistent storage separate from listed/carried packs.
 for(let [home,h]of HOMES.entries()){let x=h.x,z=h.z+4;for(let y of [.35,1,1.65])box(x-1.8,y,z,1.2,.09,.8,0xa28d68);for(let xx of [x-2.35,x-1.25])box(xx,1,z,.07,2,.8,0x586c61);addPoint('stockroom','Stockroom · Store or collect packs',x,z,{home});}
@@ -609,7 +610,7 @@ function enterVehicle(){if(!s.vehicleOwned||driving||Math.hypot(player.x-vehicle
 function exitVehicle(){if(!driving)return;if(Math.abs(driveSpeed)>1){toast('Stop the van before getting out.');return;}for(let side of [-1,1]){let x=player.x+Math.cos(driveAngle)*side*2,z=player.z-Math.sin(driveAngle)*side*2;if(!blocked(x,z)){driving=false;vehiclePose={x:player.x,z:player.z,angle:driveAngle};player.set(x,1.72,z);driveSpeed=0;if(net.role!=='guest')s.vehiclePark={...vehiclePose};save();return;}}toast('Both doors are blocked. Move the van into an open area.');}
 Object.assign(window,{enterVehicle,exitVehicle});
 const vehiclePacket=playerPacket;playerPacket=function(){return {...vehiclePacket(),vehicle:driving,vehicleAngle:driveAngle};};
-function resetSystems(){driving=false;driveSpeed=0;vehiclePose={...s.vehiclePark};driveAngle=vehiclePose.angle||0;cancelPlacement();CONTACTS.forEach((c,i)=>{let p=s.npcs[i]||customerHomes[i];c.x=p.x;c.z=p.z;people[i].position.set(c.x,0,c.z);});}
+function resetSystems(){if(typeof physicalCrafter!=='undefined'){physicalCrafter.home=-1;physicalCrafter.progress=0;physicalCrafter.path=null;}driving=false;driveSpeed=0;vehiclePose={...s.vehiclePark};driveAngle=vehiclePose.angle||0;cancelPlacement();CONTACTS.forEach((c,i)=>{let p=s.npcs[i]||customerHomes[i];c.x=p.x;c.z=p.z;people[i].position.set(c.x,0,c.z);});}
 const systemsLoad=load;load=function(...args){systemsLoad(...args);resetSystems();};window.loadGame=load;
 // Customer routes are deterministic, host-simulated and shared with guests.
 const customerHomes=CONTACTS.map(c=>({x:c.x,z:c.z}));
@@ -780,7 +781,7 @@ STORY[2].done=()=>s.tents>0&&s.can&&s.trimmers&&s.packStation;
 STORY[3].done=()=>s.planted>0||(s.seeds.some(n=>n>0)&&s.soil>0);
 STORY[6].text='Harvest the mature plant using your trimmers. One crop gives four units.';
 STORY[7].text='Buy 10 wrappers ($10) at the corner store. At your worktable, make one gummy, then wrap it. Starter purchases total $350, leaving $50.';
-const stockUsed=()=>['raw','gummies','packs','storedPacks'].reduce((sum,key)=>sum+s[key].reduce((a,b)=>a+b,0),0);
+const stockUsed=()=>['raw','gummies','packs','storedPacks'].reduce((sum,key)=>sum+s[key].reduce((a,b)=>a+b,0),s.crafterCargo?1:0);
 const stockCapacity=()=>[64,256,640][s.house];
 const storageCapacity=()=>[40,160,400][s.house];
 const storedUsed=()=>s.storedPacks.reduce((a,b)=>a+b,0);
@@ -801,12 +802,12 @@ const do11=doAction;doAction=function(k,a,b,c){
  if(k==='cancelDeal'){const deal=s.deals.find(d=>d.npc===a);if(!deal)return;s.deals=s.deals.filter(d=>d!==deal);if(s.threads[a]){s.threads[a].status='closed';s.threads[a].messages.push({mine:true,text:'Sorry, I need to cancel this delivery. My stock is available again.'});}save();if(!processingRemote)menu('deals');return;}
  const before=s.sold;do11(k,a,b,c);if(k==='deliver'&&before===0&&s.sold>0){toast('FIRST SALE! You earned '+cash(s.earned)+'. Call Gramps, then reinvest in your next crop.');playTone(780,.22,.05);}if(k==='house')refreshBase();
 };ACTION_NAMES.push('staffAssign','batch','cancelDeal');
-function workerStatus(role){if(!s.helpers[role])return 'Not hired';if(!s.workerEnabled[role])return 'Paused';const cfg=s.staffConfig[role];if(role==='gardener'){if(!s.installed?.some(i=>i<maxTents()&&(cfg.tent<0||cfg.tent===i)))return 'Waiting: install an assigned tent';if(!s.can&&!s.irrigation)return 'Waiting: watering can';if(!s.trimmers)return 'Waiting: trimmers';if(stockUsed()+4>stockCapacity())return 'Waiting: property stock full';if(s.plants.some((p,i)=>p&&(cfg.tent<0||cfg.tent===i)))return 'Tending assigned plants';if(!s.soil)return 'Waiting: soil';if(!s.seeds.some((n,i)=>n&&i<BASE_COUNT&&(cfg.strain<0||cfg.strain===i)))return 'Waiting: assigned seeds';return 'Ready to plant';}if(role==='crafter'){if(!s.packStation)return 'Waiting: packaging station';if(cfg.stock==='stored'&&storedUsed()>=storageCapacity())return 'Waiting: stockroom full';if(!s.wrappers)return 'Waiting: wrappers';if(!s.raw.some((n,i)=>n&&(cfg.strain<0||i===cfg.strain))&&!s.gummies.some((n,i)=>n&&(cfg.strain<0||i===cfg.strain)))return 'Waiting: harvested or loose gummies';return 'Making and packing → '+cfg.stock;}let stock=cfg.stock==='stored'?s.storedPacks:s.packs;if(!stock.some((n,i)=>n>(cfg.stock==='carried'?reservedQty(i):0)&&(cfg.strain<0||i===cfg.strain)))return 'Waiting: unreserved '+cfg.stock+' packs';return 'Delivering '+cfg.stock+' packs · 90% base value';}
+function workerStatus(role){if(!s.helpers[role])return 'Not hired';if(!s.workerEnabled[role])return 'Paused';const cfg=s.staffConfig[role];if(role==='gardener'){if(!s.installed?.some(i=>i<maxTents()&&(cfg.tent<0||cfg.tent===i)))return 'Waiting: install an assigned tent';if(!s.can&&!s.irrigation)return 'Waiting: watering can';if(!s.trimmers)return 'Waiting: trimmers';if(stockUsed()+4>stockCapacity())return 'Waiting: property stock full';if(s.plants.some((p,i)=>p&&(cfg.tent<0||cfg.tent===i)))return 'Tending assigned plants';if(!s.soil)return 'Waiting: soil';if(!s.seeds.some((n,i)=>n&&i<BASE_COUNT&&(cfg.strain<0||cfg.strain===i)))return 'Waiting: assigned seeds';return 'Ready to plant';}if(role==='crafter'){if(cfg.stock==='stored')return physicalCrafter.status;if(!s.packStation)return 'Waiting: packaging station';if(cfg.stock==='stored'&&storedUsed()>=storageCapacity())return 'Waiting: stockroom full';if(!s.wrappers)return 'Waiting: wrappers';if(!s.raw.some((n,i)=>n&&(cfg.strain<0||i===cfg.strain))&&!s.gummies.some((n,i)=>n&&(cfg.strain<0||i===cfg.strain)))return 'Waiting: harvested or loose gummies';return 'Making and packing → '+cfg.stock;}let stock=cfg.stock==='stored'?s.storedPacks:s.packs;if(!stock.some((n,i)=>n>(cfg.stock==='carried'?reservedQty(i):0)&&(cfg.strain<0||i===cfg.strain)))return 'Waiting: unreserved '+cfg.stock+' packs';return 'Delivering '+cfg.stock+' packs · 90% base value';}
 production=function(dt){
  for(const [i,p] of s.plants.entries()){if(p?.phase==='growing'&&Date.now()>=p.end)p.phase=p.waterings>=2?'mature':'thirsty';const cfg=s.staffConfig.gardener,assigned=(cfg.tent<0||cfg.tent===i)&&i<maxTents()&&s.installed?.includes(i);if(p&&['dry','thirsty'].includes(p.phase)&&(s.irrigation||(assigned&&s.helpers.gardener&&s.workerEnabled.gardener&&s.can))){if(!s.irrigation){if(s.water===0)s.water=6;s.water--;}p.waterings++;p.phase='growing';p.start=Date.now();p.end=Date.now()+STRAINS[p.t].time*(1-s.lights*.15)*500;s.watered++;}}
  helperTimer+=dt;sellerTimer+=dt;
  if(helperTimer>4){helperTimer=0;const cfg=s.staffConfig.gardener;if(s.helpers.gardener&&s.workerEnabled.gardener)for(const i of s.installed||[]){if(i>=maxTents()||(cfg.tent>=0&&cfg.tent!==i))continue;let p=s.plants[i];if(p?.phase==='mature'&&s.trimmers&&stockUsed()+4<=stockCapacity()){s.raw[p.t]+=4;s.harvested++;s.plants[i]=null;}if(!s.plants[i]&&s.soil>0){let t=s.seeds.findIndex((n,j)=>n>0&&j<BASE_COUNT&&unlocked(j)&&(cfg.strain<0||cfg.strain===j));if(t>=0){s.soil--;s.seeds[t]--;s.plants[i]={phase:'dry',t,waterings:0};s.planted++;}}}
- const c=s.staffConfig.crafter;if(s.helpers.crafter&&s.workerEnabled.crafter&&s.packStation&&s.wrappers>0&&(c.stock!=='stored'||storedUsed()<storageCapacity())){let t=s.gummies.findIndex((n,j)=>n>0&&(c.strain<0||c.strain===j));if(t<0){t=s.raw.findIndex((n,j)=>n>0&&(c.strain<0||c.strain===j));if(t>=0){s.raw[t]--;s.gummies[t]++;s.made++;}}if(t>=0&&s.gummies[t]>0&&s.wrappers>0){s.gummies[t]--;s.wrappers--;s[c.stock==='stored'?'storedPacks':'packs'][t]++;}}
+ const c=s.staffConfig.crafter;if(c.stock==='carried'&&s.helpers.crafter&&s.workerEnabled.crafter&&s.packStation&&s.wrappers>0){let t=s.gummies.findIndex((n,j)=>n>0&&(c.strain<0||c.strain===j));if(t<0){t=s.raw.findIndex((n,j)=>n>0&&(c.strain<0||c.strain===j));if(t>=0){s.raw[t]--;s.gummies[t]++;s.made++;}}if(t>=0&&s.gummies[t]>0&&s.wrappers>0){s.gummies[t]--;s.wrappers--;s[c.stock==='stored'?'storedPacks':'packs'][t]++;}}
  }
  if(sellerTimer>22){sellerTimer=0;let c=s.staffConfig.seller,stock=c.stock==='stored'?s.storedPacks:s.packs;if(s.helpers.seller&&s.workerEnabled.seller){let t=stock.findIndex((n,j)=>n>(c.stock==='carried'?reservedQty(j):0)&&(c.strain<0||c.strain===j));if(t>=0){stock[t]--;let pay=Math.round(value(t)*.9);s.cash+=pay;s.earned+=pay;s.sold++;s.xp+=5;toast('Sales assistant · '+cash(pay)+' · '+STRAINS[t].name);}}}
  const clock=(s.day-1)*1440+s.time;for(const d of [...s.deals])if(d.due&&clock>d.due){s.deals=s.deals.filter(x=>x!==d);s.relations[d.npc]=Math.max(0,relationship(d.npc)-5);if(s.threads[d.npc]){s.threads[d.npc].status='closed';s.threads[d.npc].messages.push({mine:false,text:'I had to leave. Text me again when you are ready.'});}toast(CONTACTS[d.npc].name+' left. Your stock is available again.');}
@@ -838,7 +839,7 @@ const update11=update;update=function(dt){update11(dt);if(active&&!blocked(playe
 const load11=load;load=function(...args){load11(...args);customerPaths.clear();copPaths.clear();if(!blocked(player.x,player.z))lastSafe={x:player.x,z:player.z};};window.loadGame=load;
 const network11=networkTick;networkTick=function(dt){network11(dt);if(other&&!visualActors.some(a=>a.g===other)){const variant=other.userData.id%3;if(citizenTemplates[variant])installCitizen(citizenTemplates[variant],variant);}};
 function validPose(p){return p&&[p.x,p.z,p.yaw].every(Number.isFinite)&&p.x>=WORLD.minX&&p.x<=WORLD.maxX&&p.z>=WORLD.minZ&&p.z<=WORLD.maxZ;}
-function validSharedState(v){return v&&v.version===3&&['cash','bank','xp','x','z','day','time'].every(k=>Number.isFinite(v[k]))&&['seeds','raw','gummies','packs'].every(k=>Array.isArray(v[k])&&v[k].length>=6&&v[k].length<=STRAINS.length&&v[k].every(n=>Number.isFinite(n)&&n>=0))&&Array.isArray(v.plants)&&v.plants.length<=8&&Array.isArray(v.deals)&&v.threads&&typeof v.threads==='object';}
+function validSharedState(v){return v&&v.version===3&&validCargo(v.crafterCargo,STRAINS.length)&&['cash','bank','xp','x','z','day','time'].every(k=>Number.isFinite(v[k]))&&['seeds','raw','gummies','packs'].every(k=>Array.isArray(v[k])&&v[k].length>=6&&v[k].length<=STRAINS.length&&v[k].every(n=>Number.isFinite(n)&&n>=0))&&Array.isArray(v.plants)&&v.plants.length<=8&&Array.isArray(v.deals)&&v.threads&&typeof v.threads==='object';}
 function remoteActionAllowed(msg){if(!net.remote||Math.hypot(net.remote.x-msg.x,net.remote.z-msg.z)>3)return false;const k=msg.k;
  if(['list','text','offer','cancelDeal','payment','complyPolice','dropProp','throwProp'].includes(k))return true;
  const mapping={call:'payphone',rent:'reception',job:'reception',buyTent:'hardware',buyCan:'hardware',buyTrimmers:'hardware',buyPackStation:'hardware',buyMixer:'hardware',lights:'hardware',bench:'hardware',irrigation:'hardware',seed:'dealer',soil:'dealer',wrappers:'store',lemonade:'store',ingredient:'servo',fill:'sink',make:'craft',pack:'craft',mix:'mix',hire:'helpers',worker:'helpers',staffAssign:'helpers',house:'property',deposit:'laundry',withdraw:'laundry',front:'laundry',sleep:'bed',atmDeposit:'atm',atmWithdraw:'atm',recycle:'recycler',stash:'stockroom',unstash:'stockroom',buyVehicle:'garage',install:'tent',prepare:'tent',plant:'tent',water:'tent',harvest:'tent',placeTent:'tent',pickup:'litter',grabProp:'prop',sample:'customer',deliver:'customer'};
@@ -897,7 +898,7 @@ for(const [home,h] of HOMES.entries()){
   const p=box(h.x-2.23+(i%4)*.28,.52+Math.floor(i/4)*.65,h.z+4,.27,.24,.22,0xb58c5f,false,group);p.material=stockMaterial;packs.push(p);
   const g=sphere(h.x+5.7+(i%4)*.25,1.40,h.z+2.75+Math.floor(i/4)*.22,.095,0x93c35b,group,1,.65,1);gummies.push(g);
  }
- for(let i=0;i<4;i++){const p=cyl(h.x+7.4+i*.3,1.55,h.z+2.9,.11,.45,0x93c35b,group);inputs.push(p);}
+ for(let i=0;i<4;i++){const p=cyl(h.x+4.05+i*.28,1.24,h.z+3.4,.11,.45,0x93c35b,group);inputs.push(p);}
  const tray=box(h.x+6.1,1.33,h.z+3,1.3,.045,.9,0x7eaaa5,false,group);tray.material=trayMaterial;
  const labels=[sign('01  SHAPE',h.x+6.1,2.25,h.z+2.4,2,'#254f55'),sign('02  WRAP',h.x+7.9,2.25,h.z+2.4,1.4,'#765a36'),sign('03  STOCK',h.x-1.8,2.45,h.z+4,1.5,'#405b42')];
  group.visible=false;labels.forEach(l=>l.visible=false);workshopDisplays.push({home,group,packs,gummies,inputs,labels});
@@ -905,7 +906,7 @@ for(const [home,h] of HOMES.entries()){
 const focusRing=new THREE.Mesh(new THREE.RingGeometry(.32,.37,32),new THREE.MeshBasicMaterial({color:0xd8e9a1,transparent:true,opacity:.7,side:THREE.DoubleSide,depthWrite:false}));focusRing.rotation.x=-Math.PI/2;scene.add(focusRing);
 function refreshWorkshop(){
  const stored=stockSlots(s.storedPacks),loose=stockSlots(s.gummies),raw=stockSlots(s.raw,4);
- for(const d of workshopDisplays){const visible=active&&s.room&&d.home===s.house;d.group.visible=visible;d.labels.forEach(l=>l.visible=visible);if(!visible)continue;
+ for(const d of workshopDisplays){const visible=active&&s.room&&d.home===s.house;d.group.visible=visible;if(d.supply)d.supply.visible=visible;d.labels.forEach(l=>l.visible=visible);if(!visible)continue;
   for(const [meshes,stock] of [[d.packs,stored],[d.gummies,loose],[d.inputs,raw]])meshes.forEach((m,i)=>{m.visible=i<stock.length;if(m.visible&&meshes!==d.packs)m.material=mat(STRAINS[stock[i]].color,{roughness:meshes===d.gummies?.22:.65,metalness:0});});
  }
 }
@@ -929,7 +930,7 @@ const render13=renderFrame;renderFrame=function(){
  }
  render13();
 };
-const settings13=menu;menu=function(which,data){settings13(which,data);if(which==='settings')$('modal').innerHTML+='<h3>Camera comfort</h3>'+['bob','sprintFov'].map(k=>'<label class="comfort-option"><input type="checkbox" '+(comfort[k]?'checked':'')+' onchange="setComfort(\''+k+'\',this.checked)"> '+(k==='bob'?'Walking camera and hand bob':'Sprint field-of-view change')+'</label>').join('');if(which==='phone')$('modal').innerHTML+='<section class="staffcard"><h3>Business at a glance</h3><p>'+s.packs.reduce((a,b)=>a+b,0)+' carried packs · '+storedUsed()+' stored · '+s.deals.length+' active deliveries</p><button class="primary" onclick="menu(\'deals\')">Delivery commitments</button></section>';};window.menu=menu;
+const settings13=menu;menu=function(which,data){settings13(which,data);if(which==='settings')$('modal').innerHTML+='<h3>Camera comfort</h3>'+['bob','sprintFov','stationFocus'].map(k=>'<label class="comfort-option"><input type="checkbox" '+(comfort[k]?'checked':'')+' onchange="setComfort(\''+k+'\',this.checked)"> '+(k==='bob'?'Walking camera and hand bob':k==='sprintFov'?'Sprint field-of-view change':'Face the work surface when starting a task')+'</label>').join('');if(which==='phone')$('modal').innerHTML+='<section class="staffcard"><h3>Business at a glance</h3><p>'+s.packs.reduce((a,b)=>a+b,0)+' carried packs · '+storedUsed()+' stored · '+s.deals.length+' active deliveries</p><button class="primary" onclick="menu(\'deals\')">Delivery commitments</button></section>';};window.menu=menu;
 // Clear continuous input on pointer cancellation and Study Desk transitions.
 function releaseGameInput(){keys={};stationHeld=false;stationAssist=false;drag=false;locomotion.x=locomotion.z=0;locomotion.space=false;last=0;feelLast=visualPrevious=performance.now();}
 addEventListener('pointercancel',releaseGameInput);addEventListener('blur',releaseGameInput);
@@ -946,7 +947,13 @@ const cancel13=cancelStation;cancelStation=function(){stationAssist=false;cancel
 const paint14=paintStation;paintStation=function(){paint14();if(!stationTask)return;const step=MANUAL[stationTask.k][stationTask.step];$('stationHUD').insertAdjacentHTML('beforeend','<button id="stationAssist" class="primary" type="button">'+(step[1]==='tap'?'Press':'Hold')+' here or Space</button><p class="note">Keyboard and touch alternative. Esc cancels without consuming supplies.</p>');};
 // Delegated events survive progress-panel replacement without losing held input.
 $('stationHUD').addEventListener('pointerdown',e=>{if(!e.target.closest('#stationAssist'))return;e.preventDefault();e.stopPropagation();stationControl(true);});
-const assistRender=renderFrame;renderFrame=function(){if(stationAssist&&stationTask){const step=MANUAL[stationTask.k][stationTask.step];if(step[1]!=='tap')advanceStation(Math.min(.06,Math.max(0,(performance.now()-feelLast)/1000))*(step[1]==='drag'?180:1));}assistRender();};
+function updateStationInput(dt){
+ if(!active||!stationTask||document.hidden)return;
+ const step=MANUAL[stationTask.k][stationTask.step];
+ if(step[1]==='hold'&&(stationHeld||stationAssist))advanceStation(Math.min(.06,dt));
+ else if(step[1]==='drag'&&stationAssist)advanceStation(Math.min(.06,dt)*180);
+}
+
 const agree13=agree;agree=function(i,price){const t=s.threads[i];if(!t||t.status!=='negotiating'||s.deals.some(d=>d.npc===i)||s.packs[t.t]-reservedQty(t.t)<t.qty)return;agree13(i,price);};
 const placement13=placementValid;placementValid=function(i,p){if(!placement13(i,p))return false;return !points.some(q=>q.home===s.house&&['craft','sink','mix','stockroom'].includes(q.type)&&Math.abs(q.x-p.x)<2.2&&Math.abs(q.z-p.z)<2.2);};
 function stationStatus(){if(stationTask)return 'Working';if(!s.room)return 'Rent a workshop';if(!s.packStation)return 'Packaging station needed';if(!s.wrappers)return 'Missing wrappers';if(stockUsed()>=stockCapacity())return 'Stock full — sell or store existing goods';if(!s.raw.some(n=>n)&&!s.gummies.some(n=>n))return 'Waiting for harvest';return 'Ready';}
@@ -959,7 +966,7 @@ const menu14=menu;menu=function(which,data){menu14(which,data);
   }
  }
  if(which==='journal')$('modal').innerHTML+='<section class="staffcard"><h3>First batch budget: $350</h3><p>Room $75 · tent $100 · can $15 · trimmers $10 · packaging station $100 · Pine Pop seed $30 · soil $10 · 10 wrappers $10. You keep $50. Water is free at your sink.</p><p>Harvest four units, shape and wrap them, then list only unreserved packs. One four-pack sale earns 20 XP; level 2 needs 30 XP. The $220 press unlocks four-item batches after level 2. Grow and sell another crop to work towards it.</p><button class="primary" onclick="trackPlace(\'hardware\')">Find equipment</button></section>';
- if(which==='helpers')$('modal').innerHTML+='<p class="note">Current automation processes inventory on timers. Physical worker transport is not implemented in this build.</p>';
+ if(which==='helpers')$('modal').innerHTML+='<p class="note">Pause preserves carried worker stock. To recover it, switch the crafter to Carried packs and resume ordinary play; unfinished supplies are returned, finished packs go into your bag.</p><p class="note">The stockroom crafter walks supplies to the worktable and carries finished packs to storage. Carried-stock crafting, gardening and selling remain timer-based.</p>';
 };window.menu=menu;
 
 // Milestone: one authoritative completion path for shaped, packed and mixed stock.
@@ -971,22 +978,61 @@ const actions16=doAction;doAction=function(k,a,b,c){
 const batch16=batchReady;batchReady=function(q){return !ensurePolice().search&&!!q&&productionPlan(s,q,BASE_COUNT,INGREDIENTS.length).ok;};
 const load16=load;load=function(modeIn,slotIn=1,newRun=false){
  if(!newRun){let raw;try{raw=localStorage.getItem('gummybay-v3-'+modeIn+'-'+slotIn);}catch{toast('Browser storage is unavailable. Existing slots have not been changed.');return;}
-  if(raw!==null){let old;try{old=JSON.parse(raw)}catch{toast('This slot contains unreadable data. It was not overwritten. Export the raw slot from the save screen.');return;}const check=validateSave(old,STRAINS.length,WORLD);if(!check.ok||old.mode!==modeIn){toast('Save not loaded: '+(check.reason||'mode mismatch')+' Original data kept.');return;}}
+  if(raw!==null){let old;try{old=JSON.parse(raw)}catch{toast('This slot contains unreadable data. It was not overwritten. Export the raw slot from the save screen.');return;}const check=validateSave(old,STRAINS.length,WORLD);if(!check.ok||!validCargo(old.crafterCargo,STRAINS.length)||old.mode!==modeIn){toast('Save not loaded: '+(check.reason||'mode mismatch')+' Original data kept.');return;}}
  }load16(modeIn,slotIn,newRun);
 };window.loadGame=load;
 function downloadRawSlot(modeIn,slotIn){try{const data=localStorage.getItem('gummybay-v3-'+modeIn+'-'+slotIn);if(data===null){toast('This slot is empty.');return;}const url=URL.createObjectURL(new Blob([data],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='gummybay-'+modeIn+'-'+slotIn+'-raw.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch{toast('Unable to read this slot.');}}window.downloadRawSlot=downloadRawSlot;
 const slots16=slots;slots=function(modeIn){slots16(modeIn);$('modal').innerHTML+='<h3>Recover a save</h3><p class="note">Download the original slot data even if it cannot be loaded. This never replaces your progress.</p>'+[1,2,3].map(i=>'<button class="ghost" onclick="downloadRawSlot(\''+modeIn+'\','+i+')">Export slot '+i+'</button>').join(' ');};window.slots=slots;
-const import16=confirmImport;confirmImport=function(){if(!pendingReset)return;const check=validateSave(pendingReset.state,STRAINS.length,WORLD);if(!check.ok){toast('Import rejected: '+check.reason);return;}try{backupSlot(localStorage,'gummybay-v3-'+pendingReset.state.mode+'-'+slot);}catch{toast('Import cancelled: the existing slot could not be backed up. Export it first.');return;}import16();resetSystems();};window.confirmImport=confirmImport;
+const import16=confirmImport;confirmImport=function(){if(!pendingReset)return;const check=validateSave(pendingReset.state,STRAINS.length,WORLD);if(!check.ok||!validCargo(pendingReset.state.crafterCargo,STRAINS.length)){toast('Import rejected: '+(check.reason||'invalid worker cargo'));return;}try{backupSlot(localStorage,'gummybay-v3-'+pendingReset.state.mode+'-'+slot);}catch{toast('Import cancelled: the existing slot could not be backed up. Export it first.');return;}import16();resetSystems();};window.confirmImport=confirmImport;
 const milestoneMenu=menu;menu=function(which,data){milestoneMenu(which,data);
  if(which==='deals'){
   $('modal').innerHTML='<button class="close" onclick="closeMenu()">×</button><div class="overline">PHONE / DELIVERIES</div><h2>Your commitments</h2>'+(s.deals.length?'':'<p>No active orders. Make a listing and message a customer.</p>');
   for(const d of s.deals){const remaining=Math.max(0,Math.ceil((d.due??Infinity)-((s.day-1)*1440+s.time))),person=CONTACTS[d.npc];$('modal').innerHTML+='<section class="staffcard"><h3>'+esc(person.name)+'</h3><p>'+d.qty+' × '+esc(STRAINS[d.t].name)+' · '+cash(d.price)+' each · <strong>'+cash(d.price*d.qty)+' total</strong></p><p>'+d.qty+' reserved · '+(Number.isFinite(remaining)?remaining+' game minutes left':'No deadline')+' · '+Math.round(Math.hypot(person.x-player.x,person.z-player.z))+' metres away</p><button class="primary" onclick="trackCustomer('+d.npc+')">Track meeting</button> <button class="ghost" onclick="action(\'cancelDeal\','+d.npc+')">Cancel order</button></section>';}
  }
- if(which==='craft'){const status=stationStatus(s);$('modal').innerHTML+='<section class="workflow-status" aria-label="Workshop status"><div><small>01 / SHAPE</small><b>'+esc(status.shaping)+'</b></div><div><small>02 / PACKAGE</small><b>'+esc(status.packaging)+'</b></div><div><small>03 / DELIVER</small><b>'+esc(status.delivery)+'</b></div></section>'; }
+ if(which==='craft'){const status=stationStatus(s);$('modal').innerHTML+='<section class="workflow-status" aria-label="Workshop status"><div><small>01 / SHAPE</small><b>'+esc(status.shaping)+'</b></div><div><small>02 / PACKAGE</small><b>'+esc(status.packaging)+'</b></div><div><small>03 / DELIVER</small><b>'+esc(status.delivery)+'</b></div></section><p class="note">'+(s.crafterCargo?'Worker carrying: '+esc(STRAINS[s.crafterCargo.index].name)+' · '+(s.crafterCargo.phase==='input'?'supplies and one wrapper':'one finished pack')+'. This stock is separate from available inventory.':'No stock in transit.')+'</p>'; }
  if(which==='importConfirm')$('modal').innerHTML+='<p class="note">The previous destination slot is backed up locally before replacement. The import is cancelled if that backup cannot be written.</p>';
 };window.menu=menu;
 
 // Remove only the old primitive tabletop decorations beneath the new equipment.
 for(const h of HOMES)for(const o of [...scene.children])if(o.isMesh&&['BoxGeometry','CylinderGeometry','SphereGeometry','ExtrudeGeometry'].includes(o.geometry.type)&&o.position.y>1.3&&o.position.y<1.9&&Math.abs(o.position.x-(h.x+7))<2&&Math.abs(o.position.z-(h.z+3))<.7)scene.remove(o);
+for(const h of HOMES){
+ const supply=new THREE.Group();supply.visible=false;supply.position.set(h.x,0,h.z);scene.add(supply);
+ box(4.5,.98,3.4,1.5,.08,.8,0x688780,false,supply);
+ for(const x of [3.85,5.15])for(const z of [3.08,3.72]){box(x,.5,z,.07,.92,.07,0x536562,false,supply);sphere(x,.08,z,.08,0x303a38,supply);}
+ const label=sign('SUPPLIES',h.x+4.5,.8,h.z+3.83,1.2,'#365c61');
+ workshopDisplays[HOMES.indexOf(h)].supply=supply;workshopDisplays[HOMES.indexOf(h)].labels.push(label);
+}
 const visualPolish=createVisualPolish({scene,camera,homes:HOMES,buildings,reflectionMap});
+
+let placementFailure='';
+const placement19=placementValid;placementValid=function(i,p){
+ placementFailure='';if(!placement19(i,p)){placementFailure='Keep clear of walls, furniture, station approaches and the exit.';return false;}
+ const ctx=workerContext(),h=HOMES[s.house];
+ const occupied=(x,z)=>blocked(x,z)||(Math.abs(x-p.x)<1.55&&Math.abs(z-p.z)<1.55)||(s.installed||[]).some(j=>j!==i&&tents[j]&&Math.abs(x-tents[j].position.x)<1.55&&Math.abs(z-tents[j].position.z)<1.55);
+ const exit={x:h.x,z:h.z+h.d/2-1};
+ for(const [a,b]of [[ctx.source,ctx.station],[ctx.station,ctx.storage],[ctx.storage,exit]])if(!findRoute(a,b,ctx.bounds,occupied)){placementFailure='This placement blocks the workshop supply, storage or exit route.';return false;}
+ if(s.crafterCargo&&!findRoute(physicalCrafter.position,ctx.storage,ctx.bounds,occupied)){placementFailure='Let the worker finish or leave a route to storage.';return false;}
+ return true;
+};
+// Physical stockroom assignment: inventory changes only on the host simulation tick.
+const physicalCrafter=new StockroomCrafter();
+sign('GRAMPS → PAYPHONE',-53,1.1,30.6,2.6,'#385b60');
+box(-53,.45,30.55,.08,.9,.08,0x76634e);box(-53,1.1,30.56,2.65,.7,.06,0x76634e);
+
+const crafterActor=bobble(-25,44,0x547f80,0xc68d6a,0x554638);
+crafterActor.visible=false;
+const cargoBox=box(0,1.03,.34,.42,.3,.3,0xb89968,false,crafterActor);
+for(let variant=0;variant<citizenTemplates.length;variant++)if(citizenTemplates[variant])installCitizen(citizenTemplates[variant],variant);
+function workerContext(){const h=HOMES[s.house];return {
+ source:{x:h.x+4.5,z:h.z+5},station:{x:h.x+7,z:h.z+5},storage:{x:h.x,z:h.z+4},
+ bounds:{minX:h.x-h.w/2+1,maxX:h.x+h.w/2-1,minZ:h.z-h.d/2+1,maxZ:h.z+h.d/2-1},
+ blocked:(x,z)=>blocked(x,z)||(s.installed||[]).some(i=>{const p=tents[i]?.position;return p&&Math.abs(x-p.x)<1.55&&Math.abs(z-p.z)<1.55;}),
+ occupied:!!stationTask||!!placeMode,capacity:storageCapacity(),full:()=>storedUsed()>=storageCapacity()
+};}
+const production19=production;production=function(dt){production19(dt);if(physicalCrafter.tick(s,dt,workerContext()))save();};
+const update19=update;update=function(dt){update19(dt);
+ crafterActor.visible=active&&net.role!=='guest'&&s.room&&s.helpers.crafter&&s.staffConfig.crafter.stock==='stored';
+ if(crafterActor.visible){const p=physicalCrafter.position,dx=p.x-crafterActor.position.x,dz=p.z-crafterActor.position.z;if(Math.hypot(dx,dz)>.001)crafterActor.rotation.y=Math.atan2(dx,dz);crafterActor.position.set(p.x,0,p.z);cargoBox.visible=!!s.crafterCargo;}
+};
+
 menu('title');requestAnimationFrame(frame);

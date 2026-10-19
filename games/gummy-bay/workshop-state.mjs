@@ -11,5 +11,5 @@ export function taskFraction(task, steps) {
 }
 export function restoreComfort(text){
  let saved={};try{saved=JSON.parse(text)||{}}catch{}
- return {bob:saved.bob!==false,sprintFov:saved.sprintFov!==false};
+ return {bob:saved.bob!==false,sprintFov:saved.sprintFov!==false,stationFocus:saved.stationFocus===true};
 }
