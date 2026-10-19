@@ -30,7 +30,7 @@ body:before{content:'';position:fixed;inset:-45%;pointer-events:none;background:
 
 </style></head>
 <body><div class="grain" aria-hidden="true"></div><div class="game-shell" id="gameShell"><header><a class="brand" href="./">AFTER HOURS<span>POKER ROGUELIKE</span></a><nav><button id="collection">Jokers <span>50</span></button><button id="sound" aria-pressed="false">♫ OFF</button><button id="speed">Speed 1×</button><button id="guide">?</button></nav></header>
-<main><aside><section class="blind-panel"><div class="blind-heading" id="blindName">SMALL BLIND</div><div class="blind-body"><div class="blind-token" id="blindToken" aria-hidden="true">◉</div><div class="blind-target"><span>Score at least</span><strong id="target">300</strong><span id="blindReward">Reward: $$$$$</span></div></div><p id="bossText">Beat the target to advance.</p><div id="rounds" class="rounds"></div></section><section class="score-panel"><span>Round score</span><b id="score">0</b><div class="track"><i id="progress"></i></div></section><section class="calculation"><div id="preview" class="preview"></div></section><div class="stats"><div class="stat-hands"><span>Hands</span><b id="hands">4</b></div><div class="stat-discards"><span>Discards</span><b id="discards">3</b></div><div class="stat-money"><b id="money">$8</b></div><div class="stat-ante"><span>Ante</span><b><span id="ante">1</span><small>/8</small></b></div><div class="stat-round"><span>Round</span><b id="roundNumber">1</b></div></div><div class="side-buttons"><button id="reference">Run info</button><button id="new">New run</button></div><div class="side-foot"><span id="saveStatus">Saves automatically</span></div></aside>
+<main><aside><section class="blind-panel"><div class="blind-heading" id="blindName">SMALL BLIND</div><div class="blind-body"><div class="blind-token" id="blindToken" aria-hidden="true">◉</div><div class="blind-target"><span>Score at least</span><strong id="target">300</strong><span id="blindReward">Reward: $$$$$</span></div></div><p id="bossText">Beat the target to advance.</p><div id="rounds" class="rounds"></div></section><section class="score-panel"><span>Round score</span><b id="score">0</b><div class="track"><i id="progress"></i></div></section><section class="calculation"><div id="preview" class="preview"></div></section><div class="stats"><div class="stat-hands"><span>Hands</span><b id="hands">4</b></div><div class="stat-discards"><span>Discards</span><b id="discards">3</b></div><div class="stat-money"><b id="money">$8</b></div><div class="stat-ante"><span>Ante</span><b><span id="ante">1</span><small>/8</small></b></div><div class="stat-round"><span>Round</span><b id="roundNumber">1</b></div></div><div class="side-buttons"><button id="reference">Run info</button><button id="new">New run</button><button id="saves">Saves</button></div><div class="side-foot"><span id="saveStatus">Saves automatically</span></div></aside>
 <div class="table"><section class="jokers-section"><div class="section-label"><span>Jokers <em id="slots">1 / 5</em></span><small>Click to inspect or reorder</small></div><div id="charms" class="charms"></div></section><section id="playArea" class="play-area"><div id="result" class="result" aria-live="polite">Play cards to score</div><div id="playedCards" class="played-cards"></div><div id="scoreBurst" class="score-burst" aria-live="polite"></div><div class="table-watermark" aria-hidden="true">AFTER<br>HOURS</div><div class="hand-zone"><div id="hand" class="hand"></div><div class="hand-bottom"><div class="actions"><button id="play" class="primary">Play Hand</button><button id="discard" class="secondary">Discard</button></div><div class="hand-meta"><span id="selectedCount">Select up to 5 cards</span><div class="sort-buttons"><span>Sort hand</span><button id="rankSort">Rank</button><button id="suitSort">Suit</button></div></div><div class="deck-visual" aria-label="Draw pile"><div class="deck-back"></div><span id="deckCount">44/52</span></div></div></div><div id="particles" class="particles" aria-hidden="true"></div></section><section id="shop" class="shop" hidden></section><section class="history"><div class="section-label"><span>Last hands</span><small id="best">Best · 0</small></div><div id="history"></div></section></div></main><footer><span>1–8 select · Enter play · D discard · Esc clear</span><span>NO REAL MONEY. JUST BIG NUMBERS.</span></footer></div>
 <dialog id="modal"><button id="closeModal" class="close" aria-label="Close dialog">×</button><div id="modalContent"></div></dialog><div id="toast" role="status"></div><script>
 /* After Hours — original poker roguelike engine. No dependencies. */
@@ -207,7 +207,7 @@ const api={move,HANDS,SUITS,CHARMS,BOSSES,newRun,evaluate,preview,play,discard,b
 if(typeof module!=='undefined')module.exports=api;else root.AH=api;
 })(typeof window==='undefined'?globalThis:window);
 
-</script><script>
+</script><script src="save-store.js?v=1"></script><script>
 /* Original procedural pixel illustrations, drawn on a 16 × 16 grid. */
 (function(root){
 const patterns={
@@ -245,20 +245,35 @@ const api={art,color:index=>themes[index%themes.length]};if(typeof module!=='und
 })(typeof window==='undefined'?globalThis:window);
 
 </script><script>
-/* After Hours — animated client. No external assets or services. */
+/* After Hours — animated client. Local save tools, no external services. */
 'use strict';
 const $=id=>document.getElementById(id),fmt=n=>Number(n).toLocaleString(undefined,{maximumFractionDigits:2}),rank=r=>({11:'J',12:'Q',13:'K',14:'A'}[r]||r),KEY='after-hours-save-v1';
 const reduced=typeof window!=='undefined'&&window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-let s,muted=true,audio,lastResult=null,toastTimer,saveFailed=false,busy=false,speed=1,lastRendered=new Set(),lastPhase=null;
-try{const raw=JSON.parse(localStorage.getItem(KEY));if(raw?.version===1&&Array.isArray(raw.deck)&&raw.deck.length===52&&Array.isArray(raw.hand)&&Array.isArray(raw.charms)&&raw.charms.every(id=>AH.CHARMS.some(c=>c.id===id))&&['round','shop','lost','won'].includes(raw.phase))s=raw;}catch{}
-if(!s)s=AH.newRun();
-function save(){try{localStorage.setItem(KEY,JSON.stringify(s));}catch{saveFailed=true;}if(saveFailed)$('saveStatus').textContent='Keep this tab open: saving unavailable';}
+const saves=AfterHoursSaves.create(()=>localStorage,KEY,AH);
+let s=saves.state||AH.newRun(),muted=true,audio,lastResult=null,toastTimer,busy=false,speed=1,lastRendered=new Set(),lastPhase=null;
+function save(){saves.save(s);$('saveStatus').textContent=saves.issue||'Saves automatically';$('saves').textContent=saves.issue?'Saves !':'Saves';}
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2400);}
 function delay(ms){return new Promise(resolve=>setTimeout(resolve,reduced?0:ms/speed));}
 function sound(freq=330,duration=.11,type='triangle'){if(muted)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(freq*.8,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.start();o.stop(audio.currentTime+duration);}catch{}}
 function showModal(html){$('modalContent').innerHTML=html;if(!$('modal').open)$('modal').showModal();}
-function newGame(){if(busy)return;lastResult=null;lastRendered=new Set();s=AH.newRun();render();}
+function newGame(){if(busy)return;const next=AH.newRun();if(!saves.replace(next)){showSaves();return;}lastResult=null;lastRendered=new Set();s=next;render();}
 function askNew(){if(busy)return;showModal('<div class="eyebrow">A FRESH DECK</div><h2>Start a new night?</h2><p>This replaces your current run. You start with $8 and Spark Plug.</p><button class="primary" id="confirmNew">Start new run</button>');$('confirmNew').onclick=()=>{$('modal').close();newGame();};}
+function downloadSave(name,text){const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function showSaves(){
+ if(busy)return;
+ let stored=null,backup=null;try{stored=saves.raw();backup=saves.backup();}catch{}
+ showModal('<div class="eyebrow">YOUR RUN, SAFE TO KEEP</div><h2>Saves & backups</h2><p id="saveMessage" role="status"></p><p>Export a JSON backup to move this run to another device or keep it safe. Importing or starting a new run keeps one previous save on this device.</p><div class="joker-controls"><button id="exportRun">Export this run</button><button id="importRun">Import backup</button><button id="exportStored">Download stored save</button><button id="restoreBackup">Restore previous save</button><button id="keepRun">Keep this run</button></div><input id="saveFile" type="file" accept="application/json,.json" hidden><p>No account or upload needed. Keep exported files somewhere safe.</p>');
+ $('saveMessage').textContent=saves.issue||'This run saves automatically on this device.';
+ $('exportStored').disabled=stored===null;$('restoreBackup').disabled=backup===null;$('keepRun').hidden=!saves.issue;
+ const messageNode=$('saveMessage'),error=message=>{messageNode.textContent=message;};
+ function restore(next){if(!confirm('Replace the current run? The stored save will be kept as the previous backup.'))return;if(!saves.replace(next)){error(saves.issue);return;}s=next;lastResult=null;lastRendered=new Set();$('modal').close();render();toast('Run restored. Previous stored save kept as backup.');}
+ $('exportRun').onclick=()=>{try{downloadSave('after-hours-run.json',JSON.stringify(AfterHoursSaves.validate(s,AH),null,2));error('Backup download started. Keep the file to restore this run later.');}catch{error('This run could not be exported. You can still download the stored save.');}};
+ $('exportStored').onclick=()=>{if(stored!==null)downloadSave('after-hours-stored-save.json',stored);};
+ $('restoreBackup').onclick=()=>{try{restore(AfterHoursSaves.parse(backup,AH));}catch{error('The previous backup is damaged or unsupported. It has been kept untouched.');}};
+ $('keepRun').onclick=()=>restore(AfterHoursSaves.validate(s,AH));
+ $('importRun').onclick=()=>$('saveFile').click();
+ $('saveFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>AfterHoursSaves.LIMIT)throw new Error();const next=AfterHoursSaves.parse(await file.text(),AH);if(!$('modal').open||$('saveMessage')!==messageNode)return;restore(next);}catch{error('Choose a complete After Hours JSON backup under 1 MB. Your current run has not changed.');}finally{e.target.value='';}};
+}
 function handCards(){return s.hand.slice().sort(s.sort==='suit'?(a,b)=>a.suit-b.suit||b.rank-a.rank:(a,b)=>b.rank-a.rank||a.suit-b.suit);}
 function selected(){return s.hand.filter(c=>s.selected.includes(c.id));}
 function jokerIndex(c){return AH.CHARMS.findIndex(j=>j.id===c.id);}
@@ -281,7 +296,7 @@ function render(){
  if(s.phase==='round')renderHand();else{renderPreview();if(s.phase==='shop')renderShop();else renderEnd();}
  $('best').textContent='Best · '+fmt(s.best);
  $('history').innerHTML=s.log.length?s.log.slice(0,3).map(p=>`<div class="score-row"><b>${p.name}</b><span>${fmt(p.chips)} × ${fmt(p.mult)}</span><b>+${fmt(p.points)}</b></div>`).join(''):'<p>Your next big combo is waiting.</p>';
- $('new').disabled=busy;$('collection').disabled=busy;$('reference').disabled=busy;$('guide').disabled=busy;
+ $('new').disabled=busy;$('collection').disabled=busy;$('reference').disabled=busy;$('guide').disabled=busy;$('saves').disabled=busy;
  lastPhase=s.phase;save();
 }
 function renderPreview(p=null,scoring=false){
@@ -297,7 +312,7 @@ function renderHand(){
  $('result').classList.remove('round-clear');$('result').innerHTML=lastResult?`<b>+${fmt(lastResult.points)}</b> · ${lastResult.name}`:'Play cards to score';
 }
 function toggle(id){if(busy||s.phase!=='round')return;if(s.selected.includes(id))s.selected=s.selected.filter(x=>x!==id);else if(s.selected.length<5)s.selected.push(id);else return toast('Select a maximum of 5 cards.');sound(180+s.selected.length*35,.045,'sine');render();}
-function setBusy(value){busy=value;['play','discard','new','collection','guide','reference','rankSort','suitSort'].forEach(id=>$(id).disabled=value);}
+function setBusy(value){busy=value;['play','discard','new','collection','guide','reference','rankSort','suitSort','saves'].forEach(id=>$(id).disabled=value);}
 function popCounter(id,value){const el=$(id);el.textContent=fmt(value);el.classList.remove('counter-pop');void el.offsetWidth;el.classList.add('counter-pop');}
 function confetti(){if(reduced)return;$('particles').innerHTML=Array.from({length:22},(_,i)=>`<i class="particle" style="--dx:${Math.round(Math.sin(i*2.4)*190)}px;--dy:${Math.round(Math.cos(i*1.6)*130-60)}px;--spin:${i*73}deg;--delay:${i*4}ms;--particle-color:${['#e4c26a','#ec7860','#8ccbec','#c2d99e'][i%4]}"></i>`).join('');}
 async function countScore(from,to){
@@ -358,7 +373,7 @@ function renderShop(){
 function renderEnd(){const won=s.phase==='won';$('shop').innerHTML=`<div class="end"><div><div class="eyebrow">${won?'ALL 24 BLINDS CLEARED':'THE HOUSE WINS THIS ONE'}</div><h1>${won?'You own the night.':'One more run?'}</h1><p>Ante ${Math.floor(s.round/3)+1}/8 · ${s.played} hands played<br>Best hand: ${fmt(s.best)}<br>${won?'Midnight is yours. Try a different build.':`${fmt(s.score)} / ${fmt(AH.target(s))} points`}</p><button class="primary" id="restart">Play again</button></div></div>`;$('restart').onclick=newGame;}
 $('play').onclick=executePlay;$('discard').onclick=executeDiscard;
 $('rankSort').onclick=()=>{if(busy)return;s.sort='rank';render();};$('suitSort').onclick=()=>{if(busy)return;s.sort='suit';render();};
-$('new').onclick=askNew;$('collection').onclick=showCollection;$('closeModal').onclick=()=>$('modal').close();
+$('new').onclick=askNew;$('saves').onclick=showSaves;$('collection').onclick=showCollection;$('closeModal').onclick=()=>$('modal').close();
 $('modal').onclick=e=>{if(e.target===$('modal')){const rect=$('modal').getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)$('modal').close();}};
 $('sound').onclick=()=>{muted=!muted;$('sound').textContent=muted?'♫ OFF':'♫ ON';$('sound').setAttribute('aria-pressed',String(!muted));sound();};
 $('speed').onclick=()=>{speed=speed===1?2:speed===2?4:1;$('speed').textContent='Speed '+speed+'×';};
@@ -366,5 +381,6 @@ $('reference').onclick=()=>{if(busy)return;showModal('<div class="eyebrow">RUN I
 $('guide').onclick=()=>{if(busy)return;showModal('<div class="eyebrow">AFTER HOURS</div><h2>Good hands. Wild combos.</h2><ol><li>Select 1–5 cards. Play a poker hand to earn Chips × Mult. Beat the round target before running out of hands.</li><li>Use discards to replace cards. Played and discarded cards stay out until the next round.</li><li>Buy jokers, hand upgrades and card enhancements in the shop. You can hold five jokers. Click them to inspect and reorder; sell them in the shop.</li><li>Order matters: +Mult first, ×Mult after. Your exact score is previewed in the blue and red boxes.</li><li>Earn $5 per blind ($8 per boss), $1 per unused hand, plus $1 interest per $5 held, up to $5.</li><li>Clear eight antes, with a boss every third round. No betting or real money.</li></ol><p>Keyboard: 1–8 select, Enter play, D discard. Use the Speed button for faster scoring. Runs save automatically in this browser.</p><button class="primary" id="letsPlay">Let’s play</button>');$('letsPlay').onclick=()=>$('modal').close();};
 document.addEventListener('keydown',e=>{if($('modal').open||busy||s.phase!=='round'||e.ctrlKey||e.metaKey||e.altKey||e.repeat)return;if(/^[1-8]$/.test(e.key)){e.preventDefault();let c=handCards()[Number(e.key)-1];if(c)toggle(c.id);}else if(e.key==='Enter'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('play').click();}else if(e.key.toLowerCase()==='d'){e.preventDefault();$('discard').click();}else if(e.key==='Escape'){s.selected=[];render();}});
 render();
+if(saves.issue)showSaves();
 
 </script></body></html>
