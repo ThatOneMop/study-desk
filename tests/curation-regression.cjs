@@ -1,0 +1,34 @@
+const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict'),path=require('path');
+const root=path.resolve(__dirname,'..');
+const catalog=JSON.parse(fs.readFileSync(root+'/catalog.json','utf8'));
+const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'https://example.test/#games',runScripts:'outside-only',pretendToBeVisual:true});
+const w=dom.window,d=w.document,$=id=>d.getElementById(id);
+w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-bmath','after-hours'],recent:['polytrack','after-hours']}));
+const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
+w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
+assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
+assert.equal(catalog.length,10);
+assert(catalog.every(g=>g.group==='Your games'&&g.type==='bundled'));
+assert.equal($('openGames').textContent,'Games · 10 →');
+assert.equal($('includedCount').textContent,'10 games included here');
+assert(!d.body.textContent.includes('100 games'));
+assert(!d.body.textContent.includes('Community classics'));
+function filter(name){[...$('filters').children].find(b=>b.textContent===name).click()}
+filter('Favourites');assert.equal(d.querySelectorAll('.game').length,1);
+assert.equal(d.querySelector('.game h3').textContent,'After Hours');
+assert.equal([...$('filters').children].find(b=>b.textContent==='Favourites').getAttribute('aria-pressed'),'true');
+filter('Recently played');assert.equal(d.querySelectorAll('.game').length,1);
+d.querySelector('.game .game-content>button').click();
+let messages=[];$('frame').contentWindow.postMessage=m=>messages.push(m);
+let hidden=false;Object.defineProperty(d,'hidden',{configurable:true,get:()=>hidden});
+function background(v){hidden=v;d.dispatchEvent(new w.Event('visibilitychange'))}
+background(true);assert.equal(messages.at(-1).visible,false);
+background(false);assert.equal(messages.at(-1).visible,true);
+$('pauseGame').click();background(true);background(false);assert.equal(messages.at(-1).visible,false);
+$('resumeGame').click();assert.equal(messages.at(-1).visible,true);
+$('playerStudy').click();background(true);background(false);assert.equal(messages.at(-1).visible,false);
+const saved=JSON.parse(w.localStorage.getItem('after-class-hub-v1'));
+assert(saved.favourites.includes('micro-bmath'));assert(saved.recent.includes('polytrack'));
+assert.equal(w.localStorage.getItem('retired-game-save'),save);
+console.log('PASS curation: exact active catalogue, dynamic counts, aliases/filters, retired preferences/saves preserved, background pause and manual pause retained.');
+w.close();

@@ -1,7 +1,7 @@
 'use strict';
 const $=id=>document.getElementById(id),KEY='study-desk-v1',DECK_KEY='study-desk-decks-v1',HUB_KEY='after-class-hub-v1';
 function loadJson(key,fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch{return fallback}}
-function storeJson(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{toast('Saving is unavailable. Export your cards before closing this tab.');return false}}
+function storeJson(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{toast(key===HUB_KEY?'Your game preferences could not be saved on this device.':'Saving is unavailable. Export your cards before closing this tab.');return false}}
 function toast(t){$('notice').textContent=t;$('notice').style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('notice').style.display='none',4000)}
 function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
 function button(text,fn,cls){const b=el('button',text,cls);b.type='button';b.onclick=fn;return b}
@@ -11,7 +11,9 @@ let cards=loadJson(KEY,starter);if(!valid(cards))cards=starter;
 let deckNames=loadJson(DECK_KEY,[]);if(!Array.isArray(deckNames))deckNames=[];deckNames=[...new Set([...deckNames.filter(x=>typeof x==='string'&&x.trim()&&x.length<=60),...cards.map(c=>c.deck)])];
 let deck=deckNames[0]||'My deck',index=0,flipped=false,order=[],arcade=false,playing=null,inPlayer=false,paused=false,hits=[],filter='All';
 const games=window.GAME_CATALOG;
-let hub=loadJson(HUB_KEY,{});if(!hub||typeof hub!=='object')hub={};hub.favourites=Array.isArray(hub.favourites)?hub.favourites.filter(id=>games.some(g=>g.id===id)):[];hub.recent=Array.isArray(hub.recent)?hub.recent.filter(id=>games.some(g=>g.id===id)):[];
+let hub=loadJson(HUB_KEY,{});if(!hub||typeof hub!=='object'||Array.isArray(hub))hub={};
+// Keep retired IDs so preferences survive reversible catalogue changes.
+for(const key of ['favourites','recent'])hub[key]=Array.isArray(hub[key])?[...new Set(hub[key].filter(id=>typeof id==='string'&&id.length<=100))].slice(0,1000):[];
 function save(){storeJson(KEY,cards);storeJson(DECK_KEY,deckNames)}
 function reset(){order=cards.filter(c=>c.deck===deck).map(c=>c.id);index=0;flipped=false;render()}
 function current(){return cards.find(c=>c.id===order[index])}
@@ -35,10 +37,10 @@ function download(name,data){const url=URL.createObjectURL(new Blob([JSON.string
 $('backup').onclick=()=>download('study-cards.json',{version:2,cards,decks:deckNames});
 $('import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>10000000)throw Error();const payload=JSON.parse(await file.text()),incoming=Array.isArray(payload)?payload:payload.cards;if(!valid(incoming)||incoming.length+cards.length>10000)throw Error();let names=Array.isArray(payload.decks)?payload.decks:[];if(!names.every(x=>typeof x==='string'&&x.trim()&&x.length<=60))throw Error();for(const c of incoming)cards.push({...c,id:crypto.randomUUID(),known:!!c.known});deckNames=[...new Set([...deckNames,...names,...incoming.map(c=>c.deck)])];deck=incoming[0]?.deck||deckNames[0]||'My deck';save();reset();toast('Imported. Existing cards and decks were kept.')}catch{toast('Choose a valid Study Desk export, within the 10,000-card limit.')}e.target.value=''};
 for(const genre of [...new Set(games.map(g=>g.genre))].sort()){$('genre').append(new Option(genre,genre))}
-function drawFilters(){$('filters').replaceChildren();for(const name of ['All','Your games','Community classics','Indie microgames','Favourites','Recently played'])$('filters').append(button(name,()=>{filter=name;drawGames()},name===filter?'active':''))}
+function drawFilters(){const groups=[...new Set(games.map(g=>g.group))];$('filters').replaceChildren();for(const name of ['All',...(groups.length>1?groups:[]),'Favourites','Recently played']){const b=button(name,()=>{filter=name;drawGames()},name===filter?'active':'');b.setAttribute('aria-pressed',String(name===filter));$('filters').append(b)}}
 function drawGames(){
- drawFilters();$('gameCount').textContent=games.length+' games';const grid=$('games');grid.replaceChildren();const term=$('search').value.toLowerCase(),genre=$('genre').value;
- let list=games.filter(g=>(g.title+' '+g.description+' '+g.genre).toLowerCase().includes(term)&&(genre==='all'||g.genre===genre)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
+ drawFilters();$('gameCount').textContent=games.length+' games';$('openGames').textContent='Games · '+games.length+' →';$('switch').textContent='Browse '+games.length+' games →';$('includedCount').textContent=games.filter(g=>g.type!=='external').length+' games included here';const grid=$('games');grid.replaceChildren();const term=$('search').value.trim().toLowerCase(),genre=$('genre').value;
+ let list=games.filter(g=>(g.title+' '+g.description+' '+g.genre+' '+(g.aliases||[]).join(' ')).toLowerCase().includes(term)&&(genre==='all'||g.genre===genre)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
  if(filter==='Recently played')list.sort((a,b)=>hub.recent.indexOf(a.id)-hub.recent.indexOf(b.id));$('resultsCount').textContent=list.length+' shown';
  if(!list.length){grid.append(el('p','No games here yet. Try another filter or add a favourite.','empty'));return}
  for(const g of list){
@@ -50,14 +52,22 @@ function drawGames(){
   const credits=el('a','Credits & source ↗');credits.href=g.credits;credits.target='_blank';credits.rel='noopener';body.append(credits);tile.append(art,fav,body);grid.append(tile);
  }
 }
-function visibility(visible){$('frame').contentWindow?.postMessage({type:'study-visibility',visible},location.origin)}
+function visibility(visible){$('frame').contentWindow?.postMessage({type:'study-visibility',visible:visible&&!document.hidden},location.origin)}
+document.addEventListener('visibilitychange',()=>{visibility(arcade&&inPlayer&&!paused);if(document.hidden)releaseFullscreen()});
 function releaseFullscreen(){try{$('frame').contentDocument?.exitPointerLock?.();if($('frame').contentDocument?.fullscreenElement)$('frame').contentDocument.exitFullscreen?.().catch(()=>{})}catch{}document.exitPointerLock?.();if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{})}
 function show(){if($('editor').open)$('editor').close();$('study').hidden=arcade;$('arcade').hidden=!arcade||inPlayer;$('player').hidden=!arcade||!inPlayer;document.body.classList.toggle('playing',arcade&&inPlayer);document.title='Study Desk';visibility(arcade&&inPlayer&&!paused);$('pauseCover').hidden=!paused;$('pauseGame').textContent=paused?'Resume':'Pause';if(!arcade||!inPlayer)releaseFullscreen();if(!arcade)$('card').focus();else if(inPlayer&&!paused)$('frame').focus()}
 function toggle(){arcade=!arcade;show()}
 function record(g){hub.recent=[g.id,...hub.recent.filter(x=>x!==g.id)].slice(0,20);storeJson(HUB_KEY,hub)}
-function play(g){record(g);if(g.type==='external'){window.open(g.url,'_blank','noopener');toast('PolyTrack opens separately. Return to this tab to use Study Desk; PPP cannot control the other tab.');drawGames();return}if(playing!==g.id){visibility(false);$('frame').src=g.url;playing=g.id;paused=false}$('playing').textContent=g.title;$('gameHelp').textContent=g.controls+' · PPP returns to study (P is reserved)';arcade=true;inPlayer=true;show()}
-$('frame').onload=()=>visibility(arcade&&inPlayer&&!paused);$('libraryBtn').onclick=()=>{inPlayer=false;visibility(false);show();drawGames()};$('studyBtn').onclick=$('playerStudy').onclick=()=>{arcade=false;show()};$('switch').onclick=toggle;
+let loadingTimer;
+function beginLoad(g){clearTimeout(loadingTimer);$('loadStatus').hidden=false;$('loadStatus').textContent='Loading '+g.title+'…';loadingTimer=setTimeout(()=>{$('loadStatus').textContent='Still loading? Try Restart, or return to the collection.'},15000);$('frame').src=g.url;}
+function play(g){record(g);if(g.type==='external'){window.open(g.url,'_blank','noopener');toast(g.title+' opens separately. Return to this tab to use Study Desk; PPP cannot control the other tab.');drawGames();return}if(playing!==g.id){visibility(false);beginLoad(g);playing=g.id;paused=false}$('playing').textContent=g.title;$('gameHelp').textContent=g.controls+' · PPP returns to study (P is reserved)';arcade=true;inPlayer=true;show()}
+$('frame').onload=()=>{clearTimeout(loadingTimer);$('loadStatus').hidden=true;visibility(arcade&&inPlayer&&!paused)};
+$('restartGame').onclick=()=>{const g=games.find(g=>g.id===playing);if(g&&confirm('Restart this game? Unsaved progress may be lost.')){paused=false;beginLoad(g);show()}};
+$('openGames').onclick=()=>{arcade=true;inPlayer=false;show();drawGames()};
+function openHash(){if(location.hash==='#games'){arcade=true;inPlayer=false;show();drawGames()}}
+window.addEventListener('hashchange',openHash);
+$('libraryBtn').onclick=()=>{inPlayer=false;visibility(false);show();drawGames()};$('studyBtn').onclick=$('playerStudy').onclick=()=>{arcade=false;show()};$('switch').onclick=toggle;
 $('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;
 window.addEventListener('message',e=>{if(e.source===$('frame').contentWindow&&e.origin===location.origin&&e.data?.type==='study-toggle')toggle()});
 window.addEventListener('keydown',e=>{if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
-reset();drawGames();
+reset();drawGames();openHash();
