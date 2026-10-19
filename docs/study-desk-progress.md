@@ -1,5 +1,24 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 3
+
+Base Sites source: 01dacd248e8ef0fb237f83025ad2947c789815ce (live version 11). GitHub base: 7053d01fc3831078acfa9280b144953d936d237c. Isolated checkout again; unrelated Gummy Bay edits and its running preview were not changed or stopped.
+
+### Implemented
+- Fixed Browse games reopening the last player instead of the collection. PPP still returns to the open player when used from a game/study session.
+- Added a return-to-current-session button above filters, available even when the running game is hidden by search, genre or favourites. Returning retains the iframe and manual pause state; this is session continuity, not a new cross-reload save system.
+- Preserved keyboard focus after filter/favourite redraws and returning from a game; provided clear-filter recovery for empty results. Play buttons and iframe now identify the game by name.
+- Pausing focuses Resume and makes the iframe inert/out of the tab sequence. Late iframe load does not steal focus from study, collection, or the pause control. Pause releases pointer lock/fullscreen.
+- No game additions, removals, save-key changes, or standalone Balatro repository edits. Existing study features and owner-only audience preserved.
+
+### Validation
+Passed new launcher-navigation.cjs (Browse vs PPP, unchanged iframe on return, hidden-tile session return, focus restoration, paused inert/tabindex flags, late-load focus guards), existing shell/bridge, curation, all 10 catalogue launch routes, After Hours engine and save regressions, syntax, and all 15 active HTML asset references. Node/jsdom does not prove native inert behavior or rendered gameplay. Browser QA was deferred because the shared managed preview was already serving another task's Gummy Bay work; it was left undisturbed. Responsive CSS added but visual/mobile verification remains pending.
+
+### Pending
+The requested-game identity/permission blockers in passes 1–2 are unchanged; no new repository eligibility claims were made this pass. Continue targeted authorised-source research or browser/gameplay checks when the shared preview is free. GitHub Pages permission blocker remains separate from functioning Sites publishing. Preserve GitHub's community link when syncing the launcher. Do not resume the paused play-count task.
+
+Published through Sites successfully at source commit 885da166cfa81c59dc6fac3694b9ba8c4cb5642b. Live URL: https://study-desk-after-class.work-7072.chatgpt.site.
+
 ## 2026-10-20 — pass 2
 
 Base Sites source: 94353a1f1c1d006ca93879b4bb62b882d3ed4385 (live version 10). Worked in an isolated checkout because another checkout contained unrelated Gummy Bay edits; those edits were left untouched.
