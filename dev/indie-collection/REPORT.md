@@ -69,5 +69,21 @@ Spore Kitchen: five original handmade menus (15 dishes), four mushroom species, 
 
 Baseline verification: 16 engine checks and 10 jsdom UI checks pass. All 15 orders have exact solutions; actual-engine baseline routes take 9, 15, 12, 10 and 14 actions out of 30, 28, 27, 26 and 26 available. These are deliberately forgiving introductory budgets, not measured human playtimes. Tests cover all five services, upgraded routes, every-action serialization, garden actions, scoring, full-basket recovery, no replay reward farming, next service, reload, retry, corrupt-save preservation/backup, quota errors and concurrent-tab write protection. UI emulation is not rendered browser testing. No content-duration or finished/publication claim is made.
 
-Next: one meaningful improvement pass for recipe planning and mistake recovery, then real-browser regression checks. Source remains development-only. Public launch/deployment is neither attempted nor claimed.
+Initial playable source committed: [ed72f25](https://github.com/ThatOneMop/study-desk/commit/ed72f25ae8873c2bd6c1c7395893070e36a69328). Source remains development-only. Public launch/deployment is neither attempted nor claimed.
+
+## Run 2 · meaningful improvement pass 1
+
+Totals: **2/20 playable, 2 meaningfully improved, 0 finished/selected/published.**
+
+- Added one-step session undo for garden actions and serving, including full winning-dish coin and best-score rollback. Upgrades and next-service navigation clear the snapshot to avoid stale reward restoration. Reload intentionally starts a new undo history, but retains the current kitchen.
+- Added an optional recipe notebook derived from actual flavour math, not a separate hand-maintained answer list. It explains exact ingredient/method combinations and counts duplicate ingredients to show what is still missing. Players may leave it closed and experiment.
+- Added next-action growth forecasts, ripe-bed counts and explicit full-basket recovery guidance. No extra waiting timers or filler counts.
+- Preserved focus across rebuilt seed/bed controls and moved serving focus to the next available guest. Added Z undo, blocked background shortcuts during retry confirmation, and respected modifier/repeat/editable input.
+- Hardened completed saves: banked coins, newly purchased upgrades and best scores must reconcile with the pre-service checkpoint. Recovery does not overwrite unreadable source when a backup write fails, and does not claim saving succeeded when a fresh save write failed.
+
+18 engine + 18 jsdom UI checks pass, plus Tidepost's 17 engine + 9 DOM regressions. Candidate asset/syntax gate passes with 13 references and exactly 20 isolated slots. New tests cover undo of harvest/winning reward, stale snapshot prevention, notebook duplicate accounting, focus, shortcut guard, growth/basket forecasts and recovery failures.
+
+Added a real-browser suite that plays all five services using native controls, checks keyboard/focus, reload, upgrades, undo, retry, development navigation, 44px touch targets, optional hints and 390px/320px overflow. CI includes both games plus the existing full repository asset gate. Local real-browser execution encountered listen EPERM; the local snapshot also lacks retained legacy binary assets, so these checks must be assessed from the actual GitHub CI outcome. Do not count a pending run as passed.
+
+No subjective playtest or 20-hour content claim. There are 18 still-planned candidate slots. Spore Kitchen remains a short prototype; it has not earned public selection. Main's concurrent After Hours/Gummy Bay/community changes are preserved. Next concrete candidate: Bolt & Bristle, with tactile cleaning/repair rather than another turn-based menu.
 

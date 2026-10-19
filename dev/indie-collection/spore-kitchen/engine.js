@@ -24,6 +24,8 @@ function start(index=0,p=blankProfile()){
 }
 const create=()=>{const profile=blankProfile();return {profile,kitchen:start(0,profile)}};
 function flavour(items,method){if(!Array.isArray(items)||items.length!==2||items.some(n=>!isInt(n,0,3))||!isInt(method,0,2))return null;return methods[method].add.map((n,i)=>n+items.reduce((s,id)=>s+species[id].traits[i],0))}
+// Optional notebook: explain actual flavour rules, not a separate hard-coded answer list.
+function recipes(target){const result=[];for(let a=0;a<4;a++)for(let b=a;b<4;b++)for(let method=0;method<3;method++)if(flavour([a,b],method).every((n,i)=>n===target[i]))result.push({pair:[a,b],method});return result}
 function preview(s,indices,method,order){if(!Array.isArray(indices)||indices.length!==2||new Set(indices).size!==2||indices.some(i=>!isInt(i,0,s.tray.length-1))||!isInt(order,0,2))return null;const traits=flavour(indices.map(i=>s.tray[i]),method);if(!traits)return null;const target=services[s.service].orders[order][1],distance=target.reduce((n,t,i)=>n+Math.abs(t-traits[i]),0);return{traits,target,distance,stars:distance===0?3:distance<=2?2:1}}
 function tick(s,p){s.turn++;s.beds.forEach(b=>{if(b)b.age=Math.min(species[b.kind].grow-p.upgrades.mist,b.age+1)});if(s.served.every(Boolean)){
  const stars=s.served.reduce((a,b)=>a+b,0);s.status=stars>=7?'complete':'failed';
@@ -65,7 +67,11 @@ function decode(raw){try{
  const earnings=s.served.reduce((n,x)=>n+(x?6+4*x:0),0),all=s.served.every(Boolean),stars=s.served.reduce((a,b)=>a+b,0);
  if(s.earnings!==earnings||s.status==='complete'&&(!all||stars<7)||s.status==='growing'&&(all||s.turn===services[s.service].budget)||s.status==='failed'&&!(s.turn===services[s.service].budget||all&&stars<7))return null;
  if(s.status!=='complete'&&JSON.stringify(p)!==JSON.stringify(s.checkpoint))return null;
+ if(s.status==='complete'){
+  let spent=0;for(const key of Object.keys(costs)){if(p.upgrades[key]<s.checkpoint.upgrades[key])return null;if(p.upgrades[key]>s.checkpoint.upgrades[key])spent+=costs[key]}
+  if(p.coins!==s.checkpoint.coins+s.earnings-spent||p.best.some((n,i)=>n!==(i===s.service?Math.max(s.checkpoint.best[i],stars):s.checkpoint.best[i])))return null;
+ }
  return {profile:copy(p),kitchen:{...copy(s),message:'Kitchen restored. Your beds, basket and table are just as you left them.'}};
  }catch{return null}}
-return {species,methods,services,copy,blankProfile,limits,start,create,flavour,preview,act,retry,costs,upgrade,next,encode,decode};
+return {species,methods,services,copy,blankProfile,limits,start,create,flavour,recipes,preview,act,retry,costs,upgrade,next,encode,decode};
 });

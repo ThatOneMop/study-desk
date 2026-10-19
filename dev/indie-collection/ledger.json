@@ -72,19 +72,23 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/spore-kitchen/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: five handmade three-order services, four mushroom species, growth/misting/harvesting, two-ingredient flavour matching, three cooking methods, failure/retry, three pantry upgrades and checkpoint-based saving."
+        "Initial playable: five handmade three-order services, four mushroom species, growth/misting/harvesting, two-ingredient flavour matching, three cooking methods, failure/retry, three pantry upgrades and checkpoint-based saving.",
+        "Pass 1: session one-step undo restores beds/basket/stars/coins including the winning dish; upgrade/next clears undo. Optional rule-derived recipe notebook lists missing ingredients; next-action growth and basket-full forecast, stable native keyboard focus, modal shortcut guards, and stricter completed-save coin/upgrade/best-score consistency."
       ],
       "tests": [
-        "16 engine checks passed: all 15 orders solved, all five baseline and upgraded services completed with save validation after every action; baseline action counts 9,15,12,10,14.",
-        "10 jsdom interface checks passed including five menu victories, upgrades, reload, retries, corrupt-save backup, storage failure and concurrent-tab protection."
+        "18 engine checks passed, including exact solutions to all 15 dishes, baseline/upgraded campaigns, save validation after every action and completed-save accounting.",
+        "18 jsdom interface checks passed, including all five menus, upgrades, reload, confirmed retry, corrupt/blocked/concurrent saves, undo/reward rollback, focus, notebook duplicates and growth forecast.",
+        "Candidate JS syntax, 13 local navigation/asset references, exactly 20 ledger slots and public-catalogue isolation passed.",
+        "Existing Tidepost regression: 17 engine + 9 DOM checks passed.",
+        "New real Chromium desktop/390px/320px touch-emulation suite added to CI; execution pending. Local browser run blocked by listen EPERM and missing Chromium runtime."
       ],
       "quality": {
         "enjoyment": "unrated: subjective gameplay assessment pending",
         "depth": "Five short handcrafted menus with flavour composition and growth planning; no duration claim",
         "polish": "Original CSS mushroom art, responsive layout, native keyboard/touch-button inputs; rendered assessment pending",
-        "reliability": "16 engine and 10 emulated UI checks passed; real browser and full repository checks pending",
+        "reliability": "18 engine + 18 emulated UI checks pass locally; rendered browser and full repository gates pending CI",
         "variety": "Distinct garden/cooking resource puzzle, not a ferry-game reskin"
       },
       "selected": false,
@@ -92,9 +96,12 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Complete meaningful feedback/control improvement pass and regression tests",
-        "Run real desktop/mobile browser checks and inspect visual layout",
-        "Compare enjoyment, depth and polish with other candidates before any public selection"
+        "Inspect CI desktop/touch and full-repository results; fix any observed failures",
+        "Manually inspect visual layout and assess enjoyment/depth before marking finished or selecting",
+        "Implement candidate 03 Bolt & Bristle as a distinct tactile repair/cleaning loop"
+      ],
+      "developmentCommits": [
+        "ed72f25ae8873c2bd6c1c7395893070e36a69328"
       ]
     },
     {
@@ -474,10 +481,11 @@
       "run": 2,
       "date": "2026-10-20",
       "initialPlayableTotal": 2,
-      "improvedTotal": 1,
+      "improvedTotal": 2,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Spore Kitchen initial playable checkpoint. 16 engine + 10 emulated interface checks passed. Improvement and rendered tests pending; public catalogue untouched."
+      "summary": "Built Spore Kitchen plus meaningful undo, recipe-planning, forecast and focus/save-hardening pass. 18 engine + 18 emulated UI checks pass; Tidepost 17+9 regressions pass. Real browser/full repository CI pending; nothing publicly integrated.",
+      "initialPlayableCommit": "ed72f25ae8873c2bd6c1c7395893070e36a69328"
     }
   ]
 }
