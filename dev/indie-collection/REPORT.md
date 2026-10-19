@@ -1,5 +1,18 @@
 # Original indie collection — development report
 
+### Run 3 · verified final CI evidence
+
+[GitHub Actions 39341121697](https://github.com/ThatOneMop/study-desk/actions/runs/39341121697) **succeeded** on implementation [93cad094](https://github.com/ThatOneMop/study-desk/commit/93cad09427e3e9b8039de707bb3ef2c321662fa8). Actual job steps and decoded logs inspected after completion, not inferred from test-file presence.
+
+- PASS existing full repository assets (10 active routes, 14 HTML references; retained Freedoom/WASM structure), candidate syntax/18 local navigation references, exact 20 slots and public-selection isolation.
+- PASS new game: 18 engine + 19 DOM checks. Earlier games' engine/DOM and rendered desktop/touch regressions also passed.
+- PASS real Chromium desktop: native Enter/Space, tool shortcuts retaining plate focus, arrows, true one-event fast mouse drag across six plates (all six applied once), all six repairs through actual legal pointer controls, upgrades, current feedback, mid-repair localStorage reload, full winning-reward undo, confirmed retry and workshop launch/back navigation.
+- PASS 390px touch emulation: brush/solvent taps apply once, undo, restart modal/help; all visible buttons at least 44px in both dimensions at 390px and 320px; no horizontal overflow or page errors. This is not physical device testing or manual visual/enjoyment assessment.
+
+Local dependency installation ultimately failed with a network connect EPERM. No credential/permission workaround was attempted; successful remote CI independently resolves automated browser verification. Local snapshot still omits old binary assets, so the full repository gate result above is from this exact CI commit. Compared both source commits with b785739: only new candidate files/tests, workshop/ledger/report and development-only CI changed. Main remained ee9f2be1459292292d4cc53775f6653b7022ef6d when re-read; independent Study Desk/Gummy Bay/community work was not touched. Both writes used the supported GitHub tree/commit/ref tools with expected-head leases.
+
+Achieved **3 playable prototypes / 3 meaningfully improved / 0 finished / 0 selected / 0 publicly published**, with exactly 20 candidate slots. No public URL, integration commit, deployment or 20-hour content claim exists for these candidates. All source is durable on indie-collection-dev. Remaining quality gates are manual visuals/enjoyment, deeper worthwhile progression and cross-candidate comparison. Next implementation: candidate 04, Queen of Cinders.
+
 ### Run 3 · meaningful improvement pass 1
 
 Totals: **3/20 playable, 3 meaningfully improved, 0 finished/selected/publicly published.** Initial Bolt & Bristle checkpoint: 9b70d6c1050169d2373d9fce51f97ca857fc88ce. It passed initial CI 39340738573, but that checkpoint did not include a Bolt & Bristle rendered-browser suite; it must not be mistaken for new-game browser verification.

@@ -42,7 +42,6 @@
       "publishedUrl": null,
       "nextSteps": [
         "Inspect rendered screenshots/manual gameplay and assess enjoyment, progression and route variety before marking finished",
-        "Implement candidate 02 with a distinct cooking/growing loop",
         "Before selection compare enjoyment/depth/polish/reliability/variety against other implemented candidates; integrate only winners"
       ],
       "developmentCommits": [
@@ -97,7 +96,6 @@
       "publishedUrl": null,
       "nextSteps": [
         "Manually inspect visual layout and assess enjoyment/depth before marking finished or selecting",
-        "Implement candidate 03 Bolt & Bristle as a distinct tactile repair/cleaning loop",
         "Before any public integration re-read main and apply only selected game/catalogue changes, preserving newer independent work"
       ],
       "developmentCommits": [
@@ -137,13 +135,13 @@
         "11 jsdom interface checks passed: six-commission campaign, tools, upgrades, mid-repair reload, keyboard focus, confirmed restart, corrupt/concurrent/blocked storage and diagnostics.",
         "After pass 1: 18 engine + 19 jsdom checks passed, including interpolated strokes, live inspection, free diagnostics, old score saves, undo/reward rollback, keyboard focus, stale undo guards and quota failures.",
         "Tidepost 17 engine + 9 DOM and Spore Kitchen 18 engine + 18 DOM regressions passed. Candidate source/18 local links/exact 20 isolated slots passed.",
-        "Real Chromium desktop/full six-repair campaign and 390px/320px touch-emulation suite added; pending actual CI outcome."
+        "PASS GitHub Actions 39341121697 at 93cad09427e3e9b8039de707bb3ef2c321662fa8: full repository asset gate, candidate ledger/assets, 18 engine + 19 DOM checks, real Chromium desktop six-repair campaign and 390px/320px touch emulation; both earlier games regressions passed."
       ],
       "quality": {
         "enjoyment": "unrated: manual playtest pending",
         "depth": "Six handmade spatial circuit repairs with optional complete cleaning and best-only restoration rewards; short prototype, no duration claim",
-        "polish": "Original CSS/SVG workshop and copper circuit art; rendered/mobile review pending",
-        "reliability": "18 engine + 19 DOM checks and earlier-game regressions passed; full-browser verification pending",
+        "polish": "Original CSS/SVG workshop/copper art; live current, stable keyboard focus, 44px visible button targets and no 390px/320px overflow verified in Chromium. Manual screenshot/enjoyment review pending.",
+        "reliability": "18 engine + 19 DOM checks and real Chromium desktop/touch-emulation suites passed in CI; full repository asset gate and Tidepost/Spore Kitchen regressions passed.",
         "variety": "Distinct tactile cleaning plus circuit rotation puzzle, not a growing/cooking or ferry reskin"
       },
       "selected": false,
@@ -151,13 +149,28 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Inspect actual CI desktop/touch/asset results; fix failures before counting those checks passed",
-        "Assess rendered visual quality, enjoyment and progression depth; do not select yet",
-        "Implement candidate 04 Queen of Cinders with a distinct ant-colony logistics loop"
+        "Manually assess rendered art, enjoyment and depth before marking finished or selecting",
+        "Implement candidate 04 Queen of Cinders: distinct colony logistics and fire recovery",
+        "Only integrate selected finished games against current main; never merge the old whole development tree over concurrent work"
       ],
       "developmentCommits": [
-        "9b70d6c1050169d2373d9fce51f97ca857fc88ce"
-      ]
+        "9b70d6c1050169d2373d9fce51f97ca857fc88ce",
+        "93cad09427e3e9b8039de707bb3ef2c321662fa8"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39341121697",
+        "testedCommit": "93cad09427e3e9b8039de707bb3ef2c321662fa8",
+        "conclusion": "success",
+        "desktop": "Native Enter/Space/tool shortcuts/arrow focus, fast drag interpolation and single pointer action, all six actual legal repairs, upgrades, mid-repair reload, winning reward undo, confirmed retry and workshop launch/back navigation; zero page errors",
+        "touch": "390x844 emulation: tool taps apply once, undo, retry modal/help; visible targets >=44px and zero horizontal overflow at 390px/320px",
+        "notVerified": [
+          "Subjective enjoyment/depth assessment",
+          "Manual screenshot/layout review",
+          "Physical touch hardware",
+          "20 hours of worthwhile content",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 4,
