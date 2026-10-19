@@ -27,13 +27,13 @@
         "17 engine checks passed, including six actual-engine solved routes and serialized saves after every move",
         "9 jsdom UI checks passed: six keyboard victories, chart unlocks, mid-voyage reload, retry, upgrades, undo banking, button input, save failures and corrupted save handling",
         "Candidate source, 8 local asset/navigation references, exactly 20 ledger slots and catalogue isolation passed",
-        "Rendered desktop/touch browser suite committed but not executed locally: browser download failed; CI pending"
+        "PASS GitHub Actions 39326767705 at d3c20e2edbbcd57826834439dfd7f34f2f28df86: full repository asset gate, candidate assets, engine, DOM and real Chromium desktop/390px touch checks"
       ],
       "quality": {
         "enjoyment": "unrated: browser playtest missing",
         "depth": "Six handmade charts, persistent upgrades and efficient-route stars; short prototype, no hour claim",
-        "polish": "responsive original CSS interface; rendering unverified",
-        "reliability": "17 engine + 9 emulated UI checks passed; rendered browser pending",
+        "polish": "Responsive original CSS interface; 390px overflow and target-size checks passed; manual visual review pending",
+        "reliability": "17 engine + 9 DOM checks and desktop/touch-emulated Chromium suites passed in CI; full repository asset gate passed",
         "variety": "distinct route-planning candidate"
       },
       "selected": false,
@@ -41,13 +41,28 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Run/check candidate CI including full repository asset gate and real desktop/touch suite",
-        "Inspect rendered mobile/desktop layout and manually assess fun, route diversity and progression before marking finished",
-        "Implement candidate 02 with a distinct cooking/growing loop"
+        "Inspect rendered screenshots/manual gameplay and assess enjoyment, progression and route variety before marking finished",
+        "Implement candidate 02 with a distinct cooking/growing loop",
+        "Before selection compare enjoyment/depth/polish/reliability/variety against other implemented candidates; integrate only winners"
       ],
       "developmentCommits": [
-        "b435eb702e0a734f6759b588ac2b9b28b1a7a7d0"
-      ]
+        "b435eb702e0a734f6759b588ac2b9b28b1a7a7d0",
+        "d3c20e2edbbcd57826834439dfd7f34f2f28df86"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39326767705",
+        "testedCommit": "d3c20e2edbbcd57826834439dfd7f34f2f28df86",
+        "conclusion": "success",
+        "desktop": "All six keyboard victories; chart progression; mid-voyage reload; retry; undo; development launch/back navigation; no page errors",
+        "touch": "390x844 emulation: sail/wait taps, >=44px targets, help and no horizontal overflow",
+        "notVerified": [
+          "Subjective enjoyment",
+          "Manual screenshot/layout review",
+          "Physical touch hardware",
+          "20 hours of worthwhile content",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 2,
@@ -438,7 +453,9 @@
       "improvedTotal": 1,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Built Tidepost; completed one meaningful control, balance and feedback improvement pass; 26 engine/DOM checks pass. No public integration."
+      "summary": "Built Tidepost and completed one meaningful control, balance and feedback pass. Local 17 engine + 9 DOM checks and full GitHub CI including real desktop/touch browser checks passed. No public integration.",
+      "implementationCommit": "d3c20e2edbbcd57826834439dfd7f34f2f28df86",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39326767705"
     }
   ]
 }

@@ -48,3 +48,16 @@ From repository root:
 - `NODE_PATH=/path/to/test/node_modules node tests/tidepost-browser.cjs` (Playwright 1.62.1 with installed Chromium)
 
 Serve the repository root to play the development workshop at `/dev/indie-collection/index.html`. The public catalogue is unchanged. Assessment still needs rendered visual review and subjective playtesting before selection.
+
+
+## Verified CI outcome — final state of run 1
+
+[GitHub Actions 39326767705](https://github.com/ThatOneMop/study-desk/actions/runs/39326767705) **succeeded** on implementation commit [d3c20e2](https://github.com/ThatOneMop/study-desk/commit/d3c20e2edbbcd57826834439dfd7f34f2f28df86). Job steps and actual logs were inspected after completion.
+
+- Existing full repository `tests/assets.py`: PASS, including retained legacy binary structure checks. This resolves the local partial-checkout limitation for this exact branch source.
+- Exact 20-slot ledger, candidate source/navigation and public-selection isolation: PASS.
+- 17 engine checks and 9 emulated DOM checks: PASS.
+- Real headless Chromium desktop: PASS — workshop launch/back navigation, all six keyboard victories, unlocks, mid-voyage reload, retry, undo and zero page errors.
+- Real headless Chromium with a 390×844 mobile/touch-emulated context: PASS — sail/wait taps, all compass targets at least 44px, help toggle and no horizontal overflow. This is browser touch emulation, not physical device testing.
+
+The local browser download problem did not prevent remote browser verification. Remaining work is manual visual/enjoyment assessment and meaningful depth/polish development, then comparison with other candidates. No 20-hour claim, public catalogue insertion, public game URL, integration commit or deployment was made. Final totals remain **1 playable prototype / 1 improved / 0 finished / 0 published**, with 19 planned slots. The new source is durable on indie-collection-dev. Next concrete increment: candidate 02, Spore Kitchen, with a distinct growing/cooking loop.
