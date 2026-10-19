@@ -4,7 +4,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 concurrency:
@@ -18,24 +18,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Restore complete game sources once
-        if: ${{ hashFiles('.bootstrap/installed') == '' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          cat .bootstrap/website.zip.[0-9][0-9][0-9] > "$RUNNER_TEMP/website.zip"
-          echo "2f4c7f94ee2e499a63b4e2d59b54379ab50ece39e7ad3149c007dbf17845c39b  $RUNNER_TEMP/website.zip" | sha256sum -c -
-          echo "01175d4924736434961fedb7d15cb29068ed35a07939755a41f049a1cca06bb1  .bootstrap/latest.zip" | sha256sum -c -
-          unzip -oq "$RUNNER_TEMP/website.zip" -d .
-          unzip -oq .bootstrap/latest.zip -d .
-          echo '100-game collection restored; Gummy Bay v17 included.' > .bootstrap/installed
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add .nojekyll README.md SOURCE_VERSIONS.json TEST_REPORT.md app.js bridge.js catalog.js catalog.json credits.html doom-engine-source.zip games hextris-source.zip index.html style.css tests GUMMY_BAY_UPDATE.md .bootstrap/installed
-          if ! git diff --cached --quiet; then
-            git commit -m 'Restore 100-game collection and Gummy Bay v17 [skip ci]'
-            git push origin HEAD:main
-          fi
       - name: Verify game routes and local assets
         run: python tests/assets.py
       - name: Configure GitHub Pages
