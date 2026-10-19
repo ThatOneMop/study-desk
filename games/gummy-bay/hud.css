@@ -18,3 +18,6 @@
 #stationAssist{min-height:48px;min-width:190px;touch-action:none;user-select:none}.machine-status{padding:10px 14px;border-left:3px solid #d6e9a8;background:#ffffff0c;margin-bottom:12px}
 /* v15: keep the world readable while preserving access to controls. */
 #overlay{backdrop-filter:none;background:#12251edb}body:not(.titleMode) .brand{font-size:22px}#objective{background:#243a31e8}#objective p{line-height:1.5}.hotbar button{border-radius:5px}#stationHUD h2{font-size:21px}@media(min-width:1000px){#objective{width:225px;padding:14px 16px}.hotbar{bottom:18px}}
+
+/* Workshop production status: readable without hiding the world. */
+.workflow-status{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0}.workflow-status>div{padding:12px;border:1px solid #738b8055;border-radius:10px;background:#172b29}.workflow-status small{display:block;color:#c8b880;font-size:10px;letter-spacing:.08em;margin-bottom:6px}.workflow-status b{font-size:13px;line-height:1.4;display:block} @media(max-width:600px){.workflow-status{grid-template-columns:1fr}}

@@ -1,5 +1,6 @@
+import {stationStatus} from './presentation.mjs';
 import {productionPlan,commitProduction,validateSave,backupSlot} from './business-core.mjs';
-import {createVisualPolish} from './visual-polish.mjs';
+import {createVisualPolish} from './visual-polish.mjs?v=19';
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {stockSlots,taskFraction,restoreComfort} from './workshop-state.mjs';
@@ -260,7 +261,7 @@ let effects=null,quality='balanced';
 try{quality=localStorage.getItem('gummybay-quality')||'balanced';lookSensitivity=Number(localStorage.getItem('gummybay-sensitivity'))||.003}catch(e){}
 function resizeEffects(){if(effects)effects.resize(Math.min(innerWidth,1600),Math.min(innerHeight,1000))}
 function setQuality(q){quality=q;effects?.dispose();effects=null;renderer.shadowMap.enabled=q!=='performance';renderer.setPixelRatio(Math.min(devicePixelRatio,q==='high'?1.85:q==='performance'?1:1.5));renderer.setSize(innerWidth,innerHeight);if(q==='high')try{effects=createEffects(renderer,scene,camera,Math.min(innerWidth,1600),Math.min(innerHeight,1000))}catch(e){toast('Ambient occlusion unavailable; standard shadows remain active.')}try{localStorage.setItem('gummybay-quality',q)}catch(e){}if(panel==='settings')menu('settings')}
-function renderFrame(){if(typeof visualPolish!=='undefined'){visualPolish.update({active,state:s,task:stationTask,held:stationHeld||stationAssist,now,near,quality});if(stationTask&&['mix','prepare','water','fill'].includes(stationTask.k)){stationTool.visible=false;syrupStream.visible=false;stationPiece.visible=stationTask.k!=='mix';}else stationPiece.visible=true;}if(effects)effects.render();else renderer.render(scene,camera)}
+function renderFrame(){if(typeof visualPolish!=='undefined'){visualPolish.update({active,state:s,task:stationTask,held:stationHeld||stationAssist,now,near,quality,productColor:STRAINS[stationTask?.a]?.color});if(stationTask&&['mix','make','pack','prepare','water','fill'].includes(stationTask.k)){stationTool.visible=false;syrupStream.visible=false;stationPiece.visible=!['mix','make','pack'].includes(stationTask.k);stationWrapper.visible=false;}else{stationPiece.visible=true;stationWrapper.visible=true;}}if(effects)effects.render();else renderer.render(scene,camera)}
 function record(label,amount){s.ledger??=[];s.ledger.unshift({label,amount,balance:s.bank,day:s.day});s.ledger=s.ledger.slice(0,16)}
 function textured(kind){let c=document.createElement('canvas');c.width=c.height=256;let t=c.getContext('2d'),seed=31;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};let bases={brick:'#a48872',plaster:'#beb8a6',asphalt:'#59605d',concrete:'#aaa99a',gravel:'#a79e85',roof:'#696f66',wood:'#9a8061'};t.fillStyle=bases[kind];t.fillRect(0,0,256,256);
 if(kind==='brick'){t.fillStyle='#aaa494';t.fillRect(0,0,256,256);for(let y=0;y<256;y+=24)for(let x=-32;x<256;x+=64){let xx=x+(y/24%2)*32;t.fillStyle=['#9d8270','#a58b77','#927b6a','#ae9480'][Math.floor(rand()*4)];t.fillRect(xx+2,y+2,60,20);}}
@@ -756,7 +757,7 @@ renderFrame=function(){
 };
 // Quality-independent palette; no post-processing is required for readable materials.
 const visualUpdate=update;update=function(dt){visualUpdate(dt);
- if(active){const daylight=Math.max(0,Math.sin((s.time-360)/1440*Math.PI*2));sun.intensity=.18+daylight*2.5;hemi.intensity=.48+daylight*.78;}
+ if(active){const daylight=Math.max(0,Math.sin((s.time-360)/1440*Math.PI*2));sun.intensity=.18+daylight*2.5;hemi.intensity=.58+daylight*.72;hemi.groundColor.set(0x716d62);}
 };
 
 let equipmentAssetStatus='loading';
@@ -981,7 +982,7 @@ const milestoneMenu=menu;menu=function(which,data){milestoneMenu(which,data);
   $('modal').innerHTML='<button class="close" onclick="closeMenu()">×</button><div class="overline">PHONE / DELIVERIES</div><h2>Your commitments</h2>'+(s.deals.length?'':'<p>No active orders. Make a listing and message a customer.</p>');
   for(const d of s.deals){const remaining=Math.max(0,Math.ceil((d.due??Infinity)-((s.day-1)*1440+s.time))),person=CONTACTS[d.npc];$('modal').innerHTML+='<section class="staffcard"><h3>'+esc(person.name)+'</h3><p>'+d.qty+' × '+esc(STRAINS[d.t].name)+' · '+cash(d.price)+' each · <strong>'+cash(d.price*d.qty)+' total</strong></p><p>'+d.qty+' reserved · '+(Number.isFinite(remaining)?remaining+' game minutes left':'No deadline')+' · '+Math.round(Math.hypot(person.x-player.x,person.z-player.z))+' metres away</p><button class="primary" onclick="trackCustomer('+d.npc+')">Track meeting</button> <button class="ghost" onclick="action(\'cancelDeal\','+d.npc+')">Cancel order</button></section>';}
  }
- if(which==='craft')$('modal').innerHTML+='<p class="note">Completed tasks commit all supplies together. If stock changes while you work, an invalid batch consumes nothing.</p>';
+ if(which==='craft'){const status=stationStatus(s);$('modal').innerHTML+='<section class="workflow-status" aria-label="Workshop status"><div><small>01 / SHAPE</small><b>'+esc(status.shaping)+'</b></div><div><small>02 / PACKAGE</small><b>'+esc(status.packaging)+'</b></div><div><small>03 / DELIVER</small><b>'+esc(status.delivery)+'</b></div></section>'; }
  if(which==='importConfirm')$('modal').innerHTML+='<p class="note">The previous destination slot is backed up locally before replacement. The import is cancelled if that backup cannot be written.</p>';
 };window.menu=menu;
 
