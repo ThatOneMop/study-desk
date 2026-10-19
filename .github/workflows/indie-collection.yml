@@ -2,7 +2,7 @@ name: Verify original indie candidates
 on:
   push:
     branches: [indie-collection-dev]
-    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
+    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/bolt-and-bristle-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -23,6 +23,7 @@ jobs:
         run: |
           node tests/tidepost-engine.cjs
           node tests/spore-kitchen-engine.cjs
+          node tests/bolt-and-bristle-engine.cjs
       - name: Temporary browser test dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/indie-tests" jsdom@26 playwright@1.62.1 --no-audit --no-fund
@@ -31,6 +32,7 @@ jobs:
         run: |
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/tidepost-dom.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/spore-kitchen-dom.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/bolt-and-bristle-dom.cjs
       - name: Real desktop and touch browser checks
         run: |
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/tidepost-browser.cjs

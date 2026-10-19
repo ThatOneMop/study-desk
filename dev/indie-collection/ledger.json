@@ -124,20 +124,33 @@
       "id": "bolt-and-bristle",
       "title": "Bolt & Bristle",
       "coreLoop": "Tactile mechanical cleaning and repair",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/bolt-and-bristle/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six original handmade circuit restoration commissions; brush/solvent/spanner/rotation tools, mouse/touch drag and native keyboard plates, test circuit, restoration stars, tool upgrades, best-only replay rewards, confirmed retry and versioned saves with corrupted/concurrent-write protection."
+      ],
+      "tests": [
+        "15 actual-engine checks passed, including six legal solved routes (53, 63, 60, 69, 78, 87 baseline tool strokes), every-action saves, progression/replay, upgrades and malformed states.",
+        "11 jsdom interface checks passed: six-commission campaign, tools, upgrades, mid-repair reload, keyboard focus, confirmed restart, corrupt/concurrent/blocked storage and diagnostics."
+      ],
+      "quality": {
+        "enjoyment": "unrated: manual playtest pending",
+        "depth": "Six handmade spatial circuit repairs with optional complete cleaning and best-only restoration rewards; short prototype, no duration claim",
+        "polish": "Original CSS/SVG workshop and copper circuit art; rendered/mobile review pending",
+        "reliability": "15 engine and 11 jsdom interface checks passed; rendered browser verification pending",
+        "variety": "Distinct tactile cleaning plus circuit rotation puzzle, not a growing/cooking or ferry reskin"
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
-      ]
+        "Improve fast dragging, circuit feedback and recovery controls before browser testing",
+        "Manual enjoyment and depth assessment before selection; keep off public catalogue"
+      ],
+      "developmentCommits": []
     },
     {
       "slot": 4,

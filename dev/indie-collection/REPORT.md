@@ -1,5 +1,13 @@
 # Original indie collection — development report
 
+## Run 3 · Bolt & Bristle initial playable
+
+Totals at this checkpoint: **3/20 playable; 2 improved; 0 finished, selected or publicly published.** Read latest development head b785739 and main ee9f2be, current ledger/report, README, Study Desk progress, static hosting workflow, candidate CI and existing source/test conventions. No AGENTS.md in recursive development tree; no root package/build step. Main's newer navigation/After Hours/Gummy Bay/community work is preserved, not replaced by this older development base.
+
+Candidate 03 is an original tactile restoration/circuit puzzle: six handmade machines, brush dust, dissolve rust, free screws, rotate reciprocal copper ports and test power. No time pressure; optional all-board restoration, best-only replay rewards, two functional tool upgrades, six-commission progression, saved repairs and confirmed restart. Original CSS and inline SVG art; no external assets or imported collection.
+
+Baseline: 15 engine checks pass. Every commission solved with legal tools and serialized after each action: 53, 63, 60, 69, 78 and 87 baseline strokes; these are automated action counts, not human playtimes. 11 jsdom interface checks pass, including complete six-machine campaign/upgrades, save reload, keyboard/tools, confirmed retry, corruption/read/concurrent-write protections and failed-power feedback. Rendered visuals, actual pointer/touch behaviour and enjoyment are not yet verified. Source remains development-only. Next: a meaningful controls/feedback/recovery improvement pass and browser checks.
+
 ## Run 1 · 20 October 2026 · initial playable checkpoint
 
 1/20 original candidate slots implemented; 0 improvement passes; 0 finished/selected/published. Exactly 20 slots are maintained in ledger.json. Planned names are design directions, not implemented games, and may change.
@@ -92,4 +100,3 @@ No subjective playtest or 20-hour content claim. There are 18 still-planned cand
 [GitHub Actions 39334355735](https://github.com/ThatOneMop/study-desk/actions/runs/39334355735) succeeded on implementation commit [7f5c9f7](https://github.com/ThatOneMop/study-desk/commit/7f5c9f72ed5a629813cf35d998f3060e309a45f5). Job steps and decoded logs inspected after completion. PASS: full repository asset gate; exact 20 slots/selection isolation; Spore Kitchen 18 engine + 18 DOM tests; Tidepost 17 engine + 9 DOM tests and real-browser regression; Spore Kitchen Chromium desktop workshop navigation, native Tab/Enter/focus, all five services, upgrades, mid-service reload, winning-dish undo and confirmed retry. PASS touch emulation: plant/undo/cook, optional notebook, help, visible button targets at least 44px, and no horizontal overflow at 390px or 320px. No page errors in either new browser context.
 
 Local listen/proxy restrictions therefore did not block remote verification. Subjective enjoyment, manual visual review, physical hardware touch and public integration/deployment remain unverified. Full repository source was preserved by creating trees atop the exact development head and updating its ref with an expected-head lease. Compared both commits against the prior head: only candidate source, tests, workshop/ledger/report and candidate-only CI changed. Re-read main still at 7053d01 after the source push. Final achieved totals: **2 playable / 2 improved / 0 finished / 0 selected / 0 publicly published**. All 20 candidate slots remain present; no placeholders have been counted as games.
-
