@@ -127,19 +127,23 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/bolt-and-bristle/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six original handmade circuit restoration commissions; brush/solvent/spanner/rotation tools, mouse/touch drag and native keyboard plates, test circuit, restoration stars, tool upgrades, best-only replay rewards, confirmed retry and versioned saves with corrupted/concurrent-write protection."
+        "Initial playable: six original handmade circuit restoration commissions; brush/solvent/spanner/rotation tools, mouse/touch drag and native keyboard plates, test circuit, restoration stars, tool upgrades, best-only replay rewards, confirmed retry and versioned saves with corrupted/concurrent-write protection.",
+        "Pass 1: interpolated fast pointer strokes include skipped cells and their first plate without double activation; native tool shortcuts preserve plate focus; live-current highlights and textual copper/tool inspection; free diagnostic tests no longer punish experimentation; one-step undo restores plate work and full winning rewards, clears on navigation/upgrades/retry; modal background inert/focus guards and >=44px narrow-screen targets. Earlier version-1 score saves remain readable."
       ],
       "tests": [
         "15 actual-engine checks passed, including six legal solved routes (53, 63, 60, 69, 78, 87 baseline tool strokes), every-action saves, progression/replay, upgrades and malformed states.",
-        "11 jsdom interface checks passed: six-commission campaign, tools, upgrades, mid-repair reload, keyboard focus, confirmed restart, corrupt/concurrent/blocked storage and diagnostics."
+        "11 jsdom interface checks passed: six-commission campaign, tools, upgrades, mid-repair reload, keyboard focus, confirmed restart, corrupt/concurrent/blocked storage and diagnostics.",
+        "After pass 1: 18 engine + 19 jsdom checks passed, including interpolated strokes, live inspection, free diagnostics, old score saves, undo/reward rollback, keyboard focus, stale undo guards and quota failures.",
+        "Tidepost 17 engine + 9 DOM and Spore Kitchen 18 engine + 18 DOM regressions passed. Candidate source/18 local links/exact 20 isolated slots passed.",
+        "Real Chromium desktop/full six-repair campaign and 390px/320px touch-emulation suite added; pending actual CI outcome."
       ],
       "quality": {
         "enjoyment": "unrated: manual playtest pending",
         "depth": "Six handmade spatial circuit repairs with optional complete cleaning and best-only restoration rewards; short prototype, no duration claim",
         "polish": "Original CSS/SVG workshop and copper circuit art; rendered/mobile review pending",
-        "reliability": "15 engine and 11 jsdom interface checks passed; rendered browser verification pending",
+        "reliability": "18 engine + 19 DOM checks and earlier-game regressions passed; full-browser verification pending",
         "variety": "Distinct tactile cleaning plus circuit rotation puzzle, not a growing/cooking or ferry reskin"
       },
       "selected": false,
@@ -147,10 +151,13 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Improve fast dragging, circuit feedback and recovery controls before browser testing",
-        "Manual enjoyment and depth assessment before selection; keep off public catalogue"
+        "Inspect actual CI desktop/touch/asset results; fix failures before counting those checks passed",
+        "Assess rendered visual quality, enjoyment and progression depth; do not select yet",
+        "Implement candidate 04 Queen of Cinders with a distinct ant-colony logistics loop"
       ],
-      "developmentCommits": []
+      "developmentCommits": [
+        "9b70d6c1050169d2373d9fce51f97ca857fc88ce"
+      ]
     },
     {
       "slot": 4,

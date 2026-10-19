@@ -37,3 +37,4 @@ jobs:
         run: |
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/tidepost-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/spore-kitchen-browser.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/bolt-and-bristle-browser.cjs

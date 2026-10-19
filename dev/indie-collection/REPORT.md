@@ -1,5 +1,19 @@
 # Original indie collection — development report
 
+### Run 3 · meaningful improvement pass 1
+
+Totals: **3/20 playable, 3 meaningfully improved, 0 finished/selected/publicly published.** Initial Bolt & Bristle checkpoint: 9b70d6c1050169d2373d9fce51f97ca857fc88ce. It passed initial CI 39340738573, but that checkpoint did not include a Bolt & Bristle rendered-browser suite; it must not be mistaken for new-game browser verification.
+
+- Fixed first-plate omission and skipped cells on fast pointer drags; pointerdown is authoritative, native keyboard/assistive clicks remain supported, and a pointer click cannot double-apply. Grid interpolation, leaving/re-entering the board, blur, cancellation and hidden tabs are handled.
+- Added live powered-copper highlighting, exact textual port directions and required-tool inspection. Keyboard tool selection retains the focused plate; native arrows and Enter/Space remain usable.
+- Added one-step undo of tools and power tests, including reversal of newly banked coins/best stars. Upgrades, commission navigation and retry clear stale history; reload preserves work but deliberately starts a fresh undo session.
+- Removed diagnostic-test penalties so experimentation never lowers restoration quality. Stars now reflect cleaning only. Existing version-1 completions with the earlier test-count scoring remain accepted and can be improved through replay.
+- Made restart modal background inert and trapped its focus, and tightened small-screen spacing to retain 44px plate targets at 320px. No timers or arbitrary progression counts added.
+
+18 engine + 19 jsdom checks pass after improvement. Regressions: Tidepost 17 engine/9 DOM, Spore Kitchen 18 engine/18 DOM pass. Candidate source/18 links/exact 20-slot and selection isolation gate passes. Added a real-browser suite for native keys, fast drag interpolation/single pointer action, all six actual legal UI repairs, upgrades, live current, save reload, winning reward undo, retry, launch/back navigation, touch taps, 44px targets and 390px/320px overflow. Browser/complete legacy repository checks remain pending the actual improved-commit CI outcome. Local Playwright dependency installation is delayed by network; remote CI remains available. No public integration or deployment attempted, and no human-playtime/enjoyment claim made.
+
+Next: verify this exact source in CI, preserve result evidence, then candidate 04 Queen of Cinders. All unfinished source stays on indie-collection-dev. Never merge this older entire development branch over newer main work; integrate only selected candidate/catalogue paths later.
+
 ## Run 3 · Bolt & Bristle initial playable
 
 Totals at this checkpoint: **3/20 playable; 2 improved; 0 finished, selected or publicly published.** Read latest development head b785739 and main ee9f2be, current ledger/report, README, Study Desk progress, static hosting workflow, candidate CI and existing source/test conventions. No AGENTS.md in recursive development tree; no root package/build step. Main's newer navigation/After Hours/Gummy Bay/community work is preserved, not replaced by this older development base.
