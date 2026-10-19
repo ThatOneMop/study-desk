@@ -69,19 +69,32 @@
       "id": "spore-kitchen",
       "title": "Spore Kitchen",
       "coreLoop": "Grow ingredients and cook by combining fungal traits",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/spore-kitchen/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: five handmade three-order services, four mushroom species, growth/misting/harvesting, two-ingredient flavour matching, three cooking methods, failure/retry, three pantry upgrades and checkpoint-based saving."
+      ],
+      "tests": [
+        "16 engine checks passed: all 15 orders solved, all five baseline and upgraded services completed with save validation after every action; baseline action counts 9,15,12,10,14.",
+        "10 jsdom interface checks passed including five menu victories, upgrades, reload, retries, corrupt-save backup, storage failure and concurrent-tab protection."
+      ],
+      "quality": {
+        "enjoyment": "unrated: subjective gameplay assessment pending",
+        "depth": "Five short handcrafted menus with flavour composition and growth planning; no duration claim",
+        "polish": "Original CSS mushroom art, responsive layout, native keyboard/touch-button inputs; rendered assessment pending",
+        "reliability": "16 engine and 10 emulated UI checks passed; real browser and full repository checks pending",
+        "variety": "Distinct garden/cooking resource puzzle, not a ferry-game reskin"
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Complete meaningful feedback/control improvement pass and regression tests",
+        "Run real desktop/mobile browser checks and inspect visual layout",
+        "Compare enjoyment, depth and polish with other candidates before any public selection"
       ]
     },
     {
@@ -456,6 +469,15 @@
       "summary": "Built Tidepost and completed one meaningful control, balance and feedback pass. Local 17 engine + 9 DOM checks and full GitHub CI including real desktop/touch browser checks passed. No public integration.",
       "implementationCommit": "d3c20e2edbbcd57826834439dfd7f34f2f28df86",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39326767705"
+    },
+    {
+      "run": 2,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 2,
+      "improvedTotal": 1,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Spore Kitchen initial playable checkpoint. 16 engine + 10 emulated interface checks passed. Improvement and rendered tests pending; public catalogue untouched."
     }
   ]
 }

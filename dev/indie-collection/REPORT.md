@@ -61,3 +61,13 @@ Serve the repository root to play the development workshop at `/dev/indie-collec
 - Real headless Chromium with a 390×844 mobile/touch-emulated context: PASS — sail/wait taps, all compass targets at least 44px, help toggle and no horizontal overflow. This is browser touch emulation, not physical device testing.
 
 The local browser download problem did not prevent remote browser verification. Remaining work is manual visual/enjoyment assessment and meaningful depth/polish development, then comparison with other candidates. No 20-hour claim, public catalogue insertion, public game URL, integration commit or deployment was made. Final totals remain **1 playable prototype / 1 improved / 0 finished / 0 published**, with 19 planned slots. The new source is durable on indie-collection-dev. Next concrete increment: candidate 02, Spore Kitchen, with a distinct growing/cooking loop.
+# Run 2 · Spore Kitchen initial playable
+
+2/20 playable, 1 improved, 0 finished/selected/published at this checkpoint. Reviewed current main (7053d01), development head (72da44b), README, latest Study Desk progress ledger, static hosting conventions, workflow and candidate ledger. No repository AGENTS.md or root compilation step exists. Main has newer independent After Hours save work; it is not modified or overwritten. Shell clone remains blocked by its network proxy, so use the connected GitHub tree/commit/ref tools and preserve the existing development base tree.
+
+Spore Kitchen: five original handmade menus (15 dishes), four mushroom species, growing shelves, turn-based mist/harvest, ingredient flavour combinations and three cooking methods. Three between-service upgrades, exact-match previews, weak-service/budget failure, confirmed retry, checkpoint-based rewards and versioned resumable saves. Original CSS art only; no imported collections/assets.
+
+Baseline verification: 16 engine checks and 10 jsdom UI checks pass. All 15 orders have exact solutions; actual-engine baseline routes take 9, 15, 12, 10 and 14 actions out of 30, 28, 27, 26 and 26 available. These are deliberately forgiving introductory budgets, not measured human playtimes. Tests cover all five services, upgraded routes, every-action serialization, garden actions, scoring, full-basket recovery, no replay reward farming, next service, reload, retry, corrupt-save preservation/backup, quota errors and concurrent-tab write protection. UI emulation is not rendered browser testing. No content-duration or finished/publication claim is made.
+
+Next: one meaningful improvement pass for recipe planning and mistake recovery, then real-browser regression checks. Source remains development-only. Public launch/deployment is neither attempted nor claimed.
+
