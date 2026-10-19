@@ -1,2 +1,1 @@
-# study-desk
-Study Desk / After Class — flashcards and a 100-game browser collection.
+Run from the website root: `python tests/assets.py`. DOM tests require Node and jsdom 26: install jsdom in a separate test workspace, then run tests/dom-checks.cjs with NODE_PATH pointing to that workspace node_modules. No test dependencies are needed to host the website.
