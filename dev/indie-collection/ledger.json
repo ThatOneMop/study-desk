@@ -1,0 +1,435 @@
+{
+  "schemaVersion": 1,
+  "deadline": "2026-10-23T15:00:00+11:00",
+  "developmentBranch": "indie-collection-dev",
+  "baselineMainCommit": "3dd1a5146c7bb1e1d846c9a143e78b3ecb39d377",
+  "policy": {
+    "countOnlyPlayable": true,
+    "publishOnlySelectedFinished": true,
+    "durationClaimsRequireEvidence": true,
+    "finalRuns": "Polish, compare, select, integrate, regress and report; stop new work at cutoff"
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "id": "tidepost",
+      "title": "Tidepost",
+      "coreLoop": "Turn-based ferry route planning",
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/tidepost/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 0,
+      "changes": [
+        "Six handmade charts, tide/current rules, fuel/hull, mail deliveries, upgrades, star routes and versioned voyage saving"
+      ],
+      "tests": [
+        "15 engine tests passed; all six baseline-ferry routes solved"
+      ],
+      "quality": {
+        "enjoyment": "unrated: browser playtest missing",
+        "depth": "short prototype; no duration claim",
+        "polish": "responsive original CSS interface; rendering unverified",
+        "reliability": "engine verified; browser/save UI not yet verified",
+        "variety": "distinct route-planning candidate"
+      },
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Browser playtest; improve balance and feedback; verify keyboard/touch, save/restart and navigation"
+      ]
+    },
+    {
+      "slot": 2,
+      "id": "spore-kitchen",
+      "title": "Spore Kitchen",
+      "coreLoop": "Grow ingredients and cook by combining fungal traits",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 3,
+      "id": "bolt-and-bristle",
+      "title": "Bolt & Bristle",
+      "coreLoop": "Tactile mechanical cleaning and repair",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 4,
+      "id": "queen-of-cinders",
+      "title": "Queen of Cinders",
+      "coreLoop": "Ant colony logistics and fire recovery",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 5,
+      "id": "inkline",
+      "title": "Inkline",
+      "coreLoop": "Draft ink-powered cards to map a shifting archive",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 6,
+      "id": "deep-pocket",
+      "title": "Deep Pocket",
+      "coreLoop": "Fishing with line tension and selective release",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 7,
+      "id": "roof-runner",
+      "title": "Roof Runner",
+      "coreLoop": "Precision courier platformer with optional route challenges",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 8,
+      "id": "scrap-orbit",
+      "title": "Scrap Orbit",
+      "coreLoop": "Momentum-based salvage and orbital docking",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 9,
+      "id": "stone-song",
+      "title": "Stone Song",
+      "coreLoop": "Sound and rhythm-based quarry puzzle",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 10,
+      "id": "last-match",
+      "title": "Last Match",
+      "coreLoop": "Top-down survival with directional lantern combat",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 11,
+      "id": "glasshouse",
+      "title": "Glasshouse",
+      "coreLoop": "Plant breeding and greenhouse spatial planning",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 12,
+      "id": "burrow-express",
+      "title": "Burrow Express",
+      "coreLoop": "Underground rail network building",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 13,
+      "id": "little-foundry",
+      "title": "Little Foundry",
+      "coreLoop": "Heat and casting manual craft progression",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 14,
+      "id": "storm-signal",
+      "title": "Storm Signal",
+      "coreLoop": "Decode signals and coordinate rescue routes",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 15,
+      "id": "circuit-garden",
+      "title": "Circuit Garden",
+      "coreLoop": "Connect renewable energy puzzles",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 16,
+      "id": "pocket-expedition",
+      "title": "Pocket Expedition",
+      "coreLoop": "Push-your-luck expedition loadout and extraction",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 17,
+      "id": "moss-market",
+      "title": "Moss Market",
+      "coreLoop": "Barter-based shopkeeping with inventory choices",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 18,
+      "id": "threadbound",
+      "title": "Threadbound",
+      "coreLoop": "Grapple traversal with thread anchors",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 19,
+      "id": "rain-catcher",
+      "title": "Rain Catcher",
+      "coreLoop": "Water routing and village restoration",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    },
+    {
+      "slot": 20,
+      "id": "echo-vault",
+      "title": "Echo Vault",
+      "coreLoop": "Turn-based stealth using sound and enemy intent",
+      "status": "planned",
+      "source": null,
+      "initialPlayable": false,
+      "meaningfulImprovementPasses": 0,
+      "changes": [],
+      "tests": [],
+      "quality": null,
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Implement original playable core loop before counting this slot"
+      ]
+    }
+  ],
+  "runHistory": [
+    {
+      "run": 1,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 1,
+      "improvedTotal": 0,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Established collection branch; built and engine-tested Tidepost baseline."
+    }
+  ]
+}

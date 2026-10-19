@@ -1,0 +1,22 @@
+'use strict';
+const assert=require('node:assert/strict');
+const E=require('../dev/indie-collection/tidepost/engine.js');
+const copy=o=>JSON.parse(JSON.stringify(o));
+let tests=0;function test(name,fn){fn();tests++;console.log('PASS',name)}
+// A breadth-first route search exercises actual engine rules rather than an alternate simulation.
+// Retain only the highest fuel for an equivalent position/tide/mail/hull state.
+function route(chart){const p=E.blankProfile();p.unlocked=chart;const start=E.start(chart,p),q=[{s:start,path:[]}],seen=new Map();let expanded=0;
+for(let i=0;i<q.length;i++){const {s,path}=q[i];if(s.status==='complete')return{path,turns:s.turn,expanded};if(++expanded>350000)throw Error('route search budget exceeded');for(const action of ['up','right','down','left','wait']){const n=copy(s),np=copy(p);if(!E.act(n,np,action)||!['sailing','complete'].includes(n.status))continue;const key=[n.x,n.y,n.turn%6,n.picked.slice().sort().join(''),n.cargo.slice().sort().join(''),n.delivered.slice().sort().join(''),n.hull,n.status].join('|');if((seen.get(key)??-1)>=n.fuel)continue;seen.set(key,n.fuel);q.push({s:n,path:[...path,action]})}}throw Error(`No route: chart ${chart}`)}
+const routes=[];
+for(let i=0;i<E.charts.length;i++)test(`Chart ${i+1}: baseline ferry can deliver all mail and return`,()=>{const r=route(i);routes.push(r);let p=E.blankProfile();p.unlocked=i;let s=E.start(i,p);for(const a of r.path){assert.equal(E.act(s,p,a),true);assert.ok(E.decode(E.encode(p,s)),`save failed on ${a}`)}assert.equal(s.status,'complete');assert.equal(p.coins,36);assert.equal(s.delivered.length,3);assert.equal(E.act(s,p,'wait'),false);assert.equal(p.best[i].turns,r.turns);console.log(`  ${r.turns} turns / 3-star par ${E.charts[i].par}; ${r.expanded} states explored`)});
+test('Blocked moves do not consume resources or advance the tide',()=>{const p=E.blankProfile(),s=E.start(0,p);assert.equal(E.act(s,p,'left'),false);assert.equal(s.fuel,26);assert.equal(s.turn,0)});
+test('Shallows gate at low tide, open after three free waits',()=>{const p=E.blankProfile(),s=E.start(1,p);s.x=3;assert.equal(E.preview(s,'right').valid,false);for(let n=0;n<3;n++)E.act(s,p,'wait');assert.equal(E.preview(s,'right').valid,true);assert.equal(s.fuel,26)});
+test('Current previews and actual movement agree',()=>{const p=E.blankProfile(),s=E.start(2,p);s.x=2;const v=E.preview(s,'right');assert.equal(v.push,true);E.act(s,p,'right');assert.equal(s.x,v.x);assert.equal(s.fuel,25)});
+test('Full hold leaves the third bag available for a later trip',()=>{const p=E.blankProfile(),s=E.start(0,p);s.x=5;s.y=5;s.picked=['A','B'];s.cargo=['A','B'];E.act(s,p,'right');assert.equal(s.picked.includes('C'),false);assert.equal(s.cargo.length,2)});
+test('Dock banks mail once, refills hull and fuel; waiting does not duplicate coins',()=>{const p=E.blankProfile(),s=E.start(0,p);s.x=2;s.cargo=['A'];s.picked=['A'];s.hull=1;s.fuel=2;E.act(s,p,'left');assert.equal(p.coins,12);assert.equal(s.fuel,26);assert.equal(s.hull,3);E.act(s,p,'wait');assert.equal(p.coins,12)});
+test('Zero-fuel arrival at dock rescues the voyage',()=>{const p=E.blankProfile(),s=E.start(0,p);s.x=2;s.fuel=1;E.act(s,p,'left');assert.equal(s.status,'sailing');assert.equal(s.fuel,26)});
+test('Stranding and squall wrecks end input and keep banked coins',()=>{let p=E.blankProfile(),s=E.start(0,p);p.coins=24;s.fuel=1;E.act(s,p,'right');assert.equal(s.status,'stranded');assert.equal(E.act(s,p,'left'),false);assert.equal(p.coins,24);s=E.start(3,p);s.x=3;s.hull=1;E.act(s,p,'right');assert.equal(s.status,'wrecked');assert.equal(p.coins,24)});
+test('Upgrade costs, benefits and caps cannot overspend',()=>{const p=E.blankProfile();assert.equal(E.upgrade(p,'tank'),false);p.coins=200;assert.equal(E.upgrade(p,'hold'),true);assert.equal(E.limits(p).hold,3);assert.equal(E.upgrade(p,'hold'),false);assert.equal(E.upgrade(p,'notAnUpgrade'),false);assert.equal(p.coins,176)});
+test('Malformed and contradictory saves reject safely',()=>{assert.equal(E.decode('oops'),null);const p=E.blankProfile(),s=E.start(0,p);for(const mutate of [o=>o.profile.coins=-2,o=>o.voyage.x=1.2,o=>o.voyage.fuel=null,o=>o.voyage.cargo=['A'],o=>o.voyage.status='complete',o=>o.profile.upgrades.hold=500,o=>o.profile.best={'0':{turns:'no',stars:3}}]){const o=JSON.parse(E.encode(p,s));mutate(o);assert.equal(E.decode(JSON.stringify(o)),null)}});
+require('node:fs').writeFileSync('/tmp/tidepost-routes.json',JSON.stringify(routes));
+console.log(`${tests} tests passed. Route fixtures: /tmp/tidepost-routes.json`);
