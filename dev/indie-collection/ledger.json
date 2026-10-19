@@ -82,13 +82,13 @@
         "18 jsdom interface checks passed, including all five menus, upgrades, reload, confirmed retry, corrupt/blocked/concurrent saves, undo/reward rollback, focus, notebook duplicates and growth forecast.",
         "Candidate JS syntax, 13 local navigation/asset references, exactly 20 ledger slots and public-catalogue isolation passed.",
         "Existing Tidepost regression: 17 engine + 9 DOM checks passed.",
-        "New real Chromium desktop/390px/320px touch-emulation suite added to CI; execution pending. Local browser run blocked by listen EPERM and missing Chromium runtime."
+        "PASS GitHub Actions 39334355735 at 7f5c9f72ed5a629813cf35d998f3060e309a45f5: full repository asset gate, 18 engine + 18 DOM checks, real Chromium desktop campaign and 390px/320px touch-emulation checks; Tidepost regression also passed."
       ],
       "quality": {
         "enjoyment": "unrated: subjective gameplay assessment pending",
         "depth": "Five short handcrafted menus with flavour composition and growth planning; no duration claim",
-        "polish": "Original CSS mushroom art, responsive layout, native keyboard/touch-button inputs; rendered assessment pending",
-        "reliability": "18 engine + 18 emulated UI checks pass locally; rendered browser and full repository gates pending CI",
+        "polish": "Original CSS artwork; native keyboard focus, 44px visible button targets and no horizontal overflow at 390px/320px verified in Chromium; manual visual/enjoyment review pending.",
+        "reliability": "18 engine + 18 DOM checks and real Chromium desktop/touch-emulation suites passed in CI; full repository asset gate and Tidepost regression passed.",
         "variety": "Distinct garden/cooking resource puzzle, not a ferry-game reskin"
       },
       "selected": false,
@@ -96,13 +96,28 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Inspect CI desktop/touch and full-repository results; fix any observed failures",
         "Manually inspect visual layout and assess enjoyment/depth before marking finished or selecting",
-        "Implement candidate 03 Bolt & Bristle as a distinct tactile repair/cleaning loop"
+        "Implement candidate 03 Bolt & Bristle as a distinct tactile repair/cleaning loop",
+        "Before any public integration re-read main and apply only selected game/catalogue changes, preserving newer independent work"
       ],
       "developmentCommits": [
-        "ed72f25ae8873c2bd6c1c7395893070e36a69328"
-      ]
+        "ed72f25ae8873c2bd6c1c7395893070e36a69328",
+        "7f5c9f72ed5a629813cf35d998f3060e309a45f5"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39334355735",
+        "testedCommit": "7f5c9f72ed5a629813cf35d998f3060e309a45f5",
+        "conclusion": "success",
+        "desktop": "Workshop launch/back navigation, Tab/Enter and focus stability, all five complete services, upgrades, reload, undo including winning reward, confirmed retry and zero page errors",
+        "touch": "390x844 emulation: plant, undo, cook, optional hints, help, >=44px visible buttons; no horizontal overflow at 390px and 320px",
+        "notVerified": [
+          "Subjective enjoyment and depth assessment",
+          "Manual screenshot/layout review",
+          "Physical touch hardware",
+          "20 hours of worthwhile content",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 3,
@@ -484,8 +499,10 @@
       "improvedTotal": 2,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Built Spore Kitchen plus meaningful undo, recipe-planning, forecast and focus/save-hardening pass. 18 engine + 18 emulated UI checks pass; Tidepost 17+9 regressions pass. Real browser/full repository CI pending; nothing publicly integrated.",
-      "initialPlayableCommit": "ed72f25ae8873c2bd6c1c7395893070e36a69328"
+      "summary": "Built and meaningfully improved Spore Kitchen. Passed 18 engine + 18 DOM checks, real Chromium desktop five-service campaign and 390px/320px touch-emulation suites; full repository gate and Tidepost regressions passed in CI. No public integration.",
+      "initialPlayableCommit": "ed72f25ae8873c2bd6c1c7395893070e36a69328",
+      "implementationCommit": "7f5c9f72ed5a629813cf35d998f3060e309a45f5",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39334355735"
     }
   ]
 }
