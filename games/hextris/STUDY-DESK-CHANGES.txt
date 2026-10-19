@@ -1,0 +1,5 @@
+Bundled 2026-10-19 from https://github.com/Hextris/hextris
+Commit: 3f4847dc8fd7dab3d1c87e6324b9159d92fbd396
+License: GPL-3.0-or-later; original notice in LICENSE.md.
+Changes: added ../../bridge.js for PPP and visibility integration.
+Removed advertising, analytics, remote script injection and score submission; use system fonts.

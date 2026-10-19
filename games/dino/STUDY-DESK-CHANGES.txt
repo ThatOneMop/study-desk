@@ -1,0 +1,4 @@
+Integrated 2026-10-19. Source https://github.com/wayou/t-rex-runner
+Commit 5455bfa408ec6b707c7300ff194b7390733a766d
+Added PPP/visibility bridge before game scripts. Removed Google Analytics from Pac-Man and remote decorative font from Dino.
+Original credits and licences retained.

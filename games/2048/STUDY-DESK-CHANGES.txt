@@ -1,0 +1,5 @@
+Bundled 2026-10-19 from https://github.com/gabrielecirulli/2048
+Commit: 478b6ec346e3787f589e4af751378d06ded4cbbc
+License: MIT; original notice in LICENSE.txt.
+Changes: added ../../bridge.js for PPP and visibility integration.
+Replaced official-site wording with accurate bundled-copy wording.

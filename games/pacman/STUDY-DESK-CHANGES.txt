@@ -1,0 +1,4 @@
+Integrated 2026-10-19. Source https://github.com/bward2/pacman-js
+Commit 93f1bb08b8e8d4c511e7194b967b3d4fdf765681
+Added PPP/visibility bridge before game scripts. Removed Google Analytics from Pac-Man and remote decorative font from Dino.
+Original credits and licences retained.

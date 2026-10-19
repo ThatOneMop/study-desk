@@ -1,0 +1,4 @@
+Integrated 2026-10-19. Source https://github.com/danborden1/doom-web
+Commit e0ba81004e27e7d66141925dfebb091a558e2fe8
+Added PPP/visibility bridge before game scripts. Removed Google Analytics from Pac-Man and remote decorative font from Dino.
+Original credits and licences retained.

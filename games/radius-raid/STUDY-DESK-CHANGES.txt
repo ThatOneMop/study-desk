@@ -1,0 +1,4 @@
+Bundled 2026-10-19 from https://github.com/jackrugile/radius-raid-js13k
+Commit: 361ab5166570cfc8a29a4fc15c9afba566117b66
+License: MIT; original notice in LICENSE.md.
+Changes: added ../../bridge.js for PPP and visibility integration.
