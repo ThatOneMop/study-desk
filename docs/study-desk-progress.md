@@ -1,5 +1,25 @@
 # Study Desk improvement ledger
 
+## 2026-10-21 — pass 18
+
+Base Sites source: e3b80ab6c088dd13842dd512f694c61c8a56caaa (live version 26). GitHub base: ff03e826dd26a0e49ebd374201d2a46664b24d51. Reopened latest clean source through Sites workflow and verified the complete After Hours HTML matched GitHub before editing. Preserve independent community/Gummy Bay work and divergent progress-log history.
+
+### Implemented
+- Added a Copy or paste backup text section in After Hours Saves. Current validated run JSON and exact stored raw text can be displayed in a labelled read-only, selected textarea without relying on file download completion. Stored damaged data is shown unchanged, not repaired or executed.
+- Added labelled pasted-backup input with the existing 1 MB bound and full AfterHoursSaves validation. Restoration uses the existing confirmation and backup-first replacement path; the confirmation now identifies round, game cash and phase. Cancellation leaves the current run and input intact.
+- Download exceptions now reveal copyable text when possible. Successful download initiation points users to the text option if no file appears. No automatic clipboard access, external upload, account or new dependency was added.
+- The panel uses responsive full-width text areas, resize support and visible keyboard focus. Existing file import/export, game rules, catalogue, study features, save keys and sharing remain intact.
+
+### Validation
+- New after-hours-backup-text.cjs reproduced the absent text control, then passed read-only export/focus, valid restore and previous backup, cancellation, malformed/oversized input, exact damaged raw preservation, failed-download fallback, failed-storage replacement and clean reopening.
+- Full regression suites passed, including existing After Hours save/engine/keyboard coverage; asset audit verified 10 bundled routes and 19 HTML references. Diff/source checks passed.
+- Desktop Chrome launched After Hours from the collection, displayed an 8,840-character valid backup, and played a pair for 192 points with 3 hands remaining. Invalid pasted JSON was rejected; cancelling the valid restore kept 3 hands. Confirming restored the captured 4-hand/0-point run, with previous-save restoration available. Text was transferred through the visible fields; OS clipboard roundtrip was not tested.
+- Screenshot inspection confirmed the expanded scrollable panel, selected backup text, labels and focus outline. Physical mobile, screen-reader, file-picker and completed-download checks remain pending. This text route provides a tested alternative, not evidence that file downloads are now verified.
+
+### Pending
+- No new requested-title repository was vetted or added in this pass. Existing authorized-source/assets and identity blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft. After Hours is still accurately Balatro-inspired, not the commercial game.
+- Continue targeted quality work and source vetting without random replacements; preserve separately paused cleanup and stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-21 — pass 17
 
 Base Sites source: 1ad7957aefc0d5e6ba92309fff9fb2fda1028bad (live version 25). GitHub base: 26c2c1145559ab3257d95ff6b69bb6eb013741db. Reopened latest clean source through Sites workflow and verified app.js matched GitHub before editing. Preserve independent community work and each progress log's prior history.
