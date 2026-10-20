@@ -95,6 +95,7 @@ jobs:
         with:
           name: indie-candidate-screenshots
           path: |
+            /tmp/tidepost-*.png
             /tmp/bolt-and-bristle-*.png
             /tmp/queen-cinders-*.png
             /tmp/deep-pocket-*.png
