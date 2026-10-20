@@ -1,3 +1,7 @@
+# Run 20 · initial checkpoint
+
+20/20 playable prototypes · 19 meaningfully improved · 0 finished/selected/published. Echo Vault adds four original turn-based stealth vaults, directional beams, watcher/listener hearing, weighted corridor sound, noisy strides/relics, curtain hiding, recoverable/confiscatable chimes and saved folio/extraction records. Eight engine checks pass locally: legal all-leaf/zero-exposure routes17/18/24/21 turns, first with a real decoy; action-by-action saves, actual capture, resource bounds and100 seeded sessions. Eleven DOM checks authored; exact-source CI pending, new browser suite absent. Feasible references are not optimality, enjoyment or duration evidence. Meaningful intent/forecast/undo pass next. Main8f99173d29bcbcf429247766a605ca5cd39e9a54 inspected; independent After Hours focus work preserved. Public catalogue unchanged. With all20 slots playable, following work shifts to quality comparison/depth/polish rather than adding slots.
+
 # Run 19 · verified final outcome
 
 **19/20 playable prototypes · 19 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; Echo Vault is planned, not counted as a game. Next: **Echo Vault** — turn-based stealth using sound and enemy intent.
