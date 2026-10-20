@@ -1,5 +1,24 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 10
+
+Base Sites source: 42cdba60480bf441cdc4fe5e04e3e6d51ff42ef9 (live version 18). GitHub base: 3614abc6c1b3cf5780096617e47b0c97230e60dc. Latest source opened through Sites helper; shared bridge matched GitHub before editing.
+
+### Implemented
+- Shared pause cleanup previously emitted anonymous mouse-shaped pointer events on document, missing element-only pointer handlers and leaving native pointer capture unreleased. This affects gesture cleanup in games that use canvas/button capture (including Autumn Drift and Moon Salvage).
+- Track active pointer identities, coordinates and capture owners. Pause now sends pointercancel to each connected capture owner/original control (document fallback if detached), then explicitly releases capture. Completed/native-cancelled pointers are removed from tracking. Multiple touch/pen pointers are handled independently.
+- Cancellation does not synthesize pointerup on the control, avoiding accidental gesture completion there. Existing global resets, mouse/key cleanup, study features, catalogue, saves and audience remain unchanged.
+
+### Validation
+- Added bridge-pointer.cjs. Capture-release assertion failed on prior code and passed after the fix. Covers target/identity, touch and pen, simultaneous pointers, capture transfer, native completion/cancel, detached targets, idempotence and no element pointerup activation. jsdom uses an explicit PointerEvent/capture model; this is not physical-device verification.
+- All existing .cjs regression tests passed (After Hours, Underleaf, flashcards/bridge, curation and launcher suites). Asset check resolved 10 bundled routes/17 HTML references; bridge syntax and diff checks passed.
+- Desktop Chrome preview: Autumn Drift started, loading status cleared, Pause hid the frame, Resume restored it, and PPP returned to flashcards. Physical touch/pen capture, mobile layout and full playthroughs remain unverified.
+
+### Tiny Fishing source review (20 October 2026)
+- https://github.com/MajesticWafer/tiny-fishing at tree/ref 4928e7aa099eaf1ac4ddfb05b6e6ff6b86d2af67: inspected full recursive inventory, README and entry HTML. Contains a roughly 1.9 MB TinyFishing.js GameMaker HTML5 export, five texture PNGs, audio and Poki/GameAnalytics/GameSnacks extension files; no editable GameMaker project/build instructions or licence file in the complete tree.
+- Entry calls GameMaker_Init and references /js/main.js, which is absent from that repository; html5game/load.png is zero bytes. A self-contained/reliable launch has not been established. The README's contribution instructions do not provide a reuse licence or an original-creator asset grant. Not run or integrated.
+- No new games added. Other requested-title identity/provenance/reuse blockers remain; After Hours remains accurately labelled Balatro-inspired. Preserve independent game/community work and the separately paused cleanup task.
+
 ## 2026-10-20 — pass 9
 
 Base Sites source: 9bbdc1be0c9e49edb6b8a26be85a2e44e2054705 (live version 17). GitHub base: 179fb3f33cb3dab1ee7d57d76c8dc3d614025b34. Recovered fresh source through the Sites helper after workspace maintenance; HTML/save module matched GitHub. Prior progress was intact.
