@@ -1,3 +1,9 @@
+# Run 11 · Glasshouse meaningful improvement pass 1
+
+11/20 playable prototypes · 11 meaningfully improved · 0 finished/selected/published. Initial playable checkpoint 9eb48dd0eacd35921628062fe3d035939e89d5dc is preserved and passed its initial CI (new engine/DOM and earlier candidate browser suites; no Glasshouse browser suite yet). Added exact nonmutating growth/drought/light forecasts, offspring/height/needs previews, one-water plant relocation with immediate shade changes, full one-step undo including medals/discoveries/compost/wilting, native grid row/modifier guards and modal/history guards. Tightened new efficiency targets to actual baseline routes plus two days; earlier version-one par/score saves migrate safely.
+
+13 local engine checks pass: all six legal baseline exhibitions/every-action saves, exact forecasts throughout campaigns, relocation/conservation, earlier completed-score migration, new par calibration and 100 deterministic exploratory gardens. Sixteen DOM cases and real Chromium six-campaign/native keyboard/relocation/undo/390px-320px touch-emulation checks authored; improved-source CI pending. No local jsdom available; use the existing authorised candidate CI. Short prototype; no hours/enjoyment claim, public selection, integration or deployment. Next: Burrow Express.
+
 # Run 11 · Glasshouse initial playable checkpoint
 
 11/20 playable prototypes · 10 improved · 0 finished/selected/published. Read fresh development 66e57ea314db329f9408b2599321c873bff239de and main bc82be56e3de0e7ef83d526d31d1b38e4abfdbc2, recursive inventories (no AGENTS.md/root build), ledger/report/workshop/CI, current source/tests and latest main progress/README/hosting workflow. Local ledger/report/workshop/CI hashes match remote. Static no-build site; preserve newer main Autumn Drift keyboard, launcher, Underleaf, bridge pointer cleanup, Gummy Bay/requested-game/community work and Pages permission boundary.
