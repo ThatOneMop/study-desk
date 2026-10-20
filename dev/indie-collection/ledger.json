@@ -413,13 +413,14 @@
       ],
       "tests": [
         "7 local engine checks pass: all five baseline three-medal recoveries in 2258/5221/4948/5272/5611 simulated ticks, every-tick saves, actual repeated-impact loss/retry, inertia/braking, upgrade accounting and malformed saves. DOM checks authored, pending execution.",
-        "After pass: 10 local engine checks pass, including exact telemetry nonmutation, null/malformed nested saves, forged status rejection and 80 deterministic exploratory attempts (120,000 simulated frames). 13 DOM cases and actual Chromium desktop/native-clock/touch-emulated tests authored, pending exact-source CI."
+        "After pass: 10 local engine checks pass, including exact telemetry nonmutation, null/malformed nested saves, forged status rejection and 80 deterministic exploratory attempts (120,000 simulated frames). 13 DOM cases and actual Chromium desktop/native-clock/touch-emulated tests authored, pending exact-source CI.",
+        "PASS exact-source GitHub Actions 39369531384 at e184c8633067726b626139234791dac25d9adff9: full repository assets, 44 candidate references/exact20/isolation, 10 engine + 13 DOM checks, Chromium five legal recoveries through DOM keyboard input, native keyboard and native-clock RAF smoke, 390px/320px touch emulation. All seven earlier candidates engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected."
       ],
       "quality": {
-        "enjoyment": "Unrated; manual enjoyment review pending",
+        "enjoyment": "Preliminary manual desktop review: readable original night-depot layout, thrust/brake approach and first-object coupling/telemetry usable; no completed manual recovery or full enjoyment/depth assessment.",
         "depth": "Five short momentum-salvage jobs; baseline automated routes approximately 38/87/82/88/94 simulated seconds. Not human playtime and no duration claim.",
-        "polish": "Added readable DOM salvage manifest/docking telemetry, mobile following camera/edge labels, touch pulse and modal/focus guards. Exact-source rendered verification pending.",
-        "reliability": "10 engine checks pass locally; improved-source DOM/browser verification pending.",
+        "polish": "Original canvas night-depot art manually inspected on desktop. DOM cargo bearings and docking telemetry, coupling reticle, narrow 560-unit following camera/offscreen labels. >=44px targets and no 390px/320px page overflow verified in Chromium; mobile screenshot and physical hardware not manually reviewed.",
+        "reliability": "10 engine + 13 DOM and actual Chromium desktop/native-clock/touch-emulated checks pass on exact improved source, including 120,000 deterministic exploratory frames and earlier-game regressions. Manual mid-coupling reload retained cable/cargo and paused state.",
         "variety": "Distinct continuous inertia and spring-cable cargo towing, not a turn-based route or platformer reskin"
       },
       "selected": false,
@@ -427,13 +428,29 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify exact improved-source CI and inspect failures before counting any browser result",
-        "Manual visual/enjoyment and deeper replay review before finish/selection; no public URL yet",
-        "Implement candidate 09 Stone Song: sound/rhythm quarry puzzle, not another vehicle game"
+        "Implement candidate 09 Stone Song, a distinct sound/rhythm quarry puzzle",
+        "Revisit depth/enjoyment and remaining mobile review before finish/selection",
+        "Integrate only selected finished winners against fresh main; never wholesale-merge this historical development branch"
       ],
       "developmentCommits": [
-        "aecbf32e3f7b28a59ea2944ca8d595b2b735335b"
-      ]
+        "aecbf32e3f7b28a59ea2944ca8d595b2b735335b",
+        "e184c8633067726b626139234791dac25d9adff9"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39369531384",
+        "testedCommit": "e184c8633067726b626139234791dac25d9adff9",
+        "conclusion": "success",
+        "desktop": "Native keyboard thrust/brake/pause, mid-run reload/retry; all five legal three-medal recoveries with browser DOM keyboard events under deterministic clock, workshop/records/navigation. Separate native-clock RAF movement/retry-cancel focus/pause smoke. Zero page errors.",
+        "touch": "390x844 emulation quick thrust tap exactly once, pause/retry, 560-unit following camera, >=44px visible buttons and no page overflow at 390px/320px.",
+        "manual": "Managed cloud-browser desktop art/onboarding inspection, native thrust/brake approach, coupling Lunchbox, telemetry/manifest, pause and mid-coupling reload; not a full recovery/playthrough.",
+        "notVerified": [
+          "Full subjective enjoyment/replay depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 9,
@@ -755,6 +772,18 @@
       "initialPlayableCommit": "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55",
       "implementationCommit": "8898a68f1dd1bd2231d6d9b6f79d4774e88dd993",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39364833774"
+    },
+    {
+      "run": 8,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 8,
+      "improvedTotal": 8,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Scrap Orbit. Exact source passes 10 engine + 13 DOM, Chromium five legal recoveries, native keyboard/RAF and touch-emulation checks; repository and earlier-game regressions pass. Manual desktop first-object approach/coupling/reload reviewed, not complete recovery. Development-only; deeper enjoyment/depth and physical touch remain open.",
+      "initialPlayableCommit": "aecbf32e3f7b28a59ea2944ca8d595b2b735335b",
+      "implementationCommit": "e184c8633067726b626139234791dac25d9adff9",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39369531384"
     }
   ]
 }
