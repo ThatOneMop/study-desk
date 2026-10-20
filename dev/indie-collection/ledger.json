@@ -682,19 +682,31 @@
       "id": "little-foundry",
       "title": "Little Foundry",
       "coreLoop": "Heat and casting manual craft progression",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/little-foundry/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six original hand-poured fantasy castings; weigh alloys, manage glow/fuel, trickle/stream different section thicknesses, handle rough/cold/wrong-alloy losses, saved maker seals and commission unlocks."
+      ],
+      "tests": [
+        "9 local engine checks passed; six clean three-seal campaigns serialize every action; 100 seeded exploratory sessions conserve material/fuel/glow.",
+        "11 DOM checks authored; initial CI execution pending. No new-candidate browser certification yet."
+      ],
+      "quality": {
+        "enjoyment": "Unassessed; synthetic solutions do not establish enjoyment.",
+        "depth": "Six short alloy/heat/pour commissions; no duration claim.",
+        "polish": "Original light-paper workshop and sand-mould silhouettes; native responsive tools and onboarding implemented, improvement pending.",
+        "reliability": "Engine checks local; exact-source interface/browser tests pending.",
+        "variety": "Manual weighing, thermal planning and variable-flow casting, distinct from rail, colony, fishing, gardening and action candidates."
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful improvement: pour-risk forecasts, full craft undo, clearer heat/alloy feedback and focus.",
+        "Execute exact-source interface/browser campaigns and assess rendered play before selection."
       ]
     },
     {

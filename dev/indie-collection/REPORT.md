@@ -1,3 +1,7 @@
+# Run 13 · initial checkpoint
+
+13/20 playable prototypes · 12 meaningfully improved · 0 finished/selected/published. Little Foundry initial six-commission alloy/heat/pour craft game implemented. Nine local engine checks passed; legal clean three-seal solutions use fuel 5/5/6/6/6/6 and 19/19/20/22/22/22 craft actions, serializing after each. Includes rough/cold/wrong-alloy failures and 100 seeded craft sessions. Eleven interface checks authored, pending CI; no new-candidate browser result yet. Next: meaningful forecast/undo/control pass. Main inspected at 5a5b214515aa55af26a7fe81965c9d33bfdec307, preserving separate Autumn Drift save-safety work. All source stays development-only; no public integration/deployment or duration claim.
+
 # Run 12 · verified final outcome
 
 **12/20 playable prototypes · 12 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; eight planned candidates are not counted as games. Next: **Little Foundry** — heat and casting manual craft progression.
