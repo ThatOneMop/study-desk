@@ -360,13 +360,14 @@
         "Initial commit 7328cbf3048e6f503d42f6a60b0cc8627ba2ed55 passed CI 39364116464: inspected job steps/logs confirm 8 Roof Runner engine + 12 DOM checks, complete repository assets and all six earlier games' engine/DOM/browser regressions. Initial checkpoint had no Roof Runner browser suite.",
         "Pass 1 local: 13 engine checks pass, including five all-parcel/no-fall routes at 277/295/307/367/343 ticks, every-tick save roundtrips, jump-grace/buffer/variable-height fixtures, v1 migration and 120 deterministic exploratory attempts. 16 DOM and deterministic-clock/native-clock Chromium desktop/touch checks authored; exact improved CI pending.",
         "Improved commit 017893d419bdcabb5f77194656442c46c1b58efa passed CI 39364552189: 13 engine + 16 DOM checks, actual Chromium five-route deterministic-clock keyboard campaign, touch-emulation quick taps/44px targets/390px and 320px layout, native-clock RAF movement/pause smoke and all earlier-game regressions. Steps and decoded logs inspected.",
-        "Follow-through changes add 2 DOM regressions (18 total) and native-clock retry-cancel focus coverage. Exact latest-source verification pending; prior successful CI is not claimed for later changes."
+        "Follow-through changes add 2 DOM regressions (18 total) and native-clock retry-cancel focus coverage. Exact latest-source verification pending; prior successful CI is not claimed for later changes.",
+        "PASS exact final implementation 8898a68f1dd1bd2231d6d9b6f79d4774e88dd993 / CI 39364833774: inspected steps and decoded logs confirm 13 engine + 18 DOM checks; all five actual-keyboard three-medal/checkpoint routes with deterministic physics clock; 390px touch emulation, 44px targets, mobile camera and 390px/320px overflow; native-clock RAF jump/movement, retry-cancel focus and pause; full repository assets and all six earlier-game regressions."
       ],
       "quality": {
-        "enjoyment": "unrated: manual playtest pending",
+        "enjoyment": "Unrated: manual preview access was denied; automated legal play is not subjective enjoyment assessment.",
         "depth": "Five very short handmade platform routes, optional parcel and fall-free medals. No hour claim; replay depth needs expansion/assessment.",
-        "polish": "Original city art; Chromium verifies stable focus, single-tap latching, >=44px controls and no 390px/320px overflow. Enlarged 480px logical mobile camera. Manual art/enjoyment review and physical touch remain unverified.",
-        "reliability": "Improved physics/source passed 13 engine + 16 DOM and desktop/touch/native-clock Chromium CI. Final focus/record follow-through has 18 DOM tests; exact latest CI pending.",
+        "polish": "Original canvas city art; >=44px controls, no 390px/320px overflow, 480px logical mobile camera, quick-tap latch, active retry-cancel focus and visible independent medal/time records verified in Chromium. Manual visual/enjoyment review and physical touch remain unverified.",
+        "reliability": "13 engine + 18 DOM checks and deterministic-clock desktop/touch-emulated Chromium plus native-clock RAF/control smoke pass on exact final implementation 8898a68f; full repository assets, isolated 20-slot ledger and all six earlier-game regressions pass.",
         "variety": "First real-time action platformer candidate; distinct from six earlier deliberate games."
       },
       "selected": false,
@@ -374,25 +375,25 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify exact improved CI engine/DOM/Chromium suites and fix any observed failures.",
-        "Assess deeper replay/enjoyment before selection; five short action routes are not a long-form game.",
-        "Candidate 08 Scrap Orbit next. Integrate only strongest completed candidates against fresh main; preserve independent work and hosting boundary."
+        "Deepen and manually assess the five short routes' enjoyment, difficulty curve and worthwhile replay before selection; no hour claim.",
+        "Next candidate 08 Scrap Orbit: momentum-based salvage and orbital docking.",
+        "Only integrate strongest finished winners against fresh main with scoped game/catalogue edits; preserve concurrent Study Desk, requested-game, community and Gummy Bay work and the existing hosting permission boundary."
       ],
       "developmentCommits": [
         "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55",
-        "017893d419bdcabb5f77194656442c46c1b58efa"
+        "017893d419bdcabb5f77194656442c46c1b58efa",
+        "8898a68f1dd1bd2231d6d9b6f79d4774e88dd993"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39364552189",
-        "testedCommit": "017893d419bdcabb5f77194656442c46c1b58efa",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39364833774",
+        "testedCommit": "8898a68f1dd1bd2231d6d9b6f79d4774e88dd993",
         "conclusion": "success",
-        "desktop": "Deterministic-clock Chromium all five keyboard all-parcel/no-fall routes and checkpoints; pause, reload, retry, medals, progression and launch/back; native-clock RAF jump/movement/pause smoke",
-        "touch": "390px touch emulation: single quick-tap jump/dash, pause/retry; >=44px targets, 480px logical camera, no page overflow at 390px/320px",
+        "desktop": "Deterministic-clock actual keyboard five all-parcel/no-fall/checkpoint routes; focus, pause, midair reload, confirmed retry, medals, records, progression and launch/back. Separate native-clock RAF jump/movement/retry-cancel focus/pause smoke.",
+        "touch": "390x844 emulation: quick-tap jump/dash edges once, pause/retry, >=44px visible buttons, 480px logical mobile camera and no page overflow at 390px/320px.",
         "notVerified": [
-          "Exact follow-through focus/record source CI (pending)",
-          "Subjective enjoyment/deeper replay and manual visual review",
+          "Subjective enjoyment/deeper replay assessment and manual visual review (cloud preview access blocked)",
           "Physical touch hardware",
-          "20 hours of content or testing",
+          "20 hours of worthwhile content or testing",
           "Public catalogue integration/deployment"
         ]
       }
@@ -683,14 +684,60 @@
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39334355735"
     },
     {
+      "run": 3,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 3,
+      "improvedTotal": 3,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Historical run record reconciled from existing candidate source ledger and report: Bolt & Bristle implemented and meaningfully improved; exact source CI passed. Remained an unselected short prototype.",
+      "implementationCommit": "93cad09427e3e9b8039de707bb3ef2c321662fa8",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39341121697"
+    },
+    {
+      "run": 4,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 4,
+      "improvedTotal": 4,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Historical run record reconciled from existing candidate source ledger and report: Queen of Cinders implemented and meaningfully improved; exact source CI passed. Remained an unselected short prototype.",
+      "implementationCommit": "6310e921cdda9631082df02a7d41410bb2e816eb",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39348588819"
+    },
+    {
+      "run": 5,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 5,
+      "improvedTotal": 5,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Historical run record reconciled from existing candidate source ledger and report: Inkline implemented and meaningfully improved; exact source CI passed. Remained an unselected short prototype.",
+      "implementationCommit": "24efb955cd8470b7d6b0da2b308d79917ce6d1a0",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39353515131"
+    },
+    {
+      "run": 6,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 6,
+      "improvedTotal": 6,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Historical run record reconciled from existing candidate source ledger and report: Deep Pocket implemented and meaningfully improved; exact source CI passed. Remained an unselected short prototype.",
+      "implementationCommit": "5336031a3725fdf923eb105eddc64a7ee75c9cc3",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39358785979"
+    },
+    {
       "run": 7,
       "date": "2026-10-20",
       "initialPlayableTotal": 7,
       "improvedTotal": 7,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Built and improved Roof Runner; 13 engine + 16 DOM and desktop/touch/native-clock Chromium suites pass at 017893d4. Final focus/record follow-through source verification pending.",
-      "initialPlayableCommit": "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55"
+      "summary": "Built and meaningfully improved Roof Runner. Exact final source passes 13 engine + 18 DOM, deterministic-clock desktop/touch Chromium and native-clock movement/retry-cancel focus/pause checks; full repository assets and six earlier-game regressions pass. Manual enjoyment/visual review blocked. No public integration.",
+      "initialPlayableCommit": "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55",
+      "implementationCommit": "8898a68f1dd1bd2231d6d9b6f79d4774e88dd993",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39364833774"
     }
   ]
 }
