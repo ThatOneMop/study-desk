@@ -49,10 +49,13 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/queen-cinders-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/inkline-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/deep-pocket-browser.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/roof-runner-browser.cjs
       - name: Candidate visual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: deep-pocket-screenshots
-          path: /tmp/deep-pocket-*.png
+          name: indie-candidate-screenshots
+          path: |
+            /tmp/deep-pocket-*.png
+            /tmp/roof-runner-*.png
           if-no-files-found: ignore

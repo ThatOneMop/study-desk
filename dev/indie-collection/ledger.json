@@ -348,19 +348,22 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/roof-runner/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: five original rooftop courier routes, jump/air-dash physics, three optional parcels per route, checkpoints, winds/conveyors/steam vents, eight-fall loss/retry, three-medal route records, locked progression, keyboard/touch controls and guarded versioned saves. Side roofs calibrated to baseline jump height."
+        "Initial playable: five original rooftop courier routes, jump/air-dash physics, three optional parcels per route, checkpoints, winds/conveyors/steam vents, eight-fall loss/retry, three-medal route records, locked progression, keyboard/touch controls and guarded versioned saves. Side roofs calibrated to baseline jump height.",
+        "Pass 1: six-frame coyote time and early-jump buffer, variable jump height, latched sub-frame touch jump/dash taps, mobile camera enlarged to 480 logical pixels, stable route-button focus, held-input cleanup on blur/parent suspension, checkpoint/parcel/fall immediate saves, and backward migration of initial v1 saves."
       ],
       "tests": [
         "8 local engine checks passed: all five actual-physics three-medal routes, checkpoint recovery, losses/retry, replay/progression and every-tick save decoding. Baseline solutions 289/295/325/361/343 ticks (automated paths, not human session lengths).",
-        "12 DOM checks authored; execution pending CI. Browser controls/layout not yet verified."
+        "12 DOM checks authored; execution pending CI. Browser controls/layout not yet verified.",
+        "Initial commit 7328cbf3048e6f503d42f6a60b0cc8627ba2ed55 passed CI 39364116464: inspected job steps/logs confirm 8 Roof Runner engine + 12 DOM checks, complete repository assets and all six earlier games' engine/DOM/browser regressions. Initial checkpoint had no Roof Runner browser suite.",
+        "Pass 1 local: 13 engine checks pass, including five all-parcel/no-fall routes at 277/295/307/367/343 ticks, every-tick save roundtrips, jump-grace/buffer/variable-height fixtures, v1 migration and 120 deterministic exploratory attempts. 16 DOM and deterministic-clock/native-clock Chromium desktop/touch checks authored; exact improved CI pending."
       ],
       "quality": {
         "enjoyment": "unrated: manual playtest pending",
         "depth": "Five very short handmade platform routes, optional parcel and fall-free medals. No hour claim; replay depth needs expansion/assessment.",
-        "polish": "Original procedural canvas city art and responsive CSS; rendered/physical touch review pending.",
-        "reliability": "8 local engine checks pass. DOM/browser verification pending.",
+        "polish": "Original city canvas art; 480px logical mobile view, stable keyboard focus, forgiving jump controls and quick-tap latching implemented. Exact rendered checks pending; manual cloud preview blocked by browser access, physical touch unverified.",
+        "reliability": "13 local engine checks pass on improved physics. Initial CI engine/DOM passed; exact improved DOM/Chromium CI pending.",
         "variety": "First real-time action platformer candidate; distinct from six earlier deliberate games."
       },
       "selected": false,
@@ -368,11 +371,13 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful control polish: coyote time, jump buffering, variable jump height, stronger checkpoint/save/input validation and narrow-screen view.",
-        "Execute DOM and browser checks; assess enjoyment/depth before selection.",
-        "Candidate 08 Scrap Orbit next; integrate only finished selected games against fresh main."
+        "Verify exact improved CI engine/DOM/Chromium suites and fix any observed failures.",
+        "Assess deeper replay/enjoyment before selection; five short action routes are not a long-form game.",
+        "Candidate 08 Scrap Orbit next. Integrate only strongest completed candidates against fresh main; preserve independent work and hosting boundary."
       ],
-      "developmentCommits": []
+      "developmentCommits": [
+        "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55"
+      ]
     },
     {
       "slot": 8,
@@ -658,6 +663,16 @@
       "initialPlayableCommit": "ed72f25ae8873c2bd6c1c7395893070e36a69328",
       "implementationCommit": "7f5c9f72ed5a629813cf35d998f3060e309a45f5",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39334355735"
+    },
+    {
+      "run": 7,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 7,
+      "improvedTotal": 7,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built Roof Runner and meaningful movement/mobile/save-control pass. Initial checkpoint CI passed; 13 improved engine checks pass locally; exact improved DOM/browser CI pending.",
+      "initialPlayableCommit": "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55"
     }
   ]
 }
