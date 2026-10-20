@@ -749,27 +749,47 @@
         "Pass 1: pure departure/pickup/home forecasts including busy boats and future tide windows, exact next-beat deadline/event preview, moving vessel chart markers, optional visible-token/clue compatibility check without hidden-truth auto-fill, 100-action session undo through radio/missions/losses/rewards, per-tab unconfirmed drafts, confirmed-value reload alignment and stricter saved elapsed/departure validation."
       ],
       "tests": [
-        "PASS initial CI 39408316642 at 134810db2d44da6140e736ebbf3551b8ba4ce1ac: 10 engine + 11 DOM and thirteen earlier candidates' browser regressions. Storm Signal browser suite not yet present.",
-        "15 improved engine checks passed locally; 18 improved DOM checks and six-campaign native-keyboard/touch browser suite authored, exact-source CI pending."
+        "PASS initial checkpoint 134810db2d44da6140e736ebbf3551b8ba4ce1ac: CI 39408316642, 10 Storm Signal engine + 11 DOM checks and thirteen earlier candidates' browser regressions. Storm Signal browser suite not yet present in initial checkpoint.",
+        "PASS exact improved-source CI 39408976984 at 65825629c096956aaec488264f51b6b69ae620af: 15 Storm Signal engine + 18 DOM checks, real Chromium desktop and touch emulation, full repository asset gate and all thirteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-commendation watches use storm beats 5/13/6/7/8/7, rescans 3/2/3/4/3/3 and 14/21/15/19/19/18 actions. Every engine action serializes; pure forecasts match campaign dispatch/advance outcomes; deadline arrival failure, cargo gear/tides, misreads, impossible saved departure times and 100 seeded sessions covered. Synthetic rule checks are not human playtime.",
+        "Chromium: native arrows/Enter/Space/Z and focus, exact saved radio/boat reload, six actual DOM-button deduction/rescue campaigns, forecasts, deadline loss/undo, earned-commendation rollback/replay, confirmed-control alignment, unlocks and workshop launch/back. Touch taps apply once, moving marker/undo/reload/retry covered; >=44px visible buttons/select and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: original receiver/chart/notebook inspected; decoded first-watch coast/cargo with three selective rescans, dispatched Wren, waited to tide two, dispatched Heron and Wren, brought all three calls home at beat five for three commendations. Winning return undo/replay, saved completion reload and next-watch signal-one focus verified. Preview stopped."
       ],
       "quality": {
-        "enjoyment": "Unassessed; synthetic schedules do not establish enjoyment.",
-        "depth": "Six compact deduction/dispatch watches; no duration claim.",
-        "polish": "Original cyan/amber harbour receiver, fictional radar chart and codebook; controls/onboarding implemented, improvement pending.",
-        "reliability": "Local engine checks pass; interface/browser execution pending.",
-        "variety": "Information deduction followed by asynchronous specialist-boat scheduling; not direct ferry movement or rail drafting."
+        "enjoyment": "Opening watch manually legible/playable; code ambiguity and future tide/boat choices form distinct decisions. Full six-watch subjective enjoyment/replay-depth review remains open; tests do not establish fun.",
+        "depth": "Six compact partial-code and rescue-scheduling watches, specialist fleet unlock and score-focused replay. Broader schedule/decoding variety and replay depth need comparison; no content-duration claim.",
+        "polish": "Original cyan/amber receiver, fictional chart and notebook; moving boat markers, departure/home/deadline forecasts, optional clue-only checker, undo, explicit per-tab draft scope, confirmed-save alignment and responsive native controls/onboarding implemented. Manual mobile review remains open.",
+        "reliability": "Exact improved source passes 15 engine + 18 DOM plus desktop/touch Chromium, repository and thirteen earlier-game regressions. Save corruption/concurrency/failures, deadline/misread losses, retries, reward rollback and navigation covered within tested cases.",
+        "variety": "Information deduction plus asynchronous specialist-boat scheduling and tide windows; not the direct grid-ferry movement or shared-track rail drafting of earlier candidates."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Not selected: tested initial/improvement gates passed, but compact prototype still needs full subjective enjoyment/depth/variety review and comparison before finished designation.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Execute exact improved-source interface/browser regressions and inspect rendered decoding/dispatch.",
-        "Assess full watches for satisfaction, decision variety and replay depth; remain development-only until finished/selected."
+        "Manually play all six watches and explore alternative deductions, rescan choices and fleet schedules; assess variety and replay depth.",
+        "Review CI mobile screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
+        "Keep development-only; integrate only finished selected winners into fresh main without overwriting concurrent Study Desk/Gummy Bay/requested-game work."
       ],
       "developmentCommits": [
-        "134810db2d44da6140e736ebbf3551b8ba4ce1ac"
-      ]
+        "134810db2d44da6140e736ebbf3551b8ba4ce1ac",
+        "65825629c096956aaec488264f51b6b69ae620af"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39408976984",
+        "testedCommit": "65825629c096956aaec488264f51b6b69ae620af",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and focus; exact radio/boat reload; six legal three-commendation DOM-button decoding/dispatch campaigns, forecasts, deadline loss/undo, earned-reward rollback/replay, confirmed dropdown alignment, unlocks and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once scan/log/dispatch/beat taps, radio accounting/undo, moving vessel marker, exact mission reload/retry cancel, first watch win/saved unlock, >=44px visible buttons/select and no 390px/320px page overflow.",
+        "manual": "Managed cloud browser desktop: original receiver/chart/notebook and closed-cut future-departure forecasts inspected; decoded first three signals with selective cargo/coast rescans, Wren first run, waited to tide two, dispatched Heron and Wren, all three calls home at beat five with three commendations. Undid final return, saw two-home/one-returning and unbanked record, replayed/reloaded completion and entered watch two with signal one selected/focused. Preview stopped.",
+        "notVerified": [
+          "Full six-watch subjective enjoyment/decision-variety and replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 15,
@@ -1047,6 +1067,19 @@
       "implementationCommit": "212d8d916c48e041d159255a085d086e5caedb6a",
       "verifiedCommit": "94ec4ccd69c259e5cf2878207cbbd41a30ef7823",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39401418646"
+    },
+    {
+      "run": 14,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 14,
+      "improvedTotal": 14,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Storm Signal: six fictional partial-code/rescue watches. Exact source passes 15 engine + 18 DOM, six Chromium legal campaigns, native keyboard/touch emulation and repository/thirteen earlier-game regressions. Manually completed opening watch with three commendations, winning undo/replay/reload and next-watch focus. Development-only; full enjoyment/variety/depth and manual mobile review remain.",
+      "initialPlayableCommit": "134810db2d44da6140e736ebbf3551b8ba4ce1ac",
+      "implementationCommit": "65825629c096956aaec488264f51b6b69ae620af",
+      "verifiedCommit": "65825629c096956aaec488264f51b6b69ae620af",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39408976984"
     }
   ]
 }
