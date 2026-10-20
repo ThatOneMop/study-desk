@@ -1,3 +1,11 @@
+# Run 5 · Inkline initial playable · 20 October 2026
+
+**5/20 playable prototypes · 4 meaningfully improved · 0 finished/selected/publicly published.** Re-read exact development head c9a8d2f91afca6ca33b433190a1242853345e5fd, current main ef71a9c705d8ac82eb28c12731cc9c5cd60699b6, recursive instruction inventory (no AGENTS.md), README, latest main pass-5 launcher ledger, static/no-build hosting workflow, source/test conventions and the full 20-slot ledger. Preserve all concurrent main/Study Desk/Gummy Bay/requested-game work and existing hosting permission boundary.
+
+Inkline is original card-drafting spatial exploration: three-card cycling hand, five handmade archive volumes, draft new techniques every fourth action, ink wells, binding hazards, optional fourth pages, extraction, best-only seals, two between-volume upgrades, locked progression, confirmed retry and versioned saves. Original CSS/text art, no imported games/assets. Initial 10 engine checks and 13 jsdom UI checks pass. Actual-engine legal baseline four-page routes take 12/8/10/11/9 turns; every-action saves and upgraded campaign pass. These are automated action counts, not human playtimes. Initial efficiency targets are too generous and are a concrete improvement item.
+
+Core, win/loss, deck/draft conservation, all five UI campaigns, keyboard/focus, upgrades, replay rewards, reload/retry and corrupted/concurrent/blocked/quota save checks pass locally. Rendered browser/touch, complete legacy repository assets, subjective enjoyment/depth and public deployment are not yet verified for this candidate. No public catalogue/main edits. Next: meaningful improvement pass and exact-source browser/CI verification.
+
 # Run 4 · verified final outcome
 
 **4/20 playable prototypes · 4 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained; 16 planned slots are not counted as implemented games. Next candidate: **Inkline**.
