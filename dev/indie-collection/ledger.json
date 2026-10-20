@@ -522,7 +522,8 @@
       ],
       "tests": [
         "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending.",
-        "After improvement: 13 local engine checks, including all five unchanged baseline legal campaigns/every-tick saves, exact nonmutating clipped beam/target telemetry, fuel-exhaustion fixture, ready-purchase guard and 100 deterministic exploratory campaigns with real losses. 14 DOM cases plus desktop/native-clock/touch-emulated browser suites authored; improved-source CI pending."
+        "After improvement: 13 local engine checks, including all five unchanged baseline legal campaigns/every-tick saves, exact nonmutating clipped beam/target telemetry, fuel-exhaustion fixture, ready-purchase guard and 100 deterministic exploratory campaigns with real losses. 14 DOM cases plus desktop/native-clock/touch-emulated browser suites authored; improved-source CI pending.",
+        "CI 39380616187 at 96f02bb0: full repository/candidate gates, 13 engine and 14 DOM checks passed. Browser setup failed at movement assertion because fake RAF timestamps did not also override performance.now used by the real shared pause bridge. Harness corrected to align both clocks; game source unchanged; rerun required before rendered certification."
       ],
       "quality": {
         "enjoyment": "Unrated; manual gameplay pending",
