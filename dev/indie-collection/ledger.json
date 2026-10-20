@@ -972,30 +972,34 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/threadbound/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: four original canopy crossings with gravity/pendulum tether physics, unilateral reelable ropes, momentum-preserving transfers/releases, pale one-way branches, checkpoint knots, optional silver seeds, no-life-limit safety returns, sequential lantern unlocks and saved motion/best stitches."
+        "Initial playable: four original canopy crossings with gravity/pendulum tether physics, unilateral reelable ropes, momentum-preserving transfers/releases, pale one-way branches, checkpoint knots, optional silver seeds, no-life-limit safety returns, sequential lantern unlocks and saved motion/best stitches.",
+        "Pass 1: pure 2.5-second release trajectory/landing forecasts from the actual integrator, mint/coral dotted preview, exact pin distances and range guidance, east-preferring reachable-pin transfer shortcut, six-frame coyote/buffered jump grace and backward-compatible saved grace fields."
       ],
       "tests": [
-        "PASS locally: 7 engine checks. Four legal all-seed/no-fall reference crossings land on actual checkpoints and finish in 406/411/419/498 fixed steps. 27,000 seeded mixed-input steps remain finite and saveable. Eleven DOM checks authored; exact-source CI pending. No new browser suite yet."
+        "PASS initial 67665ba5518b586602c7ddb3ed35d986ae03bd5c: CI 39434927740, 7 engine+11 DOM, repository/candidate gates and all seventeen earlier-game browser regressions. New Threadbound browser suite absent in initial checkpoint.",
+        "PASS improved locally: 12 engine checks, four legal all-seed/no-fall reference routes, real checkpoint return, exact nonmutating forecast/live-physics parity, assist velocity conservation, coyote/buffered jumps, old-save migration and 27,000 seeded mixed-input steps. Thirteen DOM checks and new Chromium desktop/touch/native-RAF suite authored; exact-source CI pending."
       ],
       "quality": {
         "enjoyment": "Untested subjectively; synthetic reference crossings establish feasibility only.",
         "depth": "Four short handmade grapple crossings. Optional seeds, clean-route stitches, breeze and elevated exit. Longer progression/replay depth unassessed; no duration claim.",
-        "polish": "Original code-drawn moth/forest/thread, native keyboard/pointer/touch controls and explicit onboarding. Rendered review pending.",
-        "reliability": "Seven local engine checks pass, including legal progression, range guards, reeling, momentum, fall, saves and seeded movement. DOM/browser verification pending.",
+        "polish": "Original moth/forest/thread art, range/trajectory guidance, reachable-pin assistance and forgiving branch-edge jumps. Rendered desktop review underway.",
+        "reliability": "Initial 7 engine+11 DOM/all seventeen earlier-game suites passed CI. Improved 12 local engine checks pass; exact-source DOM/browser verification pending.",
         "variety": "Pendulum grappling, reeling and in-air transfers; mechanically distinct from jump/dash rooftops and top-down salvage."
       },
       "selected": false,
-      "selectionReason": "Not selected: initial prototype needs meaningful improvement, browser verification and subjective controls/enjoyment/depth review.",
+      "selectionReason": "Not selected: initial/improvement implemented, but exact improved browser verification, subjective controls and compact-content replay-depth review remain.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Improve grapple targeting/control feedback after initial checkpoint.",
-        "Verify DOM, desktop/touch, exact saves, restart and navigation; manually play traversal.",
-        "Keep development-only pending finished quality comparison."
+        "Verify improved source in CI; manually inspect and play grappling controls.",
+        "Assess all four crossings and alternative seed/clean routes for enjoyment and depth before finished status.",
+        "Preserve development-only until comparison and deliberate public selection."
       ],
-      "developmentCommits": []
+      "developmentCommits": [
+        "67665ba5518b586602c7ddb3ed35d986ae03bd5c"
+      ]
     },
     {
       "slot": 19,
@@ -1250,10 +1254,11 @@
       "run": 18,
       "date": "2026-10-21",
       "initialPlayableTotal": 18,
-      "improvedTotal": 17,
+      "improvedTotal": 18,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Initial Threadbound playable checkpoint: four original physics-based grapple crossings. Seven engine checks locally; DOM/browser pending. Improvement pass next."
+      "summary": "Built and meaningfully improved Threadbound: four original grapple-physics crossings, exact release forecasts, reachable-pin assist and jump grace. Initial CI passed 7 engine+11 DOM/all seventeen earlier-game browsers; improved 12 engine pass locally, browser verification pending.",
+      "initialPlayableCommit": "67665ba5518b586602c7ddb3ed35d986ae03bd5c"
     }
   ]
 }
