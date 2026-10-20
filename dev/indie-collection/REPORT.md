@@ -1,3 +1,9 @@
+# Run 7 · Roof Runner initial playable checkpoint
+
+7/20 playable prototypes, 6 improved, 0 finished/selected/published. Inspected development head 62ad32392b263d0919b5599876b0389366e90e58 and main e54ebdcd4acef396177b0397a32c84f0a1d927a1, both recursive inventories (no applicable AGENTS.md or root compilation step), main progress ledger, development ledger/report, existing source and test/CI conventions. Current main contains independent launcher/Gummy Bay/community/requested-game work and is not overwritten. No hosting permission changes.
+
+Built five original real-time courier platform routes with optional parcel detours, jump/air dash, checkpoints, winds, conveyor roofs, pulsing steam, losses/retry, best-only medals/time records, progression, guarded autosave and keyboard/touch input. Original canvas art only. Found and corrected unreachable side-roof heights before counting the playable. Eight local engine checks pass, including every-physics-tick save roundtrips, all five no-fall/all-parcel routes (289/295/325/361/343 automated ticks), actual checkpoint recovery, eight-fall loss, progression/replay and malformed saves. Twelve DOM checks authored, not yet executed. These are very short routes; no 20-hour content/testing claim. Unselected pending control improvement and rendered enjoyment/replay assessment. Initial source checkpoint is development-only.
+
 # Run 6 · verified final outcome
 
 **6/20 playable prototypes · 6 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots remain, with 14 planned slots not counted as games. Next: **Roof Runner**, a courier platformer, to expand action variety.

@@ -345,20 +345,34 @@
       "id": "roof-runner",
       "title": "Roof Runner",
       "coreLoop": "Precision courier platformer with optional route challenges",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/roof-runner/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: five original rooftop courier routes, jump/air-dash physics, three optional parcels per route, checkpoints, winds/conveyors/steam vents, eight-fall loss/retry, three-medal route records, locked progression, keyboard/touch controls and guarded versioned saves. Side roofs calibrated to baseline jump height."
+      ],
+      "tests": [
+        "8 local engine checks passed: all five actual-physics three-medal routes, checkpoint recovery, losses/retry, replay/progression and every-tick save decoding. Baseline solutions 289/295/325/361/343 ticks (automated paths, not human session lengths).",
+        "12 DOM checks authored; execution pending CI. Browser controls/layout not yet verified."
+      ],
+      "quality": {
+        "enjoyment": "unrated: manual playtest pending",
+        "depth": "Five very short handmade platform routes, optional parcel and fall-free medals. No hour claim; replay depth needs expansion/assessment.",
+        "polish": "Original procedural canvas city art and responsive CSS; rendered/physical touch review pending.",
+        "reliability": "8 local engine checks pass. DOM/browser verification pending.",
+        "variety": "First real-time action platformer candidate; distinct from six earlier deliberate games."
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
-      ]
+        "Meaningful control polish: coyote time, jump buffering, variable jump height, stronger checkpoint/save/input validation and narrow-screen view.",
+        "Execute DOM and browser checks; assess enjoyment/depth before selection.",
+        "Candidate 08 Scrap Orbit next; integrate only finished selected games against fresh main."
+      ],
+      "developmentCommits": []
     },
     {
       "slot": 8,
