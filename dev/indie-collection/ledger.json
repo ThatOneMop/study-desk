@@ -292,28 +292,36 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/deep-pocket/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: five handcrafted field trips, six original fish pull patterns, bank/depth/tide selection, deliberate tension controls, keep/release/survey goals, escape/cast limits, best-only medals, equipment, journal and versioned autosaves with corrupt/concurrent-write protection."
+        "Initial playable: five handcrafted field trips, six original fish pull patterns, bank/depth/tide selection, deliberate tension controls, keep/release/survey goals, escape/cast limits, best-only medals, equipment, journal and versioned autosaves with corrupt/concurrent-write protection.",
+        "Pass 1: exact nonmutating tension/distance/escape/landing forecasts and catch-decision goal forecasts; one-step undo reverses cast, fight, escape, journal, catch decision and full medal reward; navigation/upgrades/retry clear history. Stall accepts only one kept fish per species per trip and nursery goals require distinct released species, removing repeated high-value farming. Field guide warns about duplicate stocking/releases, catches focus a valid enabled decision, and saves validate duplicate catches and impossible losses."
       ],
       "tests": [
-        "8 local engine checks passed: 180 chapter/species/depth/equipment landability cases, all five baseline trips in 2/3/4/4/5 casts, every-action save decoding, upgraded progression, losses, reward accounting and malformed saves. DOM and real browser checks pending CI; local dependency install denied (EPERM), no workaround attempted."
+        "Initial checkpoint 71e6cc164e242d22118dd705768344d237aec348 passed CI 39358346752: full repository assets, candidate gate, 8 engine + 11 DOM checks. Browser step at this checkpoint covered earlier games only, NOT Deep Pocket.",
+        "Improved source: 13 local engine checks passed, including 180 synthetic chapter/species/depth/baseline-or-both-equipment landability cases, five legal three-medal baseline trips in 2/3/4/5/5 casts (17/28/40/53/57 fishing beats), every-action saves, upgrades, actual eighth-cast completion/loss, exact forecasts, diversity/duplicate guards and 200 deterministic exploratory trips.",
+        "Added 18 DOM cases and Deep Pocket real Chromium five-trip desktop/390px/320px touch-emulation suite. Exact improved-source CI pending; do not substitute initial CI evidence.",
+        "Local engine regressions for all five earlier games passed; candidate syntax, 33 local references, exact 20 slots and public-catalogue isolation pass. No root compilation step exists. Local jsdom installation blocked by connect EPERM; no workaround attempted; remote CI is the supported testing route."
       ],
       "quality": {
         "enjoyment": "unrated: subjective gameplay review pending",
-        "depth": "Five short field trips and six deterministic species; first baseline solutions 2/3/4/4/5 casts. No duration claim.",
-        "polish": "Original CSS lake cutaway, keyboard/native buttons, responsive layouts and onboarding; rendered review pending.",
-        "reliability": "8 local engine checks pass. DOM and browser verification pending.",
-        "variety": "Distinct tension-control fishing with selective release; not a route/colony/card reskin"
+        "depth": "Five short handcrafted field trips, six distinct pull patterns, sustainable species choices and two upgrades. Baseline solutions 2/3/4/5/5 casts (17/28/40/53/57 fishing beats). Needs deeper replay/enjoyment review; no hour claim.",
+        "polish": "Original CSS lake art, exact forecasts, native keyboard/focus, undo and responsive layouts. Improved-source rendered visual/touch assessment pending.",
+        "reliability": "13 improved local engine checks pass; initial 8 engine+11 DOM checkpoint passed remote CI. Exact improved-source DOM/browser/full repository checks pending.",
+        "variety": "Distinct deliberate tension/release fishing, versus route planning, mushroom recipes, circuit repair, ant logistics and card exploration"
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Improve decision feedback and sustainable catch balance; add undo, stricter saving and exact action forecasts.",
-        "Verify exact-source DOM/desktop/touch checks in remote CI; assess depth before finish/selection.",
-        "Preserve current main and all independent game/community work; integrate only selected finished games."
+        "Verify exact improved-source CI and inspect browser evidence before any finish/selection decision.",
+        "Manually assess art/enjoyment and deepen worthwhile replay variety; remain an unselected prototype.",
+        "Next candidate 07 Roof Runner: precision courier platforming for more action variety.",
+        "Integrate only strongest finished candidates against fresh main with scoped source/catalogue changes; preserve all concurrent work and hosting permission boundary."
+      ],
+      "developmentCommits": [
+        "71e6cc164e242d22118dd705768344d237aec348"
       ]
     },
     {

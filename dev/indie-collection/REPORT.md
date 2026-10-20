@@ -1,3 +1,13 @@
+# Run 6 · Deep Pocket meaningful improvement pass 1
+
+**6/20 playable · 6 meaningfully improved · 0 finished/selected/publicly published.** Initial checkpoint [71e6cc16](https://github.com/ThatOneMop/study-desk/commit/71e6cc164e242d22118dd705768344d237aec348) passed [CI 39358346752](https://github.com/ThatOneMop/study-desk/actions/runs/39358346752). Inspected steps and decoded logs: 8 Deep Pocket engine + 11 DOM checks, full asset/candidate gates, earlier-game regressions passed. That checkpoint did NOT include Deep Pocket browser tests. Exact improved-source CI must be checked separately.
+
+Meaningful pass: engine-rule-based action forecasts (including slack/snap/landing), catch-goal projections, full one-step undo including escape/journal/catch/medal reward, safe history invalidation, valid decision focus, duplicate-stock/release field-guide warnings and stronger save validation. Changed economics from repeat-the-highest-value-fish to one kept fish per species and distinct released species; legal baseline trips still complete in 2/3/4/5/5 casts with 17/28/40/53/57 fishing beats, all three medals, no upgrades/escapes. During baseline development found and fixed impossible late high-pull/current combinations; do not count those pre-fix rules as tested content.
+
+13 local engine checks pass: 180 synthetic chapter/species/depth/baseline-or-both-equipment landability cases; legal baseline and upgraded campaigns; every-action saves; actual eighth-cast finish and failure; exact nonmutating forecasts; duplicate guards; 200 exploratory trips and malformed storage. Added 18 DOM cases and actual-browser desktop five-trip, keyboard/focus/undo/reload/upgrades/retry/navigation checks, plus 390px/320px touch-emulated choose/fight/landed target/overflow/catch checks. Those improved-source CI results are pending. All five earlier-game local engine regressions and the 33-reference/exact-20-slot/isolation candidate gate pass.
+
+Still a short deliberate fishing prototype, not 20 hours of content/testing. Unselected pending rendered review, subjective enjoyment and deeper replay quality. No public game URL, integration commit or deployment. Next candidate is Roof Runner (platformer) to diversify away from the collection's thoughtful turn-based games. Re-read fresh main before any later integration; do not overwrite concurrent launcher, Gummy Bay, community or requested-game work. No permissions or deployment settings changed.
+
 # Run 6 · Deep Pocket initial playable checkpoint
 
 **6/20 playable prototypes · 5 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots. New source is development-only.
