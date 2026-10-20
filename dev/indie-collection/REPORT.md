@@ -1,3 +1,11 @@
+# Run 6 · Deep Pocket initial playable checkpoint
+
+**6/20 playable prototypes · 5 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots. New source is development-only.
+
+Implemented five original field trips with six fish pull patterns, bank/depth/tide predictions, deliberate reel/brace/give-line control, keep/release/survey goals, limited escapes/casts, journal, best-only medals, two upgrades and guarded versioned saves. Eight local engine checks pass, including 180 chapter/species/depth/equipment landability cases, five baseline three-medal trips (2/3/4/4/5 casts), every-action save decoding, losses/restart, equipment/replay accounting and malformed saves. Added 11 DOM cases; their result is pending CI, not counted as passed. Local jsdom download failed at connect EPERM; no alternate credential/network/permission workaround attempted. Existing GitHub Actions runner is the authorised test route.
+
+Inspected fresh development head b05edef06b9d74aaa1f1de4a4a05cff05221c3bf, main 73de885be1335b47d2bff5b197afc03805e77ff4, both inventories (no AGENTS.md or root package/build) and current main docs/study-desk-progress.md. Main has newer launcher/mouse fixes and ten curated games; the development README is historical, not current catalogue truth. Do not merge the old development tree into main. Only Deep Pocket, candidate-only tests/CI, workshop and ledger/report are changed; existing shell, Gummy Bay, community, requested-game work and Pages permission boundary remain untouched. Public integration/deployment and enjoyment/depth review are not done. Next: improve feedback, sustainable fishing choices, undo and save validation; verify exact improved source.
+
 # Run 5 · verified final outcome
 
 **5/20 playable prototypes · 5 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots remain; 15 planned slots are not implemented games. Next candidate: **Deep Pocket**.

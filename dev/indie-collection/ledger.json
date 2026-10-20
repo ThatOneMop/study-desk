@@ -289,19 +289,31 @@
       "id": "deep-pocket",
       "title": "Deep Pocket",
       "coreLoop": "Fishing with line tension and selective release",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/deep-pocket/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: five handcrafted field trips, six original fish pull patterns, bank/depth/tide selection, deliberate tension controls, keep/release/survey goals, escape/cast limits, best-only medals, equipment, journal and versioned autosaves with corrupt/concurrent-write protection."
+      ],
+      "tests": [
+        "8 local engine checks passed: 180 chapter/species/depth/equipment landability cases, all five baseline trips in 2/3/4/4/5 casts, every-action save decoding, upgraded progression, losses, reward accounting and malformed saves. DOM and real browser checks pending CI; local dependency install denied (EPERM), no workaround attempted."
+      ],
+      "quality": {
+        "enjoyment": "unrated: subjective gameplay review pending",
+        "depth": "Five short field trips and six deterministic species; first baseline solutions 2/3/4/4/5 casts. No duration claim.",
+        "polish": "Original CSS lake cutaway, keyboard/native buttons, responsive layouts and onboarding; rendered review pending.",
+        "reliability": "8 local engine checks pass. DOM and browser verification pending.",
+        "variety": "Distinct tension-control fishing with selective release; not a route/colony/card reskin"
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Improve decision feedback and sustainable catch balance; add undo, stricter saving and exact action forecasts.",
+        "Verify exact-source DOM/desktop/touch checks in remote CI; assess depth before finish/selection.",
+        "Preserve current main and all independent game/community work; integrate only selected finished games."
       ]
     },
     {
