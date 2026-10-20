@@ -630,31 +630,52 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: six original underground postal yards; shared/wet rail material budgeting, per-train route drafting, simultaneous traffic, holds, collision losses, postmarks, unlocks and versioned optimistic saving.",
-        "Pass 1: pure next-beat forecast names shared junction/occupied-block/head-on conflicts; preview destinations and risk cells on map, affordable next-step hints, selected-route rail highlighting and numbered squares. Added 100-action session undo including signals, crashes and winning postmarks, next-yard focus/history reset, and impossible occupied-save rejection."
+        "Pass 1: pure next-beat forecast names shared junction/occupied-block/head-on conflicts; preview destinations and risk cells on map, affordable next-step hints, selected-route rail highlighting and numbered squares. Added 100-action session undo including signals, crashes and winning postmarks, next-yard focus/history reset, and impossible occupied-save rejection.",
+        "Follow-up: trimming the final segment now focuses the remaining route tip, and clear/replan keep focused and aria-pressed map squares aligned. Added direct regression."
       ],
       "tests": [
-        "13 local engine checks passed, including six three-stamp campaigns, exact pure forecasts, held/swap/junction crashes and 100 seeded legal-budget drafts.",
-        "Initial source CI 39392764019: 9 engine + 11 DOM steps passed; earlier-game browser step still running at improvement checkpoint.",
-        "17 improved DOM checks and new real Chromium desktop/touch campaign authored; exact-source CI pending."
+        "PASS initial checkpoint df4521f453900ba6c58cadd6dafdd87d530dad15: CI 39392764019, 9 engine + 11 DOM checks and all eleven older-game browser regressions. New candidate browser suite added in improvement commit, not initial checkpoint.",
+        "PASS final-source CI 39393653472 at a2e8dd2ea00a74b1639fb5af56d9678723057b15: 13 Burrow Express engine + 18 DOM checks, real Chromium desktop and 390px touch emulation; full repository asset gate and all eleven earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-stamp rail/signal campaigns cost 5/9/11/19/16/27 material in 5/5/7/9/9/13 in-game beats, serializing every engine action. Forecasts agree with actual safe/occupied/swap/junction outcomes; 100 seeded exploratory drafts preserve geometry and budgets. Synthetic checks are not playtime evidence.",
+        "Browser: native arrows/Enter/Space/Z, draft and dispatch reload, six actual DOM-button campaigns, collision warning/loss/undo/hold recovery, reward rollback/replay, replan, unlocks and workshop navigation. Touch taps apply once; >=44px visible controls and no page overflow at 390px/320px; zero page errors.",
+        "Manual desktop: original underground map/onboarding inspected; first two yards completed with three stamps, winning undo/replay/reload and crossing forecast resolved through hold/release. Preview stopped. Separate local slower seven-material/seven-beat one-stamp replay preserved a prior three-stamp record and roundtripped."
       ],
       "quality": {
-        "enjoyment": "Unassessed; test solutions do not establish enjoyment.",
-        "depth": "Six short handmade rail/signal puzzles; no duration claim.",
-        "polish": "Forecast, numbered shared-track map, signal state, affordable-step hints, undo, responsive native buttons and keyboard controls implemented; rendered regression pending.",
-        "reliability": "Initial engine tested locally; exact-source UI/browser validation pending.",
-        "variety": "Spatial network construction and simultaneous rail signaling, distinct from existing candidates."
+        "enjoyment": "Opening two yards manually legible/playable; sharing and signals show distinct decisions. Full six-yard subjective enjoyment and replay-depth assessment remains open.",
+        "depth": "Six short handmade rail/signal puzzles with alternative routes and material/beat postmarks; no claim of extensive content or playtime.",
+        "polish": "Original code-native copper/sage/lilac railway, numbered squares, highlighted shared routes, next-beat risk previews, affordable-step hints, undo, onboarding and responsive keyboard/touch controls; manual mobile review still open.",
+        "reliability": "Exact final source passes 13 engine + 18 DOM plus desktop/touch Chromium and repository/earlier-game regressions. Save failures, corruption, concurrency, crashes, replay rewards and navigation covered; no guarantee beyond tested cases.",
+        "variety": "Network drafting with shared material budgets and simultaneous per-train traffic/hold decisions; distinct from ferry routing, colony logistics, plant genetics, rhythm, fishing and action candidates."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Not selected: completed initial and improvement/test gates, but short prototype still needs broader subjective quality/replay-depth review and comparison before finished designation.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Run exact improved-source engine/DOM/browser regressions; manually inspect opening yards.",
-        "Assess all six yards for enjoyment and replay depth; do not mark finished or select solely from synthetic tests."
+        "Manually play all six yards, compare alternative railway/hold plans and assess puzzle variety/replay depth.",
+        "Review CI mobile screenshots and physical touch/screen-reader behavior where feasible; address concrete issues before selection.",
+        "Keep development-only until finished and selected; integrate narrowly into fresh main without overwriting independent work."
       ],
       "developmentCommits": [
-        "df4521f453900ba6c58cadd6dafdd87d530dad15"
-      ]
+        "df4521f453900ba6c58cadd6dafdd87d530dad15",
+        "cfb133eafb0e087661b86c816a632f6d14f58b70",
+        "a2e8dd2ea00a74b1639fb5af56d9678723057b15"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39393653472",
+        "testedCommit": "a2e8dd2ea00a74b1639fb5af56d9678723057b15",
+        "conclusion": "success",
+        "desktop": "Native map arrows/Enter/Space/Z and focus, exact draft/dispatch reload, six legal three-stamp rail/signal campaigns through actual DOM buttons, collision warning/loss/undo/hold recovery, winning reward rollback/replay, route-preserving replan and workshop launch/back; zero page errors.",
+        "touch": "390x844 emulation: exactly-once rail/hold/beat taps, first-yard win and saved unlock, undo, crossing risk preview and signal recovery, retry-cancel, >=44px visible controls and no page overflow at 390px/320px.",
+        "manual": "Managed cloud browser desktop: original rail art/onboarding and numbered map inspected; first-yard five-beat three-stamp delivery, winning undo/replay and reload, then second-yard shared junction forecast resolved by holding/releasing B and both trains delivered at beat five for three stamps. Preview stopped. Follow-up trim/clear focus verified by exact-source DOM regression, not another manual replay.",
+        "notVerified": [
+          "Full six-yard subjective enjoyment and replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 13,
@@ -946,6 +967,19 @@
       "implementationCommit": "7a2dc44e0f0255da7d2862eee6bd6cbb9be9e0e6",
       "verifiedCommit": "1615f2b291f726eb78f9c98f71a06b8e8e603a14",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39387577839"
+    },
+    {
+      "run": 12,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 12,
+      "improvedTotal": 12,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Burrow Express: six rail-drafting/signal puzzles. Exact final source passes 13 engine + 18 DOM, six Chromium legal campaigns, native keyboard/touch emulation and full repository/eleven earlier-game regressions. Manually completed first two yards with three stamps, winning undo/replay/reload and crossing signal recovery. Development-only; full enjoyment/depth and manual mobile review remain.",
+      "initialPlayableCommit": "df4521f453900ba6c58cadd6dafdd87d530dad15",
+      "implementationCommit": "cfb133eafb0e087661b86c816a632f6d14f58b70",
+      "verifiedCommit": "a2e8dd2ea00a74b1639fb5af56d9678723057b15",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39393653472"
     }
   ]
 }
