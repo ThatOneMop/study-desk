@@ -855,28 +855,32 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/pocket-expedition/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six branching expeditions; two-tool loadouts, shared tool/food/loot pack capacity, heavy travel cost, weather-sensitive terrain/recovery injury odds, seeded outcomes, ration-cost return routing, safe retreats, relic unlocks and persistent journal/best records."
+        "Initial playable: six branching expeditions; two-tool loadouts, shared tool/food/loot pack capacity, heavy travel cost, weather-sensitive terrain/recovery injury odds, seeded outcomes, ration-cost return routing, safe retreats, relic unlocks and persistent journal/best records.",
+        "Pass 1: exact ration/terrain/weather return itinerary with modelled injury/loss probabilities without revealing future rolls; recovery food/pack/return forecast; live cargo-drop rescue previews; four-step weather strip; last-food warnings; 100-action deterministic-state undo through injuries/drops/losses/banked finds; spatial map keys, reload selection alignment and enabled-control focus fallback."
       ],
       "tests": [
-        "10 local engine checks pass: six legal clean three-seal campaigns at attempts 1/2/2/1/1/1; valid seeds/action replay after every move, pack/provisions bounds, actual exhaustion/injury losses, early retreats and 100 seeded exploratory sessions.",
-        "11 DOM checks authored; exact-source CI and new-candidate browser verification pending."
+        "PASS initial CI 39421923557 at cfad6c8e2b18d74a2b127fc482255e14e3fc2d53: 10 new engine + 11 DOM, repository/candidate gates and all fifteen earlier-game browser regressions. New Pocket Expedition browser suite not present yet.",
+        "15 improved engine checks pass locally, including pure chance/food forecasts, exhaustive return risk model and real overweight cargo-drop rescue. 18 DOM plus six-region desktop/touch suite authored; exact-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unassessed; synthetic routes do not establish fun.",
         "depth": "Six compact loadout/ration/cargo/risk expeditions and a twelve-entry journal; no duration claim.",
-        "polish": "Original paper/map/pack art, native controls and onboarding; improvement pending.",
-        "reliability": "Engine tested locally; exact-source DOM/browser execution pending.",
+        "polish": "Exact recovery/return/pack forecasts, cargo-drop rescue guidance, weather strip, deterministic logical-state undo and spatial/native focus improvements implemented; rendered review pending.",
+        "reliability": "15 improved engine checks pass locally; exact-source interface/browser verification pending.",
         "variety": "Shared pack space, uncertain injury outcomes and extraction decisions; distinct from direct ferry, boat dispatch and action-combat candidates."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Not selected: improved prototype awaiting exact-source verification and full enjoyment/depth comparison.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful improvement: exact return itinerary/risk and recovery pack forecasts, cargo/return warnings, full logical-state undo with deterministic RNG and improved focus.",
-        "Execute interface and desktop/touch campaigns; inspect rendered play before selection."
+        "Execute exact-source interface/desktop/touch regression suites and inspect rendered play.",
+        "Assess all six regions' enjoyment, alternative routes/loadouts, chance balance and replay depth before finished designation; keep development-only."
+      ],
+      "developmentCommits": [
+        "cfad6c8e2b18d74a2b127fc482255e14e3fc2d53"
       ]
     },
     {
