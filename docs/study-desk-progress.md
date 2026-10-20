@@ -1,5 +1,20 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 6
+
+Base Sites source: 09625ce3585feaebdac7566f417c218427426a12 (live version 14). GitHub base: ef71a9c705d8ac82eb28c12731cc9c5cd60699b6. Opened a fresh checkout and confirmed the shared bridge matched both sources.
+
+### Observed and fixed
+- Shared pause cleanup emitted only a default left-button mouseup on document. Forge Arena's current release handler explicitly checks button 0 and button 2, leaving right fire held after suspension. Added per-button mouse tracking and release to the original connected target, with document fallback for detached targets.
+- Snapshot and clear tracked input before dispatch; preserve bubbling to window handlers and legacy left-button reset. No synthetic clicks, save changes, game-rule changes or catalogue changes.
+- Added bridge-mouse.cjs using the actual extracted Forge Arena release handler. The right-button regression failed before the fix and passed afterward. Coverage includes simultaneous buttons, original element listeners, detached targets, already-released buttons, repeated pause, no click generation, and rejected foreign/non-parent visibility messages.
+
+### Validation
+- Passed new mouse regression plus all existing shell/bridge, curation, launcher/navigation/loading, 10 launch-route, After Hours save/control/engine, and 15 HTML asset-reference checks; bridge syntax and diff checks passed.
+- Desktop Chrome preview: Forge Arena hangar/academy loaded, loading status cleared, Pause removed the game from the accessibility tree, and Resume restored it. The held-button regression was simulated in jsdom with the real release handler, not reproduced through a full browser combat session. Mobile/touch capture and full game playthroughs remain unverified.
+- Requested-game identity/provenance/reuse blockers remain as recorded below; no new eligibility claims or new games this pass. After Hours remains accurately labelled as the user's Balatro-inspired game. Retired random selections remain absent.
+- Preserved study features, saves, audience, independent game/community work, and the separate paused cleanup task. Future passes can continue targeted repository vetting and gameplay QA.
+
 ## 2026-10-20 — pass 5
 
 Base Sites source: 0f003c25cc63df3600c37444bf4db4d78fe96706 (live version 13). GitHub base: 8eb4fda43fd4dc371bd3008230efa5629b1f7f30. Restored fresh source after workspace maintenance; repository history and prior improvements were intact.

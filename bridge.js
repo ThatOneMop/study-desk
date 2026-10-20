@@ -20,7 +20,7 @@ THE SOFTWARE.
 'use strict';
 const native={raf:requestAnimationFrame.bind(window),caf:cancelAnimationFrame.bind(window),timeout:setTimeout.bind(window),clearTimeout:clearTimeout.bind(window),now:performance.now.bind(performance),date:Date.now.bind(Date)};
 let suspended=false,pauseAt=0,totalPaused=0,nextId=0,hits=[];
-const frames=new Map(),timers=new Map(),held=new Map(),contexts=new Set(),resumeContexts=new Set(),media=new Set(),resumeMedia=new Set();
+const frames=new Map(),timers=new Map(),held=new Map(),heldMouse=new Map(),contexts=new Set(),resumeContexts=new Set(),media=new Set(),resumeMedia=new Set();
 const clock=()=> (suspended?pauseAt:native.now())-totalPaused;
 try{Object.defineProperty(performance,'now',{value:clock,configurable:true})}catch{}
 Date.now=()=>native.date()-totalPaused-(suspended?native.now()-pauseAt:0);
@@ -33,7 +33,19 @@ window.setTimeout=(fn,delay,...args)=>timer(fn,delay,args,false);window.setInter
 window.clearTimeout=window.clearInterval=id=>{const r=timers.get(id);if(r)native.clearTimeout(r.native);else native.clearTimeout(id);timers.delete(id)};
 for(const key of ['AudioContext','webkitAudioContext']){const C=window[key];if(C)window[key]=class extends C{constructor(...args){super(...args);contexts.add(this);if(suspended)this.suspend().catch(()=>{})}resume(){if(suspended){resumeContexts.add(this);return Promise.resolve()}return super.resume()}}}
 if(window.HTMLMediaElement){const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(...args){media.add(this);if(suspended)return Promise.resolve();return play.apply(this,args)}}
-function releaseInputs(){for(const r of held.values()){const e=new KeyboardEvent('keyup',{key:r.key,code:r.code,keyCode:r.keyCode,which:r.keyCode,bubbles:true});(r.target?.isConnected?r.target:document).dispatchEvent(e)}held.clear();for(const type of ['mouseup','pointerup','pointercancel']){try{document.dispatchEvent(new MouseEvent(type,{bubbles:true,buttons:0}))}catch{}}window.dispatchEvent(new Event('blur'))}
+window.addEventListener('mousedown',e=>{if(!suspended)heldMouse.set(e.button,{target:e.target,clientX:e.clientX,clientY:e.clientY})},true);
+window.addEventListener('mouseup',e=>heldMouse.delete(e.button),true);
+function releaseInputs(){
+ for(const r of held.values()){const e=new KeyboardEvent('keyup',{key:r.key,code:r.code,keyCode:r.keyCode,which:r.keyCode,bubbles:true});(r.target?.isConnected?r.target:document).dispatchEvent(e)}held.clear();
+ // Preserve button identity and element listeners (e.g. Forge Arena right fire).
+ // Snapshot before dispatch: capture listeners remove entries on each release.
+ const mouse=[...heldMouse];heldMouse.clear();
+ for(const [button,r] of mouse)(r.target?.isConnected?r.target:document).dispatchEvent(new MouseEvent('mouseup',{button,buttons:0,clientX:r.clientX,clientY:r.clientY,bubbles:true}));
+ // Retain the legacy global left-button reset for untracked/pre-bridge input.
+ if(!mouse.some(([button])=>button===0))document.dispatchEvent(new MouseEvent('mouseup',{button:0,buttons:0,bubbles:true}));
+ for(const type of ['pointerup','pointercancel']){try{document.dispatchEvent(new MouseEvent(type,{bubbles:true,buttons:0}))}catch{}}
+ window.dispatchEvent(new Event('blur'));
+}
 function suspend(value){if(suspended===value)return;if(value){releaseInputs();pauseAt=native.now();suspended=true;for(const r of frames.values())if(r.native)native.caf(r.native);for(const r of timers.values()){r.remaining=Math.max(0,r.due-clock());native.clearTimeout(r.native)}document.exitPointerLock?.();if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});for(const c of contexts)if(c.state==='running'){resumeContexts.add(c);c.suspend().catch(()=>{})}for(const m of new Set([...media,...document.querySelectorAll('audio,video')]))if(!m.paused){resumeMedia.add(m);m.pause()}}else{totalPaused+=native.now()-pauseAt;suspended=false;for(const id of frames.keys())scheduleFrame(id);for(const id of timers.keys())scheduleTimer(id);for(const c of resumeContexts)c.resume().catch(()=>{});resumeContexts.clear();for(const m of resumeMedia)m.play().catch(()=>{});resumeMedia.clear()}}
 window.addEventListener('message',e=>{if(e.source!==parent||e.origin!==location.origin)return;if(e.data?.type==='study-visibility')suspend(!e.data.visible)});
 function typing(e){return e.target?.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])')}
