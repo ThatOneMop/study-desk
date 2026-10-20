@@ -5,7 +5,7 @@ const charts=[
  {name:'Milkglass Bay',note:'A sheltered first route. Bring all three mailbags home; dock whenever fuel runs low.',par:27,rows:['#########','#D......#','#..#..A.#','#..#....#','#B...#..#','#.....C.#','#########']},
  {name:'The Sand Letters',note:'Gold shallows open at HIGH tide. Wait at their edge or take the longer route.',par:29,rows:['#########','#D..=..A#','#.##=##.#','#...=...#','#B##.##.#','#.....C.#','#########']},
  {name:'Ribbon Channel',note:'Arrows push you one extra square. Read the destination preview before moving.',par:26,rows:['#########','#D.>>>.A#','#.##.#..#','#..v....#','#B.#.##.#','#..<..C.#','#########']},
- {name:'Bellweather',note:'Squalls cost one hull. They are shortcuts, not compulsory crossings.',par:29,rows:['#########','#D..!..A#','#.##.#..#','#..!...!#','#B.#.#..#','#...!.C.#','#########']},
+ {name:'Bellweather',note:'Squalls cost one hull. Plan repair stops at the dock, or fit a stronger hull before taking a longer crossing.',par:29,rows:['#########','#D..!..A#','#.##.#..#','#..!...!#','#B.#.#..#','#...!.C.#','#########']},
  {name:'Low Water Market',note:'Two bags fit aboard. Choose which pair to fetch before returning to dock.',par:29,rows:['#########','#D.=...A#','#.#=##..#','#.v...!.#','#B#.#.#.#','#...<.C.#','#########']},
  {name:'Last Light Sound',note:'Combine the tide, currents and shelter. A careful route beats a fast wreck.',par:28,rows:['#########','#D..=..A#','#.#.=#..#','#.>!.v..#','#B#.#.#.#','#..!..C.#','#########']}
 ];
