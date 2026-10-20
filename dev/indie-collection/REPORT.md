@@ -1,3 +1,9 @@
+# Run 7 · verified improved checkpoint and focus follow-through
+
+CI 39364552189 passed on 017893d419bdcabb5f77194656442c46c1b58efa. Actual steps and decoded logs inspected: full repository assets; 39 references, exact 20 slots and catalogue isolation; 13 Roof Runner engine + 16 DOM checks; deterministic-clock Chromium all five keyboard all-parcel/no-fall/checkpoint deliveries and pause/reload/retry/progression/navigation; 390px touch-emulated quick jump/dash taps, 44px targets, 480px logical view, no overflow at 390px/320px; separate native-clock RAF movement/jump/pause smoke; no page errors. All six earlier candidates' regressions also pass. Screenshots retained as artifact 12239215900, not manually reviewed.
+
+Follow-through review found that cancelling an active retry resumed simulation but focused Retry, preventing canvas-only movement shortcuts. Restore canvas focus when resuming, with a new DOM and native-clock Chromium regression. Also show actual best time/medal records and explain hold-versus-tap jump height; add test-only trigger coverage. DOM suite now 18 cases. Exact follow-through CI pending; earlier CI must not certify these later changes. Still 7 playable / 7 improved / 0 finished, selected or public; subjective depth/enjoyment and manual visual review remain open. No main/catalogue/hosting changes.
+
 # Run 7 · Roof Runner meaningful improvement pass 1
 
 7/20 playable, 7 meaningfully improved, 0 finished/selected/published. Initial checkpoint 7328cbf3048e6f503d42f6a60b0cc8627ba2ed55 passed CI 39364116464; actual steps and decoded logs confirm 8 engine + 12 DOM Roof Runner checks, full assets/candidate gates and earlier-game regressions. That checkpoint did not have Roof Runner browser tests. Exact improved-source CI remains pending.

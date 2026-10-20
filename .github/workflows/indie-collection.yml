@@ -2,7 +2,7 @@ name: Verify original indie candidates
 on:
   push:
     branches: [indie-collection-dev]
-    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/bolt-and-bristle-*', 'tests/queen-cinders-*', 'tests/inkline-*', 'tests/deep-pocket-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
+    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/bolt-and-bristle-*', 'tests/queen-cinders-*', 'tests/inkline-*', 'tests/deep-pocket-*', 'tests/roof-runner-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
   workflow_dispatch:
 permissions:
   contents: read

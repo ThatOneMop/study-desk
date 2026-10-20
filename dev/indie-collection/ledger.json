@@ -351,19 +351,22 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: five original rooftop courier routes, jump/air-dash physics, three optional parcels per route, checkpoints, winds/conveyors/steam vents, eight-fall loss/retry, three-medal route records, locked progression, keyboard/touch controls and guarded versioned saves. Side roofs calibrated to baseline jump height.",
-        "Pass 1: six-frame coyote time and early-jump buffer, variable jump height, latched sub-frame touch jump/dash taps, mobile camera enlarged to 480 logical pixels, stable route-button focus, held-input cleanup on blur/parent suspension, checkpoint/parcel/fall immediate saves, and backward migration of initial v1 saves."
+        "Pass 1: six-frame coyote time and early-jump buffer, variable jump height, latched sub-frame touch jump/dash taps, mobile camera enlarged to 480 logical pixels, stable route-button focus, held-input cleanup on blur/parent suspension, checkpoint/parcel/fall immediate saves, and backward migration of initial v1 saves.",
+        "Pass 1 follow-through: fixed cancelling a live restart leaving focus on the Retry button instead of the canvas; exposed independently saved fastest-time/medal records and explained hold-versus-tap jump height. Added focused regression tests and test-only CI trigger coverage."
       ],
       "tests": [
         "8 local engine checks passed: all five actual-physics three-medal routes, checkpoint recovery, losses/retry, replay/progression and every-tick save decoding. Baseline solutions 289/295/325/361/343 ticks (automated paths, not human session lengths).",
         "12 DOM checks authored; execution pending CI. Browser controls/layout not yet verified.",
         "Initial commit 7328cbf3048e6f503d42f6a60b0cc8627ba2ed55 passed CI 39364116464: inspected job steps/logs confirm 8 Roof Runner engine + 12 DOM checks, complete repository assets and all six earlier games' engine/DOM/browser regressions. Initial checkpoint had no Roof Runner browser suite.",
-        "Pass 1 local: 13 engine checks pass, including five all-parcel/no-fall routes at 277/295/307/367/343 ticks, every-tick save roundtrips, jump-grace/buffer/variable-height fixtures, v1 migration and 120 deterministic exploratory attempts. 16 DOM and deterministic-clock/native-clock Chromium desktop/touch checks authored; exact improved CI pending."
+        "Pass 1 local: 13 engine checks pass, including five all-parcel/no-fall routes at 277/295/307/367/343 ticks, every-tick save roundtrips, jump-grace/buffer/variable-height fixtures, v1 migration and 120 deterministic exploratory attempts. 16 DOM and deterministic-clock/native-clock Chromium desktop/touch checks authored; exact improved CI pending.",
+        "Improved commit 017893d419bdcabb5f77194656442c46c1b58efa passed CI 39364552189: 13 engine + 16 DOM checks, actual Chromium five-route deterministic-clock keyboard campaign, touch-emulation quick taps/44px targets/390px and 320px layout, native-clock RAF movement/pause smoke and all earlier-game regressions. Steps and decoded logs inspected.",
+        "Follow-through changes add 2 DOM regressions (18 total) and native-clock retry-cancel focus coverage. Exact latest-source verification pending; prior successful CI is not claimed for later changes."
       ],
       "quality": {
         "enjoyment": "unrated: manual playtest pending",
         "depth": "Five very short handmade platform routes, optional parcel and fall-free medals. No hour claim; replay depth needs expansion/assessment.",
-        "polish": "Original city canvas art; 480px logical mobile view, stable keyboard focus, forgiving jump controls and quick-tap latching implemented. Exact rendered checks pending; manual cloud preview blocked by browser access, physical touch unverified.",
-        "reliability": "13 local engine checks pass on improved physics. Initial CI engine/DOM passed; exact improved DOM/Chromium CI pending.",
+        "polish": "Original city art; Chromium verifies stable focus, single-tap latching, >=44px controls and no 390px/320px overflow. Enlarged 480px logical mobile camera. Manual art/enjoyment review and physical touch remain unverified.",
+        "reliability": "Improved physics/source passed 13 engine + 16 DOM and desktop/touch/native-clock Chromium CI. Final focus/record follow-through has 18 DOM tests; exact latest CI pending.",
         "variety": "First real-time action platformer candidate; distinct from six earlier deliberate games."
       },
       "selected": false,
@@ -376,8 +379,23 @@
         "Candidate 08 Scrap Orbit next. Integrate only strongest completed candidates against fresh main; preserve independent work and hosting boundary."
       ],
       "developmentCommits": [
-        "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55"
-      ]
+        "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55",
+        "017893d419bdcabb5f77194656442c46c1b58efa"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39364552189",
+        "testedCommit": "017893d419bdcabb5f77194656442c46c1b58efa",
+        "conclusion": "success",
+        "desktop": "Deterministic-clock Chromium all five keyboard all-parcel/no-fall routes and checkpoints; pause, reload, retry, medals, progression and launch/back; native-clock RAF jump/movement/pause smoke",
+        "touch": "390px touch emulation: single quick-tap jump/dash, pause/retry; >=44px targets, 480px logical camera, no page overflow at 390px/320px",
+        "notVerified": [
+          "Exact follow-through focus/record source CI (pending)",
+          "Subjective enjoyment/deeper replay and manual visual review",
+          "Physical touch hardware",
+          "20 hours of content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 8,
@@ -671,7 +689,7 @@
       "improvedTotal": 7,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Built Roof Runner and meaningful movement/mobile/save-control pass. Initial checkpoint CI passed; 13 improved engine checks pass locally; exact improved DOM/browser CI pending.",
+      "summary": "Built and improved Roof Runner; 13 engine + 16 DOM and desktop/touch/native-clock Chromium suites pass at 017893d4. Final focus/record follow-through source verification pending.",
       "initialPlayableCommit": "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55"
     }
   ]
