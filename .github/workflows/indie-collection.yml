@@ -88,6 +88,7 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/moss-market-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/threadbound-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/rain-catcher-browser.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/echo-vault-browser.cjs
       - name: Candidate visual evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -108,4 +109,5 @@ jobs:
             /tmp/moss-market-*.png
             /tmp/threadbound-*.png
             /tmp/rain-catcher-*.png
+            /tmp/echo-vault-*.png
           if-no-files-found: ignore

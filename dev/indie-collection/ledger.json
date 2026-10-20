@@ -1093,19 +1093,21 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/echo-vault/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: four handmade turn-based stealth vaults, directional watcher/listener beams, corridor/curtain-weighted sound, noisy strides/relics, recoverable/confiscatable decoy chimes, two-exposure capture, optional leaves, extraction and saved archive/best routes."
+        "Initial playable: four handmade turn-based stealth vaults, directional watcher/listener beams, corridor/curtain-weighted sound, noisy strides/relics, recoverable/confiscatable decoy chimes, two-exposure capture, optional leaves, extraction and saved archive/best routes.",
+        "Pass1: pure live-rule forecasts for every directional action/wait/chime, exact sentry destinations/facing/reasons IF WAIT and alternate throw response, intermediate-path capture/noise/loot/recovery feedback; 120-action session undo restores patrol memory, chimes, losses and complete extracted archive/records; inspection history isolation, focus recovery and clear-on-reload/replan/navigation."
       ],
       "tests": [
         "8 local engine checks pass: four legal all-leaf/zero-exposure heists (17/18/24/21 turns, first uses actual decoy); serialization each action; real capture; resource/sound/save bounds; 100 seeded exploratory sessions.",
-        "11 DOM checks authored; exact-source CI pending. New candidate browser suite not yet added."
+        "11 DOM checks authored; exact-source CI pending. New candidate browser suite not yet added.",
+        "13 local engine checks pass including exact nonmutating forecast parity for all four campaigns, curtain/stride/copper rules, physical chime recovery/confiscation and real capture forecasts. 18 DOM checks and real Chromium desktop/touch suites authored; exact improved CI pending."
       ],
       "quality": {
         "enjoyment": "Unrated: manual play pending",
         "depth": "Four compact handmade stealth maps, optional leaves and cleaner-route records; no hours claim",
-        "polish": "Original midnight-museum SVG/CSS, native keyboard/touch buttons and inspection; rendered QA pending",
-        "reliability": "8 local engine checks pass; UI/real-browser CI pending",
+        "polish": "Original museum SVG/CSS; exact next-action plans and session undo; rendered QA pending",
+        "reliability": "13 local engine checks pass, initial CI interface step green; exact improved CI pending",
         "variety": "Directional stealth with sound diversion, distinct from card exploration and extraction packing"
       },
       "selected": false,
@@ -1115,6 +1117,9 @@
       "nextSteps": [
         "Meaningful patrol/action forecast and recovery pass; verify rendered controls and all real browser campaigns",
         "After all20 initial/improved prototypes, compare quality and deepen strongest candidates; no candidate21, no automatic public promotion"
+      ],
+      "developmentCommits": [
+        "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20"
       ]
     }
   ],
