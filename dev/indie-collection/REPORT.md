@@ -1,3 +1,34 @@
+# Run 22 · fishing planning and recovery pass
+
+**20/20 playable prototypes ·20 improved games ·22 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 slots retained. Deep Pocket pass2 addresses observed bank/depth changes erasing undo and the single-habitat planning view. No new candidate or automatic promotion.
+
+The optional nine-water chart compares current fish/value, survey needed/recorded, stall-stocked and nursery-release status. One native cell activation selects bank and depth together, without using a cast. The selected water's next two tides are explicit, deterministic forecasts; no fake randomness, new fish count or progression padding. Chart data is pure and all three tide phases are tested. Existing fish patterns, currents, values, goals, cast/escape limits and equipment prices are unchanged.
+
+Session undo now retains up to160 fishing actions, sufficient for all possible actions in an eight-cast trip. Bank/depth/chart browsing neither clears nor fills history; undo restores the earlier fishing action's location and exact catches, escapes, journal, tides and medal accounting. Upgrades, retry, trip navigation and reload clear history intentionally. Stage/restored focus centers only if clipped; normal visible actions remain steady. Version1 save format/key, corrupt/quota and optimistic concurrent-tab protection retained. No persistent undo or guaranteed atomic storage claim.
+
+[Implementation2c030a1a](https://github.com/ThatOneMop/study-desk/commit/2c030a1a86d9962ba82848bd6055ced7ea2de41a) · [verified source4522c78d](https://github.com/ThatOneMop/study-desk/commit/4522c78d9cb1d8716f4266cf1cca7440292a2b95) · [passing CI39465931232](https://github.com/ThatOneMop/study-desk/actions/runs/39465931232) · [screenshot artifact12285660426](https://github.com/ThatOneMop/study-desk/actions/runs/39465931232/artifacts/12285660426).
+
+Verification:17engine+24DOM pass locally and in full CI. Exact source passed actual Chromium desktop five baseline three-medal campaigns, native chart selection, exact three-tide forecasts, catch undo after habitat browsing, full opening-trip/medal/journal/tide rewind with every restored stage focus visible, upgrades, saves/reload, confirmed retry and workshop launch/back. Touch-emulated chart selection, catch/release/browsing-preserved undo, modal/help/journal and >=44px controls passed; no390px/320px page overflow across chart/choose/fight/landed states. All19 other candidates' engine/DOM/browser regressions passed, with zero page errors. Root full-checkout asset gate10routes/14HTML references and candidate isolation/syntax/exact20slots/116refs passed; decoded job logs inspected. Partial local checkout lacks root tests/assets.py, so that root gate ran in full CI, not locally.
+
+Initial CI39465432253 passed engine/UI and earlier-game browsers but its Deep Pocket test attempted a collapsed optional chart after mid-fight reload. Follow-up opens the chart via its visible summary before native activation. No gameplay change, injected unlock, force-click, timeout increase or weakened assertion was used to get green.
+
+Agent-driven rendered review continued the **previously completed trip1 save**. This increment manually completed trips2–5, not all five anew:
+
+| Trip | Kit | Casts / fishing beats | Result |
+| --- | --- | --- | --- |
+| Copper Reeds | Wide spool bought after prior opening win |3 /23|70shells,1released species,loach survey,3medals |
+| Blue Sink | Cork grip bought after trip2; both upgrades |4 /33|70shells,2released species,pike survey,3medals |
+| Threadwater | Both |5 /37|104shells,2released species,bream survey,3medals |
+| Bell Pool | Both |5 /40|104shells,2released species,koi survey,3medals |
+
+All four had no escapes; these are feasible observed routes, not optimality or playtime evidence. In trip2, released the loach, browsed another habitat and undid to its landing net. Later undid return and bream keep in sequence, re-kept/re-returned and reloaded: exactly3medals, no farming. Final reload showed all five trips complete, both purchased upgrades and9unspent medals (15earned minus6spent). Journal had five recorded species; Ribbon Perch remained unrecorded. Two browser input protocol timeouts followed successful inputs; fresh AX identified the actual beat before proceeding with native keyboard. Desktop chart screenshot inspected; no final/mobile screenshot-review claim. Sites skill local-only workflow supported rendered QA; preview stopped. No Site registration, synchronization or hosting change.
+
+Quality decision: keep fishing on hold. The chart makes existing choices legible and recovery safer, but later trips reuse koi/pike/bream and very similar rhythms; objectives can be satisfied while ignoring Ribbon Perch. Need meaningful habitat/species incentives and alternate strategies, not arbitrary extra areas or catches. Full mobile visual/physical touch/screen-reader review remains. See [quality review](QUALITY_REVIEW.md). Finishing campaigns is evidence of progression, not sufficient evidence of lasting enjoyment or finished status.
+
+Main re-read unchanged at8f99173d29bcbcf429247766a605ca5cd39e9a54. Preserved independent Study Desk/After Hours, requested-GitHub-games and Gummy Bay work. Source diff is only four fishing files and three fishing test files; final evidence commit only ledger/report/quality review. No public catalogue entry, game URL, integration commit or deployment added; no wholesale development merge.
+
+Next: later Queen of Cinders fire/upgrade economics and actual Last Match combat, then manual-poor candidates for a fair cross-loop comparison. Fishing's measured repetition remains a future improvement gate. Keep Friday for polish, deliberate selection/integration, combined regressions/deployment where possible and achieved-total reporting; stop new work at the cutoff. No technical blocker at handoff and no content-hours or guaranteed-completion claim.
+
 # Run 21 · comparative review and repair improvement
 
 **20/20 playable prototypes · 20 improved games · 21 recorded meaningful improvement passes · 0 finished · 0 selected · 0 publicly published.** Exactly20 candidate slots remain. This increment inventories ledger/test evidence across all20 and manually compares opening play in Deep Pocket, Bolt & Bristle and Queen of Cinders. It does not claim a completed20-game subjective review. [Quality review and next gates](QUALITY_REVIEW.md) records the distinctions, unresolved gaps and deliberate hold decisions.

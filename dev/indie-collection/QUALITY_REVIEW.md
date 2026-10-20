@@ -2,13 +2,13 @@
 
 20 playable prototypes; all20 have at least one meaningful improvement. **None is finished, selected or publicly integrated.** This is a source/evidence comparison and an opening-game UI review, not a20-game player study, numerical fun rating or content-hours claim. Keep exactly20 candidate slots.
 
-## First taste-aligned comparison
+## First taste-aligned comparison (updated after fishing pass2)
 
 | Candidate | Enjoyment/decision evidence observed this review | Depth and progression | Polish/reliability | Decision |
 | --- | --- | --- | --- | --- |
 | Bolt & Bristle | Manually repaired radio's row-two circuit in17 strokes; cleaning and reciprocal copper have different purposes. Continued that same machine through1→2→3 stars, ending at49 strokes. Then bought wide brush and powered the fan's bent circuit in28 strokes; its live trace identified actual breaks. | Six authored circuits; route-only versus thorough restoration, two efficiency upgrades. Forced replay after testing was avoidable friction, now removed. More machine-specific faults/variety and full six-commission manual review remain. | Original copper/grime art readable on desktop. Continued checkpoint rewards, whole-drag undo and live-boundary diagnostics implemented in pass2. Nearest-edge reveal clipped a target by0.11px; centered reveal manually measured fully inside viewport and kept the strict CI geometry assertion. Exact final CI evidence belongs in ledger/report. | Prioritize polishing the repair loop; not yet a winner or finished. |
 | Queen of Cinders | Dug five supply tiles; assigned2 food/1 water/1 resin/2 nurses. Reassigned a new ant to nursing, then another to food; rescued3 brood at shift4 with full health/3 medals. New workers made a real allocation choice. | Five chapters and three upgrades. Opening rescue occurred well before fire; older boots-first references also finish earlier. Fire relevance, route economics and upgrade pacing need review in later chapters before selection. | Original earth layout and resource/shift forecast legible. No code changes here this review; prior automated coverage retained. | High-priority colony-depth/balance review, not an automatic selection. |
-| Deep Pocket | Released a Lantern Dace, kept a Velvet Pike;34 shells/one release/survey/three medals in two casts. Eight dace beats and ten pike beats used different tension choices; previews warned against a snapped pike line. | Five trips, six patterns, duplicate-keep/diverse-release rules and two upgrades. Deterministic bank/depth selection still feels narrow; later-trip variety and worthwhile replay need assessment. | Original underwater cutaway clear. Bank/depth changes erase undo; only the next habitat prediction is shown. No code changes here this review. | High-priority fishing progression/control review, not yet selected. |
+| Deep Pocket | Prior opening win followed by UI trips2–5 this review:3/4/5/5casts,23/33/37/40beats,all3medals/no escapes. Wide spool then grip bought with earned medals. Nine-water chart and preserved multi-undo reduce planning/recovery friction. | Five trips/six patterns/two upgrades; late trips repeat koi/pike/bream and similar rhythms. Finished campaign without Ribbon Perch. Needs habitat/species incentives and alternate worthwhile plans, not padded counts. | Pass2 exact source4522c78d:17engine+24DOM/Chromium desktop/touch/all19 regressions pass; manual catch/reward rollback/rebank and final9medals/both-upgrade reload verified. Full mobile visual/physical touch/screen-reader review open. | Hold despite campaign completion: deepen strategic variety before selection. |
 
 Why improve repair first: the new1→2→3 restoration path removes observed forced replay and lets satisfying manual cleaning continue on the object already repaired. It is a bounded, directly testable improvement. This does not establish that repair is better than fishing or colony play overall.
 
@@ -23,7 +23,7 @@ The ledger remains authoritative for exact commits/tests and all five quality di
 | 03 | Bolt & Bristle | Tactile grime removal and reciprocal copper repair | Opening radio fully restored this review; full commission variety and drag feel remain. |
 | 04 | Queen of Cinders | Connected supply trails, worker allocation and fire recovery | Opening rescue manually improved to4 shifts; later fire/upgrade balance remains. |
 | 05 | Inkline | Ink-powered card drafts and page-route exploration | Automated five-volume routes; manual drafting decisions and replay depth open. |
-| 06 | Deep Pocket | Deliberate tension patterns, sustainable keep/release choices | Opening two-species trip complete; later fishing/progression variety open. |
+| 06 | Deep Pocket | Deliberate tension patterns, sustainable keep/release choices | Prior opening plus UI trips2–5 complete; chart/multi-undo improved. Later high-value species dominance and similar rhythms are now observed gaps. |
 | 07 | Roof Runner | Jump/air-dash courier platforming | Automated five routes; prior manual access denied, control feel/difficulty still needs review. |
 | 08 | Scrap Orbit | Inertial towing, cargo coupling and gentle docking | Manual approach/coupling only; complete recovery and all-job feel open. |
 | 09 | Stone Song | Shift/tune/silence rhythms and perform chords/rests | Visual score review only; completed manual performance and musical satisfaction open. |
@@ -41,7 +41,7 @@ The ledger remains authoritative for exact commits/tests and all five quality di
 
 ## Next quality gates
 
-1. Deepen/review the taste-aligned fishing and colony loops, plus action combat with little manual coverage. Finish full campaigns and compare decisions, repetition and progression against repair.
+1. Review later colony fire/upgrade economics and actual action combat with little manual coverage, then manual-poor loops. Fishing campaign now completed through UI across reviews: improve measured high-value species dominance/repeated rhythms. Compare meaningful alternatives against repair before ranking.
 2. Review manual-poor candidates rather than ranking them from green tests. Automated solvability is reliability evidence, not fun.
 3. Before “finished”: resolve concrete controls/onboarding/balance bugs; validate saves/restart, keyboard/touch where supported and launch/navigation; document authored scope honestly.
 4. Before “selected”: compare enjoyment, depth, polish, reliability and variety, give reasons and useful exclusions. Only then integrate scoped selected source/catalogue files against fresh main with combined regressions. Never merge this historical development branch wholesale.

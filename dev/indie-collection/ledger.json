@@ -310,51 +310,56 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/deep-pocket/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: five handcrafted field trips, six original fish pull patterns, bank/depth/tide selection, deliberate tension controls, keep/release/survey goals, escape/cast limits, best-only medals, equipment, journal and versioned autosaves with corrupt/concurrent-write protection.",
-        "Pass 1: exact nonmutating tension/distance/escape/landing forecasts and catch-decision goal forecasts; one-step undo reverses cast, fight, escape, journal, catch decision and full medal reward; navigation/upgrades/retry clear history. Stall accepts only one kept fish per species per trip and nursery goals require distinct released species, removing repeated high-value farming. Field guide warns about duplicate stocking/releases, catches focus a valid enabled decision, and saves validate duplicate catches and impossible losses."
+        "Pass 1: exact nonmutating tension/distance/escape/landing forecasts and catch-decision goal forecasts; one-step undo reverses cast, fight, escape, journal, catch decision and full medal reward; navigation/upgrades/retry clear history. Stall accepts only one kept fish per species per trip and nursery goals require distinct released species, removing repeated high-value farming. Field guide warns about duplicate stocking/releases, catches focus a valid enabled decision, and saves validate duplicate catches and impossible losses.",
+        "Pass2 from observed review gaps: pure nine-water habitat chart shows current species/value, survey needed/recorded, stocked/new-release status, with exact next-two-tide predictions at selected water. Native chart activation sets bank/depth together without casting.160-action session fishing history retains all possible actions in one trip; bank/depth/chart browsing neither adds nor clears history. Undo restores exact earlier fishing location, catches, escapes, journal and medal rewards; upgrades/retry/navigation/reload clear history. Restored/stage focus is centered only when clipped, not during ordinary visible actions. Existing v1 saves, fish patterns, currents, goals, values, cast limits and upgrades unchanged."
       ],
       "tests": [
         "Initial checkpoint 71e6cc164e242d22118dd705768344d237aec348 passed CI 39358346752: full repository assets, candidate gate, 8 engine + 11 DOM checks. Browser step at this checkpoint covered earlier games only, NOT Deep Pocket.",
         "Improved source: 13 local engine checks passed, including 180 synthetic chapter/species/depth/baseline-or-both-equipment landability cases, five legal three-medal baseline trips in 2/3/4/5/5 casts (17/28/40/53/57 fishing beats), every-action saves, upgrades, actual eighth-cast completion/loss, exact forecasts, diversity/duplicate guards and 200 deterministic exploratory trips.",
         "PASS improved-source GitHub Actions 39358785979 at 5336031a3725fdf923eb105eddc64a7ee75c9cc3: full repository asset gate, 33-reference/exact-20-slot/isolation/syntax gate, 13 engine + 18 DOM checks, actual Chromium desktop all five three-medal trips, keyboard/focus/forecasts/catch and reward undo/upgrades/reload/retry/navigation, and 390px/320px touch-emulated full catch/release/undo, modal/help/journal and >=44px targets/no overflow in choose/fight/landed states. All five earlier games' engine/DOM/desktop/touch regressions passed; decoded job logs and steps inspected.",
-        "Local engine regressions for all five earlier games passed; candidate syntax, 33 local references, exact 20 slots and public-catalogue isolation pass. No root compilation step exists. Local jsdom installation blocked by connect EPERM; no workaround attempted; remote CI is the supported testing route."
+        "Local engine regressions for all five earlier games passed; candidate syntax, 33 local references, exact 20 slots and public-catalogue isolation pass. No root compilation step exists. Local jsdom installation blocked by connect EPERM; no workaround attempted; remote CI is the supported testing route.",
+        "Pass2:17 local engine+24 jsdom UI checks passed; pure chart at all nine habitats/three tides/every baseline campaign step; keep/release/survey metadata and v1 bytes; all fishing actions of full trip undo to fresh profile, terminal loss rewind, selection-preserved catch undo, metadata recovery, retry/modal/storage guards. Local candidate gate exact20/116 refs passed; partial local checkout lacks root tests/assets.py, so root gate run in full CI.",
+        "PASS exact final source4522c78d9cb1d8716f4266cf1cca7440292a2b95, CI39465931232/job118777203892:17engine+24DOM; real Chromium desktop all five baseline3-medal trips, native nine-water selection, three-tide forecasts, selection-preserved catch undo, full opening-trip rewind/visible focus, saves/restart/upgrades/rewards/navigation; actual touch chart selection/release/undo, >=44px controls/no390/320 overflow; all19 other-game regressions. Root10routes/14HTML refs and candidate20slots/116refs pass. Decoded job logs inspected. Screenshot artifact12285660426.",
+        "Initial pass2 CI39465432253 passed engine/UI and earlier-browser games but stopped when the test tried a collapsed optional chart after mid-fight reload. Corrected test to open the chart through its visible summary; no game-rule change or assertion weakening."
       ],
       "quality": {
-        "enjoyment": "Manual opening comparison: released Lantern Dace after8beats, kept Velvet Pike after10beats;34shells,one released species,survey and3medals in2casts,no escapes. Distinct tension rhythms readable. Full later-trip/replay satisfaction still open.",
-        "depth": "Five short handcrafted field trips, six distinct pull patterns, sustainable species choices and two upgrades. Baseline solutions 2/3/4/5/5 casts (17/28/40/53/57 fishing beats). Needs deeper replay/enjoyment review; no hour claim.",
-        "polish": "Original CSS underwater cutaway manually reviewed on desktop. Exact previews, enabled decision focus and undo usable; Chromium validates >=44px visible buttons and no horizontal page overflow at 390px/320px. Physical touch and full mobile visual review pending.",
-        "reliability": "13 engine + 18 DOM checks and actual Chromium desktop/touch-emulated suites pass on exact improved commit; full repository assets, exact 20-slot isolation and all five earlier-game regressions pass.",
-        "variety": "Distinct deliberate tension/release fishing, versus route planning, mushroom recipes, circuit repair, ant logistics and card exploration"
+        "enjoyment": "Continued earlier manually completed opening save; this pass agent-driven UI completed trips2–5 with3medals/no escapes in3/4/5/5casts and23/33/37/40beats. Chart clarifies survey/stock/nursery planning, sequential undo makes experimentation recoverable. Still too repetitive: later trips reused koi/pike/bream and similar rhythms; Ribbon Perch remained unrecorded at campaign end. Hold, not a fun-rating or finished claim.",
+        "depth": "Five short field trips/six patterns/two meaningful kit purchases. Wide spool bought after trip1; grip after trip2. Higher currents change tension, but late trips still favour the same high-value trio and survey-plus-cheap-release plan. Chart reveals existing planning, adds no content. Needs habitat/species-specific decisions or less repetitive authored progression, with measured alternatives before selection.",
+        "polish": "Desktop original underwater art/chart reviewed; nine labelled current-water cards, explicit deterministic three-tide forecasts, preserved multi-action recovery and clipped-focus reveal. Chromium chart/fight/landed controls >=44px, no390/320 page overflow. Two manual click protocol timeouts occurred after actual inputs; fresh AX identified progress and keyboard completed safely. Full manual mobile/screen-reader/physical touch remain unverified.",
+        "reliability": "17 engine+24 DOM and exact-source Chromium desktop/touch plus all19 other candidates pass in CI39465931232; decoded logs inspected. V1 save compatibility, optimistic conflict/corrupt/quota protection retained. Manually verified trip2 reward/catch rollback then rebank/reload and final all-five campaign reload with9unspent medals/both upgrades.",
+        "variety": "Deliberate turn-based tension and sustainable catch choice remain distinct from repair/colony/action. Fishing's own later habitat/species incentives need more variety: campaign completed without Ribbon Perch; no extra procedural-count padding."
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Address observed bank/depth selection clearing undo; compare habitat-wide planning, later-trip fishing variety and progression before finished/selection status.",
-        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
-        "Keep unselected until deeper enjoyment/replay assessment; exact improved source is CI-verified.",
-        "Manually assess art/enjoyment and deepen worthwhile replay variety; remain an unselected prototype.",
-        "Integrate only strongest finished candidates against fresh main with scoped source/catalogue changes; preserve all concurrent work and hosting permission boundary."
+        "Resolve measured later-trip repetition: compare meaningful habitat/species incentives and alternate keep/release plans; high-value koi/pike/bream currently dominate later stall goals. Do not add arbitrary fish counts or grind.",
+        "Review full mobile chart visual legibility, physical touch and screen-reader output where feasible; retain CI save/restart/control/history coverage.",
+        "Compare full fishing progression against later Queen of Cinders play and actual Last Match combat plus manual-poor candidates before selecting finished winners.",
+        "Keep unselected on development branch; integrate only strongest finished source/catalogue changes against fresh main, preserving concurrent Study Desk/requested-GitHub-games/Gummy Bay work."
       ],
       "developmentCommits": [
         "71e6cc164e242d22118dd705768344d237aec348",
-        "5336031a3725fdf923eb105eddc64a7ee75c9cc3"
+        "5336031a3725fdf923eb105eddc64a7ee75c9cc3",
+        "2c030a1a86d9962ba82848bd6055ced7ea2de41a",
+        "4522c78d9cb1d8716f4266cf1cca7440292a2b95"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39358785979",
-        "testedCommit": "5336031a3725fdf923eb105eddc64a7ee75c9cc3",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39465931232",
+        "testedCommit": "4522c78d9cb1d8716f4266cf1cca7440292a2b95",
         "conclusion": "success",
-        "desktop": "All five baseline three-medal trips via actual UI; native keyboard/focus, exact action forecasts, catch/reward undo, upgrades, mid-fight reload, confirmed retry and launch/back navigation; no errors",
-        "touch": "390x844 emulation: one-action bank/depth/cast/reel taps, full catch/release/undo and modal/help/journal; >=44px buttons across choose/fight/landed states, zero page overflow at 390px/320px",
-        "manual": "Managed cloud-browser desktop opening trip: landed/released Lantern Dace and kept Moon Koi, returned for three medals, undid/re-banked reward, bought spool, entered trip two and reloaded its saved state; desktop artwork inspected",
-        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39358785979/artifacts/12235829015",
+        "desktop": "All five baseline3-medal trips, native chart and three-tide planning, preserved catch undo after browsing, whole opening-trip/medal/journal/tide rewind, every restored focus visible, upgrades/reload/retry/launch-back; zero page errors.",
+        "touch": "Actual chart selection, one-action bank/depth/cast/reel taps, catch/release/browsing-preserved undo, modal/help/journal, >=44px targets and no390/320 overflow in choose/chart/fight/landed; zero page errors. Physical hardware not tested.",
+        "manual": "Continued prior trip1 completion with3medals. Bought spool, completed Copper Reeds in3casts/23beats,70shells/1release/survey/3medals. Browsed water after loach release then undid to net. Sequentially undid return and final bream keep, rebanked exactly3medals and reloaded. Bought grip; Blue Sink4casts/33beats/70shells/2releases/3medals; Threadwater5casts/37beats/104shells/2releases/3medals; Bell Pool5casts/40beats/104shells/2releases/3medals. All no escapes. Final reload showed all five complete,9unspent medals and both purchased upgrades; journal5species, Ribbon Perch unrecorded. Two click protocol timeouts followed successful actions; inspected fresh AX and used native keyboard thereafter. Desktop chart screenshot inspected; preview stopped.",
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39465931232/artifacts/12285660426",
         "notVerified": [
-          "Full subjective enjoyment and deeper replay assessment",
-          "Full manual mobile visual review and physical touch hardware",
-          "20 hours of worthwhile content or testing",
+          "Enjoyment across repeated alternative strategies; later species/habitat decisions remain shallow",
+          "Full manual mobile visual review, physical touch and screen-reader output",
+          "20hours of content/testing",
           "Public catalogue integration/deployment"
         ]
       },
@@ -364,6 +369,12 @@
           "scope": "Opening-trip manual comparison; no source changes",
           "finding": "Readable tension choices but predictable location/depth selection and one-step recovery limit the broader loop.2casts/18beats feasible, not optimal; no duration claim.",
           "decision": "Hold; prioritize next fishing controls/progression review"
+        },
+        {
+          "date": "2026-10-21",
+          "scope": "Pass2 implementation and agent-driven UI trips2–5 from earlier completed trip1 save",
+          "finding": "Chart/retained multi-undo remove observed planning/recovery friction. Full progression now reviewed at UI level, but late trips repeat high-value species/rhythms and omit Ribbon Perch; needs strategic variety before winner selection.",
+          "decision": "Hold as improved prototype; prioritize later colony balance and actual action play before ranking"
         }
       ]
     },
@@ -1432,16 +1443,29 @@
       "verifiedCommit": "ad7291fd9189a966ef85878ba3d13e2e42a9101c",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39459641272",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 22,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Deep Pocket pass2: habitat-wide current status/three-tide planning,160-action recovery that survives location browsing, visible restored focus. Manually completed trips2–5 from prior opening save; later high-value repetition identified, hold.17engine+24DOM/desktop/touch/all19 regressions pass. Public unchanged.",
+      "implementationCommit": "2c030a1a86d9962ba82848bd6055ced7ea2de41a",
+      "verifiedCommit": "4522c78d9cb1d8716f4266cf1cca7440292a2b95",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39465931232",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
   ],
   "collectionReview": {
-    "status": "comparative ledger/evidence review underway;3 opening UI comparisons;0finished/selected/public",
+    "status": "Comparative review underway;20 playable/all20 improved/22 passes;repair/fishing opening and fishing later-campaign UI review;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Next prioritize observed Deep Pocket habitat/recovery/progression gap, Queen of Cinders later fire/upgrade balance, and Last Match's missing actual manual combat. Full campaign enjoyment/variety review before selection; no new slots.",
+    "next": "Review later Queen of Cinders fire/upgrades and actual Last Match combat; manually cover under-reviewed candidates, then rank full enjoyment/depth/polish/reliability/variety. Deep Pocket needs less repetitive habitat/species incentives despite passing controls/planning tests. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
