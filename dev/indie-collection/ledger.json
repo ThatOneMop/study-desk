@@ -187,15 +187,16 @@
       ],
       "tests": [
         "Initial: 12 engine and 11 jsdom interface checks passed.",
-        "After pass 1: 16 engine + 18 jsdom interface checks passed, including all five legal rescues, upgraded campaign, every-shift saves, forecast nonmutation/exactness, undo reward rollback, conservation rejection, previous v1 saves, queen capacity, focus, modal guards, reload/retry and blocked/corrupt/concurrent storage.",
+        "After pass 1: 16 engine + 19 jsdom interface checks passed, including all five legal rescues, upgraded campaign, every-shift saves, forecast nonmutation/exactness, undo reward rollback, conservation rejection, previous v1 saves, queen capacity, focus, modal guards, reload/retry and blocked/corrupt/concurrent storage.",
         "Candidate asset/navigation/syntax gate: 23 local references, exactly 20 slots and unselected catalogue isolation pass.",
-        "Real Chromium desktop/touch CI suite added; result pending."
+        "Real Chromium desktop/touch CI suite added; result pending.",
+        "Additional legal UI test waits to the real firefront, damps burned supply tunnels, checks connectivity and undoes the water/fire change. Browser campaign now keeps baseline equipment through all five rescues so upgrades cannot bypass fire coverage."
       ],
       "quality": {
         "enjoyment": "unrated: manual core-loop playtest pending",
         "depth": "Five short handmade logistics chapters, finite supplies, route preservation and three upgrades; no duration claim",
         "polish": "Original CSS art; desktop opening and early legal shifts reviewed in cloud browser. Forecast and undo added; 390px/320px rendered verification pending.",
-        "reliability": "16 engine and 18 jsdom UI checks pass; full asset and real Chromium suites pending.",
+        "reliability": "16 engine and 19 jsdom UI checks pass; full asset and real Chromium suites pending.",
         "variety": "Distinct colony workforce and supply-network management, not a reskin"
       },
       "selected": false,
@@ -207,7 +208,8 @@
         "Implement candidate 05 Inkline with a distinct drafting/exploration loop; revisit each prototype for depth and selection"
       ],
       "developmentCommits": [
-        "d93fd1aa611a942c0bb60df317a5c86699da8f23"
+        "d93fd1aa611a942c0bb60df317a5c86699da8f23",
+        "6996c805935ac9bc7b98a556cdb076ed11674e64"
       ]
     },
     {

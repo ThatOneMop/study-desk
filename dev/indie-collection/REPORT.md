@@ -1,3 +1,7 @@
+# Run 4 · fire-recovery coverage
+
+Added a nineteenth interface check: use legal excavation, allocate food/water carriers, advance to the actual firefront, damp burned food-route cells and verify that undo restores water, burning and connectivity. Strengthened the browser suite to complete all five chapters with baseline equipment before buying an upgrade, so progression checks cannot bypass the fire mechanic. Local 16 engine + 19 jsdom checks pass; all three earlier games' engine/UI regressions also pass (17+9, 18+18, 18+19). In cloud browser, manually completed chapter one, undid/replayed the rescue reward, bought boots, opened chapter two and verified reload. This is a preliminary readability/control assessment, not full human enjoyment/depth certification.
+
 # Run 4 · meaningful improvement pass 1
 
 Totals: **4 playable / 4 meaningfully improved / 0 finished / 0 selected / 0 publicly published**. Initial checkpoint pushed: [d93fd1a](https://github.com/ThatOneMop/study-desk/commit/d93fd1aa611a942c0bb60df317a5c86699da8f23).
