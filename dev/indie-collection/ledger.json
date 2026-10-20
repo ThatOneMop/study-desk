@@ -190,52 +190,60 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/queen-of-cinders/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: five handmade colony logistics/fire-recovery chapters; connected excavation, finite supply patches, distance-based carrier work, worker allocation, nursery hatching, wet firebreaks, queen health, best-only medals, three upgrades, retries and versioned saves.",
-        "Pass 1: real-rules nonmutating next-shift forecasts show supply totals, births, queen damage, fire closures, loss and idle workers; session undo restores excavation/allocations/dampening/full shift/rewards, clears at navigation/upgrades/retry; narrowed board uses finger-sized internally scrollable controls, preserved focus, enabled continuation focus; conservation/connected-soil/score validation, backward capacity migration and correct next-chapter-only shelter upgrade."
+        "Pass 1: real-rules nonmutating next-shift forecasts show supply totals, births, queen damage, fire closures, loss and idle workers; session undo restores excavation/allocations/dampening/full shift/rewards, clears at navigation/upgrades/retry; narrowed board uses finger-sized internally scrollable controls, preserved focus, enabled continuation focus; conservation/connected-soil/score validation, backward capacity migration and correct next-chapter-only shelter upgrade.",
+        "Pass2: pure supply trail ledger shows current carrier cost/banked work/remaining supply, exact next delivery and route connectivity after end-of-shift fire. Trace follows only actually excavated routes (or their burned blocked path), never an undug authored solution, highlights earth and focuses the relevant threatened/burned patch. Free Inspect tool/shortcut3 spends nothing and preserves undo. Clipped trace/action focus is revealed horizontally/vertically within narrow scrolling boards. Existing map layouts, fire timing, resource economy, brood goals, upgrade prices, v1 save key/format and one-step undo rules unchanged."
       ],
       "tests": [
         "Initial: 12 engine and 11 jsdom interface checks passed.",
         "After pass 1: 16 engine + 19 jsdom interface checks passed, including all five legal rescues, upgraded campaign, every-shift saves, forecast nonmutation/exactness, undo reward rollback, conservation rejection, previous v1 saves, queen capacity, focus, modal guards, reload/retry and blocked/corrupt/concurrent storage.",
         "Candidate asset/navigation/syntax gate: 23 local references, exactly 20 slots and unselected catalogue isolation pass.",
         "Additional legal UI test waits to the real firefront, damps burned supply tunnels, checks connectivity and undoes the water/fire change. Browser campaign now keeps baseline equipment through all five rescues so upgrades cannot bypass fire coverage.",
-        "PASS GitHub Actions 39348588819 at 6310e921cdda9631082df02a7d41410bb2e816eb: full repository assets, candidate 20-slot/23-reference gate, 16 engine + 19 DOM checks, all five baseline Chromium rescues/firebreaks, native keyboard/focus, upgrade/reload/retry/undo, desktop launch/back, 390px/320px touch emulation and all three earlier-game regressions."
+        "PASS GitHub Actions 39348588819 at 6310e921cdda9631082df02a7d41410bb2e816eb: full repository assets, candidate 20-slot/23-reference gate, 16 engine + 19 DOM checks, all five baseline Chromium rescues/firebreaks, native keyboard/focus, upgrade/reload/retry/undo, desktop launch/back, 390px/320px touch emulation and all three earlier-game regressions.",
+        "Pass2 local20engine+24DOM checks pass: pure supply reports through all five real campaigns, exact deliveries/current and next travel costs, actual shift13→14 delivery-before-fire cut, blocked path/dampen recovery, surviving detour prevents false cut warnings, no hidden undug routes/save mutation, inspect/trace preserve actual dig/shift undo, modal guard, trace reset/reload and navigation. Local asset gate74 refs reflects partial checkout, not latest full repository.",
+        "PASS final exact source57611181b385529ddcb6d9d0bae390db5500b89c, CI39474950973/job118808383635:20engine+24DOM; actual Chromium desktop all five baseline rescues, real delivery-before-fire cut, pure native trail/Inspect, burned-path dampening/undo/reload and visible board focus; actual touch trail/Inspect and strict320px water-target bounds, >=44px controls/no390/320 overflow. All19 other-game engine/DOM/browser regressions, root10routes/14HTML refs and candidate20slots/116refs passed; zero page errors. Decoded logs inspected; artifact12288887699. Initial CI39474586132 test setup omitted Dig after retry; corrected through UI, no assertion weakening."
       ],
       "quality": {
-        "enjoyment": "Manual opening comparison: five-tile supply network and2food/1water/1resin/2nurses, then assigned newly hatched ants to nurse and food.3brood rescued atshift4,full health/3medals; workforce growth supported real reallocation. Full later-chapter/fire balance still open.",
-        "depth": "Five short handmade logistics chapters, finite patches and three upgrades. Measured baseline solutions take 6/11/12/12/12 shifts; boots-first routes take 6/7/8/8/9. Upgrade pacing and deeper strategic variety need review; no duration claim New manual opening alternative rescues atshift4 through reallocation; earlier6-shift reference is not optimal. Review whether upgrades make later fire irrelevant.",
-        "polish": "Original CSS earth palette inspected on desktop; forecasts, focus, >=44px controls and no page overflow at 390px/320px verified in Chromium. Narrowest board uses internal scrolling. Physical touch testing pending",
-        "reliability": "16 engine + 19 DOM checks and actual Chromium desktop/touch-emulation suites pass in CI; full repository assets and earlier-game regressions pass",
-        "variety": "Distinct ant-workforce supply-network/fire-recovery management"
+        "enjoyment": "Earlier opening manual4-shift rescue supports worker reallocation. This pass checked baseline versus boots-first strategies with real-engine reference play; baseline uses firebreaks, boots can avoid earlier fronts. Added route consequences/Inspect to reduce opaque hauling and accidental excavation. No new manual playtest: preview navigation failed, and observing its chrome-error tab was blocked by browser URL policy; no workaround attempted.",
+        "depth": "Reference baseline rescues6/11/12/12/12 shifts with0/4/6/3/6 wet patches; boots-first6/7/8/8/9 with0/0/0/0/3 wet patches. Speed versus water/fire defense is a legitimate alternative, not automatically a fire-timing defect. Nursery purchase when affordable did not accelerate this particular reference allocator, which may be resin-limited; compare smarter allocations before declaring upgrade weak. These are feasible strategies, not optimality/fun evidence.",
+        "polish": "Original earth styling retained; active/burned traced paths, relevant patch inspection, exact delivery-before-fire wording and free Inspect reduce accidental actions. Final Chromium desktop/touch validates traced-cell visibility including horizontal320px scroll, >=44px controls and no390/320 overflow; screenshots retained but not manually inspected. No new manual screenshot/mobile/screen-reader review due blocked browser observation.",
+        "reliability": "Final exact source57611181 passed20engine+24DOM/Chromium desktop/touch and all19 other-game regressions; root10routes/14HTML refs and20slots/116refs gates passed. Actual delivery-before-fire, surviving detour, dampening/recovery/undo/reload and pure trace/inspection validated; decoded CI39474950973 logs inspected. Existing v1 save/conservation/storage protections retained.",
+        "variety": "Distinct connected ant logistics, growing workforce and optional wet firebreaks. Route feedback exposes actual causal choices; no artificial waits, new species/area counts or forced fire-timing change added."
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
-        "Revisit Queen of Cinders upgrade pacing and add strategic depth/quality assessment before finish/selection; consider safe save export/recovery UI",
-        "Integrate only selected finished games onto current main using scoped source/catalogue edits; preserve concurrent work and the existing Pages permission boundary"
+        "Review later chapters through permitted manual UI when available: compare fast boots rescues with water-defense and alternative carrier/nurse allocations; do not equate reference timing with optimality.",
+        "Assess nursery upgrade value under resin/food-limited versus nurse-limited plans, and shelter recovery; preserve save/rule compatibility unless a measured balance change is warranted.",
+        "Do actual Last Match combat and manual-poor candidates before cross-game enjoyment/depth/polish/reliability/variety ranking or winner selection.",
+        "Keep unfinished/unselected on development branch; integrate only selected finished scoped source/catalogue changes against fresh main, preserving concurrent work."
       ],
       "developmentCommits": [
         "d93fd1aa611a942c0bb60df317a5c86699da8f23",
         "6996c805935ac9bc7b98a556cdb076ed11674e64",
-        "6310e921cdda9631082df02a7d41410bb2e816eb"
+        "6310e921cdda9631082df02a7d41410bb2e816eb",
+        "0e24ef450612300c0adc695c041a03c948c8d0f6",
+        "397ba91c9a3b4981ecf97f6c2ef2edc43c36d663",
+        "57611181b385529ddcb6d9d0bae390db5500b89c"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39348588819",
-        "testedCommit": "6310e921cdda9631082df02a7d41410bb2e816eb",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39474950973",
+        "testedCommit": "57611181b385529ddcb6d9d0bae390db5500b89c",
         "conclusion": "success",
-        "desktop": "All five chapters with baseline equipment through actual UI; forecasts, firebreaks, keyboard/focus, winning reward undo, upgrade, reload, confirmed retry and development navigation; zero page errors",
-        "touch": "390x844 emulation: dig/allocate/tool/undo/retry/help, >=44px visible controls, no page overflow at 390px/320px",
-        "manual": "Cloud browser introductory chapter rescue, reward undo/replay, boots purchase, chapter-two entry/reload and desktop visual review",
+        "desktop": "PASS actual five baseline rescues, native keyboard/focus, exact forecasts, shift13→14 delivery-before-fire route cut, pure trace/Inspect, burned-route dampening/recovery/undo/reload, visible board focus, upgrades/reward rollback/retry and workshop navigation; zero page errors.",
+        "touch": "PASS actual dig/assign/trace/Inspect, undo/modal/help, >=44px controls/no390/320 page overflow; real water trail tocell40 fully visible in both axes inside320px scrolling board; zero page errors. Physical hardware not tested.",
+        "manual": "No new manual gameplay this increment. Initial preview request preceded server startup and failed connection; prepared supported local preview, then observing the failed chrome-error tab was blocked by browser URL policy. Stopped UI work without alternate surfaces/policy workaround; preview stopped. Real-engine comparison and independent preconfigured GitHub Actions browser tests used; not represented as manual play.",
         "notVerified": [
-          "Full subjective enjoyment/depth assessment",
-          "Physical touch hardware",
-          "20 hours of worthwhile content",
-          "Public catalogue integration/deployment"
-        ]
+          "Later-chapter subjective enjoyment and actual manual fire/upgrade strategy comparison",
+          "Fresh manual screenshot inspection, full mobile visual review, physical touch and screen-reader output",
+          "20hours of gameplay/testing",
+          "Public integration/deployment"
+        ],
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39474950973/artifacts/12288887699"
       },
       "reviews": [
         {
@@ -243,6 +251,12 @@
           "scope": "Opening nursery comparison; no source changes",
           "finding": "Growth/reallocation matches colony taste, but intro fire never mattered in4-shift rescue. Review later chapters/boots pacing before selecting.",
           "decision": "Hold; prioritize full colony balance/depth review"
+        },
+        {
+          "date": "2026-10-21",
+          "scope": "Real-engine baseline/upgrade comparison and feedback pass; manual UI blocked",
+          "finding": "Baseline uses firebreaks; boots-first often outruns fire. Added pure path-specific consequence feedback and free inspection rather than altering hazards without play evidence.",
+          "decision": "Hold; compare alternative allocations and actual manual later-chapter choices before selection"
         }
       ]
     },
@@ -1456,16 +1470,29 @@
       "verifiedCommit": "4522c78d9cb1d8716f4266cf1cca7440292a2b95",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39465931232",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 23,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Colony pass2 adds real excavated trail tracing, exact delivery-before-fire/disconnection ledger and free Inspect preserving undo; baseline versus boots-first engine comparison recorded. Manual browser observation blocked, no workaround. 20engine+24DOM/desktop/touch/all19 regressions pass in exact-source CI39474950973; public unchanged.",
+      "implementationCommit": "0e24ef450612300c0adc695c041a03c948c8d0f6",
+      "verifiedCommit": "57611181b385529ddcb6d9d0bae390db5500b89c",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39474950973",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20 playable/all20 improved/22 passes;repair/fishing opening and fishing later-campaign UI review;0finished/selected/public",
+    "status": "Comparative review underway;20playable/all20improved/23passes;repair/fishing UI evidence plus colony engine tradeoff review;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Review later Queen of Cinders fire/upgrades and actual Last Match combat; manually cover under-reviewed candidates, then rank full enjoyment/depth/polish/reliability/variety. Deep Pocket needs less repetitive habitat/species incentives despite passing controls/planning tests. No new slots.",
+    "next": "Actual Last Match combat and manual-poor candidates; revisit later colony alternative allocations/upgrade value through permitted UI. Deep Pocket still needs less repetitive habitat/species incentives. Do not rank from green tests alone.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
