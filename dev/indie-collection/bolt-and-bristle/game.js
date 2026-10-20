@@ -13,7 +13,7 @@ function render(focus){const s=o.job,j=E.jobs[s.index],base=E.layout(s.index),po
 }
 function change(fn,focus,record=true){if(!$('confirm').hidden)return;const before=E.copy(o);fn();const changed=JSON.stringify(before.profile)!==JSON.stringify(o.profile)||JSON.stringify({...before.job,message:''})!==JSON.stringify({...o.job,message:''});if(record&&changed&&(!drag||!dragRecorded)){history.push({state:before,cell:inspected,tool});if(history.length>120)history.shift();if(drag)dragRecorded=true}if(!record)history=[];save();render(focus)}
 function use(i){inspected=i;change(()=>E.act(o,tool,i),'plate'+i)}
-function revealPlate(){const id=o.job.status==='repair'?'plate'+inspected:document.activeElement?.id;$(id)?.scrollIntoView?.({block:'nearest'})}
+function revealPlate(){const id=o.job.status==='repair'?'plate'+inspected:document.activeElement?.id;$(id)?.scrollIntoView?.({block:'center',inline:'nearest',behavior:'instant'})}
 function undoAction(){if(!history.length||!$('confirm').hidden)return;endDrag();const prior=history.pop();o=prior.state;inspected=prior.cell;tool=prior.tool;o.job.message='Last action undone. Whole cleaning stroke, plate work, coins and best restoration restored.';save();render('plate'+inspected);revealPlate()}
 function choose(value,focus){tool=value;render(focus)}
 document.querySelector('.tools').addEventListener('click',e=>{const b=e.target.closest('[data-tool]');if(b&&$('confirm').hidden)choose(b.dataset.tool,b.id)});
