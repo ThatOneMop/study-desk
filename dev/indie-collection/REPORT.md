@@ -1,3 +1,21 @@
+# Run 28 · Roof Runner route guidance and opening review
+
+**20/20 playable prototypes ·20 improved games ·28 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained. A supported local-only preview finally allowed a limited Roof Runner opening review: normal start/resume, held touch movement and jump, one genuine gap fall/recovery, paused-state reload and live visual inspection. This is not a complete manual route victory, a human-player enjoyment score or an hours claim.
+
+The run exposed a concrete feedback defect: after leaving the first flag, the durable event line could still say “Ready at the flag” until a parcel, checkpoint or fall occurred. Pass2 keeps that event history but adds a continuously updated route strip. It maps the runner, all three parcels, checkpoint and postbox; reports route percentage and postbox distance; names the nearest remaining parcel as ahead or behind; and visually settles collected parcels/saved checkpoints. Its accessible label mirrors the current state. The compact layout remains below the canvas and does not alter physics, routes, medals, save format, timers or content counts.
+
+[Exact implementation 24d11a4](https://github.com/ThatOneMop/study-desk/commit/24d11a4c18c3e8a29ca138b130742cdecdce5598) · [CI39514585107](https://github.com/ThatOneMop/study-desk/actions/runs/39514585107): **passed** on that exact source; terminal run, steps and decoded logs inspected. Local13/13 engine checks pass with unchanged five all-parcel/no-fall routes at277/295/307/367/343 ticks and120 deterministic exploratory attempts. Local jsdom/Playwright dependencies are unavailable, so interface/browser results are attributed only to CI.
+
+Exact-source CI passed13engine+19DOM, actual-keyboard deterministic-clock five-route all-parcel/no-fall campaigns, native-clock movement/jump/retry-cancel/pause, live guidance state, mobile route-strip geometry, quick touch taps, >=44px controls and390/320px no-overflow checks. All19 other-candidate regressions, full repository asset/navigation gates and exact20-slot/selection-isolation/116-reference checks passed with zero page errors.
+
+Manual scope stayed honest. The runner visibly advanced4%→6% and postbox/parcel distances decreased; a real missed jump consumed one recovery and returned to the first flag; reload preserved the attempt and paused before resuming. Original canvas city art and the new route strip were legible on desktop. Browser-controlled sustained input is not a substitute for a complete unscripted continuous-control victory or physical touch test.
+
+Quality decision: **hold, not selected or finished.** The courier premise, variable jump/air dash, optional detours and rooftop presentation add useful action variety. Five short routes, later wind/vent feel, difficulty curve and replay satisfaction still need continuous normal-UI completion before ranking against repair, fishing, colony and planning games.
+
+Sites guidance was used only for local QA; the preview was stopped and no Site registration, hosting sync, audience or deployment change occurred. Main remained8f99173d29bcbcf429247766a605ca5cd39e9a54 when source was pushed and will be re-read before this record update. Public catalogue, Study Desk, requested-GitHub-games and Gummy Bay work remain untouched. No published game link or integration commit exists.
+
+Next: complete an unscripted Roof Runner route and later wind/vent review, then compare with other manual-poor action candidates and the observed late-game repetition/alternative-strategy gaps. Keep Friday for polishing, deliberate selection/scoped integration, regression/deployment verification where possible and achieved-total reporting; stop new work at the agreed cutoff.
+
 # Run 26 · Spore Kitchen campaign and upgrade-order progression
 
 **20/20 playable prototypes ·20 improved games ·26 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained. An agent-driven normal-UI campaign completed all five Spore Kitchen services at9/9 using only visible controls and the optional recipe notebook—no direct engine calls, injected state or synthetic clock. This is completion evidence, not a human-player enjoyment score or duration claim.
