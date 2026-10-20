@@ -180,19 +180,22 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/queen-of-cinders/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: five handmade colony logistics/fire-recovery chapters; connected excavation, finite supply patches, distance-based carrier work, worker allocation, nursery hatching, wet firebreaks, queen health, best-only medals, three upgrades, retries and versioned saves."
+        "Initial playable: five handmade colony logistics/fire-recovery chapters; connected excavation, finite supply patches, distance-based carrier work, worker allocation, nursery hatching, wet firebreaks, queen health, best-only medals, three upgrades, retries and versioned saves.",
+        "Pass 1: real-rules nonmutating next-shift forecasts show supply totals, births, queen damage, fire closures, loss and idle workers; session undo restores excavation/allocations/dampening/full shift/rewards, clears at navigation/upgrades/retry; narrowed board uses finger-sized internally scrollable controls, preserved focus, enabled continuation focus; conservation/connected-soil/score validation, backward capacity migration and correct next-chapter-only shelter upgrade."
       ],
       "tests": [
-        "12 engine checks passed: all five actual baseline routes rescued brood in 6/11/12/12/12 shifts, every-shift save round trips, upgraded campaign, fire recovery, starvation/deadline, assignment limits, best-only medals and malformed saves.",
-        "DOM suite implemented; pending dependency availability and CI."
+        "Initial: 12 engine and 11 jsdom interface checks passed.",
+        "After pass 1: 16 engine + 18 jsdom interface checks passed, including all five legal rescues, upgraded campaign, every-shift saves, forecast nonmutation/exactness, undo reward rollback, conservation rejection, previous v1 saves, queen capacity, focus, modal guards, reload/retry and blocked/corrupt/concurrent storage.",
+        "Candidate asset/navigation/syntax gate: 23 local references, exactly 20 slots and unselected catalogue isolation pass.",
+        "Real Chromium desktop/touch CI suite added; result pending."
       ],
       "quality": {
         "enjoyment": "unrated: manual core-loop playtest pending",
         "depth": "Five short handmade logistics chapters, finite supplies, route preservation and three upgrades; no duration claim",
-        "polish": "Original CSS earth/colony art; desktop opening inspected in cloud browser; narrow-screen and full playtest pending",
-        "reliability": "12 engine tests passed; interface/browser gates pending",
+        "polish": "Original CSS art; desktop opening and early legal shifts reviewed in cloud browser. Forecast and undo added; 390px/320px rendered verification pending.",
+        "reliability": "16 engine and 18 jsdom UI checks pass; full asset and real Chromium suites pending.",
         "variety": "Distinct colony workforce and supply-network management, not a reskin"
       },
       "selected": false,
@@ -200,8 +203,11 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful improvement pass: transparent next-shift forecasts, undo/recovery, responsive controls and save validation hardening",
-        "Complete DOM and browser checks before selection; preserve current main and concurrent game work"
+        "Verify complete browser campaign, touch emulation and full repository CI; inspect enjoyment and chapter pacing before marking finished",
+        "Implement candidate 05 Inkline with a distinct drafting/exploration loop; revisit each prototype for depth and selection"
+      ],
+      "developmentCommits": [
+        "d93fd1aa611a942c0bb60df317a5c86699da8f23"
       ]
     },
     {

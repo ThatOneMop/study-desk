@@ -9,7 +9,7 @@ const chapters=[
  {name:'A small green future',story:'Rescue six brood from the last ember tide. The colony you raise is the forest that comes next.',goal:6,limit:22,fire:7,axis:'west',rocks:[24,17,10,36],food:28,water:40,resin:32,color:'#b6c887'}
 ];
 const costs={boots:3,nursery:4,shell:3};
-function fresh(index,p){return{index,turn:0,status:'active',open:[Q,38],wet:[],burn:[],teams:{food:0,water:0,resin:0,nurse:0},carry:{food:0,water:0,resin:0},left:{food:60,water:40,resin:30},food:16,water:0,resin:0,workers:6,brood:0,growth:0,health:p.upgrades.shell?5:3,stars:0,message:'Dig connected soil to supplies. Assign carriers and nurses, then send a shift.'}}
+function fresh(index,p){return{index,turn:0,status:'active',open:[Q,38],wet:[],burn:[],teams:{food:0,water:0,resin:0,nurse:0},carry:{food:0,water:0,resin:0},left:{food:60,water:40,resin:30},food:16,water:0,resin:0,workers:6,brood:0,growth:0,health:p.upgrades.shell?5:3,maxHealth:p.upgrades.shell?5:3,stars:0,message:'Dig connected soil to supplies. Assign carriers and nurses, then send a shift.'}}
 function create(){const profile={best:[0,0,0,0,0],coins:0,upgrades:{boots:0,nursery:0,shell:0}};return{version:1,profile,colony:fresh(0,profile)}}
 const neighbours=i=>[i-W,i+W,i%W?i-1:-1,i%W<W-1?i+1:-1].filter(n=>n>=0&&n<W*H);
 function distances(s){const d={[Q]:0},queue=[Q];for(const i of queue)for(const n of neighbours(i))if(s.open.includes(n)&&!s.burn.includes(n)&&d[n]===undefined){d[n]=d[i]+1;queue.push(n)}return d}
@@ -30,22 +30,27 @@ function step(o){const s=o.colony,c=chapters[s.index];if(s.status!=='active')ret
  const newBurn=s.open.filter(i=>i!==Q&&!s.wet.includes(i)&&!s.burn.includes(i)&&due(s,i)<=s.turn);s.burn.push(...newBurn);
  s.message=`Shift ${s.turn}: +${gains.food} food, +${gains.water} water, +${gains.resin} resin.${born?' '+born+' brood hatched; new ants are ready to assign.':''}${newBurn.length?' Cinders closed '+newBurn.length+' tunnel'+(newBurn.length===1?'':'s')+'.':''}`;
  if(s.health<=0){s.status='lost';s.message='The pantry ran dry and the queen weakened. Retry freely; build a food route first.'}
- else if(s.brood>=c.goal){s.status='complete';s.stars=1+(s.health===(o.profile.upgrades.shell?5:3)?1:0)+(s.turn<=c.limit-4?1:0);const delta=Math.max(0,s.stars-o.profile.best[s.index]);o.profile.best[s.index]=Math.max(o.profile.best[s.index],s.stars);o.profile.coins+=delta;s.message=`Brood rescued! ${s.stars}/3 leaf medals. ${delta?delta+' new medals banked.':'Best score already banked; replay never farms medals.'}`}
+ else if(s.brood>=c.goal){s.status='complete';s.stars=1+(s.health===s.maxHealth?1:0)+(s.turn<=c.limit-4?1:0);const delta=Math.max(0,s.stars-o.profile.best[s.index]);o.profile.best[s.index]=Math.max(o.profile.best[s.index],s.stars);o.profile.coins+=delta;s.message=`Brood rescued! ${s.stars}/3 leaf medals. ${delta?delta+' new medals banked.':'Best score already banked; replay never farms medals.'}`}
  else if(s.turn>=c.limit){s.status='lost';s.message='The ember tide reached the nursery. Retry and protect the supply junctions sooner.'}
  return true}
 function retry(o){o.colony=fresh(o.colony.index,o.profile);return true}
 function next(o,i){if(o.colony.status==='active'||!Number.isInteger(i)||i<0||i>=chapters.length||i>0&&!o.profile.best[i-1])return false;o.colony=fresh(i,o.profile);return true}
 function upgrade(o,k){if(o.colony.status!=='complete'||!Object.hasOwn(costs,k)||o.profile.upgrades[k]||o.profile.coins<costs[k])return false;o.profile.coins-=costs[k];o.profile.upgrades[k]=1;return true}
+// Run the real rules on a copy: forecasts cannot spend or bank anything.
+function forecast(o){const copy=clone(o),s=o.colony;step(copy);const n=copy.colony;return{food:n.food,water:n.water,resin:n.resin,brood:n.brood-s.brood,health:n.health,burn:n.burn.filter(i=>!s.burn.includes(i)),status:n.status}}
 function valid(o){
  if(!o||o.version!==1||!o.profile||!o.colony)return false;const p=o.profile,s=o.colony,num=(n,a,b)=>Number.isInteger(n)&&n>=a&&n<=b,arr=(v,max)=>Array.isArray(v)&&v.length<=max&&v.every(n=>num(n,0,48))&&new Set(v).size===v.length;
  if(!Array.isArray(p.best)||p.best.length!==5||!p.best.every(n=>num(n,0,3))||!p.upgrades||Object.keys(p.upgrades).length!==3||!Object.keys(costs).every(k=>num(p.upgrades[k],0,1)))return false;
  if(p.best.some((n,i)=>n&&i>0&&!p.best[i-1])||p.coins!==p.best.reduce((a,b)=>a+b,0)-Object.keys(costs).reduce((a,k)=>a+costs[k]*p.upgrades[k],0)||!num(p.coins,0,15))return false;
  if(!num(s.index,0,4)||s.index>0&&!p.best[s.index-1]||!num(s.turn,0,22)||!['active','complete','lost'].includes(s.status)||!arr(s.open,49)||!s.open.includes(Q)||!arr(s.wet,48)||!arr(s.burn,48)||s.wet.includes(Q)||s.burn.includes(Q)||s.open.some(i=>chapters[s.index].rocks.includes(i))||[...s.wet,...s.burn].some(i=>!s.open.includes(i))||s.wet.some(i=>s.burn.includes(i)))return false;
- const c=chapters[s.index];if(!num(s.brood,0,c.goal)||s.workers!==6+s.brood||!num(s.health,0,5)||!num(s.growth,0,3)||!num(s.stars,0,3)||typeof s.message!=='string'||s.message.length>500||s.turn>c.limit)return false;
+ const c=chapters[s.index];if(!num(s.brood,0,c.goal)||s.workers!==6+s.brood||![3,5].includes(s.maxHealth)||s.maxHealth===5&&!p.upgrades.shell||!num(s.health,0,s.maxHealth)||!num(s.growth,0,3)||!num(s.stars,0,3)||typeof s.message!=='string'||s.message.length>500||s.turn>c.limit)return false;
  for(const k of ['food','water','resin'])if(!num(s[k],0,100)||!s.left||!num(s.left[k],0,{food:60,water:40,resin:30}[k])||!s.carry||!num(s.carry[k],0,12))return false;
  if(!s.teams||Object.keys(s.teams).length!==4||!['food','water','resin','nurse'].every(k=>num(s.teams[k],0,12))||allocated(s)>s.workers)return false;
- if(s.status==='complete'&&(s.brood!==c.goal||!s.stars||p.best[s.index]<s.stars)||s.status==='active'&&(s.brood>=c.goal||s.health<=0||s.turn>=c.limit||s.stars!==0)||s.status==='lost'&&(s.health>0&&s.turn<c.limit||s.stars!==0))return false;return true;
+ if(s.burn.some(i=>due(s,i)>s.turn)||Object.keys(distances({...s,burn:[]})).length!==s.open.length)return false;
+ // Resource conservation catches impossible mid-chapter states, not only bad types.
+ if(s.resin!==30-s.left.resin-s.brood||s.water!==40-s.left.water-s.wet.length*2||s.food!==16+60-s.left.food-(s.open.length-2)-s.turn+(s.maxHealth-s.health)-3*s.brood)return false;
+ if(s.status==='complete'&&(s.brood!==c.goal||s.health<=0||s.stars!==1+(s.health===s.maxHealth?1:0)+(s.turn<=c.limit-4?1:0)||p.best[s.index]<s.stars)||s.status==='active'&&(s.brood>=c.goal||s.health<=0||s.turn>=c.limit||s.stars!==0)||s.status==='lost'&&(s.brood>=c.goal||s.health>0&&s.turn<c.limit||s.stars!==0))return false;return true;
 }
-function decode(raw){try{if(typeof raw!=='string'||raw.length>30000)return null;const o=JSON.parse(raw);return valid(o)?o:null}catch{return null}}
-const E={W,H,Q,chapters,costs,create,clone,neighbours,distances,allocated,free,due,travel,assign,dig,damp,step,retry,next,upgrade,valid,encode:JSON.stringify,decode};if(typeof module!=='undefined'&&module.exports)module.exports=E;else root.Cinders=E;
+function decode(raw){try{if(typeof raw!=='string'||raw.length>30000)return null;const o=JSON.parse(raw);if(o?.colony&&o.colony.maxHealth===undefined){const s=o.colony;s.maxHealth=s.health+s.food-16-60+s.left.food+(s.open.length-2)+s.turn+3*s.brood}return valid(o)?o:null}catch{return null}}
+const E={W,H,Q,chapters,costs,create,clone,neighbours,distances,allocated,free,due,travel,assign,dig,damp,step,retry,next,upgrade,forecast,valid,encode:JSON.stringify,decode};if(typeof module!=='undefined'&&module.exports)module.exports=E;else root.Cinders=E;
 })(typeof window!=='undefined'?window:globalThis);

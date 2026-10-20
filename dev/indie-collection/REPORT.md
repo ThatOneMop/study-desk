@@ -1,3 +1,11 @@
+# Run 4 · meaningful improvement pass 1
+
+Totals: **4 playable / 4 meaningfully improved / 0 finished / 0 selected / 0 publicly published**. Initial checkpoint pushed: [d93fd1a](https://github.com/ThatOneMop/study-desk/commit/d93fd1aa611a942c0bb60df317a5c86699da8f23).
+
+Added forecast via running the real shift rules on a copy: exact next supplies, brood, queen damage, imminent fire and loss; unassigned ants and blocked food routes explained. One-step session undo reverses digging, workforce changes, dampening and complete shifts including winning medals/best scores. Invalid actions preserve history; navigation/upgrades/retry clear it, reload retains colony but not history. Preserved cell/team focus, focus enabled continuation on victory, modal focus/shortcut protection, native keyboard shortcuts. Finger-sized earth cells scroll internally only at very narrow widths; no smaller targets used to squeeze the board.
+
+Stricter saves check resource conservation, connected excavated soil, fire dates, score/state consistency and queen capacity. Fixed a real upgrade bug: shelter purchased after victory no longer changes the completed chapter's health maximum; capacity is applied next chapter. Earlier version-one saves migrate capacity from actual resource accounting. 16 engine + 18 jsdom interface checks passed. Existing regressions and remote Chromium desktop/touch/full-repository gate pending. No subjective enjoyment or duration claim. Candidate stays development-only.
+
 # Run 4 · Queen of Cinders initial playable · 20 October 2026
 
 4/20 playable prototypes, 3 improved, 0 finished/selected/published at this checkpoint. Re-read development head dd88d846, current main 8eb4fda4, latest main progress (pass 4), repository README, static hosting conventions, source/tests/workflow and exact 20-slot ledger. No AGENTS.md or root compilation step in recursive repository inventory. Current main has newer independent launcher/After Hours work and the Pages permission boundary; no changes to main, Gummy Bay, community, requested-game imports or hosting permissions.
