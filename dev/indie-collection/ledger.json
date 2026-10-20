@@ -177,19 +177,31 @@
       "id": "queen-of-cinders",
       "title": "Queen of Cinders",
       "coreLoop": "Ant colony logistics and fire recovery",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/queen-of-cinders/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: five handmade colony logistics/fire-recovery chapters; connected excavation, finite supply patches, distance-based carrier work, worker allocation, nursery hatching, wet firebreaks, queen health, best-only medals, three upgrades, retries and versioned saves."
+      ],
+      "tests": [
+        "12 engine checks passed: all five actual baseline routes rescued brood in 6/11/12/12/12 shifts, every-shift save round trips, upgraded campaign, fire recovery, starvation/deadline, assignment limits, best-only medals and malformed saves.",
+        "DOM suite implemented; pending dependency availability and CI."
+      ],
+      "quality": {
+        "enjoyment": "unrated: manual core-loop playtest pending",
+        "depth": "Five short handmade logistics chapters, finite supplies, route preservation and three upgrades; no duration claim",
+        "polish": "Original CSS earth/colony art; desktop opening inspected in cloud browser; narrow-screen and full playtest pending",
+        "reliability": "12 engine tests passed; interface/browser gates pending",
+        "variety": "Distinct colony workforce and supply-network management, not a reskin"
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful improvement pass: transparent next-shift forecasts, undo/recovery, responsive controls and save validation hardening",
+        "Complete DOM and browser checks before selection; preserve current main and concurrent game work"
       ]
     },
     {

@@ -1,3 +1,11 @@
+# Run 4 · Queen of Cinders initial playable · 20 October 2026
+
+4/20 playable prototypes, 3 improved, 0 finished/selected/published at this checkpoint. Re-read development head dd88d846, current main 8eb4fda4, latest main progress (pass 4), repository README, static hosting conventions, source/tests/workflow and exact 20-slot ledger. No AGENTS.md or root compilation step in recursive repository inventory. Current main has newer independent launcher/After Hours work and the Pages permission boundary; no changes to main, Gummy Bay, community, requested-game imports or hosting permissions.
+
+Five original handmade colony chapters: connected excavation costs food, distance-based finite supply hauling, manual workforce allocation, nursery hatching/growth, queen upkeep, water firebreaks/reopening, directional cinder fronts, deadline/starvation loss, best-only medals, three upgrades and versioned saves. Original CSS and Unicode symbols only. Baseline tests found/fixed a root overlapping the initial tunnel. All five baseline chapters have actual legal solutions in 6, 11, 12, 12 and 12 shifts; these are automated shift counts, not human playtimes. Chapter five requires earlier water workforce growth to maintain its longer food route.
+
+12 engine checks passed. Actual-engine all-chapter baseline and upgraded campaigns, save decoding after each shift, fire connectivity/restoration, assignment limits, starvation/deadline, retries, navigation locks, medal replay accounting and malformed saves. DOM suite implemented, awaiting local dependency/CI. Desktop opening inspected in cloud preview: original earth palette, 49-cell board, team controls and labelled onboarding render. Full browser campaign, narrow-screen controls, subjective enjoyment and 20-hour duration remain unverified. Development-only; not selected/publicly published.
+
 # Original indie collection — development report
 
 ### Run 3 · verified final CI evidence
