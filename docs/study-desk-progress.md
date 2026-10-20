@@ -1,5 +1,26 @@
 # Study Desk improvement ledger
 
+## 2026-10-21 — pass 19
+
+Base Sites source: ab6fda58534deeb59ee1c6ba1daf0826334c0f5d (live version 27). GitHub base: 08f4526696c9542d60c96b634f256da618495623. Reopened latest source through Sites workflow and verified the complete After Hours HTML matched GitHub. Preserve independent community/Gummy Bay changes and each progress log's history.
+
+### Implemented
+- Fixed keyboard focus loss when replacing joker-dialog contents. Detail views keep focus inside the dialog; All jokers returns focus to the exact catalogue item inspected.
+- Reordering keeps focus on the same move control, or the opposite usable control at an ordering boundary. Closing resolves the current live opener by stable joker ID after rendering rather than a detached button.
+- Selling a joker renders before closing and returns focus to Next round in the shop when the original joker is gone. Focus restoration is guarded when the document is inactive.
+- Shop purchase buttons now include the specific item and price in their accessible names, including full-slot status. Prices, game rules, save keys, catalogue, study features and audience are unchanged.
+
+### Validation
+- New after-hours-dialog-focus.cjs first reproduced lost focus after detail replacement, then passed catalogue/detail/back navigation, exact opener restoration, repeated reorder/boundary focus, inactive-document guard, item-specific purchase names and sale fallback.
+- Full regression suites passed. Asset audit verified 10 bundled routes and 19 HTML references; diff and source checks passed.
+- Desktop Chrome launched After Hours from Study Desk. Keyboard checks confirmed catalogue/detail/back focus, Escape to the original catalogue or owned-joker control, live-shop reorder boundary focus and Next round focus after selling a joker.
+- Normal play scored 192 with a pair, then 336 with three sixes, clearing the blind at 528. Bought Double Trouble, reordered the two jokers and sold it using the UI; no production state injection or rule changes. One short selector wait timed out during animation; subsequent UI inspection confirmed successful play.
+- Physical mobile and screen-reader output remain unverified; these focused checks do not establish full accessibility conformance.
+
+### Pending
+- No new requested-title repository was vetted or added this pass. Existing identity and authorized-source/assets blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft. After Hours remains accurately Balatro-inspired, not the commercial game.
+- Continue targeted quality work and source vetting without random replacements. Preserve separately paused cleanup and stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-21 — pass 18
 
 Base Sites source: e3b80ab6c088dd13842dd512f694c61c8a56caaa (live version 26). GitHub base: ff03e826dd26a0e49ebd374201d2a46664b24d51. Reopened latest clean source through Sites workflow and verified the complete After Hours HTML matched GitHub before editing. Preserve independent community/Gummy Bay work and divergent progress-log history.

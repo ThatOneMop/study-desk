@@ -256,7 +256,25 @@ function save(){saves.save(s);$('saveStatus').textContent=saves.issue||'Saves au
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2400);}
 function delay(ms){return new Promise(resolve=>setTimeout(resolve,reduced?0:ms/speed));}
 function sound(freq=330,duration=.11,type='triangle'){if(muted)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(freq*.8,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.start();o.stop(audio.currentTime+duration);}catch{}}
-function showModal(html){$('modalContent').innerHTML=html;if(!$('modal').open)$('modal').showModal();}
+let modalReturn=null;
+function showModal(html){
+ const modal=$('modal'),wasOpen=modal.open,activeDocument=document.hasFocus(),focused=document.activeElement,control=modal.contains(focused)?focused.id:null;
+ if(!wasOpen)modalReturn={element:focused,id:focused.id,joker:focused.dataset?.joker};
+ $('modalContent').innerHTML=html;
+ if(!wasOpen)modal.showModal();
+ else if(activeDocument){
+  let target=control?$(control):null;
+  if(!target||target.disabled)target=control==='moveRight'?$('moveLeft'):control==='moveLeft'?$('moveRight'):null;
+  (target&&!target.disabled?target:$('closeModal')).focus({preventScroll:true});
+ }
+}
+$('modal').addEventListener('close',()=>{
+ if($('modal').open)return;
+ const previous=modalReturn;modalReturn=null;if(!previous||!document.hasFocus())return;
+ let target=previous.joker?[...document.querySelectorAll('[data-joker]')].find(b=>b.dataset.joker===previous.joker):previous.id?$(previous.id):previous.element;
+ if(!target?.isConnected&&previous.joker)target=s.phase==='shop'?$('next'):$('saves');
+ if(target?.isConnected&&!target.disabled&&!target.closest('[hidden]'))target.focus({preventScroll:true});
+});
 function newGame(){if(busy)return;const next=AH.newRun();if(!saves.replace(next)){showSaves();return;}lastResult=null;lastRendered=new Set();s=next;render();}
 function askNew(){if(busy)return;showModal('<div class="eyebrow">A FRESH DECK</div><h2>Start a new night?</h2><p>This replaces your current run. You start with $8 and Spark Plug.</p><button class="primary" id="confirmNew">Start new run</button>');$('confirmNew').onclick=()=>{$('modal').close();newGame();};}
 function downloadSave(name,text){const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
@@ -366,9 +384,9 @@ function showJoker(id,ownedIndex=null){
  const c=AH.CHARMS.find(j=>j.id===id);if(!c)return;
  const owned=ownedIndex!==null;
  showModal(`<div class="joker-detail"><div class="detail-art">${jokerMarkup(c,jokerIndex(c),false)}</div><div class="detail-text"><span class="rarity ${c.rarity}">${c.rarity}</span><h2>${c.name}</h2><p>${c.desc}</p>${owned?`<p>Triggers ${ownedIndex+1} of ${s.charms.length}. Move +Mult jokers before ×Mult jokers to build bigger scores.</p>`:`<p>Shop price: $${c.cost}</p>`}<div class="joker-controls">${owned?`<button id="moveLeft" ${ownedIndex===0?'disabled':''}>← Move left</button><button id="moveRight" ${ownedIndex===s.charms.length-1?'disabled':''}>Move right →</button>${s.phase==='shop'?`<button class="sell-button" id="sellJoker">Sell $${Math.max(1,Math.floor(c.cost/2))}</button>`:''}`:'<button id="backCollection">All jokers</button>'}</div></div></div>`);
- if(owned){$('moveLeft').onclick=()=>{if(AH.move(s,ownedIndex,ownedIndex-1)){render();showJoker(id,ownedIndex-1);}};$('moveRight').onclick=()=>{if(AH.move(s,ownedIndex,ownedIndex+1)){render();showJoker(id,ownedIndex+1);}};if(s.phase==='shop')$('sellJoker').onclick=()=>{AH.sell(s,ownedIndex);$('modal').close();render();sound(330,.08);};}else $('backCollection').onclick=showCollection;
+ if(owned){$('moveLeft').onclick=()=>{if(AH.move(s,ownedIndex,ownedIndex-1)){render();showJoker(id,ownedIndex-1);}};$('moveRight').onclick=()=>{if(AH.move(s,ownedIndex,ownedIndex+1)){render();showJoker(id,ownedIndex+1);}};if(s.phase==='shop')$('sellJoker').onclick=()=>{AH.sell(s,ownedIndex);render();$('modal').close();sound(330,.08);};}else $('backCollection').onclick=()=>showCollection(id);
 }
-function showCollection(){if(busy)return;showModal(`<div class="eyebrow">THE COLLECTION</div><h2>${AH.CHARMS.length} ways to break the score.</h2><p class="catalog-note">Pick a joker to see its effect. Find them in the shop between rounds.</p><div class="catalog">${AH.CHARMS.map((c,i)=>`<button class="charm" data-catalog="${c.id}" aria-label="Inspect ${c.name}">${jokerMarkup(c,i,false)}</button>`).join('')}</div>`);document.querySelectorAll('[data-catalog]').forEach(el=>el.onclick=()=>showJoker(el.dataset.catalog));}
+function showCollection(focusId){if(busy)return;showModal(`<div class="eyebrow">THE COLLECTION</div><h2>${AH.CHARMS.length} ways to break the score.</h2><p class="catalog-note">Pick a joker to see its effect. Find them in the shop between rounds.</p><div class="catalog">${AH.CHARMS.map((c,i)=>`<button class="charm" data-catalog="${c.id}" aria-label="Inspect ${c.name}">${jokerMarkup(c,i,false)}</button>`).join('')}</div>`);document.querySelectorAll('[data-catalog]').forEach(el=>el.onclick=()=>showJoker(el.dataset.catalog));if(typeof focusId==='string'&&document.hasFocus())[...document.querySelectorAll('[data-catalog]')].find(el=>el.dataset.catalog===focusId)?.focus({preventScroll:true});}
 function renderShop(){
  const r=s.reward;$('shop').classList.toggle('shop-enter',lastPhase!=='shop');
  $('shop').innerHTML=`<div class="shop-heading"><div><div class="eyebrow">BLIND DEFEATED · ${fmt(s.score)}</div><h1>The Shop</h1></div><button id="next" class="primary">Next round →</button></div><p class="intro">+$${r.clear} reward · +$${r.hands} unused hands · +$${r.interest} interest${r.extra?' · +$'+r.extra+' Golden Ticket':''}<br>Build a combo. Click your jokers above to reorder or sell.</p><div class="stock">${s.stock.map((item,i)=>{
@@ -378,7 +396,7 @@ function renderShop(){
  else if(item.kind==='level'){const h=AH.HANDS[item.id];title=h[0];desc=`Lvl ${s.levels[item.id]} → ${s.levels[item.id]+1}. +${h[3]} Chips / +${h[4]} Mult.`;tag='Planet card';art='<div class="planet" aria-hidden="true"></div>';}
  else{const c=s.deck.find(c=>c.id===item.id);title=`Polish ${rank(c.rank)}${AH.SUITS[c.suit]}`;desc='Permanently add 30 Chips to this card when it scores.';tag='Card enhancement';art='<div class="polish" aria-hidden="true">✧</div>';}
  const full=item.kind==='charm'&&s.charms.length===5;
- return `<article class="item"><small>${tag}</small>${art}${item.kind!=='charm'?`<h3>${title}</h3>`:''}<p>${desc}</p><button data-buy="${i}" ${s.money<item.cost||full?'disabled':''}>${full?'Slots full':'Buy $'+item.cost}</button></article>`;
+ return `<article class="item"><small>${tag}</small>${art}${item.kind!=='charm'?`<h3>${title}</h3>`:''}<p>${desc}</p><button data-buy="${i}" aria-label="Buy ${title} for $${item.cost}${full?'; joker slots full':''}" ${s.money<item.cost||full?'disabled':''}>${full?'Slots full':'Buy $'+item.cost}</button></article>`;
  }).join('')}</div><div class="shop-actions"><button id="reroll" ${s.money<s.rerollCost?'disabled':''}>Reroll $${s.rerollCost}</button><button id="shopCollection">Joker collection</button></div>`;
  document.querySelectorAll('[data-buy]').forEach(el=>el.onclick=()=>{if(AH.buy(s,Number(el.dataset.buy))){sound(560,.15);render();}});
  $('reroll').onclick=()=>{AH.reroll(s);sound(220,.09);render();};$('next').onclick=()=>{AH.next(s);lastResult=null;lastRendered=new Set();render();sound(440,.1);};$('shopCollection').onclick=showCollection;
