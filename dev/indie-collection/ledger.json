@@ -685,13 +685,14 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/little-foundry/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six original hand-poured fantasy castings; weigh alloys, manage glow/fuel, trickle/stream different section thicknesses, handle rough/cold/wrong-alloy losses, saved maker seals and commission unlocks."
+        "Initial playable: six original hand-poured fantasy castings; weigh alloys, manage glow/fuel, trickle/stream different section thicknesses, handle rough/cold/wrong-alloy losses, saved maker seals and commission unlocks.",
+        "Pass 1: pure clean/rough/blocked/fatal pour forecasts, selected-section heat-band marker, alloy-match guidance and UI guard against melting mismatched recipes. Added 100-action session undo through seams, losses and rewards, improved enabled-tool focus, and explicit exhausted-weighing loss with safe legacy-save migration instead of dead-end."
       ],
       "tests": [
-        "9 local engine checks passed; six clean three-seal campaigns serialize every action; 100 seeded exploratory sessions conserve material/fuel/glow.",
-        "11 DOM checks authored; initial CI execution pending. No new-candidate browser certification yet."
+        "PASS initial CI 39400549683 at 0c19cd9f957acdf13623f6fbcc11a01c8ef116ed: 9 Little Foundry engine + 11 DOM and twelve older candidates' browser regressions.",
+        "13 improved engine checks passed locally; 18 DOM and new desktop/touch six-campaign browser tests authored, pending exact-source CI."
       ],
       "quality": {
         "enjoyment": "Unassessed; synthetic solutions do not establish enjoyment.",
@@ -705,8 +706,11 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful improvement: pour-risk forecasts, full craft undo, clearer heat/alloy feedback and focus.",
-        "Execute exact-source interface/browser campaigns and assess rendered play before selection."
+        "Execute exact improved-source interface/browser campaigns and inspect rendered workshop.",
+        "Assess all six objects for craft satisfaction, variety and replay depth; remain development-only until finished/selected."
+      ],
+      "developmentCommits": [
+        "0c19cd9f957acdf13623f6fbcc11a01c8ef116ed"
       ]
     },
     {
