@@ -18,49 +18,59 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/tidepost/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Six handmade charts, tide/current rules, fuel/hull, mail deliveries, upgrades, star routes and versioned voyage saving",
-        "Pass 1: calibrated all six three-star thresholds against baseline solutions, exposed star goals, added damage-free fuel-to-dock planning and low-fuel warnings, fixed keyboard movement after button focus, restored chart focus after touch movement, handled synthetic key targets safely."
+        "Pass 1: calibrated all six three-star thresholds against baseline solutions, exposed star goals, added damage-free fuel-to-dock planning and low-fuel warnings, fixed keyboard movement after button focus, restored chart focus after touch movement, handled synthetic key targets safely.",
+        "Pass 2: protect unreadable/concurrently changed saves across movement, undo and chart changes; explicit backup-first replacement and stored-voyage load, read-only selected current/exact/previous save text, quota/read failure notices and bounded v1 decoding. Manual campaign review corrected Bellweather's false optional-squall hint and made hold onboarding reflect the fitted boat."
       ],
       "tests": [
-        "17 engine checks passed, including six actual-engine solved routes and serialized saves after every move",
-        "9 jsdom UI checks passed: six keyboard victories, chart unlocks, mid-voyage reload, retry, upgrades, undo banking, button input, save failures and corrupted save handling",
-        "Candidate source, 8 local asset/navigation references, exactly 20 ledger slots and catalogue isolation passed",
-        "PASS GitHub Actions 39326767705 at d3c20e2edbbcd57826834439dfd7f34f2f28df86: full repository asset gate, candidate assets, engine, DOM and real Chromium desktop/390px touch checks"
+        "19 engine tests passed locally; unchanged six baseline routes at24/26/23/26/26/25 turns, serialization each action, mandatory Bellweather hull risk/dock repair and100k raw-save bound.",
+        "18 DOM tests in exact-source CI: all six keyboard wins, unlock/retry/reload, undo banked coins, upgrades/capacity guidance, corrupt and changed-save protection, cancellation, backup/primary/read/transient failures and focused read-only backup text.",
+        "Chromium desktop/touch in exact-source CI: six baseline keyboard campaigns, genuine shared-origin two-tab conflict, cancelled/accepted load, damaged bytes surviving sail, backup-first explicit replace, recovery/current text, reload, >=44px controls and expanded390/320px no overflow; zero page errors.",
+        "Manual normal-UI six-chart campaign:24/21/17/30/21/21 turns and3/3/3/2/3/3 stars; only earned mail rack bought,192 coins and all results retained after reload. Pointer compass also used on Bellweather. No production-state injection or route-fixture playback.",
+        "PASS exact-source CI39492530470 atff12f0111f3aa32d6762e06341bf5fac5e53a1be: full repository10routes/14HTML refs, exact20slots/116candidate refs/isolation/syntax and all19 other-game engine/DOM/browser regressions; terminal status and decoded logs inspected."
       ],
       "quality": {
-        "enjoyment": "unrated: browser playtest missing",
-        "depth": "Six handmade charts, persistent upgrades and efficient-route stars; short prototype, no hour claim",
-        "polish": "Responsive original CSS interface; 390px overflow and target-size checks passed; manual visual review pending",
-        "reliability": "17 engine + 9 DOM checks and desktop/touch-emulated Chromium suites passed in CI; full repository asset gate passed",
-        "variety": "distinct route-planning candidate"
+        "enjoyment": "Manual UI completed six charts. Early bag pairing, tide waits, one-way currents and weather repair stops create useful planning; no human-player enjoyment score. Later outer-edge routes repeat after the mail rack.",
+        "depth": "Six authored charts and3 boat-upgrade types; mail rack changes capacity, but fixed A/B/C regions let later routes resemble each other. Needs later pier/objective/route variety before selection; no hours claim.",
+        "polish": "Original coastal CSS/grid readable on desktop. Corrected mandatory-squall and upgraded-capacity guidance; added accessible expandable save-care/text controls. Physical touch, screen-reader and full mobile visual review remain open.",
+        "reliability": "19 local engine checks;18 DOM and desktop/touch Chromium plus full repository/all19 regressions on the exact final source. Explicit damaged/conflicting-save protection and backup-first recovery now covered.",
+        "variety": "Distinct ferry route-planning loop within the20-game collection; late-map internal route repetition remains an observed quality gap."
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Inspect rendered screenshots/manual gameplay and assess enjoyment, progression and route variety before marking finished",
-        "Before selection compare enjoyment/depth/polish/reliability/variety against other implemented candidates; integrate only winners"
+        "Improve the observed late-chart perimeter-route repetition and compare meaningful alternative boat/route choices; do not add padded deliveries or timers.",
+        "Review keyboard focus on rebuilt boatyard/chart controls, broader mobile/screen-reader/physical-touch behavior, then compare with repair/fishing/colony candidates before declaring finished or selected."
       ],
       "developmentCommits": [
         "b435eb702e0a734f6759b588ac2b9b28b1a7a7d0",
-        "d3c20e2edbbcd57826834439dfd7f34f2f28df86"
+        "d3c20e2edbbcd57826834439dfd7f34f2f28df86",
+        "ad1cf21eca2f50a1bc769addca9b4a7c6baf07f8",
+        "8def2a80ae7d5fa6d64af1263b33a8c09e22504a",
+        "9e0a8882399d1f8f98786a2503085f229cbc41ea",
+        "ff12f0111f3aa32d6762e06341bf5fac5e53a1be"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39326767705",
-        "testedCommit": "d3c20e2edbbcd57826834439dfd7f34f2f28df86",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39492530470",
+        "testedCommit": "ff12f0111f3aa32d6762e06341bf5fac5e53a1be",
         "conclusion": "success",
-        "desktop": "All six keyboard victories; chart progression; mid-voyage reload; retry; undo; development launch/back navigation; no page errors",
-        "touch": "390x844 emulation: sail/wait taps, >=44px targets, help and no horizontal overflow",
+        "desktop": "PASS all six baseline keyboard victories/reload/retry/undo/workshop navigation; genuine shared-origin two-tab conflict, selected read-only backup text, cancelled/accepted stored load; zero page errors.",
+        "touch": "PASS corrupt bytes survive sailing, cancelled then backup-first replacement, exact previous/current text and reload, >=44px recovery buttons and expanded390/320px no overflow. Browser emulation, not hardware.",
+        "manual": "All six normal-UI victories at24/21/17/30/21/21 turns;3/3/3/2/3/3 stars. Earned mail rack only. Final192 coins/results survived reload. Late-route repetition observed; no human-player study.",
         "notVerified": [
-          "Subjective enjoyment",
-          "Manual screenshot/layout review",
           "Physical touch hardware",
+          "Screen-reader output/full accessibility",
+          "Full mobile visual review",
           "20 hours of worthwhile content",
           "Public catalogue integration/deployment"
-        ]
+        ],
+        "artifactId": 12295503303,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39492530470/artifacts/12295503303",
+        "artifactManuallyInspected": false
       }
     },
     {
@@ -1513,16 +1523,29 @@
       "verifiedCommit": "ec680ae1b18667a5fb8674534b2254d6ff446605",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39482940325",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 25,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Tidepost pass2 protects damaged/concurrent saves and adds explicit backup-first recovery/copyable text; six-chart normal-UI campaign exposed and corrected squall/capacity hints.19 local engine checks;18 DOM, Chromium desktop/touch/all19 regressions/root gates passed in exact-source CI39492530470. Late-route repetition observed, public unchanged.",
+      "implementationCommit": "ad1cf21eca2f50a1bc769addca9b4a7c6baf07f8",
+      "verifiedCommit": "ff12f0111f3aa32d6762e06341bf5fac5e53a1be",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39492530470",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/24passes;limited action-control UI review plus verified native-clock automated opening victory;0finished/selected/public",
+    "status": "Comparative review underway;20playable/all20improved/25passes;Tidepost complete six-chart manual UI campaign and late-route repetition recorded;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Review manual-poor Tidepost/Spore Kitchen/Inkline and broader completed campaigns; actual continuous Last Match combat feel remains open despite automatic victory tests. Deep Pocket repetition and colony upgrade/alternative allocation decisions remain quality gates. No new slots.",
+    "next": "Improve observed Tidepost late-route and Deep Pocket species/rhythm repetition; manual-poor Spore Kitchen/Inkline and broader campaign/alternative strategy comparisons remain. Keep real continuous Last Match control feel and colony alternative allocation/upgrade value as quality gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
