@@ -913,28 +913,32 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/moss-market/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six finite-stock woodland barter markets; five visitors with distinct valuation vectors and two exclusive bundles each, eight goods with shelf bulk/reserve values, four material-transforming recipes, three community orders, limited shelf capacity, fair/reserve seals, saved drafts and best records."
+        "Initial playable: six finite-stock woodland barter markets; five visitors with distinct valuation vectors and two exclusive bundles each, eight goods with shelf bulk/reserve values, four material-transforming recipes, three community orders, limited shelf capacity, fair/reserve seals, saved drafts and best records.",
+        "Pass 1: pure committed-action stock/order/reserve forecasts, live trade delta and remaining-order shortages, workshop ingredient ledger, exact last-delivery seal warning, fair-offer UI guard, 100-action logical-state undo through trades/crafts/orders/closing losses/rewards, draft-only history isolation and enabled-focus recovery."
       ],
       "tests": [
-        "10 local engine checks pass: six legal three-seal campaigns return reserves14/11/6/10/4/5 with 4/4/4/4/5/5 trades, 1/0/1/0/2/2 crafts, zero overpay and 8/7/8/7/10/10 committed actions. Every action serializes and seeded exploratory sessions preserve inventory/save bounds.",
-        "11 DOM checks authored; exact-source CI and new-candidate browser verification pending."
+        "PASS initial CI 39430709527 at 4b64353ded57b7a9b232192ffe95fbe8289d21d1: 10 new engine + 11 DOM checks, repository/candidate gates and all sixteen earlier candidates' browser regressions. Moss Market browser suite absent at initial checkpoint.",
+        "15 improved engine checks pass locally, including exact campaign forecasts, lower-score late barter, shortage ledger, real decline-loss forecast and malformed inputs. 18 DOM plus six-market desktop/touch browser suite authored; exact-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unassessed; synthetic barter routes do not establish fun.",
         "depth": "Six compact barter/crafting/order markets with changing inventories and shelf demands; no duration claim.",
-        "polish": "Original deep-forest/rust-awning stall, visitor marks and stock tray; native controls/onboarding and saved offer drafts implemented; improvement pending.",
-        "reliability": "Engine tested locally; exact-source interface/browser verification pending.",
+        "polish": "Stock/order/reserve forecasts, final-delivery score warning, fair-offer guard, full logical-state undo and focus recovery implemented; rendered review pending.",
+        "reliability": "15 improved engine checks pass locally; exact-source interface/browser verification pending.",
         "variety": "Preference-weighted negotiation, finite visitor opportunities, recipe transforms and order/reserve tradeoffs; distinct from earlier movement/combat and spatial-network games."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Not selected: improved prototype awaiting exact-source verification and full enjoyment/depth assessment.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful pass: pure inventory/order/reserve forecasts, final-delivery score warning, fair-offer guard, full logical-state undo and focus recovery.",
-        "Execute interface and desktop/touch campaigns; inspect rendered play before finished/selection assessment."
+        "Execute exact-source interface and desktop/touch suites; inspect rendered barter/delivery play and fix concrete issues.",
+        "Assess all six markets' enjoyment, viable alternative trade/craft routes and replay depth before finished designation; keep development-only."
+      ],
+      "developmentCommits": [
+        "4b64353ded57b7a9b232192ffe95fbe8289d21d1"
       ]
     },
     {
