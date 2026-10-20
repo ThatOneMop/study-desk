@@ -1037,31 +1037,53 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: four original volumetric hillside catchments. Cut/raise/restore earth with a conserved barrow, head-driven neighbor flow, bankable cisterns, finite roof catches, garden uptake/deep-water stress, cumulative home flooding, exact water ledger, four restored village districts, twelve-garden journal and lexicographic low-rain/earthwork/spill records.",
-        "Pass 1: pure next-step hydraulic stream/drink/spill/damage plan reused by live physics, exact tool/immediate-versus-after-flow and rain/flow forecasts, per-tile outflow arrows and head/pool/cistern guidance, 120-action full logical-state undo through terrain/rain/floods/restoration/journal/records, inspection-only history isolation, stable map action focus and stricter completed-record water-budget validation."
+        "Pass 1: pure next-step hydraulic stream/drink/spill/damage plan reused by live physics, exact tool/immediate-versus-after-flow and rain/flow forecasts, per-tile outflow arrows and head/pool/cistern guidance, 120-action full logical-state undo through terrain/rain/floods/restoration/journal/records, inspection-only history isolation, stable map action focus and stricter completed-record water-budget validation. Rendered-QA follow-up centers the terrain table and replaces ended-state edit/undo invitations with saved-terrain/replan guidance. The manually discovered 24-drop/64-earth alternative is now a regression route; underlying water/earth rules unchanged in the follow-up."
       ],
       "tests": [
-        "PASS initial 8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd: CI 39440705448, 7 engine+11 DOM, repository/candidate gates and all eighteen earlier-game browser regressions. New Rain Catcher browser suite absent at initial checkpoint.",
-        "PASS improved locally: 14 engine checks. Four legal restoration references, exact nonmutating tool/rain/flow/next-step plan parity, wet-terrain redistribution without more rain, cumulative flood warning/loss, actual closed-cistern overflow, conservation and record/journal safety. Nineteen DOM checks and new actual desktop/touch suite authored; exact-source CI pending."
+        "PASS initial 8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd: CI 39440705448, 7 Rain Catcher engine+11 DOM, repository/candidate gates and all eighteen earlier-game browser suites. New candidate browser absent at initial checkpoint.",
+        "PASS exact final source 400cf787228e51c99cf942af410d49b9d49ad259: CI 39443598012, 15 Rain Catcher engine+21 DOM checks, real Chromium desktop/touch, repository asset gate, candidate syntax/110 local source-navigation references/exact20-slot/public isolation and all eighteen earlier-game engine/interface/browser regressions. Prior improvement 42970b707250db741e26a618e39e694d464de67f passed CI 39441913402 with14 engine+19 DOM and new browser suite.",
+        "Four legal broad-basin reference restorations use rain48/44/46/52, earthwork27/27/40/31, zero spills and retained water36/31/32/37. Each action serializes and preserves exact earth/water/growth accounting. One to three wet-tile regrades in later districts redistribute existing rain. 100 seeded exploratory sessions cover terrain, cistern, rain and flow invariants; synthetic feasibility is not enjoyment or duration evidence.",
+        "Pure immediate/after-flow tool, rain/flow and next-step stream/drink/spill/damage plans exactly match actual reference operations without mutating current water/earth/progression. Actual doorstep flood and dry closure, closed-cistern overflow, sequential district/journal records, worse-repeat preservation and impossible record water budgets covered.",
+        "Chromium desktop: native arrows/Enter/Space/numeric tools/Z and focus, exact wet-terrain/cistern reload, four legal restoration/regrade campaigns plus the rain24/earth64 alternative, mass/forecasts/record replacement, earned-state undo/replay, actual flood warning/loss/undo, close/retry and workshop navigation. Touch emulation: exactly-once terrain/rain taps, accounting/undo, selected-cistern reload/retry cancel, actual first restoration/saved unlock/reload, >=44px controls, internally scrolling map, no390/320px page or button-text overflow; zero page errors.",
+        "Manual desktop: cut upper/lower channels and protected doorstep; first rain fed one bellflower stage, second reached bellflowers4/reeds3/beans0. Compared original-grade versus full-bank forecasts, restored a wet tile to feed the last reed without more rain, then undid the experiment. Regraded wet feeder and lower tiles to direct shallow pools into beans; reused excavated earth for further pressure lifts. Restored all three gardens with only two roof catches: rain24, earthwork64, zero spill/home damage, twelve drops used/twelve retained. Undo restored final thirsty bean stage and unbanked district/journal/record; replay/reload retained completion. Final centered layout and ended guidance inspected; next district focused tile18. Preview stopped."
       ],
       "quality": {
-        "enjoyment": "Not yet subjectively tested. Legal hydraulic routes establish feasibility only.",
-        "depth": "Four compact catchments; finite rain, cistern scheduling, head pressure, wet regrading and garden/flood tradeoffs. Alternative low-rain/small-footprint designs and replay depth unassessed; no duration claim.",
-        "polish": "Original terrain/roof/cistern/garden village art, native scrollable map controls and onboarding, next-step outflow arrows, head/pool guidance, exact immediate/settled forecasts, logical-state undo and map focus recovery. Rendered review underway.",
-        "reliability": "Initial 7 engine+11 DOM/eighteen earlier-game browser suites passed CI. Improved 14 engine pass locally; exact-source interface/new browser suite pending.",
-        "variety": "Terrain elevation and finite water-depth simulation, banked storage and land reshaping differ from binary electrical connectivity/load planning."
+        "enjoyment": "First catchment manually completed through a distinct low-rain pressure-lift route. Forecasts supported cheaper grade-versus-bank choice, reuse of retained water, restoration undo and final Flow instead of another Rain. All-four subjective enjoyment and repeated regrading/pacing review remain.",
+        "depth": "Four compact handmade catchments; finite roof catches, head/depth flow, conserved earth, cistern storage, deep-garden uptake limits and home flooding. Demonstrated real water/earthwork tradeoff: rain24/earth64 versus broad rain48/earth27, not an optimality claim. More authored maps/obstacles and alternative layout/schedule replay-depth comparison remain; no duration claim.",
+        "polish": "Original code-drawn terraced village, roofs/cisterns/seedlings, height/depth map, native internally scrolling tiles, outflow/head guidance, exact immediate-versus-flow forecasts, undo and keyboard/touch focus. Rendered table centering and terminal invitations fixed. Manual mobile review pending; transient water motion feedback could be stronger.",
+        "reliability": "Exact final source passes15 engine+21 DOM, actual Chromium desktop/touch and eighteen earlier-game regressions. Exact conservation, stored-water/selected-cistern reload, real flood/closure/restart, corrupt/concurrent/quota storage protection, best/journal rollback and actual-model forecasts covered within tested cases.",
+        "variety": "Elevation and depth produce finite hydraulic flow; digging, embanking and lifting wet terrain use conserved earth. This is neither Circuit Garden binary power connectivity/load schedules nor Glasshouse breeding/light management."
       },
       "selected": false,
-      "selectionReason": "Not selected: improved prototype still needs exact browser verification, full subjective enjoyment, alternative earthwork/cistern schedules and replay-depth comparison.",
+      "selectionReason": "Not selected: one complete manual catchment and an alternative footprint route are positive evidence, but compact four-map content, repeated lift/regrade pacing, all-room enjoyment and comparative replay depth require review before finished status.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify improved source/forecasts/undo in CI and manually play at least one catchment.",
-        "Assess all four catchments, less-rain footprints, alternative terrain/cistern strategies, tactile controls and replay depth before finished designation.",
-        "Keep development-only and preserve concurrent fresh-main Study Desk/After Hours/Gummy Bay/requested-game work."
+        "Manually play all four catchments, graded layouts and different cistern schedules; compare low-rain earth-lifting effort against lower-earthwork routes and assess repetition, clarity and enjoyment.",
+        "Review mobile screenshots, physical touch and screen-reader behavior where feasible; improve transient water/terrain feedback and inspect the bounded-step flow messaging before finished status.",
+        "Keep development-only until comparison and deliberate winner selection; preserve fresh-main Study Desk/After Hours/Gummy Bay/requested-title work."
       ],
       "developmentCommits": [
-        "8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd"
-      ]
+        "8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd",
+        "42970b707250db741e26a618e39e694d464de67f",
+        "400cf787228e51c99cf942af410d49b9d49ad259"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39443598012",
+        "testedCommit": "400cf787228e51c99cf942af410d49b9d49ad259",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/numeric tools/Z and focus, exact wet-terrain/cistern reload, four legal restoration/regrade campaigns plus rain24/earth64 alternative, hydraulic forecasts/mass accounting, better low-rain record replacement, earned-state undo/replay, actual flood warning/loss/undo, confirmed close/replan and workshop navigation. Zero page errors.",
+        "touch": "Exactly-once terrain/rain taps, water/earth accounting and undo, saved selected cistern/replan cancellation, actual first-catchment restoration/saved unlock/reload, >=44px visible controls, internally scrolling terrain table and no390/320px page or button-text overflow.",
+        "manual": "Manual desktop: cut upper/lower channels and protected doorstep; first rain fed one bellflower stage, second reached bellflowers4/reeds3/beans0. Compared original-grade versus full-bank forecasts, restored a wet tile to feed the last reed without more rain, then undid the experiment. Regraded wet feeder and lower tiles to direct shallow pools into beans; reused excavated earth for further pressure lifts. Restored all three gardens with only two roof catches: rain24, earthwork64, zero spill/home damage, twelve drops used/twelve retained. Undo restored final thirsty bean stage and unbanked district/journal/record; replay/reload retained completion. Final centered layout and ended guidance inspected; next district focused tile18. Preview stopped.",
+        "notVerified": [
+          "Subjective enjoyment across all four catchments and alternative-layout/cistern-schedule replay depth",
+          "Manual mobile layout review, physical touch hardware and screen-reader behavior",
+          "High-fidelity continuous hydrodynamics (model is a bounded discrete tabletop toy)",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ],
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39443598012/artifacts/12275034268"
+      }
     },
     {
       "slot": 20,
@@ -1312,8 +1334,12 @@
       "improvedTotal": 19,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Built and meaningfully improved Rain Catcher: volumetric terrain/water catchments, exact hydraulic forecasts/stream plan, pool guidance and full experiment undo. Initial CI passed 7 engine+11 DOM/eighteen earlier-game browsers; improved14 engine pass locally,19 DOM/new browser authored, exact CI pending.",
-      "initialPlayableCommit": "8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd"
+      "summary": "Built and meaningfully improved Rain Catcher: four finite-water/terrain catchments with conserved earth, cistern storage, garden restoration and flood risk. Pure actual-model hydraulic forecasts/outflow guidance and full experiment undo. Final source passes15 engine+21 DOM, four desktop campaigns plus low-rain alternative/touch and all eighteen earlier-game regressions. Manually completed first catchment at rain24/earth64 with zero spill/damage, restoration undo/replay/reload/next checked. Development-only; all-room enjoyment/replay-depth review remains.",
+      "initialPlayableCommit": "8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd",
+      "implementationCommit": "42970b707250db741e26a618e39e694d464de67f",
+      "verifiedCommit": "400cf787228e51c99cf942af410d49b9d49ad259",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39443598012",
+      "inspectedMainCommit": "08f4526696c9542d60c96b634f256da618495623"
     }
   ]
 }
