@@ -22,7 +22,7 @@ function render(){const s=o.kitchen,p=o.profile,l=E.limits(p),menu=E.services[s.
  const v=E.preview(s,items,method,order);text('preview',v?`${traits(v.traits)} → ${menu.orders[order][0]}: ${v.stars}/3 stars. ${v.distance===0?'Perfect match.':`Flavour difference: ${v.distance}. Try another ingredient or method.`}`:'Choose two ingredients and a guest. The flavour match will appear here before you serve.');
  $('cook').disabled=!active||!v||!!s.served[order];$('compost').disabled=!active||items.length!==1;$('wait').disabled=!active;$('undo').disabled=!undo;
  const labels={beds:'Wider shelves · 8 beds',basket:'Woven basket · 10 ingredients',mist:'Fine mister · all growth −1'};
- $('upgrades').replaceChildren(...Object.keys(E.costs).map(key=>button(`${labels[key]} · ${p.upgrades[key]?'owned':E.costs[key]+' coins'}`,()=>{if(E.upgrade(o,key)){undo=null;persist();render();$('next').focus()}},{disabled:s.status!=='complete'||!!p.upgrades[key]||p.coins<E.costs[key],id:'upgrade-'+key})));
+ $('upgrades').replaceChildren(...Object.keys(E.costs).map(key=>button(`${labels[key]} · ${p.upgrades[key]?'owned':E.costs[key]+' coins'}`,()=>{if(E.upgrade(o,key)){undo=null;persist();render();$('next').focus()}},{disabled:s.status!=='complete'||s.service===4||s.upgradeChoice!==null||!!p.upgrades[key]||p.coins<E.costs[key],id:'upgrade-'+key})));
  $('next').disabled=s.status!=='complete'||s.service===4;text('campaign',s.status==='complete'&&s.service===4?'The full-moon table is served. Five services complete! Retry this service to explore other recipes.':`Table score: ${s.served.reduce((a,b)=>a+b,0)} / 9 · need 7 · earnings pending: ${s.status==='complete'?0:s.earnings}`);
 }
 function askRetry(){$('retryConfirm').hidden=false;$('yesRetry').focus()}

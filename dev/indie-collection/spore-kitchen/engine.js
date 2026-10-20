@@ -20,7 +20,7 @@ const blankProfile=()=>({coins:0,upgrades:{beds:0,basket:0,mist:0},best:[0,0,0,0
 const limits=p=>({beds:6+2*p.upgrades.beds,tray:8+2*p.upgrades.basket});
 const isInt=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
 function start(index=0,p=blankProfile()){
- return {service:index,turn:0,status:'growing',beds:Array(limits(p).beds).fill(null),tray:[0,0,1,2],served:[0,0,0],earnings:0,checkpoint:copy(p),message:'Pick a seed, then an empty bed. Every garden action grows the other mushrooms.'};
+ return {service:index,turn:0,status:'growing',beds:Array(limits(p).beds).fill(null),tray:[0,0,1,2],served:[0,0,0],earnings:0,upgradeChoice:null,checkpoint:copy(p),message:'Pick a seed, then an empty bed. Every garden action grows the other mushrooms.'};
 }
 const create=()=>{const profile=blankProfile();return {profile,kitchen:start(0,profile)}};
 function flavour(items,method){if(!Array.isArray(items)||items.length!==2||items.some(n=>!isInt(n,0,3))||!isInt(method,0,2))return null;return methods[method].add.map((n,i)=>n+items.reduce((s,id)=>s+species[id].traits[i],0))}
@@ -29,7 +29,7 @@ function recipes(target){const result=[];for(let a=0;a<4;a++)for(let b=a;b<4;b++
 function preview(s,indices,method,order){if(!Array.isArray(indices)||indices.length!==2||new Set(indices).size!==2||indices.some(i=>!isInt(i,0,s.tray.length-1))||!isInt(order,0,2))return null;const traits=flavour(indices.map(i=>s.tray[i]),method);if(!traits)return null;const target=services[s.service].orders[order][1],distance=target.reduce((n,t,i)=>n+Math.abs(t-traits[i]),0);return{traits,target,distance,stars:distance===0?3:distance<=2?2:1}}
 function tick(s,p){s.turn++;s.beds.forEach(b=>{if(b)b.age=Math.min(species[b.kind].grow-p.upgrades.mist,b.age+1)});if(s.served.every(Boolean)){
  const stars=s.served.reduce((a,b)=>a+b,0);s.status=stars>=7?'complete':'failed';
- if(s.status==='complete'){p.coins+=s.earnings;p.best[s.service]=Math.max(p.best[s.service],stars);s.message=`Service complete: ${stars}/9 stars! ${s.earnings} coins banked. ${s.service===4?'Your woodland kitchen has earned its place.':'Choose an upgrade, then open the next service.'}`}
+ if(s.status==='complete'){p.coins+=s.earnings;p.best[s.service]=Math.max(p.best[s.service],stars);s.message=`Service complete: ${stars}/9 stars! ${s.earnings} coins banked. ${s.service===4?'Your woodland kitchen has earned its place.':'Choose one upgrade for the next service, or save the coins.'}`}
  else s.message=`${stars}/9 stars. The table needs at least 7. Retry freely; preview dishes to find better matches.`;
  }else if(s.turn>=services[s.service].budget){s.status='failed';s.message='The table has closed. Retry freely: your pre-service coins and upgrades are safe.'}}
 function act(s,p,a){if(s.status!=='growing'||!a)return false;const l=limits(p);
@@ -55,20 +55,21 @@ function act(s,p,a){if(s.status!=='growing'||!a)return false;const l=limits(p);
 }
 function retry(o){o.profile=copy(o.kitchen.checkpoint);o.kitchen=start(o.kitchen.service,o.profile)}
 const costs={beds:20,basket:18,mist:24};
-function upgrade(o,key){const p=o.profile,s=o.kitchen;if(s.status!=='complete'||!Object.hasOwn(costs,key)||p.upgrades[key]||p.coins<costs[key])return false;p.coins-=costs[key];p.upgrades[key]=1;s.message='Kitchen upgraded. It will be ready for the next service.';return true}
+function upgrade(o,key){const p=o.profile,s=o.kitchen;if(s.status!=='complete'||s.service===4||s.upgradeChoice!==null||!Object.hasOwn(costs,key)||p.upgrades[key]||p.coins<costs[key])return false;p.coins-=costs[key];p.upgrades[key]=1;s.upgradeChoice=key;s.message='Upgrade chosen for this break. Save the remaining coins or open the next service.';return true}
 function next(o){if(o.kitchen.status!=='complete'||o.kitchen.service===4)return false;o.kitchen=start(o.kitchen.service+1,o.profile);return true}
 const encode=o=>JSON.stringify({version:1,...o});
 function validProfile(p){return !!p&&isInt(p.coins,0,1e6)&&p.upgrades&&['beds','basket','mist'].every(k=>isInt(p.upgrades[k],0,1))&&Array.isArray(p.best)&&p.best.length===5&&p.best.every(n=>isInt(n,0,9))}
 function decode(raw){try{
  if(typeof raw!=='string'||raw.length>30000)return null;const o=JSON.parse(raw),p=o.profile,s=o.kitchen;
- if(o.version!==1||!validProfile(p)||!s||!validProfile(s.checkpoint)||!isInt(s.service,0,4)||!isInt(s.turn,0,services[s.service].budget)||!['growing','complete','failed'].includes(s.status))return null;
+ if(o.version!==1||!validProfile(p)||!s||!validProfile(s.checkpoint)||!isInt(s.service,0,4)||!isInt(s.turn,0,services[s.service].budget)||!['growing','complete','failed'].includes(s.status)||!(s.upgradeChoice===null||Object.hasOwn(costs,s.upgradeChoice)))return null;
  const l=limits(s.checkpoint);if(!Array.isArray(s.beds)||s.beds.length!==l.beds||s.beds.some(b=>b!==null&&(!isInt(b.kind,0,3)||!isInt(b.age,0,species[b.kind].grow-s.checkpoint.upgrades.mist))))return null;
  if(!Array.isArray(s.tray)||s.tray.length>l.tray||s.tray.some(n=>!isInt(n,0,3))||!Array.isArray(s.served)||s.served.length!==3||s.served.some(n=>!isInt(n,0,3)))return null;
  const earnings=s.served.reduce((n,x)=>n+(x?6+4*x:0),0),all=s.served.every(Boolean),stars=s.served.reduce((a,b)=>a+b,0);
  if(s.earnings!==earnings||s.status==='complete'&&(!all||stars<7)||s.status==='growing'&&(all||s.turn===services[s.service].budget)||s.status==='failed'&&!(s.turn===services[s.service].budget||all&&stars<7))return null;
- if(s.status!=='complete'&&JSON.stringify(p)!==JSON.stringify(s.checkpoint))return null;
+ if(s.status!=='complete'&&(s.upgradeChoice!==null||JSON.stringify(p)!==JSON.stringify(s.checkpoint)))return null;
  if(s.status==='complete'){
-  let spent=0;for(const key of Object.keys(costs)){if(p.upgrades[key]<s.checkpoint.upgrades[key])return null;if(p.upgrades[key]>s.checkpoint.upgrades[key])spent+=costs[key]}
+  let spent=0,chosen=[];for(const key of Object.keys(costs)){if(p.upgrades[key]<s.checkpoint.upgrades[key])return null;if(p.upgrades[key]>s.checkpoint.upgrades[key]){spent+=costs[key];chosen.push(key)}}
+  if(chosen.length>1||s.upgradeChoice!==(chosen[0]||null)||s.service===4&&s.upgradeChoice!==null)return null;
   if(p.coins!==s.checkpoint.coins+s.earnings-spent||p.best.some((n,i)=>n!==(i===s.service?Math.max(s.checkpoint.best[i],stars):s.checkpoint.best[i])))return null;
  }
  return {profile:copy(p),kitchen:{...copy(s),message:'Kitchen restored. Your beds, basket and table are just as you left them.'}};
