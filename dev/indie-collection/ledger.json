@@ -743,13 +743,14 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/storm-signal/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six original fictional radio-deduction/rescue watches; partial codes, public coast/cargo clues, limited rescans, confirmation risks, specialist boats, tide short cuts/outer routes, real pickup/home deadlines, commendations and versioned saving."
+        "Initial playable: six original fictional radio-deduction/rescue watches; partial codes, public coast/cargo clues, limited rescans, confirmation risks, specialist boats, tide short cuts/outer routes, real pickup/home deadlines, commendations and versioned saving.",
+        "Pass 1: pure departure/pickup/home forecasts including busy boats and future tide windows, exact next-beat deadline/event preview, moving vessel chart markers, optional visible-token/clue compatibility check without hidden-truth auto-fill, 100-action session undo through radio/missions/losses/rewards, per-tab unconfirmed drafts, confirmed-value reload alignment and stricter saved elapsed/departure validation."
       ],
       "tests": [
-        "10 local engine checks passed: six legal three-commendation schedules, every-action serialization, partial-code clue consistency, misread/deadline losses, boat gear/tides and 100 seeded sessions.",
-        "11 interface checks authored; exact-source CI and new-candidate browser verification pending."
+        "PASS initial CI 39408316642 at 134810db2d44da6140e736ebbf3551b8ba4ce1ac: 10 engine + 11 DOM and thirteen earlier candidates' browser regressions. Storm Signal browser suite not yet present.",
+        "15 improved engine checks passed locally; 18 improved DOM checks and six-campaign native-keyboard/touch browser suite authored, exact-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unassessed; synthetic schedules do not establish enjoyment.",
@@ -763,8 +764,11 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful improvement: exact departure/pickup/home forecasts, next-beat warnings, clue checking, undo and stricter mission saves.",
-        "Execute exact-source desktop/touch campaigns; manually assess decoding/dispatch flow before selection."
+        "Execute exact improved-source interface/browser regressions and inspect rendered decoding/dispatch.",
+        "Assess full watches for satisfaction, decision variety and replay depth; remain development-only until finished/selected."
+      ],
+      "developmentCommits": [
+        "134810db2d44da6140e736ebbf3551b8ba4ce1ac"
       ]
     },
     {
