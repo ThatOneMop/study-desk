@@ -95,6 +95,7 @@ jobs:
         with:
           name: indie-candidate-screenshots
           path: |
+            /tmp/bolt-and-bristle-*.png
             /tmp/deep-pocket-*.png
             /tmp/roof-runner-*.png
             /tmp/scrap-orbit-*.png
