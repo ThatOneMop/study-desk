@@ -1,5 +1,26 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 11
+
+Base Sites source: 63ad2351a7bdba5279c85e1d48659a3dcb3985f8 (live version 19). GitHub base: 2f54aa431f2f5282a3640a9d03a5405c60e4fe2d. Reopened latest clean source through Sites helper; Autumn Drift HTML and game script matched GitHub before editing.
+
+### Implemented
+- Autumn Drift's leaf canvas was not keyboard-focusable and had no keyboard picking. Added a focusable garden with directional arrow-key leaf selection, Home/End endpoints, and Space/Enter picking. After a leaf is removed, selection advances to a nearby remaining leaf.
+- Keyboard actions call the existing pick function: cooldown, damage, equipment reach/multi-pick, ordinary/golden rewards, completion bonus and persistence are unchanged. Repeated activation, modifier chords and composition are ignored; menus/intro block picking.
+- Added a visible control hint/focus outline and a polite status naming the selected leaf, health and remaining count. No claim of verified screen-reader compatibility yet.
+- Start and menu close return focus to the garden. Upgrade/area menus focus their first enabled action; Tab/Shift+Tab stay within the open menu (including intro). Escape no longer bypasses the intro. During browser QA, opening Upgrades initially left focus on the background button; this was fixed and retested.
+- Existing mouse/touch controls, all other games, catalogue, study features, save keys and audience preserved. Bumped Autumn Drift game script cache query to v2.
+
+### Validation
+- New autumn-keyboard.cjs failed on the original nonfocusable canvas and passed after the change. Actual game script in jsdom covers directional/edge/Home/End selection, focus, ordinary reward/save path, cooldown/damage, repeat/modifier/composition guards, intro/shop isolation, menu containment, empty gardens and progress announcements.
+- All existing .cjs regression tests passed; 10 bundled routes/17 HTML asset references resolved; game syntax and diff checks passed.
+- Desktop Chrome preview: Home + Space collected one leaf/one acorn; arrow + Enter collected another; Escape returned from Upgrades and a further Space pick reached three. After preview reload, the saved three-leaf progress returned. Final-code retest focused Back to the leaves inside Upgrades, kept Tab there, returned to the garden with Enter, and End + Space reached four leaves/four acorns.
+- Full late-game equipment progression, physical mobile input/layout and actual screen-reader announcement behavior remain unverified. No browser storage injection or user live-save reset.
+
+### Pending
+- No new game repositories qualified or added this pass; identity/provenance/reuse blockers for requested titles remain as recorded in earlier reviews. After Hours remains explicitly Balatro-inspired, not the original commercial game.
+- Continue targeted source vetting/gameplay QA; preserve independent game/community work and the separately paused cleanup task.
+
 ## 2026-10-20 — pass 10
 
 Base Sites source: 42cdba60480bf441cdc4fe5e04e3e6d51ff42ef9 (live version 18). GitHub base: 3614abc6c1b3cf5780096617e47b0c97230e60dc. Latest source opened through Sites helper; shared bridge matched GitHub before editing.

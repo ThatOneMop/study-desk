@@ -24,16 +24,55 @@ function updateUI(){let s=stats();$('money').textContent=fmt(save.money);$('day'
 function pick(){if(!running||completed)return;let s=stats();if(clock-lastPick<s.cooldown)return;let targets=leaves.map(l=>({l,d:Math.hypot(l.x-pointer.x,l.y-pointer.y)})).filter(o=>o.d<s.reach+o.l.s).sort((a,b)=>a.d-b.d).slice(0,s.amount);if(!targets.length)return;lastPick=clock;rustle();for(let {l} of targets){l.hp-=s.power;if(l.hp>0)continue;leaves.splice(leaves.indexOf(l),1);collected++;save.picked++;let gain=Math.ceil(value(save.area)*s.value*(l.rare?5:1));save.money+=gain;for(let j=0;j<3;j++)particles.push({x:l.x,y:l.y,vx:rand(-30,30),vy:rand(-70,-30),life:1,c:l.c});if(l.rare)toast('Golden leaf! +'+fmt(gain)+' acorns')}if(!leaves.length){completed=true;let bonus=areaCount(save.area)*value(save.area);save.money+=bonus;chime();toast('Garden cleared! +'+fmt(bonus)+' bonus · Open Areas to continue')}updateUI();persist()}
 function pos(e){return{x:(e.clientX-ox)/scale,y:(e.clientY-oy)/scale}}
 canvas.onpointerdown=e=>{if(!running)return;pointer=pos(e);down=true;canvas.setPointerCapture(e.pointerId);if(sound)soundInit();pick()};canvas.onpointermove=e=>pointer=pos(e);canvas.onpointerup=canvas.onpointercancel=()=>down=false;addEventListener('blur',()=>down=false);
-function closePanels(){$('shop').style.display='none';$('complete').style.display='none';running=true;down=false}
-$('start').onclick=()=>{$('intro').style.display='none';running=true;if(migrated)toast('Your previous acorns have been carried over.')};$('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'Sound on':'Sound off';if(sound)soundInit()};$('toolBtn').onclick=()=>{mode=mode==='hand'?'best':'hand';updateUI()};
+
+// Keyboard picking uses the same pick(), cooldown, tools and rewards as a tap.
+let keyboardLeaf=null;
+function announceLeaf(){
+ const l=leaves.find(item=>item.id===keyboardLeaf);
+ $('leafStatus').textContent=!leaves.length?'Garden cleared. Open Areas to continue.':l?(l.rare?'Golden leaf ':'Leaf ')+(l.id+1)+'. '+Math.ceil(l.hp)+' health. '+leaves.length+' leaves remain.':'Use arrow keys to select a leaf.';
+}
+function selectLeaf(key){
+ if(!leaves.length){keyboardLeaf=null;announceLeaf();return}
+ let current=leaves.find(l=>l.id===keyboardLeaf)||leaves.reduce((a,b)=>Math.hypot(a.x-pointer.x,a.y-pointer.y)<=Math.hypot(b.x-pointer.x,b.y-pointer.y)?a:b);
+ if(key==='Home')current=leaves[0];
+ else if(key==='End')current=leaves[leaves.length-1];
+ else if(key?.startsWith('Arrow')){
+  const [vx,vy]={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[key];
+  const candidates=leaves.filter(l=>(l.x-current.x)*vx+(l.y-current.y)*vy>1);
+  const score=l=>{const dx=l.x-current.x,dy=l.y-current.y;return Math.hypot(dx,dy)+Math.abs(dx*vy-dy*vx)*2};
+  if(candidates.length)current=candidates.reduce((a,b)=>score(a)<=score(b)?a:b);
+ }
+ keyboardLeaf=current.id;pointer={x:current.x,y:current.y};announceLeaf();
+}
+canvas.addEventListener('focus',()=>{if(running)selectLeaf()});
+canvas.addEventListener('keydown',e=>{
+ if(!running||e.ctrlKey||e.altKey||e.metaKey||e.isComposing)return;
+ if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key)){e.preventDefault();selectLeaf(e.key);return}
+ if(e.key==='Enter'||e.code==='Space'||e.key===' '){
+  e.preventDefault();if(e.repeat)return;
+  selectLeaf();pick();selectLeaf();
+ }
+});
+
+function panelButtons(id){return [...$(id).querySelectorAll('button:not(:disabled),input:not(:disabled)')]}
+function focusPanel(id){panelButtons(id)[0]?.focus()}
+addEventListener('keydown',e=>{
+ if(e.key!=='Tab')return;
+ const id=$('intro').style.display!=='none'?'intro':['shop','complete'].find(id=>$(id).style.display==='flex');
+ if(!id)return;
+ const buttons=panelButtons(id),first=buttons[0],last=buttons[buttons.length-1],active=document.activeElement;
+ if(!buttons.includes(active)||(e.shiftKey&&active===first)||(!e.shiftKey&&active===last)){e.preventDefault();(e.shiftKey?last:first)?.focus()}
+});
+function closePanels(){if($('intro').style.display!=='none')return;$('shop').style.display='none';$('complete').style.display='none';running=true;down=false;canvas.focus()}
+$('start').onclick=()=>{$('intro').style.display='none';running=true;canvas.focus();if(migrated)toast('Your previous acorns have been carried over.')};$('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'Sound on':'Sound off';if(sound)soundInit()};$('toolBtn').onclick=()=>{mode=mode==='hand'?'best':'hand';updateUI()};
 const tracks=['Hand strength','Hand reach','Tools & equipment','Leaf appraisal'];
 function effect(i,n){return i===0?`${1+n} picking power`:i===1?`${(18+Math.log2(n+1)*7).toFixed(1)} px reach`:i===2?`${toolName(n)} · ${1+Math.floor(Math.sqrt(n)*1.8)} leaves/action`:`×${(1+n*.12).toFixed(2)} leaf income`}
 function buy(i){let n=save.ranks[i];if(n>=MAX||n>save.unlocked||save.money<cost(i))return false;save.money-=cost(i);save.ranks[i]++;persist();updateUI();return true}
-function shop(){running=false;down=false;$('upgrades').innerHTML='';tracks.forEach((title,i)=>{let n=save.ranks[i],row=document.createElement('div');row.className='row';let text=document.createElement('div');text.innerHTML=`<b>${title} <small>${fmt(n)} / 5,000</small></b><small>${effect(i,n)}<br>Next: ${n===MAX?'Complete':effect(i,n+1)}</small>`;let btn=document.createElement('button');btn.textContent=n===MAX?'Maxed':n>save.unlocked?`Area ${n+1}`:fmt(cost(i))+' acorns';btn.disabled=n===MAX||n>save.unlocked||save.money<cost(i);btn.onclick=()=>{if(buy(i)){chime();shop()}};row.append(text,btn);$('upgrades').append(row)});$('shop').style.display='flex'}
+function shop(){running=false;down=false;$('upgrades').innerHTML='';tracks.forEach((title,i)=>{let n=save.ranks[i],row=document.createElement('div');row.className='row';let text=document.createElement('div');text.innerHTML=`<b>${title} <small>${fmt(n)} / 5,000</small></b><small>${effect(i,n)}<br>Next: ${n===MAX?'Complete':effect(i,n+1)}</small>`;let btn=document.createElement('button');btn.textContent=n===MAX?'Maxed':n>save.unlocked?`Area ${n+1}`:fmt(cost(i))+' acorns';btn.disabled=n===MAX||n>save.unlocked||save.money<cost(i);btn.onclick=()=>{if(buy(i)){chime();shop()}};row.append(text,btn);$('upgrades').append(row)});$('shop').style.display='flex';focusPanel('shop')}
 $('shopBtn').onclick=()=>{if($('intro').style.display==='none'){$('complete').style.display='none';shop()}};$('closeShop').onclick=closePanels;addEventListener('keydown',e=>{if(e.key==='Escape')closePanels()});
 function canUnlock(){return save.area===save.unlocked&&save.unlocked<MAX-1&&collected/total>=.85&&save.money>=fee(save.area)}
 function unlock(){if(!canUnlock())return false;save.money-=fee(save.area);save.unlocked++;save.area=save.unlocked;loadGarden();persist();closePanels();return true}
-function travel(){running=false;down=false;$('shop').style.display='none';$('finishTitle').textContent='Beyond the gate.';$('finishText').textContent=`${fmt(save.unlocked+1)} / 5,000 areas unlocked. Clear 85% of your newest area and pay the gate fee to move on. Each area opens four new upgrade ranks. 20 biomes × 250 seeded variations.`;let info=$('gateInfo');info.textContent=save.unlocked===MAX-1?'All 5,000 areas unlocked!':save.area<save.unlocked?'Return to your furthest area to unlock the next gate.':`${Math.floor(collected/total*100)}% cleared / 85% needed · Gate: ${fmt(fee(save.area))} acorns`;$('next').textContent=save.area<save.unlocked?'Return to frontier →':save.unlocked===MAX-1?'All areas unlocked':`Unlock area ${save.unlocked+2} →`;$('next').disabled=save.area===save.unlocked&&!canUnlock();$('areaInput').max=save.unlocked+1;$('areaInput').value=save.area+1;$('complete').style.display='flex'}
+function travel(){running=false;down=false;$('shop').style.display='none';$('finishTitle').textContent='Beyond the gate.';$('finishText').textContent=`${fmt(save.unlocked+1)} / 5,000 areas unlocked. Clear 85% of your newest area and pay the gate fee to move on. Each area opens four new upgrade ranks. 20 biomes × 250 seeded variations.`;let info=$('gateInfo');info.textContent=save.unlocked===MAX-1?'All 5,000 areas unlocked!':save.area<save.unlocked?'Return to your furthest area to unlock the next gate.':`${Math.floor(collected/total*100)}% cleared / 85% needed · Gate: ${fmt(fee(save.area))} acorns`;$('next').textContent=save.area<save.unlocked?'Return to frontier →':save.unlocked===MAX-1?'All areas unlocked':`Unlock area ${save.unlocked+2} →`;$('next').disabled=save.area===save.unlocked&&!canUnlock();$('areaInput').max=save.unlocked+1;$('areaInput').value=save.area+1;$('complete').style.display='flex';focusPanel('complete')}
 $('travelBtn').onclick=()=>{if($('intro').style.display==='none')travel()};$('next').onclick=()=>{if(save.area<save.unlocked){save.area=save.unlocked;loadGarden();persist();closePanels()}else unlock()};$('closeMap').onclick=closePanels;$('reseed').onclick=()=>{save.clears++;loadGarden();persist();closePanels();toast('A new fall of leaves. Earn more acorns here.')};$('visit').onclick=()=>{let a=Number($('areaInput').value)-1;if(!Number.isInteger(a)||a<0||a>save.unlocked){toast('Choose an unlocked area.');return}if(a!==save.area){save.area=a;loadGarden();persist()}closePanels()};
 function soundInit(){if(!audio){audio=new (window.AudioContext||window.webkitAudioContext)();let buf=audio.createBuffer(1,audio.sampleRate*.15,audio.sampleRate),d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1);noise=buf;}audio.resume()}
 function rustle(){if(!sound||!audio||clock-lastRustle<.08)return;lastRustle=clock;let s=audio.createBufferSource(),f=audio.createBiquadFilter(),g=audio.createGain();s.buffer=noise;f.type='bandpass';f.frequency.value=900+Math.random()*1400;g.gain.setValueAtTime(.055,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.14);s.connect(f);f.connect(g);g.connect(audio.destination);s.start()}
