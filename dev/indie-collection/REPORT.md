@@ -1,3 +1,9 @@
+# Run 8 · Scrap Orbit initial playable checkpoint
+
+8/20 playable prototypes · 7 meaningfully improved · 0 finished/selected/publicly published. Inspected current development head cc2ce9fe3451aff2378adf94dbbc5767e1c82f11, remote inventory (no AGENTS.md/root package build), matching local source hashes, candidate ledger/report and existing candidate source/test/CI conventions. Fresh main and its current progress record were read; independent launcher, Gummy Bay, community and requested-game work is untouched. GitHub branch-only source work; no Sites registration or hosting changes.
+
+Built five original real-time inertia/cable-mass salvage fields, slow docking, collisions/hull, optional clean/efficient records, best-only rewards, upgrades and guarded saves. Seven local engine checks pass, with all five baseline three-medal/no-high-speed-impact routes (2258/5221/4948/5272/5611 actual physics ticks), save validity after every tick, repeated-impact loss/retry, inertia/braking, progression and upgrade economy. Ten DOM cases authored, not yet executed; exact checkpoint CI pending. This is a short prototype, not 20 hours of content/testing. No public game URL/integration/deployment. Next: meaningful control/feedback/save improvement and exact-source browser regression.
+
 # Run 7 · verified final outcome
 
 **7/20 playable prototypes · 7 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots remain, with 13 planned slots not counted as implemented games. Next candidate: **Scrap Orbit**. Reconciled historical run-history entries 3–6 from the already-present candidate verification records; no additional games/passes claimed.

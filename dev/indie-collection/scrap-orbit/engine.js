@@ -1,0 +1,41 @@
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.ScrapOrbit=api})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const DT=1/60,W=1000,H=700;
+const charts=[
+ {name:'The lost lunchbox',story:'The night shift left three things outside. Bring them home, gently.',dock:[170,350],cargo:[[410,350,1,'Lunchbox'],[640,220,1.2,'Tea satellite'],[700,510,1.5,'Moon sofa']],rocks:[],target:110},
+ {name:'Porcelain belt',story:'A ceramic garden is drifting through the depot. Thread the gaps.',dock:[160,350],cargo:[[600,160,1,'Planter'],[760,350,1.4,'Water drum'],[590,570,1.8,'Glasshouse']],rocks:[[450,280,40],[450,440,40]],target:140},
+ {name:'Countercurrent',story:'A broken gravity pump makes everything curl. Brake before the beacon.',dock:[180,180],cargo:[[650,190,1.3,'Pump wheel'],[800,530,1.6,'Archive'],[330,560,2,'Bell tower']],rocks:[[480,360,46]],target:165,swirl:1},
+ {name:'Heavy weather',story:'An abandoned observatory needs a patient tug. Heavy loads pull back.',dock:[180,530],cargo:[[360,170,2.8,'Lens'],[760,170,3.2,'Star clock'],[790,540,3.8,'Telescope']],rocks:[[510,240,36],[530,470,36]],target:190},
+ {name:'Last light depot',story:'Recover the three lanterns and light the depot for the next crew.',dock:[160,350],cargo:[[680,130,2,'Lantern I'],[840,350,2.5,'Lantern II'],[670,580,3,'Lantern III']],rocks:[[490,180,34],[490,520,34],[640,350,36]],target:210,swirl:.65}
+];
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),copy=x=>JSON.parse(JSON.stringify(x)),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+function profile(){return {best:[0,0,0,0,0],times:[null,null,null,null,null],credits:0,engine:0,buffer:0}}
+function run(chapter){const c=charts[chapter];return {chapter,status:'ready',ticks:0,x:c.dock[0],y:c.dock[1],vx:0,vy:0,hull:100,hits:0,cooldown:0,tether:null,stars:0,cargo:c.cargo.map(([x,y,mass,name])=>({x,y,vx:0,vy:0,mass,name,delivered:false})),message:c.story}}
+function create(){return {version:1,profile:profile(),run:run(0)}}
+function unlocked(p){return Math.min(4,p.best.findIndex(x=>x===0)<0?4:p.best.findIndex(x=>x===0))}
+function begin(s){if(s.run.status==='ready')s.run.status='active'}
+function select(s,i){if(!Number.isInteger(i)||i<0||i>unlocked(s.profile)||s.run.status==='active')return false;s.run=run(i);return true}
+function retry(s){s.run=run(s.run.chapter)}
+function upgrade(s,type){if(!['engine','buffer'].includes(type)||s.run.status==='active'||s.profile[type]>=2)return false;const cost=type==='engine'?3+s.profile[type]*3:2+s.profile[type]*3;if(s.profile.credits<cost)return false;s.profile.credits-=cost;s.profile[type]++;return true}
+function nearest(s){let best=null,d=75;for(let i=0;i<s.run.cargo.length;i++){const c=s.run.cargo[i],n=dist(s.run,c);if(!c.delivered&&n<d){best=i;d=n}}return best}
+function toggle(s){const r=s.run;if(r.status!=='active')return false;if(r.tether!==null){r.tether=null;r.message='Cable released.';return true}const i=nearest(s);if(i===null){r.message='Get within 75 metres of salvage, then couple.';return false}r.tether=i;r.message='Coupled: '+r.cargo[i].name+'. Brake at the beacon.';return true}
+function finish(s){const r=s.run,c=charts[r.chapter];r.status='complete';r.tether=null;r.stars=1+(r.hits===0?1:0)+(r.ticks*DT<=c.target?1:0);const old=s.profile.best[r.chapter];s.profile.best[r.chapter]=Math.max(old,r.stars);s.profile.credits+=Math.max(0,r.stars-old);s.profile.times[r.chapter]=Math.min(s.profile.times[r.chapter]??Infinity,r.ticks*DT);r.message='Depot restored. '+r.stars+'/3 medals. Better records earn only the difference.'}
+function step(s,input={}){const r=s.run;if(r.status!=='active')return;const c=charts[r.chapter],p=s.profile;r.ticks++;r.cooldown=Math.max(0,r.cooldown-1);
+ let ax=(input.right?1:0)-(input.left?1:0),ay=(input.down?1:0)-(input.up?1:0),n=Math.hypot(ax,ay)||1;const thrust=105+p.engine*20;r.vx+=ax/n*thrust*DT;r.vy+=ay/n*thrust*DT;
+ const friction=input.brake?.94:.999;r.vx*=friction;r.vy*=friction;
+ if(c.swirl){r.vx+=-(r.y-350)*.00008*c.swirl;r.vy+=(r.x-500)*.00008*c.swirl}
+ if(r.tether!==null){const b=r.cargo[r.tether],dx=b.x-r.x,dy=b.y-r.y,len=Math.hypot(dx,dy)||1,force=clamp((len-52)*8,-130,350),damp=((b.vx-r.vx)*dx+(b.vy-r.vy)*dy)/len*2.4,fx=dx/len*(force+damp)*DT,fy=dy/len*(force+damp)*DT;r.vx+=fx;r.vy+=fy;b.vx-=fx/b.mass;b.vy-=fy/b.mass}
+ const speed=Math.hypot(r.vx,r.vy);if(speed>230){r.vx*=230/speed;r.vy*=230/speed}r.x+=r.vx*DT;r.y+=r.vy*DT;
+ function damage(speed){if(r.cooldown||speed<65)return;r.hits++;r.hull=Math.max(0,r.hull-Math.max(4,(speed-45)*.12)*(1-p.buffer*.2));r.cooldown=45;r.message='Impact. Use short bursts and brake before obstacles.'}
+ function collide(b,radius,isTug){for(const [x,y,rad]of c.rocks){const dx=b.x-x,dy=b.y-y,d=Math.hypot(dx,dy)||1;if(d<rad+radius){const nx=dx/d,ny=dy/d,impact=b.vx*nx+b.vy*ny;b.x=x+nx*(rad+radius);b.y=y+ny*(rad+radius);if(impact<0){b.vx-=1.3*impact*nx;b.vy-=1.3*impact*ny;if(isTug)damage(-impact)}}}for(const [key,v,max]of [['x','vx',W],['y','vy',H]]){if(b[key]<radius||b[key]>max-radius){if(isTug)damage(Math.abs(b[v]));b[key]=clamp(b[key],radius,max-radius);b[v]*=-.35}}}
+ collide(r,15,true);
+ for(let i=0;i<r.cargo.length;i++){const b=r.cargo[i];if(b.delivered)continue;b.vx*=.998;b.vy*=.998;b.x+=b.vx*DT;b.y+=b.vy*DT;collide(b,18,false);if(Math.hypot(b.x-c.dock[0],b.y-c.dock[1])<67&&Math.hypot(b.vx,b.vy)<38){b.delivered=true;b.vx=b.vy=0;if(r.tether===i)r.tether=null;r.message=b.name+' safely docked.'}}
+ if(r.hull<=0){r.status='lost';r.tether=null;r.message='Tug disabled. Retry this job; previous records are safe.'}else if(r.cargo.every(b=>b.delivered))finish(s)
+}
+function valid(s){if(!s||s.version!==1||!s.profile||!s.run)return false;const p=s.profile,r=s.run,finite=(v,a,b)=>typeof v==='number'&&Number.isFinite(v)&&v>=a&&v<=b,int=(v,a,b)=>Number.isInteger(v)&&finite(v,a,b);if(!Array.isArray(p.best)||p.best.length!==5||!p.best.every(v=>int(v,0,3))||!Array.isArray(p.times)||p.times.length!==5||!p.times.every((t,i)=>p.best[i]?finite(t,DT,1e8):t===null)||!int(p.engine,0,2)||!int(p.buffer,0,2)||!int(p.credits,0,15))return false;let gap=false;for(const v of p.best){if(!v)gap=true;else if(gap)return false}const spent=(p.engine?3:0)+(p.engine===2?6:0)+(p.buffer?2:0)+(p.buffer===2?5:0);if(p.credits+spent!==p.best.reduce((a,b)=>a+b,0))return false;
+ if(!int(r.chapter,0,unlocked(p))||!['ready','active','complete','lost'].includes(r.status)||!int(r.ticks,0,6e9)||!finite(r.hull,0,100)||!int(r.hits,0,1e8)||!int(r.cooldown,0,45)||!int(r.stars,0,3)||typeof r.message!=='string'||r.message.length>500)return false;for(const b of [r,...(Array.isArray(r.cargo)?r.cargo:[])])if(!finite(b.x,0,W)||!finite(b.y,0,H)||!finite(b.vx,-1e5,1e5)||!finite(b.vy,-1e5,1e5))return false;
+ if(!Array.isArray(r.cargo)||r.cargo.length!==3||!(r.tether===null||int(r.tether,0,2)))return false;for(let i=0;i<3;i++){const b=r.cargo[i],spec=charts[r.chapter].cargo[i];if(b.mass!==spec[2]||b.name!==spec[3]||typeof b.delivered!=='boolean'||(b.delivered&&(b.vx!==0||b.vy!==0)))return false}if(r.tether!==null&&r.cargo[r.tether].delivered)return false;if(r.status==='complete'&&(!r.cargo.every(b=>b.delivered)||r.stars<1||p.best[r.chapter]<r.stars))return false;if(r.status==='lost'&&r.hull!==0)return false;if(r.status==='active'&&(r.hull===0||r.cargo.every(b=>b.delivered)))return false;return true}
+function encode(s){if(!valid(s))throw Error('Invalid salvage state');return JSON.stringify(s)}
+function decode(raw){try{if(typeof raw!=='string'||raw.length>16000)return null;const s=JSON.parse(raw);return valid(s)?s:null}catch{return null}}
+return {DT,W,H,charts,create,begin,select,retry,upgrade,nearest,toggle,step,valid,encode,decode,copy,unlocked};
+});

@@ -1,0 +1,21 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),E=require('../dev/indie-collection/scrap-orbit/engine.js');let passed=0;const routes=[];
+function test(name,fn){fn();passed++;console.log('PASS '+name)}
+function steer(s,x,y){const r=s.run,dx=x-r.x,dy=y-r.y,d=Math.hypot(dx,dy)||1,speed=Math.min(85,d*.9),vx=dx/d*speed,vy=dy/d*speed;return {right:vx-r.vx>5,left:vx-r.vx<-5,down:vy-r.vy>5,up:vy-r.vy<-5,brake:d<28&&Math.hypot(r.vx,r.vy)>15}}
+function solve(s){const commands=[],r=s.run,c=E.charts[r.chapter];E.begin(s);let steps=0;function travel(x,y,arrive){for(let i=0;i<9000;i++){if(r.status!=='active'||arrive())return;const a=steer(s,x,y);E.step(s,a);commands.push(a);assert.ok(E.decode(E.encode(s)));steps++}throw Error('No arrival '+JSON.stringify({chapter:r.chapter,x,y,run:r}))}
+for(let i=0;i<3;i++){const b=r.cargo[i];if(r.status!=='active')break;
+// Fly around the outside of the debris lane, then pull the same corridor home.
+const lane=b.y<350?75:625;
+if(c.rocks.length){travel(r.x,lane,()=>Math.abs(r.y-lane)<20);travel(b.x,lane,()=>Math.abs(r.x-b.x)<20)}
+travel(b.x,b.y,()=>Math.hypot(r.x-b.x,r.y-b.y)<60);assert.ok(E.toggle(s));commands.push({toggle:true});
+if(c.rocks.length){travel(b.x,lane,()=>Math.abs(r.y-lane)<18&&Math.abs(b.y-lane)<65);travel(c.dock[0],lane,()=>Math.abs(r.x-c.dock[0])<18&&Math.abs(b.x-c.dock[0])<65)}
+travel(c.dock[0],c.dock[1],()=>b.delivered);
+}assert.equal(r.status,'complete',JSON.stringify(r));return {commands,steps}}
+test('five legal baseline salvage campaigns, every-tick save validity and best-only replay',()=>{const s=E.create();for(let i=0;i<5;i++){if(i)assert.ok(E.select(s,i));const {commands,steps}=solve(s);routes.push(commands);console.log('Job',i+1,'ticks',steps,'hits',s.run.hits,'medals',s.run.stars);assert.ok(s.profile.best[i]);assert.ok(E.valid(s))}assert.ok(s.profile.best.every(Boolean));const credits=s.profile.credits;E.select(s,0);solve(s);assert.equal(s.profile.credits,credits)});
+test('unlocked jobs and active job switching are gated',()=>{const s=E.create();assert.equal(E.select(s,4),false);E.begin(s);assert.equal(E.select(s,0),false);E.retry(s);assert.equal(s.run.status,'ready')});
+test('inertia persists; braking dissipates velocity; diagonal thrust normalised',()=>{const s=E.create();E.begin(s);for(let i=0;i<30;i++)E.step(s,{right:true});const vx=s.run.vx;E.step(s,{});assert.ok(s.run.vx>vx*.99);for(let i=0;i<40;i++)E.step(s,{brake:true});assert.ok(s.run.vx<vx*.1);const a=E.create(),b=E.create();E.begin(a);E.begin(b);E.step(a,{right:true});E.step(b,{right:true,down:true});assert.ok(Math.abs(Math.hypot(b.run.vx,b.run.vy)-a.run.vx)<1e-8)});
+test('nearby tether toggles; far coupling fails; delivered salvage excluded',()=>{const s=E.create();E.begin(s);assert.equal(E.toggle(s),false);s.run.x=s.run.cargo[0].x-50;assert.ok(E.toggle(s));assert.equal(s.run.tether,0);assert.ok(E.toggle(s));assert.equal(s.run.tether,null)});
+test('high-speed impacts damage, eventually lose and retry preserves records',()=>{const s=E.create();E.begin(s);let right=true;for(let i=0;i<80000&&s.run.status==='active';i++){if(s.run.x>980)right=false;if(s.run.x<20)right=true;E.step(s,{right,left:!right})}assert.equal(s.run.status,'lost');assert.equal(s.run.hull,0);assert.ok(E.valid(s));E.retry(s);assert.equal(s.run.hull,100)});
+test('malformed, nonfinite and impossible economy saves rejected',()=>{const s=E.create();assert.equal(E.decode('{broken'),null);for(const edit of [s=>s.run.x=Infinity,s=>s.profile.credits=10,s=>s.run.cargo[0].mass=0,s=>s.run.tether=5,s=>s.run.cargo=[],s=>s.profile.best[3]=1]){const t=E.copy(s);edit(t);assert.equal(E.valid(t),false)}assert.equal(E.decode('x'.repeat(20000)),null)});
+test('upgrade costs, active guard and saved upgraded play',()=>{const s=E.create();solve(s);const before=s.profile.credits;assert.ok(E.upgrade(s,'buffer'));assert.equal(s.profile.credits,before-2);assert.ok(E.valid(s));E.select(s,0);E.begin(s);assert.equal(E.upgrade(s,'engine'),false);for(let i=0;i<100;i++)E.step(s,{right:true});assert.ok(E.decode(E.encode(s)))});
+fs.writeFileSync('/tmp/scrap-orbit-routes.json',JSON.stringify(routes));console.log(`${passed} Scrap Orbit engine checks passed`);
