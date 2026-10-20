@@ -1,5 +1,26 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 15
+
+Base Sites source: 3029a27ffb00e06042ddcaaae466b9c5931941d5 (live version 23). GitHub base: a578d765683c73d8b77a1cb85bcf146742fbf8fd. Reopened latest clean source through Sites workflow and verified Underleaf HTML and both catalogue files matched GitHub before editing. Branch head was unchanged before synchronization.
+
+### Implemented
+- Underleaf manual gathering previously required pointing at canvas food patches. Added four named native buttons for left leaves, berries, crumbs and right leaves, with visible per-patch stock/regrowth and food reward information. They use the same four existing sources, not additional resource pools.
+- Refactored the canvas hit handler and new buttons through one guarded gatherSource routine. Rewards, source depletion/regrowth, carry upgrades, sound, visual popups and immediate save use the existing rules.
+- Controls are disabled before starting, while manually paused or recovery-paused, and when a source lacks stock. Starting focuses the first food button without scrolling the page. Refresh does not move focus; no global number/letter shortcuts were added.
+- Added visible focus outlines and an action-only polite announcement of manual collection, plus keyboard instructions in the collection/player control text. The panel uses two columns and switches to one below 400 CSS pixels; physical narrow-screen rendering remains unverified.
+- Existing study features, ten-game catalogue, saves, sharing and independent community/Gummy Bay work preserved.
+
+### Validation
+- New underleaf-controls.cjs first failed on the old source because there was no keyboard-focusable manual-gather control. It now passes named/native button checks, intro/start focus, all four sources, exact rewards/storage updates, depletion/regrowth, manual pause, carry upgrades, canvas/button parity and stable focus/no global shortcuts.
+- Full regression suites, asset audit (10 bundled routes, 19 HTML references), source and diff checks passed. Existing Underleaf recovery tests continue to cover paused file reads and restoration.
+- Desktop Chrome: Space gathered from left leaves; Tab then Enter gathered berries, increasing food from 20 to 24. Pause disabled all four buttons. Resume plus Enter/Space on crumbs/right leaves increased food to 28; source stocks and collection announcements matched. Screenshot inspection confirmed readable controls and a visible focus ring.
+- Screen-reader output, physical touch/mobile layout and real file download/upload checks remain pending. No claim of full accessibility conformance.
+
+### Pending
+- No new requested-title repository was vetted or integrated this pass. Earlier identity/source/reuse blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft; After Hours is still accurately Balatro-inspired.
+- Continue targeted quality improvements and authorized-source vetting without random replacements. Preserve the separately paused cleanup task; stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-20 — pass 14
 
 Base Sites source: 4cae6767ff556752182ad5517d13a98643b45bef (live version 22). GitHub base: 5a5b214515aa55af26a7fe81965c9d33bfdec307. Reopened clean source using the Sites helper; GitHub head remained unchanged before synchronization. Preserved study features, ten-game catalogue, original-game labels, owner-private access and independent community/Gummy Bay work.

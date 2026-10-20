@@ -38,7 +38,7 @@
     "color": "#9b854c",
     "url": "games/underleaf/index.html",
     "group": "Your games",
-    "controls": "Click food · Feed queen · Build rooms",
+    "controls": "Click food or Tab + Space/Enter on food buttons · Feed queen · Build rooms",
     "type": "bundled",
     "internet": false,
     "multiplayer": "Single player",
