@@ -3,9 +3,37 @@ const $=id=>document.getElementById(id),KEY='study-desk-v1',DECK_KEY='study-desk
 const storageState=new Map();
 function loadJson(key,fallback,validate){const state={raw:null,blocked:false,reason:''};storageState.set(key,state);try{state.raw=localStorage.getItem(key)}catch{state.blocked=true;state.reason='unavailable';return fallback}if(state.raw===null)return fallback;try{const value=JSON.parse(state.raw);if(!validate(value))throw Error();return value}catch{state.blocked=true;state.reason='unreadable';return fallback}}
 function studyBlocked(){return [KEY,DECK_KEY].some(key=>storageState.get(key)?.blocked)}
-function storeJson(key,value){if(storageState.get(key)?.blocked||(key!==HUB_KEY&&studyBlocked()))return false;try{const raw=JSON.stringify(value);localStorage.setItem(key,raw);storageState.get(key).raw=raw;return true}catch{const state=storageState.get(key);state.blocked=true;state.reason='unavailable';refreshStorageNotices();toast(key===HUB_KEY?'Game preferences are temporary on this device.':'Saving is unavailable. Export your cards before closing this tab.');return false}}
+function checkStorage(keys){
+ let changed=false;
+ for(const key of keys){const state=storageState.get(key);if(!state||state.blocked)continue;
+  try{if(localStorage.getItem(key)===state.raw)continue;state.reason='conflict'}catch{state.reason='unavailable'}
+  state.blocked=true;changed=true;
+ }
+ if(changed)refreshStorageNotices();
+ return keys.every(key=>!storageState.get(key)?.blocked);
+}
+function storeJson(key,value){if(!checkStorage(key===HUB_KEY?[HUB_KEY]:[KEY,DECK_KEY]))return false;try{const raw=JSON.stringify(value);localStorage.setItem(key,raw);storageState.get(key).raw=raw;return true}catch{const state=storageState.get(key);state.blocked=true;state.reason='unavailable';refreshStorageNotices();toast(key===HUB_KEY?'Game preferences are temporary on this device.':'Saving is unavailable. Export your cards before closing this tab.');return false}}
 function downloadPreserved(key,name){try{const raw=storageState.get(key)?.raw;if(raw===null||raw===undefined)return;const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=el('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}catch{toast('The preserved data could not be downloaded. Keep this tab open and try again.')}}
-function refreshStorageNotices(){for(const [id,target,keys] of [['studyStorageNotice',document.querySelector('#study .study-layout'),[KEY,DECK_KEY]],['gameStorageNotice',$('filters'),[HUB_KEY]]]){let box=$(id);if(!box){box=el('div',undefined,'storage-notice');box.id=id;box.setAttribute('role','status');target.before(box)}const blocked=keys.filter(key=>storageState.get(key)?.blocked);box.hidden=!blocked.length;box.replaceChildren();if(!blocked.length)continue;const unavailable=blocked.some(key=>storageState.get(key).reason==='unavailable');box.append(el('strong',unavailable?'Saving is unavailable on this device.':'Saved data could not be read safely.'));box.append(el('p',id==='studyStorageNotice'?'Study changes are temporary in this tab. Existing saved data will not be replaced. Export your current cards before closing or reloading.':'Game preferences are temporary in this tab. Existing favourites and recently played data will not be replaced. Game saves are separate.'));if(storageState.get(KEY)?.reason==='unreadable'&&id==='studyStorageNotice')box.append(el('p','Starter cards are shown instead of your unreadable cards.'));for(const key of blocked)if(storageState.get(key).raw!==null){const label=key===KEY?'cards':key===DECK_KEY?'decks':'preferences';box.append(button('Download preserved '+label,()=>downloadPreserved(key,key===KEY?'study-cards-preserved.json':key===DECK_KEY?'study-decks-preserved.json':'game-preferences-preserved.json')))}}}
+function refreshStorageNotices(){
+ const hint=document.querySelector('#study .hint');
+ if(hint)hint.textContent='← → navigate · Space flips · '+(studyBlocked()?'Changes are temporary — export before reloading':'Progress saves on this device');
+ for(const [id,target,keys] of [['studyStorageNotice',document.querySelector('#study .study-layout'),[KEY,DECK_KEY]],['gameStorageNotice',$('filters'),[HUB_KEY]]]){
+  let box=$(id);if(!box){box=el('div',undefined,'storage-notice');box.id=id;box.setAttribute('role','status');target.before(box)}
+  const blocked=keys.filter(key=>storageState.get(key)?.blocked);box.hidden=!blocked.length;box.replaceChildren();if(!blocked.length)continue;
+  const unavailable=blocked.some(key=>storageState.get(key).reason==='unavailable'),conflict=blocked.some(key=>storageState.get(key).reason==='conflict');
+  box.append(el('strong',conflict?'Saved data changed in another tab.':unavailable?'Saving is unavailable on this device.':'Saved data could not be read safely.'));
+  box.append(el('p',id==='studyStorageNotice'?'Study changes are temporary in this tab. Existing saved data will not be replaced. Export your current cards before closing or reloading.':'Game preferences are temporary in this tab. Existing favourites and recently played data will not be replaced. Game saves are separate.'));
+  if(conflict)box.append(el('p','Keep any changes you need, then reload to load the newer saved data. Nothing is merged automatically.'));
+  if(storageState.get(KEY)?.reason==='unreadable'&&id==='studyStorageNotice')box.append(el('p','Starter cards are shown instead of your unreadable cards.'));
+  for(const key of blocked)if(storageState.get(key).raw!==null){const label=key===KEY?'cards':key===DECK_KEY?'decks':'preferences',prefix=storageState.get(key).reason==='conflict'?'Download this tab’s previous ':'Download preserved ';box.append(button(prefix+label,()=>downloadPreserved(key,key===KEY?'study-cards-preserved.json':key===DECK_KEY?'study-decks-preserved.json':'game-preferences-preserved.json')))}
+ }
+}
+window.addEventListener('storage',event=>{
+ try{if(event.storageArea!==localStorage)return}catch{return}
+ if(event.key===null)checkStorage([KEY,DECK_KEY,HUB_KEY]);
+ else if(event.key===KEY||event.key===DECK_KEY)checkStorage([KEY,DECK_KEY]);
+ else if(event.key===HUB_KEY)checkStorage([HUB_KEY]);
+});
 function toast(t){$('notice').textContent=t;$('notice').style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('notice').style.display='none',4000)}
 function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
 function button(text,fn,cls){const b=el('button',text,cls);b.type='button';b.onclick=fn;return b}
@@ -18,7 +46,7 @@ const games=window.GAME_CATALOG;
 let hub=loadJson(HUB_KEY,{},v=>v&&typeof v==='object'&&!Array.isArray(v)&&['favourites','recent'].every(key=>v[key]===undefined||(Array.isArray(v[key])&&v[key].every(id=>typeof id==='string'&&id.length<=100))));
 // Keep retired IDs so preferences survive reversible catalogue changes.
 for(const key of ['favourites','recent'])hub[key]=Array.isArray(hub[key])?[...new Set(hub[key].filter(id=>typeof id==='string'&&id.length<=100))].slice(0,1000):[];
-function save(){if(studyBlocked()){toast('These changes are temporary. Export your cards before closing or reloading.');return false}return storeJson(KEY,cards)&&storeJson(DECK_KEY,deckNames)}
+function save(){if(!checkStorage([KEY,DECK_KEY])){toast('These changes are temporary. Export your cards before closing or reloading.');return false}return storeJson(KEY,cards)&&storeJson(DECK_KEY,deckNames)}
 function reset(){order=cards.filter(c=>c.deck===deck).map(c=>c.id);index=0;flipped=false;render()}
 function current(){return cards.find(c=>c.id===order[index])}
 function render(){

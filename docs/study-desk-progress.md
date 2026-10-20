@@ -1,5 +1,29 @@
 # Study Desk improvement ledger
 
+## 2026-10-21 — pass 17
+
+Base Sites source: 1ad7957aefc0d5e6ba92309fff9fb2fda1028bad (live version 25). GitHub base: 26c2c1145559ab3257d95ff6b69bb6eb013741db. Reopened latest clean source through Sites workflow and verified app.js matched GitHub before editing. Preserve independent community work and each progress log's prior history.
+
+### Implemented
+- Fixed a reproduced stale-tab overwrite: reviewing cards in an older tab could replace newer questions/mastery saved by another tab. Added raw-value comparison immediately before card, deck-name and preference writes; either study-key conflict blocks both study-key writes.
+- Local-storage events now show a persistent conflict warning before the next edit, including external key removal/clear. Checks read current storage rather than trusting potentially stale event values, ignore unrelated/game/session-storage keys, and preserve the original loaded snapshot and temporary editable/exportable cards.
+- Conflict warnings explain that nothing is merged automatically and newer saved data can be loaded after exporting needed changes and reloading. The study hint no longer claims progress is saved when writes are blocked. Previous-snapshot downloads are labelled as this tab's previous data rather than the latest save.
+- This is conservative optimistic conflict detection, not a transactional lock: truly simultaneous writes between the comparison and setItem, and the existing two-key non-atomic write window, remain limitations. No forced replacement, automatic merging, game-save changes or audience changes.
+
+### Validation
+- New study-conflicts.cjs first reproduced stale-card overwrite, then passed card/deck/preference conflicts, external delete/clear, current temporary-card export, pre-write guards without events, immediate event warnings, unrelated/stale-event handling, independent study saving and storage read failure.
+- All regression suites, app.js syntax/diff checks and asset audit (10 bundled routes; 19 HTML asset references) passed.
+- Desktop Chrome with two real tabs: first tab saved 2 mastered cards; second tab immediately warned, then changed its temporary view to 0 mastered. Reloading the first retained the newer 2 mastered. For preferences, adding Gummy Bay in the first tab warned the second; its temporary removal of Underleaf did not persist. Reloading showed both favourites and no warning.
+- Screenshot inspection confirmed readable desktop warning/export controls. Real completed downloads, mobile layout and screen-reader output remain unverified. Existing import and game-launch regression coverage passed; game engines were not newly playtested this pass.
+
+### Repository review — 21 October 2026 (Australia/Sydney)
+- GitHub exact-name search found [PolySandwich45/polytack](https://github.com/PolySandwich45/polytack) and [PolySandwich45/polytack3](https://github.com/PolySandwich45/polytack3). Inspected recursive trees fd9e87636dd4770283da0d251c66b7248119fb82 and 05ffead8d205ac06ad3cc4078d021c96f1512545, plus their complete HTML.
+- First contains only an 8,265-byte index.html; second adds an 11-byte README to essentially the same 8,266-byte HTML. Neither tree contains game source/assets, build inputs or a licence file. HTML sets an external jsDelivr base to AZURE2077/polytrack-beta-0.6.0, loads compiled main/worker bundles and redirects game-service requests through a third-party proxy. These are external dependency wrappers, not the requested self-contained authorized game source. Not integrated or executed.
+
+### Pending
+- No new games added. Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft still need suitable authorized source/assets and verified identity. After Hours remains correctly Balatro-inspired. No random replacements.
+- Preserve separately paused cleanup; continue targeted improvements/source vetting and stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-20 — pass 16
 
 Base Sites source: 424d36695650c01e95a1cbd3bed11314d8a98365 (live version 24). GitHub base: a2fa784e0b11b0c0d2c511bc34bb36f9e78ca597. Reopened latest clean source through Sites workflow; app.js and style.css matched GitHub before editing. Preserve the independent GitHub community entrypoint and divergent progress-log history.
