@@ -975,31 +975,56 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: four original canopy crossings with gravity/pendulum tether physics, unilateral reelable ropes, momentum-preserving transfers/releases, pale one-way branches, checkpoint knots, optional silver seeds, no-life-limit safety returns, sequential lantern unlocks and saved motion/best stitches.",
-        "Pass 1: pure 2.5-second release trajectory/landing forecasts from the actual integrator, mint/coral dotted preview, exact pin distances and range guidance, east-preferring reachable-pin transfer shortcut, six-frame coyote/buffered jump grace and backward-compatible saved grace fields."
+        "Pass 1: pure 2.5-second release trajectory/landing forecasts from the actual integrator, mint/coral dotted preview, exact pin distances and range guidance, east-preferring reachable-pin transfer shortcut, six-frame coyote/buffered jump grace and backward-compatible saved grace fields. Rendered-QA follow-ups: wrap control labels, give quick pump/reel taps and accessible button activation one bounded six-frame nudge without doubling held inputs, and focus the visible completion button after lantern victory."
       ],
       "tests": [
-        "PASS initial 67665ba5518b586602c7ddb3ed35d986ae03bd5c: CI 39434927740, 7 engine+11 DOM, repository/candidate gates and all seventeen earlier-game browser regressions. New Threadbound browser suite absent in initial checkpoint.",
-        "PASS improved locally: 12 engine checks, four legal all-seed/no-fall reference routes, real checkpoint return, exact nonmutating forecast/live-physics parity, assist velocity conservation, coyote/buffered jumps, old-save migration and 27,000 seeded mixed-input steps. Thirteen DOM checks and new Chromium desktop/touch/native-RAF suite authored; exact-source CI pending."
+        "PASS initial 67665ba5518b586602c7ddb3ed35d986ae03bd5c: CI 39434927740, 7 engine+11 DOM, repository/candidate gates and seventeen earlier-game browser regressions. New Threadbound browser suite absent in initial checkpoint.",
+        "PASS exact final source f44192253378a49ba7822af5ef336d6e36cc64f4: CI 39437234416, 12 Threadbound engine+15 DOM checks, real Chromium desktop/touch/native-RAF, repository asset gate, candidate syntax/104 local source-navigation references/exact20-slot/public isolation and all seventeen earlier-game engine/interface/browser regressions.",
+        "Four legal reference crossings collect every seed, land on real checkpoint branches and kindle with zero falls in 406/411/419/498 fixed steps. Every fixed step is validity checked; 27,000 seeded mixed-input steps preserve finite/save invariants. Synthetic feasibility is not human enjoyment or duration evidence.",
+        "Pure release forecasts match the live integrator without mutating motion/seeds/records. Unreachable anchors cannot teleport; transfers/releases retain velocity, reeling and payout are unilateral; natural falls and checkpoint returns, sequential unlocks, old-save jump-grace migration and coyote/buffered jumps covered.",
+        "Chromium desktop: four legal actual-keyboard all-seed/no-fall campaigns, real checkpoint landings, range/forecast/assist, pause, exact mid-motion reload, confirmed restart, final enabled-button focus, saved unlocks and launch/back. Touch emulation: exactly-once quick jump/six-frame reel tap, actual CDP held-touch reel/pointer release, exact moving reload/restart cancel, >=44px targets, no 390px/320px page/button-text overflow. Native RAF smoke passes; zero page errors. Full touch campaign not tested.",
+        "Manual desktop: hooked/reelled first pin, collected seed, transferred with reachable-pin assistance and collected second seed; observed branch release forecast and landed on checkpoint. Jumped into range of third pin, reeled and collected third seed, pumped east, released to the far branch and kindled for 3/3 stitches with zero falls. Quick-tap no-op and overlapping labels found/corrected; completion focus issue found and regression added. Manual reload was blocked by browser policy, not counted. Preview stopped."
       ],
       "quality": {
-        "enjoyment": "Untested subjectively; synthetic reference crossings establish feasibility only.",
-        "depth": "Four short handmade grapple crossings. Optional seeds, clean-route stitches, breeze and elevated exit. Longer progression/replay depth unassessed; no duration claim.",
-        "polish": "Original moth/forest/thread art, range/trajectory guidance, reachable-pin assistance and forgiving branch-edge jumps. Rendered desktop review underway.",
-        "reliability": "Initial 7 engine+11 DOM/all seventeen earlier-game suites passed CI. Improved 12 local engine checks pass; exact-source DOM/browser verification pending.",
-        "variety": "Pendulum grappling, reeling and in-air transfers; mechanically distinct from jump/dash rooftops and top-down salvage."
+        "enjoyment": "Manually completed first crossing with all seeds/no falls. Reeling/transfers and checkpoint-release forecast were legible and supported actual traversal. Full four-room subjective controls/enjoyment review remains; synthetic routes do not prove fun.",
+        "depth": "Four compact handcrafted canopy crossings: gravity, reelable unilateral ropes, momentum transfer, branch checkpoints, optional seeds, clean-route stitches, breeze and elevated lantern. Limited authored geometry and longer progression/replay depth still need comparison; no duration claim.",
+        "polish": "Original code-drawn moth/forest/gold pins/silver seeds. Native keyboard/canvas pin/pointer/touch controls, range/trajectory guidance, assistance, jump grace, bounded quick-tap nudges, wrapping labels and terminal focus regression. Manual mobile/physical hardware review remains.",
+        "reliability": "Exact final source passes 12 engine+15 DOM, actual Chromium desktop/touch/native RAF and seventeen earlier-game regressions. Corrupt/concurrent/quota storage protection, motion reload, pause, restart, old saves, rope/grace/forecast invariants and terminal focus covered within tested cases.",
+        "variety": "Actual pendulum tether physics, reel length and momentum-preserving aerial transfers distinguish this from dash rooftops and top-down cargo salvage. Compact traversal candidate, not a renamed prior loop."
       },
       "selected": false,
-      "selectionReason": "Not selected: initial/improvement implemented, but exact improved browser verification, subjective controls and compact-content replay-depth review remain.",
+      "selectionReason": "Not selected: four compact crossings and one manual complete crossing are not sufficient finished-quality evidence; all-room subjective controls, alternative seed/clean routes and replay-depth/variety comparison remain.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify improved source in CI; manually inspect and play grappling controls.",
-        "Assess all four crossings and alternative seed/clean routes for enjoyment and depth before finished status.",
-        "Preserve development-only until comparison and deliberate public selection."
+        "Manually play all four crossings and alternate routes, assess continuous keyboard/touch feel, transfer assistance choices and checkpoint/seed difficulty.",
+        "Review mobile screenshots, physical touch and screen-reader behavior where possible; verify completion focus and saved completion manually once permitted.",
+        "Compare enjoyment, authored depth, polish and reliability with earlier candidates before finished/selection status; preserve development-only.",
+        "Fresh main advanced independently to 08f4526696c9542d60c96b634f256da618495623 with After Hours copy/paste backup-text recovery. Preserve that work and rebase/integrate only deliberate selected files in a future integration pass."
       ],
       "developmentCommits": [
-        "67665ba5518b586602c7ddb3ed35d986ae03bd5c"
-      ]
+        "67665ba5518b586602c7ddb3ed35d986ae03bd5c",
+        "496e4c8edb62b5bd8fe2d18bc25ce9576c715d63",
+        "43bc5eed6f5d3f22bec1c1475511670faf137770",
+        "f44192253378a49ba7822af5ef336d6e36cc64f4"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39437234416",
+        "testedCommit": "f44192253378a49ba7822af5ef336d6e36cc64f4",
+        "conclusion": "success",
+        "desktop": "Four actual-keyboard all-seed/no-fall crossings, real checkpoint landings, range/forecast/assist, exact mid-motion reload, pause/restart confirmation, visible enabled completion-button focus, saved unlocks and workshop launch/back. Zero page errors.",
+        "touch": "Final source: exactly-once quick jump/six-frame quick reel tap, real CDP held-touch reel/pointer release, exact moving reload/restart cancel, >=44px controls and no 390px/320px page/button-text overflow. Full touch campaign not tested.",
+        "manual": "Manual desktop: hooked/reelled first pin, collected seed, transferred with reachable-pin assistance and collected second seed; observed branch release forecast and landed on checkpoint. Jumped into range of third pin, reeled and collected third seed, pumped east, released to the far branch and kindled for 3/3 stitches with zero falls. Quick-tap no-op and overlapping labels found/corrected; completion focus issue found and regression added. Manual reload was blocked by browser policy, not counted. Preview stopped.",
+        "notVerified": [
+          "Subjective enjoyment and alternative-route replay depth across all four canopies",
+          "Final-focus fix manual recheck and manual saved-completion reload (browser policy blocked reload)",
+          "Manual mobile layout review, physical touch hardware and screen-reader behavior",
+          "Full touch-controlled campaign",
+          "20 hours of worthwhile gameplay or testing",
+          "Public catalogue integration/deployment"
+        ],
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39437234416/artifacts/12273177084"
+      }
     },
     {
       "slot": 19,
@@ -1257,8 +1282,11 @@
       "improvedTotal": 18,
       "finishedTotal": 0,
       "publishedTotal": 0,
-      "summary": "Built and meaningfully improved Threadbound: four original grapple-physics crossings, exact release forecasts, reachable-pin assist and jump grace. Initial CI passed 7 engine+11 DOM/all seventeen earlier-game browsers; improved 12 engine pass locally, browser verification pending.",
-      "initialPlayableCommit": "67665ba5518b586602c7ddb3ed35d986ae03bd5c"
+      "summary": "Built and meaningfully improved Threadbound: four grapple-physics crossings, live-integrator release forecasts, reachable-pin assist, jump grace and bounded quick-tap controls. Final exact source passes 12 engine+15 DOM, four Chromium keyboard campaigns/touch/native RAF and all seventeen earlier-game regressions. Manually completed first crossing all seeds/no falls with predicted checkpoint landing; compact replay-depth and all-room subjective review remain. Development-only.",
+      "initialPlayableCommit": "67665ba5518b586602c7ddb3ed35d986ae03bd5c",
+      "implementationCommit": "496e4c8edb62b5bd8fe2d18bc25ce9576c715d63",
+      "verifiedCommit": "f44192253378a49ba7822af5ef336d6e36cc64f4",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39437234416"
     }
   ]
 }
