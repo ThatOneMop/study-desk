@@ -482,7 +482,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement candidate 10 Last Match, a distinct tactical turn-based arena candidate",
+        "Implement candidate 10 Last Match: top-down survival with directional lantern combat",
         "Revisit Stone Song enjoyment/replay depth and manually review mobile layout before finish/selection",
         "Integrate only selected finished winners against fresh main; preserve concurrent work and the Pages permission boundary"
       ],
