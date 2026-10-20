@@ -523,13 +523,14 @@
       "tests": [
         "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending.",
         "After improvement: 13 local engine checks, including all five unchanged baseline legal campaigns/every-tick saves, exact nonmutating clipped beam/target telemetry, fuel-exhaustion fixture, ready-purchase guard and 100 deterministic exploratory campaigns with real losses. 14 DOM cases plus desktop/native-clock/touch-emulated browser suites authored; improved-source CI pending.",
-        "CI 39380616187 at 96f02bb0: full repository/candidate gates, 13 engine and 14 DOM checks passed. Browser setup failed at movement assertion because fake RAF timestamps did not also override performance.now used by the real shared pause bridge. Harness corrected to align both clocks; game source unchanged; rerun required before rendered certification."
+        "CI 39380616187 at 96f02bb0: full repository/candidate gates, 13 engine and 14 DOM checks passed. Browser setup failed at movement assertion because fake RAF timestamps did not also override performance.now used by the real shared pause bridge. Harness corrected to align both clocks; game source unchanged; rerun required before rendered certification.",
+        "PASS exact-source GitHub Actions 39381006578 at 916f2e622f689969fd8e71ed8085dc8f2e4e6516: full repository asset gate, candidate syntax/56 local links/exact20/public isolation, 13 engine + 14 DOM checks, Chromium five legal no-hit three-medal pointer-aim/keyboard campaigns, native-clock RAF, 390px/320px touch emulation. All nine earlier candidates engine/interface/browser regressions pass. Actual job steps and decoded logs inspected."
       ],
       "quality": {
-        "enjoyment": "Unrated; manual gameplay pending",
-        "depth": "Five short original combat/route clearings, finite encounters and two upgrades; no duration claim",
-        "polish": "Original canvas orchard, matching clipped cone visuals, target/enemy phase cues, numeric and gauge fuel feedback, quick touch pulse handling and mobile following camera; rendered verification pending",
-        "reliability": "13 local engine checks pass; exact improved-source DOM/browser/full repository CI pending",
+        "enjoyment": "Preliminary manual desktop introductory art/onboarding, native key/touch-button movement, pause and position-preserving reload reviewed. Manual flash/combat and completed clearing not confirmed; full enjoyment/replay-depth assessment open.",
+        "depth": "Five short finite handmade combat clearings, four shadow types, limited refill choices and two upgrades. Baseline automated routes 463/654/671/1115/1111 frames, not human playtimes. More replay-depth assessment needed; no duration claim.",
+        "polish": "Original canvas orchard art/onboarding and fuel gauges inspected on desktop. Ray-clipped beam, in-cone target/lunge/health feedback, mobile following camera, >=44px visible controls and no 390px/320px page overflow verified in Chromium. Manual mobile layout/physical touch unverified.",
+        "reliability": "13 engine + 14 DOM and actual Chromium deterministic desktop campaigns/native-clock RAF/touch-emulated checks pass on exact source, including every-tick campaign saves, 100 exploratory attempts with real losses, full repository assets and nine earlier-game regressions.",
         "variety": "Distinct overhead directional-cone combat, not a rhythm, vehicle or platformer reskin"
       },
       "selected": false,
@@ -537,13 +538,30 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify exact improved-source CI and inspect logs before claiming browser passes",
-        "Assess enjoyment/replay depth and visually inspect before finish/selection",
-        "Implement candidate 11 Glasshouse; integrate only selected finished winners against fresh main"
+        "Implement candidate 11 Glasshouse, retaining the planned distinct greenhouse core loop",
+        "Revisit combat enjoyment/depth and manually inspect mobile layout before finish/selection",
+        "Only integrate selected finished winners with scoped fresh-main edits; preserve concurrent work and hosting permission boundary"
       ],
       "developmentCommits": [
-        "8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82"
-      ]
+        "8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82",
+        "96f02bb0bb128ca0ffd86ee8399c2040c839da14",
+        "916f2e622f689969fd8e71ed8085dc8f2e4e6516"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39381006578",
+        "testedCommit": "916f2e622f689969fd8e71ed8085dc8f2e4e6516",
+        "conclusion": "success",
+        "desktop": "Native movement/start/pause/retry focus and exact saved reload; all five legal no-hit three-medal pointer-aim/keyboard campaigns with shared bridge active and synchronized deterministic clock; gate progression, upgrades and workshop navigation. Separate native-clock RAF movement/retry-cancel focus/pause smoke. Zero page errors.",
+        "touch": "390x844 emulation quick move/flash/dodge taps once, paused retry-cancel state, 560-unit following camera, >=44px visible buttons and no page overflow at 390px/320px.",
+        "manual": "Managed cloud browser initial orchard art/onboarding/gauges, key/touch-button movement from x105 to x121, pause and reload retaining x121,y320. Manual flash attempt did not confirm a fuel change; no manual combat/completed clearing claimed. Preview stopped.",
+        "notVerified": [
+          "Full subjective combat enjoyment and replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 11,
@@ -849,6 +867,19 @@
       "initialPlayableCommit": "f88c5ca73dd58c58b2f6be10702a4082e148e527",
       "implementationCommit": "4b5b6b982db0fe734898ea9b17866025785f8a60",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39375204108"
+    },
+    {
+      "run": 10,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 10,
+      "improvedTotal": 10,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Last Match. Exact source passes 13 engine + 14 DOM, five Chromium legal keyboard/pointer campaigns, native-clock RAF and touch-emulated checks; repository and nine earlier-game regressions pass. Manual introductory movement/pause/reload reviewed, not combat/victory. Development-only; deeper enjoyment/depth and manual mobile review remain.",
+      "initialPlayableCommit": "8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82",
+      "implementationCommit": "96f02bb0bb128ca0ffd86ee8399c2040c839da14",
+      "verifiedCommit": "916f2e622f689969fd8e71ed8085dc8f2e4e6516",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39381006578"
     }
   ]
 }
