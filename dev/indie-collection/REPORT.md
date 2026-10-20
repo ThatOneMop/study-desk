@@ -1,3 +1,7 @@
+# Run 16 · initial checkpoint
+
+16/20 playable prototypes · 15 meaningfully improved · 0 finished/selected/published. Pocket Expedition initial six-region loadout/pack-space/risk/extraction game implemented. Ten local engine checks pass. Six legal three-seal references use attempts 1/2/2/1/1/1, all nine starting rations, values 11/11/13/11/12/13, steps 8/8/8/8/9/8 and 10/12/12/10/9/10 actions including preparatory retries in regions two/three. Chance rolls are not guaranteed clean; these are synthetic feasibility checks, not human-duration evidence. Replay validation checks actual seeded history after every action; actual food/injury losses, retreats, best/journal persistence and 100 seeded attempts covered. Eleven DOM checks authored, exact-source CI pending; no new browser suite yet. Next: meaningful return/recovery forecast, warnings, undo and focus pass. Main inspected at 26c2c1145559ab3257d95ff6b69bb6eb013741db, preserving independent study-storage protection. No public integration/deployment.
+
 # Run 15 · verified final outcome
 
 **15/20 playable prototypes · 15 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; five planned candidates are not counted as games. Next: **Pocket Expedition** — push-your-luck expedition loadout and extraction.
