@@ -5,6 +5,7 @@ function boot(raw=null,legacy=null){
  w.requestAnimationFrame=()=>1;w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(_,k)=>k==='createLinearGradient'?()=>({addColorStop(){}}):()=>{}});
  if(raw!==null)w.localStorage.setItem('autumn-drift-v2',raw);if(legacy!==null)w.localStorage.setItem('autumn-drift-v1',legacy);
  try{if(fs.existsSync(root+'games/autumn-drift/save-store.js'))w.eval(fs.readFileSync(root+'games/autumn-drift/save-store.js','utf8'));
+ w.eval(fs.readFileSync(root+'games/autumn-drift/recovery.js','utf8'));
  w.eval(fs.readFileSync(root+'games/autumn-drift/game.js','utf8')+'\nwindow.testSave={persist,get snapshot(){return currentGarden()},advance(){clock+=1}};');}catch(e){w.close();throw e}
  return {w,d,$:id=>d.getElementById(id),close:()=>w.close()};
 }

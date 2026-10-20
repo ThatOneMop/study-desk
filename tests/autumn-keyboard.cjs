@@ -3,6 +3,7 @@ const root=__dirname+'/../',html=fs.readFileSync(root+'games/autumn-drift/index.
 const dom=new JSDOM(html,{url:'https://example.test/games/autumn-drift/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window,d=w.document,$=id=>d.getElementById(id);
 w.requestAnimationFrame=()=>1;w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(_,key)=>key==='createLinearGradient'?()=>({addColorStop(){}}):()=>{}});
 w.eval(fs.readFileSync(root+'games/autumn-drift/save-store.js','utf8'));
+w.eval(fs.readFileSync(root+'games/autumn-drift/recovery.js','utf8'));
 w.eval(fs.readFileSync(root+'games/autumn-drift/game.js','utf8')+'\nwindow.testGame={get leaves(){return leaves},get pointer(){return pointer},get running(){return running},get count(){return collected},get save(){return save},advance(){clock+=1},fixture(list){leaves=list;total=list.length;collected=0;completed=false;updateUI()}};');
 const g=w.testGame,c=$('game');
 function key(key,options={}){c.dispatchEvent(new w.KeyboardEvent('keydown',{key,code:key===' '?'Space':key,bubbles:true,cancelable:true,...options}));}

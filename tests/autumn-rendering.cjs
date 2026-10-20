@@ -9,6 +9,7 @@ function boot(noCache=false,failComposite=false){
   return contexts.get(this);
  };
  w.eval(fs.readFileSync(root+'games/autumn-drift/save-store.js','utf8'));
+ w.eval(fs.readFileSync(root+'games/autumn-drift/recovery.js','utf8'));
  w.eval(source+`\nconst probe={backgrounds:0,stats:0};const originalBackground=background,originalStats=stats;
  background=()=>{probe.backgrounds++;return originalBackground()};stats=()=>{probe.stats++;return originalStats()};
  window.testRender={probe,render,resize,get state(){return JSON.stringify({save,leaves,collected,total,completed})},area(n){save.area=save.unlocked=n;loadGarden()},collect(){collected++},get leaves(){return leaves.length}};`);

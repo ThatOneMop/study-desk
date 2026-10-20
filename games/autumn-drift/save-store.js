@@ -1,7 +1,7 @@
 /* Autumn Drift save validation — MIT, Study Desk contributors, 2026. */
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.AutumnSaves=factory()})(typeof globalThis!=='undefined'?globalThis:this,()=>{
  'use strict';
- const KEY='autumn-drift-v2',LEGACY='autumn-drift-v1',LIMIT=1000000;
+ const KEY='autumn-drift-v2',LEGACY='autumn-drift-v1',BACKUP=KEY+'.backup',LIMIT=1000000;
  const initial=()=>({area:0,unlocked:0,money:0,ranks:[0,0,0,0],picked:0,clears:0,garden:null});
  const object=v=>v&&typeof v==='object'&&!Array.isArray(v);
  const number=(v,min,max,integer=false)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max&&(!integer||Number.isInteger(v));
@@ -20,6 +20,11 @@
   }return s;
  }
  function json(raw){if(typeof raw!=='string'||raw.length>LIMIT)throw Error('Save too large');return JSON.parse(raw)}
+ function parseExport(raw){
+  const v=json(raw);
+  if(!object(v)||!Object.keys(initial()).every(key=>Object.hasOwn(v,key))||v.garden===null)throw Error('Choose a complete Autumn Drift export');
+  return validate(v);
+ }
  function create(storage){
   let expected=null,loaded=null,status='ready',migrated=false;
   function load(){
@@ -34,7 +39,20 @@
    if(status!=='ready')return false;
    try{const text=JSON.stringify(validate(value));if(storage.getItem(KEY)!==expected){status='conflict';return false}storage.setItem(KEY,text);expected=text;return true}catch{status='unavailable';return false}
   }
-  return {load,save,get status(){return status},get originalRaw(){return loaded},get migrated(){return migrated}};
+  function replace(value,expectedCurrent){
+   try{
+    const text=JSON.stringify(validate(value)),previous=storage.getItem(KEY);
+    if(previous!==expectedCurrent){status='conflict';return false}
+    const oldBackup=storage.getItem(BACKUP);
+    if(previous!==null)storage.setItem(BACKUP,previous);
+    try{storage.setItem(KEY,text)}catch(error){
+     if(previous!==null)try{if(oldBackup===null)storage.removeItem(BACKUP);else storage.setItem(BACKUP,oldBackup)}catch{}
+     throw error;
+    }
+    expected=text;status='ready';return true;
+   }catch{status='unavailable';return false}
+  }
+  return {load,save,replace,readCurrent:()=>storage.getItem(KEY),readBackup:()=>storage.getItem(BACKUP),get status(){return status},get originalRaw(){return loaded},get migrated(){return migrated}};
  }
- return {KEY,LEGACY,initial,validate,create};
+ return {KEY,LEGACY,BACKUP,LIMIT,initial,validate,parseExport,create};
 });

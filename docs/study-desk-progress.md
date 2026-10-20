@@ -1,5 +1,26 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 14
+
+Base Sites source: 4cae6767ff556752182ad5517d13a98643b45bef (live version 22). GitHub base: 5a5b214515aa55af26a7fe81965c9d33bfdec307. Reopened clean source using the Sites helper; GitHub head remained unchanged before synchronization. Preserved study features, ten-game catalogue, original-game labels, owner-private access and independent community/Gummy Bay work.
+
+### Implemented
+- Added Autumn Drift restoration from pasted JSON or a selected JSON file. Imports require complete, bounded, valid save data including the garden; file selection only fills a validated draft. The separate import action summarizes area, acorns and leaf progress and asks before replacing anything.
+- Intentional replacement first backs up the exact current stored save, including damaged bytes, in one previous-save slot. Restore previous garden uses the same validation and confirmation. Confirmation explicitly warns that this replaces the previous backup and that unsaved progress should be exported first.
+- A changed main save during confirmation rejects replacement. Backup failure prevents the main write; main-write failure attempts to preserve the older backup. These are optimistic checks/best-effort recovery, not an atomic cross-tab transaction.
+- Added copyable Garden JSON text as a download-independent fallback. Current, loaded and previous-save export buttons also expose their exact text before requesting a download; malformed backup text remains available without parsing.
+- File reads are size-bounded, cancellable, and ignored after closing the menu/pagehide. Import/restore keeps gameplay paused in the Saves dialog. Keyboard focus trapping now includes the text area and excludes hidden/file controls.
+
+### Validation
+- New autumn-recovery.cjs covers invalid/incomplete/oversized text, valid import, cancellation, exact stored backup, previous-save restore, corrupted-save recovery, conflict and backup/write failures, download-text fallback, oversized files rejected before reading, draft-only file selection, cancelled/late file reads and pagehide.
+- Full dist/tests/*.cjs regression suite passed, along with source syntax and git diff checks. Asset audit: 10 bundled launch routes, 19 HTML asset references, no missing references.
+- Desktop Chrome preview: used Show current save text to capture the actual untouched garden, picked one leaf/earned one acorn, cancelled importing the earlier export (progress kept), confirmed import (zero picked/acorns), then restored the previous save (one picked/acorn). Invalid {} text was rejected without replacement. Inspected the scrollable dialog visually.
+- Browser file-picker upload, completed file downloads, physical mobile and screen-reader tests remain unverified. File-read branches are covered by isolated tests. No claim that the earlier browser-download timeout was resolved; text-copy/import is now a browser-tested alternative.
+
+### Pending
+- No requested-title repository was newly vetted or added in this pass. Earlier identity/provenance/reuse blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft. After Hours remains explicitly Balatro-inspired.
+- Continue source-specific vetting and targeted game quality work without random replacements. Leave the separate cleanup task paused and stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-20 — pass 13
 
 Base Sites source: d05c50c405e3d39d72699733af4222f928a1fdec (live version 21). GitHub base: 2cca5d39f4e48929d8e6020463a466dee8fb65b4. Reopened latest clean source with Sites workflow; Autumn Drift HTML/script matched GitHub. Existing study features, audience and independent community/Gummy Bay work preserved.
