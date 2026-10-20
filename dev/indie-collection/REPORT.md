@@ -1,3 +1,7 @@
+# Run 17 · initial checkpoint
+
+17/20 playable prototypes · 16 meaningfully improved · 0 finished/selected/published. Moss Market initial six-market barter/inventory/crafting game implemented. Ten local engine checks pass. Six legal three-seal references finish with reserves14/11/6/10/4/5, trades4/4/4/4/5/5, crafts1/0/1/0/2/2, zero overpay and 8/7/8/7/10/10 committed actions. Every action serializes; exact replay rejects forged stock/history/overpay, and 100 seeded exploratory sessions cover resource/save bounds. Actual rejection and unfinished-close losses, shelf overflow, saved offers and best-record retry covered. These are synthetic feasibility checks, not human enjoyment or duration evidence. Eleven DOM checks authored, exact-source CI pending; no new browser suite yet. Next: meaningful inventory/order/reserve forecast, final-delivery warning, guard/undo/focus pass. Main inspected at ff03e826dd26a0e49ebd374201d2a46664b24d51, preserving independent cross-tab study-save conflict protection. No public integration/deployment.
+
 # Run 16 · verified final outcome
 
 **16/20 playable prototypes · 16 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; four planned candidates are not counted as games. Next: **Moss Market** — barter-based shopkeeping and inventory choices.

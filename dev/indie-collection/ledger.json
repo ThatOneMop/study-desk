@@ -910,19 +910,31 @@
       "id": "moss-market",
       "title": "Moss Market",
       "coreLoop": "Barter-based shopkeeping with inventory choices",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/moss-market/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six finite-stock woodland barter markets; five visitors with distinct valuation vectors and two exclusive bundles each, eight goods with shelf bulk/reserve values, four material-transforming recipes, three community orders, limited shelf capacity, fair/reserve seals, saved drafts and best records."
+      ],
+      "tests": [
+        "10 local engine checks pass: six legal three-seal campaigns return reserves14/11/6/10/4/5 with 4/4/4/4/5/5 trades, 1/0/1/0/2/2 crafts, zero overpay and 8/7/8/7/10/10 committed actions. Every action serializes and seeded exploratory sessions preserve inventory/save bounds.",
+        "11 DOM checks authored; exact-source CI and new-candidate browser verification pending."
+      ],
+      "quality": {
+        "enjoyment": "Unassessed; synthetic barter routes do not establish fun.",
+        "depth": "Six compact barter/crafting/order markets with changing inventories and shelf demands; no duration claim.",
+        "polish": "Original deep-forest/rust-awning stall, visitor marks and stock tray; native controls/onboarding and saved offer drafts implemented; improvement pending.",
+        "reliability": "Engine tested locally; exact-source interface/browser verification pending.",
+        "variety": "Preference-weighted negotiation, finite visitor opportunities, recipe transforms and order/reserve tradeoffs; distinct from earlier movement/combat and spatial-network games."
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful pass: pure inventory/order/reserve forecasts, final-delivery score warning, fair-offer guard, full logical-state undo and focus recovery.",
+        "Execute interface and desktop/touch campaigns; inspect rendered play before finished/selection assessment."
       ]
     },
     {
