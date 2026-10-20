@@ -69,7 +69,11 @@ function launchWarning(message,moveFocus=true){const focused=$('frame')===docume
 function beginLoad(g){clearTimeout(loadingTimer);const attempt=++loadAttempt;currentLoad={game:g,url:new URL(g.url,location.href),attempt,settled:false};$('loadStatus').hidden=false;loadActions.hidden=true;loadMessage.textContent='Loading '+g.title+'…';$('frame').setAttribute('aria-busy','true');loadingTimer=setTimeout(()=>{if(currentLoad?.attempt===attempt&&!currentLoad.settled)launchWarning(g.title+' is taking longer than expected. You can keep waiting, retry, or return to the collection.',false)},15000);$('frame').src=g.url;}
 function restartCurrent(){const g=games.find(g=>g.id===playing);if(g&&confirm('Reload this game? Unsaved progress may be lost. Saved progress is not deleted.')){paused=false;beginLoad(g);show()}}
 function gamePath(url){return url.pathname.replace(/\/index\.html$/,'/')}
-function play(g){record(g);if(g.type==='external'){window.open(g.url,'_blank','noopener');toast(g.title+' opens separately. Return to this tab to use Study Desk; PPP cannot control the other tab.');drawGames();return}if(playing!==g.id){visibility(false);beginLoad(g);playing=g.id;paused=false}$('frame').title=g.title+' game';$('playing').textContent=g.title;$('gameHelp').textContent=g.controls+' · PPP returns to study (P is reserved)';arcade=true;inPlayer=true;show()}
+function play(g){
+ const currentGame=games.find(game=>game.id===playing);
+ if(g.type!=='external'&&currentGame&&playing!==g.id&&!confirm('Switch from '+currentGame.title+' to '+g.title+'? This closes the current session. Unsaved progress may be lost. Saved progress is not deleted.'))return;
+ record(g);if(g.type==='external'){window.open(g.url,'_blank','noopener');toast(g.title+' opens separately. Return to this tab to use Study Desk; PPP cannot control the other tab.');drawGames();return}if(playing!==g.id){visibility(false);beginLoad(g);playing=g.id;paused=false}$('frame').title=g.title+' game';$('playing').textContent=g.title;$('gameHelp').textContent=g.controls+' · PPP returns to study (P is reserved)';arcade=true;inPlayer=true;show()
+}
 $('frame').onload=()=>{
  if(!currentLoad)return;
  try{const loaded=new URL($('frame').contentWindow.location.href);if(loaded.origin!==currentLoad.url.origin||gamePath(loaded)!==gamePath(currentLoad.url))return;

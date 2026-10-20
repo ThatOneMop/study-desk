@@ -1,5 +1,24 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 7
+
+Base Sites source: a2e57cb1adb724cd0cd8089a92d7fa5f0aa6812e (live version 15). GitHub base: 73de885be1335b47d2bff5b197afc03805e77ff4. Reopened the clean checkout through the Sites helper and confirmed the launcher base matches GitHub.
+
+### Implemented
+- Switching to a different bundled game previously replaced the live iframe immediately, with no warning about unsaved progress. Added a confirmation naming both games before changing the iframe, current game or recent list.
+- Cancel preserves the current document/session, manual pause, collection view and focused launch button. First launch, returning to the same game and external links remain prompt-free. Existing restart confirmation is unchanged. Bumped app.js cache version to 8.
+- Added launcher-switching.cjs; reproduced the missing-confirmation failure before the fix. No game counts, rules, saved data, study features or audience changes.
+
+### Validation
+- New switching regression passed: initial/same-game launch, named warning, cancel with retained session marker/focus/pause/history, approved switch, stored game/study data untouched.
+- All existing flashcard/bridge/mouse, curation, loading/navigation, 10 route, After Hours save/control/engine and 15 HTML asset-reference checks passed; syntax/diff checks passed.
+- Desktop Chrome preview: selected A of spades in After Hours, attempted Underleaf, cancelled the native confirmation, returned and verified the same selected card. Then approved a second switch and verified Underleaf's intro rendered and loading status cleared. Mobile and full gameplay remain unverified.
+
+### Snow Rider repository review (20 October 2026)
+- https://github.com/arcadeclash/snow-rider-3d-unblocked: root inventory, LICENSE, index.html, Build inventory and Unity JSON inspected. Actual prebuilt Unity loader references about 12.5 MB of compressed data/WASM, WebGL 1/2 and a 256 MiB memory setting; root has no editable Unity project/build instructions. MIT text names gamehippy (2025), while the build identifies Snow Rider/Snow Rider 3D. The inspected files do not establish an original-creator grant covering the game/assets; kept pending, not integrated or run.
+- https://github.com/Especially43/snow-rider: README/index/root inspected. It is a small wrapper loading Unity scripts and the game from drippy-cat/snowrider3D through jsDelivr, plus third-party analytics; not a self-contained game source. Its licence label does not establish permission for those remote game assets. Not integrated.
+- No new game qualified. Prior identity/reuse blockers remain for other requested titles; no random substitutes or empty cards. After Hours stays accurately labelled Balatro-inspired. Preserve independent game/community work and the paused cleanup task.
+
 ## 2026-10-20 — pass 6
 
 Base Sites source: 09625ce3585feaebdac7566f417c218427426a12 (live version 14). GitHub base: ef71a9c705d8ac82eb28c12731cc9c5cd60699b6. Opened a fresh checkout and confirmed the shared bridge matched both sources.
