@@ -126,51 +126,60 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/bolt-and-bristle/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: six original handmade circuit restoration commissions; brush/solvent/spanner/rotation tools, mouse/touch drag and native keyboard plates, test circuit, restoration stars, tool upgrades, best-only replay rewards, confirmed retry and versioned saves with corrupted/concurrent-write protection.",
-        "Pass 1: interpolated fast pointer strokes include skipped cells and their first plate without double activation; native tool shortcuts preserve plate focus; live-current highlights and textual copper/tool inspection; free diagnostic tests no longer punish experimentation; one-step undo restores plate work and full winning rewards, clears on navigation/upgrades/retry; modal background inert/focus guards and >=44px narrow-screen targets. Earlier version-1 score saves remain readable."
+        "Pass 1: interpolated fast pointer strokes include skipped cells and their first plate without double activation; native tool shortcuts preserve plate focus; live-current highlights and textual copper/tool inspection; free diagnostic tests no longer punish experimentation; one-step undo restores plate work and full winning rewards, clears on navigation/upgrades/retry; modal background inert/focus guards and >=44px narrow-screen targets. Earlier version-1 score saves remain readable.",
+        "Pass2 after comparative manual review: Continue restoration reopens a tested partial repair without resetting its live circuit or tool work; a fresh earned-profile checkpoint preserves prior stars/coins and pays only subsequent improvement.120-action session history groups whole brush/solvent drags, with independent keyboard actions and safe pointer-cancel boundaries. Pure live-copper boundary diagnostics offer free fault inspection without revealing a precomputed route. Ended-state tool guards/guidance and visible action/continuation focus; legacy fully-clean two-star saves can recover their missing star. Follow-up: center explicit reveals rather than nearest edge to keep full fractional-pixel target/focus ring in view; existing strict browser geometry assertion retained."
       ],
       "tests": [
         "15 actual-engine checks passed, including six legal solved routes (53, 63, 60, 69, 78, 87 baseline tool strokes), every-action saves, progression/replay, upgrades and malformed states.",
         "11 jsdom interface checks passed: six-commission campaign, tools, upgrades, mid-repair reload, keyboard focus, confirmed restart, corrupt/concurrent/blocked storage and diagnostics.",
         "After pass 1: 18 engine + 19 jsdom checks passed, including interpolated strokes, live inspection, free diagnostics, old score saves, undo/reward rollback, keyboard focus, stale undo guards and quota failures.",
         "Tidepost 17 engine + 9 DOM and Spore Kitchen 18 engine + 18 DOM regressions passed. Candidate source/18 local links/exact 20 isolated slots passed.",
-        "PASS GitHub Actions 39341121697 at 93cad09427e3e9b8039de707bb3ef2c321662fa8: full repository asset gate, candidate ledger/assets, 18 engine + 19 DOM checks, real Chromium desktop six-repair campaign and 390px/320px touch emulation; both earlier games regressions passed."
+        "PASS GitHub Actions 39341121697 at 93cad09427e3e9b8039de707bb3ef2c321662fa8: full repository asset gate, candidate ledger/assets, 18 engine + 19 DOM checks, real Chromium desktop six-repair campaign and 390px/320px touch emulation; both earlier games regressions passed.",
+        "Pass2 local24 engine checks pass: six route-only→continued-full repairs,1→2→3 delta rewards, no replay farming, continued save/retry/upgrades, live diagnostic purity and legacy two-star continuation.",
+        "Checkpoint e4a45754 passed CI39457184957:24engine+26DOM, native Chromium whole-drag undo, continued partial→full repair/reward rollback/reload, six-commission campaign/upgrades, touch continuation and all19 other candidates. Decoded logs inspected.",
+        "Final focus/history source5e7888dc passed24engine+28DOM. CI39458252410 first attempt interrupted by runner shutdown; rerun caught strict continued-work viewport assertion. Manual DOM measurement found nearest-edge top−0.11px. Centered-reveal follow-up ad7291fd keeps assertion and passed full exact-source CI39459641272.",
+        "PASS final exact source ad7291fd, CI39459641272/job118755433296:24engine+28DOM; strict visible-focus/native keyboard/whole-drag desktop checks, six full commissions/upgrades, actual touch partial→continued-full/reward undo/replay/reload,>=44px controls and390/320px overflow checks; all19 other candidates' engine/DOM/Chromium regressions passed; zero page errors. Decoded logs inspected. Root asset gate10routes/14refs and isolated candidate gate20slots/116refs passed. Screenshot artifact12282366489 retained."
       ],
       "quality": {
-        "enjoyment": "unrated: manual playtest pending",
-        "depth": "Six handmade spatial circuit repairs with optional complete cleaning and best-only restoration rewards; short prototype, no duration claim",
-        "polish": "Original CSS/SVG workshop/copper art; live current, stable keyboard focus, 44px visible button targets and no 390px/320px overflow verified in Chromium. Manual screenshot/enjoyment review pending.",
-        "reliability": "18 engine + 19 DOM checks and real Chromium desktop/touch-emulation suites passed in CI; full repository asset gate and Tidepost/Spore Kitchen regressions passed.",
-        "variety": "Distinct tactile cleaning plus circuit rotation puzzle, not a growing/cooking or ferry reskin"
+        "enjoyment": "Manual opening radio: row-two repair worked at17 tool strokes; continued the same working machine through1→2→3 stars without replay, ending49 strokes. Tangible clean/circuit feedback and optional thoroughness are readable. All-six subjective variety/drag feel still pending. Second fan route manually powered at28strokes with wide brush; pure fault trace and continued-work focus usable.",
+        "depth": "Six handcrafted spatial repairs, route-only versus thorough-restoration choice and two efficiency upgrades. Continued restoration removes forced replay but adds no new commissions; authored fault variety, fatigue and broader replay depth still need review.17/49-stroke manual route is feasible, not optimal or playtime evidence.",
+        "polish": "Original copper/grime SVG/CSS inspected on desktop; live fault diagnostics,120-action whole-drag undo, banked-state guidance and enabled action focus. Strict CI caught nearest-edge clipping; centered reveal manually measured plate2 at409.89..526.19 and continuation control at444.14..492.14 inside936px viewport. One screenshot request timed out, but AX/DOM measurement/reload worked; full mobile visual review pending.",
+        "reliability": "Final exact source ad7291fd passed24engine+28DOM and Chromium desktop/touch, full six-commission feasibility, saves/rewards/undo/upgrades, strict target visibility and all19 other-game regressions; decoded CI39459641272 logs inspected. Intermediate strict geometry failure corrected without weakening the assertion.",
+        "variety": "Tactile dust/rust/screw work plus reciprocal copper network; unlike fishing tension or colony allocation. Completion can preserve prior repair and reward each incremental restoration level."
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
-        "Manually assess rendered art, enjoyment and depth before marking finished or selecting",
-        "Only integrate selected finished games against current main; never merge the old whole development tree over concurrent work"
+        "Manually restore the remaining four commissions and compare authored faults/circuit choices, full-clean fatigue, drag satisfaction and upgrades before finished/selection status.",
+        "Review final screenshots at390/320px and physical touch/screen-reader behavior where feasible; keep explicit stage focus visible without moving the page during tool strokes.",
+        "Keep development-only while comparing full campaigns against fishing, colony, action and other candidates; integrate only selected finished source/catalogue files against fresh main."
       ],
       "developmentCommits": [
         "9b70d6c1050169d2373d9fce51f97ca857fc88ce",
-        "93cad09427e3e9b8039de707bb3ef2c321662fa8"
+        "93cad09427e3e9b8039de707bb3ef2c321662fa8",
+        "e4a4575407cdfe24957b2908e6f179fba84c045b",
+        "5e7888dc8b27b577a989491a22b801b86dbedaa0",
+        "ad7291fd9189a966ef85878ba3d13e2e42a9101c"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39341121697",
-        "testedCommit": "93cad09427e3e9b8039de707bb3ef2c321662fa8",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39459641272",
+        "testedCommit": "ad7291fd9189a966ef85878ba3d13e2e42a9101c",
         "conclusion": "success",
-        "desktop": "Native Enter/Space/tool shortcuts/arrow focus, fast drag interpolation and single pointer action, all six actual legal repairs, upgrades, mid-repair reload, winning reward undo, confirmed retry and workshop launch/back navigation; zero page errors",
-        "touch": "390x844 emulation: tool taps apply once, undo, retry modal/help; visible targets >=44px and zero horizontal overflow at 390px/320px",
+        "desktop": "PASS native-key/focus, pure diagnostic inspection, physical drag grouping/interpolation, partial→continued-full restore/rewards/undo/reload, six-commission campaign/upgrades/retry/workshop navigation; strict target visibility; zero page errors.",
+        "touch": "PASS actual touch-emulated partial win→continue→full clean, reward undo/replay/reload;>=44px targets and no390/320px page overflow; zero page errors. Physical hardware not tested.",
+        "manual": "Repaired radio row2 in17 tool strokes: six clean route plates, solvent on plate9, freed screws on7/10, turned vertical7/9/11 to reciprocal horizontal ports. Banked1star/6coins. Continued same working circuit, cleaned remaining top/lower dust, dissolved top rust and banked2stars/12coins at46strokes. Continued to remaining three rusty plates and banked3stars/18coins at49strokes. Undo of final test restored2stars/12coins with all clean work retained; replay/reload retained3stars/18coins. Bought wide brush and began second commission: diagnostic inspection cost0strokes, one brush removed two entry layers, live trace advanced to plate2. First render review showed continuation focus offscreen; reveal fix added, AX focus checked; one later screenshot timed out, so final visual/geometry follow-up relies on CI. Preview stopped. Second commission: brushed nine path plates with upgraded brush, dissolved two rust spots, freed three screws and rotated the bent path; fan powered at28strokes/one star/6coins. Measured nearest-edge continuation target top−0.109375px; centered reveal then put plate2 top409.890625,bottom526.1875 and undo's Continue top444.140625,bottom492.140625 inside936px viewport. No tolerance weakening.",
         "notVerified": [
-          "Subjective enjoyment/depth assessment",
-          "Manual screenshot/layout review",
-          "Physical touch hardware",
-          "20 hours of worthwhile content",
+          "Subjective satisfaction and machine/fault variety across all six commissions",
+          "Physical touch hardware, full mobile visual review and screen-reader output",
+          "20hours of gameplay or testing",
           "Public catalogue integration/deployment"
-        ]
+        ],
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39459641272/artifacts/12282366489"
       }
     },
     {
@@ -194,8 +203,8 @@
         "PASS GitHub Actions 39348588819 at 6310e921cdda9631082df02a7d41410bb2e816eb: full repository assets, candidate 20-slot/23-reference gate, 16 engine + 19 DOM checks, all five baseline Chromium rescues/firebreaks, native keyboard/focus, upgrade/reload/retry/undo, desktop launch/back, 390px/320px touch emulation and all three earlier-game regressions."
       ],
       "quality": {
-        "enjoyment": "Preliminary manual introductory rescue: core allocation, reward undo, upgrade and next-chapter reload usable; full subjective enjoyment assessment still pending",
-        "depth": "Five short handmade logistics chapters, finite patches and three upgrades. Measured baseline solutions take 6/11/12/12/12 shifts; boots-first routes take 6/7/8/8/9. Upgrade pacing and deeper strategic variety need review; no duration claim",
+        "enjoyment": "Manual opening comparison: five-tile supply network and2food/1water/1resin/2nurses, then assigned newly hatched ants to nurse and food.3brood rescued atshift4,full health/3medals; workforce growth supported real reallocation. Full later-chapter/fire balance still open.",
+        "depth": "Five short handmade logistics chapters, finite patches and three upgrades. Measured baseline solutions take 6/11/12/12/12 shifts; boots-first routes take 6/7/8/8/9. Upgrade pacing and deeper strategic variety need review; no duration claim New manual opening alternative rescues atshift4 through reallocation; earlier6-shift reference is not optimal. Review whether upgrades make later fire irrelevant.",
         "polish": "Original CSS earth palette inspected on desktop; forecasts, focus, >=44px controls and no page overflow at 390px/320px verified in Chromium. Narrowest board uses internal scrolling. Physical touch testing pending",
         "reliability": "16 engine + 19 DOM checks and actual Chromium desktop/touch-emulation suites pass in CI; full repository assets and earlier-game regressions pass",
         "variety": "Distinct ant-workforce supply-network/fire-recovery management"
@@ -227,7 +236,15 @@
           "20 hours of worthwhile content",
           "Public catalogue integration/deployment"
         ]
-      }
+      },
+      "reviews": [
+        {
+          "date": "2026-10-21",
+          "scope": "Opening nursery comparison; no source changes",
+          "finding": "Growth/reallocation matches colony taste, but intro fire never mattered in4-shift rescue. Review later chapters/boots pacing before selecting.",
+          "decision": "Hold; prioritize full colony balance/depth review"
+        }
+      ]
     },
     {
       "slot": 5,
@@ -305,7 +322,7 @@
         "Local engine regressions for all five earlier games passed; candidate syntax, 33 local references, exact 20 slots and public-catalogue isolation pass. No root compilation step exists. Local jsdom installation blocked by connect EPERM; no workaround attempted; remote CI is the supported testing route."
       ],
       "quality": {
-        "enjoyment": "Preliminary manual opening trip: deliberate tension control, two distinct fish, release/stall decisions and reward/upgrade progression usable. Full subjective enjoyment assessment remains pending.",
+        "enjoyment": "Manual opening comparison: released Lantern Dace after8beats, kept Velvet Pike after10beats;34shells,one released species,survey and3medals in2casts,no escapes. Distinct tension rhythms readable. Full later-trip/replay satisfaction still open.",
         "depth": "Five short handcrafted field trips, six distinct pull patterns, sustainable species choices and two upgrades. Baseline solutions 2/3/4/5/5 casts (17/28/40/53/57 fishing beats). Needs deeper replay/enjoyment review; no hour claim.",
         "polish": "Original CSS underwater cutaway manually reviewed on desktop. Exact previews, enabled decision focus and undo usable; Chromium validates >=44px visible buttons and no horizontal page overflow at 390px/320px. Physical touch and full mobile visual review pending.",
         "reliability": "13 engine + 18 DOM checks and actual Chromium desktop/touch-emulated suites pass on exact improved commit; full repository assets, exact 20-slot isolation and all five earlier-game regressions pass.",
@@ -316,6 +333,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
+        "Address observed bank/depth selection clearing undo; compare habitat-wide planning, later-trip fishing variety and progression before finished/selection status.",
         "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Keep unselected until deeper enjoyment/replay assessment; exact improved source is CI-verified.",
         "Manually assess art/enjoyment and deepen worthwhile replay variety; remain an unselected prototype.",
@@ -339,7 +357,15 @@
           "20 hours of worthwhile content or testing",
           "Public catalogue integration/deployment"
         ]
-      }
+      },
+      "reviews": [
+        {
+          "date": "2026-10-21",
+          "scope": "Opening-trip manual comparison; no source changes",
+          "finding": "Readable tension choices but predictable location/depth selection and one-step recovery limit the broader loop.2casts/18beats feasible, not optimal; no duration claim.",
+          "decision": "Hold; prioritize next fishing controls/progression review"
+        }
+      ]
     },
     {
       "slot": 7,
@@ -1393,16 +1419,30 @@
       "verifiedCommit": "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 21,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Ledger/evidence inventory across all20; manual fishing/nursery openings, full radio1→2→3 restoration and route-only fan win. Repair pass2 adds continuation/delta rewards, diagnostics,120-action whole-drag undo. Strict Chromium found nearest-edge0.11px clipping; centered-reveal fix manually measured and exact-source CI passed24engine+28DOM/desktop/touch/all19 other-game regressions. Public unchanged.",
+      "implementationCommit": "e4a4575407cdfe24957b2908e6f179fba84c045b",
+      "verifiedCommit": "ad7291fd9189a966ef85878ba3d13e2e42a9101c",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39459641272",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
   ],
   "collectionReview": {
-    "status": "prototype-milestone; comparison/depth/polish/selection/integration pending",
+    "status": "comparative ledger/evidence review underway;3 opening UI comparisons;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Review all20 enjoyment/depth/polish/reliability/variety; prioritize under-reviewed taste-aligned fishing/manual-task/colony/action candidates and deepen strongest before selecting. Preserve exact20 slots. Final Friday work reserved for polish, integration, regressions and achieved-total report.",
-    "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay."
+    "next": "Next prioritize observed Deep Pocket habitat/recovery/progression gap, Queen of Cinders later fire/upgrade balance, and Last Match's missing actual manual combat. Full campaign enjoyment/variety review before selection; no new slots.",
+    "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
+    "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
 }
