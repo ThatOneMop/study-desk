@@ -457,19 +457,31 @@
       "id": "stone-song",
       "title": "Stone Song",
       "coreLoop": "Sound and rhythm-based quarry puzzle",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/stone-song/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six original stone-sequencer quarry rooms, eight-beat looping rhythms, shifts/tuning/muting, chord/rest performance with no timer, five-clash loss/retry, best-only medals, optional synthesised tones and guarded versioned saves."
+      ],
+      "tests": [
+        "9 local engine checks pass: legal minimum-cost solutions for all six rooms (2/4/3/3/4/12 actions), complete campaign/every-action saves, chord order, rests, loss/retry, replay records, malformed saves and 120 deterministic exploratory attempts. 10 DOM checks authored; exact-source execution pending."
+      ],
+      "quality": {
+        "enjoyment": "Unrated; manual playtest pending",
+        "depth": "Six short handmade music arrangement puzzles and deliberate performances, no duration claim",
+        "polish": "Original CSS quarry artwork and optional synthesised audio; rendered desktop/touch review pending",
+        "reliability": "9 local engine checks pass. DOM/browser and full repository gates pending",
+        "variety": "Distinct looping musical phrase arrangement and chord performance, not a vehicle or circuit-rotation reskin"
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful tuning/balance/feedback/recovery pass",
+        "Verify exact-source engine/DOM/browser checks and assess visuals/enjoyment",
+        "Keep development-only until comparison and finished selection"
       ]
     },
     {

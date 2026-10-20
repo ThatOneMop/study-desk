@@ -1,3 +1,9 @@
+# Run 9 · Stone Song initial playable checkpoint
+
+9/20 playable prototypes · 8 improved · 0 finished/selected/published. Inspected fresh development head 6d00f21fbfe8c093fac06129fe3d6f443107e2ac, matching ledger/report/CI source and current main 3614abc6c1b3cf5780096617e47b0c97230e60dc. Recursive main/development inventories have no AGENTS.md or root package build. Read latest main progress/README/hosting workflow and existing candidate source/tests. Static no-build site. Preserve newer main launcher, Underleaf, requested-game, Gummy Bay/community work and existing Pages permission boundary.
+
+Built Stone Song: six original eight-beat stone-sequencer puzzles, tuning/shifts/muting, deliberate chord/rest performance, optional synthesised tones, five-clash loss, retries, six-room medals and guarded saves. Nine local engine checks pass, including actual legal minimum-cost solutions, every-action roundtrips and 120 deterministic exploratory attempts. Ten DOM checks authored, pending exact-source execution. Short prototype, no hours claim. No public selection/integration/deployment. Next: meaningful improvement and exact-source browser regression. Source stays on indie-collection-dev.
+
 # Run 8 · verified final outcome
 
 **8/20 playable prototypes · 8 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots, with 12 planned slots not counted as games. Next candidate: **Stone Song**, a sound/rhythm quarry puzzle.
