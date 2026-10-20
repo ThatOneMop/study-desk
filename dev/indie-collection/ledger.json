@@ -627,18 +627,20 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/burrow-express/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six original underground postal yards; shared/wet rail material budgeting, per-train route drafting, simultaneous traffic, holds, collision losses, postmarks, unlocks and versioned optimistic saving."
+        "Initial playable: six original underground postal yards; shared/wet rail material budgeting, per-train route drafting, simultaneous traffic, holds, collision losses, postmarks, unlocks and versioned optimistic saving.",
+        "Pass 1: pure next-beat forecast names shared junction/occupied-block/head-on conflicts; preview destinations and risk cells on map, affordable next-step hints, selected-route rail highlighting and numbered squares. Added 100-action session undo including signals, crashes and winning postmarks, next-yard focus/history reset, and impossible occupied-save rejection."
       ],
       "tests": [
-        "9 local engine checks passed: six three-postmark legal campaigns with serialization after every action, draft budgets, crossing/head-on loss, replan/retry, save rejection and 100 seeded drafts.",
-        "11 DOM checks authored; exact-source browser and interface execution pending CI."
+        "13 local engine checks passed, including six three-stamp campaigns, exact pure forecasts, held/swap/junction crashes and 100 seeded legal-budget drafts.",
+        "Initial source CI 39392764019: 9 engine + 11 DOM steps passed; earlier-game browser step still running at improvement checkpoint.",
+        "17 improved DOM checks and new real Chromium desktop/touch campaign authored; exact-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unassessed; test solutions do not establish enjoyment.",
         "depth": "Six short handmade rail/signal puzzles; no duration claim.",
-        "polish": "Original code-native underground map, letter-coded trains and onboarding; feedback improvement pending.",
+        "polish": "Forecast, numbered shared-track map, signal state, affordable-step hints, undo, responsive native buttons and keyboard controls implemented; rendered regression pending.",
         "reliability": "Initial engine tested locally; exact-source UI/browser validation pending.",
         "variety": "Spatial network construction and simultaneous rail signaling, distinct from existing candidates."
       },
@@ -647,8 +649,11 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful improvement: next-beat traffic forecast, map path feedback, undo and better focus.",
-        "Run initial and improved DOM/browser tests; assess subjective depth before selection."
+        "Run exact improved-source engine/DOM/browser regressions; manually inspect opening yards.",
+        "Assess all six yards for enjoyment and replay depth; do not mark finished or select solely from synthetic tests."
+      ],
+      "developmentCommits": [
+        "df4521f453900ba6c58cadd6dafdd87d530dad15"
       ]
     },
     {
