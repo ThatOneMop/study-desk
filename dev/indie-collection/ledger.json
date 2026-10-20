@@ -244,14 +244,15 @@
       "tests": [
         "10 engine checks passed, including five legal baseline four-page routes in 12/8/10/11/9 turns, upgraded campaign, every-action save decoding, card inventory, draft rules, losses, replay accounting and malformed saves.",
         "13 jsdom interface checks passed: all five actual-button victories, drafts, focus/keyboard, reload/retry, upgrades, locked navigation and corrupt/concurrent/blocked/quota storage.",
-        "After improvement: 15 engine checks (including 120 exploratory campaigns) and 20 jsdom checks targeted; final exact-source result pending. Added real Chromium five-volume, keyboard/focus/forecast/draft/reward-undo/upgrade/reload/retry/navigation and 390px/320px touch-emulation coverage.",
-        "All four earlier games' local engine/DOM regressions passed: 17+9, 18+18, 18+19, 16+19. Candidate 28 references, syntax, 20-slot ledger and catalogue isolation passed."
+        "After improvement: 15 engine + 20 jsdom checks passed, including 120 deterministic exploratory campaigns, all five baseline/upgraded volumes, every-action saving, exact previews, undo, old-v1 scores and lethal odd-health loss.",
+        "All four earlier games' local engine/DOM regressions passed: 17+9, 18+18, 18+19, 16+19. Candidate 28 references, syntax, 20-slot ledger and catalogue isolation passed.",
+        "PASS GitHub Actions 39353515131 at 24efb955cd8470b7d6b0da2b308d79917ce6d1a0: full repository assets, 28-reference/20-slot/isolation gate, 15 engine + 20 DOM checks, actual Chromium desktop all five four-page victories, keyboard/focus, forecasts, draft/reward undo, upgrades/reload/retry/navigation and 390px/320px touch emulation. All four earlier games' engine/UI/browser regressions passed."
       ],
       "quality": {
         "enjoyment": "unrated: subjective review pending",
         "depth": "Five short handmade card-route volumes. Tested four-page baseline solutions: 12/8/10/11/9 turns, new quick-route bonuses 14/10/12/13/11. Needs deeper replay/enjoyment assessment; no hour claim.",
-        "polish": "Original CSS parchment/navy art, landing feedback, deck inspector and native keyboard/focus. Rendered desktop/touch and manual visual assessment pending.",
-        "reliability": "Engine/DOM improvement checks locally tested; exact improved-source real browser/full repository CI pending. Local browser server listen was denied (EPERM); no permission workaround attempted.",
+        "polish": "Original CSS parchment/navy art, landing previews, deck inspector and native keyboard/focus. Chromium verifies >=44px visible button targets and no page overflow at 390px/320px. Two CI screenshots retained; manual visual/enjoyment review and physical touch pending.",
+        "reliability": "15 engine + 20 DOM checks plus actual Chromium desktop/touch-emulated suites pass in exact-source CI. Includes 120 deterministic exploratory campaigns, all earlier-game regressions and full repository assets.",
         "variety": "Distinct cycling-deck and card-drafting spatial exploration"
       },
       "selected": false,
@@ -259,13 +260,29 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify exact improved source in CI and inspect results; keep prototype unselected pending enjoyment/depth assessment.",
+        "Manually review screenshots and assess enjoyment/depth/route variety before finished/selection. CI screenshots: run 39353515131 artifact 12234517256.",
         "Next candidate 06 Deep Pocket: original fishing tension/release loop. Revisit earlier candidates for depth, polish and selection comparisons.",
         "Only integrate selected finished games against fresh main with scoped changes; preserve concurrent work and hosting permission boundary."
       ],
       "developmentCommits": [
-        "c3f3dd2fc25356bc7b5789772bf2ff3c53a4f713"
-      ]
+        "c3f3dd2fc25356bc7b5789772bf2ff3c53a4f713",
+        "24efb955cd8470b7d6b0da2b308d79917ce6d1a0"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39353515131",
+        "testedCommit": "24efb955cd8470b7d6b0da2b308d79917ce6d1a0",
+        "conclusion": "success",
+        "desktop": "Five actual-button four-page victories; native keyboard/card/map focus; exact forecasts; draft and reward undo; upgrades; mid-route reload; confirmed retry; development launch/back; zero page errors",
+        "touch": "390x844 emulation: single-action card/movement taps, wells, rest/draft/undo, modal/help/deck inspector; visible buttons >=44px; no horizontal page overflow at 390px/320px",
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39353515131/artifacts/12234517256",
+        "notVerified": [
+          "Manual visual review",
+          "Subjective enjoyment and deeper worthwhile progression",
+          "Physical touch hardware",
+          "20 hours of worthwhile content",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 6,
