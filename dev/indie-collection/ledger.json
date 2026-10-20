@@ -796,19 +796,31 @@
       "id": "circuit-garden",
       "title": "Circuit Garden",
       "coreLoop": "Connect renewable energy puzzles",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/circuit-garden/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six original renewable microgrid/garden seasons; adjacent module/cable networks, separate circuits, shade/exposure yield, bounded battery charge/discharge, load priority and shifting, growth, brownout/forecast losses, saved seals and unlocks."
+      ],
+      "tests": [
+        "10 local engine checks passed: six legal clean three-seal layouts/schedules with every-action serialization, exact energy conservation, disconnected commissioning, actual losses/replan, invalid saves and 100 seeded attempts.",
+        "11 interface checks authored; exact-source CI and new-candidate browser verification pending."
+      ],
+      "quality": {
+        "enjoyment": "Unassessed; synthetic schedules do not establish enjoyment.",
+        "depth": "Six compact weather/storage/load-shifting seasons; no duration claim.",
+        "polish": "Original rooftop plants/solar/wind/battery art, native construction/switch controls and onboarding; improvement pending.",
+        "reliability": "Engine tested locally; exact-source DOM/browser execution pending.",
+        "variety": "Renewable supply/storage conservation and scheduled loads; no circuit rotation, unlike repair candidate Bolt & Bristle."
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful improvement: exact next-interval power forecast, connectivity/readiness feedback, full undo and clearer feed/priority outcomes.",
+        "Execute interface and desktop/touch campaign regressions; inspect rendered play before selection."
       ]
     },
     {

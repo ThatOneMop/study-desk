@@ -1,3 +1,7 @@
+# Run 15 · initial checkpoint
+
+15/20 playable prototypes · 14 meaningfully improved · 0 finished/selected/published. Circuit Garden initial six-season renewable microgrid/load-shifting game implemented. Ten local engine checks pass; legal three-seal layouts cost 11/12/12/14/17/17 material and finish in 4/4/5/8/5/6 intervals with 12/17/18/19/18/18 actions. Every engine action serializes and generated energy equals growth use plus stored charge plus spill. Includes actual brownout/forecast losses, separate circuits, shade/exposure and bounded battery flow. Eleven DOM checks authored, exact-source CI pending; no new-candidate browser suite yet. Next: meaningful forecast/connectivity/undo pass. Main inspected at a2fa784e0b11b0c0d2c511bc34bb36f9e78ca597, preserving separate Underleaf controls work. No public integration/deployment or duration claim.
+
 # Run 14 · verified final outcome
 
 **14/20 playable prototypes · 14 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; six planned candidates are not counted as games. Next: **Circuit Garden** — connect renewable energy puzzles.
