@@ -460,18 +460,20 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/stone-song/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six original stone-sequencer quarry rooms, eight-beat looping rhythms, shifts/tuning/muting, chord/rest performance with no timer, five-clash loss/retry, best-only medals, optional synthesised tones and guarded versioned saves."
+        "Initial playable: six original stone-sequencer quarry rooms, eight-beat looping rhythms, shifts/tuning/muting, chord/rest performance with no timer, five-clash loss/retry, best-only medals, optional synthesised tones and guarded versioned saves.",
+        "Pass 1: third/fourth rooms now require tuning rather than allowing a shift-only bypass; exact rule-derived missing/extra-note diagnostics with contributing stone names, non-colour-only MATCH/DIFFERS labels, next required pad focus/highlights, visible loss-to-arrangement recovery, session undo including full medal rollback, native Space activation preserved, audition/modal/visibility guards."
       ],
       "tests": [
-        "9 local engine checks pass: legal minimum-cost solutions for all six rooms (2/4/3/3/4/12 actions), complete campaign/every-action saves, chord order, rests, loss/retry, replay records, malformed saves and 120 deterministic exploratory attempts. 10 DOM checks authored; exact-source execution pending."
+        "9 local engine checks pass: legal minimum-cost solutions for all six rooms (2/4/3/3/4/12 actions), complete campaign/every-action saves, chord order, rests, loss/retry, replay records, malformed saves and 120 deterministic exploratory attempts. 10 DOM checks authored; exact-source execution pending.",
+        "After improvement: 12 local engine checks pass; six legal minimum-cost arrangements now 2/4/6/6/4/12 moves, all three-medal campaigns with every-action saving. 17 DOM and desktop/touch-emulated Chromium suites authored; exact-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unrated; manual playtest pending",
         "depth": "Six short handmade music arrangement puzzles and deliberate performances, no duration claim",
         "polish": "Original CSS quarry artwork and optional synthesised audio; rendered desktop/touch review pending",
-        "reliability": "9 local engine checks pass. DOM/browser and full repository gates pending",
+        "reliability": "12 local engine checks pass; exact improved-source DOM/browser and full repository checks pending",
         "variety": "Distinct looping musical phrase arrangement and chord performance, not a vehicle or circuit-rotation reskin"
       },
       "selected": false,
@@ -479,9 +481,12 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful tuning/balance/feedback/recovery pass",
-        "Verify exact-source engine/DOM/browser checks and assess visuals/enjoyment",
-        "Keep development-only until comparison and finished selection"
+        "Verify improved-source CI, inspect actual logs and repair failures before claiming browser results",
+        "Inspect visuals/enjoyment and replay depth before marking finished",
+        "Implement candidate 10 Last Match; integrate only finished selected winners against fresh main"
+      ],
+      "developmentCommits": [
+        "f88c5ca73dd58c58b2f6be10702a4082e148e527"
       ]
     },
     {
