@@ -81,23 +81,26 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/spore-kitchen/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: five handmade three-order services, four mushroom species, growth/misting/harvesting, two-ingredient flavour matching, three cooking methods, failure/retry, three pantry upgrades and checkpoint-based saving.",
-        "Pass 1: session one-step undo restores beds/basket/stars/coins including the winning dish; upgrade/next clears undo. Optional rule-derived recipe notebook lists missing ingredients; next-action growth and basket-full forecast, stable native keyboard focus, modal shortcut guards, and stricter completed-save coin/upgrade/best-score consistency."
+        "Pass 1: session one-step undo restores beds/basket/stars/coins including the winning dish; upgrade/next clears undo. Optional rule-derived recipe notebook lists missing ingredients; next-action growth and basket-full forecast, stable native keyboard focus, modal shortcut guards, and stricter completed-save coin/upgrade/best-score consistency.",
+        "Pass2 after a complete normal-UI campaign: limits each inter-service break to one pantry upgrade, carries unspent coins forward and records the chosen upgrade in the validated save. Other upgrades lock immediately, the choice resets on the next service, retry restores the pre-service profile, and the final service cannot buy a useless post-campaign upgrade. Copy and onboarding explain the rule."
       ],
       "tests": [
         "18 engine checks passed, including exact solutions to all 15 dishes, baseline/upgraded campaigns, save validation after every action and completed-save accounting.",
         "18 jsdom interface checks passed, including all five menus, upgrades, reload, confirmed retry, corrupt/blocked/concurrent saves, undo/reward rollback, focus, notebook duplicates and growth forecast.",
         "Candidate JS syntax, 13 local navigation/asset references, exactly 20 ledger slots and public-catalogue isolation passed.",
         "Existing Tidepost regression: 17 engine + 9 DOM checks passed.",
-        "PASS GitHub Actions 39334355735 at 7f5c9f72ed5a629813cf35d998f3060e309a45f5: full repository asset gate, 18 engine + 18 DOM checks, real Chromium desktop campaign and 390px/320px touch-emulation checks; Tidepost regression also passed."
+        "PASS GitHub Actions 39334355735 at 7f5c9f72ed5a629813cf35d998f3060e309a45f5: full repository asset gate, 18 engine + 18 DOM checks, real Chromium desktop campaign and 390px/320px touch-emulation checks; Tidepost regression also passed.",
+        "Pass2 local:18 engine checks passed; exact baseline actions remain9/15/12/10/14. Agent-driven normal-UI campaign completed all five services at9/9, exposed all three upgrades purchasable by service2, then verified one-choice lock,36 carried coins, reload and service2 reset after the fix. Local jsdom dependency unavailable.",
+        "PASS exact source ed1945ba in GitHub Actions39500663870: root asset gate; exact20 slots/selection isolation/116 references;18 engine+19 DOM; real Chromium five-service desktop campaign and390/320px touch; all19 other-candidate regressions. Decoded logs and terminal SHA inspected; screenshot artifact12299722812 retained."
       ],
       "quality": {
-        "enjoyment": "unrated: subjective gameplay assessment pending",
-        "depth": "Five short handcrafted menus with flavour composition and growth planning; no duration claim",
-        "polish": "Original CSS artwork; native keyboard focus, 44px visible button targets and no horizontal overflow at 390px/320px verified in Chromium; manual visual/enjoyment review pending.",
-        "reliability": "18 engine + 18 DOM checks and real Chromium desktop/touch-emulation suites passed in CI; full repository asset gate and Tidepost regression passed.",
+        "enjoyment": "Agent-driven five-service UI campaign was clear and tactile enough to complete at9/9 throughout; planting several beds and harvesting a ripened batch is readable. This is not a human-player enjoyment rating. Optional exact hints reduce discovery, and longer-term replay satisfaction remains open.",
+        "depth": "Five handcrafted menus with flavour composition and simultaneous growth planning. Pass2 turns upgrade order into a three-break progression decision instead of allowing all upgrades by service2; exact-recipe replay breadth and upgrade-order value still need comparison. No duration claim.",
+        "polish": "Original CSS woodland artwork inspected through the complete desktop campaign; onboarding, forecasts, focus and saved recovery were legible. Chromium verifies native keyboard focus,>=44px touch targets and no390/320px overflow. Physical touch/screen-reader review remains.",
+        "reliability": "Exact ed1945ba passes18 engine+19 DOM plus Chromium desktop/touch and all19 other-game regressions in CI39500663870; one-choice save accounting, retry, reload and next-service reset are covered.",
         "variety": "Distinct garden/cooking resource puzzle, not a ferry-game reskin"
       },
       "selected": false,
@@ -105,27 +108,31 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
-        "Manually inspect visual layout and assess enjoyment/depth before marking finished or selecting",
+        "Compare no-hint and alternate-recipe runs plus the three possible upgrade orders; assess whether menus support worthwhile replay instead of only exact-solution completion.",
+        "Compare enjoyment/depth/polish/reliability/variety against repair, fishing, colony and action candidates before finished/selected status.",
         "Before any public integration re-read main and apply only selected game/catalogue changes, preserving newer independent work"
       ],
       "developmentCommits": [
         "ed72f25ae8873c2bd6c1c7395893070e36a69328",
-        "7f5c9f72ed5a629813cf35d998f3060e309a45f5"
+        "7f5c9f72ed5a629813cf35d998f3060e309a45f5",
+        "ed1945ba4fde3547faf0e4d3362917c68daca777"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39334355735",
-        "testedCommit": "7f5c9f72ed5a629813cf35d998f3060e309a45f5",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39500663870",
+        "testedCommit": "ed1945ba4fde3547faf0e4d3362917c68daca777",
         "conclusion": "success",
-        "desktop": "Workshop launch/back navigation, Tab/Enter and focus stability, all five complete services, upgrades, reload, undo including winning reward, confirmed retry and zero page errors",
-        "touch": "390x844 emulation: plant, undo, cook, optional hints, help, >=44px visible buttons; no horizontal overflow at 390px and 320px",
+        "desktop": "PASS workshop navigation, native keyboard/focus, all five menus, sequential one-per-break upgrades, reload, undo and confirmed retry; zero page errors.",
+        "touch": "PASS plant/undo/cook, optional hints,>=44px targets, help and no390/320px overflow; zero page errors. Browser emulation, not hardware.",
+        "manual": "Agent-driven normal-UI five-service campaign at9/9 each, using visible optional notebook and ordinary controls only. First two services showed all upgrades owned by service2 before fix. Post-fix opening replay bought basket only, locked other choices, retained36 coins across reload and reset the break marker on service2. Older prototype save was preserved by backup-first recovery; no public-save migration claim.",
         "notVerified": [
-          "Subjective enjoyment and depth assessment",
-          "Manual screenshot/layout review",
+          "Human-player enjoyment rating and no-hint/alternate-recipe replay depth",
           "Physical touch hardware",
           "20 hours of worthwhile content",
           "Public catalogue integration/deployment"
-        ]
+        ],
+        "artifactId": 12299722812,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39500663870/artifacts/12299722812",
+        "artifactManuallyInspected": false
       }
     },
     {
@@ -1536,16 +1543,29 @@
       "verifiedCommit": "ff12f0111f3aa32d6762e06341bf5fac5e53a1be",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39492530470",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 26,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Spore Kitchen pass2 follows a complete five-service9/9 normal-UI campaign that exposed all upgrades owned by service2. One upgrade per break now makes order meaningful, carries coins and validates saved choice/reset/retry/final guards.18engine+19DOM, Chromium desktop/touch/all19 regressions/root gates passed in exact-source CI39500663870. Replay depth remains open; public unchanged.",
+      "implementationCommit": "ed1945ba4fde3547faf0e4d3362917c68daca777",
+      "verifiedCommit": "ed1945ba4fde3547faf0e4d3362917c68daca777",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39500663870",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/25passes;Tidepost complete six-chart manual UI campaign and late-route repetition recorded;0finished/selected/public",
+    "status": "Comparative review underway;20playable/all20improved/26passes;Tidepost six-chart and Spore Kitchen five-service normal-UI campaigns recorded;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Improve observed Tidepost late-route and Deep Pocket species/rhythm repetition; manual-poor Spore Kitchen/Inkline and broader campaign/alternative strategy comparisons remain. Keep real continuous Last Match control feel and colony alternative allocation/upgrade value as quality gates. No new slots.",
+    "next": "Review manual-poor Inkline and broader alternate strategies; compare Spore Kitchen no-hint recipes/upgrade orders and improve observed Tidepost/Deep Pocket repetition. Keep real continuous Last Match feel and colony allocation/upgrade value as quality gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
