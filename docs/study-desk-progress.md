@@ -1,5 +1,26 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 5
+
+Base Sites source: 0f003c25cc63df3600c37444bf4db4d78fe96706 (live version 13). GitHub base: 8eb4fda43fd4dc371bd3008230efa5629b1f7f30. Restored fresh source after workspace maintenance; repository history and prior improvements were intact.
+
+### Implemented
+- Launcher previously treated every iframe load event as success, including error/fallback pages. It now checks the expected same-origin route and the existing StudyBridge integration before clearing loading status. All 10 current game HTML pages include that bridge. This verifies the page/integration, not successful engine startup or every game asset.
+- Added actionable Retry game and Back to collection controls for missing integration, inspection errors and a 15-second slow load. Retry confirms unsaved-progress risk and never deletes save storage. A slow-load warning does not take focus away from a game that may already be playable.
+- Isolated attempts by generation and ignored stale route events; late timers cannot replace a successful/new launch state. Preserved manual pause and inactive-view focus. Added iframe busy state and bumped shell asset cache versions.
+- No changes to game content/rules, requested-game catalogue, audience, or the paused cleanup task.
+
+### Validation
+- New launcher-loading.cjs simulates missing bridge/error pages, delayed loads, cancel/retry, recovery, stale routes/timers, directory/index equivalence, paused/inactive focus, inspection exceptions and preserved preferences. Updated catalogue test executes the real bridge before its simulated successful load.
+- All new loading, existing launcher/navigation, curation, flashcard/bridge, After Hours control/save/engine, 10 launch-route and 15 HTML asset-reference checks passed; source syntax and diff checks passed.
+- Desktop Chrome preview successfully launched After Hours with its prior saved run and Autumn Drift with the loading status cleared. Failure/timeout branches were simulated in jsdom, not induced over a real failing network. Mobile, full gameplay and engine-error detection remain outside this verification.
+
+### Requested source research
+- A GitHub search for MIT-licensed Tiny Fishing candidates returned DinkySnep/Final-Project-Tiny-Fishing-Club. Its README describes a separate month-long fishing-game beta with skill minigames/collection, not the requested original Tiny Fishing. Rejected on identity; did not integrate or run it. Other hits were different named fishing projects, not authorised original-game evidence.
+- No new games added. Previously recorded identity/provenance/reuse blockers remain for the requested titles. Continue focused source vetting and meaningful reliability work; do not re-add retired selections or silently substitute similar games. Preserve GitHub's community link and independent game assets when syncing.
+
+Sites publication succeeded at source commit 09625ce3585feaebdac7566f417c218427426a12. Live URL: https://study-desk-after-class.work-7072.chatgpt.site.
+
 ## 2026-10-20 — pass 4
 
 Base Sites source: 885da166cfa81c59dc6fac3694b9ba8c4cb5642b (live version 12). GitHub base: ee9f2be1459292292d4cc53775f6653b7022ef6d. Separate checkout; other game assets and community work were untouched.

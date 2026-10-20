@@ -62,11 +62,22 @@ function show(){if($('editor').open)$('editor').close();$('study').hidden=arcade
 function toggle(){arcade=!arcade;show();if(arcade&&!inPlayer)drawGames()}
 function openCollection(returnToGame=false){arcade=true;inPlayer=false;show();drawGames();if(returnToGame&&playing)focusGame(playing)}
 function record(g){hub.recent=[g.id,...hub.recent.filter(x=>x!==g.id)].slice(0,20);storeJson(HUB_KEY,hub)}
-let loadingTimer;
-function beginLoad(g){clearTimeout(loadingTimer);$('loadStatus').hidden=false;$('loadStatus').textContent='Loading '+g.title+'…';loadingTimer=setTimeout(()=>{$('loadStatus').textContent='Still loading? Try Restart, or return to the collection.'},15000);$('frame').src=g.url;}
+let loadingTimer,loadAttempt=0,currentLoad=null;
+const loadMessage=el('span'),loadActions=el('div',undefined,'load-actions'),retryLoad=button('Retry game',()=>restartCurrent()),loadCollection=button('Back to collection',()=>openCollection(true));
+loadMessage.id='loadMessage';loadActions.id='loadActions';retryLoad.id='retryLoad';loadCollection.id='loadCollection';loadActions.append(retryLoad,loadCollection);loadActions.hidden=true;$('loadStatus').replaceChildren(loadMessage,loadActions);
+function launchWarning(message,moveFocus=true){const focused=$('frame')===document.activeElement;$('loadStatus').hidden=false;loadMessage.textContent=message;loadActions.hidden=false;$('frame').setAttribute('aria-busy','false');if(moveFocus&&focused&&arcade&&inPlayer&&!paused)retryLoad.focus();}
+function beginLoad(g){clearTimeout(loadingTimer);const attempt=++loadAttempt;currentLoad={game:g,url:new URL(g.url,location.href),attempt,settled:false};$('loadStatus').hidden=false;loadActions.hidden=true;loadMessage.textContent='Loading '+g.title+'…';$('frame').setAttribute('aria-busy','true');loadingTimer=setTimeout(()=>{if(currentLoad?.attempt===attempt&&!currentLoad.settled)launchWarning(g.title+' is taking longer than expected. You can keep waiting, retry, or return to the collection.',false)},15000);$('frame').src=g.url;}
+function restartCurrent(){const g=games.find(g=>g.id===playing);if(g&&confirm('Reload this game? Unsaved progress may be lost. Saved progress is not deleted.')){paused=false;beginLoad(g);show()}}
+function gamePath(url){return url.pathname.replace(/\/index\.html$/,'/')}
 function play(g){record(g);if(g.type==='external'){window.open(g.url,'_blank','noopener');toast(g.title+' opens separately. Return to this tab to use Study Desk; PPP cannot control the other tab.');drawGames();return}if(playing!==g.id){visibility(false);beginLoad(g);playing=g.id;paused=false}$('frame').title=g.title+' game';$('playing').textContent=g.title;$('gameHelp').textContent=g.controls+' · PPP returns to study (P is reserved)';arcade=true;inPlayer=true;show()}
-$('frame').onload=()=>{clearTimeout(loadingTimer);$('loadStatus').hidden=true;visibility(arcade&&inPlayer&&!paused);if(arcade&&inPlayer&&!paused)$('frame').focus()};
-$('restartGame').onclick=()=>{const g=games.find(g=>g.id===playing);if(g&&confirm('Restart this game? Unsaved progress may be lost.')){paused=false;beginLoad(g);show()}};
+$('frame').onload=()=>{
+ if(!currentLoad)return;
+ try{const loaded=new URL($('frame').contentWindow.location.href);if(loaded.origin!==currentLoad.url.origin||gamePath(loaded)!==gamePath(currentLoad.url))return;
+  currentLoad.settled=true;clearTimeout(loadingTimer);if(!$('frame').contentWindow.StudyBridge){launchWarning(currentLoad.game.title+' did not load its Study Desk controls. Try reloading the game.');return;}
+ }catch{currentLoad.settled=true;clearTimeout(loadingTimer);launchWarning('This game page could not be checked. Try reloading it or return to the collection.');return;}
+ $('frame').setAttribute('aria-busy','false');$('loadStatus').hidden=true;loadActions.hidden=true;visibility(arcade&&inPlayer&&!paused);if(arcade&&inPlayer&&!paused)$('frame').focus();
+};
+$('restartGame').onclick=restartCurrent;
 $('openGames').onclick=()=>openCollection();
 function openHash(){if(location.hash==='#games')openCollection()}
 window.addEventListener('hashchange',openHash);

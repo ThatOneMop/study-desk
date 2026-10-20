@@ -8,6 +8,8 @@ for(const g of w.GAME_CATALOG){
  const i=w.GAME_CATALOG.indexOf(g);d.querySelectorAll('.game .game-content>button')[i].click();
  if(g.type==='external'){assert.equal(external,g.url);continue}
  assert.equal($('frame').getAttribute('src'),g.url);assert(!$('player').hidden);assert.equal($('playing').textContent,g.title);
+ assert(fs.readFileSync(path.join(root,g.url),'utf8').includes('bridge.js'));
+ $('frame').contentWindow.eval(fs.readFileSync(root+'/bridge.js','utf8'));
  $('frame').dispatchEvent(new w.Event('load'));assert($('loadStatus').hidden);
  $('pauseGame').click();assert(!$('pauseCover').hidden);$('resumeGame').click();assert($('pauseCover').hidden);
  $('playerStudy').click();assert(!$('study').hidden);assert($('player').hidden);
