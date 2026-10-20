@@ -919,27 +919,50 @@
         "Pass 1: pure committed-action stock/order/reserve forecasts, live trade delta and remaining-order shortages, workshop ingredient ledger, exact last-delivery seal warning, fair-offer UI guard, 100-action logical-state undo through trades/crafts/orders/closing losses/rewards, draft-only history isolation and enabled-focus recovery. Rendered-QA follow-up corrects completed/failed-market trade and workshop prompts and labels banked versus unfinished reserve records."
       ],
       "tests": [
-        "PASS initial CI 39430709527 at 4b64353ded57b7a9b232192ffe95fbe8289d21d1: 10 new engine + 11 DOM checks, repository/candidate gates and all sixteen earlier candidates' browser regressions. Moss Market browser suite absent at initial checkpoint.",
-        "15 improved engine checks pass locally; earlier18-DOM CI gate passed while browser checks were running. Added terminal-state guidance regression (19 DOM total); exact final-source CI pending."
+        "PASS initial checkpoint 4b64353ded57b7a9b232192ffe95fbe8289d21d1: CI 39430709527, 10 Moss Market engine+11 DOM checks, repository/candidate gates and sixteen earlier-game browser regressions. New candidate browser suite absent at initial checkpoint.",
+        "PASS exact final-source CI 39432336946 at 14988092223df11df8d847401647de1154b50e90: 15 Moss Market engine+19 DOM checks, Chromium desktop/touch, repository asset gate, candidate syntax/98 local source-navigation links/exact20-slot/public isolation and all sixteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-seal references finish with reserve14/11/6/10/4/5, trades4/4/4/4/5/5, crafts1/0/1/0/2/2, zero overpay and 8/7/8/7/10/10 committed actions. Every action serializes; replay validation rejects forged stock/used visitors/overpay/history. 100 seeded exploratory sessions preserve shelf/save invariants. These are synthetic feasibility checks, not duration or enjoyment evidence.",
+        "Pure trade/craft/delivery stock/shortage/reserve/seal forecasts match every campaign action. Real three-decline and unfinished-close losses, shelf overflow, saved drafts, best-only records and deliberately wasteful lower-score closing forecast covered.",
+        "Chromium native arrows/Enter/Space/Z and enabled focus, exact saved-offer alignment, six legal three-seal DOM-button trade/craft/delivery campaigns, forecast/guard behavior, earned-reward undo/replay, confirmed close loss/undo, retry and workshop launch/back. Touch taps apply once; exact stock/offer/undo/reload/retry cancel, first win/saved unlock, >=44px visible controls and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: first market delivered balm/lamp/tea through four exact-value trades and one craft. Saw final-delivery warning two seals/reserve9, made remaining Moss→Thread trade, then delivered for three seals/reserve14. Final-order undo restored tea/open order/unbanked records; replay/reload retained completion. Second market used bulk vessel delivery to free space, then balm/thread/berry trades for three seals/reserve11. Reload and third-market trader-zero focus verified. Rendered terminal prompts corrected; local preview stopped."
       ],
       "quality": {
-        "enjoyment": "Unassessed; synthetic barter routes do not establish fun.",
-        "depth": "Six compact barter/crafting/order markets with changing inventories and shelf demands; no duration claim.",
-        "polish": "Stock/order/reserve forecasts, final-delivery score warning, fair-offer guard, full logical-state undo and focus recovery implemented; rendered review pending.",
-        "reliability": "15 improved engine checks pass locally; exact-source interface/browser verification pending.",
-        "variety": "Preference-weighted negotiation, finite visitor opportunities, recipe transforms and order/reserve tradeoffs; distinct from earlier movement/combat and spatial-network games."
+        "enjoyment": "First two markets manually legible/playable; final-delivery forecast supported a real reserve-improving decision, and bulk delivery freed needed shelves. Full six-market subjective enjoyment and alternative-chain assessment remain open; tests do not establish fun.",
+        "depth": "Six compact deterministic barter/order markets, different starting resources, bulk constraints and mixed requests, four recipes and best-only fairness/reserve scores. Repeated visitor offers, longer-term progression and alternative-chain replay depth need comparison; no duration claim.",
+        "polish": "Original deep-forest/rust-awning stall, visitor marks, goods/tray, per-visitor valuations versus reserve value, stock/order/workshop forecasts, fair-offer guard, exact closing-score warning, logical-state undo and native responsive focus controls. Terminal trade/tray/workshop guidance fixed. Manual mobile review remains open.",
+        "reliability": "Exact final source passes 15 engine+19 DOM, Chromium desktop/touch and sixteen earlier-game regressions. Replay integrity, declined/closed losses, capacity, corrupted/concurrent/failed storage, draft alignment, reward undo/retry/navigation and ended-state guidance covered within tested cases.",
+        "variety": "Preference-weighted barter and finite trader bundles combine with recipes, bulk shelves and delivery/reserve opportunity costs; distinct from earlier movement/combat/spatial-network loops."
       },
       "selected": false,
-      "selectionReason": "Not selected: improved prototype awaiting exact-source verification and full enjoyment/depth assessment.",
+      "selectionReason": "Not selected: initial/improvement test gates and two manual markets passed, but compact fixed-offer content needs full enjoyment, alternative trade/craft-chain depth and comparative variety review before finished status.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Execute exact-source interface and desktop/touch suites; inspect rendered barter/delivery play and fix concrete issues.",
-        "Assess all six markets' enjoyment, viable alternative trade/craft routes and replay depth before finished designation; keep development-only."
+        "Manually play all six markets and alternative barter/craft/delivery chains; assess variety, shelf frustration, fairness goals and replay depth against other candidates.",
+        "Review mobile CI screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
+        "Keep development-only; integrate only selected finished winners into fresh main without overwriting Study Desk/Gummy Bay/requested-game work."
       ],
       "developmentCommits": [
-        "4b64353ded57b7a9b232192ffe95fbe8289d21d1"
-      ]
+        "4b64353ded57b7a9b232192ffe95fbe8289d21d1",
+        "cd55359eaf047fa355da4643122d10ce280fdf4c",
+        "4e795218ca9635e9b1c734b5ce8bd550a1e2c4d7",
+        "14988092223df11df8d847401647de1154b50e90"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39432336946",
+        "testedCommit": "14988092223df11df8d847401647de1154b50e90",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and enabled focus, saved-offer alignment, pure stock/order/reserve previews, six legal three-seal DOM-button campaigns, reward undo/replay, fair-offer guard, confirmed close loss/undo, retry and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once offer/trade taps, exact stock/valuation/undo, saved draft/retry cancel, first-market win/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
+        "manual": "Managed browser desktop: first market with four exact-value trades/one craft; observed final-delivery warning two seals/reserve9, made Moss→Thread reserve trade then delivered for three seals/reserve14. Winning undo restores tea/open order/unbanked record; replay/reload checked. Second market bulk vessel order freed shelves; exact-value trades finished with three seals/reserve11. Reload retained progress and market three focused trader zero. Corrected terminal guidance checked on final source; preview stopped.",
+        "notVerified": [
+          "Full six-market subjective enjoyment and alternative-chain replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 18,
@@ -1196,6 +1219,19 @@
       "implementationCommit": "691eef980a6c7a5ebcc25193ade94f06c310ea12",
       "verifiedCommit": "4d1595ce003d4bda05a6a181ca5a136dc9def32d",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39423434291"
+    },
+    {
+      "run": 17,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 17,
+      "improvedTotal": 17,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Moss Market: six finite-stock barter/craft/community-order markets. Exact final source passes 15 engine+19 DOM, six Chromium campaigns/native keyboard/touch and repository/sixteen earlier-game regressions. Manually completed two markets, reserve-improving last-delivery decision, reward undo/replay/reload and next-market focus. Development-only; full enjoyment and alternative-chain depth remain.",
+      "initialPlayableCommit": "4b64353ded57b7a9b232192ffe95fbe8289d21d1",
+      "implementationCommit": "cd55359eaf047fa355da4643122d10ce280fdf4c",
+      "verifiedCommit": "14988092223df11df8d847401647de1154b50e90",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39432336946"
     }
   ]
 }
