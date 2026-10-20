@@ -1,3 +1,7 @@
+# Run 19 · initial checkpoint
+
+19/20 playable prototypes · 18 meaningfully improved · 0 finished/selected/published. Rain Catcher implements four original head-driven volumetric catchments with cut/bank/regrade terrain, conserved excavated earth, stored cistern water, finite rain, garden uptake/deep-water stress, cumulative home floods, twelve-garden journal and saved low-rain footprint records. Seven engine checks pass locally. Legal reference restorations use rain48/44/46/52, earthwork27/27/40/31, zero spills; later catchments require regrading wet ground to redistribute retained water. Exact water/soil/save invariants and 100 seeded exploratory sessions covered. Synthetic feasibility is not enjoyment or duration evidence. Eleven DOM checks authored; initial CI pending, new browser absent. Meaningful hydraulic forecast/inspection/undo pass next. Fresh main 08f4526696c9542d60c96b634f256da618495623 and After Hours copy/paste backup work preserved. Public catalogue unchanged.
+
 # Run 18 · verified final outcome
 
 **18/20 playable prototypes · 18 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; Rain Catcher and Echo Vault are planned, not counted as games. Next: **Rain Catcher** — water routing and village restoration.

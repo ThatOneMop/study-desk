@@ -1031,20 +1031,33 @@
       "id": "rain-catcher",
       "title": "Rain Catcher",
       "coreLoop": "Water routing and village restoration",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/rain-catcher/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: four original volumetric hillside catchments. Cut/raise/restore earth with a conserved barrow, head-driven neighbor flow, bankable cisterns, finite roof catches, garden uptake/deep-water stress, cumulative home flooding, exact water ledger, four restored village districts, twelve-garden journal and lexicographic low-rain/earthwork/spill records."
+      ],
+      "tests": [
+        "PASS locally: 7 engine checks, four legal restorations at rain48/44/46/52 and earthwork27/27/40/31 with zero spills. Wet-terrain regrading routes, closed-cistern storage, natural flooding, dry closing, soil/water/growth save invariants and 100 seeded exploratory sessions. Eleven DOM checks authored; exact-source CI pending. New browser suite absent."
+      ],
+      "quality": {
+        "enjoyment": "Not yet subjectively tested. Legal hydraulic routes establish feasibility only.",
+        "depth": "Four compact catchments; finite rain, cistern scheduling, head pressure, wet regrading and garden/flood tradeoffs. Alternative low-rain/small-footprint designs and replay depth unassessed; no duration claim.",
+        "polish": "Original terraced village/plant/roof/cistern art, native scrollable terrain buttons, inspector, water ledger, keyboard/touch input and onboarding. Rendered QA pending.",
+        "reliability": "Seven local engine checks pass with exact water/earth conservation and actual flooding. DOM/browser checks pending.",
+        "variety": "Terrain elevation and finite water-depth simulation, banked storage and land reshaping differ from binary electrical connectivity/load planning."
+      },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Not selected: initial playable needs meaningful feedback/controls improvement, browser verification and enjoyment/depth review.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
-      ]
+        "Add pure hydraulic action forecasts, clearer head/outflow information and safe experiment undo.",
+        "Verify interface/desktop/touch/core restoration/flood/save/restart/navigation and assess rendered play.",
+        "Keep development-only pending finished-quality comparison."
+      ],
+      "developmentCommits": []
     },
     {
       "slot": 20,
@@ -1287,6 +1300,15 @@
       "implementationCommit": "496e4c8edb62b5bd8fe2d18bc25ce9576c715d63",
       "verifiedCommit": "f44192253378a49ba7822af5ef336d6e36cc64f4",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39437234416"
+    },
+    {
+      "run": 19,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 19,
+      "improvedTotal": 18,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Initial Rain Catcher playable: four head-driven volumetric water/terrain catchments with conserved earth and rain, cistern storage, garden restoration and flood risk. Seven engine checks pass locally; DOM/browser pending. Improvement next."
     }
   ]
 }
