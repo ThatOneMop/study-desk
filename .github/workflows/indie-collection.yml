@@ -2,7 +2,7 @@ name: Verify original indie candidates
 on:
   push:
     branches: [indie-collection-dev]
-    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/bolt-and-bristle-*', 'tests/queen-cinders-*', 'tests/inkline-*', 'tests/deep-pocket-*', 'tests/roof-runner-*', 'tests/scrap-orbit-*', 'tests/stone-song-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
+    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/bolt-and-bristle-*', 'tests/queen-cinders-*', 'tests/inkline-*', 'tests/deep-pocket-*', 'tests/roof-runner-*', 'tests/scrap-orbit-*', 'tests/stone-song-*', 'tests/last-match-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,6 +30,7 @@ jobs:
           node tests/roof-runner-engine.cjs
           node tests/scrap-orbit-engine.cjs
           node tests/stone-song-engine.cjs
+          node tests/last-match-engine.cjs
       - name: Temporary browser test dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/indie-tests" jsdom@26 playwright@1.62.1 --no-audit --no-fund
@@ -45,6 +46,7 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/roof-runner-dom.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/scrap-orbit-dom.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/stone-song-dom.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/last-match-dom.cjs
       - name: Real desktop and touch browser checks
         run: |
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/tidepost-browser.cjs

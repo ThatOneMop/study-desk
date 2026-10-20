@@ -1,3 +1,9 @@
+# Run 10 · Last Match initial playable checkpoint
+
+10/20 playable prototypes · 9 meaningfully improved · 0 finished/selected/published. Inspected fresh development head 79b1462599909188314239e2b92e15efc78355a2 and current main 2f54aa431f2f5282a3640a9d03a5405c60e4fe2d, recursive inventories (no AGENTS.md/root build), latest ledger/report/candidate CI, source/test conventions and current main progress/README/hosting workflow. Local ledger/report/workshop/CI hashes matched fresh remote. Static no-build site. Preserve newer main launcher/Underleaf/bridge pointer cleanup, requested-games, Gummy Bay and community work; no hosting permission changes.
+
+Built Last Match: five finite original overhead lantern combat clearings, rock-occluded cone flashes, four shadow types, telegraphed lunges/dodges, finite braziers, dropped ember/fuel collection, gate escape, two upgrades and saved state. Eight local engine checks pass: all five actual legal baseline no-hit three-medal victories (463/654/671/1115/1111 simulated frames) with every-tick saves, loss/retry, progression, resource costs, edge triggers, rock occlusion, economy and malformed saves. These automated frames are not human playtime or duration evidence. Ten DOM cases authored; exact-source execution pending. Source stays development-only. Next: meaningful improvement and browser regression.
+
 # Run 9 · verified final outcome
 
 **9/20 playable prototypes · 9 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots; eleven planned candidates are not counted as games. Next: **Last Match**.

@@ -512,19 +512,31 @@
       "id": "last-match",
       "title": "Last Match",
       "coreLoop": "Top-down survival with directional lantern combat",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/last-match/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: five original top-down lantern clearings; directional cones/rock occlusion, four enemy types and telegraphed lunges, dodges, finite brazier oil, collectable fuel-return embers, gate escape, best-only medals, two workshop upgrades and guarded versioned saves."
+      ],
+      "tests": [
+        "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending."
+      ],
+      "quality": {
+        "enjoyment": "Unrated; manual gameplay pending",
+        "depth": "Five short original combat/route clearings, finite encounters and two upgrades; no duration claim",
+        "polish": "Original canvas orchard art and telegraphed attacks; real-browser desktop/touch verification pending",
+        "reliability": "8 engine checks pass locally; interface/browser/full repository checks pending",
+        "variety": "Distinct overhead directional-cone combat, not a rhythm, vehicle or platformer reskin"
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful control/feedback/save/recovery improvement pass",
+        "Verify exact improved source in candidate CI before claiming rendered results",
+        "Keep development-only until enjoyment/depth comparison and finished selection"
       ]
     },
     {
