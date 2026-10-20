@@ -1,5 +1,27 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 4
+
+Base Sites source: 885da166cfa81c59dc6fac3694b9ba8c4cb5642b (live version 12). GitHub base: ee9f2be1459292292d4cc53775f6653b7022ef6d. Separate checkout; other game assets and community work were untouched.
+
+### Observed and fixed
+- Desktop browser QA reproduced After Hours losing keyboard focus on every card selection because rendering replaced the focused button. Preserve focused card identity across selection, sorting and clearing, or move to a remaining card when it leaves the hand. Do not steal focus from an inactive game document.
+- Added Left/Right and Home/End navigation within the hand. Space uses normal button activation to select; Enter from a card plays the selected hand. Ordinary buttons keep native Enter behavior. Existing number/discard shortcuts remain, with typing/composition/modifier guards.
+- Shop purchase/reroll and round transitions also dropped focus. Keep a surviving shop control focused, otherwise focus Next round; starting the next round focuses its first card. Added accessible hand grouping and matching in-game control instructions.
+- No engine/rules, saves, game catalogue, sharing, or standalone ThatOneMop/Balatro changes.
+
+### Validation
+- Real desktop Chrome preview: After Hours launch/render, three scored pairs (120, 96 and 108), first blind cleared at 324, two joker purchases with correct balances, next round launch, card focus after selection, arrow/Space/Enter controls, Saves dialog, reload retaining score, Pause excluding the iframe from the accessibility tree, and PPP study/return. This is one blind plus next-round entry, not a complete run. Mobile, audio, all other rendered games and actual export/import file transfer remain unverified.
+- New after-hours-controls.cjs passes selection/sort/clear focus, navigation boundaries, Enter scoring, modal/typing/modifier guards, inactive-document focus, and controlled shop/next-round transitions. The forced transition test checks UI state, not difficulty/balance.
+- Existing After Hours save/engine, launcher/navigation, curation, study-card/bridge, 10 route and 15 asset-reference checks passed. Managed preview was free when started; stop it after publishing.
+
+### Repository follow-up
+- https://github.com/gafaua/PolyTrack is an MIT-licensed computer-vision tracking project, not the racing game; rejected on identity.
+- https://github.com/Hexcein-moonsters/polytrack README identifies an unaffiliated copy of Kodub's game, with archived modified builds, CORS/server limitations and version-specific replay bugs. Root inventory contains 0.3.1/0.5.0 bundles and a package.json with Redis but no useful build/test workflow. LICENSE says MIT, copyright 2024 Chrome Extensions; this does not establish the original creator's grant for the copied game/assets. No integration until provenance/reuse permission is verified; do not label it as an authorised original.
+- Other requested-game blockers from earlier passes remain. No placeholders, random alternatives or new game entries added. Preserve the separate paused play-count cleanup and GitHub Pages permission boundary.
+
+Sites publication succeeded at source commit 0f003c25cc63df3600c37444bf4db4d78fe96706. Live URL: https://study-desk-after-class.work-7072.chatgpt.site.
+
 ## 2026-10-20 — pass 3
 
 Base Sites source: 01dacd248e8ef0fb237f83025ad2947c789815ce (live version 11). GitHub base: 7053d01fc3831078acfa9280b144953d936d237c. Isolated checkout again; unrelated Gummy Bay edits and its running preview were not changed or stopped.
