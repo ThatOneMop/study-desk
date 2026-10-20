@@ -300,14 +300,14 @@
       "tests": [
         "Initial checkpoint 71e6cc164e242d22118dd705768344d237aec348 passed CI 39358346752: full repository assets, candidate gate, 8 engine + 11 DOM checks. Browser step at this checkpoint covered earlier games only, NOT Deep Pocket.",
         "Improved source: 13 local engine checks passed, including 180 synthetic chapter/species/depth/baseline-or-both-equipment landability cases, five legal three-medal baseline trips in 2/3/4/5/5 casts (17/28/40/53/57 fishing beats), every-action saves, upgrades, actual eighth-cast completion/loss, exact forecasts, diversity/duplicate guards and 200 deterministic exploratory trips.",
-        "Added 18 DOM cases and Deep Pocket real Chromium five-trip desktop/390px/320px touch-emulation suite. Exact improved-source CI pending; do not substitute initial CI evidence.",
+        "PASS improved-source GitHub Actions 39358785979 at 5336031a3725fdf923eb105eddc64a7ee75c9cc3: full repository asset gate, 33-reference/exact-20-slot/isolation/syntax gate, 13 engine + 18 DOM checks, actual Chromium desktop all five three-medal trips, keyboard/focus/forecasts/catch and reward undo/upgrades/reload/retry/navigation, and 390px/320px touch-emulated full catch/release/undo, modal/help/journal and >=44px targets/no overflow in choose/fight/landed states. All five earlier games' engine/DOM/desktop/touch regressions passed; decoded job logs and steps inspected.",
         "Local engine regressions for all five earlier games passed; candidate syntax, 33 local references, exact 20 slots and public-catalogue isolation pass. No root compilation step exists. Local jsdom installation blocked by connect EPERM; no workaround attempted; remote CI is the supported testing route."
       ],
       "quality": {
-        "enjoyment": "unrated: subjective gameplay review pending",
+        "enjoyment": "Preliminary manual opening trip: deliberate tension control, two distinct fish, release/stall decisions and reward/upgrade progression usable. Full subjective enjoyment assessment remains pending.",
         "depth": "Five short handcrafted field trips, six distinct pull patterns, sustainable species choices and two upgrades. Baseline solutions 2/3/4/5/5 casts (17/28/40/53/57 fishing beats). Needs deeper replay/enjoyment review; no hour claim.",
-        "polish": "Original CSS lake art, exact forecasts, native keyboard/focus, undo and responsive layouts. Improved-source rendered visual/touch assessment pending.",
-        "reliability": "13 improved local engine checks pass; initial 8 engine+11 DOM checkpoint passed remote CI. Exact improved-source DOM/browser/full repository checks pending.",
+        "polish": "Original CSS underwater cutaway manually reviewed on desktop. Exact previews, enabled decision focus and undo usable; Chromium validates >=44px visible buttons and no horizontal page overflow at 390px/320px. Physical touch and full mobile visual review pending.",
+        "reliability": "13 engine + 18 DOM checks and actual Chromium desktop/touch-emulated suites pass on exact improved commit; full repository assets, exact 20-slot isolation and all five earlier-game regressions pass.",
         "variety": "Distinct deliberate tension/release fishing, versus route planning, mushroom recipes, circuit repair, ant logistics and card exploration"
       },
       "selected": false,
@@ -315,14 +315,30 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify exact improved-source CI and inspect browser evidence before any finish/selection decision.",
+        "Keep unselected until deeper enjoyment/replay assessment; exact improved source is CI-verified.",
         "Manually assess art/enjoyment and deepen worthwhile replay variety; remain an unselected prototype.",
         "Next candidate 07 Roof Runner: precision courier platforming for more action variety.",
         "Integrate only strongest finished candidates against fresh main with scoped source/catalogue changes; preserve all concurrent work and hosting permission boundary."
       ],
       "developmentCommits": [
-        "71e6cc164e242d22118dd705768344d237aec348"
-      ]
+        "71e6cc164e242d22118dd705768344d237aec348",
+        "5336031a3725fdf923eb105eddc64a7ee75c9cc3"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39358785979",
+        "testedCommit": "5336031a3725fdf923eb105eddc64a7ee75c9cc3",
+        "conclusion": "success",
+        "desktop": "All five baseline three-medal trips via actual UI; native keyboard/focus, exact action forecasts, catch/reward undo, upgrades, mid-fight reload, confirmed retry and launch/back navigation; no errors",
+        "touch": "390x844 emulation: one-action bank/depth/cast/reel taps, full catch/release/undo and modal/help/journal; >=44px buttons across choose/fight/landed states, zero page overflow at 390px/320px",
+        "manual": "Managed cloud-browser desktop opening trip: landed/released Lantern Dace and kept Moon Koi, returned for three medals, undid/re-banked reward, bought spool, entered trip two and reloaded its saved state; desktop artwork inspected",
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39358785979/artifacts/12235829015",
+        "notVerified": [
+          "Full subjective enjoyment and deeper replay assessment",
+          "Full manual mobile visual review and physical touch hardware",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 7,
