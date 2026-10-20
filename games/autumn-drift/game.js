@@ -1,5 +1,6 @@
 'use strict';
-const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),$=s=>document.getElementById(s),MAX=5000;
+const canvas=document.querySelector('canvas'),$=s=>document.getElementById(s),MAX=5000;
+let ctx=canvas.getContext('2d');
 const biomes=['Back Garden','Amber Orchard','Copperwood','Fern Hollow','Cottage Lane','Silver Birch','Maple Meadow','Mossy Ruins','Lakeside','Harvest Fields','Cedar Valley','Rosewood','Frosted Grove','Sunset Park','Wildwood','Golden Hills','Moonlit Glade','Scarlet Woods','Ancient Oaks','Autumn Sanctuary'];
 let save={area:0,unlocked:0,money:0,ranks:[0,0,0,0],picked:0,clears:0,garden:null};let migrated=false;
 try{let v=JSON.parse(localStorage.getItem('autumn-drift-v2')||'null');if(v)Object.assign(save,v);else{let old=JSON.parse(localStorage.getItem('autumn-drift-v1')||'null');if(old){save.money=Math.max(0,old.money||0);migrated=true}}}catch(e){}
@@ -94,5 +95,27 @@ tree(117,245,85+(save.area%4)*6,palette[save.area%7]);tree(1070,285,104,palette[
 // warm afternoon light
 let light=ctx.createLinearGradient(100,50,1000,800);light.addColorStop(0,'#ffe8a915');light.addColorStop(1,'#00000000');ctx.fillStyle=light;ctx.fillRect(0,0,1200,800)
 }
-function render(t){let dt=Math.min((t-last)/1000||.016,.035);last=t;clock+=dt;if(running&&down&&stats().hold)pick();ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.fillStyle='#263a30';ctx.fillRect(0,0,W,H);ctx.translate(ox,oy);ctx.scale(scale,scale);background();hover=null;let nearest=Infinity;for(let l of leaves){let d=Math.hypot(l.x-pointer.x,l.y-pointer.y);if(d<stats().reach+l.s&&d<nearest){hover=l;nearest=d}leaf(l.x+1.5,l.y+2,l.s,l.a,'#1c2c2428');if(l.rare)ellipse(l.x,l.y,l.s+4,l.s*.8,'#ffe38655');leaf(l.x,l.y,l.s,l.a,l.rare?'#ffe178':l.c)}if(hover&&running){ctx.strokeStyle='#fff0bb';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(hover.x,hover.y,hover.s+5,0,7);ctx.stroke();if(hover.hp<hover.max){round(hover.x-17,hover.y-24,34,4,2,'#1b332a');round(hover.x-17,hover.y-24,34*hover.hp/hover.max,4,2,'#edc378')}}for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;ctx.globalAlpha=Math.max(0,p.life);leaf(p.x,p.y,5,p.life*3,p.c);if(p.life<0)particles.splice(i,1)}ctx.globalAlpha=1;if(running){let s=stats();ctx.strokeStyle='#eee4b955';ctx.lineWidth=1;ctx.beginPath();ctx.arc(pointer.x,pointer.y,s.reach,0,7);ctx.stroke();ctx.font='24px system-ui';ctx.textAlign='center';ctx.fillText(mode==='hand'||save.ranks[2]<5?'🤏':save.ranks[2]<20?'🧹':'🌀',pointer.x,pointer.y-22);ctx.font='11px system-ui';ctx.fillStyle='#f6e8c0';if(hover&&hover.hp>1)ctx.fillText(`${Math.ceil(hover.hp/s.power)} picks`,pointer.x,pointer.y+40)}requestAnimationFrame(render)}
+// Scenery is static between area/basket/density changes. Keep only one bounded
+// bitmap; mobile/high-DPI windows never allocate more than 2400 × 1600 here.
+let backgroundBuffer=null,backgroundContext=null,backgroundKey='',backgroundDisabled=false;
+function paintBackground(){
+ if(backgroundDisabled){background();return}
+ try{
+  if(!backgroundBuffer){backgroundBuffer=document.createElement('canvas');backgroundContext=backgroundBuffer.getContext('2d');if(!backgroundContext)throw Error('No scenery context')}
+  const density=Math.min(2,Math.max(.5,scale*devicePixelRatio)),width=Math.ceil(1200*density),height=Math.ceil(800*density);
+  const key=save.area+':'+collected+':'+width+':'+height;
+  if(key!==backgroundKey){
+   backgroundBuffer.width=width;backgroundBuffer.height=height;
+   const visibleContext=ctx;
+   try{ctx=backgroundContext;ctx.setTransform(width/1200,0,0,height/800,0,0);background()}
+   finally{ctx=visibleContext}
+   backgroundKey=key;
+  }
+  ctx.drawImage(backgroundBuffer,0,0,1200,800);
+ }catch{
+  // Preserve the original renderer if an extra canvas/context is unavailable.
+  backgroundDisabled=true;backgroundBuffer=null;backgroundContext=null;backgroundKey='';background();
+ }
+}
+function render(t){let dt=Math.min((t-last)/1000||.016,.035);last=t;clock+=dt;const frameStats=stats();if(running&&down&&frameStats.hold)pick();ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.fillStyle='#263a30';ctx.fillRect(0,0,W,H);ctx.translate(ox,oy);ctx.scale(scale,scale);paintBackground();hover=null;let nearest=Infinity;for(let l of leaves){let d=Math.hypot(l.x-pointer.x,l.y-pointer.y);if(d<frameStats.reach+l.s&&d<nearest){hover=l;nearest=d}leaf(l.x+1.5,l.y+2,l.s,l.a,'#1c2c2428');if(l.rare)ellipse(l.x,l.y,l.s+4,l.s*.8,'#ffe38655');leaf(l.x,l.y,l.s,l.a,l.rare?'#ffe178':l.c)}if(hover&&running){ctx.strokeStyle='#fff0bb';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(hover.x,hover.y,hover.s+5,0,7);ctx.stroke();if(hover.hp<hover.max){round(hover.x-17,hover.y-24,34,4,2,'#1b332a');round(hover.x-17,hover.y-24,34*hover.hp/hover.max,4,2,'#edc378')}}for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;ctx.globalAlpha=Math.max(0,p.life);leaf(p.x,p.y,5,p.life*3,p.c);if(p.life<0)particles.splice(i,1)}ctx.globalAlpha=1;if(running){const s=frameStats;ctx.strokeStyle='#eee4b955';ctx.lineWidth=1;ctx.beginPath();ctx.arc(pointer.x,pointer.y,s.reach,0,7);ctx.stroke();ctx.font='24px system-ui';ctx.textAlign='center';ctx.fillText(mode==='hand'||save.ranks[2]<5?'🤏':save.ranks[2]<20?'🧹':'🌀',pointer.x,pointer.y-22);ctx.font='11px system-ui';ctx.fillStyle='#f6e8c0';if(hover&&hover.hp>1)ctx.fillText(`${Math.ceil(hover.hp/s.power)} picks`,pointer.x,pointer.y+40)}requestAnimationFrame(render)}
 addEventListener('pagehide',persist);loadGarden(true);requestAnimationFrame(render);

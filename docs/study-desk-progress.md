@@ -1,5 +1,25 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 12
+
+Base Sites source: d313d52bf8e8d4dc000fb86ec7c94020b8fdcd73 (live version 20). GitHub base: bc82be56e3de0e7ef83d526d31d1b38e4abfdbc2. Reopened latest clean source through Sites helper and verified Autumn Drift HTML/game script matched GitHub.
+
+### Implemented
+- Autumn Drift previously rebuilt its detailed scenery (including 1,500 grass strokes) on every animation frame. Added one offscreen scenery bitmap reused between area, collected-leaf count and display-density changes. Moving leaves, selection, particles and game simulation remain on the live canvas.
+- Cached scenery retains the existing drawing code; basket updates invalidate it immediately on the next frame. Extra bitmap resolution is capped at 2400 x 1600 (up to 2x the logical scene, about 15 MiB of RGBA pixels, excluding browser overhead/main canvas). Very-high-DPI scenery may be resampled above that cap; live leaves/UI are not capped by this change.
+- If allocating the extra 2D context or compositing fails, disable the cache and use the original renderer. Drawing-context swaps are restored in finally.
+- Tool stats are computed once per frame rather than separately for each remaining leaf; pick actions still use the same stats/damage/cooldown path. Save data, progression, gameplay rules and other games unchanged. Bumped Autumn Drift script cache query to v3.
+
+### Validation
+- New autumn-rendering.cjs uses the actual game script with instrumented canvas methods. Before the fix, 60 frames redrew scenery 60 times; afterward, 60 unchanged frames of a 900-leaf garden used one scenery redraw and 60 stats calculations. This measures operation counts, not FPS, GPU performance or battery life.
+- Tests verify original detailed grass drawing is retained, render-only state remains unchanged, every frame composites the bitmap, basket/area/density changes invalidate it, maximum extra-bitmap dimensions are bounded, missing contexts fall back, and a failed composite restores drawing on the visible context.
+- Existing keyboard/gameplay, saves, bridge, flashcards, curation and launcher regression suites passed; 10 bundled routes/17 HTML asset references resolved; syntax/diff checks passed.
+- Desktop Chrome preview: restored four previously picked leaves/four acorns; Home + Space increased both to five. Screenshot inspection showed terrain, fence, trees, basket, leaves, selection and controls rendering. No pixel-for-pixel image comparison or hardware/mobile FPS benchmark was performed.
+
+### Pending
+- No new game repository qualified or added this pass. Earlier requested-title identity/provenance/reuse blockers remain; no random replacements. After Hours remains labelled Balatro-inspired.
+- Physical mobile, high-DPI hardware and actual screen-reader testing remain pending. Preserve independent game/community work, study tools, sharing and the separately paused cleanup task.
+
 ## 2026-10-20 — pass 11
 
 Base Sites source: 63ad2351a7bdba5279c85e1d48659a3dcb3985f8 (live version 19). GitHub base: 2f54aa431f2f5282a3640a9d03a5405c60e4fe2d. Reopened latest clean source through Sites helper; Autumn Drift HTML and game script matched GitHub before editing.
