@@ -515,18 +515,20 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/last-match/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: five original top-down lantern clearings; directional cones/rock occlusion, four enemy types and telegraphed lunges, dodges, finite brazier oil, collectable fuel-return embers, gate escape, best-only medals, two workshop upgrades and guarded versioned saves."
+        "Initial playable: five original top-down lantern clearings; directional cones/rock occlusion, four enemy types and telegraphed lunges, dodges, finite brazier oil, collectable fuel-return embers, gate escape, best-only medals, two workshop upgrades and guarded versioned saves.",
+        "Pass 1: exactly-once queued quick touch movement/flash/dodge/refill, pointer cancellation cleanup, click-to-aim, visible-only target assist, matching ray-clipped light/rock visuals and in-cone rings, accurate lunge lines, enemy phase/health/range notes, fuel/cooldown/dodge gauges, event saving and less frequent DOM redraws. Added explicit exhausted-fuel loss/retry; disallowed ready-state purchases that could invalidate saved equipment; terminal states cannot be unpaused."
       ],
       "tests": [
-        "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending."
+        "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending.",
+        "After improvement: 13 local engine checks, including all five unchanged baseline legal campaigns/every-tick saves, exact nonmutating clipped beam/target telemetry, fuel-exhaustion fixture, ready-purchase guard and 100 deterministic exploratory campaigns with real losses. 14 DOM cases plus desktop/native-clock/touch-emulated browser suites authored; improved-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unrated; manual gameplay pending",
         "depth": "Five short original combat/route clearings, finite encounters and two upgrades; no duration claim",
-        "polish": "Original canvas orchard art and telegraphed attacks; real-browser desktop/touch verification pending",
-        "reliability": "8 engine checks pass locally; interface/browser/full repository checks pending",
+        "polish": "Original canvas orchard, matching clipped cone visuals, target/enemy phase cues, numeric and gauge fuel feedback, quick touch pulse handling and mobile following camera; rendered verification pending",
+        "reliability": "13 local engine checks pass; exact improved-source DOM/browser/full repository CI pending",
         "variety": "Distinct overhead directional-cone combat, not a rhythm, vehicle or platformer reskin"
       },
       "selected": false,
@@ -534,9 +536,12 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful control/feedback/save/recovery improvement pass",
-        "Verify exact improved source in candidate CI before claiming rendered results",
-        "Keep development-only until enjoyment/depth comparison and finished selection"
+        "Verify exact improved-source CI and inspect logs before claiming browser passes",
+        "Assess enjoyment/replay depth and visually inspect before finish/selection",
+        "Implement candidate 11 Glasshouse; integrate only selected finished winners against fresh main"
+      ],
+      "developmentCommits": [
+        "8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82"
       ]
     },
     {

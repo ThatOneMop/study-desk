@@ -1,3 +1,9 @@
+# Run 10 · Last Match meaningful improvement pass 1
+
+10/20 playable prototypes · 10 improved · 0 finished/selected/published. Initial checkpoint 8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82 preserved. Improved quick touch pulses/cancel handling, click aiming and visible-only assist, ray-clipped beam visuals matching rock collision rules, readable target/enemy lunge/health feedback, gauges, event saves and lower DOM redraw frequency. Fixed ready-upgrade save inconsistency by restricting purchases to completed/lost attempts; added explicit exhausted-oil loss and terminal pause guards.
+
+Thirteen local engine checks pass: unchanged baseline no-hit/three-medal routes (463/654/671/1115/1111 frames), every-tick saves, real five-hit loss/retry, beam/telemetry exactness/nonmutation, exhaustion fixture and 100 deterministic exploratory attempts with actual losses. Fourteen DOM cases and real Chromium deterministic-keyboard/pointer campaign, native-clock RAF and 390px/320px touch-emulation suites authored; improved-source CI pending. Local jsdom unavailable; use existing authorised read-only candidate CI. Short prototype, no human duration/enjoyment claim. No public selection/integration/deployment. Next: Glasshouse.
+
 # Run 10 · Last Match initial playable checkpoint
 
 10/20 playable prototypes · 9 meaningfully improved · 0 finished/selected/published. Inspected fresh development head 79b1462599909188314239e2b92e15efc78355a2 and current main 2f54aa431f2f5282a3640a9d03a5405c60e4fe2d, recursive inventories (no AGENTS.md/root build), latest ledger/report/candidate CI, source/test conventions and current main progress/README/hosting workflow. Local ledger/report/workshop/CI hashes matched fresh remote. Static no-build site. Preserve newer main launcher/Underleaf/bridge pointer cleanup, requested-games, Gummy Bay and community work; no hosting permission changes.
