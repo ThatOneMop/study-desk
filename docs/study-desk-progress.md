@@ -1,5 +1,26 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 9
+
+Base Sites source: 9bbdc1be0c9e49edb6b8a26be85a2e44e2054705 (live version 17). GitHub base: 179fb3f33cb3dab1ee7d57d76c8dc3d614025b34. Recovered fresh source through the Sites helper after workspace maintenance; HTML/save module matched GitHub. Prior progress was intact.
+
+### Implemented
+- Completed Underleaf recovery with Import colony (JSON file) and Restore previous colony. Both validate a complete colony and show worker/chamber/food totals in a confirmation before replacement. The existing stored colony is backed up before the new save is written.
+- File reads pause local simulation and provide Cancel import; cancellation or leaving the game page invalidates late async results. Previous manual pause is preserved. Restoring rebuilds ants, clears old transient effects/timers and refreshes the UI without reloading.
+- Added size and complete-export checks; partial legacy saves can still load through the existing compatibility path but cannot silently be imported as a complete exported colony. Invalid backups remain downloadable, not automatically discarded.
+- Replacement can reject a stored-save change made during confirmation. If the primary write fails after backing up, the older backup is restored on a best-effort basis. This is not an atomic multi-key/cross-tab transaction; storage failure can also prevent rollback.
+- Existing reset/export functions, colony balance/content, all other games, study features, catalogue and audience preserved.
+
+### Validation
+- New underleaf-recovery.cjs runs actual game/recovery scripts in jsdom and covers valid import/previous restore, confirmation cancellation, incomplete/malformed/oversized files, slow-read cancellation, pagehide, manual pause retention, optimistic conflict checks, backup failure and primary-write failure.
+- Existing Underleaf saves, flashcards/bridge/mouse, curation, launcher/navigation/loading/switching and After Hours save/control/engine checks passed; all 10 routes and 17 HTML asset references resolved; syntax/diff checks passed.
+- Desktop Chrome preview: wake/feed produced 8 food and one egg; confirmed New colony reset to 20 food/no eggs; confirmed Restore previous colony returned to 8 food/one egg with success feedback. Native confirmation handling produced browser-automation timeouts, but checking and accepting the existing dialogs completed each action without repeating clicks.
+- Actual browser file selection/upload/download completion, mobile layout and full colony progression remain unverified. File import was tested with simulated File.text inputs, not a real OS picker.
+
+### Pending
+- No new game sources vetted or added this pass. Requested original-game identity/provenance/reuse blockers remain in earlier entries; no random substitutes. Continue focused source review and gameplay QA.
+- Keep independent game/community work and the separately paused cleanup task unchanged.
+
 ## 2026-10-20 — pass 8
 
 Base Sites source: 7ee8101bfa4ed8d1aa746090e39d6f6ef8f4ce10 (live version 16). GitHub base: e54ebdcd4acef396177b0397a32c84f0a1d927a1. Opened latest clean source through Sites helper; Underleaf HTML matched GitHub exactly before editing.

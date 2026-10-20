@@ -17,24 +17,39 @@
    return {left:e.left,duration:e.duration};
   });return s;
  }
+ function parse(text,complete=false){
+  if(typeof text!=='string'||text.length>100000)throw Error('Choose a colony JSON file under 100 KB.');
+  const value=JSON.parse(text);
+  if(!value||!Object.hasOwn(value,'workers'))throw Error('Not an Underleaf colony.');
+  if(complete&&!['food','workers','rooms','carry','speed','nurse','auto','eggs','gathered','time','rewards'].every(key=>Object.hasOwn(value,key)))throw Error('Choose a complete Underleaf export.');
+  return validate(value);
+ }
  function create(storage){
   let raw=null,status='ready';
   function read(){return storage.getItem(KEY)}
   function load(){
    try{raw=read()}catch{status='unavailable';return initial()}
    if(raw===null){status='ready';return initial()}
-   try{if(raw.length>100000)throw Error();const value=JSON.parse(raw);if(!value||!Object.hasOwn(value,'workers'))throw Error();const s=validate(value);status='ready';return s}catch{status='invalid';return initial()}
+   try{const s=parse(raw);status='ready';return s}catch{status='invalid';return initial()}
   }
   function save(value){
    if(status!=='ready')return false;
    try{const next=JSON.stringify(validate(value));if(read()!==raw){status='conflict';return false}storage.setItem(KEY,next);raw=next;return true}catch{status='unavailable';return false}
   }
-  function replace(value){
+  function replace(value,expected){
    // Back up the exact current bytes before intentionally replacing a colony.
    // A failed read/backup/write must not report a successful reset.
-   try{const next=JSON.stringify(validate(value)),previous=read();if(previous!==null)storage.setItem(BACKUP,previous);storage.setItem(KEY,next);raw=next;status='ready';return true}catch{status='unavailable';return false}
+   try{const next=JSON.stringify(validate(value)),previous=read();if(arguments.length>1&&previous!==expected){status='conflict';return false}
+    const oldBackup=storage.getItem(BACKUP);if(previous!==null)storage.setItem(BACKUP,previous);
+    try{storage.setItem(KEY,next)}catch(error){
+     // Best-effort preservation of the older backup if the main write fails.
+     try{if(oldBackup===null)storage.removeItem?.(BACKUP);else storage.setItem(BACKUP,oldBackup)}catch{}
+     throw error;
+    }
+    raw=next;status='ready';return true;
+   }catch{status='unavailable';return false}
   }
-  return {load,save,replace,get status(){return status},get originalRaw(){return raw}};
+  return {load,save,replace,readCurrent:read,readBackup:()=>storage.getItem(BACKUP),get status(){return status},get originalRaw(){return raw}};
  }
- return {KEY,BACKUP,initial,validate,create};
+ return {KEY,BACKUP,initial,validate,parse,create};
 });

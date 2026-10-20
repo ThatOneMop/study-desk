@@ -22,6 +22,7 @@ function boot(raw){
  w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(_,key)=>key==='createLinearGradient'?()=>({addColorStop(){}}):()=>{}});
  if(raw!==null)w.localStorage.setItem(S.KEY,raw);
  w.eval(fs.readFileSync(root+'games/underleaf/save-store.js','utf8'));
+ w.eval(fs.readFileSync(root+'games/underleaf/recovery.js','utf8'));
  for(const script of d.querySelectorAll('script:not([src])'))w.eval(script.textContent+'\nwindow.testTick=tick;');
  return {w,d,close:()=>w.close()};
 }
