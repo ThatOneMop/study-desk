@@ -1,5 +1,25 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 8
+
+Base Sites source: 7ee8101bfa4ed8d1aa746090e39d6f6ef8f4ce10 (live version 16). GitHub base: e54ebdcd4acef396177b0397a32c84f0a1d927a1. Opened latest clean source through Sites helper; Underleaf HTML matched GitHub exactly before editing.
+
+### Observed and fixed
+- Underleaf loaded any object with workers >= 3 without validating the remaining fields. A save containing eggs:null reproduced a startup crash in the actual game script; malformed JSON could silently fall back to a fresh colony and later overwrite the stored bytes.
+- Added save-store.js: validates finite resources, worker/room/upgrade limits and egg timers/capacity; accepts legacy missing defaults; keeps existing underleaf-v1 key. Invalid saves start a clearly labelled temporary colony with autosaving disabled and exact original bytes retained.
+- Persistent save status now explains corruption, storage failure and detected cross-tab changes. Autosave compares stored bytes to the last loaded/written value before writing (optimistic conflict detection, not an atomic cross-tab transaction).
+- Added current-colony export, loaded-save download, and previous-colony backup download. Confirmed New colony writes the previous raw save to underleaf-v1.backup before replacement; a failed backup/write keeps the current in-memory colony. Only the latest reset backup is retained. Import/one-click restoration is not yet implemented; downloads preserve data for recovery.
+- No changes to colony balance/content, other game assets, catalogue, study features or sharing. Invalid data is never automatically deleted.
+
+### Validation
+- New underleaf-saves.cjs reproduced the startup failure before integration and passed afterward. Covers numeric/brood bounds, legacy defaults, malformed/oversized/raw preservation, reset cancellation, backup-first reset, read/quota/write failure, optimistic conflicts, three download initiations, actual startup/feed/pagehide handlers, and a controlled hatch simulation with valid saved state.
+- All previous shell/bridge/mouse, curation, launcher/loading/switching, After Hours save/control/engine tests passed; 10 game routes and 16 HTML asset references resolved; save-module syntax/diff checks passed.
+- Desktop Chrome preview: save panel rendered clearly; colony wake/feed reduced food from 20 to 8 and created one egg; confirmed launcher reload restored 8 food and one egg with loading status cleared. Corruption/quota/conflict scenarios were simulated, not injected into browser storage. Actual download completion, mobile layout and full colony progression remain unverified.
+
+### Pending
+- No requested-game repository newly vetted/qualified this pass; prior identity/provenance/reuse blockers remain. Do not imply that public mirrors or repository-level licences establish rights to copied original game assets.
+- Continue gameplay/save QA and targeted source review. Preserve other tasks' game/community work and the separately paused cleanup task.
+
 ## 2026-10-20 — pass 7
 
 Base Sites source: a2e57cb1adb724cd0cd8089a92d7fa5f0aa6812e (live version 15). GitHub base: 73de885be1335b47d2bff5b197afc03805e77ff4. Reopened the clean checkout through the Sites helper and confirmed the launcher base matches GitHub.
