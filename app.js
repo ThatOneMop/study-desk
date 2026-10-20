@@ -38,9 +38,10 @@ function toast(t){$('notice').textContent=t;$('notice').style.display='block';cl
 function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
 function button(text,fn,cls){const b=el('button',text,cls);b.type='button';b.onclick=fn;return b}
 function valid(v){return Array.isArray(v)&&v.length<=10000&&v.every(c=>c&&typeof c.id==='string'&&c.id.length<=100&&typeof c.deck==='string'&&c.deck.trim()&&c.deck.length<=60&&typeof c.q==='string'&&c.q.trim()&&c.q.length<=2000&&typeof c.a==='string'&&c.a.trim()&&c.a.length<=4000)}
+function validDecks(v){return Array.isArray(v)&&v.length<=10000&&v.every(x=>typeof x==='string'&&x.trim()&&x.length<=60)}
 const starter=[['Science','What is a force?','A push or pull that can change an object’s motion or shape.'],['Science','What is the difference between a mixture and a pure substance?','A mixture contains two or more substances. A pure substance contains only one substance.'],['Science','What does the independent variable mean?','The factor you deliberately change in an experiment.'],['Science','What force pulls objects towards Earth?','Gravity.'],['Science','How can you separate an insoluble solid from a liquid?','By filtration. The solid stays in the filter and the liquid passes through.'],['Maths','What is 15% of 80?','12. Calculate 0.15 × 80.'],['Maths','Solve: 3x + 5 = 20','x = 5. Subtract 5, then divide by 3.'],['Maths','What is the area of a triangle?','½ × base × perpendicular height.'],['Maths','What is −4 + 9?','5'],['English','What is a simile?','A comparison using “like” or “as”.'],['English','What is a metaphor?','A comparison that describes one thing as another.'],['English','What is personification?','Giving human qualities to something non-human.']].map((a,i)=>({id:'starter-'+i,deck:a[0],q:a[1],a:a[2],known:false}));
 let cards=loadJson(KEY,starter,valid);
-let deckNames=loadJson(DECK_KEY,[],v=>Array.isArray(v)&&v.length<=10000&&v.every(x=>typeof x==='string'&&x.trim()&&x.length<=60));deckNames=[...new Set([...deckNames,...cards.map(c=>c.deck)])];
+let deckNames=loadJson(DECK_KEY,[],validDecks);deckNames=[...new Set([...deckNames,...cards.map(c=>c.deck)])];
 let deck=deckNames[0]||'My deck',index=0,flipped=false,order=[],arcade=false,playing=null,inPlayer=false,paused=false,hits=[],filter='All';
 const games=window.GAME_CATALOG;
 let hub=loadJson(HUB_KEY,{},v=>v&&typeof v==='object'&&!Array.isArray(v)&&['favourites','recent'].every(key=>v[key]===undefined||(Array.isArray(v[key])&&v[key].every(id=>typeof id==='string'&&id.length<=100))));
@@ -67,7 +68,20 @@ $('renameDeck').onclick=()=>{const name=prompt('Rename '+deck+':',deck)?.trim();
 $('deleteDeck').onclick=()=>{if(!confirm('Delete the deck “'+deck+'” and its cards? Export a backup first if you want to keep them.'))return;cards=cards.filter(c=>c.deck!==deck);deckNames=deckNames.filter(d=>d!==deck);deck=deckNames[0]||'My deck';clearEdit();$('deckName').value=deck;save();reset();listCards()};
 function download(name,data){const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=el('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 $('backup').onclick=()=>download('study-cards.json',{version:2,cards,decks:deckNames});
-$('import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>10000000)throw Error();const payload=JSON.parse(await file.text()),incoming=Array.isArray(payload)?payload:payload.cards;if(!valid(incoming)||incoming.length+cards.length>10000)throw Error();let names=Array.isArray(payload.decks)?payload.decks:[];if(!names.every(x=>typeof x==='string'&&x.trim()&&x.length<=60))throw Error();for(const c of incoming)cards.push({...c,id:crypto.randomUUID(),known:!!c.known});deckNames=[...new Set([...deckNames,...names,...incoming.map(c=>c.deck)])];deck=incoming[0]?.deck||deckNames[0]||'My deck';save();reset();toast('Imported. Existing cards and decks were kept.')}catch{toast('Choose a valid Study Desk export, within the 10,000-card limit.')}e.target.value=''};
+$('import').onchange=async e=>{
+ try{
+  const file=e.target.files[0];if(!file)return;if(file.size>10000000)throw Error();
+  const text=await file.text();if(text.length>10000000)throw Error();
+  const payload=JSON.parse(text),incoming=Array.isArray(payload)?payload:payload?.cards,names=Array.isArray(payload)?[]:payload?.decks??[];
+  if(!valid(incoming)||incoming.length+cards.length>10000||!validDecks(names))throw Error();
+  const nextDecks=[...new Set([...deckNames,...names,...incoming.map(c=>c.deck)])];if(!validDecks(nextDecks))throw Error();
+  // Prepare the entire import before changing live data; keep only supported fields.
+  const added=incoming.map(c=>({id:crypto.randomUUID(),deck:c.deck,q:c.q,a:c.a,known:!!c.known}));
+  cards=[...cards,...added];deckNames=nextDecks;deck=incoming[0]?.deck||deckNames[0]||'My deck';
+  const persisted=save();reset();if($('editor').open){clearEdit();$('deckName').value=deck;listCards();}
+  toast(persisted?'Imported. Existing cards and decks were kept.':'Imported into this tab only. Changes are temporary; export your cards before closing or reloading.');
+ }catch{toast('Choose a valid Study Desk export under 10 MB, within the 10,000-card and 10,000-deck limits.')}finally{e.target.value=''}
+};
 for(const genre of [...new Set(games.map(g=>g.genre))].sort()){$('genre').append(new Option(genre,genre))}
 const sessionReturn=el('div',undefined,'session-return');sessionReturn.id='sessionReturn';sessionReturn.hidden=true;$('filters').before(sessionReturn);
 function drawFilters(){const focused=$('filters').contains(document.activeElement)?document.activeElement.textContent:null,groups=[...new Set(games.map(g=>g.group))];$('filters').replaceChildren();for(const name of ['All',...(groups.length>1?groups:[]),'Favourites','Recently played']){const b=button(name,()=>{filter=name;drawGames()},name===filter?'active':'');b.setAttribute('aria-pressed',String(name===filter));$('filters').append(b);if(name===focused)b.focus()}}

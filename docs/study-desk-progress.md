@@ -1,5 +1,25 @@
 # Study Desk improvement ledger
 
+## 2026-10-21 — pass 20
+
+Base Sites source: 17fd929a7774a397d31694e24f4eab224d016324 (live version 28). GitHub base: 8f99173d29bcbcf429247766a605ca5cd39e9a54. Opened latest Sites source and verified app.js matched GitHub. After a browser-check interruption cleared the temporary workspace, reopened the same unchanged source, recovered the exact implementation and regression test, and revalidated. Independent community/Gummy Bay work and each ledger's previous history are preserved.
+
+### Implemented
+- Fixed a reproduced study-backup import defect: more than 10,000 incoming deck names were accepted and saved even though the next startup rejects that deck list. Import now validates both incoming and combined deck counts before changing cards or decks.
+- Reuses the startup deck validator, rejects malformed deck metadata, and bounds both file size and decoded text to the existing 10 MB limit. Legacy card-array imports remain supported.
+- Prepares every imported card and ID before mutating the in-memory collection, preventing partial imports if preparation throws. Copies only supported card fields, retaining mastery and assigning fresh IDs.
+- Import success now distinguishes persisted data from temporary in-tab changes when a conflict or storage failure prevents saving. The open card editor is refreshed to match the imported deck. Existing cards/decks are retained; storage keys, game catalogue, games and audience are unchanged.
+- This is validation/preparation safety, not a transactional storage rewrite: the existing separate card/deck writes and optimistic concurrency limitations remain.
+
+### Validation
+- New study-import.cjs first reproduced the excessive-deck write, then passed incoming/combined deck bounds, malformed metadata, file-size rejection, failed-ID preparation with no partial in-memory import, conflict and quota warnings, supported-field filtering, mastery, and legacy arrays.
+- Full regression suites, asset checks (10 bundled game routes, 19 HTML references), app.js syntax and diff checks passed before the interruption; recovered source was checked again before packaging.
+- Desktop preview rendered the study screen with the existing decks and mastery. Browser file-picker validation was interrupted before a result; actual file selection/import, completed downloads, mobile and screen-reader checks are NOT verified in this pass. No browser retry or claim of end-to-end import success.
+
+### Pending
+- No new requested-title repository was vetted or added this pass. Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft retain the documented identity/reusable-source/assets blockers. After Hours remains Balatro-inspired, not the commercial game. No random replacements.
+- Continue focused improvements and source vetting, preserve separately paused cleanup, and stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-21 — pass 19
 
 Base Sites source: ab6fda58534deeb59ee1c6ba1daf0826334c0f5d (live version 27). GitHub base: 08f4526696c9542d60c96b634f256da618495623. Reopened latest source through Sites workflow and verified the complete After Hours HTML matched GitHub. Preserve independent community/Gummy Bay changes and each progress log's history.
