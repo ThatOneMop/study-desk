@@ -799,28 +799,32 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/circuit-garden/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: six original renewable microgrid/garden seasons; adjacent module/cable networks, separate circuits, shade/exposure yield, bounded battery charge/discharge, load priority and shifting, growth, brownout/forecast losses, saved seals and unlocks."
+        "Initial playable: six original renewable microgrid/garden seasons; adjacent module/cable networks, separate circuits, shade/exposure yield, bounded battery charge/discharge, load priority and shifting, growth, brownout/forecast losses, saved seals and unlocks.",
+        "Pass 1: pure exact next-interval bed/energy/storage/trip forecast, missing-bed connectivity readiness and circuit ledger/inspector, 100-action logical-state undo through construction/load schedules/losses/rewards, guarded keyboard shortcut and strict actual-weather generation save validation."
       ],
       "tests": [
-        "10 local engine checks passed: six legal clean three-seal layouts/schedules with every-action serialization, exact energy conservation, disconnected commissioning, actual losses/replan, invalid saves and 100 seeded attempts.",
-        "11 interface checks authored; exact-source CI and new-candidate browser verification pending."
+        "PASS initial checkpoint c85bdb11e607786c5333d53d3968412f9eca5118: CI 39414903441 passed repository/candidate gates, 10 new engine + 11 DOM checks; browser chain stopped in earlier Spore Kitchen on pre-render bed count (readiness wait added, no game source change). Circuit Garden browser suite absent at initial checkpoint.",
+        "15 improved engine checks pass locally; 18 DOM and six-campaign Chromium desktop/touch suite authored, exact-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unassessed; synthetic schedules do not establish enjoyment.",
         "depth": "Six compact weather/storage/load-shifting seasons; no duration claim.",
-        "polish": "Original rooftop plants/solar/wind/battery art, native construction/switch controls and onboarding; improvement pending.",
-        "reliability": "Engine tested locally; exact-source DOM/browser execution pending.",
+        "polish": "Original rooftop art, native controls/onboarding; exact power forecast, circuit/readiness explanations and full logical-state undo implemented; rendered review pending.",
+        "reliability": "15 improved engine checks pass locally; exact-source interface/browser verification pending.",
         "variety": "Renewable supply/storage conservation and scheduled loads; no circuit rotation, unlike repair candidate Bolt & Bristle."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Not selected: improved prototype awaiting complete verification and subjective comparison.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful improvement: exact next-interval power forecast, connectivity/readiness feedback, full undo and clearer feed/priority outcomes.",
-        "Execute interface and desktop/touch campaign regressions; inspect rendered play before selection."
+        "Execute exact-source interface and desktop/touch regressions; inspect rendered play and correct concrete issues.",
+        "Assess all six seasons' enjoyment, scheduling variety and replay depth before finished designation; keep development-only."
+      ],
+      "developmentCommits": [
+        "c85bdb11e607786c5333d53d3968412f9eca5118"
       ]
     },
     {

@@ -73,6 +73,7 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/burrow-express-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/little-foundry-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/storm-signal-browser.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/circuit-garden-browser.cjs
       - name: Candidate visual evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -88,4 +89,5 @@ jobs:
             /tmp/burrow-express-*.png
             /tmp/little-foundry-*.png
             /tmp/storm-signal-*.png
+            /tmp/circuit-garden-*.png
           if-no-files-found: ignore
