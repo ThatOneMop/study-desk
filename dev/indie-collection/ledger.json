@@ -805,27 +805,47 @@
         "Pass 1: pure exact next-interval bed/energy/storage/trip forecast, missing-bed connectivity readiness and circuit ledger/inspector, 100-action logical-state undo through construction/load schedules/losses/rewards, guarded keyboard shortcut and strict actual-weather generation save validation."
       ],
       "tests": [
-        "PASS initial checkpoint c85bdb11e607786c5333d53d3968412f9eca5118: CI 39414903441 passed repository/candidate gates, 10 new engine + 11 DOM checks; browser chain stopped in earlier Spore Kitchen on pre-render bed count (readiness wait added, no game source change). Circuit Garden browser suite absent at initial checkpoint.",
-        "15 improved engine checks pass locally; 18 DOM and six-campaign Chromium desktop/touch suite authored, exact-source CI pending."
+        "Initial checkpoint c85bdb11e607786c5333d53d3968412f9eca5118: CI 39414903441 passed full repository/candidate gates, 10 Circuit Garden engine + 11 DOM checks; earlier Spore Kitchen browser test stopped on a pre-render count. Added an explicit bed-readiness wait without changing that game. No new-candidate browser suite at initial checkpoint.",
+        "PASS exact improved-source CI 39415654859 at 482cdaa697745bc1d024cf9558cc4e0917266e2b: 15 Circuit Garden engine + 18 DOM checks, real Chromium desktop/touch, full repository asset gate, candidate syntax/86 local source-navigation references/exactly20-slot/public-isolation and all fourteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-seal layouts cost 11/12/12/14/17/17 material and finish in 4/4/5/8/5/6 intervals with 12/17/18/19/18/18 actions. Every engine action serializes; generated energy equals garden use plus charge plus spill; pure forecasts match actual campaign outcomes; 100 seeded exploratory attempts preserve budget/energy/save invariants. Synthetic checks are not human duration evidence.",
+        "Chromium native arrows/Enter/Space/Z and focus; exact layout/growth/charge/load reload; six actual DOM-button campaigns; pure forecasts/circuit ledger, earned-reward rollback/replay, brownout and season-end losses, retained-layout replan/retry and workshop launch/back. Touch taps apply once; first roof victory/saved unlock, undo/reload/retry cancel; >=44px visible buttons/select and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: original rooftop/module art and onboarding/readiness inspected; built first roof with solar, exposed wind, battery and cable, scheduled loads through four intervals for three seals, zero brownouts and 12 generated=12 used. Undid final harvest, observed restored battery/growth/unbanked record, replayed/reloaded completion and entered second season with first build tile focused. Local-only preview stopped."
       ],
       "quality": {
-        "enjoyment": "Unassessed; synthetic schedules do not establish enjoyment.",
-        "depth": "Six compact weather/storage/load-shifting seasons; no duration claim.",
-        "polish": "Original rooftop art, native controls/onboarding; exact power forecast, circuit/readiness explanations and full logical-state undo implemented; rendered review pending.",
-        "reliability": "15 improved engine checks pass locally; exact-source interface/browser verification pending.",
-        "variety": "Renewable supply/storage conservation and scheduled loads; no circuit rotation, unlike repair candidate Bolt & Bristle."
+        "enjoyment": "Opening roof manually legible/playable; surplus storage and demand shifting create distinct decisions. Full six-season subjective enjoyment/alternative-layout review remains open; tests do not establish fun.",
+        "depth": "Six compact roof/weather/storage/load-shifting seasons, independent circuits, clean/lean seal goals and best-only replay records. Broader layout/schedule variety and replay depth need assessment; no duration claim.",
+        "polish": "Original sage-paper rooftop plants/solar/wind/battery art, exact power/growth/trip forecast, circuit/readiness explanations, full logical-state undo, native responsive controls and onboarding. Manual mobile review remains open.",
+        "reliability": "Exact improved source passes 15 engine + 18 DOM, desktop/touch Chromium and fourteen earlier-game regressions. Conservation, weather-impossible saves, malformed/concurrent/quota/blocked storage, brownout/season losses, retry/replan and navigation covered within tested cases.",
+        "variety": "Renewable supply/storage conservation, adjacent network construction and scheduled load priorities; no circuit rotation, distinct from repair candidate Bolt & Bristle."
       },
       "selected": false,
-      "selectionReason": "Not selected: improved prototype awaiting complete verification and subjective comparison.",
+      "selectionReason": "Not selected: initial/improvement test gates passed, but compact prototype needs full subjective enjoyment, alternative-layout/schedule depth and comparative variety review before finished designation.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Execute exact-source interface and desktop/touch regressions; inspect rendered play and correct concrete issues.",
-        "Assess all six seasons' enjoyment, scheduling variety and replay depth before finished designation; keep development-only."
+        "Manually play all six seasons and try alternative generation/storage layouts and priority schedules; assess enjoyment, decision variety and replay depth.",
+        "Review CI mobile screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
+        "Keep development-only; compare and integrate only finished selected winners into fresh main without overwriting concurrent Study Desk/Gummy Bay/requested-game work."
       ],
       "developmentCommits": [
-        "c85bdb11e607786c5333d53d3968412f9eca5118"
-      ]
+        "c85bdb11e607786c5333d53d3968412f9eca5118",
+        "482cdaa697745bc1d024cf9558cc4e0917266e2b"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39415654859",
+        "testedCommit": "482cdaa697745bc1d024cf9558cc4e0917266e2b",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and focus; exact grid/load reload; six legal three-seal DOM-button campaigns; forecasts, circuit ledger, reward rollback/replay, brownout/season losses, retained-layout replan/retry and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once build/feed/advance taps, energy/growth accounting and undo, exact reload/retry cancel, first roof win/saved unlock, >=44px visible buttons/select and no 390px/320px overflow.",
+        "manual": "Managed cloud browser desktop: first roof built and scheduled with surplus storage, all beds harvested in four intervals for three seals, zero brownouts and 12 generated=12 used. Final harvest undo restores charge/growth/unbanked record; replay/reload completion and second-season first-build-tile focus verified. Local-only preview stopped.",
+        "notVerified": [
+          "Full six-season subjective enjoyment and alternative-layout/schedule replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 16,
@@ -1096,6 +1116,19 @@
       "implementationCommit": "65825629c096956aaec488264f51b6b69ae620af",
       "verifiedCommit": "65825629c096956aaec488264f51b6b69ae620af",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39408976984"
+    },
+    {
+      "run": 15,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 15,
+      "improvedTotal": 15,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Circuit Garden: six renewable microgrid/load-shifting seasons. Exact source passes 15 engine + 18 DOM, six Chromium legal campaigns, native keyboard/touch emulation and repository/fourteen earlier-game regressions. Manually completed first roof with three seals, winning undo/replay/reload and next-season focus. Development-only; full enjoyment/alternative-layout depth and manual mobile review remain.",
+      "initialPlayableCommit": "c85bdb11e607786c5333d53d3968412f9eca5118",
+      "implementationCommit": "482cdaa697745bc1d024cf9558cc4e0917266e2b",
+      "verifiedCommit": "482cdaa697745bc1d024cf9558cc4e0917266e2b",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39415654859"
     }
   ]
 }
