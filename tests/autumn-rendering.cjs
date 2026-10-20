@@ -8,6 +8,7 @@ function boot(noCache=false,failComposite=false){
   if(!contexts.has(this)){const calls=[],visible=this.id==='game';contexts.set(this,new Proxy({calls},{get:(o,k)=>k in o?o[k]:k==='drawImage'&&visible&&failComposite?()=>{throw Error('Composite unavailable')}:k==='createLinearGradient'?()=>({addColorStop(){}}):(...args)=>calls.push([k,...args])}));}
   return contexts.get(this);
  };
+ w.eval(fs.readFileSync(root+'games/autumn-drift/save-store.js','utf8'));
  w.eval(source+`\nconst probe={backgrounds:0,stats:0};const originalBackground=background,originalStats=stats;
  background=()=>{probe.backgrounds++;return originalBackground()};stats=()=>{probe.stats++;return originalStats()};
  window.testRender={probe,render,resize,get state(){return JSON.stringify({save,leaves,collected,total,completed})},area(n){save.area=save.unlocked=n;loadGarden()},collect(){collected++},get leaves(){return leaves.length}};`);

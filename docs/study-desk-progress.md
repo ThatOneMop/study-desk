@@ -1,5 +1,26 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 13
+
+Base Sites source: d05c50c405e3d39d72699733af4222f928a1fdec (live version 21). GitHub base: 2cca5d39f4e48929d8e6020463a466dee8fb65b4. Reopened latest clean source with Sites workflow; Autumn Drift HTML/script matched GitHub. Existing study features, audience and independent community/Gummy Bay work preserved.
+
+### Implemented
+- Reproduced an Autumn Drift startup crash from saved ranks:null. Added a separate bounded save validator for progression, upgrades and garden/leaf data; copies known fields only. Invalid JSON/state and invalid legacy data remain byte-for-byte in storage rather than crashing or being overwritten by a fresh garden.
+- Autosave now detects a changed v2 save before writing and pauses on detected cross-tab conflict or storage failure. This is optimistic comparison, not an atomic cross-tab transaction. Invalid/unavailable sessions remain playable temporarily, with a visible saving-paused warning.
+- Added a keyboard-focused Saves dialog with status and export controls for the current garden and exact originally loaded save bytes, including malformed data. No save deletion/reset, import or restore operation was added; the UI explicitly states restore is not available yet. Valid legacy acorns still migrate without deleting legacy bytes.
+- Kept gameplay rules, rendering cache and other games unchanged. Autumn script cache query bumped to v4.
+
+### Validation
+- New autumn-saves.cjs reproduces the original crash before the fix and covers malformed/oversized data preservation, progression/leaf validation, duplicate IDs, legacy migration, read/quota failures, changed-save conflicts, actual keyboard pick/save/reload, menu focus and export initiation using stubbed download APIs.
+- All dist/tests/*.cjs regression suites passed, including After Hours, Underleaf, bridge controls, flashcards, curation, launcher, Autumn keyboard and rendering tests. Asset audit passed: 10 bundled routes and 18 HTML asset references; syntax/diff checks passed.
+- Desktop Chrome preview: collection launch, Home + Space pick (one leaf/one acorn), Saves status/focus, return-to-play and restart restored the same progress; loaded-save export became available after restart. Screenshot inspection confirmed readable centered dialog and controls.
+- Browser download-event checks timed out twice; no completed download was verified. Report export initiation coverage only. Browser extension metadata errors were observed, not a confirmed game-script error. Mobile layout and actual blocked/corrupt browser-storage branches were not exercised (those branches use isolated test fixtures).
+- No new requested-title repository was vetted or added this pass. Earlier source/identity/license blockers remain for Tiny Fishing, PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft. The user's After Hours remains accurately labeled Balatro-inspired, not the original.
+
+### Next
+- Verify real file-download completion and add carefully confirmed import/restore for Autumn Drift before describing exports as an end-to-end recovery workflow.
+- Continue targeted quality work and authorized-source vetting; never replace requested titles with unrelated repositories. Stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-20 — pass 12
 
 Base Sites source: d313d52bf8e8d4dc000fb86ec7c94020b8fdcd73 (live version 20). GitHub base: bc82be56e3de0e7ef83d526d31d1b38e4abfdbc2. Reopened latest clean source through Sites helper and verified Autumn Drift HTML/game script matched GitHub.

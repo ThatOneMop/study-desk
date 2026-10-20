@@ -2,8 +2,8 @@
 const canvas=document.querySelector('canvas'),$=s=>document.getElementById(s),MAX=5000;
 let ctx=canvas.getContext('2d');
 const biomes=['Back Garden','Amber Orchard','Copperwood','Fern Hollow','Cottage Lane','Silver Birch','Maple Meadow','Mossy Ruins','Lakeside','Harvest Fields','Cedar Valley','Rosewood','Frosted Grove','Sunset Park','Wildwood','Golden Hills','Moonlit Glade','Scarlet Woods','Ancient Oaks','Autumn Sanctuary'];
-let save={area:0,unlocked:0,money:0,ranks:[0,0,0,0],picked:0,clears:0,garden:null};let migrated=false;
-try{let v=JSON.parse(localStorage.getItem('autumn-drift-v2')||'null');if(v)Object.assign(save,v);else{let old=JSON.parse(localStorage.getItem('autumn-drift-v1')||'null');if(old){save.money=Math.max(0,old.money||0);migrated=true}}}catch(e){}
+const saveStore=AutumnSaves.create({getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value)});
+let save=saveStore.load(),migrated=saveStore.migrated;
 let W,H,scale,ox,oy,leaves=[],particles=[],running=false,down=false,completed=false,total=0,collected=0,clock=0,last=0,sound=false,audio,noise,lastRustle=0,toastTimer,lastPick=-10,pointer={x:600,y:400},hover=null,mode='best';
 const palette=['#d48b37','#e8b64b','#b44c29','#d56932','#f2c960','#8e4830','#d99c55'];
 const fmt=n=>Math.floor(n).toLocaleString();function rand(a,b){return a+Math.random()*(b-a)}
@@ -16,7 +16,20 @@ function fee(a){return Math.ceil(24+Math.pow(a+1,1.32)*9)}
 function cost(track,rank=save.ranks[track]){return Math.ceil([12,18,28,22][track]+Math.pow(rank+1,1.28)*[5,5,7,6][track])}
 function toolName(rank=save.ranks[2]){return rank>=500?'Cyclone collector':rank>=100?'Leaf vacuum':rank>=20?'Leaf grabber':rank>=5?'Garden rake':rank>=1?'Picking gloves':'Bare hand'}
 function stats(){let [h,r,t,v]=save.ranks;return{power:1+h,reach:18+Math.log2(r+1)*7,amount:mode==='hand'?1:1+Math.floor(Math.sqrt(t)*1.8),value:1+v*.12,cooldown:Math.max(.045,.24/(1+Math.log2(t+1)*.32)),hold:mode!=='hand'&&t>=20}}
-function persist(){try{localStorage.setItem('autumn-drift-v2',JSON.stringify({...save,garden:{area:save.area,leaves,collected,total,completed}}))}catch(e){}}
+function currentGarden(){return {...save,garden:{area:save.area,leaves,collected,total,completed}}}
+function saveStatus(){
+ const messages={ready:'Autosaving on this device. Export a copy to keep it separately.',invalid:'The loaded save is invalid and has been preserved. This is a temporary garden; autosaving is paused. Download the loaded save before leaving.',conflict:'Another tab changed this save. Autosaving is paused to protect that copy. Export your current garden before reloading.',unavailable:'Saving is unavailable. Export your current garden before closing this tab.'};
+ $('saveStatus').textContent=messages[saveStore.status];$('saveHint').textContent=saveStore.status==='ready'?'Autosaves on this device':'Saving paused — open Saves';$('exportLoaded').hidden=saveStore.originalRaw===null;
+}
+function persist(){saveStore.save(currentGarden());saveStatus()}
+function downloadGarden(name,text){
+ try{const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+ catch{toast('Download could not start. Keep this tab open and try again.')}
+}
+$('savesBtn').onclick=()=>{if($('intro').style.display!=='none')return;running=false;down=false;$('shop').style.display='none';$('complete').style.display='none';$('savesPanel').style.display='flex';saveStatus();focusPanel('savesPanel')};
+$('exportGarden').onclick=()=>downloadGarden('autumn-drift-garden.json',JSON.stringify(currentGarden(),null,2));
+$('exportLoaded').onclick=()=>{if(saveStore.originalRaw!==null)downloadGarden('autumn-drift-loaded-save.json',saveStore.originalRaw)};
+$('closeSaves').onclick=()=>closePanels();
 function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;W=innerWidth;H=innerHeight;scale=Math.min(W/1200,H/800);ox=(W-1200*scale)/2;oy=(H-800*scale)/2}addEventListener('resize',resize);resize();
 function bin(){return{x:960,y:605,r:44}}
 function loadGarden(restore=false){let r=rng(save.area*9157+save.clears*13+77);total=areaCount(save.area);collected=0;completed=false;leaves=[];particles=[];for(let i=0;i<total;i++){let a=r()*6.28,x=155+r()*880,y=225+r()*447;if((save.area%3)===1){x=220+(i%4)*210+Math.cos(a)*r()*80;y=420+Math.sin(a)*r()*185}leaves.push({id:i,x,y,a,s:9+r()*6,c:palette[(Math.floor(r()*7)+save.area)%7],hp:health(save.area),max:health(save.area),rare:r()<.035});}if(restore&&save.garden?.area===save.area){({leaves,collected,total,completed}=save.garden)}updateUI()}
@@ -59,12 +72,12 @@ function panelButtons(id){return [...$(id).querySelectorAll('button:not(:disable
 function focusPanel(id){panelButtons(id)[0]?.focus()}
 addEventListener('keydown',e=>{
  if(e.key!=='Tab')return;
- const id=$('intro').style.display!=='none'?'intro':['shop','complete'].find(id=>$(id).style.display==='flex');
+ const id=$('intro').style.display!=='none'?'intro':['shop','complete','savesPanel'].find(id=>$(id).style.display==='flex');
  if(!id)return;
  const buttons=panelButtons(id),first=buttons[0],last=buttons[buttons.length-1],active=document.activeElement;
  if(!buttons.includes(active)||(e.shiftKey&&active===first)||(!e.shiftKey&&active===last)){e.preventDefault();(e.shiftKey?last:first)?.focus()}
 });
-function closePanels(){if($('intro').style.display!=='none')return;$('shop').style.display='none';$('complete').style.display='none';running=true;down=false;canvas.focus()}
+function closePanels(){if($('intro').style.display!=='none')return;$('savesPanel').style.display='none';$('shop').style.display='none';$('complete').style.display='none';running=true;down=false;canvas.focus()}
 $('start').onclick=()=>{$('intro').style.display='none';running=true;canvas.focus();if(migrated)toast('Your previous acorns have been carried over.')};$('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'Sound on':'Sound off';if(sound)soundInit()};$('toolBtn').onclick=()=>{mode=mode==='hand'?'best':'hand';updateUI()};
 const tracks=['Hand strength','Hand reach','Tools & equipment','Leaf appraisal'];
 function effect(i,n){return i===0?`${1+n} picking power`:i===1?`${(18+Math.log2(n+1)*7).toFixed(1)} px reach`:i===2?`${toolName(n)} · ${1+Math.floor(Math.sqrt(n)*1.8)} leaves/action`:`×${(1+n*.12).toFixed(2)} leaf income`}
@@ -118,4 +131,4 @@ function paintBackground(){
  }
 }
 function render(t){let dt=Math.min((t-last)/1000||.016,.035);last=t;clock+=dt;const frameStats=stats();if(running&&down&&frameStats.hold)pick();ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.fillStyle='#263a30';ctx.fillRect(0,0,W,H);ctx.translate(ox,oy);ctx.scale(scale,scale);paintBackground();hover=null;let nearest=Infinity;for(let l of leaves){let d=Math.hypot(l.x-pointer.x,l.y-pointer.y);if(d<frameStats.reach+l.s&&d<nearest){hover=l;nearest=d}leaf(l.x+1.5,l.y+2,l.s,l.a,'#1c2c2428');if(l.rare)ellipse(l.x,l.y,l.s+4,l.s*.8,'#ffe38655');leaf(l.x,l.y,l.s,l.a,l.rare?'#ffe178':l.c)}if(hover&&running){ctx.strokeStyle='#fff0bb';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(hover.x,hover.y,hover.s+5,0,7);ctx.stroke();if(hover.hp<hover.max){round(hover.x-17,hover.y-24,34,4,2,'#1b332a');round(hover.x-17,hover.y-24,34*hover.hp/hover.max,4,2,'#edc378')}}for(let i=particles.length-1;i>=0;i--){let p=particles[i];p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;ctx.globalAlpha=Math.max(0,p.life);leaf(p.x,p.y,5,p.life*3,p.c);if(p.life<0)particles.splice(i,1)}ctx.globalAlpha=1;if(running){const s=frameStats;ctx.strokeStyle='#eee4b955';ctx.lineWidth=1;ctx.beginPath();ctx.arc(pointer.x,pointer.y,s.reach,0,7);ctx.stroke();ctx.font='24px system-ui';ctx.textAlign='center';ctx.fillText(mode==='hand'||save.ranks[2]<5?'🤏':save.ranks[2]<20?'🧹':'🌀',pointer.x,pointer.y-22);ctx.font='11px system-ui';ctx.fillStyle='#f6e8c0';if(hover&&hover.hp>1)ctx.fillText(`${Math.ceil(hover.hp/s.power)} picks`,pointer.x,pointer.y+40)}requestAnimationFrame(render)}
-addEventListener('pagehide',persist);loadGarden(true);requestAnimationFrame(render);
+addEventListener('pagehide',persist);loadGarden(true);saveStatus();requestAnimationFrame(render);
