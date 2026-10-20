@@ -858,11 +858,11 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: six branching expeditions; two-tool loadouts, shared tool/food/loot pack capacity, heavy travel cost, weather-sensitive terrain/recovery injury odds, seeded outcomes, ration-cost return routing, safe retreats, relic unlocks and persistent journal/best records.",
-        "Pass 1: exact ration/terrain/weather return itinerary with modelled injury/loss probabilities without revealing future rolls; recovery food/pack/return forecast; live cargo-drop rescue previews; four-step weather strip; last-food warnings; 100-action deterministic-state undo through injuries/drops/losses/banked finds; spatial map keys, reload selection alignment and enabled-control focus fallback."
+        "Pass 1: exact ration/terrain/weather return itinerary with modelled injury/loss probabilities without revealing future rolls; recovery food/pack/return forecast; live cargo-drop rescue previews; four-step weather strip; last-food warnings; 100-action deterministic-state undo through injuries/drops/losses/banked finds; spatial map keys, reload selection alignment and enabled-control focus fallback. Rendered-QA follow-up: terrain-specific trail markings, complete live pre-departure trail notes and correct planning/camp/exhausted/terminal recovery guidance."
       ],
       "tests": [
         "PASS initial CI 39421923557 at cfad6c8e2b18d74a2b127fc482255e14e3fc2d53: 10 new engine + 11 DOM, repository/candidate gates and all fifteen earlier-game browser regressions. New Pocket Expedition browser suite not present yet.",
-        "15 improved engine checks pass locally, including pure chance/food forecasts, exhaustive return risk model and real overweight cargo-drop rescue. 18 DOM plus six-region desktop/touch suite authored; exact-source CI pending."
+        "15 improved engine checks pass locally; 18 earlier improved DOM checks passed CI gate before browser completion. Added two rendered-QA regressions (20 DOM total); exact final-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unassessed; synthetic routes do not establish fun.",
