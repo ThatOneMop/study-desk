@@ -1,3 +1,7 @@
+# Run 14 · initial checkpoint
+
+14/20 playable prototypes · 13 meaningfully improved · 0 finished/selected/published. Storm Signal initial six-watch partial-code deduction and specialist-boat dispatch game implemented. Ten local engine checks pass; legal three-commendation solutions use 5/13/6/7/8/7 storm beats, 3/2/3/4/3/3 rescans and 14/21/15/19/19/18 actions. Every engine action serializes. Wrong confirmations, pickup/home timing, gear, tides, corrupted saves and 100 seeded sessions covered. Eleven DOM checks authored, exact-source CI pending; no new-candidate browser suite yet. Next: meaningful forecast/undo/control pass. Main inspected at a578d765683c73d8b77a1cb85bcf146742fbf8fd, preserving independent Autumn Drift recovery work. No public integration/deployment or playtime claim.
+
 # Run 13 · verified final outcome
 
 **13/20 playable prototypes · 13 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; seven planned candidates are not counted as games. Next: **Storm Signal** — decode signals and coordinate rescue routes.

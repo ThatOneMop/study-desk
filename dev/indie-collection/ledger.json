@@ -740,19 +740,31 @@
       "id": "storm-signal",
       "title": "Storm Signal",
       "coreLoop": "Decode signals and coordinate rescue routes",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/storm-signal/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six original fictional radio-deduction/rescue watches; partial codes, public coast/cargo clues, limited rescans, confirmation risks, specialist boats, tide short cuts/outer routes, real pickup/home deadlines, commendations and versioned saving."
+      ],
+      "tests": [
+        "10 local engine checks passed: six legal three-commendation schedules, every-action serialization, partial-code clue consistency, misread/deadline losses, boat gear/tides and 100 seeded sessions.",
+        "11 interface checks authored; exact-source CI and new-candidate browser verification pending."
+      ],
+      "quality": {
+        "enjoyment": "Unassessed; synthetic schedules do not establish enjoyment.",
+        "depth": "Six compact deduction/dispatch watches; no duration claim.",
+        "polish": "Original cyan/amber harbour receiver, fictional radar chart and codebook; controls/onboarding implemented, improvement pending.",
+        "reliability": "Local engine checks pass; interface/browser execution pending.",
+        "variety": "Information deduction followed by asynchronous specialist-boat scheduling; not direct ferry movement or rail drafting."
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful improvement: exact departure/pickup/home forecasts, next-beat warnings, clue checking, undo and stricter mission saves.",
+        "Execute exact-source desktop/touch campaigns; manually assess decoding/dispatch flow before selection."
       ]
     },
     {
