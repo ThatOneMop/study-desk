@@ -406,18 +406,20 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/scrap-orbit/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: five original salvage fields; real-time inertia, spring-damped mass-aware cable towing, slow docking, debris collisions, hull failure, medals/records, two upgrades, retries and guarded versioned local saves."
+        "Initial playable: five original salvage fields; real-time inertia, spring-damped mass-aware cable towing, slow docking, debris collisions, hull failure, medals/records, two upgrades, retries and guarded versioned local saves.",
+        "Pass 1: exact nonmutating docking/coupling telemetry and cargo bearings, drift vector and coupling reticle; 560-unit tug-following mobile camera with offscreen labels; sub-frame touch thrust latch consumed exactly once; lower DOM redraw frequency and modal/background action guards; correct same-origin Study Desk visibility protocol; deeper physical/economy/status save validation."
       ],
       "tests": [
-        "7 local engine checks pass: all five baseline three-medal recoveries in 2258/5221/4948/5272/5611 simulated ticks, every-tick saves, actual repeated-impact loss/retry, inertia/braking, upgrade accounting and malformed saves. DOM checks authored, pending execution."
+        "7 local engine checks pass: all five baseline three-medal recoveries in 2258/5221/4948/5272/5611 simulated ticks, every-tick saves, actual repeated-impact loss/retry, inertia/braking, upgrade accounting and malformed saves. DOM checks authored, pending execution.",
+        "After pass: 10 local engine checks pass, including exact telemetry nonmutation, null/malformed nested saves, forged status rejection and 80 deterministic exploratory attempts (120,000 simulated frames). 13 DOM cases and actual Chromium desktop/native-clock/touch-emulated tests authored, pending exact-source CI."
       ],
       "quality": {
         "enjoyment": "Unrated; manual enjoyment review pending",
         "depth": "Five short momentum-salvage jobs; baseline automated routes approximately 38/87/82/88/94 simulated seconds. Not human playtime and no duration claim.",
-        "polish": "Original vector canvas space-depot art and responsive controls; rendered review pending",
-        "reliability": "Initial 7 local engine checks pass; interface/browser checks pending",
+        "polish": "Added readable DOM salvage manifest/docking telemetry, mobile following camera/edge labels, touch pulse and modal/focus guards. Exact-source rendered verification pending.",
+        "reliability": "10 engine checks pass locally; improved-source DOM/browser verification pending.",
         "variety": "Distinct continuous inertia and spring-cable cargo towing, not a turn-based route or platformer reskin"
       },
       "selected": false,
@@ -425,8 +427,12 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Improve docking/approach feedback and touch readability; strengthen saves and test real browser controls",
-        "Revisit depth/enjoyment before finish/selection; keep development-only"
+        "Verify exact improved-source CI and inspect failures before counting any browser result",
+        "Manual visual/enjoyment and deeper replay review before finish/selection; no public URL yet",
+        "Implement candidate 09 Stone Song: sound/rhythm quarry puzzle, not another vehicle game"
+      ],
+      "developmentCommits": [
+        "aecbf32e3f7b28a59ea2944ca8d595b2b735335b"
       ]
     },
     {

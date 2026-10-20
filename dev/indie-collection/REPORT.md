@@ -1,3 +1,11 @@
+# Run 8 · Scrap Orbit meaningful improvement pass 1
+
+8/20 playable prototypes · 8 meaningfully improved · 0 finished/selected/published. Initial checkpoint aecbf32e3f7b28a59ea2944ca8d595b2b735335b has passed initial engine/assets and DOM steps in CI 39369174385; its browser step covers only the earlier seven candidates, not Scrap Orbit. Do not certify new source using that checkpoint.
+
+Improved actual-rules telemetry, coupling reticle, cargo compass manifest and drift vector, mobile tug-following 560-unit camera/offscreen labels, exactly-once quick touch pulse, lower DOM redraw frequency, modal guards, native retry-cancel focus and same-origin Study Desk visibility handling. Strengthened ready/delivered/complete/economy/nested-state validation. Ten local engine checks pass: five legal baseline three-medal/no-high-speed-impact routes unchanged; every-tick saves, upgrade economy, actual repeated-impact loss, exact telemetry/nonmutation and 80 deterministic exploratory attempts (120,000 frames). Thirteen DOM cases and browser desktop legal campaign/native keyboard/native RAF/touch-emulation checks authored; exact-source execution pending CI. Local jsdom unavailable, so use existing authorised CI rather than alternate network/access workarounds.
+
+Still a short original prototype; manual visual/enjoyment, replay-depth assessment, physical touch and public integration/deployment are unverified. Preserve independent main work. Next candidate: Stone Song.
+
 # Run 8 · Scrap Orbit initial playable checkpoint
 
 8/20 playable prototypes · 7 meaningfully improved · 0 finished/selected/publicly published. Inspected current development head cc2ce9fe3451aff2378adf94dbbc5767e1c82f11, remote inventory (no AGENTS.md/root package build), matching local source hashes, candidate ledger/report and existing candidate source/test/CI conventions. Fresh main and its current progress record were read; independent launcher, Gummy Bay, community and requested-game work is untouched. GitHub branch-only source work; no Sites registration or hosting changes.
