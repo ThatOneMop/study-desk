@@ -1,5 +1,25 @@
 # Study Desk improvement ledger
 
+## 2026-10-20 — pass 16
+
+Base Sites source: 424d36695650c01e95a1cbd3bed11314d8a98365 (live version 24). GitHub base: a2fa784e0b11b0c0d2c511bc34bb36f9e78ca597. Reopened latest clean source through Sites workflow; app.js and style.css matched GitHub before editing. Preserve the independent GitHub community entrypoint and divergent progress-log history.
+
+### Implemented
+- Fixed a reproduced Study Desk data-loss path: malformed stored cards fell back to starter cards, and marking one mastered overwrote the unreadable original. Stored cards, deck names and collection preferences now receive shape validation before use; unreadable values stay untouched.
+- Either unreadable study key blocks both study-save writes. Temporary study/editing/export remains available, with a persistent warning and temporary-change toast. Invalid game preferences are independently protected without blocking valid study saves.
+- Added persistent, responsive warning panels and exact raw-data download controls for preserved cards, decks or preferences. Storage read/write failures show an unavailable warning; successful writes retain the latest successfully saved raw value for export. Normal empty decks and retired game preference IDs remain supported.
+- No replacement/reset action was added; users are not silently migrated off damaged data. This is corruption/read/write-failure protection, not atomic two-key writes or cross-tab conflict detection. Existing study features, ten original games, game save keys and audience are unchanged.
+
+### Validation
+- New study-storage.cjs first reproduced the original overwrite, then passed malformed JSON/schema preservation, grouped study-write blocking, independent preference protection, normal/empty saves, unavailable read/write warnings, retired favourites and exact raw bytes/filename at download initiation.
+- All existing regression suites passed, plus the asset audit (10 bundled routes; 19 HTML asset references), app.js syntax and diff checks.
+- Desktop Chrome: marked a Science card mastered and reloaded; mastery remained 1. Favourited Underleaf and reloaded; its favourite remained selected. No warning appeared for healthy storage.
+- Corrupt/unavailable-storage branches were tested in isolated DOM fixtures, not by injecting browser state. Completed real file downloads, screen-reader output and physical mobile warning layout remain unverified.
+
+### Pending
+- No newly requested game repository was vetted or integrated in this pass. Previous identity/source/reuse blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider and Minecraft. After Hours remains accurately labelled Balatro-inspired.
+- Continue source vetting and targeted quality work; do not add random substitutes. Preserve the separately paused cleanup task and stop edits after 2026-10-23 15:00 Australia/Sydney.
+
 ## 2026-10-20 — pass 15
 
 Base Sites source: 3029a27ffb00e06042ddcaaae466b9c5931941d5 (live version 23). GitHub base: a578d765683c73d8b77a1cb85bcf146742fbf8fd. Reopened latest clean source through Sites workflow and verified Underleaf HTML and both catalogue files matched GitHub before editing. Branch head was unchanged before synchronization.
