@@ -574,17 +574,19 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: six original greenhouse exhibitions; finite seeds/water, 16-pot spatial sunlight/shade, tall-plant/frosted-pane occlusion, 14 colour/height genotypes, adjacent mature-parent breeding, three-stage growth, exact exhibition deliveries, timeout/wilting/retry, best-only medals, persistent lineage library and guarded versioned saves.",
-        "Pass 1: exact nonmutating next-day growth/wilt/light forecasts; named offspring/height/needs preview and parent reuse warning; one-water plant relocation preserves growth/moisture and immediately changes shade; session undo includes compost/wilt/breeding/relocation/full medal and discovery rollback. Native grid row boundaries/modifier guards, modal guards, navigation history clearing. Efficiency targets tightened to measured routes +2 days, with old version-one par/score migration preserved."
+        "Pass 1: exact nonmutating next-day growth/wilt/light forecasts; named offspring/height/needs preview and parent reuse warning; one-water plant relocation preserves growth/moisture and immediately changes shade; session undo includes compost/wilt/breeding/relocation/full medal and discovery rollback. Native grid row boundaries/modifier guards, modal guards, navigation history clearing. Efficiency targets tightened to measured routes +2 days, with old version-one par/score migration preserved.",
+        "Pass 1 follow-up: reset the selected pot alongside keyboard focus on Next exhibition; DOM and browser regressions assert pot one remains the actual selection."
       ],
       "tests": [
         "8 local engine checks pass: all six legal baseline three-medal/no-wilt exhibitions in 6/12/14/11/10/14 in-game days (19/50/57/43/56/85 legal actions), every-action saves, sun/shade/water/genetic inheritance, real wilt/deadline loss/retry, replay records and malformed states. 10 DOM cases authored; exact-source execution pending.",
-        "After improvement: 13 local engine checks pass, including all six baseline campaigns/every-action saves, exact forecast comparison throughout campaigns, real relocation/light changes, legacy completed scores, tightened pars and 100 deterministic exploratory gardens with resource conservation. 16 DOM and actual Chromium desktop/touch-emulation suites authored; improved-source CI pending."
+        "After improvement: 13 local engine checks pass, including all six baseline campaigns/every-action saves, exact forecast comparison throughout campaigns, real relocation/light changes, legacy completed scores, tightened pars and 100 deterministic exploratory gardens with resource conservation. 16 DOM and actual Chromium desktop/touch-emulation suites authored; improved-source CI pending.",
+        "PASS exact-source GitHub Actions 39387577839 at 1615f2b291f726eb78f9c98f71a06b8e8e603a14: full repository asset gate, candidate syntax/62 local links/exact20/public isolation, 13 engine + 16 DOM checks, actual Chromium six legal three-medal campaigns through DOM controls, native pot keyboard/focus, forecasts, reward undo/replay, relocation/undo, saved reload/retry and 390px/320px touch emulation. All ten earlier candidates' engine/interface/browser regressions pass. Actual job steps and decoded logs inspected."
       ],
       "quality": {
-        "enjoyment": "Unrated; manual playtest pending",
-        "depth": "Six short genetic/spatial-light exhibitions and 14 discoverable genotypes; no duration claim",
-        "polish": "Added exact forecasts, offspring previews, relocation/undo, stable native grid focus and explicit narrow-screen buttons; rendered verification pending",
-        "reliability": "13 engine checks pass locally; exact improved-source interface/browser/full repository CI pending",
+        "enjoyment": "Preliminary manual opening exhibition: sowing/watering, shift forecasts, mature parents, Low Amber offspring preview/breeding, day-six three-medal delivery, reward undo, re-delivery/reload and second-exhibition entry usable. Full subjective replay/depth review remains open.",
+        "depth": "Six short handmade genetic/spatial-light exhibitions. Legal baseline no-wilt solutions use 6/12/14/11/10/14 in-game days, 19/50/57/43/56/85 actions; new pars 8/14/16/13/12/16. These are automated action counts, not human playtimes. Fourteen genotypes are mechanically discoverable; no duration claim.",
+        "polish": "Original light-paper CSS botanical layout manually inspected on desktop. Rule-derived growth/wilt/light and named offspring previews, relocation/undo and stable native grid focus. Chromium confirms >=44px visible controls and no 390px/320px page overflow. Manual mobile screenshot review/physical touch unverified.",
+        "reliability": "13 engine + 16 DOM and exact-source actual Chromium desktop/touch-emulated suites pass, including all six legal campaigns, every-action saves, legacy efficiency/score migration, 100 exploratory gardens with seed/plant conservation, full repository assets and ten earlier-game regressions.",
         "variety": "Distinct adjacent-parent genetic inheritance and tall-plant moving-light layout, not a cooking/flavour-game reskin"
       },
       "selected": false,
@@ -592,13 +594,30 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify exact improved-source CI and inspect logs before browser certification",
-        "Assess visuals, enjoyment and breeding/replay depth before finish/selection",
-        "Implement candidate 12 Burrow Express; integrate only selected finished winners using scoped fresh-main edits"
+        "Implement candidate 12 Burrow Express using its distinct planned core loop",
+        "Revisit full enjoyment/replay depth and manually inspect narrow-screen layout before finish/selection",
+        "Integrate only selected finished winners with scoped current-main edits; preserve concurrent work and hosting permission boundary"
       ],
       "developmentCommits": [
-        "9eb48dd0eacd35921628062fe3d035939e89d5dc"
-      ]
+        "9eb48dd0eacd35921628062fe3d035939e89d5dc",
+        "7a2dc44e0f0255da7d2862eee6bd6cbb9be9e0e6",
+        "1615f2b291f726eb78f9c98f71a06b8e8e603a14"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39387577839",
+        "testedCommit": "1615f2b291f726eb78f9c98f71a06b8e8e603a14",
+        "conclusion": "success",
+        "desktop": "Native pot keyboard/focus, sow/water/forecast, exact reload/retry; all six legal three-medal breeding campaigns via actual DOM buttons, reward undo/replay, relocation/undo, pot-one navigation alignment, lineage records and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation exactly-once pot/sow/water/day taps, relocation/undo, saved reload/retry-cancel, >=44px visible buttons/select and no page overflow at 390px/320px.",
+        "manual": "Managed cloud browser desktop: original botanical art/onboarding, sow/water gold and rose parents, mature at day three, verify Low Amber offspring preview, cross and grow amber, day-six three-medal delivery, undo/re-deliver, reload retaining completion and enter exhibition two with pot-one selected/focused. Preview stopped after QA.",
+        "notVerified": [
+          "Full subjective six-exhibition enjoyment and replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 12,
@@ -897,6 +916,19 @@
       "implementationCommit": "96f02bb0bb128ca0ffd86ee8399c2040c839da14",
       "verifiedCommit": "916f2e622f689969fd8e71ed8085dc8f2e4e6516",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39381006578"
+    },
+    {
+      "run": 11,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 11,
+      "improvedTotal": 11,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Glasshouse. Exact source passes 13 engine + 16 DOM, Chromium six legal exhibitions/native keyboard/relocation/undo/touch-emulation, repository and ten earlier-game regressions. Manually completed first exhibition in six days, checked reward undo/re-delivery/reload and second-room entry. Development-only; full enjoyment/depth and manual mobile review remain.",
+      "initialPlayableCommit": "9eb48dd0eacd35921628062fe3d035939e89d5dc",
+      "implementationCommit": "7a2dc44e0f0255da7d2862eee6bd6cbb9be9e0e6",
+      "verifiedCommit": "1615f2b291f726eb78f9c98f71a06b8e8e603a14",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39387577839"
     }
   ]
 }
