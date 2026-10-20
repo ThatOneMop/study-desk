@@ -21,7 +21,8 @@
  function create(){const profile={coins:0,best:[0,0,0,0,0],upgrades:{grip:false,spool:false},seen:[false,false,false,false,false,false]};return{version:1,profile,run:fresh(0,profile)}}
  function totals(o){const r=o.run.records;return{cash:r.filter(x=>x.choice==='keep').reduce((v,x)=>v+fish[x.fish].value,0),released:new Set(r.filter(x=>x.choice==='release').map(x=>x.fish)).size,escapes:r.filter(x=>x.choice==='escape').length,survey:r.some(x=>x.fish===chapters[o.run.index].survey&&x.choice!=='escape')}}
  function ready(o){const t=totals(o),c=chapters[o.run.index];return t.cash>=c.cash&&t.released>=c.release&&t.survey}
- function prediction(o,spot=o.run.spot,depth=o.run.depth){if(!integer(spot,0,2)||!integer(depth,0,2))return null;return(habitat[spot][depth]+o.run.casts%3)%6}
+ function prediction(o,spot=o.run.spot,depth=o.run.depth,ahead=0){if(!integer(spot,0,2)||!integer(depth,0,2)||!integer(ahead,0,2))return null;return(habitat[spot][depth]+(o.run.casts+ahead)%3)%6}
+ function habitats(o){return spots.flatMap((_,spot)=>depths.map((_,depth)=>{const id=prediction(o,spot,depth),records=o.run.records;return{spot,depth,fish:id,upcoming:[0,1,2].map(ahead=>prediction(o,spot,depth,ahead)),stocked:records.some(x=>x.fish===id&&x.choice==='keep'),released:records.some(x=>x.fish===id&&x.choice==='release'),survey:id===chapters[o.run.index].survey,surveyRecorded:totals(o).survey}}))}
  function select(o,spot,depth){const s=o.run;if(s.status!=='active'||s.phase!=='choose'||!integer(spot,0,2)||!integer(depth,0,2))return false;s.spot=spot;s.depth=depth;return true}
  function cast(o){const s=o.run;if(s.status!=='active'||s.phase!=='choose'||s.casts>=8)return false;const id=prediction(o);s.casts++;s.phase='fight';s.fight={fish:id,tension:40+s.depth*4,progress:0,beat:0};s.message=fish[id].name+' is on the line. Read the next pull before committing.';return true}
  function pull(o){const s=o.run,f=s.fight;if(!f)return 0;return fish[f.fish].pattern[f.beat%4]+chapters[s.index].current-(s.equipment.grip?4:0)}
@@ -49,5 +50,5 @@
   if(s.status!=='complete'&&s.stars!==0||s.status==='lost'&&(s.phase!=='choose'||totals(o).escapes<3&&(s.casts<8||ready(o)))||s.status==='active'&&(totals(o).escapes>=3||s.casts>=8&&s.phase==='choose'&&!ready(o)))return false;
   return true}catch{return false}}
  function encode(o){return JSON.stringify(o)}function decode(raw){try{if(typeof raw!=='string'||raw.length>18000)return null;const o=JSON.parse(raw);return valid(o)?o:null}catch{return null}}
- return{fish,chapters,spots,depths,costs,clone,create,totals,ready,prediction,select,cast,pull,act,canKeep,decide,preview,decisionPreview,finish,next,retry,upgrade,valid,encode,decode};
+ return{fish,chapters,spots,depths,costs,clone,create,totals,ready,prediction,habitats,select,cast,pull,act,canKeep,decide,preview,decisionPreview,finish,next,retry,upgrade,valid,encode,decode};
 });
