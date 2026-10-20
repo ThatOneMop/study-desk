@@ -688,30 +688,52 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: six original hand-poured fantasy castings; weigh alloys, manage glow/fuel, trickle/stream different section thicknesses, handle rough/cold/wrong-alloy losses, saved maker seals and commission unlocks.",
-        "Pass 1: pure clean/rough/blocked/fatal pour forecasts, selected-section heat-band marker, alloy-match guidance and UI guard against melting mismatched recipes. Added 100-action session undo through seams, losses and rewards, improved enabled-tool focus, and explicit exhausted-weighing loss with safe legacy-save migration instead of dead-end."
+        "Pass 1: pure clean/rough/blocked/fatal pour forecasts, selected-section heat-band marker, alloy-match guidance and UI guard against melting mismatched recipes. Added 100-action session undo through seams, losses and rewards, improved enabled-tool focus, and explicit exhausted-weighing loss with safe legacy-save migration instead of dead-end.",
+        "Manual-QA follow-up: completed and spoiled castings now show honest terminal pour-preview instructions instead of asking for another melt; engine and DOM regressions added."
       ],
       "tests": [
-        "PASS initial CI 39400549683 at 0c19cd9f957acdf13623f6fbcc11a01c8ef116ed: 9 Little Foundry engine + 11 DOM and twelve older candidates' browser regressions.",
-        "13 improved engine checks passed locally; 18 DOM and new desktop/touch six-campaign browser tests authored, pending exact-source CI."
+        "PASS initial checkpoint 0c19cd9f957acdf13623f6fbcc11a01c8ef116ed: CI 39400549683, 9 engine + 11 DOM checks and twelve earlier candidates' browser regressions. Initial checkpoint did not yet include a Little Foundry browser suite.",
+        "PASS exact final-source CI 39401418646 at 94ec4ccd69c259e5cf2878207cbbd41a30ef7823: 14 Little Foundry engine + 19 DOM checks, real Chromium desktop and touch emulation, full repository asset gate and all twelve earlier candidates' engine/interface/browser regressions.",
+        "Six legal clean three-seal campaigns use fuel 5/5/6/6/6/6 and 19/19/20/22/22/22 craft actions. Every engine action serializes; pure forecasts agree with all reference pours; wrong-alloy, two-seam and depleted-fuel losses, legacy dead-batch recovery, lower-score best preservation and 100 seeded craft sessions covered. Synthetic checks do not establish playtime.",
+        "Chromium: native Enter/Space/arrows/Z, focus, alloy-mismatch guard/remixture, exact mid-casting reload/retry, six actual DOM-button campaigns, rough-risk forecast/loss/undo recovery, earned-seal rollback/replay, unlocks and workshop launch/back. Touch taps apply once; >=44px visible buttons, no 390px/320px page overflow and zero page errors.",
+        "Manual desktop: weighed 3 Emberite + 1 Mooniron, melted, used clean body streams and fine trickles, completed first bell with five fuel/three seals; winning undo/reopen, saved completion reload and next-order section-one focus verified. Original paper/sand mould art inspected. Preview stopped; terminal wording follow-up verified by engine/DOM rather than a second manual replay."
       ],
       "quality": {
-        "enjoyment": "Unassessed; synthetic solutions do not establish enjoyment.",
-        "depth": "Six short alloy/heat/pour commissions; no duration claim.",
-        "polish": "Original light-paper workshop and sand-mould silhouettes; native responsive tools and onboarding implemented, improvement pending.",
-        "reliability": "Engine checks local; exact-source interface/browser tests pending.",
-        "variety": "Manual weighing, thermal planning and variable-flow casting, distinct from rail, colony, fishing, gardening and action candidates."
+        "enjoyment": "Opening bell manually legible/playable; heat and stream-size decisions work. Full six-object satisfaction and replay-depth assessment remains open; tests are not enjoyment evidence.",
+        "depth": "Six compact commissioned moulds, alloy recipes, section heat/flow planning and score-focused replay. Needs comparison for repeated-task fatigue and worthwhile variety; no content-duration claim.",
+        "polish": "Original light-paper workshop, sand mould silhouettes, fill/crack feedback, fictional-crucible art, heat bands and exact pour previews; alloy guard, undo, onboarding, native keyboard/touch controls and terminal feedback implemented. Manual mobile layout review still open.",
+        "reliability": "Exact final source passes 14 engine + 19 DOM, desktop/touch Chromium and repository/twelve earlier-game regressions; malformed/conflicting/unavailable saves, losses, retries, reward rollback and navigation covered within tested cases.",
+        "variety": "Hands-on fantasy alloy weighing, discrete thermal planning and variable-flow casting; different from existing rail networks, colony logistics, fishing, genetics, rhythm and action prototypes."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Not selected: tested initial/improvement gates passed, but compact prototype still needs full subjective quality/depth/variety review and comparison before finished designation.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Execute exact improved-source interface/browser campaigns and inspect rendered workshop.",
-        "Assess all six objects for craft satisfaction, variety and replay depth; remain development-only until finished/selected."
+        "Manually play all six commissions and explore alternative heat/pour orders; assess repeated-task fatigue and replay depth.",
+        "Review mobile screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
+        "Keep source development-only; integrate only finished selected winners into fresh main without overwriting concurrent work."
       ],
       "developmentCommits": [
-        "0c19cd9f957acdf13623f6fbcc11a01c8ef116ed"
-      ]
+        "0c19cd9f957acdf13623f6fbcc11a01c8ef116ed",
+        "212d8d916c48e041d159255a085d086e5caedb6a",
+        "94ec4ccd69c259e5cf2878207cbbd41a30ef7823"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39401418646",
+        "testedCommit": "94ec4ccd69c259e5cf2878207cbbd41a30ef7823",
+        "conclusion": "success",
+        "desktop": "Native Enter/Space/arrows/Z and focus; alloy-mismatch guard/remixture, exact saved casting/retry, six legal clean three-seal DOM-button craft campaigns, rough-risk forecast/loss/undo recovery, winning seal rollback/replay, unlocks and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once ingot/heat/melt/trickle/stream taps, material/glow accounting, undo, exact mid-casting reload, retry cancel, first commission win/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
+        "manual": "Managed cloud browser desktop: original workshop/onboarding inspected; correct four-ingot recipe, two bellows/melt, body stream pours and fine trickles, first bell delivered clean using five fuel for three seals. Undid mould opening and observed unbanked record, reopened/reloaded completion and entered commission two with first section selected/focused. Preview stopped. Follow-up terminal preview wording covered by final engine/DOM regressions, not another manual replay.",
+        "notVerified": [
+          "Full six-commission subjective enjoyment/variety and replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 14,
@@ -996,6 +1018,19 @@
       "implementationCommit": "cfb133eafb0e087661b86c816a632f6d14f58b70",
       "verifiedCommit": "a2e8dd2ea00a74b1639fb5af56d9678723057b15",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39393653472"
+    },
+    {
+      "run": 13,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 13,
+      "improvedTotal": 13,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Little Foundry: six fantasy-alloy/heat/manual-pour commissions. Exact final source passes 14 engine + 19 DOM, six Chromium legal craft campaigns, native keyboard/touch emulation and repository/twelve earlier-game regressions. Manually completed first bell with three seals, checked reward undo/reopen/reload and second-order focus. Development-only; full enjoyment/variety/depth and manual mobile review remain.",
+      "initialPlayableCommit": "0c19cd9f957acdf13623f6fbcc11a01c8ef116ed",
+      "implementationCommit": "212d8d916c48e041d159255a085d086e5caedb6a",
+      "verifiedCommit": "94ec4ccd69c259e5cf2878207cbbd41a30ef7823",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39401418646"
     }
   ]
 }
