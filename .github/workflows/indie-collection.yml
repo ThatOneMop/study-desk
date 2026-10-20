@@ -43,3 +43,11 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/spore-kitchen-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/bolt-and-bristle-browser.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/queen-cinders-browser.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/inkline-browser.cjs
+      - name: Candidate visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inkline-screenshots
+          path: /tmp/inkline-*.png
+          if-no-files-found: ignore

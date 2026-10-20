@@ -236,19 +236,22 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/inkline/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 0,
+      "meaningfulImprovementPasses": 1,
       "changes": [
-        "Initial playable: five handmade archive maps, three-card cycling deck, deterministic new-card drafts, ink/wells/binding hazards, three-page extraction with optional fourth page, best-only seals, two upgrades, failure/retry and versioned save protection."
+        "Initial playable: five handmade archive maps, three-card cycling deck, deterministic new-card drafts, ink/wells/binding hazards, three-page extraction with optional fourth page, best-only seals, two upgrades, failure/retry and versioned save protection.",
+        "Pass 1: nonmutating actual-rules landing forecasts; one-step undo includes card drafts, well/page/health changes and full extraction rewards; clears on navigation/upgrades/retry and reload. Added deterministic deck/draw inspector, affordable-card fallback, preserved focus and hover/keyboard previews. Tightened new-run bonus targets to baseline plus two turns while retaining old v1 closing times/scoring. Clamped odd-health lethal blots to a saveable zero, rejected skipped drafts, bounded save parsing."
       ],
       "tests": [
         "10 engine checks passed, including five legal baseline four-page routes in 12/8/10/11/9 turns, upgraded campaign, every-action save decoding, card inventory, draft rules, losses, replay accounting and malformed saves.",
-        "13 jsdom interface checks passed: all five actual-button victories, drafts, focus/keyboard, reload/retry, upgrades, locked navigation and corrupt/concurrent/blocked/quota storage."
+        "13 jsdom interface checks passed: all five actual-button victories, drafts, focus/keyboard, reload/retry, upgrades, locked navigation and corrupt/concurrent/blocked/quota storage.",
+        "After improvement: 15 engine checks (including 120 exploratory campaigns) and 20 jsdom checks targeted; final exact-source result pending. Added real Chromium five-volume, keyboard/focus/forecast/draft/reward-undo/upgrade/reload/retry/navigation and 390px/320px touch-emulation coverage.",
+        "All four earlier games' local engine/DOM regressions passed: 17+9, 18+18, 18+19, 16+19. Candidate 28 references, syntax, 20-slot ledger and catalogue isolation passed."
       ],
       "quality": {
         "enjoyment": "unrated: subjective review pending",
-        "depth": "Five short card-route puzzles. Baseline solutions are 8–12 turns; no content-duration claim. Efficiency targets need calibration.",
-        "polish": "Original CSS parchment/navy design; rendered desktop and touch validation pending.",
-        "reliability": "10 engine and 13 jsdom checks passed; actual browser and complete repository checks pending.",
+        "depth": "Five short handmade card-route volumes. Tested four-page baseline solutions: 12/8/10/11/9 turns, new quick-route bonuses 14/10/12/13/11. Needs deeper replay/enjoyment assessment; no hour claim.",
+        "polish": "Original CSS parchment/navy art, landing feedback, deck inspector and native keyboard/focus. Rendered desktop/touch and manual visual assessment pending.",
+        "reliability": "Engine/DOM improvement checks locally tested; exact improved-source real browser/full repository CI pending. Local browser server listen was denied (EPERM); no permission workaround attempted.",
         "variety": "Distinct cycling-deck and card-drafting spatial exploration"
       },
       "selected": false,
@@ -256,8 +259,12 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Perform meaningful improvement pass: undo, landing forecasts, tighter efficiency targets, clearer card feedback and browser checks.",
-        "Implement candidate 06 Deep Pocket after testing this increment; keep all unfinished source isolated from the public catalogue."
+        "Verify exact improved source in CI and inspect results; keep prototype unselected pending enjoyment/depth assessment.",
+        "Next candidate 06 Deep Pocket: original fishing tension/release loop. Revisit earlier candidates for depth, polish and selection comparisons.",
+        "Only integrate selected finished games against fresh main with scoped changes; preserve concurrent work and hosting permission boundary."
+      ],
+      "developmentCommits": [
+        "c3f3dd2fc25356bc7b5789772bf2ff3c53a4f713"
       ]
     },
     {
