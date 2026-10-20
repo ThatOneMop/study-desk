@@ -285,23 +285,26 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/inkline/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: five handmade archive maps, three-card cycling deck, deterministic new-card drafts, ink/wells/binding hazards, three-page extraction with optional fourth page, best-only seals, two upgrades, failure/retry and versioned save protection.",
-        "Pass 1: nonmutating actual-rules landing forecasts; one-step undo includes card drafts, well/page/health changes and full extraction rewards; clears on navigation/upgrades/retry and reload. Added deterministic deck/draw inspector, affordable-card fallback, preserved focus and hover/keyboard previews. Tightened new-run bonus targets to baseline plus two turns while retaining old v1 closing times/scoring. Clamped odd-health lethal blots to a saveable zero, rejected skipped drafts, bounded save parsing."
+        "Pass 1: nonmutating actual-rules landing forecasts; one-step undo includes card drafts, well/page/health changes and full extraction rewards; clears on navigation/upgrades/retry and reload. Added deterministic deck/draw inspector, affordable-card fallback, preserved focus and hover/keyboard previews. Tightened new-run bonus targets to baseline plus two turns while retaining old v1 closing times/scoring. Clamped odd-health lethal blots to a saveable zero, rejected skipped drafts, bounded save parsing.",
+        "Pass 2: full five-volume normal-UI campaign review exposed buried exit/seal state. Added a live route scorecard for required pages, all-page bonus, careful-route turn/binding trajectory and locked/ready/reached exit state; updated onboarding and responsive presentation."
       ],
       "tests": [
         "10 engine checks passed, including five legal baseline four-page routes in 12/8/10/11/9 turns, upgraded campaign, every-action save decoding, card inventory, draft rules, losses, replay accounting and malformed saves.",
         "13 jsdom interface checks passed: all five actual-button victories, drafts, focus/keyboard, reload/retry, upgrades, locked navigation and corrupt/concurrent/blocked/quota storage.",
         "After improvement: 15 engine + 20 jsdom checks passed, including 120 deterministic exploratory campaigns, all five baseline/upgraded volumes, every-action saving, exact previews, undo, old-v1 scores and lethal odd-health loss.",
         "All four earlier games' local engine/DOM regressions passed: 17+9, 18+18, 18+19, 16+19. Candidate 28 references, syntax, 20-slot ledger and catalogue isolation passed.",
-        "PASS GitHub Actions 39353515131 at 24efb955cd8470b7d6b0da2b308d79917ce6d1a0: full repository assets, 28-reference/20-slot/isolation gate, 15 engine + 20 DOM checks, actual Chromium desktop all five four-page victories, keyboard/focus, forecasts, draft/reward undo, upgrades/reload/retry/navigation and 390px/320px touch emulation. All four earlier games' engine/UI/browser regressions passed."
+        "PASS GitHub Actions 39353515131 at 24efb955cd8470b7d6b0da2b308d79917ce6d1a0: full repository assets, 28-reference/20-slot/isolation gate, 15 engine + 20 DOM checks, actual Chromium desktop all five four-page victories, keyboard/focus, forecasts, draft/reward undo, upgrades/reload/retry/navigation and 390px/320px touch emulation. All four earlier games' engine/UI/browser regressions passed.",
+        "Run 27 local: all 15 engine checks pass, including legal 12/8/10/11/9-turn four-page routes and 120 deterministic exploratory campaigns. A local managed-browser UI campaign completed all five volumes at 3 seals each (15 total), then exercised scorecard locked/progress/undo/completion states. Local jsdom was absent and local Playwright lacked its browser binary; exact-source CI owns those checks.",
+        "PASS GitHub Actions 39507823018 at e75fa28dff90e1c3b49ffbee825cf585b2474506: full repository gates, Inkline 15 engine + 20 DOM checks, actual Chromium desktop/touch scorecard regression, and all other candidate regressions."
       ],
       "quality": {
-        "enjoyment": "unrated: subjective review pending",
-        "depth": "Five short handmade card-route volumes. Tested four-page baseline solutions: 12/8/10/11/9 turns, new quick-route bonuses 14/10/12/13/11. Needs deeper replay/enjoyment assessment; no hour claim.",
-        "polish": "Original CSS parchment/navy art, landing previews, deck inspector and native keyboard/focus. Chromium verifies >=44px visible button targets and no page overflow at 390px/320px. Two CI screenshots retained; manual visual/enjoyment review and physical touch pending.",
-        "reliability": "15 engine + 20 DOM checks plus actual Chromium desktop/touch-emulated suites pass in exact-source CI. Includes 120 deterministic exploratory campaigns, all earlier-game regressions and full repository assets.",
+        "enjoyment": "Full five-volume normal-UI campaign completed using verified routes; feedback stayed readable through drafts and victories. Routes were solver-derived, so unscripted route-discovery enjoyment and replay depth remain open.",
+        "depth": "Five handmade card-route volumes; normal-UI four-page campaign completed in 12/8/10/11/9 turns for 15 total seals. Live required/all-page/careful/exit state now supports route planning. Alternative drafts and unscripted discovery still need comparison; no hour claim.",
+        "polish": "Original parchment/navy CSS art manually reviewed in the managed browser. New responsive live scorecard makes exit readiness and each seal condition explicit; exact landing forecasts, deck inspector and native keyboard/focus remain. CI checks >=44px visible targets and 390px/320px overflow; physical touch remains pending.",
+        "reliability": "15 engine + 20 DOM checks plus actual Chromium desktop/touch-emulated suites pass in exact-source CI 39507823018. A separate managed-browser five-volume campaign also reached all 15 seals and exercised scorecard progress/undo.",
         "variety": "Distinct cycling-deck and card-drafting spatial exploration"
       },
       "selected": false,
@@ -309,24 +312,24 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
-        "Manually review screenshots and assess enjoyment/depth/route variety before finished/selection. CI screenshots: run 39353515131 artifact 12234517256.",
+        "Compare unscripted route discovery, alternative drafts and replay enjoyment against the strongest finished candidates before selection.",
+        "Use the now-reviewed visual/control baseline in comparative ranking; physical touch hardware and substantial-content depth remain unverified.",
         "Only integrate selected finished games against fresh main with scoped changes; preserve concurrent work and hosting permission boundary."
       ],
       "developmentCommits": [
         "c3f3dd2fc25356bc7b5789772bf2ff3c53a4f713",
-        "24efb955cd8470b7d6b0da2b308d79917ce6d1a0"
+        "24efb955cd8470b7d6b0da2b308d79917ce6d1a0",
+        "e75fa28dff90e1c3b49ffbee825cf585b2474506"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39353515131",
-        "testedCommit": "24efb955cd8470b7d6b0da2b308d79917ce6d1a0",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39507823018",
+        "testedCommit": "e75fa28dff90e1c3b49ffbee825cf585b2474506",
         "conclusion": "success",
-        "desktop": "Five actual-button four-page victories; native keyboard/card/map focus; exact forecasts; draft and reward undo; upgrades; mid-route reload; confirmed retry; development launch/back; zero page errors",
-        "touch": "390x844 emulation: single-action card/movement taps, wells, rest/draft/undo, modal/help/deck inspector; visible buttons >=44px; no horizontal page overflow at 390px/320px",
-        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39353515131/artifacts/12234517256",
+        "desktop": "Five actual-button four-page victories; live scorecard locked/progress/earned states; native keyboard/card/map focus; exact forecasts; draft/reward undo; upgrades; reload; confirmed retry; development navigation; zero page errors",
+        "touch": "390x844 emulation: card/movement taps, wells, rest/draft/undo, modal/help/deck inspector/scorecard; visible buttons >=44px; no horizontal overflow at 390px/320px",
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39507823018/artifacts/12304811754",
         "notVerified": [
-          "Manual visual review",
-          "Subjective enjoyment and deeper worthwhile progression",
+          "Unscripted route-discovery enjoyment and alternative-draft depth",
           "Physical touch hardware",
           "20 hours of worthwhile content",
           "Public catalogue integration/deployment"
@@ -1556,16 +1559,29 @@
       "verifiedCommit": "ed1945ba4fde3547faf0e4d3362917c68daca777",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39500663870",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 27,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Inkline pass2 follows a complete five-volume 15-seal normal-UI campaign. Live required/all-page/careful/exit scorecards fix buried route feedback; locked/progress/undo/completion states were manually exercised. 15engine+20DOM, Chromium desktop/touch/all-candidate regressions/root gates passed in exact-source CI39507823018. Unscripted discovery/replay depth remains open; public unchanged.",
+      "implementationCommit": "e75fa28dff90e1c3b49ffbee825cf585b2474506",
+      "verifiedCommit": "e75fa28dff90e1c3b49ffbee825cf585b2474506",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39507823018",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/26passes;Tidepost six-chart and Spore Kitchen five-service normal-UI campaigns recorded;0finished/selected/public",
+    "status": "Comparative review underway;20playable/all20improved/27passes;Tidepost six-chart, Spore Kitchen five-service and Inkline five-volume normal-UI campaigns recorded;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Review manual-poor Inkline and broader alternate strategies; compare Spore Kitchen no-hint recipes/upgrade orders and improve observed Tidepost/Deep Pocket repetition. Keep real continuous Last Match feel and colony allocation/upgrade value as quality gates. No new slots.",
+    "next": "Compare Inkline unscripted route discovery/alternative drafts, Spore Kitchen no-hint recipes/upgrade orders and observed Tidepost/Deep Pocket repetition. Keep real continuous Last Match feel and colony allocation/upgrade value as quality gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }

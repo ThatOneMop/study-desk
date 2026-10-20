@@ -25,7 +25,7 @@ The ledger remains authoritative for exact commits/tests and all five quality di
 | 02 | Spore Kitchen | Fungal traits, simultaneous growth and composed recipes | All five services completed at9/9 through normal UI; one-per-break upgrade progression added after observed all-upgrades-by-service2 weakness. No-hint/alternate recipes and replay satisfaction remain. |
 | 03 | Bolt & Bristle | Tactile grime removal and reciprocal copper repair | Opening radio fully restored this review; full commission variety and drag feel remain. |
 | 04 | Queen of Cinders | Connected supply trails, worker allocation and fire recovery | Opening4-shift UI win; engine baseline-versus-boots tradeoff and path feedback reviewed. Later manual fire/upgrade allocation comparison remains; browser observation blocked this pass. |
-| 05 | Inkline | Ink-powered card drafts and page-route exploration | Automated five-volume routes; manual drafting decisions and replay depth open. |
+| 05 | Inkline | Ink-powered card drafts and page-route exploration | Full five-volume 15-seal normal-UI campaign and visual review complete; live seal/exit feedback added. Routes were solver-derived, so unscripted discovery and alternative-draft depth remain open. |
 | 06 | Deep Pocket | Deliberate tension patterns, sustainable keep/release choices | Prior opening plus UI trips2–5 complete; chart/multi-undo improved. Later high-value species dominance and similar rhythms are now observed gaps. |
 | 07 | Roof Runner | Jump/air-dash courier platforming | Automated five routes; prior manual access denied, control feel/difficulty still needs review. |
 | 08 | Scrap Orbit | Inertial towing, cargo coupling and gentle docking | Manual approach/coupling only; complete recovery and all-job feel open. |
@@ -44,7 +44,7 @@ The ledger remains authoritative for exact commits/tests and all five quality di
 
 ## Next quality gates
 
-1. Review manual-poor Inkline plus broader alternate strategies. Compare Spore Kitchen without exact hints, alternate recipes and upgrade orders; the full UI campaign fixed one concrete progression flaw but did not establish replay depth. Tidepost and fishing campaigns expose late-route/high-value repetition needing meaningful alternatives. Action continuous feel and colony allocation/upgrade value remain open. Compare against repair before ranking.
+1. Compare Inkline's unscripted route discovery and alternative drafts. Compare Spore Kitchen without exact hints, alternate recipes and upgrade orders; the full UI campaign fixed one concrete progression flaw but did not establish replay depth. Tidepost and fishing campaigns expose late-route/high-value repetition needing meaningful alternatives. Action continuous feel and colony allocation/upgrade value remain open. Compare against repair before ranking.
 2. Review manual-poor candidates rather than ranking them from green tests. Automated solvability is reliability evidence, not fun.
 3. Before “finished”: resolve concrete controls/onboarding/balance bugs; validate saves/restart, keyboard/touch where supported and launch/navigation; document authored scope honestly.
 4. Before “selected”: compare enjoyment, depth, polish, reliability and variety, give reasons and useful exclusions. Only then integrate scoped selected source/catalogue files against fresh main with combined regressions. Never merge this historical development branch wholesale.
