@@ -567,53 +567,70 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/last-match/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: five original top-down lantern clearings; directional cones/rock occlusion, four enemy types and telegraphed lunges, dodges, finite brazier oil, collectable fuel-return embers, gate escape, best-only medals, two workshop upgrades and guarded versioned saves.",
-        "Pass 1: exactly-once queued quick touch movement/flash/dodge/refill, pointer cancellation cleanup, click-to-aim, visible-only target assist, matching ray-clipped light/rock visuals and in-cone rings, accurate lunge lines, enemy phase/health/range notes, fuel/cooldown/dodge gauges, event saving and less frequent DOM redraws. Added explicit exhausted-fuel loss/retry; disallowed ready-state purchases that could invalidate saved equipment; terminal states cannot be unpaused."
+        "Pass 1: exactly-once queued quick touch movement/flash/dodge/refill, pointer cancellation cleanup, click-to-aim, visible-only target assist, matching ray-clipped light/rock visuals and in-cone rings, accurate lunge lines, enemy phase/health/range notes, fuel/cooldown/dodge gauges, event saving and less frequent DOM redraws. Added explicit exhausted-fuel loss/retry; disallowed ready-state purchases that could invalidate saved equipment; terminal states cannot be unpaused.",
+        "Pass2: non-repeated canvas keyboard keydown queues a one-simulation-step intent just like touch, so press/release between frames is not lost. Held attacks remain edge-triggered; pause/blur/modal clear pending intent. Added pure current-pose readiness and in-cone damage notes: named shadows fall or show remaining light hits; fuel shortage differs from cooldown, and nearby oil distinguishes full/empty/out of reach. Explicit snapshot caveat avoids promising future enemy positions. Original difficulty, maps, enemy timings/health, costs, goals, upgrades and v1 save format/key unchanged."
       ],
       "tests": [
         "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending.",
         "After improvement: 13 local engine checks, including all five unchanged baseline legal campaigns/every-tick saves, exact nonmutating clipped beam/target telemetry, fuel-exhaustion fixture, ready-purchase guard and 100 deterministic exploratory campaigns with real losses. 14 DOM cases plus desktop/native-clock/touch-emulated browser suites authored; improved-source CI pending.",
         "CI 39380616187 at 96f02bb0: full repository/candidate gates, 13 engine and 14 DOM checks passed. Browser setup failed at movement assertion because fake RAF timestamps did not also override performance.now used by the real shared pause bridge. Harness corrected to align both clocks; game source unchanged; rerun required before rendered certification.",
-        "PASS exact-source GitHub Actions 39381006578 at 916f2e622f689969fd8e71ed8085dc8f2e4e6516: full repository asset gate, candidate syntax/56 local links/exact20/public isolation, 13 engine + 14 DOM checks, Chromium five legal no-hit three-medal pointer-aim/keyboard campaigns, native-clock RAF, 390px/320px touch emulation. All nine earlier candidates engine/interface/browser regressions pass. Actual job steps and decoded logs inspected."
+        "PASS exact-source GitHub Actions 39381006578 at 916f2e622f689969fd8e71ed8085dc8f2e4e6516: full repository asset gate, candidate syntax/56 local links/exact20/public isolation, 13 engine + 14 DOM checks, Chromium five legal no-hit three-medal pointer-aim/keyboard campaigns, native-clock RAF, 390px/320px touch emulation. All nine earlier candidates engine/interface/browser regressions pass. Actual job steps and decoded logs inspected.",
+        "16 local engine checks pass, including pure readiness at every baseline campaign snapshot, current cone/damage/rock occlusion, inactive/fuel/cooldown/full/empty/distant oil distinctions; unchanged five baseline campaigns.18DOM cases authored/executed in CI; local jsdom unavailable, so no local DOM-pass claim. Local candidate asset audit fails because partial checkout lacks other candidates' index files; rely on full-checkout CI gates.",
+        "Initial CI39482220244 passed engine and existing UI plus new short keyboard movement/flash test, then caught a resumed-clock setup omission in queued-oil test.44c5f562 initializes the real frame harness before queuing refill; game source unchanged. Final exact-source CI39482940325 passed, including unmodified native-clock opening combat test ec680ae1.",
+        "PASS final exact sourceec680ae1b18667a5fb8674534b2254d6ff446605, CI39482940325/job118835913974:16engine+18DOM, actual Chromium all five no-hit/3-medal deterministic-clock campaigns, native short-keypress movement/flash once, current-cone feedback, touch quick taps/pause/retry, >=44px controls and no390/320 page overflow. Separate unmodified native-clock opening combat drove real held keys/discrete flashes from observed HUD/autosave snapshots, collected embers and achieved actual gate victory without state injection/fake clocks. All19 other-game engine/DOM/browser regressions and root10routes/14refs plus20slots/116refs gates passed; zero page errors. Decoded logs inspected; artifact12292915900."
       ],
       "quality": {
-        "enjoyment": "Preliminary manual desktop introductory art/onboarding, native key/touch-button movement, pause and position-preserving reload reviewed. Manual flash/combat and completed clearing not confirmed; full enjoyment/replay-depth assessment open.",
-        "depth": "Five short finite handmade combat clearings, four shadow types, limited refill choices and two upgrades. Baseline automated routes 463/654/671/1115/1111 frames, not human playtimes. More replay-depth assessment needed; no duration claim.",
-        "polish": "Original canvas orchard art/onboarding and fuel gauges inspected on desktop. Ray-clipped beam, in-cone target/lunge/health feedback, mobile following camera, >=44px visible controls and no 390px/320px page overflow verified in Chromium. Manual mobile layout/physical touch unverified.",
-        "reliability": "13 engine + 14 DOM and actual Chromium deterministic desktop campaigns/native-clock RAF/touch-emulated checks pass on exact source, including every-tick campaign saves, 100 exploratory attempts with real losses, full repository assets and nine earlier-game regressions.",
-        "variety": "Distinct overhead directional-cone combat, not a rhythm, vehicle or platformer reskin"
+        "enjoyment": "Manual UI controls/readiness reviewed: start/resume/pause, discrete movement from105→128, empty-cone flashes reducing fuel80→64, all5hearts and0/3embers. Did not reach a shadow or finish a clearing manually; sustained input timing was difficult in this browser. No manual combat victory/fun rating claimed. Automated native-clock opening victory verified in CI39482940325; deeper action feel/replay assessment still open.",
+        "depth": "Five finite authored combat clearings/four types/two upgrades; original baseline routes remain463/654/671/1115/1111 simulated frames, not human playtimes. Current-cone decision notes and responsive short inputs improve readability/control, not content volume. Need actual continuous manual combat and alternative strategies across later clearings before finished/selection.",
+        "polish": "Original canvas artwork retained. Current-cone snapshot text and actionable readiness distinguish low fuel/cooldown/full/empty oil; manual AX confirmed new notes, paused position128/fuel64 saved. No fresh screenshot review or manual mobile/physical touch/screen-reader claim; final Chromium390/320 layout/target checks pass; screenshots retained, not manually reviewed.",
+        "reliability": "Exact sourceec680ae1 passed16engine+18DOM/Chromium all-five deterministic campaigns/native quick keyboard/touch checks and a separate unmodified native-clock opening gate victory through actual held movement/discrete flashes/ember collection. All19 regressions and full-checkout asset/exact20/isolation gates pass; decoded CI39482940325 logs inspected. Existing storage protections retained; no local jsdom/full-checkout pass claim.",
+        "variety": "Directional lantern action remains distinct from fishing, colony, puzzles and manual repair. No automatic shooting, enemy weakening, fake content counts or arbitrary timers added."
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
-        "Revisit combat enjoyment/depth and manually inspect mobile layout before finish/selection",
-        "Only integrate selected finished winners with scoped fresh-main edits; preserve concurrent work and hosting permission boundary"
+        "Manually play continuous opening and later combat, dodge timing, target choice and fuel-recovery strategies through a suitable permitted UI; distinguish this from automated native-clock victory reliability.",
+        "Compare action enjoyment/depth/polish/reliability/variety against the other19; do not promote from green tests alone. Review native combat screenshot and full mobile legibility/physical touch where feasible.",
+        "Prioritize manual-poor Tidepost/Spore Kitchen/Inkline and completed-campaign candidate comparisons; do not add slot21.",
+        "Integrate only selected finished scoped source/catalogue changes against fresh main, preserving Study Desk/requested-GitHub-games/Gummy Bay work."
       ],
       "developmentCommits": [
         "8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82",
         "96f02bb0bb128ca0ffd86ee8399c2040c839da14",
-        "916f2e622f689969fd8e71ed8085dc8f2e4e6516"
+        "916f2e622f689969fd8e71ed8085dc8f2e4e6516",
+        "94abafcd0c1d2ca51d7117c8289c5c7e0b9285ef",
+        "44c5f56284a4acd5f594402fdea13bcff4be1932",
+        "ec680ae1b18667a5fb8674534b2254d6ff446605"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39381006578",
-        "testedCommit": "916f2e622f689969fd8e71ed8085dc8f2e4e6516",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39482940325",
+        "testedCommit": "ec680ae1b18667a5fb8674534b2254d6ff446605",
         "conclusion": "success",
-        "desktop": "Native movement/start/pause/retry focus and exact saved reload; all five legal no-hit three-medal pointer-aim/keyboard campaigns with shared bridge active and synchronized deterministic clock; gate progression, upgrades and workshop navigation. Separate native-clock RAF movement/retry-cancel focus/pause smoke. Zero page errors.",
-        "touch": "390x844 emulation quick move/flash/dodge taps once, paused retry-cancel state, 560-unit following camera, >=44px visible buttons and no page overflow at 390px/320px.",
-        "manual": "Managed cloud browser initial orchard art/onboarding/gauges, key/touch-button movement from x105 to x121, pause and reload retaining x121,y320. Manual flash attempt did not confirm a fuel change; no manual combat/completed clearing claimed. Preview stopped.",
+        "desktop": "PASS actual five no-hit/3-medal deterministic-clock campaigns, native sub-frame keyboard movement/flash once, current-cone/readiness, pause/retry/reload/upgrades/navigation; separate native-clock opening combat controller drove real held keys/discrete flashes, collected all embers and won at gate without state injection/fake clocks. Zero page errors. Automated, not manual enjoyment evidence.",
+        "touch": "PASS quick movement/flash/dodge taps once, paused retry-cancel state,560-unit camera, >=44px controls and no390/320 page overflow; zero page errors. Physical hardware not tested.",
+        "manual": "Supported preview started before navigation; allowed HTTP game tab opened. New notes inspected in AX. Started/resumed and paused, discrete controls moved from105 to128,y320; empty-cone flashes spent80→64fuel,5/5hearts,0/3embers,3shadows. Held/discrete input timing through cloud browser did not establish continuous combat feel or a completed clearing. Saved paused attempt; preview stopped. No state injection/time manipulation/screenshot/physical mobile claim.",
         "notVerified": [
-          "Full subjective combat enjoyment and replay-depth assessment",
-          "Manual mobile screenshot/layout review",
-          "Physical touch hardware",
-          "20 hours of worthwhile content or testing",
+          "Subjective continuous combat/enjoyment and deeper replay strategies",
+          "Manual clearing victory and full manual mobile screenshot review",
+          "Physical touch and screen-reader output",
+          "20hours of worthwhile content/testing",
           "Public catalogue integration/deployment"
-        ]
-      }
+        ],
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39482940325/artifacts/12292915900"
+      },
+      "reviews": [
+        {
+          "date": "2026-10-21",
+          "scope": "Short-keyboard queue parity/readiness pass; limited manual controls and new native-clock automated combat coverage",
+          "finding": "Touch already queued a sub-frame tap; keyboard now does too. Snapshot target/fuel/oil notes improve decision clarity. Manual attempt did not establish a combat win; maintain distinction from automatic campaign reliability.",
+          "decision": "Hold as improved prototype; deeper manual action/replay comparison remains"
+        }
+      ]
     },
     {
       "slot": 11,
@@ -1483,16 +1500,29 @@
       "verifiedCommit": "57611181b385529ddcb6d9d0bae390db5500b89c",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39474950973",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 24,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Last Match pass2 fixes missed sub-frame keyboard intents and adds exact current-cone/ready-versus-fuel/oil feedback.16 local engine tests; corrected resumed-clock refill fixture. Limited manual controls/empty flash, no manual combat win. Final CI39482940325 passed16engine+18DOM/native-clock opening victory/all-five deterministic campaigns/touch/all19 regressions. Public unchanged.",
+      "implementationCommit": "94abafcd0c1d2ca51d7117c8289c5c7e0b9285ef",
+      "verifiedCommit": "ec680ae1b18667a5fb8674534b2254d6ff446605",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39482940325",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/23passes;repair/fishing UI evidence plus colony engine tradeoff review;0finished/selected/public",
+    "status": "Comparative review underway;20playable/all20improved/24passes;limited action-control UI review plus verified native-clock automated opening victory;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Actual Last Match combat and manual-poor candidates; revisit later colony alternative allocations/upgrade value through permitted UI. Deep Pocket still needs less repetitive habitat/species incentives. Do not rank from green tests alone.",
+    "next": "Review manual-poor Tidepost/Spore Kitchen/Inkline and broader completed campaigns; actual continuous Last Match combat feel remains open despite automatic victory tests. Deep Pocket repetition and colony upgrade/alternative allocation decisions remain quality gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }

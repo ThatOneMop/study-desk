@@ -27,7 +27,7 @@ The ledger remains authoritative for exact commits/tests and all five quality di
 | 07 | Roof Runner | Jump/air-dash courier platforming | Automated five routes; prior manual access denied, control feel/difficulty still needs review. |
 | 08 | Scrap Orbit | Inertial towing, cargo coupling and gentle docking | Manual approach/coupling only; complete recovery and all-job feel open. |
 | 09 | Stone Song | Shift/tune/silence rhythms and perform chords/rests | Visual score review only; completed manual performance and musical satisfaction open. |
-| 10 | Last Match | Directional lantern flashes, dodges and finite embers | Manual movement/pause only; actual combat/victory and difficulty curve are high-priority gaps. |
+| 10 | Last Match | Directional lantern flashes, dodges and finite embers | Pass2 queues short keyboard taps and adds current-cone/readiness notes. Manual controls/empty flashes confirmed, no manual combat win; native-clock automated opening victory evidence in ledger/report. Continuous combat feel/later strategy remain open. |
 | 11 | Glasshouse | Genetic breeding and spatial daylight/shade planning | Opening exhibition manually complete; all-room breeding/relocation variety open. |
 | 12 | Burrow Express | Shared rails, passing loops and timed junction signals | First two yards manually complete; alternate network/schedule depth open. |
 | 13 | Little Foundry | Alloy weighing, heat and section-wise hand pouring | Opening bell manually complete; all-object manual satisfaction and fatigue open. |
@@ -41,7 +41,7 @@ The ledger remains authoritative for exact commits/tests and all five quality di
 
 ## Next quality gates
 
-1. Do actual action combat with little manual coverage, then manual-poor loops. Colony engine comparison now distinguishes speed from water defense; later manual allocations and nursery/shelter value remain open. Fishing campaign now completed through UI across reviews: improve measured high-value species dominance/repeated rhythms. Compare meaningful alternatives against repair before ranking.
+1. Review manual-poor Tidepost/Spore Kitchen/Inkline plus broader completed campaigns. Action now has short-key parity and native-clock combat coverage; actual continuous manual feel/later strategies remain open. Colony engine comparison now distinguishes speed from water defense; later manual allocations and nursery/shelter value remain open. Fishing campaign now completed through UI across reviews: improve measured high-value species dominance/repeated rhythms. Compare meaningful alternatives against repair before ranking.
 2. Review manual-poor candidates rather than ranking them from green tests. Automated solvability is reliability evidence, not fun.
 3. Before “finished”: resolve concrete controls/onboarding/balance bugs; validate saves/restart, keyboard/touch where supported and launch/navigation; document authored scope honestly.
 4. Before “selected”: compare enjoyment, depth, polish, reliability and variety, give reasons and useful exclusions. Only then integrate scoped selected source/catalogue files against fresh main with combined regressions. Never merge this historical development branch wholesale.
