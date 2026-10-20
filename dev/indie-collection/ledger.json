@@ -467,13 +467,14 @@
       ],
       "tests": [
         "9 local engine checks pass: legal minimum-cost solutions for all six rooms (2/4/3/3/4/12 actions), complete campaign/every-action saves, chord order, rests, loss/retry, replay records, malformed saves and 120 deterministic exploratory attempts. 10 DOM checks authored; exact-source execution pending.",
-        "After improvement: 12 local engine checks pass; six legal minimum-cost arrangements now 2/4/6/6/4/12 moves, all three-medal campaigns with every-action saving. 17 DOM and desktop/touch-emulated Chromium suites authored; exact-source CI pending."
+        "After improvement: 12 local engine checks pass; six legal minimum-cost arrangements now 2/4/6/6/4/12 moves, all three-medal campaigns with every-action saving. 17 DOM and desktop/touch-emulated Chromium suites authored; exact-source CI pending.",
+        "PASS exact-source GitHub Actions 39375204108 at 4b5b6b982db0fe734898ea9b17866025785f8a60: 12 engine + 17 DOM checks, actual Chromium six-room keyboard campaign, save/reload, reward undo, retry, loss recovery/navigation, 390px/320px touch emulation. Full repository assets, 50-reference/exact20/isolation gate and all eight earlier games' engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected."
       ],
       "quality": {
-        "enjoyment": "Unrated; manual playtest pending",
-        "depth": "Six short handmade music arrangement puzzles and deliberate performances, no duration claim",
-        "polish": "Original CSS quarry artwork and optional synthesised audio; rendered desktop/touch review pending",
-        "reliability": "12 local engine checks pass; exact improved-source DOM/browser and full repository checks pending",
+        "enjoyment": "Preliminary desktop visual inspection only: readable engraved score and original quarry theme. Manual control attempt timed out; no completed manual performance or subjective enjoyment/depth claim.",
+        "depth": "Six short original eight-beat arrangement puzzles; baseline minimum-cost solutions 2/4/6/6/4/12 moves plus performances. These are automated action counts, not human playtime. No hours claim.",
+        "polish": "Original CSS stonework visually inspected on desktop; rule-derived mismatch labels, required-pad focus/highlights and undo. Chromium verifies >=44px visible controls and no 390px/320px page overflow. CI screenshots retained; mobile screenshot not manually reviewed.",
+        "reliability": "12 engine + 17 DOM and actual Chromium desktop/touch-emulated checks pass on exact improved source, including six legal three-medal campaigns, 120 deterministic exploratory attempts, every-action roundtrips, full repository assets and earlier-game regressions.",
         "variety": "Distinct looping musical phrase arrangement and chord performance, not a vehicle or circuit-rotation reskin"
       },
       "selected": false,
@@ -481,13 +482,30 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify improved-source CI, inspect actual logs and repair failures before claiming browser results",
-        "Inspect visuals/enjoyment and replay depth before marking finished",
-        "Implement candidate 10 Last Match; integrate only finished selected winners against fresh main"
+        "Implement candidate 10 Last Match, a distinct tactical turn-based arena candidate",
+        "Revisit Stone Song enjoyment/replay depth and manually review mobile layout before finish/selection",
+        "Integrate only selected finished winners against fresh main; preserve concurrent work and the Pages permission boundary"
       ],
       "developmentCommits": [
-        "f88c5ca73dd58c58b2f6be10702a4082e148e527"
-      ]
+        "f88c5ca73dd58c58b2f6be10702a4082e148e527",
+        "4b5b6b982db0fe734898ea9b17866025785f8a60"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39375204108",
+        "testedCommit": "4b5b6b982db0fe734898ea9b17866025785f8a60",
+        "conclusion": "success",
+        "desktop": "All six legal three-medal arrangements/performances via actual button and native keyboard inputs; Space/Enter compatibility, optional synth pathway and loop stop, exact reload, retry cancel, reward undo/replay, visible loss recovery, records and launch/back navigation. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once shifts, undo, pads/rest, saved beat reload, retry cancel, >=44px visible buttons and no page overflow at 390px/320px.",
+        "manual": "Managed preview desktop initial artwork and engraved-score readability inspected; subsequent control attempt and state read timed out. No completed manual room claimed. Preview stopped after QA.",
+        "notVerified": [
+          "Full subjective enjoyment and replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware",
+          "Audibility/subjective audio quality",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 10,
@@ -801,6 +819,18 @@
       "initialPlayableCommit": "aecbf32e3f7b28a59ea2944ca8d595b2b735335b",
       "implementationCommit": "e184c8633067726b626139234791dac25d9adff9",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39369531384"
+    },
+    {
+      "run": 9,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 9,
+      "improvedTotal": 9,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Stone Song. Exact source passes 12 engine + 17 DOM, Chromium six legal campaigns and native keyboard/touch-emulated controls; repository and earlier-game regressions pass. Initial desktop score/art inspected only; manual gameplay timed out. Development-only; full enjoyment/depth and manual mobile review remain.",
+      "initialPlayableCommit": "f88c5ca73dd58c58b2f6be10702a4082e148e527",
+      "implementationCommit": "4b5b6b982db0fe734898ea9b17866025785f8a60",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39375204108"
     }
   ]
 }
