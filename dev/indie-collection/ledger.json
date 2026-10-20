@@ -624,19 +624,31 @@
       "id": "burrow-express",
       "title": "Burrow Express",
       "coreLoop": "Underground rail network building",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/burrow-express/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six original underground postal yards; shared/wet rail material budgeting, per-train route drafting, simultaneous traffic, holds, collision losses, postmarks, unlocks and versioned optimistic saving."
+      ],
+      "tests": [
+        "9 local engine checks passed: six three-postmark legal campaigns with serialization after every action, draft budgets, crossing/head-on loss, replan/retry, save rejection and 100 seeded drafts.",
+        "11 DOM checks authored; exact-source browser and interface execution pending CI."
+      ],
+      "quality": {
+        "enjoyment": "Unassessed; test solutions do not establish enjoyment.",
+        "depth": "Six short handmade rail/signal puzzles; no duration claim.",
+        "polish": "Original code-native underground map, letter-coded trains and onboarding; feedback improvement pending.",
+        "reliability": "Initial engine tested locally; exact-source UI/browser validation pending.",
+        "variety": "Spatial network construction and simultaneous rail signaling, distinct from existing candidates."
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful improvement: next-beat traffic forecast, map path feedback, undo and better focus.",
+        "Run initial and improved DOM/browser tests; assess subjective depth before selection."
       ]
     },
     {

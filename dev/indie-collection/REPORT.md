@@ -1,3 +1,7 @@
+# Run 12 · initial checkpoint
+
+12/20 playable prototypes · 11 meaningfully improved · 0 finished/selected/published. Burrow Express initial version implemented: six rail-drafting and simultaneous traffic yards, shared/wet rail costs, per-train holds, collisions, saving and progression. Nine local engine checks passed; legal three-stamp reference solutions use material 5/9/11/19/16/27 and beats 5/5/7/9/9/13. Every action serializes; no human duration claim. Eleven DOM checks authored, pending CI. Next: substantive traffic-forecast/undo/control improvement and real desktop/touch campaigns. Main inspected at 2cca5d39f4e48929d8e6020463a466dee8fb65b4 (independent Autumn Drift rendering pass); no main/public catalogue files changed. No deployment or public candidate URL.
+
 # Run 11 · verified final outcome
 
 **11/20 playable prototypes · 11 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; nine planned candidates are not counted as games. Next: **Burrow Express**.
