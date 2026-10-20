@@ -189,28 +189,44 @@
         "Initial: 12 engine and 11 jsdom interface checks passed.",
         "After pass 1: 16 engine + 19 jsdom interface checks passed, including all five legal rescues, upgraded campaign, every-shift saves, forecast nonmutation/exactness, undo reward rollback, conservation rejection, previous v1 saves, queen capacity, focus, modal guards, reload/retry and blocked/corrupt/concurrent storage.",
         "Candidate asset/navigation/syntax gate: 23 local references, exactly 20 slots and unselected catalogue isolation pass.",
-        "Real Chromium desktop/touch CI suite added; result pending.",
-        "Additional legal UI test waits to the real firefront, damps burned supply tunnels, checks connectivity and undoes the water/fire change. Browser campaign now keeps baseline equipment through all five rescues so upgrades cannot bypass fire coverage."
+        "Additional legal UI test waits to the real firefront, damps burned supply tunnels, checks connectivity and undoes the water/fire change. Browser campaign now keeps baseline equipment through all five rescues so upgrades cannot bypass fire coverage.",
+        "PASS GitHub Actions 39348588819 at 6310e921cdda9631082df02a7d41410bb2e816eb: full repository assets, candidate 20-slot/23-reference gate, 16 engine + 19 DOM checks, all five baseline Chromium rescues/firebreaks, native keyboard/focus, upgrade/reload/retry/undo, desktop launch/back, 390px/320px touch emulation and all three earlier-game regressions."
       ],
       "quality": {
-        "enjoyment": "unrated: manual core-loop playtest pending",
-        "depth": "Five short handmade logistics chapters, finite supplies, route preservation and three upgrades; no duration claim",
-        "polish": "Original CSS art; desktop opening and early legal shifts reviewed in cloud browser. Forecast and undo added; 390px/320px rendered verification pending.",
-        "reliability": "16 engine and 19 jsdom UI checks pass; full asset and real Chromium suites pending.",
-        "variety": "Distinct colony workforce and supply-network management, not a reskin"
+        "enjoyment": "Preliminary manual introductory rescue: core allocation, reward undo, upgrade and next-chapter reload usable; full subjective enjoyment assessment still pending",
+        "depth": "Five short handmade logistics chapters, finite patches and three upgrades. Measured baseline solutions take 6/11/12/12/12 shifts; boots-first routes take 6/7/8/8/9. Upgrade pacing and deeper strategic variety need review; no duration claim",
+        "polish": "Original CSS earth palette inspected on desktop; forecasts, focus, >=44px controls and no page overflow at 390px/320px verified in Chromium. Narrowest board uses internal scrolling. Physical touch testing pending",
+        "reliability": "16 engine + 19 DOM checks and actual Chromium desktop/touch-emulation suites pass in CI; full repository assets and earlier-game regressions pass",
+        "variety": "Distinct ant-workforce supply-network/fire-recovery management"
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Verify complete browser campaign, touch emulation and full repository CI; inspect enjoyment and chapter pacing before marking finished",
-        "Implement candidate 05 Inkline with a distinct drafting/exploration loop; revisit each prototype for depth and selection"
+        "Implement candidate 05 Inkline: ink-powered card drafting and archive exploration, not a colony reskin",
+        "Revisit Queen of Cinders upgrade pacing and add strategic depth/quality assessment before finish/selection; consider safe save export/recovery UI",
+        "Integrate only selected finished games onto current main using scoped source/catalogue edits; preserve concurrent work and the existing Pages permission boundary"
       ],
       "developmentCommits": [
         "d93fd1aa611a942c0bb60df317a5c86699da8f23",
-        "6996c805935ac9bc7b98a556cdb076ed11674e64"
-      ]
+        "6996c805935ac9bc7b98a556cdb076ed11674e64",
+        "6310e921cdda9631082df02a7d41410bb2e816eb"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39348588819",
+        "testedCommit": "6310e921cdda9631082df02a7d41410bb2e816eb",
+        "conclusion": "success",
+        "desktop": "All five chapters with baseline equipment through actual UI; forecasts, firebreaks, keyboard/focus, winning reward undo, upgrade, reload, confirmed retry and development navigation; zero page errors",
+        "touch": "390x844 emulation: dig/allocate/tool/undo/retry/help, >=44px visible controls, no page overflow at 390px/320px",
+        "manual": "Cloud browser introductory chapter rescue, reward undo/replay, boots purchase, chapter-two entry/reload and desktop visual review",
+        "notVerified": [
+          "Full subjective enjoyment/depth assessment",
+          "Physical touch hardware",
+          "20 hours of worthwhile content",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 5,
