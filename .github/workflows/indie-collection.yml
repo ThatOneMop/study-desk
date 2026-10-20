@@ -2,7 +2,7 @@ name: Verify original indie candidates
 on:
   push:
     branches: [indie-collection-dev]
-    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/bolt-and-bristle-*', 'tests/queen-cinders-*', 'tests/inkline-*', 'tests/deep-pocket-*', 'tests/roof-runner-*', 'tests/scrap-orbit-*', 'tests/stone-song-*', 'tests/last-match-*', 'tests/glasshouse-*', 'tests/burrow-express-*', 'tests/little-foundry-*', 'tests/storm-signal-*', 'tests/circuit-garden-*', 'tests/pocket-expedition-*', 'tests/moss-market-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
+    paths: ['dev/indie-collection/**', 'tests/tidepost-*', 'tests/spore-kitchen-*', 'tests/bolt-and-bristle-*', 'tests/queen-cinders-*', 'tests/inkline-*', 'tests/deep-pocket-*', 'tests/roof-runner-*', 'tests/scrap-orbit-*', 'tests/stone-song-*', 'tests/last-match-*', 'tests/glasshouse-*', 'tests/burrow-express-*', 'tests/little-foundry-*', 'tests/storm-signal-*', 'tests/circuit-garden-*', 'tests/pocket-expedition-*', 'tests/moss-market-*', 'tests/threadbound-*', 'tests/indie-assets.py', '.github/workflows/indie-collection.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -38,6 +38,7 @@ jobs:
           node tests/circuit-garden-engine.cjs
           node tests/pocket-expedition-engine.cjs
           node tests/moss-market-engine.cjs
+          node tests/threadbound-engine.cjs
       - name: Temporary browser test dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/indie-tests" jsdom@26 playwright@1.62.1 --no-audit --no-fund
@@ -61,6 +62,7 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/circuit-garden-dom.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/pocket-expedition-dom.cjs
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/moss-market-dom.cjs
+          NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/threadbound-dom.cjs
       - name: Real desktop and touch browser checks
         run: |
           NODE_PATH="$RUNNER_TEMP/indie-tests/node_modules" node tests/tidepost-browser.cjs

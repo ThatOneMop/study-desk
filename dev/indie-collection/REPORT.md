@@ -1,3 +1,7 @@
+# Run 18 · initial checkpoint
+
+18/20 playable prototypes · 17 meaningfully improved · 0 finished/selected/published. Threadbound implements four original canopy crossings with gravity, reelable unilateral ropes, momentum-preserving transfers/releases, optional seeds, real checkpoint ledges, unlimited safety returns, lantern goals and sequential saved stitches. Seven engine checks pass locally; legal all-seed/no-fall reference crossings use 406/411/419/498 fixed steps. 27,000 seeded mixed-input steps preserve finite/save invariants. Synthetic feasibility is not enjoyment or content-hours evidence. Eleven DOM checks authored; initial CI pending, new browser suite absent. Meaningful targeting/control-feedback pass and rendered QA next. Fresh main ff03e826dd26a0e49ebd374201d2a46664b24d51 preserved; public catalogue unchanged.
+
 # Run 17 · verified final outcome
 
 **17/20 playable prototypes · 17 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 slots; three planned candidates are not counted as games. Next: **Threadbound** — grapple traversal with thread anchors.
