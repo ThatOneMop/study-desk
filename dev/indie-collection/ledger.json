@@ -861,27 +861,49 @@
         "Pass 1: exact ration/terrain/weather return itinerary with modelled injury/loss probabilities without revealing future rolls; recovery food/pack/return forecast; live cargo-drop rescue previews; four-step weather strip; last-food warnings; 100-action deterministic-state undo through injuries/drops/losses/banked finds; spatial map keys, reload selection alignment and enabled-control focus fallback. Rendered-QA follow-up: terrain-specific trail markings, complete live pre-departure trail notes and correct planning/camp/exhausted/terminal recovery guidance."
       ],
       "tests": [
-        "PASS initial CI 39421923557 at cfad6c8e2b18d74a2b127fc482255e14e3fc2d53: 10 new engine + 11 DOM, repository/candidate gates and all fifteen earlier-game browser regressions. New Pocket Expedition browser suite not present yet.",
-        "15 improved engine checks pass locally; 18 earlier improved DOM checks passed CI gate before browser completion. Added two rendered-QA regressions (20 DOM total); exact final-source CI pending."
+        "PASS initial checkpoint cfad6c8e2b18d74a2b127fc482255e14e3fc2d53: CI 39421923557, 10 Pocket Expedition engine + 11 DOM checks, repository/candidate gates and fifteen earlier candidates' browser regressions. New candidate browser suite not present at initial checkpoint.",
+        "PASS exact final-source CI 39423434291 at 4d1595ce003d4bda05a6a181ca5a136dc9def32d: 15 Pocket Expedition engine + 20 DOM checks, real Chromium desktop/touch, repository asset gate, candidate syntax/92 local source-navigation links/exact20-slot/public-isolation and all fifteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-seal engine references use attempts 1/2/2/1/1/1, nine starting rations, values 11/11/13/11/12/13, steps 8/8/8/8/9/8 and 10/12/12/10/9/10 actions including preparatory retries in regions two/three. Every engine action serializes; exact seeded-log replay rejects forged cargo/food/RNG/history. 100 seeded exploratory sessions preserve bounded pack/save invariants. These are synthetic feasibility checks, not human duration or guaranteed clean-run evidence.",
+        "Pure recovery/return forecasts preserve RNG, agree with actual ration/load results and match exhaustive independent-trail injury probability model. Actual exhaustion/injury losses, sample-only retreats, unique recoveries, journal/best persistence and a real overweight cargo-drop return rescue covered.",
+        "Chromium native arrows/Enter/Space/Z and focus; exact kit/cargo/food/RNG reload; six legal three-seal DOM-button campaigns with seed selection; deterministic undo/replay, earned-reward rollback, exhaustion loss/retry and workshop launch/back. Touch taps apply once; food/cargo undo/reload/retry cancel, first survey victory/saved unlock; >=44px visible controls and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: first survey with rope/lamp/nine food returned Amber seed + Moss compass for value11, three seals, no injuries. Winning extraction undo/replay, save reload and current-site guidance checked. Second boots-only/nine-food survey reproduced injury and overweight return deficit; dropped low-value shell, undid/repeated drop and safely returned value13 with two seals and one health. Reload retained four journal discoveries; survey three opened with rope control focused. Local-only preview stopped."
       ],
       "quality": {
-        "enjoyment": "Unassessed; synthetic routes do not establish fun.",
-        "depth": "Six compact loadout/ration/cargo/risk expeditions and a twelve-entry journal; no duration claim.",
-        "polish": "Exact recovery/return/pack forecasts, cargo-drop rescue guidance, weather strip, deterministic logical-state undo and spatial/native focus improvements implemented; rendered review pending.",
-        "reliability": "15 improved engine checks pass locally; exact-source interface/browser verification pending.",
-        "variety": "Shared pack space, uncertain injury outcomes and extraction decisions; distinct from direct ferry, boat dispatch and action-combat candidates."
+        "enjoyment": "First two surveys manually playable/legible; cargo weight creates a real abandon-value-versus-extraction decision. Full six-region subjective enjoyment and luck/frustration balance review remains open; tests do not establish fun.",
+        "depth": "Six compact branching expeditions, two-tool kit choices, shared food/cargo capacity, weather/risk, twelve journal entries and best-only value/seal replay goals. Broader alternative-route/loadout depth needs comparison; no duration claim.",
+        "polish": "Original paper survey map and pack, terrain-specific lines plus full text trail notes, exact ration/return/cargo forecasts, unrevealed modelled injury odds, deterministic-state undo, last-food/exhausted-site guidance and native responsive controls. Manual mobile review remains open.",
+        "reliability": "Exact final source passes 15 engine + 20 DOM, Chromium desktop/touch and fifteen earlier-game regressions. Actual exhaustion/injury losses, seeded-log integrity, failed/concurrent/corrupted storage, cargo-drop rescue, retry/undo/reward/navigation covered within tested cases.",
+        "variety": "Push-your-luck collection with tool-dependent branching paths, shared provision/cargo space, heavy return costs, uncertain injuries and bank-only-at-camp rewards; distinct from ferry, fleet dispatch and combat candidates."
       },
       "selected": false,
-      "selectionReason": "Not selected: improved prototype awaiting exact-source verification and full enjoyment/depth comparison.",
+      "selectionReason": "Not selected: playable/improvement test gates passed and first two surveys reviewed, but full six-region enjoyment, chance balance, route/loadout depth and comparative variety assessment remain before finished status.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Execute exact-source interface/desktop/touch regression suites and inspect rendered play.",
-        "Assess all six regions' enjoyment, alternative routes/loadouts, chance balance and replay depth before finished designation; keep development-only."
+        "Manually play all six regions and alternative tool/cargo routes; assess luck/frustration, meaningful risk choices and replay depth against other candidates.",
+        "Review mobile CI screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
+        "Keep development-only; compare and integrate only selected finished winners into fresh main without overwriting concurrent Study Desk/Gummy Bay/requested-game work."
       ],
       "developmentCommits": [
-        "cfad6c8e2b18d74a2b127fc482255e14e3fc2d53"
-      ]
+        "cfad6c8e2b18d74a2b127fc482255e14e3fc2d53",
+        "691eef980a6c7a5ebcc25193ade94f06c310ea12",
+        "4d1595ce003d4bda05a6a181ca5a136dc9def32d"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39423434291",
+        "testedCommit": "4d1595ce003d4bda05a6a181ca5a136dc9def32d",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and focus; exact kit/cargo/RNG reload; six legal three-seal DOM-button campaigns with seed selection, forecasts, deterministic undo/replay, reward rollback, exhaustion loss/retry and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once kit/inspect/trek/recover taps, food/cargo/seed undo, exact reload/retry cancel, first survey win/saved unlock, >=44px visible controls and no 390px/320px overflow.",
+        "manual": "Managed browser desktop: first survey three seals/value11/no injuries using rope/lamp/nine rations; extraction undo restores three food, site-six cargo and unbanked journal/record; replay/reload verified. Second boots-only survey recovered two shells and Tide prism, took two injuries, saw forecast shortfall by one food, dropped lower-value shell, undid/repeated drop, and returned with value13/two seals/one health. Reload retained discoveries and next survey focused rope control. Planning terrain/exhausted-site issues corrected and exact final source tested. Preview stopped.",
+        "notVerified": [
+          "Full six-region subjective enjoyment, luck/frustration and alternative-route/loadout replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
     },
     {
       "slot": 17,
@@ -1145,6 +1167,19 @@
       "implementationCommit": "482cdaa697745bc1d024cf9558cc4e0917266e2b",
       "verifiedCommit": "482cdaa697745bc1d024cf9558cc4e0917266e2b",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39415654859"
+    },
+    {
+      "run": 16,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 16,
+      "improvedTotal": 16,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Pocket Expedition: six loadout/pack-space/risk/extraction surveys. Exact final source passes 15 engine + 20 DOM, six Chromium campaigns/native keyboard/touch and repository/fifteen earlier-game regressions. Manually completed first two surveys, tested return undo/replay/reload and actual cargo-drop rescue after injuries. Development-only; full enjoyment, luck balance and alternative-route depth remain.",
+      "initialPlayableCommit": "cfad6c8e2b18d74a2b127fc482255e14e3fc2d53",
+      "implementationCommit": "691eef980a6c7a5ebcc25193ade94f06c310ea12",
+      "verifiedCommit": "4d1595ce003d4bda05a6a181ca5a136dc9def32d",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39423434291"
     }
   ]
 }
