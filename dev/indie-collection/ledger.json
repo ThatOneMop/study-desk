@@ -568,19 +568,31 @@
       "id": "glasshouse",
       "title": "Glasshouse",
       "coreLoop": "Plant breeding and greenhouse spatial planning",
-      "status": "planned",
-      "source": null,
-      "initialPlayable": false,
+      "status": "playable-prototype",
+      "source": "dev/indie-collection/glasshouse/",
+      "initialPlayable": true,
       "meaningfulImprovementPasses": 0,
-      "changes": [],
-      "tests": [],
-      "quality": null,
+      "changes": [
+        "Initial playable: six original greenhouse exhibitions; finite seeds/water, 16-pot spatial sunlight/shade, tall-plant/frosted-pane occlusion, 14 colour/height genotypes, adjacent mature-parent breeding, three-stage growth, exact exhibition deliveries, timeout/wilting/retry, best-only medals, persistent lineage library and guarded versioned saves."
+      ],
+      "tests": [
+        "8 local engine checks pass: all six legal baseline three-medal/no-wilt exhibitions in 6/12/14/11/10/14 in-game days (19/50/57/43/56/85 legal actions), every-action saves, sun/shade/water/genetic inheritance, real wilt/deadline loss/retry, replay records and malformed states. 10 DOM cases authored; exact-source execution pending."
+      ],
+      "quality": {
+        "enjoyment": "Unrated; manual playtest pending",
+        "depth": "Six short genetic/spatial-light exhibitions and 14 discoverable genotypes; no duration claim",
+        "polish": "Original light-paper/CSS botanical art and native keyboard/touch buttons; rendered review pending",
+        "reliability": "8 local engine checks pass; interface/browser/full repository gates pending",
+        "variety": "Distinct adjacent-parent genetic inheritance and tall-plant moving-light layout, not a cooking/flavour-game reskin"
+      },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement original playable core loop before counting this slot"
+        "Meaningful forecasts/control/recovery/balance pass",
+        "Verify exact improved source in candidate CI and assess visuals/enjoyment",
+        "Keep development-only before finished selection; implement slot 12 later"
       ]
     },
     {

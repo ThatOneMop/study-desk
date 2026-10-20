@@ -1,3 +1,9 @@
+# Run 11 · Glasshouse initial playable checkpoint
+
+11/20 playable prototypes · 10 improved · 0 finished/selected/published. Read fresh development 66e57ea314db329f9408b2599321c873bff239de and main bc82be56e3de0e7ef83d526d31d1b38e4abfdbc2, recursive inventories (no AGENTS.md/root build), ledger/report/workshop/CI, current source/tests and latest main progress/README/hosting workflow. Local ledger/report/workshop/CI hashes match remote. Static no-build site; preserve newer main Autumn Drift keyboard, launcher, Underleaf, bridge pointer cleanup, Gummy Bay/requested-game/community work and Pages permission boundary.
+
+Built six original Glasshouse genetic/spatial-light exhibitions: 16 pots, shifting sunlight, tall-plant/frosted-pane shade, finite seed/water budgets, mature adjacent-parent breeding, inherited colour/height, three-stage growth, exact deliveries, wilting/deadline loss, retry, persistent lineage library and medals. Eight local engine checks pass. All six genuine baseline no-wilt/three-medal solutions take 6/12/14/11/10/14 in-game days, 19/50/57/43/56/85 legal actions; every action serializes. These are synthetic rule checks, not human duration evidence. Ten DOM cases authored, not yet executed on exact source. Next: meaningful improvement and rendered regression. No public selection/integration/deployment.
+
 # Run 10 · verified final outcome
 
 **10/20 playable prototypes · 10 meaningfully improved · 0 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots; ten planned slots are not counted as games. Next: **Glasshouse**.
