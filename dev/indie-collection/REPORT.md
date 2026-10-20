@@ -1,3 +1,7 @@
+# Run 17 · rendered-QA follow-up
+
+Manually completed the first market with three seals, reserve14, zero overpay/declines. Observed a two-seal/reserve9 final-order warning, made a remaining Moss→Thread barter, then saw three seals/reserve14 forecast before delivery. Winning undo restored two tea, the open order and unbanked records. Rendered review exposed stale offer/workshop prompts after completion: corrected terminal guidance and banked/unfinished reserve labels, with one additional DOM regression (19 total). Engine remains15. Exact final-source CI pending; earlier improvement CI 39431578385 passed engine/interface gates, browser checks still running at this checkpoint. No public integration or hours claim.
+
 # Run 17 · improvement checkpoint
 
 17/20 playable prototypes · 17 meaningfully improved · 0 finished/selected/published. Moss Market pass 1 adds pure inventory/order/reserve forecasts, live trade changes and shortages, workshop ingredient ledger, exact final-delivery seal warning, under-value offer UI guard, 100-action full logical-state undo through stock transformations/losses/rewards, draft/history separation and enabled-control focus recovery. Fifteen engine checks pass locally. Eighteen DOM and six-market desktop/touch suite authored; exact-source CI pending. Initial 4b64353ded57b7a9b232192ffe95fbe8289d21d1 passed CI 39430709527 (10 engine/11 DOM, repository and sixteen earlier-game browser suites; no new candidate browser suite yet). No public integration/deployment or content-hours claim.

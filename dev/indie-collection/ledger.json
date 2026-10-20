@@ -916,11 +916,11 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: six finite-stock woodland barter markets; five visitors with distinct valuation vectors and two exclusive bundles each, eight goods with shelf bulk/reserve values, four material-transforming recipes, three community orders, limited shelf capacity, fair/reserve seals, saved drafts and best records.",
-        "Pass 1: pure committed-action stock/order/reserve forecasts, live trade delta and remaining-order shortages, workshop ingredient ledger, exact last-delivery seal warning, fair-offer UI guard, 100-action logical-state undo through trades/crafts/orders/closing losses/rewards, draft-only history isolation and enabled-focus recovery."
+        "Pass 1: pure committed-action stock/order/reserve forecasts, live trade delta and remaining-order shortages, workshop ingredient ledger, exact last-delivery seal warning, fair-offer UI guard, 100-action logical-state undo through trades/crafts/orders/closing losses/rewards, draft-only history isolation and enabled-focus recovery. Rendered-QA follow-up corrects completed/failed-market trade and workshop prompts and labels banked versus unfinished reserve records."
       ],
       "tests": [
         "PASS initial CI 39430709527 at 4b64353ded57b7a9b232192ffe95fbe8289d21d1: 10 new engine + 11 DOM checks, repository/candidate gates and all sixteen earlier candidates' browser regressions. Moss Market browser suite absent at initial checkpoint.",
-        "15 improved engine checks pass locally, including exact campaign forecasts, lower-score late barter, shortage ledger, real decline-loss forecast and malformed inputs. 18 DOM plus six-market desktop/touch browser suite authored; exact-source CI pending."
+        "15 improved engine checks pass locally; earlier18-DOM CI gate passed while browser checks were running. Added terminal-state guidance regression (19 DOM total); exact final-source CI pending."
       ],
       "quality": {
         "enjoyment": "Unassessed; synthetic barter routes do not establish fun.",
