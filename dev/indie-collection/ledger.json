@@ -95,6 +95,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Manually inspect visual layout and assess enjoyment/depth before marking finished or selecting",
         "Before any public integration re-read main and apply only selected game/catalogue changes, preserving newer independent work"
       ],
@@ -149,8 +150,8 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Manually assess rendered art, enjoyment and depth before marking finished or selecting",
-        "Implement candidate 04 Queen of Cinders: distinct colony logistics and fire recovery",
         "Only integrate selected finished games against current main; never merge the old whole development tree over concurrent work"
       ],
       "developmentCommits": [
@@ -204,7 +205,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement candidate 05 Inkline: ink-powered card drafting and archive exploration, not a colony reskin",
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Revisit Queen of Cinders upgrade pacing and add strategic depth/quality assessment before finish/selection; consider safe save export/recovery UI",
         "Integrate only selected finished games onto current main using scoped source/catalogue edits; preserve concurrent work and the existing Pages permission boundary"
       ],
@@ -260,8 +261,8 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Manually review screenshots and assess enjoyment/depth/route variety before finished/selection. CI screenshots: run 39353515131 artifact 12234517256.",
-        "Next candidate 06 Deep Pocket: original fishing tension/release loop. Revisit earlier candidates for depth, polish and selection comparisons.",
         "Only integrate selected finished games against fresh main with scoped changes; preserve concurrent work and hosting permission boundary."
       ],
       "developmentCommits": [
@@ -315,9 +316,9 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Keep unselected until deeper enjoyment/replay assessment; exact improved source is CI-verified.",
         "Manually assess art/enjoyment and deepen worthwhile replay variety; remain an unselected prototype.",
-        "Next candidate 07 Roof Runner: precision courier platforming for more action variety.",
         "Integrate only strongest finished candidates against fresh main with scoped source/catalogue changes; preserve all concurrent work and hosting permission boundary."
       ],
       "developmentCommits": [
@@ -375,8 +376,8 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Deepen and manually assess the five short routes' enjoyment, difficulty curve and worthwhile replay before selection; no hour claim.",
-        "Next candidate 08 Scrap Orbit: momentum-based salvage and orbital docking.",
         "Only integrate strongest finished winners against fresh main with scoped game/catalogue edits; preserve concurrent Study Desk, requested-game, community and Gummy Bay work and the existing hosting permission boundary."
       ],
       "developmentCommits": [
@@ -428,7 +429,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement candidate 09 Stone Song, a distinct sound/rhythm quarry puzzle",
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Revisit depth/enjoyment and remaining mobile review before finish/selection",
         "Integrate only selected finished winners against fresh main; never wholesale-merge this historical development branch"
       ],
@@ -482,7 +483,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement candidate 10 Last Match: top-down survival with directional lantern combat",
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Revisit Stone Song enjoyment/replay depth and manually review mobile layout before finish/selection",
         "Integrate only selected finished winners against fresh main; preserve concurrent work and the Pages permission boundary"
       ],
@@ -538,7 +539,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement candidate 11 Glasshouse, retaining the planned distinct greenhouse core loop",
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Revisit combat enjoyment/depth and manually inspect mobile layout before finish/selection",
         "Only integrate selected finished winners with scoped fresh-main edits; preserve concurrent work and hosting permission boundary"
       ],
@@ -594,7 +595,7 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Implement candidate 12 Burrow Express using its distinct planned core loop",
+        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
         "Revisit full enjoyment/replay depth and manually inspect narrow-screen layout before finish/selection",
         "Integrate only selected finished winners with scoped current-main edits; preserve concurrent work and hosting permission boundary"
       ],
@@ -1096,31 +1097,52 @@
       "meaningfulImprovementPasses": 1,
       "changes": [
         "Initial playable: four handmade turn-based stealth vaults, directional watcher/listener beams, corridor/curtain-weighted sound, noisy strides/relics, recoverable/confiscatable decoy chimes, two-exposure capture, optional leaves, extraction and saved archive/best routes.",
-        "Pass1: pure live-rule forecasts for every directional action/wait/chime, exact sentry destinations/facing/reasons IF WAIT and alternate throw response, intermediate-path capture/noise/loot/recovery feedback; 120-action session undo restores patrol memory, chimes, losses and complete extracted archive/records; inspection history isolation, focus recovery and clear-on-reload/replan/navigation."
+        "Pass1: pure live-rule forecasts for every directional action/wait/chime, exact sentry destinations/facing/reasons IF WAIT and alternate throw response, intermediate-path capture/noise/loot/recovery feedback; 120-action session undo restores patrol memory, chimes, losses and complete extracted archive/records; inspection history isolation, focus recovery and clear-on-reload/replan/navigation.",
+        "Rendered-QA follow-up: immediate first-exposure warning, fresh strength7 relic echo only on pickup, carried-loot/curtain guidance on later quiet moves; clear horizontal+vertical throw-range wording. Added manually discovered 27-turn/one-leaf/three-warning pursuit route as a regression. Core stealth rules unchanged."
       ],
       "tests": [
-        "8 local engine checks pass: four legal all-leaf/zero-exposure heists (17/18/24/21 turns, first uses actual decoy); serialization each action; real capture; resource/sound/save bounds; 100 seeded exploratory sessions.",
-        "11 DOM checks authored; exact-source CI pending. New candidate browser suite not yet added.",
-        "13 local engine checks pass including exact nonmutating forecast parity for all four campaigns, curtain/stride/copper rules, physical chime recovery/confiscation and real capture forecasts. 18 DOM checks and real Chromium desktop/touch suites authored; exact improved CI pending."
+        "Initial20a0b349 passed CI39449952563: 8 engine+11 DOM, repository/candidate gates and all19 earlier-game browser regressions; new candidate browser absent.",
+        "Improved77fac6c1 passed CI39450627919:13 engine+18 DOM, real Chromium desktop four all-leaf ghost campaigns/touch, repository gates and all19 earlier-game regressions. Decoded logs inspected.",
+        "Final14 engine checks pass locally: four legal all-leaf/zero-exposure heists17/18/24/21 turns, exact action-by-action save/forecast parity, real capture, weighted sound, curtains/copper/stride, recovered/confiscated chimes, malformed bounds and100 seeded exploratory sessions.",
+        "Manually discovered pursuit route reproduced in engine at27 turns, one leaf, three broken exposure warnings, one confiscated chime and actual extraction; this is feasible, not an optimal route or playtime evidence.",
+        "PASS exact final8fe14ee7 CI39451640282:14 engine+19 DOM, real desktop four all-leaf ghost campaigns plus27-turn pursuit route and390/320px touch, full repository assets,116 candidate references/exact20/public isolation and all19 earlier-game regressions. Actual job steps and decoded logs inspected."
       ],
       "quality": {
-        "enjoyment": "Unrated: manual play pending",
-        "depth": "Four compact handmade stealth maps, optional leaves and cleaner-route records; no hours claim",
-        "polish": "Original museum SVG/CSS; exact next-action plans and session undo; rendered QA pending",
-        "reliability": "13 local engine checks pass, initial CI interface step green; exact improved CI pending",
-        "variety": "Directional stealth with sound diversion, distinct from card exploration and extraction packing"
+        "enjoyment": "Preliminary manual first-heist extraction: readable patrol/risk choices and recoverable pursuit; one optional leaf missed. Full all-vault enjoyment and repetitive-wait assessment pending.",
+        "depth": "Four compact handmade vaults, two sound sensitivities, noisy/quiet pace tradeoffs, curtains, reusable chimes, optional leaves and cleaner-route records. Need more authored obstacles/routes and replay-depth comparison; no duration claim.",
+        "polish": "Original midnight-museum SVG/CSS manually inspected on desktop; pure action plans, exact IF WAIT patrol intent, immediate exposure feedback and complete session undo. Exact final Chromium390/320 checks pass; manual mobile screenshot review pending.",
+        "reliability": "Final14engine+19DOM and real desktop/touch Chromium pass in CI on8fe14ee7; repository assets,116 candidate references, exact20/public isolation and all19 earlier-game regressions pass. All20 local engine suites pass.",
+        "variety": "Turn-based directional stealth and corridor-weighted sound diversion; not Inkline's card drafting, Pocket Expedition's pack/extraction risk or Last Match's realtime cone combat."
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Meaningful patrol/action forecast and recovery pass; verify rendered controls and all real browser campaigns",
-        "After all20 initial/improved prototypes, compare quality and deepen strongest candidates; no candidate21, no automatic public promotion"
+        "Manually play remaining vaults and try chime recovery/curtain/noise routes; assess repetition, patrol clarity and optional-leaf/replay depth before finished status.",
+        "Compare all20 candidates, starting with under-reviewed fishing/manual-task/colony/action loops most aligned with user taste; deepen strongest candidates, not more slots.",
+        "Review mobile screenshots, physical touch and screen-reader behavior where feasible; keep development-only until deliberate quality-based winner selection and scoped fresh-main integration."
       ],
       "developmentCommits": [
-        "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20"
-      ]
+        "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20",
+        "77fac6c12b86eba4c928ad5a782a1bf8fd1f4c45",
+        "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282",
+        "testedCommit": "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/WASD/pace/T/Z and focus; exact patrol/inspection reload; four legal all-leaf/zero-exposure campaigns plus manual27-turn pursuit route; action/warning plans; extracted-record undo/replay; real exposure/capture/undo; confirmed retry and workshop launch/back. Zero page errors.",
+        "touch": "Exactly-once chime/move taps, conserved charges/undo, saved inspection/patrol/reload/retry cancellation, actual all-leaf first heist/saved unlock/reload, >=44px controls, internally scrolling map and no390/320px page or button-text overflow. Zero page errors.",
+        "manual": "Desktop first-heist extraction: initial chime drew watcher left and was confiscated while thief reached curtain. Northern leaf taken; gallery forecast warned of exposure. Noisy lower-aisle movement drew pursuit; escaped through middle passage, took the strength7 relic and returned with one leaf/27turns/three separately broken warnings/no capture/one chime throw. Extraction undo restored unbanked archive and locked next vault; replay and reload retained record, next-vault focus tile12. Final warning copy rechecked in second vault; real predicted two-exposure capture, undo and forecast-safe north stride reset warning. Preview stopped.",
+        "notVerified": [
+          "Subjective enjoyment and replay depth across all four vaults",
+          "Manual mobile screenshots, physical touch hardware and screen-reader behavior",
+          "Long-form content or testing hours",
+          "Public catalogue integration/deployment"
+        ],
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282/artifacts/12278907966"
+      }
     }
   ],
   "runHistory": [
@@ -1357,6 +1379,30 @@
       "verifiedCommit": "400cf787228e51c99cf942af410d49b9d49ad259",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39443598012",
       "inspectedMainCommit": "08f4526696c9542d60c96b634f256da618495623"
+    },
+    {
+      "run": 20,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Echo Vault, completing the20-slot playable/improved prototype milestone. Final source passes14engine+19DOM, desktop four all-leaf ghost campaigns plus manual pursuit/touch, repository gates and all19 earlier-game regressions. Manually extracted first relic with one leaf/27turns/three broken warnings, undo/replay/reload/next checked; second-vault predicted capture/undo/safe escape verified.0finished/selected/public. Next: comparative quality/depth improvements, not new slots.",
+      "initialPlayableCommit": "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20",
+      "implementationCommit": "77fac6c12b86eba4c928ad5a782a1bf8fd1f4c45",
+      "verifiedCommit": "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282",
+      "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
     }
-  ]
+  ],
+  "collectionReview": {
+    "status": "prototype-milestone; comparison/depth/polish/selection/integration pending",
+    "playable": 20,
+    "improved": 20,
+    "finished": 0,
+    "selected": 0,
+    "published": 0,
+    "next": "Review all20 enjoyment/depth/polish/reliability/variety; prioritize under-reviewed taste-aligned fishing/manual-task/colony/action candidates and deepen strongest before selecting. Preserve exact20 slots. Final Friday work reserved for polish, integration, regressions and achieved-total report.",
+    "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay."
+  }
 }
