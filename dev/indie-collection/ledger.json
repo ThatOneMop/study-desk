@@ -935,7 +935,7 @@
       "id": "storm-signal",
       "title": "Storm Signal",
       "coreLoop": "Decode signals and coordinate rescue routes",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/storm-signal/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 1,
@@ -948,22 +948,23 @@
         "PASS exact improved-source CI 39408976984 at 65825629c096956aaec488264f51b6b69ae620af: 15 Storm Signal engine + 18 DOM checks, real Chromium desktop and touch emulation, full repository asset gate and all thirteen earlier candidates' engine/interface/browser regressions.",
         "Six legal three-commendation watches use storm beats 5/13/6/7/8/7, rescans 3/2/3/4/3/3 and 14/21/15/19/19/18 actions. Every engine action serializes; pure forecasts match campaign dispatch/advance outcomes; deadline arrival failure, cargo gear/tides, misreads, impossible saved departure times and 100 seeded sessions covered. Synthetic rule checks are not human playtime.",
         "Chromium: native arrows/Enter/Space/Z and focus, exact saved radio/boat reload, six actual DOM-button deduction/rescue campaigns, forecasts, deadline loss/undo, earned-commendation rollback/replay, confirmed-control alignment, unlocks and workshop launch/back. Touch taps apply once, moving marker/undo/reload/retry covered; >=44px visible buttons/select and no 390px/320px page overflow; zero page errors.",
-        "Manual desktop: original receiver/chart/notebook inspected; decoded first-watch coast/cargo with three selective rescans, dispatched Wren, waited to tide two, dispatched Heron and Wren, brought all three calls home at beat five for three commendations. Winning return undo/replay, saved completion reload and next-watch signal-one focus verified. Preview stopped."
+        "Manual desktop: original receiver/chart/notebook inspected; decoded first-watch coast/cargo with three selective rescans, dispatched Wren, waited to tide two, dispatched Heron and Wren, brought all three calls home at beat five for three commendations. Winning return undo/replay, saved completion reload and next-watch signal-one focus verified. Preview stopped.",
+        "Finish gate on exact cloned head 3c7882ca4e5180b58c703f0c84b338ee4843f1af: both repository asset gates pass, plus15 engine and18 DOM/save checks. Managed visible controls completed all six watches for18/18 commendations at beats5/13/6/7/8/7 with rescans3/2/3/4/3/3; the complete final watch and all six records survived reload. Layout inspected; no game-page console errors."
       ],
       "quality": {
-        "enjoyment": "Opening watch manually legible/playable; code ambiguity and future tide/boat choices form distinct decisions. Full six-watch subjective enjoyment/replay-depth review remains open; tests do not establish fun.",
-        "depth": "Six compact partial-code and rescue-scheduling watches, specialist fleet unlock and score-focused replay. Broader schedule/decoding variety and replay depth need comparison; no content-duration claim.",
-        "polish": "Original cyan/amber receiver, fictional chart and notebook; moving boat markers, departure/home/deadline forecasts, optional clue-only checker, undo, explicit per-tab draft scope, confirmed-save alignment and responsive native controls/onboarding implemented. Manual mobile review remains open.",
-        "reliability": "Exact improved source passes 15 engine + 18 DOM plus desktop/touch Chromium, repository and thirteen earlier-game regressions. Save corruption/concurrency/failures, deadline/misread losses, retries, reward rollback and navigation covered within tested cases.",
+        "enjoyment": "A visible six-watch campaign reached18/18 commendations. Later watches changed the pressure from tide-window reuse to a third flexible cutter, four-call urgency and overlapping specialist jobs; decoding and asynchronous returns remained readable. This is agent evidence, not a human fun score.",
+        "depth": "Six compact partial-code and rescue-scheduling watches, specialist fleet unlock and score-focused replay. Completed routes vary5/13/6/7/8/7 beats and3/2/3/4/3/3 rescans. Alternate schedules remain selection evidence; no content-duration claim.",
+        "polish": "Original cyan/amber receiver, fictional chart and notebook; moving boat markers, departure/home/deadline forecasts, optional clue-only checker, undo, explicit per-tab draft scope, confirmed-save alignment and responsive native controls/onboarding implemented. Final layout inspected; manual mobile review remains open.",
+        "reliability": "Exact improved source passes15 engine+18 DOM plus desktop/touch Chromium and earlier-game regressions in CI39408976984. Exact cloned collection head also passes both asset gates and target engine/DOM suites; visible all-six completion and reload passed. Save corruption/concurrency/failures, deadline/misread losses, retries, reward rollback and navigation are covered.",
         "variety": "Information deduction plus asynchronous specialist-boat scheduling and tide windows; not the direct grid-ferry movement or shared-track rail drafting of earlier candidates."
       },
       "selected": false,
-      "selectionReason": "Not selected: tested initial/improvement gates passed, but compact prototype still needs full subjective enjoyment/depth/variety review and comparison before finished designation.",
+      "selectionReason": "Finished, not selected: the complete six-watch campaign, deduction, scheduling, losses, undo, saves and responsive paths have exact automated or rendered evidence. Compare alternate fleet schedules, repeated decoding rhythm and collection fit before publishing.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Manually play all six watches and explore alternative deductions, rescan choices and fleet schedules; assess variety and replay depth.",
-        "Review CI mobile screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
+        "Compare Storm Signal directly with the other finished candidates on replay enjoyment, decision density and collection variety before selection.",
+        "Explore alternate rescan choices and fleet schedules; review CI mobile screenshots, physical touch and screen-reader behavior where feasible.",
         "Keep development-only; integrate only finished selected winners into fresh main without overwriting concurrent Study Desk/Gummy Bay/requested-game work."
       ],
       "developmentCommits": [
@@ -978,12 +979,19 @@
         "touch": "390x844 emulation: exactly-once scan/log/dispatch/beat taps, radio accounting/undo, moving vessel marker, exact mission reload/retry cancel, first watch win/saved unlock, >=44px visible buttons/select and no 390px/320px page overflow.",
         "manual": "Managed cloud browser desktop: original receiver/chart/notebook and closed-cut future-departure forecasts inspected; decoded first three signals with selective cargo/coast rescans, Wren first run, waited to tide two, dispatched Heron and Wren, all three calls home at beat five with three commendations. Undid final return, saw two-home/one-returning and unbanked record, replayed/reloaded completion and entered watch two with signal one selected/focused. Preview stopped.",
         "notVerified": [
-          "Full six-watch subjective enjoyment/decision-variety and replay-depth assessment",
+          "Independent human enjoyment and alternate-schedule replay study",
           "Manual mobile screenshot/layout review",
           "Physical touch hardware and screen-reader behavior",
           "20 hours of worthwhile content or testing",
           "Public catalogue integration/deployment"
         ]
+      },
+      "finishVerification": {
+        "testedCommit": "65825629c096956aaec488264f51b6b69ae620af",
+        "clonedHead": "3c7882ca4e5180b58c703f0c84b338ee4843f1af",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation,15 Storm Signal engine and18 DOM/save checks.",
+        "managed": "PASS six visible deduction/dispatch watches at18/18 commendations; final completion and all six records survived reload; no game-page console errors.",
+        "limit": "Finish gate reused prior exact-source successful Chromium CI because the game source is unchanged. Physical touch, screen-reader output and independent human replay remain open."
       }
     },
     {
@@ -1912,16 +1920,29 @@
       "verifiedCommit": "a4910a2143ea2d56abd0281c95290b2c5ea6db96",
       "ciUrl": null,
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 46,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 11,
+      "publishedTotal": 0,
+      "summary": "Storm Signal clears its finish gate after a managed visible six-watch deduction/dispatch campaign reached18/18 commendations and retained all records after reload. Exact cloned head3c7882c passes both asset gates plus15 target engine and18 DOM/save checks; unchanged exact game source already has successful desktop/touch Chromium CI39408976984. Marked finished, not selected; public main unchanged.",
+      "implementationCommit": "65825629c096956aaec488264f51b6b69ae620af",
+      "verifiedCommit": "3c7882ca4e5180b58c703f0c84b338ee4843f1af",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39408976984",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/43passes;10finished; Little Foundry cleared its all-six visible finish gate;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/43passes;11finished; Storm Signal cleared its all-six visible finish gate;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 10,
+    "finished": 11,
     "selected": 0,
     "published": 0,
-    "next": "Compare the ten finished candidates directly on enjoyment, depth, polish, reliability and collection variety while continuing the strongest unfinished finish gates. No new slots.",
+    "next": "Compare the eleven finished candidates directly on enjoyment, depth, polish, reliability and collection variety while continuing the strongest unfinished finish gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
