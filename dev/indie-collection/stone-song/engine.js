@@ -16,6 +16,7 @@
  function song(o){const r=Array(8).fill(0);o.run.stones.forEach((_,i)=>row(o,i).forEach((n,b)=>r[b]|=n));return r}
  function matches(o){const target=chapters[o.run.index].target;return song(o).map((n,b)=>n===target[b])}
  function inspect(o){const target=chapters[o.run.index].target,chorus=song(o);return chorus.map((mask,beat)=>({beat,mask,target:target[beat],missing:target[beat]&~mask,extra:mask&~target[beat],stones:o.run.stones.map((_,i)=>row(o,i)[beat]?i:-1).filter(i=>i>=0)}))}
+ function assess(o){const s=o.run,c=chapters[s.index],aligned=matches(o).filter(Boolean).length,release=s.status==='complete',performed=s.phase==='perform'?Math.min(s.beat,8):0;return{status:s.status,phase:s.phase,aligned,performed,release,clean:s.faults===0,efficient:s.moves<=c.par,moves:s.moves,moveTarget:c.par,moveDelta:c.par-s.moves,clashes:s.faults,nextIndex:release&&s.index<chapters.length-1?s.index+1:null}}
  function adjust(o,i,action){const s=o.run,c=chapters[s.index];if(s.status!=='active'||s.phase!=='arrange'||s.moves>=100000||!int(i,0,s.stones.length-1)||!['left','right','tune','toggle'].includes(action)||action==='tune'&&!c.tune||action==='toggle'&&!c.mute)return false;const stone=s.stones[i];if(action==='left')stone.shift=(stone.shift+7)%8;if(action==='right')stone.shift=(stone.shift+1)%8;if(action==='tune')stone.note=(stone.note+1)%3;if(action==='toggle')stone.on=!stone.on;s.moves++;s.message=matches(o).every(Boolean)?'The seam is in tune. Perform the eight-beat phrase to release it.':'Listen, compare, shift. Nothing is lost while arranging.';return true}
  function begin(o){const s=o.run;if(s.status!=='active'||s.phase!=='arrange'||!matches(o).every(Boolean))return false;s.phase='perform';s.beat=0;s.played=0;s.faults=0;s.message='Follow the bright beat. Strike every named voice, or choose Rest for silence. No timer.';return true}
  function hit(o,note){const s=o.run;if(s.status!=='active'||s.phase!=='perform'||!int(note,-1,2))return false;const mask=chapters[s.index].target[s.beat],bit=note<0?0:1<<note;
@@ -34,5 +35,5 @@
   }catch{return false}}
  function encode(o){return JSON.stringify(o)}
  function decode(raw){try{if(typeof raw!=='string'||raw.length>12000)return null;const o=JSON.parse(raw);return valid(o)?o:null}catch{return null}}
- return{notes,chapters,clone,create,row,song,matches,inspect,adjust,begin,hit,arrange,retry,next,valid,encode,decode};
+ return{notes,chapters,clone,create,row,song,matches,inspect,assess,adjust,begin,hit,arrange,retry,next,valid,encode,decode};
 });
