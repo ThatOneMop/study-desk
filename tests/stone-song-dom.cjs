@@ -1,6 +1,6 @@
 'use strict';
-const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{JSDOM}=require('jsdom'),E=require('./dist/engine.js');
-const root=path.resolve(__dirname,'dist'),key='study-desk-stone-song-v1',routes=JSON.parse(fs.readFileSync('/tmp/stone-song-routes.json'));let passed=0;
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{JSDOM}=require('jsdom'),E=require('../dev/indie-collection/stone-song/engine.js');
+const root=path.resolve(__dirname,'../dev/indie-collection/stone-song'),key='study-desk-stone-song-v1',routes=JSON.parse(fs.readFileSync('/tmp/stone-song-routes.json'));let passed=0;
 function setup(raw,blocked){const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'https://test.local/dev/indie-collection/stone-song/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;if(raw!==undefined)w.localStorage.setItem(key,raw);if(blocked)Object.defineProperty(w,'localStorage',{value:{getItem(){throw Error('blocked')},setItem(){throw Error('blocked')}}});for(const f of ['engine.js','game.js'])w.eval(fs.readFileSync(root+'/'+f,'utf8'));return{w,$:id=>w.document.getElementById(id),click:id=>w.document.getElementById(id).click(),read:()=>JSON.parse(w.localStorage.getItem(key)),close:()=>w.close()}}
 function test(n,f){const x=setup();try{f(x);passed++;console.log('PASS '+n)}finally{x.close()}}
 function arrange(x,i){routes[i].stones.forEach((s,j)=>{if(x.read().run.stones[j].on!==s.on)x.click('toggle'+j);while(x.read().run.stones[j].note!==s.note)x.click('tune'+j);while(x.read().run.stones[j].shift!==s.shift){const now=x.read().run.stones[j].shift;x.click(((s.shift-now+8)%8<=4?'right':'left')+j)}})}
