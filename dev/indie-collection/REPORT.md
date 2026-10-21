@@ -1,26 +1,25 @@
-# Run 43 · Tidepost late-route variety and finish gate
+# Run 44 · Little Foundry owner-mark techniques
 
-**20/20 playable prototypes · 20 improved games · 42 meaningful improvement passes · 9 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+**20/20 playable prototypes · 20 improved games · 43 meaningful improvement passes · 9 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
 
-Tidepost’s prior complete six-chart campaign exposed a concrete weakness: its later charts could reuse nearly the same outside A→C→B circuit and bypass most interior hazards. Pass 3 replaces that repetition with two authored decisions rather than extra deliveries or timers. Low Water Market gains a second working striped dock, making where to bank and refit part of the route. Last Light Sound moves all three piers inside its tide, current and squall lanes, so the measured shortest finish must wait for tide, cross a shallow, take a current push and accept hull damage.
+Little Foundry’s six moulds were mechanically solvable but shared nearly the same capacity-first strategy, and only the opening bell had bounded visible review. Pass 2 gives every commission a different owner-requested completion order: body before rim, heavy tooth first, handle before blade, paired heavy cores, teeth before hubs, and beak-first/tail-last. The change adds mastery to the existing alloy/heat/flow loop without timers, more commissions or arbitrary grind.
 
-The revised three-star baselines are 21 turns for Low Water Market and 24 for Last Light Sound, with pars tightened to 23 and 26. Onboarding and accessible tile labels now consistently say that any striped mail dock can bank cargo.
+The owner’s mark is part of the three-seal score. Live text says whether it is still possible, missed or honoured; completed mould sections receive numbered visual and accessible badges; the first broken step explains that the player can finish for fewer seals or undo. Version-one complete saves migrate optimistically to each commission’s authored plan, incomplete saves infer completed sections, and strict validation rejects duplicate or inconsistent completion sequences. Onboarding explains the rule and scoring.
 
-Tidepost is now a finished candidate because its full compact campaign, route progression, upgrades, saves, restart/undo and keyboard/touch paths have exact rendered evidence, and the quality gap found by the earlier full campaign is resolved. It is not selected: direct replay comparison with the other eight finished candidates, independent human enjoyment, physical touch and screen-reader review remain open.
+Little Foundry remains a playable prototype, not a finished candidate. The revised first commission passed a visible miss→undo→three-seal→reload review, but the final exact-source Actions run has not surfaced through the GitHub connector and the other five revised commissions have not had visible satisfaction/fatigue review.
 
 ## Evidence
 
-- Source commit: [366b1f71478972841e64791e183c150c465cb3ee](https://github.com/ThatOneMop/study-desk/commit/366b1f71478972841e64791e183c150c465cb3ee)
-- CI: [Verify original indie candidates · run 39607187990](https://github.com/ThatOneMop/study-desk/actions/runs/39607187990) — success
-- Tidepost: 21 engine checks; 18 DOM checks; six rendered keyboard victories; exact routes at 24/26/23/26/21/24 turns; second-dock bank/refit proof; finale proof requiring wait/shallow/current/damage; genuine two-tab and damaged-save recovery; rendered 390/320px touch controls.
-- Managed visible exact-source replay completed all six current charts at three stars, including the revised market finishing at its interior dock and the finale’s combined-mechanics circuit; 216 coins and all results remained in-session.
-- Collection: exact-20 ledger/reference/isolation gates and all 19 other-candidate engine/DOM/browser regressions passed.
-- Public `main` remained `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no game was added to the public catalogue in this run.
+- Implementation commits: [2314978](https://github.com/ThatOneMop/study-desk/commit/2314978cb37081432b35572d846bf4dfe9908431) and final onboarding commit [6d605cd](https://github.com/ThatOneMop/study-desk/commit/6d605cd5a7a8ca544e32f79d6ce8398c18f4e5b9)
+- Local final source: 15 Little Foundry engine checks passed; six legal owner-marked three-seal routes use 5/5/7/6/7/7 fuel and 19/19/21/22/23/24 actions; engine/game/engine-test/DOM-test/browser-test syntax passed.
+- Expanded suites cover six distinct order rules, immediate miss feedback, undo recovery, numbered/accessible order badges, complete-save migration, all-six scoring/routes, desktop/touch UI paths and prior loss/save invariants.
+- Managed rendered final source: deliberately poured a rim first, observed MISSED, #1 and undo guidance; undid to “still possible”; completed the bell body-first for three seals; HONOURED and all eight numbered sections survived reload. Completed desktop layout was visually inspected.
+- Public `main` remained `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no game was added to the public catalogue.
 
-## Honest limits
+## Verification limit
 
-The visible replay followed measured routes and is agent-driven, not an independent human-player study. Browser console noise came only from the cloud-browser extension metadata path; CI reported zero game page errors. This is not a physical-device review, a screen-reader review, a full manual mobile review or evidence of 20 hours of content/testing. The CI screenshot artifact was generated but not manually inspected.
+The GitHub connector returned no workflow run for the final source during this run, so there is no new CI run URL to claim. The prior pass-1 exact-source CI remains recorded in the ledger, while pass 2 is explicitly marked pending remote verification. This is agent-driven automated and bounded visible evidence, not a human enjoyment study, physical-device review, screen-reader review or proof of 20 hours of content/testing.
 
 ## Next
 
-Compare Tidepost, Scrap Orbit, Stone Song, Bolt & Bristle, Queen of Cinders, Deep Pocket, Burrow Express, Inkline and Spore Kitchen on alternate routes, replay enjoyment, authored depth, reliability and collection variety. Keep unfinished work on `indie-collection-dev`; integrate only selected finished winners as scoped changes against fresh `main`.
+Obtain the final pass-2 Actions result and inspect job logs, then visibly play commissions 2–6 to assess whether the new order rules genuinely vary the heat/pour decisions without fatigue. Keep Little Foundry development-only unless it clears that finish gate; compare only finished candidates before scoped public integration.
