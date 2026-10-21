@@ -1,3 +1,21 @@
+# Run 31 · Glasshouse whole-room forecasts
+
+**20/20 playable prototypes ·20 improved games ·31 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots remain. A supported local-only preview replayed Glasshouse's opening through ordinary pot, seed, water, day, pollen, cross and delivery controls, then entered exhibition2. This is not a full six-exhibition campaign, a human-player study, a physical-touch review or a content-hours claim.
+
+The replay exposed a concrete information failure: while attention moved from two mature pollen parents to the new Low Amber hybrid, both parents reached their second dry day and wilted, losing the no-wilt medal without any whole-room warning. Pass2 gives every occupied pot a rules-derived next-day badge: DRY NEXT, NEXT +1, SAFE NEXT, NO GROWTH or WILTS NEXT. Wilt-risk pots receive a high-contrast inset, and each native pot's accessible label carries the exact same reason. Genetics, water, moving light, scoring, deadlines, save schema and authored content are unchanged.
+
+[Exact implementation 64a4c8b](https://github.com/ThatOneMop/study-desk/commit/64a4c8ba47869d938bfba0792ceca874add6b7b7) · [CI39532503890](https://github.com/ThatOneMop/study-desk/actions/runs/39532503890): **passed** on that exact source; terminal run, steps and decoded logs inspected. Local13/13 engine and17/17 jsdom checks pass. The partial local checkout lacks all20 source directories and its Playwright package lacks a local browser binary, so full repository/browser claims are attributed only to CI.
+
+Exact-source CI passed13 Glasshouse engine +17 DOM checks; actual Chromium six three-medal breeding campaigns through DOM controls; native pot keyboard/focus; whole-room dry/grow/wilt badges and accessible labels; exact reload/retry; reward undo/replay; relocation/undo; responsive390/320px touch emulation; >=44px controls and zero page errors. All19 other-candidate regressions, repository asset/navigation checks and exact20-slot/selection-isolation/116-reference gates passed.
+
+Manual scope stayed honest. The replay delivered Low Amber on day6 for2 medals because the two parents wilted, then entered “Green between the gold.” After the fix, a fresh occupied pot visibly and accessibly progressed through DRY NEXT, NEXT +1 and WILTS NEXT states. The second exhibition was not completed, mobile hardware was not handled and screen-reader output was not audited.
+
+Quality decision: **hold, not selected or finished.** Genetic inheritance, moving windows and tall-plant shade remain a distinct planning loop, and the observed penalty is now legible rather than silently surprising. Complete exhibition2 and the later breeding/relocation rooms, then assess six-room variety and replay satisfaction before comparison with repair, fishing, colony and action candidates.
+
+The development branch advanced only through the scoped source commit; fresh public `main` was re-read at `42e32a7` and left untouched, preserving concurrent Study Desk work. There are no published game links because no candidate has passed finished/selection gates.
+
+---
+
 # Run 30 · Stone Song attempt ledger and opening performance
 
 **20/20 playable prototypes ·20 improved games ·30 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots remain. A supported local-only preview enabled a normal-UI Stone Song opening completion: two ordinary arrangement shifts, all eight Rest/Dawn/Copper performance inputs, three medals, saved reload and progression into room2. This is not a full six-room campaign, a human-player study, an audible-quality review or a content-hours claim.
