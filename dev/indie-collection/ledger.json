@@ -15,36 +15,37 @@
       "id": "tidepost",
       "title": "Tidepost",
       "coreLoop": "Turn-based ferry route planning",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/tidepost/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Six handmade charts, tide/current rules, fuel/hull, mail deliveries, upgrades, star routes and versioned voyage saving",
         "Pass 1: calibrated all six three-star thresholds against baseline solutions, exposed star goals, added damage-free fuel-to-dock planning and low-fuel warnings, fixed keyboard movement after button focus, restored chart focus after touch movement, handled synthetic key targets safely.",
-        "Pass 2: protect unreadable/concurrently changed saves across movement, undo and chart changes; explicit backup-first replacement and stored-voyage load, read-only selected current/exact/previous save text, quota/read failure notices and bounded v1 decoding. Manual campaign review corrected Bellweather's false optional-squall hint and made hold onboarding reflect the fitted boat."
+        "Pass 2: protect unreadable/concurrently changed saves across movement, undo and chart changes; explicit backup-first replacement and stored-voyage load, read-only selected current/exact/previous save text, quota/read failure notices and bounded v1 decoding. Manual campaign review corrected Bellweather's false optional-squall hint and made hold onboarding reflect the fitted boat.",
+        "Pass 3: replaced late-chart perimeter repetition with a functioning second mail dock in Low Water Market and three interior piers in Last Light Sound; tightened route-star pars to measured21/24-turn baselines, clarified any-dock onboarding/ARIA, and added explicit dual-dock plus tide/current/squall route proofs."
       ],
       "tests": [
-        "19 engine tests passed locally; unchanged six baseline routes at24/26/23/26/26/25 turns, serialization each action, mandatory Bellweather hull risk/dock repair and100k raw-save bound.",
-        "18 DOM tests in exact-source CI: all six keyboard wins, unlock/retry/reload, undo banked coins, upgrades/capacity guidance, corrupt and changed-save protection, cancellation, backup/primary/read/transient failures and focused read-only backup text.",
-        "Chromium desktop/touch in exact-source CI: six baseline keyboard campaigns, genuine shared-origin two-tab conflict, cancelled/accepted load, damaged bytes surviving sail, backup-first explicit replace, recovery/current text, reload, >=44px controls and expanded390/320px no overflow; zero page errors.",
-        "Manual normal-UI six-chart campaign:24/21/17/30/21/21 turns and3/3/3/2/3/3 stars; only earned mail rack bought,192 coins and all results retained after reload. Pointer compass also used on Bellweather. No production-state injection or route-fixture playback.",
-        "PASS exact-source CI39492530470 atff12f0111f3aa32d6762e06341bf5fac5e53a1be: full repository10routes/14HTML refs, exact20slots/116candidate refs/isolation/syntax and all19 other-game engine/DOM/browser regressions; terminal status and decoded logs inspected."
+        "21 engine tests in exact-source CI: six baseline wins at24/26/23/26/21/24 turns with serialization after every action; calibrated pars; second-dock banking/refit; finale route proof requires a wait, shallow, current push, hull damage and three interior piers; save bounds and all prior rules.",
+        "18 DOM tests in exact-source CI: all six keyboard wins, unlock/retry/reload, undo banked coins, upgrades/capacity and any-dock guidance, two mail-dock labels, corrupt/changed-save protection, cancellation and backup/primary/read/transient failures.",
+        "Chromium exact-source CI: all six rendered keyboard victories through the revised routes; mid-voyage reload, restart, undo, genuine shared-origin two-tab conflict and recovery; rendered390px touch, >=44px controls, help and390/320px overflow; zero game page errors.",
+        "Managed visible exact-source replay completed all six current charts at24/26/23/26/21/24 turns and three stars each. The redesigned market ended at its interior dock; the finale visibly required its tide/current/squall circuit.216 coins and all six results were retained in-session; this was agent route playback, not a human enjoyment study.",
+        "PASS exact-source CI39607187990 at366b1f71478972841e64791e183c150c465cb3ee: exact20-slot/reference/isolation/syntax gates and all19 other-game engine/DOM/browser regressions; terminal status and decoded job logs inspected."
       ],
       "quality": {
-        "enjoyment": "Manual UI completed six charts. Early bag pairing, tide waits, one-way currents and weather repair stops create useful planning; no human-player enjoyment score. Later outer-edge routes repeat after the mail rack.",
-        "depth": "Six authored charts and3 boat-upgrade types; mail rack changes capacity, but fixed A/B/C regions let later routes resemble each other. Needs later pier/objective/route variety before selection; no hours claim.",
-        "polish": "Original coastal CSS/grid readable on desktop. Corrected mandatory-squall and upgraded-capacity guidance; added accessible expandable save-care/text controls. Physical touch, screen-reader and full mobile visual review remain open.",
-        "reliability": "19 local engine checks;18 DOM and desktop/touch Chromium plus full repository/all19 regressions on the exact final source. Explicit damaged/conflicting-save protection and backup-first recovery now covered.",
-        "variety": "Distinct ferry route-planning loop within the20-game collection; late-map internal route repetition remains an observed quality gap."
+        "enjoyment": "A prior normal-UI campaign completed all six charts; the post-pass visible exact-route replay completed the revised fifth/sixth charts at21/24 turns. Bag pairing, tide timing, one-way currents, repair decisions and the new two-dock choice create distinct planning. No human enjoyment score.",
+        "depth": "Six authored charts and three upgrade types. Low Water Market now turns dock choice into a routing resource; Last Light puts all three piers inside the tide/current/squall lanes, removing the observed late outer-edge repetition. Compact campaign complete; no hours claim.",
+        "polish": "Original coastal CSS/grid remained readable in managed desktop review; any-dock onboarding and mail-dock accessible labels match the revised rules. Rendered390/320px automation passed; physical touch, screen-reader and full manual mobile review remain open.",
+        "reliability": "21 engine,18 DOM and rendered desktop/touch Chromium checks pass on exact source; all six current routes, versioned saves, restart, undo, damaged/conflicting-save recovery and all19 collection regressions are covered.",
+        "variety": "Distinct turn-based ferry planning inside the collection; late charts now branch into dual-dock routing and an interior combined-mechanics circuit instead of repeating the same perimeter loop."
       },
       "selected": false,
       "selectionReason": null,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Improve the observed late-chart perimeter-route repetition and compare meaningful alternative boat/route choices; do not add padded deliveries or timers.",
-        "Review keyboard focus on rebuilt boatyard/chart controls, broader mobile/screen-reader/physical-touch behavior, then compare with repair/fishing/colony candidates before declaring finished or selected."
+        "Compare Tidepost directly with the other finished candidates on replay enjoyment, decision density and collection variety before selection or public integration.",
+        "If selected, perform physical-touch and screen-reader review, then integrate only scoped source/catalogue changes against fresh main with combined regression and deployment checks."
       ],
       "developmentCommits": [
         "b435eb702e0a734f6759b588ac2b9b28b1a7a7d0",
@@ -52,24 +53,26 @@
         "ad1cf21eca2f50a1bc769addca9b4a7c6baf07f8",
         "8def2a80ae7d5fa6d64af1263b33a8c09e22504a",
         "9e0a8882399d1f8f98786a2503085f229cbc41ea",
-        "ff12f0111f3aa32d6762e06341bf5fac5e53a1be"
+        "ff12f0111f3aa32d6762e06341bf5fac5e53a1be",
+        "366b1f71478972841e64791e183c150c465cb3ee"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39492530470",
-        "testedCommit": "ff12f0111f3aa32d6762e06341bf5fac5e53a1be",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39607187990",
+        "testedCommit": "366b1f71478972841e64791e183c150c465cb3ee",
         "conclusion": "success",
-        "desktop": "PASS all six baseline keyboard victories/reload/retry/undo/workshop navigation; genuine shared-origin two-tab conflict, selected read-only backup text, cancelled/accepted stored load; zero page errors.",
-        "touch": "PASS corrupt bytes survive sailing, cancelled then backup-first replacement, exact previous/current text and reload, >=44px recovery buttons and expanded390/320px no overflow. Browser emulation, not hardware.",
-        "manual": "All six normal-UI victories at24/21/17/30/21/21 turns;3/3/3/2/3/3 stars. Earned mail rack only. Final192 coins/results survived reload. Late-route repetition observed; no human-player study.",
+        "desktop": "PASS all six revised keyboard victories/reload/retry/undo/workshop navigation; genuine shared-origin two-tab conflict, read-only backups and cancelled/accepted stored load; zero game page errors.",
+        "touch": "PASS rendered390px sail/wait, >=44px targets, help and no overflow; damaged-save recovery and expanded390/320px save controls. Browser emulation, not hardware.",
+        "manual": "Managed visible exact-source replay completed all six current routes at24/26/23/26/21/24 turns, six three-star results and216 coins. Revised market finished at the second dock; finale exercised wait/shallow/current/squall. Agent playback, not a human-player study.",
         "notVerified": [
           "Physical touch hardware",
           "Screen-reader output/full accessibility",
-          "Full mobile visual review",
+          "Full manual mobile visual review",
+          "Independent human enjoyment/replay study",
           "20 hours of worthwhile content",
           "Public catalogue integration/deployment"
         ],
-        "artifactId": 12295503303,
-        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39492530470/artifacts/12295503303",
+        "artifactId": 12348409785,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39607187990/artifacts/12348409785",
         "artifactManuallyInspected": false
       }
     },
@@ -1857,16 +1860,29 @@
       "verifiedCommit": "3b5932c4b5cbf518da8b1dbf149136c34d9e6394",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39599515303",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 43,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 9,
+      "publishedTotal": 0,
+      "summary": "Tidepost pass3 removes observed late perimeter repetition with a second working market dock and an interior finale whose measured shortest route requires tide, shallow, current and squall decisions. Exact source366b1f7 passes21engine+18DOM, all-six rendered desktop, touch/save checks and all19 regressions in CI39607187990; managed visible replay completed revised charts at21/24 turns. Marked finished, not selected; public main unchanged.",
+      "implementationCommit": "366b1f71478972841e64791e183c150c465cb3ee",
+      "verifiedCommit": "366b1f71478972841e64791e183c150c465cb3ee",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39607187990",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/41passes;8finished; Scrap Orbit pass3/all-five browser campaign reaches finished;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/42passes;9finished; Tidepost pass3 removes the late perimeter-loop gate;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 8,
+    "finished": 9,
     "selected": 0,
     "published": 0,
-    "next": "Compare finished Scrap Orbit, Stone Song, Bolt & Bristle, Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express directly. Continue Last Match later-combat finish gate and other strongest remaining candidates. No new slots.",
+    "next": "Compare finished Tidepost, Scrap Orbit, Stone Song, Bolt & Bristle, Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express directly. Continue Last Match later-combat finish gate and other strongest remaining candidates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
