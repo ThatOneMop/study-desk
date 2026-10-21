@@ -1,3 +1,17 @@
+# Run 37 · Deep Pocket full revised campaign and finish gate
+
+**20/20 playable prototypes ·20 improved games ·36 meaningful improvement passes ·4 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.
+
+A fresh ordinary-UI campaign completed all five revised stewardship trips for15/15 medals and0 escapes in2/3/4/5/6 casts. The review used visible bank, depth, cast, tension, keep/release and finish controls. Reload after Blue Sink restored Threadwater with9 banked medals and a fresh undo history. Bell Pool released protected Moon Koi plus Lantern Dace, kept Velvet Pike, Copper Bream, Glass Loach and Ribbon Perch for102/95 shells, and left all six species in the saved journal. This is agent-driven completion, not a human-player enjoyment score or content-hours claim.
+
+[Exact source ba87bd9a](https://github.com/ThatOneMop/study-desk/commit/ba87bd9af17897c2fdfe3cee51cda2a97f31e621) · [CI39558192584](https://github.com/ThatOneMop/study-desk/actions/runs/39558192584): **passed**19 engine+25 DOM checks, five three-medal stewardship browser trips, all-six-species finale, chart/multi-undo, saves/reload/retry, desktop/touch layouts, all19 other candidates and exact20-slot/116-reference/public-isolation gates. The finish-gate browser session added full subjective-flow evidence for the shipped source and produced no game-origin console errors.
+
+Quality decision: **finished, not selected.** The measured late-trip repetition is repaired, the complete revised campaign is readable and reliable, and its fishing identity is distinct. Alternative legal species/tide plans and direct comparison with finished Spore Kitchen, Inkline and Burrow Express remain selection gates. Physical touch hardware and screen-reader play remain unverified.
+
+Public `main` was re-read unchanged at42e32a7efa25a120f579dbef6a706d8588a2c3a8. Study Desk, requested-GitHub-games and Gummy Bay work remain untouched; no public game link, integration commit or deployment exists.
+
+Next: compare the four finished candidates directly and continue the strongest colony, repair and action finish gates; do not select from green tests alone.
+
 # Run 36 · Deep Pocket species stewardship routes
 
 **20/20 playable prototypes ·20 improved games ·36 meaningful improvement passes ·3 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained. The prior ordinary-UI Deep Pocket campaign established a concrete weakness: trips3–5 repeatedly favoured Moon Koi, Velvet Pike and Copper Bream, and the campaign finished without ever recording Ribbon Perch.
