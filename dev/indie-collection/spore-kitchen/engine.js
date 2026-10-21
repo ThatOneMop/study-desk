@@ -16,11 +16,12 @@ const services=[
  {name:'Under a full moon',story:'One last table, lit by fireflies. Make a meal worth remembering.',budget:26,orders:[['Festival broth',[0,3,2]],['Golden forest',[4,1,1]],['Double moon',[0,4,0]]]}
 ];
 const copy=x=>JSON.parse(JSON.stringify(x));
+const upgradeLimit=2;
 const blankProfile=()=>({coins:0,upgrades:{beds:0,basket:0,mist:0},best:[0,0,0,0,0]});
 const limits=p=>({beds:6+2*p.upgrades.beds,tray:8+2*p.upgrades.basket});
 const isInt=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
 function start(index=0,p=blankProfile()){
- return {service:index,turn:0,status:'growing',beds:Array(limits(p).beds).fill(null),tray:[0,0,1,2],served:[0,0,0],earnings:0,upgradeChoice:null,checkpoint:copy(p),message:'Pick a seed, then an empty bed. Every garden action grows the other mushrooms.'};
+ return {service:index,turn:0,status:'growing',beds:Array(limits(p).beds).fill(null),tray:[0,0,1,2,...(p.upgrades.basket?[3]:[])],served:[0,0,0],earnings:0,upgradeChoice:null,checkpoint:copy(p),message:'Pick a seed, then an empty bed. Every garden action grows the other mushrooms.'};
 }
 const create=()=>{const profile=blankProfile();return {profile,kitchen:start(0,profile)}};
 function flavour(items,method){if(!Array.isArray(items)||items.length!==2||items.some(n=>!isInt(n,0,3))||!isInt(method,0,2))return null;return methods[method].add.map((n,i)=>n+items.reduce((s,id)=>s+species[id].traits[i],0))}
@@ -35,7 +36,7 @@ function tick(s,p){s.turn++;s.beds.forEach(b=>{if(b)b.age=Math.min(species[b.kin
 function act(s,p,a){if(s.status!=='growing'||!a)return false;const l=limits(p);
  if(a.type==='plant'){
   if(!isInt(a.bed,0,l.beds-1)||!isInt(a.kind,0,3)||s.beds[a.bed])return false;
-  s.beds[a.bed]={kind:a.kind,age:-1};s.message=`Planted ${species[a.kind].name}.`;
+  s.beds[a.bed]={kind:a.kind,age:p.upgrades.beds?0:-1};s.message=`Planted ${species[a.kind].name}.${p.upgrades.beds?' The warm shelves give it a head start.':''}`;
  }else if(a.type==='harvest'){
   const b=s.beds[a.bed];if(!isInt(a.bed,0,l.beds-1)||!b||b.age<species[b.kind].grow-p.upgrades.mist)return false;
   if(s.tray.length>=l.tray){s.message='Basket full. Cook a dish or compost an ingredient first.';return false}
@@ -54,8 +55,9 @@ function act(s,p,a){if(s.status!=='growing'||!a)return false;const l=limits(p);
  tick(s,p);return true;
 }
 function retry(o){o.profile=copy(o.kitchen.checkpoint);o.kitchen=start(o.kitchen.service,o.profile)}
+function restart(o){const fresh=create();o.profile=fresh.profile;o.kitchen=fresh.kitchen;return true}
 const costs={beds:20,basket:18,mist:24};
-function upgrade(o,key){const p=o.profile,s=o.kitchen;if(s.status!=='complete'||s.service===4||s.upgradeChoice!==null||!Object.hasOwn(costs,key)||p.upgrades[key]||p.coins<costs[key])return false;p.coins-=costs[key];p.upgrades[key]=1;s.upgradeChoice=key;s.message='Upgrade chosen for this break. Save the remaining coins or open the next service.';return true}
+function upgrade(o,key){const p=o.profile,s=o.kitchen,count=Object.values(p.upgrades).reduce((n,x)=>n+x,0);if(s.status!=='complete'||s.service===4||s.upgradeChoice!==null||count>=upgradeLimit||!Object.hasOwn(costs,key)||p.upgrades[key]||p.coins<costs[key])return false;p.coins-=costs[key];p.upgrades[key]=1;s.upgradeChoice=key;s.message=count+1===upgradeLimit?'Your pantry build is complete: two permanent upgrades chosen for this campaign.':'Upgrade chosen for this break. One permanent pantry slot remains.';return true}
 function next(o){if(o.kitchen.status!=='complete'||o.kitchen.service===4)return false;o.kitchen=start(o.kitchen.service+1,o.profile);return true}
 const encode=o=>JSON.stringify({version:1,...o});
 function validProfile(p){return !!p&&isInt(p.coins,0,1e6)&&p.upgrades&&['beds','basket','mist'].every(k=>isInt(p.upgrades[k],0,1))&&Array.isArray(p.best)&&p.best.length===5&&p.best.every(n=>isInt(n,0,9))}
@@ -74,5 +76,5 @@ function decode(raw){try{
  }
  return {profile:copy(p),kitchen:{...copy(s),message:'Kitchen restored. Your beds, basket and table are just as you left them.'}};
  }catch{return null}}
-return {species,methods,services,copy,blankProfile,limits,start,create,flavour,recipes,preview,act,retry,costs,upgrade,next,encode,decode};
+return {species,methods,services,copy,blankProfile,limits,start,create,flavour,recipes,preview,act,retry,restart,costs,upgrade,upgradeLimit,next,encode,decode};
 });
