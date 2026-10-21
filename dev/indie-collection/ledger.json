@@ -864,7 +864,7 @@
       "id": "little-foundry",
       "title": "Little Foundry",
       "coreLoop": "Heat and casting manual craft progression",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/little-foundry/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 2,
@@ -881,23 +881,24 @@
         "Chromium: native Enter/Space/arrows/Z, focus, alloy-mismatch guard/remixture, exact mid-casting reload/retry, six actual DOM-button campaigns, rough-risk forecast/loss/undo recovery, earned-seal rollback/replay, unlocks and workshop launch/back. Touch taps apply once; >=44px visible buttons, no 390px/320px page overflow and zero page errors.",
         "Manual desktop: weighed 3 Emberite + 1 Mooniron, melted, used clean body streams and fine trickles, completed first bell with five fuel/three seals; winning undo/reopen, saved completion reload and next-order section-one focus verified. Original paper/sand mould art inspected. Preview stopped; terminal wording follow-up verified by engine/DOM rather than a second manual replay.",
         "Local exact working source: 15 engine checks pass. Six clean owner-marked three-seal routes use 5/5/7/6/7/7 fuel and 19/19/21/22/23/24 actions; all sequence rules, live miss feedback, complete-save migration, forecasts, losses, reward preservation and 100 seeded sessions covered. Revised engine/game/DOM/browser scripts pass node syntax.",
-        "Managed rendered desktop on the final static source: deliberately completed a fine rim first, observed MISSED plus #1 and an undo-specific recovery message, undid to still possible, then completed the bell body-first for three seals with badges #1–#8. HONOURED state and all eight badges survived reload; completed layout visually inspected."
+        "Managed rendered desktop on the final static source: deliberately completed a fine rim first, observed MISSED plus #1 and an undo-specific recovery message, undid to still possible, then completed the bell body-first for three seals with badges #1–#8. HONOURED state and all eight badges survived reload; completed layout visually inspected.",
+        "Finish gate: exact cloned head a4910a2143ea2d56abd0281c95290b2c5ea6db96 passed both repository asset gates, exact20-slot/116-reference/public-isolation checks, all20 engine suites and all20 DOM/save suites locally. Little Foundry contributed15 engine+20 DOM checks. The downloaded Playwright browser binary was unavailable, so cross-game Chromium suites were not rerun locally.",
+        "Managed visible all-six campaign on the exact static source: commissions1–6 each earned three seals while honouring Body before rim, Heavy tooth first, Handle before blade, Twin cores together, Teeth before hubs and Beak first/tail last. Final18/18 seals, all order badges and commission-six completion survived reload; no game-page errors were observed."
       ],
       "quality": {
-        "enjoyment": "Rendered bell replay now adds an understandable execution puzzle: deliberately breaking the order produced immediate consequence and undo recovery, while the clean body-first route made completion order visible. Only the first commission received bounded visible play; no human enjoyment score.",
-        "depth": "Six compact commissioned moulds now combine alloy, glow/flow and six different section-completion techniques. Automated routes prove each technique can earn three seals, but an all-six visible satisfaction/fatigue review is still required; no duration claim.",
-        "polish": "Original paper/sand workshop retained. Owner request is visible beside seal goals, completed sections receive numbered badges and accessible order labels, miss/honour feedback is immediate, and onboarding explains order/undo/scoring. First-commission desktop layout inspected; manual mobile remains open.",
-        "reliability": "Pass2 local engine and syntax checks pass; exact browser suites were expanded for all-six owner marks, missed-order undo, badges, accessibility text, saves and touch. Repository Actions evidence for final commit has not surfaced yet, so pass1 CI remains the last exact-source remote verification.",
+        "enjoyment": "A visible six-object campaign reached18/18 seals. The order rules changed each opening: body-first, heavy-first heat ramp, handle-first details, contiguous cores, all teeth before hubs and beak/tail bookends. The shared weighing/pouring rhythm stayed legible rather than becoming padding; this is agent evidence, not a human enjoyment score.",
+        "depth": "Six compact commissioned moulds combine alloy, glow/flow and six different completion techniques. Clean three-seal routes use distinct order/heat plans and fuel5/5/7/6/7/7. Compact authored campaign complete; no duration claim.",
+        "polish": "Original paper/sand workshop retained. Owner request is visible beside seal goals, completed sections receive numbered visual/accessibility badges, miss/honour feedback is immediate, and onboarding explains order/undo/scoring. Completed campaign layout inspected; manual mobile remains open.",
+        "reliability": "Exact cloned head passed repository asset/isolation checks, all20 engine suites and all20 DOM/save suites; Little Foundry passes15 engine+20 DOM. Managed exact-source desktop completed all six and reloaded18/18. Pass1 remains the latest remote Chromium CI; pass2 cross-game browser rerun was unavailable locally.",
         "variety": "The six commissions now ask for distinct order disciplines on top of thermal planning, reducing the prior identical-capacity-sort strategy while preserving the manual casting identity."
       },
       "selected": false,
-      "selectionReason": "Not selected: pass2 materially differentiates the six moulds and the first revised casting is visibly sound, but final exact-source CI plus an all-six rendered satisfaction/fatigue review remain before finished designation.",
+      "selectionReason": "Finished, not selected: the complete compact campaign, owner-mark variety, saves, loss/retry/undo and responsive paths have exact automated or rendered evidence. Compare its repeated manual rhythm and collection fit directly with the other finished candidates before publishing.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Obtain and inspect exact-source CI for the final pass2 commit; fix any collection/DOM/browser regression before considering the candidate finished.",
-        "Visibly play the remaining five owner-mark commissions and compare their order/heat decisions for repeated-task fatigue and replay value.",
-        "Review 390/320px screenshots, physical touch and screen-reader behavior where feasible; then compare with finished candidates before any selection/public integration."
+        "Compare Little Foundry directly with the other finished candidates on replay enjoyment, decision density and collection variety before selection.",
+        "If selected, rerun full remote Chromium regressions and review 390/320px screenshots, physical touch and screen-reader behavior before scoped public integration."
       ],
       "developmentCommits": [
         "0c19cd9f957acdf13623f6fbcc11a01c8ef116ed",
@@ -914,18 +915,19 @@
         "touch": "390x844 emulation: exactly-once ingot/heat/melt/trickle/stream taps, material/glow accounting, undo, exact mid-casting reload, retry cancel, first commission win/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
         "manual": "Managed cloud browser desktop: original workshop/onboarding inspected; correct four-ingot recipe, two bellows/melt, body stream pours and fine trickles, first bell delivered clean using five fuel for three seals. Undid mould opening and observed unbanked record, reopened/reloaded completion and entered commission two with first section selected/focused. Preview stopped. Follow-up terminal preview wording covered by final engine/DOM regressions, not another manual replay.",
         "notVerified": [
-          "Full six-commission subjective enjoyment/variety and replay-depth assessment",
+          "Independent human enjoyment and replay study",
           "Manual mobile screenshot/layout review",
           "Physical touch hardware and screen-reader behavior",
           "20 hours of worthwhile content or testing",
           "Public catalogue integration/deployment"
         ]
       },
-      "pendingVerification": {
+      "finishVerification": {
         "testedCommit": "6d605cd5a7a8ca544e32f79d6ce8398c18f4e5b9",
-        "state": "GitHub Actions run not surfaced by the connector during this run",
-        "local": "15 engine checks and five syntax checks pass",
-        "managed": "First commission owner-mark miss/undo/three-seal/reload path visibly passed"
+        "clonedHead": "a4910a2143ea2d56abd0281c95290b2c5ea6db96",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation, all20 engine suites and all20 DOM/save suites. Little Foundry:15 engine+20 DOM.",
+        "managed": "PASS all six visible owner-mark commissions at18/18 seals; commission-six completion, all records and order badges survived reload; no game-page errors.",
+        "limit": "GitHub Actions run did not surface and the Playwright browser binary download was blocked, so pass2 cross-game Chromium suites were not rerun. Pass1 remote Chromium CI remains recorded above."
       }
     },
     {
@@ -1897,17 +1899,31 @@
       "verifiedCommit": null,
       "ciUrl": null,
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 45,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 10,
+      "publishedTotal": 0,
+      "summary": "Little Foundry clears its finish gate after a managed visible all-six owner-mark campaign reached18/18 seals and retained its final completion records after reload. Exact cloned head a4910a2 passes both asset gates, all20 engine suites and all20 DOM/save suites; Little Foundry contributes15 engine+20DOM checks. Pass2 cross-game Chromium rerun was unavailable because the browser binary download failed and no Actions run surfaced. Marked finished, not selected; public main unchanged.",
+      "implementationCommit": "6d605cd5a7a8ca544e32f79d6ce8398c18f4e5b9",
+      "verifiedCommit": "a4910a2143ea2d56abd0281c95290b2c5ea6db96",
+      "ciUrl": null,
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/43passes;9finished; Little Foundry pass2 adds six distinct owner-mark techniques with final remote CI pending;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/43passes;10finished; Little Foundry cleared its all-six visible finish gate;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 9,
+    "finished": 10,
     "selected": 0,
     "published": 0,
-    "next": "Finish Little Foundry exact-source CI and remaining-five visible owner-mark review. Then compare the nine finished candidates directly while continuing the strongest unfinished finish gates. No new slots.",
+    "next": "Compare the ten finished candidates directly on enjoyment, depth, polish, reliability and collection variety while continuing the strongest unfinished finish gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
 }
+
