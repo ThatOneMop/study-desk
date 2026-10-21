@@ -1,3 +1,17 @@
+# Run 32 · Burrow Express signal plans and topology deadlocks
+
+**20/20 playable prototypes ·20 improved games ·32 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained. Normal-control review completed the first three Burrow Express yards at3/3 postmarks and exposed a concrete guidance bug: yard3's tempting direct opposing line cannot be made safe by any hold/release combination, but the forecast still told the player to change signals.
+
+Pass2 exhaustively checks the current trains' hold/release combinations before the next beat. When signals can prevent a collision, the forecast names every minimum-change safe option (for the shared junction: hold A or hold B; for an occupied block: release A). When no moving signal state is safe, it labels a **DEADLOCK**, applies stronger visual treatment, highlights **Keep routes & replan**, and recommends a passing loop. It does not alter yard layouts, costs, collision rules, saves or postmark balance.
+
+[Exact implementation bc943b4f](https://github.com/ThatOneMop/study-desk/commit/bc943b4f30db0da66d5ce467d1039323acefb2b6) · [CI39538803662](https://github.com/ThatOneMop/study-desk/actions/runs/39538803662): **passed** on that exact SHA; terminal state and decoded job logs inspected. Local14/14 engine and19/19 DOM checks passed. CI independently passed14 engine+19 DOM, real Chromium desktop six legal three-postmark campaigns, exact draft/dispatch reload, signal-solvable warnings, opposing-line deadlock/replan guidance, loss/undo/recovery and workshop navigation. Touch emulation passed one-action taps, signal recovery, >=44px targets,390/320px no-overflow and zero page errors. All19 other candidates, repository asset gate and exact20-slot/selection-isolation/116-reference checks passed.
+
+Manual desktop review used ordinary map/train/signal/replan controls. After completing yards1-2, the direct yard3 routes reached a head-on deadlock; holding A correctly remained a deadlock as an occupied block. Replan preserved both routes. Trimming A at square14 and routing through the wet upper tunnel created a passing loop, and both parcels arrived in7 beats for3/3 postmarks. This is evidence for the first three yards, not a full subjective campaign or duration claim.
+
+Quality decision: **hold, not selected or finished.** Shared materials, wet-route cost and simultaneous traffic create a distinct, satisfying correction in yard3. Yards4-6, alternate solutions, physical touch/screen-reader behavior and broader replay depth remain unreviewed. Public main was re-read unchanged at42e32a7efa25a120f579dbef6a706d8588a2c3a8; Study Desk, requested-GitHub-games and Gummy Bay work remain untouched. No public game link, integration commit or deployment exists.
+
+Next: complete Burrow Express yards4-6 and compare alternate rail/signal plans, then continue the broader manual-poor candidate queue. Keep final Friday work for deliberate selection, scoped integration, regressions and achieved-total reporting.
+
 # Run 28 · Roof Runner route guidance and opening review
 
 **20/20 playable prototypes ·20 improved games ·28 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained. A supported local-only preview finally allowed a limited Roof Runner opening review: normal start/resume, held touch movement and jump, one genuine gap fall/recovery, paused-state reload and live visual inspection. This is not a complete manual route victory, a human-player enjoyment score or an hours claim.
