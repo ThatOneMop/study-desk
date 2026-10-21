@@ -1129,7 +1129,7 @@
       "id": "moss-market",
       "title": "Moss Market",
       "coreLoop": "Barter-based shopkeeping with inventory choices",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/moss-market/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 1,
@@ -1143,21 +1143,22 @@
         "Six legal three-seal references finish with reserve14/11/6/10/4/5, trades4/4/4/4/5/5, crafts1/0/1/0/2/2, zero overpay and 8/7/8/7/10/10 committed actions. Every action serializes; replay validation rejects forged stock/used visitors/overpay/history. 100 seeded exploratory sessions preserve shelf/save invariants. These are synthetic feasibility checks, not duration or enjoyment evidence.",
         "Pure trade/craft/delivery stock/shortage/reserve/seal forecasts match every campaign action. Real three-decline and unfinished-close losses, shelf overflow, saved drafts, best-only records and deliberately wasteful lower-score closing forecast covered.",
         "Chromium native arrows/Enter/Space/Z and enabled focus, exact saved-offer alignment, six legal three-seal DOM-button trade/craft/delivery campaigns, forecast/guard behavior, earned-reward undo/replay, confirmed close loss/undo, retry and workshop launch/back. Touch taps apply once; exact stock/offer/undo/reload/retry cancel, first win/saved unlock, >=44px visible controls and no 390px/320px page overflow; zero page errors.",
-        "Manual desktop: first market delivered balm/lamp/tea through four exact-value trades and one craft. Saw final-delivery warning two seals/reserve9, made remaining Moss→Thread trade, then delivered for three seals/reserve14. Final-order undo restored tea/open order/unbanked records; replay/reload retained completion. Second market used bulk vessel delivery to free space, then balm/thread/berry trades for three seals/reserve11. Reload and third-market trader-zero focus verified. Rendered terminal prompts corrected; local preview stopped."
+        "Manual desktop: first market delivered balm/lamp/tea through four exact-value trades and one craft. Saw final-delivery warning two seals/reserve9, made remaining Moss→Thread trade, then delivered for three seals/reserve14. Final-order undo restored tea/open order/unbanked records; replay/reload retained completion. Second market used bulk vessel delivery to free space, then balm/thread/berry trades for three seals/reserve11. Reload and third-market trader-zero focus verified. Rendered terminal prompts corrected; local preview stopped.",
+        "PASS finish gate at exact source 14988092223df11df8d847401647de1154b50e90 on cloned head 7ffd5cb28cd401310283baacc620869d149f4356: visible normal-control markets one through six delivered every order for18/18 seals, zero overpay and reserve values14/11/6/10/4/5. Later awnings exercised bulk-first shelf release, one- and two-recipe chains, mixed orders and final-delivery reserve planning. Final campaign and all records survived reload. Both asset gates plus15 engine and19 DOM/save checks passed locally; no game-page console errors."
       ],
       "quality": {
-        "enjoyment": "First two markets manually legible/playable; final-delivery forecast supported a real reserve-improving decision, and bulk delivery freed needed shelves. Full six-market subjective enjoyment and alternative-chain assessment remain open; tests do not establish fun.",
-        "depth": "Six compact deterministic barter/order markets, different starting resources, bulk constraints and mixed requests, four recipes and best-only fairness/reserve scores. Repeated visitor offers, longer-term progression and alternative-chain replay depth need comparison; no duration claim.",
+        "enjoyment": "A visible complete six-market campaign kept visitor valuations, shelf pressure and last-delivery consequences legible. Bulk-first delivery, recipe timing and exact-value offers created concrete sequencing choices; markets five/six required two crafts and mixed-order planning. This is agent evidence, not a human fun score.",
+        "depth": "Six compact deterministic barter/order markets, changing starts/capacities, bulk constraints, mixed requests, four recipes and best-only fairness/reserve scores. Completed routes vary7–10 committed actions and0–2 crafts, with reserve values14/11/6/10/4/5. Broader alternative chains remain selection evidence, not unfinished scope or a duration claim.",
         "polish": "Original deep-forest/rust-awning stall, visitor marks, goods/tray, per-visitor valuations versus reserve value, stock/order/workshop forecasts, fair-offer guard, exact closing-score warning, logical-state undo and native responsive focus controls. Terminal trade/tray/workshop guidance fixed. Manual mobile review remains open.",
         "reliability": "Exact final source passes 15 engine+19 DOM, Chromium desktop/touch and sixteen earlier-game regressions. Replay integrity, declined/closed losses, capacity, corrupted/concurrent/failed storage, draft alignment, reward undo/retry/navigation and ended-state guidance covered within tested cases.",
         "variety": "Preference-weighted barter and finite trader bundles combine with recipes, bulk shelves and delivery/reserve opportunity costs; distinct from earlier movement/combat/spatial-network loops."
       },
       "selected": false,
-      "selectionReason": "Not selected: initial/improvement test gates and two manual markets passed, but compact fixed-offer content needs full enjoyment, alternative trade/craft-chain depth and comparative variety review before finished status.",
+      "selectionReason": "Finished, not selected: the complete six-market campaign, distinct shelf/recipe/order sequencing, losses, undo, saves and responsive paths have exact automated or rendered evidence. Compare alternative chains, replay enjoyment and collection fit before publishing.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Manually play all six markets and alternative barter/craft/delivery chains; assess variety, shelf frustration, fairness goals and replay depth against other candidates.",
+        "Compare Moss Market directly with the other finished candidates on replay enjoyment, chain discovery, decision density and collection variety before selection.",
         "Review mobile CI screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
         "Keep development-only; integrate only selected finished winners into fresh main without overwriting Study Desk/Gummy Bay/requested-game work."
       ],
@@ -1173,14 +1174,21 @@
         "conclusion": "success",
         "desktop": "Native arrows/Enter/Space/Z and enabled focus, saved-offer alignment, pure stock/order/reserve previews, six legal three-seal DOM-button campaigns, reward undo/replay, fair-offer guard, confirmed close loss/undo, retry and workshop launch/back. Zero page errors.",
         "touch": "390x844 emulation: exactly-once offer/trade taps, exact stock/valuation/undo, saved draft/retry cancel, first-market win/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
-        "manual": "Managed browser desktop: first market with four exact-value trades/one craft; observed final-delivery warning two seals/reserve9, made Moss→Thread reserve trade then delivered for three seals/reserve14. Winning undo restores tea/open order/unbanked record; replay/reload checked. Second market bulk vessel order freed shelves; exact-value trades finished with three seals/reserve11. Reload retained progress and market three focused trader zero. Corrected terminal guidance checked on final source; preview stopped.",
+        "manual": "Managed browser desktop: completed all six markets through ordinary visitor/bundle/tray/trade/craft/deliver controls at18/18 seals, zero overpay and reserve14/11/6/10/4/5. Later markets visibly used bulk-first shelf release, one- and two-recipe chains, mixed orders and last-delivery reserve planning. Earlier undo/loss evidence retained. Final six-awning state and all records survived reload; no game-page console errors. Preview stopped.",
         "notVerified": [
-          "Full six-market subjective enjoyment and alternative-chain replay-depth assessment",
+          "Independent human enjoyment and broader alternative-chain replay-depth assessment",
           "Manual mobile screenshot/layout review",
           "Physical touch hardware and screen-reader behavior",
           "20 hours of worthwhile content or testing",
           "Public catalogue integration/deployment"
         ]
+      },
+      "finishVerification": {
+        "testedCommit": "14988092223df11df8d847401647de1154b50e90",
+        "clonedHead": "7ffd5cb28cd401310283baacc620869d149f4356",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation,15 Moss Market engine and19 DOM/save checks.",
+        "managed": "PASS six visible barter/craft/delivery markets at18/18 seals with zero overpay; final completion and all six records survived reload; no game-page console errors.",
+        "limit": "Finish gate reused prior exact-source successful desktop/touch Chromium CI because the game source is unchanged. Physical touch, screen-reader output, independent human replay and broader alternative chains remain open."
       }
     },
     {
@@ -1975,16 +1983,29 @@
       "verifiedCommit": "5bdb5b285c851e6217f8c167f9b8b1175581f54d",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39423434291",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 49,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 14,
+      "publishedTotal": 0,
+      "summary": "Moss Market clears its finish gate after a managed visible six-awning barter/craft/order campaign reached18/18 seals with zero overpay and retained final completion plus all records after reload. Exact cloned head7ffd5cb passes both asset gates plus15 target engine and19 DOM/save checks; unchanged exact game source already has successful desktop/touch Chromium CI39432336946. Marked finished, not selected; public main unchanged.",
+      "implementationCommit": "14988092223df11df8d847401647de1154b50e90",
+      "verifiedCommit": "7ffd5cb28cd401310283baacc620869d149f4356",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39432336946",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/43passes;13finished; Pocket Expedition cleared its all-six visible finish gate;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/43passes;14finished; Moss Market cleared its all-six visible finish gate;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 13,
+    "finished": 14,
     "selected": 0,
     "published": 0,
-    "next": "Compare the thirteen finished candidates directly on enjoyment, depth, polish, reliability and collection variety while continuing the strongest unfinished finish gates. No new slots.",
+    "next": "Compare the fourteen finished candidates directly on enjoyment, depth, polish, reliability and collection variety while continuing the strongest unfinished finish gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
