@@ -6,13 +6,13 @@ const charts=[
  {name:'The Sand Letters',note:'Gold shallows open at HIGH tide. Wait at their edge or take the longer route.',par:29,rows:['#########','#D..=..A#','#.##=##.#','#...=...#','#B##.##.#','#.....C.#','#########']},
  {name:'Ribbon Channel',note:'Arrows push you one extra square. Read the destination preview before moving.',par:26,rows:['#########','#D.>>>.A#','#.##.#..#','#..v....#','#B.#.##.#','#..<..C.#','#########']},
  {name:'Bellweather',note:'Squalls cost one hull. Plan repair stops at the dock, or fit a stronger hull before taking a longer crossing.',par:29,rows:['#########','#D..!..A#','#.##.#..#','#..!...!#','#B.#.#..#','#...!.C.#','#########']},
- {name:'Low Water Market',note:'Your fitted hold capacity shapes the route. Choose what to fetch before returning to dock.',par:29,rows:['#########','#D.=...A#','#.#=##..#','#.v...!.#','#B#.#.#.#','#...<.C.#','#########']},
- {name:'Last Light Sound',note:'Combine the tide, currents and shelter. A careful route beats a fast wreck.',par:28,rows:['#########','#D..=..A#','#.#.=#..#','#.>!.v..#','#B#.#.#.#','#..!..C.#','#########']}
+ {name:'Low Water Market',note:'Two striped docks bank mail. Use the market dock to split the crossing, or carry farther for a cleaner line.',par:23,rows:['#########','#D.=...A#','#.#=##..#','#.v.D.!.#','#B#.#.#.#','#...<.C.#','#########']},
+ {name:'Last Light Sound',note:'The three inner piers cross tide, current and squall lanes. Bank a safe first bag, then time the longer circuit.',par:26,rows:['#########','#D..=...#','#.#A=#..#','#.>!.vB.#','#.#C#.#.#','#..!....#','#########']}
 ];
 const dirs={up:[0,-1],right:[1,0],down:[0,1],left:[-1,0],wait:[0,0]};
 const blankProfile=()=>({version:1,coins:0,unlocked:0,upgrades:{tank:0,hold:0,hull:0},best:{}});
 const limits=p=>({fuel:26+6*p.upgrades.tank,hold:2+p.upgrades.hold,hull:3+p.upgrades.hull});
-function start(index=0,p=blankProfile()){index=Math.max(0,Math.min(5,index));let y=charts[index].rows.findIndex(r=>r.includes('D'));return{chart:index,x:1,y,fuel:limits(p).fuel,hull:limits(p).hull,turn:0,picked:[],cargo:[],delivered:[],status:'sailing',message:'Collect A, B and C. Return to the striped dock to deliver and refuel.'}}
+function start(index=0,p=blankProfile()){index=Math.max(0,Math.min(5,index));let y=charts[index].rows.findIndex(r=>r.includes('D'));return{chart:index,x:1,y,fuel:limits(p).fuel,hull:limits(p).hull,turn:0,picked:[],cargo:[],delivered:[],status:'sailing',message:'Collect A, B and C. Return to any striped dock to deliver and refuel.'}}
 const tile=(s,x,y)=>charts[s.chart].rows[y]?.[x]||'#';
 const high=s=>s.turn%6>=3;
 const canEnter=(s,x,y)=>tile(s,x,y)!=='#'&&(tile(s,x,y)!=='='||high(s));
