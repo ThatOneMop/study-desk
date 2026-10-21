@@ -1,3 +1,19 @@
+# Run 36 · Deep Pocket species stewardship routes
+
+**20/20 playable prototypes ·20 improved games ·36 meaningful improvement passes ·3 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained. The prior ordinary-UI Deep Pocket campaign established a concrete weakness: trips3–5 repeatedly favoured Moon Koi, Velvet Pike and Copper Bream, and the campaign finished without ever recording Ribbon Perch.
+
+Pass3 replaces that plan with one authored keep/release field task per trip. Copper Reeds and Threadwater require returning Ribbon Perch; Blue Sink protects Velvet Pike; Bell Pool requires releasing Moon Koi and funding95 shells from the other species. A fish already released cannot later be sold during that trip, preventing release-then-sell double-dipping. The Bell Pool three-medal solution now uses all six species in six casts. Goals, sonar, habitat cards and catch previews expose the task without adding species counts, grind or a timer. Legacy v1 run bytes still load and adopt current rules on retry.
+
+[Exact source ba87bd9a](https://github.com/ThatOneMop/study-desk/commit/ba87bd9af17897c2fdfe3cee51cda2a97f31e621) · [CI39558192584](https://github.com/ThatOneMop/study-desk/actions/runs/39558192584): **passed** on that SHA; terminal state, steps and decoded logs inspected. Local19/19 engine checks passed with legal three-medal trips in2/3/4/5/6 casts and17/25/37/48/59 fishing beats. CI independently passed19 engine+25 DOM, real Chromium five-trip stewardship progression, all-six-species finale, native keyboard/focus, chart/multi-undo, saves/reload/retry/upgrades/navigation and390/320px touch-emulation with zero page errors. All19 other candidates, repository assets and exact20-slot/selection-isolation/116-reference gates passed. [Screenshot artifact12326457757](https://github.com/ThatOneMop/study-desk/actions/runs/39558192584/artifacts/12326457757) is retained, not manually inspected.
+
+Bounded normal-UI review visibly completed the opening Lantern Dace release task, then re-caught the released species at another habitat. Keep was correctly disabled, but the initial label misleadingly said it was already stocked; final source now says already handled and recommends another fish. This verifies the core new choice and feedback, not the revised later-trip subjective experience.
+
+Quality decision: **improved prototype, not finished or selected.** The measured repetition defect is repaired and the exact browser campaign is complete. A subjective ordinary-UI review of revised trips3–5 and at least one alternative species/tide route remains before comparing fishing directly with the three finished candidates.
+
+Main was re-read unchanged at42e32a7efa25a120f579dbef6a706d8588a2c3a8. Study Desk, requested-GitHub-games and Gummy Bay work remain untouched; no public game link, integration commit or deployment exists.
+
+Next: complete Deep Pocket's revised later-trip subjective gate, then compare it with finished Spore Kitchen, Inkline and Burrow Express.
+
 # Run 35 · Spore Kitchen alternate campaign and two-slot pantry builds
 
 **20/20 playable prototypes ·20 improved games ·35 meaningful improvement passes ·3 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained. A second ordinary-UI Spore Kitchen campaign completed all five services at9/9 with the recipe notebook kept closed, using alternate Cloud Oyster recipes in services1,2 and4. No engine calls, state injection or route fixtures drove the managed-browser play. This is functional evidence, not a human enjoyment score or duration claim.
