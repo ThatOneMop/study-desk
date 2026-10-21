@@ -282,14 +282,15 @@
       "id": "inkline",
       "title": "Inkline",
       "coreLoop": "Draft ink-powered cards to explore a forgotten archive",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/inkline/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: five handmade archive maps, three-card cycling deck, deterministic new-card drafts, ink/wells/binding hazards, three-page extraction with optional fourth page, best-only seals, two upgrades, failure/retry and versioned save protection.",
         "Pass 1: nonmutating actual-rules landing forecasts; one-step undo includes card drafts, well/page/health changes and full extraction rewards; clears on navigation/upgrades/retry and reload. Added deterministic deck/draw inspector, affordable-card fallback, preserved focus and hover/keyboard previews. Tightened new-run bonus targets to baseline plus two turns while retaining old v1 closing times/scoring. Clamped odd-health lethal blots to a saveable zero, rejected skipped drafts, bounded save parsing.",
-        "Pass 2: full five-volume normal-UI campaign review exposed buried exit/seal state. Added a live route scorecard for required pages, all-page bonus, careful-route turn/binding trajectory and locked/ready/reached exit state; updated onboarding and responsive presentation."
+        "Pass 2: full five-volume normal-UI campaign review exposed buried exit/seal state. Added a live route scorecard for required pages, all-page bonus, careful-route turn/binding trajectory and locked/ready/reached exit state; updated onboarding and responsive presentation.",
+        "Pass 3: an ordinary-UI alternative opening deliberately avoided the reference route and drafted Flourish plus Margin note, escaping in 13 turns for two seals. Draft choices now name the oldest hand card moving to discard, show immediate legal plays/landings from the current square and identify new versus already-owned techniques. Added permanent engine and real-browser coverage for that non-reference route."
       ],
       "tests": [
         "10 engine checks passed, including five legal baseline four-page routes in 12/8/10/11/9 turns, upgraded campaign, every-action save decoding, card inventory, draft rules, losses, replay accounting and malformed saves.",
@@ -298,39 +299,42 @@
         "All four earlier games' local engine/DOM regressions passed: 17+9, 18+18, 18+19, 16+19. Candidate 28 references, syntax, 20-slot ledger and catalogue isolation passed.",
         "PASS GitHub Actions 39353515131 at 24efb955cd8470b7d6b0da2b308d79917ce6d1a0: full repository assets, 28-reference/20-slot/isolation gate, 15 engine + 20 DOM checks, actual Chromium desktop all five four-page victories, keyboard/focus, forecasts, draft/reward undo, upgrades/reload/retry/navigation and 390px/320px touch emulation. All four earlier games' engine/UI/browser regressions passed.",
         "Run 27 local: all 15 engine checks pass, including legal 12/8/10/11/9-turn four-page routes and 120 deterministic exploratory campaigns. A local managed-browser UI campaign completed all five volumes at 3 seals each (15 total), then exercised scorecard locked/progress/undo/completion states. Local jsdom was absent and local Playwright lacked its browser binary; exact-source CI owns those checks.",
-        "PASS GitHub Actions 39507823018 at e75fa28dff90e1c3b49ffbee825cf585b2474506: full repository gates, Inkline 15 engine + 20 DOM checks, actual Chromium desktop/touch scorecard regression, and all other candidate regressions."
+        "PASS GitHub Actions 39507823018 at e75fa28dff90e1c3b49ffbee825cf585b2474506: full repository gates, Inkline 15 engine + 20 DOM checks, actual Chromium desktop/touch scorecard regression, and all other candidate regressions.",
+        "Run 34 managed browser: a non-reference opening and Flourish/Margin note draft path completed volume 1 through visible controls in 13 turns with three pages, full binding and two seals. The improved draft screen visibly named the displaced Nib and showed 2/6/1 immediate legal choices for Quill/Flourish/Bind.",
+        "PASS GitHub Actions 39549722233 at 27416d1768886b1eb4ea339aea73daa2964fd7df: Inkline 16 engine + 20 DOM checks, dedicated alternate browser victory, five-volume three-seal campaign, desktop/touch regressions, all other candidates and repository gates."
       ],
       "quality": {
-        "enjoyment": "Full five-volume normal-UI campaign completed using verified routes; feedback stayed readable through drafts and victories. Routes were solver-derived, so unscripted route-discovery enjoyment and replay depth remain open.",
-        "depth": "Five handmade card-route volumes; normal-UI four-page campaign completed in 12/8/10/11/9 turns for 15 total seals. Live required/all-page/careful/exit state now supports route planning. Alternative drafts and unscripted discovery still need comparison; no hour claim.",
-        "polish": "Original parchment/navy CSS art manually reviewed in the managed browser. New responsive live scorecard makes exit readiness and each seal condition explicit; exact landing forecasts, deck inspector and native keyboard/focus remain. CI checks >=44px visible targets and 390px/320px overflow; physical touch remains pending.",
-        "reliability": "15 engine + 20 DOM checks plus actual Chromium desktop/touch-emulated suites pass in exact-source CI 39507823018. A separate managed-browser five-volume campaign also reached all 15 seals and exercised scorecard progress/undo.",
+        "enjoyment": "Full five-volume normal-UI campaign completed using verified routes. A separate ordinary-UI route deliberately avoided the reference opening and chose Flourish/Margin note drafts, escaping in 13 turns for two seals. This demonstrates readable alternative planning but is not a human fun score.",
+        "depth": "Five handmade card-route volumes; normal-UI four-page campaign completed in 12/8/10/11/9 turns for 15 total seals. A distinct three-page alternative used different movement cards and earned two seals. Draft reach/replacement guidance now supports informed route variation; compact authored scope is not an hours claim.",
+        "polish": "Original parchment/navy CSS art reviewed in the managed browser. Pass 3 makes the hand replacement cost explicit and previews immediate legal reach plus deck novelty on every offer; live scorecard, exact landing forecasts, deck inspector and native keyboard/focus remain. CI covers responsive touch emulation; physical touch remains pending.",
+        "reliability": "16 engine + 20 DOM checks and actual Chromium desktop/touch-emulated suites pass in exact-source CI 39549722233. Browser coverage includes the non-reference 13-turn two-seal route and the complete five-volume 15-seal reference campaign, plus saves, undo, retry, upgrades and navigation.",
         "variety": "Distinct cycling-deck and card-drafting spatial exploration"
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Finished but not selected: all five authored volumes, an alternative opening/draft route, progression, saves/restart/undo, keyboard/touch-emulated controls and launch/navigation pass. Hold publication until enjoyment, depth and variety are compared directly with Burrow Express and other complete campaigns.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare unscripted route discovery, alternative drafts and replay enjoyment against the strongest finished candidates before selection.",
-        "Use the now-reviewed visual/control baseline in comparative ranking; physical touch hardware and substantial-content depth remain unverified.",
-        "Only integrate selected finished games against fresh main with scoped changes; preserve concurrent work and hosting permission boundary."
+        "Compare Inkline’s route/draft variety and replay enjoyment directly with finished Burrow Express and the strongest complete campaigns before selection; do not equate two verified routes with a human-player study.",
+        "Review retained CI visuals and physical touch/screen-reader behavior where feasible; compact five-volume scope is complete but not a substantial-hours claim.",
+        "Keep development-only until selected; if chosen, integrate narrowly into fresh main with combined catalogue/deployment regressions."
       ],
       "developmentCommits": [
         "c3f3dd2fc25356bc7b5789772bf2ff3c53a4f713",
         "24efb955cd8470b7d6b0da2b308d79917ce6d1a0",
-        "e75fa28dff90e1c3b49ffbee825cf585b2474506"
+        "e75fa28dff90e1c3b49ffbee825cf585b2474506",
+        "27416d1768886b1eb4ea339aea73daa2964fd7df"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39507823018",
-        "testedCommit": "e75fa28dff90e1c3b49ffbee825cf585b2474506",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39549722233",
+        "testedCommit": "27416d1768886b1eb4ea339aea73daa2964fd7df",
         "conclusion": "success",
-        "desktop": "Five actual-button four-page victories; live scorecard locked/progress/earned states; native keyboard/card/map focus; exact forecasts; draft/reward undo; upgrades; reload; confirmed retry; development navigation; zero page errors",
+        "desktop": "Dedicated non-reference 13-turn two-seal route with contextual drafts; five actual-button four-page victories; native keyboard/card/map focus; scorecard/forecasts; draft/reward undo; upgrades; reload; confirmed retry; development navigation; zero page errors",
         "touch": "390x844 emulation: card/movement taps, wells, rest/draft/undo, modal/help/deck inspector/scorecard; visible buttons >=44px; no horizontal overflow at 390px/320px",
-        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39507823018/artifacts/12304811754",
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39549722233/artifacts/12323226924",
         "notVerified": [
-          "Unscripted route-discovery enjoyment and alternative-draft depth",
-          "Physical touch hardware",
+          "Human-player enjoyment comparison",
+          "Physical touch hardware or screen-reader play",
           "20 hours of worthwhile content",
           "Public catalogue integration/deployment"
         ]
@@ -1679,16 +1683,29 @@
       "verifiedCommit": "c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39544053199",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 34,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 2,
+      "publishedTotal": 0,
+      "summary": "Inkline pass3 follows an ordinary-UI non-reference 13-turn two-seal route using Flourish/Margin note drafts. Draft offers now expose the displaced hand card, immediate legal reach and deck novelty.16engine+20DOM, dedicated alternate-route/five-volume desktop/touch/all19 regressions/root gates pass in exact-source CI39549722233. Marked finished, not selected; direct comparison with Burrow Express remains. Public unchanged.",
+      "implementationCommit": "27416d1768886b1eb4ea339aea73daa2964fd7df",
+      "verifiedCommit": "27416d1768886b1eb4ea339aea73daa2964fd7df",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39549722233",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/33passes;1finished;Tidepost, Spore Kitchen, Inkline and Burrow Express complete normal-UI campaigns, Stone Song and Glasshouse openings complete, plus limited Roof Runner/Scrap Orbit reviews;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/34passes;2finished;Tidepost, Spore Kitchen, Inkline and Burrow Express complete normal-UI campaigns, Stone Song and Glasshouse openings complete, plus limited Roof Runner/Scrap Orbit reviews;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 1,
+    "finished": 2,
     "selected": 0,
     "published": 0,
-    "next": "Compare finished Burrow Express against the strongest complete campaigns and continue quality gates for manual-poor candidates; assess alternate Burrow routes/signals, Inkline discovery, Spore Kitchen no-hint/upgrade orders and Tidepost/Deep Pocket repetition before selection. No new slots.",
+    "next": "Compare finished Inkline and Burrow Express against each other and the strongest complete campaigns; assess alternative rail/card strategies, Spore Kitchen no-hint/upgrade orders and Tidepost/Deep Pocket repetition before selection. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
