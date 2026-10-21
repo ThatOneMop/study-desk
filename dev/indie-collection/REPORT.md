@@ -1,3 +1,28 @@
+# Run 53 · Glasshouse finish gate
+
+**20/20 playable prototypes · 20 improved games · 44 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Glasshouse now has visible end-to-end evidence for its complete six-exhibition campaign. A managed run used ordinary pot, seed, water, day, pollen, cross and delivery controls to earn all 18 medals with zero wilt in 6/12/14/11/10/14 days. The rooms progressed from a first amber hybrid to paired soft-light hybrids, mixed-height offspring timing, a multi-generation prism, frosted-window breeding and a three-lineage finale. Whole-room next-day forecasts kept parent care readable as the garden filled, so the repeated watering supported planning rather than becoming the only decision.
+
+The candidate is now **finished, not selected**. Final 6/6 completion, the last-room state and the living lineage library survived reload. Selection still requires direct comparison with the other sixteen finished candidates; no independent human enjoyment or content-hours claim is made.
+
+## Evidence
+
+- Exact game source: [64a4c8ba](https://github.com/ThatOneMop/study-desk/commit/64a4c8ba47869d938bfba0792ceca874add6b7b7), with [successful desktop/touch Chromium CI 39532503890](https://github.com/ThatOneMop/study-desk/actions/runs/39532503890).
+- Exact cloned development head `4de17e9ec34eddfb5fc3289ce7c38bef191ef74f` passed both repository asset/isolation gates: exactly 20 slots, 116 candidate references, public isolation, source syntax, 10 public routes and 14 public references.
+- Target regressions passed locally: 13 engine checks and 17 DOM/save checks, including all six actual-button campaigns, forecasts, genetic inheritance, finite water, real wilt/deadline loss, relocation, undo, reload, retry and storage failures.
+- Managed rendered desktop completed all six rooms at 18/18 medals and zero wilt. Final completion and the lineage library survived reload; there were no game-page console errors.
+- Public `main` remained `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no game was added to the public catalogue.
+
+## Verification limit
+
+The finish gate reuses the existing successful exact-source Chromium run because Glasshouse’s game source did not change. Physical touch hardware, screen-reader behavior, independent human enjoyment and alternate breeding routes remain unverified; no content-hours claim is made.
+
+## Next
+
+Compare all seventeen finished candidates on enjoyment, depth, polish, reliability and collection variety. Keep Glasshouse development-only unless it earns a selected place; continue the two strongest unfinished finish gates before the final integration window.
+
+
 # Run 52 · Echo Vault finish gate
 
 **20/20 playable prototypes · 20 improved games · 44 meaningful improvement passes · 16 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
