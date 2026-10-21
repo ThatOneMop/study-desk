@@ -1,3 +1,27 @@
+# Run 40 · Last Match threat readability pass
+
+**20/20 playable prototypes ·20 improved games ·39 meaningful improvement passes ·6 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.
+
+Live preview exposed a concrete readability defect: four enemies differed mechanically, but mote and briar silhouettes were nearly identical and the accessible warning only said LUNGE WARNING. Pass3 gives each threat a colour-independent shape, adds a destination ring and filling charge arc to windups, and priority-sorts nearby text with a stable seconds countdown and distance. Combat rules, maps, timings, health, costs, progression and v1 saves are unchanged.
+
+[Exact source be72f626](https://github.com/ThatOneMop/study-desk/commit/be72f62660b3b66dd61d4fbf4848336804d25dd6) · [CI39583606040](https://github.com/ThatOneMop/study-desk/actions/runs/39583606040): **passed**16 engine+19 DOM checks, including a crafted0.4s briar warning outranking a closer mote; five legal no-hit/3-medal desktop campaigns, quick keyboard/touch controls, native-clock opening gate victory, all19 other candidates and exact20-slot/116-reference/public-isolation gates. Zero page errors; screenshot artifact12339237007 retained.
+
+Quality decision: **meaningful pass3 complete; still an improved prototype, not selected.** The live arena/help/AX review confirmed the revised shapes and LUNGING NOW state, but cloud-preview timing did not support a sustained manual victory. Later-clearing dodge, target, brazier and alternate-strategy experience remains a finish gate; automated correctness is not a human enjoyment score.
+
+Public `main` remains at42e32a7efa25a120f579dbef6a706d8588a2c3a8. Study Desk, requested-GitHub-games and Gummy Bay work remain untouched; no public game link, integration commit or deployment exists.
+
+Next: complete Last Match's continuous later-combat review and compare it against the six finished candidates; continue other strongest finish gates without adding slot21.
+
+# Run 39 · Bolt & Bristle owner-service campaign and finish gate
+
+**20/20 playable prototypes ·20 improved games ·38 meaningful improvement passes ·6 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.
+
+Two full-board repair sweeps exposed avoidable late-game fatigue. Pass3 replaces mandatory all-plate cleaning with six distinct marked owner requests while preserving every authored circuit and optional cleanup. A complete ordinary-UI campaign finished all six machines; revised commissions3–6 reached route-only1star then request-complete3stars at26→31,42→46,54→58 and63→67 strokes.
+
+[Exact source e80cd607](https://github.com/ThatOneMop/study-desk/commit/e80cd607690df1191463f97cd2d49301f305bcdc) · [CI39577839516](https://github.com/ThatOneMop/study-desk/actions/runs/39577839516): **passed**25 engine+28 DOM, desktop six-repair progression, marked-request touch, all19 regressions and root exact20/116-reference gates.
+
+Quality decision: **finished, not selected.** The full revised campaign is purposeful, reliable and distinct; an alternate repair order and direct comparison with the other five finished candidates remain selection gates. No public integration or duration claim.
+
 # Run 38 · Queen of Cinders defended trails and finish gate
 
 **20/20 playable prototypes ·20 improved games ·37 meaningful improvement passes ·5 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.
