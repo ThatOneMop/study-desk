@@ -1,3 +1,19 @@
+# Run 38 · Queen of Cinders defended trails and finish gate
+
+**20/20 playable prototypes ·20 improved games ·37 meaningful improvement passes ·5 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.
+
+Normal UI exposed a concrete late-game flaw: Trail Boots let chapter3 reach five brood in8 shifts without using water, despite its story promising a wet firebreak. Pass3 now requires one wet interior tunnel on the named resin, food and water supply trail in chapters3–5. Goal, forecast, supply header and trace guidance show FIREBREAK NEEDED/DEFENDED. Legacy version1 colonies load unchanged; retry or next chapter adopts current rules.
+
+The revised ordinary-UI campaign completed chapter3 at shift8/3 medals with its resin trail defended, chapter4 at shift8/3 medals with food defended, and chapter5 at shift12/2 medals with water defended after a burned food-route recovery and one queen damage. Combined with the unchanged3-medal chapter1–2 play, all five nurseries and the boots, nursery and shelter upgrades were exercised. This is agent-driven completion, not a human-player enjoyment score or content-hours claim.
+
+[Exact source 933c5a55](https://github.com/ThatOneMop/study-desk/commit/933c5a55a457b0b1be97901f34610f823e565dcd) · [CI39570023846](https://github.com/ThatOneMop/study-desk/actions/runs/39570023846): **passed**22 engine+25 DOM checks, all-five desktop rescues with named firebreaks, keyboard/focus, forecasts, route trace/Inspect, burn recovery/undo/reload/retry/navigation, touch layouts, all19 other candidates and exact20-slot/116-reference/public-isolation gates. Screenshot artifact12331916149 retained.
+
+Quality decision: **finished, not selected.** The colony loop now preserves a genuine fire-planning decision after its speed upgrade, the full campaign is readable and reliable, and its logistics identity is distinct. Alternate allocations/no-upgrade replay and direct comparison with the other four finished candidates remain selection gates. Physical touch hardware and screen-reader play remain unverified.
+
+Public `main` was re-read unchanged at42e32a7efa25a120f579dbef6a706d8588a2c3a8. Study Desk, requested-GitHub-games and Gummy Bay work remain untouched; no public game link, integration commit or deployment exists.
+
+Next: compare the five finished candidates directly and continue the strongest repair/action finish gates; do not select from green tests alone.
+
 # Run 37 · Deep Pocket full revised campaign and finish gate
 
 **20/20 playable prototypes ·20 improved games ·36 meaningful improvement passes ·4 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.

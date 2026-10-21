@@ -209,14 +209,15 @@
       "id": "queen-of-cinders",
       "title": "Queen of Cinders",
       "coreLoop": "Ant colony logistics and fire recovery",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/queen-of-cinders/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: five handmade colony logistics/fire-recovery chapters; connected excavation, finite supply patches, distance-based carrier work, worker allocation, nursery hatching, wet firebreaks, queen health, best-only medals, three upgrades, retries and versioned saves.",
         "Pass 1: real-rules nonmutating next-shift forecasts show supply totals, births, queen damage, fire closures, loss and idle workers; session undo restores excavation/allocations/dampening/full shift/rewards, clears at navigation/upgrades/retry; narrowed board uses finger-sized internally scrollable controls, preserved focus, enabled continuation focus; conservation/connected-soil/score validation, backward capacity migration and correct next-chapter-only shelter upgrade.",
-        "Pass2: pure supply trail ledger shows current carrier cost/banked work/remaining supply, exact next delivery and route connectivity after end-of-shift fire. Trace follows only actually excavated routes (or their burned blocked path), never an undug authored solution, highlights earth and focuses the relevant threatened/burned patch. Free Inspect tool/shortcut3 spends nothing and preserves undo. Clipped trace/action focus is revealed horizontally/vertically within narrow scrolling boards. Existing map layouts, fire timing, resource economy, brood goals, upgrade prices, v1 save key/format and one-step undo rules unchanged."
+        "Pass2: pure supply trail ledger shows current carrier cost/banked work/remaining supply, exact next delivery and route connectivity after end-of-shift fire. Trace follows only actually excavated routes (or their burned blocked path), never an undug authored solution, highlights earth and focuses the relevant threatened/burned patch. Free Inspect tool/shortcut3 spends nothing and preserves undo. Clipped trace/action focus is revealed horizontally/vertically within narrow scrolling boards. Existing map layouts, fire timing, resource economy, brood goals, upgrade prices, v1 save key/format and one-step undo rules unchanged.",
+        "Pass3: late chapters now name one supply trail that must contain a wet interior tunnel before rescue. Resin, food and water stewardship tasks make boots accelerate hauling without deleting the firebreak decision. Goal, forecast, trail header and trace guidance expose the requirement and defended state. Existing version1 colonies missing the rule marker load under legacy behavior; retry/next starts current rules."
       ],
       "tests": [
         "Initial: 12 engine and 11 jsdom interface checks passed.",
@@ -225,24 +226,26 @@
         "Additional legal UI test waits to the real firefront, damps burned supply tunnels, checks connectivity and undoes the water/fire change. Browser campaign now keeps baseline equipment through all five rescues so upgrades cannot bypass fire coverage.",
         "PASS GitHub Actions 39348588819 at 6310e921cdda9631082df02a7d41410bb2e816eb: full repository assets, candidate 20-slot/23-reference gate, 16 engine + 19 DOM checks, all five baseline Chromium rescues/firebreaks, native keyboard/focus, upgrade/reload/retry/undo, desktop launch/back, 390px/320px touch emulation and all three earlier-game regressions.",
         "Pass2 local20engine+24DOM checks pass: pure supply reports through all five real campaigns, exact deliveries/current and next travel costs, actual shift13→14 delivery-before-fire cut, blocked path/dampen recovery, surviving detour prevents false cut warnings, no hidden undug routes/save mutation, inspect/trace preserve actual dig/shift undo, modal guard, trace reset/reload and navigation. Local asset gate74 refs reflects partial checkout, not latest full repository.",
-        "PASS final exact source57611181b385529ddcb6d9d0bae390db5500b89c, CI39474950973/job118808383635:20engine+24DOM; actual Chromium desktop all five baseline rescues, real delivery-before-fire cut, pure native trail/Inspect, burned-path dampening/undo/reload and visible board focus; actual touch trail/Inspect and strict320px water-target bounds, >=44px controls/no390/320 overflow. All19 other-game engine/DOM/browser regressions, root10routes/14HTML refs and candidate20slots/116refs passed; zero page errors. Decoded logs inspected; artifact12288887699. Initial CI39474586132 test setup omitted Dig after retry; corrected through UI, no assertion weakening."
+        "PASS final exact source57611181b385529ddcb6d9d0bae390db5500b89c, CI39474950973/job118808383635:20engine+24DOM; actual Chromium desktop all five baseline rescues, real delivery-before-fire cut, pure native trail/Inspect, burned-path dampening/undo/reload and visible board focus; actual touch trail/Inspect and strict320px water-target bounds, >=44px controls/no390/320 overflow. All19 other-game engine/DOM/browser regressions, root10routes/14HTML refs and candidate20slots/116refs passed; zero page errors. Decoded logs inspected; artifact12288887699. Initial CI39474586132 test setup omitted Dig after retry; corrected through UI, no assertion weakening.",
+        "Pass3 local:22 engine checks pass, including all five baseline and fully upgraded campaigns, mandatory late firebreak, deadline/legacy-save migration, exact forecasts, conservation, replay accounting and supply-ledger recovery. Syntax checks pass; jsdom was unavailable locally and was left to repository CI.",
+        "Pass3 managed-browser review: completed chapters1-2 unchanged at3 medals, then retried chapter3 under current rules and completed resin/food/water stewardship chapters3-5 through ordinary visible controls. Chapter3 finished at shift8/3 medals, chapter4 at shift8/3 medals, and chapter5 at shift12/2 medals after a recoverable food-route burn and one queen damage. Boots, nursery and shelter were purchased with earned medals; all five nurseries completed. This is agent-driven flow evidence, not a human fun score.",
+        "PASS exact source933c5a55a457b0b1be97901f34610f823e565dcd in GitHub Actions39570023846:22engine+25DOM; actual Chromium desktop all five legal rescues including named firebreaks, native keyboard/focus, exact forecasts, route tracing, burned-trail recovery/undo/reload/retry/navigation; touch >=44px/no390/320 overflow; all19 other-candidate regressions; exact20 slots/116 references/public isolation. Artifact12331916149."
       ],
       "quality": {
-        "enjoyment": "Earlier opening manual4-shift rescue supports worker reallocation. This pass checked baseline versus boots-first strategies with real-engine reference play; baseline uses firebreaks, boots can avoid earlier fronts. Added route consequences/Inspect to reduce opaque hauling and accidental excavation. No new manual playtest: preview navigation failed, and observing its chrome-error tab was blocked by browser URL policy; no workaround attempted.",
-        "depth": "Reference baseline rescues6/11/12/12/12 shifts with0/4/6/3/6 wet patches; boots-first6/7/8/8/9 with0/0/0/0/3 wet patches. Speed versus water/fire defense is a legitimate alternative, not automatically a fire-timing defect. Nursery purchase when affordable did not accelerate this particular reference allocator, which may be resin-limited; compare smarter allocations before declaring upgrade weak. These are feasible strategies, not optimality/fun evidence.",
-        "polish": "Original earth styling retained; active/burned traced paths, relevant patch inspection, exact delivery-before-fire wording and free Inspect reduce accidental actions. Final Chromium desktop/touch validates traced-cell visibility including horizontal320px scroll, >=44px controls and no390/320 overflow; screenshots retained but not manually inspected. No new manual screenshot/mobile/screen-reader review due blocked browser observation.",
-        "reliability": "Final exact source57611181 passed20engine+24DOM/Chromium desktop/touch and all19 other-game regressions; root10routes/14HTML refs and20slots/116refs gates passed. Actual delivery-before-fire, surviving detour, dampening/recovery/undo/reload and pure trace/inspection validated; decoded CI39474950973 logs inspected. Existing v1 save/conservation/storage protections retained.",
-        "variety": "Distinct connected ant logistics, growing workforce and optional wet firebreaks. Route feedback exposes actual causal choices; no artificial waits, new species/area counts or forced fire-timing change added."
+        "enjoyment": "A normal-UI campaign now covers the complete five-chapter arc. The first two unchanged rescues earned3 medals; the prior boots-first chapter3 could finish without touching its promised firebreak, which was a concrete strategy/story defect. Under pass3, choosing and protecting resin, food and water routes produced visible late-game stewardship decisions; chapter5's food route burned, was repaired with banked water and still reached a2-medal rescue. Agent-driven completion is not a human fun score.",
+        "depth": "Five authored colony maps combine excavation, finite supplies, carrier distance, growing workforce, nursery allocation, advancing directional fire and three upgrades. Pass3 makes chapters3-5 require one wet interior tunnel on a named resin/food/water route, so boots, nursery and shelter support rather than erase fire planning. The UI campaign exercised all three upgrades; alternate allocations and no-upgrade late rescues remain useful comparison evidence, not finish blockers.",
+        "polish": "Original earth/colony identity retained. Goals, next-shift forecast, supply headers and trace summary explicitly show FIREBREAK NEEDED/DEFENDED and the correct interior tunnel action. The full visible campaign remained readable through a route burn/recovery. CI validates keyboard/focus, trace/Inspect, >=44px controls and no390/320 overflow; physical touch and screen-reader play remain unverified.",
+        "reliability": "Exact source933c5a55 passes22engine+25DOM, all-five desktop rescue, touch-emulated and all19 other-game regressions in CI39570023846. Source validation includes mandatory defense, legacy missing-rule migration/current-rule retry, every-action serialization, conservation, deadlines, undo/reward rollback, corrupt/conflicting storage, launch/back and zero page errors. Separate normal-UI play completed the full campaign.",
+        "variety": "Distinct colony logistics and fire recovery: each map changes roots, resource locations, fire direction/timing and brood target; late named resin/food/water firebreaks create different stewardship priorities without new counters, timers or padded chapter counts."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Finished but not selected: the full visible campaign, meaningful pass3 balance repair, saves/retry, keyboard/touch-emulated controls, launch/navigation and exact-source CI pass. Hold publication until direct enjoyment/depth/variety comparison with Deep Pocket, Spore Kitchen, Inkline and Burrow Express, plus at least one alternate colony allocation.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Review later chapters through permitted manual UI when available: compare fast boots rescues with water-defense and alternative carrier/nurse allocations; do not equate reference timing with optimality.",
-        "Assess nursery upgrade value under resin/food-limited versus nurse-limited plans, and shelter recovery; preserve save/rule compatibility unless a measured balance change is warranted.",
-        "Do actual Last Match combat and manual-poor candidates before cross-game enjoyment/depth/polish/reliability/variety ranking or winner selection.",
-        "Keep unfinished/unselected on development branch; integrate only selected finished scoped source/catalogue changes against fresh main, preserving concurrent work."
+        "Compare an alternate no-upgrade or different carrier/nurse allocation and replay enjoyment against the other finished candidates before selection; do not treat the documented campaign or automated solver as a human-player study.",
+        "Review physical touch and screen-reader output where feasible; compact five-chapter scope is complete but not a substantial-hours claim.",
+        "Keep development-only until selected; if chosen, integrate narrowly into fresh main with combined catalogue/deployment regressions."
       ],
       "developmentCommits": [
         "d93fd1aa611a942c0bb60df317a5c86699da8f23",
@@ -250,22 +253,23 @@
         "6310e921cdda9631082df02a7d41410bb2e816eb",
         "0e24ef450612300c0adc695c041a03c948c8d0f6",
         "397ba91c9a3b4981ecf97f6c2ef2edc43c36d663",
-        "57611181b385529ddcb6d9d0bae390db5500b89c"
+        "57611181b385529ddcb6d9d0bae390db5500b89c",
+        "933c5a55a457b0b1be97901f34610f823e565dcd"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39474950973",
-        "testedCommit": "57611181b385529ddcb6d9d0bae390db5500b89c",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39570023846",
+        "testedCommit": "933c5a55a457b0b1be97901f34610f823e565dcd",
         "conclusion": "success",
-        "desktop": "PASS actual five baseline rescues, native keyboard/focus, exact forecasts, shift13→14 delivery-before-fire route cut, pure trace/Inspect, burned-route dampening/recovery/undo/reload, visible board focus, upgrades/reward rollback/retry and workshop navigation; zero page errors.",
-        "touch": "PASS actual dig/assign/trace/Inspect, undo/modal/help, >=44px controls/no390/320 page overflow; real water trail tocell40 fully visible in both axes inside320px scrolling board; zero page errors. Physical hardware not tested.",
-        "manual": "No new manual gameplay this increment. Initial preview request preceded server startup and failed connection; prepared supported local preview, then observing the failed chrome-error tab was blocked by browser URL policy. Stopped UI work without alternate surfaces/policy workaround; preview stopped. Real-engine comparison and independent preconfigured GitHub Actions browser tests used; not represented as manual play.",
+        "desktop": "PASS workshop navigation, native keyboard/focus, all five legal rescues with named late firebreaks, exact forecasts, real delivery-before-fire cut warning, pure route trace/Inspect, burned-trail recovery/undo/reload, upgrade/reward undo and retry; zero page errors.",
+        "touch": "390x844/320px emulation: dig, assign, trace/Inspect, tools, undo, modal/help, >=44px controls and zero page overflow; zero page errors. Physical hardware not tested.",
+        "manual": "Managed normal UI: chapters1-2 completed at3 medals under unchanged rules. Boots-first chapter3 initially completed without the promised firebreak, exposing the defect. After pass3, retry adopted current rules; dampened the named resin trail and completed at shift8/3 medals. Bought nursery, dampened food trail and completed chapter4 at shift8/3 medals. Bought shelter, dampened water trail, repaired a burned food route and completed chapter5 at shift12/2 medals. Campaign displayed all five nurseries rescued.",
         "notVerified": [
-          "Later-chapter subjective enjoyment and actual manual fire/upgrade strategy comparison",
-          "Fresh manual screenshot inspection, full mobile visual review, physical touch and screen-reader output",
+          "Alternative late-game carrier/nurse allocations or no-upgrade normal-UI campaign",
+          "Human-player enjoyment study, physical touch hardware or screen-reader play",
           "20hours of gameplay/testing",
-          "Public integration/deployment"
+          "Public catalogue integration/deployment"
         ],
-        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39474950973/artifacts/12288887699"
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39570023846/artifacts/12331916149"
       },
       "reviews": [
         {
@@ -279,6 +283,12 @@
           "scope": "Real-engine baseline/upgrade comparison and feedback pass; manual UI blocked",
           "finding": "Baseline uses firebreaks; boots-first often outruns fire. Added pure path-specific consequence feedback and free inspection rather than altering hazards without play evidence.",
           "decision": "Hold; compare alternative allocations and actual manual later-chapter choices before selection"
+        },
+        {
+          "date": "2026-10-21",
+          "scope": "Pass3 mandatory late supply stewardship plus full normal-UI campaign",
+          "finding": "Boots let the prior chapter3 rescue outrun fire without building its promised firebreak. Chapters3-5 now require one wet interior tunnel on named resin, food and water trails. The revised UI campaign visibly completed all three tasks, all upgrades and all five nurseries; chapter5 route recovery traded one health for a2-medal finish.",
+          "decision": "Finished, not selected; compare alternate colony allocations and direct collection fit before publication"
         }
       ]
     },
@@ -1760,16 +1770,29 @@
       "verifiedCommit": "ba87bd9af17897c2fdfe3cee51cda2a97f31e621",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39558192584",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 38,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 5,
+      "publishedTotal": 0,
+      "summary": "Queen of Cinders pass3 repairs a measured boots-bypasses-fire flaw with explicit resin/food/water stewardship tasks in chapters3-5. Full normal-UI campaign completed all five nurseries and all three upgrades; exact source933c5a55 passes22engine+25DOM, desktop/touch/all19 regressions in CI39570023846. Marked finished, not selected; public main unchanged.",
+      "implementationCommit": "933c5a55a457b0b1be97901f34610f823e565dcd",
+      "verifiedCommit": "933c5a55a457b0b1be97901f34610f823e565dcd",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39570023846",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/36passes;4finished including Deep Pocket after full revised UI campaign;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/37passes;5finished including Queen of Cinders after full revised UI campaign;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 4,
+    "finished": 5,
     "selected": 0,
     "published": 0,
-    "next": "Compare finished Deep Pocket, Spore Kitchen, Inkline and Burrow Express directly on enjoyment, depth, polish, reliability, variety and alternate-route value. Continue strongest colony/repair/action finish gates. No new slots.",
+    "next": "Compare finished Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express directly on enjoyment, depth, polish, reliability, variety and alternate-route value. Continue strongest repair/action finish gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
