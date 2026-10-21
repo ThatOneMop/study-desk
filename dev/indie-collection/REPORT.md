@@ -1,3 +1,28 @@
+# Run 52 · Echo Vault finish gate
+
+**20/20 playable prototypes · 20 improved games · 44 meaningful improvement passes · 16 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Echo Vault now has visible end-to-end evidence for its complete four-vault campaign. A managed run used ordinary pace, direction, wait, tile, chime and extraction controls to archive all four relics and all eight folio leaves with zero exposed turns. The clean routes finished in 17/18/24/21 turns. Copper Stacks mixed noisy strides with quiet creeps, Curtain Court used a deliberate wait and curtain loops, and Last Resonance alternated pace around multiple sentries; only two deliberate waits appeared across the clean campaign. The final 4/4 relic, 8/8 leaf state and last record survived reload.
+
+The candidate is now **finished, not selected**. Together with the earlier 27-turn pursuit recovery, the evidence covers both clean planning and recoverable mistakes without showing wait fatigue as the dominant loop. Selection still requires direct comparison with the other fifteen finished candidates; no independent human enjoyment or content-hours claim is made.
+
+## Evidence
+
+- Exact game source: [8fe14ee7](https://github.com/ThatOneMop/study-desk/commit/8fe14ee7afb7b187647ca639dd3e621f4d03ca0f), with [successful desktop/touch Chromium CI 39451640282](https://github.com/ThatOneMop/study-desk/actions/runs/39451640282).
+- Exact cloned development head `03de5607bf5a766643687eeaae44c245cc0066c1` passed both repository asset/isolation gates: exactly 20 slots, 116 candidate references, public isolation, source syntax, 10 public routes and 14 public references.
+- Target regressions passed locally: 14 engine checks and 19 DOM/save checks, including four actual-button campaigns, exact forecasts, chime conservation, real capture, undo, reload, retry, storage failures and the non-ghost pursuit route.
+- Managed rendered desktop completed all four vaults. Final completion and all eight leaf records survived reload; there were no game-page console errors.
+- Public `main` remained `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no game was added to the public catalogue.
+
+## Verification limit
+
+The finish gate reuses the existing successful exact-source Chromium run because Echo Vault’s game source did not change. Physical touch hardware, screen-reader behavior, independent human enjoyment and broader non-ghost alternate routes remain unverified; no content-hours claim is made.
+
+## Next
+
+Compare all sixteen finished candidates on enjoyment, depth, polish, reliability and collection variety. Keep Echo Vault development-only unless it earns a selected place; continue the strongest unfinished finish gates before the final integration window.
+
+
 # Run 51 · Rain Catcher finish gate
 
 **20/20 playable prototypes · 20 improved games · 44 meaningful improvement passes · 15 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.

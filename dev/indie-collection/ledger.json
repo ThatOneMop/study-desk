@@ -1322,7 +1322,7 @@
       "id": "echo-vault",
       "title": "Echo Vault",
       "coreLoop": "Turn-based stealth using sound and enemy intent",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/echo-vault/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 1,
@@ -1336,23 +1336,24 @@
         "Improved77fac6c1 passed CI39450627919:13 engine+18 DOM, real Chromium desktop four all-leaf ghost campaigns/touch, repository gates and all19 earlier-game regressions. Decoded logs inspected.",
         "Final14 engine checks pass locally: four legal all-leaf/zero-exposure heists17/18/24/21 turns, exact action-by-action save/forecast parity, real capture, weighted sound, curtains/copper/stride, recovered/confiscated chimes, malformed bounds and100 seeded exploratory sessions.",
         "Manually discovered pursuit route reproduced in engine at27 turns, one leaf, three broken exposure warnings, one confiscated chime and actual extraction; this is feasible, not an optimal route or playtime evidence.",
-        "PASS exact final8fe14ee7 CI39451640282:14 engine+19 DOM, real desktop four all-leaf ghost campaigns plus27-turn pursuit route and390/320px touch, full repository assets,116 candidate references/exact20/public isolation and all19 earlier-game regressions. Actual job steps and decoded logs inspected."
+        "PASS exact final8fe14ee7 CI39451640282:14 engine+19 DOM, real desktop four all-leaf ghost campaigns plus27-turn pursuit route and390/320px touch, full repository assets,116 candidate references/exact20/public isolation and all19 earlier-game regressions. Actual job steps and decoded logs inspected.",
+        "Finish gate on exact unchanged source: managed visible controls completed all four all-leaf ghost heists at17/18/24/21 turns with zero exposed turns. The first used a recovered/confiscatable chime; later vaults combined copper noise, quiet creep, curtains, one deliberate wait and multi-sentry pace changes. Final4/4 relics and8/8 leaves survived reload with no game-page console errors. Exact cloned head03de5607 passed both asset gates plus14 engine and19 DOM/save checks locally."
       ],
       "quality": {
-        "enjoyment": "Preliminary manual first-heist extraction: readable patrol/risk choices and recoverable pursuit; one optional leaf missed. Full all-vault enjoyment and repetitive-wait assessment pending.",
+        "enjoyment": "A recoverable 27-turn pursuit route and a separate four-vault clean campaign both completed. Exact forecasts made patrol timing readable; later maps changed the dominant decision from chime diversion to copper-noise pacing, curtain concealment and multi-sentry timing. Only two deliberate waits were needed across the clean campaign, so wait fatigue did not dominate; independent human enjoyment remains unmeasured.",
         "depth": "Four compact handmade vaults, two sound sensitivities, noisy/quiet pace tradeoffs, curtains, reusable chimes, optional leaves and cleaner-route records. Need more authored obstacles/routes and replay-depth comparison; no duration claim.",
-        "polish": "Original midnight-museum SVG/CSS manually inspected on desktop; pure action plans, exact IF WAIT patrol intent, immediate exposure feedback and complete session undo. Exact final Chromium390/320 checks pass; manual mobile screenshot review pending.",
+        "polish": "Original midnight-museum SVG/CSS manually inspected on desktop; pure action plans, exact IF WAIT patrol intent, immediate exposure feedback and complete session undo. The full visible campaign kept pace, sound, beams and terminal records legible; exact Chromium390/320 checks pass, while physical touch and screen-reader review remain open.",
         "reliability": "Final14engine+19DOM and real desktop/touch Chromium pass in CI on8fe14ee7; repository assets,116 candidate references, exact20/public isolation and all19 earlier-game regressions pass. All20 local engine suites pass.",
         "variety": "Turn-based directional stealth and corridor-weighted sound diversion; not Inkline's card drafting, Pocket Expedition's pack/extraction risk or Last Match's realtime cone combat."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Finished, not selected: a pursuit recovery and a separate all-four ghost campaign demonstrate readable sound-stealth escalation, low wait fatigue, reliable saves and a loop distinct from the collection's realtime combat and route puzzlers. Selection still requires direct comparison and independent human enjoyment evidence.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Manually play remaining vaults and try chime recovery/curtain/noise routes; assess repetition, patrol clarity and optional-leaf/replay depth before finished status.",
-        "Compare all20 candidates, starting with under-reviewed fishing/manual-task/colony/action loops most aligned with user taste; deepen strongest candidates, not more slots.",
-        "Review mobile screenshots, physical touch and screen-reader behavior where feasible; keep development-only until deliberate quality-based winner selection and scoped fresh-main integration."
+        "Compare its forecast-driven sound stealth and compact replay value directly against the other finished candidates before selection.",
+        "Try additional non-ghost chime-recovery routes and compare cleaner-turn records; review physical touch and screen-reader behavior where feasible.",
+        "Keep development-only until deliberate quality-based winner selection and scoped fresh-main integration."
       ],
       "developmentCommits": [
         "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20",
@@ -1365,10 +1366,10 @@
         "conclusion": "success",
         "desktop": "Native arrows/Enter/Space/WASD/pace/T/Z and focus; exact patrol/inspection reload; four legal all-leaf/zero-exposure campaigns plus manual27-turn pursuit route; action/warning plans; extracted-record undo/replay; real exposure/capture/undo; confirmed retry and workshop launch/back. Zero page errors.",
         "touch": "Exactly-once chime/move taps, conserved charges/undo, saved inspection/patrol/reload/retry cancellation, actual all-leaf first heist/saved unlock/reload, >=44px controls, internally scrolling map and no390/320px page or button-text overflow. Zero page errors.",
-        "manual": "Desktop first-heist extraction: initial chime drew watcher left and was confiscated while thief reached curtain. Northern leaf taken; gallery forecast warned of exposure. Noisy lower-aisle movement drew pursuit; escaped through middle passage, took the strength7 relic and returned with one leaf/27turns/three separately broken warnings/no capture/one chime throw. Extraction undo restored unbanked archive and locked next vault; replay and reload retained record, next-vault focus tile12. Final warning copy rechecked in second vault; real predicted two-exposure capture, undo and forecast-safe north stride reset warning. Preview stopped.",
+        "manual": "First review used a chime diversion, curtains and a recoverable pursuit to extract with one leaf in27 turns and three separately broken warnings; undo/replay/reload and a real predicted capture were verified. Finish-gate review then used visible pace, direction, wait, tile, chime and extraction controls to complete all four all-leaf ghost routes at17/18/24/21 turns with zero exposure. Copper Stacks switched between noisy strides and quiet creeps; Curtain Court used a deliberate wait plus curtain loops; Last Resonance alternated pace around multiple sentries. Final4/4 relics,8/8 leaves and last record survived reload. No game-page console errors; preview stopped.",
         "notVerified": [
-          "Subjective enjoyment and replay depth across all four vaults",
-          "Manual mobile screenshots, physical touch hardware and screen-reader behavior",
+          "Independent human enjoyment and broader non-ghost alternate-route replay depth",
+          "Physical touch hardware and screen-reader behavior",
           "Long-form content or testing hours",
           "Public catalogue integration/deployment"
         ],
@@ -2027,16 +2028,29 @@
       "verifiedCommit": "75119929d3de36e4842e51a5730d5f8c86407d6e",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39443598012",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 52,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 16,
+      "publishedTotal": 0,
+      "summary": "Echo Vault clears its finish gate after a managed visible four-vault sound-stealth campaign archived all relics and8/8 leaves at17/18/24/21 turns with zero exposure. Later vaults used copper-noise pacing, quiet creep, curtain concealment, one deliberate wait and multi-sentry timing rather than repeated waiting. Final completion and archive survived reload. Exact cloned head03de5607 passes both asset gates plus14 engine and19 DOM/save checks; unchanged exact game source already has successful desktop/touch Chromium CI39451640282. Marked finished, not selected; public main unchanged.",
+      "implementationCommit": "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
+      "verifiedCommit": "03de5607bf5a766643687eeaae44c245cc0066c1",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/44passes;15finished; Rain Catcher completed its visible four-district finish gate;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/44passes;16finished; Echo Vault completed its visible four-vault finish gate;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 15,
+    "finished": 16,
     "selected": 0,
     "published": 0,
-    "next": "Compare the fifteen finished candidates directly while completing Threadbound canopies2–4, Echo Vault remaining-vault and the strongest unfinished finish gates. No new slots.",
+    "next": "Compare the sixteen finished candidates directly while completing Threadbound canopies2–4, Roof Runner full-route, Glasshouse later exhibitions and Last Match sustained-combat finish gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
