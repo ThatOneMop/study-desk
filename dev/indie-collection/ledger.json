@@ -78,14 +78,15 @@
       "id": "spore-kitchen",
       "title": "Spore Kitchen",
       "coreLoop": "Grow ingredients and cook by combining fungal traits",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/spore-kitchen/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: five handmade three-order services, four mushroom species, growth/misting/harvesting, two-ingredient flavour matching, three cooking methods, failure/retry, three pantry upgrades and checkpoint-based saving.",
         "Pass 1: session one-step undo restores beds/basket/stars/coins including the winning dish; upgrade/next clears undo. Optional rule-derived recipe notebook lists missing ingredients; next-action growth and basket-full forecast, stable native keyboard focus, modal shortcut guards, and stricter completed-save coin/upgrade/best-score consistency.",
-        "Pass2 after a complete normal-UI campaign: limits each inter-service break to one pantry upgrade, carries unspent coins forward and records the chosen upgrade in the validated save. Other upgrades lock immediately, the choice resets on the next service, retry restores the pre-service profile, and the final service cannot buy a useless post-campaign upgrade. Copy and onboarding explain the rule."
+        "Pass2 after a complete normal-UI campaign: limits each inter-service break to one pantry upgrade, carries unspent coins forward and records the chosen upgrade in the validated save. Other upgrades lock immediately, the choice resets on the next service, retry restores the pre-service profile, and the final service cannot buy a useless post-campaign upgrade. Copy and onboarding explain the rule.",
+        "Pass3 after a second full normal-UI campaign: replaces the nearly automatic all-three-upgrade path with a two-slot build. Warm shelves expand to8 beds and start new spores at+1 growth; the forager basket expands to10 and stocks one Cloud Oyster each service; fine mist keeps its all-growth reduction. Build/full state is visible, legacy three-upgrade saves remain readable, and a confirmed Start new campaign action clears progression so another build can be tried."
       ],
       "tests": [
         "18 engine checks passed, including exact solutions to all 15 dishes, baseline/upgraded campaigns, save validation after every action and completed-save accounting.",
@@ -94,44 +95,48 @@
         "Existing Tidepost regression: 17 engine + 9 DOM checks passed.",
         "PASS GitHub Actions 39334355735 at 7f5c9f72ed5a629813cf35d998f3060e309a45f5: full repository asset gate, 18 engine + 18 DOM checks, real Chromium desktop campaign and 390px/320px touch-emulation checks; Tidepost regression also passed.",
         "Pass2 local:18 engine checks passed; exact baseline actions remain9/15/12/10/14. Agent-driven normal-UI campaign completed all five services at9/9, exposed all three upgrades purchasable by service2, then verified one-choice lock,36 carried coins, reload and service2 reset after the fix. Local jsdom dependency unavailable.",
-        "PASS exact source ed1945ba in GitHub Actions39500663870: root asset gate; exact20 slots/selection isolation/116 references;18 engine+19 DOM; real Chromium five-service desktop campaign and390/320px touch; all19 other-candidate regressions. Decoded logs and terminal SHA inspected; screenshot artifact12299722812 retained."
+        "PASS exact source ed1945ba in GitHub Actions39500663870: root asset gate; exact20 slots/selection isolation/116 references;18 engine+19 DOM; real Chromium five-service desktop campaign and390/320px touch; all19 other-candidate regressions. Decoded logs and terminal SHA inspected; screenshot artifact12299722812 retained.",
+        "Pass3 manual normal-UI: completed an alternate, notebook-closed five-service campaign at9/9 each, using Cloud Oyster alternatives in services1,2 and4 and choosing basket→beds→mist; final208 coins/all three upgrades exposed shallow build differentiation. Post-fix restart cleared the campaign, basket visibly began service2 at5/10 with an extra Cloud Oyster, warm shelves produced an8-bed 2/2 build and started a planted Velvet Button one growth ahead; the third perk stayed locked.",
+        "PASS exact source a23207b2 in GitHub Actions39555733292: root asset gate; exact20 slots/selection isolation/116 references;20 engine+21 DOM; real Chromium five-service desktop, two-choice build, reload/undo/retry/restart and390/320px touch; all19 other-candidate regressions. Terminal state and decoded logs inspected; screenshot artifact12326330412 retained."
       ],
       "quality": {
-        "enjoyment": "Agent-driven five-service UI campaign was clear and tactile enough to complete at9/9 throughout; planting several beds and harvesting a ripened batch is readable. This is not a human-player enjoyment rating. Optional exact hints reduce discovery, and longer-term replay satisfaction remains open.",
-        "depth": "Five handcrafted menus with flavour composition and simultaneous growth planning. Pass2 turns upgrade order into a three-break progression decision instead of allowing all upgrades by service2; exact-recipe replay breadth and upgrade-order value still need comparison. No duration claim.",
-        "polish": "Original CSS woodland artwork inspected through the complete desktop campaign; onboarding, forecasts, focus and saved recovery were legible. Chromium verifies native keyboard focus,>=44px touch targets and no390/320px overflow. Physical touch/screen-reader review remains.",
-        "reliability": "Exact ed1945ba passes18 engine+19 DOM plus Chromium desktop/touch and all19 other-game regressions in CI39500663870; one-choice save accounting, retry, reload and next-service reset are covered.",
-        "variety": "Distinct garden/cooking resource puzzle, not a ferry-game reskin"
+        "enjoyment": "Two complete normal-UI campaigns reached9/9 throughout. The second kept the exact-recipe notebook closed and used alternate Cloud Oyster recipes in services1,2 and4; planting, ripening and composing remained legible. This is agent-driven functional evidence, not a human enjoyment score.",
+        "depth": "Five menus/15 orders, four fungal traits, three cooking methods and simultaneous growth planning. The observed all-three-upgrades-by-service4 path made basket/beds marginal; pass3 creates three distinct two-of-three builds and makes basket/shelves alter service planning immediately. Compact scope is complete, not a duration claim.",
+        "polish": "Original woodland CSS art, onboarding, live forecasts, 0/2 build state, pantry-full messaging and confirmed full-campaign restart were inspected through ordinary UI. Exact CI covers focus, >=44px touch targets and390/320px overflow; physical touch/screen-reader play remains open.",
+        "reliability": "Exact a23207b2 passes20 engine+21 DOM plus five-service Chromium desktop/touch and all19 other-game regressions in CI39555733292. Legacy three-upgrade saves, new two-slot saves, retry, reload, undo and full restart are covered.",
+        "variety": "Distinct garden/cooking resource puzzle with alternate valid ingredient pairs and three mutually exclusive two-perk builds; it is not a reskin of the planning, card or railway candidates."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Finished but not selected: both full five-service campaigns, alternate no-notebook recipes, differentiated two-of-three builds, progression, saves/restart/undo, keyboard/touch-emulated controls and launch/navigation pass. Hold publication until direct enjoyment/depth/variety comparison with Burrow Express, Inkline and other complete campaigns.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare no-hint and alternate-recipe runs plus the three possible upgrade orders; assess whether menus support worthwhile replay instead of only exact-solution completion.",
-        "Compare enjoyment/depth/polish/reliability/variety against repair, fishing, colony and action candidates before finished/selected status.",
-        "Before any public integration re-read main and apply only selected game/catalogue changes, preserving newer independent work"
+        "Compare the three two-perk build orders and recipe discovery enjoyment directly with finished Burrow Express, Inkline and the strongest complete campaigns before selection; do not equate agent-driven completion with a human-player study.",
+        "Review retained CI visuals and physical touch/screen-reader behavior where feasible; compact five-service scope is complete but not a substantial-hours claim.",
+        "Keep development-only until selected; if chosen, integrate narrowly into fresh main with combined catalogue/deployment regressions."
       ],
       "developmentCommits": [
         "ed72f25ae8873c2bd6c1c7395893070e36a69328",
         "7f5c9f72ed5a629813cf35d998f3060e309a45f5",
-        "ed1945ba4fde3547faf0e4d3362917c68daca777"
+        "ed1945ba4fde3547faf0e4d3362917c68daca777",
+        "608e0f0da491fdb9dfea571d80c401c0ee7d7a9f",
+        "a23207b237ba6822afe46e985652b6ef8a33f1b7"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39500663870",
-        "testedCommit": "ed1945ba4fde3547faf0e4d3362917c68daca777",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39555733292",
+        "testedCommit": "a23207b237ba6822afe46e985652b6ef8a33f1b7",
         "conclusion": "success",
-        "desktop": "PASS workshop navigation, native keyboard/focus, all five menus, sequential one-per-break upgrades, reload, undo and confirmed retry; zero page errors.",
-        "touch": "PASS plant/undo/cook, optional hints,>=44px targets, help and no390/320px overflow; zero page errors. Browser emulation, not hardware.",
-        "manual": "Agent-driven normal-UI five-service campaign at9/9 each, using visible optional notebook and ordinary controls only. First two services showed all upgrades owned by service2 before fix. Post-fix opening replay bought basket only, locked other choices, retained36 coins across reload and reset the break marker on service2. Older prototype save was preserved by backup-first recovery; no public-save migration claim.",
+        "desktop": "PASS workshop navigation, native keyboard/focus, all five menus, two-choice pantry build, reload, undo, confirmed retry and full campaign restart; zero page errors.",
+        "touch": "390x844/320px emulation: plant/undo/cook, optional hints, >=44px targets, help and no page overflow; zero page errors.",
+        "manual": "Second ordinary-UI campaign completed all five services at9/9 with the notebook closed and alternate Cloud Oyster recipes in services1,2 and4. Pre-fix basket→beds→mist reached all upgrades and208 coins, exposing weak differentiation. Post-fix confirmed restart; basket stocked an extra Cloud Oyster at service2, warm shelves opened8 beds and gave new spores+1 growth, live build showed2/2, and mist stayed locked.",
         "notVerified": [
-          "Human-player enjoyment rating and no-hint/alternate-recipe replay depth",
-          "Physical touch hardware",
-          "20 hours of worthwhile content",
+          "Human-player enjoyment comparison across candidates",
+          "Physical touch hardware or screen-reader play",
+          "20 hours of worthwhile content or testing",
           "Public catalogue integration/deployment"
         ],
-        "artifactId": 12299722812,
-        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39500663870/artifacts/12299722812",
+        "artifactId": 12326330412,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39555733292/artifacts/12326330412",
         "artifactManuallyInspected": false
       }
     },
@@ -1696,16 +1701,29 @@
       "verifiedCommit": "27416d1768886b1eb4ea339aea73daa2964fd7df",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39549722233",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 35,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 3,
+      "publishedTotal": 0,
+      "summary": "Spore Kitchen pass3 follows a second no-notebook normal-UI five-service9/9 campaign with alternate Cloud Oyster recipes. The observed all-three-upgrades-by-service4 path becomes a two-slot three-perk build; basket/shelves now change service planning immediately and confirmed restart enables another build.20engine+21DOM, five-service desktop/touch/all19 regressions/root gates pass in exact-source CI39555733292. Marked finished, not selected; public unchanged.",
+      "implementationCommit": "a23207b237ba6822afe46e985652b6ef8a33f1b7",
+      "verifiedCommit": "a23207b237ba6822afe46e985652b6ef8a33f1b7",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39555733292",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/34passes;2finished;Tidepost, Spore Kitchen, Inkline and Burrow Express complete normal-UI campaigns, Stone Song and Glasshouse openings complete, plus limited Roof Runner/Scrap Orbit reviews;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/35passes;3finished;Tidepost, Spore Kitchen, Inkline and Burrow Express complete normal-UI campaigns, Stone Song and Glasshouse openings complete, plus limited Roof Runner/Scrap Orbit reviews;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 2,
+    "finished": 3,
     "selected": 0,
     "published": 0,
-    "next": "Compare finished Inkline and Burrow Express against each other and the strongest complete campaigns; assess alternative rail/card strategies, Spore Kitchen no-hint/upgrade orders and Tidepost/Deep Pocket repetition before selection. No new slots.",
+    "next": "Compare finished Spore Kitchen, Inkline and Burrow Express directly on enjoyment, depth, polish, reliability and variety; continue the strongest complete-campaign gates before selection. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
