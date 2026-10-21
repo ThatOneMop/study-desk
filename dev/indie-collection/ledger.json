@@ -734,15 +734,16 @@
       "id": "burrow-express",
       "title": "Burrow Express",
       "coreLoop": "Underground rail network building",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/burrow-express/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: six original underground postal yards; shared/wet rail material budgeting, per-train route drafting, simultaneous traffic, holds, collision losses, postmarks, unlocks and versioned optimistic saving.",
         "Pass 1: pure next-beat forecast names shared junction/occupied-block/head-on conflicts; preview destinations and risk cells on map, affordable next-step hints, selected-route rail highlighting and numbered squares. Added 100-action session undo including signals, crashes and winning postmarks, next-yard focus/history reset, and impossible occupied-save rejection.",
         "Follow-up: trimming the final segment now focuses the remaining route tip, and clear/replan keep focused and aria-pressed map squares aligned. Added direct regression.",
-        "Pass 2: forecast now distinguishes conflicts a signal change can solve from topology deadlocks. Solvable warnings name every minimum-change hold/release plan; deadlocks use stronger treatment, focus the route-preserving Replan action and explicitly recommend a passing loop instead of falsely telling the player to toggle signals."
+        "Pass 2: forecast now distinguishes conflicts a signal change can solve from topology deadlocks. Solvable warnings name every minimum-change hold/release plan; deadlocks use stronger treatment, focus the route-preserving Replan action and explicitly recommend a passing loop instead of falsely telling the player to toggle signals.",
+        "Pass 3: bounded two-beat forecasting now catches a currently safe move that would create an unsignalable collision on the following beat. TRAP AHEAD names the future conflict, highlights every minimum-change hold/release escape and clears once safe. Duplicate signal suggestions after delivered trains were removed."
       ],
       "tests": [
         "PASS initial checkpoint df4521f453900ba6c58cadd6dafdd87d530dad15: CI 39392764019, 9 engine + 11 DOM checks and all eleven older-game browser regressions. New candidate browser suite added in improvement commit, not initial checkpoint.",
@@ -751,39 +752,42 @@
         "Browser: native arrows/Enter/Space/Z, draft and dispatch reload, six actual DOM-button campaigns, collision warning/loss/undo/hold recovery, reward rollback/replay, replan, unlocks and workshop navigation. Touch taps apply once; >=44px visible controls and no page overflow at 390px/320px; zero page errors.",
         "Manual desktop: original underground map/onboarding inspected; first two yards completed with three stamps, winning undo/replay/reload and crossing forecast resolved through hold/release. Preview stopped. Separate local slower seven-material/seven-beat one-stamp replay preserved a prior three-stamp record and roundtripped.",
         "PASS exact-source CI 39538803662 at bc943b4f30db0da66d5ce467d1039323acefb2b6:14 Burrow Express engine +19 DOM checks, desktop/touch Chromium, repository gates and all19 other-candidate regressions. Added signal-plan enumeration, occupied-block release advice, opposing-line deadlock classification and normal-button browser coverage.",
-        "Manual desktop: completed yards1-2 at three postmarks, deliberately built yard3's direct opposing line, confirmed both head-on and held-train states were unsolvable by signals, used highlighted Keep routes & replan, replaced A's direct segment with the wet upper passing loop, then delivered both trains in7 beats for3/3 postmarks."
+        "Manual desktop: completed yards1-2 at three postmarks, deliberately built yard3's direct opposing line, confirmed both head-on and held-train states were unsolvable by signals, used highlighted Keep routes & replan, replaced A's direct segment with the wet upper passing loop, then delivered both trains in7 beats for3/3 postmarks.",
+        "PASS exact-source CI 39544053199 at c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f:15 Burrow Express engine +20 DOM checks, real desktop/touch Chromium, all19 other-candidate regressions, repository gates and exact20-slot/116-reference isolation. New engine/DOM/browser assertions cover the yard6 two-beat head-on trap and both highlighted escape controls.",
+        "Manual desktop campaign complete across two review sessions: yards1-6 all earned3/3 postmarks with visible controls and documented legal route plans. Remaining yards measured yard4=19 material/9 beats, yard5=16/9 and yard6=27/13; final saved profile shows all six three-postmark records. Yard4 emphasizes shared-trunk material, yard5 three-train following, and yard6 pre-emptive signalling. This is not unscripted discovery or playtime evidence."
       ],
       "quality": {
-        "enjoyment": "First three yards manually completed at three postmarks. Yard3 produced a genuine route-design correction: the direct line deadlocks, while the passing loop solves it in7 beats. Yards4-6 subjective enjoyment and replay-depth assessment remain open.",
-        "depth": "Six short handmade rail/signal puzzles with alternative routes and material/beat postmarks; no claim of extensive content or playtime.",
-        "polish": "Original code-native copper/sage/lilac railway, numbered squares, highlighted shared routes, affordable-step hints, undo, onboarding and responsive keyboard/touch controls. Forecasts name safe signal changes and visually separate topology deadlocks with a focused replan remedy; physical mobile/screen-reader review remains open.",
-        "reliability": "Exact pass2 source passes14 engine +19 DOM plus desktop/touch Chromium and all19 other-candidate/repository regressions. Signal-plan enumeration, opposing-route deadlock, saves, crashes, replay rewards and navigation are covered; no guarantee beyond tested cases.",
+        "enjoyment": "All six yards completed through the normal UI at three postmarks using documented legal plans. The sequence adds materially different decisions: first route, timed crossing, passing loop, shared trunk, three-train following and a pre-emptive opposing-trunk signal. Alternate-route discovery and replay enjoyment remain selection comparisons, not finished-functionality blockers.",
+        "depth": "Six short handmade rail/signal puzzles with shared/wet material, alternate track, simultaneous trains and material/beat postmarks. Later yards add shared-trunk economy, three-train following and two-beat trap planning; compact scope is documented with no extensive-content or playtime claim.",
+        "polish": "Original code-native copper/sage/lilac railway, numbered squares, highlighted shared routes, affordable-step hints, multi-action undo, onboarding and responsive keyboard/touch controls. Forecasts name safe signals, visually separate topology deadlocks and now warn one beat before an avoidable future trap with highlighted controls.",
+        "reliability": "Exact pass3 source passes15 engine +20 DOM plus desktop/touch Chromium and all19 other-candidate/repository regressions. Full six-yard progression, next/future collision advice, saves, undo, restart, crashes, rewards, focus and navigation are covered; physical-device behavior remains outside the tested evidence.",
         "variety": "Network drafting with shared material budgets and simultaneous per-train traffic/hold decisions; distinct from ferry routing, colony logistics, plant genetics, rhythm, fishing and action candidates."
       },
       "selected": false,
-      "selectionReason": "Not selected: three manually completed yards and two tested improvement passes show a promising rail-planning loop, but yards4-6 subjective variety/replay review and physical accessibility checks remain open.",
+      "selectionReason": "Finished but not selected: all six compact yards, progression, saves/restart, keyboard/touch browser controls and launch/navigation pass, and the full normal-UI campaign reached3/3 records. Hold publication until alternate-route/replay enjoyment is compared against other finished or complete campaigns.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Manually play yards4-6, compare alternative railway/hold plans and assess puzzle variety/replay depth.",
-        "Review CI mobile screenshots and physical touch/screen-reader behavior where feasible; address concrete issues before selection.",
-        "Keep development-only until finished and selected; integrate narrowly into fresh main without overwriting independent work."
+        "Compare alternate railway and signal plans against the strongest complete campaigns before selection; do not equate the documented-route campaign with unscripted discovery.",
+        "Review retained CI visuals and physical touch/screen-reader behavior where feasible; treat findings as polish evidence rather than claiming untested hardware.",
+        "Keep development-only until selected; if chosen, integrate narrowly into fresh main with combined catalogue/deployment regressions."
       ],
       "developmentCommits": [
         "df4521f453900ba6c58cadd6dafdd87d530dad15",
         "cfb133eafb0e087661b86c816a632f6d14f58b70",
         "a2e8dd2ea00a74b1639fb5af56d9678723057b15",
-        "bc943b4f30db0da66d5ce467d1039323acefb2b6"
+        "bc943b4f30db0da66d5ce467d1039323acefb2b6",
+        "c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39538803662",
-        "testedCommit": "bc943b4f30db0da66d5ce467d1039323acefb2b6",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39544053199",
+        "testedCommit": "c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f",
         "conclusion": "success",
-        "desktop": "Native map arrows/Enter/Space/Z and focus, exact draft/dispatch reload, six legal three-stamp DOM-button campaigns, signal-solvable warnings naming safe holds, opposing-line deadlock/replan guidance, loss/undo/recovery, reward replay and workshop navigation; zero page errors.",
+        "desktop": "Six legal three-postmark DOM-button campaigns, native map arrows/Enter/Space/Z and focus, exact draft/dispatch reload, immediate signal options, opposing-line deadlock/replan guidance, yard6 two-beat trap warning with both escape controls, loss/undo/recovery, reward replay and workshop navigation; zero page errors.",
         "touch": "390x844 emulation: exactly-once rail/hold/beat taps, first-yard win and saved unlock, undo, crossing preview and signal recovery, retry cancel, >=44px visible controls and no page overflow at390px/320px; zero page errors.",
-        "manual": "Managed cloud browser desktop: completed yards1-2 for three postmarks; in yard3 built a direct opposing line and observed a head-on deadlock, confirmed holding A changed the collision to an occupied block without making it signal-solvable, then used route-preserving Replan, trimmed A and added the wet upper passing loop. Both trains delivered in7 beats for3/3 postmarks.",
+        "manual": "Managed cloud browser desktop: prior session completed yards1-3 at3/3. This session completed Pantry Branch19 material/9 beats, Roots at Rush Hour16/9 with B held for one beat, and Night Mail27/13 with B held for two beats. Replayed Night Mail after pass3: TRAP AHEAD named the next-beat head-on swap, highlighted Hold A and Hold B, cleared after holding B, and the yard again completed3/3. Saved campaign shows all six connected.",
         "notVerified": [
-          "Yards4-6 subjective enjoyment and replay-depth assessment",
+          "Unscripted route discovery and alternate-plan replay enjoyment",
           "Manual mobile screenshot/layout review",
           "Physical touch hardware and screen-reader behavior",
           "20 hours of worthwhile content or testing",
@@ -1662,16 +1666,29 @@
       "verifiedCommit": "bc943b4f30db0da66d5ce467d1039323acefb2b6",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39538803662",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 33,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 1,
+      "publishedTotal": 0,
+      "summary": "Burrow Express pass3 follows normal-UI completion of yards4-6 and all-six3/3 saved records. Yard6 exposed a safe-looking move that caused an unsignalable next-beat head-on; bounded two-beat forecasting now warns early and highlights both minimum-change holds.15engine+20DOM, six-yard desktop/touch/all19 regressions/root gates pass in exact-source CI39544053199. Marked finished, not selected; alternate-route/replay comparison remains. Public unchanged.",
+      "implementationCommit": "c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f",
+      "verifiedCommit": "c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39544053199",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/32passes;Tidepost, Spore Kitchen and Inkline complete normal-UI campaigns, Stone Song and Glasshouse openings complete, Burrow Express first three yards complete, plus limited Roof Runner/Scrap Orbit reviews;0finished/selected/public",
+    "status": "Comparative review underway;20playable/all20improved/33passes;1finished;Tidepost, Spore Kitchen, Inkline and Burrow Express complete normal-UI campaigns, Stone Song and Glasshouse openings complete, plus limited Roof Runner/Scrap Orbit reviews;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 0,
+    "finished": 1,
     "selected": 0,
     "published": 0,
-    "next": "Continue Burrow Express yards4-6, Glasshouse exhibition2/all-room review, later Stone Song tune/chord/mute rooms, a normal-UI Scrap Orbit recovery and an unscripted Roof Runner route; compare Inkline alternatives, Spore Kitchen no-hint/upgrade orders and Tidepost/Deep Pocket repetition. No new slots.",
+    "next": "Compare finished Burrow Express against the strongest complete campaigns and continue quality gates for manual-poor candidates; assess alternate Burrow routes/signals, Inkline discovery, Spore Kitchen no-hint/upgrade orders and Tidepost/Deep Pocket repetition before selection. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
