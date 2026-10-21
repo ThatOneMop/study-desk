@@ -488,21 +488,23 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/scrap-orbit/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: five original salvage fields; real-time inertia, spring-damped mass-aware cable towing, slow docking, debris collisions, hull failure, medals/records, two upgrades, retries and guarded versioned local saves.",
-        "Pass 1: exact nonmutating docking/coupling telemetry and cargo bearings, drift vector and coupling reticle; 560-unit tug-following mobile camera with offscreen labels; sub-frame touch thrust latch consumed exactly once; lower DOM redraw frequency and modal/background action guards; correct same-origin Study Desk visibility protocol; deeper physical/economy/status save validation."
+        "Pass 1: exact nonmutating docking/coupling telemetry and cargo bearings, drift vector and coupling reticle; 560-unit tug-following mobile camera with offscreen labels; sub-frame touch thrust latch consumed exactly once; lower DOM redraw frequency and modal/background action guards; correct same-origin Study Desk visibility protocol; deeper physical/economy/status save validation.",
+        "Pass 2: add a live docking approach board for tethered cargo with exact beacon range, cargo speed, radial closing/away drift and context cues for alignment, braking, turnaround and safe docking; mirror the state in an accessible label and responsive two-column mobile layout without changing physics, thresholds, save format or content counts."
       ],
       "tests": [
         "7 local engine checks pass: all five baseline three-medal recoveries in 2258/5221/4948/5272/5611 simulated ticks, every-tick saves, actual repeated-impact loss/retry, inertia/braking, upgrade accounting and malformed saves. DOM checks authored, pending execution.",
         "After pass: 10 local engine checks pass, including exact telemetry nonmutation, null/malformed nested saves, forged status rejection and 80 deterministic exploratory attempts (120,000 simulated frames). 13 DOM cases and actual Chromium desktop/native-clock/touch-emulated tests authored, pending exact-source CI.",
-        "PASS exact-source GitHub Actions 39369531384 at e184c8633067726b626139234791dac25d9adff9: full repository assets, 44 candidate references/exact20/isolation, 10 engine + 13 DOM checks, Chromium five legal recoveries through DOM keyboard input, native keyboard and native-clock RAF smoke, 390px/320px touch emulation. All seven earlier candidates engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected."
+        "PASS exact-source GitHub Actions 39369531384 at e184c8633067726b626139234791dac25d9adff9: full repository assets, 44 candidate references/exact20/isolation, 10 engine + 13 DOM checks, Chromium five legal recoveries through DOM keyboard input, native keyboard and native-clock RAF smoke, 390px/320px touch emulation. All seven earlier candidates engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected.",
+        "PASS exact-source GitHub Actions 39520905091 at f331a7a4479f716e73c306f6f568a50b92d66ab6: 10 engine + 14 DOM checks, deterministic Chromium five-job three-medal campaigns, explicit inside-range/too-fast/away approach-board state, native-clock smoke, responsive board at 390px/320px, all 19 other-game regressions, exact20-slot/116-reference/isolation gates and zero page errors. Terminal status, steps and decoded logs inspected."
       ],
       "quality": {
-        "enjoyment": "Preliminary manual desktop review: readable original night-depot layout, thrust/brake approach and first-object coupling/telemetry usable; no completed manual recovery or full enjoyment/depth assessment.",
-        "depth": "Five short momentum-salvage jobs; baseline automated routes approximately 38/87/82/88/94 simulated seconds. Not human playtime and no duration claim.",
-        "polish": "Original canvas night-depot art manually inspected on desktop. DOM cargo bearings and docking telemetry, coupling reticle, narrow 560-unit following camera/offscreen labels. >=44px targets and no 390px/320px page overflow verified in Chromium; mobile screenshot and physical hardware not manually reviewed.",
-        "reliability": "10 engine + 13 DOM and actual Chromium desktop/native-clock/touch-emulated checks pass on exact improved source, including 120,000 deterministic exploratory frames and earlier-game regressions. Manual mid-coupling reload retained cable/cargo and paused state.",
+        "enjoyment": "Limited normal-UI desktop review reached first-object approach and coupling after genuine thrust/brake control. The coupled-load board immediately separated 240m range, 0m/s cargo speed and steady radial drift with an ALIGN cue. This fixes an observed overshoot-feedback gap, but no manual recovery or full enjoyment/depth assessment is claimed.",
+        "depth": "Five short momentum-salvage jobs; baseline automated routes approximately 38/87/82/88/94 simulated seconds. The new board clarifies the existing approach decisions but does not add content or strategic depth. Not human playtime and no duration claim.",
+        "polish": "Original canvas night-depot art and the live board were inspected on desktop through normal controls. Range/speed/drift/cue are visually distinct and mirrored in one accessible label. Exact CI covers coupling/braking states, >=44px controls and board/page fit at 390px/320px; physical mobile hardware remains open.",
+        "reliability": "10 engine + 14 DOM and actual Chromium desktop/native-clock/touch-emulated checks pass on exact pass2 source, including all five recovery campaigns, 120,000 deterministic exploratory frames, exact board state and all earlier-game regressions. Manual paused reload retained the active attempt.",
         "variety": "Distinct continuous inertia and spring-cable cargo towing, not a turn-based route or platformer reskin"
       },
       "selected": false,
@@ -510,22 +512,24 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Compare enjoyment/depth/polish/reliability/variety with all20 now-playable candidates; deepen promising loops before finished/selected status.",
-        "Revisit depth/enjoyment and remaining mobile review before finish/selection",
+        "Complete at least one normal-UI salvage recovery and review later-field towing/control feel before finished/selection.",
+        "Compare enjoyment/depth/polish/reliability/variety with all20 candidates; the board resolves feedback, not depth.",
         "Integrate only selected finished winners against fresh main; never wholesale-merge this historical development branch"
       ],
       "developmentCommits": [
         "aecbf32e3f7b28a59ea2944ca8d595b2b735335b",
-        "e184c8633067726b626139234791dac25d9adff9"
+        "e184c8633067726b626139234791dac25d9adff9",
+        "f331a7a4479f716e73c306f6f568a50b92d66ab6"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39369531384",
-        "testedCommit": "e184c8633067726b626139234791dac25d9adff9",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39520905091",
+        "testedCommit": "f331a7a4479f716e73c306f6f568a50b92d66ab6",
         "conclusion": "success",
-        "desktop": "Native keyboard thrust/brake/pause, mid-run reload/retry; all five legal three-medal recoveries with browser DOM keyboard events under deterministic clock, workshop/records/navigation. Separate native-clock RAF movement/retry-cancel focus/pause smoke. Zero page errors.",
-        "touch": "390x844 emulation quick thrust tap exactly once, pause/retry, 560-unit following camera, >=44px visible buttons and no page overflow at 390px/320px.",
-        "manual": "Managed cloud-browser desktop art/onboarding inspection, native thrust/brake approach, coupling Lunchbox, telemetry/manifest, pause and mid-coupling reload; not a full recovery/playthrough.",
+        "desktop": "Native keyboard thrust/brake/pause/retry and exact reload; all five legal three-medal recoveries with browser DOM keyboard events; live range/speed/radial-drift/cue board with accessible state; records/workshop/navigation and zero page errors.",
+        "touch": "390x844 quick thrust tap, pause/retry, responsive approach board, 560-unit following camera, >=44px visible buttons and no page overflow at 390px/320px.",
+        "manual": "Managed local-only desktop review used normal start/resume, held thrust/brake and Couple to reach first-object coupling; the board visibly reported 240m range, 0m/s speed, steady drift and ALIGN WITH BEACON. Earlier genuine overshoot and paused reload informed the defect. Not a complete recovery/playthrough.",
         "notVerified": [
+          "Complete manual salvage recovery or full five-job normal-UI campaign",
           "Full subjective enjoyment/replay depth assessment",
           "Manual mobile screenshot/layout review",
           "Physical touch hardware",
@@ -1595,16 +1599,29 @@
       "verifiedCommit": "24d11a4c18c3e8a29ca138b130742cdecdce5598",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39514585107",
       "inspectedMainCommit": "8f99173d29bcbcf429247766a605ca5cd39e9a54"
+    },
+    {
+      "run": 29,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Scrap Orbit pass2 follows a limited normal-UI approach/coupling review that exposed opaque docking feedback. A live accessible board now separates range, safe cargo speed, radial in/out drift and contextual brake/turn/dock cues. 10engine+14DOM, five-job desktop/touch/native-clock/all19 regressions/root gates pass in exact-source CI39520905091. No complete manual recovery; public unchanged.",
+      "implementationCommit": "f331a7a4479f716e73c306f6f568a50b92d66ab6",
+      "verifiedCommit": "f331a7a4479f716e73c306f6f568a50b92d66ab6",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39520905091",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/28passes;Tidepost, Spore Kitchen and Inkline complete normal-UI campaigns plus limited Roof Runner opening review recorded;0finished/selected/public",
+    "status": "Comparative review underway;20playable/all20improved/29passes;Tidepost, Spore Kitchen and Inkline complete normal-UI campaigns plus limited Roof Runner and Scrap Orbit opening reviews recorded;0finished/selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 0,
     "selected": 0,
     "published": 0,
-    "next": "Complete an unscripted continuous-control Roof Runner route; compare Inkline alternative drafts, Spore Kitchen no-hint/upgrade orders and observed Tidepost/Deep Pocket repetition. Keep continuous Last Match feel and colony upgrade value as quality gates. No new slots.",
+    "next": "Complete a normal-UI Scrap Orbit recovery and an unscripted continuous-control Roof Runner route; compare Inkline alternative drafts, Spore Kitchen no-hint/upgrade orders and observed Tidepost/Deep Pocket repetition. Keep continuous Last Match feel and colony upgrade value as quality gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
