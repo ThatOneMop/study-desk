@@ -1,3 +1,17 @@
+# Run 41 · Stone Song explicit tuning and full-campaign finish gate
+
+**20/20 playable prototypes ·20 improved games ·40 meaningful improvement passes ·7 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.
+
+One continuous normal-UI desktop campaign released all six seams for18/18 medals through ordinary shift, tune, sleep/wake, Rest and voice-pad controls. The authored escalation from single voices through tuning, chords, muting, unequal pulses and a12-move finale remained readable. On the chord seam, the old Tune · Ⅲ label did not state whether one click or two reached Dawn; a genuine over-tune forced a room restart. Pass3 now previews every exact transition—such as Tune Ⅲ → Ⅰ—with a named accessible from/to action. The tool strip exposes TUNE and SLEEP / WAKE only when active, and mute controls name both the stone and next action. Rules, scores, v1 saves, audio and room counts are unchanged.
+
+[Exact source cead042](https://github.com/ThatOneMop/study-desk/commit/cead04223cb466a0d751b6cd377fea7296046f6d) · [CI39592191498](https://github.com/ThatOneMop/study-desk/actions/runs/39592191498): **passed**13 engine+19 DOM checks, all-six three-medal Chromium campaign with exact tune/sleep semantics, keyboard/focus, optional synth/loop, save/reload/retry/reward undo/loss recovery/navigation, responsive touch emulation, all19 other candidates and root exact20-slot/116-reference/public-isolation gates. Zero page errors. The earlier run39591786445 failed before Stone Song DOM execution because a preview-only require path was accidentally committed; cead042 restores the repository-relative test path and is the verified source.
+
+Quality decision: **finished, not selected.** The complete short campaign is mechanically varied, readable without sound, reliable and distinct from the collection's route, colony, fishing and action loops. Direct replay-enjoyment/depth comparison with the other six finished candidates remains the selection gate. Sound stayed off, so subjective audio quality, physical touch/screen-reader play, independent human-player enjoyment and any substantial-duration claim remain unverified.
+
+Public `main` remains at42e32a7efa25a120f579dbef6a706d8588a2c3a8. Study Desk, requested-GitHub-games and Gummy Bay work remain untouched; no public game link, integration commit or deployment exists.
+
+Next: compare the seven finished candidates directly and continue the strongest remaining finish gates; do not add a21st slot or select from green tests alone.
+
 # Run 40 · Last Match threat readability pass
 
 **20/20 playable prototypes ·20 improved games ·39 meaningful improvement passes ·6 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots retained.
@@ -911,3 +925,4 @@ Local evidence: 15/15 engine checks pass, including legal four-page routes in 12
 Exact-source GitHub Actions [39507823018](https://github.com/ThatOneMop/study-desk/actions/runs/39507823018) passed implementation commit [e75fa28](https://github.com/ThatOneMop/study-desk/commit/e75fa28dff90e1c3b49ffbee825cf585b2474506): root asset/syntax/20-slot/isolation gates; Inkline 15 engine + 20 DOM checks; actual Chromium desktop/touch scorecard regression; and all other candidate regressions. The prior Spore Kitchen record run [39501698780](https://github.com/ThatOneMop/study-desk/actions/runs/39501698780) also completed successfully.
 
 Inkline remains a development-only playable prototype. Unscripted route-discovery enjoyment, alternative-draft depth, physical touch and substantial-content depth remain open. Main was re-read at 8f99173; no public catalogue or deployment files were changed.
+

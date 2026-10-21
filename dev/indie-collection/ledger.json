@@ -586,26 +586,28 @@
       "id": "stone-song",
       "title": "Stone Song",
       "coreLoop": "Sound and rhythm-based quarry puzzle",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/stone-song/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: six original stone-sequencer quarry rooms, eight-beat looping rhythms, shifts/tuning/muting, chord/rest performance with no timer, five-clash loss/retry, best-only medals, optional synthesised tones and guarded versioned saves.",
         "Pass 1: third/fourth rooms now require tuning rather than allowing a shift-only bypass; exact rule-derived missing/extra-note diagnostics with contributing stone names, non-colour-only MATCH/DIFFERS labels, next required pad focus/highlights, visible loss-to-arrangement recovery, session undo including full medal rollback, native Space activation preserved, audition/modal/visibility guards.",
-        "Pass 2: add a live, rules-derived attempt ledger for phrase alignment/performance progress, clean-medal eligibility, move-medal margin and earned/missed results; replace stale generic progression copy with the exact newly unlocked seam. Accessible summary and responsive stacked mobile layout added without changing puzzles, scoring, audio, saves or content counts."
+        "Pass 2: add a live, rules-derived attempt ledger for phrase alignment/performance progress, clean-medal eligibility, move-medal margin and earned/missed results; replace stale generic progression copy with the exact newly unlocked seam. Accessible summary and responsive stacked mobile layout added without changing puzzles, scoring, audio, saves or content counts.",
+        "Pass 3: a full normal-UI six-seam campaign exposed ambiguous tune controls after an over-tuned chord stone forced a restart. Tune buttons now preview the exact current-to-next voice in visible text and named accessible labels; the room tool strip exposes when tune and sleep/wake mechanics are active, and sleep controls name the affected stone and next action. Puzzle rules, scoring, saves, audio and content counts are unchanged."
       ],
       "tests": [
         "9 local engine checks pass: legal minimum-cost solutions for all six rooms (2/4/3/3/4/12 actions), complete campaign/every-action saves, chord order, rests, loss/retry, replay records, malformed saves and 120 deterministic exploratory attempts. 10 DOM checks authored; exact-source execution pending.",
         "After improvement: 12 local engine checks pass; six legal minimum-cost arrangements now 2/4/6/6/4/12 moves, all three-medal campaigns with every-action saving. 17 DOM and desktop/touch-emulated Chromium suites authored; exact-source CI pending.",
         "PASS exact-source GitHub Actions 39375204108 at 4b5b6b982db0fe734898ea9b17866025785f8a60: 12 engine + 17 DOM checks, actual Chromium six-room keyboard campaign, save/reload, reward undo, retry, loss recovery/navigation, 390px/320px touch emulation. Full repository assets, 50-reference/exact20/isolation gate and all eight earlier games' engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected.",
-        "PASS exact-source GitHub Actions 39526905831 at 97fb7f618edf54486346e0227d53e0bb0e18bd52: 13 engine + 18 DOM checks, six legal Chromium campaigns, live alignment/clash/efficiency/earned/unlock ledger states, native keyboard and optional synth/loop, save/reload/retry/reward undo, responsive ledger at 390px/320px, all 19 other-game regressions and exact20-slot/116-reference/isolation gates. Terminal status, steps and decoded logs inspected."
+        "PASS exact-source GitHub Actions 39526905831 at 97fb7f618edf54486346e0227d53e0bb0e18bd52: 13 engine + 18 DOM checks, six legal Chromium campaigns, live alignment/clash/efficiency/earned/unlock ledger states, native keyboard and optional synth/loop, save/reload/retry/reward undo, responsive ledger at 390px/320px, all 19 other-game regressions and exact20-slot/116-reference/isolation gates. Terminal status, steps and decoded logs inspected.",
+        "PASS exact-source GitHub Actions 39592191498 at cead04223cb466a0d751b6cd377fea7296046f6d: 13 engine + 19 DOM checks, six-room Chromium campaign with exact tune and sleep/wake transition labels, desktop keyboard/focus/save/retry/undo/loss recovery/navigation, responsive touch emulation, all 19 other-game regressions and root exact20-slot/116-reference/isolation gates. Terminal status, steps and decoded logs inspected. Earlier run39591786445 failed before Stone Song DOM execution because a preview-only require path was accidentally committed; cead042 restores the repository-relative test path."
       ],
       "quality": {
-        "enjoyment": "Normal-UI desktop review completed the opening seam through ordinary shifts and Rest/Dawn/Copper pads for 3 medals. The original score became readable after two moves and performance focus followed the required pads. A second-room deliberate seventh move visibly changed efficiency to MISSED BY 1. This is one opening completion, not a full campaign or subjective audio assessment.",
-        "depth": "Six short original eight-beat arrangement puzzles; baseline minimum-cost solutions 2/4/6/6/4/12 moves plus performances. The live ledger clarifies clean/efficient replay goals and unlocks but adds no rooms or musical systems. These are automated action counts, not human playtime; no hours claim.",
-        "polish": "Original CSS quarry/engraved score inspected on desktop. Pass2 distinguishes live, earned and missed phrase/clean/move states, fixes stale post-win progression copy, provides one accessible summary and stacks cleanly on narrow layouts. Exact CI verifies >=44px controls and no 390px/320px overflow; physical mobile and audio quality remain open.",
-        "reliability": "13 engine + 18 DOM and actual Chromium desktop/touch-emulated checks pass on exact pass2 source, including pure assessment semantics, six legal campaigns, 120 deterministic exploratory attempts, every-action roundtrips, save/reload/retry/undo and all earlier-game regressions.",
+        "enjoyment": "One continuous normal-UI desktop campaign released all six seams for 18/18 medals, using ordinary shift, tune, sleep/wake, Rest and voice-pad controls. The tuning→chords→muting→unequal-rhythm escalation stayed readable; an ambiguous tune label caused one genuine over-tune/restart and directly drove pass3. Sound remained off, so this is not an audio-quality judgment or human-player study.",
+        "depth": "Six short original eight-beat arrangement puzzles; baseline minimum routes 2/4/6/6/4/12 moves plus performances. Later seams combine tuning, chords, muting, unequal pulse patterns and exact rests, with clean/efficient replay records. Compact authored scope is complete, not a human playtime or hours claim.",
+        "polish": "Original quarry/engraved score reviewed through the full campaign. Pass3 exposes each tune's current→next glyph and named accessible action, plus room-specific TUNE and SLEEP / WAKE tool labels and named sleep actions. Pass2 ledger, exact diagnostics, focus and responsive layout remain. Physical mobile and subjective audio quality remain open.",
+        "reliability": "13 engine + 19 DOM and actual Chromium desktop/touch-emulated checks pass on exact pass3 source, including six legal campaigns, exact transition/action labels, 120 deterministic exploratory attempts, every-action roundtrips, save/reload/retry/undo/loss recovery and all earlier-game regressions.",
         "variety": "Distinct looping musical phrase arrangement and chord performance, not a vehicle or circuit-rotation reskin"
       },
       "selected": false,
@@ -613,25 +615,27 @@
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Complete later tune/chord/mute rooms through normal UI and assess puzzle variety/replay depth before finished/selection.",
-        "Review optional audio quality with audible output and physical/mobile accessibility where possible.",
+        "Compare the full compact campaign's replay enjoyment and authored musical depth directly with the other finished candidates before selection.",
+        "Review optional audio quality with audible output and physical/mobile or screen-reader accessibility where possible.",
         "Integrate only selected finished winners against fresh main; never wholesale-merge this historical development branch"
       ],
       "developmentCommits": [
         "f88c5ca73dd58c58b2f6be10702a4082e148e527",
         "4b5b6b982db0fe734898ea9b17866025785f8a60",
-        "97fb7f618edf54486346e0227d53e0bb0e18bd52"
+        "97fb7f618edf54486346e0227d53e0bb0e18bd52",
+        "2da9e0bdb3fcc08104e98d0d417c37b5e9cf6285",
+        "cead04223cb466a0d751b6cd377fea7296046f6d"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39526905831",
-        "testedCommit": "97fb7f618edf54486346e0227d53e0bb0e18bd52",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39592191498",
+        "testedCommit": "cead04223cb466a0d751b6cd377fea7296046f6d",
         "conclusion": "success",
-        "desktop": "All six legal three-medal arrangements/performances via actual button/native keyboard input; exact live phrase/clean/move ledger and next-seam copy, optional synth/loop, reload, retry cancel, reward undo/replay, loss recovery, records/navigation and zero page errors.",
+        "desktop": "All six legal three-medal arrangements/performances via actual buttons/native keyboard; exact visible and accessible tune transitions, sleep/wake actions, live phrase/clean/move ledger and next-seam copy, optional synth/loop, reload, retry cancel, reward undo/replay, loss recovery, records/navigation and zero page errors.",
         "touch": "390x844 exactly-once shifts, undo, pads/rest, saved beat reload, retry cancel, responsive stacked attempt ledger, >=44px visible controls and no page overflow at 390px/320px.",
-        "manual": "Managed local-only desktop review solved the opening arrangement in two ordinary moves and performed all eight beats for three medals; reloaded result showed exact earned ledger and A gap in the rain unlock. Seven ordinary moves in room two showed MISSED BY 1 live. Sound remained off; later rooms not manually completed.",
+        "manual": "Managed local-only desktop review completed one continuous six-seam campaign for 18/18 medals through normal visible controls. Tune, chord, mute, uneven-pulse and final 12-move arrangements were performed. A mistaken two-click tune on Twin amber, followed by room restart, exposed the old ambiguous label; revised Tune Ⅲ → Ⅰ and named next-action labels were then visibly checked, as were SLEEP / WAKE and Loose scree's Let sleep/Wake states. Sound remained off.",
         "notVerified": [
-          "Full six-room normal-UI campaign or replay-depth assessment",
           "Subjective audibility/audio quality",
+          "Independent human-player enjoyment or replay-depth study",
           "Manual mobile screenshot/layout review",
           "Physical touch hardware",
           "20 hours of worthwhile content or testing",
@@ -1824,17 +1828,31 @@
       "verifiedCommit": "be72f62660b3b66dd61d4fbf4848336804d25dd6",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39583606040",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 41,
+      "date": "2026-10-21",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 7,
+      "publishedTotal": 0,
+      "summary": "Stone Song pass3 follows a full normal-UI 18/18-medal campaign that exposed an ambiguous tune label through a genuine over-tune/restart. Exact current→next tune labels, room-specific tool names and named sleep/wake actions fix the defect. Exact source cead042 passes13engine+19DOM, six-room desktop, touch and all19 regressions in CI39592191498. Marked finished, not selected; public main unchanged.",
+      "implementationCommit": "2da9e0bdb3fcc08104e98d0d417c37b5e9cf6285",
+      "verifiedCommit": "cead04223cb466a0d751b6cd377fea7296046f6d",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39592191498",
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/39passes;6finished; Last Match pass3 improves threat readability but remains prototype;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/40passes;7finished; Stone Song pass3/full campaign reaches finished;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 6,
+    "finished": 7,
     "selected": 0,
     "published": 0,
-    "next": "Compare finished Bolt & Bristle, Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express directly. Continue Last Match later-combat finish gate and other strongest remaining candidates. No new slots.",
+    "next": "Compare finished Stone Song, Bolt & Bristle, Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express directly. Continue Last Match later-combat finish gate and other strongest remaining candidates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
 }
+
