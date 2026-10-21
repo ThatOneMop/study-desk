@@ -1,3 +1,28 @@
+# Run 51 · Rain Catcher finish gate
+
+**20/20 playable prototypes · 20 improved games · 44 meaningful improvement passes · 15 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Rain Catcher now has visible end-to-end evidence for its complete four-district campaign. A managed run used ordinary terrain, cistern, rain and flow controls to restore all 12 gardens with zero spill. The four reference footprints finished at rain 48/44/46/52 and earthwork 27/27/40/31; later maps required wet-tile pressure lifts and different one- versus two-cistern schedules rather than simply enlarging the opening puzzle. The final 4/4 district, 12/12 journal state and first-district 48/27/0 record survived reload.
+
+The candidate is now **finished, not selected**. Together with the earlier rain24/earth64 opening route, the evidence shows a genuine rain-versus-earthwork tradeoff, clear finite-resource progression and reliable replay/save behavior. Selection still requires direct comparison with the other fourteen finished candidates; no independent human enjoyment or content-hours claim is made.
+
+## Evidence
+
+- Exact game source: [400cf787](https://github.com/ThatOneMop/study-desk/commit/400cf787228e51c99cf942af410d49b9d49ad259), with [successful desktop/touch Chromium CI 39443598012](https://github.com/ThatOneMop/study-desk/actions/runs/39443598012).
+- Exact cloned development head `75119929d3de36e4842e51a5730d5f8c86407d6e` passed both repository asset/isolation gates: exactly 20 slots, 116 candidate references, public isolation, source syntax, 10 public routes and 14 public references.
+- Target regressions passed locally: 15 engine checks and 21 DOM/save checks, including four actual-button campaigns, conservation/forecast invariants, real flooding, undo, reload, retry/close, storage failures and the alternate two-rain route.
+- Managed rendered desktop completed all four districts. Final completion and all 12 garden records survived reload; there were no game-page console errors. Browser-extension metadata errors were excluded as unrelated to the game page.
+- Public `main` remained `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no game was added to the public catalogue.
+
+## Verification limit
+
+The finish gate reuses the existing successful exact-source Chromium run because Rain Catcher’s game source did not change. Physical touch hardware, screen-reader behavior, independent human enjoyment and broader alternate layouts remain unverified; no content-hours claim is made.
+
+## Next
+
+Compare all fifteen finished candidates on enjoyment, depth, polish, reliability and collection variety. Keep Rain Catcher development-only unless it earns a selected place; continue the strongest unfinished finish gates before the final integration window.
+
+
 # Run 50 · Threadbound truthful finish feedback
 
 **20/20 playable prototypes · 20 improved games · 44 meaningful improvement passes · 14 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
