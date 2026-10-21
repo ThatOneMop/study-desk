@@ -1,3 +1,21 @@
+# Run 30 · Stone Song attempt ledger and opening performance
+
+**20/20 playable prototypes ·20 improved games ·30 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots remain. A supported local-only preview enabled a normal-UI Stone Song opening completion: two ordinary arrangement shifts, all eight Rest/Dawn/Copper performance inputs, three medals, saved reload and progression into room2. This is not a full six-room campaign, a human-player study, an audible-quality review or a content-hours claim.
+
+The completion exposed a concrete feedback defect: the result only said “3 medals,” without explaining phrase, clean or move results, and the campaign line still said to release a seam after the next seam was already open. Pass2 adds a live rules-derived ledger for alignment/performance progress, clean eligibility, move margin and earned/missed states, plus the exact newly unlocked seam. One accessible label mirrors all three goals; the board stacks on narrow screens. Puzzles, scoring thresholds, save format, synthesis, timers and content counts are unchanged.
+
+[Exact implementation 97fb7f6](https://github.com/ThatOneMop/study-desk/commit/97fb7f618edf54486346e0227d53e0bb0e18bd52) · [CI39526905831](https://github.com/ThatOneMop/study-desk/actions/runs/39526905831): **passed** on that exact source; terminal run, steps and decoded logs inspected. Local13/13 engine checks pass with unchanged minimum arrangements at2/4/6/6/4/12 moves and120 deterministic exploratory attempts. Local jsdom/Playwright dependencies are unavailable, so interface/browser results are attributed only to CI.
+
+Exact-source CI passed13engine+18DOM, actual-keyboard six-room three-medal campaigns, live alignment/clash/efficiency/earned/unlock states, optional synth/loop, exact reload, retry, reward undo, responsive ledger, >=44px controls and390/320px no-overflow checks. All19 other-candidate regressions, repository asset/navigation gates and exact20-slot/selection-isolation/116-reference checks passed with zero page errors.
+
+Manual scope stayed honest. The first score changed from2/8 to8/8 aligned after two moves, performance focus followed all eight required pads, and completion showed RELEASED, EARNED · NO CLASHES, EARNED ·2/5 and “Next seam open: A gap in the rain.” Seven ordinary room2 moves then showed MISSED BY1 live while leaving the puzzle playable. Sound was not enabled, and later tuning/chord/muting rooms were not manually completed.
+
+Quality decision: **hold, not selected or finished.** Its shift/tune/silence arrangement and deliberate chord performance remain distinct, and the opening now communicates progression cleanly. Later-room variety, audible satisfaction and replay depth still need normal-UI assessment before comparison against repair, fishing, colony and action candidates.
+
+The development branch advanced only through the scoped source commit; fresh public `main` was re-read at `42e32a7` and left untouched, preserving concurrent Study Desk work. There are no published game links because no candidate has passed finished/selection gates.
+
+---
+
 # Run 29 · Scrap Orbit docking approach guidance
 
 **20/20 playable prototypes ·20 improved games ·29 meaningful improvement passes ·0 finished ·0 selected ·0 publicly published.** Exactly20 candidate slots remain. A supported local-only preview enabled a limited normal-UI Scrap Orbit review: ordinary start/resume, held thrust and brake, one real overshoot/recovery attempt, pause/reload, first-object coupling and live board inspection. This is not a completed salvage recovery, a full five-job campaign, a human-player enjoyment score or a content-hours claim.
