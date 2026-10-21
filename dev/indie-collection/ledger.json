@@ -145,7 +145,7 @@
       "id": "bolt-and-bristle",
       "title": "Bolt & Bristle",
       "coreLoop": "Tactile mechanical cleaning and repair",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/bolt-and-bristle/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 3,
@@ -165,23 +165,24 @@
         "Checkpoint e4a45754 passed CI39457184957:24engine+26DOM, native Chromium whole-drag undo, continued partial→full repair/reward rollback/reload, six-commission campaign/upgrades, touch continuation and all19 other candidates. Decoded logs inspected.",
         "Final focus/history source5e7888dc passed24engine+28DOM. CI39458252410 first attempt interrupted by runner shutdown; rerun caught strict continued-work viewport assertion. Manual DOM measurement found nearest-edge top−0.11px. Centered-reveal follow-up ad7291fd keeps assertion and passed full exact-source CI39459641272.",
         "PASS final exact source ad7291fd, CI39459641272/job118755433296:24engine+28DOM; strict visible-focus/native keyboard/whole-drag desktop checks, six full commissions/upgrades, actual touch partial→continued-full/reward undo/replay/reload,>=44px controls and390/320px overflow checks; all19 other candidates' engine/DOM/Chromium regressions passed; zero page errors. Decoded logs inspected. Root asset gate10routes/14refs and isolated candidate gate20slots/116refs passed. Screenshot artifact12282366489 retained.",
-        "Pass3 local25 engine checks passed: six authored off-route service requests, route-only→marked-care1→2→3 rewards, less-than-full-board3star, legacy score migration, all six legal full repairs and save/forgery guards. Managed preview manually completed commission3 under new rules:26-stroke route-only1star, then four filter housings/one rust to3stars at31strokes; exact reward delta6→18, unrelated grime remained optional. Revised request copy/markers and completed view inspected."
+        "Pass3 local25 engine checks passed: six authored off-route service requests, route-only→marked-care1→2→3 rewards, less-than-full-board3star, legacy score migration, all six legal full repairs and save/forgery guards. Managed preview manually completed commission3 under new rules:26-stroke route-only1star, then four filter housings/one rust to3stars at31strokes; exact reward delta6→18, unrelated grime remained optional. Revised request copy/markers and completed view inspected.",
+        "PASS exact-source e80cd607, CI39577839516/job119147699787:25engine+28DOM; desktop six legal repairs/upgrades/native keyboard/focus/whole-drag/diagnostics/continuation/reward undo/reload and touch route-only→marked-request3star,>=44px/no390/320overflow, zero page errors. All19 other candidates, root10routes/14refs and exact20slots/116candidate refs passed; decoded logs inspected; screenshot artifact12334937586 retained."
       ],
       "quality": {
-        "enjoyment": "Manual radio and fan repairs established the tactile loop; revised rain collector then powered at26 strokes and reached3stars at31 by servicing four marked filter housings. The five-stroke improvement felt purposeful instead of repeating a whole-board sweep. Remaining commissions4-6 still need subjective play.",
+        "enjoyment": "A complete normal-UI campaign now covers all six machines. Revised route/request results were rain collector26→31, harbour lamp42→46, music box54→58 and moth hotel63→67 tool strokes for1→3stars; the compact service finishes felt purposeful after the first two full-board sweeps exposed fatigue. This is agent-driven completion, not a human fun score; alternate repair orders remain useful comparison evidence.",
         "depth": "Six handcrafted reciprocal-copper routes, two efficiency upgrades and per-machine service requests. Route-only versus owner-request completion creates a compact1→2→3 restoration choice without forced replay or filler cleaning; optional whole-board cleanup remains possible.",
         "polish": "Owner requests are named in the job header, diamond-marked on the board, included in accessible plate labels and reported x/y. Continuation selects the next unfinished request plate; completed-state copy no longer falsely requires every plate clean. Desktop managed-preview completion view inspected.",
-        "reliability": "Pass3 local25 engine checks pass with legacy rule migration and six legal campaigns. Managed preview verified route-only and marked-care reward delta through normal controls. Exact-source DOM/Chromium/full-repository CI pending.",
+        "reliability": "Exact source e80cd607 passes25engine+28DOM, full six-commission desktop, marked-request touch and all19 other-game regressions in CI39577839516. Managed preview separately completed all six, both upgrades, route-only/continued3star deltas and live diagnostic recovery; saves/rewards/undo, legacy migration, corrupt/concurrent storage, launch/navigation and zero page errors are covered.",
         "variety": "Every commission retains a unique authored circuit and now names a different physical service goal (cabinet corners, grille mounts, filters, reflectors, resonance pins or vents); the repair loop remains distinct from the collection's fishing, colony, traversal and action games."
       },
       "selected": false,
-      "selectionReason": null,
+      "selectionReason": "Finished but not selected: a full ordinary-UI six-machine campaign, fatigue-driven pass3, exact-source engine/DOM/desktop/touch checks and all-candidate regressions pass. Hold publication until an alternate repair order and direct enjoyment/depth/variety comparison with Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Run and inspect exact-source CI for the new score migration, owner-request DOM, six-commission desktop campaign, touch marked-care completion and all19 candidate regressions.",
-        "Manually restore commissions4-6 and compare their route/owner-request choices, drag satisfaction and final upgrade curve before any finished/selection decision.",
-        "Keep development-only while comparing against the five finished candidates; integrate only selected finished source/catalogue files against fresh main."
+        "Compare an alternate service-first or different circuit-repair order and replay enjoyment against the other finished candidates before selection; do not equate this agent-driven campaign with a human-player study.",
+        "Review retained390/320px visuals and physical touch/screen-reader behavior where feasible; compact six-commission scope is complete but not a substantial-hours claim.",
+        "Keep development-only until selected; if chosen, integrate narrowly into fresh main with combined catalogue/deployment regressions."
       ],
       "developmentCommits": [
         "9b70d6c1050169d2373d9fce51f97ca857fc88ce",
@@ -192,21 +193,19 @@
         "3c100cf27870603af27adc530b996b04c7eac890"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39459641272",
-        "testedCommit": "ad7291fd9189a966ef85878ba3d13e2e42a9101c",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39577839516",
+        "testedCommit": "e80cd607690df1191463f97cd2d49301f305bcdc",
         "conclusion": "success",
-        "desktop": "PASS native-key/focus, pure diagnostic inspection, physical drag grouping/interpolation, partial→continued-full restore/rewards/undo/reload, six-commission campaign/upgrades/retry/workshop navigation; strict target visibility; zero page errors.",
-        "touch": "PASS actual touch-emulated partial win→continue→full clean, reward undo/replay/reload;>=44px targets and no390/320px page overflow; zero page errors. Physical hardware not tested.",
-        "manual": "Repaired radio row2 in17 tool strokes: six clean route plates, solvent on plate9, freed screws on7/10, turned vertical7/9/11 to reciprocal horizontal ports. Banked1star/6coins. Continued same working circuit, cleaned remaining top/lower dust, dissolved top rust and banked2stars/12coins at46strokes. Continued to remaining three rusty plates and banked3stars/18coins at49strokes. Undo of final test restored2stars/12coins with all clean work retained; replay/reload retained3stars/18coins. Bought wide brush and began second commission: diagnostic inspection cost0strokes, one brush removed two entry layers, live trace advanced to plate2. First render review showed continuation focus offscreen; reveal fix added, AX focus checked; one later screenshot timed out, so final visual/geometry follow-up relies on CI. Preview stopped. Second commission: brushed nine path plates with upgraded brush, dissolved two rust spots, freed three screws and rotated the bent path; fan powered at28strokes/one star/6coins. Measured nearest-edge continuation target top−0.109375px; centered reveal then put plate2 top409.890625,bottom526.1875 and undo's Continue top444.140625,bottom492.140625 inside936px viewport. No tolerance weakening. Pass3: full-clean fatigue observed across radio/fan. New rain-collector rules tested through normal UI with both upgrades: cleaned/solved its10-plate route and banked1star/6coins at26strokes; continued the preserved circuit, cleaned four marked filter housings plus one rust spot and banked3stars/18coins at31strokes while unrelated plates stayed dirty. Request header, diamond marks, accessible labels and completed view inspected.",
+        "desktop": "PASS 25engine+28DOM and real Chromium six legal repairs, upgrades, native keyboard/focus, whole-drag grouping, pure diagnostics, route-only continuation, reward undo/reload/retry and workshop navigation; all19 candidate regressions and zero page errors.",
+        "touch": "PASS real touch-emulated route-only→marked-owner-request3star/reward undo/replay/reload, exactly-once tools, retry/help, >=44px targets and no390/320px overflow; physical hardware not tested.",
+        "manual": "Full ordinary-UI campaign completed. Earlier radio/fan full-board runs established53/51-stroke fatigue. Pass3 rain collector powered at26 and completed four marked filters at31; harbour lamp42→46 with reflectors; music box54→58 with resonance pins; moth hotel diagnostics exposed missed rust-blocked screw/rotation work, then route powered at63 and three warm-air vents completed at67. All six3star plaques, both upgrades and108 earned coins were visible; no state injection. This is not a human fun study or playtime claim.",
         "notVerified": [
-          "Exact-source pass3 DOM/Chromium/full-repository CI",
-          "Subjective satisfaction of commissions4-6",
+          "Alternate repair order/replay enjoyment",
           "Physical touch hardware and screen-reader output",
           "20hours of gameplay or testing",
           "Public catalogue integration/deployment"
         ],
-        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39459641272/artifacts/12282366489",
-        "pendingCommit": "3c100cf27870603af27adc530b996b04c7eac890"
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39577839516/artifacts/12334937586"
       }
     },
     {
@@ -1794,23 +1793,23 @@
       "date": "2026-10-21",
       "initialPlayableTotal": 20,
       "improvedTotal": 20,
-      "finishedTotal": 5,
+      "finishedTotal": 6,
       "publishedTotal": 0,
-      "summary": "Bolt & Bristle pass3 replaces repetitive mandatory full-board sweeps with six authored owner service requests and legacy-safe scoring. Local25 engine checks pass; managed-preview rain collector reached route-only1star at26 strokes and marked-care3stars at31. Exact-source CI pending; remains playable-prototype/not selected and public main unchanged.",
+      "summary": "Bolt & Bristle pass3 replaces repetitive full-board sweeps with six authored owner requests. Full normal-UI six-machine campaign completed; revised commissions3-6 reached1→3stars at26→31,42→46,54→58 and63→67 strokes. Exact source e80cd607 passes25engine+28DOM, desktop/touch/all19 regressions in CI39577839516. Marked finished, not selected; public main unchanged.",
       "implementationCommit": "3c100cf27870603af27adc530b996b04c7eac890",
-      "verifiedCommit": null,
-      "ciUrl": null,
+      "verifiedCommit": "e80cd607690df1191463f97cd2d49301f305bcdc",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39577839516",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/38passes;5finished;0selected/public. Bolt & Bristle pass3 owner-request CI pending.",
+    "status": "Comparative review underway;20playable/all20improved/38passes;6finished including Bolt & Bristle after full revised UI campaign;0selected/public",
     "playable": 20,
     "improved": 20,
-    "finished": 5,
+    "finished": 6,
     "selected": 0,
     "published": 0,
-    "next": "Verify Bolt & Bristle pass3, finish its remaining three manual commissions, then compare against finished Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express. No new slots.",
+    "next": "Compare finished Bolt & Bristle, Queen of Cinders, Deep Pocket, Spore Kitchen, Inkline and Burrow Express directly on enjoyment, depth, polish, reliability, variety and alternate-route value. Continue strongest remaining finish gates. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
