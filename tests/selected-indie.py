@@ -38,9 +38,9 @@ SELECTED = {
         "style.css": "fc006caa923db44bc864c835c0a44bfc9c4dd379955593dd36467f21518baf60",
     },
     "pocket-expedition": {
-        "engine.js": "49f1606faa42f35a5ebe7c1939c5a7b3aa1eca6d8f9b3a80d9b24d20d5d4208a",
-        "game.js": "4d097ae2d899a921107d21ee966f8202f80fdef5f1df6e6aac63229d50df98ab",
-        "style.css": "2aa171b456c8abc863c0bfe2d8720b8b8151a174b0e968ae34ba1777a93a87f5",
+        "engine.js": "4148d6cb3f262bdddca8929387c24a3d56a481280a20d55301f25e89886a3f04",
+        "game.js": "ec8455984d072d15908a652a4ce4e8243180834e7f84cf9cdc93c6bc192722f2",
+        "style.css": "a5c0e49eeca3714d42bbbfba1b7c4f4c482558b7c1ef486d9a58aadc91426c30",
     },
     "echo-vault": {
         "engine.js": "2df0dee521d9557f04046d10c6b19ce8726312647023ee13f7130330fbd95492",
