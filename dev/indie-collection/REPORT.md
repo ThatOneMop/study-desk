@@ -1,3 +1,24 @@
+# Run 62 · Pointer capture lifecycle pass
+
+**20/20 playable prototypes · 20 improved games · 52 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Roof Runner remains development-only, but its fifth improvement pass completes the pointer-capture lifecycle. Unexpected capture loss now discards every unconsumed direction nudge, jump or dash edge. A separate normal-release marker preserves the intended quick action when the browser emits `lostpointercapture` automatically after `pointerup`. The same event-order correction was applied to Last Match’s existing fifth pass without claiming a sixth pass. Physics, combat, routes, progression and saves are unchanged.
+
+## Evidence
+
+- Source commit: [3e544e1](https://github.com/ThatOneMop/study-desk/commit/3e544e1e6804526f7a791a53618ac5931375aa5f).
+- Roof Runner passes 13 engine and 25 DOM/save checks. New regressions cover cancellation for direction/jump/dash and normal `pointerup → lostpointercapture` ordering for direction, jump and dash.
+- Last Match passes 17 engine and 22 DOM/save checks. Its new ordering regression proves movement, flash, dodge and oil execute exactly once after normal release but never after unexpected capture loss.
+- Roof Runner’s five all-parcel/no-fall routes remain 277/295/307/367/343 ticks with 120 exploratory attempts. Last Match’s five no-hit/three-medal routes remain 463/654/671/1115/1111 frames with 100 exploratory campaigns.
+- Both repository asset/isolation gates pass with exactly 20 slots and 116 candidate references; syntax and diff hygiene pass.
+- No workflow attached to `3e544e1`, and local Chromium remains unavailable. Prior browser runs are context only, not exact-source certification.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no catalogue or deployment change was made.
+
+## Decision and next gate
+
+Roof Runner and Last Match stay **playable, not finished and not selected**. Their touch event ordering is now internally consistent, but exact-source Chromium and continuous later-route/later-clearing play remain required before either joins the seventeen finished candidates. Physical touch, screen-reader output, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 61 · Last Match touch-cancellation pass
 
 **20/20 playable prototypes · 20 improved games · 51 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
