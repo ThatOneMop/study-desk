@@ -18,9 +18,9 @@ SELECTED = {
         "style.css": "3d88316541c21f678444a2b2b30d251480de615d990b31b8e38fc6409fa49119",
     },
     "queen-of-cinders": {
-        "engine.js": "e8ef741b15e75c0407a7efe013ae0fa2e861a81355e93be7a5dc742f71c58a52",
-        "game.js": "6446886f166f293b09e16d144f8917a25379f744453686eec135087e5509e4e8",
-        "style.css": "4c79cf1e30a03651a0b776608a572e9abc200ada8990e1864a9ecadd0c70146a",
+        "engine.js": "1d6e7988bc4507e6a36cef118d485554d069952e512139bc5e6ecd6bd6b33460",
+        "game.js": "1708f6d787c4e24fbd979f187b5ea8f2795ac70e281f62b3fb19f5cac9677ffd",
+        "style.css": "7a033aa107ad524ef3db9046cd5d05e34b28da0dfa485d0578a78d0e658e8161",
     },
     "little-foundry": {
         "engine.js": "ad8feeefdd2559875da35389d5535df95a7f5ecbc2b07efadedc4b86cd6cc969",

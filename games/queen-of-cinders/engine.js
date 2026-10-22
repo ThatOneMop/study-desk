@@ -18,6 +18,22 @@ function free(s){return s.workers-allocated(s)}
 function due(s,i){const c=chapters[s.index],x=i%W,y=Math.floor(i/W);return c.fire+(c.axis==='north'?y:c.axis==='west'?x:W-1-x)}
 function travel(o,type){const d=distances(o.colony)[chapters[o.colony.index][type]];return d===undefined?null:Math.max(1,Math.ceil(d/3)-o.profile.upgrades.boots)}
 function assign(o,type,delta){const s=o.colony;if(s.status!=='active'||!Object.hasOwn(s.teams,type)||![-1,1].includes(delta))return false;if(delta<0&&s.teams[type]===0||delta>0&&free(s)===0){s.message='Reassign an existing ant, or hatch more brood to grow the workforce.';return false}s.teams[type]+=delta;s.message=`${type==='nurse'?'Nursery':type} team: ${s.teams[type]} ants.`;return true}
+function allocationPlan(o,mode){
+ const s=o.colony;if(s.status!=='active'||!['brood','firebreak'].includes(mode))return null;
+ const costs=Object.fromEntries(['food','water','resin'].map(k=>[k,travel(o,k)]));
+ if(costs.food===null||costs.resin===null||mode==='firebreak'&&costs.water===null)return null;
+ const teams={food:0,water:0,resin:0,nurse:1};let available=s.workers-1;
+ const put=(type,wanted)=>{const n=Math.min(available,Math.max(0,wanted));teams[type]+=n;available-=n};
+ const work=(type,units)=>Math.max(0,units*costs[type]-s.carry[type]-teams[type]);
+ if(mode==='brood'){
+  put('food',work('food',1));put('resin',work('resin',1));put('food',work('food',2));
+ }else{
+  put('water',work('water',2));put('food',work('food',1));put('resin',work('resin',1));
+ }
+ teams.nurse+=available;
+ return teams;
+}
+function applyAllocation(o,mode){const s=o.colony,teams=allocationPlan(o,mode);if(!teams){s.message=mode==='firebreak'?'Connect food, water and resin before rallying a firebreak crew.':'Connect food and resin before rallying a brood crew.';return false}if(Object.keys(teams).every(k=>teams[k]===s.teams[k])){s.message='That rally plan is already assigned; adjust a team or send the shift.';return false}s.teams=teams;s.message=mode==='firebreak'?'Firebreak rally: two water loads first, then food, resin and nursery work.':'Brood rally: two food loads, one resin load, then every remaining ant nurses.';return true}
 function dig(o,i){const s=o.colony,c=chapters[s.index];if(s.status!=='active'||!Number.isInteger(i)||i<0||i>=49)return false;if(s.open.includes(i)){s.message='This tunnel is already open.';return false}if(c.rocks.includes(i)){s.message='Solid root. Dig a different route.';return false}if(!neighbours(i).some(n=>distances(s)[n]!==undefined)){s.message='Start at a connected tunnel. Diagonal soil is not connected.';return false}if(s.food<1){s.message='Digging needs one food. Send food carriers on a shift first.';return false}s.food--;s.open.push(i);if(due(s,i)<=s.turn){s.burn.push(i);s.message='The ground here is hot. Dampen it with two water to reopen the tunnel.'}else s.message='Tunnel opened for one food. Planning and digging do not advance the fire.';return true}
 function damp(o,i){const s=o.colony;if(s.status!=='active'||!s.open.includes(i)||s.wet.includes(i)||i===Q)return false;if(s.water<2){s.message='A wet firebreak needs two water.';return false}s.water-=2;s.wet.push(i);s.burn=s.burn.filter(n=>n!==i);s.message='Wet earth protects this tunnel for the whole chapter.';return true}
 function step(o){const s=o.colony,c=chapters[s.index];if(s.status!=='active')return false;s.turn++;const gains={};
@@ -57,5 +73,5 @@ function valid(o){
  const ready=defended(o);if(s.status==='complete'&&(s.brood!==c.goal||!ready||s.health<=0||s.stars!==1+(s.health===s.maxHealth?1:0)+(s.turn<=c.limit-4?1:0)||p.best[s.index]<s.stars)||s.status==='active'&&(s.brood>=c.goal&&ready||s.health<=0||s.turn>=c.limit||s.stars!==0)||s.status==='lost'&&(s.brood>=c.goal&&ready||s.health>0&&s.turn<c.limit||s.stars!==0))return false;return true;
 }
 function decode(raw){try{if(typeof raw!=='string'||raw.length>30000)return null;const o=JSON.parse(raw);if(o?.colony){const s=o.colony;if(s.maxHealth===undefined)s.maxHealth=s.health+s.food-16-60+s.left.food+(s.open.length-2)+s.turn+3*s.brood;if(s.rules===undefined)s.rules=1}return valid(o)?o:null}catch{return null}}
-const E={W,H,Q,chapters,costs,create,clone,neighbours,distances,allocated,free,due,travel,assign,dig,damp,step,retry,next,upgrade,forecast,trail,defended,supplyReport,valid,encode:JSON.stringify,decode};if(typeof module!=='undefined'&&module.exports)module.exports=E;else root.Cinders=E;
+const E={W,H,Q,chapters,costs,create,clone,neighbours,distances,allocated,free,due,travel,assign,allocationPlan,applyAllocation,dig,damp,step,retry,next,upgrade,forecast,trail,defended,supplyReport,valid,encode:JSON.stringify,decode};if(typeof module!=='undefined'&&module.exports)module.exports=E;else root.Cinders=E;
 })(typeof window!=='undefined'?window:globalThis);
