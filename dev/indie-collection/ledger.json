@@ -463,7 +463,7 @@
       "id": "roof-runner",
       "title": "Roof Runner",
       "coreLoop": "Precision courier platformer with optional route challenges",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/roof-runner/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 5,
@@ -489,24 +489,24 @@
         "PASS exact-source CI39514585107 at24d11a4c18c3e8a29ca138b130742cdecdce5598: root gates;13 engine+19 DOM; deterministic-clock actual-keyboard five-route campaign; native-clock controls; desktop/touch live route-strip geometry and all19 other-candidate regressions. Terminal job/log evidence inspected.",
         "Pass3 local:13 engine checks retain all five all-parcel/no-fall routes and120 exploratory attempts;21 DOM/save checks pass, including exactly-once quick keyboard jump and an exact six-frame quick touch-direction correction. Both repository asset/isolation gates, exact20 slots/116 references, syntax and diff checks pass. Browser assertions now cover the bounded touch correction before jump/dash, but local Chromium is unavailable and no workflow attached to connector-created source ff80e90 during this run; exact-source browser CI remains pending.",
         "Run59 exact-source local checks:13 engine and23 DOM/save tests pass. True sub-frame keyboard and pointer direction taps receive exactly six frames, while two/three-frame observed holds stop immediately on release; all five277/295/307/367/343-tick all-parcel/no-fall routes,120 exploratory attempts, both asset/isolation gates, syntax and diff checks remain green. Chromium execution remains pending because the local executable is unavailable and no workflow attached to source fac22a1.",
-        "Run62 exact-source local checks:13 engine and25 DOM/save tests pass. New regressions prove unexpected lost capture cancels unconsumed direction, jump and dash, while pointerup followed by automatic lost capture preserves one six-frame direction correction and one jump/dash edge. Five277/295/307/367/343-tick routes,120 explorations, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium remains pending."
+        "Run62 exact-source local checks:13 engine and25 DOM/save tests pass. New regressions prove unexpected lost capture cancels unconsumed direction, jump and dash, while pointerup followed by automatic lost capture preserves one six-frame direction correction and one jump/dash edge. Five277/295/307/367/343-tick routes,120 explorations, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium remains pending.",
+        "PASS exact current head645009d / CI39764147903:13engine+25DOM, five actual-keyboard all-parcel/no-fall Chromium routes, deterministic and native RAF controls, current quick-tap/capture-loss behavior, touch emulation,390/320px layout and all19 other candidate regressions. Desktop/touch captures artifact12419682371 retained; the first-route desktop capture was manually inspected."
       ],
       "quality": {
         "enjoyment": "Limited normal-UI opening review exercised movement, held jump, a real recoverable gap fall, pause and reload. The readable rooftop vista and immediate courier premise were promising; this is not a complete manual victory, human-player score or full continuous-control assessment.",
         "depth": "Five short handmade routes with optional parcels, clean-route and time replay goals, checkpoints, wind/conveyors and steam. Live route mapping now supports deliberate parcel detours, but longer-term replay/difficulty depth remains unproven; no hours claim.",
-        "polish": "Original canvas city art reviewed live on desktop. Pass2 adds responsive, accessible live route/parcel/checkpoint/postbox guidance. Pass5 completes the tap/cancel promise: normal release survives automatic capture loss exactly once, while genuine cancellation leaves no hidden movement, jump or dash. Prior exact CI covers focus, saves/retry and390/320px geometry; current-source physical touch, screen-reader and Chromium remain open.",
-        "reliability": "Current source 3e544e1 passes13 engine+25 DOM plus all five unchanged legal routes,120 exploratory attempts and both asset/isolation gates locally. Prior source24d11a4 retains successful deterministic five-route/native-clock/touch/full-regression CI39514585107, but that result is context rather than exact-source browser certification for pass5.",
+        "polish": "Original canvas city art and current completion capture reviewed. Pass2 adds responsive, accessible live route/parcel/checkpoint/postbox guidance. Pass5 completes the tap/cancel promise: normal release survives automatic capture loss exactly once, while genuine cancellation leaves no hidden movement, jump or dash. Current exact Chromium covers focus, saves/retry, touch emulation and390/320px geometry; physical touch and screen-reader output remain open.",
+        "reliability": "Exact current head645009d passes13 engine+25 DOM, five actual-keyboard three-medal routes, native RAF smoke, touch/layout checks,120 exploratory attempts, both gates and all19 other candidate regressions in CI39764147903. Completion screenshot was manually inspected.",
         "variety": "Distinct real-time courier platformer with route detours and air-dash control; now has spatial navigation feedback unlike the collection's planning boards."
       },
       "selected": false,
-      "selectionReason": "Not selected: release and cancellation precision are now faithful across quick taps, observed holds and capture loss, but exact-source Chromium and continuous later-route wind/vent experience remain open.",
+      "selectionReason": "Finished reserve, not selected: current exact Chromium closes control/reliability gates across all five routes, but the selected slate already has stronger evidenced variety and independent human replay enjoyment remains unmeasured.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Obtain exact-source Chromium for the corrected direction-release behavior, five-route campaign and narrow touch layouts; inspect retained route captures.",
-        "Complete at least one unscripted route and then the later wind/vent routes through continuous normal UI controls; assess difficulty curve, parcel-route choice and replay satisfaction before finished/selected status.",
-        "Review physical touch and screen-reader output. If the action loop ranks strongly, deepen authored route patterns or meaningful routing choices rather than adding arbitrary counts or timers.",
-        "Only integrate strongest finished winners against fresh main with scoped game/catalogue edits; preserve concurrent Study Desk, requested-game, community and Gummy Bay work and the existing hosting permission boundary."
+        "Keep as a finished development reserve; do not expand the public slate unless direct comparison finds it materially stronger than an integrated action finalist.",
+        "Review physical touch, screen-reader output and later-route replay difficulty if further polish time remains; no human enjoyment or content-hours claim.",
+        "Preserve public main and concurrent Study Desk, requested-game, community and Gummy Bay work."
       ],
       "developmentCommits": [
         "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55",
@@ -518,23 +518,22 @@
         "3e544e1e6804526f7a791a53618ac5931375aa5f"
       ],
       "verification": {
-        "runUrl": null,
-        "testedCommit": "3e544e1e6804526f7a791a53618ac5931375aa5f",
-        "conclusion": "pending",
-        "desktop": "Current source passes13 engine+25 DOM locally, including exact sub-frame correction, immediate observed-hold release and complete capture-loss handling, plus five unchanged routes. Prior source24d11a4 passed deterministic five-route and native-clock Chromium; exact-source browser execution remains pending.",
-        "touch": "Current pointer regressions prove cancellation discards unconsumed direction/jump/dash, while normal pointerup followed by automatic lost capture preserves exactly one intended action. Prior source passed390/320px touch emulation, >=44px controls and layout; exact-source browser touch and physical hardware remain pending.",
-        "manual": "Limited opening only: normal start/resume, held touch movement/jump, one real gap fall/recovery and paused reload. Route guidance visibly advanced4%→6%. No full manual route win or subjective score.",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903",
+        "testedCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+        "conclusion": "success",
+        "desktop": "PASS exact current Chromium: five actual-keyboard all-parcel/no-fall routes, checkpoints, live guidance, pause, midair reload, confirmed retry, medals, progression and launch/back; native RAF movement/jump/pause smoke; zero page errors.",
+        "touch": "PASS emulation: bounded direction correction, single jump/dash latch, pause/retry, >=44px targets,480px camera and no390/320px overflow. Physical hardware remains untested.",
+        "manual": "Current first-route completion capture manually inspected:3/3 parcels,0 falls, next-route progression, readable route strip and disabled terminal controls. This is artifact review and automated campaign evidence, not a human enjoyment score.",
         "notVerified": [
-          "Exact-source Chromium desktop/touch after pass5 capture-lifecycle correction",
           "Complete unscripted continuous-control route/campaign and human-player enjoyment/difficulty assessment",
           "Physical touch hardware",
           "Screen-reader output/full accessibility",
           "20 hours of worthwhile content or testing",
           "Public catalogue integration/deployment"
         ],
-        "artifactId": 12306933126,
-        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39514585107/artifacts/12306933126",
-        "artifactManuallyInspected": false
+        "artifactId": 12419682371,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903/artifacts/12419682371",
+        "artifactManuallyInspected": true
       },
       "reviews": [
         {
@@ -679,7 +678,7 @@
       "id": "last-match",
       "title": "Last Match",
       "coreLoop": "Top-down survival with directional lantern combat",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/last-match/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 5,
@@ -703,25 +702,24 @@
         "Finish-gate test commit c802f06 extends the unmodified native-clock controller from the opening to all five clearings, checking held movement, discrete flashes, brazier refills, ember collection, gate progression, unlocks, records and five completion screenshots without state injection or fake clocks. Local16engine+19DOM, both asset/isolation gates, syntax and diff checks pass. Local Chromium is unavailable and no workflow attached to the connector-created commit during this run, so exact-source browser execution remains pending and status is unchanged.",
         "Run58 exact-source local checks:17 engine and20 DOM/save tests pass, including pure nonmutating assist priority, urgent in-range versus distant-warning fallback, actual focused-canvas aim updates, all five unchanged463/654/671/1115/1111-frame three-medal routes, saves/restart/input queues, both asset/isolation gates, syntax and diff hygiene. Browser execution remains pending because Chromium is unavailable and no workflow attached to source commit d250e03.",
         "Run61 exact-source local checks:17 engine and21 DOM/save tests pass. New regression proves lost pointer capture cancels unconsumed movement, flash, dodge and oil actions while normal release retains one queued step; five463/654/671/1115/1111-frame no-hit/three-medal routes,100 exploratory campaigns, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium is pending because no local executable or attached workflow is available.",
-        "Run62 pass5 correction:17 engine and22 DOM/save tests pass. A new real-browser-order regression dispatches pointerup then lostpointercapture and proves movement, flash, dodge and oil each execute exactly once; unexpected lost capture still executes none. All five routes,100 explorations, both repository gates, syntax and diff hygiene remain green. Exact-source Chromium remains pending."
+        "Run62 pass5 correction:17 engine and22 DOM/save tests pass. A new real-browser-order regression dispatches pointerup then lostpointercapture and proves movement, flash, dodge and oil each execute exactly once; unexpected lost capture still executes none. All five routes,100 explorations, both repository gates, syntax and diff hygiene remain green. Exact-source Chromium remains pending.",
+        "PASS exact current head645009d / CI39764147903:17engine+22DOM, five deterministic no-hit/three-medal routes plus an unmodified native-clock five-clearing campaign driven by observed HUD/save snapshots with held movement, discrete flashes, braziers, embers, gates, unlocks and records. Current desktop/touch, cancellation and danger-aware assist checks pass; all five native completion captures and touch/desktop evidence are in artifact12419682371, with clearing5 manually inspected."
       ],
       "quality": {
         "enjoyment": "Live preview review confirmed the opening movement/aim loop and exposed threat-identification friction, then actual idle combat reached a saved five-hit loss with the nearby readout showing LUNGING NOW. Distinct silhouettes/countdowns and danger-aware assist now make the same urgent threat actionable without easing it. No sustained manual victory or human fun rating claimed; automated campaigns remain reliability evidence.",
         "depth": "Five finite authored combat clearings, four mechanically different threats and two upgrades; original baseline routes remain463/654/671/1115/1111 simulated frames. Pass3 adds no content volume or easier rules; it makes the existing windup/dodge/target choices legible. Later-clearings alternate strategy and replay assessment remain open.",
         "polish": "The warning list, assist target and onboarding agree: an imminent in-range attacker outranks a nearer harmless shadow, while distant warnings do not drag aim away from reachable combat. Pass5 gives genuine capture loss cancellation safety without erasing a normal quick tap when automatic capture release follows pointerup. Distinct silhouettes, destination lines, charge arcs and countdowns remain. Physical touch and screen-reader output remain untested.",
-        "reliability": "Current source 3e544e1 passes17engine+22DOM locally, both asset/isolation gates and all five unchanged legal routes; cancellation and normal pointerup→lost-capture ordering cover all four queued control families. Prior be72f626 passed five desktop campaigns, touch layout/input, native-clock opening victory and all19 regressions in CI39583606040, but that browser result is context rather than exact-source certification for passes4–5.",
+        "reliability": "Exact current head645009d passes17engine+22DOM, five deterministic campaigns, a separate native-clock five-clearing campaign, touch/layout checks,100 explorations, both gates and all19 other candidate regressions in CI39764147903. Clearing5 completion capture was manually inspected.",
         "variety": "Directional cone/occlusion combat remains distinct from fishing, colony, puzzles and repair. Four readable threat silhouettes now reinforce their existing one/two/three-hit and lunge-range identities; no automatic shooting, balance weakening, reskin count or timer padding was added."
       },
       "selected": false,
-      "selectionReason": "Not selected: urgent-target control and touch cancellation are reliable locally, but exact-source Chromium and sustained later-clearing subjective combat review remain open.",
+      "selectionReason": "Finished reserve, not selected: exact current Chromium proves five-clearing progression and controls, but sustained human combat enjoyment and alternate-strategy evidence remain weaker than the selected action finalist.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Obtain exact-source Chromium for danger-aware assist and the five-clearing native-clock finish gate, then inspect all completion captures.",
-        "Complete a genuinely continuous normal-UI opening and later-clearing combat review with dodge timing, target choice, brazier use and at least one alternative strategy; distinguish this from automated campaign reliability.",
-        "Compare action enjoyment/depth/replay value directly with the seventeen finished candidates; keep status improved prototype until the later-combat experience gate is supported rather than promoting from green tests.",
-        "Review retained desktop/mobile screenshots and physical touch/screen-reader behavior where feasible; do not claim human study, substantial-hours content or public deployment.",
-        "Integrate only selected finished scoped source/catalogue changes against fresh main, preserving Study Desk/requested-GitHub-games/Gummy Bay work."
+        "Keep as a finished development reserve; do not displace Scrap Orbit without stronger direct replay evidence.",
+        "Review alternate later-clearing strategies, physical touch and screen-reader behavior if further polish time remains; do not claim human study or substantial-hours content.",
+        "Preserve public main and concurrent Study Desk/requested-GitHub-games/Gummy Bay work."
       ],
       "developmentCommits": [
         "8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82",
@@ -739,21 +737,21 @@
         "3e544e1e6804526f7a791a53618ac5931375aa5f"
       ],
       "verification": {
-        "runUrl": null,
-        "testedCommit": "3e544e1e6804526f7a791a53618ac5931375aa5f",
-        "conclusion": "pending",
-        "desktop": "Current source passes17engine+22DOM locally, including danger-aware assist, complete capture-loss ordering and all five unchanged routes. Prior source be72f626 passed desktop five-route and native-clock opening Chromium; c802f06 adds a five-clearing native-clock path, but neither result certifies changed exact source 3e544e1.",
-        "touch": "Current DOM regressions prove unexpected lost capture cancels unconsumed movement, flash, dodge and oil actions, while pointerup followed by automatic lost capture preserves one action. Prior exact source passed quick taps, paused retry-cancel,560-unit camera, >=44px targets and390/320px overflow checks; exact-source browser touch remains pending and physical hardware is untested.",
-        "manual": "Managed preview inspected revised enemy silhouettes, full-width arena/help and AX phase/distance warning. Existing saved opening was allowed to reach a genuine five-hit loss and exposed LUNGING NOW; a fresh retry visibly showed round motes versus the thorned two-hit briar. Cloud preview throttling did not support a continuous victory, so no manual win or enjoyment claim.",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903",
+        "testedCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+        "conclusion": "success",
+        "desktop": "PASS exact current Chromium: five legal deterministic pointer-aim/keyboard campaigns plus a separate unmodified native-clock five-clearing campaign using real held movement, discrete flashes, brazier refills, ember collection, gates, unlocks and records; zero page errors.",
+        "touch": "PASS emulation: quick movement/flash/dodge taps exactly once, paused retry-cancel state,560-unit camera, >=44px targets and no390/320px overflow. Physical hardware remains untested.",
+        "manual": "Current native clearing5 completion capture manually inspected:3/3 medals, all five records,17 fuel,7/7 embers and open exit. This is artifact review and automated controller evidence, not a human enjoyment score.",
         "notVerified": [
-          "Exact-source Chromium desktop/touch and five-clearing native-clock campaign after pass5",
           "Subjective continuous combat/enjoyment and later-clearing alternate strategies",
           "Manual clearing victory and physical mobile play",
           "Physical touch and screen-reader output",
           "20hours of worthwhile content/testing",
           "Public catalogue integration/deployment"
         ],
-        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39583606040/artifacts/12339237007"
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903/artifacts/12419682371",
+        "artifactManuallyInspected": true
       },
       "reviews": [
         {
@@ -1252,7 +1250,7 @@
       "id": "threadbound",
       "title": "Threadbound",
       "coreLoop": "Grapple traversal with thread anchors",
-      "status": "playable-prototype",
+      "status": "finished",
       "source": "dev/indie-collection/threadbound/",
       "initialPlayable": true,
       "meaningfulImprovementPasses": 5,
@@ -1277,24 +1275,24 @@
         "Run 54 browser CI is pending: this runtime lacks the Playwright Chromium executable, and no workflow run attached to the connector-created source commit during the observation window. The updated regression expects a twelve-frame quick tap and emits per-canopy screenshots; no new desktop/touch pass is claimed yet.",
         "Run 57 local exact-source c5219eb: both repository asset/isolation gates, JavaScript syntax, diff hygiene, all 13 engine checks and all 17 DOM/save checks pass. New regressions prove sub-frame keyboard reel and jump taps survive, stop after exactly twelve frames, and leave the 406/411/419/498-step reference routes unchanged.",
         "Run 57 browser CI is pending: Playwright is installed but its Chromium executable is absent, and no workflow attached to control commit 424251f or onboarding commit c5219eb during this run. The browser campaign now checks quick keyboard jump/reel before the four existing actual-keyboard crossings; no new Chromium result is claimed.",
-        "Run60 exact-source local checks:13 engine and18 DOM/save tests pass. True sub-frame pointer jump/reel taps and accessibility clicks retain exactly twelve frames, while observed three-frame reel and two-frame pump holds match direct physics after release with no hidden queue. Four406/411/419/498-step all-seed/no-fall routes,27,000 mixed-input steps, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium is pending because no local executable or attached workflow is available."
+        "Run60 exact-source local checks:13 engine and18 DOM/save tests pass. True sub-frame pointer jump/reel taps and accessibility clicks retain exactly twelve frames, while observed three-frame reel and two-frame pump holds match direct physics after release with no hidden queue. Four406/411/419/498-step all-seed/no-fall routes,27,000 mixed-input steps, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium is pending because no local executable or attached workflow is available.",
+        "PASS exact current head645009d / CI39764147903:13engine+18DOM, four actual-keyboard all-seed/no-fall Chromium crossings, current twelve-frame keyboard/pointer taps, real CDP held-touch release, moving reload, pause/restart,390/320px layout, native RAF smoke and all19 other candidate regressions. Four per-canopy and touch captures artifact12419682371 retained; canopy4 manually inspected."
       ],
       "quality": {
         "enjoyment": "Managed review now includes the opening of canopy 2 as well as two completed canopy-1 outcomes. Elevated geometry reads as a real route change, but the cloud browser cannot sustain simultaneous reel/pump input, so later-canopy subjective completion remains open; synthetic routes do not prove fun.",
         "depth": "Four compact handcrafted canopy crossings: gravity, reelable unilateral ropes, momentum transfer, branch checkpoints, optional seeds, clean-route stitches, breeze and elevated lantern. Limited authored geometry and longer progression/replay depth still need comparison; no duration claim.",
         "polish": "Original code-drawn moth/forest/gold pins/silver seeds. Native keyboard/canvas pin/pointer/touch controls, range/trajectory guidance, assistance, jump grace, wrapping labels and truthful earned-stitch prose. Pass5 makes the 0.2-second fine adjustment exact across keyboard and pointer: only invisible sub-frame taps are extended, while observed holds stop on release. Accessibility clicks retain one bounded nudge; per-canopy screenshots remain in the browser campaign.",
-        "reliability": "Current source c0c4058 passes both asset/isolation gates plus 13 engine and 18 DOM/save checks locally. Sub-frame keyboard/pointer reel, pump and jump inputs are bounded; observed pointer holds stop exactly on release; four legal routes and27,000 mixed steps remain unchanged. The prior exact source passed Chromium desktop/touch/native RAF, but passes3–5 still await a new Chromium run.",
+        "reliability": "Exact current head645009d passes13engine+18DOM, four actual-keyboard three-stitch routes, touch/native RAF checks,27,000 mixed steps, both gates and all19 other candidate regressions in CI39764147903. Canopy4 completion capture was manually inspected.",
         "variety": "Actual pendulum tether physics, reel length and momentum-preserving aerial transfers distinguish this from dash rooftops and top-down cargo salvage. Compact traversal candidate, not a renamed prior loop."
       },
       "selected": false,
-      "selectionReason": "Not selected: canopy 2 is visually distinct and bounded quick corrections now cover keyboard, pointer and accessibility input without extending holds, but subjective completion/control review of canopies 2–4 and exact-source browser CI remain open.",
+      "selectionReason": "Finished reserve, not selected: exact current Chromium proves all four distinct crossings and control paths, but the selected slate already covers action/traversal and independent replay enjoyment remains unmeasured.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Obtain exact-source Chromium CI for the twelve-frame keyboard/touch nudges and inspect the four per-canopy screenshots; do not reuse the prior source's browser result as if it covered these changes.",
-        "Complete subjective canopies 2–4 continuous-control review in a browser that can sustain simultaneous inputs; assess transfer choices, checkpoint/seed difficulty and replay variety.",
-        "Review physical touch and screen-reader behavior where possible, then compare enjoyment/depth/polish/reliability with finished candidates before changing status or selecting.",
-        "Preserve public main and concurrent Study Desk/After Hours/requested-GitHub-games/Gummy Bay work; integrate only deliberate winners later."
+        "Keep as a finished development reserve; do not expand the public slate without stronger direct replay evidence.",
+        "Review physical touch, screen-reader behavior and subjective alternate transfers if further polish time remains; full touch campaign and human enjoyment remain unclaimed.",
+        "Preserve public main and concurrent Study Desk/After Hours/requested-GitHub-games/Gummy Bay work."
       ],
       "developmentCommits": [
         "67665ba5518b586602c7ddb3ed35d986ae03bd5c",
@@ -1308,14 +1306,13 @@
         "c0c405805d7c2ae001fdd71223cf62182be95df9"
       ],
       "verification": {
-        "runUrl": null,
-        "testedCommit": "c0c405805d7c2ae001fdd71223cf62182be95df9",
-        "conclusion": "pending",
-        "desktop": "Current engine routes and local DOM keyboard/pointer controls pass, including sub-frame reel/jump taps, immediate observed-hold release and unchanged sustained routes. The prior source completed four actual-keyboard browser campaigns, but that result is not claimed for changed exact source c0c4058.",
-        "touch": "Local DOM tests prove a true sub-frame pointer tap gets the exact twelve-frame nudge, observed pointer reel/pump holds stop immediately on release, and accessibility clicks remain bounded. Prior browser touch evidence is context only; exact-source browser CI and physical hardware remain pending. Full touch campaign is not tested.",
-        "manual": "Two earlier managed canopy-1 completions remain valid context. Run 54 opened the elevated second canopy and exercised its safety return; sustained simultaneous input is unsupported by this cloud browser, so later subjective completion is not claimed.",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903",
+        "testedCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+        "conclusion": "success",
+        "desktop": "PASS exact current Chromium: four actual-keyboard all-seed/no-fall crossings, checkpoints, forecasts/assist, moving reload, pause/restart, saved unlocks and launch/back; native RAF hook/reel/movement smoke; zero page errors.",
+        "touch": "PASS emulation: exactly-once jump, bounded twelve-frame reel tap, real CDP held-touch reel/release, reload/restart, >=44px targets and no390/320px overflow. Full touch campaign and physical hardware remain untested.",
+        "manual": "Current canopy4 completion capture manually inspected:4/4 seeds,0 falls,3/3 stitches and all four records. This is artifact review and automated route evidence, not independent human enjoyment.",
         "notVerified": [
-          "Exact-source Chromium desktop/touch regression after passes 3–5",
           "Subjective continuous-control completion and replay depth across canopies 2–4",
           "Physical touch hardware and screen-reader behavior",
           "Full touch-controlled campaign",
@@ -1323,7 +1320,8 @@
           "20 hours of worthwhile gameplay or testing",
           "Public catalogue integration/deployment"
         ],
-        "screenshotArtifact": null
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903/artifacts/12419682371",
+        "artifactManuallyInspected": true
       },
       "reviews": [
         {
@@ -2274,13 +2272,26 @@
       "verifiedCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39763550984",
       "inspectedMainCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"
+    },
+    {
+      "run": 65,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Exact current development head645009d completed CI39764147903. All engine, DOM/save and real desktop/touch Chromium steps passed across20 candidates. Roof Runner completed five actual-keyboard all-parcel/no-fall routes; Last Match completed a separate unmodified native-clock five-clearing campaign; Threadbound completed four actual-keyboard all-seed/no-fall crossings. Current quick-input/capture fixes, saves, restart, progression, narrow layouts and native RAF smoke passed. Artifact12419682371 retained the completion captures; Roof Runner route1, Last Match clearing5 and Threadbound canopy4 were manually inspected. These three become finished development reserves, making20/20 finished. Selected/public source slate remains9; GitHub Pages blocker means0 live URLs.",
+      "implementationCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+      "verifiedCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903",
+      "inspectedMainCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"
     }
   ],
   "collectionReview": {
-    "status": "Nine finished finalists selected and source-integrated on public main a9aa7b0;20playable/all20improved/52passes/17finished/9selected/0live URLs; release gates passed but GitHub Pages configuration remains blocked",
+    "status": "All20 candidates playable, improved and finished with52 passes; nine selected/source-integrated on public main a9aa7b0;0live URLs because GitHub Pages configuration remains blocked",
     "playable": 20,
     "improved": 20,
-    "finished": 17,
+    "finished": 20,
     "selected": 9,
     "published": 0,
     "finalists": [
@@ -2295,7 +2306,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Do not claim live URLs until GitHub Pages is enabled and a deployment plus all nine live routes are verified. Continue exact-source Chromium/continuous-control finish gates for Roof Runner, Last Match and Threadbound only if time permits. No new slots.",
+    "next": "Do not claim live URLs until GitHub Pages is enabled and a deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }

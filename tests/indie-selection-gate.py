@@ -24,6 +24,12 @@ manifest = json.loads(FINALISTS_PATH.read_text())
 slots = {slot["id"]: slot for slot in ledger["slots"]}
 finalists = manifest["candidates"]
 
+if len(slots) != 20:
+    fail(f"expected exactly 20 candidate slots, found {len(slots)}")
+unfinished = sorted(candidate_id for candidate_id, slot in slots.items() if slot["status"] != "finished")
+if unfinished:
+    fail(f"all candidate finish gates should be closed: {unfinished}")
+
 if len(finalists) != EXPECTED_FINALIST_COUNT:
     fail(f"expected {EXPECTED_FINALIST_COUNT} finalists, found {len(finalists)}")
 
@@ -90,6 +96,6 @@ if ledger["collectionReview"]["published"] != 0:
 
 print(
     "PASS indie selection gate: "
-    f"{len(finalists)} unique finished/tested finalists; "
+    f"20 finished candidates; {len(finalists)} unique selected/tested finalists; "
     f"requested tastes covered; 9 selected, 0 live URLs"
 )

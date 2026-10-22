@@ -1,3 +1,22 @@
+# Run 65 · All twenty finish gates closed
+
+**20/20 playable · 20/20 improved · 52 meaningful improvement passes · 20/20 finished · 9 selected · 0 live URLs.** Exactly 20 candidate slots retained.
+
+The exact current development head completed its full workflow. Roof Runner, Last Match and Threadbound now have current-source engine, DOM/save and Chromium evidence, closing the three remaining finish gates without changing the nine-game public selection.
+
+## Evidence
+
+- [Workflow 39764147903](https://github.com/ThatOneMop/study-desk/actions/runs/39764147903) passed repository assets, exact20-slot/source isolation, all20 engine suites, all20 DOM/save suites and every desktop/touch browser suite at head `645009d`.
+- Roof Runner:13 engine +25 DOM; five actual-keyboard all-parcel/no-fall routes, current capture-loss behavior, native RAF smoke and touch/narrow-layout checks.
+- Last Match:17 engine +22 DOM; five deterministic campaigns plus an unmodified native-clock five-clearing campaign with real held movement, flashes, braziers, embers, gates, unlocks and records.
+- Threadbound:13 engine +18 DOM; four actual-keyboard all-seed/no-fall crossings, current keyboard/pointer tap behavior, real CDP held-touch release, native RAF smoke and narrow layouts.
+- Screenshot artifact [12419682371](https://github.com/ThatOneMop/study-desk/actions/runs/39764147903/artifacts/12419682371) retains every Last Match native completion and every Threadbound canopy. Roof Runner route1, Last Match clearing5 and Threadbound canopy4 were manually inspected.
+
+## Decision and limits
+
+All three are now finished development reserves, not new public selections. Their functional campaigns, progression, saves, restart, keyboard/touch-emulated controls and launch/back paths pass; independent human enjoyment, physical touch and screen-reader output remain unclaimed. Public `main` remains `a9aa7b0`; Pages deployment is still blocked, so there are no honest live game URLs.
+
+
 # Run 64 · Selected source integration
 
 **20/20 playable prototypes · 20 improved games · 52 meaningful improvement passes · 17 finished · 9 selected · 0 live URLs.** Exactly 20 candidate slots retained.

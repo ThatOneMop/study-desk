@@ -22,7 +22,7 @@ Together these selections explicitly cover fishing, colony building, manual craf
 
 ## Finished reserve pool
 
-These games remain complete and preserved. They are reserves, not failures, and can replace a finalist if integrated regression or catalogue fit exposes a problem.
+These eleven games remain complete and preserved. They are reserves, not failures, and can replace a finalist if integrated regression or catalogue fit exposes a problem. Roof Runner, Last Match and Threadbound joined this pool after exact current-source CI39764147903 closed their remaining browser finish gates.
 
 | Candidate | Why it is held in reserve for this slate |
 | --- | --- |
@@ -34,6 +34,9 @@ These games remain complete and preserved. They are reserves, not failures, and 
 | Circuit Garden | Reliable network puzzle, held to avoid crowding the slate with resource-routing systems. |
 | Moss Market | Complete management game, held because its optimization niche overlaps the slate's progression-heavy resource games. |
 | Rain Catcher | Strong hydraulic routing, held because network planning is already the slate's densest genre family. |
+| Roof Runner | Complete courier-platforming campaign and current controls pass, but the selected slate already has an action game and direct replay evidence is thinner. |
+| Last Match | Complete five-clearing native-clock campaign passes, but alternate-strategy and subjective combat evidence remain thinner than selected Scrap Orbit. |
+| Threadbound | All four grapple crossings and current input paths pass, but traversal/action is already represented and independent replay evidence remains limited. |
 
 ## Decision rule
 
