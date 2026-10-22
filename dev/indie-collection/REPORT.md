@@ -1,3 +1,22 @@
+# Run 55 · Last Match full native-clock finish gate
+
+**20/20 playable prototypes · 20 improved games · 45 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Last Match remains development-only, but its strongest unresolved reliability gate now has an executable exact-source test instead of a plan. The unmodified native-clock browser controller has been extended from the opening clearing to all five. It drives real held keyboard movement from visible position text and saved state, fires discrete flashes only when the live beam/readiness UI permits them, uses braziers, collects embers, crosses gates and advances through normal unlocks. Every clearing must complete with a saved three-medal record and now writes its own completion screenshot. The test does not inject game state, replace the production clock or shorten enemy rules.
+
+## Evidence
+
+- Finish-gate test commit: [c802f06](https://github.com/ThatOneMop/study-desk/commit/c802f06c1e4c7044ee1d8e2bbc921d741af97bf3).
+- Local checks pass: 16 Last Match engine tests, 19 DOM/save tests, both repository asset/isolation gates, exactly 20 slots and 116 candidate references, JavaScript syntax and diff hygiene.
+- The prior exact game source remains [be72f626](https://github.com/ThatOneMop/study-desk/commit/be72f62660b3b66dd61d4fbf4848336804d25dd6), with [successful CI 39583606040](https://github.com/ThatOneMop/study-desk/actions/runs/39583606040) covering five deterministic browser campaigns and one separate unmodified native-clock opening victory. Its retained desktop, touch and completed-opening captures were downloaded and visually inspected this run.
+- Local Playwright could not launch because its Chromium executable is absent. No workflow attached to the connector-created finish-gate commit during the observation window, and the HTTPS git remote has no interactive credentials. The new five-clearing path is therefore **pending exact-source Chromium execution**; the prior run is context, not a substitute.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no candidate was added to the public catalogue.
+
+## Decision and next gate
+
+Last Match stays **playable, not finished and not selected**. This run materially improves full-campaign control verification, but quality is not advanced from an unexecuted browser path. Obtain the exact Chromium result and inspect all five completion captures; then complete the remaining later-clearing/alternate-strategy comparison before ranking it against the seventeen finished candidates. Physical touch, screen-reader output, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 54 · Threadbound touch-control pass
 
 **20/20 playable prototypes · 20 improved games · 45 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.

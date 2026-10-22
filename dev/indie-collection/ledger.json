@@ -672,7 +672,8 @@
         "16 local engine checks pass, including pure readiness at every baseline campaign snapshot, current cone/damage/rock occlusion, inactive/fuel/cooldown/full/empty/distant oil distinctions; unchanged five baseline campaigns.18DOM cases authored/executed in CI; local jsdom unavailable, so no local DOM-pass claim. Local candidate asset audit fails because partial checkout lacks other candidates' index files; rely on full-checkout CI gates.",
         "Initial CI39482220244 passed engine and existing UI plus new short keyboard movement/flash test, then caught a resumed-clock setup omission in queued-oil test.44c5f562 initializes the real frame harness before queuing refill; game source unchanged. Final exact-source CI39482940325 passed, including unmodified native-clock opening combat test ec680ae1.",
         "PASS final exact sourceec680ae1b18667a5fb8674534b2254d6ff446605, CI39482940325/job118835913974:16engine+18DOM, actual Chromium all five no-hit/3-medal deterministic-clock campaigns, native short-keypress movement/flash once, current-cone feedback, touch quick taps/pause/retry, >=44px controls and no390/320 page overflow. Separate unmodified native-clock opening combat drove real held keys/discrete flashes from observed HUD/autosave snapshots, collected embers and achieved actual gate victory without state injection/fake clocks. All19 other-game engine/DOM/browser regressions and root10routes/14refs plus20slots/116refs gates passed; zero page errors. Decoded logs inspected; artifact12292915900.",
-        "PASS exact source be72f62660b3b66dd61d4fbf4848336804d25dd6, CI39583606040/job119166958465:16engine+19DOM, including a crafted 0.4s briar warning that outranks a closer mote; five legal no-hit/3-medal Chromium campaigns, native short-keyboard/touch controls,390/320px layout and separate unmodified native-clock opening victory. All19 other candidates, root assets and exact20-slot/116-reference isolation gates passed; zero page errors. Decoded logs inspected; screenshot artifact12339237007 retained."
+        "PASS exact source be72f62660b3b66dd61d4fbf4848336804d25dd6, CI39583606040/job119166958465:16engine+19DOM, including a crafted 0.4s briar warning that outranks a closer mote; five legal no-hit/3-medal Chromium campaigns, native short-keyboard/touch controls,390/320px layout and separate unmodified native-clock opening victory. All19 other candidates, root assets and exact20-slot/116-reference isolation gates passed; zero page errors. Decoded logs inspected; screenshot artifact12339237007 retained.",
+        "Finish-gate test commit c802f06 extends the unmodified native-clock controller from the opening to all five clearings, checking held movement, discrete flashes, brazier refills, ember collection, gate progression, unlocks, records and five completion screenshots without state injection or fake clocks. Local16engine+19DOM, both asset/isolation gates, syntax and diff checks pass. Local Chromium is unavailable and no workflow attached to the connector-created commit during this run, so exact-source browser execution remains pending and status is unchanged."
       ],
       "quality": {
         "enjoyment": "Live preview review confirmed the opening movement/aim loop and exposed threat-identification friction, then actual idle combat reached a saved five-hit loss with the nearby readout showing LUNGING NOW. Distinct silhouettes/countdowns improve dodge decision clarity without easing enemies. No sustained manual victory or human fun rating claimed; automated native-clock opening victory and five deterministic full campaigns remain reliability evidence.",
@@ -699,8 +700,9 @@
         "44c5f56284a4acd5f594402fdea13bcff4be1932",
         "ec680ae1b18667a5fb8674534b2254d6ff446605",
         "b1a1ed49e673a9b266a94ecf410bf092b12967d3",
-        "6b785a08a256f16f28826868e3807fc925157518",
-        "be72f62660b3b66dd61d4fbf4848336804d25dd6"
+    "6b785a08a256f16f28826868e3807fc925157518",
+    "be72f62660b3b66dd61d4fbf4848336804d25dd6",
+    "c802f06c1e4c7044ee1d8e2bbc921d741af97bf3"
       ],
       "verification": {
         "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39583606040",
@@ -2073,16 +2075,29 @@
       "verifiedCommit": null,
       "ciUrl": null,
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 55,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 17,
+      "publishedTotal": 0,
+      "summary": "Last Match finish-gate commit c802f06 extends the production real-clock browser controller from one clearing to all five. It checks actual held keyboard movement, discrete flashes, brazier refills, ember collection, gates, unlocks, best records and one completion screenshot per clearing without injected state or fake clocks. Local16 engine,19 DOM, both asset/isolation gates, syntax and diff checks pass. Local Chromium is unavailable and no workflow attached to the connector-created commit; candidate remains playable, not finished/selected. Prior exact-source CI39583606040 remains successful context only; public main unchanged.",
+      "implementationCommit": "c802f06c1e4c7044ee1d8e2bbc921d741af97bf3",
+      "verifiedCommit": null,
+      "ciUrl": null,
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/45passes;17finished; Threadbound pass3 improves touch nudges and later-canopy QA capture;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/45passes;17finished; Last Match full native-clock finish-gate test and Threadbound pass3 Chromium are pending;0selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 17,
     "selected": 0,
     "published": 0,
-    "next": "Compare the seventeen finished candidates directly while obtaining Threadbound pass3 Chromium evidence and completing its canopies2–4 finish gate, plus Roof Runner full-route and Last Match sustained-combat review. No new slots.",
+    "next": "Compare the seventeen finished candidates directly while obtaining Threadbound pass3 and Last Match full-native-campaign Chromium evidence, completing Threadbound canopies2–4 and Roof Runner full-route control reviews. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
