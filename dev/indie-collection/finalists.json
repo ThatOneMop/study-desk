@@ -1,8 +1,11 @@
 {
   "schemaVersion": 1,
-  "status": "preselection-finalist",
+  "status": "selected-source-integrated",
   "decisionDate": "2026-10-22",
-  "policy": "Finalists are finished, tested development candidates. This manifest does not select, publish or modify the public catalogue.",
+  "policy": "All nine finished finalists passed the fresh-main integration gate and are selected in the public source catalogue. GitHub Pages deployment remains blocked at repository configuration, so no published URL is claimed.",
+  "publicCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed",
+  "workflowRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39763550984",
+  "deploymentStatus": "source-integrated; release gates passed; Configure GitHub Pages failed with the existing repository permission blocker",
   "candidates": [
     {
       "id": "tidepost",

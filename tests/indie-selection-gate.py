@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reject unfinished, untested or prematurely public indie finalists."""
+"""Validate the finished, selected indie slate and its integration evidence."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ LEDGER_PATH = ROOT / "dev/indie-collection/ledger.json"
 FINALISTS_PATH = ROOT / "dev/indie-collection/finalists.json"
 REQUIRED_TASTES = {"fishing", "colony", "manual", "roguelike", "action"}
 EXPECTED_FINALIST_COUNT = 9
+PUBLIC_COMMIT = "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"
 
 
 def fail(message: str) -> None:
@@ -43,8 +44,14 @@ for entry in finalists:
         fail(f"{candidate_id} has no initial playable")
     if slot["meaningfulImprovementPasses"] < 1:
         fail(f"{candidate_id} has no meaningful improvement pass")
-    if slot["selected"] is not False or slot["publishedUrl"] is not None:
-        fail(f"{candidate_id} was made public before integration gates")
+    if slot["selected"] is not True:
+        fail(f"{candidate_id} is not selected after the integration gate")
+    if PUBLIC_COMMIT not in slot["integrationCommits"]:
+        fail(f"{candidate_id} lacks the public integration commit")
+    if slot["publishedUrl"] is not None:
+        fail(f"{candidate_id} claims a live URL despite the Pages blocker")
+    if not slot.get("selectionReason") or len(slot["selectionReason"]) < 40:
+        fail(f"{candidate_id} needs a substantive selection reason")
     if not slot["developmentCommits"]:
         fail(f"{candidate_id} has no development commit evidence")
     if not entry.get("reason") or len(entry["reason"]) < 40:
@@ -74,11 +81,15 @@ missing_tastes = REQUIRED_TASTES - tastes
 if missing_tastes:
     fail(f"finalist slate misses requested tastes: {sorted(missing_tastes)}")
 
-if ledger["collectionReview"]["selected"] != 0 or ledger["collectionReview"]["published"] != 0:
-    fail("collection review claims selection/publication before integration")
+if manifest.get("publicCommit") != PUBLIC_COMMIT:
+    fail("finalist manifest has the wrong public integration commit")
+if ledger["collectionReview"]["selected"] != EXPECTED_FINALIST_COUNT:
+    fail("collection review selected total is not nine")
+if ledger["collectionReview"]["published"] != 0:
+    fail("collection review claims publication despite the Pages blocker")
 
 print(
     "PASS indie selection gate: "
     f"{len(finalists)} unique finished/tested finalists; "
-    f"requested tastes covered; 0 selected/public"
+    f"requested tastes covered; 9 selected, 0 live URLs"
 )

@@ -1,3 +1,22 @@
+# Run 64 · Selected source integration
+
+**20/20 playable prototypes · 20 improved games · 52 meaningful improvement passes · 17 finished · 9 selected · 0 live URLs.** Exactly 20 candidate slots retained.
+
+Tidepost, Deep Pocket, Queen of Cinders, Little Foundry, Scrap Orbit, Inkline, Pocket Expedition, Echo Vault and Glasshouse are now present in the public Study Desk source catalogue under a separate **Indie collection** group. Their engine, game and stylesheet files exactly match the reviewed finished candidates. Roof Runner, Last Match and Threadbound remain unfinished and development-only; the eight other finished candidates remain reserves.
+
+## Evidence
+
+- Public source commit: [a9aa7b0](https://github.com/ThatOneMop/study-desk/commit/a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed), a lease-protected fast-forward from inspected main `42e32a7`.
+- Local release gates pass: 9 selected routes and 27 exact source hashes; 19 launch routes; 55 HTML asset references; Study Desk shell/bridge/catalogue/curation regressions; After Hours engine regression.
+- The nine hash-identical development sources pass 145 engine assertions and 179 DOM assertions across complete campaigns, saves, restart/undo where supported and keyboard/touch-emulated controls.
+- [Workflow 39763550984](https://github.com/ThatOneMop/study-desk/actions/runs/39763550984) passed **Verify game routes and local assets**, including the new selected-source integrity gate. It then failed at **Configure GitHub Pages**, the existing repository permission boundary; upload and deployment were skipped.
+- No `publishedUrl` is recorded. Public source availability is not misreported as a playable deployment.
+
+## Next gate
+
+GitHub Pages must be enabled or granted access at the repository level, then the workflow must complete and all nine live routes must be opened before any candidate is counted as published. Continue exact-source Chromium and continuous-control finish gates for Roof Runner, Last Match and Threadbound only if time permits; do not add new candidate slots.
+
+
 # Run 63 · Evidence-backed finalist slate
 
 **20/20 playable prototypes · 20 improved games · 52 meaningful improvement passes · 17 finished · 9 preselection finalists · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.

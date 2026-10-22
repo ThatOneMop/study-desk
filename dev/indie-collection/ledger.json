@@ -39,9 +39,9 @@
         "reliability": "21 engine,18 DOM and rendered desktop/touch Chromium checks pass on exact source; all six current routes, versioned saves, restart, undo, damaged/conflicting-save recovery and all19 collection regressions are covered.",
         "variety": "Distinct turn-based ferry planning inside the collection; late charts now branch into dual-dock routing and an interior combined-mechanics circuit instead of repeating the same perimeter loop."
       },
-      "selected": false,
-      "selectionReason": null,
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected for distinct ferry logistics, six authored charts, strong route progression and the deepest verified planning campaign in the collection.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare Tidepost directly with the other finished candidates on replay enjoyment, decision density and collection variety before selection or public integration.",
@@ -245,9 +245,9 @@
         "reliability": "Exact source933c5a55 passes22engine+25DOM, all-five desktop rescue, touch-emulated and all19 other-game regressions in CI39570023846. Source validation includes mandatory defense, legacy missing-rule migration/current-rule retry, every-action serialization, conservation, deadlines, undo/reward rollback, corrupt/conflicting storage, launch/back and zero page errors. Separate normal-UI play completed the full campaign.",
         "variety": "Distinct colony logistics and fire recovery: each map changes roots, resource locations, fire direction/timing and brood target; late named resin/food/water firebreaks create different stewardship priorities without new counters, timers or padded chapter counts."
       },
-      "selected": false,
-      "selectionReason": "Finished but not selected: the full visible campaign, meaningful pass3 balance repair, saves/retry, keyboard/touch-emulated controls, launch/navigation and exact-source CI pass. Hold publication until direct enjoyment/depth/variety comparison with Deep Pocket, Spore Kitchen, Inkline and Burrow Express, plus at least one alternate colony allocation.",
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected as the clearest compact colony game: connected supply trails, worker allocation and fire recovery create a complete, tested stewardship arc.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare an alternate no-upgrade or different carrier/nurse allocation and replay enjoyment against the other finished candidates before selection; do not treat the documented campaign or automated solver as a human-player study.",
@@ -332,9 +332,9 @@
         "reliability": "16 engine + 20 DOM checks and actual Chromium desktop/touch-emulated suites pass in exact-source CI 39549722233. Browser coverage includes the non-reference 13-turn two-seal route and the complete five-volume 15-seal reference campaign, plus saves, undo, retry, upgrades and navigation.",
         "variety": "Distinct cycling-deck and card-drafting spatial exploration"
       },
-      "selected": false,
-      "selectionReason": "Finished but not selected: all five authored volumes, an alternative opening/draft route, progression, saves/restart/undo, keyboard/touch-emulated controls and launch/navigation pass. Hold publication until enjoyment, depth and variety are compared directly with Burrow Express and other complete campaigns.",
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected for its original card-drafting route puzzle, meaningful ink economy, alternate successful lines and complete five-volume campaign evidence.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare Inkline’s route/draft variety and replay enjoyment directly with finished Burrow Express and the strongest complete campaigns before selection; do not equate two verified routes with a human-player study.",
@@ -397,9 +397,9 @@
         "reliability": "Exact ba87bd9a passes19 engine+25 DOM, five-trip Chromium desktop stewardship campaign, chart/multi-undo, touch and all19 other-game regressions in CI39558192584. A separate managed-browser finish-gate campaign completed all five revised trips at15/15, verified reload, retry and six-species journal state. Existing v1 run bytes load unchanged and adopt current rules on retry; corrupt/conflicting/quota save protection remains.",
         "variety": "Still a distinct turn-based fishing/tension game. Authored protection/stocking tasks now require Ribbon Perch, protect flagship fish and culminate in an all-six-species route, replacing the previously verified five-species high-value repetition."
       },
-      "selected": false,
-      "selectionReason": "Finished but not selected: two full ordinary-UI campaigns, the revised five-trip15-medal stewardship progression, saves/reload/retry, keyboard/touch-emulated controls and launch/navigation pass. Hold publication until alternate species/tide plans and direct enjoyment/depth/variety comparison with Spore Kitchen, Inkline and Burrow Express.",
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected as the strongest fishing candidate: deliberate tension control, sustainable species choices and five authored trips support a complete progression loop.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare an alternative legal species/tide plan and replay enjoyment against finished Spore Kitchen, Inkline and Burrow Express before selection; do not equate the documented three-medal campaign with a human-player study.",
@@ -580,9 +580,9 @@
         "reliability": "Exact CI passes 10 engine + 15 DOM checks, all five legal browser recovery campaigns, native-clock movement/pause/retry, quick touch and keyboard tap latching, saves/reload, upgrades/navigation, 120,000 exploratory physics frames and all 19 other-candidate regressions with zero game page errors.",
         "variety": "Distinct continuous inertia, spring-damped mass-aware cable towing, slow docking, obstacle lanes and swirl fields; mechanically separate from the collection’s fishing, colony, puzzle, platform and turn-based route games."
       },
-      "selected": false,
-      "selectionReason": null,
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected as the strongest completed action candidate: inertial towing, cargo coupling and gentle docking give it a responsive, distinctive control texture.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare the five-job campaign’s replay enjoyment, later-field route choice and action feel directly with the other finished candidates before selection.",
@@ -818,9 +818,9 @@
         "reliability": "13 engine +17 DOM and exact-source actual Chromium desktop/touch-emulated suites pass, including all six legal three-medal campaigns, every-action saves, whole-room dry/grow/wilt feedback, legacy efficiency/score migration,100 exploratory gardens with seed/plant conservation, full repository assets and all19 other-game regressions.",
         "variety": "Adjacent-parent inheritance, mixed-height timing, missing-colour prism chains and tall-plant/frosted-pane light shaping stay distinct across the six rooms; this is not a cooking/flavour reskin."
       },
-      "selected": false,
-      "selectionReason": "Finished, not selected: full campaign, persistence and regression evidence are complete; direct comparison with the other finished candidates remains before public integration.",
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected for genetic breeding and spatial light planning, adding the collection's most distinctive long-form systems puzzle with six completed exhibitions.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare alternate breeding/light routes, replay enjoyment and collection fit directly with the other finished candidates before selection.",
@@ -948,9 +948,9 @@
         "reliability": "Exact cloned head passed repository asset/isolation checks, all20 engine suites and all20 DOM/save suites; Little Foundry passes15 engine+20 DOM. Managed exact-source desktop completed all six and reloaded18/18. Pass1 remains the latest remote Chromium CI; pass2 cross-game browser rerun was unavailable locally.",
         "variety": "The six commissions now ask for distinct order disciplines on top of thermal planning, reducing the prior identical-capacity-sort strategy while preserving the manual casting identity."
       },
-      "selected": false,
-      "selectionReason": "Finished, not selected: the complete compact campaign, owner-mark variety, saves, loss/retry/undo and responsive paths have exact automated or rendered evidence. Compare its repeated manual rhythm and collection fit directly with the other finished candidates before publishing.",
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected for the most satisfying manual-work loop: alloy weighing, heat control and section-wise pouring vary meaningfully across six commissions.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare Little Foundry directly with the other finished candidates on replay enjoyment, decision density and collection variety before selection.",
@@ -1143,9 +1143,9 @@
         "reliability": "Exact final source passes 15 engine + 20 DOM, Chromium desktop/touch and fifteen earlier-game regressions. Actual exhaustion/injury losses, seeded-log integrity, failed/concurrent/corrupted storage, cargo-drop rescue, retry/undo/reward/navigation covered within tested cases.",
         "variety": "Push-your-luck collection with tool-dependent branching paths, shared provision/cargo space, heavy return costs, uncertain injuries and bank-only-at-camp rewards; distinct from ferry, fleet dispatch and combat candidates."
       },
-      "selected": false,
-      "selectionReason": "Finished, not selected: the complete six-survey campaign, varied tool routes, retry/chance behavior, extraction decisions, saves and responsive paths have exact automated or rendered evidence. Compare alternative routes, replay enjoyment and collection fit before publishing.",
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected for its compact roguelike expedition structure: tool loadouts, shared food and cargo, uncertainty and extraction risk support varied builds.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare Pocket Expedition directly with the other finished candidates on replay enjoyment, risk clarity, decision density and collection variety before selection.",
@@ -1423,9 +1423,9 @@
         "reliability": "Final14engine+19DOM and real desktop/touch Chromium pass in CI on8fe14ee7; repository assets,116 candidate references, exact20/public isolation and all19 earlier-game regressions pass. All20 local engine suites pass.",
         "variety": "Turn-based directional stealth and corridor-weighted sound diversion; not Inkline's card drafting, Pocket Expedition's pack/extraction risk or Last Match's realtime cone combat."
       },
-      "selected": false,
-      "selectionReason": "Finished, not selected: a pursuit recovery and a separate all-four ghost campaign demonstrate readable sound-stealth escalation, low wait fatigue, reliable saves and a loop distinct from the collection's realtime combat and route puzzlers. Selection still requires direct comparison and independent human enjoyment evidence.",
-      "integrationCommits": [],
+      "selected": true,
+      "selectionReason": "Selected for readable forecast-driven stealth: directional beams, weighted sound and reusable decoys create a reliable loop unlike the realtime action and route puzzles.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
         "Compare its forecast-driven sound stealth and compact replay value directly against the other finished candidates before selection.",
@@ -2261,14 +2261,27 @@
       "verifiedCommit": null,
       "ciUrl": null,
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 64,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 17,
+      "publishedTotal": 0,
+      "summary": "The nine evidence-backed finalists were integrated from exact finished sources into fresh public main as a separate Indie collection, bringing the active catalogue from10 to19 without restoring the retired third-party collection. Local and GitHub release gates passed:9 source-integrity routes,19 launch routes,55 asset references, combined Study Desk regressions and all nine exact candidate engine/DOM suites. Main commit a9aa7b0 is public source. Workflow39763550984 passed release validation then failed at the existing Configure GitHub Pages permission boundary, so9 are selected and0 have claimed live URLs. Roof Runner, Last Match and Threadbound remain unfinished and development-only.",
+      "implementationCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed",
+      "verifiedCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39763550984",
+      "inspectedMainCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"
     }
   ],
   "collectionReview": {
-    "status": "Nine evidence-backed finalists preselected from17 finished candidates;20playable/all20improved/52passes; Roof Runner, Last Match and Threadbound current-source Chromium/continuous-control finish gates remain;0selected/public",
+    "status": "Nine finished finalists selected and source-integrated on public main a9aa7b0;20playable/all20improved/52passes/17finished/9selected/0live URLs; release gates passed but GitHub Pages configuration remains blocked",
     "playable": 20,
     "improved": 20,
     "finished": 17,
-    "selected": 0,
+    "selected": 9,
     "published": 0,
     "finalists": [
       "tidepost",
@@ -2281,8 +2294,8 @@
       "echo-vault",
       "glasshouse"
     ],
-    "finalistStatus": "Evidence-backed preselection only; all candidate selected flags remain false and no public catalogue entry exists.",
-    "next": "Re-run the finalist gate, then stage only the strongest passing finalists against fresh main and exercise catalogue launch/navigation, combined regressions and deployment before setting selected/public fields. Continue exact-source Chromium/continuous-control finish gates for Roof Runner, Last Match and Threadbound only if time permits. No new slots.",
+    "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
+    "next": "Do not claim live URLs until GitHub Pages is enabled and a deployment plus all nine live routes are verified. Continue exact-source Chromium/continuous-control finish gates for Roof Runner, Last Match and Threadbound only if time permits. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
