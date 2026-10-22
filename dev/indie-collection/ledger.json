@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 64603)
-Total output lines: 2319
-
 {
   "schemaVersion": 1,
   "deadline": "2026-10-23T15:00:00+11:00",
@@ -453,7 +450,1024 @@ Total output lines: 2319
         {
           "date": "2026-10-21",
           "scope": "Finished-gate ordinary-UI full revised stewardship campaign",
-          "finding": "All five trips completed at15/15 medals and0 escapes. Reload preserved the transition into trip4; Bell Pool used all six species in6 casts and the saved journal contained each one. The later tasks replace the prior high-value trio repetition with readable protect/return/fund decisions. Alternative-route and human-pla…34603 tokens truncated…actions/runs/39334355735"
+          "finding": "All five trips completed at15/15 medals and0 escapes. Reload preserved the transition into trip4; Bell Pool used all six species in6 casts and the saved journal contained each one. The later tasks replace the prior high-value trio repetition with readable protect/return/fund decisions. Alternative-route and human-player comparison remain.",
+          "decision": "Finished, not selected; compare alternate fishing routes and direct collection fit before publication"
+        }
+      ]
+    },
+    {
+      "slot": 7,
+      "id": "roof-runner",
+      "title": "Roof Runner",
+      "coreLoop": "Precision courier platformer with optional route challenges",
+      "status": "finished",
+      "source": "dev/indie-collection/roof-runner/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 5,
+      "changes": [
+        "Initial playable: five original rooftop courier routes, jump/air-dash physics, three optional parcels per route, checkpoints, winds/conveyors/steam vents, eight-fall loss/retry, three-medal route records, locked progression, keyboard/touch controls and guarded versioned saves. Side roofs calibrated to baseline jump height.",
+        "Pass 1: six-frame coyote time and early-jump buffer, variable jump height, latched sub-frame touch jump/dash taps, mobile camera enlarged to 480 logical pixels, stable route-button focus, held-input cleanup on blur/parent suspension, checkpoint/parcel/fall immediate saves, and backward migration of initial v1 saves.",
+        "Pass 1 follow-through: fixed cancelling a live restart leaving focus on the Retry button instead of the canvas; exposed independently saved fastest-time/medal records and explained hold-versus-tap jump height. Added focused regression tests and test-only CI trigger coverage.",
+        "Pass 2 after a live opening review: added a compact route strip that continuously maps the runner, three parcels, mid-route flag and postbox. It reports route percentage, postbox distance and the nearest remaining parcel as ahead or behind; collected parcels and saved checkpoint visibly settle on the strip. The accessible summary follows the same live state, while the event message remains a durable fall/parcel/checkpoint log.",
+        "Pass 3: quick keyboard and touch direction presses now queue a bounded six-frame (0.1-second) correction instead of disappearing between simulation frames; quick keyboard jump/dash presses receive the same exactly-once queue already used by touch. Sustained holds, variable jump height, physics, five routes, hazards, timing, scoring, progression and v1 saves are unchanged. Onboarding states the tap-versus-hold behavior.",
+        "Pass 4: corrected the quick-direction queue so it applies only when a keyboard or pointer tap begins and ends before any simulation frame observes it. Once a frame sees a held direction, releasing stops immediately instead of completing the remainder of an automatic six-frame nudge. True sub-frame taps still receive the promised 0.1-second correction; jump/dash edges, sustained movement, physics, routes, scoring, progression and saves are unchanged.",
+        "Pass5: completed the pointer-capture lifecycle for direction, jump and dash. A genuine cancellation or unexpected lost capture now discards every unconsumed nudge/edge, while the automatic lost-capture event that follows a normal pointer release preserves exactly one intended quick action. Physics, routes, hazards, scoring, progression and saves are unchanged."
+      ],
+      "tests": [
+        "8 local engine checks passed: all five actual-physics three-medal routes, checkpoint recovery, losses/retry, replay/progression and every-tick save decoding. Baseline solutions 289/295/325/361/343 ticks (automated paths, not human session lengths).",
+        "12 DOM checks authored; execution pending CI. Browser controls/layout not yet verified.",
+        "Initial commit 7328cbf3048e6f503d42f6a60b0cc8627ba2ed55 passed CI 39364116464: inspected job steps/logs confirm 8 Roof Runner engine + 12 DOM checks, complete repository assets and all six earlier games' engine/DOM/browser regressions. Initial checkpoint had no Roof Runner browser suite.",
+        "Pass 1 local: 13 engine checks pass, including five all-parcel/no-fall routes at 277/295/307/367/343 ticks, every-tick save roundtrips, jump-grace/buffer/variable-height fixtures, v1 migration and 120 deterministic exploratory attempts. 16 DOM and deterministic-clock/native-clock Chromium desktop/touch checks authored; exact improved CI pending.",
+        "Improved commit 017893d419bdcabb5f77194656442c46c1b58efa passed CI 39364552189: 13 engine + 16 DOM checks, actual Chromium five-route deterministic-clock keyboard campaign, touch-emulation quick taps/44px targets/390px and 320px layout, native-clock RAF movement/pause smoke and all earlier-game regressions. Steps and decoded logs inspected.",
+        "Follow-through changes add 2 DOM regressions (18 total) and native-clock retry-cancel focus coverage. Exact latest-source verification pending; prior successful CI is not claimed for later changes.",
+        "PASS exact final implementation 8898a68f1dd1bd2231d6d9b6f79d4774e88dd993 / CI 39364833774: inspected steps and decoded logs confirm 13 engine + 18 DOM checks; all five actual-keyboard three-medal/checkpoint routes with deterministic physics clock; 390px touch emulation, 44px targets, mobile camera and 390px/320px overflow; native-clock RAF jump/movement, retry-cancel focus and pause; full repository assets and all six earlier-game regressions.",
+        "Pass2 local:13 engine checks pass, retaining five all-parcel/no-fall routes at277/295/307/367/343 ticks and120 bounded exploratory attempts.19 DOM and expanded desktop/touch Chromium cases authored; local jsdom/Playwright dependencies unavailable, so their execution is attributed only to exact-source CI.",
+        "Live local-only UI opening: started/resumed normally, exercised held touch movement plus jump, observed one real gap fall/recovery and paused-state reload. The new strip visibly advanced4%→6% and updated postbox/parcel distances; the existing stale 'Ready' event text no longer has to carry navigation. This is limited control/visual evidence, not a full manual route win or human-player rating.",
+        "PASS exact-source CI39514585107 at24d11a4c18c3e8a29ca138b130742cdecdce5598: root gates;13 engine+19 DOM; deterministic-clock actual-keyboard five-route campaign; native-clock controls; desktop/touch live route-strip geometry and all19 other-candidate regressions. Terminal job/log evidence inspected.",
+        "Pass3 local:13 engine checks retain all five all-parcel/no-fall routes and120 exploratory attempts;21 DOM/save checks pass, including exactly-once quick keyboard jump and an exact six-frame quick touch-direction correction. Both repository asset/isolation gates, exact20 slots/116 references, syntax and diff checks pass. Browser assertions now cover the bounded touch correction before jump/dash, but local Chromium is unavailable and no workflow attached to connector-created source ff80e90 during this run; exact-source browser CI remains pending.",
+        "Run59 exact-source local checks:13 engine and23 DOM/save tests pass. True sub-frame keyboard and pointer direction taps receive exactly six frames, while two/three-frame observed holds stop immediately on release; all five277/295/307/367/343-tick all-parcel/no-fall routes,120 exploratory attempts, both asset/isolation gates, syntax and diff checks remain green. Chromium execution remains pending because the local executable is unavailable and no workflow attached to source fac22a1.",
+        "Run62 exact-source local checks:13 engine and25 DOM/save tests pass. New regressions prove unexpected lost capture cancels unconsumed direction, jump and dash, while pointerup followed by automatic lost capture preserves one six-frame direction correction and one jump/dash edge. Five277/295/307/367/343-tick routes,120 explorations, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium remains pending.",
+        "PASS exact current head645009d / CI39764147903:13engine+25DOM, five actual-keyboard all-parcel/no-fall Chromium routes, deterministic and native RAF controls, current quick-tap/capture-loss behavior, touch emulation,390/320px layout and all19 other candidate regressions. Desktop/touch captures artifact12419682371 retained; the first-route desktop capture was manually inspected."
+      ],
+      "quality": {
+        "enjoyment": "Limited normal-UI opening review exercised movement, held jump, a real recoverable gap fall, pause and reload. The readable rooftop vista and immediate courier premise were promising; this is not a complete manual victory, human-player score or full continuous-control assessment.",
+        "depth": "Five short handmade routes with optional parcels, clean-route and time replay goals, checkpoints, wind/conveyors and steam. Live route mapping now supports deliberate parcel detours, but longer-term replay/difficulty depth remains unproven; no hours claim.",
+        "polish": "Original canvas city art and current completion capture reviewed. Pass2 adds responsive, accessible live route/parcel/checkpoint/postbox guidance. Pass5 completes the tap/cancel promise: normal release survives automatic capture loss exactly once, while genuine cancellation leaves no hidden movement, jump or dash. Current exact Chromium covers focus, saves/retry, touch emulation and390/320px geometry; physical touch and screen-reader output remain open.",
+        "reliability": "Exact current head645009d passes13 engine+25 DOM, five actual-keyboard three-medal routes, native RAF smoke, touch/layout checks,120 exploratory attempts, both gates and all19 other candidate regressions in CI39764147903. Completion screenshot was manually inspected.",
+        "variety": "Distinct real-time courier platformer with route detours and air-dash control; now has spatial navigation feedback unlike the collection's planning boards."
+      },
+      "selected": false,
+      "selectionReason": "Finished reserve, not selected: current exact Chromium closes control/reliability gates across all five routes, but the selected slate already has stronger evidenced variety and independent human replay enjoyment remains unmeasured.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Keep as a finished development reserve; do not expand the public slate unless direct comparison finds it materially stronger than an integrated action finalist.",
+        "Review physical touch, screen-reader output and later-route replay difficulty if further polish time remains; no human enjoyment or content-hours claim.",
+        "Preserve public main and concurrent Study Desk, requested-game, community and Gummy Bay work."
+      ],
+      "developmentCommits": [
+        "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55",
+        "017893d419bdcabb5f77194656442c46c1b58efa",
+        "8898a68f1dd1bd2231d6d9b6f79d4774e88dd993",
+        "24d11a4c18c3e8a29ca138b130742cdecdce5598",
+        "ff80e90c0a0db16f1f2e725c7eab229258c780cd",
+        "fac22a183b8ed22e52a2459f1547c1df804c8068",
+        "3e544e1e6804526f7a791a53618ac5931375aa5f"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903",
+        "testedCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+        "conclusion": "success",
+        "desktop": "PASS exact current Chromium: five actual-keyboard all-parcel/no-fall routes, checkpoints, live guidance, pause, midair reload, confirmed retry, medals, progression and launch/back; native RAF movement/jump/pause smoke; zero page errors.",
+        "touch": "PASS emulation: bounded direction correction, single jump/dash latch, pause/retry, >=44px targets,480px camera and no390/320px overflow. Physical hardware remains untested.",
+        "manual": "Current first-route completion capture manually inspected:3/3 parcels,0 falls, next-route progression, readable route strip and disabled terminal controls. This is artifact review and automated campaign evidence, not a human enjoyment score.",
+        "notVerified": [
+          "Complete unscripted continuous-control route/campaign and human-player enjoyment/difficulty assessment",
+          "Physical touch hardware",
+          "Screen-reader output/full accessibility",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ],
+        "artifactId": 12419682371,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903/artifacts/12419682371",
+        "artifactManuallyInspected": true
+      },
+      "reviews": [
+        {
+          "date": "2026-10-22",
+          "scope": "Quick-direction release precision and keyboard/pointer parity",
+          "finding": "Pass3 started a six-frame nudge on every press, so a direction held for one to five real frames could continue after release. Pass4 queues only a press released before any simulation frame; observed holds now stop immediately while true sub-frame taps remain dependable.",
+          "decision": "Meaningful pass4 complete; hold as improved prototype pending exact-source browser and continuous later-route review"
+        },
+        {
+          "date": "2026-10-22",
+          "scope": "Pointer cancellation and automatic capture-release ordering",
+          "finding": "A cancelled pointer could leave queued jump/dash edges, while treating every lost-capture event as cancellation would erase a valid quick action after normal release. Pass5 records normal release explicitly, preserving it once and clearing every genuine cancellation path.",
+          "decision": "Meaningful pass5 complete; hold as improved prototype pending exact-source browser and continuous later-route review"
+        }
+      ]
+    },
+    {
+      "slot": 8,
+      "id": "scrap-orbit",
+      "title": "Scrap Orbit",
+      "coreLoop": "Momentum-based salvage and orbital docking",
+      "status": "finished",
+      "source": "dev/indie-collection/scrap-orbit/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 3,
+      "changes": [
+        "Initial playable: five original salvage fields; real-time inertia, spring-damped mass-aware cable towing, slow docking, debris collisions, hull failure, medals/records, two upgrades, retries and guarded versioned local saves.",
+        "Pass 1: exact nonmutating docking/coupling telemetry and cargo bearings, drift vector and coupling reticle; 560-unit tug-following mobile camera with offscreen labels; sub-frame touch thrust latch consumed exactly once; lower DOM redraw frequency and modal/background action guards; correct same-origin Study Desk visibility protocol; deeper physical/economy/status save validation.",
+        "Pass 2: add a live docking approach board for tethered cargo with exact beacon range, cargo speed, radial closing/away drift and context cues for alignment, braking, turnaround and safe docking; mirror the state in an accessible label and responsive two-column mobile layout without changing physics, thresholds, save format or content counts.",
+        "Pass 3: latch each fresh keyboard or pointer thrust/brake press for exactly one physics step so quick taps cannot vanish between animation frames; retain an eight-frame visible and accessible control highlight; draw direction-specific thruster plumes and a brake ring without changing physics, thresholds, save format or authored content."
+      ],
+      "tests": [
+        "7 local engine checks pass: all five baseline three-medal recoveries in 2258/5221/4948/5272/5611 simulated ticks, every-tick saves, actual repeated-impact loss/retry, inertia/braking, upgrade accounting and malformed saves. DOM checks authored, pending execution.",
+        "After pass: 10 local engine checks pass, including exact telemetry nonmutation, null/malformed nested saves, forged status rejection and 80 deterministic exploratory attempts (120,000 simulated frames). 13 DOM cases and actual Chromium desktop/native-clock/touch-emulated tests authored, pending exact-source CI.",
+        "PASS exact-source GitHub Actions 39369531384 at e184c8633067726b626139234791dac25d9adff9: full repository assets, 44 candidate references/exact20/isolation, 10 engine + 13 DOM checks, Chromium five legal recoveries through DOM keyboard input, native keyboard and native-clock RAF smoke, 390px/320px touch emulation. All seven earlier candidates engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected.",
+        "PASS exact-source GitHub Actions 39520905091 at f331a7a4479f716e73c306f6f568a50b92d66ab6: 10 engine + 14 DOM checks, deterministic Chromium five-job three-medal campaigns, explicit inside-range/too-fast/away approach-board state, native-clock smoke, responsive board at 390px/320px, all 19 other-game regressions, exact20-slot/116-reference/isolation gates and zero page errors. Terminal status, steps and decoded logs inspected.",
+        "PASS exact-source GitHub Actions 39599515303 at 3b5932c4b5cbf518da8b1dbf149136c34d9e6394: 10 engine + 15 DOM checks, fresh keyboard/pointer tap latching and transient accessible feedback, deterministic Chromium all-five three-medal recovery campaign, native-clock RAF smoke, responsive 390px/320px touch emulation, all 19 other-candidate regressions, exact20-slot/reference/isolation gates and visual evidence. Terminal job steps and decoded logs inspected."
+      ],
+      "quality": {
+        "enjoyment": "An exact-browser campaign completed all five jobs and every cargo recovery through the game’s DOM keyboard path for three medals per job. A separate managed preview used genuine native controls: the pass2 build overshot and required braking; quick corrective taps lacked dependable feedback, while pass3 visibly latched a down burst, announced the control active, cleared the highlight and produced movement. This supports functional control feel, not a human fun score.",
+        "depth": "Five authored salvage fields vary cargo mass, obstacles, dock position and gravity swirl; baseline routes take approximately 38/87/82/88/94 simulated seconds. The approach board and pass3 input feedback clarify the existing towing decisions without padding content or changing physics. Compact campaign scope is complete, not a playtime-hours claim.",
+        "polish": "Original canvas night-depot identity now gives direction-specific thruster plumes, a brake ring and eight-frame control highlights with aria-pressed state. Exact range/speed/radial-drift docking guidance, following mobile camera and offscreen labels remain. CI covers >=44px controls and 390px/320px fit; physical hardware remains open.",
+        "reliability": "Exact CI passes 10 engine + 15 DOM checks, all five legal browser recovery campaigns, native-clock movement/pause/retry, quick touch and keyboard tap latching, saves/reload, upgrades/navigation, 120,000 exploratory physics frames and all 19 other-candidate regressions with zero game page errors.",
+        "variety": "Distinct continuous inertia, spring-damped mass-aware cable towing, slow docking, obstacle lanes and swirl fields; mechanically separate from the collection’s fishing, colony, puzzle, platform and turn-based route games."
+      },
+      "selected": true,
+      "selectionReason": "Selected as the strongest completed action candidate: inertial towing, cargo coupling and gentle docking give it a responsive, distinctive control texture.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Try an alternate heavy-field route while retaining the five-job real-time regression suite; automated reliability is not a human-player study.",
+        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+      ],
+      "developmentCommits": [
+        "aecbf32e3f7b28a59ea2944ca8d595b2b735335b",
+        "e184c8633067726b626139234791dac25d9adff9",
+        "f331a7a4479f716e73c306f6f568a50b92d66ab6",
+        "3b5932c4b5cbf518da8b1dbf149136c34d9e6394"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39599515303",
+        "testedCommit": "3b5932c4b5cbf518da8b1dbf149136c34d9e6394",
+        "conclusion": "success",
+        "desktop": "10 engine + 15 DOM and real Chromium: native keyboard thrust/brake/pause/retry, quick keyboard tap latch with transient aria-pressed feedback, exact saved reload, all five legal three-medal DOM-keyboard recovery campaigns, records, workshop/navigation and zero game page errors.",
+        "touch": "390x844 quick thrust exactly once, pause/retry, responsive approach board, 560-unit following camera, >=44px visible buttons and no page overflow at 390px/320px.",
+        "manual": "Managed local-only desktop review used genuine start/resume, held thrust/brake and quick keyboard control. The pass2 run overshot and recovered toward salvage but did not complete a cargo delivery. Source inspection identified that keyboard taps could be released between RAF frames while pointer taps alone had a pulse latch. Pass3 then visibly showed the Down control active/aria-pressed true for a quick press, cleared it after the feedback window and moved the tug to 1m/s. The complete five-job gate is supplied by exact-source Chromium keyboard campaigns, not claimed as unscripted human play.",
+        "notVerified": [
+          "Independent human-player enjoyment or replay-depth study",
+          "An unscripted real-time manual five-job campaign",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader output",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
+    },
+    {
+      "slot": 9,
+      "id": "stone-song",
+      "title": "Stone Song",
+      "coreLoop": "Sound and rhythm-based quarry puzzle",
+      "status": "finished",
+      "source": "dev/indie-collection/stone-song/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 3,
+      "changes": [
+        "Initial playable: six original stone-sequencer quarry rooms, eight-beat looping rhythms, shifts/tuning/muting, chord/rest performance with no timer, five-clash loss/retry, best-only medals, optional synthesised tones and guarded versioned saves.",
+        "Pass 1: third/fourth rooms now require tuning rather than allowing a shift-only bypass; exact rule-derived missing/extra-note diagnostics with contributing stone names, non-colour-only MATCH/DIFFERS labels, next required pad focus/highlights, visible loss-to-arrangement recovery, session undo including full medal rollback, native Space activation preserved, audition/modal/visibility guards.",
+        "Pass 2: add a live, rules-derived attempt ledger for phrase alignment/performance progress, clean-medal eligibility, move-medal margin and earned/missed results; replace stale generic progression copy with the exact newly unlocked seam. Accessible summary and responsive stacked mobile layout added without changing puzzles, scoring, audio, saves or content counts.",
+        "Pass 3: a full normal-UI six-seam campaign exposed ambiguous tune controls after an over-tuned chord stone forced a restart. Tune buttons now preview the exact current-to-next voice in visible text and named accessible labels; the room tool strip exposes when tune and sleep/wake mechanics are active, and sleep controls name the affected stone and next action. Puzzle rules, scoring, saves, audio and content counts are unchanged."
+      ],
+      "tests": [
+        "9 local engine checks pass: legal minimum-cost solutions for all six rooms (2/4/3/3/4/12 actions), complete campaign/every-action saves, chord order, rests, loss/retry, replay records, malformed saves and 120 deterministic exploratory attempts. 10 DOM checks authored; exact-source execution pending.",
+        "After improvement: 12 local engine checks pass; six legal minimum-cost arrangements now 2/4/6/6/4/12 moves, all three-medal campaigns with every-action saving. 17 DOM and desktop/touch-emulated Chromium suites authored; exact-source CI pending.",
+        "PASS exact-source GitHub Actions 39375204108 at 4b5b6b982db0fe734898ea9b17866025785f8a60: 12 engine + 17 DOM checks, actual Chromium six-room keyboard campaign, save/reload, reward undo, retry, loss recovery/navigation, 390px/320px touch emulation. Full repository assets, 50-reference/exact20/isolation gate and all eight earlier games' engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected.",
+        "PASS exact-source GitHub Actions 39526905831 at 97fb7f618edf54486346e0227d53e0bb0e18bd52: 13 engine + 18 DOM checks, six legal Chromium campaigns, live alignment/clash/efficiency/earned/unlock ledger states, native keyboard and optional synth/loop, save/reload/retry/reward undo, responsive ledger at 390px/320px, all 19 other-game regressions and exact20-slot/116-reference/isolation gates. Terminal status, steps and decoded logs inspected.",
+        "PASS exact-source GitHub Actions 39592191498 at cead04223cb466a0d751b6cd377fea7296046f6d: 13 engine + 19 DOM checks, six-room Chromium campaign with exact tune and sleep/wake transition labels, desktop keyboard/focus/save/retry/undo/loss recovery/navigation, responsive touch emulation, all 19 other-game regressions and root exact20-slot/116-reference/isolation gates. Terminal status, steps and decoded logs inspected. Earlier run39591786445 failed before Stone Song DOM execution because a preview-only require path was accidentally committed; cead042 restores the repository-relative test path."
+      ],
+      "quality": {
+        "enjoyment": "One continuous normal-UI desktop campaign released all six seams for 18/18 medals, using ordinary shift, tune, sleep/wake, Rest and voice-pad controls. The tuning→chords→muting→unequal-rhythm escalation stayed readable; an ambiguous tune label caused one genuine over-tune/restart and directly drove pass3. Sound remained off, so this is not an audio-quality judgment or human-player study.",
+        "depth": "Six short original eight-beat arrangement puzzles; baseline minimum routes 2/4/6/6/4/12 moves plus performances. Later seams combine tuning, chords, muting, unequal pulse patterns and exact rests, with clean/efficient replay records. Compact authored scope is complete, not a human playtime or hours claim.",
+        "polish": "Original quarry/engraved score reviewed through the full campaign. Pass3 exposes each tune's current→next glyph and named accessible action, plus room-specific TUNE and SLEEP / WAKE tool labels and named sleep actions. Pass2 ledger, exact diagnostics, focus and responsive layout remain. Physical mobile and subjective audio quality remain open.",
+        "reliability": "13 engine + 19 DOM and actual Chromium desktop/touch-emulated checks pass on exact pass3 source, including six legal campaigns, exact transition/action labels, 120 deterministic exploratory attempts, every-action roundtrips, save/reload/retry/undo/loss recovery and all earlier-game regressions.",
+        "variety": "Distinct looping musical phrase arrangement and chord performance, not a vehicle or circuit-rotation reskin"
+      },
+      "selected": false,
+      "selectionReason": null,
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Compare the full compact campaign's replay enjoyment and authored musical depth directly with the other finished candidates before selection.",
+        "Review optional audio quality with audible output and physical/mobile or screen-reader accessibility where possible.",
+        "Integrate only selected finished winners against fresh main; never wholesale-merge this historical development branch"
+      ],
+      "developmentCommits": [
+        "f88c5ca73dd58c58b2f6be10702a4082e148e527",
+        "4b5b6b982db0fe734898ea9b17866025785f8a60",
+        "97fb7f618edf54486346e0227d53e0bb0e18bd52",
+        "2da9e0bdb3fcc08104e98d0d417c37b5e9cf6285",
+        "cead04223cb466a0d751b6cd377fea7296046f6d"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39592191498",
+        "testedCommit": "cead04223cb466a0d751b6cd377fea7296046f6d",
+        "conclusion": "success",
+        "desktop": "All six legal three-medal arrangements/performances via actual buttons/native keyboard; exact visible and accessible tune transitions, sleep/wake actions, live phrase/clean/move ledger and next-seam copy, optional synth/loop, reload, retry cancel, reward undo/replay, loss recovery, records/navigation and zero page errors.",
+        "touch": "390x844 exactly-once shifts, undo, pads/rest, saved beat reload, retry cancel, responsive stacked attempt ledger, >=44px visible controls and no page overflow at 390px/320px.",
+        "manual": "Managed local-only desktop review completed one continuous six-seam campaign for 18/18 medals through normal visible controls. Tune, chord, mute, uneven-pulse and final 12-move arrangements were performed. A mistaken two-click tune on Twin amber, followed by room restart, exposed the old ambiguous label; revised Tune Ⅲ → Ⅰ and named next-action labels were then visibly checked, as were SLEEP / WAKE and Loose scree's Let sleep/Wake states. Sound remained off.",
+        "notVerified": [
+          "Subjective audibility/audio quality",
+          "Independent human-player enjoyment or replay-depth study",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
+    },
+    {
+      "slot": 10,
+      "id": "last-match",
+      "title": "Last Match",
+      "coreLoop": "Top-down survival with directional lantern combat",
+      "status": "finished",
+      "source": "dev/indie-collection/last-match/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 5,
+      "changes": [
+        "Initial playable: five original top-down lantern clearings; directional cones/rock occlusion, four enemy types and telegraphed lunges, dodges, finite brazier oil, collectable fuel-return embers, gate escape, best-only medals, two workshop upgrades and guarded versioned saves.",
+        "Pass 1: exactly-once queued quick touch movement/flash/dodge/refill, pointer cancellation cleanup, click-to-aim, visible-only target assist, matching ray-clipped light/rock visuals and in-cone rings, accurate lunge lines, enemy phase/health/range notes, fuel/cooldown/dodge gauges, event saving and less frequent DOM redraws. Added explicit exhausted-fuel loss/retry; disallowed ready-state purchases that could invalidate saved equipment; terminal states cannot be unpaused.",
+        "Pass2: non-repeated canvas keyboard keydown queues a one-simulation-step intent just like touch, so press/release between frames is not lost. Held attacks remain edge-triggered; pause/blur/modal clear pending intent. Added pure current-pose readiness and in-cone damage notes: named shadows fall or show remaining light hits; fuel shortage differs from cooldown, and nearby oil distinguishes full/empty/out of reach. Explicit snapshot caveat avoids promising future enemy positions. Original difficulty, maps, enemy timings/health, costs, goals, upgrades and v1 save format/key unchanged.",
+        "Pass3 after live preview review: distinguish all four enemies without relying on colour (round mote, thorned briar, winged glass-wing, plated stoneback). Windups now draw their exact destination, a filling charge arc and an accessible seconds countdown; nearby threat text sorts lunges ahead of closer non-attacking enemies, includes distance and caps the visible list. Combat rules, authored maps, timing, health, costs, progression and v1 saves are unchanged.",
+        "Pass4: danger-aware aim assist resolves a warning/control mismatch. It now prioritizes an imminent lunge or windup already within lantern range instead of a nearer harmless shadow, but falls back to the nearest visible target when urgent threats are out of range. Manual aim remains unchanged; no combat timings, damage, costs, maps, progression or save fields changed.",
+        "Pass5: lost pointer capture now cancels any unconsumed queued movement, flash, dodge or oil action just like pointer cancellation. A normal pointer release is marked explicitly so the automatic lost-capture event that follows it preserves exactly one queued step; genuine cancellation still removes it. Held controls remain edge-triggered, and combat rules, aim assist, routes, progression and saves are unchanged."
+      ],
+      "tests": [
+        "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending.",
+        "After improvement: 13 local engine checks, including all five unchanged baseline legal campaigns/every-tick saves, exact nonmutating clipped beam/target telemetry, fuel-exhaustion fixture, ready-purchase guard and 100 deterministic exploratory campaigns with real losses. 14 DOM cases plus desktop/native-clock/touch-emulated browser suites authored; improved-source CI pending.",
+        "CI 39380616187 at 96f02bb0: full repository/candidate gates, 13 engine and 14 DOM checks passed. Browser setup failed at movement assertion because fake RAF timestamps did not also override performance.now used by the real shared pause bridge. Harness corrected to align both clocks; game source unchanged; rerun required before rendered certification.",
+        "PASS exact-source GitHub Actions 39381006578 at 916f2e622f689969fd8e71ed8085dc8f2e4e6516: full repository asset gate, candidate syntax/56 local links/exact20/public isolation, 13 engine + 14 DOM checks, Chromium five legal no-hit three-medal pointer-aim/keyboard campaigns, native-clock RAF, 390px/320px touch emulation. All nine earlier candidates engine/interface/browser regressions pass. Actual job steps and decoded logs inspected.",
+        "16 local engine checks pass, including pure readiness at every baseline campaign snapshot, current cone/damage/rock occlusion, inactive/fuel/cooldown/full/empty/distant oil distinctions; unchanged five baseline campaigns.18DOM cases authored/executed in CI; local jsdom unavailable, so no local DOM-pass claim. Local candidate asset audit fails because partial checkout lacks other candidates' index files; rely on full-checkout CI gates.",
+        "Initial CI39482220244 passed engine and existing UI plus new short keyboard movement/flash test, then caught a resumed-clock setup omission in queued-oil test.44c5f562 initializes the real frame harness before queuing refill; game source unchanged. Final exact-source CI39482940325 passed, including unmodified native-clock opening combat test ec680ae1.",
+        "PASS final exact sourceec680ae1b18667a5fb8674534b2254d6ff446605, CI39482940325/job118835913974:16engine+18DOM, actual Chromium all five no-hit/3-medal deterministic-clock campaigns, native short-keypress movement/flash once, current-cone feedback, touch quick taps/pause/retry, >=44px controls and no390/320 page overflow. Separate unmodified native-clock opening combat drove real held keys/discrete flashes from observed HUD/autosave snapshots, collected embers and achieved actual gate victory without state injection/fake clocks. All19 other-game engine/DOM/browser regressions and root10routes/14refs plus20slots/116refs gates passed; zero page errors. Decoded logs inspected; artifact12292915900.",
+        "PASS exact source be72f62660b3b66dd61d4fbf4848336804d25dd6, CI39583606040/job119166958465:16engine+19DOM, including a crafted 0.4s briar warning that outranks a closer mote; five legal no-hit/3-medal Chromium campaigns, native short-keyboard/touch controls,390/320px layout and separate unmodified native-clock opening victory. All19 other candidates, root assets and exact20-slot/116-reference isolation gates passed; zero page errors. Decoded logs inspected; screenshot artifact12339237007 retained.",
+        "Finish-gate test commit c802f06 extends the unmodified native-clock controller from the opening to all five clearings, checking held movement, discrete flashes, brazier refills, ember collection, gate progression, unlocks, records and five completion screenshots without state injection or fake clocks. Local16engine+19DOM, both asset/isolation gates, syntax and diff checks pass. Local Chromium is unavailable and no workflow attached to the connector-created commit during this run, so exact-source browser execution remains pending and status is unchanged.",
+        "Run58 exact-source local checks:17 engine and20 DOM/save tests pass, including pure nonmutating assist priority, urgent in-range versus distant-warning fallback, actual focused-canvas aim updates, all five unchanged463/654/671/1115/1111-frame three-medal routes, saves/restart/input queues, both asset/isolation gates, syntax and diff hygiene. Browser execution remains pending because Chromium is unavailable and no workflow attached to source commit d250e03.",
+        "Run61 exact-source local checks:17 engine and21 DOM/save tests pass. New regression proves lost pointer capture cancels unconsumed movement, flash, dodge and oil actions while normal release retains one queued step; five463/654/671/1115/1111-frame no-hit/three-medal routes,100 exploratory campaigns, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium is pending because no local executable or attached workflow is available.",
+        "Run62 pass5 correction:17 engine and22 DOM/save tests pass. A new real-browser-order regression dispatches pointerup then lostpointercapture and proves movement, flash, dodge and oil each execute exactly once; unexpected lost capture still executes none. All five routes,100 explorations, both repository gates, syntax and diff hygiene remain green. Exact-source Chromium remains pending.",
+        "PASS exact current head645009d / CI39764147903:17engine+22DOM, five deterministic no-hit/three-medal routes plus an unmodified native-clock five-clearing campaign driven by observed HUD/save snapshots with held movement, discrete flashes, braziers, embers, gates, unlocks and records. Current desktop/touch, cancellation and danger-aware assist checks pass; all five native completion captures and touch/desktop evidence are in artifact12419682371, with clearing5 manually inspected."
+      ],
+      "quality": {
+        "enjoyment": "Live preview review confirmed the opening movement/aim loop and exposed threat-identification friction, then actual idle combat reached a saved five-hit loss with the nearby readout showing LUNGING NOW. Distinct silhouettes/countdowns and danger-aware assist now make the same urgent threat actionable without easing it. No sustained manual victory or human fun rating claimed; automated campaigns remain reliability evidence.",
+        "depth": "Five finite authored combat clearings, four mechanically different threats and two upgrades; original baseline routes remain463/654/671/1115/1111 simulated frames. Pass3 adds no content volume or easier rules; it makes the existing windup/dodge/target choices legible. Later-clearings alternate strategy and replay assessment remain open.",
+        "polish": "The warning list, assist target and onboarding agree: an imminent in-range attacker outranks a nearer harmless shadow, while distant warnings do not drag aim away from reachable combat. Pass5 gives genuine capture loss cancellation safety without erasing a normal quick tap when automatic capture release follows pointerup. Distinct silhouettes, destination lines, charge arcs and countdowns remain. Physical touch and screen-reader output remain untested.",
+        "reliability": "Exact current head645009d passes17engine+22DOM, five deterministic campaigns, a separate native-clock five-clearing campaign, touch/layout checks,100 explorations, both gates and all19 other candidate regressions in CI39764147903. Clearing5 completion capture was manually inspected.",
+        "variety": "Directional cone/occlusion combat remains distinct from fishing, colony, puzzles and repair. Four readable threat silhouettes now reinforce their existing one/two/three-hit and lunge-range identities; no automatic shooting, balance weakening, reskin count or timer padding was added."
+      },
+      "selected": false,
+      "selectionReason": "Finished reserve, not selected: exact current Chromium proves five-clearing progression and controls, but sustained human combat enjoyment and alternate-strategy evidence remain weaker than the selected action finalist.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Keep as a finished development reserve; do not displace Scrap Orbit without stronger direct replay evidence.",
+        "Review alternate later-clearing strategies, physical touch and screen-reader behavior if further polish time remains; do not claim human study or substantial-hours content.",
+        "Preserve public main and concurrent Study Desk/requested-GitHub-games/Gummy Bay work."
+      ],
+      "developmentCommits": [
+        "8409e24a99ff8bbda37e4199cd3bd4e9b84ccb82",
+        "96f02bb0bb128ca0ffd86ee8399c2040c839da14",
+        "916f2e622f689969fd8e71ed8085dc8f2e4e6516",
+        "94abafcd0c1d2ca51d7117c8289c5c7e0b9285ef",
+        "44c5f56284a4acd5f594402fdea13bcff4be1932",
+        "ec680ae1b18667a5fb8674534b2254d6ff446605",
+        "b1a1ed49e673a9b266a94ecf410bf092b12967d3",
+        "6b785a08a256f16f28826868e3807fc925157518",
+        "be72f62660b3b66dd61d4fbf4848336804d25dd6",
+        "c802f06c1e4c7044ee1d8e2bbc921d741af97bf3",
+        "d250e03c9825c363e2f65f75374899b64a033d0d",
+        "6b620ba7fde49b379e04efb387ebc0fb591e7d75",
+        "3e544e1e6804526f7a791a53618ac5931375aa5f"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903",
+        "testedCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+        "conclusion": "success",
+        "desktop": "PASS exact current Chromium: five legal deterministic pointer-aim/keyboard campaigns plus a separate unmodified native-clock five-clearing campaign using real held movement, discrete flashes, brazier refills, ember collection, gates, unlocks and records; zero page errors.",
+        "touch": "PASS emulation: quick movement/flash/dodge taps exactly once, paused retry-cancel state,560-unit camera, >=44px targets and no390/320px overflow. Physical hardware remains untested.",
+        "manual": "Current native clearing5 completion capture manually inspected:3/3 medals, all five records,17 fuel,7/7 embers and open exit. This is artifact review and automated controller evidence, not a human enjoyment score.",
+        "notVerified": [
+          "Subjective continuous combat/enjoyment and later-clearing alternate strategies",
+          "Manual clearing victory and physical mobile play",
+          "Physical touch and screen-reader output",
+          "20hours of worthwhile content/testing",
+          "Public catalogue integration/deployment"
+        ],
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903/artifacts/12419682371",
+        "artifactManuallyInspected": true
+      },
+      "reviews": [
+        {
+          "date": "2026-10-21",
+          "scope": "Short-keyboard queue parity/readiness pass; limited manual controls and new native-clock automated combat coverage",
+          "finding": "Touch already queued a sub-frame tap; keyboard now does too. Snapshot target/fuel/oil notes improve decision clarity. Manual attempt did not establish a combat win; maintain distinction from automatic campaign reliability.",
+          "decision": "Hold as improved prototype; deeper manual action/replay comparison remains"
+        },
+        {
+          "date": "2026-10-21",
+          "scope": "Threat silhouette, windup timing and accessible priority pass",
+          "finding": "Live preview made the mechanical enemy variety readable but confirmed the remaining evidence gap is sustained later combat, not correctness. Exact-source CI validates rules, saves and full campaign controls; it is not a human enjoyment study.",
+          "decision": "Meaningful pass3 complete; hold as improved prototype pending continuous later-combat review"
+        },
+        {
+          "date": "2026-10-22",
+          "scope": "Warning-to-control consistency and danger-aware aim assist",
+          "finding": "The threat list prioritized an imminent in-range lunge while assist still followed a nearer harmless shadow. Pass4 aligns them only inside lantern range and retains nearest-visible fallback outside it; all routes and combat values remain unchanged.",
+          "decision": "Meaningful pass4 complete; hold as improved prototype pending exact-source browser and sustained later-combat review"
+        },
+        {
+          "date": "2026-10-22",
+          "scope": "Lost pointer capture and queued touch-action cancellation",
+          "finding": "Pointer cancellation discarded an unconsumed queued action, but lost capture only released the held flag and could still execute a move, flash, dodge or oil action on the next frame. Pass5 makes both cancellation paths equivalent while preserving one step on normal release.",
+          "decision": "Meaningful pass5 complete; hold as improved prototype pending exact-source browser and sustained later-combat review"
+        },
+        {
+          "date": "2026-10-22",
+          "scope": "Pass5 browser event-order correction",
+          "finding": "Real pointer capture can emit lostpointercapture immediately after pointerup. An explicit normal-release marker now prevents that automatic event from erasing the intended quick action while genuine capture loss still cancels it.",
+          "decision": "Pass5 corrected without claiming a sixth pass; hold pending exact-source browser and sustained later-combat review"
+        }
+      ]
+    },
+    {
+      "slot": 11,
+      "id": "glasshouse",
+      "title": "Glasshouse",
+      "coreLoop": "Plant breeding and greenhouse spatial planning",
+      "status": "finished",
+      "source": "dev/indie-collection/glasshouse/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 2,
+      "changes": [
+        "Initial playable: six original greenhouse exhibitions; finite seeds/water, 16-pot spatial sunlight/shade, tall-plant/frosted-pane occlusion, 14 colour/height genotypes, adjacent mature-parent breeding, three-stage growth, exact exhibition deliveries, timeout/wilting/retry, best-only medals, persistent lineage library and guarded versioned saves.",
+        "Pass 1: exact nonmutating next-day growth/wilt/light forecasts; named offspring/height/needs preview and parent reuse warning; one-water plant relocation preserves growth/moisture and immediately changes shade; session undo includes compost/wilt/breeding/relocation/full medal and discovery rollback. Native grid row boundaries/modifier guards, modal guards, navigation history clearing. Efficiency targets tightened to measured routes +2 days, with old version-one par/score migration preserved.",
+        "Pass 1 follow-up: reset the selected pot alongside keyboard focus on Next exhibition; DOM and browser regressions assert pot one remains the actual selection.",
+        "Pass 2: whole-room next-day planning feedback after a normal-UI replay let mature pollen parents quietly wilt while attention moved to their hybrid. Every occupied pot now shows a rules-derived DRY NEXT, NEXT +1, SAFE NEXT, NO GROWTH or WILTS NEXT badge; wilt-risk pots gain a high-contrast inset, and each native pot label exposes the same exact forecast to assistive technology. No genetics, light, water, scoring, save schema, deadlines or content counts changed."
+      ],
+      "tests": [
+        "8 local engine checks pass: all six legal baseline three-medal/no-wilt exhibitions in 6/12/14/11/10/14 in-game days (19/50/57/43/56/85 legal actions), every-action saves, sun/shade/water/genetic inheritance, real wilt/deadline loss/retry, replay records and malformed states. 10 DOM cases authored; exact-source execution pending.",
+        "After improvement: 13 local engine checks pass, including all six baseline campaigns/every-action saves, exact forecast comparison throughout campaigns, real relocation/light changes, legacy completed scores, tightened pars and 100 deterministic exploratory gardens with resource conservation. 16 DOM and actual Chromium desktop/touch-emulation suites authored; improved-source CI pending.",
+        "PASS exact-source GitHub Actions 39387577839 at 1615f2b291f726eb78f9c98f71a06b8e8e603a14: full repository asset gate, candidate syntax/62 local links/exact20/public isolation, 13 engine + 16 DOM checks, actual Chromium six legal three-medal campaigns through DOM controls, native pot keyboard/focus, forecasts, reward undo/replay, relocation/undo, saved reload/retry and 390px/320px touch emulation. All ten earlier candidates' engine/interface/browser regressions pass. Actual job steps and decoded logs inspected.",
+        "Pass 2 local: 13/13 engine checks and 17/17 jsdom checks pass; managed Chromium manually exercised DRY NEXT → NEXT +1 → WILTS NEXT with matching accessible pot labels. The partial local checkout lacks all20 source directories and the local Playwright browser binary, so full repository/browser claims come only from exact-source CI.",
+        "PASS exact-source GitHub Actions 39532503890 at 64a4c8ba47869d938bfba0792ceca874add6b7b7: repository asset gate, exact20/public isolation/116 references,13 Glasshouse engine +17 DOM checks, actual Chromium six three-medal campaigns and desktop/touch feedback, saves, undo, keyboard/focus, >=44px controls and390/320px no-overflow checks. All19 other candidate regressions passed; terminal state, steps and decoded logs inspected.",
+        "Finish gate local: both repository asset/isolation gates,13/13 engine and17/17 DOM/save checks pass on cloned head4de17e9e. Managed rendered desktop then completed all six exhibitions through ordinary pot/seed/water/day/pollen/cross/delivery controls at6/12/14/11/10/14 days,18/18 medals and zero wilt; final campaign and lineage library survived reload with no game-page console errors."
+      ],
+      "quality": {
+        "enjoyment": "A visible ordinary-control campaign completed all six rooms at18/18 medals with zero wilt. The sequence moved from first hybrid, to paired soft-light hybrids, mixed-height timing, multi-generation prism breeding, frosted-window planning and a three-lineage capstone. Whole-room forecasts kept parent care readable; repeated watering supported the planning load rather than becoming the only decision. This is agent evidence, not an independent human fun score.",
+        "depth": "Six short handmade genetic/spatial-light exhibitions. Visible no-wilt solutions used6/12/14/11/10/14 in-game days, matching legal baselines of19/50/57/43/56/85 actions; pars are8/14/16/13/12/16. Later rooms require distinct height, missing-colour and soft-light chains rather than rescaled opening goals. Fourteen genotypes are mechanically discoverable; no duration claim.",
+        "polish": "Original light-paper CSS botanical layout inspected throughout the full desktop campaign. Pass2's compact colour-coded next-day badges kept dry/grow/wilt risk visible across crowded rooms; exact accessible labels matched. Exact CI confirms >=44px controls and no390/320px overflow. Physical touch and screen-reader behavior remain unverified.",
+        "reliability": "13 engine +17 DOM and exact-source actual Chromium desktop/touch-emulated suites pass, including all six legal three-medal campaigns, every-action saves, whole-room dry/grow/wilt feedback, legacy efficiency/score migration,100 exploratory gardens with seed/plant conservation, full repository assets and all19 other-game regressions.",
+        "variety": "Adjacent-parent inheritance, mixed-height timing, missing-colour prism chains and tall-plant/frosted-pane light shaping stay distinct across the six rooms; this is not a cooking/flavour reskin."
+      },
+      "selected": true,
+      "selectionReason": "Selected for genetic breeding and spatial light planning, adding the collection's most distinctive long-form systems puzzle with six completed exhibitions.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Try alternate breeding/light routes while retaining all six exhibition regressions; automated solutions are not a human-player study.",
+        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+      ],
+      "developmentCommits": [
+        "9eb48dd0eacd35921628062fe3d035939e89d5dc",
+        "7a2dc44e0f0255da7d2862eee6bd6cbb9be9e0e6",
+        "1615f2b291f726eb78f9c98f71a06b8e8e603a14",
+        "64a4c8ba47869d938bfba0792ceca874add6b7b7"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39532503890",
+        "testedCommit": "64a4c8ba47869d938bfba0792ceca874add6b7b7",
+        "conclusion": "success",
+        "desktop": "Native pot keyboard/focus, sow/water/forecast and exact reload/retry; all six legal three-medal breeding campaigns via actual DOM buttons, whole-room next-day badges/labels, reward undo/replay, relocation/undo, lineage records and workshop navigation. Zero page errors.",
+        "touch": "390x844 emulation exactly-once pot/sow/water/day taps, visible accessible next-day pot badge, relocation/undo, saved reload/retry-cancel, >=44px visible controls and no page overflow at390px/320px.",
+        "manual": "Managed cloud browser desktop: completed all six exhibitions through ordinary visible pot, seed, water, day, pollen, cross and delivery controls at6/12/14/11/10/14 days,18/18 medals and zero wilt. Rooms2–6 required paired soft-light hybrids, mixed-height timing, multi-generation prism breeding, frosted-window planning and a three-lineage finale. Final 6/6 completion, last-room state and living lineage library survived reload; no game-page console errors.",
+        "notVerified": [
+          "Independent human enjoyment and alternate-route replay study",
+          "Manual narrow-screen screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
+    },
+    {
+      "slot": 12,
+      "id": "burrow-express",
+      "title": "Burrow Express",
+      "coreLoop": "Underground rail network building",
+      "status": "finished",
+      "source": "dev/indie-collection/burrow-express/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 3,
+      "changes": [
+        "Initial playable: six original underground postal yards; shared/wet rail material budgeting, per-train route drafting, simultaneous traffic, holds, collision losses, postmarks, unlocks and versioned optimistic saving.",
+        "Pass 1: pure next-beat forecast names shared junction/occupied-block/head-on conflicts; preview destinations and risk cells on map, affordable next-step hints, selected-route rail highlighting and numbered squares. Added 100-action session undo including signals, crashes and winning postmarks, next-yard focus/history reset, and impossible occupied-save rejection.",
+        "Follow-up: trimming the final segment now focuses the remaining route tip, and clear/replan keep focused and aria-pressed map squares aligned. Added direct regression.",
+        "Pass 2: forecast now distinguishes conflicts a signal change can solve from topology deadlocks. Solvable warnings name every minimum-change hold/release plan; deadlocks use stronger treatment, focus the route-preserving Replan action and explicitly recommend a passing loop instead of falsely telling the player to toggle signals.",
+        "Pass 3: bounded two-beat forecasting now catches a currently safe move that would create an unsignalable collision on the following beat. TRAP AHEAD names the future conflict, highlights every minimum-change hold/release escape and clears once safe. Duplicate signal suggestions after delivered trains were removed."
+      ],
+      "tests": [
+        "PASS initial checkpoint df4521f453900ba6c58cadd6dafdd87d530dad15: CI 39392764019, 9 engine + 11 DOM checks and all eleven older-game browser regressions. New candidate browser suite added in improvement commit, not initial checkpoint.",
+        "PASS final-source CI 39393653472 at a2e8dd2ea00a74b1639fb5af56d9678723057b15: 13 Burrow Express engine + 18 DOM checks, real Chromium desktop and 390px touch emulation; full repository asset gate and all eleven earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-stamp rail/signal campaigns cost 5/9/11/19/16/27 material in 5/5/7/9/9/13 in-game beats, serializing every engine action. Forecasts agree with actual safe/occupied/swap/junction outcomes; 100 seeded exploratory drafts preserve geometry and budgets. Synthetic checks are not playtime evidence.",
+        "Browser: native arrows/Enter/Space/Z, draft and dispatch reload, six actual DOM-button campaigns, collision warning/loss/undo/hold recovery, reward rollback/replay, replan, unlocks and workshop navigation. Touch taps apply once; >=44px visible controls and no page overflow at 390px/320px; zero page errors.",
+        "Manual desktop: original underground map/onboarding inspected; first two yards completed with three stamps, winning undo/replay/reload and crossing forecast resolved through hold/release. Preview stopped. Separate local slower seven-material/seven-beat one-stamp replay preserved a prior three-stamp record and roundtripped.",
+        "PASS exact-source CI 39538803662 at bc943b4f30db0da66d5ce467d1039323acefb2b6:14 Burrow Express engine +19 DOM checks, desktop/touch Chromium, repository gates and all19 other-candidate regressions. Added signal-plan enumeration, occupied-block release advice, opposing-line deadlock classification and normal-button browser coverage.",
+        "Manual desktop: completed yards1-2 at three postmarks, deliberately built yard3's direct opposing line, confirmed both head-on and held-train states were unsolvable by signals, used highlighted Keep routes & replan, replaced A's direct segment with the wet upper passing loop, then delivered both trains in7 beats for3/3 postmarks.",
+        "PASS exact-source CI 39544053199 at c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f:15 Burrow Express engine +20 DOM checks, real desktop/touch Chromium, all19 other-candidate regressions, repository gates and exact20-slot/116-reference isolation. New engine/DOM/browser assertions cover the yard6 two-beat head-on trap and both highlighted escape controls.",
+        "Manual desktop campaign complete across two review sessions: yards1-6 all earned3/3 postmarks with visible controls and documented legal route plans. Remaining yards measured yard4=19 material/9 beats, yard5=16/9 and yard6=27/13; final saved profile shows all six three-postmark records. Yard4 emphasizes shared-trunk material, yard5 three-train following, and yard6 pre-emptive signalling. This is not unscripted discovery or playtime evidence."
+      ],
+      "quality": {
+        "enjoyment": "All six yards completed through the normal UI at three postmarks using documented legal plans. The sequence adds materially different decisions: first route, timed crossing, passing loop, shared trunk, three-train following and a pre-emptive opposing-trunk signal. Alternate-route discovery and replay enjoyment remain selection comparisons, not finished-functionality blockers.",
+        "depth": "Six short handmade rail/signal puzzles with shared/wet material, alternate track, simultaneous trains and material/beat postmarks. Later yards add shared-trunk economy, three-train following and two-beat trap planning; compact scope is documented with no extensive-content or playtime claim.",
+        "polish": "Original code-native copper/sage/lilac railway, numbered squares, highlighted shared routes, affordable-step hints, multi-action undo, onboarding and responsive keyboard/touch controls. Forecasts name safe signals, visually separate topology deadlocks and now warn one beat before an avoidable future trap with highlighted controls.",
+        "reliability": "Exact pass3 source passes15 engine +20 DOM plus desktop/touch Chromium and all19 other-candidate/repository regressions. Full six-yard progression, next/future collision advice, saves, undo, restart, crashes, rewards, focus and navigation are covered; physical-device behavior remains outside the tested evidence.",
+        "variety": "Network drafting with shared material budgets and simultaneous per-train traffic/hold decisions; distinct from ferry routing, colony logistics, plant genetics, rhythm, fishing and action candidates."
+      },
+      "selected": false,
+      "selectionReason": "Finished but not selected: all six compact yards, progression, saves/restart, keyboard/touch browser controls and launch/navigation pass, and the full normal-UI campaign reached3/3 records. Hold publication until alternate-route/replay enjoyment is compared against other finished or complete campaigns.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Compare alternate railway and signal plans against the strongest complete campaigns before selection; do not equate the documented-route campaign with unscripted discovery.",
+        "Review retained CI visuals and physical touch/screen-reader behavior where feasible; treat findings as polish evidence rather than claiming untested hardware.",
+        "Keep development-only until selected; if chosen, integrate narrowly into fresh main with combined catalogue/deployment regressions."
+      ],
+      "developmentCommits": [
+        "df4521f453900ba6c58cadd6dafdd87d530dad15",
+        "cfb133eafb0e087661b86c816a632f6d14f58b70",
+        "a2e8dd2ea00a74b1639fb5af56d9678723057b15",
+        "bc943b4f30db0da66d5ce467d1039323acefb2b6",
+        "c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39544053199",
+        "testedCommit": "c9ca4b1b5d6b5585ce2d4cc556a5961d93a4127f",
+        "conclusion": "success",
+        "desktop": "Six legal three-postmark DOM-button campaigns, native map arrows/Enter/Space/Z and focus, exact draft/dispatch reload, immediate signal options, opposing-line deadlock/replan guidance, yard6 two-beat trap warning with both escape controls, loss/undo/recovery, reward replay and workshop navigation; zero page errors.",
+        "touch": "390x844 emulation: exactly-once rail/hold/beat taps, first-yard win and saved unlock, undo, crossing preview and signal recovery, retry cancel, >=44px visible controls and no page overflow at390px/320px; zero page errors.",
+        "manual": "Managed cloud browser desktop: prior session completed yards1-3 at3/3. This session completed Pantry Branch19 material/9 beats, Roots at Rush Hour16/9 with B held for one beat, and Night Mail27/13 with B held for two beats. Replayed Night Mail after pass3: TRAP AHEAD named the next-beat head-on swap, highlighted Hold A and Hold B, cleared after holding B, and the yard again completed3/3. Saved campaign shows all six connected.",
+        "notVerified": [
+          "Unscripted route discovery and alternate-plan replay enjoyment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      }
+    },
+    {
+      "slot": 13,
+      "id": "little-foundry",
+      "title": "Little Foundry",
+      "coreLoop": "Heat and casting manual craft progression",
+      "status": "finished",
+      "source": "dev/indie-collection/little-foundry/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 2,
+      "changes": [
+        "Initial playable: six original hand-poured fantasy castings; weigh alloys, manage glow/fuel, trickle/stream different section thicknesses, handle rough/cold/wrong-alloy losses, saved maker seals and commission unlocks.",
+        "Pass 1: pure clean/rough/blocked/fatal pour forecasts, selected-section heat-band marker, alloy-match guidance and UI guard against melting mismatched recipes. Added 100-action session undo through seams, losses and rewards, improved enabled-tool focus, and explicit exhausted-weighing loss with safe legacy-save migration instead of dead-end.",
+        "Manual-QA follow-up: completed and spoiled castings now show honest terminal pour-preview instructions instead of asking for another melt; engine and DOM regressions added.",
+        "Pass 2: gave all six commissions different owner-mark completion-order rules (body before rim, heavy tooth first, handle before blade, paired cores, teeth before hubs, and beak-first/tail-last). Completion badges, live possible/missed/honoured feedback, undo recovery, scoring, onboarding, legacy complete-save migration and strict sequence validation make the added mastery legible without timers or padded counts."
+      ],
+      "tests": [
+        "PASS initial checkpoint 0c19cd9f957acdf13623f6fbcc11a01c8ef116ed: CI 39400549683, 9 engine + 11 DOM checks and twelve earlier candidates' browser regressions. Initial checkpoint did not yet include a Little Foundry browser suite.",
+        "PASS exact final-source CI 39401418646 at 94ec4ccd69c259e5cf2878207cbbd41a30ef7823: 14 Little Foundry engine + 19 DOM checks, real Chromium desktop and touch emulation, full repository asset gate and all twelve earlier candidates' engine/interface/browser regressions.",
+        "Six legal clean three-seal campaigns use fuel 5/5/6/6/6/6 and 19/19/20/22/22/22 craft actions. Every engine action serializes; pure forecasts agree with all reference pours; wrong-alloy, two-seam and depleted-fuel losses, legacy dead-batch recovery, lower-score best preservation and 100 seeded craft sessions covered. Synthetic checks do not establish playtime.",
+        "Chromium: native Enter/Space/arrows/Z, focus, alloy-mismatch guard/remixture, exact mid-casting reload/retry, six actual DOM-button campaigns, rough-risk forecast/loss/undo recovery, earned-seal rollback/replay, unlocks and workshop launch/back. Touch taps apply once; >=44px visible buttons, no 390px/320px page overflow and zero page errors.",
+        "Manual desktop: weighed 3 Emberite + 1 Mooniron, melted, used clean body streams and fine trickles, completed first bell with five fuel/three seals; winning undo/reopen, saved completion reload and next-order section-one focus verified. Original paper/sand mould art inspected. Preview stopped; terminal wording follow-up verified by engine/DOM rather than a second manual replay.",
+        "Local exact working source: 15 engine checks pass. Six clean owner-marked three-seal routes use 5/5/7/6/7/7 fuel and 19/19/21/22/23/24 actions; all sequence rules, live miss feedback, complete-save migration, forecasts, losses, reward preservation and 100 seeded sessions covered. Revised engine/game/DOM/browser scripts pass node syntax.",
+        "Managed rendered desktop on the final static source: deliberately completed a fine rim first, observed MISSED plus #1 and an undo-specific recovery message, undid to still possible, then completed the bell body-first for three seals with badges #1–#8. HONOURED state and all eight badges survived reload; completed layout visually inspected.",
+        "Finish gate: exact cloned head a4910a2143ea2d56abd0281c95290b2c5ea6db96 passed both repository asset gates, exact20-slot/116-reference/public-isolation checks, all20 engine suites and all20 DOM/save suites locally. Little Foundry contributed15 engine+20 DOM checks. The downloaded Playwright browser binary was unavailable, so cross-game Chromium suites were not rerun locally.",
+        "Managed visible all-six campaign on the exact static source: commissions1–6 each earned three seals while honouring Body before rim, Heavy tooth first, Handle before blade, Twin cores together, Teeth before hubs and Beak first/tail last. Final18/18 seals, all order badges and commission-six completion survived reload; no game-page errors were observed."
+      ],
+      "quality": {
+        "enjoyment": "A visible six-object campaign reached18/18 seals. The order rules changed each opening: body-first, heavy-first heat ramp, handle-first details, contiguous cores, all teeth before hubs and beak/tail bookends. The shared weighing/pouring rhythm stayed legible rather than becoming padding; this is agent evidence, not a human enjoyment score.",
+        "depth": "Six compact commissioned moulds combine alloy, glow/flow and six different completion techniques. Clean three-seal routes use distinct order/heat plans and fuel5/5/7/6/7/7. Compact authored campaign complete; no duration claim.",
+        "polish": "Original paper/sand workshop retained. Owner request is visible beside seal goals, completed sections receive numbered visual/accessibility badges, miss/honour feedback is immediate, and onboarding explains order/undo/scoring. Completed campaign layout inspected; manual mobile remains open.",
+        "reliability": "Exact cloned head passed repository asset/isolation checks, all20 engine suites and all20 DOM/save suites; Little Foundry passes15 engine+20 DOM. Managed exact-source desktop completed all six and reloaded18/18. Pass1 remains the latest remote Chromium CI; pass2 cross-game browser rerun was unavailable locally.",
+        "variety": "The six commissions now ask for distinct order disciplines on top of thermal planning, reducing the prior identical-capacity-sort strategy while preserving the manual casting identity."
+      },
+      "selected": true,
+      "selectionReason": "Selected for the most satisfying manual-work loop: alloy weighing, heat control and section-wise pouring vary meaningfully across six commissions.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Retain the six-commission casting regression suite and review an alternate clean-pour route if time permits.",
+        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+      ],
+      "developmentCommits": [
+        "0c19cd9f957acdf13623f6fbcc11a01c8ef116ed",
+        "212d8d916c48e041d159255a085d086e5caedb6a",
+        "94ec4ccd69c259e5cf2878207cbbd41a30ef7823",
+        "2314978cb37081432b35572d846bf4dfe9908431",
+        "6d605cd5a7a8ca544e32f79d6ce8398c18f4e5b9"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39401418646",
+        "testedCommit": "94ec4ccd69c259e5cf2878207cbbd41a30ef7823",
+        "conclusion": "success",
+        "desktop": "Native Enter/Space/arrows/Z and focus; alloy-mismatch guard/remixture, exact saved casting/retry, six legal clean three-seal DOM-button craft campaigns, rough-risk forecast/loss/undo recovery, winning seal rollback/replay, unlocks and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once ingot/heat/melt/trickle/stream taps, material/glow accounting, undo, exact mid-casting reload, retry cancel, first commission win/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
+        "manual": "Managed cloud browser desktop: original workshop/onboarding inspected; correct four-ingot recipe, two bellows/melt, body stream pours and fine trickles, first bell delivered clean using five fuel for three seals. Undid mould opening and observed unbanked record, reopened/reloaded completion and entered commission two with first section selected/focused. Preview stopped. Follow-up terminal preview wording covered by final engine/DOM regressions, not another manual replay.",
+        "notVerified": [
+          "Independent human enjoyment and replay study",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      },
+      "finishVerification": {
+        "testedCommit": "6d605cd5a7a8ca544e32f79d6ce8398c18f4e5b9",
+        "clonedHead": "a4910a2143ea2d56abd0281c95290b2c5ea6db96",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation, all20 engine suites and all20 DOM/save suites. Little Foundry:15 engine+20 DOM.",
+        "managed": "PASS all six visible owner-mark commissions at18/18 seals; commission-six completion, all records and order badges survived reload; no game-page errors.",
+        "limit": "GitHub Actions run did not surface and the Playwright browser binary download was blocked, so pass2 cross-game Chromium suites were not rerun. Pass1 remote Chromium CI remains recorded above."
+      }
+    },
+    {
+      "slot": 14,
+      "id": "storm-signal",
+      "title": "Storm Signal",
+      "coreLoop": "Decode signals and coordinate rescue routes",
+      "status": "finished",
+      "source": "dev/indie-collection/storm-signal/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 1,
+      "changes": [
+        "Initial playable: six original fictional radio-deduction/rescue watches; partial codes, public coast/cargo clues, limited rescans, confirmation risks, specialist boats, tide short cuts/outer routes, real pickup/home deadlines, commendations and versioned saving.",
+        "Pass 1: pure departure/pickup/home forecasts including busy boats and future tide windows, exact next-beat deadline/event preview, moving vessel chart markers, optional visible-token/clue compatibility check without hidden-truth auto-fill, 100-action session undo through radio/missions/losses/rewards, per-tab unconfirmed drafts, confirmed-value reload alignment and stricter saved elapsed/departure validation."
+      ],
+      "tests": [
+        "PASS initial checkpoint 134810db2d44da6140e736ebbf3551b8ba4ce1ac: CI 39408316642, 10 Storm Signal engine + 11 DOM checks and thirteen earlier candidates' browser regressions. Storm Signal browser suite not yet present in initial checkpoint.",
+        "PASS exact improved-source CI 39408976984 at 65825629c096956aaec488264f51b6b69ae620af: 15 Storm Signal engine + 18 DOM checks, real Chromium desktop and touch emulation, full repository asset gate and all thirteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-commendation watches use storm beats 5/13/6/7/8/7, rescans 3/2/3/4/3/3 and 14/21/15/19/19/18 actions. Every engine action serializes; pure forecasts match campaign dispatch/advance outcomes; deadline arrival failure, cargo gear/tides, misreads, impossible saved departure times and 100 seeded sessions covered. Synthetic rule checks are not human playtime.",
+        "Chromium: native arrows/Enter/Space/Z and focus, exact saved radio/boat reload, six actual DOM-button deduction/rescue campaigns, forecasts, deadline loss/undo, earned-commendation rollback/replay, confirmed-control alignment, unlocks and workshop launch/back. Touch taps apply once, moving marker/undo/reload/retry covered; >=44px visible buttons/select and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: original receiver/chart/notebook inspected; decoded first-watch coast/cargo with three selective rescans, dispatched Wren, waited to tide two, dispatched Heron and Wren, brought all three calls home at beat five for three commendations. Winning return undo/replay, saved completion reload and next-watch signal-one focus verified. Preview stopped.",
+        "Finish gate on exact cloned head 3c7882ca4e5180b58c703f0c84b338ee4843f1af: both repository asset gates pass, plus15 engine and18 DOM/save checks. Managed visible controls completed all six watches for18/18 commendations at beats5/13/6/7/8/7 with rescans3/2/3/4/3/3; the complete final watch and all six records survived reload. Layout inspected; no game-page console errors."
+      ],
+      "quality": {
+        "enjoyment": "A visible six-watch campaign reached18/18 commendations. Later watches changed the pressure from tide-window reuse to a third flexible cutter, four-call urgency and overlapping specialist jobs; decoding and asynchronous returns remained readable. This is agent evidence, not a human fun score.",
+        "depth": "Six compact partial-code and rescue-scheduling watches, specialist fleet unlock and score-focused replay. Completed routes vary5/13/6/7/8/7 beats and3/2/3/4/3/3 rescans. Alternate schedules remain selection evidence; no content-duration claim.",
+        "polish": "Original cyan/amber receiver, fictional chart and notebook; moving boat markers, departure/home/deadline forecasts, optional clue-only checker, undo, explicit per-tab draft scope, confirmed-save alignment and responsive native controls/onboarding implemented. Final layout inspected; manual mobile review remains open.",
+        "reliability": "Exact improved source passes15 engine+18 DOM plus desktop/touch Chromium and earlier-game regressions in CI39408976984. Exact cloned collection head also passes both asset gates and target engine/DOM suites; visible all-six completion and reload passed. Save corruption/concurrency/failures, deadline/misread losses, retries, reward rollback and navigation are covered.",
+        "variety": "Information deduction plus asynchronous specialist-boat scheduling and tide windows; not the direct grid-ferry movement or shared-track rail drafting of earlier candidates."
+      },
+      "selected": false,
+      "selectionReason": "Finished, not selected: the complete six-watch campaign, deduction, scheduling, losses, undo, saves and responsive paths have exact automated or rendered evidence. Compare alternate fleet schedules, repeated decoding rhythm and collection fit before publishing.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Compare Storm Signal directly with the other finished candidates on replay enjoyment, decision density and collection variety before selection.",
+        "Explore alternate rescan choices and fleet schedules; review CI mobile screenshots, physical touch and screen-reader behavior where feasible.",
+        "Keep development-only; integrate only finished selected winners into fresh main without overwriting concurrent Study Desk/Gummy Bay/requested-game work."
+      ],
+      "developmentCommits": [
+        "134810db2d44da6140e736ebbf3551b8ba4ce1ac",
+        "65825629c096956aaec488264f51b6b69ae620af"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39408976984",
+        "testedCommit": "65825629c096956aaec488264f51b6b69ae620af",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and focus; exact radio/boat reload; six legal three-commendation DOM-button decoding/dispatch campaigns, forecasts, deadline loss/undo, earned-reward rollback/replay, confirmed dropdown alignment, unlocks and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once scan/log/dispatch/beat taps, radio accounting/undo, moving vessel marker, exact mission reload/retry cancel, first watch win/saved unlock, >=44px visible buttons/select and no 390px/320px page overflow.",
+        "manual": "Managed cloud browser desktop: original receiver/chart/notebook and closed-cut future-departure forecasts inspected; decoded first three signals with selective cargo/coast rescans, Wren first run, waited to tide two, dispatched Heron and Wren, all three calls home at beat five with three commendations. Undid final return, saw two-home/one-returning and unbanked record, replayed/reloaded completion and entered watch two with signal one selected/focused. Preview stopped.",
+        "notVerified": [
+          "Independent human enjoyment and alternate-schedule replay study",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      },
+      "finishVerification": {
+        "testedCommit": "65825629c096956aaec488264f51b6b69ae620af",
+        "clonedHead": "3c7882ca4e5180b58c703f0c84b338ee4843f1af",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation,15 Storm Signal engine and18 DOM/save checks.",
+        "managed": "PASS six visible deduction/dispatch watches at18/18 commendations; final completion and all six records survived reload; no game-page console errors.",
+        "limit": "Finish gate reused prior exact-source successful Chromium CI because the game source is unchanged. Physical touch, screen-reader output and independent human replay remain open."
+      }
+    },
+    {
+      "slot": 15,
+      "id": "circuit-garden",
+      "title": "Circuit Garden",
+      "coreLoop": "Connect renewable energy puzzles",
+      "status": "finished",
+      "source": "dev/indie-collection/circuit-garden/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 1,
+      "changes": [
+        "Initial playable: six original renewable microgrid/garden seasons; adjacent module/cable networks, separate circuits, shade/exposure yield, bounded battery charge/discharge, load priority and shifting, growth, brownout/forecast losses, saved seals and unlocks.",
+        "Pass 1: pure exact next-interval bed/energy/storage/trip forecast, missing-bed connectivity readiness and circuit ledger/inspector, 100-action logical-state undo through construction/load schedules/losses/rewards, guarded keyboard shortcut and strict actual-weather generation save validation."
+      ],
+      "tests": [
+        "Initial checkpoint c85bdb11e607786c5333d53d3968412f9eca5118: CI 39414903441 passed full repository/candidate gates, 10 Circuit Garden engine + 11 DOM checks; earlier Spore Kitchen browser test stopped on a pre-render count. Added an explicit bed-readiness wait without changing that game. No new-candidate browser suite at initial checkpoint.",
+        "PASS exact improved-source CI 39415654859 at 482cdaa697745bc1d024cf9558cc4e0917266e2b: 15 Circuit Garden engine + 18 DOM checks, real Chromium desktop/touch, full repository asset gate, candidate syntax/86 local source-navigation references/exactly20-slot/public-isolation and all fourteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-seal layouts cost 11/12/12/14/17/17 material and finish in 4/4/5/8/5/6 intervals with 12/17/18/19/18/18 actions. Every engine action serializes; generated energy equals garden use plus charge plus spill; pure forecasts match actual campaign outcomes; 100 seeded exploratory attempts preserve budget/energy/save invariants. Synthetic checks are not human duration evidence.",
+        "Chromium native arrows/Enter/Space/Z and focus; exact layout/growth/charge/load reload; six actual DOM-button campaigns; pure forecasts/circuit ledger, earned-reward rollback/replay, brownout and season-end losses, retained-layout replan/retry and workshop launch/back. Touch taps apply once; first roof victory/saved unlock, undo/reload/retry cancel; >=44px visible buttons/select and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: original rooftop/module art and onboarding/readiness inspected; built first roof with solar, exposed wind, battery and cable, scheduled loads through four intervals for three seals, zero brownouts and 12 generated=12 used. Undid final harvest, observed restored battery/growth/unbanked record, replayed/reloaded completion and entered second season with first build tile focused. Local-only preview stopped.",
+        "Finish gate: managed visible desktop completed all six seasons through normal build, feed and interval controls for 18/18 leaf seals. The routes cost 11/12/12/14/17/17 material and finished in 4/4/5/8/5/6 intervals with zero brownouts; season 4 banked across four resting intervals before load service and season 5 required two independent generated circuits. Final completion and all six records survived reload; no game-page console errors."
+      ],
+      "quality": {
+        "enjoyment": "A visible six-season campaign reached18/18 leaf seals. The arc moved from simple surplus storage to shadow routing, long cloudy gaps, a zero-generation evening, separate islands and a combined neighbourhood harvest; build and load choices remained legible. This is agent evidence, not a human fun score.",
+        "depth": "Six compact roof/weather/storage/load-shifting seasons, independent circuits, clean/lean seal goals and best-only replay records. Completed routes vary11/12/12/14/17/17 material and4/4/5/8/5/6 intervals. Alternative layouts and schedules remain selection evidence; no duration claim.",
+        "polish": "Original sage-paper rooftop plants/solar/wind/battery art, exact power/growth/trip forecast, circuit/readiness explanations, full logical-state undo, native responsive controls and onboarding. Manual mobile review remains open.",
+        "reliability": "Exact improved source passes15 engine+18 DOM, desktop/touch Chromium and fourteen earlier-game regressions in CI39415654859. Exact cloned collection head also passes both asset gates and target suites; visible all-six completion and reload passed. Conservation, save failures, losses, retry/replan and navigation are covered.",
+        "variety": "Renewable supply/storage conservation, adjacent network construction and scheduled load priorities; no circuit rotation, distinct from repair candidate Bolt & Bristle."
+      },
+      "selected": false,
+      "selectionReason": "Finished, not selected: the complete six-season campaign, distinct storage/split-circuit progression, losses, undo, saves and responsive paths have exact automated or rendered evidence. Compare alternate layouts, schedule replay and collection fit before publishing.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Compare Circuit Garden directly with the other finished candidates on replay enjoyment, decision density and collection variety before selection.",
+        "Explore alternate generation/storage layouts and priority schedules; review CI mobile screenshots, physical touch and screen-reader behavior where feasible.",
+        "Keep development-only; compare and integrate only finished selected winners into fresh main without overwriting concurrent Study Desk/Gummy Bay/requested-game work."
+      ],
+      "developmentCommits": [
+        "c85bdb11e607786c5333d53d3968412f9eca5118",
+        "482cdaa697745bc1d024cf9558cc4e0917266e2b"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39415654859",
+        "testedCommit": "482cdaa697745bc1d024cf9558cc4e0917266e2b",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and focus; exact grid/load reload; six legal three-seal DOM-button campaigns; forecasts, circuit ledger, reward rollback/replay, brownout/season losses, retained-layout replan/retry and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once build/feed/advance taps, energy/growth accounting and undo, exact reload/retry cancel, first roof win/saved unlock, >=44px visible buttons/select and no 390px/320px overflow.",
+        "manual": "Managed cloud browser desktop: all six roofs completed at18/18 leaf seals through ordinary build/feed/interval controls; final completion and all six records survived reload. Earlier review verified final-harvest undo/replay and second-season focus. Local-only preview stopped.",
+        "notVerified": [
+          "Independent human enjoyment and alternative-layout/schedule replay study",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      },
+      "finishVerification": {
+        "testedCommit": "482cdaa697745bc1d024cf9558cc4e0917266e2b",
+        "clonedHead": "9d5fb5043ccd6113d9395ad9cbef66b24b0a361a",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation,15 Circuit Garden engine and18 DOM/save checks.",
+        "managed": "PASS six visible build/schedule seasons at18/18 leaf seals; final completion and all six records survived reload; no game-page console errors.",
+        "limit": "Finish gate reused prior exact-source successful Chromium CI because the game source is unchanged. Physical touch, screen-reader output, independent human replay and alternate layouts remain open."
+      }
+    },
+    {
+      "slot": 16,
+      "id": "pocket-expedition",
+      "title": "Pocket Expedition",
+      "coreLoop": "Push-your-luck expedition loadout and extraction",
+      "status": "finished",
+      "source": "dev/indie-collection/pocket-expedition/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 1,
+      "changes": [
+        "Initial playable: six branching expeditions; two-tool loadouts, shared tool/food/loot pack capacity, heavy travel cost, weather-sensitive terrain/recovery injury odds, seeded outcomes, ration-cost return routing, safe retreats, relic unlocks and persistent journal/best records.",
+        "Pass 1: exact ration/terrain/weather return itinerary with modelled injury/loss probabilities without revealing future rolls; recovery food/pack/return forecast; live cargo-drop rescue previews; four-step weather strip; last-food warnings; 100-action deterministic-state undo through injuries/drops/losses/banked finds; spatial map keys, reload selection alignment and enabled-control focus fallback. Rendered-QA follow-up: terrain-specific trail markings, complete live pre-departure trail notes and correct planning/camp/exhausted/terminal recovery guidance."
+      ],
+      "tests": [
+        "PASS initial checkpoint cfad6c8e2b18d74a2b127fc482255e14e3fc2d53: CI 39421923557, 10 Pocket Expedition engine + 11 DOM checks, repository/candidate gates and fifteen earlier candidates' browser regressions. New candidate browser suite not present at initial checkpoint.",
+        "PASS exact final-source CI 39423434291 at 4d1595ce003d4bda05a6a181ca5a136dc9def32d: 15 Pocket Expedition engine + 20 DOM checks, real Chromium desktop/touch, repository asset gate, candidate syntax/92 local source-navigation links/exact20-slot/public-isolation and all fifteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-seal engine references use attempts 1/2/2/1/1/1, nine starting rations, values 11/11/13/11/12/13, steps 8/8/8/8/9/8 and 10/12/12/10/9/10 actions including preparatory retries in regions two/three. Every engine action serializes; exact seeded-log replay rejects forged cargo/food/RNG/history. 100 seeded exploratory sessions preserve bounded pack/save invariants. These are synthetic feasibility checks, not human duration or guaranteed clean-run evidence.",
+        "Pure recovery/return forecasts preserve RNG, agree with actual ration/load results and match exhaustive independent-trail injury probability model. Actual exhaustion/injury losses, sample-only retreats, unique recoveries, journal/best persistence and a real overweight cargo-drop return rescue covered.",
+        "Chromium native arrows/Enter/Space/Z and focus; exact kit/cargo/food/RNG reload; six legal three-seal DOM-button campaigns with seed selection; deterministic undo/replay, earned-reward rollback, exhaustion loss/retry and workshop launch/back. Touch taps apply once; food/cargo undo/reload/retry cancel, first survey victory/saved unlock; >=44px visible controls and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: first survey with rope/lamp/nine food returned Amber seed + Moss compass for value11, three seals, no injuries. Winning extraction undo/replay, save reload and current-site guidance checked. Second boots-only/nine-food survey reproduced injury and overweight return deficit; dropped low-value shell, undid/repeated drop and safely returned value13 with two seals and one health. Reload retained four journal discoveries; survey three opened with rope control focused. Local-only preview stopped.",
+        "PASS finish gate at exact source 4d1595ce003d4bda05a6a181ca5a136dc9def32d on cloned head 5bdb5b285c851e6217f8c167f9b8b1175581f54d: visible normal-control surveys one through six returned every relic for18/18 seals and values11/11/13/11/12/13; surveys two/three exercised confirmed retry and different seeded attempts. Final campaign and all records survived reload. Both asset gates plus15 engine and20 DOM/save checks passed locally; no game-page console errors."
+      ],
+      "quality": {
+        "enjoyment": "A visible complete six-survey campaign kept loadout and extraction decisions legible across rope/lamp, boots/lamp and lamp-only routes. Shared cargo/food space created concrete keep-versus-return pressure; seeded retries in surveys two/three succeeded without pretending chance is removed. This is agent evidence, not a human fun score.",
+        "depth": "Six compact branching expeditions, three distinct tested tool sets, shared food/cargo capacity, weather/risk, twelve journal entries and best-only value/seal replay goals. The campaign reached18/18 seals with8/8/8/8/9/8 steps; broader alternative routes remain selection evidence, not unfinished scope or a duration claim.",
+        "polish": "Original paper survey map and pack, terrain-specific lines plus full text trail notes, exact ration/return/cargo forecasts, unrevealed modelled injury odds, deterministic-state undo, last-food/exhausted-site guidance and native responsive controls. Manual mobile review remains open.",
+        "reliability": "Exact final source passes 15 engine + 20 DOM, Chromium desktop/touch and fifteen earlier-game regressions. Actual exhaustion/injury losses, seeded-log integrity, failed/concurrent/corrupted storage, cargo-drop rescue, retry/undo/reward/navigation covered within tested cases.",
+        "variety": "Push-your-luck collection with tool-dependent branching paths, shared provision/cargo space, heavy return costs, uncertain injuries and bank-only-at-camp rewards; distinct from ferry, fleet dispatch and combat candidates."
+      },
+      "selected": true,
+      "selectionReason": "Selected for its compact roguelike expedition structure: tool loadouts, shared food and cargo, uncertainty and extraction risk support varied builds.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Retain the six-survey and three-loadout regression suite and review another seeded route if time permits; deterministic checks are not independent chance-tolerance feedback.",
+        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+      ],
+      "developmentCommits": [
+        "cfad6c8e2b18d74a2b127fc482255e14e3fc2d53",
+        "691eef980a6c7a5ebcc25193ade94f06c310ea12",
+        "4d1595ce003d4bda05a6a181ca5a136dc9def32d"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39423434291",
+        "testedCommit": "4d1595ce003d4bda05a6a181ca5a136dc9def32d",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and focus; exact kit/cargo/RNG reload; six legal three-seal DOM-button campaigns with seed selection, forecasts, deterministic undo/replay, reward rollback, exhaustion loss/retry and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once kit/inspect/trek/recover taps, food/cargo/seed undo, exact reload/retry cancel, first survey win/saved unlock, >=44px visible controls and no 390px/320px overflow.",
+        "manual": "Managed browser desktop: completed all six surveys through ordinary kit/map/trek/recover/return controls at18/18 seals and values11/11/13/11/12/13. Used rope/lamp, boots/lamp and lamp-only kits; surveys two/three exercised confirmed retry and new deterministic attempts. Earlier extraction undo/cargo-drop evidence retained. Final all-relic state and records survived reload; no game-page console errors. Preview stopped.",
+        "notVerified": [
+          "Independent human enjoyment and broader alternative-route/loadout replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      },
+      "finishVerification": {
+        "testedCommit": "4d1595ce003d4bda05a6a181ca5a136dc9def32d",
+        "clonedHead": "5bdb5b285c851e6217f8c167f9b8b1175581f54d",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation,15 Pocket Expedition engine and20 DOM/save checks.",
+        "managed": "PASS six visible kit/trek/recovery/extraction surveys at18/18 seals; retry used in surveys two/three; final completion and all six records survived reload; no game-page console errors.",
+        "limit": "Finish gate reused prior exact-source successful desktop/touch Chromium CI because the game source is unchanged. Physical touch, screen-reader output, independent human replay and broader alternative routes remain open."
+      }
+    },
+    {
+      "slot": 17,
+      "id": "moss-market",
+      "title": "Moss Market",
+      "coreLoop": "Barter-based shopkeeping with inventory choices",
+      "status": "finished",
+      "source": "dev/indie-collection/moss-market/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 1,
+      "changes": [
+        "Initial playable: six finite-stock woodland barter markets; five visitors with distinct valuation vectors and two exclusive bundles each, eight goods with shelf bulk/reserve values, four material-transforming recipes, three community orders, limited shelf capacity, fair/reserve seals, saved drafts and best records.",
+        "Pass 1: pure committed-action stock/order/reserve forecasts, live trade delta and remaining-order shortages, workshop ingredient ledger, exact last-delivery seal warning, fair-offer UI guard, 100-action logical-state undo through trades/crafts/orders/closing losses/rewards, draft-only history isolation and enabled-focus recovery. Rendered-QA follow-up corrects completed/failed-market trade and workshop prompts and labels banked versus unfinished reserve records."
+      ],
+      "tests": [
+        "PASS initial checkpoint 4b64353ded57b7a9b232192ffe95fbe8289d21d1: CI 39430709527, 10 Moss Market engine+11 DOM checks, repository/candidate gates and sixteen earlier-game browser regressions. New candidate browser suite absent at initial checkpoint.",
+        "PASS exact final-source CI 39432336946 at 14988092223df11df8d847401647de1154b50e90: 15 Moss Market engine+19 DOM checks, Chromium desktop/touch, repository asset gate, candidate syntax/98 local source-navigation links/exact20-slot/public isolation and all sixteen earlier candidates' engine/interface/browser regressions.",
+        "Six legal three-seal references finish with reserve14/11/6/10/4/5, trades4/4/4/4/5/5, crafts1/0/1/0/2/2, zero overpay and 8/7/8/7/10/10 committed actions. Every action serializes; replay validation rejects forged stock/used visitors/overpay/history. 100 seeded exploratory sessions preserve shelf/save invariants. These are synthetic feasibility checks, not duration or enjoyment evidence.",
+        "Pure trade/craft/delivery stock/shortage/reserve/seal forecasts match every campaign action. Real three-decline and unfinished-close losses, shelf overflow, saved drafts, best-only records and deliberately wasteful lower-score closing forecast covered.",
+        "Chromium native arrows/Enter/Space/Z and enabled focus, exact saved-offer alignment, six legal three-seal DOM-button trade/craft/delivery campaigns, forecast/guard behavior, earned-reward undo/replay, confirmed close loss/undo, retry and workshop launch/back. Touch taps apply once; exact stock/offer/undo/reload/retry cancel, first win/saved unlock, >=44px visible controls and no 390px/320px page overflow; zero page errors.",
+        "Manual desktop: first market delivered balm/lamp/tea through four exact-value trades and one craft. Saw final-delivery warning two seals/reserve9, made remaining Moss→Thread trade, then delivered for three seals/reserve14. Final-order undo restored tea/open order/unbanked records; replay/reload retained completion. Second market used bulk vessel delivery to free space, then balm/thread/berry trades for three seals/reserve11. Reload and third-market trader-zero focus verified. Rendered terminal prompts corrected; local preview stopped.",
+        "PASS finish gate at exact source 14988092223df11df8d847401647de1154b50e90 on cloned head 7ffd5cb28cd401310283baacc620869d149f4356: visible normal-control markets one through six delivered every order for18/18 seals, zero overpay and reserve values14/11/6/10/4/5. Later awnings exercised bulk-first shelf release, one- and two-recipe chains, mixed orders and final-delivery reserve planning. Final campaign and all records survived reload. Both asset gates plus15 engine and19 DOM/save checks passed locally; no game-page console errors."
+      ],
+      "quality": {
+        "enjoyment": "A visible complete six-market campaign kept visitor valuations, shelf pressure and last-delivery consequences legible. Bulk-first delivery, recipe timing and exact-value offers created concrete sequencing choices; markets five/six required two crafts and mixed-order planning. This is agent evidence, not a human fun score.",
+        "depth": "Six compact deterministic barter/order markets, changing starts/capacities, bulk constraints, mixed requests, four recipes and best-only fairness/reserve scores. Completed routes vary7–10 committed actions and0–2 crafts, with reserve values14/11/6/10/4/5. Broader alternative chains remain selection evidence, not unfinished scope or a duration claim.",
+        "polish": "Original deep-forest/rust-awning stall, visitor marks, goods/tray, per-visitor valuations versus reserve value, stock/order/workshop forecasts, fair-offer guard, exact closing-score warning, logical-state undo and native responsive focus controls. Terminal trade/tray/workshop guidance fixed. Manual mobile review remains open.",
+        "reliability": "Exact final source passes 15 engine+19 DOM, Chromium desktop/touch and sixteen earlier-game regressions. Replay integrity, declined/closed losses, capacity, corrupted/concurrent/failed storage, draft alignment, reward undo/retry/navigation and ended-state guidance covered within tested cases.",
+        "variety": "Preference-weighted barter and finite trader bundles combine with recipes, bulk shelves and delivery/reserve opportunity costs; distinct from earlier movement/combat/spatial-network loops."
+      },
+      "selected": false,
+      "selectionReason": "Finished, not selected: the complete six-market campaign, distinct shelf/recipe/order sequencing, losses, undo, saves and responsive paths have exact automated or rendered evidence. Compare alternative chains, replay enjoyment and collection fit before publishing.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Compare Moss Market directly with the other finished candidates on replay enjoyment, chain discovery, decision density and collection variety before selection.",
+        "Review mobile CI screenshots, physical touch and screen-reader behavior where feasible; fix concrete issues before finished/selection status.",
+        "Keep development-only; integrate only selected finished winners into fresh main without overwriting Study Desk/Gummy Bay/requested-game work."
+      ],
+      "developmentCommits": [
+        "4b64353ded57b7a9b232192ffe95fbe8289d21d1",
+        "cd55359eaf047fa355da4643122d10ce280fdf4c",
+        "4e795218ca9635e9b1c734b5ce8bd550a1e2c4d7",
+        "14988092223df11df8d847401647de1154b50e90"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39432336946",
+        "testedCommit": "14988092223df11df8d847401647de1154b50e90",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/Z and enabled focus, saved-offer alignment, pure stock/order/reserve previews, six legal three-seal DOM-button campaigns, reward undo/replay, fair-offer guard, confirmed close loss/undo, retry and workshop launch/back. Zero page errors.",
+        "touch": "390x844 emulation: exactly-once offer/trade taps, exact stock/valuation/undo, saved draft/retry cancel, first-market win/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
+        "manual": "Managed browser desktop: completed all six markets through ordinary visitor/bundle/tray/trade/craft/deliver controls at18/18 seals, zero overpay and reserve14/11/6/10/4/5. Later markets visibly used bulk-first shelf release, one- and two-recipe chains, mixed orders and last-delivery reserve planning. Earlier undo/loss evidence retained. Final six-awning state and all records survived reload; no game-page console errors. Preview stopped.",
+        "notVerified": [
+          "Independent human enjoyment and broader alternative-chain replay-depth assessment",
+          "Manual mobile screenshot/layout review",
+          "Physical touch hardware and screen-reader behavior",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ]
+      },
+      "finishVerification": {
+        "testedCommit": "14988092223df11df8d847401647de1154b50e90",
+        "clonedHead": "7ffd5cb28cd401310283baacc620869d149f4356",
+        "local": "PASS both repository asset gates, exact20 slots/116 references/public isolation,15 Moss Market engine and19 DOM/save checks.",
+        "managed": "PASS six visible barter/craft/delivery markets at18/18 seals with zero overpay; final completion and all six records survived reload; no game-page console errors.",
+        "limit": "Finish gate reused prior exact-source successful desktop/touch Chromium CI because the game source is unchanged. Physical touch, screen-reader output, independent human replay and broader alternative chains remain open."
+      }
+    },
+    {
+      "slot": 18,
+      "id": "threadbound",
+      "title": "Threadbound",
+      "coreLoop": "Grapple traversal with thread anchors",
+      "status": "finished",
+      "source": "dev/indie-collection/threadbound/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 5,
+      "changes": [
+        "Initial playable: four original canopy crossings with gravity/pendulum tether physics, unilateral reelable ropes, momentum-preserving transfers/releases, pale one-way branches, checkpoint knots, optional silver seeds, no-life-limit safety returns, sequential lantern unlocks and saved motion/best stitches.",
+        "Pass 1: pure 2.5-second release trajectory/landing forecasts from the actual integrator, mint/coral dotted preview, exact pin distances and range guidance, east-preferring reachable-pin transfer shortcut, six-frame coyote/buffered jump grace and backward-compatible saved grace fields. Rendered-QA follow-ups: wrap control labels, give quick pump/reel taps and accessible button activation one bounded six-frame nudge without doubling held inputs, and focus the visible completion button after lantern victory.",
+        "Pass 2: a fall-heavy live crossing exposed that the completion status always claimed a fall-free stitch. Completion feedback now derives its named awards from the same seed/fall state as scoring, handles singular/plural grammar, and repairs misleading status text in older completed saves on load.",
+        "Pass 3: quick touch and accessibility-button taps now queue a forgiving twelve-frame (0.2-second) nudge instead of six frames, making fine reel/pump corrections easier without changing sustained holds. The Chromium campaign now captures every completed canopy separately so later-room visual QA is durable rather than inferred from the opening screenshot.",
+        "Pass 4: keyboard movement/reel/jump presses released before the next animation frame now receive the same bounded twelve-frame nudge as touch instead of disappearing. The queue is added only when no simulation frame observed the held key, preserving sustained controls and the four established routes.",
+        "Pass 5: pointer movement/reel/jump controls now use the same observed-frame rule as keyboard. A true sub-frame tap still receives the forgiving twelve-frame nudge, but once any simulation frame sees the pointer held, releasing stops immediately instead of finishing a hidden remainder. Accessibility button clicks retain one bounded nudge; physics, routes, progression and saves are unchanged."
+      ],
+      "tests": [
+        "PASS initial 67665ba5518b586602c7ddb3ed35d986ae03bd5c: CI 39434927740, 7 engine+11 DOM, repository/candidate gates and seventeen earlier-game browser regressions. New Threadbound browser suite absent in initial checkpoint.",
+        "PASS exact final source f44192253378a49ba7822af5ef336d6e36cc64f4: CI 39437234416, 12 Threadbound engine+15 DOM checks, real Chromium desktop/touch/native-RAF, repository asset gate, candidate syntax/104 local source-navigation references/exact20-slot/public isolation and all seventeen earlier-game engine/interface/browser regressions.",
+        "Four legal reference crossings collect every seed, land on real checkpoint branches and kindle with zero falls in 406/411/419/498 fixed steps. Every fixed step is validity checked; 27,000 seeded mixed-input steps preserve finite/save invariants. Synthetic feasibility is not human enjoyment or duration evidence.",
+        "Pure release forecasts match the live integrator without mutating motion/seeds/records. Unreachable anchors cannot teleport; transfers/releases retain velocity, reeling and payout are unilateral; natural falls and checkpoint returns, sequential unlocks, old-save jump-grace migration and coyote/buffered jumps covered.",
+        "Chromium desktop: four legal actual-keyboard all-seed/no-fall campaigns, real checkpoint landings, range/forecast/assist, pause, exact mid-motion reload, confirmed restart, final enabled-button focus, saved unlocks and launch/back. Touch emulation: exactly-once quick jump/six-frame reel tap, actual CDP held-touch reel/pointer release, exact moving reload/restart cancel, >=44px targets, no 390px/320px page/button-text overflow. Native RAF smoke passes; zero page errors. Full touch campaign not tested.",
+        "Manual desktop pass 1: hooked/reelled first pin, collected seed, transferred with reachable-pin assistance and collected second seed; observed branch release forecast and landed on checkpoint. Jumped into range of third pin, reeled and collected third seed, pumped east, released to the far branch and kindled for 3/3 stitches with zero falls. Quick-tap no-op and overlapping labels found/corrected; completion focus issue found and regression added.",
+        "Pass 2 local exact-source gates: both asset/isolation checks, 13 engine and 15 DOM/save checks pass. New regression completes an all-seed crossing after natural falls, requires a two-stitch arrival+seed summary without fall-free praise, and proves an older misleading completed save is corrected on decode.",
+        "Pass 2 managed desktop: completed the first canopy with 3/3 seeds and six recoverable falls through ordinary click controls. The live two-stitch screen exposed the false fall-free sentence; after the fix, reload visibly retained 2/3, 3/3 seeds and six falls while correcting the status to ‘arrival and every seed.’ Preview stopped.",
+        "Run 54 local exact-source: both repository asset/isolation gates, JavaScript syntax, diff hygiene, all 13 engine checks and all 15 DOM/save checks pass. The four legal all-seed/no-fall routes remain 406/411/419/498 fixed steps. Managed desktop visibly opened canopy 2 and confirmed the revised 0.2-second guidance plus a 24-unit quick reel nudge.",
+        "Run 54 browser CI is pending: this runtime lacks the Playwright Chromium executable, and no workflow run attached to the connector-created source commit during the observation window. The updated regression expects a twelve-frame quick tap and emits per-canopy screenshots; no new desktop/touch pass is claimed yet.",
+        "Run 57 local exact-source c5219eb: both repository asset/isolation gates, JavaScript syntax, diff hygiene, all 13 engine checks and all 17 DOM/save checks pass. New regressions prove sub-frame keyboard reel and jump taps survive, stop after exactly twelve frames, and leave the 406/411/419/498-step reference routes unchanged.",
+        "Run 57 browser CI is pending: Playwright is installed but its Chromium executable is absent, and no workflow attached to control commit 424251f or onboarding commit c5219eb during this run. The browser campaign now checks quick keyboard jump/reel before the four existing actual-keyboard crossings; no new Chromium result is claimed.",
+        "Run60 exact-source local checks:13 engine and18 DOM/save tests pass. True sub-frame pointer jump/reel taps and accessibility clicks retain exactly twelve frames, while observed three-frame reel and two-frame pump holds match direct physics after release with no hidden queue. Four406/411/419/498-step all-seed/no-fall routes,27,000 mixed-input steps, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium is pending because no local executable or attached workflow is available.",
+        "PASS exact current head645009d / CI39764147903:13engine+18DOM, four actual-keyboard all-seed/no-fall Chromium crossings, current twelve-frame keyboard/pointer taps, real CDP held-touch release, moving reload, pause/restart,390/320px layout, native RAF smoke and all19 other candidate regressions. Four per-canopy and touch captures artifact12419682371 retained; canopy4 manually inspected."
+      ],
+      "quality": {
+        "enjoyment": "Managed review now includes the opening of canopy 2 as well as two completed canopy-1 outcomes. Elevated geometry reads as a real route change, but the cloud browser cannot sustain simultaneous reel/pump input, so later-canopy subjective completion remains open; synthetic routes do not prove fun.",
+        "depth": "Four compact handcrafted canopy crossings: gravity, reelable unilateral ropes, momentum transfer, branch checkpoints, optional seeds, clean-route stitches, breeze and elevated lantern. Limited authored geometry and longer progression/replay depth still need comparison; no duration claim.",
+        "polish": "Original code-drawn moth/forest/gold pins/silver seeds. Native keyboard/canvas pin/pointer/touch controls, range/trajectory guidance, assistance, jump grace, wrapping labels and truthful earned-stitch prose. Pass5 makes the 0.2-second fine adjustment exact across keyboard and pointer: only invisible sub-frame taps are extended, while observed holds stop on release. Accessibility clicks retain one bounded nudge; per-canopy screenshots remain in the browser campaign.",
+        "reliability": "Exact current head645009d passes13engine+18DOM, four actual-keyboard three-stitch routes, touch/native RAF checks,27,000 mixed steps, both gates and all19 other candidate regressions in CI39764147903. Canopy4 completion capture was manually inspected.",
+        "variety": "Actual pendulum tether physics, reel length and momentum-preserving aerial transfers distinguish this from dash rooftops and top-down cargo salvage. Compact traversal candidate, not a renamed prior loop."
+      },
+      "selected": false,
+      "selectionReason": "Finished reserve, not selected: exact current Chromium proves all four distinct crossings and control paths, but the selected slate already covers action/traversal and independent replay enjoyment remains unmeasured.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Keep as a finished development reserve; do not expand the public slate without stronger direct replay evidence.",
+        "Review physical touch, screen-reader behavior and subjective alternate transfers if further polish time remains; full touch campaign and human enjoyment remain unclaimed.",
+        "Preserve public main and concurrent Study Desk/After Hours/requested-GitHub-games/Gummy Bay work."
+      ],
+      "developmentCommits": [
+        "67665ba5518b586602c7ddb3ed35d986ae03bd5c",
+        "496e4c8edb62b5bd8fe2d18bc25ce9576c715d63",
+        "43bc5eed6f5d3f22bec1c1475511670faf137770",
+        "f44192253378a49ba7822af5ef336d6e36cc64f4",
+        "a9617317700bfafb1504343501fb47232461897d",
+        "c36f6e6d03a73ec58cc0765441c5a4437d725b1a",
+        "424251f23d4bffac181acd010047d072c159f6a6",
+        "c5219ebbfacd3ce8d08fbc634b5a0bc666910151",
+        "c0c405805d7c2ae001fdd71223cf62182be95df9"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903",
+        "testedCommit": "645009d17c2f77b22190368f542fff33d31cbf19",
+        "conclusion": "success",
+        "desktop": "PASS exact current Chromium: four actual-keyboard all-seed/no-fall crossings, checkpoints, forecasts/assist, moving reload, pause/restart, saved unlocks and launch/back; native RAF hook/reel/movement smoke; zero page errors.",
+        "touch": "PASS emulation: exactly-once jump, bounded twelve-frame reel tap, real CDP held-touch reel/release, reload/restart, >=44px targets and no390/320px overflow. Full touch campaign and physical hardware remain untested.",
+        "manual": "Current canopy4 completion capture manually inspected:4/4 seeds,0 falls,3/3 stitches and all four records. This is artifact review and automated route evidence, not independent human enjoyment.",
+        "notVerified": [
+          "Subjective continuous-control completion and replay depth across canopies 2–4",
+          "Physical touch hardware and screen-reader behavior",
+          "Full touch-controlled campaign",
+          "Independent human enjoyment",
+          "20 hours of worthwhile gameplay or testing",
+          "Public catalogue integration/deployment"
+        ],
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39764147903/artifacts/12419682371",
+        "artifactManuallyInspected": true
+      },
+      "reviews": [
+        {
+          "date": "2026-10-22",
+          "scope": "Pointer release precision and parity with keyboard/accessibility controls",
+          "finding": "Pointerdown previously started the full twelve-frame queue immediately, so a short but observed touch hold could continue after release. Pass5 queues only a pointer released before any simulation frame; observed holds now stop exactly while sub-frame taps and accessibility clicks remain forgiving.",
+          "decision": "Meaningful pass5 complete; hold as improved prototype pending exact-source Chromium and continuous canopies2–4 review"
+        }
+      ]
+    },
+    {
+      "slot": 19,
+      "id": "rain-catcher",
+      "title": "Rain Catcher",
+      "coreLoop": "Water routing and village restoration",
+      "status": "finished",
+      "source": "dev/indie-collection/rain-catcher/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 1,
+      "changes": [
+        "Initial playable: four original volumetric hillside catchments. Cut/raise/restore earth with a conserved barrow, head-driven neighbor flow, bankable cisterns, finite roof catches, garden uptake/deep-water stress, cumulative home flooding, exact water ledger, four restored village districts, twelve-garden journal and lexicographic low-rain/earthwork/spill records.",
+        "Pass 1: pure next-step hydraulic stream/drink/spill/damage plan reused by live physics, exact tool/immediate-versus-after-flow and rain/flow forecasts, per-tile outflow arrows and head/pool/cistern guidance, 120-action full logical-state undo through terrain/rain/floods/restoration/journal/records, inspection-only history isolation, stable map action focus and stricter completed-record water-budget validation. Rendered-QA follow-up centers the terrain table and replaces ended-state edit/undo invitations with saved-terrain/replan guidance. The manually discovered 24-drop/64-earth alternative is now a regression route; underlying water/earth rules unchanged in the follow-up."
+      ],
+      "tests": [
+        "PASS initial 8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd: CI 39440705448, 7 Rain Catcher engine+11 DOM, repository/candidate gates and all eighteen earlier-game browser suites. New candidate browser absent at initial checkpoint.",
+        "PASS exact final source 400cf787228e51c99cf942af410d49b9d49ad259: CI 39443598012, 15 Rain Catcher engine+21 DOM checks, real Chromium desktop/touch, repository asset gate, candidate syntax/110 local source-navigation references/exact20-slot/public isolation and all eighteen earlier-game engine/interface/browser regressions. Prior improvement 42970b707250db741e26a618e39e694d464de67f passed CI 39441913402 with14 engine+19 DOM and new browser suite.",
+        "Four legal broad-basin reference restorations use rain48/44/46/52, earthwork27/27/40/31, zero spills and retained water36/31/32/37. Each action serializes and preserves exact earth/water/growth accounting. One to three wet-tile regrades in later districts redistribute existing rain. 100 seeded exploratory sessions cover terrain, cistern, rain and flow invariants; synthetic feasibility is not enjoyment or duration evidence.",
+        "Pure immediate/after-flow tool, rain/flow and next-step stream/drink/spill/damage plans exactly match actual reference operations without mutating current water/earth/progression. Actual doorstep flood and dry closure, closed-cistern overflow, sequential district/journal records, worse-repeat preservation and impossible record water budgets covered.",
+        "Chromium desktop: native arrows/Enter/Space/numeric tools/Z and focus, exact wet-terrain/cistern reload, four legal restoration/regrade campaigns plus the rain24/earth64 alternative, mass/forecasts/record replacement, earned-state undo/replay, actual flood warning/loss/undo, close/retry and workshop navigation. Touch emulation: exactly-once terrain/rain taps, accounting/undo, selected-cistern reload/retry cancel, actual first restoration/saved unlock/reload, >=44px controls, internally scrolling map, no390/320px page or button-text overflow; zero page errors.",
+        "Manual desktop: cut upper/lower channels and protected doorstep; first rain fed one bellflower stage, second reached bellflowers4/reeds3/beans0. Compared original-grade versus full-bank forecasts, restored a wet tile to feed the last reed without more rain, then undid the experiment. Regraded wet feeder and lower tiles to direct shallow pools into beans; reused excavated earth for further pressure lifts. Restored all three gardens with only two roof catches: rain24, earthwork64, zero spill/home damage, twelve drops used/twelve retained. Undo restored final thirsty bean stage and unbanked district/journal/record; replay/reload retained completion. Final centered layout and ended guidance inspected; next district focused tile18. Preview stopped.",
+        "Finish gate on exact unchanged source: managed visible controls completed all four districts with rain48/44/46/52, earthwork27/27/40/31 and zero spill, including later wet-tile regrades and one- versus two-cistern schedules. Final 4/4 districts and 12/12 garden journal survived reload; no game-page console errors. Exact cloned head 75119929 passed both asset gates plus 15 engine and 21 DOM/save checks locally."
+      ],
+      "quality": {
+        "enjoyment": "A low-rain pressure-lift route and a separate full four-district visible campaign both completed. Forecasts supported grade-versus-bank choices, retained-water reuse, restoration undo and final Flow instead of another Rain. The repeated survey/cut/catch rhythm stayed readable because later maps require wet-tile lifts and different cistern schedules; independent human enjoyment remains unmeasured.",
+        "depth": "Four compact handmade catchments; finite roof catches, head/depth flow, conserved earth, cistern storage, deep-garden uptake limits and home flooding. Demonstrated real water/earthwork tradeoff: rain24/earth64 versus broad rain48/earth27, not an optimality claim. More authored maps/obstacles and alternative layout/schedule replay-depth comparison remain; no duration claim.",
+        "polish": "Original code-drawn terraced village, roofs/cisterns/seedlings, height/depth map, native internally scrolling tiles, outflow/head guidance, exact immediate-versus-flow forecasts, undo and keyboard/touch focus. Rendered table centering and terminal invitations fixed. Full desktop campaign feedback stayed legible; physical touch and screen-reader review remain open, and transient water motion could be richer.",
+        "reliability": "Exact final source passes15 engine+21 DOM, actual Chromium desktop/touch and eighteen earlier-game regressions. Exact conservation, stored-water/selected-cistern reload, real flood/closure/restart, corrupt/concurrent/quota storage protection, best/journal rollback and actual-model forecasts covered within tested cases.",
+        "variety": "Elevation and depth produce finite hydraulic flow; digging, embanking and lifting wet terrain use conserved earth. This is neither Circuit Garden binary power connectivity/load schedules nor Glasshouse breeding/light management."
+      },
+      "selected": false,
+      "selectionReason": "Finished, not selected: two materially different first-map footprints plus a visible four-district campaign demonstrate a reliable, distinct conserved-water puzzle with escalating regrades/cistern schedules. Selection still requires direct comparison against the other finished games; independent human enjoyment and broader alternate-route replay remain unmeasured.",
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Compare its low-rain/high-earthwork and broad-basin/low-earthwork decisions directly against the other finished candidates before selection.",
+        "Try additional alternate layouts/cistern schedules and review physical touch and screen-reader behavior where feasible; consider richer transient water motion only if Rain Catcher is selected.",
+        "Keep development-only until comparison and deliberate winner selection; preserve fresh-main Study Desk/After Hours/Gummy Bay/requested-title work."
+      ],
+      "developmentCommits": [
+        "8f3b59c5f1281ca7bbf7a475523b9a5c012ee9cd",
+        "42970b707250db741e26a618e39e694d464de67f",
+        "400cf787228e51c99cf942af410d49b9d49ad259"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39443598012",
+        "testedCommit": "400cf787228e51c99cf942af410d49b9d49ad259",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/numeric tools/Z and focus, exact wet-terrain/cistern reload, four legal restoration/regrade campaigns plus rain24/earth64 alternative, hydraulic forecasts/mass accounting, better low-rain record replacement, earned-state undo/replay, actual flood warning/loss/undo, confirmed close/replan and workshop navigation. Zero page errors.",
+        "touch": "Exactly-once terrain/rain taps, water/earth accounting and undo, saved selected cistern/replan cancellation, actual first-catchment restoration/saved unlock/reload, >=44px visible controls, internally scrolling terrain table and no390/320px page or button-text overflow.",
+        "manual": "First review completed the opening district by a distinct rain24/earth64 pressure-lift route with undo/replay/reload. Finish-gate review then used visible tile/tool/cistern/rain/flow controls to restore all four districts at rain48/44/46/52 and earthwork27/27/40/31 with zero spill. Later maps exercised one to three wet-tile regrades and different cistern schedules. Final 4/4 districts, 12/12 gardens and the first 48/27/0 record survived reload. No game-page console errors; preview stopped.",
+        "notVerified": [
+          "Independent human enjoyment and broader alternative-layout/cistern-schedule replay depth",
+          "Physical touch hardware and screen-reader behavior",
+          "High-fidelity continuous hydrodynamics (model is a bounded discrete tabletop toy)",
+          "20 hours of worthwhile content or testing",
+          "Public catalogue integration/deployment"
+        ],
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39443598012/artifacts/12275034268"
+      }
+    },
+    {
+      "slot": 20,
+      "id": "echo-vault",
+      "title": "Echo Vault",
+      "coreLoop": "Turn-based stealth using sound and enemy intent",
+      "status": "finished",
+      "source": "dev/indie-collection/echo-vault/",
+      "initialPlayable": true,
+      "meaningfulImprovementPasses": 1,
+      "changes": [
+        "Initial playable: four handmade turn-based stealth vaults, directional watcher/listener beams, corridor/curtain-weighted sound, noisy strides/relics, recoverable/confiscatable decoy chimes, two-exposure capture, optional leaves, extraction and saved archive/best routes.",
+        "Pass1: pure live-rule forecasts for every directional action/wait/chime, exact sentry destinations/facing/reasons IF WAIT and alternate throw response, intermediate-path capture/noise/loot/recovery feedback; 120-action session undo restores patrol memory, chimes, losses and complete extracted archive/records; inspection history isolation, focus recovery and clear-on-reload/replan/navigation.",
+        "Rendered-QA follow-up: immediate first-exposure warning, fresh strength7 relic echo only on pickup, carried-loot/curtain guidance on later quiet moves; clear horizontal+vertical throw-range wording. Added manually discovered 27-turn/one-leaf/three-warning pursuit route as a regression. Core stealth rules unchanged."
+      ],
+      "tests": [
+        "Initial20a0b349 passed CI39449952563: 8 engine+11 DOM, repository/candidate gates and all19 earlier-game browser regressions; new candidate browser absent.",
+        "Improved77fac6c1 passed CI39450627919:13 engine+18 DOM, real Chromium desktop four all-leaf ghost campaigns/touch, repository gates and all19 earlier-game regressions. Decoded logs inspected.",
+        "Final14 engine checks pass locally: four legal all-leaf/zero-exposure heists17/18/24/21 turns, exact action-by-action save/forecast parity, real capture, weighted sound, curtains/copper/stride, recovered/confiscated chimes, malformed bounds and100 seeded exploratory sessions.",
+        "Manually discovered pursuit route reproduced in engine at27 turns, one leaf, three broken exposure warnings, one confiscated chime and actual extraction; this is feasible, not an optimal route or playtime evidence.",
+        "PASS exact final8fe14ee7 CI39451640282:14 engine+19 DOM, real desktop four all-leaf ghost campaigns plus27-turn pursuit route and390/320px touch, full repository assets,116 candidate references/exact20/public isolation and all19 earlier-game regressions. Actual job steps and decoded logs inspected.",
+        "Finish gate on exact unchanged source: managed visible controls completed all four all-leaf ghost heists at17/18/24/21 turns with zero exposed turns. The first used a recovered/confiscatable chime; later vaults combined copper noise, quiet creep, curtains, one deliberate wait and multi-sentry pace changes. Final4/4 relics and8/8 leaves survived reload with no game-page console errors. Exact cloned head03de5607 passed both asset gates plus14 engine and19 DOM/save checks locally."
+      ],
+      "quality": {
+        "enjoyment": "A recoverable 27-turn pursuit route and a separate four-vault clean campaign both completed. Exact forecasts made patrol timing readable; later maps changed the dominant decision from chime diversion to copper-noise pacing, curtain concealment and multi-sentry timing. Only two deliberate waits were needed across the clean campaign, so wait fatigue did not dominate; independent human enjoyment remains unmeasured.",
+        "depth": "Four compact handmade vaults, two sound sensitivities, noisy/quiet pace tradeoffs, curtains, reusable chimes, optional leaves and cleaner-route records. Need more authored obstacles/routes and replay-depth comparison; no duration claim.",
+        "polish": "Original midnight-museum SVG/CSS manually inspected on desktop; pure action plans, exact IF WAIT patrol intent, immediate exposure feedback and complete session undo. The full visible campaign kept pace, sound, beams and terminal records legible; exact Chromium390/320 checks pass, while physical touch and screen-reader review remain open.",
+        "reliability": "Final14engine+19DOM and real desktop/touch Chromium pass in CI on8fe14ee7; repository assets,116 candidate references, exact20/public isolation and all19 earlier-game regressions pass. All20 local engine suites pass.",
+        "variety": "Turn-based directional stealth and corridor-weighted sound diversion; not Inkline's card drafting, Pocket Expedition's pack/extraction risk or Last Match's realtime cone combat."
+      },
+      "selected": true,
+      "selectionReason": "Selected for readable forecast-driven stealth: directional beams, weighted sound and reusable decoys create a reliable loop unlike the realtime action and route puzzles.",
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Try an additional non-ghost chime-recovery route while retaining the four-vault ghost and save regressions.",
+        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+      ],
+      "developmentCommits": [
+        "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20",
+        "77fac6c12b86eba4c928ad5a782a1bf8fd1f4c45",
+        "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f"
+      ],
+      "verification": {
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282",
+        "testedCommit": "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
+        "conclusion": "success",
+        "desktop": "Native arrows/Enter/Space/WASD/pace/T/Z and focus; exact patrol/inspection reload; four legal all-leaf/zero-exposure campaigns plus manual27-turn pursuit route; action/warning plans; extracted-record undo/replay; real exposure/capture/undo; confirmed retry and workshop launch/back. Zero page errors.",
+        "touch": "Exactly-once chime/move taps, conserved charges/undo, saved inspection/patrol/reload/retry cancellation, actual all-leaf first heist/saved unlock/reload, >=44px controls, internally scrolling map and no390/320px page or button-text overflow. Zero page errors.",
+        "manual": "First review used a chime diversion, curtains and a recoverable pursuit to extract with one leaf in27 turns and three separately broken warnings; undo/replay/reload and a real predicted capture were verified. Finish-gate review then used visible pace, direction, wait, tile, chime and extraction controls to complete all four all-leaf ghost routes at17/18/24/21 turns with zero exposure. Copper Stacks switched between noisy strides and quiet creeps; Curtain Court used a deliberate wait plus curtain loops; Last Resonance alternated pace around multiple sentries. Final4/4 relics,8/8 leaves and last record survived reload. No game-page console errors; preview stopped.",
+        "notVerified": [
+          "Independent human enjoyment and broader non-ghost alternate-route replay depth",
+          "Physical touch hardware and screen-reader behavior",
+          "Long-form content or testing hours",
+          "Public catalogue integration/deployment"
+        ],
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282/artifacts/12278907966"
+      }
+    }
+  ],
+  "runHistory": [
+    {
+      "run": 1,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 1,
+      "improvedTotal": 1,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built Tidepost and completed one meaningful control, balance and feedback pass. Local 17 engine + 9 DOM checks and full GitHub CI including real desktop/touch browser checks passed. No public integration.",
+      "implementationCommit": "d3c20e2edbbcd57826834439dfd7f34f2f28df86",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39326767705"
+    },
+    {
+      "run": 2,
+      "date": "2026-10-20",
+      "initialPlayableTotal": 2,
+      "improvedTotal": 2,
+      "finishedTotal": 0,
+      "publishedTotal": 0,
+      "summary": "Built and meaningfully improved Spore Kitchen. Passed 18 engine + 18 DOM checks, real Chromium desktop five-service campaign and 390px/320px touch-emulation suites; full repository gate and Tidepost regressions passed in CI. No public integration.",
+      "initialPlayableCommit": "ed72f25ae8873c2bd6c1c7395893070e36a69328",
+      "implementationCommit": "7f5c9f72ed5a629813cf35d998f3060e309a45f5",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39334355735"
     },
     {
       "run": 3,
