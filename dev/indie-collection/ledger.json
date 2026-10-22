@@ -18,7 +18,7 @@
       "status": "finished",
       "source": "dev/indie-collection/tidepost/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 4,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Six handmade charts, tide/current rules, fuel/hull, mail deliveries, upgrades, star routes and versioned voyage saving",
         "Pass 1: calibrated all six three-star thresholds against baseline solutions, exposed star goals, added damage-free fuel-to-dock planning and low-fuel warnings, fixed keyboard movement after button focus, restored chart focus after touch movement, handled synthetic key targets safely.",
@@ -84,7 +84,7 @@
       "status": "finished",
       "source": "dev/indie-collection/spore-kitchen/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 3,
+      "meaningfulImprovementPasses": 4,
       "changes": [
         "Initial playable: five handmade three-order services, four mushroom species, growth/misting/harvesting, two-ingredient flavour matching, three cooking methods, failure/retry, three pantry upgrades and checkpoint-based saving.",
         "Pass 1: session one-step undo restores beds/basket/stars/coins including the winning dish; upgrade/next clears undo. Optional rule-derived recipe notebook lists missing ingredients; next-action growth and basket-full forecast, stable native keyboard focus, modal shortcut guards, and stricter completed-save coin/upgrade/best-score consistency.",
@@ -807,13 +807,14 @@
       "status": "finished",
       "source": "dev/indie-collection/glasshouse/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 3,
+      "meaningfulImprovementPasses": 4,
       "changes": [
         "Initial playable: six original greenhouse exhibitions; finite seeds/water, 16-pot spatial sunlight/shade, tall-plant/frosted-pane occlusion, 14 colour/height genotypes, adjacent mature-parent breeding, three-stage growth, exact exhibition deliveries, timeout/wilting/retry, best-only medals, persistent lineage library and guarded versioned saves.",
         "Pass 1: exact nonmutating next-day growth/wilt/light forecasts; named offspring/height/needs preview and parent reuse warning; one-water plant relocation preserves growth/moisture and immediately changes shade; session undo includes compost/wilt/breeding/relocation/full medal and discovery rollback. Native grid row boundaries/modifier guards, modal guards, navigation history clearing. Efficiency targets tightened to measured routes +2 days, with old version-one par/score migration preserved.",
         "Pass 1 follow-up: reset the selected pot alongside keyboard focus on Next exhibition; DOM and browser regressions assert pot one remains the actual selection.",
         "Pass 2: whole-room next-day planning feedback after a normal-UI replay let mature pollen parents quietly wilt while attention moved to their hybrid. Every occupied pot now shows a rules-derived DRY NEXT, NEXT +1, SAFE NEXT, NO GROWTH or WILTS NEXT badge; wilt-risk pots gain a high-contrast inset, and each native pot label exposes the same exact forecast to assistive technology. No genetics, light, water, scoring, save schema, deadlines or content counts changed.",
-        "Pass 3: replaced the misleading medal-only ‘best records saved’ message with real per-exhibition garden records ranked by medals, fewer wilted plants and earlier completion day. The benchmark is visible before replay, legacy saves migrate without invented records, strict validation rejects forged shapes/ranges, and undo rolls the finishing medal and record back together."
+        "Pass 3: replaced the misleading medal-only ‘best records saved’ message with real per-exhibition garden records ranked by medals, fewer wilted plants and earlier completion day. The benchmark is visible before replay, legacy saves migrate without invented records, strict validation rejects forged shapes/ranges, and undo rolls the finishing medal and record back together.",
+        "Pass 4: added one movable linen shade per exhibition. Hanging or moving it costs one daily water and lowers the chosen pot’s current/future window light by one step, creating a direct water-versus-light tradeoff alongside tall-neighbour and frosted-pane shade. The chosen pot persists through save/reload, old saves migrate to a folded shade, forged indices reject, forecasts/ARIA expose the effect and undo covers shade moves. An alternate exhibition-two route earns three medals with zero wilt on day11 instead of the day12 reference."
       ],
       "tests": [
         "8 local engine checks pass: all six legal baseline three-medal/no-wilt exhibitions in 6/12/14/11/10/14 in-game days (19/50/57/43/56/85 legal actions), every-action saves, sun/shade/water/genetic inheritance, real wilt/deadline loss/retry, replay records and malformed states. 10 DOM cases authored; exact-source execution pending.",
@@ -823,21 +824,22 @@
         "PASS exact-source GitHub Actions 39532503890 at 64a4c8ba47869d938bfba0792ceca874add6b7b7: repository asset gate, exact20/public isolation/116 references,13 Glasshouse engine +17 DOM checks, actual Chromium six three-medal campaigns and desktop/touch feedback, saves, undo, keyboard/focus, >=44px controls and390/320px no-overflow checks. All19 other candidate regressions passed; terminal state, steps and decoded logs inspected.",
         "Finish gate local: both repository asset/isolation gates,13/13 engine and17/17 DOM/save checks pass on cloned head4de17e9e. Managed rendered desktop then completed all six exhibitions through ordinary pot/seed/water/day/pollen/cross/delivery controls at6/12/14/11/10/14 days,18/18 medals and zero wilt; final campaign and lineage library survived reload with no game-page console errors.",
         "Pass 3 local:14/14 Glasshouse engine and18/18 DOM/save checks pass, including record ranking, exact-key/range validation, legacy migration, visible replay targets, all-six actual-button completion, persistence and finishing-action rollback. All20 pure engine suites and repository/selection/diff gates also pass; the reference routes remain6/12/14/11/10/14 days with three medals and zero wilt.",
-        "PASS exact-source GitHub Actions39825723253 at487cdf870363c77067f4f8f4543e9fd4a2d3c506: repository/ledger gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshot capture passed. An earlier run correctly exposed and blocked a double-escaped browser assertion before public promotion. Public d4fc451 passed19-route assets and nine selected-source hashes in release workflow39827023816, then failed unchanged Configure Pages permission before upload/deploy."
+        "PASS exact-source GitHub Actions39825723253 at487cdf870363c77067f4f8f4543e9fd4a2d3c506: repository/ledger gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshot capture passed. An earlier run correctly exposed and blocked a double-escaped browser assertion before public promotion. Public d4fc451 passed19-route assets and nine selected-source hashes in release workflow39827023816, then failed unchanged Configure Pages permission before upload/deploy.",
+        "PASS exact-source GitHub Actions39866624113 at4aefc8efdc4285464bbc7e44adbf7c8e727fe5dc: repository/ledger gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and49 screenshot files passed. Glasshouse contributes15 engine+20 DOM checks; Chromium completes six three-medal routes plus the linen-shade alternate route, native keyboard/focus, save/reload/retry, reward/shade/relocation undo and narrow touch checks with zero page errors. Artifact12465032510 is preserved. The aligned source and updated integrity pins passed fresh-main release gates and were promoted to public main8cf8b937. Release workflow39871533131 passed19 route/assets, then failed unchanged Configure Pages permission before upload/deploy."
       ],
       "quality": {
-        "enjoyment": "A visible ordinary-control campaign completed all six rooms at18/18 medals with zero wilt. The sequence moved from first hybrid, to paired soft-light hybrids, mixed-height timing, multi-generation prism breeding, frosted-window planning and a three-lineage capstone. Whole-room forecasts kept parent care readable; repeated watering supported the planning load rather than becoming the only decision. This is agent evidence, not an independent human fun score.",
-        "depth": "Six short handmade genetic/spatial-light exhibitions. Visible no-wilt solutions use6/12/14/11/10/14 in-game days, matching legal baselines of19/50/57/43/56/85 actions; pars are8/14/16/13/12/16. Per-exhibition garden records add honest medals→wilt→day replay progression without padding the campaign. Later rooms require distinct height, missing-colour and soft-light chains rather than rescaled opening goals. Fourteen genotypes are mechanically discoverable; no duration claim.",
-        "polish": "Original light-paper CSS botanical layout inspected throughout the full desktop campaign. Pass2's compact colour-coded next-day badges keep dry/grow/wilt risk visible across crowded rooms; pass3 adds a visible benchmark with exact ranking guidance and truthful completion feedback. Exact CI confirms >=44px controls and no390/320px overflow. Physical touch and screen-reader behavior remain unverified.",
-        "reliability": "Pass3 exact CI passes14 Glasshouse engine +18 DOM/save checks plus actual Chromium desktop/touch-emulated suites, including all six legal three-medal campaigns, every-action saves, whole-room feedback, strict record validation, legacy migration, persistence, reward rollback and all19 other-game regressions.",
-        "variety": "Adjacent-parent inheritance, mixed-height timing, missing-colour prism chains and tall-plant/frosted-pane light shaping stay distinct across the six rooms; this is not a cooking/flavour reskin."
+        "enjoyment": "A visible ordinary-control campaign completed all six rooms at18/18 medals with zero wilt. Pass4 adds a legible optional shortcut rather than another required chore: the shade route completes exhibition two on day11 while the reference remains day12, and spending water to screen a pot competes directly with plant care. This is automated/agent evidence, not independent preference or a human fun score.",
+        "depth": "Six short handmade genetic/spatial-light exhibitions. Reference no-wilt solutions remain6/12/14/11/10/14 days and19/50/57/43/56/85 actions; the linen shade adds a distinct day11 exhibition-two line without changing pars or invalidating tall-neighbour planning. Records still rank medals→wilt→day and fourteen genotypes remain mechanically discoverable; no duration claim.",
+        "polish": "Original light-paper CSS botanical layout, whole-room forecasts and replay benchmarks remain. The selected shade is visibly badged, named in pot ARIA, previewed in current/future light and supported by a focused action/help explanation. Exact CI confirms >=44px controls, save/reload/undo and no390/320px overflow. Physical touch hardware and screen-reader behavior remain unverified.",
+        "reliability": "Pass4 exact CI passes15 Glasshouse engine +20 DOM/save checks plus actual Chromium desktop/touch-emulated suites, including six legal three-medal campaigns, the alternate shade route, legacy migration, forged-value rejection, every-action saves, reward/shade/relocation undo and all19 other-game regressions.",
+        "variety": "Adjacent-parent inheritance, mixed-height timing, missing-colour prism chains, tall-neighbour/frosted-pane shaping and one movable water-priced shade support different light plans across the six rooms; this is not a cooking/flavour reskin."
       },
       "selected": true,
       "selectionReason": "Selected for genetic breeding and spatial light planning, adding the collection's most distinctive long-form systems puzzle with six completed exhibitions.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed", "d4fc451e045ecefaf69dd7b39155d4d24f5601fd"],
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed", "d4fc451e045ecefaf69dd7b39155d4d24f5601fd", "8cf8b9370ff897fb50b10cd53878be73af33787e"],
       "publishedUrl": null,
       "nextSteps": [
-        "Try alternate breeding/light routes while retaining all six exhibition regressions; automated solutions are not a human-player study.",
+        "Compare independent preference for water-priced linen shade routes versus tall-neighbour routes; automated solutions are not a human-player study.",
         "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
@@ -846,14 +848,15 @@
         "1615f2b291f726eb78f9c98f71a06b8e8e603a14",
         "64a4c8ba47869d938bfba0792ceca874add6b7b7",
         "a86fd32050b3492870d177fefc3de8a33d01e4d5",
-        "487cdf870363c77067f4f8f4543e9fd4a2d3c506"
+        "487cdf870363c77067f4f8f4543e9fd4a2d3c506",
+        "4aefc8efdc4285464bbc7e44adbf7c8e727fe5dc"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39825723253",
-        "testedCommit": "487cdf870363c77067f4f8f4543e9fd4a2d3c506",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39866624113",
+        "testedCommit": "4aefc8efdc4285464bbc7e44adbf7c8e727fe5dc",
         "conclusion": "success",
-        "desktop": "Native pot keyboard/focus, sow/water/forecast and exact reload/retry; all six legal three-medal breeding campaigns via actual DOM buttons, whole-room next-day badges/labels, visible garden records, reward/record undo/replay, relocation/undo and workshop navigation. Zero page errors.",
-        "touch": "390x844 emulation exactly-once pot/sow/water/day taps, visible accessible next-day pot badge, relocation/undo, saved reload/retry-cancel, >=44px visible controls and no page overflow at390px/320px.",
+        "desktop": "Native pot keyboard/focus, sow/water/shade/forecast and exact reload/retry; all six legal three-medal breeding campaigns plus the alternate shade route via actual DOM buttons, whole-room next-day badges/labels, visible garden records, reward/shade/relocation undo and workshop navigation. Zero page errors.",
+        "touch": "390x844 emulation exactly-once pot/sow/water/shade/day taps, visible accessible shade/next-day pot badges, relocation/undo, saved shade reload/retry-cancel, >=44px visible controls and no page overflow at390px/320px.",
         "manual": "Managed cloud browser desktop: completed all six exhibitions through ordinary visible pot, seed, water, day, pollen, cross and delivery controls at6/12/14/11/10/14 days,18/18 medals and zero wilt. Rooms2–6 required paired soft-light hybrids, mixed-height timing, multi-generation prism breeding, frosted-window planning and a three-lineage finale. Final 6/6 completion, last-room state and living lineage library survived reload; no game-page console errors.",
         "notVerified": [
           "Independent human enjoyment and alternate-route replay study",
@@ -2466,10 +2469,23 @@
       "verifiedCommit": "5db9269d7b0faba508c3a45c8eeaba5330bc7112",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39862617223",
       "inspectedMainCommit": "e5d67c4894c472f63e4695b6f677d72c026d796f"
+    },
+    {
+      "run": 77,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Glasshouse received meaningful pass4, bringing the20-game collection to62 recorded passes. One movable linen shade now trades one daily water for one-step light reduction on a chosen pot, persists through save/reload and undo, migrates legacy saves and rejects forged values. An alternate exhibition-two route finishes on day11 with three medals and zero wilt versus the day12 reference. Exact development4aefc8e passed repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and49 screenshots in CI39866624113; Glasshouse contributes15 engine+20 DOM checks. The aligned selected source and integrity pins passed fresh-main release gates and were promoted to public main8cf8b93. Release workflow39871533131 passed19 route/assets, then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "4aefc8efdc4285464bbc7e44adbf7c8e727fe5dc",
+      "verifiedCommit": "4aefc8efdc4285464bbc7e44adbf7c8e727fe5dc",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39866624113",
+      "inspectedMainCommit": "8cf8b9370ff897fb50b10cd53878be73af33787e"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with61 passes; nine selected/source-integrated on public maine5d67c4 including fully verified Deep Pocket pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "All20 candidates playable, improved and finished with62 passes; nine selected/source-integrated on public main8cf8b93 including fully verified Glasshouse pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2487,7 +2503,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39864412030 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39871533131 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
