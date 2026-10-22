@@ -1115,10 +1115,11 @@
       "status": "finished",
       "source": "dev/indie-collection/pocket-expedition/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 1,
+      "meaningfulImprovementPasses": 2,
       "changes": [
         "Initial playable: six branching expeditions; two-tool loadouts, shared tool/food/loot pack capacity, heavy travel cost, weather-sensitive terrain/recovery injury odds, seeded outcomes, ration-cost return routing, safe retreats, relic unlocks and persistent journal/best records.",
-        "Pass 1: exact ration/terrain/weather return itinerary with modelled injury/loss probabilities without revealing future rolls; recovery food/pack/return forecast; live cargo-drop rescue previews; four-step weather strip; last-food warnings; 100-action deterministic-state undo through injuries/drops/losses/banked finds; spatial map keys, reload selection alignment and enabled-control focus fallback. Rendered-QA follow-up: terrain-specific trail markings, complete live pre-departure trail notes and correct planning/camp/exhausted/terminal recovery guidance."
+        "Pass 1: exact ration/terrain/weather return itinerary with modelled injury/loss probabilities without revealing future rolls; recovery food/pack/return forecast; live cargo-drop rescue previews; four-step weather strip; last-food warnings; 100-action deterministic-state undo through injuries/drops/losses/banked finds; spatial map keys, reload selection alignment and enabled-control focus fallback. Rendered-QA follow-up: terrain-specific trail markings, complete live pre-departure trail notes and correct planning/camp/exhausted/terminal recovery guidance.",
+        "Pass 2: every relic return now keeps a validated lean-route field note with seals, starting pack units, rations, tools, value, steps and attempt. Records rank seals first, then lighter departure load, higher value, fewer steps and remaining food; the current benchmark is visible before and after expeditions. Existing saves without route notes remain valid and migrate on their next relic return. Reference search now prefers genuinely lean three-seal routes rather than the old nine-ration/two-tool baseline."
       ],
       "tests": [
         "PASS initial checkpoint cfad6c8e2b18d74a2b127fc482255e14e3fc2d53: CI 39421923557, 10 Pocket Expedition engine + 11 DOM checks, repository/candidate gates and fifteen earlier candidates' browser regressions. New candidate browser suite not present at initial checkpoint.",
@@ -1127,13 +1128,14 @@
         "Pure recovery/return forecasts preserve RNG, agree with actual ration/load results and match exhaustive independent-trail injury probability model. Actual exhaustion/injury losses, sample-only retreats, unique recoveries, journal/best persistence and a real overweight cargo-drop return rescue covered.",
         "Chromium native arrows/Enter/Space/Z and focus; exact kit/cargo/food/RNG reload; six legal three-seal DOM-button campaigns with seed selection; deterministic undo/replay, earned-reward rollback, exhaustion loss/retry and workshop launch/back. Touch taps apply once; food/cargo undo/reload/retry cancel, first survey victory/saved unlock; >=44px visible controls and no 390px/320px page overflow; zero page errors.",
         "Manual desktop: first survey with rope/lamp/nine food returned Amber seed + Moss compass for value11, three seals, no injuries. Winning extraction undo/replay, save reload and current-site guidance checked. Second boots-only/nine-food survey reproduced injury and overweight return deficit; dropped low-value shell, undid/repeated drop and safely returned value13 with two seals and one health. Reload retained four journal discoveries; survey three opened with rope control focused. Local-only preview stopped.",
-        "PASS finish gate at exact source 4d1595ce003d4bda05a6a181ca5a136dc9def32d on cloned head 5bdb5b285c851e6217f8c167f9b8b1175581f54d: visible normal-control surveys one through six returned every relic for18/18 seals and values11/11/13/11/12/13; surveys two/three exercised confirmed retry and different seeded attempts. Final campaign and all records survived reload. Both asset gates plus15 engine and20 DOM/save checks passed locally; no game-page console errors."
+        "PASS finish gate at exact source 4d1595ce003d4bda05a6a181ca5a136dc9def32d on cloned head 5bdb5b285c851e6217f8c167f9b8b1175581f54d: visible normal-control surveys one through six returned every relic for18/18 seals and values11/11/13/11/12/13; surveys two/three exercised confirmed retry and different seeded attempts. Final campaign and all records survived reload. Both asset gates plus15 engine and20 DOM/save checks passed locally; no game-page console errors.",
+        "Pass2 exact development5a71cc0 local gates: repository assets/exact20 slots/9-selected isolation and selection gate pass; all20 engine and all20 DOM/save suites pass. Pocket Expedition contributes16 engine and20 DOM/save checks, including six lean three-seal routes, legacy-save migration, record comparison/tamper rejection, visible records and undo/replay rollback. Routes now leave with9/10/9/9/10/9 pack units, one tool and values11/12/13/11/12/13. Exact desktop/touch CI39795311078 is queued; no browser or public-promotion claim is made yet."
       ],
       "quality": {
-        "enjoyment": "A visible complete six-survey campaign kept loadout and extraction decisions legible across rope/lamp, boots/lamp and lamp-only routes. Shared cargo/food space created concrete keep-versus-return pressure; seeded retries in surveys two/three succeeded without pretending chance is removed. This is agent evidence, not a human fun score.",
-        "depth": "Six compact branching expeditions, three distinct tested tool sets, shared food/cargo capacity, weather/risk, twelve journal entries and best-only value/seal replay goals. The campaign reached18/18 seals with8/8/8/8/9/8 steps; broader alternative routes remain selection evidence, not unfinished scope or a duration claim.",
-        "polish": "Original paper survey map and pack, terrain-specific lines plus full text trail notes, exact ration/return/cargo forecasts, unrevealed modelled injury odds, deterministic-state undo, last-food/exhausted-site guidance and native responsive controls. Manual mobile review remains open.",
-        "reliability": "Exact final source passes 15 engine + 20 DOM, Chromium desktop/touch and fifteen earlier-game regressions. Actual exhaustion/injury losses, seeded-log integrity, failed/concurrent/corrupted storage, cargo-drop rescue, retry/undo/reward/navigation covered within tested cases.",
+        "enjoyment": "A visible complete six-survey campaign kept loadout and extraction decisions legible across rope/lamp, boots/lamp and lamp-only routes. Pass2 turns the vague suggestion to try leaner kits into a concrete per-region benchmark and verifies one-tool three-seal routes with9–10 starting units. Shared cargo/food pressure remains agent evidence, not a human fun score.",
+        "depth": "Six compact branching expeditions, three tools, shared food/cargo capacity, weather/risk and twelve journal entries. Best value/seals now sit beside a route record that prioritises clean completion then lighter starting kit, value and efficiency; verified lean routes use one tool and9/10/9/9/10/9 starting units. Broader human route discovery remains unmeasured and no duration claim is made.",
+        "polish": "Original paper survey map and pack, complete trail notes and exact ration/return/cargo forecasts now include a readable saved route benchmark with named tools, provisions, value, steps and attempt. Older saves migrate on completion; deterministic undo rolls a newly banked note back with the other rewards. Manual mobile review remains open.",
+        "reliability": "Exact development5a71cc0 passes repository/selection gates, all20 local engine suites and all20 local DOM/save suites; Pocket Expedition has16 engine+20 DOM checks. New coverage includes record ranking, validation/tamper rejection, legacy migration, six lean campaigns, reload and reward rollback. Exact desktop/touch CI39795311078 is queued; prior source4d1595ce remains the last fully green browser baseline.",
         "variety": "Push-your-luck collection with tool-dependent branching paths, shared provision/cargo space, heavy return costs, uncertain injuries and bank-only-at-camp rewards; distinct from ferry, fleet dispatch and combat candidates."
       },
       "selected": true,
@@ -1141,13 +1143,14 @@
       "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
       "publishedUrl": null,
       "nextSteps": [
-        "Retain the six-survey and three-loadout regression suite and review another seeded route if time permits; deterministic checks are not independent chance-tolerance feedback.",
+        "Wait for exact desktop/touch CI39795311078; promote the aligned selected source only after it passes. Deterministic lean routes are not independent chance-tolerance feedback.",
         "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
         "cfad6c8e2b18d74a2b127fc482255e14e3fc2d53",
         "691eef980a6c7a5ebcc25193ade94f06c310ea12",
-        "4d1595ce003d4bda05a6a181ca5a136dc9def32d"
+        "4d1595ce003d4bda05a6a181ca5a136dc9def32d",
+        "5a71cc01410f486e6f70c627a9f89c55e52ed2a2"
       ],
       "verification": {
         "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39423434291",
@@ -2309,10 +2312,23 @@
       "verifiedCommit": "7894ebf2c17b10c0cadebe7b07fe605d437f01c6",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39787235971",
       "inspectedMainCommit": "2e73e3080515a7e8a306dd77c724fab2c0113b20"
+    },
+    {
+      "run": 68,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Pocket Expedition received meaningful pass2, bringing the20-game collection to54 recorded passes. Relic returns now keep validated lean-route notes with visible loadout/provisions/value/steps comparison, older saves migrate after replay, and deterministic reward undo rolls notes back. Six one-tool three-seal references leave with9/10/9/9/10/9 pack units instead of the earlier11-unit two-tool baseline. Exact development5a71cc0 passes repository/selection gates and all20 local engine and DOM/save suites; remote desktop/touch CI39795311078 remains queued, so the prepared public alignment has not been promoted and main remains2e73e30. GitHub Pages still blocks live URLs.",
+      "implementationCommit": "5a71cc01410f486e6f70c627a9f89c55e52ed2a2",
+      "verifiedCommit": null,
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39795311078",
+      "inspectedMainCommit": "2e73e3080515a7e8a306dd77c724fab2c0113b20"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with53 passes; nine selected/source-integrated on public main2e73e30;0live URLs because GitHub Pages configuration remains blocked",
+    "status": "All20 candidates playable, improved and finished with54 passes; nine selected/source-integrated on public main2e73e30; Pocket Expedition pass2 awaits exact desktop/touch CI before promotion;0live URLs because GitHub Pages configuration remains blocked",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2330,7 +2346,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Do not claim live URLs until GitHub Pages is enabled and a deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Wait for Pocket Expedition exact desktop/touch CI39795311078 and promote only after success. Do not claim live URLs until GitHub Pages is enabled and a deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
