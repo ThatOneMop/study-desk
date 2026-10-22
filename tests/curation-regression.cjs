@@ -7,10 +7,12 @@ w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-b
 const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-assert.equal(catalog.length,10);
-assert(catalog.every(g=>g.group==='Your games'&&g.type==='bundled'));
-assert.equal($('openGames').textContent,'Games · 10 →');
-assert.equal($('includedCount').textContent,'10 games included here');
+assert.equal(catalog.length,19);
+assert(catalog.slice(0,10).every(g=>g.group==='Your games'&&g.type==='bundled'));
+assert(catalog.slice(10).every(g=>g.group==='Indie collection'&&g.type==='bundled'));
+assert.equal(new Set(catalog.map(g=>g.id)).size,19);
+assert.equal($('openGames').textContent,'Games · 19 →');
+assert.equal($('includedCount').textContent,'19 games included here');
 assert(!d.body.textContent.includes('100 games'));
 assert(!d.body.textContent.includes('Community classics'));
 function filter(name){[...$('filters').children].find(b=>b.textContent===name).click()}

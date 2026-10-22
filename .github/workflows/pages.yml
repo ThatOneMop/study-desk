@@ -19,7 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Verify game routes and local assets
-        run: python tests/assets.py
+        run: |
+          python tests/assets.py
+          python tests/selected-indie.py
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         with:

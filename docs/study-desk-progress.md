@@ -1,5 +1,42 @@
 # Study Desk improvement ledger
 
+## 2026-10-22 — selected indie collection integration
+
+GitHub base: 42e32a7efa25a120f579dbef6a706d8588a2c3a8. The active ten-game catalogue and retired-catalogue archive were preserved. Nine finished, original candidates were copied from `indie-collection-dev` into a separate **Indie collection** group; unfinished candidates remain development-only.
+
+### Selected games and reasons
+
+| Game | Selection reason |
+| --- | --- |
+| Tidepost | Distinct fishing-and-weather planning loop, strong route progression and the deepest verified campaign. |
+| Deep Pocket | Tactile mining decisions, risk/reward extraction and a complete upgrade progression. |
+| Queen of Cinders | Readable colony economy with meaningful worker allocation, crises and a verified ending. |
+| Little Foundry | Satisfying production routing with clear bottlenecks, upgrades and multi-order progression. |
+| Scrap Orbit | Responsive action loop, differentiated weapon choices and short-run replayability. |
+| Inkline | Original line-drawing territory puzzle with undo, scoring and escalating authored stages. |
+| Pocket Expedition | Compact roguelike exploration with resource decisions, encounters and persistent unlocks. |
+| Echo Vault | Audio-free memory/action hybrid with readable telegraphs, upgrades and a complete route. |
+| Glasshouse | Calm spatial growing puzzle with constrained placement, seasons and persistent progression. |
+
+### Release changes
+
+- Added the nine self-contained routes, catalogue metadata, credits and launcher group, bringing the active catalogue from 10 to 19. No retired third-party entry was restored.
+- Kept each selected engine, game module and stylesheet byte-identical to the reviewed development candidate. Release-only HTML changes standardise the catalogue return link, add the Study Desk bridge exactly once and remove development labels.
+- Added a source-integrity gate covering the 27 reviewed engine/game/style files and all nine routes. GitHub Pages now runs that gate and the existing asset audit before deployment.
+- Updated README, route counts, cache version, curation regression and test report to match the active catalogue.
+
+### Validation before publication
+
+- Selected-source integrity: 9 routes and 27 exact source hashes; JS syntax, bridge, catalogue links and credits passed.
+- Asset audit: 19 bundled routes and 55 HTML references, with no missing files; Freedoom WAD/WebAssembly structure passed.
+- Launcher DOM suites: 19 entries, search/favourites, deck/card CRUD, mastery, PPP, all 19 launch routes, pause/resume and return navigation passed.
+- Curation and After Hours engine regressions passed.
+- All nine candidate engine and DOM suites passed from their hash-identical development sources: 145 engine assertions and 179 DOM assertions. Their prior exact-source Chromium review remains the rendered-play evidence; the release-only HTML wrappers have not yet been rendered from the public deployment.
+
+### Remaining verification
+
+Publication commit, GitHub Pages workflow and the live release URL are pending at this checkpoint. Physical touch-device testing, screen-reader testing and long-form balance testing remain unverified. Roof Runner, Last Match and Threadbound remain unfinished and are not exposed publicly.
+
 ## 2026-10-21 — pass 20
 
 Base Sites source: 17fd929a7774a397d31694e24f4eab224d016324 (live version 28). GitHub base: 8f99173d29bcbcf429247766a605ca5cd39e9a54. Opened latest Sites source and verified app.js matched GitHub. After a browser-check interruption cleared the temporary workspace, reopened the same unchanged source, recovered the exact implementation and regression test, and revalidated. Independent community/Gummy Bay work and each ledger's previous history are preserved.

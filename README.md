@@ -1,6 +1,6 @@
-# Study Desk / After Class — 100 games
+# Study Desk / After Class — 19 curated games
 
-100 catalogue entries: 10 recovered user-created games, 7 bundled community classics, 82 distinct ABA Games microgames and 1 official external PolyTrack link. Tiny Wilds' fishing and ant colony modes count as one game. No older-version duplicate cards.
+19 active catalogue entries: 10 recovered user-created games plus 9 selected original indie collection games. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
 
 ## Upload to GitHub Pages
 
@@ -20,7 +20,7 @@ Press P three times within one second, or use the touch-friendly Study / Switch 
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-PolyTrack opens the official site in another tab and is the only external catalogue entry. PPP cannot control that tab. Lucky Company's optional original online-site link also opens separately. Return to the Study Desk tab manually. The 99 bundled routes include the bridge, but real-browser gameplay, fullscreen/pointer-lock/audio behaviour remain unverified in this environment.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. All 19 active catalogue games are bundled and include the Study Desk bridge; real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
@@ -36,11 +36,15 @@ PolyTrack opens the official site in another tab and is the only external catalo
 
 SOURCE_VERSIONS.json records recovered source commits; its indices 0–7 map to Lost & Found, Little Lake, Moon, Underleaf, Autumn Drift, Gummy Bay, Lucky Company and Tiny Wilds. Builds checked 2026-10-19. Requested features are counted as completed only when present in recovered source, not merely mentioned in chats. No other completed distinct games were recovered.
 
-## Community additions and licences
+## Selected indie collection
 
-Kept 2048, Hextris, Astray and Radius Raid. Added Chrome-style Dino (wayou), Pac-Man (bward2), browser DOOM-compatible engine with Freedoom Phase 1 data (not commercial DOOM), and 82 ABA Games microgames covering arcade, shooters, platforms, puzzles and racing. PolyTrack is an official-site link, not an unauthorised bundled copy. Pac-Man's optional remote typography requires internet; Forge Arena also uses external dependencies. Catalogue badges identify these requirements.
+Tidepost, Deep Pocket, Queen of Cinders, Little Foundry, Scrap Orbit, Inkline, Pocket Expedition, Echo Vault and Glasshouse were developed as original candidates, improved, completed through agent-driven campaigns and selected for their distinct loops, requested-taste fit and test evidence. Each is a compact authored game rather than a content-hours promise. Their durable development evidence remains on the `indie-collection-dev` branch.
 
-Read credits.html. Preserve copyright notices, licences and source files when publishing. Hextris GPL corresponding source is in hextris-source.zip. DOOM engine corresponding source and build scripts are in doom-engine-source.zip; Freedoom notices accompany the WAD. JavaScript games retain source directly. Microgame runtime package archives retain upstream dependency source and licence notices. The standalone game selection consists of small, distinct microgames, not 82 large indie releases.
+## Archived community additions and licences
+
+The files and licence records for 2048, Hextris, Astray, Radius Raid, Chrome-style Dino, Pac-Man, the Freedoom-compatible browser engine and 82 ABA Games microgames remain preserved, but those entries are retired from the active catalogue. `docs/retired-catalog-2026-10-20.json` retains their metadata. Forge Arena remains active and requires its existing online dependencies.
+
+Read credits.html. Preserve copyright notices, licences and source files when publishing. Hextris GPL corresponding source is in hextris-source.zip. DOOM engine corresponding source and build scripts are in doom-engine-source.zip; Freedoom notices accompany the WAD. JavaScript games retain source directly. Microgame runtime package archives retain upstream dependency source and licence notices.
 
 ## Saves and domain changes
 
