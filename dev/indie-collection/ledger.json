@@ -1200,11 +1200,12 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/threadbound/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: four original canopy crossings with gravity/pendulum tether physics, unilateral reelable ropes, momentum-preserving transfers/releases, pale one-way branches, checkpoint knots, optional silver seeds, no-life-limit safety returns, sequential lantern unlocks and saved motion/best stitches.",
         "Pass 1: pure 2.5-second release trajectory/landing forecasts from the actual integrator, mint/coral dotted preview, exact pin distances and range guidance, east-preferring reachable-pin transfer shortcut, six-frame coyote/buffered jump grace and backward-compatible saved grace fields. Rendered-QA follow-ups: wrap control labels, give quick pump/reel taps and accessible button activation one bounded six-frame nudge without doubling held inputs, and focus the visible completion button after lantern victory.",
-        "Pass 2: a fall-heavy live crossing exposed that the completion status always claimed a fall-free stitch. Completion feedback now derives its named awards from the same seed/fall state as scoring, handles singular/plural grammar, and repairs misleading status text in older completed saves on load."
+        "Pass 2: a fall-heavy live crossing exposed that the completion status always claimed a fall-free stitch. Completion feedback now derives its named awards from the same seed/fall state as scoring, handles singular/plural grammar, and repairs misleading status text in older completed saves on load.",
+        "Pass 3: quick touch and accessibility-button taps now queue a forgiving twelve-frame (0.2-second) nudge instead of six frames, making fine reel/pump corrections easier without changing sustained holds. The Chromium campaign now captures every completed canopy separately so later-room visual QA is durable rather than inferred from the opening screenshot."
       ],
       "tests": [
         "PASS initial 67665ba5518b586602c7ddb3ed35d986ae03bd5c: CI 39434927740, 7 engine+11 DOM, repository/candidate gates and seventeen earlier-game browser regressions. New Threadbound browser suite absent in initial checkpoint.",
@@ -1214,48 +1215,52 @@
         "Chromium desktop: four legal actual-keyboard all-seed/no-fall campaigns, real checkpoint landings, range/forecast/assist, pause, exact mid-motion reload, confirmed restart, final enabled-button focus, saved unlocks and launch/back. Touch emulation: exactly-once quick jump/six-frame reel tap, actual CDP held-touch reel/pointer release, exact moving reload/restart cancel, >=44px targets, no 390px/320px page/button-text overflow. Native RAF smoke passes; zero page errors. Full touch campaign not tested.",
         "Manual desktop pass 1: hooked/reelled first pin, collected seed, transferred with reachable-pin assistance and collected second seed; observed branch release forecast and landed on checkpoint. Jumped into range of third pin, reeled and collected third seed, pumped east, released to the far branch and kindled for 3/3 stitches with zero falls. Quick-tap no-op and overlapping labels found/corrected; completion focus issue found and regression added.",
         "Pass 2 local exact-source gates: both asset/isolation checks, 13 engine and 15 DOM/save checks pass. New regression completes an all-seed crossing after natural falls, requires a two-stitch arrival+seed summary without fall-free praise, and proves an older misleading completed save is corrected on decode.",
-        "Pass 2 managed desktop: completed the first canopy with 3/3 seeds and six recoverable falls through ordinary click controls. The live two-stitch screen exposed the false fall-free sentence; after the fix, reload visibly retained 2/3, 3/3 seeds and six falls while correcting the status to ‘arrival and every seed.’ Preview stopped."
+        "Pass 2 managed desktop: completed the first canopy with 3/3 seeds and six recoverable falls through ordinary click controls. The live two-stitch screen exposed the false fall-free sentence; after the fix, reload visibly retained 2/3, 3/3 seeds and six falls while correcting the status to ‘arrival and every seed.’ Preview stopped.",
+        "Run 54 local exact-source: both repository asset/isolation gates, JavaScript syntax, diff hygiene, all 13 engine checks and all 15 DOM/save checks pass. The four legal all-seed/no-fall routes remain 406/411/419/498 fixed steps. Managed desktop visibly opened canopy 2 and confirmed the revised 0.2-second guidance plus a 24-unit quick reel nudge.",
+        "Run 54 browser CI is pending: this runtime lacks the Playwright Chromium executable, and no workflow run attached to the connector-created source commit during the observation window. The updated regression expects a twelve-frame quick tap and emits per-canopy screenshots; no new desktop/touch pass is claimed yet."
       ],
       "quality": {
-        "enjoyment": "Two manual first-canopy runs now cover a clean three-stitch route and an imperfect all-seed recovery. Reeling/transfers and forecast-guided momentum are legible; poor release timing causes falls but safety returns preserve seeds and allow quick recovery. Full four-room subjective controls/enjoyment review remains; synthetic routes do not prove fun.",
+        "enjoyment": "Managed review now includes the opening of canopy 2 as well as two completed canopy-1 outcomes. Elevated geometry reads as a real route change, but the cloud browser cannot sustain simultaneous reel/pump input, so later-canopy subjective completion remains open; synthetic routes do not prove fun.",
         "depth": "Four compact handcrafted canopy crossings: gravity, reelable unilateral ropes, momentum transfer, branch checkpoints, optional seeds, clean-route stitches, breeze and elevated lantern. Limited authored geometry and longer progression/replay depth still need comparison; no duration claim.",
-        "polish": "Original code-drawn moth/forest/gold pins/silver seeds. Native keyboard/canvas pin/pointer/touch controls, range/trajectory guidance, assistance, jump grace, bounded quick-tap nudges, wrapping labels and terminal focus regression. Pass 2 makes earned-stitch feedback truthful for imperfect finishes and corrects older completed saves. Manual mobile/physical hardware review remains.",
-        "reliability": "Exact pass-2 source passes 13 engine+15 DOM locally; the prior source passed actual Chromium desktop/touch/native RAF and seventeen earlier-game regressions. Corrupt/concurrent/quota storage protection, motion reload, pause, restart, old saves, rope/grace/forecast invariants, terminal focus and imperfect completion text are covered within tested cases.",
+        "polish": "Original code-drawn moth/forest/gold pins/silver seeds. Native keyboard/canvas pin/pointer/touch controls, range/trajectory guidance, assistance, jump grace, wrapping labels and truthful earned-stitch prose. Pass 3 doubles bounded quick-tap nudges to a clearer 0.2-second fine adjustment and adds per-canopy screenshot evidence to the Chromium campaign.",
+        "reliability": "Current source passes both asset/isolation gates plus 13 engine and 15 DOM/save checks locally, including the bounded twelve-frame pointer/accessibility-button regression. The prior exact source passed actual Chromium desktop/touch/native RAF and all earlier-game regressions; the changed quick-tap duration and new screenshot assertions still await a new Chromium run.",
         "variety": "Actual pendulum tether physics, reel length and momentum-preserving aerial transfers distinguish this from dash rooftops and top-down cargo salvage. Compact traversal candidate, not a renamed prior loop."
       },
       "selected": false,
-      "selectionReason": "Not selected: four compact crossings and two manual first-canopy outcomes are not sufficient finished-quality evidence; all-room subjective controls, alternative seed/clean routes and replay-depth/variety comparison remain.",
+      "selectionReason": "Not selected: canopy 2 is visually distinct and the touch nudge is more forgiving, but subjective completion/control review of canopies 2–4 and exact-source browser CI remain open.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Manually play all four crossings and alternate routes, assess continuous keyboard/touch feel, transfer assistance choices and checkpoint/seed difficulty.",
-        "Review mobile screenshots, physical touch and screen-reader behavior where possible; saved imperfect completion text and reload are now manually verified.",
-        "Compare enjoyment, authored depth, polish and reliability with earlier candidates before finished/selection status; preserve development-only.",
-        "Fresh main advanced independently to 08f4526696c9542d60c96b634f256da618495623 with After Hours copy/paste backup-text recovery. Preserve that work and rebase/integrate only deliberate selected files in a future integration pass."
+        "Obtain exact-source Chromium CI for the twelve-frame touch nudge and inspect the four per-canopy screenshots; do not reuse the prior source's browser result as if it covered this change.",
+        "Complete subjective canopies 2–4 continuous-control review in a browser that can sustain simultaneous inputs; assess transfer choices, checkpoint/seed difficulty and replay variety.",
+        "Review physical touch and screen-reader behavior where possible, then compare enjoyment/depth/polish/reliability with finished candidates before changing status or selecting.",
+        "Preserve public main and concurrent Study Desk/After Hours/requested-GitHub-games/Gummy Bay work; integrate only deliberate winners later."
       ],
       "developmentCommits": [
         "67665ba5518b586602c7ddb3ed35d986ae03bd5c",
         "496e4c8edb62b5bd8fe2d18bc25ce9576c715d63",
         "43bc5eed6f5d3f22bec1c1475511670faf137770",
         "f44192253378a49ba7822af5ef336d6e36cc64f4",
-        "a9617317700bfafb1504343501fb47232461897d"
+        "a9617317700bfafb1504343501fb47232461897d",
+        "c36f6e6d03a73ec58cc0765441c5a4437d725b1a"
       ],
       "verification": {
-      "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39671296613",
-      "testedCommit": "a9617317700bfafb1504343501fb47232461897d",
-        "conclusion": "success",
-        "desktop": "Four actual-keyboard all-seed/no-fall crossings, real checkpoint landings, range/forecast/assist, exact mid-motion reload, pause/restart confirmation, visible enabled completion-button focus, saved unlocks and workshop launch/back. Zero page errors.",
-        "touch": "Final source: exactly-once quick jump/six-frame quick reel tap, real CDP held-touch reel/pointer release, exact moving reload/restart cancel, >=44px controls and no 390px/320px page/button-text overflow. Full touch campaign not tested.",
-      "manual": "Two managed first-canopy completions: an earlier clean 3/3 route and pass 2's ordinary-control all-seed recovery with six falls. Pass 2 exposed a false fall-free award sentence; after the fix, reload visibly retained the accurate 2/3 result and changed the persisted status to arrival+every seed only. Preview stopped.",
+        "runUrl": null,
+        "testedCommit": "c36f6e6d03a73ec58cc0765441c5a4437d725b1a",
+        "conclusion": "pending",
+        "desktop": "Current engine routes and managed visual opening of canopy 2 pass. The prior source completed four actual-keyboard browser campaigns, but that result is not claimed for the changed exact source.",
+        "touch": "Managed preview shows the revised 0.2-second guidance and a 24-unit quick reel nudge. Local DOM tests prove bounded twelve-frame pointer/accessibility-button taps; updated Chromium tap/held-touch assertions are committed but exact-source browser CI is pending. Full touch campaign is not tested.",
+        "manual": "Two earlier managed canopy-1 completions remain valid context. Run 54 opened the elevated second canopy and exercised its safety return; sustained simultaneous input is unsupported by this cloud browser, so later subjective completion is not claimed.",
         "notVerified": [
-          "Subjective enjoyment and alternative-route replay depth across all four canopies",
-        "Subjective controls/enjoyment review for canopies 2–4",
-          "Manual mobile layout review, physical touch hardware and screen-reader behavior",
+          "Exact-source Chromium desktop/touch regression after pass 3",
+          "Subjective continuous-control completion and replay depth across canopies 2–4",
+          "Physical touch hardware and screen-reader behavior",
           "Full touch-controlled campaign",
+          "Independent human enjoyment",
           "20 hours of worthwhile gameplay or testing",
           "Public catalogue integration/deployment"
         ],
-      "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39671296613/artifacts/12379088136"
+        "screenshotArtifact": null
       }
     },
     {
@@ -2055,18 +2060,30 @@
       "verifiedCommit": "4de17e9ec34eddfb5fc3289ce7c38bef191ef74f",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39532503890",
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 54,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 17,
+      "publishedTotal": 0,
+      "summary": "Threadbound pass 3 doubles quick touch/accessibility-button nudges from six to twelve frames (0.2 seconds) and adds per-canopy screenshot capture to the exact four-route Chromium campaign. Managed preview opened canopy 2 and visibly confirmed the revised guidance/24-unit reel nudge. Both asset gates plus 13 engine and 15 DOM/save checks pass; exact-source Chromium CI is pending because local Chromium is unavailable and no workflow attached during this run. Candidate remains playable, not finished/selected; public main unchanged.",
+      "implementationCommit": "c36f6e6d03a73ec58cc0765441c5a4437d725b1a",
+      "verifiedCommit": null,
+      "ciUrl": null,
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/44passes;17finished; Glasshouse completed its visible six-exhibition finish gate;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/45passes;17finished; Threadbound pass3 improves touch nudges and later-canopy QA capture;0selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 17,
     "selected": 0,
     "published": 0,
-    "next": "Compare the seventeen finished candidates directly while completing Threadbound canopies2–4, Roof Runner full-route and Last Match sustained-combat finish gates. No new slots.",
+    "next": "Compare the seventeen finished candidates directly while obtaining Threadbound pass3 Chromium evidence and completing its canopies2–4 finish gate, plus Roof Runner full-route and Last Match sustained-combat review. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
 }
-

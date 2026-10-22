@@ -1,3 +1,24 @@
+# Run 54 · Threadbound touch-control pass
+
+**20/20 playable prototypes · 20 improved games · 45 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Threadbound remains development-only, but its third improvement pass addresses a concrete control issue found while extending visible review beyond the first canopy. Quick touch and accessibility-button taps now queue a twelve-frame (0.2-second) nudge instead of six frames, so fine reel/pump corrections are less likely to disappear before the player can read them. Sustained holds are unchanged. The exact Chromium campaign now writes one screenshot after each completed canopy rather than preserving only the opening room.
+
+A managed preview opened the elevated second canopy, exercised an imperfect safety return and visibly confirmed the revised 0.2-second guidance plus a 24-unit quick reel nudge. The cloud browser cannot sustain simultaneous reel/pump input, so I am not claiming a subjective completion of canopies 2–4. Threadbound stays **playable, not finished and not selected**.
+
+## Evidence
+
+- Source commit: [c36f6e6](https://github.com/ThatOneMop/study-desk/commit/c36f6e6d03a73ec58cc0765441c5a4437d725b1a).
+- Local exact-source checks pass: both repository asset/isolation gates, JavaScript syntax, diff hygiene, all 13 engine checks and all 15 DOM/save checks; legal all-seed/no-fall routes remain 406/411/419/498 fixed steps.
+- The managed preview visibly shows the updated onboarding and the doubled reel nudge in canopy 2.
+- Exact-source Chromium remains pending: this runtime has no Playwright browser executable, and no workflow run attached to the connector-created commit during the observation window. The prior successful CI is context only, not falsely reused for the changed source.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; nothing was added to the public catalogue.
+
+## Next
+
+Obtain exact-source browser CI and inspect the four screenshot artifacts, then complete canopies 2–4 in a continuous-input browser. Keep the candidate off the finished and public lists until those gates clear.
+
+
 # Run 53 · Glasshouse finish gate
 
 **20/20 playable prototypes · 20 improved games · 44 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
