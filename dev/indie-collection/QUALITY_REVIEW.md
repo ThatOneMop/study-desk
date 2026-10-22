@@ -2,6 +2,12 @@
 
 20 playable prototypes; all20 have at least one meaningful improvement, with52 meaningful passes total. **Tidepost, Scrap Orbit, Stone Song, Bolt & Bristle, Burrow Express, Inkline, Spore Kitchen, Deep Pocket, Queen of Cinders, Little Foundry, Storm Signal, Circuit Garden, Pocket Expedition, Moss Market, Rain Catcher, Echo Vault and Glasshouse are finished candidates; none is selected or publicly integrated.** This is a source/evidence comparison with seventeen complete agent-driven campaigns plus bounded live reviews, not a20-game human-player study, numerical fun rating or content-hours claim. Keep exactly20 candidate slots.
 
+## Evidence-backed finalist slate
+
+Nine finished candidates advance to integration review: **Tidepost, Deep Pocket, Queen of Cinders, Little Foundry, Scrap Orbit, Inkline, Pocket Expedition, Echo Vault and Glasshouse.** They provide the clearest demonstrated combination of progression, requested-taste fit, control polish, campaign depth, reliability and distinct loops. Fishing, colony building, manual craft, roguelike/extraction and action are explicitly covered; ferry logistics, stealth and breeding broaden the set.
+
+This is still preselection: all nine retain `selected: false`, none has a public URL, and public `main` is unchanged. `SELECTION_MATRIX.md` records individual reasons and reserve decisions; `finalists.json` is the machine-readable source; `tests/indie-selection-gate.py` rejects unfinished, duplicated, incompletely tested or prematurely published entries. Spore Kitchen, Bolt & Bristle, Stone Song, Burrow Express, Storm Signal, Circuit Garden, Moss Market and Rain Catcher remain finished reserves rather than rejected or deleted work.
+
 ## First taste-aligned comparison (updated after Roof Runner’s fifth pass)
 
 | Candidate | Enjoyment/decision evidence observed this review | Depth and progression | Polish/reliability | Decision |
@@ -59,7 +65,7 @@ The ledger remains authoritative for exact commits/tests and all five quality di
 
 ## Next quality gates
 
-1. Compare the seventeen finished candidates—Tidepost, Scrap Orbit, Stone Song, Bolt & Bristle, Queen of Cinders, Deep Pocket, Burrow Express, Inkline, Spore Kitchen, Little Foundry, Storm Signal, Circuit Garden, Pocket Expedition, Moss Market, Rain Catcher, Echo Vault and Glasshouse—on alternate routes, replay enjoyment, authored depth, reliability and variety. None is selected yet. Obtain current-source Chromium for Roof Runner, Last Match and Threadbound; continue Roof Runner full-route, Last Match later-combat and Threadbound later-canopy reviews.
+1. Re-run the finalist gate and stage the nine finalists against fresh `main`; only candidates passing catalogue launch/navigation, combined regressions and deployment verification may become selected/public. None is selected yet. Obtain current-source Chromium for Roof Runner, Last Match and Threadbound where time permits; continue Roof Runner full-route, Last Match later-combat and Threadbound later-canopy reviews.
 2. Review manual-poor candidates rather than ranking them from green tests. Automated solvability is reliability evidence, not fun.
 3. Before “finished”: resolve concrete controls/onboarding/balance bugs; validate saves/restart, keyboard/touch where supported and launch/navigation; document authored scope honestly.
 4. Before “selected”: compare enjoyment, depth, polish, reliability and variety, give reasons and useful exclusions. Only then integrate scoped selected source/catalogue files against fresh main with combined regressions. Never merge this historical development branch wholesale.

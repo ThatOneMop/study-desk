@@ -1,3 +1,22 @@
+# Run 63 · Evidence-backed finalist slate
+
+**20/20 playable prototypes · 20 improved games · 52 meaningful improvement passes · 17 finished · 9 preselection finalists · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Comparative review narrows the finished pool to **Tidepost, Deep Pocket, Queen of Cinders, Little Foundry, Scrap Orbit, Inkline, Pocket Expedition, Echo Vault and Glasshouse**. They collectively cover the requested fishing, colony, satisfying manual-work, roguelike/extraction and action tastes, plus distinct ferry logistics, stealth and breeding loops. The decision uses campaign depth, reliability, control polish, taste fit and collection variety; it does not claim a numerical fun score or independent human-player preference.
+
+## Evidence
+
+- Finalist manifest, individual reasons, eight-candidate reserve pool and executable gate: [2641369](https://github.com/ThatOneMop/study-desk/commit/2641369f59dec8fbd888924b8b7d770e729af070).
+- `python3 tests/indie-selection-gate.py` passes: nine unique core loops; every finalist is finished and improved; source and engine/DOM/browser suites exist; recorded passing Chromium evidence exists; requested tastes are covered; selection/publication remain zero.
+- Threadbound's pointer-capture lifecycle was re-audited. Its existing ordering intentionally clears pending input before an unexpected loss and preserves an already-created queue after normal `pointerup`; no defect or artificial sixth pass was claimed.
+- Spore Kitchen, Bolt & Bristle, Stone Song, Burrow Express, Storm Signal, Circuit Garden, Moss Market and Rain Catcher remain complete development reserves. Nothing was discarded.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no catalogue or deployment change was made.
+
+## Decision and next gate
+
+“Finalist” is not “selected.” All candidate `selected` flags remain false and all `publishedUrl` values remain null. The next gate is scoped fresh-main integration followed by catalogue launch/navigation, save/restart, keyboard/touch-emulated controls, combined repository regression and deployment verification. A failing finalist stays development-only and may be replaced by the best-fitting finished reserve.
+
+
 # Run 62 · Pointer capture lifecycle pass
 
 **20/20 playable prototypes · 20 improved games · 52 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
