@@ -43,9 +43,9 @@ SELECTED = {
         "style.css": "2aa171b456c8abc863c0bfe2d8720b8b8151a174b0e968ae34ba1777a93a87f5",
     },
     "echo-vault": {
-        "engine.js": "0f4afbb64825ac52fee27bc534a612920106fb61035980e7980632f64048ce7d",
-        "game.js": "86302fa9f26267c4322ae6bfd0030819c02d1a1dcc706a3cc3e9d9d2bf03f1b5",
-        "style.css": "5c59de15c7da4bf20518dfe6bbbe569c8e763547251ff6cd84199890ff650a35",
+        "engine.js": "2df0dee521d9557f04046d10c6b19ce8726312647023ee13f7130330fbd95492",
+        "game.js": "6c431e567543241ceeade1fd07d706d8aa442cc87f68a0cffa9ad61940607709",
+        "style.css": "580cfbb122b9362d833d23bbd67c9483d72fc796257b8e93c2e8d8ae8a13a1f4",
     },
     "glasshouse": {
         "engine.js": "7270d56fc86194dc5997321ccf7b240af0f7391d2edad2ce1f7ea78b39168264",
