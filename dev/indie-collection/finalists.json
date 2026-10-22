@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "status": "preselection-finalist",
+  "decisionDate": "2026-10-22",
+  "policy": "Finalists are finished, tested development candidates. This manifest does not select, publish or modify the public catalogue.",
+  "candidates": [
+    {
+      "id": "tidepost",
+      "testStem": "tidepost",
+      "fit": ["progression", "planning"],
+      "reason": "Six authored ferry charts combine tides, currents, hull risk, two-dock routing and upgrade choices with complete campaign evidence."
+    },
+    {
+      "id": "deep-pocket",
+      "testStem": "deep-pocket",
+      "fit": ["fishing", "progression"],
+      "reason": "The fishing loop couples deliberate tension control with species stewardship, authored trips and two complete campaign routes."
+    },
+    {
+      "id": "queen-of-cinders",
+      "testStem": "queen-cinders",
+      "fit": ["colony", "progression"],
+      "reason": "Connected ant trails, worker allocation and fire recovery deliver the collection's clearest compact colony-building arc."
+    },
+    {
+      "id": "little-foundry",
+      "testStem": "little-foundry",
+      "fit": ["manual", "progression"],
+      "reason": "Alloy weighing, heat control and section-wise pouring produce a satisfying manual craft loop across six distinct commissions."
+    },
+    {
+      "id": "scrap-orbit",
+      "testStem": "scrap-orbit",
+      "fit": ["action", "progression"],
+      "reason": "Inertial towing, cargo coupling and gentle docking provide the strongest completed action game and a distinct control texture."
+    },
+    {
+      "id": "inkline",
+      "testStem": "inkline",
+      "fit": ["roguelike", "progression"],
+      "reason": "Card drafting, ink economy and route exploration support alternate successful lines across a fully completed five-volume campaign."
+    },
+    {
+      "id": "pocket-expedition",
+      "testStem": "pocket-expedition",
+      "fit": ["roguelike", "progression"],
+      "reason": "Tool loadouts, shared food and cargo, and extraction risk create a compact push-your-luck campaign with proven build variety."
+    },
+    {
+      "id": "echo-vault",
+      "testStem": "echo-vault",
+      "fit": ["stealth", "action"],
+      "reason": "Directional beams, weighted sound and reusable decoys give the slate a reliable turn-based stealth game with ghost routes."
+    },
+    {
+      "id": "glasshouse",
+      "testStem": "glasshouse",
+      "fit": ["breeding", "progression"],
+      "reason": "Genetic breeding and spatial light planning add a distinctive long-form systems puzzle with six completed exhibitions."
+    }
+  ]
+}
