@@ -1,3 +1,22 @@
+# Run 66 · Finalist presentation and regression hardening
+
+**20/20 playable · 20/20 improved · 52 meaningful improvement passes · 20/20 finished · 9 selected · 0 live URLs.** Exactly 20 candidate slots retained.
+
+The development workshop now presents the nine selected games as selected public-source releases and the other eleven as finished reserves. The nine selected development pages use the same release-facing copy as their public-source counterparts while returning to the workshop. Stale “not selected” language and preselection next steps were removed; no public-main files or live-deployment claims changed.
+
+## Evidence
+
+- Finalist presentation/source alignment: [d313b16](https://github.com/ThatOneMop/study-desk/commit/d313b16f01f4496270bad6075887150744deeaef), with workshop-navigation coverage corrected in [3c36954](https://github.com/ThatOneMop/study-desk/commit/3c369543a2b805b96be06d9d9bb166d3d12d4eae).
+- The asset gate now derives and verifies exactly nine selected and eleven reserve labels from the 20-slot ledger, and rejects stale development-only copy in selected pages.
+- Scrap Orbit’s deterministic browser clock now supplies `performance.now` as well as animation frames, matching the production visibility bridge without lowering its thrust/brake thresholds: [e366d95](https://github.com/ThatOneMop/study-desk/commit/e366d958e3debb13cbac394c27d2585fc35612c6).
+- Last Match still requires five deterministic three-medal routes. Its separate real-clock campaign requires five genuine completions with at least two medals each, avoiding a false failure when runner load alone misses the optional speed medal: [8cdf02a](https://github.com/ThatOneMop/study-desk/commit/8cdf02abaedda6c7971a71815a1546b91fb56b02).
+- [Workflow 39782284539](https://github.com/ThatOneMop/study-desk/actions/runs/39782284539) passed repository assets, exact 20-slot/source isolation, all 20 engine suites, all 20 DOM/save suites, every desktop/touch Chromium suite and screenshot capture at exact head [`1c236f0`](https://github.com/ThatOneMop/study-desk/commit/1c236f0c5b7ef93c322c1f1184ab33fb63d29fd4).
+
+## Decision and limits
+
+The selected slate and quality ordering are unchanged: Tidepost, Deep Pocket, Queen of Cinders, Little Foundry, Scrap Orbit, Inkline, Pocket Expedition, Echo Vault and Glasshouse remain the nine public-source choices. Public `main` remains `a9aa7b0`; GitHub Pages configuration is still blocked by repository access, so there are no honest live game URLs. Physical-device touch, screen-reader output and independent human enjoyment remain unclaimed.
+
+
 # Run 65 · All twenty finish gates closed
 
 **20/20 playable · 20/20 improved · 52 meaningful improvement passes · 20/20 finished · 9 selected · 0 live URLs.** Exactly 20 candidate slots retained.
