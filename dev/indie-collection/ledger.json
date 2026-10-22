@@ -555,47 +555,50 @@
       "status": "finished",
       "source": "dev/indie-collection/scrap-orbit/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 3,
+      "meaningfulImprovementPasses": 4,
       "changes": [
         "Initial playable: five original salvage fields; real-time inertia, spring-damped mass-aware cable towing, slow docking, debris collisions, hull failure, medals/records, two upgrades, retries and guarded versioned local saves.",
         "Pass 1: exact nonmutating docking/coupling telemetry and cargo bearings, drift vector and coupling reticle; 560-unit tug-following mobile camera with offscreen labels; sub-frame touch thrust latch consumed exactly once; lower DOM redraw frequency and modal/background action guards; correct same-origin Study Desk visibility protocol; deeper physical/economy/status save validation.",
         "Pass 2: add a live docking approach board for tethered cargo with exact beacon range, cargo speed, radial closing/away drift and context cues for alignment, braking, turnaround and safe docking; mirror the state in an accessible label and responsive two-column mobile layout without changing physics, thresholds, save format or content counts.",
-        "Pass 3: latch each fresh keyboard or pointer thrust/brake press for exactly one physics step so quick taps cannot vanish between animation frames; retain an eight-frame visible and accessible control highlight; draw direction-specific thruster plumes and a brake ring without changing physics, thresholds, save format or authored content."
+        "Pass 3: latch each fresh keyboard or pointer thrust/brake press for exactly one physics step so quick taps cannot vanish between animation frames; retain an eight-frame visible and accessible control highlight; draw direction-specific thruster plumes and a brake ring without changing physics, thresholds, save format or authored content.",
+        "Pass 4: add a continuously adjustable 38–86m towing winch. Short cable produces a stronger, tighter pull while paid-out cable enables gentler wide arcs; dedicated Q/R and touch controls, bounded save state, legacy migration, live cable/tension readout, high-tension guidance and accessible narration expose the new choice without invalidating the five original routes."
       ],
       "tests": [
         "7 local engine checks pass: all five baseline three-medal recoveries in 2258/5221/4948/5272/5611 simulated ticks, every-tick saves, actual repeated-impact loss/retry, inertia/braking, upgrade accounting and malformed saves. DOM checks authored, pending execution.",
         "After pass: 10 local engine checks pass, including exact telemetry nonmutation, null/malformed nested saves, forged status rejection and 80 deterministic exploratory attempts (120,000 simulated frames). 13 DOM cases and actual Chromium desktop/native-clock/touch-emulated tests authored, pending exact-source CI.",
         "PASS exact-source GitHub Actions 39369531384 at e184c8633067726b626139234791dac25d9adff9: full repository assets, 44 candidate references/exact20/isolation, 10 engine + 13 DOM checks, Chromium five legal recoveries through DOM keyboard input, native keyboard and native-clock RAF smoke, 390px/320px touch emulation. All seven earlier candidates engine/DOM/browser regressions pass. Actual job steps and decoded logs inspected.",
         "PASS exact-source GitHub Actions 39520905091 at f331a7a4479f716e73c306f6f568a50b92d66ab6: 10 engine + 14 DOM checks, deterministic Chromium five-job three-medal campaigns, explicit inside-range/too-fast/away approach-board state, native-clock smoke, responsive board at 390px/320px, all 19 other-game regressions, exact20-slot/116-reference/isolation gates and zero page errors. Terminal status, steps and decoded logs inspected.",
-        "PASS exact-source GitHub Actions 39599515303 at 3b5932c4b5cbf518da8b1dbf149136c34d9e6394: 10 engine + 15 DOM checks, fresh keyboard/pointer tap latching and transient accessible feedback, deterministic Chromium all-five three-medal recovery campaign, native-clock RAF smoke, responsive 390px/320px touch emulation, all 19 other-candidate regressions, exact20-slot/reference/isolation gates and visual evidence. Terminal job steps and decoded logs inspected."
+        "PASS exact-source GitHub Actions 39599515303 at 3b5932c4b5cbf518da8b1dbf149136c34d9e6394: 10 engine + 15 DOM checks, fresh keyboard/pointer tap latching and transient accessible feedback, deterministic Chromium all-five three-medal recovery campaign, native-clock RAF smoke, responsive 390px/320px touch emulation, all 19 other-candidate regressions, exact20-slot/reference/isolation gates and visual evidence. Terminal job steps and decoded logs inspected.",
+        "PASS exact-source GitHub Actions 39850051270 at a27c3b4501286b58513e9aff4211130f9f0dbb63: repository/selection gates, all20 engine and DOM/save suites, every desktop/touch Chromium regression and screenshot capture. Scrap Orbit contributes13 engine +16 DOM checks covering distinct winch force,38/86m bounds, Q/R and pointer control, live tension narration, legacy-save migration and the unchanged five-job three-medal campaign."
       ],
       "quality": {
         "enjoyment": "An exact-browser campaign completed all five jobs and every cargo recovery through the game’s DOM keyboard path for three medals per job. A separate managed preview used genuine native controls: the pass2 build overshot and required braking; quick corrective taps lacked dependable feedback, while pass3 visibly latched a down burst, announced the control active, cleared the highlight and produced movement. This supports functional control feel, not a human fun score.",
-        "depth": "Five authored salvage fields vary cargo mass, obstacles, dock position and gravity swirl; baseline routes take approximately 38/87/82/88/94 simulated seconds. The approach board and pass3 input feedback clarify the existing towing decisions without padding content or changing physics. Compact campaign scope is complete, not a playtime-hours claim.",
-        "polish": "Original canvas night-depot identity now gives direction-specific thruster plumes, a brake ring and eight-frame control highlights with aria-pressed state. Exact range/speed/radial-drift docking guidance, following mobile camera and offscreen labels remain. CI covers >=44px controls and 390px/320px fit; physical hardware remains open.",
-        "reliability": "Exact CI passes 10 engine + 15 DOM checks, all five legal browser recovery campaigns, native-clock movement/pause/retry, quick touch and keyboard tap latching, saves/reload, upgrades/navigation, 120,000 exploratory physics frames and all 19 other-candidate regressions with zero game page errors.",
+        "depth": "Five authored salvage fields vary cargo mass, obstacles, dock position and gravity swirl; baseline routes take approximately 38/87/82/88/94 simulated seconds. The 38–86m winch adds a real heavy-tow choice between tight strong pulls and gentle wide arcs without padding content; the original neutral-length routes remain legal. Compact campaign scope is complete, not a playtime-hours claim.",
+        "polish": "Original canvas night-depot identity gives direction-specific thruster plumes, a brake ring and latched control feedback. The approach board now combines exact docking range/speed/drift with winch length, live tension, high-tension guidance and equivalent accessible narration. CI covers dedicated keyboard/pointer controls, >=44px touch targets and390/320px fit; physical hardware remains open.",
+        "reliability": "Exact CI passes13 engine +16 DOM checks, all five legal browser recovery campaigns, native-clock movement/pause/retry, winch bounds/force/legacy migration, keyboard/pointer input, saves/reload, upgrades/navigation,120,000 exploratory physics frames and all19 other-candidate regressions with zero game page errors.",
         "variety": "Distinct continuous inertia, spring-damped mass-aware cable towing, slow docking, obstacle lanes and swirl fields; mechanically separate from the collection’s fishing, colony, puzzle, platform and turn-based route games."
       },
       "selected": true,
       "selectionReason": "Selected as the strongest completed action candidate: inertial towing, cargo coupling and gentle docking give it a responsive, distinctive control texture.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed", "029577663e22da3101ae4c270e855bb1b556b734"],
       "publishedUrl": null,
       "nextSteps": [
-        "Try an alternate heavy-field route while retaining the five-job real-time regression suite; automated reliability is not a human-player study.",
-        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+        "Compare deliberate short-cable and paid-out heavy-field routes with independent players; automated force and campaign evidence is not a human enjoyment study.",
+        "Enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
         "aecbf32e3f7b28a59ea2944ca8d595b2b735335b",
         "e184c8633067726b626139234791dac25d9adff9",
         "f331a7a4479f716e73c306f6f568a50b92d66ab6",
-        "3b5932c4b5cbf518da8b1dbf149136c34d9e6394"
+        "3b5932c4b5cbf518da8b1dbf149136c34d9e6394",
+        "a27c3b4501286b58513e9aff4211130f9f0dbb63"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39599515303",
-        "testedCommit": "3b5932c4b5cbf518da8b1dbf149136c34d9e6394",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39850051270",
+        "testedCommit": "a27c3b4501286b58513e9aff4211130f9f0dbb63",
         "conclusion": "success",
-        "desktop": "10 engine + 15 DOM and real Chromium: native keyboard thrust/brake/pause/retry, quick keyboard tap latch with transient aria-pressed feedback, exact saved reload, all five legal three-medal DOM-keyboard recovery campaigns, records, workshop/navigation and zero game page errors.",
-        "touch": "390x844 quick thrust exactly once, pause/retry, responsive approach board, 560-unit following camera, >=44px visible buttons and no page overflow at 390px/320px.",
+        "desktop": "13 engine +16 DOM and real Chromium: distinct short/long-cable force, bounded Q/R winch control, accessible tension board, legacy migration, native thrust/brake/pause/retry, exact saved reload and all five legal three-medal DOM-keyboard recovery campaigns with zero page errors.",
+        "touch": "Pointer winch control plus390x844 quick thrust, pause/retry, responsive five-cell approach board,560-unit following camera, >=44px visible buttons and no page overflow at390px/320px.",
         "manual": "Managed local-only desktop review used genuine start/resume, held thrust/brake and quick keyboard control. The pass2 run overshot and recovered toward salvage but did not complete a cargo delivery. Source inspection identified that keyboard taps could be released between RAF frames while pointer taps alone had a pulse latch. Pass3 then visibly showed the Down control active/aria-pressed true for a quick press, cleared it after the feedback window and moved the tug to 1m/s. The complete five-job gate is supplied by exact-source Chromium keyboard campaigns, not claimed as unscripted human play.",
         "notVerified": [
           "Independent human-player enjoyment or replay-depth study",
@@ -603,7 +606,7 @@
           "Manual mobile screenshot/layout review",
           "Physical touch hardware and screen-reader output",
           "20 hours of worthwhile content or testing",
-          "Public catalogue integration/deployment"
+          "GitHub Pages deployment and live-route verification"
         ]
       }
     },
@@ -2410,10 +2413,23 @@
       "verifiedCommit": "67d062ce7c8295c62ac77b6696a97ea93c5d9f59",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39840912154",
       "inspectedMainCommit": "2338831dd6542a001714282325baccdc97752383"
+    },
+    {
+      "run": 74,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Scrap Orbit received meaningful pass4, bringing the20-game collection to59 recorded passes. A dedicated38–86m winch now makes short-cable strong/tight towing and paid-out gentle/wide towing distinct, with Q/R and pointer controls, live tension guidance and legacy-save migration. Exact development a27c3b4 passed repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshots in CI39850051270; Scrap Orbit contributes13 engine+16 DOM checks while retaining all five three-medal routes. The aligned selected source passed fresh-main route/assets and nine-source-hash gates and was promoted to public main0295776. Release workflow39852548879 passed19 route/assets and all selected hashes, then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "a27c3b4501286b58513e9aff4211130f9f0dbb63",
+      "verifiedCommit": "a27c3b4501286b58513e9aff4211130f9f0dbb63",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39850051270",
+      "inspectedMainCommit": "029577663e22da3101ae4c270e855bb1b556b734"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with58 passes; nine selected/source-integrated on public main2338831 including fully verified Pocket Expedition pass3;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "All20 candidates playable, improved and finished with59 passes; nine selected/source-integrated on public main0295776 including fully verified Scrap Orbit pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2431,7 +2447,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39842072296 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39852548879 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
