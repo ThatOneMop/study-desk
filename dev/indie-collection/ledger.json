@@ -371,12 +371,13 @@
       "status": "finished",
       "source": "dev/indie-collection/deep-pocket/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 3,
+      "meaningfulImprovementPasses": 4,
       "changes": [
         "Initial playable: five handcrafted field trips, six original fish pull patterns, bank/depth/tide selection, deliberate tension controls, keep/release/survey goals, escape/cast limits, best-only medals, equipment, journal and versioned autosaves with corrupt/concurrent-write protection.",
         "Pass 1: exact nonmutating tension/distance/escape/landing forecasts and catch-decision goal forecasts; one-step undo reverses cast, fight, escape, journal, catch decision and full medal reward; navigation/upgrades/retry clear history. Stall accepts only one kept fish per species per trip and nursery goals require distinct released species, removing repeated high-value farming. Field guide warns about duplicate stocking/releases, catches focus a valid enabled decision, and saves validate duplicate catches and impossible losses.",
         "Pass2 from observed review gaps: pure nine-water habitat chart shows current species/value, survey needed/recorded, stocked/new-release status, with exact next-two-tide predictions at selected water. Native chart activation sets bank/depth together without casting.160-action session fishing history retains all possible actions in one trip; bank/depth/chart browsing neither adds nor clears history. Undo restores exact earlier fishing location, catches, escapes, journal and medal rewards; upgrades/retry/navigation/reload clear history. Restored/stage focus is centered only when clipped, not during ordinary visible actions. Existing v1 saves, fish patterns, currents, goals, values, cast limits and upgrades unchanged.",
-        "Pass3 addresses the measured late-trip high-value trio repetition with one authored keep/release stewardship task per field trip. Copper Reeds and Threadwater require returning Ribbon Perch; Blue Sink protects Velvet Pike; Bell Pool requires releasing Moon Koi and reaching95 shells from the other species, producing an all-six-species finale. A released species cannot later be sold in that trip, closing release-then-sell double-dipping. Chart, sonar, goal and landing previews expose exact tasks. New runs use current rules while legacy v1 run bytes remain loadable and adopt them on retry."
+        "Pass3 addresses the measured late-trip high-value trio repetition with one authored keep/release stewardship task per field trip. Copper Reeds and Threadwater require returning Ribbon Perch; Blue Sink protects Velvet Pike; Bell Pool requires releasing Moon Koi and reaching95 shells from the other species, producing an all-six-species finale. A released species cannot later be sold in that trip, closing release-then-sell double-dipping. Chart, sonar, goal and landing previews expose exact tasks. New runs use current rules while legacy v1 run bytes remain loadable and adopt them on retry.",
+        "Pass4 resolves the documented alternate-route gap with an optional Conservation field brief before the first cast. It trades20 required shells for one extra distinct release, capped at three, while preserving every trip's cast limit, medals, named stewardship task and manual bank/depth/tide choices. The brief locks after casting, survives save/reload and fishing-action undo, and old saves without a brief remain Balanced. Five alternate three-medal routes now complete in3/4/5/5/6 casts with2/2/3/3/3 releases; the public copy also corrects the stale six-trip footer to the actual five trips."
       ],
       "tests": [
         "Initial checkpoint 71e6cc164e242d22118dd705768344d237aec348 passed CI 39358346752: full repository assets, candidate gate, 8 engine + 11 DOM checks. Browser step at this checkpoint covered earlier games only, NOT Deep Pocket.",
@@ -389,22 +390,25 @@
         "Pass3 local:19 engine checks passed. All five authored stewardship trips solve for3 medals in2/3/4/5/6 casts and17/25/37/48/59 fishing beats; Bell Pool uses all six species. Contract choice, release-then-sell guard, exact decision forecasts, legacy no-rules save loading/current-rule retry, every-action serialization and200 exploratory trips pass.",
         "Pass3 normal-UI opening: visible Lantern Dace release task, exact release preview and completed goal; re-caught the released Dace at another habitat and confirmed Keep disabled. This exposed and corrected the misleading 'already stocked' label to 'already handled'. This is bounded rule/feedback evidence, not a new full subjective campaign.",
         "PASS exact source ba87bd9a in GitHub Actions39558192584: root asset gate; exact20 slots/selection isolation/116 references;19 engine+25 DOM; real Chromium five three-medal stewardship trips with all-six-species finale, chart/multi-undo, desktop/touch/reload/retry/navigation; all19 other-candidate regressions. Terminal state and decoded logs inspected; screenshot artifact12326457757 retained.",
-        "Finish-gate managed-browser campaign on exact ba87bd9a: all five revised stewardship trips completed through ordinary visible controls for15/15 medals,0 escapes and2/3/4/5/6 casts. The six-cast Bell Pool route released protected Moon Koi plus Lantern Dace, kept Velvet Pike/Copper Bream/Glass Loach/Ribbon Perch for102/95 shells, and left all six species in the saved journal. Reload after trip3 restored trip4 at9 medals; retry had already reset trip1 through its confirmation UI. No game-origin console errors observed; extension metadata errors excluded."
+        "Finish-gate managed-browser campaign on exact ba87bd9a: all five revised stewardship trips completed through ordinary visible controls for15/15 medals,0 escapes and2/3/4/5/6 casts. The six-cast Bell Pool route released protected Moon Koi plus Lantern Dace, kept Velvet Pike/Copper Bream/Glass Loach/Ribbon Perch for102/95 shells, and left all six species in the saved journal. Reload after trip3 restored trip4 at9 medals; retry had already reset trip1 through its confirmation UI. No game-origin console errors observed; extension metadata errors excluded.",
+        "Pass4 local exact source:21 engine and27 DOM/save checks passed. Both five-trip route families complete for15/15 medals; Conservation routes use3/4/5/5/6 casts,2/2/3/3/3 distinct releases and42/64/70/70/84 shells. Brief selection, exact targets, lock, undo, reload, legacy default, tamper rejection and footer correction pass. Repository assets, exact20 slots/9 selected/11 reserves/120 references, all20 engine suites and all20 DOM/save suites pass locally.",
+        "PASS exact development5db9269d7b0faba508c3a45c8eeaba5330bc7112 in GitHub Actions39862617223/job120116833325: repository/selection gates, all20 engine and DOM/save suites, every desktop/touch Chromium regression and screenshots. Deep Pocket contributes21 engine+27 DOM checks, both five-trip campaigns, visible-control alternate routes, plan focus/locking/undo/reload, >=44px controls and no390/320 overflow. Decoded logs inspected; screenshot artifact12462798091 retained.",
+        "Public main e5d67c4894c472f63e4695b6f677d72c026d796f contains aligned Deep Pocket engine/game/style and public navigation. Release workflow39864412030 passed19 route/assets and all nine selected-source hashes, then failed Configure GitHub Pages before upload/deploy; no live URL is claimed."
       ],
       "quality": {
-        "enjoyment": "Two ordinary-UI full campaigns are now complete: the prior pre-stewardship trip1–5 run and a fresh pass3 campaign for15/15 medals with0 escapes. The revised trips3–5 made protected releases, Ribbon Perch returns and a six-species finale materially change catch decisions without timers or extra counts. This is agent-driven completion, not a human fun score; alternate-route replay comparison remains.",
-        "depth": "Five trips/six pull patterns/two upgrades add distinct species/action contracts. The full UI finale released protected Moon Koi plus Lantern Dace and funded102/95 shells with Velvet Pike, Copper Bream, Glass Loach and Ribbon Perch, using all six species in six casts. Release-then-sell double-dipping is blocked. Alternative legal routes/build ordering remain selection evidence, not a finish blocker.",
-        "polish": "Original underwater art, nine-water chart, exact three-tide forecast and multi-action recovery retained. Goals, sonar, chart and landing previews expose each keep/release task. The finished full campaign remained readable through late trips; reload resumed trip4 exactly and the journal showed all six species. Chromium verifies >=44px controls and no390/320px overflow; physical touch/screen-reader review remains.",
-        "reliability": "Exact ba87bd9a passes19 engine+25 DOM, five-trip Chromium desktop stewardship campaign, chart/multi-undo, touch and all19 other-game regressions in CI39558192584. A separate managed-browser finish-gate campaign completed all five revised trips at15/15, verified reload, retry and six-species journal state. Existing v1 run bytes load unchanged and adopt current rules on retry; corrupt/conflicting/quota save protection remains.",
-        "variety": "Still a distinct turn-based fishing/tension game. Authored protection/stocking tasks now require Ribbon Perch, protect flagship fish and culminate in an all-six-species route, replacing the previously verified five-species high-value repetition."
+        "enjoyment": "Three complete ordinary/visible-control campaigns now cover pre-stewardship, Balanced stewardship and Conservation briefs. The alternate brief changes every trip's keep/release mix without adding casts or timers; exact automation demonstrates the choice is viable, not that independent humans prefer it.",
+        "depth": "Five trips/six pull patterns/two upgrades now support two legal brief families. Balanced retains2/3/4/5/6-cast routes; Conservation reaches3/4/5/5/6 with one more distinct release and20 fewer required shells. Named protection tasks, no double-dipping, tide planning and fixed efficiency targets keep the trade strategic rather than an easier target toggle.",
+        "polish": "Original underwater art, nine-water chart, exact three-tide forecast and multi-action recovery remain. Native brief buttons show exact tradeoffs, pressed/locked state and responsive one-column layout; goal, stats and decision previews use the active targets. The stale six-trip footer is corrected. Exact Chromium verifies focus, >=44px controls and no390/320px overflow; physical touch/screen-reader review remains.",
+        "reliability": "Exact5db9269 passes21 engine+27 DOM, both complete campaign families, all desktop/touch Chromium checks and all19 other-game regressions in CI39862617223. Brief lock/save/undo, legacy missing-plan default and forged-value rejection pass. Public e5d67c4 aligns source and passes release route/hash gates before the existing Pages permission failure.",
+        "variety": "Distinct turn-based fishing/tension play now combines species stewardship with a pre-cast economic/ecological route choice. Conservation changes release and keep composition across all five trips while authored flagship protections still culminate in a six-species finale."
       },
       "selected": true,
       "selectionReason": "Selected as the strongest fishing candidate: deliberate tension control, sustainable species choices and five authored trips support a complete progression loop.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed", "e5d67c4894c472f63e4695b6f677d72c026d796f"],
       "publishedUrl": null,
       "nextSteps": [
-        "Try an alternative legal species/tide plan and retain exact campaign regressions; do not equate automated routes with a human-player study.",
-        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+        "Compare Balanced and Conservation preference with independent players; both are verified routes but automation is not a human enjoyment study.",
+        "Enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
         "71e6cc164e242d22118dd705768344d237aec348",
@@ -412,23 +416,24 @@
         "2c030a1a86d9962ba82848bd6055ced7ea2de41a",
         "4522c78d9cb1d8716f4266cf1cca7440292a2b95",
         "4624afa1a0161d5bcacad655d3615339dadbd4ef",
-        "ba87bd9af17897c2fdfe3cee51cda2a97f31e621"
+        "ba87bd9af17897c2fdfe3cee51cda2a97f31e621",
+        "5db9269d7b0faba508c3a45c8eeaba5330bc7112"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39558192584",
-        "testedCommit": "ba87bd9af17897c2fdfe3cee51cda2a97f31e621",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39862617223",
+        "testedCommit": "5db9269d7b0faba508c3a45c8eeaba5330bc7112",
         "conclusion": "success",
-        "desktop": "PASS all five three-medal stewardship trips, species-specific tasks, all-six-species Bell Pool finale, native keyboard/focus, chart/three-tide planning, catch/reward undo, upgrades, reload, confirmed retry and launch/back; zero page errors.",
-        "touch": "390x844/320px emulation: bank/depth/chart/cast/reel taps, full landing/release/undo, modal/help/journal, >=44px controls and no page overflow; zero page errors.",
+        "desktop": "PASS Balanced and Conservation five-trip three-medal campaigns, exact brief targets/locking, species tasks, all-six finale, native keyboard/focus, chart planning, undo, upgrades, reload, retry and launch/back; zero page errors.",
+        "touch": "390x844/320px emulation: brief/bank/depth/chart/cast/reel taps, full landing/release/undo, modal/help/journal, >=44px controls and no page overflow; zero page errors.",
         "manual": "Managed cloud browser on exact ba87bd9a: reset trip1 through Retry confirmation; completed Paper Jetty, Copper Reeds, Blue Sink, Threadwater and Bell Pool through visible bank/depth/cast/reel/brace/ease/keep/release/finish controls for3 medals each and0 escapes. Reload after trip3 restored Threadwater at9 banked medals with fresh undo. Bell Pool completed in6 casts at102/95 shells with2 releases and all six species in the journal. No game-origin console errors; only browser-extension metadata errors.",
         "notVerified": [
-          "Alternative revised-trip species/tide route and human-player enjoyment comparison",
+          "Independent Balanced-versus-Conservation preference and human-player enjoyment comparison",
           "Physical touch hardware or screen-reader play",
           "20 hours of worthwhile content/testing",
-          "Public catalogue integration/deployment"
+          "Live public deployment"
         ],
-        "artifactId": 12326457757,
-        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39558192584/artifacts/12326457757",
+        "artifactId": 12462798091,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39862617223/artifacts/12462798091",
         "artifactManuallyInspected": false
       },
       "reviews": [
@@ -455,6 +460,12 @@
           "scope": "Finished-gate ordinary-UI full revised stewardship campaign",
           "finding": "All five trips completed at15/15 medals and0 escapes. Reload preserved the transition into trip4; Bell Pool used all six species in6 casts and the saved journal contained each one. The later tasks replace the prior high-value trio repetition with readable protect/return/fund decisions. Alternative-route and human-player comparison remain.",
           "decision": "Finished, not selected; compare alternate fishing routes and direct collection fit before publication"
+        },
+        {
+          "date": "2026-10-23",
+          "scope": "Pass4 alternate Conservation brief and exact-source dual-campaign regression",
+          "finding": "Five visible-control Conservation routes complete at15/15 medals with unchanged cast limits and a different2/2/3/3/3-release mix. The brief is exact, undoable before/through the first cast, save-compatible and optional. This closes the documented alternate-route evidence gap but is not an independent player preference study.",
+          "decision": "Retain as selected; promote the fully verified aligned source and keep human comparison/accessibility as non-blocking follow-up"
         }
       ]
     },
@@ -2442,10 +2453,23 @@
       "verifiedCommit": "c38e4ef5119b19fb5057811c9f7c4f9ae2989a3c",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39858341104",
       "inspectedMainCommit": "19333eab4bd7afdb564bcd61379c056b5d694477"
+    },
+    {
+      "run": 76,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Deep Pocket received meaningful pass4, bringing the20-game collection to61 recorded passes. An optional pre-cast Conservation brief trades20 required shells for one extra distinct release without changing cast limits, medals, named stewardship tasks or manual tide choices; old saves default safely to Balanced. Five alternate routes complete for15/15 medals in3/4/5/5/6 casts with2/2/3/3/3 releases. Exact development5db9269 passed repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshots in CI39862617223; Deep Pocket contributes21 engine+27 DOM checks. The aligned selected source and corrected five-trip footer passed fresh-main route/assets and nine-source-hash gates and were promoted to public maine5d67c4. Release workflow39864412030 passed19 route/assets and all selected hashes, then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "5db9269d7b0faba508c3a45c8eeaba5330bc7112",
+      "verifiedCommit": "5db9269d7b0faba508c3a45c8eeaba5330bc7112",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39862617223",
+      "inspectedMainCommit": "e5d67c4894c472f63e4695b6f677d72c026d796f"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with60 passes; nine selected/source-integrated on public main19333ea including fully verified Queen of Cinders pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "All20 candidates playable, improved and finished with61 passes; nine selected/source-integrated on public maine5d67c4 including fully verified Deep Pocket pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2463,7 +2487,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39859287646 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39864412030 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
