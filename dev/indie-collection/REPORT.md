@@ -1,3 +1,24 @@
+# Run 59 · Roof Runner direction-release precision pass
+
+**20/20 playable prototypes · 20 improved games · 49 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Roof Runner remains development-only, but its fourth improvement pass corrects an overreach in the previous quick-tap queue. Pass3 began a six-frame correction on every direction press, so releasing after one to five real simulation frames could continue moving beyond the player’s hold. The correction is now queued only when a keyboard or pointer tap begins and ends before any simulation frame observes it. Once a frame sees the held direction, release stops immediately. True sub-frame taps still receive the promised 0.1-second correction; jump/dash edges, sustained movement, physics, routes, hazards, scoring, progression and saves are unchanged.
+
+## Evidence
+
+- Source commit: [fac22a1](https://github.com/ThatOneMop/study-desk/commit/fac22a183b8ed22e52a2459f1547c1df804c8068).
+- Local checks pass: 13 Roof Runner engine tests, 23 DOM/save tests, both repository asset/isolation gates, exactly 20 slots and 116 candidate references, JavaScript syntax and diff hygiene.
+- New regressions prove sub-frame keyboard and pointer direction taps receive exactly six frames, while pointer and keyboard holds observed for three/two frames stop immediately on release.
+- All five all-parcel/no-fall routes remain unchanged at 277/295/307/367/343 ticks, together with 120 bounded exploratory attempts.
+- Prior source [24d11a4](https://github.com/ThatOneMop/study-desk/commit/24d11a4c18c3e8a29ca138b130742cdecdce5598) retains [successful CI 39514585107](https://github.com/ThatOneMop/study-desk/actions/runs/39514585107), but that browser result is context rather than exact-source certification.
+- Local Chromium remains unavailable and no workflow attached to `fac22a1` during this run, so no new desktop/touch browser pass is claimed.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no public catalogue or deployment change was made.
+
+## Decision and next gate
+
+Roof Runner stays **playable, not finished and not selected**. Obtain exact-source Chromium, then complete an unscripted route and later wind/vent routes through continuous controls before ranking it against the seventeen finished candidates. Physical touch, screen-reader output, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 58 · Last Match danger-aware assist pass
 
 **20/20 playable prototypes · 20 improved games · 48 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
