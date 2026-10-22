@@ -1,3 +1,24 @@
+# Run 58 · Last Match danger-aware assist pass
+
+**20/20 playable prototypes · 20 improved games · 48 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Last Match remains development-only, but its fourth improvement pass closes a warning/control mismatch. The accessible threat list correctly prioritized an imminent in-range briar while aim assist still followed a nearer harmless mote. Assist now follows the most urgent visible lunge or windup already inside lantern range; if an urgent warning is out of reach, it retains the nearest-visible fallback. Manual aim, enemy timing and health, damage, fuel, maps, progression and saves are unchanged.
+
+## Evidence
+
+- Source commit: [d250e03](https://github.com/ThatOneMop/study-desk/commit/d250e03c9825c363e2f65f75374899b64a033d0d).
+- Local checks pass: 17 Last Match engine tests, 20 DOM/save tests, both repository asset/isolation gates, exactly 20 slots and 116 candidate references, JavaScript syntax and diff hygiene.
+- New regressions prove an urgent in-range briar outranks a closer mote, a distant warning does not pull aim away from a reachable target, the calculation does not mutate state, and the focused canvas/status use the same decision.
+- All five legal no-hit/three-medal routes remain unchanged at 463/654/671/1115/1111 simulated frames.
+- Prior source [be72f626](https://github.com/ThatOneMop/study-desk/commit/be72f62660b3b66dd61d4fbf4848336804d25dd6) retains [successful CI 39583606040](https://github.com/ThatOneMop/study-desk/actions/runs/39583606040), but that desktop/touch and native-clock opening result is context rather than exact-source certification.
+- Local Chromium is unavailable, and no workflow attached to `d250e03` during this run. Exact-source browser execution of the five-clearing native-clock gate remains pending; no new browser pass is claimed.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no public catalogue or deployment change was made.
+
+## Decision and next gate
+
+Last Match stays **playable, not finished and not selected**. The action guidance and assisted control now agree, but exact-source Chromium and sustained later-clearing combat/alternate-strategy review are still required before ranking it against the seventeen finished candidates. Physical touch, screen-reader output, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 57 · Threadbound keyboard-parity pass
 
 **20/20 playable prototypes · 20 improved games · 47 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
