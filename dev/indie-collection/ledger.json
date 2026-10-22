@@ -916,12 +916,13 @@
       "status": "finished",
       "source": "dev/indie-collection/little-foundry/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+      "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: six original hand-poured fantasy castings; weigh alloys, manage glow/fuel, trickle/stream different section thicknesses, handle rough/cold/wrong-alloy losses, saved maker seals and commission unlocks.",
         "Pass 1: pure clean/rough/blocked/fatal pour forecasts, selected-section heat-band marker, alloy-match guidance and UI guard against melting mismatched recipes. Added 100-action session undo through seams, losses and rewards, improved enabled-tool focus, and explicit exhausted-weighing loss with safe legacy-save migration instead of dead-end.",
         "Manual-QA follow-up: completed and spoiled castings now show honest terminal pour-preview instructions instead of asking for another melt; engine and DOM regressions added.",
-        "Pass 2: gave all six commissions different owner-mark completion-order rules (body before rim, heavy tooth first, handle before blade, paired cores, teeth before hubs, and beak-first/tail-last). Completion badges, live possible/missed/honoured feedback, undo recovery, scoring, onboarding, legacy complete-save migration and strict sequence validation make the added mastery legible without timers or padded counts."
+        "Pass 2: gave all six commissions different owner-mark completion-order rules (body before rim, heavy tooth first, handle before blade, paired cores, teeth before hubs, and beak-first/tail-last). Completion badges, live possible/missed/honoured feedback, undo recovery, scoring, onboarding, legacy complete-save migration and strict sequence validation make the added mastery legible without timers or padded counts.",
+        "Pass 3: added a validated maker record for every commission, ranked by seals, rough seams, fuel and pour count. The visible replay benchmark, legacy seal-only migration, forged-record rejection and reward-undo rollback add durable efficiency progression without changing the six authored routes or padding the campaign."
       ],
       "tests": [
         "PASS initial checkpoint 0c19cd9f957acdf13623f6fbcc11a01c8ef116ed: CI 39400549683, 9 engine + 11 DOM checks and twelve earlier candidates' browser regressions. Initial checkpoint did not yet include a Little Foundry browser suite.",
@@ -932,21 +933,26 @@
         "Local exact working source: 15 engine checks pass. Six clean owner-marked three-seal routes use 5/5/7/6/7/7 fuel and 19/19/21/22/23/24 actions; all sequence rules, live miss feedback, complete-save migration, forecasts, losses, reward preservation and 100 seeded sessions covered. Revised engine/game/DOM/browser scripts pass node syntax.",
         "Managed rendered desktop on the final static source: deliberately completed a fine rim first, observed MISSED plus #1 and an undo-specific recovery message, undid to still possible, then completed the bell body-first for three seals with badges #1–#8. HONOURED state and all eight badges survived reload; completed layout visually inspected.",
         "Finish gate: exact cloned head a4910a2143ea2d56abd0281c95290b2c5ea6db96 passed both repository asset gates, exact20-slot/116-reference/public-isolation checks, all20 engine suites and all20 DOM/save suites locally. Little Foundry contributed15 engine+20 DOM checks. The downloaded Playwright browser binary was unavailable, so cross-game Chromium suites were not rerun locally.",
-        "Managed visible all-six campaign on the exact static source: commissions1–6 each earned three seals while honouring Body before rim, Heavy tooth first, Handle before blade, Twin cores together, Teeth before hubs and Beak first/tail last. Final18/18 seals, all order badges and commission-six completion survived reload; no game-page errors were observed."
+        "Managed visible all-six campaign on the exact static source: commissions1–6 each earned three seals while honouring Body before rim, Heavy tooth first, Handle before blade, Twin cores together, Teeth before hubs and Beak first/tail last. Final18/18 seals, all order badges and commission-six completion survived reload; no game-page errors were observed.",
+        "Pass3 local exact source: Little Foundry 16 engine +21 DOM/save checks pass, including all six benchmark records, alternate equal-fuel/fewer-pour ranking, legacy migration, forged-record rejection, record persistence and finishing-action undo rollback. Both repository gates, the selected-game gate, JavaScript syntax, diff hygiene and all20 pure engine suites pass.",
+        "PASS exact pass3 source9a636c2, CI39813298467: repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshot capture. Little Foundry's records, migration, ranking, save/reload, undo, keyboard, touch and launch/navigation checks passed; artifact12441003155 retained."
       ],
       "quality": {
         "enjoyment": "A visible six-object campaign reached18/18 seals. The order rules changed each opening: body-first, heavy-first heat ramp, handle-first details, contiguous cores, all teeth before hubs and beak/tail bookends. The shared weighing/pouring rhythm stayed legible rather than becoming padding; this is agent evidence, not a human enjoyment score.",
-        "depth": "Six compact commissioned moulds combine alloy, glow/flow and six different completion techniques. Clean three-seal routes use distinct order/heat plans and fuel5/5/7/6/7/7. Compact authored campaign complete; no duration claim.",
-        "polish": "Original paper/sand workshop retained. Owner request is visible beside seal goals, completed sections receive numbered visual/accessibility badges, miss/honour feedback is immediate, and onboarding explains order/undo/scoring. Completed campaign layout inspected; manual mobile remains open.",
-        "reliability": "Exact cloned head passed repository asset/isolation checks, all20 engine suites and all20 DOM/save suites; Little Foundry passes15 engine+20 DOM. Managed exact-source desktop completed all six and reloaded18/18. Pass1 remains the latest remote Chromium CI; pass2 cross-game browser rerun was unavailable locally.",
+        "depth": "Six compact commissioned moulds combine alloy, glow/flow and six different completion techniques. Clean three-seal routes use distinct order/heat plans and fuel5/5/7/6/7/7; per-commission maker records now turn those routes into explicit replay-efficiency targets. Compact authored campaign complete; no duration claim.",
+        "polish": "Original paper/sand workshop retained. Owner request is visible beside seal goals, completed sections receive numbered visual/accessibility badges, miss/honour feedback is immediate, and the visible maker record/onboarding explain replay ranking and rollback. Completed campaign layout inspected; manual mobile remains open.",
+        "reliability": "Exact pass3 source9a636c2 passes both repository/selection gates, all20 engine suites, all20 DOM/save suites and every desktop/touch Chromium regression in CI39813298467. Little Foundry contributes16 engine+21 DOM/save checks; record validation, legacy migration, persistence, deterministic finishing undo, keyboard/touch and navigation are covered.",
         "variety": "The six commissions now ask for distinct order disciplines on top of thermal planning, reducing the prior identical-capacity-sort strategy while preserving the manual casting identity."
       },
       "selected": true,
       "selectionReason": "Selected for the most satisfying manual-work loop: alloy weighing, heat control and section-wise pouring vary meaningfully across six commissions.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "integrationCommits": [
+        "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed",
+        "1257a91e9e88e444bdc09cc5cdbadd9bfaca4e04"
+      ],
       "publishedUrl": null,
       "nextSteps": [
-        "Retain the six-commission casting regression suite and review an alternate clean-pour route if time permits.",
+        "Retain the six-commission casting and record-ranking regression suite; compare tactile feedback and replay enjoyment with an independent human session if available.",
         "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
@@ -954,21 +960,22 @@
         "212d8d916c48e041d159255a085d086e5caedb6a",
         "94ec4ccd69c259e5cf2878207cbbd41a30ef7823",
         "2314978cb37081432b35572d846bf4dfe9908431",
-        "6d605cd5a7a8ca544e32f79d6ce8398c18f4e5b9"
+        "6d605cd5a7a8ca544e32f79d6ce8398c18f4e5b9",
+        "9a636c2d3584b9ff4cd5c07f38d9062bdc5ffd4d"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39401418646",
-        "testedCommit": "94ec4ccd69c259e5cf2878207cbbd41a30ef7823",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39813298467",
+        "testedCommit": "9a636c2d3584b9ff4cd5c07f38d9062bdc5ffd4d",
         "conclusion": "success",
-        "desktop": "Native Enter/Space/arrows/Z and focus; alloy-mismatch guard/remixture, exact saved casting/retry, six legal clean three-seal DOM-button craft campaigns, rough-risk forecast/loss/undo recovery, winning seal rollback/replay, unlocks and workshop launch/back. Zero page errors.",
-        "touch": "390x844 emulation: exactly-once ingot/heat/melt/trickle/stream taps, material/glow accounting, undo, exact mid-casting reload, retry cancel, first commission win/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
+        "desktop": "Exact pass3 Chromium retained native Enter/Space/arrows/Z and focus; alloy guard/remixture, saved casting/retry, six clean three-seal campaigns, maker-record ranking/persistence, rough-risk loss/undo, winning record rollback/replay, unlocks and workshop launch/back. Zero page errors.",
+        "touch": "Exact pass3 390x844 emulation retained exactly-once ingot/heat/melt/trickle/stream taps, material/glow accounting, undo, mid-casting reload, retry cancel, first-commission record/saved unlock, >=44px visible controls and no 390px/320px page overflow.",
         "manual": "Managed cloud browser desktop: original workshop/onboarding inspected; correct four-ingot recipe, two bellows/melt, body stream pours and fine trickles, first bell delivered clean using five fuel for three seals. Undid mould opening and observed unbanked record, reopened/reloaded completion and entered commission two with first section selected/focused. Preview stopped. Follow-up terminal preview wording covered by final engine/DOM regressions, not another manual replay.",
         "notVerified": [
           "Independent human enjoyment and replay study",
           "Manual mobile screenshot/layout review",
           "Physical touch hardware and screen-reader behavior",
           "20 hours of worthwhile content or testing",
-          "Public catalogue integration/deployment"
+          "Live GitHub Pages deployment and route verification"
         ]
       },
       "finishVerification": {
@@ -2338,10 +2345,23 @@
       "verifiedCommit": "5a71cc01410f486e6f70c627a9f89c55e52ed2a2",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39795311078",
       "inspectedMainCommit": "b8ef8584ac23f405ccb5f5889010b211bbb5d7c7"
+    },
+    {
+      "run": 70,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Little Foundry received meaningful pass3, bringing the20-game collection to55 recorded passes. Six validated maker records now rank seals, rough seams, fuel and pours; seal-only saves migrate without invented history, forged records are rejected, and undo rolls a newly earned seal and record back together. Exact development9a636c2 passed repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshot evidence in CI39813298467. The aligned selected source passed fresh-main local release gates and was promoted with a lease-protected update to public main1257a91. Release workflow39814327924 passed route/assets verification and then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "9a636c2d3584b9ff4cd5c07f38d9062bdc5ffd4d",
+      "verifiedCommit": "9a636c2d3584b9ff4cd5c07f38d9062bdc5ffd4d",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39813298467",
+      "inspectedMainCommit": "1257a91e9e88e444bdc09cc5cdbadd9bfaca4e04"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with54 passes; nine selected/source-integrated on public main b8ef858 including the fully verified Pocket Expedition pass2;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "All20 candidates playable, improved and finished with55 passes; nine selected/source-integrated on public main1257a91 including the fully verified Little Foundry pass3;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2359,7 +2379,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39803883006 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39814327924 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
