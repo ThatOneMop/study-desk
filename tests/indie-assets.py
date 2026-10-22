@@ -30,5 +30,17 @@ for slot in slots:
   parser=Assets();parser.base=file.parent;parser.feed(file.read_text())
  for file in directory.glob('*.js'):
   subprocess.run(['node','--check',str(file)],check=True)
-parser=Assets();parser.base=root/'dev/indie-collection';parser.feed((parser.base/'index.html').read_text())
-print(f'PASS exact 20 slots, selection isolation, candidate syntax and {checked} local source/navigation references')
+workshop_dir=root/'dev/indie-collection'
+workshop=(workshop_dir/'index.html').read_text()
+for slot in slots:
+ expected=(f"CANDIDATE {slot['slot']:02d} · FINISHED · "
+           +('SELECTED IN PUBLIC SOURCE' if slot['selected'] else 'DEVELOPMENT RESERVE'))
+ assert expected in workshop, (slot['id'], expected)
+ if slot['selected']:
+  candidate_html=(root/slot['source']/'index.html').read_text().casefold()
+  for stale in ('development collection','development-only','not selected','development prototype'):
+   assert stale not in candidate_html, (slot['id'], stale)
+assert workshop.count(' · FINISHED · SELECTED IN PUBLIC SOURCE')==9
+assert workshop.count(' · FINISHED · DEVELOPMENT RESERVE')==11
+parser=Assets();parser.base=workshop_dir;parser.feed(workshop)
+print(f'PASS exact 20 finished slots, 9 selected/11 reserve workshop labels, selection isolation, candidate syntax and {checked} local source/navigation references')
