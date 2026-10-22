@@ -43,8 +43,8 @@ SELECTED = {
         "style.css": "2aa171b456c8abc863c0bfe2d8720b8b8151a174b0e968ae34ba1777a93a87f5",
     },
     "echo-vault": {
-        "engine.js": "29ebc28ee50766d4368fa6f60525d731b599f2acb752e32cdac2b1b986675c6e",
-        "game.js": "d0dc867750e965b3c6cf03b929db1e551d3b10649537ea265be79026d214d83e",
+        "engine.js": "0f4afbb64825ac52fee27bc534a612920106fb61035980e7980632f64048ce7d",
+        "game.js": "86302fa9f26267c4322ae6bfd0030819c02d1a1dcc706a3cc3e9d9d2bf03f1b5",
         "style.css": "5c59de15c7da4bf20518dfe6bbbe569c8e763547251ff6cd84199890ff650a35",
     },
     "glasshouse": {
