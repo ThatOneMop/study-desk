@@ -69,7 +69,7 @@
           "Full manual mobile visual review",
           "Independent human enjoyment/replay study",
           "20 hours of worthwhile content",
-          "Public catalogue integration/deployment"
+          "Public live deployment; Pages configuration fails before upload/deploy"
         ],
         "artifactId": 12348409785,
         "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39607187990/artifacts/12348409785",
@@ -1129,22 +1129,22 @@
         "Chromium native arrows/Enter/Space/Z and focus; exact kit/cargo/food/RNG reload; six legal three-seal DOM-button campaigns with seed selection; deterministic undo/replay, earned-reward rollback, exhaustion loss/retry and workshop launch/back. Touch taps apply once; food/cargo undo/reload/retry cancel, first survey victory/saved unlock; >=44px visible controls and no 390px/320px page overflow; zero page errors.",
         "Manual desktop: first survey with rope/lamp/nine food returned Amber seed + Moss compass for value11, three seals, no injuries. Winning extraction undo/replay, save reload and current-site guidance checked. Second boots-only/nine-food survey reproduced injury and overweight return deficit; dropped low-value shell, undid/repeated drop and safely returned value13 with two seals and one health. Reload retained four journal discoveries; survey three opened with rope control focused. Local-only preview stopped.",
         "PASS finish gate at exact source 4d1595ce003d4bda05a6a181ca5a136dc9def32d on cloned head 5bdb5b285c851e6217f8c167f9b8b1175581f54d: visible normal-control surveys one through six returned every relic for18/18 seals and values11/11/13/11/12/13; surveys two/three exercised confirmed retry and different seeded attempts. Final campaign and all records survived reload. Both asset gates plus15 engine and20 DOM/save checks passed locally; no game-page console errors.",
-        "Pass2 exact development5a71cc0 local gates: repository assets/exact20 slots/9-selected isolation and selection gate pass; all20 engine and all20 DOM/save suites pass. Pocket Expedition contributes16 engine and20 DOM/save checks, including six lean three-seal routes, legacy-save migration, record comparison/tamper rejection, visible records and undo/replay rollback. Routes now leave with9/10/9/9/10/9 pack units, one tool and values11/12/13/11/12/13. Exact desktop/touch CI39795311078 is queued; no browser or public-promotion claim is made yet."
+        "PASS pass2 exact development5a71cc0 in CI39795311078: repository assets/exact20 slots/9-selected isolation and selection gate, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshot evidence. Pocket Expedition contributes16 engine and20 DOM/save checks, including six lean three-seal routes, legacy-save migration, record comparison/tamper rejection, visible records and undo/replay rollback. Routes leave with9/10/9/9/10/9 pack units, one tool and values11/12/13/11/12/13. The aligned source is promoted on public main b8ef858."
       ],
       "quality": {
         "enjoyment": "A visible complete six-survey campaign kept loadout and extraction decisions legible across rope/lamp, boots/lamp and lamp-only routes. Pass2 turns the vague suggestion to try leaner kits into a concrete per-region benchmark and verifies one-tool three-seal routes with9–10 starting units. Shared cargo/food pressure remains agent evidence, not a human fun score.",
         "depth": "Six compact branching expeditions, three tools, shared food/cargo capacity, weather/risk and twelve journal entries. Best value/seals now sit beside a route record that prioritises clean completion then lighter starting kit, value and efficiency; verified lean routes use one tool and9/10/9/9/10/9 starting units. Broader human route discovery remains unmeasured and no duration claim is made.",
         "polish": "Original paper survey map and pack, complete trail notes and exact ration/return/cargo forecasts now include a readable saved route benchmark with named tools, provisions, value, steps and attempt. Older saves migrate on completion; deterministic undo rolls a newly banked note back with the other rewards. Manual mobile review remains open.",
-        "reliability": "Exact development5a71cc0 passes repository/selection gates, all20 local engine suites and all20 local DOM/save suites; Pocket Expedition has16 engine+20 DOM checks. New coverage includes record ranking, validation/tamper rejection, legacy migration, six lean campaigns, reload and reward rollback. Exact desktop/touch CI39795311078 is queued; prior source4d1595ce remains the last fully green browser baseline.",
+        "reliability": "Exact development5a71cc0 passes repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshots in CI39795311078; Pocket Expedition has16 engine+20 DOM checks. New coverage includes record ranking, validation/tamper rejection, legacy migration, six lean campaigns, reload and reward rollback. Public main b8ef858 contains the aligned selected source.",
         "variety": "Push-your-luck collection with tool-dependent branching paths, shared provision/cargo space, heavy return costs, uncertain injuries and bank-only-at-camp rewards; distinct from ferry, fleet dispatch and combat candidates."
       },
       "selected": true,
       "selectionReason": "Selected for its compact roguelike expedition structure: tool loadouts, shared food and cargo, uncertainty and extraction risk support varied builds.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed", "b8ef8584ac23f405ccb5f5889010b211bbb5d7c7"],
       "publishedUrl": null,
       "nextSteps": [
-        "Wait for exact desktop/touch CI39795311078; promote the aligned selected source only after it passes. Deterministic lean routes are not independent chance-tolerance feedback.",
-        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+        "Collect independent chance-tolerance and route-discovery feedback; deterministic lean routes are reliability evidence, not human enjoyment evidence.",
+        "Enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
         "cfad6c8e2b18d74a2b127fc482255e14e3fc2d53",
@@ -1153,8 +1153,8 @@
         "5a71cc01410f486e6f70c627a9f89c55e52ed2a2"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39423434291",
-        "testedCommit": "4d1595ce003d4bda05a6a181ca5a136dc9def32d",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39795311078",
+        "testedCommit": "5a71cc01410f486e6f70c627a9f89c55e52ed2a2",
         "conclusion": "success",
         "desktop": "Native arrows/Enter/Space/Z and focus; exact kit/cargo/RNG reload; six legal three-seal DOM-button campaigns with seed selection, forecasts, deterministic undo/replay, reward rollback, exhaustion loss/retry and workshop launch/back. Zero page errors.",
         "touch": "390x844 emulation: exactly-once kit/inspect/trek/recover taps, food/cargo/seed undo, exact reload/retry cancel, first survey win/saved unlock, >=44px visible controls and no 390px/320px overflow.",
@@ -2325,10 +2325,23 @@
       "verifiedCommit": null,
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39795311078",
       "inspectedMainCommit": "2e73e3080515a7e8a306dd77c724fab2c0113b20"
+    },
+    {
+      "run": 69,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Exact Pocket Expedition pass2 CI39795311078 completed successfully at5a71cc0: repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshot evidence passed. The aligned selected source then passed fresh-main local release gates and was promoted with a lease-protected update to public main b8ef858. Release workflow39803883006 passed Verify game routes and local assets, then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "5a71cc01410f486e6f70c627a9f89c55e52ed2a2",
+      "verifiedCommit": "5a71cc01410f486e6f70c627a9f89c55e52ed2a2",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39795311078",
+      "inspectedMainCommit": "b8ef8584ac23f405ccb5f5889010b211bbb5d7c7"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with54 passes; nine selected/source-integrated on public main2e73e30; Pocket Expedition pass2 awaits exact desktop/touch CI before promotion;0live URLs because GitHub Pages configuration remains blocked",
+    "status": "All20 candidates playable, improved and finished with54 passes; nine selected/source-integrated on public main b8ef858 including the fully verified Pocket Expedition pass2;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2346,7 +2359,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Wait for Pocket Expedition exact desktop/touch CI39795311078 and promote only after success. Do not claim live URLs until GitHub Pages is enabled and a deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39803883006 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
