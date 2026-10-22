@@ -1,3 +1,24 @@
+# Run 61 · Last Match touch-cancellation pass
+
+**20/20 playable prototypes · 20 improved games · 51 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Last Match remains development-only, but its fifth improvement pass fixes a touch-cancellation edge case. Pointer cancellation already discarded an unconsumed queued action; lost pointer capture only released the held input, so a cancelled touch could still move, flash, dodge or take oil on the next simulation frame. Lost capture now discards each of those queued actions too. Normal pointer release still preserves exactly one queued step, and combat rules, aim assist, routes, progression and saves are unchanged.
+
+## Evidence
+
+- Source commit: [6b620ba](https://github.com/ThatOneMop/study-desk/commit/6b620ba7fde49b379e04efb387ebc0fb591e7d75).
+- Local checks pass: 17 Last Match engine tests, 21 DOM/save tests, both repository asset/isolation gates, exactly 20 slots and 116 candidate references, JavaScript syntax and diff hygiene.
+- New regression covers right movement, flash, dash and refill: pointerdown followed by lost pointer capture before a frame leaves the saved game state exactly unchanged after the next frame. Normal pointer release retains one queued step.
+- All five legal no-hit/three-medal routes remain unchanged at 463/654/671/1115/1111 frames, together with 100 deterministic exploratory campaigns.
+- Prior source [be72f626](https://github.com/ThatOneMop/study-desk/commit/be72f62660b3b66dd61d4fbf4848336804d25dd6) retains [successful CI 39583606040](https://github.com/ThatOneMop/study-desk/actions/runs/39583606040), but that browser result is context rather than exact-source certification.
+- Local Chromium remains unavailable and no workflow attached to `6b620ba` during this run, so no new desktop/touch browser pass is claimed.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no public catalogue or deployment change was made.
+
+## Decision and next gate
+
+Last Match stays **playable, not finished and not selected**. Touch cancellation is now internally consistent, but exact-source Chromium and sustained later-clearing combat with alternate strategy remain required before ranking it against the seventeen finished candidates. Physical touch, screen-reader output, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 60 · Threadbound pointer-release precision pass
 
 **20/20 playable prototypes · 20 improved games · 50 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.

@@ -673,13 +673,14 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/last-match/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 4,
+      "meaningfulImprovementPasses": 5,
       "changes": [
         "Initial playable: five original top-down lantern clearings; directional cones/rock occlusion, four enemy types and telegraphed lunges, dodges, finite brazier oil, collectable fuel-return embers, gate escape, best-only medals, two workshop upgrades and guarded versioned saves.",
         "Pass 1: exactly-once queued quick touch movement/flash/dodge/refill, pointer cancellation cleanup, click-to-aim, visible-only target assist, matching ray-clipped light/rock visuals and in-cone rings, accurate lunge lines, enemy phase/health/range notes, fuel/cooldown/dodge gauges, event saving and less frequent DOM redraws. Added explicit exhausted-fuel loss/retry; disallowed ready-state purchases that could invalidate saved equipment; terminal states cannot be unpaused.",
         "Pass2: non-repeated canvas keyboard keydown queues a one-simulation-step intent just like touch, so press/release between frames is not lost. Held attacks remain edge-triggered; pause/blur/modal clear pending intent. Added pure current-pose readiness and in-cone damage notes: named shadows fall or show remaining light hits; fuel shortage differs from cooldown, and nearby oil distinguishes full/empty/out of reach. Explicit snapshot caveat avoids promising future enemy positions. Original difficulty, maps, enemy timings/health, costs, goals, upgrades and v1 save format/key unchanged.",
         "Pass3 after live preview review: distinguish all four enemies without relying on colour (round mote, thorned briar, winged glass-wing, plated stoneback). Windups now draw their exact destination, a filling charge arc and an accessible seconds countdown; nearby threat text sorts lunges ahead of closer non-attacking enemies, includes distance and caps the visible list. Combat rules, authored maps, timing, health, costs, progression and v1 saves are unchanged.",
-        "Pass4: danger-aware aim assist resolves a warning/control mismatch. It now prioritizes an imminent lunge or windup already within lantern range instead of a nearer harmless shadow, but falls back to the nearest visible target when urgent threats are out of range. Manual aim remains unchanged; no combat timings, damage, costs, maps, progression or save fields changed."
+        "Pass4: danger-aware aim assist resolves a warning/control mismatch. It now prioritizes an imminent lunge or windup already within lantern range instead of a nearer harmless shadow, but falls back to the nearest visible target when urgent threats are out of range. Manual aim remains unchanged; no combat timings, damage, costs, maps, progression or save fields changed.",
+        "Pass5: lost pointer capture now cancels any unconsumed queued movement, flash, dodge or oil action just like pointer cancellation. Normal pointer release still preserves exactly one queued step, held controls remain edge-triggered, and combat rules, aim assist, routes, progression and saves are unchanged."
       ],
       "tests": [
         "8 local engine checks pass: all five legal baseline no-hit/three-medal campaigns in 463/654/671/1115/1111 simulated frames, every-tick saves, full progression, flash/dodge edge triggers, rock occlusion, actual five-hit loss/retry, upgrades/economy and malformed states. 10 DOM cases authored, exact-source execution pending.",
@@ -691,17 +692,18 @@
         "PASS final exact sourceec680ae1b18667a5fb8674534b2254d6ff446605, CI39482940325/job118835913974:16engine+18DOM, actual Chromium all five no-hit/3-medal deterministic-clock campaigns, native short-keypress movement/flash once, current-cone feedback, touch quick taps/pause/retry, >=44px controls and no390/320 page overflow. Separate unmodified native-clock opening combat drove real held keys/discrete flashes from observed HUD/autosave snapshots, collected embers and achieved actual gate victory without state injection/fake clocks. All19 other-game engine/DOM/browser regressions and root10routes/14refs plus20slots/116refs gates passed; zero page errors. Decoded logs inspected; artifact12292915900.",
         "PASS exact source be72f62660b3b66dd61d4fbf4848336804d25dd6, CI39583606040/job119166958465:16engine+19DOM, including a crafted 0.4s briar warning that outranks a closer mote; five legal no-hit/3-medal Chromium campaigns, native short-keyboard/touch controls,390/320px layout and separate unmodified native-clock opening victory. All19 other candidates, root assets and exact20-slot/116-reference isolation gates passed; zero page errors. Decoded logs inspected; screenshot artifact12339237007 retained.",
         "Finish-gate test commit c802f06 extends the unmodified native-clock controller from the opening to all five clearings, checking held movement, discrete flashes, brazier refills, ember collection, gate progression, unlocks, records and five completion screenshots without state injection or fake clocks. Local16engine+19DOM, both asset/isolation gates, syntax and diff checks pass. Local Chromium is unavailable and no workflow attached to the connector-created commit during this run, so exact-source browser execution remains pending and status is unchanged.",
-        "Run58 exact-source local checks:17 engine and20 DOM/save tests pass, including pure nonmutating assist priority, urgent in-range versus distant-warning fallback, actual focused-canvas aim updates, all five unchanged463/654/671/1115/1111-frame three-medal routes, saves/restart/input queues, both asset/isolation gates, syntax and diff hygiene. Browser execution remains pending because Chromium is unavailable and no workflow attached to source commit d250e03."
+        "Run58 exact-source local checks:17 engine and20 DOM/save tests pass, including pure nonmutating assist priority, urgent in-range versus distant-warning fallback, actual focused-canvas aim updates, all five unchanged463/654/671/1115/1111-frame three-medal routes, saves/restart/input queues, both asset/isolation gates, syntax and diff hygiene. Browser execution remains pending because Chromium is unavailable and no workflow attached to source commit d250e03.",
+        "Run61 exact-source local checks:17 engine and21 DOM/save tests pass. New regression proves lost pointer capture cancels unconsumed movement, flash, dodge and oil actions while normal release retains one queued step; five463/654/671/1115/1111-frame no-hit/three-medal routes,100 exploratory campaigns, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium is pending because no local executable or attached workflow is available."
       ],
       "quality": {
         "enjoyment": "Live preview review confirmed the opening movement/aim loop and exposed threat-identification friction, then actual idle combat reached a saved five-hit loss with the nearby readout showing LUNGING NOW. Distinct silhouettes/countdowns and danger-aware assist now make the same urgent threat actionable without easing it. No sustained manual victory or human fun rating claimed; automated campaigns remain reliability evidence.",
         "depth": "Five finite authored combat clearings, four mechanically different threats and two upgrades; original baseline routes remain463/654/671/1115/1111 simulated frames. Pass3 adds no content volume or easier rules; it makes the existing windup/dodge/target choices legible. Later-clearings alternate strategy and replay assessment remain open.",
-        "polish": "The warning list, assist target and onboarding now agree: an imminent in-range attacker outranks a nearer harmless shadow, while distant warnings do not drag aim away from reachable combat. Distinct silhouettes, destination lines, charge arcs and countdowns remain. Physical touch and screen-reader output remain untested.",
-        "reliability": "Current source d250e03 passes17engine+20DOM locally, both asset/isolation gates and all five unchanged legal routes. Prior be72f626 passed five desktop campaigns, touch layout/input, native-clock opening victory and all19 regressions in CI39583606040, but that browser result is context rather than exact-source certification for pass4.",
+        "polish": "The warning list, assist target and onboarding agree: an imminent in-range attacker outranks a nearer harmless shadow, while distant warnings do not drag aim away from reachable combat. Pass5 gives lost touch capture the same cancellation safety as pointer cancellation without weakening normal quick taps. Distinct silhouettes, destination lines, charge arcs and countdowns remain. Physical touch and screen-reader output remain untested.",
+        "reliability": "Current source 6b620ba passes17engine+21DOM locally, both asset/isolation gates and all five unchanged legal routes; lost capture cancels all four queued control families. Prior be72f626 passed five desktop campaigns, touch layout/input, native-clock opening victory and all19 regressions in CI39583606040, but that browser result is context rather than exact-source certification for passes4–5.",
         "variety": "Directional cone/occlusion combat remains distinct from fishing, colony, puzzles and repair. Four readable threat silhouettes now reinforce their existing one/two/three-hit and lunge-range identities; no automatic shooting, balance weakening, reskin count or timer padding was added."
       },
       "selected": false,
-      "selectionReason": "Not selected: clearer urgent-target control improves the action loop, but exact-source Chromium and sustained later-clearing subjective combat review remain open.",
+      "selectionReason": "Not selected: urgent-target control and touch cancellation are reliable locally, but exact-source Chromium and sustained later-clearing subjective combat review remain open.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
@@ -722,17 +724,18 @@
         "6b785a08a256f16f28826868e3807fc925157518",
         "be72f62660b3b66dd61d4fbf4848336804d25dd6",
         "c802f06c1e4c7044ee1d8e2bbc921d741af97bf3",
-        "d250e03c9825c363e2f65f75374899b64a033d0d"
+        "d250e03c9825c363e2f65f75374899b64a033d0d",
+        "6b620ba7fde49b379e04efb387ebc0fb591e7d75"
       ],
       "verification": {
         "runUrl": null,
-        "testedCommit": "d250e03c9825c363e2f65f75374899b64a033d0d",
+        "testedCommit": "6b620ba7fde49b379e04efb387ebc0fb591e7d75",
         "conclusion": "pending",
-        "desktop": "Current source passes17engine+20DOM locally, including danger-aware assist and all five unchanged routes. Prior source be72f626 passed desktop five-route and native-clock opening Chromium; c802f06 adds a five-clearing native-clock path, but neither result certifies changed exact source d250e03.",
-        "touch": "Prior exact source passed quick movement/flash/dodge taps, paused retry-cancel,560-unit camera, >=44px targets and390/320px overflow checks. Pass4 changes assist targeting only; exact-source browser touch remains pending and physical hardware is untested.",
+        "desktop": "Current source passes17engine+21DOM locally, including danger-aware assist, lost-capture cancellation and all five unchanged routes. Prior source be72f626 passed desktop five-route and native-clock opening Chromium; c802f06 adds a five-clearing native-clock path, but neither result certifies changed exact source 6b620ba.",
+        "touch": "Current DOM regression proves lost pointer capture cancels unconsumed movement, flash, dodge and oil actions while normal release retains one queued step. Prior exact source passed quick taps, paused retry-cancel,560-unit camera, >=44px targets and390/320px overflow checks; exact-source browser touch remains pending and physical hardware is untested.",
         "manual": "Managed preview inspected revised enemy silhouettes, full-width arena/help and AX phase/distance warning. Existing saved opening was allowed to reach a genuine five-hit loss and exposed LUNGING NOW; a fresh retry visibly showed round motes versus the thorned two-hit briar. Cloud preview throttling did not support a continuous victory, so no manual win or enjoyment claim.",
         "notVerified": [
-          "Exact-source Chromium desktop/touch and five-clearing native-clock campaign after pass4",
+          "Exact-source Chromium desktop/touch and five-clearing native-clock campaign after pass5",
           "Subjective continuous combat/enjoyment and later-clearing alternate strategies",
           "Manual clearing victory and physical mobile play",
           "Physical touch and screen-reader output",
@@ -759,6 +762,12 @@
           "scope": "Warning-to-control consistency and danger-aware aim assist",
           "finding": "The threat list prioritized an imminent in-range lunge while assist still followed a nearer harmless shadow. Pass4 aligns them only inside lantern range and retains nearest-visible fallback outside it; all routes and combat values remain unchanged.",
           "decision": "Meaningful pass4 complete; hold as improved prototype pending exact-source browser and sustained later-combat review"
+        },
+        {
+          "date": "2026-10-22",
+          "scope": "Lost pointer capture and queued touch-action cancellation",
+          "finding": "Pointer cancellation discarded an unconsumed queued action, but lost capture only released the held flag and could still execute a move, flash, dodge or oil action on the next frame. Pass5 makes both cancellation paths equivalent while preserving one step on normal release.",
+          "decision": "Meaningful pass5 complete; hold as improved prototype pending exact-source browser and sustained later-combat review"
         }
       ]
     },
@@ -2196,10 +2205,23 @@
       "verifiedCommit": null,
       "ciUrl": null,
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 61,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 17,
+      "publishedTotal": 0,
+      "summary": "Last Match pass5 aligns touch cancellation paths: lost pointer capture now discards unconsumed movement, flash, dodge and oil actions like pointer cancellation, while normal release retains exactly one queued step. Current source 6b620ba passes17 engine,21 DOM/save, both asset/isolation gates, syntax/diff, five463/654/671/1115/1111-frame routes and100 explorations locally. Chromium/no workflow remains pending; candidate is playable, not finished/selected; public main unchanged.",
+      "implementationCommit": "6b620ba7fde49b379e04efb387ebc0fb591e7d75",
+      "verifiedCommit": null,
+      "ciUrl": null,
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/50passes;17finished; Roof Runner, Last Match and Threadbound current-source Chromium/continuous-control finish gates remain;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/51passes;17finished; Roof Runner, Last Match and Threadbound current-source Chromium/continuous-control finish gates remain;0selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 17,
