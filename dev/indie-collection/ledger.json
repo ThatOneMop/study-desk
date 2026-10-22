@@ -1408,42 +1408,45 @@
         "Manually discovered pursuit route reproduced in engine at27 turns, one leaf, three broken exposure warnings, one confiscated chime and actual extraction; this is feasible, not an optimal route or playtime evidence.",
         "PASS exact final8fe14ee7 CI39451640282:14 engine+19 DOM, real desktop four all-leaf ghost campaigns plus27-turn pursuit route and390/320px touch, full repository assets,116 candidate references/exact20/public isolation and all19 earlier-game regressions. Actual job steps and decoded logs inspected.",
         "Finish gate on exact unchanged source: managed visible controls completed all four all-leaf ghost heists at17/18/24/21 turns with zero exposed turns. The first used a recovered/confiscatable chime; later vaults combined copper noise, quiet creep, curtains, one deliberate wait and multi-sentry pace changes. Final4/4 relics and8/8 leaves survived reload with no game-page console errors. Exact cloned head03de5607 passed both asset gates plus14 engine and19 DOM/save checks locally.",
-        "Pass2 local regression:15 engine and20 DOM/save checks pass. The generated opening-vault route archives both leaves/relic in13 turns with one warning, recovers the thrown chime and records2/2 intact; a separate fixture proves intact-chime ranking and older record migration. Repository assets, exact20/9-selected isolation, selection gate, syntax and120 source/navigation references pass. Real desktop/touch Chromium is pending exact-head CI."
+        "PASS exact development7894ebf CI39787235971:15 engine+20 DOM/save, repository assets, exact20/9-selected isolation, all20 engine, all20 DOM/save and every desktop/touch Chromium regression plus screenshots. The generated opening-vault route archives both leaves/relic in13 turns with one warning, recovers the thrown chime and records2/2 intact; a separate fixture proves intact-chime ranking and older record migration."
       ],
       "quality": {
         "enjoyment": "A 27-turn pursuit route, a four-vault clean campaign and a new13-turn chime-recovery route completed. Exact forecasts made patrol timing readable; the recovery route adds a deliberate one-warning tradeoff against the earlier zero-exposure line. Later maps change the dominant decision from chime diversion to copper-noise pacing, curtain concealment and multi-sentry timing. Independent human enjoyment remains unmeasured.",
         "depth": "Four compact handmade vaults, two sound sensitivities, noisy/quiet pace tradeoffs, curtains, reusable chimes, optional leaves and route records that now distinguish intact equipment. The verified stealth-versus-conservation opening routes improve replay depth; more authored obstacles and independent comparison remain desirable, with no duration claim.",
         "polish": "Original midnight-museum SVG/CSS manually inspected on desktop; pure action plans, exact IF WAIT patrol intent, immediate exposure feedback and complete session undo. The full visible campaign kept pace, sound, beams and terminal records legible; exact Chromium390/320 checks pass, while physical touch and screen-reader review remain open.",
-        "reliability": "Final14engine+19DOM and real desktop/touch Chromium pass in CI on8fe14ee7; repository assets,116 candidate references, exact20/public isolation and all19 earlier-game regressions pass. All20 local engine suites pass.",
+        "reliability": "Exact development7894ebf passes15 engine+20 DOM/save, repository assets,120 candidate references, exact20/9-selected isolation and every desktop/touch Chromium regression in CI39787235971. Public2e73e30 passes19 route/assets and all nine selected-source hashes before the existing Pages permission failure.",
         "variety": "Turn-based directional stealth and corridor-weighted sound diversion; not Inkline's card drafting, Pocket Expedition's pack/extraction risk or Last Match's realtime cone combat."
       },
       "selected": true,
       "selectionReason": "Selected for readable forecast-driven stealth: directional beams, weighted sound and reusable decoys create a reliable loop unlike the realtime action and route puzzles.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "integrationCommits": [
+        "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed",
+        "2e73e3080515a7e8a306dd77c724fab2c0113b20"
+      ],
       "publishedUrl": null,
       "nextSteps": [
-        "Promote the verified intact-chime record/recovery pass to the selected public copy after exact development CI passes.",
         "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
         "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20",
         "77fac6c12b86eba4c928ad5a782a1bf8fd1f4c45",
-        "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f"
+        "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
+        "7894ebf2c17b10c0cadebe7b07fe605d437f01c6"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282",
-        "testedCommit": "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39787235971",
+        "testedCommit": "7894ebf2c17b10c0cadebe7b07fe605d437f01c6",
         "conclusion": "success",
-        "desktop": "Native arrows/Enter/Space/WASD/pace/T/Z and focus; exact patrol/inspection reload; four legal all-leaf/zero-exposure campaigns plus manual27-turn pursuit route; action/warning plans; extracted-record undo/replay; real exposure/capture/undo; confirmed retry and workshop launch/back. Zero page errors.",
-        "touch": "Exactly-once chime/move taps, conserved charges/undo, saved inspection/patrol/reload/retry cancellation, actual all-leaf first heist/saved unlock/reload, >=44px controls, internally scrolling map and no390/320px page or button-text overflow. Zero page errors.",
-        "manual": "First review used a chime diversion, curtains and a recoverable pursuit to extract with one leaf in27 turns and three separately broken warnings; undo/replay/reload and a real predicted capture were verified. Finish-gate review then used visible pace, direction, wait, tile, chime and extraction controls to complete all four all-leaf ghost routes at17/18/24/21 turns with zero exposure. Copper Stacks switched between noisy strides and quiet creeps; Curtain Court used a deliberate wait plus curtain loops; Last Resonance alternated pace around multiple sentries. Final4/4 relics,8/8 leaves and last record survived reload. No game-page console errors; preview stopped.",
+        "desktop": "Native arrows/Enter/Space/WASD/pace/T/Z and focus; exact patrol/inspection reload; four legal all-leaf campaigns including a13-turn zero-confiscation recovery route plus the manual27-turn pursuit route; action/warning plans; extracted-record undo/replay; real exposure/capture/undo; confirmed retry and workshop launch/back. Zero page errors.",
+        "touch": "Exactly-once chime/move taps, conserved charges/undo, saved inspection/patrol/reload/retry cancellation, actual13-turn all-leaf first heist with2/2 intact chimes, saved unlock/reload, >=44px controls, internally scrolling map and no390/320px page or button-text overflow. Zero page errors.",
+        "manual": "Earlier review used a chime diversion, curtains and a pursuit route to extract with one leaf in27 turns and three separately broken warnings, then completed the four-vault zero-exposure campaign. Pass2's bounded live-rule search and actual-button suites verify a distinct13-turn opening route with all leaves/relic, one warning, the thrown chime recovered and2/2 intact recorded; older untracked records migrate after replay. Exact development CI passes all20 engine, DOM/save and desktop/touch browser suites. Public2e73e30 passes release assets/source integrity before the unchanged Pages permission failure.",
         "notVerified": [
-          "Independent human enjoyment and broader non-ghost alternate-route replay depth",
+          "Independent human enjoyment and broader authored-route replay depth",
           "Physical touch hardware and screen-reader behavior",
           "Long-form content or testing hours",
-          "Public catalogue integration/deployment"
+          "Public deployment and live-route verification"
         ],
-        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39451640282/artifacts/12278907966"
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39787235971/artifacts/12431025313"
       }
     }
   ],
@@ -2293,10 +2296,23 @@
       "verifiedCommit": "1c236f0c5b7ef93c322c1f1184ab33fb63d29fd4",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39782284539",
       "inspectedMainCommit": "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"
+    },
+    {
+      "run": 67,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Echo Vault received meaningful pass2, bringing the20-game collection to53 recorded passes. Best routes now rank intact chimes after leaves/exposure, retain older saves, and surface conservation in inspection, outcomes and records. A bounded live-rule search plus actual-button regressions verifies a distinct13-turn opening route with all leaves/relic, one warning, the decoy recovered and zero confiscations. Exact development7894ebf passed repository/ledger gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium suite and screenshots in CI39787235971. The aligned selected source was promoted on public main2e73e30; release route/assets and all nine source hashes passed in workflow39788411733 before the unchanged Configure Pages permission failure, so0 live URLs remain honestly claimed.",
+      "implementationCommit": "7894ebf2c17b10c0cadebe7b07fe605d437f01c6",
+      "verifiedCommit": "7894ebf2c17b10c0cadebe7b07fe605d437f01c6",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39787235971",
+      "inspectedMainCommit": "2e73e3080515a7e8a306dd77c724fab2c0113b20"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with53 passes; nine selected/source-integrated on public main a9aa7b0;0live URLs because GitHub Pages configuration remains blocked",
+    "status": "All20 candidates playable, improved and finished with53 passes; nine selected/source-integrated on public main2e73e30;0live URLs because GitHub Pages configuration remains blocked",
     "playable": 20,
     "improved": 20,
     "finished": 20,
