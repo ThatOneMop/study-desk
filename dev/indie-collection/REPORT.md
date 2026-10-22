@@ -1,3 +1,23 @@
+# Run 57 · Threadbound keyboard-parity pass
+
+**20/20 playable prototypes · 20 improved games · 47 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Threadbound remains development-only, but its fourth improvement pass closes a concrete keyboard/touch parity bug. A movement, reel or jump key pressed and released between animation frames previously disappeared; it now receives one bounded twelve-frame (0.2-second) nudge, matching touch and accessibility-button activation. The queue is added only when no simulation frame observed the held key, so sustained controls, pendulum physics, progression, saving and the four established routes are unchanged.
+
+## Evidence
+
+- Control commit: [424251f](https://github.com/ThatOneMop/study-desk/commit/424251f23d4bffac181acd010047d072c159f6a6); exact source with matching onboarding: [c5219eb](https://github.com/ThatOneMop/study-desk/commit/c5219ebbfacd3ce8d08fbc634b5a0bc666910151).
+- Local checks pass: 13 engine tests, 17 DOM/save tests, both repository asset/isolation gates, exactly 20 slots and 116 candidate references, JavaScript syntax and diff hygiene.
+- New regressions prove sub-frame keyboard reel and jump taps survive, the reel correction stops after exactly twelve frames, pause/blur clearing remains intact, and the 406/411/419/498-step all-seed/no-fall routes still pass unchanged.
+- The browser campaign now checks quick keyboard jump/reel behavior before its four existing actual-keyboard crossings and per-canopy screenshots.
+- Local Playwright cannot launch because its Chromium executable is absent, and no workflow attached to connector-created `424251f` or `c5219eb` during this run. Current-source browser CI remains pending; no new desktop/touch browser pass is claimed.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no public catalogue or deployment change was made.
+
+## Decision and next gate
+
+Threadbound stays **playable, not finished and not selected**. Obtain exact-source Chromium and inspect the four captures, then complete subjective continuous-control review of canopies 2–4 before ranking it against the seventeen finished candidates. Physical touch, screen-reader behavior, full touch campaign, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 56 · Roof Runner quick-correction pass
 
 **20/20 playable prototypes · 20 improved games · 46 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
