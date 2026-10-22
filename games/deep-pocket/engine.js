@@ -17,13 +17,16 @@
  ];
  const spots=['Reed edge','Old pilings','Open pocket'],depths=['Shallow','Midwater','Deep'],habitat=[[0,1,2],[1,3,4],[2,4,5]],costs={grip:3,spool:3};
  const clone=o=>JSON.parse(JSON.stringify(o)),integer=(v,a,b)=>Number.isInteger(v)&&v>=a&&v<=b;
- function fresh(index,p){return{index,rules:2,status:'active',phase:'choose',spot:0,depth:0,casts:0,records:[],fight:null,stars:0,equipment:clone(p.upgrades),message:'Choose a bank and depth, then cast. Nothing moves until you choose an action.'}}
+ function fresh(index,p){return{index,rules:2,plan:'balanced',status:'active',phase:'choose',spot:0,depth:0,casts:0,records:[],fight:null,stars:0,equipment:clone(p.upgrades),message:'Choose a field brief, bank and depth, then cast. Nothing moves until you choose an action.'}}
  function create(){const profile={coins:0,best:[0,0,0,0,0],upgrades:{grip:false,spool:false},seen:[false,false,false,false,false,false]};return{version:1,profile,run:fresh(0,profile)}}
+ function plan(o){return o.run.plan||'balanced'}
+ function requirements(o){const c=chapters[o.run.index];return plan(o)==='conservation'?{cash:Math.max(0,c.cash-20),release:Math.min(3,c.release+1)}:{cash:c.cash,release:c.release}}
  function totals(o){const r=o.run.records,c=chapters[o.run.index];return{cash:r.filter(x=>x.choice==='keep').reduce((v,x)=>v+fish[x.fish].value,0),released:new Set(r.filter(x=>x.choice==='release').map(x=>x.fish)).size,escapes:r.filter(x=>x.choice==='escape').length,survey:r.some(x=>x.fish===c.survey&&x.choice!=='escape'),contract:o.run.rules!==2||r.some(x=>x.fish===c.contract.fish&&x.choice===c.contract.choice)}}
  function efficiencyTarget(o){const c=chapters[o.run.index];return o.run.rules===2?c.par:c.release+3}
- function ready(o){const t=totals(o),c=chapters[o.run.index];return t.cash>=c.cash&&t.released>=c.release&&t.survey&&t.contract}
+ function ready(o){const t=totals(o),r=requirements(o);return t.cash>=r.cash&&t.released>=r.release&&t.survey&&t.contract}
  function prediction(o,spot=o.run.spot,depth=o.run.depth,ahead=0){if(!integer(spot,0,2)||!integer(depth,0,2)||!integer(ahead,0,2))return null;return(habitat[spot][depth]+(o.run.casts+ahead)%3)%6}
  function habitats(o){return spots.flatMap((_,spot)=>depths.map((_,depth)=>{const id=prediction(o,spot,depth),records=o.run.records,c=chapters[o.run.index],t=totals(o);return{spot,depth,fish:id,upcoming:[0,1,2].map(ahead=>prediction(o,spot,depth,ahead)),stocked:records.some(x=>x.fish===id&&x.choice==='keep'),released:records.some(x=>x.fish===id&&x.choice==='release'),handled:records.some(x=>x.fish===id&&x.choice!=='escape'),survey:id===c.survey,surveyRecorded:t.survey,contract:o.run.rules===2&&id===c.contract.fish,contractDone:t.contract}}))}
+ function setPlan(o,value){const s=o.run;if(s.status!=='active'||s.phase!=='choose'||s.casts!==0||s.records.length||!['balanced','conservation'].includes(value))return false;s.plan=value;s.message=value==='conservation'?'Conservation brief chosen: return one extra species and bring home 20 fewer shells. Cast limits and medals stay unchanged.':'Balanced brief chosen: meet the standard shell and nursery targets.';return true}
  function select(o,spot,depth){const s=o.run;if(s.status!=='active'||s.phase!=='choose'||!integer(spot,0,2)||!integer(depth,0,2))return false;s.spot=spot;s.depth=depth;return true}
  function cast(o){const s=o.run;if(s.status!=='active'||s.phase!=='choose'||s.casts>=8)return false;const id=prediction(o);s.casts++;s.phase='fight';s.fight={fish:id,tension:40+s.depth*4,progress:0,beat:0};s.message=fish[id].name+' is on the line. Read the next pull before committing.';return true}
  function pull(o){const s=o.run,f=s.fight;if(!f)return 0;return fish[f.fish].pattern[f.beat%4]+chapters[s.index].current-(s.equipment.grip?4:0)}
@@ -39,7 +42,7 @@
  function next(o,index){const s=o.run;if(s.status==='active'||!integer(index,0,4)||index>0&&!o.profile.best[index-1])return false;o.run=fresh(index,o.profile);return true}
  function retry(o){o.run=fresh(o.run.index,o.profile);return true}
  function upgrade(o,key){if(!Object.hasOwn(costs,key)||o.run.status==='active'||o.profile.upgrades[key]||o.profile.coins<costs[key])return false;o.profile.coins-=costs[key];o.profile.upgrades[key]=true;return true}
- function valid(o){try{const p=o.profile,s=o.run;if(o.version!==1||!p||!s||s.rules!==undefined&&s.rules!==2||!integer(s.index,0,4)||!['active','lost','complete'].includes(s.status)||!['choose','fight','landed'].includes(s.phase)||!integer(s.spot,0,2)||!integer(s.depth,0,2)||!integer(s.casts,0,8)||!integer(s.stars,0,3)||typeof s.message!=='string'||s.message.length>600)return false;
+ function valid(o){try{const p=o.profile,s=o.run;if(o.version!==1||!p||!s||s.rules!==undefined&&s.rules!==2||s.plan!==undefined&&!['balanced','conservation'].includes(s.plan)||!integer(s.index,0,4)||!['active','lost','complete'].includes(s.status)||!['choose','fight','landed'].includes(s.phase)||!integer(s.spot,0,2)||!integer(s.depth,0,2)||!integer(s.casts,0,8)||!integer(s.stars,0,3)||typeof s.message!=='string'||s.message.length>600)return false;
   if(!Array.isArray(p.best)||p.best.length!==5||!p.best.every(x=>integer(x,0,3))||p.best.some((x,i)=>i&&x&&!p.best[i-1])||!Array.isArray(p.seen)||p.seen.length!==6||!p.seen.every(x=>typeof x==='boolean'))return false;
   for(const k of Object.keys(costs))if(typeof p.upgrades?.[k]!=='boolean'||typeof s.equipment?.[k]!=='boolean'||s.equipment[k]&&!p.upgrades[k])return false;
   if(p.coins!==p.best.reduce((a,b)=>a+b,0)-Object.keys(costs).reduce((v,k)=>v+(p.upgrades[k]?costs[k]:0),0)||!integer(p.coins,0,15)||s.index>0&&!p.best[s.index-1])return false;
@@ -51,6 +54,6 @@
   if(s.status!=='complete'&&s.stars!==0||s.status==='lost'&&(s.phase!=='choose'||totals(o).escapes<3&&(s.casts<8||ready(o)))||s.status==='active'&&(totals(o).escapes>=3||s.casts>=8&&s.phase==='choose'&&!ready(o)))return false;
   return true}catch{return false}}
  function encode(o){return JSON.stringify(o)}function decode(raw){try{if(typeof raw!=='string'||raw.length>18000)return null;const o=JSON.parse(raw);return valid(o)?o:null}catch{return null}}
- return{fish,chapters,spots,depths,costs,clone,create,totals,ready,efficiencyTarget,prediction,habitats,select,cast,pull,act,canKeep,decide,preview,decisionPreview,finish,next,retry,upgrade,valid,encode,decode};
+ return{fish,chapters,spots,depths,costs,clone,create,plan,requirements,totals,ready,efficiencyTarget,prediction,habitats,setPlan,select,cast,pull,act,canKeep,decide,preview,decisionPreview,finish,next,retry,upgrade,valid,encode,decode};
 });
 

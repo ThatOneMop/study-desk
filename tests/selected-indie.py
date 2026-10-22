@@ -13,9 +13,9 @@ SELECTED = {
         "style.css": "c3acf8deea0176f2270a6db8f9766c4475577319481ceba33a0450ab36065f93",
     },
     "deep-pocket": {
-        "engine.js": "a70ac851cf16222007004c25c9410de7c2fe495c526cc201b39f5d026d6c49db",
-        "game.js": "d412caf0986b113a9f536e92044d9ca1cfd7f356659aeda654daad10da90a3ba",
-        "style.css": "3d88316541c21f678444a2b2b30d251480de615d990b31b8e38fc6409fa49119",
+        "engine.js": "ae71ea29c5e053228e48ce89dabbd4c1f85b5a2cc9c5c1639576c432c666777a",
+        "game.js": "ca250ca5986e52479506ce13f95f72de1949d8ef2b72d4a02d25d7f27ff02e11",
+        "style.css": "4fb6b6231060d97e0e6e0e49d8e969a9b5d5a2021669c074a5af80cd43e15e77",
     },
     "queen-of-cinders": {
         "engine.js": "1d6e7988bc4507e6a36cef118d485554d069952e512139bc5e6ecd6bd6b33460",
