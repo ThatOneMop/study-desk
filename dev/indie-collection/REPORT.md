@@ -1,3 +1,24 @@
+# Run 60 · Threadbound pointer-release precision pass
+
+**20/20 playable prototypes · 20 improved games · 50 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Threadbound remains development-only, but its fifth improvement pass fixes the pointer half of the quick-input rule. Pointerdown previously started the full twelve-frame correction immediately, so a reel, pump or jump control held for a few real simulation frames could continue after release. Pointer controls now queue the 0.2-second correction only when press and release both happen before any frame sees the input. Once a frame observes the hold, release stops immediately. Accessibility-button clicks keep one bounded correction; physics, four routes, progression and saves are unchanged.
+
+## Evidence
+
+- Source commit: [c0c4058](https://github.com/ThatOneMop/study-desk/commit/c0c405805d7c2ae001fdd71223cf62182be95df9).
+- Local checks pass: 13 Threadbound engine tests, 18 DOM/save tests, both repository asset/isolation gates, exactly 20 slots and 116 candidate references, JavaScript syntax and diff hygiene.
+- New regressions prove true sub-frame pointer jump/reel taps retain exactly twelve frames, while observed three-frame reel and two-frame pump holds match direct physics after release with no hidden queue.
+- All four all-seed/no-fall routes remain unchanged at 406/411/419/498 fixed steps, together with 27,000 seeded mixed-input steps.
+- Prior source [f441922](https://github.com/ThatOneMop/study-desk/commit/f44192253378a49ba7822af5ef336d6e36cc64f4) retains [successful CI 39437234416](https://github.com/ThatOneMop/study-desk/actions/runs/39437234416), but that browser result predates passes3–5 and is context only.
+- Local Chromium remains unavailable and no workflow attached to `c0c4058` during this run, so no new desktop/touch browser pass is claimed.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no public catalogue or deployment change was made.
+
+## Decision and next gate
+
+Threadbound stays **playable, not finished and not selected**. Obtain exact-source Chromium, inspect all four canopy captures and complete continuous-control canopies2–4 before ranking it against the seventeen finished candidates. Physical touch, screen-reader output, full touch campaign, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 59 · Roof Runner direction-release precision pass
 
 **20/20 playable prototypes · 20 improved games · 49 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.

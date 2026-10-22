@@ -1229,13 +1229,14 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/threadbound/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 4,
+      "meaningfulImprovementPasses": 5,
       "changes": [
         "Initial playable: four original canopy crossings with gravity/pendulum tether physics, unilateral reelable ropes, momentum-preserving transfers/releases, pale one-way branches, checkpoint knots, optional silver seeds, no-life-limit safety returns, sequential lantern unlocks and saved motion/best stitches.",
         "Pass 1: pure 2.5-second release trajectory/landing forecasts from the actual integrator, mint/coral dotted preview, exact pin distances and range guidance, east-preferring reachable-pin transfer shortcut, six-frame coyote/buffered jump grace and backward-compatible saved grace fields. Rendered-QA follow-ups: wrap control labels, give quick pump/reel taps and accessible button activation one bounded six-frame nudge without doubling held inputs, and focus the visible completion button after lantern victory.",
         "Pass 2: a fall-heavy live crossing exposed that the completion status always claimed a fall-free stitch. Completion feedback now derives its named awards from the same seed/fall state as scoring, handles singular/plural grammar, and repairs misleading status text in older completed saves on load.",
         "Pass 3: quick touch and accessibility-button taps now queue a forgiving twelve-frame (0.2-second) nudge instead of six frames, making fine reel/pump corrections easier without changing sustained holds. The Chromium campaign now captures every completed canopy separately so later-room visual QA is durable rather than inferred from the opening screenshot.",
-        "Pass 4: keyboard movement/reel/jump presses released before the next animation frame now receive the same bounded twelve-frame nudge as touch instead of disappearing. The queue is added only when no simulation frame observed the held key, preserving sustained controls and the four established routes."
+        "Pass 4: keyboard movement/reel/jump presses released before the next animation frame now receive the same bounded twelve-frame nudge as touch instead of disappearing. The queue is added only when no simulation frame observed the held key, preserving sustained controls and the four established routes.",
+        "Pass 5: pointer movement/reel/jump controls now use the same observed-frame rule as keyboard. A true sub-frame tap still receives the forgiving twelve-frame nudge, but once any simulation frame sees the pointer held, releasing stops immediately instead of finishing a hidden remainder. Accessibility button clicks retain one bounded nudge; physics, routes, progression and saves are unchanged."
       ],
       "tests": [
         "PASS initial 67665ba5518b586602c7ddb3ed35d986ae03bd5c: CI 39434927740, 7 engine+11 DOM, repository/candidate gates and seventeen earlier-game browser regressions. New Threadbound browser suite absent in initial checkpoint.",
@@ -1249,17 +1250,18 @@
         "Run 54 local exact-source: both repository asset/isolation gates, JavaScript syntax, diff hygiene, all 13 engine checks and all 15 DOM/save checks pass. The four legal all-seed/no-fall routes remain 406/411/419/498 fixed steps. Managed desktop visibly opened canopy 2 and confirmed the revised 0.2-second guidance plus a 24-unit quick reel nudge.",
         "Run 54 browser CI is pending: this runtime lacks the Playwright Chromium executable, and no workflow run attached to the connector-created source commit during the observation window. The updated regression expects a twelve-frame quick tap and emits per-canopy screenshots; no new desktop/touch pass is claimed yet.",
         "Run 57 local exact-source c5219eb: both repository asset/isolation gates, JavaScript syntax, diff hygiene, all 13 engine checks and all 17 DOM/save checks pass. New regressions prove sub-frame keyboard reel and jump taps survive, stop after exactly twelve frames, and leave the 406/411/419/498-step reference routes unchanged.",
-        "Run 57 browser CI is pending: Playwright is installed but its Chromium executable is absent, and no workflow attached to control commit 424251f or onboarding commit c5219eb during this run. The browser campaign now checks quick keyboard jump/reel before the four existing actual-keyboard crossings; no new Chromium result is claimed."
+        "Run 57 browser CI is pending: Playwright is installed but its Chromium executable is absent, and no workflow attached to control commit 424251f or onboarding commit c5219eb during this run. The browser campaign now checks quick keyboard jump/reel before the four existing actual-keyboard crossings; no new Chromium result is claimed.",
+        "Run60 exact-source local checks:13 engine and18 DOM/save tests pass. True sub-frame pointer jump/reel taps and accessibility clicks retain exactly twelve frames, while observed three-frame reel and two-frame pump holds match direct physics after release with no hidden queue. Four406/411/419/498-step all-seed/no-fall routes,27,000 mixed-input steps, both asset/isolation gates, syntax and diff hygiene remain green. Exact-source Chromium is pending because no local executable or attached workflow is available."
       ],
       "quality": {
         "enjoyment": "Managed review now includes the opening of canopy 2 as well as two completed canopy-1 outcomes. Elevated geometry reads as a real route change, but the cloud browser cannot sustain simultaneous reel/pump input, so later-canopy subjective completion remains open; synthetic routes do not prove fun.",
         "depth": "Four compact handcrafted canopy crossings: gravity, reelable unilateral ropes, momentum transfer, branch checkpoints, optional seeds, clean-route stitches, breeze and elevated lantern. Limited authored geometry and longer progression/replay depth still need comparison; no duration claim.",
-        "polish": "Original code-drawn moth/forest/gold pins/silver seeds. Native keyboard/canvas pin/pointer/touch controls, range/trajectory guidance, assistance, jump grace, wrapping labels and truthful earned-stitch prose. Passes 3–4 give keyboard, pointer and accessibility activation the same bounded 0.2-second fine adjustment without extending sustained holds; the Chromium campaign retains per-canopy screenshot evidence.",
-        "reliability": "Current source passes both asset/isolation gates plus 13 engine and 17 DOM/save checks locally. Sub-frame keyboard reel/jump presses are bounded and the four exact legal routes remain unchanged. The prior exact source passed actual Chromium desktop/touch/native RAF and all earlier-game regressions; passes 3–4 still await a new Chromium run.",
+        "polish": "Original code-drawn moth/forest/gold pins/silver seeds. Native keyboard/canvas pin/pointer/touch controls, range/trajectory guidance, assistance, jump grace, wrapping labels and truthful earned-stitch prose. Pass5 makes the 0.2-second fine adjustment exact across keyboard and pointer: only invisible sub-frame taps are extended, while observed holds stop on release. Accessibility clicks retain one bounded nudge; per-canopy screenshots remain in the browser campaign.",
+        "reliability": "Current source c0c4058 passes both asset/isolation gates plus 13 engine and 18 DOM/save checks locally. Sub-frame keyboard/pointer reel, pump and jump inputs are bounded; observed pointer holds stop exactly on release; four legal routes and27,000 mixed steps remain unchanged. The prior exact source passed Chromium desktop/touch/native RAF, but passes3–5 still await a new Chromium run.",
         "variety": "Actual pendulum tether physics, reel length and momentum-preserving aerial transfers distinguish this from dash rooftops and top-down cargo salvage. Compact traversal candidate, not a renamed prior loop."
       },
       "selected": false,
-      "selectionReason": "Not selected: canopy 2 is visually distinct and bounded quick corrections now cover keyboard and touch, but subjective completion/control review of canopies 2–4 and exact-source browser CI remain open.",
+      "selectionReason": "Not selected: canopy 2 is visually distinct and bounded quick corrections now cover keyboard, pointer and accessibility input without extending holds, but subjective completion/control review of canopies 2–4 and exact-source browser CI remain open.",
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
@@ -1276,17 +1278,18 @@
         "a9617317700bfafb1504343501fb47232461897d",
         "c36f6e6d03a73ec58cc0765441c5a4437d725b1a",
         "424251f23d4bffac181acd010047d072c159f6a6",
-        "c5219ebbfacd3ce8d08fbc634b5a0bc666910151"
+        "c5219ebbfacd3ce8d08fbc634b5a0bc666910151",
+        "c0c405805d7c2ae001fdd71223cf62182be95df9"
       ],
       "verification": {
         "runUrl": null,
-        "testedCommit": "c5219ebbfacd3ce8d08fbc634b5a0bc666910151",
+        "testedCommit": "c0c405805d7c2ae001fdd71223cf62182be95df9",
         "conclusion": "pending",
-        "desktop": "Current engine routes and local DOM keyboard controls pass, including sub-frame reel/jump taps and unchanged sustained routes. The prior source completed four actual-keyboard browser campaigns, but that result is not claimed for the changed exact source.",
-        "touch": "Managed preview shows the 0.2-second guidance and a 24-unit quick reel nudge. Local DOM tests prove matching bounded keyboard, pointer and accessibility-button taps; updated Chromium assertions are committed but exact-source browser CI is pending. Full touch campaign is not tested.",
+        "desktop": "Current engine routes and local DOM keyboard/pointer controls pass, including sub-frame reel/jump taps, immediate observed-hold release and unchanged sustained routes. The prior source completed four actual-keyboard browser campaigns, but that result is not claimed for changed exact source c0c4058.",
+        "touch": "Local DOM tests prove a true sub-frame pointer tap gets the exact twelve-frame nudge, observed pointer reel/pump holds stop immediately on release, and accessibility clicks remain bounded. Prior browser touch evidence is context only; exact-source browser CI and physical hardware remain pending. Full touch campaign is not tested.",
         "manual": "Two earlier managed canopy-1 completions remain valid context. Run 54 opened the elevated second canopy and exercised its safety return; sustained simultaneous input is unsupported by this cloud browser, so later subjective completion is not claimed.",
         "notVerified": [
-          "Exact-source Chromium desktop/touch regression after passes 3–4",
+          "Exact-source Chromium desktop/touch regression after passes 3–5",
           "Subjective continuous-control completion and replay depth across canopies 2–4",
           "Physical touch hardware and screen-reader behavior",
           "Full touch-controlled campaign",
@@ -1295,7 +1298,15 @@
           "Public catalogue integration/deployment"
         ],
         "screenshotArtifact": null
-      }
+      },
+      "reviews": [
+        {
+          "date": "2026-10-22",
+          "scope": "Pointer release precision and parity with keyboard/accessibility controls",
+          "finding": "Pointerdown previously started the full twelve-frame queue immediately, so a short but observed touch hold could continue after release. Pass5 queues only a pointer released before any simulation frame; observed holds now stop exactly while sub-frame taps and accessibility clicks remain forgiving.",
+          "decision": "Meaningful pass5 complete; hold as improved prototype pending exact-source Chromium and continuous canopies2–4 review"
+        }
+      ]
     },
     {
       "slot": 19,
@@ -2172,10 +2183,23 @@
       "verifiedCommit": null,
       "ciUrl": null,
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 60,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 17,
+      "publishedTotal": 0,
+      "summary": "Threadbound pass5 corrects the pointer side of its quick-input queue: only a press released before any simulation frame receives the twelve-frame/0.2-second correction; once a frame observes the hold, release stops immediately. Accessibility clicks stay bounded. Current source c0c4058 passes13 engine,18 DOM/save, both asset/isolation gates, syntax/diff, four406/411/419/498-step routes and27,000 mixed steps locally. Chromium/no workflow remains pending; candidate is playable, not finished/selected; public main unchanged.",
+      "implementationCommit": "c0c405805d7c2ae001fdd71223cf62182be95df9",
+      "verifiedCommit": null,
+      "ciUrl": null,
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/49passes;17finished; Roof Runner, Last Match and Threadbound current-source Chromium/continuous-control finish gates remain;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/50passes;17finished; Roof Runner, Last Match and Threadbound current-source Chromium/continuous-control finish gates remain;0selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 17,
