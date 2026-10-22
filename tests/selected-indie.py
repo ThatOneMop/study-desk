@@ -48,9 +48,9 @@ SELECTED = {
         "style.css": "580cfbb122b9362d833d23bbd67c9483d72fc796257b8e93c2e8d8ae8a13a1f4",
     },
     "glasshouse": {
-        "engine.js": "7270d56fc86194dc5997321ccf7b240af0f7391d2edad2ce1f7ea78b39168264",
-        "game.js": "840bef07acad067b059a6b55fd29a52f1ed6fbbab695524e60f22d25b6221526",
-        "style.css": "3fc042058c5db0f1a9e09332eed6d5f1aefdfe4932127740ad97c3e74f0ea734",
+        "engine.js": "2c287e376d9cf5eef86a46e7b91f2dc92550f3d84f233377560bc210f430acb0",
+        "game.js": "4958eb0ab44137dec44975ea3975d3ebc5cdb544ff1d541652e98007538abe1e",
+        "style.css": "634935f2152bd8dc58e5847f0b448d302b4fb02bdd67d3cbbcc57bce5e57c000",
     },
 }
 
