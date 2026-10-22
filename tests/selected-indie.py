@@ -28,9 +28,9 @@ SELECTED = {
         "style.css": "d7e2554110036409df0a9150f847e12c887898d4d3b45096950e4a58b312bc51",
     },
     "scrap-orbit": {
-        "engine.js": "896d94316e815823edd411d244f51882cfb4e353b8ee8edc6cead61d659a6796",
-        "game.js": "3893b4bd8949fdcb19502db660d612337440d234a3bbdc4a8faea9acee9d43aa",
-        "style.css": "27deb6cf40d04cdd4cd687e0b2bbe941660c9ec45b9bbd5a23b9042b7f497e73",
+        "engine.js": "2fbcc5cd8a2c35ea0891e8cf91e455124748f0576f06c88f8155cbb96ab01e10",
+        "game.js": "74389f9f25abeb3afb3969b49b16827baf931b5415e3a350ea0c837a8db94e29",
+        "style.css": "ca27fed7ea5fad7314934da78fb0d7125e621330a42503381c33b18463b4e1af",
     },
     "inkline": {
         "engine.js": "35fc31f45d7db8cbc66228629af6ccf6bb88b69029526f1ff65cb36d6496caef",
