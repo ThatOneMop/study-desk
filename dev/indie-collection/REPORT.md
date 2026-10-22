@@ -1,3 +1,24 @@
+# Run 56 · Roof Runner quick-correction pass
+
+**20/20 playable prototypes · 20 improved games · 46 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.
+
+Roof Runner remains development-only, but its third improvement pass removes a concrete sub-frame control asymmetry. A quick keyboard or touch direction press now produces one bounded six-frame (0.1-second) correction instead of disappearing before the physics loop sees it. Quick keyboard jump and dash presses receive the same exactly-once queue already used by touch. Holding any control continues normally; variable jump height, air-dash recharge, wind, conveyors, vents, five authored routes, timers, medals, progression and the v1 save format are unchanged. Onboarding now states the tap-versus-hold behavior.
+
+## Evidence
+
+- Source commit: [ff80e90](https://github.com/ThatOneMop/study-desk/commit/ff80e90c0a0db16f1f2e725c7eab229258c780cd).
+- Local checks pass: 13 engine tests, 21 DOM/save tests, both repository asset/isolation gates, exactly 20 slots and 116 candidate references, JavaScript syntax and diff hygiene.
+- All five legal all-parcel/no-fall solutions remain green at 277/295/307/367/343 ticks, together with 120 bounded exploratory attempts.
+- New checks prove a quick keyboard jump fires once and a quick touch direction matches exactly six legal movement frames, then stops. Browser coverage now repeats the bounded direction correction before quick jump/dash and narrow-screen geometry checks.
+- The prior source [24d11a4](https://github.com/ThatOneMop/study-desk/commit/24d11a4c18c3e8a29ca138b130742cdecdce5598) retains [successful CI 39514585107](https://github.com/ThatOneMop/study-desk/actions/runs/39514585107), but that run is context rather than current-source certification.
+- Local Playwright cannot launch because its Chromium executable is absent, and no workflow attached to connector-created `ff80e90` during this run. Current-source browser CI remains pending.
+- Public `main` remains `42e32a7efa25a120f579dbef6a706d8588a2c3a8`; no public catalogue or deployment change was made.
+
+## Decision and next gate
+
+Roof Runner stays **playable, not finished and not selected**. The pass materially improves precision corrections across keyboard and touch, but it does not replace the missing continuous full-route review. Obtain exact-source Chromium, complete an unscripted route and exercise the later wind/vent routes before ranking it against the seventeen finished candidates. Physical touch, screen-reader output, independent human enjoyment and content-hours remain unclaimed.
+
+
 # Run 55 · Last Match full native-clock finish gate
 
 **20/20 playable prototypes · 20 improved games · 45 meaningful improvement passes · 17 finished · 0 selected · 0 publicly published.** Exactly 20 candidate slots retained.

@@ -466,12 +466,13 @@
       "status": "playable-prototype",
       "source": "dev/indie-collection/roof-runner/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 2,
+  "meaningfulImprovementPasses": 3,
       "changes": [
         "Initial playable: five original rooftop courier routes, jump/air-dash physics, three optional parcels per route, checkpoints, winds/conveyors/steam vents, eight-fall loss/retry, three-medal route records, locked progression, keyboard/touch controls and guarded versioned saves. Side roofs calibrated to baseline jump height.",
         "Pass 1: six-frame coyote time and early-jump buffer, variable jump height, latched sub-frame touch jump/dash taps, mobile camera enlarged to 480 logical pixels, stable route-button focus, held-input cleanup on blur/parent suspension, checkpoint/parcel/fall immediate saves, and backward migration of initial v1 saves.",
         "Pass 1 follow-through: fixed cancelling a live restart leaving focus on the Retry button instead of the canvas; exposed independently saved fastest-time/medal records and explained hold-versus-tap jump height. Added focused regression tests and test-only CI trigger coverage.",
-        "Pass 2 after a live opening review: added a compact route strip that continuously maps the runner, three parcels, mid-route flag and postbox. It reports route percentage, postbox distance and the nearest remaining parcel as ahead or behind; collected parcels and saved checkpoint visibly settle on the strip. The accessible summary follows the same live state, while the event message remains a durable fall/parcel/checkpoint log."
+    "Pass 2 after a live opening review: added a compact route strip that continuously maps the runner, three parcels, mid-route flag and postbox. It reports route percentage, postbox distance and the nearest remaining parcel as ahead or behind; collected parcels and saved checkpoint visibly settle on the strip. The accessible summary follows the same live state, while the event message remains a durable fall/parcel/checkpoint log.",
+    "Pass 3: quick keyboard and touch direction presses now queue a bounded six-frame (0.1-second) correction instead of disappearing between simulation frames; quick keyboard jump/dash presses receive the same exactly-once queue already used by touch. Sustained holds, variable jump height, physics, five routes, hazards, timing, scoring, progression and v1 saves are unchanged. Onboarding states the tap-versus-hold behavior."
       ],
       "tests": [
         "8 local engine checks passed: all five actual-physics three-medal routes, checkpoint recovery, losses/retry, replay/progression and every-tick save decoding. Baseline solutions 289/295/325/361/343 ticks (automated paths, not human session lengths).",
@@ -483,13 +484,14 @@
         "PASS exact final implementation 8898a68f1dd1bd2231d6d9b6f79d4774e88dd993 / CI 39364833774: inspected steps and decoded logs confirm 13 engine + 18 DOM checks; all five actual-keyboard three-medal/checkpoint routes with deterministic physics clock; 390px touch emulation, 44px targets, mobile camera and 390px/320px overflow; native-clock RAF jump/movement, retry-cancel focus and pause; full repository assets and all six earlier-game regressions.",
         "Pass2 local:13 engine checks pass, retaining five all-parcel/no-fall routes at277/295/307/367/343 ticks and120 bounded exploratory attempts.19 DOM and expanded desktop/touch Chromium cases authored; local jsdom/Playwright dependencies unavailable, so their execution is attributed only to exact-source CI.",
         "Live local-only UI opening: started/resumed normally, exercised held touch movement plus jump, observed one real gap fall/recovery and paused-state reload. The new strip visibly advanced4%→6% and updated postbox/parcel distances; the existing stale 'Ready' event text no longer has to carry navigation. This is limited control/visual evidence, not a full manual route win or human-player rating.",
-        "PASS exact-source CI39514585107 at24d11a4c18c3e8a29ca138b130742cdecdce5598: root gates;13 engine+19 DOM; deterministic-clock actual-keyboard five-route campaign; native-clock controls; desktop/touch live route-strip geometry and all19 other-candidate regressions. Terminal job/log evidence inspected."
+    "PASS exact-source CI39514585107 at24d11a4c18c3e8a29ca138b130742cdecdce5598: root gates;13 engine+19 DOM; deterministic-clock actual-keyboard five-route campaign; native-clock controls; desktop/touch live route-strip geometry and all19 other-candidate regressions. Terminal job/log evidence inspected.",
+    "Pass3 local:13 engine checks retain all five all-parcel/no-fall routes and120 exploratory attempts;21 DOM/save checks pass, including exactly-once quick keyboard jump and an exact six-frame quick touch-direction correction. Both repository asset/isolation gates, exact20 slots/116 references, syntax and diff checks pass. Browser assertions now cover the bounded touch correction before jump/dash, but local Chromium is unavailable and no workflow attached to connector-created source ff80e90 during this run; exact-source browser CI remains pending."
       ],
       "quality": {
         "enjoyment": "Limited normal-UI opening review exercised movement, held jump, a real recoverable gap fall, pause and reload. The readable rooftop vista and immediate courier premise were promising; this is not a complete manual victory, human-player score or full continuous-control assessment.",
         "depth": "Five short handmade routes with optional parcels, clean-route and time replay goals, checkpoints, wind/conveyors and steam. Live route mapping now supports deliberate parcel detours, but longer-term replay/difficulty depth remains unproven; no hours claim.",
-        "polish": "Original canvas city art reviewed live on desktop. Pass2 adds responsive, accessible live route/parcel/checkpoint/postbox guidance, including ahead/behind distances and compact mobile layout. Exact CI covers keyboard, touch emulation, focus, saves/retry, 390/320px geometry; physical touch and screen-reader output remain open.",
-        "reliability": "13 engine+19 DOM, deterministic-clock five-route desktop, native-clock controls, touch-emulated route-strip geometry and full all19-candidate regressions pass on exact source24d11a4 / CI39514585107.",
+    "polish": "Original canvas city art reviewed live on desktop. Pass2 adds responsive, accessible live route/parcel/checkpoint/postbox guidance. Pass3 makes small keyboard/touch direction corrections dependable and explicitly teaches tap versus hold. Prior exact CI covers focus, saves/retry and390/320px geometry; current-source physical touch, screen-reader and Chromium remain open.",
+    "reliability": "Current source ff80e90 passes13 engine+21 DOM plus both asset/isolation gates locally; exact browser CI is pending because no workflow attached and local Chromium is absent. Prior source24d11a4 retains successful deterministic five-route/native-clock/touch/full-regression CI39514585107 but is not misrepresented as current-source browser evidence.",
         "variety": "Distinct real-time courier platformer with route detours and air-dash control; now has spatial navigation feedback unlike the collection's planning boards."
       },
       "selected": false,
@@ -505,7 +507,8 @@
         "7328cbf3048e6f503d42f6a60b0cc8627ba2ed55",
         "017893d419bdcabb5f77194656442c46c1b58efa",
         "8898a68f1dd1bd2231d6d9b6f79d4774e88dd993",
-        "24d11a4c18c3e8a29ca138b130742cdecdce5598"
+    "24d11a4c18c3e8a29ca138b130742cdecdce5598",
+    "ff80e90c0a0db16f1f2e725c7eab229258c780cd"
       ],
       "verification": {
         "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39514585107",
@@ -2088,16 +2091,29 @@
       "verifiedCommit": null,
       "ciUrl": null,
       "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
+    },
+    {
+      "run": 56,
+      "date": "2026-10-22",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 17,
+      "publishedTotal": 0,
+      "summary": "Roof Runner pass3 fixes sub-frame input asymmetry: quick keyboard/touch direction presses now produce a bounded six-frame/0.1-second correction, while quick keyboard jump/dash receives the same exactly-once queue as touch. Sustained holds and all gameplay rules are unchanged. Current source ff80e90 passes13 engine,21 DOM/save, both asset/isolation gates, syntax and diff checks locally; five legal all-parcel/no-fall routes and120 exploratory attempts remain green. Local Chromium is unavailable and no workflow attached, so exact-source browser CI is pending and the candidate remains playable, not finished/selected. Public main unchanged.",
+      "implementationCommit": "ff80e90c0a0db16f1f2e725c7eab229258c780cd",
+      "verifiedCommit": null,
+      "ciUrl": null,
+      "inspectedMainCommit": "42e32a7efa25a120f579dbef6a706d8588a2c3a8"
     }
   ],
   "collectionReview": {
-    "status": "Comparative review underway;20playable/all20improved/45passes;17finished; Last Match full native-clock finish-gate test and Threadbound pass3 Chromium are pending;0selected/public",
+    "status": "Comparative review underway;20playable/all20improved/46passes;17finished; Roof Runner, Last Match and Threadbound current-source Chromium/continuous-control finish gates remain;0selected/public",
     "playable": 20,
     "improved": 20,
     "finished": 17,
     "selected": 0,
     "published": 0,
-    "next": "Compare the seventeen finished candidates directly while obtaining Threadbound pass3 and Last Match full-native-campaign Chromium evidence, completing Threadbound canopies2–4 and Roof Runner full-route control reviews. No new slots.",
+    "next": "Compare the seventeen finished candidates directly while obtaining current-source Chromium evidence for Roof Runner, Threadbound and Last Match; complete Roof Runner full-route and Threadbound canopies2–4 control reviews. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
