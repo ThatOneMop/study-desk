@@ -22,7 +22,7 @@
   "totals": {
     "playable": 10,
     "improved": 10,
-    "finished": 9,
+    "finished": 10,
     "selected": 0,
     "meaningfulPasses": 10,
     "verifiedLive": 0
@@ -569,7 +569,7 @@
       "id": "pocket-palaeo",
       "title": "Pocket Palaeo",
       "coreLoop": "Excavate connected fossils, distribute reusable supports, consolidate cracks and lift specimens into a museum; spend earned research seals on field tools.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/pocket-palaeo",
       "improvementPasses": [
         {
@@ -580,26 +580,58 @@
             "Highlight trapped soil, overloaded spans and support anchors; show load values so brace choices are understandable.",
             "Interpolate fast pointer and touch strokes across skipped grid cells; stop excavation immediately on fracture.",
             "Give fern, wing, shell and skull specimens individual silhouettes; constrain tray dimensions to keep SVG bones aligned with the soil grid.",
-            "Preserve full journals at the replay limit instead of writing saves that cannot reload."
+            "Preserve full journals at the replay limit instead of writing saves that cannot reload.",
+            "Native touch diagnostic found missing compatibility clicks after a rapid drag; controls now activate on a valid stationary release, suppress duplicate clicks, and retain keyboard input.",
+            "Distinguish native pointer clicks with zero detail from keyboard activation, preventing a touch tap from brushing twice.",
+            "Suppress the handled touch gesture\u2019s compatibility click even when opening a dialog retargets that click onto another control."
           ],
-          "validation": "22 engine and 12 DOM checks pass. Desktop/touch browser campaign and full ten-game regression pending."
+          "validation": "22 engine and 17 DOM checks; exact-source CI 39990612900 passed complete desktop and native touch three-site/six-specimen campaigns, every-site reloads, purchases, fast strokes, previews, fracture/restart, isolated recovery/reset and navigation. Desktop and phone images reviewed."
         }
       ],
       "tests": [
         "Initial playable: 18 engine and 9 DOM checks passed, including all three sites/six perfect specimens, purchases, connected support graphs, excavation damage, border clearance, fracture/retry, resin, replay saves, keyboard and pointer strokes.",
-        "Improvement: 34 checks (22 engine, 12 DOM) cover exact/pure forecasts, trapped soil, confirmation/cancel, safe supports, rapid strokes, blur, journal capacity and the original full museum campaign."
+        "Improvement: 34 checks (22 engine, 12 DOM) cover exact/pure forecasts, trapped soil, confirmation/cancel, safe supports, rapid strokes, blur, journal capacity and the original full museum campaign.",
+        "Touch correction: 37 checks (22 engine, 15 DOM), including stationary release activation, duplicate-click suppression, keyboard compatibility, movement/cancellation/blur.",
+        "Final local candidate suite: 39 checks (22 engine, 17 DOM), including zero-detail touch compatibility clicks and retargeted modal clicks; final native verification is recorded below.",
+        "Final exact-source CI 39990612900: 240 engine + 185 DOM = 425 checks across all ten candidates, complete desktop/touch campaigns and public integrity gates passed.",
+        "Pocket Palaeo Chromium 1280x1000 desktop and 390x844 native touch: all six perfect museum recoveries, all three upgrades, every-site exact reload, native fast strokes, desktop Enter/Space and arrow navigation, safe and dangerous lift previews, deliberate fracture, restart cancellation/confirmation, isolated corrupt-save recovery and new journal, return navigation, no uncaught browser errors.",
+        "Artifacts retain 238 screenshots across ten candidates, including 34 Pocket Palaeo captures. Representative desktop cradle/museum and phone museum images inspected; direct browser visual QA also checked trapped soil and overload feedback.",
+        "Public checks passed: 19 bundled routes/55 HTML asset references, nine selected first-batch source hashes, exact 20-slot gate, current shell, bridge-pointer and relaxed collection. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Playable initial excavation/museum loop with three sites, six articulated specimens and three functional field-tool purchases. Meaningful improvement and browser validation pending."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Careful excavation feeds a connected-graph lifting puzzle; condition earns non-farmable seals for three functional upgrades. Exact risk previews explain support placement. Three authored sites and six fixed specimens limit discovery on repeat play; better condition and alternate support arrangements are the replay goals. The 283-action reference campaign is reachability evidence, not a human duration estimate. Original SVG/CSS field-journal art, no sound layer or procedural campaign. Phone use requires scrolling. No physical-device test, full screen-reader audit or human enjoyment study. Full desktop and native touch campaigns, loss/restart, save recovery/reset and navigation passed."
       },
       "selected": false,
       "integrationCommits": [],
-      "initialCommit": "56a94c7b79a35c4407e266e51fe4be3e83c83673"
+      "initialCommit": "56a94c7b79a35c4407e266e51fe4be3e83c83673",
+      "developmentCommits": [
+        "56a94c7b79a35c4407e266e51fe4be3e83c83673",
+        "43cb384a92add2715aefe414cbc7aa5435f7fe57",
+        "352c19ef122d680c42c79c96b950514c9f499ed1",
+        "b681dd37d5efed4b133cbd26c619313ecef601dd",
+        "d7f940334afe98828517629fd84f7f671728f08c",
+        "fac96672c40a85256d0c32eaf2a60aba994161b5"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain for comparison as a calm manual collection-and-upgrade candidate. Do not select automatically: its fixed finds and limited long-term discovery must be weighed against the full slate.",
+      "verification": {
+        "commit": "fac96672c40a85256d0c32eaf2a60aba994161b5",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39990612900",
+        "status": "passed",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39990612900/artifacts/12518351510",
+        "sha256": {
+          "engine.js": "6ce2a83ebbeda191d0e68126c15bd2c4460f8641f9f97816412061d81f75a05d",
+          "game.js": "5642792a06e0d0750d892c58f5b33cd1d98b1aa0fba6e1df969bf00b81791f31",
+          "index.html": "f832f7dfd2689f8c54d3fb87c49e85d9c275ec074b7aa3e362b7f1fc7bcca0d4",
+          "style.css": "798cf0c2dc6be5bfe33c1e7541ad2f97e5cdb07dc169965bce1a61ee03ecdd42"
+        }
+      }
     },
     {
       "slot": 31,
@@ -803,9 +835,9 @@
     }
   ],
   "nextSteps": [
-    "Improve Pocket Palaeo support guidance, validate native browser campaigns and assess quality before marking slot 30 finished.",
-    "Ten slots remain planned and uncounted.",
-    "Use COMPARISON.md and the full ledger to revisit quality and choose a complementary group; no automatic selection.",
+    "Implement, improve and test Static Orchard, slot 31, with electric-fruit charging/releasing and arc chains through moving pests.",
+    "Ten slots remain planned and uncounted. Keep the next action games distinct from the fixed spatial puzzles and Afterlight chain-reaction games.",
+    "Revisit all candidates for deeper improvement and select a complementary group using COMPARISON.md; no automatic inclusion.",
     "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."
   ],
   "baselineTestLimitations": [
@@ -910,6 +942,16 @@
       "ci": "39978965563",
       "publicIntegration": null,
       "nextCandidate": 30
+    },
+    {
+      "date": "2026-10-24",
+      "result": "10 playable, 10 improved, 10 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "56a94c7b79a35c4407e266e51fe4be3e83c83673",
+      "gameplayCommit": "43cb384a92add2715aefe414cbc7aa5435f7fe57",
+      "verificationCommit": "fac96672c40a85256d0c32eaf2a60aba994161b5",
+      "ci": "39990612900",
+      "publicIntegration": null,
+      "nextCandidate": 31
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",

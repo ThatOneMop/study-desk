@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` or `http://localhost:8000/games/salt-and-sail/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` `http://localhost:8000/games/salt-and-sail/` or `http://localhost:8000/games/pocket-palaeo/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,17 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**9/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence, Hollow Keeper, Paper Odyssey, Ratchet Run, Wellward and Salt & Sail are finished development candidates. Eleven slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
+**10/20 playable, improved and finished; 0 selected, integrated or verified live.** Pocket Palaeo is the tenth finished development candidate. Ten slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
 
-Salt & Sail links shaped cargo packing and two limited lashings to continuous coastal steering, reefing, slide and impact damage. Five passages include optional trade goods and best-delivery records; two completed routes unlock a faster cutter. Its improvement adds exact stow previews, an optional actual-physics course guide, keyboard packing focus, phone layout changes and hardened save validation. See [Salt & Sail report](RUN_REPORT_2026-10-24_SALT_AND_SAIL.md) and [candidate comparison](COMPARISON.md); earlier reports remain in this directory.
+Pocket Palaeo connects careful excavation to supported fossil lifting and a museum that funds real field tools. Three sites contain six specimens. Its improvement adds exact lift-risk forecasts, explicit confirmation, trapped-soil and overload highlights, continuous fast brush strokes and clearer specimen details. See [Pocket Palaeo report](RUN_REPORT_2026-10-24_POCKET_PALAEO.md) and [candidate comparison](COMPARISON.md); earlier reports remain in this directory.
 
-Exact-source [CI 39978965563](https://github.com/ThatOneMop/study-desk/actions/runs/39978965563) passed **386 engine/interface checks** (218 engine, 168 DOM), complete desktop/touch campaigns for all nine candidates and public integrity gates. Salt & Sail completed all five passages with native keyboard/multi-touch, each voyage reloaded at sea, cutter selection, forecasts, loss/retry, cancellation, bridge pause, isolated recovery/reset and navigation. Its normal-clock steering check passed. [204 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39978965563/artifacts/12514390032) were retained, including 34 Salt & Sail captures; representative desktop and phone images were reviewed.
+Exact-source [CI 39990612900](https://github.com/ThatOneMop/study-desk/actions/runs/39990612900) passed **425 engine/interface checks** (240 engine, 185 DOM), complete desktop/touch campaigns for all ten candidates and public integrity gates. Pocket Palaeo completed six perfect recoveries, all tool purchases, every-site reloads, fast strokes, lift previews, fracture/restart, isolated save recovery/reset and navigation. [238 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39990612900/artifacts/12518351510) were retained, including 34 Pocket Palaeo captures; representative desktop and phone images were reviewed.
 
 The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-All nine candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
+All ten implemented candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: implement, improve and test Pocket Palaeo, slot 30, with tactile fossil excavation, bracing and careful lifting. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
+Next: implement, improve and test Static Orchard, slot 31, with electric-fruit charging and arc chains through moving pests. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 
