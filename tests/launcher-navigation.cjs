@@ -14,7 +14,7 @@ const favourite=d.querySelector('.fav');favourite.focus();favourite.click();chec
 filter('Favourites').focus();filter('Favourites').click();checkFocus(filter('Favourites'));
 assert.equal(d.querySelectorAll('.game').length,1);
 d.querySelector('.fav').click();checkFocus($('search'));assert(d.querySelector('.empty').textContent.includes('No favourites'));
-d.querySelector('.empty button').click();checkFocus($('search'));assert.equal(d.querySelectorAll('.game').length,10);
+d.querySelector('.empty button').click();checkFocus($('search'));assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
 launch('after-hours').click();assert.equal($('frame').title,'After Hours game');checkFocus($('frame'));
 const frameWindow=$('frame').contentWindow,src=$('frame').src;
 $('pauseGame').click();checkFocus($('resumeGame'));assert.equal($('frame').inert,true);assert.equal($('frame').tabIndex,-1);
@@ -25,13 +25,13 @@ search('no such game');$('search').focus();$('frame').onload();checkFocus($('sea
 assert.equal(d.querySelectorAll('.game').length,0);$('sessionReturn').querySelector('button').click();
 assert.equal($('frame').contentWindow,frameWindow);assert.equal($('frame').src,src);checkFocus($('resumeGame'));
 $('resumeGame').click();assert.equal($('frame').inert,false);assert.equal($('frame').tabIndex,0);checkFocus($('frame'));
-$('playerStudy').click();checkFocus($('card'));
+ppp();checkFocus($('card'));
 // Browse always goes to the library, but PPP deliberately resumes the player.
 ppp();assert.equal($('player').hidden,false);assert.equal($('frame').contentWindow,frameWindow);
-$('playerStudy').click();$('switch').click();assert.equal($('player').hidden,true);assert.equal($('arcade').hidden,false);checkFocus($('search'));
+ppp();$('switch').click();assert.equal($('player').hidden,true);assert.equal($('arcade').hidden,false);checkFocus($('search'));
 $('sessionReturn').querySelector('button').click();assert.equal($('frame').contentWindow,frameWindow);
 $('libraryBtn').click();checkFocus($('search'));
-d.querySelector('.empty button').click();assert.equal(d.querySelectorAll('.game').length,10);
+d.querySelector('.empty button').click();assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
 assert.equal($('genre').value,'all');assert.equal(filter('All').getAttribute('aria-pressed'),'true');
 console.log('PASS launcher: browse vs PPP, preserved iframe session, return through empty filters, named controls, focus restoration, paused keyboard isolation, late-load focus guards.');
 w.close();

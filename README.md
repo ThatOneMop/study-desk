@@ -16,7 +16,7 @@ Study opens first. Create, edit and delete cards and decks in Create cards. Flip
 
 ## Switching
 
-Press P three times within one second, or use the touch-friendly Study / Switch workspace buttons. Text fields, held-key repeats and modifier shortcuts are excluded. Plain P is reserved inside bundled games to avoid triggering their native P actions during the sequence; use the toolbar Pause button or in-game menu instead.
+Press P three times within one second, to move between study and games. The games screens have no workspace-switch buttons. Text fields, held-key repeats and modifier shortcuts are excluded. Plain P is reserved inside bundled games to avoid triggering their native P actions during the sequence; use the toolbar Pause button or in-game menu instead.
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
