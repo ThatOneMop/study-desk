@@ -1,0 +1,11 @@
+'use strict';const E=require('../games/wellward/engine.js'),fs=require('node:fs'),path=require('node:path');
+const paths=[
+ [[[300,100],[180,205]],[[300,100],[430,320]],[[300,100],[230,435]],[[300,100],[370,565]]],
+ [[[300,130],[420,150]],[[300,150],[300,240],[140,285]],[[300,150],[300,330],[300,410],[440,455]],[[300,150],[300,330],[300,410],[350,620]]],
+ [[[300,150],[230,195]],[[300,180],[300,330],[300,400],[460,420]],[[300,180],[300,330],[300,400],[150,530]],[[300,180],[300,330],[300,400],[355,635]]],
+ [[[300,150],[300,240],[130,280]],[[300,150],[300,300],[300,390],[480,430]],[[300,150],[300,300],[300,470],[300,550],[180,600]],[[300,150],[300,300],[300,470],[300,550],[385,650]]]
+];
+let s=E.create(),steps=[],runs=[];function act(a){const r=E.action(s,a);if(!r.ok)throw Error(JSON.stringify(a)+r.reason);s=r.state;steps.push(a);}function tick(input){const last=steps.at(-1);if(last?.type==='tick'&&last.input===input)last.frames++;else steps.push({type:'tick',input,frames:1});s=E.tick(s,input);if(s.run.phase==='lost')throw Error('Lost at '+JSON.stringify(E.position(s.run)));}function go([x,y]){let n=0;while(n++<2400){const p=E.position(s.run);if(Math.abs(p.x-x)<7&&Math.abs(p.y-y)<6)break;let b=16;if(p.x<x-5)b|=2;else if(p.x>x+5)b|=1;if(p.y<y-4)b|=4;else if(p.y>y+4)b|=8;tick(b);}if(n>=2400)throw Error('Stuck '+JSON.stringify({x,y,p:E.position(s.run)}));for(let j=0;j<25;j++)tick(16);}
+for(let well=0;well<4;well++){if(well)act({type:'well',well});for(let id=0;id<4;id++){if(id%2===0)act({type:'launch'});const route=paths[well][id];for(const point of route)go(point);tick(48);tick(16);if(!s.run.cargo.includes(id))throw Error('No relic '+well+':'+id+' '+s.run.message);for(const point of [...route].reverse().slice(1))go(point);go([300,78]);if(id%2===1){act({type:'dock'});if(well===0)act({type:'upgrade',item:'winch'});if(well===1)act({type:'upgrade',item:id===1?'lining':'rack'});}}
+runs.push({well,steps});steps=[];console.log('Well',well+1,E.totals(s),'coins',s.coins,'upgrades',s.upgrades);}
+fs.writeFileSync(path.join(__dirname,'fixtures/wellward-routes.json'),JSON.stringify(runs,null,2)+'\n');console.log('Frames',runs.flatMap(x=>x.steps).filter(x=>x.type==='tick').reduce((a,b)=>a+b.frames,0));

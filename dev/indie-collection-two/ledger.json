@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 7,
+    "playable": 8,
     "improved": 7,
     "finished": 7,
     "selected": 0,
@@ -449,17 +449,19 @@
       "id": "wellward",
       "title": "Wellward",
       "coreLoop": "Manage a falling water bucket and swinging ropes to retrieve relics from branching shafts.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/wellward",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial version: 18 engine and 12 DOM checks pass locally, including four complete 16-relic campaigns, upgrade purchases, collision/loss, ballast, exact mid-descent reload, corruption recovery and isolated reset. Browser checks and meaningful improvement still pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted. Renamed from Moonwell to avoid collision with the separate Afterlight collection."
+        "notes": "Initial playable gravity-winch expedition: four authored wells, sixteen unique relics, banked brass and three two-tier workshop upgrades. Not yet improved or evaluated for selection."
       },
       "selected": false,
       "integrationCommits": []
@@ -706,9 +708,9 @@
     }
   ],
   "nextSteps": [
-    "Implement, improve and test candidate 28, Wellward: a rope-and-bucket relic retrieval game with branching shafts.",
-    "Thirteen candidates remain planned concepts and need playable source, meaningful improvement and verification.",
-    "Compare completed candidates; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
+    "Improve and browser-test candidate 28 Wellward before marking it finished.",
+    "Twelve remaining planned candidates require implementation and improvement.",
+    "Compare finished candidates and integrate only selected winners on fresh main."
   ],
   "baselineTestLimitations": [
     {
