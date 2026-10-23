@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 7,
-    "improved": 6,
+    "improved": 7,
     "finished": 6,
     "selected": 0,
-    "meaningfulPasses": 6,
+    "meaningfulPasses": 7,
     "verifiedLive": 0
   },
   "deployment": {
@@ -388,9 +388,20 @@
       "id": "ratchet-run",
       "title": "Ratchet Run",
       "coreLoop": "Ride a courier bike through five authored terrain courses: throttle, brake, hop and balance; protect cargo and collect optional airborne parcels; stop in the delivery bay to unlock routes.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/ratchet-run",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-23",
+          "changes": [
+            "Added exact non-mutating projected hop arcs, colour-coded landing risk and a readable next-obstacle guide.",
+            "Added a replay of the best verified delivery as a ghost to compare riding lines.",
+            "Fixed overlapping keyboard aliases so releasing one held throttle key does not cancel another; verified clean three-seal paths through all five routes."
+          ],
+          "validation": "20 engine and 17 DOM checks pass locally. Full desktop/native multi-touch Chromium campaigns and visual QA pending."
+        }
+      ],
       "tests": [
         {
           "stage": "initial",
@@ -406,7 +417,11 @@
         "notes": "Initial playable only. Real-time action variety; compact five-route prototype. Needs readability, perfect-route balance and browser QA before finished status."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "a46b5564f38d0ba48d83ccabc2e0b8cd624795d4",
+      "developmentCommits": [
+        "a46b5564f38d0ba48d83ccabc2e0b8cd624795d4"
+      ]
     },
     {
       "slot": 28,
