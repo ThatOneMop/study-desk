@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` or `http://localhost:8000/games/hollow-keeper/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` or `http://localhost:8000/games/paper-odyssey/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,17 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**5/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper are finished development candidates. Fifteen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
+**6/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence, Hollow Keeper and Paper Odyssey are finished development candidates. Fourteen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
 
-Hollow Keeper is a compact maze-defense game: redirect tunnels, tend limited-charge thorn beds and lure armored intruders away from a beetle nursery. Its improvement adds exact scout reports, route overlays, staged tool previews, stable keyboard focus, clearer depleted traps and tool selection beside the map. See [Hollow Keeper report](RUN_REPORT_2026-10-23_HOLLOW_KEEPER.md). Earlier candidate reports remain in this directory.
+Paper Odyssey is a smooth illustrated map-folding puzzle: bring shores together, transfer between paper layers, collect postage stamps and deliver the letter on a flat chart. Its improvement adds exact future-map previews, supply and route forecasts, loss/damage warnings, explicit confirmation/cancel and keyboard focus recovery. See [Paper Odyssey report](RUN_REPORT_2026-10-23_PAPER_ODYSSEY.md). Earlier reports remain in this directory.
 
-Final exact-source [CI 39953185745](https://github.com/ThatOneMop/study-desk/actions/runs/39953185745) passed **216 engine/interface tests** (119 engine, 97 DOM), full desktop and touch-emulated campaigns for all five candidates, and public integrity gates. Hollow Keeper completed all five hollows at three seals at 1280×1000 desktop and 390×844 touch emulation. Exact scouts and tool costs, midgame reload per hollow, invalid previews, route toggles, loss/undo, native keyboard focus/Enter/Space, auto pause, fruit, restart/cancel, isolated corrupt-save recovery and return navigation passed with no browser errors. [102 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39953185745/artifacts/12502075149) were retained, including 22 Hollow Keeper captures. Representative desktop hollow 4 and touch hollow 5 midgame captures were visually inspected.
+Exact-source [CI 39956463788](https://github.com/ThatOneMop/study-desk/actions/runs/39956463788) passed **261 engine/interface tests** (144 engine, 117 DOM), full desktop and touch-emulated campaigns for all six candidates, and public integrity gates. Paper Odyssey completed all five charts at three seals at 1280×1000 desktop and 390×844 touch emulation. Exact preview supplies, per-chart reload, native Enter/focus, keyboard/cancel, last-crease loss/undo, ink drying, restart/cancel, isolated corrupt-save recovery and return navigation passed without browser errors. The touch context also verified reduced motion. [126 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39956463788/artifacts/12503415329) were retained, including 24 Paper Odyssey captures. Final desktop preview and touch chart 4 midgame screenshots were visually inspected.
 
 The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-All five candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Hollow Keeper's bounded solver provides reference routes, not optimality proofs. Never regenerate fixtures to conceal a regression. Lanternwake's solver likewise uses bounded beam search; Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
+All six candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: implement Paper Odyssey, slot 26; improve and test it before counting it finished. Selection waits for broader comparison.
+Next: implement Ratchet Run, slot 27, to add responsive action variety; improve and test it before counting it finished. Planned slot 28 is now Wellward, avoiding the separate Afterlight Moonwell title. Selection waits for broader comparison.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 

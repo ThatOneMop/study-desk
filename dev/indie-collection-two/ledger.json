@@ -22,7 +22,7 @@
   "totals": {
     "playable": 6,
     "improved": 6,
-    "finished": 5,
+    "finished": 6,
     "selected": 0,
     "meaningfulPasses": 6,
     "verifiedLive": 0
@@ -331,7 +331,7 @@
       "id": "paper-odyssey",
       "title": "Paper Odyssey",
       "coreLoop": "Fold a paper map to connect islands while changing traversal and hidden resources.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/paper-odyssey",
       "improvementPasses": [
         {
@@ -342,24 +342,46 @@
             "Added explicit confirmation/cancel and warnings before ink damage, exhausted-paper loss or delivery; made preview map read-only and visibly labelled.",
             "Added Enter confirmation and Escape cancellation, restored focus to the traveller after commits, and added reduced-motion-aware paper feedback."
           ],
-          "validation": "25 engine and 20 DOM checks pass; direct browser first chart completed. Full desktop/touch regression pending."
+          "validation": "Exact-source CI 39956463788 passed 25 Paper Odyssey engine + 20 DOM checks, all five three-seal desktop/touch charts, exact preview supplies, per-chart reload, native Enter/focus, keyboard/cancel, last-crease loss/undo, ink drying, restart/cancel, isolated recovery and navigation. All previous candidates pass unchanged: 261 checks total, 126 screenshots. All five charts additionally completed through direct cloud UI."
         }
       ],
       "tests": [
-        "Initial playable version: 22 engine and 15 DOM checks pass, including five complete clean routes, fold geometry, resource use, loss/undo, saves and controls. Improvement and browser verification pending.",
-        "Improved version: 25 engine and 20 DOM checks pass, including exact forecasts, staged controls, last-crease warning, cancel and focus."
+        "Initial playable version: 22 engine and 15 DOM checks passed before improvement.",
+        "25 engine tests: five complete clean charts, independent reflection oracle for every cell/direction, layer crossings, atomic rejection, one-axis folding, ink drying, one-use thread repair, flat delivery, last-crease recovery/loss, bounded journal, progression and replay-verified saves, exact non-mutating previews and warnings.",
+        "20 DOM checks: five campaigns, onboarding/locks/labels/navigation, input/modal guards, per-chart reload, restart/cancel, exhausted-paper loss/undo, corrupt-save isolation, unavailable storage, ink state, staged map/cost previews, confirm focus, invalid preview clearing and risk warnings.",
+        "Chromium desktop 1280x1000 and touch emulation 390x844: all five charts at three seals, exact forecasts/inventories, per-chart reload, native Enter/focus, keyboard/cancel, last-crease warning/loss/undo, ink drying, restart/cancel, isolated recovery and return navigation; no browser errors. Touch context also checks reduced motion.",
+        "126 CI screenshots across six games, 24 for Paper Odyssey. Desktop preview and touch chart 4 midgame captures visually inspected. All five charts also completed in direct cloud UI: first at desktop width, remaining four in a 390px frame (layout inspection, not physical-device testing).",
+        "All prior 216 engine/DOM checks and five desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, static assets, nine first-batch selected-source hashes and exact twenty-slot gate passed."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Improved candidate; browser regression and final review pending."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3,
+        "polish": 4,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Mirrored spatial adjacency, layer crossings, scarce creases and one-use thread repairs create a distinct paper-folding puzzle. Exact previews make geometry readable and protect resources. Original smooth paper-world SVG. Five short charts constrain depth; phone layout scrolls between chart and controls. Crossing list provides larger targets than island markers. No multi-hour-content, physical-device or full screen-reader claim."
       },
       "selected": false,
       "integrationCommits": [],
-      "initialCommit": "fed424a977ca9e25e3d497007775571451e7eec5"
+      "initialCommit": "fed424a977ca9e25e3d497007775571451e7eec5",
+      "developmentCommits": [
+        "fed424a977ca9e25e3d497007775571451e7eec5",
+        "2fdcf59ad9da741f6ad8937608b42a5a28ae4f63"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain for broader comparison. Folding physical islands changes geometry and layer connectivity; distinct from first-batch Inkline drafting/ink economy and other second-batch mechanics. Not automatically selected.",
+      "verification": {
+        "commit": "2fdcf59ad9da741f6ad8937608b42a5a28ae4f63",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39956463788",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39956463788/artifacts/12503415329",
+        "sha256": {
+          "engine.js": "09e41c10c0d5b6874abd08efff1d2b1e1c5a5c57f36f8c2943b81e3b3b528fa0",
+          "game.js": "e581f766bc26cbe254d6ae46bd0c3ebbd3e62ef510b9145d8aa9d9d63469ce46",
+          "index.html": "96373edb13cb3b1b12be56b2d587bea1805659d049b701c59d6516ec11341561",
+          "style.css": "d8e7577f77224a341946aad38074eed0eac58e57aace4e8da7f532f4a32a0ddd"
+        }
+      }
     },
     {
       "slot": 27,
@@ -383,8 +405,8 @@
     },
     {
       "slot": 28,
-      "id": "moonwell",
-      "title": "Moonwell",
+      "id": "wellward",
+      "title": "Wellward",
       "coreLoop": "Manage a falling water bucket and swinging ropes to retrieve relics from branching shafts.",
       "status": "planned",
       "source": null,
@@ -396,7 +418,7 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Concept only; no implementation counted. Renamed from Moonwell to avoid collision with the separate Afterlight collection."
       },
       "selected": false,
       "integrationCommits": []
@@ -643,7 +665,7 @@
     }
   ],
   "nextSteps": [
-    "Improve Paper Odyssey planning and visual feedback, verify desktop/touch full campaigns, then record quality assessment.",
+    "Implement candidate 27, Ratchet Run: a side-view trials courier with bike balance, suspension choices and optional cargo routes. Prioritize responsive action variety, then improve and test it.",
     "Fourteen candidates remain concepts; each needs playable implementation, meaningful improvement and verification.",
     "Compare the completed slate; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
   ],
@@ -663,7 +685,7 @@
       "action": "Preserve the current public UI. Update obsolete launcher assertions as a separate Study Desk maintenance change before future integration."
     }
   ],
-  "designReview": "Read the full first-batch core-loop ledger. Replaced the proposed bartering slot with Night Clerk to avoid Moss Market overlap; reserved Windup Wrestling for action variety. Planned slots remain revisable concepts and never count as playable.",
+  "designReview": "Read the full first-batch core-loop ledger. Replaced the proposed bartering slot with Night Clerk to avoid Moss Market overlap; reserved Windup Wrestling for action variety. Planned slots remain revisable concepts and never count as playable. Planned slot 28 renamed Wellward to avoid the separate Afterlight Moonwell title; its distinct rope-and-bucket concept remains unimplemented and uncounted.",
   "runHistory": [
     {
       "date": "2026-10-23",
@@ -710,6 +732,15 @@
       "ci": "39953185745",
       "publicIntegration": null,
       "nextCandidate": 26
+    },
+    {
+      "date": "2026-10-23",
+      "result": "6 playable, 6 improved, 6 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "fed424a977ca9e25e3d497007775571451e7eec5",
+      "gameplayCommit": "2fdcf59ad9da741f6ad8937608b42a5a28ae4f63",
+      "ci": "39956463788",
+      "publicIntegration": null,
+      "nextCandidate": 27
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
