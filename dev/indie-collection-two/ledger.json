@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 11,
-    "improved": 10,
+    "improved": 11,
     "finished": 10,
     "selected": 0,
-    "meaningfulPasses": 10,
+    "meaningfulPasses": 11,
     "verifiedLive": 0
   },
   "deployment": {
@@ -638,11 +638,23 @@
       "id": "static-orchard",
       "title": "Static Orchard",
       "coreLoop": "Charge and release electric fruit to chain arcs through moving pests and power harvest tools.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/static-orchard",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Live exact chain forecast with numbered neighbors and charge beside the aim point makes release timing and reach readable.",
+            "Keyboard T cycles moving target tracking; arrows and pointer aiming return to manual control.",
+            "Rebalanced the overpowered global pulse into a 180-pixel emergency defense centered on the selected fruit, with explicit range and target count; it spends four harvest and bypasses armor."
+          ],
+          "validation": "14 engine and 11 DOM checks pass. Native desktop/touch campaign verification pending; not counted finished."
+        }
+      ],
       "tests": [
-        "Initial playable: 12 engine and 9 DOM checks passed. Four-orchard winning campaign, idle loss/retry, charge tiers, chains, armor, queen shields, pulse economy, tool purchases, windseeds, strict saves, keyboard/pointer input, focus cancellation and isolated recovery/reset. Native browser QA and improvement still pending."
+        "Initial playable: 12 engine and 9 DOM checks passed. Four-orchard winning campaign, idle loss/retry, charge tiers, chains, armor, queen shields, pulse economy, tool purchases, windseeds, strict saves, keyboard/pointer input, focus cancellation and isolated recovery/reset. Native browser QA and improvement still pending.",
+        "Improvement: all 25 checks pass, including pure/exact chain forecasts, real upgrade effects, keyboard tracking/manual override, scoped pulse damage/cost and target availability."
       ],
       "quality": {
         "enjoyment": null,
@@ -653,7 +665,11 @@
         "notes": "Initial playable only; no finished or quality score claimed before improvement and native verification."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "a3485e64b8fc7af817f05384eae73713c3f9a7ff",
+      "developmentCommits": [
+        "a3485e64b8fc7af817f05384eae73713c3f9a7ff"
+      ]
     },
     {
       "slot": 32,
