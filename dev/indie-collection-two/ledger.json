@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 8,
-    "improved": 7,
+    "improved": 8,
     "finished": 7,
     "selected": 0,
-    "meaningfulPasses": 7,
+    "meaningfulPasses": 8,
     "verifiedLive": 0
   },
   "deployment": {
@@ -449,11 +449,23 @@
       "id": "wellward",
       "title": "Wellward",
       "coreLoop": "Manage a falling water bucket and swinging ropes to retrieve relics from branching shafts.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/wellward",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Selectable clearance sketch through shaft shoulders, with live direction guidance and optional overlay.",
+            "Live safe-distance/swing lifting feedback, exact upgrade effects and cargo bank-value preview.",
+            "Compact phone canvas and controls to keep the shaft and winch controls together."
+          ],
+          "validation": "20 engine and 13 DOM checks passed locally; Chromium campaigns pending."
+        }
+      ],
       "tests": [
-        "Initial version: 18 engine and 12 DOM checks pass locally, including four complete 16-relic campaigns, upgrade purchases, collision/loss, ballast, exact mid-descent reload, corruption recovery and isolated reset. Browser checks and meaningful improvement still pending."
+        "Initial version: 18 engine and 12 DOM checks pass locally, including four complete 16-relic campaigns, upgrade purchases, collision/loss, ballast, exact mid-descent reload, corruption recovery and isolated reset. Browser checks and meaningful improvement still pending.",
+        "Improved version: 20 engine and 13 DOM tests pass; guidance segments sampled for clearance, state immutability, lifting readiness and UI selection/toggle/effects."
       ],
       "quality": {
         "enjoyment": null,
@@ -464,7 +476,11 @@
         "notes": "Initial playable gravity-winch expedition: four authored wells, sixteen unique relics, banked brass and three two-tier workshop upgrades. Not yet improved or evaluated for selection."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "902ba544df8b138932b5ed1f2abad1051b4ea37e",
+      "developmentCommits": [
+        "902ba544df8b138932b5ed1f2abad1051b4ea37e"
+      ]
     },
     {
       "slot": 29,

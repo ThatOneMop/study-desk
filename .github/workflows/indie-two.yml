@@ -9,6 +9,9 @@ on:
       - 'games/copper-cadence/**'
       - 'games/hollow-keeper/**'
       - 'games/paper-odyssey/**'
+      - 'games/wellward/**'
+      - 'tests/wellward-*'
+      - 'tests/fixtures/wellward-*'
       - 'games/ratchet-run/**'
       - 'tests/ratchet-run-*'
       - 'tests/fixtures/ratchet-run-*'
@@ -61,16 +64,19 @@ jobs:
           node --check games/paper-odyssey/game.js
           node --check games/ratchet-run/engine.js
           node --check games/ratchet-run/game.js
+          node --check games/wellward/engine.js
+          node --check games/wellward/game.js
       - name: Engine and full campaign checks
-        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs
+        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs
       - name: Install test-only dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0 playwright@1.58.2
           node "$RUNNER_TEMP/reef-deps/node_modules/playwright/cli.js" install --with-deps chromium
       - name: DOM, persistence and input checks
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs
+        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs
       - name: Desktop and touch Chromium campaigns
         run: |
+          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/wellward-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/ratchet-run-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/reefwright-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/counterweight-browser.cjs
