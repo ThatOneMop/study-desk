@@ -22,3 +22,14 @@ for i in items:
  if not i['selected']:assert i['id'] not in catalog
  if i['status']=='finished':assert i['improvementPasses'] and i['tests'] and all(i['quality'][k] is not None for k in ['enjoyment','depth','polish','reliability','variety'])
 print('PASS second batch: exactly 20 new slots; honest status totals; source, bridge, navigation and selection gates')
+if 'additionalRound' in ledger:
+ round_data=json.loads((root/ledger['additionalRound']['checklist']).read_text())
+ assert [c['id'] for c in round_data['candidates']]==[c['id'] for c in items]
+ assert [c['slot'] for c in round_data['candidates']]==list(range(21,41))
+ completed=[c for c in round_data['candidates'] if c['status']=='verified']
+ assert round_data['completed']==ledger['additionalRound']['completed']==len(completed)
+ assert round_data['required']==ledger['additionalRound']['required']==20
+ for c in completed:
+  assert c['observedWeakness'] and c['before'] and c['after'] and c['testing']
+  assert re.fullmatch('[0-9a-f]{40}',c['implementationCommit'])
+ print(f'PASS additional round: {len(completed)}/20 independently verified entries; earlier passes excluded')

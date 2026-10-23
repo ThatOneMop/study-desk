@@ -31,7 +31,14 @@
     "status": "blocked",
     "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
     "checked": "2026-10-24",
-    "detail": "Latest main release 39925660833 freshly checked: Configure GitHub Pages reports Get Pages site: Not Found, then Create Pages site: Resource not accessible by integration. No public catalogue or hosting writes by this increment. Separate all-created-games integration is preserved and must be reread before promotion; zero verified-live URLs in this collection ledger is not a claim that no other hosting exists."
+    "detail": "Latest main release 39925660833 freshly checked: Configure GitHub Pages reports Get Pages site: Not Found, then Create Pages site: Resource not accessible by integration. No public catalogue or hosting writes by this increment. Separate all-created-games integration is preserved and must be reread before promotion; zero verified-live URLs in this collection ledger is not a claim that no other hosting exists.",
+    "additionalRoundInvestigation": {
+      "date": "2026-10-24",
+      "run": 39925660833,
+      "head": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
+      "job": 120321277348,
+      "result": "Latest main Pages run still fails Configure GitHub Pages: site not found; Create Pages site: Resource not accessible by integration. No retry performed. Separate hosting work not inferred from this failure."
+    }
   },
   "candidates": [
     {
@@ -1106,11 +1113,11 @@
     }
   ],
   "nextSteps": [
-    "Build Ember Parcel (slot 38); three slots remain planned.",
-    "Keep all seventeen native suites in six browser groups. Exact-source CI 40031851485 passed all 630 engine/interface checks and every native suite; all seven jobs succeeded.",
-    "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
-    "Re-read main and the separate all-created-games integration before promotion; preserve newly added catalogue entries, first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from direct user-requested catalogue inclusion.",
-    "Complete remaining candidates, evaluation and repository integration, verify actual hosting separately, then pause this task."
+    "Complete the additional substantial improvement round for every slot 21\u201340; currently 0/20 verified, Ratchet Run implementation awaiting native browser checks.",
+    "Prioritize other weakest existing games: Cairn & Cord, Murmuration, Night Clerk, Borrowed Gravity and Static Orchard; play before changing.",
+    "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
+    "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
+    "Pages permission checked once for this new round: unchanged integration access failure. Do not retry without changed permissions/evidence."
   ],
   "baselineTestLimitations": [
     {
@@ -1302,5 +1309,13 @@
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main reread at ed2cf603aa47fc26e4f04216d5704351b72a32a9. Separate all-games checkout and all first-batch, requested-game, Gummy Bay, messaging and movie/TV work untouched. Only Murmuration source/tests, second-batch workflow and documentation changed."
+  "concurrentWork": "Main reread at ed2cf603aa47fc26e4f04216d5704351b72a32a9. Separate all-games checkout and all first-batch, requested-game, Gummy Bay, messaging and movie/TV work untouched. Only Murmuration source/tests, second-batch workflow and documentation changed.",
+  "additionalRound": {
+    "requested": "2026-10-24",
+    "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
+    "completed": 0,
+    "required": 20,
+    "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
+    "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
+  }
 }

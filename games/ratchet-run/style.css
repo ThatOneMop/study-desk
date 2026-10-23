@@ -3,3 +3,7 @@
 
 #road-note{background:#e9dfbd;border-bottom:1px solid #d6c795;padding:9px 16px;font-size:11px;font-weight:650;min-height:34px}.garage .assist{display:flex;align-items:center;gap:8px;font-size:11px;line-height:1.6}.assist input{accent-color:#bd5735;width:18px;height:18px}
 .primary:hover:not(:disabled){background:#a84729}
+
+.field-kit{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 16px;padding:10px;background:#e3ead5;border-radius:6px}.field-kit p{font-size:11px;line-height:1.5;margin:0}.field-kit button{min-height:48px;touch-action:none;user-select:none;flex-shrink:0}.field-kit button.held{background:#19363b;color:#fff3d4}#kit-note{min-height:72px} @media(max-width:540px){.field-kit{margin:8px;font-size:10px}.field-kit button{padding:10px 7px;font-size:11px}canvas{height:250px}#controls button{min-height:64px}}
+
+.pedal-row{display:flex;gap:12px;align-items:center;margin:10px 16px}.pedal-row button{font-size:11px;min-height:44px}.pedal-row span{font-size:10px;line-height:1.5;flex:1}.pedal-row button[aria-pressed=true]{background:#e9bd55}
