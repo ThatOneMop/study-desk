@@ -110,7 +110,7 @@ document.addEventListener('visibilitychange',()=>{visibility(arcade&&inPlayer&&!
 function releaseFullscreen(){try{$('frame').contentDocument?.exitPointerLock?.();if($('frame').contentDocument?.fullscreenElement)$('frame').contentDocument.exitFullscreen?.().catch(()=>{})}catch{}document.exitPointerLock?.();if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{})}
 function show(){if($('editor').open)$('editor').close();$('study').hidden=arcade;$('arcade').hidden=!arcade||inPlayer;$('player').hidden=!arcade||!inPlayer;document.body.classList.toggle('playing',arcade&&inPlayer);document.title='Study Desk';visibility(arcade&&inPlayer&&!paused);$('pauseCover').hidden=!paused;$('pauseGame').textContent=paused?'Resume':'Pause';$('frame').inert=paused;$('frame').tabIndex=paused?-1:0;if(!arcade||!inPlayer||paused)releaseFullscreen();if(!arcade)$('card').focus();else if(inPlayer)$(paused?'resumeGame':'frame').focus();else $('search').focus()}
 function toggle(){arcade=!arcade;show();if(arcade&&!inPlayer)drawGames()}
-function openCollection(returnToGame=false){arcade=true;inPlayer=false;show();drawGames();if(returnToGame&&playing)focusGame(playing)}
+function openCollection(returnToGame=false){window.selectEntertainment?.('games',false);arcade=true;inPlayer=false;show();drawGames();if(returnToGame&&playing)focusGame(playing)}
 function record(g){hub.recent=[g.id,...hub.recent.filter(x=>x!==g.id)].slice(0,20);storeJson(HUB_KEY,hub)}
 let loadingTimer,loadAttempt=0,currentLoad=null;
 const loadMessage=el('span'),loadActions=el('div',undefined,'load-actions'),retryLoad=button('Retry game',()=>restartCurrent()),loadCollection=button('Back to collection',()=>openCollection(true));
@@ -133,7 +133,7 @@ $('frame').onload=()=>{
 };
 $('restartGame').onclick=restartCurrent;
 $('openGames').onclick=()=>openCollection();
-function openHash(){if(location.hash==='#games')openCollection()}
+function openHash(){if(['#games','#movies','#tv'].includes(location.hash)){openCollection();window.selectEntertainment?.(location.hash.slice(1),false)}}
 window.addEventListener('hashchange',openHash);
 $('libraryBtn').onclick=()=>openCollection(true);$('switch').onclick=()=>openCollection();
 $('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;$('groupBy').onchange=drawGames;$('sortGames').onchange=drawGames;$('clearFilters').onclick=()=>{$('search').value='';$('genre').value='all';$('groupBy').value='genre';$('sortGames').value='collection';filter='All';drawGames();$('search').focus()};
