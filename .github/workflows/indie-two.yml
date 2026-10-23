@@ -9,6 +9,8 @@ on:
       - 'games/copper-cadence/**'
       - 'games/hollow-keeper/**'
       - 'games/paper-odyssey/**'
+      - 'games/cairn-and-cord/**'
+      - 'tests/cairn-and-cord-*'
       - 'games/tea-for-ghosts/**'
       - 'tests/tea-for-ghosts-*'
       - 'games/borrowed-gravity/**'
@@ -81,6 +83,8 @@ jobs:
           node --check games/wellward/game.js
           node --check games/salt-and-sail/engine.js
           node --check games/salt-and-sail/game.js
+          node --check games/cairn-and-cord/engine.js
+          node --check games/cairn-and-cord/game.js
           node --check games/tea-for-ghosts/engine.js
           node --check games/tea-for-ghosts/game.js
           node --check games/borrowed-gravity/engine.js
@@ -90,12 +94,12 @@ jobs:
           node --check games/pocket-palaeo/engine.js
           node --check games/pocket-palaeo/game.js
       - name: Engine and full campaign checks
-        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs tests/pocket-palaeo-engine.cjs tests/static-orchard-engine.cjs tests/borrowed-gravity-engine.cjs tests/tea-for-ghosts-engine.cjs
+        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs tests/pocket-palaeo-engine.cjs tests/static-orchard-engine.cjs tests/borrowed-gravity-engine.cjs tests/tea-for-ghosts-engine.cjs tests/cairn-and-cord-engine.cjs
       - name: Install test-only dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0
       - name: DOM, persistence and input checks
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs tests/pocket-palaeo-dom.cjs tests/static-orchard-dom.cjs tests/borrowed-gravity-dom.cjs tests/tea-for-ghosts-dom.cjs
+        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs tests/pocket-palaeo-dom.cjs tests/static-orchard-dom.cjs tests/borrowed-gravity-dom.cjs tests/tea-for-ghosts-dom.cjs tests/cairn-and-cord-dom.cjs
   browsers:
     needs: checks
     runs-on: ubuntu-latest
@@ -106,7 +110,7 @@ jobs:
       matrix:
         include:
           - group: new-games
-            games: tea-for-ghosts borrowed-gravity static-orchard
+            games: cairn-and-cord tea-for-ghosts borrowed-gravity static-orchard
           - group: motion
             games: wellward ratchet-run
           - group: planning

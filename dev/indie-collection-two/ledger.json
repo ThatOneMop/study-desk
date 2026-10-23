@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 14,
-    "improved": 13,
+    "improved": 14,
     "finished": 12,
     "selected": 0,
-    "meaningfulPasses": 13,
+    "meaningfulPasses": 14,
     "verifiedLive": 0
   },
   "deployment": {
@@ -772,7 +772,8 @@
       "tests": [
         "Initial playable passed 14 engine and 9 DOM checks: all six visitors, sequential ingredients, extraction/dilution, three-cup departure and retry, memory seals/tools, full service saves, restart/reset and corrupt-save recovery. Native tests and meaningful improvement pending.",
         "Improved: 34 engine/interface checks pass, including pure exact preview, undo, focus continuity and feedback navigation, score authenticity, equipment provenance, initial-save migration and record recall after journal rotation.",
-        "CI 40010604779 passed all 522 engine/DOM checks. Tea desktop completed six memories and both tools before an ambiguous visitor test selector stopped replay testing. Scoped to button in 4b5ce356; game source unchanged. Corrected CI 40011208465 passed all 522 engine/DOM checks; its new-games browser dependency installation was still running at handoff. No complete native pass claimed."
+        "CI 40010604779 passed all 522 engine/DOM checks. Tea desktop completed six memories and both tools before an ambiguous visitor test selector stopped replay testing. Scoped to button in 4b5ce356; game source unchanged. Corrected CI 40011208465 passed all 522 engine/DOM checks; its new-games browser dependency installation was still running at handoff. No complete native pass claimed.",
+        "Previous native failure diagnosed as harness waiting for requestAnimationFrame after the bridge paused animation frames. Harness now checks pause from Node and dispatches a blocked click without browser animation actionability. CI 40016394627 pending."
       ],
       "quality": {
         "enjoyment": null,
@@ -809,11 +810,23 @@
       "id": "cairn-and-cord",
       "title": "Cairn & Cord",
       "coreLoop": "Plan climbing anchors and manage rope slack across compact expeditions.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/cairn-and-cord",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Pure exact next-move forecasts show grip, hearts, slack, wind and fatal slip warnings before committing. Dotted rope preview and disabled invalid actions make reach and rope constraints legible.",
+            "Undo reverses the last action, including a fall, until the summit without deleting earned records.",
+            "Larger holds and height-scaled walls prevent overlap on tall routes. Phone selection scrolls to the move preview; keyboard focus survives wall redraws and follows route changes."
+          ],
+          "validation": "24 checks (16 engine, eight DOM) pass; full native desktop/touch campaigns pending."
+        }
+      ],
       "tests": [
-        "Initial playable: 12 engine and five DOM tests pass, including all four clean cairn campaigns, ropes/anchors, grip/wind, fall/loss, unlocks, replay-validated saves, restart/recovery and pause. Native verification and meaningful improvement pending."
+        "Initial playable: 12 engine and five DOM tests pass, including all four clean cairn campaigns, ropes/anchors, grip/wind, fall/loss, unlocks, replay-validated saves, restart/recovery and pause. Native verification and meaningful improvement pending.",
+        "Improved: 16 engine and eight DOM tests pass; forecasts checked along all four campaign routes, natural exhaustion/loss/undo, isolated storage errors and focus restoration. Native verification pending."
       ],
       "quality": {
         "enjoyment": null,
@@ -821,10 +834,23 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Provisional: a distinct rope-path, finite-grip and anchor-planning loop. Four compact authored routes and badge/move records; no sound or long-playtime claim. Native checks and screenshot review pending."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "e377ee962c3440138d9402c87bac6428d18e6ba8",
+      "developmentCommits": [
+        "e377ee962c3440138d9402c87bac6428d18e6ba8"
+      ],
+      "verification": {
+        "status": "pending-native",
+        "sha256": {
+          "game.js": "4dab0ef73f8ca0136f0d1260f419a175d7df6c668aa7dc090df1186b17b427e1",
+          "style.css": "76752d3d025d3abc8822213b680c49be584ea58896062334e47d1558bd15eec9",
+          "engine.js": "b973684aa1d0db0bd0824953f8fa42645498e79501512305baa32f3f34171535",
+          "index.html": "9cf19f267995e3766d5c13bfe1ea888a4964af652cb877db2cd0a56c19e3e184"
+        }
+      }
     },
     {
       "slot": 35,
@@ -948,7 +974,7 @@
     }
   ],
   "nextSteps": [
-    "Complete Cairn & Cord meaningful improvement, native campaigns and quality review; initial source is preserved.",
+    "Inspect Cairn & Cord native campaign evidence and screenshots; fix failures and complete quality review before marking finished.",
     "Inspect CI 40011208465 new-games job for Tea for Ghosts. Fix any native failures, inspect screenshots and record quality before marking slot 33 finished.",
     "Once Tea is verified, implement, improve and test Cairn & Cord (slot 34); seven slots remain planned.",
     "Retain all thirteen browser suites and bounded concurrency. Browser allowance is now 25 minutes after observed dependency delays.",
