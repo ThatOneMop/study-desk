@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 9,
-    "improved": 8,
+    "improved": 9,
     "finished": 8,
     "selected": 0,
-    "meaningfulPasses": 8,
+    "meaningfulPasses": 9,
     "verifiedLive": 0
   },
   "deployment": {
@@ -509,11 +509,23 @@
       "id": "salt-and-sail",
       "title": "Salt & Sail",
       "coreLoop": "Trade by packing a shifting ship hold; cargo placement changes balance and sailing control.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/salt-and-sail",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Two-step stow confirmation with rotated footprint and exact before/after list, trade value and drift preview.",
+            "Optional two-second course projection using actual steering, loading, slide and collision physics, warning about reefs, shores and unsafe landings.",
+            "Keyboard hold arrows and rotation retain focus; mobile packing comes before the chart while at the quay."
+          ],
+          "validation": "27 engine and 16 DOM checks passed; full native desktop/touch browser campaigns added, CI sign-off pending."
+        }
+      ],
       "tests": [
-        "Initial implementation: 18 engine and 13 DOM tests pass, including all five three-seal full-cargo passages, packing/rotation/lash constraints, cargo-driven drift, sliding/damage, docking/loss, replay validation, saves, restart/recovery and keyboard/pointer controls."
+        "Initial implementation: 18 engine and 13 DOM tests pass, including all five three-seal full-cargo passages, packing/rotation/lash constraints, cargo-driven drift, sliding/damage, docking/loss, replay validation, saves, restart/recovery and keyboard/pointer controls.",
+        "Improved version: 27 engine and 16 DOM checks passed, including preview immutability, forecast/actual physics equality, warning/safe landing distinction, all five cutter passages, cutter replay saves and keyboard packing focus. Browser workflow pending."
       ],
       "quality": {
         "enjoyment": null,
@@ -524,7 +536,11 @@
         "notes": "Initial playable stowage and real-time sailing game. Five authored passages, rotatable cargo shapes, two lashings, optional goods, best-delivery records and an unlockable cutter. Improvement and browser sign-off pending."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "a57e8797b73dde7adc1b8132fb413aa4f97f27a0",
+      "developmentCommits": [
+        "a57e8797b73dde7adc1b8132fb413aa4f97f27a0"
+      ]
     },
     {
       "slot": 30,
@@ -748,7 +764,7 @@
     }
   ],
   "nextSteps": [
-    "Improve and browser-test candidate 29 Salt & Sail before marking it finished.",
+    "Complete native browser campaigns and visual review for Salt & Sail before marking candidate 29 finished.",
     "Eleven slots remain planned and uncounted.",
     "Compare finished candidates and integrate only selected winners onto fresh main."
   ],
