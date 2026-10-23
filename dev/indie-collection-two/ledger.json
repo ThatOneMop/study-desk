@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 14,
+    "playable": 15,
     "improved": 14,
     "finished": 14,
     "selected": 0,
@@ -875,10 +875,12 @@
       "id": "murmuration",
       "title": "Murmuration",
       "coreLoop": "Steer a flock by shaping wind currents, splitting to gather food and regrouping around hazards.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/murmuration",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable: 11 engine and seven interface tests pass, including all four perfect migrations, split/gather collision losses, unlocks, replay-validated saves, reload/pause/retry, keyboard, recovery and blocked storage. Improvement and native verification pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
@@ -992,7 +994,7 @@
     }
   ],
   "nextSteps": [
-    "Implement, improve and test Murmuration (slot 35), with a distinct real-time flock-control loop. Six slots remain planned.",
+    "Improve and verify Murmuration (slot 35), now initially playable. Five slots remain planned.",
     "Keep all fourteen native suites and installed-Chrome fallback. Exact-source CI 40018382932 passed all 547 engine/interface checks and all fourteen desktop/touch native suites; screenshots retained in four artifacts.",
     "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
     "Re-read main and the separate all-created-games integration before promotion; preserve any newly added catalogue entries, all first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from explicit user-requested catalogue inclusion.",
