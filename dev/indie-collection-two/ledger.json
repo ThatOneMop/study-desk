@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 5,
+    "playable": 6,
     "improved": 5,
     "finished": 5,
     "selected": 0,
@@ -331,17 +331,19 @@
       "id": "paper-odyssey",
       "title": "Paper Odyssey",
       "coreLoop": "Fold a paper map to connect islands while changing traversal and hidden resources.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/paper-odyssey",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable version: 22 engine and 15 DOM checks pass, including five complete clean routes, fold geometry, resource use, loss/undo, saves and controls. Improvement and browser verification pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Initial playable implementation exists; not yet improved or finished."
       },
       "selected": false,
       "integrationCommits": []
@@ -628,8 +630,8 @@
     }
   ],
   "nextSteps": [
-    "Implement candidate 26, Paper Odyssey: fold a paper map to change island connections and traversal. Establish a distinct enjoyable playable loop, then improve and test it.",
-    "Fifteen candidates remain concepts. Next: candidate 26, Paper Odyssey.",
+    "Improve Paper Odyssey planning and visual feedback, verify desktop/touch full campaigns, then record quality assessment.",
+    "Fourteen candidates remain concepts; each needs playable implementation, meaningful improvement and verification.",
     "Compare the completed slate; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
   ],
   "baselineTestLimitations": [
