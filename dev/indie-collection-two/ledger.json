@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 10,
+    "playable": 11,
     "improved": 10,
     "finished": 10,
     "selected": 0,
@@ -638,17 +638,19 @@
       "id": "static-orchard",
       "title": "Static Orchard",
       "coreLoop": "Charge and release electric fruit to chain arcs through moving pests and power harvest tools.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/static-orchard",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable: 12 engine and 9 DOM checks passed. Four-orchard winning campaign, idle loss/retry, charge tiers, chains, armor, queen shields, pulse economy, tool purchases, windseeds, strict saves, keyboard/pointer input, focus cancellation and isolated recovery/reset. Native browser QA and improvement still pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Initial playable only; no finished or quality score claimed before improvement and native verification."
       },
       "selected": false,
       "integrationCommits": []
@@ -835,8 +837,8 @@
     }
   ],
   "nextSteps": [
-    "Implement, improve and test Static Orchard, slot 31, with electric-fruit charging/releasing and arc chains through moving pests.",
-    "Ten slots remain planned and uncounted. Keep the next action games distinct from the fixed spatial puzzles and Afterlight chain-reaction games.",
+    "Improve Static Orchard slot 31, then verify full desktop/touch campaigns and assess quality before counting it finished.",
+    "Nine slots remain planned; Static Orchard is playable but not finished. Preserve the broader variety objective.",
     "Revisit all candidates for deeper improvement and select a complementary group using COMPARISON.md; no automatic inclusion.",
     "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."
   ],
