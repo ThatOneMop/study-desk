@@ -18,33 +18,34 @@
       "status": "finished",
       "source": "dev/indie-collection/tidepost/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 3,
+      "meaningfulImprovementPasses": 4,
       "changes": [
         "Six handmade charts, tide/current rules, fuel/hull, mail deliveries, upgrades, star routes and versioned voyage saving",
         "Pass 1: calibrated all six three-star thresholds against baseline solutions, exposed star goals, added damage-free fuel-to-dock planning and low-fuel warnings, fixed keyboard movement after button focus, restored chart focus after touch movement, handled synthetic key targets safely.",
         "Pass 2: protect unreadable/concurrently changed saves across movement, undo and chart changes; explicit backup-first replacement and stored-voyage load, read-only selected current/exact/previous save text, quota/read failure notices and bounded v1 decoding. Manual campaign review corrected Bellweather's false optional-squall hint and made hold onboarding reflect the fitted boat.",
-        "Pass 3: replaced late-chart perimeter repetition with a functioning second mail dock in Low Water Market and three interior piers in Last Light Sound; tightened route-star pars to measured21/24-turn baselines, clarified any-dock onboarding/ARIA, and added explicit dual-dock plus tide/current/squall route proofs."
+        "Pass 3: replaced late-chart perimeter repetition with a functioning second mail dock in Low Water Market and three interior piers in Last Light Sound; tightened route-star pars to measured21/24-turn baselines, clarified any-dock onboarding/ARIA, and added explicit dual-dock plus tide/current/squall route proofs.",
+        "Pass 4: replaced the damage-free-distance warning with an exact least-damage, then least-fuel, then least-time return plan that respects the current tide phase, currents, squalls, fuel and hull. Bellweather now truthfully shows a survivable 6-fuel/1-hull west-first route; a one-hull ferry gets an undo/retry warning. Authored routes, pars and rewards are unchanged."
       ],
       "tests": [
-        "21 engine tests in exact-source CI: six baseline wins at24/26/23/26/21/24 turns with serialization after every action; calibrated pars; second-dock banking/refit; finale route proof requires a wait, shallow, current push, hull damage and three interior piers; save bounds and all prior rules.",
-        "18 DOM tests in exact-source CI: all six keyboard wins, unlock/retry/reload, undo banked coins, upgrades/capacity and any-dock guidance, two mail-dock labels, corrupt/changed-save protection, cancellation and backup/primary/read/transient failures.",
+        "22 engine tests in exact-source CI: six baseline wins at24/26/23/26/21/24 turns with serialization after every action; calibrated pars; second-dock banking/refit; finale route proof requires a wait, shallow, current push, hull damage and three interior piers; exact non-mutating Bellweather return planning and execution; impossible one-hull rejection; save bounds and all prior rules.",
+        "19 DOM tests in exact-source CI: all six keyboard wins, unlock/retry/reload, undo banked coins, upgrades/capacity and any-dock guidance, exact survivable return guidance and impossible-route warning, two mail-dock labels, corrupt/changed-save protection, cancellation and backup/primary/read/transient failures.",
         "Chromium exact-source CI: all six rendered keyboard victories through the revised routes; mid-voyage reload, restart, undo, genuine shared-origin two-tab conflict and recovery; rendered390px touch, >=44px controls, help and390/320px overflow; zero game page errors.",
         "Managed visible exact-source replay completed all six current charts at24/26/23/26/21/24 turns and three stars each. The redesigned market ended at its interior dock; the finale visibly required its tide/current/squall circuit.216 coins and all six results were retained in-session; this was agent route playback, not a human enjoyment study.",
-        "PASS exact-source CI39607187990 at366b1f71478972841e64791e183c150c465cb3ee: exact20-slot/reference/isolation/syntax gates and all19 other-game engine/DOM/browser regressions; terminal status and decoded job logs inspected."
+        "PASS exact-source CI39878400213 at986b0ac9218faa776ad39c532756472527612046: exact20-slot/reference/isolation/syntax gates, all20 engine suites, all20 DOM/save suites and every desktop/touch browser regression. Tidepost contributes22 engine+19 DOM checks and a rendered Bellweather return-plan assertion; artifact12468939872 preserves49 screenshots. Public mainfc11da9 aligns the selected source. Release workflow39879267957 passed19 route/assets before unchanged Configure Pages permission failure."
       ],
       "quality": {
         "enjoyment": "A prior normal-UI campaign completed all six charts; the post-pass visible exact-route replay completed the revised fifth/sixth charts at21/24 turns. Bag pairing, tide timing, one-way currents, repair decisions and the new two-dock choice create distinct planning. No human enjoyment score.",
         "depth": "Six authored charts and three upgrade types. Low Water Market now turns dock choice into a routing resource; Last Light puts all three piers inside the tide/current/squall lanes, removing the observed late outer-edge repetition. Compact campaign complete; no hours claim.",
-        "polish": "Original coastal CSS/grid remained readable in managed desktop review; any-dock onboarding and mail-dock accessible labels match the revised rules. Rendered390/320px automation passed; physical touch, screen-reader and full manual mobile review remain open.",
-        "reliability": "21 engine,18 DOM and rendered desktop/touch Chromium checks pass on exact source; all six current routes, versioned saves, restart, undo, damaged/conflicting-save recovery and all19 collection regressions are covered.",
+        "polish": "Original coastal CSS/grid remained readable in managed desktop review; any-dock onboarding and mail-dock accessible labels match the revised rules. Return guidance now reports the exact survivable fuel/hull cost and first move instead of a misleading damage-free dead end. Rendered390/320px automation passed; physical touch, screen-reader and full manual mobile review remain open.",
+        "reliability": "22 engine,19 DOM and rendered desktop/touch Chromium checks pass on exact source; all six current routes, exact survivable return planning, versioned saves, restart, undo, damaged/conflicting-save recovery and all19 collection regressions are covered.",
         "variety": "Distinct turn-based ferry planning inside the collection; late charts now branch into dual-dock routing and an interior combined-mechanics circuit instead of repeating the same perimeter loop."
       },
       "selected": true,
       "selectionReason": "Selected for distinct ferry logistics, six authored charts, strong route progression and the deepest verified planning campaign in the collection.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed", "fc11da9a47a1211f218a83c8c07320a865e5291f"],
       "publishedUrl": null,
       "nextSteps": [
-        "Keep Tidepost's development and public-source presentation aligned; rerun scoped catalogue and campaign regressions after any gameplay change.",
+        "Keep Tidepost's exact return plan and public-source presentation aligned; rerun scoped catalogue and campaign regressions after any gameplay change.",
         "Enable GitHub Pages, verify the deployed route, and perform physical-touch, screen-reader and independent player review before claiming a live release or human enjoyment result."
       ],
       "developmentCommits": [
@@ -54,13 +55,15 @@
         "8def2a80ae7d5fa6d64af1263b33a8c09e22504a",
         "9e0a8882399d1f8f98786a2503085f229cbc41ea",
         "ff12f0111f3aa32d6762e06341bf5fac5e53a1be",
-        "366b1f71478972841e64791e183c150c465cb3ee"
+        "366b1f71478972841e64791e183c150c465cb3ee",
+        "e8fc469bd86f9985a7b83856dbcf21bddc8f3711",
+        "986b0ac9218faa776ad39c532756472527612046"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39607187990",
-        "testedCommit": "366b1f71478972841e64791e183c150c465cb3ee",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39878400213",
+        "testedCommit": "986b0ac9218faa776ad39c532756472527612046",
         "conclusion": "success",
-        "desktop": "PASS all six revised keyboard victories/reload/retry/undo/workshop navigation; genuine shared-origin two-tab conflict, read-only backups and cancelled/accepted stored load; zero game page errors.",
+        "desktop": "PASS all six revised keyboard victories/reload/retry/undo/workshop navigation; exact Bellweather 6-fuel/1-hull/west-first guidance; genuine shared-origin two-tab conflict, read-only backups and cancelled/accepted stored load; zero game page errors.",
         "touch": "PASS rendered390px sail/wait, >=44px targets, help and no overflow; damaged-save recovery and expanded390/320px save controls. Browser emulation, not hardware.",
         "manual": "Managed visible exact-source replay completed all six current routes at24/26/23/26/21/24 turns, six three-star results and216 coins. Revised market finished at the second dock; finale exercised wait/shallow/current/squall. Agent playback, not a human-player study.",
         "notVerified": [
@@ -71,8 +74,8 @@
           "20 hours of worthwhile content",
           "Public live deployment; Pages configuration fails before upload/deploy"
         ],
-        "artifactId": 12348409785,
-        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39607187990/artifacts/12348409785",
+        "artifactId": 12468939872,
+        "artifactUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39878400213/artifacts/12468939872",
         "artifactManuallyInspected": false
       }
     },
@@ -2482,10 +2485,23 @@
       "verifiedCommit": "4aefc8efdc4285464bbc7e44adbf7c8e727fe5dc",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39866624113",
       "inspectedMainCommit": "8cf8b9370ff897fb50b10cd53878be73af33787e"
+    },
+    {
+      "run": 78,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Tidepost received meaningful pass4, bringing the20-game collection to63 recorded passes. The old damage-free-distance warning could imply there was no route home when Bellweather had a survivable one-hull route; the new exact planner minimizes hull damage, then fuel, then time under the current tide/current/squall state and never suggests a route current fuel or hull cannot survive. All six authored three-star routes remain24/26/23/26/21/24 turns. Exact development986b0ac passed repository/selection gates, all20 engine suites, all20 DOM/save suites and every desktop/touch Chromium regression in CI39878400213; Tidepost contributes22 engine+19 DOM checks and49 screenshots are preserved. The aligned selected source and integrity pins passed fresh-main release gates and were promoted to public mainfc11da9. Release workflow39879267957 passed19 route/assets, then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "e8fc469bd86f9985a7b83856dbcf21bddc8f3711",
+      "verifiedCommit": "986b0ac9218faa776ad39c532756472527612046",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39878400213",
+      "inspectedMainCommit": "fc11da9a47a1211f218a83c8c07320a865e5291f"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with62 passes; nine selected/source-integrated on public main8cf8b93 including fully verified Glasshouse pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "All20 candidates playable, improved and finished with63 passes; nine selected/source-integrated on public mainfc11da9 including fully verified Tidepost pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2503,7 +2519,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39871533131 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39879267957 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
