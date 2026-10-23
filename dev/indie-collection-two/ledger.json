@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 17,
-    "improved": 16,
+    "improved": 17,
     "finished": 16,
     "selected": 0,
-    "meaningfulPasses": 16,
+    "meaningfulPasses": 17,
     "verifiedLive": 0
   },
   "deployment": {
@@ -992,11 +992,24 @@
       "id": "clockwork-tide",
       "title": "Clockwork Tide",
       "coreLoop": "Manipulate linked gear ratios and gates to run a miniature tidal mill.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/clockwork-tide",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Exact pure next-stroke forecasts show basin, energy, speed, torque, delivery or damage before spending water.",
+            "Manual braking can save an overspeed load; undo restores water, gearing and queued load after a mistake or expired tide, while completed paid deliveries remain final.",
+            "Fixed phone operating panel, persistent native-select focus, reduced-motion support and water-driven wheel feedback.",
+            "Replay saves preserve the tools used during a commission even when workshop upgrades are purchased after delivery."
+          ],
+          "validation": "19 engine and 11 DOM checks pass; native desktop/touch campaigns pending."
+        }
+      ],
       "tests": [
-        "Initial playable: 12 engine and seven DOM checks pass across four complete commissions, water/head conservation, speed and torque, natural damage/tide failures, functional workshop upgrades, exact replay saves, recovery, blocked storage, focus and navigation. Improvement/native checks pending."
+        "Initial playable: 12 engine and seven DOM checks pass across four complete commissions, water/head conservation, speed and torque, natural damage/tide failures, functional workshop upgrades, exact replay saves, recovery, blocked storage, focus and navigation. Improvement/native checks pending.",
+        "Improved: all 30 focused checks pass, including exact previews, natural braking benefit, governor limits, reversible failure, backward-compatible saves and exhaustive proof that the first order requires high-water storage. Native verification pending."
       ],
       "quality": {
         "enjoyment": null,
@@ -1007,7 +1020,11 @@
         "notes": "Initial playable; meaningful improvement and native verification pending."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "3f5276be1a439d5c5abb1606e704d7d93c367ac6",
+      "developmentCommits": [
+        "3f5276be1a439d5c5abb1606e704d7d93c367ac6"
+      ]
     },
     {
       "slot": 38,
