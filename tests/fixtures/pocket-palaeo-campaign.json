@@ -1,0 +1,1388 @@
+[
+  {
+    "type": "dig",
+    "cell": 0,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 1,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 2,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 3,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 4,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 5,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 6,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 7,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 8,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 9,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 10,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 11,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 12,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 13,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 14,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 15,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 16,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 17,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 18,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 19,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 20,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 21,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 22,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 23,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 24,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 25,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 26,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 27,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 28,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 29,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 30,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 31,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 32,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 33,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 34,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 35,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 36,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 37,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 38,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 39,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 40,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 41,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 42,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 43,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 44,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 45,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 46,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 47,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 48,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 49,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 50,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 51,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 52,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 53,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 54,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 55,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 56,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 57,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 58,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 59,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 60,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 61,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 62,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 63,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 64,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 65,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 66,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 67,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 68,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 69,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 70,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 71,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 10,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 11,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 12,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 13,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 14,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 19,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 21,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 27,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 29,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 42,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 43,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 44,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 45,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 46,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 51,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 53,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 59,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 61,
+    "tool": "brush"
+  },
+  {
+    "type": "brace",
+    "cell": 11
+  },
+  {
+    "type": "brace",
+    "cell": 12
+  },
+  {
+    "type": "brace",
+    "cell": 13
+  },
+  {
+    "type": "lift",
+    "cell": 10
+  },
+  {
+    "type": "buy",
+    "item": "brush"
+  },
+  {
+    "type": "brace",
+    "cell": 43
+  },
+  {
+    "type": "brace",
+    "cell": 44
+  },
+  {
+    "type": "brace",
+    "cell": 45
+  },
+  {
+    "type": "lift",
+    "cell": 42
+  },
+  {
+    "type": "site",
+    "site": 1
+  },
+  {
+    "type": "dig",
+    "cell": 0,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 1,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 2,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 3,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 4,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 5,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 6,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 7,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 8,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 9,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 10,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 11,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 12,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 13,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 14,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 15,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 16,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 17,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 18,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 19,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 20,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 21,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 22,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 23,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 24,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 25,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 26,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 27,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 28,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 29,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 30,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 31,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 32,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 33,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 34,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 35,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 36,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 37,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 38,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 39,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 40,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 41,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 42,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 43,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 44,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 45,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 46,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 47,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 48,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 49,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 50,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 51,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 52,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 53,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 54,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 55,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 56,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 57,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 58,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 59,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 60,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 61,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 62,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 63,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 64,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 65,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 66,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 67,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 68,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 69,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 70,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 71,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 9,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 11,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 13,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 22,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 25,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 42,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 44,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 53,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 58,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 60,
+    "tool": "brush"
+  },
+  {
+    "type": "brace",
+    "cell": 10
+  },
+  {
+    "type": "brace",
+    "cell": 11
+  },
+  {
+    "type": "brace",
+    "cell": 14
+  },
+  {
+    "type": "lift",
+    "cell": 9
+  },
+  {
+    "type": "buy",
+    "item": "cradle"
+  },
+  {
+    "type": "brace",
+    "cell": 43
+  },
+  {
+    "type": "brace",
+    "cell": 44
+  },
+  {
+    "type": "brace",
+    "cell": 59
+  },
+  {
+    "type": "lift",
+    "cell": 42
+  },
+  {
+    "type": "buy",
+    "item": "resin"
+  },
+  {
+    "type": "site",
+    "site": 2
+  },
+  {
+    "type": "dig",
+    "cell": 0,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 1,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 2,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 3,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 4,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 5,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 6,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 7,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 8,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 9,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 10,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 11,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 12,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 13,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 14,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 15,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 16,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 17,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 18,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 19,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 20,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 21,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 22,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 23,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 24,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 25,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 26,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 27,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 28,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 29,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 30,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 31,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 32,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 33,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 34,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 35,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 36,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 37,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 38,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 39,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 40,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 41,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 42,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 43,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 44,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 45,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 46,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 47,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 48,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 49,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 50,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 51,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 52,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 53,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 54,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 55,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 56,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 57,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 58,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 59,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 60,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 61,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 62,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 63,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 64,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 65,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 66,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 67,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 68,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 69,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 70,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 71,
+    "tool": "pick"
+  },
+  {
+    "type": "dig",
+    "cell": 9,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 11,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 13,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 27,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 29,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 42,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 44,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 46,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 60,
+    "tool": "brush"
+  },
+  {
+    "type": "dig",
+    "cell": 62,
+    "tool": "brush"
+  },
+  {
+    "type": "brace",
+    "cell": 10
+  },
+  {
+    "type": "brace",
+    "cell": 11
+  },
+  {
+    "type": "brace",
+    "cell": 21
+  },
+  {
+    "type": "lift",
+    "cell": 9
+  },
+  {
+    "type": "brace",
+    "cell": 43
+  },
+  {
+    "type": "brace",
+    "cell": 44
+  },
+  {
+    "type": "brace",
+    "cell": 61
+  },
+  {
+    "type": "lift",
+    "cell": 42
+  }
+]

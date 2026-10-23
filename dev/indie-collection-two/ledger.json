@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 9,
+    "playable": 10,
     "improved": 9,
     "finished": 9,
     "selected": 0,
@@ -568,18 +568,20 @@
       "slot": 30,
       "id": "pocket-palaeo",
       "title": "Pocket Palaeo",
-      "coreLoop": "Brush, brace and lift articulated fossils without cracking connected bones.",
-      "status": "planned",
-      "source": null,
+      "coreLoop": "Excavate connected fossils, distribute reusable supports, consolidate cracks and lift specimens into a museum; spend earned research seals on field tools.",
+      "status": "playable",
+      "source": "games/pocket-palaeo",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable: 18 engine and 9 DOM checks passed, including all three sites/six perfect specimens, purchases, connected support graphs, excavation damage, border clearance, fracture/retry, resin, replay saves, keyboard and pointer strokes."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Playable initial excavation/museum loop with three sites, six articulated specimens and three functional field-tool purchases. Meaningful improvement and browser validation pending."
       },
       "selected": false,
       "integrationCommits": []
@@ -786,8 +788,8 @@
     }
   ],
   "nextSteps": [
-    "Implement, improve and test Pocket Palaeo, slot 30, as a distinct tactile fossil excavation/bracing/lifting game.",
-    "Eleven slots remain planned and uncounted. Avoid repeating five-stage optimization puzzles throughout the remaining slate.",
+    "Improve Pocket Palaeo support guidance, validate native browser campaigns and assess quality before marking slot 30 finished.",
+    "Ten slots remain planned and uncounted.",
     "Use COMPARISON.md and the full ledger to revisit quality and choose a complementary group; no automatic selection.",
     "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."
   ],
