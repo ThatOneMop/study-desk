@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 16,
+    "playable": 17,
     "improved": 16,
     "finished": 16,
     "selected": 0,
@@ -992,17 +992,19 @@
       "id": "clockwork-tide",
       "title": "Clockwork Tide",
       "coreLoop": "Manipulate linked gear ratios and gates to run a miniature tidal mill.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/clockwork-tide",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable: 12 engine and seven DOM checks pass across four complete commissions, water/head conservation, speed and torque, natural damage/tide failures, functional workshop upgrades, exact replay saves, recovery, blocked storage, focus and navigation. Improvement/native checks pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Initial playable; meaningful improvement and native verification pending."
       },
       "selected": false,
       "integrationCommits": []
@@ -1069,7 +1071,7 @@
     }
   ],
   "nextSteps": [
-    "Build Clockwork Tide (slot 37); four slots remain concepts.",
+    "Improve and verify Clockwork Tide (slot 37), now initially playable; three slots remain planned.",
     "Keep all sixteen native suites in six browser groups. Exact-source CI 40027839541 passed all 600 engine/interface checks and every native suite; all seven jobs succeeded.",
     "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
     "Re-read main and the separate all-created-games integration before promotion; preserve newly added catalogue entries, first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from direct user-requested catalogue inclusion.",

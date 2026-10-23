@@ -1,0 +1,252 @@
+[
+  {
+    "tools": [],
+    "commands": [
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 0,
+        "feed": 0
+      },
+      {
+        "mode": "fill",
+        "gate": 1,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "hold",
+        "gate": 1,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "mill",
+        "gate": 2,
+        "gear": 0,
+        "feed": 0
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 0,
+        "feed": 0
+      }
+    ]
+  },
+  {
+    "tools": [
+      "bearing"
+    ],
+    "commands": [
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 0,
+        "feed": 0
+      },
+      {
+        "mode": "hold",
+        "gate": 1,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 1,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 0,
+        "feed": 0
+      },
+      {
+        "mode": "mill",
+        "gate": 1,
+        "gear": 1,
+        "feed": 1
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 0,
+        "feed": 1
+      }
+    ]
+  },
+  {
+    "tools": [
+      "bearing",
+      "governor"
+    ],
+    "commands": [
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 0,
+        "feed": 0
+      },
+      {
+        "mode": "hold",
+        "gate": 1,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 1,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 1,
+        "feed": 1
+      },
+      {
+        "mode": "mill",
+        "gate": 1,
+        "gear": 1,
+        "feed": 1
+      },
+      {
+        "mode": "mill",
+        "gate": 1,
+        "gear": 2,
+        "feed": 2
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 2,
+        "feed": 2
+      }
+    ]
+  },
+  {
+    "tools": [
+      "bearing",
+      "governor"
+    ],
+    "commands": [
+      {
+        "mode": "mill",
+        "gate": 2,
+        "gear": 0,
+        "feed": 0
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 1,
+        "feed": 1
+      },
+      {
+        "mode": "fill",
+        "gate": 2,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "fill",
+        "gate": 3,
+        "gear": 0,
+        "feed": -1
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 1,
+        "feed": 1
+      },
+      {
+        "mode": "mill",
+        "gate": 2,
+        "gear": 2,
+        "feed": 2
+      },
+      {
+        "mode": "mill",
+        "gate": 2,
+        "gear": 2,
+        "feed": 2
+      },
+      {
+        "mode": "mill",
+        "gate": 3,
+        "gear": 0,
+        "feed": 0
+      }
+    ]
+  }
+]
