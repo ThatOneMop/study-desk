@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 8,
+    "playable": 9,
     "improved": 8,
     "finished": 8,
     "selected": 0,
@@ -509,17 +509,19 @@
       "id": "salt-and-sail",
       "title": "Salt & Sail",
       "coreLoop": "Trade by packing a shifting ship hold; cargo placement changes balance and sailing control.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/salt-and-sail",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial implementation: 18 engine and 13 DOM tests pass, including all five three-seal full-cargo passages, packing/rotation/lash constraints, cargo-driven drift, sliding/damage, docking/loss, replay validation, saves, restart/recovery and keyboard/pointer controls."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Initial playable stowage and real-time sailing game. Five authored passages, rotatable cargo shapes, two lashings, optional goods, best-delivery records and an unlockable cutter. Improvement and browser sign-off pending."
       },
       "selected": false,
       "integrationCommits": []
@@ -746,9 +748,9 @@
     }
   ],
   "nextSteps": [
-    "Implement, improve and test candidate 29 Salt & Sail: cargo packing changes ship balance and sailing control.",
-    "Twelve slots remain planned concepts and need playable source, meaningful improvement and verification.",
-    "Compare finished candidates and integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions before integration; verify Pages when configuration is available."
+    "Improve and browser-test candidate 29 Salt & Sail before marking it finished.",
+    "Eleven slots remain planned and uncounted.",
+    "Compare finished candidates and integrate only selected winners onto fresh main."
   ],
   "baselineTestLimitations": [
     {
