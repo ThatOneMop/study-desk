@@ -22,7 +22,7 @@
   "totals": {
     "playable": 17,
     "improved": 17,
-    "finished": 16,
+    "finished": 17,
     "selected": 0,
     "meaningfulPasses": 17,
     "verifiedLive": 0
@@ -992,7 +992,7 @@
       "id": "clockwork-tide",
       "title": "Clockwork Tide",
       "coreLoop": "Manipulate linked gear ratios and gates to run a miniature tidal mill.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/clockwork-tide",
       "improvementPasses": [
         {
@@ -1001,30 +1001,48 @@
           "changes": [
             "Exact pure next-stroke forecasts show basin, energy, speed, torque, delivery or damage before spending water.",
             "Manual braking can save an overspeed load; undo restores water, gearing and queued load after a mistake or expired tide, while completed paid deliveries remain final.",
-            "Fixed phone operating panel, persistent native-select focus, reduced-motion support and water-driven wheel feedback.",
-            "Replay saves preserve the tools used during a commission even when workshop upgrades are purchased after delivery."
+            "Fixed phone operating panel, persistent native-select focus, reduced-motion support and water-driven wheel feedback."
           ],
-          "validation": "19 engine and 11 DOM checks pass; native desktop/touch campaigns pending."
+          "validation": "19 engine and 11 DOM checks pass, plus all four native desktop/touch commissions with workshop purchases, exact forecasts, saves, brake/undo, natural damaged-load failure, retry, bridge pause, recovery/reset and navigation in CI 40031851485."
         }
       ],
       "tests": [
-        "Initial playable: 12 engine and seven DOM checks pass across four complete commissions, water/head conservation, speed and torque, natural damage/tide failures, functional workshop upgrades, exact replay saves, recovery, blocked storage, focus and navigation. Improvement/native checks pending.",
-        "Improved: all 30 focused checks pass, including exact previews, natural braking benefit, governor limits, reversible failure, backward-compatible saves and exhaustive proof that the first order requires high-water storage. Native verification pending."
+        "Initial playable: 12 engine and seven DOM checks passed at 3f5276b.",
+        "Improved: 19 engine and 11 DOM checks pass. Four complete zero-damage/zero-overflow commissions, conserved water/head generation, gear speed/torque limits, functional bearings/governor, exact pure previews, reachable braking benefit, undo after damage or exhausted tides, immutable bounded replay saves, historic tool snapshots, corrupt recovery, blocked storage, focus and navigation are covered. Exhaustive first-commission physical-state search proves high-water storage is required.",
+        "Native CI 40031851485 at 2858383: desktop 1280x1000 and touch emulation 390x844 each complete all four commissions and both workshop purchases. Every stroke forecast matches resulting water/energy/wear/deliveries/phase/overflow/feedback. Mid-plan and won saves reload exactly. Native keyboard or touch/cancel, brake/undo, natural three-load failure/retry, bridge suspension, isolated recovery/reset and navigation pass with zero browser errors.",
+        "22 Clockwork Tide screenshots retained alongside Night Clerk captures in artifact 12535651649. ZIP SHA256 verified; desktop final delivery and phone high-water-planning screenshots visually reviewed. Cloud UI additionally checked both layouts and completed the first commission through phone-width controls with three seals. No physical-device claim.",
+        "All seven CI jobs passed on exact verification commit 2858383: 630 engine/interface checks (365 engine, 265 DOM) and all seventeen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Initial playable; meaningful improvement and native verification pending."
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Agent assessment, not human playtesting. Distinct hydraulic operating loop links stored water, changing head, flywheel energy, speed/torque and product loads. High-water storage is essential, and the two purchased tools have verified effects. Forecasts, braking and reversible failures support experimentation. Four fixed commissions, two tools and surplus endgame tokens limit depth; no larger economy, generated weather or audio. This is an abstract discrete model, not a hydraulics simulator or long campaign. Phone play still requires scrolling to view the machine/journal."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "3f5276be1a439d5c5abb1606e704d7d93c367ac6",
       "developmentCommits": [
-        "3f5276be1a439d5c5abb1606e704d7d93c367ac6"
-      ]
+        "3f5276be1a439d5c5abb1606e704d7d93c367ac6",
+        "28583831dc5a72398865bc1665eabbd367e6dd2f"
+      ],
+      "verification": {
+        "status": "passed",
+        "commit": "28583831dc5a72398865bc1665eabbd367e6dd2f",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40031851485",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40031851485/artifacts/12535651649",
+        "artifactSha256": "031c256d25edde9fc28111f4b04814eac4ede044ef116be7d12d1d9862a7603d",
+        "sha256": {
+          "engine.js": "3a47d8d8e01ec7f92991bfc0da1630d907f49157e1fe2a5d7ebaaa9300f34f2f",
+          "game.js": "d9eba91db99c27f5f9ecb520f8283ab01ce227a9a2f39c26bbbd50808ccfbd76",
+          "index.html": "9b8427f6e11da5f4d70441f10a67a05a9a50a4e2dd0f712a4bf2a2c92288c1ca",
+          "style.css": "3792d6e9b96adf8d8c44745f0548f5f1b78ff925dc7ded81f72ab188f75b6192"
+        }
+      },
+      "selectionReason": "Retain as finished but unselected. Compare its hydraulic resource decisions against Copper Cadence and the stronger progression candidates; compact depth and finite workshop spending prevent automatic selection.",
+      "publishedUrl": null
     },
     {
       "slot": 38,
@@ -1088,8 +1106,8 @@
     }
   ],
   "nextSteps": [
-    "Improve and verify Clockwork Tide (slot 37), now initially playable; three slots remain planned.",
-    "Keep all sixteen native suites in six browser groups. Exact-source CI 40027839541 passed all 600 engine/interface checks and every native suite; all seven jobs succeeded.",
+    "Build Ember Parcel (slot 38); three slots remain planned.",
+    "Keep all seventeen native suites in six browser groups. Exact-source CI 40031851485 passed all 630 engine/interface checks and every native suite; all seven jobs succeeded.",
     "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
     "Re-read main and the separate all-created-games integration before promotion; preserve newly added catalogue entries, first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from direct user-requested catalogue inclusion.",
     "Complete remaining candidates, evaluation and repository integration, verify actual hosting separately, then pause this task."
@@ -1270,6 +1288,17 @@
       "publicIntegration": null,
       "nextCandidate": 37,
       "regressionStatus": "All seven CI jobs passed on exact verification commit 92004a2: 600 engine/interface checks and all sixteen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "17 playable, 17 meaningfully improved, 17 finished; three slots planned. No public catalogue or deployment writes in this run.",
+      "initialCommit": "3f5276be1a439d5c5abb1606e704d7d93c367ac6",
+      "gameplayCommit": "28583831dc5a72398865bc1665eabbd367e6dd2f",
+      "verificationCommit": "28583831dc5a72398865bc1665eabbd367e6dd2f",
+      "ci": "40031851485",
+      "publicIntegration": null,
+      "nextCandidate": 38,
+      "regressionStatus": "All seven CI jobs passed on exact verification commit 2858383: 630 engine/interface checks (365 engine, 265 DOM) and all seventeen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass."
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
