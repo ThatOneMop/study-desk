@@ -25,6 +25,7 @@ else if(c.rule==='heavy-pair'){const h=ids('heavy'),p=h.map(i=>seq.indexOf(i)),s
 else if(c.rule==='teeth-first'){possible=before(ids('fine'),ids('heavy'));met=full(o)&&possible}
 else{const beak=[0,1],prefix=seq.slice(0,Math.min(2,seq.length));possible=prefix.every(i=>beak.includes(i))&&new Set(prefix).size===prefix.length&&(seq.indexOf(4)<0||full(o)&&seq.at(-1)===4);met=full(o)&&possible&&seq.length>=2&&beak.every(i=>prefix.includes(i))&&seq.at(-1)===4}
 return{label:c.request,possible,met,completed:seq.length,total:c.shape.length}}
+function markPlan(o){const r=o.run,c=orders[r.index];if(r.status!=='casting'||full(o)||!request(o).possible)return[];const before=JSON.stringify(o),safe=[];for(let i=0;i<c.shape.length;i++){const capacity=zones[c.shape[i][1]].capacity;if(r.fill[i]>=capacity)continue;const n=copy(o);n.run.fill[i]=capacity;if(!n.run.sequence.includes(i))n.run.sequence.push(i);if(request(n).possible)safe.push(i)}if(JSON.stringify(o)!==before)throw Error('Mark plan mutated casting');return safe}
 
 function add(o,kind){const r=o.run;if(r.status!=='weighing'||!int(kind,0,1)||r.charge[0]+r.charge[1]>=4)return false;r.charge[kind]++;r.message=(kind?'Mooniron':'Emberite')+' weighed. Four ingots make one casting batch.';return true}
 function empty(o){const r=o.run;if(r.status!=='weighing'||!r.charge.some(Boolean))return false;r.charge=[0,0];r.message='Ingots returned to the weighing trays. Heat and fuel are unchanged.';return true}
@@ -42,5 +43,5 @@ function valid(o){try{if(!o||o.version!==1||!o.profile||!Array.isArray(o.profile
 function encode(o){if(!valid(o))throw Error('Invalid foundry state');return JSON.stringify(o)}
 function migrate(o){if(o?.profile&&!Array.isArray(o.profile.records))o.profile.records=Array(6).fill(null);const r=o?.run;if(r&&!Array.isArray(r.sequence)&&int(r.index,0,5)&&Array.isArray(r.fill)){const c=orders[r.index],done=c.shape.map((s,i)=>r.fill[i]===zones[s[1]].capacity?i:-1).filter(i=>i>=0);r.sequence=r.status==='complete'?c.plan.slice():done}return o}
 function decode(raw){try{if(typeof raw!=='string'||raw.length>16000)return null;const o=migrate(JSON.parse(raw));if(!valid(o))return null;checkCold(o);return o}catch{return null}}
-return{copy,zones,orders,fresh,create,unlocked,record,better,recipe,request,add,empty,heat,cool,melt,pour,full,forecast,finish,retry,next,valid,encode,decode};
+return{copy,zones,orders,fresh,create,unlocked,record,better,recipe,request,markPlan,add,empty,heat,cool,melt,pour,full,forecast,finish,retry,next,valid,encode,decode};
 });
