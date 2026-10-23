@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` `http://localhost:8000/games/salt-and-sail/` `http://localhost:8000/games/pocket-palaeo/` `http://localhost:8000/games/static-orchard/` `http://localhost:8000/games/borrowed-gravity/` or `http://localhost:8000/games/tea-for-ghosts/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` `http://localhost:8000/games/salt-and-sail/` `http://localhost:8000/games/pocket-palaeo/` `http://localhost:8000/games/static-orchard/` `http://localhost:8000/games/borrowed-gravity/` `http://localhost:8000/games/tea-for-ghosts/` or `http://localhost:8000/games/cairn-and-cord/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,19 +26,19 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**13/20 playable and improved; 12/20 finished; 0 selected, integrated or verified live.** Tea for Ghosts is implemented and improved, awaiting complete native verification. Seven slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
+**14/20 playable, meaningfully improved and finished.** Tea for Ghosts and Cairn & Cord both passed complete native desktop/touch campaigns. Six slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
 
-Tea for Ghosts adds six visitors with hidden flavour preferences, ingredient ratios, extraction/dilution, tasting feedback, memory unlocks and two functional tools. Its improvement adds live previews, comparison with the last cup, recipe undo, keyboard focus retention, feedback navigation, stronger save validation and persistent best-recipe recall. The candidate passes 34 local checks (21 engine, 13 DOM). Local desktop/phone-width QA completed two services. Its fixed cast and short scope are recorded honestly.
+Cairn & Cord adds four authored climbing routes with rope payout, clipped anchor paths, finite grip/chalk, wind, rest ledges, optional cairn stones and persistent three-badge/move records. Its improvement adds exact resource/fall previews, a dotted rope forecast, undo and a fixed phone move panel with nearby rope/chalk controls. All 25 scoped checks pass (16 engine, nine DOM). Cloud UI completed the first route at desktop width and the remaining three in a 390-pixel frame; this is not physical-device touch certification.
 
-[CI 40010604779](https://github.com/ThatOneMop/study-desk/actions/runs/40010604779) passed **522 engine/interface checks** and all ten native suites in its planning, motion and craft-and-cargo groups. Tea completed its six desktop services before an ambiguous test selector stopped replay testing; the selector was corrected without changing game source. [Corrected CI 40011208465](https://github.com/ThatOneMop/study-desk/actions/runs/40011208465) passed all 522 engine/interface checks; the new-games browser group was still installing dependencies at handoff. No full native or whole-workflow pass is claimed for Tea yet. See the [Tea for Ghosts report](RUN_REPORT_2026-10-24_TEA_FOR_GHOSTS.md).
+The exact-source CI checks passed all **547 engine/interface tests** (314 engine, 233 DOM). The final native run is [40018382932](https://github.com/ThatOneMop/study-desk/actions/runs/40018382932); all five jobs passed, including all fourteen desktop/touch native suites, four Cairn climbs and six Tea services. See [Cairn & Cord report](RUN_REPORT_2026-10-24_CAIRN_AND_CORD.md).
 
-All existing suites are retained in four groups with at most three concurrent jobs. The browser allowance increased to 25 minutes after measured dependency delays. Previous motion timeouts were resolved by a complete passing motion suite in CI 40010604779.
+Tea's previous desktop failures were in pause-test synchronization. The harness now awaits actual delivery of the visibility message, then checks state without waiting on a paused animation clock. The latest workflow uses the runner's installed Google Chrome if available, records its version and retains the existing Playwright browser installation as a fallback. All fourteen native suites remain enabled in four groups, at most three concurrently.
 
-The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
+The latest public Pages release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still failed at Configure GitHub Pages before upload. No public catalogue or hosting changes were made by this increment. Separate all-created-games integration work is preserved and must be reread before future promotion.
 
 All implemented candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: finish native verification of Tea for Ghosts, then build Cairn & Cord, slot 34. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
+Next: build Murmuration, slot 35. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 

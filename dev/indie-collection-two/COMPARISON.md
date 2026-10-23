@@ -1,4 +1,4 @@
-# Second-batch comparison, through candidate 33
+# Second-batch comparison, through candidate 34
 
 This is an agent design review of the development slate, not a player survey or final catalogue selection. The ledger remains authoritative for completion and test status. No candidate is selected yet. First-batch games and the separate Nightshift/Afterlight collections are excluded.
 
@@ -18,6 +18,8 @@ This is an agent design review of the development slate, not a player survey or 
 | Borrowed Gravity | Transferring a source changes personal gravity and opens its paired barrier; swapping restores the previous obstacle. Drift previews make those consequences visible. | Four short galleries, modest calibration unlocks and no sound layer; phone play needs scrolling. Full native desktop/touch campaigns and save checks passed. | Ceiling and wall platforming with conserved source/barrier state, distinct from projectile gravity or rope retrieval. |
 | Tea for Ghosts | Hidden visitor preferences turn ingredient ratios, extraction and dilution into a readable tasting-and-adjustment loop. Memories unlock ingredients and useful tools. | Six fixed visitors and two tools; replay improves recipes rather than opening an expansive campaign. Native verification is recorded separately in the ledger. | A calm hospitality/deduction game with a clear illustrated identity and no time pressure. |
 
+| Cairn & Cord | Rope paths, finite grip, wind and optional side-route stones make deliberate climbing decisions. Exact fall previews and undo explain mistakes. | Four short climbs; anchors mainly protect mistakes rather than being required by a clean route. Phone play still involves some scrolling, despite the fixed move panel. | A calm climbing/route-management loop with a distinct illustrated mountain palette. Desktop/touch native campaigns and screenshot review passed. |
+
 Reefwright currently has the strongest recorded enjoyment/polish assessment. Copper Cadence supplies unusual machinery and sound; Wellward supplies the clearest bank-and-upgrade loop. These are provisional reasons to keep them in contention, not publication decisions. Ratchet Run should earn a place through responsive action and replay rather than being included merely to fill a genre slot.
 
 Salt & Sail shares a nautical setting with Lanternwake and cargo imagery with Counterweight/Ratchet Run, but its player decisions differ: fit shaped goods into a hold, choose two lashings, then compensate for that exact load while continuously steering and reefing. Reefwright's polyomino placement instead changes ecology and open-water scoring. Those mechanical distinctions justify a separate candidate; they do not justify publishing every thematically similar game.
@@ -26,7 +28,7 @@ Pocket Palaeo combines tactile soil removal with load distributed over a connect
 
 ## Remaining evaluation work
 
-- Build the seven unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining action, tea blending and social deduction concepts should broaden the slate.
+- Build the six unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining flock control, action and social deduction concepts should broaden the slate.
 - Revisit the strongest candidates after the full slate exists. Prioritize meaningful progression and readable controls over adding arbitrary counts or waiting time.
 - Compare finalists by enjoyment, depth, polish, reliability and variety, with explicit limitations. Automated winning routes establish reachability and regression coverage, not human enjoyment or hours of content.
 - Select a small complementary group, integrate against freshly read main, update catalogue/launch checks for the current shell, and test the actual release. Preserve the first batch and all unrelated work.

@@ -22,7 +22,7 @@
   "totals": {
     "playable": 14,
     "improved": 14,
-    "finished": 12,
+    "finished": 14,
     "selected": 0,
     "meaningfulPasses": 14,
     "verifiedLive": 0
@@ -754,7 +754,7 @@
       "id": "tea-for-ghosts",
       "title": "Tea for Ghosts",
       "coreLoop": "Read ghost reactions and blend, steep and pour teas with ingredient tradeoffs.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/tea-for-ghosts",
       "improvementPasses": [
         {
@@ -766,7 +766,7 @@
             "Validate saved records and journal feedback against actual recipe outcomes; migrate original saves and preserve strainer provenance after equipment changes.",
             "Bring service feedback and new visitor names into keyboard focus; preserve record recipes beyond recent journal retention."
           ],
-          "validation": "34 checks passed locally (21 engine, 13 DOM); native verification pending."
+          "validation": "34 engine/interface checks plus complete six-visitor native desktop and touch campaigns pass in CI 40018382932. Both tools, repeated service, every preparation/poured reload, loss/retry, bridge pause, isolated recovery/reset and navigation pass. 28 screenshots retained; phone final-visitor/memory view inspected."
         }
       ],
       "tests": [
@@ -774,15 +774,16 @@
         "Improved: 34 engine/interface checks pass, including pure exact preview, undo, focus continuity and feedback navigation, score authenticity, equipment provenance, initial-save migration and record recall after journal rotation.",
         "CI 40010604779 passed all 522 engine/DOM checks. Tea desktop completed six memories and both tools before an ambiguous visitor test selector stopped replay testing. Scoped to button in 4b5ce356; game source unchanged. Corrected CI 40011208465 passed all 522 engine/DOM checks; its new-games browser dependency installation was still running at handoff. No complete native pass claimed.",
         "Previous native failure diagnosed as harness waiting for requestAnimationFrame after the bridge paused animation frames. Harness now checks pause from Node and dispatches a blocked click without browser animation actionability. CI 40016394627 pending.",
-        "CI 40016394627 again completed desktop services but failed an immediate pause assertion before asynchronous postMessage delivery. Updated both new harnesses to await the received message explicitly; full native verification still required."
+        "CI 40016394627 again completed desktop services but failed an immediate pause assertion before asynchronous postMessage delivery. Updated both new harnesses to await the received message explicitly; full native verification still required.",
+        "34 engine/interface checks plus complete six-visitor native desktop and touch campaigns pass in CI 40018382932. Both tools, repeated service, every preparation/poured reload, loss/retry, bridge pause, isolated recovery/reset and navigation pass. 28 screenshots retained; phone final-visitor/memory view inspected."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Provisional design review: distinct flavour-inference service loop and cohesive illustrated tearoom. Six fixed visitors and two tools limit depth; phone scrolling and no audio layer. Native verification is required before finished status."
+        "enjoyment": 3.5,
+        "depth": 3,
+        "polish": 4,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Agent review, not a player survey. Distinct flavour deduction, extraction/dilution and tasting feedback; six visitors with ingredient unlocks and two useful tools. Native desktop/touch services, saves/replay, loss/retry and pause pass. Cohesive illustrated tearoom; substantial phone scrolling, fixed preferences and no audio limit the scope."
       },
       "selected": false,
       "integrationCommits": [],
@@ -792,26 +793,31 @@
         "561db33ce8a4812f32db81684097346817ecbe48",
         "b9121c7bb54b61da07ffdbe7739babcc8d6637a7",
         "a34ba0a7e86687f9ef6928fb4bcfe0a56db12748",
-        "4b5ce3563a49f3b5a24c4e76217345e5795c07dd"
+        "4b5ce3563a49f3b5a24c4e76217345e5795c07dd",
+        "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81"
       ],
       "verification": {
-        "commit": "4b5ce3563a49f3b5a24c4e76217345e5795c07dd",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40011208465",
-        "status": "pending-native",
+        "commit": "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40018382932",
+        "status": "passed",
         "sha256": {
           "engine.js": "7dc287058316cf03f9e60f5fb58338331cbf5060d662f3f4bbd40bb16ab7659f",
           "game.js": "6edb28192b21a55f0be8c73568949f6460659da5924e6668a72714f007f47c76",
           "index.html": "ad070173f7e179886637707f3870f2e94e5fcf500f39148cea56cb0ca0fb3b43",
           "style.css": "883f755732251b25d76eec0ae344ba5e8152d42b036fee620e3a5e1a78496450"
-        }
-      }
+        },
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40018382932/artifacts/12528844767",
+        "artifactSha256": "b4af6bfb14956dfd9caf25de8f22543005b117abc1e4733158f175a2774f1e76"
+      },
+      "selectionReason": "Retain as a finished development candidate for comparison across the complete second-batch slate. No public catalogue write by this run.",
+      "publishedUrl": null
     },
     {
       "slot": 34,
       "id": "cairn-and-cord",
       "title": "Cairn & Cord",
       "coreLoop": "Plan climbing anchors and manage rope slack across compact expeditions.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/cairn-and-cord",
       "improvementPasses": [
         {
@@ -822,20 +828,22 @@
             "Undo reverses the last action, including a fall, until the summit without deleting earned records.",
             "Larger holds and height-scaled walls prevent overlap. A fixed phone action panel keeps forecasts, rope and chalk controls beside the move button. Keyboard focus survives redraws and follows route changes."
           ],
-          "validation": "25 checks (16 engine, nine DOM) pass. Cloud UI completed route one desktop and route two at 390-pixel width; full native campaigns pending."
+          "validation": "25 engine/interface checks and complete four-route three-badge desktop/touch campaigns pass in CI 40018382932. Every move forecast, mid-route reloads, natural loss/undo/retry, keyboard/touch input, quick phone tools, bridge pause, recovery/reset and navigation pass. 28 screenshots retained; desktop final-wall preview and phone traverse preview inspected."
         }
       ],
       "tests": [
         "Initial playable: 12 engine and five DOM tests pass, including all four clean cairn campaigns, ropes/anchors, grip/wind, fall/loss, unlocks, replay-validated saves, restart/recovery and pause. Native verification and meaningful improvement pending.",
-        "Improved: 16 engine and nine DOM tests pass; exact forecasts along all routes, natural exhaustion/loss/undo, storage errors, focus and quick phone rope controls. Full native verification pending."
+        "Improved: 16 engine and nine DOM tests pass; exact forecasts along all routes, natural exhaustion/loss/undo, storage errors, focus and quick phone rope controls. Full native verification pending.",
+        "25 engine/interface checks and complete four-route three-badge desktop/touch campaigns pass in CI 40018382932. Every move forecast, mid-route reloads, natural loss/undo/retry, keyboard/touch input, quick phone tools, bridge pause, recovery/reset and navigation pass. 28 screenshots retained; desktop final-wall preview and phone traverse preview inspected.",
+        "Additional cloud UI walkthrough: first route completed at desktop width, remaining three in a 390-pixel frame, all three badges. Initial and revised phone control layout visually reviewed; not physical-device touch testing."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Provisional: a distinct rope-path, finite-grip and anchor-planning loop. Four compact authored routes and badge/move records; no sound or long-playtime claim. Native checks and screenshot review pending."
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Agent review, not a player survey. Four compact climbing routes with rope-path, grip, wind and anchor safety decisions. Exact slip forecasts, undo and a fixed mobile move panel make choices readable. Anchors chiefly protect mistakes rather than being required by clean routes. Short campaign, some scrolling and no audio limit depth/polish; no long-playtime or physical-device claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -843,17 +851,24 @@
       "developmentCommits": [
         "e377ee962c3440138d9402c87bac6428d18e6ba8",
         "6584f914e61a3d92f0cb7ff37c74ca93c439203f",
-        "23c2bb63fd24ae9d9a0268248f60fcb62f4225ee"
+        "23c2bb63fd24ae9d9a0268248f60fcb62f4225ee",
+        "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81"
       ],
       "verification": {
-        "status": "pending-native",
+        "status": "passed",
         "sha256": {
           "game.js": "e7bc290317296decf9714cc3bbc8feaa83a79357f01ef5296bff5f2f527b9cca",
           "style.css": "a6190a56d1d2c47f5357af1e6dff46c2cc3cbe40af9f643dbece63de913566fb",
           "engine.js": "b973684aa1d0db0bd0824953f8fa42645498e79501512305baa32f3f34171535",
           "index.html": "47222e6569355a9eac4136b6134fc5e09fa51e5c93d87b82312c507720d3d7ff"
-        }
-      }
+        },
+        "commit": "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40018382932",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40018382932/artifacts/12528844767",
+        "artifactSha256": "b4af6bfb14956dfd9caf25de8f22543005b117abc1e4733158f175a2774f1e76"
+      },
+      "selectionReason": "Retain as a finished development candidate for comparison across the complete second-batch slate. No public catalogue write by this run.",
+      "publishedUrl": null
     },
     {
       "slot": 35,
@@ -977,12 +992,11 @@
     }
   ],
   "nextSteps": [
-    "Inspect Cairn & Cord native campaign evidence and screenshots; fix failures and complete quality review before marking finished.",
-    "Inspect CI 40011208465 new-games job for Tea for Ghosts. Fix any native failures, inspect screenshots and record quality before marking slot 33 finished.",
-    "Once Tea is verified, implement, improve and test Cairn & Cord (slot 34); seven slots remain planned.",
-    "Retain all thirteen browser suites and bounded concurrency. Browser allowance is now 25 minutes after observed dependency delays.",
-    "Revisit candidates for meaningful depth/polish improvements, compare the full slate, and select a complementary group rather than automatically publishing each game.",
-    "Integrate only selected winners against freshly read main; preserve first-batch sources/saves and concurrent Study Desk/Gummy Bay work. Verify actual release separately from repository integration."
+    "Implement, improve and test Murmuration (slot 35), with a distinct real-time flock-control loop. Six slots remain planned.",
+    "Keep all fourteen native suites and installed-Chrome fallback. Exact-source CI 40018382932 passed all 547 engine/interface checks and all fourteen desktop/touch native suites; screenshots retained in four artifacts.",
+    "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
+    "Re-read main and the separate all-created-games integration before promotion; preserve any newly added catalogue entries, all first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from explicit user-requested catalogue inclusion.",
+    "Complete remaining candidates, evaluation and repository integration, verify actual hosting separately, then pause this task."
   ],
   "baselineTestLimitations": [
     {
@@ -1127,8 +1141,19 @@
       "ci": "40011208465",
       "publicIntegration": null,
       "nextCandidate": 33
+    },
+    {
+      "date": "2026-10-24",
+      "result": "14 playable, 14 meaningfully improved, 14 finished; six slots planned. Tea native verification completed. No public catalogue/deployment writes in this run.",
+      "initialCommit": "e377ee962c3440138d9402c87bac6428d18e6ba8",
+      "gameplayCommit": "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
+      "verificationCommit": "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
+      "ci": "40018382932",
+      "publicIntegration": null,
+      "nextCandidate": 35,
+      "regressionStatus": "All five CI jobs passed: 547 engine/interface tests and all fourteen native desktop/touch suites. First-batch integrity and current public route/shell checks pass."
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main re-read at ed2cf603aa47fc26e4f04216d5704351b72a32a9 with private messaging and movie/TV discovery. Only second-batch source/tests/workflow/records written on the development branch. Scoped diff, first-batch hashes and public regression checks passed; concurrent Gummy Bay and requested-game work preserved."
+  "concurrentWork": "Main re-read at ed2cf603aa47fc26e4f04216d5704351b72a32a9. The separate all-games checkout at 6f056d2 was observed and untouched. Only scoped second-batch source, tests, workflow and documentation updated; first-batch, requested games, Gummy Bay, messaging and movie/TV work preserved."
 }
