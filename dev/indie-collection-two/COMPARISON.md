@@ -1,4 +1,4 @@
-# Second-batch comparison, through candidate 32
+# Second-batch comparison, through candidate 33
 
 This is an agent design review of the development slate, not a player survey or final catalogue selection. The ledger remains authoritative for completion and test status. No candidate is selected yet. First-batch games and the separate Nightshift/Afterlight collections are excluded.
 
@@ -16,6 +16,7 @@ This is an agent design review of the development slate, not a player survey or 
 | Pocket Palaeo | Gentle excavation leads into a graph-support lifting decision; recovered condition buys functional field tools. | Six fixed specimens; replay mainly improves condition, with no random finds or sound layer. Full desktop/touch campaigns and recovery checks passed. | A calm manual task with collection and spending, distinct from the existing cargo and action games. |
 | Static Orchard | Charged shots turn moving swarms into temporary circuits; arc forecasts and keyboard tracking make release decisions readable. Earned seals buy functional charge, arc and health tools. | Four compact defenses and nine entrance variations; no endless campaign or audio layer. Complete native desktop/touch campaigns, saving, loss/retry and input checks passed. | Real-time aiming and defense, distinct from the fixed chain-reaction garden and the existing action/cargo games. |
 | Borrowed Gravity | Transferring a source changes personal gravity and opens its paired barrier; swapping restores the previous obstacle. Drift previews make those consequences visible. | Four short galleries, modest calibration unlocks and no sound layer; phone play needs scrolling. Full native desktop/touch campaigns and save checks passed. | Ceiling and wall platforming with conserved source/barrier state, distinct from projectile gravity or rope retrieval. |
+| Tea for Ghosts | Hidden visitor preferences turn ingredient ratios, extraction and dilution into a readable tasting-and-adjustment loop. Memories unlock ingredients and useful tools. | Six fixed visitors and two tools; replay improves recipes rather than opening an expansive campaign. Native verification is recorded separately in the ledger. | A calm hospitality/deduction game with a clear illustrated identity and no time pressure. |
 
 Reefwright currently has the strongest recorded enjoyment/polish assessment. Copper Cadence supplies unusual machinery and sound; Wellward supplies the clearest bank-and-upgrade loop. These are provisional reasons to keep them in contention, not publication decisions. Ratchet Run should earn a place through responsive action and replay rather than being included merely to fill a genre slot.
 
@@ -25,7 +26,7 @@ Pocket Palaeo combines tactile soil removal with load distributed over a connect
 
 ## Remaining evaluation work
 
-- Build the eight unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining action, tea blending and social deduction concepts should broaden the slate.
+- Build the seven unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining action, tea blending and social deduction concepts should broaden the slate.
 - Revisit the strongest candidates after the full slate exists. Prioritize meaningful progression and readable controls over adding arbitrary counts or waiting time.
 - Compare finalists by enjoyment, depth, polish, reliability and variety, with explicit limitations. Automated winning routes establish reachability and regression coverage, not human enjoyment or hours of content.
 - Select a small complementary group, integrate against freshly read main, update catalogue/launch checks for the current shell, and test the actual release. Preserve the first batch and all unrelated work.
@@ -33,3 +34,5 @@ Pocket Palaeo combines tactile soil removal with load distributed over a connect
 Static Orchard uses continuous aim, charge/release timing, enemy motion, armor, shield windows and emergency pulse range. Afterlight’s Lumen Grove uses static chain placement; Orchard Atelier catches falling harvest. The shared orchard/electric imagery does not replace those distinct player actions. The first pulse design cleared the whole screen too cheaply; restricting it to the selected fruit’s vicinity gives it an emergency role and makes fruit selection consequential. Its compact progression earns a place in the comparison, not automatic publication.
 
 Borrowed Gravity’s central decision is where to borrow, swap and return a pull while collecting samples. It is not a reskin of Afterlight’s Moonwell projectile launches or Wellward’s swinging winch. Its preview is deliberately a no-input forecast: the player still steers around scanners. Jump buffering and ledge grace improve forgiveness without changing the original campaign routes. The four authored galleries are especially compact, so it is a weaker depth contender; its controlled visual identity and gravity traversal must earn any eventual catalogue place.
+
+Tea for Ghosts asks players to interpret a visitor’s request and correct floral, body, sweet and roast balance from tasting feedback. Temperature affects both extraction and the visitor’s preferred warmth; steeping and dilution are meaningful recipe choices. This differs from the first batch’s ingredient-growing/cooking loop and the action or spatial-planning games in this batch. Exact previews and one-step undo make recipe experiments easier to understand. Its fixed cast and small equipment cabinet limit lasting depth, so it must compete on clarity and character rather than implied scale.

@@ -771,7 +771,8 @@
       ],
       "tests": [
         "Initial playable passed 14 engine and 9 DOM checks: all six visitors, sequential ingredients, extraction/dilution, three-cup departure and retry, memory seals/tools, full service saves, restart/reset and corrupt-save recovery. Native tests and meaningful improvement pending.",
-        "Improved: 34 engine/interface checks pass, including pure exact preview, undo, focus continuity and feedback navigation, score authenticity, equipment provenance, initial-save migration and record recall after journal rotation."
+        "Improved: 34 engine/interface checks pass, including pure exact preview, undo, focus continuity and feedback navigation, score authenticity, equipment provenance, initial-save migration and record recall after journal rotation.",
+        "CI 40010604779 passed all 522 engine/DOM checks. Tea desktop completed six memories and both tools before an ambiguous visitor test selector stopped replay testing. Scoped to button in 4b5ce356; game source unchanged. Corrected CI 40011208465 passed all 522 engine/DOM checks; its new-games browser dependency installation was still running at handoff. No complete native pass claimed."
       ],
       "quality": {
         "enjoyment": null,
@@ -779,15 +780,29 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Provisional design review: distinct flavour-inference service loop and cohesive illustrated tearoom. Six fixed visitors and two tools limit depth; phone scrolling and no audio layer. Native verification is required before finished status."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "fa654ca14729275ca06b07db332ae5ff0fdf5f2b",
       "developmentCommits": [
         "fa654ca14729275ca06b07db332ae5ff0fdf5f2b",
-        "561db33ce8a4812f32db81684097346817ecbe48"
-      ]
+        "561db33ce8a4812f32db81684097346817ecbe48",
+        "b9121c7bb54b61da07ffdbe7739babcc8d6637a7",
+        "a34ba0a7e86687f9ef6928fb4bcfe0a56db12748",
+        "4b5ce3563a49f3b5a24c4e76217345e5795c07dd"
+      ],
+      "verification": {
+        "commit": "4b5ce3563a49f3b5a24c4e76217345e5795c07dd",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40011208465",
+        "status": "pending-native",
+        "sha256": {
+          "engine.js": "7dc287058316cf03f9e60f5fb58338331cbf5060d662f3f4bbd40bb16ab7659f",
+          "game.js": "6edb28192b21a55f0be8c73568949f6460659da5924e6668a72714f007f47c76",
+          "index.html": "ad070173f7e179886637707f3870f2e94e5fcf500f39148cea56cb0ca0fb3b43",
+          "style.css": "883f755732251b25d76eec0ae344ba5e8152d42b036fee620e3a5e1a78496450"
+        }
+      }
     },
     {
       "slot": 34,
@@ -931,12 +946,11 @@
     }
   ],
   "nextSteps": [
-    "Improve Tea for Ghosts controls/feedback and save validation; run native campaigns before marking finished.",
-    "Implement, improve and test Tea for Ghosts, slot 33.",
-    "Eight slots remain planned. Preserve distinct core loops and broaden the slate beyond short stage-based optimization games.",
-    "Keep all twelve existing native suites in the bounded parallel workflow; add future games to suitable groups without dropping coverage.",
-    "Revisit all candidates for deeper improvement and select a complementary group using COMPARISON.md; no automatic inclusion.",
-    "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."
+    "Inspect CI 40011208465 new-games job for Tea for Ghosts. Fix any native failures, inspect screenshots and record quality before marking slot 33 finished.",
+    "Once Tea is verified, implement, improve and test Cairn & Cord (slot 34); seven slots remain planned.",
+    "Retain all thirteen browser suites and bounded concurrency. Browser allowance is now 25 minutes after observed dependency delays.",
+    "Revisit candidates for meaningful depth/polish improvements, compare the full slate, and select a complementary group rather than automatically publishing each game.",
+    "Integrate only selected winners against freshly read main; preserve first-batch sources/saves and concurrent Study Desk/Gummy Bay work. Verify actual release separately from repository integration."
   ],
   "baselineTestLimitations": [
     {
@@ -1070,7 +1084,17 @@
       "ci": "40002581593",
       "publicIntegration": null,
       "nextCandidate": 33,
-      "regressionStatus": "488 engine/interface checks and ten native candidate suites passed. Motion group (Wellward/Ratchet Run) still installing dependencies at final check; full workflow success not claimed."
+      "regressionStatus": "The motion retry timed out after Wellward desktop/touch and Ratchet Run desktop. Complete motion, planning and craft-and-cargo suites subsequently passed in CI 40010604779; prior dependency timeout is resolved for those unchanged games."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "13 playable, 13 improved, 12 finished, 0 selected, 0 live; Tea for Ghosts native verification pending, seven slots planned",
+      "initialCommit": "fa654ca14729275ca06b07db332ae5ff0fdf5f2b",
+      "gameplayCommit": "b9121c7bb54b61da07ffdbe7739babcc8d6637a7",
+      "verificationCommit": "4b5ce3563a49f3b5a24c4e76217345e5795c07dd",
+      "ci": "40011208465",
+      "publicIntegration": null,
+      "nextCandidate": 33
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",

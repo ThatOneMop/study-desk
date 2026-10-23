@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` `http://localhost:8000/games/salt-and-sail/` `http://localhost:8000/games/pocket-palaeo/` `http://localhost:8000/games/static-orchard/` or `http://localhost:8000/games/borrowed-gravity/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` `http://localhost:8000/games/salt-and-sail/` `http://localhost:8000/games/pocket-palaeo/` `http://localhost:8000/games/static-orchard/` `http://localhost:8000/games/borrowed-gravity/` or `http://localhost:8000/games/tea-for-ghosts/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,17 +26,19 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**12/20 playable, improved and finished; 0 selected, integrated or verified live.** Borrowed Gravity is the twelfth finished development candidate. Eight slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
+**13/20 playable and improved; 12/20 finished; 0 selected, integrated or verified live.** Tea for Ghosts is implemented and improved, awaiting complete native verification. Seven slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
 
-Borrowed Gravity adds ceiling/wall platforming through conserved source/barrier transfers. Four galleries unlock a steady harness and extended reach. Its improvement adds exact no-input drift forecasts, safe-return guards, jump buffering and ledge grace, plus clearer feedback. The candidate passed 38 checks (23 engine, 15 DOM), all four native desktop/touch galleries, exact paused reloads, scanner loss/retry, isolated recovery/reset and navigation. The campaign is short; no human play-duration claim is made.
+Tea for Ghosts adds six visitors with hidden flavour preferences, ingredient ratios, extraction/dilution, tasting feedback, memory unlocks and two functional tools. Its improvement adds live previews, comparison with the last cup, recipe undo, keyboard focus retention, feedback navigation, stronger save validation and persistent best-recipe recall. The candidate passes 34 local checks (21 engine, 13 DOM). Local desktop/phone-width QA completed two services. Its fixed cast and short scope are recorded honestly.
 
-[Exact-source CI 40002581593](https://github.com/ThatOneMop/study-desk/actions/runs/40002581593) includes all twelve candidates. Its engine/interface job passed **488 checks** (277 engine, 211 DOM), plus public integrity gates. Native suites are preserved in four groups with at most three concurrent jobs. Ten native suites passed; the Wellward/Ratchet Run group was still installing dependencies at handoff, so whole-workflow success is not claimed. The new-games artifact contains [28 Borrowed Gravity and 28 Static Orchard screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/40002581593/artifacts/12523620121); representative desktop/phone images were reviewed. See the [Borrowed Gravity report](RUN_REPORT_2026-10-24_BORROWED_GRAVITY.md) and [comparison](COMPARISON.md).
+[CI 40010604779](https://github.com/ThatOneMop/study-desk/actions/runs/40010604779) passed **522 engine/interface checks** and all ten native suites in its planning, motion and craft-and-cargo groups. Tea completed its six desktop services before an ambiguous test selector stopped replay testing; the selector was corrected without changing game source. [Corrected CI 40011208465](https://github.com/ThatOneMop/study-desk/actions/runs/40011208465) passed all 522 engine/interface checks; the new-games browser group was still installing dependencies at handoff. No full native or whole-workflow pass is claimed for Tea yet. See the [Tea for Ghosts report](RUN_REPORT_2026-10-24_TEA_FOR_GHOSTS.md).
+
+All existing suites are retained in four groups with at most three concurrent jobs. The browser allowance increased to 25 minutes after measured dependency delays. Previous motion timeouts were resolved by a complete passing motion suite in CI 40010604779.
 
 The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
 All implemented candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: implement, improve and test Tea for Ghosts, slot 33. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
+Next: finish native verification of Tea for Ghosts, then build Cairn & Cord, slot 34. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 
