@@ -4,6 +4,9 @@ on:
     branches: [indie-collection-two-dev]
     paths:
       - 'games/reefwright/**'
+      - 'games/counterweight/**'
+      - 'tests/counterweight-*'
+      - 'tests/fixtures/counterweight-*'
       - 'dev/indie-collection-two/**'
       - 'tests/reefwright-*'
       - 'tests/fixtures/reefwright-*'
@@ -31,14 +34,16 @@ jobs:
           python tests/indie-two-gate.py
           node --check games/reefwright/engine.js
           node --check games/reefwright/game.js
+          node --check games/counterweight/engine.js
+          node --check games/counterweight/game.js
       - name: Engine and full campaign checks
-        run: node --test tests/reefwright-engine.cjs
+        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs
       - name: Install test-only dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0 playwright@1.58.2
           node "$RUNNER_TEMP/reef-deps/node_modules/playwright/cli.js" install --with-deps chromium
       - name: DOM, persistence and input checks
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs
+        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs
       - name: Desktop and touch Chromium campaigns
         run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/reefwright-browser.cjs
       - name: Preserve browser screenshots

@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 1,
+    "playable": 2,
     "improved": 1,
     "finished": 1,
     "selected": 0,
@@ -29,9 +29,9 @@
   },
   "deployment": {
     "status": "blocked",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39922574624",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
     "checked": "2026-10-23",
-    "detail": "Latest main release 39922574624 passed routes/assets, failed Configure GitHub Pages, and skipped prepare/upload/deploy. Earlier run 39920109462 logs explain Not Found for the existing Pages site and Resource not accessible by integration when creating it. No second-batch integration/publication attempted."
+    "detail": "Latest main release 39925660833 passed routes/assets, failed Configure GitHub Pages and skipped prepare/upload/deploy. No second-batch integration attempted."
   },
   "candidates": [
     {
@@ -99,10 +99,12 @@
       "id": "counterweight",
       "title": "Counterweight",
       "coreLoop": "Operate a crane with shifting ballast to stack and deliver fragile cargo.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/counterweight",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "20 engine and 14 DOM/save checks pass locally, including all five three-medal routes. Browser verification and a meaningful improvement pass are pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
@@ -476,7 +478,7 @@
     }
   ],
   "nextSteps": [
-    "Implement candidate 22, Counterweight: a crane-and-ballast cargo balancing loop, distinct from orbital towing and manual crushing; replace the concept if prototyping does not produce a worthwhile game.",
+    "Improve and browser-test playable Counterweight before counting it finished.",
     "Give every new candidate a playable implementation, tested meaningful improvement and quality review. Nineteen slots remain planned, not playable.",
     "Compare finished candidates as the slate grows, integrate only selected winners into fresh public main, preserve all existing catalogue entries/saves/tests, and verify deployment if Pages becomes available."
   ],
@@ -508,6 +510,6 @@
       "nextCandidate": 22
     }
   ],
-  "latestObservedMain": "013a8d009286fe02a37ebce76126f44c19c72ecf",
+  "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
   "concurrentWork": "Main advanced three commits for private-messaging links/docs during this run. No main writes were made; those changes are preserved remotely. Re-read fresh main before any future integration."
 }
