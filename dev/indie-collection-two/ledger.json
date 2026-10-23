@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 5,
-    "improved": 4,
+    "improved": 5,
     "finished": 4,
     "selected": 0,
-    "meaningfulPasses": 4,
+    "meaningfulPasses": 5,
     "verifiedLive": 0
   },
   "deployment": {
@@ -273,11 +273,23 @@
       "id": "hollow-keeper",
       "title": "Hollow Keeper",
       "coreLoop": "Defend a beetle settlement by carving reversible tunnels and luring invaders into traps.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/hollow-keeper",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "changes": [
+            "Added deterministic route overlays and exact remaining-wave scout reports so players can compare defenses before launching.",
+            "Added staged tool previews, explicit confirmation/cancel, projected costs and hearts; selecting fruit pauses auto march.",
+            "Preserved keyboard focus after rerenders, added Enter confirmation/Escape cancellation, and made depleted thorn beds visibly crossed out.",
+            "Moved tool selection next to the map at all viewport sizes after phone-width inspection."
+          ],
+          "validation": "25 engine and 20 DOM checks pass, including exact scouts on five full campaigns, lure recrossing, stationary thorn charging, preview isolation and keyboard focus. Browser campaign verification pending."
+        }
+      ],
       "tests": [
-        "Initial version: 21 engine and 15 DOM checks pass, including all five no-damage two-wave defenses. Improvement and browser verification pending."
+        "Initial version: 21 engine and 15 DOM checks passed, including all five no-damage two-wave defenses.",
+        "Improved version: 25 engine and 20 DOM checks passed. Managed-browser first hollow completed with three seals; desktop and phone-width layout inspected. Full desktop/touch CI pending."
       ],
       "quality": {
         "enjoyment": null,
@@ -285,10 +297,11 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Initial playable implementation exists; not yet improved or finished."
+        "notes": "Improved implementation; full Chromium regression and final quality assessment pending."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "f6266bd85765772a9c7824b77f48e4f96b152837"
     },
     {
       "slot": 26,
@@ -592,8 +605,8 @@
     }
   ],
   "nextSteps": [
-    "Implement candidate 25, Hollow Keeper: a beetle settlement defended by carving tunnels and luring invaders into traps. Establish a distinct enjoyable loop before counting it playable.",
-    "Sixteen candidates remain concepts. Each needs an initial playable implementation, meaningful improvement, tests and an honest quality assessment.",
+    "Complete Hollow Keeper desktop/touch Chromium verification, then assess it honestly before marking finished.",
+    "Fifteen candidates remain concepts. Next: candidate 26, Paper Odyssey.",
     "Compare the completed slate; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
   ],
   "baselineTestLimitations": [
