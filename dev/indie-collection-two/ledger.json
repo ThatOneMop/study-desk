@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 3,
+    "playable": 4,
     "improved": 3,
     "finished": 3,
     "selected": 0,
@@ -213,11 +213,13 @@
       "slot": 24,
       "id": "copper-cadence",
       "title": "Copper Cadence",
-      "coreLoop": "Build a musical machine by manually timing and routing percussion strikes.",
-      "status": "planned",
-      "source": null,
+      "coreLoop": "Hand-crank a scarce-bead percussion machine: feed unequal-length tracks, brake queued beads and rotate exits to synchronize requested notes.",
+      "status": "playable",
+      "source": "games/copper-cadence",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "21 engine tests passed including five perfect authored commissions; DOM/browser and improvement pass pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,

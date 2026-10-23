@@ -1,0 +1,347 @@
+[
+  {
+    "job": 0,
+    "actions": [
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      }
+    ]
+  },
+  {
+    "job": 1,
+    "actions": [
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      }
+    ]
+  },
+  {
+    "job": 2,
+    "actions": [
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 1,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 1,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 1,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 1,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      }
+    ]
+  },
+  {
+    "job": 3,
+    "actions": [
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 2
+      },
+      {
+        "feed": 2,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 2
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 2
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 2
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 2
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      }
+    ]
+  },
+  {
+    "job": 4,
+    "actions": [
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 2,
+        "brakes": 1,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 1,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 3,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 3,
+        "shift": 0
+      },
+      {
+        "feed": 2,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 3,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 7,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 7,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 7,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": null,
+        "brakes": 0,
+        "shift": 0
+      }
+    ]
+  }
+]

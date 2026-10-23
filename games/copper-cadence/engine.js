@@ -1,0 +1,30 @@
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.CopperCadence=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){'use strict';
+const NOTES=[{name:'Low drum',short:'DRUM',color:'#ad6550',frequency:110},{name:'Wood block',short:'WOOD',color:'#b58c43',frequency:330},{name:'Copper bell',short:'BELL',color:'#558879',frequency:660}],LENGTHS=[2,3,4];
+const JOBS=[
+{name:'The first heartbeat',brief:'Feed the short track. A bead takes two more cranks to reach the drum. Keep a steady, spacious pulse.',lanes:1,brakes:false,router:false,stock:2,par:0,score:[[],[],[0],[],[0],[],[0],[],[0],[]]},
+{name:'Wood & leather',brief:'Two tracks, different travel times, one feeder. Stagger your drops to alternate drum and wood.',lanes:2,brakes:false,router:false,stock:3,par:0,score:[[],[],[0],[],[1],[0],[],[1],[0],[],[],[1]]},
+{name:'A chord held back',brief:'Brake the short track at its mouth. Release it when the slower bead arrives for a two-note chord.',lanes:2,brakes:true,router:false,stock:3,par:4,score:[[],[],[],[],[0,1],[],[],[],[0,1],[],[],[]]},
+{name:'The brass exchange',brief:'The exit selector rotates all destinations. A fast bead can ring the bell; a slow one can play the drum.',lanes:3,brakes:true,router:true,stock:3,par:6,score:[[],[],[2],[],[0,2],[],[],[0,1],[0],[],[],[0],[],[]]},
+{name:'Three for the evening',brief:'Build a three-note chord with only three beads in circulation, then recycle them for the finale.',lanes:3,brakes:true,router:true,stock:3,par:10,score:[[],[],[],[],[],[],[0,1,2],[],[],[],[],[],[],[0,1,2],[],[]]}
+];
+const copy=x=>JSON.parse(JSON.stringify(x)),eq=(a,b)=>a.length===b.length&&a.every((n,i)=>n===b[i]);
+function create(job=0){if(!Number.isInteger(job)||job<0||job>=JOBS.length)throw Error('Unknown commission');return {job,beat:0,stock:JOBS[job].stock,tracks:LENGTHS.map(n=>Array(n).fill(false)),history:[],heard:[],errors:0,brakeTurns:0,drops:0,status:'playing',message:'Choose a feeder, then turn the crank. Nothing moves until you do.'};}
+function validAction(s,a){const j=JOBS[s.job];return a&&typeof a==='object'&&(a.feed===null||Number.isInteger(a.feed)&&a.feed>=0&&a.feed<j.lanes)&&Number.isInteger(a.brakes)&&a.brakes>=0&&a.brakes<(1<<j.lanes)&&(j.brakes||a.brakes===0)&&Number.isInteger(a.shift)&&a.shift>=0&&a.shift<3&&(j.router||a.shift===0);}
+function step(state,action){const fail=reason=>({ok:false,state,reason});if(state.status!=='playing')return fail('This performance has ended. Rewind or restart.');if(!validAction(state,action))return fail('That control is unavailable for this commission.');const s=copy(state),j=JOBS[s.job],a={feed:action.feed,brakes:action.brakes,shift:action.shift},notes=[];
+ // Downstream-first synchronous conveyor: each bead moves at most one slot.
+ for(let lane=0;lane<j.lanes;lane++){const track=s.tracks[lane];for(let p=track.length-1;p>=0;p--){if(!track[p])continue;if(p===track.length-1){if(!(a.brakes&(1<<lane))){track[p]=false;s.stock++;notes.push((lane+a.shift)%3);}}else if(!track[p+1]){track[p+1]=true;track[p]=false;}}}
+ if(a.feed!==null){if(!s.stock)return fail('All beads are in the machine. Let one strike and recycle first.');if(s.tracks[a.feed][0])return fail('That feed track is backed up. Release its brake or choose another track.');s.stock--;s.tracks[a.feed][0]=true;s.drops++;}
+ notes.sort((a,b)=>a-b);const expected=j.score[s.beat];const missed=expected.filter(n=>!notes.includes(n)),extra=notes.filter(n=>!expected.includes(n));s.errors+=missed.length+extra.length;s.heard.push(notes);s.brakeTurns+=a.brakes?1:0;s.beat++;s.history.push(a);
+ let message=eq(notes,expected)?notes.length?'On the mark. '+notes.map(n=>NOTES[n].name).join(' + ')+'.':'A clean rest.':`Off score: ${missed.length} missing, ${extra.length} extra.`;
+ if(s.beat===j.score.length){const remaining=s.tracks.flat().filter(Boolean).length;s.errors+=remaining;const total=j.score.flat().length;const accuracy=Math.max(0,Math.round((total-s.errors)/total*100));s.status=accuracy>=75?'won':'lost';message=s.status==='won'?`Commission complete: ${accuracy}% accuracy.`:`The ensemble needs another take: ${accuracy}% accuracy. Rewind to repair a beat.`;if(remaining)message+=` ${remaining} undelivered bead${remaining===1?'':'s'} counted as extra.`;}
+ s.message=message;return {ok:true,state:s,reason:message,notes,missed,extra};}
+function medal(s){return s.status!=='won'?0:1+(s.errors===0?1:0)+(s.errors===0&&s.brakeTurns<=JOBS[s.job].par?1:0);}
+function accuracy(s){const n=JOBS[s.job].score.flat().length;return Math.max(0,Math.round((n-s.errors)/n*100));}
+function replay(job,actions){if(!Array.isArray(actions)||actions.length>16)throw Error('Invalid history');let s=create(job);for(const a of actions){const r=step(s,a);if(!r.ok)throw Error('Invalid machine action');s=r.state;}return s;}
+function undo(s){return replay(s.job,s.history.slice(0,-1));}
+function blank(){return {version:1,current:{job:0,actions:[]},records:Array(5).fill(null)};}
+function unlocked(v){let i=0;while(i<4&&v.records[i])i++;return i;}
+function record(v,s){const out=copy(v);out.current={job:s.job,actions:s.history};if(s.status==='won'){const old=out.records[s.job],m=medal(s);if(!old||m>old.medals||m===old.medals&&(s.errors<old.errors||s.errors===old.errors&&s.brakeTurns<old.brakes))out.records[s.job]={actions:s.history,medals:m,errors:s.errors,brakes:s.brakeTurns};}return out;}
+function decode(raw){const v=typeof raw==='string'?JSON.parse(raw):raw;if(!v||v.version!==1||!v.current||!Array.isArray(v.records)||v.records.length!==5)throw Error('Unreadable save');const records=v.records.map((r,i)=>{if(r===null)return null;const s=replay(i,r.actions);if(s.status!=='won')throw Error('Unproven record');return {actions:s.history,medals:medal(s),errors:s.errors,brakes:s.brakeTurns};});const s=replay(v.current.job,v.current.actions);if(s.job>unlocked({records}))throw Error('Locked commission');return {version:1,current:{job:s.job,actions:s.history},records};}
+return {NOTES,LENGTHS,JOBS,create,validAction,step,medal,accuracy,replay,undo,blank,unlocked,record,decode};
+});
