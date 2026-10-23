@@ -154,7 +154,7 @@
       "status": "finished",
       "source": "dev/indie-collection/bolt-and-bristle/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 3,
+      "meaningfulImprovementPasses": 4,
       "changes": [
         "Initial playable: six original handmade circuit restoration commissions; brush/solvent/spanner/rotation tools, mouse/touch drag and native keyboard plates, test circuit, restoration stars, tool upgrades, best-only replay rewards, confirmed retry and versioned saves with corrupted/concurrent-write protection.",
         "Pass 1: interpolated fast pointer strokes include skipped cells and their first plate without double activation; native tool shortcuts preserve plate focus; live-current highlights and textual copper/tool inspection; free diagnostic tests no longer punish experimentation; one-step undo restores plate work and full winning rewards, clears on navigation/upgrades/retry; modal background inert/focus guards and >=44px narrow-screen targets. Earlier version-1 score saves remain readable.",
@@ -317,7 +317,8 @@
         "Initial playable: five handmade archive maps, three-card cycling deck, deterministic new-card drafts, ink/wells/binding hazards, three-page extraction with optional fourth page, best-only seals, two upgrades, failure/retry and versioned save protection.",
         "Pass 1: nonmutating actual-rules landing forecasts; one-step undo includes card drafts, well/page/health changes and full extraction rewards; clears on navigation/upgrades/retry and reload. Added deterministic deck/draw inspector, affordable-card fallback, preserved focus and hover/keyboard previews. Tightened new-run bonus targets to baseline plus two turns while retaining old v1 closing times/scoring. Clamped odd-health lethal blots to a saveable zero, rejected skipped drafts, bounded save parsing.",
         "Pass 2: full five-volume normal-UI campaign review exposed buried exit/seal state. Added a live route scorecard for required pages, all-page bonus, careful-route turn/binding trajectory and locked/ready/reached exit state; updated onboarding and responsive presentation.",
-        "Pass 3: an ordinary-UI alternative opening deliberately avoided the reference route and drafted Flourish plus Margin note, escaping in 13 turns for two seals. Draft choices now name the oldest hand card moving to discard, show immediate legal plays/landings from the current square and identify new versus already-owned techniques. Added permanent engine and real-browser coverage for that non-reference route."
+        "Pass 3: an ordinary-UI alternative opening deliberately avoided the reference route and drafted Flourish plus Margin note, escaping in 13 turns for two seals. Draft choices now name the oldest hand card moving to discard, show immediate legal plays/landings from the current square and identify new versus already-owned techniques. Added permanent engine and real-browser coverage for that non-reference route.",
+        "Pass 4: every legal map square now carries an always-visible, rules-derived landing forecast for resulting ink and binding plus page, well, blot, draft, loss or escape consequences. This closes the touch-planning gap where tapping committed immediately while the prior exact forecast depended on hover/focus. Accessible labels expose the same outcome; rules, routes, saves and difficulty are unchanged."
       ],
       "tests": [
         "10 engine checks passed, including five legal baseline four-page routes in 12/8/10/11/9 turns, upgraded campaign, every-action save decoding, card inventory, draft rules, losses, replay accounting and malformed saves.",
@@ -328,41 +329,43 @@
         "Run 27 local: all 15 engine checks pass, including legal 12/8/10/11/9-turn four-page routes and 120 deterministic exploratory campaigns. A local managed-browser UI campaign completed all five volumes at 3 seals each (15 total), then exercised scorecard locked/progress/undo/completion states. Local jsdom was absent and local Playwright lacked its browser binary; exact-source CI owns those checks.",
         "PASS GitHub Actions 39507823018 at e75fa28dff90e1c3b49ffbee825cf585b2474506: full repository gates, Inkline 15 engine + 20 DOM checks, actual Chromium desktop/touch scorecard regression, and all other candidate regressions.",
         "Run 34 managed browser: a non-reference opening and Flourish/Margin note draft path completed volume 1 through visible controls in 13 turns with three pages, full binding and two seals. The improved draft screen visibly named the displaced Nib and showed 2/6/1 immediate legal choices for Quill/Flourish/Bind.",
-        "PASS GitHub Actions 39549722233 at 27416d1768886b1eb4ea339aea73daa2964fd7df: Inkline 16 engine + 20 DOM checks, dedicated alternate browser victory, five-volume three-seal campaign, desktop/touch regressions, all other candidates and repository gates."
+        "PASS GitHub Actions 39549722233 at 27416d1768886b1eb4ea339aea73daa2964fd7df: Inkline 16 engine + 20 DOM checks, dedicated alternate browser victory, five-volume three-seal campaign, desktop/touch regressions, all other candidates and repository gates.",
+        "PASS GitHub Actions 39889649120 at 510186beed5946a25d0627092647c2cb9dcfdb4e: repository/selection gates, all20 engine suites, all20 DOM/save suites and every desktop/touch Chromium regression. Inkline contributes16 engine+21 DOM checks; touch verifies page and well forecasts before committing, zero inspection turns, >=44px controls and no390/320px overflow.49 screenshots are retained in artifact12475065950."
       ],
       "quality": {
         "enjoyment": "Full five-volume normal-UI campaign completed using verified routes. A separate ordinary-UI route deliberately avoided the reference opening and chose Flourish/Margin note drafts, escaping in 13 turns for two seals. This demonstrates readable alternative planning but is not a human fun score.",
         "depth": "Five handmade card-route volumes; normal-UI four-page campaign completed in 12/8/10/11/9 turns for 15 total seals. A distinct three-page alternative used different movement cards and earned two seals. Draft reach/replacement guidance now supports informed route variation; compact authored scope is not an hours claim.",
-        "polish": "Original parchment/navy CSS art reviewed in the managed browser. Pass 3 makes the hand replacement cost explicit and previews immediate legal reach plus deck novelty on every offer; live scorecard, exact landing forecasts, deck inspector and native keyboard/focus remain. CI covers responsive touch emulation; physical touch remains pending.",
-        "reliability": "16 engine + 20 DOM checks and actual Chromium desktop/touch-emulated suites pass in exact-source CI 39549722233. Browser coverage includes the non-reference 13-turn two-seal route and the complete five-volume 15-seal reference campaign, plus saves, undo, retry, upgrades and navigation.",
+        "polish": "Original parchment/navy CSS art now puts concise rules-derived ink, binding and special-consequence forecasts directly on every lit landing square instead of hiding the only exact preview behind hover/focus. Pass3 draft replacement/reach guidance, live scorecard, deck inspector and native keyboard/focus remain; physical touch and screen-reader review remain open.",
+        "reliability": "Exact development510186b passes16 engine+21 DOM/save, repository/selection gates and every desktop/touch Chromium regression in CI39889649120. Browser coverage includes the non-reference13-turn route, complete five-volume15-seal campaign, visible pre-commit touch forecasts, saves, undo, retry, upgrades, navigation and390/320px layout.",
         "variety": "Distinct cycling-deck and card-drafting spatial exploration"
       },
       "selected": true,
       "selectionReason": "Selected for its original card-drafting route puzzle, meaningful ink economy, alternate successful lines and complete five-volume campaign evidence.",
-      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed"],
+      "integrationCommits": ["a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed", "7676b2dbe5e12bf567aabd25ba1fb74c62cb4b97"],
       "publishedUrl": null,
       "nextSteps": [
         "Retain alternate route/draft campaign coverage and try another successful line if time permits; verified routes are not a human-player study.",
-        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+        "Enable GitHub Pages and verify the deployed route; physical touch, screen-reader and independent human route-preference review remain desirable."
       ],
       "developmentCommits": [
         "c3f3dd2fc25356bc7b5789772bf2ff3c53a4f713",
         "24efb955cd8470b7d6b0da2b308d79917ce6d1a0",
         "e75fa28dff90e1c3b49ffbee825cf585b2474506",
-        "27416d1768886b1eb4ea339aea73daa2964fd7df"
+        "27416d1768886b1eb4ea339aea73daa2964fd7df",
+        "510186beed5946a25d0627092647c2cb9dcfdb4e"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39549722233",
-        "testedCommit": "27416d1768886b1eb4ea339aea73daa2964fd7df",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39889649120",
+        "testedCommit": "510186beed5946a25d0627092647c2cb9dcfdb4e",
         "conclusion": "success",
-        "desktop": "Dedicated non-reference 13-turn two-seal route with contextual drafts; five actual-button four-page victories; native keyboard/card/map focus; scorecard/forecasts; draft/reward undo; upgrades; reload; confirmed retry; development navigation; zero page errors",
-        "touch": "390x844 emulation: card/movement taps, wells, rest/draft/undo, modal/help/deck inspector/scorecard; visible buttons >=44px; no horizontal overflow at 390px/320px",
-        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39549722233/artifacts/12323226924",
+        "desktop": "Dedicated non-reference 13-turn two-seal route; five actual-button four-page victories; visible rules-derived landing outcomes; keyboard/card/map focus; scorecard; draft/reward undo; upgrades; reload; confirmed retry; navigation; zero page errors",
+        "touch": "390x844 emulation reads page and well outcomes before tapping without spending a turn; card/movement taps, wells, rest/draft/undo, modal/help/deck inspector/scorecard; buttons >=44px; no390/320px horizontal overflow",
+        "screenshotsUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39889649120/artifacts/12475065950",
         "notVerified": [
           "Human-player enjoyment comparison",
           "Physical touch hardware or screen-reader play",
           "20 hours of worthwhile content",
-          "Public catalogue integration/deployment"
+          "Public deployment"
         ]
       }
     },
@@ -2535,10 +2538,23 @@
       "verifiedCommit": "5c38246ea6eed2418c75c126fdf0707f1054ddeb",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39887129692",
       "inspectedMainCommit": "1a73bf1235ba4d00a40e4aaa5ae7f0ac8819fb43"
+    },
+    {
+      "run": 81,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Inkline received meaningful pass4, bringing the20-game collection to66 recorded passes. Every legal landing now shows its rules-derived post-move ink/binding and page, well, damage, draft, loss or escape consequence directly on the map, closing the touch-planning gap without changing routes, saves or difficulty. Exact development510186b passed repository/selection gates, all20 engine suites, all20 DOM/save suites and every desktop/touch Chromium regression in CI39889649120; Inkline contributes16 engine+21 DOM checks and49 screenshots are preserved in artifact12475065950. The aligned selected source and integrity pins passed fresh-main release gates and were promoted to public main7676b2d. Release workflow39891177156 passed19 route/assets, then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "510186beed5946a25d0627092647c2cb9dcfdb4e",
+      "verifiedCommit": "510186beed5946a25d0627092647c2cb9dcfdb4e",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39889649120",
+      "inspectedMainCommit": "7676b2dbe5e12bf567aabd25ba1fb74c62cb4b97"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with65 passes; nine selected/source-integrated on public main1a73bf1 including fully verified Echo Vault pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "All20 candidates playable, improved and finished with66 passes; nine selected/source-integrated on public main7676b2d including fully verified Inkline pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2556,7 +2572,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39888314579 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39891177156 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
