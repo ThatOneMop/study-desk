@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 15,
+    "playable": 16,
     "improved": 15,
     "finished": 15,
     "selected": 0,
@@ -935,10 +935,12 @@
       "id": "night-clerk",
       "title": "Night Clerk",
       "coreLoop": "Infer guests\u2019 hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/night-clerk",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable: 12 engine and seven interface checks pass, including five complete shifts, all seals, guest adjacency/noise rules, functional screen unlocks, natural failure/retry, replay saves, keyboard focus, recovery and blocked storage. Meaningful improvement and native verification pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
@@ -1032,7 +1034,7 @@
     }
   ],
   "nextSteps": [
-    "Implement, improve and test Night Clerk (slot 36). Five slots remain planned; preserve exactly twenty new slots.",
+    "Improve and verify Night Clerk (slot 36), now initially playable; four slots remain concepts.",
     "Keep all fifteen native suites in five browser groups. Exact-source CI 40023020207 passed all 570 engine/interface tests and every native suite; all six jobs succeeded.",
     "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
     "Re-read main and the separate all-created-games integration before promotion; preserve newly added catalogue entries, first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from direct user-requested catalogue inclusion.",

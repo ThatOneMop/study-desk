@@ -1,0 +1,60 @@
+/* Night Clerk — original code and illustrations, MIT. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.NightClerk=api;})(typeof globalThis!=='undefined'?globalThis:this,()=>{'use strict';
+const KEY='study-desk-night-clerk-v1',copy=x=>JSON.parse(JSON.stringify(x));
+const ROOMS=[{id:0,number:101,floor:0,x:0,name:'The Fern Room',features:['garden','quiet']},{id:1,number:102,floor:0,x:1,name:'The Bell Room',features:['bell']},{id:2,number:103,floor:0,x:2,name:'The Ember Room',features:['hearth','quiet']},{id:3,number:201,floor:1,x:0,name:'The Moon Room',features:['moon','quiet']},{id:4,number:202,floor:1,x:1,name:'The Clock Room',features:['bell']},{id:5,number:203,floor:1,x:2,name:'The Lantern Room',features:['moon','hearth']}];
+const guest=(id,name,role,quote,rules,noisy=false)=>({id,name,role,quote,rules,noisy});
+const feature=(value,text)=>({type:'feature',value,text}),floor=(value,text)=>({type:'floor',value,text}),near=(who,text)=>({type:'near',who,text}),away=(who,text)=>({type:'away',who,text}),sleep=text=>({type:'sleep',text});
+const SHIFTS=[
+{name:'Three late arrivals',subtitle:'A moth, a tune, a small tired ghost.',color:'#d7af71',guests:[
+ guest('ada','Ada','The moth collector','The moon keeps my specimens calm. A violin through the wall does quite the opposite.',[feature('moon','Ada needs a moon window.'),away('bram','Ada must not share a wall or ceiling with Bram.')]),
+ guest('bram','Bram','The violinist','An ember for my strings, please. I cannot carry this case up the stairs.',[feature('hearth','Bram needs a hearth.'),floor(0,'Bram needs the ground floor.')],true),
+ guest('pip','Pip','The sleepwalker','A quiet bed below the stairs. Bells and music wake my wandering feet.',[sleep('Pip needs a quiet room without a noisy neighbour, or a felt screen.'),floor(0,'Pip needs the ground floor.')])]},
+{name:'The upstairs recital',subtitle:'Someone remembered the spare key.',color:'#baa5cd',guests:[
+ guest('bram','Bram','The violinist','Tonight I can manage the stairs. An upstairs hearth will warm the new strings.',[feature('hearth','Bram needs a hearth.'),floor(1,'Bram needs the upper floor tonight.')],true),
+ guest('pip','Pip','The sleepwalker','Quiet, please. And no wall or ceiling between my bed and that violin.',[sleep('Pip needs a quiet room without a noisy neighbour, or a felt screen.'),away('bram','Pip must not be adjacent to Bram.')]),
+ guest('rook','Rook','The clock mender','I work best to the bells upstairs. Ada may need to borrow my lens.',[feature('bell','Rook needs a bell room.'),floor(1,'Rook needs the upper floor.')]),
+ guest('ada','Ada','The moth collector','A moon window, and close enough to knock on Rook’s wall for the lens.',[feature('moon','Ada needs a moon window.'),near('rook','Ada must be adjacent to Rook.')])]},
+{name:'A crackle in the walls',subtitle:'The felt-screen kit is waiting behind the desk.',color:'#83b5a5',guests:[
+ guest('hush','Hush','The paper sleeper','I sleep downstairs. Silence is precious when your dreams are made of paper.',[sleep('Hush needs a quiet room without a noisy neighbour, or a felt screen.'),floor(0,'Hush needs the ground floor.')]),
+ guest('flint','Flint','The crackling lantern','A hearth, and a room next to Lark. We are rehearsing a duet.',[feature('hearth','Flint needs a hearth.'),near('lark','Flint must be adjacent to Lark.')],true),
+ guest('lark','Lark','The bell singer','I sing with the bells on the upper landing.',[feature('bell','Lark needs a bell room.'),floor(1,'Lark needs the upper floor.')],true),
+ guest('moth','Moth','The moon archivist','Moonlight on my pages; no crackling lantern through the wall or floor.',[feature('moon','Moth needs a moon window.'),away('flint','Moth must not be adjacent to Flint.')]),
+ guest('fern','Fern','The root keeper','A garden view. Lark’s song must stay more than one wall away.',[feature('garden','Fern needs the garden room.'),away('lark','Fern must not be adjacent to Lark.')])]},
+{name:'A full house',subtitle:'Six guests. Two screens. One quiet morning.',color:'#ce8f8a',guests:[
+ guest('fern','Fern','The root keeper','I brought roots for the ground-floor garden.',[feature('garden','Fern needs the garden room.'),floor(0,'Fern needs the ground floor.')]),
+ guest('flint','Flint','The crackling lantern','The upstairs hearth is the only one I have not visited.',[feature('hearth','Flint needs a hearth.'),floor(1,'Flint needs the upper floor.')],true),
+ guest('lark','Lark','The bell singer','Tonight’s song belongs to the bells downstairs.',[feature('bell','Lark needs a bell room.'),floor(0,'Lark needs the ground floor.')],true),
+ guest('moth','Moth','The moon archivist','Moonlight, well away from Flint’s crackling.',[feature('moon','Moth needs a moon window.'),away('flint','Moth must not be adjacent to Flint.')]),
+ guest('pip','Pip','The sleepwalker','Downstairs again. A screen would keep the songs out of my dreams.',[sleep('Pip needs a quiet room without a noisy neighbour, or a felt screen.'),floor(0,'Pip needs the ground floor.')]),
+ guest('ink','Ink','The minute keeper','An upper room with a bell, so I can catch the hours.',[feature('bell','Ink needs a bell room.'),floor(1,'Ink needs the upper floor.')])]},
+{name:'The last train home',subtitle:'Every promise reaches through another wall.',color:'#8eafcb',guests:[
+ guest('vesper','Vesper','The star tailor','Moonlight for my thread. Rue and I exchange dreams through the wall.',[feature('moon','Vesper needs a moon window.'),near('rue','Vesper must be adjacent to Rue.')]),
+ guest('quill','Quill','The station clerk','The bells keep my timetable. Gale’s gusts must stay more than one wall away.',[feature('bell','Quill needs a bell room.'),away('gale','Quill must not be adjacent to Gale.')]),
+ guest('gale','Gale','The whistling traveller','A hearth upstairs. My pockets whistle all night.',[feature('hearth','Gale needs a hearth.'),floor(1,'Gale needs the upper floor.')],true),
+ guest('rue','Rue','The dreaming seamstress','A silent bed, but close to Gale. A little felt might let both wishes fit.',[sleep('Rue needs a quiet room without a noisy neighbour, or a felt screen.'),near('gale','Rue must be adjacent to Gale.')]),
+ guest('orin','Orin','The seed courier','The garden window, far from Gale’s whistling.',[feature('garden','Orin needs the garden room.'),away('gale','Orin must not be adjacent to Gale.')]),
+ guest('pearl','Pearl','The ticket collector','I stay downstairs, beside Quill. We must compare tickets in the morning.',[floor(0,'Pearl needs the ground floor.'),near('quill','Pearl must be adjacent to Quill.')])]}
+];
+function fresh(night=0){return{night,phase:'desk',rooms:Array(SHIFTS[night].guests.length).fill(-1),asked:[],screens:[],bells:0,report:[],log:[]};}
+function create(){return{version:1,records:[null,null,null,null,null],run:fresh()};}
+function unlocked(s){const i=s.records.findIndex(r=>!r);return i<0?4:Math.min(4,i);}
+function kit(s){return !!s.records[1];}
+function adjacent(a,b){return a>=0&&b>=0&&Math.abs(ROOMS[a].x-ROOMS[b].x)+Math.abs(ROOMS[a].floor-ROOMS[b].floor)===1;}
+function ruleResult(s,index,rule){const guests=SHIFTS[s.run.night].guests,room=s.run.rooms[index];if(room<0)return{ok:false,pending:true,text:'No key assigned.'};const r=ROOMS[room],other=rule.who?guests.findIndex(g=>g.id===rule.who):-1,otherRoom=other>=0?s.run.rooms[other]:-1;
+ if(rule.type==='feature')return{ok:r.features.includes(rule.value),pending:false,text:rule.text};if(rule.type==='floor')return{ok:r.floor===rule.value,pending:false,text:rule.text};if(rule.type==='sleep'){const quiet=r.features.includes('quiet'),noise=guests.some((g,i)=>g.noisy&&adjacent(room,s.run.rooms[i]));return{ok:s.run.screens.includes(room)||(quiet&&!noise),pending:false,text:rule.text};}if(otherRoom<0)return{ok:false,pending:true,text:rule.text+' Their room is still undecided.'};return{ok:rule.type==='near'?adjacent(room,otherRoom):!adjacent(room,otherRoom),pending:false,text:rule.text};}
+function assess(s){return SHIFTS[s.run.night].guests.map((g,i)=>({guest:i,name:g.name,room:s.run.rooms[i],checks:g.rules.map(r=>ruleResult(s,i,r))}));}
+function known(s,index){return s.run.asked.includes(index)||s.run.bells>0;}
+function act(state,a){const s=copy(state),r=s.run,guests=SHIFTS[r.night].guests,no=reason=>({ok:false,state,reason}),yes=()=>({ok:true,state:s,reason:''});if(!a||typeof a.type!=='string')return no('Unknown desk action.');
+ if(a.type==='night'){if(!Number.isInteger(a.id)||a.id<0||a.id>unlocked(s))return no('That shift has not opened.');s.run=fresh(a.id);return yes();}
+ if(a.type==='retry'){s.run=fresh(r.night);return yes();}
+ if(r.phase!=='desk')return no('This shift is over. Choose another shift or retry.');
+ if(r.log.length>=150)return no('The desk notebook is full. Retry this shift.');
+ if(a.type==='ask'){if(!Number.isInteger(a.guest)||!guests[a.guest]||r.asked.includes(a.guest))return no('Choose a guest you have not interviewed.');r.asked.push(a.guest);r.log.push({type:'ask',guest:a.guest});return yes();}
+ if(a.type==='place'){if(!Number.isInteger(a.guest)||!guests[a.guest]||!Number.isInteger(a.room)||a.room<0||a.room>5)return no('Choose a guest and room.');if(r.rooms.some((v,i)=>i!==a.guest&&v===a.room))return no('That room is occupied. Return its key first.');if(r.rooms[a.guest]===a.room)return no('That guest already holds this key.');r.rooms[a.guest]=a.room;r.log.push({type:'place',guest:a.guest,room:a.room});return yes();}
+ if(a.type==='vacate'){if(!Number.isInteger(a.guest)||!guests[a.guest]||r.rooms[a.guest]<0)return no('That guest has no key to return.');r.rooms[a.guest]=-1;r.log.push({type:'vacate',guest:a.guest});return yes();}
+ if(a.type==='screen'){if(!kit(s))return no('Clear the first two shifts to unlock felt screens.');if(!Number.isInteger(a.room)||a.room<0||a.room>5)return no('Choose a room for the screen.');if(r.screens.includes(a.room))r.screens=r.screens.filter(id=>id!==a.room);else{if(r.screens.length===2)return no('Both screens are in use. Move one from another room.');r.screens.push(a.room);}r.log.push({type:'screen',room:a.room});return yes();}
+ if(a.type==='bell'){if(r.rooms.some(id=>id<0))return no('Give every guest a key before lights-out.');r.bells++;r.report=assess(s);r.log.push({type:'bell'});if(r.report.every(g=>g.checks.every(c=>c.ok))){r.phase='won';const medals=1+(r.bells===1?1:0)+(r.asked.length===guests.length?1:0),old=s.records[r.night];s.records[r.night]={medals:Math.max(old?.medals||0,medals),bells:Math.min(old?.bells||99,r.bells),screens:Math.min(old?.screens??99,r.screens.length)};}else if(r.bells===3)r.phase='lost';return yes();}
+ return no('Unknown desk action.');}
+function encode(s){return JSON.stringify({version:1,records:s.records,night:s.run.night,phase:s.run.phase,log:s.run.log});}
+function decode(raw){let a;try{a=JSON.parse(raw);}catch(_){throw Error('Unreadable journal');}if(!a||a.version!==1||!Array.isArray(a.records)||a.records.length!==5||!Number.isInteger(a.night)||a.night<0||a.night>4||!Array.isArray(a.log)||a.log.length>150||!['desk','won','lost'].includes(a.phase))throw Error('Invalid journal');let gap=false;for(const r of a.records){if(r===null){gap=true;continue;}if(gap||!r||!Number.isInteger(r.medals)||r.medals<1||r.medals>3||!Number.isInteger(r.bells)||r.bells<1||r.bells>3||!Number.isInteger(r.screens)||r.screens<0||r.screens>2)throw Error('Invalid shift records');}let s=create();s.records=copy(a.records);if(a.night>unlocked(s))throw Error('Locked shift');s.run=fresh(a.night);for(const command of a.log){if(!['ask','place','vacate','screen','bell'].includes(command?.type))throw Error('Invalid desk log');const t=act(s,command);if(!t.ok)throw Error('Invalid desk action');s=t.state;}if(s.run.phase!==a.phase)throw Error('Journal outcome differs');return s;}
+return{KEY,ROOMS,SHIFTS,create,fresh,unlocked,kit,adjacent,ruleResult,assess,known,act,encode,decode};});
