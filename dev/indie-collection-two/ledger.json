@@ -22,16 +22,16 @@
   "totals": {
     "playable": 1,
     "improved": 1,
-    "finished": 0,
+    "finished": 1,
     "selected": 0,
     "meaningfulPasses": 1,
     "verifiedLive": 0
   },
   "deployment": {
     "status": "blocked",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39920109462",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39922574624",
     "checked": "2026-10-23",
-    "detail": "Route/assets succeeded; Configure GitHub Pages failed; prepare/upload/deploy skipped. No second-batch publication attempted."
+    "detail": "Latest main release 39922574624 passed routes/assets, failed Configure GitHub Pages, and skipped prepare/upload/deploy. Earlier run 39920109462 logs explain Not Found for the existing Pages site and Resource not accessible by integration when creating it. No second-batch integration/publication attempted."
   },
   "candidates": [
     {
@@ -39,7 +39,7 @@
       "id": "reefwright",
       "title": "Reefwright",
       "coreLoop": "Rotate and draft mixed polyomino habitats; maintain sea channels and connected reef ecology.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/reefwright",
       "improvementPasses": [
         {
@@ -49,29 +49,50 @@
             "Two-step touch placement with a rotated footprint preview and explicit Plant confirmation.",
             "Exact before/after habitat and vitality forecast; explicit warning when a placement closes a nursery sea channel.",
             "Toggle sea-channel overlay and expose sea access in cell labels.",
-            "Restore offer/grid focus across UI redraws and enable keyboard preview/confirmation."
+            "Restore offer/grid focus across UI redraws and enable keyboard preview/confirmation.",
+            "Visual QA follow-up: compact sticky habitat chooser above the reef on phones, without obstructing successful touch campaigns."
           ],
-          "validation": "21 engine and 19 DOM checks pass; full five-coast three-medal routes; desktop/touch Chromium CI pending."
+          "validation": "21 engine and 19 DOM checks; all five three-medal routes through desktop and touch-emulated Chromium; exact final gameplay CI 39923241054 successful; 14 screenshots, representative desktop and touch images visually inspected."
         }
       ],
       "tests": [
-        "21 deterministic engine checks.",
-        "19 jsdom interface/save/input checks.",
-        "All five campaign routes reach three medals.",
-        "Public 19 route/assets and nine first-batch source hashes pass.",
-        "Local Chromium download failed (truncated ZIP); CI desktop/touch verification pending."
+        "21 engine tests: five full three-medal campaigns, species scoring, topology, bounds, mutation isolation, win/loss, undo, replay validation and save integrity.",
+        "19 DOM/save/input tests: complete campaign UI actions, exact forecasts, channel-closure warning, reload, restart, keyboard, blocked storage, malformed-save recovery and navigation markup.",
+        "Chromium desktop 1280\u00d71000 and touch emulation 390\u00d7844: all five coasts through real UI actions, previews, rotation, score forecasts, loss/reopen, persistence, restart/cancel, keyboard traversal, corrupt-save recovery, return navigation and zero uncaught browser errors.",
+        "14 screenshots captured; initial and final desktop/mobile samples visually inspected. Compact mobile chooser refinement passed the complete repeat campaign.",
+        "19 public routes/assets, nine first-batch selected-source hashes, exact 20-slot second-batch gate, shell, bridge-pointer and relaxed-collection tests passed.",
+        "Two inherited launcher tests still target the removed playerStudy control; see baselineTestLimitations."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Finished classification and selection deferred until real-browser verification and visual inspection."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 4,
+        "depth": 3.5,
+        "polish": 4,
+        "reliability": 4.5,
+        "variety": 4.5,
+        "notes": "Rotated mixed-species pieces create competing adjacency and open-water goals. Exact previews support deliberate choices without hiding consequences; free undo encourages experimentation. Five different rock layouts/decks and medal optimization offer compact replay. Original sea-glass/SVG presentation is legible on reviewed desktop/touch captures. No randomized campaign, sound layer, physical-device test, full screen-reader audit or human enjoyment study is claimed."
       },
       "selected": false,
       "integrationCommits": [],
-      "initialCommit": "64de8a9cc7cb92bd7cd1cef109393b87e99476c3"
+      "initialCommit": "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
+      "developmentCommits": [
+        "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
+        "235994ffe87a59ef7e0d864f200696a211d7b07b",
+        "0cb2dee04c5190e30ac0f4a3c406c9394e061346"
+      ],
+      "selectionReason": "Retain as a finished development candidate until other second-batch candidates can be compared for enjoyment, depth, polish, reliability and collection variety.",
+      "publishedUrl": null,
+      "verification": {
+        "commit": "0cb2dee04c5190e30ac0f4a3c406c9394e061346",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39923241054",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39923241054/artifacts/12487524900",
+        "sha256": {
+          "engine.js": "ebc909483fce208f0796168abed51525df442f80fb15051f0ed6ac13931302f1",
+          "game.js": "4e6ae53b08b6b5728fcf2a41ebfaee85edb6b27407bab5975a5745b5b9b43b23",
+          "style.css": "dce1763587ddd3a0766d9c9303e9ef0fefd212f605aacd82863bd82323f93a53",
+          "index.html": "4efef80137949a50e15b1c124d3460848519ff7c5279852077e9e159e4868323"
+        }
+      }
     },
     {
       "slot": 22,
@@ -455,9 +476,9 @@
     }
   ],
   "nextSteps": [
-    "Complete Reefwright exact-source desktop/touch Chromium verification and inspect screenshots.",
-    "Implement candidate 22; reassess proposed concepts for distinctness before coding.",
-    "Compare completed candidates before selecting and integrating winners."
+    "Implement candidate 22, Counterweight: a crane-and-ballast cargo balancing loop, distinct from orbital towing and manual crushing; replace the concept if prototyping does not produce a worthwhile game.",
+    "Give every new candidate a playable implementation, tested meaningful improvement and quality review. Nineteen slots remain planned, not playable.",
+    "Compare finished candidates as the slate grows, integrate only selected winners into fresh public main, preserve all existing catalogue entries/saves/tests, and verify deployment if Pages becomes available."
   ],
   "baselineTestLimitations": [
     {
@@ -475,5 +496,18 @@
       "action": "Preserve the current public UI. Update obsolete launcher assertions as a separate Study Desk maintenance change before future integration."
     }
   ],
-  "designReview": "Read the full first-batch core-loop ledger. Replaced the proposed bartering slot with Night Clerk to avoid Moss Market overlap; reserved Windup Wrestling for action variety. Planned slots remain revisable concepts and never count as playable."
+  "designReview": "Read the full first-batch core-loop ledger. Replaced the proposed bartering slot with Night Clerk to avoid Moss Market overlap; reserved Windup Wrestling for action variety. Planned slots remain revisable concepts and never count as playable.",
+  "runHistory": [
+    {
+      "date": "2026-10-23",
+      "result": "1 playable, 1 improved, 1 finished, 0 selected, 0 live; exactly 20 slots",
+      "initialCommit": "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
+      "gameplayCommit": "0cb2dee04c5190e30ac0f4a3c406c9394e061346",
+      "ci": "39923241054",
+      "publicIntegration": null,
+      "nextCandidate": 22
+    }
+  ],
+  "latestObservedMain": "013a8d009286fe02a37ebce76126f44c19c72ecf",
+  "concurrentWork": "Main advanced three commits for private-messaging links/docs during this run. No main writes were made; those changes are preserved remotely. Re-read fresh main before any future integration."
 }
