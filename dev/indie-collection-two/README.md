@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` or `http://localhost:8000/games/paper-odyssey/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` or `http://localhost:8000/games/ratchet-run/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,17 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**6/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence, Hollow Keeper and Paper Odyssey are finished development candidates. Fourteen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
+**7/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence, Hollow Keeper, Paper Odyssey and Ratchet Run are finished development candidates. Thirteen slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
 
-Paper Odyssey is a smooth illustrated map-folding puzzle: bring shores together, transfer between paper layers, collect postage stamps and deliver the letter on a flat chart. Its improvement adds exact future-map previews, supply and route forecasts, loss/damage warnings, explicit confirmation/cancel and keyboard focus recovery. See [Paper Odyssey report](RUN_REPORT_2026-10-23_PAPER_ODYSSEY.md). Earlier reports remain in this directory.
+Ratchet Run adds real-time courier-bike action: hop gaps, brake for cobbles, protect cargo and stop in the bay. Its improvement adds exact hop forecasts, a best-delivery ghost, hazard advice, independent keyboard aliases and mobile riding focus. It is a compact five-route arcade candidate, retained for comparison rather than automatically selected. See [Ratchet Run report](RUN_REPORT_2026-10-24_RATCHET_RUN.md). Earlier reports remain in this directory.
 
-Exact-source [CI 39956463788](https://github.com/ThatOneMop/study-desk/actions/runs/39956463788) passed **261 engine/interface tests** (144 engine, 117 DOM), full desktop and touch-emulated campaigns for all six candidates, and public integrity gates. Paper Odyssey completed all five charts at three seals at 1280×1000 desktop and 390×844 touch emulation. Exact preview supplies, per-chart reload, native Enter/focus, keyboard/cancel, last-crease loss/undo, ink drying, restart/cancel, isolated corrupt-save recovery and return navigation passed without browser errors. The touch context also verified reduced motion. [126 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39956463788/artifacts/12503415329) were retained, including 24 Paper Odyssey captures. Final desktop preview and touch chart 4 midgame screenshots were visually inspected.
+Exact-source [CI 39961796704](https://github.com/ThatOneMop/study-desk/actions/runs/39961796704) passed **308 engine/interface checks** (169 engine, 139 DOM), complete desktop and touch-emulated campaigns for all seven candidates, and public integrity gates. Ratchet Run completed all five routes at three seals with native keyboard and multi-touch input, per-route reloads, ghost/arc rendering, bridge loss and suspension, restart/cancel, isolated recovery and return navigation, with no browser errors. The separate normal-clock riding smoke check passed. [150 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39961796704/artifacts/12504064428) were retained, including 24 Ratchet Run captures. Desktop night-route and touch riding captures were visually inspected.
 
 The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-All six candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
+All seven candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: implement Ratchet Run, slot 27, to add responsive action variety; improve and test it before counting it finished. Planned slot 28 is now Wellward, avoiding the separate Afterlight Moonwell title. Selection waits for broader comparison.
+Next: implement, improve and test Wellward, slot 28, a rope-and-bucket relic retrieval game. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 

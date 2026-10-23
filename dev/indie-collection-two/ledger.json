@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "batch": 2,
   "branch": "indie-collection-two-dev",
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "firstBatchBaseline": {
     "developmentCommit": "c03682dc435ecdaacd94966273d789dd90e9f7b1",
     "report": "https://github.com/ThatOneMop/study-desk/blob/c03682dc435ecdaacd94966273d789dd90e9f7b1/dev/indie-collection/FINAL_REPORT.md",
@@ -22,7 +22,7 @@
   "totals": {
     "playable": 7,
     "improved": 7,
-    "finished": 6,
+    "finished": 7,
     "selected": 0,
     "meaningfulPasses": 7,
     "verifiedLive": 0
@@ -30,7 +30,7 @@
   "deployment": {
     "status": "blocked",
     "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
-    "checked": "2026-10-23",
+    "checked": "2026-10-24",
     "detail": "Latest main release 39925660833 freshly checked: routes/assets passed, Configure GitHub Pages failed, prepare/upload/deploy skipped. No second-batch candidates integrated or deployed. Development is not blocked."
   },
   "candidates": [
@@ -388,40 +388,61 @@
       "id": "ratchet-run",
       "title": "Ratchet Run",
       "coreLoop": "Ride a courier bike through five authored terrain courses: throttle, brake, hop and balance; protect cargo and collect optional airborne parcels; stop in the delivery bay to unlock routes.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/ratchet-run",
       "improvementPasses": [
         {
           "passNumber": 1,
-          "date": "2026-10-23",
+          "date": "2026-10-24",
           "changes": [
             "Added exact non-mutating projected hop arcs, colour-coded landing risk and a readable next-obstacle guide.",
             "Added a replay of the best verified delivery as a ghost to compare riding lines.",
-            "Fixed overlapping keyboard aliases so releasing one held throttle key does not cancel another; verified clean three-seal paths through all five routes."
+            "Fixed overlapping keyboard aliases so releasing one held throttle key does not cancel another; verified clean three-seal paths through all five routes.",
+            "Added mobile play-area alignment, start camera margin, readable button hover and high-contrast night delivery sign; verified both suspension settings."
           ],
-          "validation": "20 engine and 17 DOM checks pass locally. Full desktop/native multi-touch Chromium campaigns and visual QA pending."
+          "validation": "Exact-source CI 39961796704 passed 25 engine + 22 DOM Ratchet Run checks, both five-route browser campaigns, normal-clock riding smoke check and all prior regressions."
         }
       ],
       "tests": [
-        {
-          "stage": "initial",
-          "result": "17 engine and 15 DOM checks passed; all five delivery routes replay through keyboard or pointer listeners. Browser and visual QA pending."
-        }
+        "Initial playable version: 17 engine and 15 DOM checks passed before improvement.",
+        "25 engine checks: five perfect soft routes, five firm deliveries, throttle/coast/braking, hop edges, airborne balance and crashes, gap/bay loss, terminal behavior, cargo seals, replay saves, validation and unlocks, exact hop forecasts and best ghosts.",
+        "22 DOM checks: five soft and five firm campaigns, onboarding/locks/garage/navigation, keyboard and multi-pointer controls, overlapping key aliases, cancellation, focus pause, exact paused reload, restart/cancel, corrupt-save isolation, denied storage and next-hazard advice.",
+        "Chromium desktop 1280x1000 and native multi-touch emulation 390x844: all five three-seal routes with a controlled browser clock, per-route paused reload, ghost/arc render, bridge loss and Study Desk suspension/resume, cancel/restart, isolated corrupt-save recovery and return navigation. Separate unmocked RAF keyboard riding smoke check passed.",
+        "CI 39961796704 passed all 308 engine/DOM checks and all seven desktop/touch campaigns. 150 retained screenshots, 24 for Ratchet Run; desktop night and touch riding captures visually inspected. Direct cloud UI checked desktop/390px layouts, start/pause/restart and final camera/control framing.",
+        "Public shell, bridge-pointer, relaxed-collection, 19 route/55 asset checks, nine first-batch selected-source hashes and exact twenty-slot gate passed. Two inherited launcher tests remain stale against public main and are not claimed to pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Initial playable only. Real-time action variety; compact five-route prototype. Needs readability, perfect-route balance and browser QA before finished status."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Original real-time courier bike action adds variety to the puzzle-heavy slate. Hops, cargo care, braking, two suspension settings and verified best ghosts give short retries a purpose. Five very short routes constrain depth; no multi-hour, physical-device, exhaustive exploration or full screen-reader claim. Native browser campaigns use controlled time plus a separate normal-clock smoke check."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "a46b5564f38d0ba48d83ccabc2e0b8cd624795d4",
       "developmentCommits": [
-        "a46b5564f38d0ba48d83ccabc2e0b8cd624795d4"
-      ]
+        "a46b5564f38d0ba48d83ccabc2e0b8cd624795d4",
+        "68a1fc728a4b24f357dfd523db7452dd89e7a60a",
+        "b0a3cfdeef07d58a269a1538a1a2ea97fd930763",
+        "9bbbfbcfaac5103b3544b50ec4e8b0de589b7f2b",
+        "55fdcb2d7d904f2c346427e72464ed8a7cacc45e"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain for broader comparison as a compact action candidate. Cargo-sensitive bike trials are distinct from first-batch roof platforming and the six earlier second-batch games, but route count and long-term progression are limited. Not selected automatically.",
+      "verification": {
+        "commit": "55fdcb2d7d904f2c346427e72464ed8a7cacc45e",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39961796704",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39961796704/artifacts/12504064428",
+        "sha256": {
+          "engine.js": "8ae84e4858249d7530d3ed5409989b53f34f68c5568dd74a81526676385436cc",
+          "game.js": "392f7bb4027e986e9e6c8fcf8e8fd2e45a149e20ff51cfa8d30973ae8196c95b",
+          "index.html": "d03e170fcc483537c2697192f088bb36fb4dedeee1070c27f6274e2bdf0734d1",
+          "style.css": "e308b0475fe7447821009243efa13f700647fcb12c7f0ffd1ab59de2ece8e928"
+        }
+      }
     },
     {
       "slot": 28,
@@ -685,9 +706,9 @@
     }
   ],
   "nextSteps": [
-    "Improve Ratchet Run landing/cargo feedback, verify perfect routes, saved rides and desktop/touch play before marking finished.",
-    "Fourteen candidates remain concepts; each needs playable implementation, meaningful improvement and verification.",
-    "Compare the completed slate; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
+    "Implement, improve and test candidate 28, Wellward: a rope-and-bucket relic retrieval game with branching shafts.",
+    "Thirteen candidates remain planned concepts and need playable source, meaningful improvement and verification.",
+    "Compare completed candidates; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
   ],
   "baselineTestLimitations": [
     {
@@ -761,6 +782,16 @@
       "ci": "39956463788",
       "publicIntegration": null,
       "nextCandidate": 27
+    },
+    {
+      "date": "2026-10-24",
+      "result": "7 playable, 7 improved, 7 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "a46b5564f38d0ba48d83ccabc2e0b8cd624795d4",
+      "gameplayCommit": "68a1fc728a4b24f357dfd523db7452dd89e7a60a",
+      "verificationCommit": "55fdcb2d7d904f2c346427e72464ed8a7cacc45e",
+      "ci": "39961796704",
+      "publicIntegration": null,
+      "nextCandidate": 28
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
