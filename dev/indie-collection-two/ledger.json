@@ -458,9 +458,10 @@
           "changes": [
             "Selectable clearance sketch through shaft shoulders, with live direction guidance and optional overlay.",
             "Live safe-distance/swing lifting feedback, exact upgrade effects and cargo bank-value preview.",
-            "Compact phone canvas and controls to keep the shaft and winch controls together."
+            "Compact phone canvas and controls to keep the shaft and winch controls together.",
+            "Wall contact retains overhead winch movement so reversing pulls the bucket clear rather than trapping it against a wall."
           ],
-          "validation": "20 engine and 13 DOM checks passed locally; Chromium campaigns pending."
+          "validation": "21 engine and 13 DOM tests pass locally; all initial route fixtures still complete without alteration. Chromium campaigns pending."
         }
       ],
       "tests": [
@@ -479,7 +480,8 @@
       "integrationCommits": [],
       "initialCommit": "902ba544df8b138932b5ed1f2abad1051b4ea37e",
       "developmentCommits": [
-        "902ba544df8b138932b5ed1f2abad1051b4ea37e"
+        "902ba544df8b138932b5ed1f2abad1051b4ea37e",
+        "6180d74e9db13c9356ed9080e6908e85aaffbca8"
       ]
     },
     {
