@@ -22,7 +22,7 @@
   "totals": {
     "playable": 12,
     "improved": 12,
-    "finished": 11,
+    "finished": 12,
     "selected": 0,
     "meaningfulPasses": 12,
     "verifiedLive": 0
@@ -699,7 +699,7 @@
       "id": "borrowed-gravity",
       "title": "Borrowed Gravity",
       "coreLoop": "A room-based action puzzler where stealing gravity from objects powers movement.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/borrowed-gravity",
       "improvementPasses": [
         {
@@ -711,27 +711,43 @@
             "Short jump input buffer and ledge grace improve early/late presses; cancellation clears queued jumps; initial saves migrate safely.",
             "Contextual movement instructions follow gravity orientation; rejected actions remain readable for three simulated seconds."
           ],
-          "validation": "23 engine and 15 DOM checks passed; original authored routes remain valid. Native desktop/touch verification pending."
+          "validation": "23 engine and 15 DOM checks passed; original authored routes unchanged. Native Chromium desktop and multi-touch campaigns, exact paused reloads, jump/cancellation, scanner loss/retry, isolated save recovery/reset, navigation and normal RAF passed in CI 40002581593."
         }
       ],
       "tests": [
-        "Initial playable: 16 engine and 12 DOM checks passed. Four complete galleries, source/linked-gate conservation, reach/line checks, wall/floor jumping, scanner loss/retry, two calibration unlocks, strict save roundtrips/recovery, keyboard/touch adapters and scoped reset. Native verification and improvement pending.",
-        "Improved version: 38 checks (23 engine, 15 DOM) pass, including pure/exact drift endpoints, scanner forecasts, unsafe-return guard, buffered/late jumps, no held-key bunnyhop, save migration and persistent rejection feedback."
+        "Initial playable: 16 engine and 12 DOM checks passed before improvement, covering four galleries, source/gate conservation, reach, wall/floor jumping, scanner loss/retry, calibration unlocks and strict saves. Initial commit skipped CI; no native pass claimed for that version.",
+        "Improved version: 38 checks (23 engine, 15 DOM) pass, including pure/exact drift endpoints, scanner forecasts, unsafe-return guard, buffered/late jumps, no held-key bunnyhop, save migration and persistent rejection feedback.",
+        "Native desktop and touch-emulated Chromium: all four galleries, two-source swaps, calibration unlocks, pure preview selection, exact paused reload in every gallery, keyboard/multi-touch input, jumping, cancellation/bridge pause, scanner loss/retry, isolated corrupt recovery/reset, back navigation and normal RAF passed. 28 screenshots retained; desktop gallery-four preview and phone completed archive visually reviewed."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Playable initial implementation; native verification and a meaningful improvement are required before finished status."
+        "enjoyment": 3.5,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Agent comparative assessment, not a player survey. Conserved gravity/barrier transfers and readable drift previews provide a distinct platforming loop. Four very short authored galleries, modest calibration progression, no audio layer and phone scrolling limit depth/polish. Touch emulation only; no hours-of-content or full accessibility claim."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "64b73b611e18fb8563fb6b6d64cad5159ee58dca",
       "developmentCommits": [
-        "64b73b611e18fb8563fb6b6d64cad5159ee58dca"
-      ]
+        "64b73b611e18fb8563fb6b6d64cad5159ee58dca",
+        "c4a3ab98f1177fbbed7c4ae62c910d49509f9702"
+      ],
+      "selectionReason": "Retain for comparison as gravity platforming variety; especially short campaign means it must earn a place against stronger depth contenders. Not selected.",
+      "verification": {
+        "commit": "c4a3ab98f1177fbbed7c4ae62c910d49509f9702",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40002581593",
+        "status": "passed",
+        "sha256": {
+          "engine.js": "37f54adf93fb0da9efda921eade16a326248d28b8241d8fabcab2ebac63b47a7",
+          "game.js": "a8f75b2f19876566c563c9a985e483fecda06916e0498594bd394a6c5ca6482a",
+          "index.html": "ed5f9fbf387ded8d7d4a20b44b07ae614f8703e6de6ad5726aa4385a783bf172",
+          "style.css": "2ead25fc359acb453e5b70f92cae27d446465a23a180dc07fdae19b0fa870d75"
+        },
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40002581593/artifacts/12523620121",
+        "artifactSha256": "7fba9d373f9f3ef872f429078c088a5b54af417eece15850601132c85f8a35b1"
+      }
     },
     {
       "slot": 33,
@@ -895,9 +911,10 @@
     }
   ],
   "nextSteps": [
-    "Improve Borrowed Gravity slot 32, then run native campaigns and visual QA before counting it finished.",
-    "Eight slots remain planned; Borrowed Gravity is playable but not finished. Keep the slate mechanically distinct.",
-    "As native coverage grows, split independent game browser campaigns into bounded parallel CI jobs with separate artifacts before the existing 20-minute job limit becomes a blocker. Preserve every existing test.",
+    "Check CI 40002581593 motion group for Wellward/Ratchet Run; its dependency installation was still running at handoff. Retry transient infrastructure failure if necessary, preserving all tests.",
+    "Implement, improve and test Tea for Ghosts, slot 33.",
+    "Eight slots remain planned. Preserve distinct core loops and broaden the slate beyond short stage-based optimization games.",
+    "Keep all twelve existing native suites in the bounded parallel workflow; add future games to suitable groups without dropping coverage.",
     "Revisit all candidates for deeper improvement and select a complementary group using COMPARISON.md; no automatic inclusion.",
     "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."
   ],
@@ -1023,6 +1040,17 @@
       "ci": "39995202317",
       "publicIntegration": null,
       "nextCandidate": 32
+    },
+    {
+      "date": "2026-10-24",
+      "result": "12 playable, 12 improved, 12 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "64b73b611e18fb8563fb6b6d64cad5159ee58dca",
+      "gameplayCommit": "c4a3ab98f1177fbbed7c4ae62c910d49509f9702",
+      "verificationCommit": "c4a3ab98f1177fbbed7c4ae62c910d49509f9702",
+      "ci": "40002581593",
+      "publicIntegration": null,
+      "nextCandidate": 33,
+      "regressionStatus": "488 engine/interface checks and ten native candidate suites passed. Motion group (Wellward/Ratchet Run) still installing dependencies at final check; full workflow success not claimed."
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
