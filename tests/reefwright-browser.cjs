@@ -5,7 +5,7 @@ const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/reefwrig
 const server=spawn('python3',['-m','http.server','8135','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 let browser;
 (async()=>{
- browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ browser=await chromium.launch({executablePath:process.env.CHROME_EXECUTABLE_PATH||undefined,headless:true,args:['--no-sandbox']});
  for(const mobile of [false,true]){
   const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1280,height:1000},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
   const page=await context.newPage(),errors=[];

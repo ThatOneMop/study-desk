@@ -125,7 +125,12 @@ jobs:
       - name: Install native-browser test dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/browser-deps" playwright@1.58.2
-          node "$RUNNER_TEMP/browser-deps/node_modules/playwright/cli.js" install --with-deps chromium
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROME_EXECUTABLE_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+            google-chrome --version
+          else
+            node "$RUNNER_TEMP/browser-deps/node_modules/playwright/cli.js" install --with-deps chromium
+          fi
       - name: Complete desktop and touch campaigns
         env:
           GAMES: ${{ matrix.games }}

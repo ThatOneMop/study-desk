@@ -3,7 +3,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
 const routes=require('./fixtures/counterweight-routes.json'),key='study-desk-counterweight-v1';
 const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/counterweight');fs.mkdirSync(out,{recursive:true});
 const server=spawn('python3',['-m','http.server','8136','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
-(async()=>{browser=await chromium.launch({headless:true,args:['--no-sandbox']});for(const mobile of [false,true]){
+(async()=>{browser=await chromium.launch({executablePath:process.env.CHROME_EXECUTABLE_PATH||undefined,headless:true,args:['--no-sandbox']});for(const mobile of [false,true]){
  const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1280,height:1000},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
  const page=await context.newPage(),errors=[],prefix=mobile?'touch':'desktop';page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))errors.push(r.status()+' '+r.url());});
  const act=async sel=>{const b=page.locator(sel);await b.scrollIntoViewIfNeeded();if(mobile)await b.tap();else await b.click();};
