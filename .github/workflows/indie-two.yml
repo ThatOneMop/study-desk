@@ -115,8 +115,10 @@ jobs:
         include:
           - group: new-games
             games: cairn-and-cord tea-for-ghosts borrowed-gravity static-orchard
+          - group: flock
+            games: murmuration
           - group: motion
-            games: murmuration wellward ratchet-run
+            games: wellward ratchet-run
           - group: planning
             games: reefwright counterweight lanternwake copper-cadence hollow-keeper paper-odyssey
           - group: craft-and-cargo
