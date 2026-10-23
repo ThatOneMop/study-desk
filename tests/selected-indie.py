@@ -34,8 +34,8 @@ SELECTED = {
     },
     "inkline": {
         "engine.js": "35fc31f45d7db8cbc66228629af6ccf6bb88b69029526f1ff65cb36d6496caef",
-        "game.js": "9d17415b77089a603520f91db23a0b209e9427842f4dfb1908b898e26a8de300",
-        "style.css": "fc006caa923db44bc864c835c0a44bfc9c4dd379955593dd36467f21518baf60",
+        "game.js": "ca4ce988abe87a843e1582216899845e63327d6dcbbb3e1292a4f737c13a11a4",
+        "style.css": "8b10b3b8d0932ff4270b9c3c6652935be8de57dde4e09344625f908df688f820",
     },
     "pocket-expedition": {
         "engine.js": "4148d6cb3f262bdddca8929387c24a3d56a481280a20d55301f25e89886a3f04",
