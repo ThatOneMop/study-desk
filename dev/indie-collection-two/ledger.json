@@ -24,7 +24,7 @@
     "improved": 17,
     "finished": 17,
     "selected": 0,
-    "meaningfulPasses": 17,
+    "meaningfulPasses": 18,
     "verifiedLive": 0
   },
   "deployment": {
@@ -408,6 +408,19 @@
             "Added mobile play-area alignment, start camera margin, readable button hover and high-contrast night delivery sign; verified both suspension settings."
           ],
           "validation": "Exact-source CI 39961796704 passed 25 engine + 22 DOM Ratchet Run checks, both five-route browser campaigns, normal-clock riding smoke check and all prior regressions."
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-24",
+          "changes": [
+            "Added two unlocked courier kits with physical tradeoffs and finite active resources: roadside repairs lighten spare cargo; spring assists trade drag and harder landings for higher jumps.",
+            "Preserved classic physics and save key, adding separate replay-verified kit records/ghosts and progression from kit deliveries.",
+            "Added steady-pedal toggle with brake override and pause/focus release; buffered short hop/kit taps after actual rendered play revealed dropped presses.",
+            "Added kit trajectory/cargo feedback and corrected kit badge refresh. Reviewed desktop and 390px phone layouts."
+          ],
+          "implementationCommit": "6599f77659f45ceb6994970000654b051236d66b",
+          "validation": "40 engine + 36 DOM Ratchet checks, ten kit deliveries per native desktop/touch mode, original campaigns, quick-tap/reload, loss/retry, saving and navigation. Exact-source CI 40038858541 passed 659 checks and all seventeen native suites. Direct rendered classic, spring and repaired-cargo deliveries completed; desktop/touch screenshots inspected."
         }
       ],
       "tests": [
@@ -416,16 +429,17 @@
         "22 DOM checks: five soft and five firm campaigns, onboarding/locks/garage/navigation, keyboard and multi-pointer controls, overlapping key aliases, cancellation, focus pause, exact paused reload, restart/cancel, corrupt-save isolation, denied storage and next-hazard advice.",
         "Chromium desktop 1280x1000 and native multi-touch emulation 390x844: all five three-seal routes with a controlled browser clock, per-route paused reload, ghost/arc render, bridge loss and Study Desk suspension/resume, cancel/restart, isolated corrupt-save recovery and return navigation. Separate unmocked RAF keyboard riding smoke check passed.",
         "CI 39961796704 passed all 308 engine/DOM checks and all seven desktop/touch campaigns. 150 retained screenshots, 24 for Ratchet Run; desktop night and touch riding captures visually inspected. Direct cloud UI checked desktop/390px layouts, start/pause/restart and final camera/control framing.",
-        "Public shell, bridge-pointer, relaxed-collection, 19 route/55 asset checks, nine first-batch selected-source hashes and exact twenty-slot gate passed. Two inherited launcher tests remain stale against public main and are not claimed to pass."
+        "Public shell, bridge-pointer, relaxed-collection, 19 route/55 asset checks, nine first-batch selected-source hashes and exact twenty-slot gate passed. Two inherited launcher tests remain stale against public main and are not claimed to pass.",
+        "Additional round 2026-10-24: 40 engine + 36 DOM checks; native classic campaign plus ten kit deliveries on both desktop and touch, active resource use and mid-use reload, kit loss/retry, short taps, separate records, navigation and unmocked steady-pedal/brake check. All seventeen suites and 659 checks passed CI 40038858541. 60 Ratchet screenshots retained; desktop-spring-4-used.png and touch-repair-3-used.png inspected, alongside direct rendered manual play."
       ],
       "quality": {
         "scale": "1\u20135, agent design review; not player survey scores",
-        "enjoyment": 3,
-        "depth": 2.5,
+        "enjoyment": 3.5,
+        "depth": 3,
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Original real-time courier bike action adds variety to the puzzle-heavy slate. Hops, cargo care, braking, two suspension settings and verified best ghosts give short retries a purpose. Five very short routes constrain depth; no multi-hour, physical-device, exhaustive exploration or full screen-reader claim. Native browser campaigns use controlled time plus a separate normal-clock smoke check."
+        "notes": "Agent design assessment, not human survey scores. New spare-strap mass/recovery and limited spring-assist choices deepen route planning without adding repetitive levels. Separate kit records retain classic saves and ghosts. Steady pedalling and buffered taps improve relaxed input. Direct rendered classic, spring and repaired-cargo deliveries completed, including loss/retry and reload. Five short fixed routes still limit depth; no audio, extended-world, multi-hour or physical-device claim. Native campaigns use controlled clocks plus a normal-clock input smoke check."
       },
       "selected": false,
       "integrationCommits": [],
@@ -435,19 +449,23 @@
         "68a1fc728a4b24f357dfd523db7452dd89e7a60a",
         "b0a3cfdeef07d58a269a1538a1a2ea97fd930763",
         "9bbbfbcfaac5103b3544b50ec4e8b0de589b7f2b",
-        "55fdcb2d7d904f2c346427e72464ed8a7cacc45e"
+        "55fdcb2d7d904f2c346427e72464ed8a7cacc45e",
+        "3af7e75dd514577e46819bf77672bdfadef51e48",
+        "6599f77659f45ceb6994970000654b051236d66b"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain for broader comparison as a compact action candidate. Cargo-sensitive bike trials are distinct from first-batch roof platforming and the six earlier second-batch games, but route count and long-term progression are limited. Not selected automatically.",
+      "selectionReason": "Retain as an improved action candidate for final comparison after all twenty additional-round entries pass. Active equipment/resource choices improve depth and relaxed controls, but the authored route scope remains small. No automatic public selection.",
       "verification": {
-        "commit": "55fdcb2d7d904f2c346427e72464ed8a7cacc45e",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39961796704",
-        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39961796704/artifacts/12504064428",
+        "status": "passed",
+        "commit": "6599f77659f45ceb6994970000654b051236d66b",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40038858541",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40038858541/artifacts/12538996156",
+        "artifactSha256": "9aa415ec56e3bf6bedd73a5d92d0b97c24a383fe3c0489f5cea0cc8650d05137",
         "sha256": {
-          "engine.js": "8ae84e4858249d7530d3ed5409989b53f34f68c5568dd74a81526676385436cc",
-          "game.js": "392f7bb4027e986e9e6c8fcf8e8fd2e45a149e20ff51cfa8d30973ae8196c95b",
-          "index.html": "d03e170fcc483537c2697192f088bb36fb4dedeee1070c27f6274e2bdf0734d1",
-          "style.css": "e308b0475fe7447821009243efa13f700647fcb12c7f0ffd1ab59de2ece8e928"
+          "engine.js": "87294875fd3c3e7b779d219c35d0d84e51ab46bc98eb4a79717941fac25c5de4",
+          "game.js": "60be814ed44bd3aecc55511dd1bab379194d5c18efb2ffa272b97098f653dff8",
+          "index.html": "1534fc15c5bb35e1949fe5d110cd3f134fcca424bdfccb6d6a527f302398cecd",
+          "style.css": "da6e51a29e36c9f02c2a67fa89601f6197edd1842b8eaec98ece46c356758125"
         }
       }
     },
@@ -1113,7 +1131,7 @@
     }
   ],
   "nextSteps": [
-    "Complete the additional substantial improvement round for every slot 21\u201340; currently 0/20 verified, Ratchet Run implementation awaiting native browser checks.",
+    "Continue the additional substantial improvement round for every slot 21\u201340; Ratchet Run is verified, 1/20 complete. Earlier initial passes remain excluded.",
     "Prioritize other weakest existing games: Cairn & Cord, Murmuration, Night Clerk, Borrowed Gravity and Static Orchard; play before changing.",
     "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
     "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
@@ -1306,14 +1324,24 @@
       "publicIntegration": null,
       "nextCandidate": 38,
       "regressionStatus": "All seven CI jobs passed on exact verification commit 2858383: 630 engine/interface checks (365 engine, 265 DOM) and all seventeen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Additional improvement round: 1/20 verified (Ratchet Run), excluding all earlier passes. Overall 17 playable/initially improved/finished, three planned; zero new public integrations or verified live releases by this curation increment.",
+      "gameplayCommit": "3af7e75dd514577e46819bf77672bdfadef51e48",
+      "verificationCommit": "6599f77659f45ceb6994970000654b051236d66b",
+      "ci": "40038858541",
+      "publicIntegration": null,
+      "regressionStatus": "All seven final CI jobs successful: 380 engine + 279 DOM checks and all seventeen native desktop/touch suites. New-round natural rendered classic, spring and repaired-cargo deliveries completed; representative exact-source desktop/touch artifacts inspected.",
+      "nextSteps": "Prioritize another weak existing candidate after actual play, continue missing candidates, then complete all twenty additional upgrades before final selection/integration."
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main reread at ed2cf603aa47fc26e4f04216d5704351b72a32a9. Separate all-games checkout and all first-batch, requested-game, Gummy Bay, messaging and movie/TV work untouched. Only Murmuration source/tests, second-batch workflow and documentation changed.",
+  "concurrentWork": "Main reread at ed2cf603aa47fc26e4f04216d5704351b72a32a9 before implementation and documentation push. Separate all-games checkout, first collection, requested games, Gummy Bay, messaging and movie/TV work preserved. Only Ratchet Run source/tests, the second-batch ledger/checklist/report and ledger gate changed. No catalogue or hosting writes.",
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 0,
+    "completed": 1,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
