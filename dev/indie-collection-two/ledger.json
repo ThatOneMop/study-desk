@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "batch": 2,
+  "branch": "indie-collection-two-dev",
+  "updated": "2026-10-23",
+  "firstBatchBaseline": {
+    "developmentCommit": "c03682dc435ecdaacd94966273d789dd90e9f7b1",
+    "report": "https://github.com/ThatOneMop/study-desk/blob/c03682dc435ecdaacd94966273d789dd90e9f7b1/dev/indie-collection/FINAL_REPORT.md",
+    "finished": 20,
+    "selected": 9,
+    "improvementPasses": 66,
+    "verifiedLive": 0
+  },
+  "baseMain": "bded102680166c0107fd8a58fef1559be7a22efa",
+  "rules": [
+    "Exactly 20 NEW slots, overall numbers 21\u201340. Planned concepts do not count as playable.",
+    "First batch and the separate Nightshift ten do not count toward this batch.",
+    "One initial playable implementation and at least one tested meaningful improvement per candidate.",
+    "Only finished, evaluated selections enter the real catalogue. No automatic selection of all candidates.",
+    "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
+  ],
+  "totals": {
+    "playable": 1,
+    "improved": 0,
+    "finished": 0,
+    "selected": 0,
+    "meaningfulPasses": 0,
+    "verifiedLive": 0
+  },
+  "deployment": {
+    "status": "blocked",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39920109462",
+    "checked": "2026-10-23",
+    "detail": "Route/assets succeeded; Configure GitHub Pages failed; prepare/upload/deploy skipped. No second-batch publication attempted."
+  },
+  "candidates": [
+    {
+      "slot": 21,
+      "id": "reefwright",
+      "title": "Reefwright",
+      "coreLoop": "Rotate and draft mixed polyomino habitats; maintain sea channels and connected reef ecology.",
+      "status": "playable",
+      "source": "games/reefwright",
+      "improvementPasses": [],
+      "tests": [
+        "20 deterministic engine checks; all five coast routes reach three medals."
+      ],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Awaiting control improvement and browser verification."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 22,
+      "id": "counterweight",
+      "title": "Counterweight",
+      "coreLoop": "Operate a crane with shifting ballast to stack and deliver fragile cargo.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 23,
+      "id": "lanternwake",
+      "title": "Lanternwake",
+      "coreLoop": "Sail by placing temporary light beacons that reveal routes and attract dangerous moth swarms.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 24,
+      "id": "copper-cadence",
+      "title": "Copper Cadence",
+      "coreLoop": "Build a musical machine by manually timing and routing percussion strikes.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 25,
+      "id": "hollow-keeper",
+      "title": "Hollow Keeper",
+      "coreLoop": "Defend a beetle settlement by carving reversible tunnels and luring invaders into traps.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 26,
+      "id": "paper-odyssey",
+      "title": "Paper Odyssey",
+      "coreLoop": "Fold a paper map to connect islands while changing traversal and hidden resources.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 27,
+      "id": "ratchet-run",
+      "title": "Ratchet Run",
+      "coreLoop": "A side-view trials courier with bike balance, suspension choices and optional cargo routes.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 28,
+      "id": "moonwell",
+      "title": "Moonwell",
+      "coreLoop": "Manage a falling water bucket and swinging ropes to retrieve relics from branching shafts.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 29,
+      "id": "salt-and-sail",
+      "title": "Salt & Sail",
+      "coreLoop": "Trade by packing a shifting ship hold; cargo placement changes balance and sailing control.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 30,
+      "id": "pocket-palaeo",
+      "title": "Pocket Palaeo",
+      "coreLoop": "Brush, brace and lift articulated fossils without cracking connected bones.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 31,
+      "id": "static-orchard",
+      "title": "Static Orchard",
+      "coreLoop": "Charge and release electric fruit to chain arcs through moving pests and power harvest tools.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 32,
+      "id": "borrowed-gravity",
+      "title": "Borrowed Gravity",
+      "coreLoop": "A room-based action puzzler where stealing gravity from objects powers movement.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 33,
+      "id": "tea-for-ghosts",
+      "title": "Tea for Ghosts",
+      "coreLoop": "Read ghost reactions and blend, steep and pour teas with ingredient tradeoffs.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 34,
+      "id": "cairn-and-cord",
+      "title": "Cairn & Cord",
+      "coreLoop": "Plan climbing anchors and manage rope slack across compact expeditions.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 35,
+      "id": "murmuration",
+      "title": "Murmuration",
+      "coreLoop": "Steer a flock by shaping wind currents, splitting to gather food and regrouping around hazards.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 36,
+      "id": "velvet-market",
+      "title": "Velvet Market",
+      "coreLoop": "Negotiate with revealed and hidden preferences, assemble bundles and reinvest in a tiny night stall.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 37,
+      "id": "clockwork-tide",
+      "title": "Clockwork Tide",
+      "coreLoop": "Manipulate linked gear ratios and gates to run a miniature tidal mill.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 38,
+      "id": "ember-parcel",
+      "title": "Ember Parcel",
+      "coreLoop": "Carry a spreading living flame through destructible terrain, choosing what to consume.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 39,
+      "id": "button-borough",
+      "title": "Button Borough",
+      "coreLoop": "Sew paths on a cloth town; thread tension, intersections and deliveries shape growth.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    },
+    {
+      "slot": 40,
+      "id": "last-lighthouse",
+      "title": "Last Lighthouse",
+      "coreLoop": "Aim beams through rotating mirrors to guide ships while budgeting power and repairs.",
+      "status": "planned",
+      "source": null,
+      "improvementPasses": [],
+      "tests": [],
+      "quality": {
+        "enjoyment": null,
+        "depth": null,
+        "polish": null,
+        "reliability": null,
+        "variety": null,
+        "notes": "Concept only; no implementation counted."
+      },
+      "selected": false,
+      "integrationCommits": []
+    }
+  ],
+  "nextSteps": [
+    "Reefwright: verify real browser controls and save/restart, then add an exact placement forecast and deliberate touch confirmation.",
+    "Implement candidate 22 in the next increment; reassess every proposed concept for distinctness before coding.",
+    "Compare completed candidates before selecting and integrating winners."
+  ]
+}
