@@ -123,23 +123,8 @@
     "job": 2,
     "actions": [
       {
-        "feed": 0,
-        "brakes": 0,
-        "shift": 0
-      },
-      {
         "feed": 1,
         "brakes": 0,
-        "shift": 0
-      },
-      {
-        "feed": null,
-        "brakes": 1,
-        "shift": 0
-      },
-      {
-        "feed": null,
-        "brakes": 1,
         "shift": 0
       },
       {
@@ -148,18 +133,33 @@
         "shift": 0
       },
       {
-        "feed": 1,
+        "feed": 0,
         "brakes": 0,
         "shift": 0
       },
       {
         "feed": null,
-        "brakes": 1,
+        "brakes": 2,
+        "shift": 0
+      },
+      {
+        "feed": 1,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
+        "shift": 0
+      },
+      {
+        "feed": 0,
+        "brakes": 0,
         "shift": 0
       },
       {
         "feed": null,
-        "brakes": 1,
+        "brakes": 2,
         "shift": 0
       },
       {

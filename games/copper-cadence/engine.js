@@ -3,7 +3,7 @@ const NOTES=[{name:'Low drum',short:'DRUM',color:'#ad6550',frequency:110},{name:
 const JOBS=[
 {name:'The first heartbeat',brief:'Feed the short track. A bead takes two more cranks to reach the drum. Keep a steady, spacious pulse.',lanes:1,brakes:false,router:false,stock:2,par:0,score:[[],[],[0],[],[0],[],[0],[],[0],[]]},
 {name:'Wood & leather',brief:'Two tracks, different travel times, one feeder. Stagger your drops to alternate drum and wood.',lanes:2,brakes:false,router:false,stock:3,par:0,score:[[],[],[0],[],[1],[0],[],[1],[0],[],[],[1]]},
-{name:'A chord held back',brief:'Brake the short track at its mouth. Release it when the slower bead arrives for a two-note chord.',lanes:2,brakes:true,router:false,stock:3,par:4,score:[[],[],[],[],[0,1],[],[],[],[0,1],[],[],[]]},
+{name:'A chord held back',brief:'Two feeds want the same beat. Send the wood bead early, brake its exit while the drum plays, then release the chord.',lanes:2,brakes:true,router:false,stock:3,par:2,score:[[],[],[],[0],[0,1],[],[],[0],[0,1],[],[],[]]},
 {name:'The brass exchange',brief:'The exit selector rotates all destinations. A fast bead can ring the bell; a slow one can play the drum.',lanes:3,brakes:true,router:true,stock:3,par:6,score:[[],[],[2],[],[0,2],[],[],[0,1],[0],[],[],[0],[],[]]},
 {name:'Three for the evening',brief:'Build a three-note chord with only three beads in circulation, then recycle them for the finale.',lanes:3,brakes:true,router:true,stock:3,par:10,score:[[],[],[],[],[],[],[0,1,2],[],[],[],[],[],[],[0,1,2],[],[]]}
 ];
