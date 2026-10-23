@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 4,
-    "improved": 3,
+    "improved": 4,
     "finished": 3,
     "selected": 0,
-    "meaningfulPasses": 3,
+    "meaningfulPasses": 4,
     "verifiedLive": 0
   },
   "deployment": {
@@ -214,11 +214,23 @@
       "id": "copper-cadence",
       "title": "Copper Cadence",
       "coreLoop": "Hand-crank a scarce-bead percussion machine: feed unequal-length tracks, brake queued beads and rotate exits to synchronize requested notes.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/copper-cadence",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-23",
+          "changes": [
+            "Non-mutating exact next-turn and three-beat pipeline forecasts expose expected notes, missing/extra notes, supply, blocked inlets and final undelivered penalties.",
+            "Animate bead travel and crank gear; respect reduced motion; preserve keyboard focus when staging controls.",
+            "Bring forecast beside crank and compact/reorder narrow layouts so score, inputs and action preview are closer."
+          ],
+          "validation": "25 engine + 20 DOM checks pass locally. Full desktop/touch Chromium campaign CI pending."
+        }
+      ],
       "tests": [
-        "21 engine tests passed including five perfect authored commissions; DOM/browser and improvement pass pending."
+        "25 engine tests passed: five perfect commissions, physical timing oracle, inventory conservation, queues, rotating exits, scoring, save verification, atomic rejection and exact forecasts.",
+        "20 DOM tests passed: all commissions, keyboard/focus, previews, save/reload, recovery, storage failure, audio opt-in/fallback and reduced-motion behavior."
       ],
       "quality": {
         "enjoyment": null,
@@ -226,10 +238,14 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Initial playable and meaningful improvement implemented; browser campaign and final quality assessment pending."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
+      "developmentCommits": [
+        "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff"
+      ]
     },
     {
       "slot": 25,
@@ -553,9 +569,9 @@
     }
   ],
   "nextSteps": [
-    "Implement candidate 24, Copper Cadence: a musical machine built around manually timed and routed percussion strikes. Establish a distinct enjoyable loop before counting it playable.",
-    "Seventeen candidates remain concepts. Give each an initial playable implementation, a meaningful tested improvement and a quality assessment.",
-    "Compare the completed slate and integrate only selected winners into fresh main, preserving first-batch and concurrent work. Verify Pages if repository access is repaired."
+    "Finish Copper Cadence browser campaigns and quality assessment.",
+    "Implement candidate 25, Hollow Keeper, as a distinct colony-defense loop. Sixteen concepts remain.",
+    "Compare completed candidates before selecting and integrating winners into fresh main."
   ],
   "baselineTestLimitations": [
     {
