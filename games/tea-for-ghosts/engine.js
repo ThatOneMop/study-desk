@@ -1,0 +1,42 @@
+(function(root){'use strict';
+const ING=[{id:'black',name:'Midnight leaf',color:'#695044',v:[0,7,0,4],unlock:0},{id:'mint',name:'Moon mint',color:'#94b39d',v:[6,1,0,0],unlock:0},{id:'honey',name:'Amber honey',color:'#e5b05e',v:[1,0,9,0],unlock:0},{id:'jasmine',name:'Jasmine stars',color:'#e5d9ab',v:[9,2,1,0],unlock:2},{id:'ginger',name:'Ember root',color:'#dc8967',v:[1,4,1,7],unlock:3},{id:'hibiscus',name:'Dusk petals',color:'#c77899',v:[5,3,3,2],unlock:4}];
+const GUESTS=[
+{name:'Mabel',role:'The last gardener',quote:'Something green, a little honey. Warm hands, not a boiling kettle.',memory:'The greenhouse door was always left open for you.',recipe:{mix:[0,2,1,0,0,0],temp:0,steep:2,water:100}},
+{name:'Otis',role:'The night porter',quote:'A dark, rounded cup. Almost no sweetness. Hot enough for a late train.',memory:'He saved the window seat, even after the last train.',recipe:{mix:[2,1,0,0,0,0],temp:1,steep:2,water:100}},
+{name:'June',role:'The paper florist',quote:'Flowers, with a soft sweet edge. Very warm, but never scalding.',memory:'Every paper flower had the name of someone she missed.',recipe:{mix:[0,0,1,2,0,0],temp:0,steep:2,water:120}},
+{name:'Ash',role:'The lantern maker',quote:'A little fire and a dark backbone. Keep the honey light. Steam, please.',memory:'His smallest lantern was enough to find the way home.',recipe:{mix:[1,0,1,0,1,0],temp:2,steep:1,water:100}},
+{name:'Vera',role:'The rain collector',quote:'Petals and mint, a gentle body. A cup as light as rain, served hot.',memory:'She kept a bottle from the afternoon the drought broke.',recipe:{mix:[0,1,0,0,0,2],temp:1,steep:2,water:140}},
+{name:'Sol',role:'The returning traveller',quote:'Root, flowers and a little honey. A fragrant, warm cup for the road.',memory:'This time, the journey ended at a familiar table.',recipe:{mix:[0,0,1,1,1,0],temp:0,steep:2,water:120}}
+];
+const AXES=['Floral','Body','Sweet','Roast'],TOOLS=[{id:'strainer',name:'Silver strainer',cost:2,description:'Removes the harsh edge from long, hot steeps.'},{id:'notebook',name:'Recipe cards',cost:2,description:'Recall the best tasted recipe for each visitor.'}];
+const copy=x=>JSON.parse(JSON.stringify(x)),count=s=>s.records.filter(Boolean).length;
+function fresh(){return{phase:'prep',mix:[0,0,0,0,0,0],temp:0,steep:2,water:100,attempts:0,last:null};}
+function create(){return{version:1,guest:0,records:[null,null,null,null,null,null],tools:[],history:[],run:fresh()};}
+function profile(recipe,strainer=false){const n=recipe.mix.reduce((a,b)=>a+b,0);if(!n)return null;const extraction=[.78,1,1.18][recipe.steep-1]*(.9+recipe.temp*.1),dilution=100/recipe.water;const v=AXES.map((_,j)=>recipe.mix.reduce((a,b,i)=>a+b*ING[i].v[j],0)/n*extraction*dilution);const harsh=Math.max(0,recipe.temp+recipe.steep-3)*(strainer?.15:1.05);v[3]+=harsh;return v.map(x=>Math.round(x*100)/100);}
+function target(i){return profile(GUESTS[i].recipe);}
+function assess(recipe,i,strainer=false){const p=profile(recipe,strainer);if(!p)return null;const t=target(i),delta=p.map((x,j)=>x-t[j]),temperature=Math.abs(recipe.temp-GUESTS[i].recipe.temp);const distance=delta.reduce((a,b)=>a+Math.max(0,Math.abs(b)-.45),0);return{profile:p,score:Math.max(0,Math.round(100-distance*10-temperature*15)),feedback:delta.map((x,j)=>AXES[j]+': '+(Math.abs(x)<=.65?'just right':x>0?'too much':'not enough')),temperature:temperature===0?'The warmth is right.':recipe.temp>GUESTS[i].recipe.temp?'Let the water cool a little.':'A warmer cup, please.'};}
+function available(s){return Math.min(5,count(s));}function earned(s){return s.records.reduce((n,r)=>n+(r?2:0),0);}function balance(s){return earned(s)-s.tools.reduce((n,id)=>n+TOOLS.find(t=>t.id===id).cost,0);}function recipe(r){return{mix:r.mix.slice(),temp:r.temp,steep:r.steep,water:r.water};}
+function action(state,a){const s=copy(state),r=s.run;const no=reason=>({state,ok:false,reason}),yes=()=>({state:s,ok:true,reason:''});
+if(!a||typeof a.type!=='string')return no('Unknown action.');
+if(a.type==='visit'){if(!Number.isInteger(a.guest)||a.guest<0||a.guest>available(s))return no('That visitor has not arrived.');s.guest=a.guest;s.run=fresh();return yes();}
+if(a.type==='restart'){s.run=fresh();return yes();}
+if(a.type==='buy'){const tool=TOOLS.find(t=>t.id===a.id);if(!tool||s.tools.includes(a.id)||balance(s)<tool.cost)return no('Not enough memory seals, or already owned.');if(r.phase==='brewed')return no('Finish this cup before changing equipment.');s.tools.push(a.id);return yes();}
+if(a.type==='nextcup'){if(r.phase!=='result'||r.attempts>=3)return no('Invite the visitor back for another visit.');const attempts=r.attempts;s.run=fresh();s.run.attempts=attempts;return yes();}
+if(a.type==='serve'){if(r.phase!=='brewed')return no('Brew a cup first.');const result=assess(r,s.guest,s.tools.includes('strainer'));r.attempts++;r.last=result;const rec=recipe(r);s.history.push({guest:s.guest,recipe:rec,...result});s.history=s.history.slice(-18);if(result.score>=80){const old=s.records[s.guest];if(!old||old.score<result.score)s.records[s.guest]={score:result.score,recipe:rec};r.phase='result';}else r.phase=r.attempts>=3?'lost':'result';return yes();}
+if(a.type==='brew'){if(r.phase!=='prep'||!r.mix.some(Boolean))return no('Choose at least one scoop.');r.phase='brewed';return yes();}
+if(a.type==='recall'){if(!s.tools.includes('notebook')||r.phase!=='prep')return no('Recipe cards work before brewing.');const best=s.history.filter(h=>h.guest===s.guest).sort((a,b)=>b.score-a.score)[0]||s.records[s.guest];if(!best)return no('Taste a cup for this visitor first.');const rec=copy(best.recipe);Object.assign(r,rec);return yes();}
+if(r.phase!=='prep')return no('Finish this cup before changing its recipe.');
+if(a.type==='scoop'){if(!Number.isInteger(a.id)||!ING[a.id]||ING[a.id].unlock>count(s)||![1,-1].includes(a.delta))return no('That ingredient is unavailable.');if(r.mix[a.id]+a.delta<0||r.mix.reduce((n,v)=>n+v,0)+a.delta>3)return no('The pot holds three scoops. Remove one first.');r.mix[a.id]+=a.delta;return yes();}
+if(a.type==='set'){const allowed={temp:[0,1,2],steep:[1,2,3],water:[80,100,120,140,160]};if(!allowed[a.field]?.includes(a.value))return no('Invalid brewing setting.');r[a.field]=a.value;return yes();}
+return no('Unknown action.');}
+function validRecipe(r){return r&&Array.isArray(r.mix)&&r.mix.length===6&&r.mix.every(x=>Number.isInteger(x)&&x>=0&&x<=3)&&r.mix.reduce((a,b)=>a+b,0)<=3&&[0,1,2].includes(r.temp)&&[1,2,3].includes(r.steep)&&[80,100,120,140,160].includes(r.water);}
+function encode(s){return JSON.stringify(s);}
+function decode(raw){try{const s=JSON.parse(raw);if(s.version!==1||!Number.isInteger(s.guest)||s.guest<0||s.guest>5||!Array.isArray(s.records)||s.records.length!==6||!Array.isArray(s.tools)||s.tools.length>2||new Set(s.tools).size!==s.tools.length||s.tools.some(id=>!TOOLS.some(t=>t.id===id))||!Array.isArray(s.history)||s.history.length>18) return null;
+let gap=false;for(const rec of s.records){if(!rec){gap=true;continue;}if(gap||!validRecipe(rec.recipe)||!Number.isInteger(rec.score)||rec.score<80||rec.score>100)return null;}
+if(s.guest>available(s)||balance(s)<0)return null;const r=s.run;if(!validRecipe(r)||!['prep','brewed','result','lost'].includes(r.phase)||!Number.isInteger(r.attempts)||r.attempts<0||r.attempts>3||r.mix.some((n,i)=>n&&ING[i].unlock>count(s)))return null;
+if(r.phase!=='prep'&&!r.mix.some(Boolean))return null;if(r.phase==='lost'&&r.attempts!==3)return null;
+if(['result','lost'].includes(r.phase)){const actual=assess(r,s.guest,s.tools.includes('strainer'));if(!r.last||JSON.stringify(actual)!==JSON.stringify(r.last)||!r.attempts||r.phase==='lost'&&actual.score>=80)return null;}else if(r.last!==null)return null;
+for(const h of s.history){if(!Number.isInteger(h.guest)||h.guest<0||h.guest>available(s)||!validRecipe(h.recipe)||!h.recipe.mix.some(Boolean)||!Number.isInteger(h.score)||h.score<0||h.score>100||!Array.isArray(h.profile)||h.profile.length!==4||h.profile.some(x=>!Number.isFinite(x)||x<0||x>20)||!Array.isArray(h.feedback)||h.feedback.length!==4||h.feedback.some(x=>typeof x!=='string'||x.length>70)||typeof h.temperature!=='string'||h.temperature.length>100)return null;}
+return copy(s);}catch{return null;}}
+const API={ING,GUESTS,AXES,TOOLS,create,profile,target,assess,action,count,available,earned,balance,recipe,encode,decode};if(typeof module==='object'&&module.exports)module.exports=API;root.TeaGhosts=API;
+})(typeof globalThis!=='undefined'?globalThis:this);

@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 12,
+    "playable": 13,
     "improved": 12,
     "finished": 12,
     "selected": 0,
@@ -754,10 +754,12 @@
       "id": "tea-for-ghosts",
       "title": "Tea for Ghosts",
       "coreLoop": "Read ghost reactions and blend, steep and pour teas with ingredient tradeoffs.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/tea-for-ghosts",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable passed 14 engine and 9 DOM checks: all six visitors, sequential ingredients, extraction/dilution, three-cup departure and retry, memory seals/tools, full service saves, restart/reset and corrupt-save recovery. Native tests and meaningful improvement pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
@@ -911,7 +913,7 @@
     }
   ],
   "nextSteps": [
-    "Check CI 40002581593 motion group for Wellward/Ratchet Run; its dependency installation was still running at handoff. Retry transient infrastructure failure if necessary, preserving all tests.",
+    "Improve Tea for Ghosts controls/feedback and save validation; run native campaigns before marking finished.",
     "Implement, improve and test Tea for Ghosts, slot 33.",
     "Eight slots remain planned. Preserve distinct core loops and broaden the slate beyond short stage-based optimization games.",
     "Keep all twelve existing native suites in the bounded parallel workflow; add future games to suitable groups without dropping coverage.",
