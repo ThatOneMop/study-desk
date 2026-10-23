@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 10,
-    "improved": 9,
+    "improved": 10,
     "finished": 9,
     "selected": 0,
-    "meaningfulPasses": 9,
+    "meaningfulPasses": 10,
     "verifiedLive": 0
   },
   "deployment": {
@@ -569,11 +569,25 @@
       "id": "pocket-palaeo",
       "title": "Pocket Palaeo",
       "coreLoop": "Excavate connected fossils, distribute reusable supports, consolidate cracks and lift specimens into a museum; spend earned research seals on field tools.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/pocket-palaeo",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Stage lifts without changing the save; forecast exact resulting condition and fracture risk before explicit confirmation.",
+            "Highlight trapped soil, overloaded spans and support anchors; show load values so brace choices are understandable.",
+            "Interpolate fast pointer and touch strokes across skipped grid cells; stop excavation immediately on fracture.",
+            "Give fern, wing, shell and skull specimens individual silhouettes; constrain tray dimensions to keep SVG bones aligned with the soil grid.",
+            "Preserve full journals at the replay limit instead of writing saves that cannot reload."
+          ],
+          "validation": "22 engine and 12 DOM checks pass. Desktop/touch browser campaign and full ten-game regression pending."
+        }
+      ],
       "tests": [
-        "Initial playable: 18 engine and 9 DOM checks passed, including all three sites/six perfect specimens, purchases, connected support graphs, excavation damage, border clearance, fracture/retry, resin, replay saves, keyboard and pointer strokes."
+        "Initial playable: 18 engine and 9 DOM checks passed, including all three sites/six perfect specimens, purchases, connected support graphs, excavation damage, border clearance, fracture/retry, resin, replay saves, keyboard and pointer strokes.",
+        "Improvement: 34 checks (22 engine, 12 DOM) cover exact/pure forecasts, trapped soil, confirmation/cancel, safe supports, rapid strokes, blur, journal capacity and the original full museum campaign."
       ],
       "quality": {
         "enjoyment": null,
@@ -584,7 +598,8 @@
         "notes": "Playable initial excavation/museum loop with three sites, six articulated specimens and three functional field-tool purchases. Meaningful improvement and browser validation pending."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "56a94c7b79a35c4407e266e51fe4be3e83c83673"
     },
     {
       "slot": 31,

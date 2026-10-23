@@ -9,6 +9,9 @@ on:
       - 'games/copper-cadence/**'
       - 'games/hollow-keeper/**'
       - 'games/paper-odyssey/**'
+      - 'games/pocket-palaeo/**'
+      - 'tests/pocket-palaeo-*'
+      - 'tests/fixtures/pocket-palaeo-*'
       - 'games/salt-and-sail/**'
       - 'tests/salt-and-sail-*'
       - 'tests/fixtures/salt-and-sail-*'
@@ -71,14 +74,18 @@ jobs:
           node --check games/wellward/game.js
           node --check games/salt-and-sail/engine.js
           node --check games/salt-and-sail/game.js
+          node --check games/pocket-palaeo/engine.js
+          node --check games/pocket-palaeo/game.js
       - name: Engine and full campaign checks
-        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs
+        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs tests/pocket-palaeo-engine.cjs
       - name: Install test-only dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0 playwright@1.58.2
           node "$RUNNER_TEMP/reef-deps/node_modules/playwright/cli.js" install --with-deps chromium
       - name: DOM, persistence and input checks
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs
+        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs tests/pocket-palaeo-dom.cjs
+      - name: Pocket Palaeo desktop and touch campaigns
+        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/pocket-palaeo-browser.cjs
       - name: Desktop and touch Chromium campaigns
         run: |
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/salt-and-sail-browser.cjs
