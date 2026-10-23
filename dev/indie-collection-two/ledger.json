@@ -22,7 +22,7 @@
   "totals": {
     "playable": 15,
     "improved": 15,
-    "finished": 14,
+    "finished": 15,
     "selected": 0,
     "meaningfulPasses": 15,
     "verifiedLive": 0
@@ -875,7 +875,7 @@
       "id": "murmuration",
       "title": "Murmuration",
       "coreLoop": "Steer a flock by shaping wind currents, splitting to gather food and regrouping around hazards.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/murmuration",
       "improvementPasses": [
         {
@@ -884,32 +884,51 @@
           "changes": [
             "Pure two-second flock forecasts show individual projected paths and bird-loss warnings before collisions; readable incoming-island/channel cues teach early formation changes.",
             "Pause-to-plan keeps the flight map visible. Compact desktop and phone layouts bring the sky, wind and formation controls together.",
-            "Bridge visibility changes save and pause immediately; native pointer cancellation and keyboard release avoid stuck controls."
+            "Bridge visibility changes save and pause immediately; native pointer cancellation and keyboard release avoid stuck controls.",
+            "Clicking or touching the sky restores keyboard focus. Natural conservative feeding and underfed-arrival routes are verified without injected game state."
           ],
-          "validation": "22 engine/interface checks pass: 13 engine and nine DOM. Native desktop/touch campaigns pending."
+          "validation": "23 focused engine/interface checks plus all four twelve-bird/all-food desktop and touch-emulated migrations pass in CI 40023020207. Exact paused reloads, forecasts, pointer/keyboard focus, cancellation, bridge pause, collision and natural food-shortfall failures, retry/recovery/reset, navigation and normal-RAF flight pass. Screenshot review recorded in the run report."
         }
       ],
       "tests": [
-        "Initial playable: 11 engine and seven interface tests pass, including all four perfect migrations, split/gather collision losses, unlocks, replay-validated saves, reload/pause/retry, keyboard, recovery and blocked storage. Improvement and native verification pending.",
-        "Improved: 13 engine and nine DOM tests pass, including exact pure risk forecasts, paused planning, pointer cancellation, all four perfect UI campaigns, save/reload/retry and error handling. Native verification pending."
+        "Initial playable: 11 engine and seven interface tests passed at ff29e8c.",
+        "Final: 14 engine and nine DOM checks pass, including four perfect campaigns, conservative ten-food victory, natural six-food arrival failure, collision loss, exact pure forecasts, immutable/bounded replay saves, unlocks, restart, paused planning, keyboard focus, pointer cancellation, recovery and blocked storage.",
+        "CI 40023020207: native desktop 1280x1000 and touch emulation 390x844 complete all four migrations with twelve birds, fourteen feeding spots and three feathers. Mid-route exact reload on each migration, forecast changes while paused, mouse/keyboard/touch controls, cancellation, bridge suspension, collision and natural food-shortfall failures, retry/cancel, corrupt-save recovery, unrelated-key preservation and navigation pass. Zero browser errors; separate normal-RAF flight smoke passes.",
+        "26 native screenshots retained in artifact 12531686836. ZIP digest verified; desktop route-four completion, phone pause-planning and phone natural food-shortfall images visually inspected. Cloud UI additionally reviewed desktop/390-pixel layouts, start/split/pause and a safe-to-unsafe forecast change. No physical-device claim.",
+        "All 570 aggregate engine/interface checks and all fifteen native desktop/touch suites pass on exact verification commit 8ee1304 in CI 40023020207. All six jobs completed successfully; first-batch integrity, public routes and the exact twenty-slot gate pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Agent review, not a human player survey. A distinct real-time flock-spacing loop with food/survival tradeoffs, individual bird collisions, forecast paths and readable sunset-estuary presentation. Conservative one-wing feeding can win with fewer feathers; a wider detour fails from inadequate food. Four short authored migrations share two obstacle families; progression is route unlocks and best records, without equipment, audio or an extended campaign. No long-playtime, physical-device or full screen-reader certification claim."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
       "developmentCommits": [
-        "ff29e8caf09a3df32b06a36db6d5e82590bfeb16"
+        "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
+        "1a7ab925e6db1404606db3f1bd27df7154e8582a",
+        "7d9d644fb6eabe22b50d236fe0b4dc602eb3a3e3",
+        "8ee13044e2bcb050fe9417b2eee921c45b4c1dec"
       ],
       "verification": {
-        "status": "pending"
-      }
+        "status": "passed",
+        "commit": "8ee13044e2bcb050fe9417b2eee921c45b4c1dec",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40023020207",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40023020207/artifacts/12531686836",
+        "artifactSha256": "95c3ae1c41ffb50bf9b013fb99c20e3b3bcfb7afc6da4d0debd7b46b0044b3bd",
+        "sha256": {
+          "engine.js": "2424ac0cecd49247582d3127ac078a8c6e37bcb3c008d72dad58632ec3c2f410",
+          "game.js": "f21ae9c51287515ec37a788c7320a177b36983cf7611eb847f4d830be525fb0c",
+          "index.html": "dca51a811330bdbfa4c193d1030e9694ae131bf9c2f157b9f761490291b3b63b",
+          "style.css": "23aca454aee10b71f29779ece14f3a2fe33c0f06974f430866df9c3b2e72e5b3"
+        }
+      },
+      "selectionReason": "Retain as a finished development candidate for comparison across the full slate. Its flock action broadens variety, but compact progression and repeated obstacle vocabulary limit depth. No catalogue write by this increment.",
+      "publishedUrl": null
     },
     {
       "slot": 36,
@@ -1013,10 +1032,10 @@
     }
   ],
   "nextSteps": [
-    "Finish native desktop/touch verification and visual review for Murmuration; five remaining slots planned.",
-    "Keep all fourteen native suites and installed-Chrome fallback. Exact-source CI 40018382932 passed all 547 engine/interface checks and all fourteen desktop/touch native suites; screenshots retained in four artifacts.",
+    "Implement, improve and test Night Clerk (slot 36). Five slots remain planned; preserve exactly twenty new slots.",
+    "Keep all fifteen native suites in five browser groups. Exact-source CI 40023020207 passed all 570 engine/interface tests and every native suite; all six jobs succeeded.",
     "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
-    "Re-read main and the separate all-created-games integration before promotion; preserve any newly added catalogue entries, all first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from explicit user-requested catalogue inclusion.",
+    "Re-read main and the separate all-created-games integration before promotion; preserve newly added catalogue entries, first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from direct user-requested catalogue inclusion.",
     "Complete remaining candidates, evaluation and repository integration, verify actual hosting separately, then pause this task."
   ],
   "baselineTestLimitations": [
@@ -1173,8 +1192,19 @@
       "publicIntegration": null,
       "nextCandidate": 35,
       "regressionStatus": "All five CI jobs passed: 547 engine/interface tests and all fourteen native desktop/touch suites. First-batch integrity and current public route/shell checks pass."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "15 playable, 15 meaningfully improved, 15 finished; five slots planned. No public catalogue or deployment writes in this run.",
+      "initialCommit": "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
+      "gameplayCommit": "7d9d644fb6eabe22b50d236fe0b4dc602eb3a3e3",
+      "verificationCommit": "8ee13044e2bcb050fe9417b2eee921c45b4c1dec",
+      "ci": "40023020207",
+      "publicIntegration": null,
+      "nextCandidate": 36,
+      "regressionStatus": "All six exact-source CI jobs passed: 570 engine/interface checks and all fifteen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass. Murmuration contributes 26 retained native screenshots; three representative captures visually inspected."
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main re-read at ed2cf603aa47fc26e4f04216d5704351b72a32a9. The separate all-games checkout at 6f056d2 was observed and untouched. Only scoped second-batch source, tests, workflow and documentation updated; first-batch, requested games, Gummy Bay, messaging and movie/TV work preserved."
+  "concurrentWork": "Main reread at ed2cf603aa47fc26e4f04216d5704351b72a32a9. Separate all-games checkout and all first-batch, requested-game, Gummy Bay, messaging and movie/TV work untouched. Only Murmuration source/tests, second-batch workflow and documentation changed."
 }
