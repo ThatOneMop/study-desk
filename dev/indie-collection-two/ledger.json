@@ -22,7 +22,7 @@
   "totals": {
     "playable": 16,
     "improved": 16,
-    "finished": 15,
+    "finished": 16,
     "selected": 0,
     "meaningfulPasses": 16,
     "verifiedLive": 0
@@ -31,7 +31,7 @@
     "status": "blocked",
     "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
     "checked": "2026-10-24",
-    "detail": "Latest main release 39925660833 freshly checked: routes/assets passed. Configure GitHub Pages reports Get Pages site: Not Found, followed by Create Pages site: Resource not accessible by integration. Prepare/upload/deploy skipped. No second-batch candidates integrated or deployed; development is not blocked."
+    "detail": "Latest main release 39925660833 freshly checked: Configure GitHub Pages reports Get Pages site: Not Found, then Create Pages site: Resource not accessible by integration. No public catalogue or hosting writes by this increment. Separate all-created-games integration is preserved and must be reread before promotion; zero verified-live URLs in this collection ledger is not a claim that no other hosting exists."
   },
   "candidates": [
     {
@@ -935,7 +935,7 @@
       "id": "night-clerk",
       "title": "Night Clerk",
       "coreLoop": "Infer guests\u2019 hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/night-clerk",
       "improvementPasses": [
         {
@@ -946,27 +946,46 @@
             "Atomic key swaps and undo preserve later interviews while preventing bell rewinds.",
             "Fixed phone key panel with native guest chooser, focus continuity, opaque controls and truthful completed-room labels."
           ],
-          "validation": "18 engine and 12 DOM checks pass; native desktop/touch five-shift verification pending."
+          "validation": "18 engine and 12 DOM checks plus all five three-seal shifts on native desktop and touch emulation pass in CI 40027839541. Pure previews, swaps/undo, functional screens, exact mid-plan and won reloads, natural three-bell loss, retry, bridge pause, isolated recovery/reset and navigation pass."
         }
       ],
       "tests": [
-        "Initial playable: 12 engine and seven interface checks pass, including five complete shifts, all seals, guest adjacency/noise rules, functional screen unlocks, natural failure/retry, replay saves, keyboard focus, recovery and blocked storage. Meaningful improvement and native verification pending.",
-        "Improved: 18 engine and 12 DOM checks pass. Native campaign harness added; pending CI."
+        "Initial playable: 12 engine and seven DOM checks passed at bd0c93d.",
+        "Improved: 18 engine and 12 DOM checks pass. All five authored shifts, adjacency/noise rules, functional screen unlocks, pure nonspoiler forecasts including neighbour effects, atomic swaps, undo retaining later interviews, immutable bounded replay logs, loss/retry, save recovery, focus and storage failure are covered. Exhaustive unpadded room permutations prove shifts three through five require a felt screen.",
+        "Native CI 40027839541 on 92004a2: desktop 1280x1000 and touch emulation 390x844 each complete all five shifts with three seals. Every placement forecast matches actual known state; mid-plan and won saves reload exactly. Screens/undo, key swaps, real keyboard controls or touch/cancel, natural three-bell failure, retry/cancel, bridge pause, isolated recovery/reset and return navigation pass. Zero browser errors.",
+        "26 native screenshots retained in artifact 12533646510; ZIP SHA256 verified. Desktop shift-five completion and phone key-swap conflict images visually inspected. Cloud UI also completed a desktop shift and phone-width shift, and verified kit unlocking. No physical-device claim.",
+        "All seven CI jobs passed on exact verification commit 92004a2: 600 engine/interface checks and all sixteen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Playable and improved; final review awaits native verification."
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 3.5,
+        "notes": "Agent assessment, not a human player survey. Distinct interdependent room-assignment puzzle with conversation clues, noisy neighbours, physical adjacency and a functional felt-screen kit. Nonspoiler forecasts and atomic swaps make revisions readable; original CSS hotel windows and SVG guests provide a coherent identity. Five short fixed shifts, six rooms and one kit limit depth. No generated guests, economy, audio, long-playtime or physical-device certification claim. The ghost-hospitality theme overlaps Tea for Ghosts despite different mechanics."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836",
       "developmentCommits": [
-        "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836"
-      ]
+        "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836",
+        "92004a256d53717b6ec6c9c0f5bf412ed1db1291"
+      ],
+      "verification": {
+        "status": "passed",
+        "commit": "92004a256d53717b6ec6c9c0f5bf412ed1db1291",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40027839541",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40027839541/artifacts/12533646510",
+        "artifactSha256": "f748e3e54b60ff0550dec60ad7d52fe02b538e71c34fb7799dd38e523fda1062",
+        "sha256": {
+          "engine.js": "80f8a4c23a5ddba8d44a32510ef4db481070fcd5f5d6be764292d66f06759d7c",
+          "game.js": "40703ece2cf62a698d2a27271028147c6cb8d084c344c35fcee8a21e3ad4dcbf",
+          "index.html": "730f70bc327b7c5b6bc6c19221a7a4f377e8ed6537ad58e3d5158847e838e22e",
+          "style.css": "a529e0cd8cb20a9d901876c9937ba6cab3b6a0788bb53200a1a4352556161296"
+        }
+      },
+      "selectionReason": "Retain as a finished development candidate, unselected. Compare its social/spatial reasoning against the other calm planners, including the thematically similar Tea for Ghosts. Compact depth prevents automatic selection.",
+      "publishedUrl": null
     },
     {
       "slot": 37,
@@ -1050,8 +1069,8 @@
     }
   ],
   "nextSteps": [
-    "Improve and verify Night Clerk (slot 36), now initially playable; four slots remain concepts.",
-    "Keep all fifteen native suites in five browser groups. Exact-source CI 40023020207 passed all 570 engine/interface tests and every native suite; all six jobs succeeded.",
+    "Build Clockwork Tide (slot 37); four slots remain concepts.",
+    "Keep all sixteen native suites in six browser groups. Exact-source CI 40027839541 passed all 600 engine/interface checks and every native suite; all seven jobs succeeded.",
     "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
     "Re-read main and the separate all-created-games integration before promotion; preserve newly added catalogue entries, first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from direct user-requested catalogue inclusion.",
     "Complete remaining candidates, evaluation and repository integration, verify actual hosting separately, then pause this task."
@@ -1221,6 +1240,17 @@
       "publicIntegration": null,
       "nextCandidate": 36,
       "regressionStatus": "All six exact-source CI jobs passed: 570 engine/interface checks and all fifteen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass. Murmuration contributes 26 retained native screenshots; three representative captures visually inspected."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "16 playable, 16 meaningfully improved, 16 finished; four slots planned. No public catalogue or deployment writes in this run.",
+      "initialCommit": "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836",
+      "gameplayCommit": "92004a256d53717b6ec6c9c0f5bf412ed1db1291",
+      "verificationCommit": "92004a256d53717b6ec6c9c0f5bf412ed1db1291",
+      "ci": "40027839541",
+      "publicIntegration": null,
+      "nextCandidate": 37,
+      "regressionStatus": "All seven CI jobs passed on exact verification commit 92004a2: 600 engine/interface checks and all sixteen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass."
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
