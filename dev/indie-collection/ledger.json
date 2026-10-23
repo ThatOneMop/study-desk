@@ -2551,10 +2551,23 @@
       "verifiedCommit": "510186beed5946a25d0627092647c2cb9dcfdb4e",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39889649120",
       "inspectedMainCommit": "7676b2dbe5e12bf567aabd25ba1fb74c62cb4b97"
+    },
+    {
+      "run": 82,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Final audit froze the achieved collection at exactly20 playable, improved and finished candidates,66 meaningful passes, nine selected public-source finalists and eleven finished reserves. Exact gameplay510186b remains fully green in CI39889649120 across repository/selection gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and49 screenshots. Public main7676b2d contains the nine selected games and passed19 route/assets plus all selected source hashes in release workflow39891177156, but Configure GitHub Pages failed before upload/deploy;0 live URLs are claimed. The final report records selection reasons, source links, evidence boundaries and the remaining Pages-access blocker. A test-only Deep Pocket launch wait removes a parallel-run render race without changing game source, rules, saves, balance or selection.",
+      "implementationCommit": "510186beed5946a25d0627092647c2cb9dcfdb4e",
+      "verifiedCommit": "510186beed5946a25d0627092647c2cb9dcfdb4e",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39889649120",
+      "inspectedMainCommit": "7676b2dbe5e12bf567aabd25ba1fb74c62cb4b97"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with66 passes; nine selected/source-integrated on public main7676b2d including fully verified Inkline pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "Final: all20 candidates playable, improved and finished with66 meaningful passes; nine selected/source-integrated on public main7676b2d, eleven retained as finished reserves, and0 live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2572,7 +2585,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39891177156 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39891177156 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves. No new slots or gameplay scope are planned after the cutoff.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
