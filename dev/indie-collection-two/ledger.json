@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 12,
-    "improved": 11,
+    "improved": 12,
     "finished": 11,
     "selected": 0,
-    "meaningfulPasses": 11,
+    "meaningfulPasses": 12,
     "verifiedLive": 0
   },
   "deployment": {
@@ -699,11 +699,24 @@
       "id": "borrowed-gravity",
       "title": "Borrowed Gravity",
       "coreLoop": "A room-based action puzzler where stealing gravity from objects powers movement.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/borrowed-gravity",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Pure 1.5-second no-input drift previews for current, borrowed or returned gravity, with scanner warnings and visible path endpoints.",
+            "Block returns or swaps that would restore a barrier around the player, instead of causing an instant opaque loss.",
+            "Short jump input buffer and ledge grace improve early/late presses; cancellation clears queued jumps; initial saves migrate safely.",
+            "Contextual movement instructions follow gravity orientation; rejected actions remain readable for three simulated seconds."
+          ],
+          "validation": "23 engine and 15 DOM checks passed; original authored routes remain valid. Native desktop/touch verification pending."
+        }
+      ],
       "tests": [
-        "Initial playable: 16 engine and 12 DOM checks passed. Four complete galleries, source/linked-gate conservation, reach/line checks, wall/floor jumping, scanner loss/retry, two calibration unlocks, strict save roundtrips/recovery, keyboard/touch adapters and scoped reset. Native verification and improvement pending."
+        "Initial playable: 16 engine and 12 DOM checks passed. Four complete galleries, source/linked-gate conservation, reach/line checks, wall/floor jumping, scanner loss/retry, two calibration unlocks, strict save roundtrips/recovery, keyboard/touch adapters and scoped reset. Native verification and improvement pending.",
+        "Improved version: 38 checks (23 engine, 15 DOM) pass, including pure/exact drift endpoints, scanner forecasts, unsafe-return guard, buffered/late jumps, no held-key bunnyhop, save migration and persistent rejection feedback."
       ],
       "quality": {
         "enjoyment": null,
@@ -714,7 +727,11 @@
         "notes": "Playable initial implementation; native verification and a meaningful improvement are required before finished status."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "64b73b611e18fb8563fb6b6d64cad5159ee58dca",
+      "developmentCommits": [
+        "64b73b611e18fb8563fb6b6d64cad5159ee58dca"
+      ]
     },
     {
       "slot": 33,

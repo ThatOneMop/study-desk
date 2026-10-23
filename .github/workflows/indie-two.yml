@@ -9,6 +9,9 @@ on:
       - 'games/copper-cadence/**'
       - 'games/hollow-keeper/**'
       - 'games/paper-odyssey/**'
+      - 'games/borrowed-gravity/**'
+      - 'tests/borrowed-gravity-*'
+      - 'tests/fixtures/borrowed-gravity-*'
       - 'games/static-orchard/**'
       - 'tests/static-orchard-*'
       - 'games/pocket-palaeo/**'
@@ -45,7 +48,7 @@ concurrency:
   group: indie-two-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  regression:
+  checks:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -76,37 +79,56 @@ jobs:
           node --check games/wellward/game.js
           node --check games/salt-and-sail/engine.js
           node --check games/salt-and-sail/game.js
+          node --check games/borrowed-gravity/engine.js
+          node --check games/borrowed-gravity/game.js
           node --check games/static-orchard/engine.js
           node --check games/static-orchard/game.js
           node --check games/pocket-palaeo/engine.js
           node --check games/pocket-palaeo/game.js
       - name: Engine and full campaign checks
-        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs tests/pocket-palaeo-engine.cjs tests/static-orchard-engine.cjs
+        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs tests/pocket-palaeo-engine.cjs tests/static-orchard-engine.cjs tests/borrowed-gravity-engine.cjs
       - name: Install test-only dependencies
         run: |
-          npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0 playwright@1.58.2
-          node "$RUNNER_TEMP/reef-deps/node_modules/playwright/cli.js" install --with-deps chromium
+          npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0
       - name: DOM, persistence and input checks
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs tests/pocket-palaeo-dom.cjs tests/static-orchard-dom.cjs
-      - name: Static Orchard desktop and touch campaigns
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/static-orchard-browser.cjs
-      - name: Pocket Palaeo desktop and touch campaigns
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/pocket-palaeo-browser.cjs
-      - name: Desktop and touch Chromium campaigns
+        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs tests/pocket-palaeo-dom.cjs tests/static-orchard-dom.cjs tests/borrowed-gravity-dom.cjs
+  browsers:
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        include:
+          - group: new-games
+            games: borrowed-gravity static-orchard
+          - group: motion
+            games: wellward ratchet-run
+          - group: planning
+            games: reefwright counterweight lanternwake copper-cadence hollow-keeper paper-odyssey
+          - group: craft-and-cargo
+            games: pocket-palaeo salt-and-sail
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install native-browser test dependencies
         run: |
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/salt-and-sail-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/wellward-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/ratchet-run-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/reefwright-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/counterweight-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/lanternwake-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/copper-cadence-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/hollow-keeper-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/paper-odyssey-browser.cjs
+          npm install --prefix "$RUNNER_TEMP/browser-deps" playwright@1.58.2
+          node "$RUNNER_TEMP/browser-deps/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Complete desktop and touch campaigns
+        env:
+          GAMES: ${{ matrix.games }}
+        run: |
+          for game in $GAMES; do
+            NODE_PATH="$RUNNER_TEMP/browser-deps/node_modules" node "tests/$game-browser.cjs"
+          done
       - name: Preserve browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: second-batch-browser-screenshots
+          name: second-batch-browser-${{ matrix.group }}
           path: test-artifacts/
           if-no-files-found: warn
