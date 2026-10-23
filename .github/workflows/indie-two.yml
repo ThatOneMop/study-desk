@@ -71,13 +71,13 @@ jobs:
         run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs
       - name: Desktop and touch Chromium campaigns
         run: |
+          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/ratchet-run-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/reefwright-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/counterweight-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/lanternwake-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/copper-cadence-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/hollow-keeper-browser.cjs
           NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/paper-odyssey-browser.cjs
-          NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node tests/ratchet-run-browser.cjs
       - name: Preserve browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
