@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 3,
-    "improved": 2,
+    "improved": 3,
     "finished": 2,
     "selected": 0,
-    "meaningfulPasses": 2,
+    "meaningfulPasses": 3,
     "verifiedLive": 0
   },
   "deployment": {
@@ -156,11 +156,24 @@
       "id": "lanternwake",
       "title": "Lanternwake",
       "coreLoop": "Sail by placing temporary light beacons that reveal routes and attract dangerous moth swarms.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/lanternwake",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-23",
+          "changes": [
+            "Exact non-mutating next-turn previews show boat/moth positions, hull damage, oil, jars and every disappearing lantern, including newly thrown lights eaten immediately.",
+            "Optional plan-before-acting controls support tap inspection, explicit commit/cancel and keyboard Enter without spending preview turns.",
+            "Compact the desktop map and header after visual inspection so rowing controls sit closer to the chart."
+          ],
+          "validation": "24 engine checks pass, including every action forecast along all five reference routes. DOM and desktop/touch CI pending; cloud-browser first crossing completed with three medals."
+        }
+      ],
       "tests": [
-        "22 engine tests including all five no-damage three-medal routes; UI/browser and improvement pass pending."
+        "24 engine tests passed locally; all five three-medal crossings.",
+        "Cloud-browser first crossing completed through real UI controls; planning leaves turns unspent until commit.",
+        "Authored 19 DOM/save tests and desktop/touch Chromium campaigns; pending GitHub CI."
       ],
       "quality": {
         "enjoyment": null,
@@ -171,7 +184,12 @@
         "notes": "Concept only; no implementation counted."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "203c0aaa5cac9cccaba1318bf9254b871188dceb",
+      "developmentCommits": [
+        "203c0aaa5cac9cccaba1318bf9254b871188dceb"
+      ],
+      "publishedUrl": null
     },
     {
       "slot": 24,
