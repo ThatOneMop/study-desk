@@ -103,7 +103,7 @@
       "source": "games/counterweight",
       "improvementPasses": [],
       "tests": [
-        "20 engine and 14 DOM/save checks pass locally, including all five three-medal routes. Browser verification and a meaningful improvement pass are pending."
+        "23 engine and 17 DOM/save checks pass locally, including all five three-medal routes and initial-v1 save migration. All 40 Reefwright checks pass. Browser campaign CI is pending; not counted finished yet."
       ],
       "quality": {
         "enjoyment": null,
@@ -111,10 +111,11 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Playable crane-and-ballast campaign. First improvement implemented: physically consistent ballast directions, exact per-action forecasts, landing height/support advice and compact responsive controls; pending full desktop/touch browser validation."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "922d502a8e59c5df7637e008e10802f7f2faea26"
     },
     {
       "slot": 23,

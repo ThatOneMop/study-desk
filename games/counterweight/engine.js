@@ -14,7 +14,7 @@ const copy=x=>JSON.parse(JSON.stringify(x));
 const integer=(x,a,b)=>Number.isInteger(x)&&x>=a&&x<=b;
 function create(job=0){if(!integer(job,0,JOBS.length-1))throw Error('Unknown job');return {job,x:0,y:0,ballast:0,sway:0,held:null,next:0,stacks:{'-3':[],'-2':[],'2':[],'3':[]},moves:0,damage:0,strain:0,status:'playing',message:'Hook the first load at the supply dock.',history:[]};}
 function cargo(s){return s.held===null?null:TYPES[JOBS[s.job].cargo[s.held].type];}
-function torque(s){return cargo(s)?cargo(s).weight*s.x-3*s.ballast+JOBS[s.job].wind:-s.ballast+JOBS[s.job].wind;}
+function torque(s){return cargo(s)?cargo(s).weight*s.x+3*s.ballast+JOBS[s.job].wind:s.ballast+JOBS[s.job].wind;}
 function height(s,x=s.x){return (s.stacks[x]||[]).length;}
 function support(s,x,weight){const pile=s.stacks[x];if(!pile)return false;let load=weight;for(let i=pile.length-1;i>=0;i--){const c=TYPES[JOBS[s.job].cargo[pile[i]].type];if(load>c.strength)return false;load+=c.weight;}return true;}
 function medal(s){return s.status!=='won'?0:1+(s.damage===0&&s.strain===0?1:0)+(s.damage===0&&s.strain===0&&s.moves<=JOBS[s.job].par?1:0);}
@@ -55,12 +55,14 @@ function step(state,action){
 }
 function replay(job,actions){if(!Array.isArray(actions)||actions.length>600||actions.some(a=>!ACTIONS.includes(a)))throw Error('Invalid actions');let s=create(job);for(const a of actions){const r=step(s,a);if(!r.ok)throw Error('Invalid replay');s=r.state;}return s;}
 function undo(s){return s.history.length?replay(s.job,s.history.slice(0,-1)):create(s.job);}
-function blank(){return {version:1,current:{job:0,actions:[]},records:[null,null,null,null,null]};}
-function decode(raw){const v=typeof raw==='string'?JSON.parse(raw):raw;if(!v||v.version!==1||!Array.isArray(v.records)||v.records.length!==5||!v.current)throw Error('Unreadable save');
- const records=v.records.map((r,i)=>{if(r===null)return null;if(!r||!Array.isArray(r.actions))throw Error('Invalid record');const s=replay(i,r.actions);if(s.status!=='won')throw Error('Incomplete record');return {actions:s.history,medals:medal(s),moves:s.moves};});
- let unlocked=0;while(unlocked<4&&records[unlocked])unlocked++;const current=replay(v.current.job,v.current.actions);if(current.job>unlocked)throw Error('Locked job');return {version:1,current:{job:current.job,actions:current.history},records};
+function blank(){return {version:2,current:{job:0,actions:[]},records:[null,null,null,null,null]};}
+function decode(raw){const v=typeof raw==='string'?JSON.parse(raw):raw;if(!v||![1,2].includes(v.version)||!Array.isArray(v.records)||v.records.length!==5||!v.current)throw Error('Unreadable save');
+ const migrate=actions=>v.version===1&&Array.isArray(actions)?actions.map(a=>a==='ballastLeft'?'ballastRight':a==='ballastRight'?'ballastLeft':a):actions;
+ const records=v.records.map((r,i)=>{if(r===null)return null;if(!r||!Array.isArray(r.actions))throw Error('Invalid record');const s=replay(i,migrate(r.actions));if(s.status!=='won')throw Error('Incomplete record');return {actions:s.history,medals:medal(s),moves:s.moves};});
+ let unlocked=0;while(unlocked<4&&records[unlocked])unlocked++;const current=replay(v.current.job,migrate(v.current.actions));if(current.job>unlocked)throw Error('Locked job');return {version:2,current:{job:current.job,actions:current.history},records};
 }
 function unlocked(save){let n=0;while(n<4&&save.records[n])n++;return n;}
 function record(save,s){const v=copy(save);v.current={job:s.job,actions:s.history};if(s.status==='won'){const old=v.records[s.job],m=medal(s);if(!old||m>old.medals||(m===old.medals&&s.moves<old.moves))v.records[s.job]={actions:s.history,medals:m,moves:s.moves};}return v;}
-return {TYPES,JOBS,ACTIONS,create,step,torque,cargo,height,support,medal,replay,undo,blank,decode,unlocked,record};
+function forecast(s,a){const r=step(s,a);return {allowed:r.ok,balance:torque(r.state),sway:r.state.sway,overload:r.state.strain-s.strain,damage:r.state.damage-s.damage,status:r.state.status,reason:r.reason};}
+return {forecast,TYPES,JOBS,ACTIONS,create,step,torque,cargo,height,support,medal,replay,undo,blank,decode,unlocked,record};
 });
