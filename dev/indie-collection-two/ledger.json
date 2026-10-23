@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 6,
-    "improved": 5,
+    "improved": 6,
     "finished": 5,
     "selected": 0,
-    "meaningfulPasses": 5,
+    "meaningfulPasses": 6,
     "verifiedLive": 0
   },
   "deployment": {
@@ -331,11 +331,23 @@
       "id": "paper-odyssey",
       "title": "Paper Odyssey",
       "coreLoop": "Fold a paper map to connect islands while changing traversal and hidden resources.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/paper-odyssey",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-23",
+          "changes": [
+            "Added staged fold/crossing previews showing the exact future chart, reachable islands, hearts, creases, stamps and folds without spending resources.",
+            "Added explicit confirmation/cancel and warnings before ink damage, exhausted-paper loss or delivery; made preview map read-only and visibly labelled.",
+            "Added Enter confirmation and Escape cancellation, restored focus to the traveller after commits, and added reduced-motion-aware paper feedback."
+          ],
+          "validation": "25 engine and 20 DOM checks pass; direct browser first chart completed. Full desktop/touch regression pending."
+        }
+      ],
       "tests": [
-        "Initial playable version: 22 engine and 15 DOM checks pass, including five complete clean routes, fold geometry, resource use, loss/undo, saves and controls. Improvement and browser verification pending."
+        "Initial playable version: 22 engine and 15 DOM checks pass, including five complete clean routes, fold geometry, resource use, loss/undo, saves and controls. Improvement and browser verification pending.",
+        "Improved version: 25 engine and 20 DOM checks pass, including exact forecasts, staged controls, last-crease warning, cancel and focus."
       ],
       "quality": {
         "enjoyment": null,
@@ -343,10 +355,11 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Initial playable implementation exists; not yet improved or finished."
+        "notes": "Improved candidate; browser regression and final review pending."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "fed424a977ca9e25e3d497007775571451e7eec5"
     },
     {
       "slot": 27,
