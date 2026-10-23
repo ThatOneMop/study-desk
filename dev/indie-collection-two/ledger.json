@@ -13,7 +13,7 @@
   },
   "baseMain": "bded102680166c0107fd8a58fef1559be7a22efa",
   "rules": [
-    "Exactly 20 NEW slots, overall numbers 21\u201340. Planned concepts do not count as playable.",
+    "Exactly 20 NEW slots, overall numbers 21–40. Planned concepts do not count as playable.",
     "First batch and the separate Nightshift ten do not count toward this batch.",
     "One initial playable implementation and at least one tested meaningful improvement per candidate.",
     "Only finished, evaluated selections enter the real catalogue. No automatic selection of all candidates.",
@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 2,
-    "improved": 1,
-    "finished": 1,
+    "improved": 2,
+    "finished": 2,
     "selected": 0,
-    "meaningfulPasses": 1,
+    "meaningfulPasses": 2,
     "verifiedLive": 0
   },
   "deployment": {
@@ -58,13 +58,13 @@
       "tests": [
         "21 engine tests: five full three-medal campaigns, species scoring, topology, bounds, mutation isolation, win/loss, undo, replay validation and save integrity.",
         "19 DOM/save/input tests: complete campaign UI actions, exact forecasts, channel-closure warning, reload, restart, keyboard, blocked storage, malformed-save recovery and navigation markup.",
-        "Chromium desktop 1280\u00d71000 and touch emulation 390\u00d7844: all five coasts through real UI actions, previews, rotation, score forecasts, loss/reopen, persistence, restart/cancel, keyboard traversal, corrupt-save recovery, return navigation and zero uncaught browser errors.",
+        "Chromium desktop 1280×1000 and touch emulation 390×844: all five coasts through real UI actions, previews, rotation, score forecasts, loss/reopen, persistence, restart/cancel, keyboard traversal, corrupt-save recovery, return navigation and zero uncaught browser errors.",
         "14 screenshots captured; initial and final desktop/mobile samples visually inspected. Compact mobile chooser refinement passed the complete repeat campaign.",
         "19 public routes/assets, nine first-batch selected-source hashes, exact 20-slot second-batch gate, shell, bridge-pointer and relaxed-collection tests passed.",
         "Two inherited launcher tests still target the removed playerStudy control; see baselineTestLimitations."
       ],
       "quality": {
-        "scale": "1\u20135, agent design review; not player survey scores",
+        "scale": "1–5, agent design review; not player survey scores",
         "enjoyment": 4,
         "depth": 3.5,
         "polish": 4,
@@ -99,23 +99,57 @@
       "id": "counterweight",
       "title": "Counterweight",
       "coreLoop": "Operate a crane with shifting ballast to stack and deliver fragile cargo.",
-      "status": "playable",
+      "status": "finished",
       "source": "games/counterweight",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-23",
+          "changes": [
+            "Make ballast movement physically consistent with its left/right controls; migrate initial v1 saves by reversing old ballast commands without changing cargo routes or results.",
+            "Expose exact per-action balance, swing, overload and damaged-landing previews before acting, including mouse/focus detail and visible touch labels.",
+            "Show current cargo, destination landing heights, stack support warnings and safe swing in a compact landing strip.",
+            "Reduce oversized scene/header spacing so the crane and controls can be viewed together; retain clear pixel-art sprites, responsive layout and reduced-motion support."
+          ],
+          "validation": "23 engine + 17 DOM checks. Exact-source CI 39930163890 passed both full five-job desktop/touch campaigns, all Reefwright campaigns, persistence, restart, loss/undo and navigation. 36 screenshots (22 Counterweight, 14 Reefwright); representative Counterweight desktop/phone images reviewed."
+        }
+      ],
       "tests": [
-        "23 engine and 17 DOM/save checks pass locally, including all five three-medal routes and initial-v1 save migration. All 40 Reefwright checks pass. Browser campaign CI is pending; not counted finished yet."
+        "23 engine tests: five authored three-medal routes, input/mutation isolation, ballast torque, swing/damage, cumulative stack loads, collision/clearance, failure/undo, medal records, bounded replay, corrupt saves, exact non-mutating forecasts and v1 migration.",
+        "17 DOM tests: all five campaigns via controls, keyboard guards, invalid actions, onboarding, job unlock/switch confirmation, reload, restart/cancel, unreadable-save protection, storage failure, risk labels and landing advice.",
+        "GitHub Chromium desktop 1280x1000 and touch emulation 390x844: all five jobs with three medals; every move checked against its displayed forecast; midgame reloads on all jobs; overload/loss/undo; keyboard; restart/cancel; corrupt recovery preserving an unrelated key; return navigation; no uncaught errors.",
+        "Counterweight contributes 22 screenshots; representative desktop completion and phone midgame captures visually reviewed. First job also completed through cloud-browser UI controls.",
+        "All 40 Reefwright engine/DOM checks and both complete five-coast browser campaigns pass unchanged. Public route/assets, nine first-batch source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection checks pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Playable crane-and-ballast campaign. First improvement implemented: physically consistent ballast directions, exact per-action forecasts, landing height/support advice and compact responsive controls; pending full desktop/touch browser validation."
+        "scale": "1–5, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4.5,
+        "notes": "Distinct deliberate crane loop: balancing reach and cargo weight while using hoist/ballast actions to damp swing, arranging cumulative-load stacks and optimizing move medals. Five compact authored jobs introduce light, heavy, long-reach, mixed-support and wind constraints. Pixel harbour and exact previews are readable in reviewed desktop/mobile captures. Simulation is discrete, not continuous pendulum physics; no sound, procedural campaign, long playtime, physical-device or full screen-reader certification is claimed."
       },
       "selected": false,
       "integrationCommits": [],
-      "initialCommit": "922d502a8e59c5df7637e008e10802f7f2faea26"
+      "initialCommit": "922d502a8e59c5df7637e008e10802f7f2faea26",
+      "developmentCommits": [
+        "922d502a8e59c5df7637e008e10802f7f2faea26",
+        "a7f25641eb9a7957a35d580c3d905066234a32ee"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain as a finished development candidate. Compare against the wider second-batch slate before public selection; it adds physical load-balancing and manual control distinct from Reefwright spatial ecology.",
+      "verification": {
+        "commit": "a7f25641eb9a7957a35d580c3d905066234a32ee",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39930163890",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39930163890/artifacts/12491785522",
+        "sha256": {
+          "engine.js": "b1a5a6e1a66137e4e6501a4779624e2c04098c3eca7ff85bf740fc21d545d117",
+          "game.js": "4924d145522a8f304a773ad98f37530cb1c2ad48e6da2c06b9abe9b19b921838",
+          "style.css": "63d2758bc3115eb971b7f2169e254cc5bb54cf9486ef0f42c0851704cf0e4778",
+          "index.html": "7246d063bb0d27f8b4d4991dd907ba2df7d87ead2b69a032f2b92cb512577e52"
+        }
+      }
     },
     {
       "slot": 23,
@@ -381,7 +415,7 @@
       "slot": 36,
       "id": "night-clerk",
       "title": "Night Clerk",
-      "coreLoop": "Infer guests\u2019 hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
+      "coreLoop": "Infer guests’ hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
       "status": "planned",
       "source": null,
       "improvementPasses": [],
@@ -479,9 +513,9 @@
     }
   ],
   "nextSteps": [
-    "Improve and browser-test playable Counterweight before counting it finished.",
-    "Give every new candidate a playable implementation, tested meaningful improvement and quality review. Nineteen slots remain planned, not playable.",
-    "Compare finished candidates as the slate grows, integrate only selected winners into fresh public main, preserve all existing catalogue entries/saves/tests, and verify deployment if Pages becomes available."
+    "Implement candidate 23, Lanternwake: sailing by temporary beacons that reveal routes and attract moth swarms. Prove a distinct worthwhile loop before counting it playable.",
+    "Eighteen candidates remain planned. Give each a playable implementation, meaningful tested improvement and quality assessment.",
+    "Compare completed candidates across the slate and integrate only selected winners into then-current main, preserving first-batch and concurrent work. Verify Pages deployment if repository access is repaired."
   ],
   "baselineTestLimitations": [
     {
@@ -509,8 +543,17 @@
       "ci": "39923241054",
       "publicIntegration": null,
       "nextCandidate": 22
+    },
+    {
+      "date": "2026-10-23",
+      "result": "2 playable, 2 improved, 2 finished, 0 selected, 0 live; exactly 20 new slots",
+      "initialCommit": "922d502a8e59c5df7637e008e10802f7f2faea26",
+      "gameplayCommit": "a7f25641eb9a7957a35d580c3d905066234a32ee",
+      "ci": "39930163890",
+      "publicIntegration": null,
+      "nextCandidate": 23
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main advanced three commits for private-messaging links/docs during this run. No main writes were made; those changes are preserved remotely. Re-read fresh main before any future integration."
+  "concurrentWork": "Main advanced to ed2cf603aa47fc26e4f04216d5704351b72a32a9 with private messaging and movie/TV discovery work. This run wrote only the separate second-batch development branch; public catalogue and all first-batch source/tests are unchanged."
 }

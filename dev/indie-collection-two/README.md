@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` or `http://localhost:8000/games/counterweight/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -17,9 +17,22 @@ Serve the repository root (`python -m http.server 8000`), then visit `http://loc
 - `node tests/reefwright-solve.cjs` regenerates deterministic five-coast campaign fixtures. Do not regenerate fixtures to conceal a regression.
 - `python tests/assets.py` and `python tests/selected-indie.py` preserve the public catalogue and first-batch source hashes.
 
+Counterweight checks use the same test dependency setup:
+
+- `node --test tests/counterweight-engine.cjs`
+- `NODE_PATH=/path/to/test/node_modules node --test tests/counterweight-dom.cjs`
+- `NODE_PATH=/path/to/test/node_modules node tests/counterweight-browser.cjs`
+- `node tests/counterweight-solve.cjs` computes shortest clean per-delivery routes for the authored destination plans. The physical-direction improvement deliberately reversed ballast inputs; all five route lengths and medals remained unchanged.
+
 ## Current result and next work
 
-Reefwright has an initial playable five-coast campaign with deterministic three-medal reference routes. Its first meaningful improvement adds exact placement forecasts, sea-channel warnings/overlay, deliberate touch confirmation and focus-preserving keyboard controls. 21 engine and 19 DOM checks pass. Exact-source [CI 39923241054](https://github.com/ThatOneMop/study-desk/actions/runs/39923241054) passed the five-coast campaign on desktop and touch-emulated Chromium, including persistence, failure/recovery, restart and navigation. A compact sticky chooser improves phone use; representative screenshots were visually inspected. Reefwright is now one finished candidate, still unselected. The other nineteen slots remain unimplemented concepts. The most recent public deployment run, [39922574624](https://github.com/ThatOneMop/study-desk/actions/runs/39922574624), passed assets/routes and failed at Configure GitHub Pages before upload. Development is not blocked by that publishing issue.
+**2/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright and Counterweight are finished development candidates. Eighteen slots remain unimplemented concepts. The first batch and Nightshift collection are excluded.
+
+Counterweight is a pixel-art crane-and-ballast game with five authored harbour jobs, stack support, wind, fragile cargo, move medals, free undo and replay-validated saves. Its first improvement makes ballast controls physically consistent, migrates initial saves, previews exact balance/swing/damage before every move and brings landing advice closer to the controls. See [Counterweight run report](RUN_REPORT_2026-10-23_COUNTERWEIGHT.md) for evidence and limits.
+
+Exact gameplay [CI 39930163890](https://github.com/ThatOneMop/study-desk/actions/runs/39930163890) passes all 80 engine/DOM checks, both games' full desktop/touch campaigns, public asset/hash gates and 36 screenshots. The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still failed at Configure GitHub Pages before upload. Publishing is blocked; development can continue.
+
+Next: prototype Lanternwake, slot 23, and improve/test it before counting it finished. Selection waits for broader comparison.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 
@@ -29,4 +42,4 @@ Git CLI reads work in this environment but CLI push had no credentials. Supporte
 
 The public `catalog-launch.cjs` and `curation-regression.cjs` tests are stale against base main: both still click the removed `playerStudy` button. These tests and public shell files are unchanged here. Current `dom-checks.cjs`, `bridge-pointer.cjs` and `relaxed-collection.cjs` pass. See the ledger and run report for the evidence boundary.
 
-At the final concurrency check, public main had advanced to `013a8d009286fe02a37ebce76126f44c19c72ecf` with private-messaging links/docs. This branch did not write main. Re-read and preserve those changes when later integrating selected games.
+At the first increment’s concurrency check, public main had advanced to `013a8d009286fe02a37ebce76126f44c19c72ecf` with private-messaging links/docs. This branch did not write main. Re-read and preserve those changes when later integrating selected games.
