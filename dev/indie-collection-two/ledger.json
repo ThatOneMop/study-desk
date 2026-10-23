@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 13,
-    "improved": 12,
+    "improved": 13,
     "finished": 12,
     "selected": 0,
-    "meaningfulPasses": 12,
+    "meaningfulPasses": 13,
     "verifiedLive": 0
   },
   "deployment": {
@@ -754,11 +754,23 @@
       "id": "tea-for-ghosts",
       "title": "Tea for Ghosts",
       "coreLoop": "Read ghost reactions and blend, steep and pour teas with ingredient tradeoffs.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/tea-for-ghosts",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Live pure flavour preview before brewing and comparison with the visitor\u2019s most recent cup.",
+            "Undo the last recipe adjustment without spending an attempt; keep keyboard focus after dynamically rendered scoop controls.",
+            "Validate saved records and journal feedback against actual recipe outcomes; migrate original saves and preserve strainer provenance after equipment changes."
+          ],
+          "validation": "32 checks passed locally (20 engine, 12 DOM); native verification pending."
+        }
+      ],
       "tests": [
-        "Initial playable passed 14 engine and 9 DOM checks: all six visitors, sequential ingredients, extraction/dilution, three-cup departure and retry, memory seals/tools, full service saves, restart/reset and corrupt-save recovery. Native tests and meaningful improvement pending."
+        "Initial playable passed 14 engine and 9 DOM checks: all six visitors, sequential ingredients, extraction/dilution, three-cup departure and retry, memory seals/tools, full service saves, restart/reset and corrupt-save recovery. Native tests and meaningful improvement pending.",
+        "Improved: 32 engine/interface checks pass, including pure exact preview, undo, focus continuity, score authenticity, equipment provenance and initial-save migration."
       ],
       "quality": {
         "enjoyment": null,
@@ -769,7 +781,11 @@
         "notes": "Concept only; no implementation counted."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "fa654ca14729275ca06b07db332ae5ff0fdf5f2b",
+      "developmentCommits": [
+        "fa654ca14729275ca06b07db332ae5ff0fdf5f2b"
+      ]
     },
     {
       "slot": 34,
