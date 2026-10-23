@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 1,
-    "improved": 0,
+    "improved": 1,
     "finished": 0,
     "selected": 0,
-    "meaningfulPasses": 0,
+    "meaningfulPasses": 1,
     "verifiedLive": 0
   },
   "deployment": {
@@ -39,11 +39,27 @@
       "id": "reefwright",
       "title": "Reefwright",
       "coreLoop": "Rotate and draft mixed polyomino habitats; maintain sea channels and connected reef ecology.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/reefwright",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-23",
+          "changes": [
+            "Two-step touch placement with a rotated footprint preview and explicit Plant confirmation.",
+            "Exact before/after habitat and vitality forecast; explicit warning when a placement closes a nursery sea channel.",
+            "Toggle sea-channel overlay and expose sea access in cell labels.",
+            "Restore offer/grid focus across UI redraws and enable keyboard preview/confirmation."
+          ],
+          "validation": "21 engine and 19 DOM checks pass; full five-coast three-medal routes; desktop/touch Chromium CI pending."
+        }
+      ],
       "tests": [
-        "20 deterministic engine checks; all five coast routes reach three medals."
+        "21 deterministic engine checks.",
+        "19 jsdom interface/save/input checks.",
+        "All five campaign routes reach three medals.",
+        "Public 19 route/assets and nine first-batch source hashes pass.",
+        "Local Chromium download failed (truncated ZIP); CI desktop/touch verification pending."
       ],
       "quality": {
         "enjoyment": null,
@@ -51,10 +67,11 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Awaiting control improvement and browser verification."
+        "notes": "Finished classification and selection deferred until real-browser verification and visual inspection."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "64de8a9cc7cb92bd7cd1cef109393b87e99476c3"
     },
     {
       "slot": 22,
@@ -438,8 +455,8 @@
     }
   ],
   "nextSteps": [
-    "Reefwright: verify real browser controls and save/restart, then add an exact placement forecast and deliberate touch confirmation.",
-    "Implement candidate 22 in the next increment; reassess every proposed concept for distinctness before coding.",
+    "Complete Reefwright exact-source desktop/touch Chromium verification and inspect screenshots.",
+    "Implement candidate 22; reassess proposed concepts for distinctness before coding.",
     "Compare completed candidates before selecting and integrating winners."
   ]
 }

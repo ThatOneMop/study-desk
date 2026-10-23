@@ -11,11 +11,14 @@ Serve the repository root (`python -m http.server 8000`), then visit `http://loc
 ## Checks
 
 - `node --test tests/reefwright-engine.cjs`
+- `NODE_PATH=/path/to/test/node_modules node --test tests/reefwright-dom.cjs` (jsdom 26)
+- `NODE_PATH=/path/to/test/node_modules node tests/reefwright-browser.cjs` (Playwright Chromium; owns its local server)
+- `python tests/indie-two-gate.py` enforces the exact twenty-slot ledger and selection policy.
 - `node tests/reefwright-solve.cjs` regenerates deterministic five-coast campaign fixtures. Do not regenerate fixtures to conceal a regression.
 - `python tests/assets.py` and `python tests/selected-indie.py` preserve the public catalogue and first-batch source hashes.
 
 ## Current result and next work
 
-Reefwright has an initial playable five-coast campaign with deterministic three-medal reference routes. The first improvement will address placement prediction and touch confirmation. The other nineteen slots remain unimplemented concepts. The most recent public deployment run, [39920109462](https://github.com/ThatOneMop/study-desk/actions/runs/39920109462), passed assets/routes and failed at Configure GitHub Pages before upload. Development is not blocked by that publishing issue.
+Reefwright has an initial playable five-coast campaign with deterministic three-medal reference routes. Its first meaningful improvement adds exact placement forecasts, sea-channel warnings/overlay, deliberate touch confirmation and focus-preserving keyboard controls. 21 engine and 19 DOM checks pass; real Chromium verification is pending. The other nineteen slots remain unimplemented concepts. The most recent public deployment run, [39920109462](https://github.com/ThatOneMop/study-desk/actions/runs/39920109462), passed assets/routes and failed at Configure GitHub Pages before upload. Development is not blocked by that publishing issue.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
