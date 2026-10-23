@@ -23,9 +23,9 @@ SELECTED = {
         "style.css": "7a033aa107ad524ef3db9046cd5d05e34b28da0dfa485d0578a78d0e658e8161",
     },
     "little-foundry": {
-        "engine.js": "ad8feeefdd2559875da35389d5535df95a7f5ecbc2b07efadedc4b86cd6cc969",
-        "game.js": "2008949ab9c251cbafb8d18410c3fd7818493e2f57198510cc463c362af366a5",
-        "style.css": "d7e2554110036409df0a9150f847e12c887898d4d3b45096950e4a58b312bc51",
+        "engine.js": "ed3aa11e11ba04d1d39adf00a1065c9c9d3ff4335a1dc6623be0cf599573f5cd",
+        "game.js": "07eaaff5bb7f71b89b222127e56fcdc79a28bd0904e9ad20349c01ee1b7cdaf0",
+        "style.css": "bd75ca442b6ed5d6ea72382ab80854ae615b7fb4753eb085825b33bb6638aee8",
     },
     "scrap-orbit": {
         "engine.js": "2fbcc5cd8a2c35ea0891e8cf91e455124748f0576f06c88f8155cbb96ab01e10",
