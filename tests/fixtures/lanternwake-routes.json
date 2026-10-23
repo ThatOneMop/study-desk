@@ -1,0 +1,119 @@
+[
+  {
+    "voyage": 0,
+    "actions": [
+      "e",
+      "e",
+      "bs",
+      "s",
+      "s",
+      "e",
+      "e",
+      "e",
+      "n",
+      "n",
+      "e"
+    ],
+    "turns": 11,
+    "throws": 1
+  },
+  {
+    "voyage": 1,
+    "actions": [
+      "s",
+      "s",
+      "bn",
+      "e",
+      "be",
+      "e",
+      "e",
+      "e",
+      "e",
+      "e",
+      "n",
+      "n"
+    ],
+    "turns": 12,
+    "throws": 2
+  },
+  {
+    "voyage": 2,
+    "actions": [
+      "s",
+      "e",
+      "bs",
+      "w",
+      "s",
+      "bs",
+      "e",
+      "be",
+      "e",
+      "e",
+      "n",
+      "n",
+      "e",
+      "e",
+      "e",
+      "s",
+      "s",
+      "bs",
+      "s",
+      "n",
+      "n",
+      "n"
+    ],
+    "turns": 22,
+    "throws": 4
+  },
+  {
+    "voyage": 3,
+    "actions": [
+      "s",
+      "s",
+      "n",
+      "e",
+      "bs",
+      "e",
+      "s",
+      "e",
+      "e",
+      "bw",
+      "n",
+      "n",
+      "e",
+      "e",
+      "s",
+      "s",
+      "n",
+      "n"
+    ],
+    "turns": 18,
+    "throws": 2
+  },
+  {
+    "voyage": 4,
+    "actions": [
+      "e",
+      "s",
+      "s",
+      "bn",
+      "s",
+      "bn",
+      "s",
+      "bn",
+      "e",
+      "bw",
+      "e",
+      "bn",
+      "n",
+      "n",
+      "e",
+      "n",
+      "n",
+      "e",
+      "e"
+    ],
+    "turns": 19,
+    "throws": 5
+  }
+]
