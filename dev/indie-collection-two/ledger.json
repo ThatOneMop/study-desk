@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 15,
-    "improved": 14,
+    "improved": 15,
     "finished": 14,
     "selected": 0,
-    "meaningfulPasses": 14,
+    "meaningfulPasses": 15,
     "verifiedLive": 0
   },
   "deployment": {
@@ -875,11 +875,23 @@
       "id": "murmuration",
       "title": "Murmuration",
       "coreLoop": "Steer a flock by shaping wind currents, splitting to gather food and regrouping around hazards.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/murmuration",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Pure two-second flock forecasts show individual projected paths and bird-loss warnings before collisions; readable incoming-island/channel cues teach early formation changes.",
+            "Pause-to-plan keeps the flight map visible. Compact desktop and phone layouts bring the sky, wind and formation controls together.",
+            "Bridge visibility changes save and pause immediately; native pointer cancellation and keyboard release avoid stuck controls."
+          ],
+          "validation": "22 engine/interface checks pass: 13 engine and nine DOM. Native desktop/touch campaigns pending."
+        }
+      ],
       "tests": [
-        "Initial playable: 11 engine and seven interface tests pass, including all four perfect migrations, split/gather collision losses, unlocks, replay-validated saves, reload/pause/retry, keyboard, recovery and blocked storage. Improvement and native verification pending."
+        "Initial playable: 11 engine and seven interface tests pass, including all four perfect migrations, split/gather collision losses, unlocks, replay-validated saves, reload/pause/retry, keyboard, recovery and blocked storage. Improvement and native verification pending.",
+        "Improved: 13 engine and nine DOM tests pass, including exact pure risk forecasts, paused planning, pointer cancellation, all four perfect UI campaigns, save/reload/retry and error handling. Native verification pending."
       ],
       "quality": {
         "enjoyment": null,
@@ -890,7 +902,14 @@
         "notes": "Concept only; no implementation counted."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
+      "developmentCommits": [
+        "ff29e8caf09a3df32b06a36db6d5e82590bfeb16"
+      ],
+      "verification": {
+        "status": "pending"
+      }
     },
     {
       "slot": 36,
@@ -994,7 +1013,7 @@
     }
   ],
   "nextSteps": [
-    "Improve and verify Murmuration (slot 35), now initially playable. Five slots remain planned.",
+    "Finish native desktop/touch verification and visual review for Murmuration; five remaining slots planned.",
     "Keep all fourteen native suites and installed-Chrome fallback. Exact-source CI 40018382932 passed all 547 engine/interface checks and all fourteen desktop/touch native suites; screenshots retained in four artifacts.",
     "Revisit the full slate for depth, control and polish; compare enjoyment, reliability and variety before final selection.",
     "Re-read main and the separate all-created-games integration before promotion; preserve any newly added catalogue entries, all first-batch saves/sources, requested games and Gummy Bay. Distinguish curatorial selection from explicit user-requested catalogue inclusion.",
