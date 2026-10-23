@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 13,
+    "playable": 14,
     "improved": 13,
     "finished": 12,
     "selected": 0,
@@ -809,10 +809,12 @@
       "id": "cairn-and-cord",
       "title": "Cairn & Cord",
       "coreLoop": "Plan climbing anchors and manage rope slack across compact expeditions.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/cairn-and-cord",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable: 12 engine and five DOM tests pass, including all four clean cairn campaigns, ropes/anchors, grip/wind, fall/loss, unlocks, replay-validated saves, restart/recovery and pause. Native verification and meaningful improvement pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
@@ -946,6 +948,7 @@
     }
   ],
   "nextSteps": [
+    "Complete Cairn & Cord meaningful improvement, native campaigns and quality review; initial source is preserved.",
     "Inspect CI 40011208465 new-games job for Tea for Ghosts. Fix any native failures, inspect screenshots and record quality before marking slot 33 finished.",
     "Once Tea is verified, implement, improve and test Cairn & Cord (slot 34); seven slots remain planned.",
     "Retain all thirteen browser suites and bounded concurrency. Browser allowance is now 25 minutes after observed dependency delays.",
