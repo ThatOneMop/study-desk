@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/` or `http://localhost:8000/games/lanternwake/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` or `http://localhost:8000/games/copper-cadence/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,15 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**3/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight and Lanternwake are finished development candidates. Seventeen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
+**4/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake and Copper Cadence are finished development candidates. Sixteen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
 
-Lanternwake is a pixel-art light-routing game with five marsh crossings. Temporary lanterns enable sailing and attract moth swarms; oil recovery, refuges and expiry create route choices. Its improvement adds exact next-turn boat/moth/damage forecasts, optional tap-to-plan controls, keyboard commitment and compact layout. See [Lanternwake report](RUN_REPORT_2026-10-23_LANTERNWAKE.md).
+Copper Cadence is a hand-cranked percussion pipeline with five compact commissions: feed conserved beads into unequal tracks, hold exits, and rotate destinations. Its improvement adds exact next-turn and three-beat forecasts, bead motion, stable keyboard focus, compact phone controls, and a revised commission that provably requires braking for a perfect take. Sound is optional and synthesized; all events have visual equivalents. See [Copper Cadence report](RUN_REPORT_2026-10-23_COPPER_CADENCE.md).
 
-Final gameplay [CI 39938472688](https://github.com/ThatOneMop/study-desk/actions/runs/39938472688) passes all **125 engine/DOM checks**, all three complete desktop/touch campaigns and public integrity gates, with 58 screenshots. Lanternwake contributes 24 engine + 21 DOM checks. The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
+Final exact-source [CI 39945625373](https://github.com/ThatOneMop/study-desk/actions/runs/39945625373) passed all **171 engine/interface tests** (94 engine, 77 DOM), full desktop and touch-emulated campaigns for all four candidates, and public integrity gates. Copper Cadence contributes 26 engine + 20 DOM checks. Its five commissions each completed at three seals in Chromium desktop 1280×1000 and touch emulation 390×844; tests cover forecast supplies, midgame reloads, blocked feeds, audio opt-in, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt-save recovery and return navigation, with no browser errors. [80 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39945625373/artifacts/12497792894) were retained, including 22 Copper Cadence captures. Representative final desktop and phone midgame screenshots were visually inspected.
 
-Lanternwake checks follow the same commands/dependencies: `node --test tests/lanternwake-engine.cjs`, jsdom `tests/lanternwake-dom.cjs`, and Chromium `tests/lanternwake-browser.cjs`. Its `tests/lanternwake-solve.cjs` generates bounded beam-search reference routes, not optimality proofs.
+The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-Next: implement Copper Cadence, slot 24; improve and test it before counting it finished. Selection waits for broader comparison.
+Lanternwake and Copper Cadence checks follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Lanternwake's solve script generates bounded beam-search reference routes, not optimality proofs. Copper Cadence's author script records deliberate level designs; do not regenerate fixtures to conceal regression failures. Its unbraked-prefix search independently checks the third commission's teaching constraint.
+
+Next: implement Hollow Keeper, slot 25; improve and test it before counting it finished. Selection waits for broader comparison.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 

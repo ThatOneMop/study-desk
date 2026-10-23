@@ -22,7 +22,7 @@
   "totals": {
     "playable": 4,
     "improved": 4,
-    "finished": 3,
+    "finished": 4,
     "selected": 0,
     "meaningfulPasses": 4,
     "verifiedLive": 0
@@ -214,7 +214,7 @@
       "id": "copper-cadence",
       "title": "Copper Cadence",
       "coreLoop": "Hand-crank a scarce-bead percussion machine: feed unequal-length tracks, brake queued beads and rotate exits to synchronize requested notes.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/copper-cadence",
       "improvementPasses": [
         {
@@ -223,29 +223,50 @@
           "changes": [
             "Non-mutating exact next-turn and three-beat pipeline forecasts expose expected notes, missing/extra notes, supply, blocked inlets and final undelivered penalties.",
             "Animate bead travel and crank gear; respect reduced motion; preserve keyboard focus when staging controls.",
-            "Bring forecast beside crank and compact/reorder narrow layouts so score, inputs and action preview are closer."
+            "Bring forecast beside crank and compact/reorder narrow layouts so score, inputs and action preview are closer.",
+            "Revise the brake-teaching score to create a genuine competing-feed constraint; an independent search proves no perfect unbraked path survives its first chord. Correct the browser harness to avoid activating the modal Close button with Space."
           ],
-          "validation": "25 engine + 20 DOM checks pass locally. Full desktop/touch Chromium campaign CI pending."
+          "validation": "Final exact-source CI 39945625373 passed 26 Copper Cadence engine + 20 DOM checks, all five three-seal desktop/touch commissions, forecasts, reloads, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, corrupt recovery and navigation. All three prior candidates pass unchanged; 171 checks total and 80 screenshots. All five Copper Cadence commissions additionally completed through cloud UI."
         }
       ],
       "tests": [
-        "25 engine tests passed: five perfect commissions, physical timing oracle, inventory conservation, queues, rotating exits, scoring, save verification, atomic rejection and exact forecasts.",
-        "20 DOM tests passed: all commissions, keyboard/focus, previews, save/reload, recovery, storage failure, audio opt-in/fallback and reduced-motion behavior."
+        "26 engine tests: five perfect commissions; independent travel-time oracle; inventory conservation; atomic rejection; brake queues; in-flight routing; scoring and leftover penalties; replay-verified saves; unlocks and best-record retention; forecasts/traces/motion; exhaustive unbraked-prefix search proves the third commission needs braking for a perfect take.",
+        "20 DOM tests: five campaigns, input locks, keyboard/modal guards, focus preservation, staged controls and forecasts, midgame save/reload, restart/cancel, loss/undo, unlock navigation, corrupt-save recovery, blocked storage, optional audio/fallback and reduced-motion behavior.",
+        "GitHub Chromium desktop 1280x1000 and touch emulation 390x844: all five three-seal commissions, exact supply forecasts, midgame reload per commission, audio opt-in, blocked-feed atomicity, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation; no uncaught errors.",
+        "80 CI screenshots across four games, 22 for Copper Cadence. Final representative desktop/phone midgame captures inspected. All five Copper Cadence commissions additionally completed in cloud UI; first desktop-width, remaining four in a 390px layout frame (not physical-device touch testing).",
+        "All prior 125 engine/DOM checks and three desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, assets, nine first-batch source hashes and exactly twenty-slot gate passed."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Initial playable and meaningful improvement implemented; browser campaign and final quality assessment pending."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3.5,
+        "polish": 4,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Conserved beads, unequal track lengths, one feeder, queue brakes and in-flight routing make a distinct mechanical pipeline puzzle. Exact forecasts support reasoning; a revised commission now genuinely requires braking for perfection. Five compact authored commissions and seal optimization limit replay depth. Original SVG instrument and synthesized audio. No physical-device test, full screen-reader audit, subjective audio listening review or long-playtime claim."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
       "developmentCommits": [
-        "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff"
-      ]
+        "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
+        "3a4d8659f47a4b3788af906ee907a93bcfbcad04",
+        "9d33ea9fcfe9347c6adbe11019da406592b9c95d",
+        "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain for comparison with the wider second-batch slate. A scarce-bead mechanical pipeline is distinct from first-batch Stone Song rhythm arrangement, Reefwright ecology, Counterweight balance and Lanternwake navigation. No automatic public selection.",
+      "verification": {
+        "commit": "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39945625373",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39945625373/artifacts/12497792894",
+        "sha256": {
+          "engine.js": "cd6ff993f09f0d1eae5a6dc9a9a92a53592580aa701996f02e4c807e3f350847",
+          "game.js": "132aa09d21a989ef6f5596fb603fd4ad75544af9fb279dbedeea5e309ab79469",
+          "index.html": "f2a8be6d4813f9d01830fbcf352fb5bed12165d7a651edbea560301c50e112cb",
+          "style.css": "65946eaba810dfef7cbc080b84fc20cd60daa5136aa88a2f2669ba2f8b749200"
+        }
+      }
     },
     {
       "slot": 25,
@@ -569,9 +590,9 @@
     }
   ],
   "nextSteps": [
-    "Finish Copper Cadence browser campaigns and quality assessment.",
-    "Implement candidate 25, Hollow Keeper, as a distinct colony-defense loop. Sixteen concepts remain.",
-    "Compare completed candidates before selecting and integrating winners into fresh main."
+    "Implement candidate 25, Hollow Keeper: a beetle settlement defended by carving tunnels and luring invaders into traps. Establish a distinct enjoyable loop before counting it playable.",
+    "Sixteen candidates remain concepts. Each needs an initial playable implementation, meaningful improvement, tests and an honest quality assessment.",
+    "Compare the completed slate; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
   ],
   "baselineTestLimitations": [
     {
@@ -617,8 +638,18 @@
       "ci": "39938472688",
       "publicIntegration": null,
       "nextCandidate": 24
+    },
+    {
+      "date": "2026-10-23",
+      "result": "4 playable, 4 improved, 4 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
+      "gameplayCommit": "9d33ea9fcfe9347c6adbe11019da406592b9c95d",
+      "verificationCommit": "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6",
+      "ci": "39945625373",
+      "publicIntegration": null,
+      "nextCandidate": 25
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main re-read at ed2cf603aa47fc26e4f04216d5704351b72a32a9 with private messaging and movie/TV discovery. Only second-batch source/tests/workflow/records were written on the existing development branch. First-batch sources, saves and public catalogue remain unchanged; unfinished DOOM download preserved."
+  "concurrentWork": "Main re-read at ed2cf603aa47fc26e4f04216d5704351b72a32a9 with private messaging and movie/TV discovery. Only second-batch source/tests/workflow/records written on the development branch. Scoped diff, first-batch hashes and public regression checks passed; concurrent Gummy Bay and requested-game work preserved."
 }
