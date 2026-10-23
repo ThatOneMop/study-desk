@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 6,
+    "playable": 7,
     "improved": 6,
     "finished": 6,
     "selected": 0,
@@ -387,18 +387,23 @@
       "slot": 27,
       "id": "ratchet-run",
       "title": "Ratchet Run",
-      "coreLoop": "A side-view trials courier with bike balance, suspension choices and optional cargo routes.",
-      "status": "planned",
-      "source": null,
+      "coreLoop": "Ride a courier bike through five authored terrain courses: throttle, brake, hop and balance; protect cargo and collect optional airborne parcels; stop in the delivery bay to unlock routes.",
+      "status": "playable",
+      "source": "games/ratchet-run",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        {
+          "stage": "initial",
+          "result": "17 engine and 15 DOM checks passed; all five delivery routes replay through keyboard or pointer listeners. Browser and visual QA pending."
+        }
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Initial playable only. Real-time action variety; compact five-route prototype. Needs readability, perfect-route balance and browser QA before finished status."
       },
       "selected": false,
       "integrationCommits": []
@@ -665,7 +670,7 @@
     }
   ],
   "nextSteps": [
-    "Implement candidate 27, Ratchet Run: a side-view trials courier with bike balance, suspension choices and optional cargo routes. Prioritize responsive action variety, then improve and test it.",
+    "Improve Ratchet Run landing/cargo feedback, verify perfect routes, saved rides and desktop/touch play before marking finished.",
     "Fourteen candidates remain concepts; each needs playable implementation, meaningful improvement and verification.",
     "Compare the completed slate; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
   ],
