@@ -29,6 +29,7 @@ let browser;
     await act(`[data-cell="${m.y*6+m.x}"]`);
     const forecast=await page.locator('#forecast').textContent();assert.match(forecast,/After planting/);
     const expected=Number(forecast.match(/Vitality (\d+)/)[1]);await act('#plant');assert.equal(Number(await page.locator('#score').textContent()),expected);
+    if(stage===0&&i===2){await page.locator('#board').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,`${mobile?'touch':'desktop'}-midgame.png`),fullPage:true});}
     if(stage===0&&i===2){const count=await page.locator('#round').textContent();await page.reload();assert.equal(await page.locator('#round').textContent(),count);}
    }
    await act('#channels');await act('#finish');assert.match(await page.locator('#result').textContent(),/A reef comes alive/);

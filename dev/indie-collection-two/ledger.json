@@ -355,9 +355,9 @@
     },
     {
       "slot": 36,
-      "id": "velvet-market",
-      "title": "Velvet Market",
-      "coreLoop": "Negotiate with revealed and hidden preferences, assemble bundles and reinvest in a tiny night stall.",
+      "id": "night-clerk",
+      "title": "Night Clerk",
+      "coreLoop": "Infer guests\u2019 hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
       "status": "planned",
       "source": null,
       "improvementPasses": [],
@@ -415,9 +415,9 @@
     },
     {
       "slot": 39,
-      "id": "button-borough",
-      "title": "Button Borough",
-      "coreLoop": "Sew paths on a cloth town; thread tension, intersections and deliveries shape growth.",
+      "id": "windup-wrestling",
+      "title": "Windup Wrestling",
+      "coreLoop": "Read rival windup tells, redirect grapples and spend stored spring tension in compact arena bouts.",
       "status": "planned",
       "source": null,
       "improvementPasses": [],
@@ -458,5 +458,22 @@
     "Complete Reefwright exact-source desktop/touch Chromium verification and inspect screenshots.",
     "Implement candidate 22; reassess proposed concepts for distinctness before coding.",
     "Compare completed candidates before selecting and integrating winners."
-  ]
+  ],
+  "baselineTestLimitations": [
+    {
+      "tests": [
+        "tests/catalog-launch.cjs",
+        "tests/curation-regression.cjs"
+      ],
+      "result": "Fail on missing playerStudy element removed by latest public main layout update.",
+      "evidence": "Tests and app.js/index.html/style.css/catalog.json are byte-identical to base main bded102; no second-batch edits to them.",
+      "passingAlternatives": [
+        "tests/dom-checks.cjs",
+        "tests/bridge-pointer.cjs",
+        "tests/relaxed-collection.cjs"
+      ],
+      "action": "Preserve the current public UI. Update obsolete launcher assertions as a separate Study Desk maintenance change before future integration."
+    }
+  ],
+  "designReview": "Read the full first-batch core-loop ledger. Replaced the proposed bartering slot with Night Clerk to avoid Moss Market overlap; reserved Windup Wrestling for action variety. Planned slots remain revisable concepts and never count as playable."
 }
