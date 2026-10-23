@@ -1,4 +1,4 @@
-# Second-batch comparison, through candidate 30
+# Second-batch comparison, through candidate 31
 
 This is an agent design review of the development slate, not a player survey or final catalogue selection. The ledger remains authoritative for completion and test status. No candidate is selected yet. First-batch games and the separate Nightshift/Afterlight collections are excluded.
 
@@ -15,6 +15,8 @@ This is an agent design review of the development slate, not a player survey or 
 | Salt & Sail | Packing changes real steering drift and speed; lashings trade cargo protection against limited capacity. Coastal steering makes the packing decision tangible. | Five brief passages; best trade value is a record, not a spendable economy. Full desktop/touch campaigns and save checks passed; evidence is in the ledger. | A packing/action hybrid; compare carefully with the other cargo-themed candidates. |
 | Pocket Palaeo | Gentle excavation leads into a graph-support lifting decision; recovered condition buys functional field tools. | Six fixed specimens; replay mainly improves condition, with no random finds or sound layer. Full desktop/touch campaigns and recovery checks passed. | A calm manual task with collection and spending, distinct from the existing cargo and action games. |
 
+| Static Orchard | Charged shots turn moving swarms into temporary circuits; arc forecasts and keyboard tracking make release decisions readable. Earned seals buy functional charge, arc and health tools. | Four compact defenses and nine entrance variations; no endless campaign or audio layer. Complete native desktop/touch campaigns, saving, loss/retry and input checks passed. | Real-time aiming and defense, distinct from the fixed chain-reaction garden and the existing action/cargo games. |
+
 Reefwright currently has the strongest recorded enjoyment/polish assessment. Copper Cadence supplies unusual machinery and sound; Wellward supplies the clearest bank-and-upgrade loop. These are provisional reasons to keep them in contention, not publication decisions. Ratchet Run should earn a place through responsive action and replay rather than being included merely to fill a genre slot.
 
 Salt & Sail shares a nautical setting with Lanternwake and cargo imagery with Counterweight/Ratchet Run, but its player decisions differ: fit shaped goods into a hold, choose two lashings, then compensate for that exact load while continuously steering and reefing. Reefwright's polyomino placement instead changes ecology and open-water scoring. Those mechanical distinctions justify a separate candidate; they do not justify publishing every thematically similar game.
@@ -23,7 +25,9 @@ Pocket Palaeo combines tactile soil removal with load distributed over a connect
 
 ## Remaining evaluation work
 
-- Build the ten unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining action, tea blending and social deduction concepts should broaden the slate.
+- Build the nine unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining action, tea blending and social deduction concepts should broaden the slate.
 - Revisit the strongest candidates after the full slate exists. Prioritize meaningful progression and readable controls over adding arbitrary counts or waiting time.
 - Compare finalists by enjoyment, depth, polish, reliability and variety, with explicit limitations. Automated winning routes establish reachability and regression coverage, not human enjoyment or hours of content.
 - Select a small complementary group, integrate against freshly read main, update catalogue/launch checks for the current shell, and test the actual release. Preserve the first batch and all unrelated work.
+
+Static Orchard uses continuous aim, charge/release timing, enemy motion, armor, shield windows and emergency pulse range. Afterlight’s Lumen Grove uses static chain placement; Orchard Atelier catches falling harvest. The shared orchard/electric imagery does not replace those distinct player actions. The first pulse design cleared the whole screen too cheaply; restricting it to the selected fruit’s vicinity gives it an emergency role and makes fruit selection consequential. Its compact progression earns a place in the comparison, not automatic publication.

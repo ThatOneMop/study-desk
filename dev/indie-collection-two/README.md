@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` `http://localhost:8000/games/salt-and-sail/` or `http://localhost:8000/games/pocket-palaeo/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` `http://localhost:8000/games/wellward/` `http://localhost:8000/games/salt-and-sail/` `http://localhost:8000/games/pocket-palaeo/` or `http://localhost:8000/games/static-orchard/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,17 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**10/20 playable, improved and finished; 0 selected, integrated or verified live.** Pocket Palaeo is the tenth finished development candidate. Ten slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
+**11/20 playable, improved and finished; 0 selected, integrated or verified live.** Static Orchard is the eleventh finished development candidate. Nine slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
 
-Pocket Palaeo connects careful excavation to supported fossil lifting and a museum that funds real field tools. Three sites contain six specimens. Its improvement adds exact lift-risk forecasts, explicit confirmation, trapped-soil and overload highlights, continuous fast brush strokes and clearer specimen details. See [Pocket Palaeo report](RUN_REPORT_2026-10-24_POCKET_PALAEO.md) and [candidate comparison](COMPARISON.md); earlier reports remain in this directory.
+Static Orchard adds continuous charge/release aiming against moving swarms, armor and a shielded queen. Four orchards award non-farmable seals for three functional tools; nine windseeds vary entrances. Its improvement adds exact arc forecasts, keyboard target tracking and a localized emergency pulse in place of the overpowered global attack. The current local candidate suite passes 25 checks (14 engine, 11 DOM). No duration or human enjoyment claim is made.
 
-Exact-source [CI 39990612900](https://github.com/ThatOneMop/study-desk/actions/runs/39990612900) passed **425 engine/interface checks** (240 engine, 185 DOM), complete desktop/touch campaigns for all ten candidates and public integrity gates. Pocket Palaeo completed six perfect recoveries, all tool purchases, every-site reloads, fast strokes, lift previews, fracture/restart, isolated save recovery/reset and navigation. [238 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39990612900/artifacts/12518351510) were retained, including 34 Pocket Palaeo captures; representative desktop and phone images were reviewed.
+Exact-source [CI 39995202317](https://github.com/ThatOneMop/study-desk/actions/runs/39995202317) passed **450 engine/interface checks** (254 engine, 196 DOM), complete desktop/touch campaigns for all eleven candidates and public integrity gates. Static Orchard completed every defense, all tool purchases, every-orchard paused reloads, keyboard tracking and native touch cancellation, real idle loss/retry, isolated recovery/reset, navigation and normal-RAF charging. [266 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39995202317/artifacts/12519948143) were retained, including 28 Static Orchard captures; representative desktop and phone images were reviewed. See the [Static Orchard report](RUN_REPORT_2026-10-24_STATIC_ORCHARD.md) and [comparison](COMPARISON.md).
 
 The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-All ten implemented candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
+All implemented candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: implement, improve and test Static Orchard, slot 31, with electric-fruit charging and arc chains through moving pests. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
+Next: implement, improve and test Borrowed Gravity, slot 32. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 

@@ -22,7 +22,7 @@
   "totals": {
     "playable": 11,
     "improved": 11,
-    "finished": 10,
+    "finished": 11,
     "selected": 0,
     "meaningfulPasses": 11,
     "verifiedLive": 0
@@ -31,7 +31,7 @@
     "status": "blocked",
     "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
     "checked": "2026-10-24",
-    "detail": "Latest main release 39925660833 freshly checked: routes/assets passed, Configure GitHub Pages failed, prepare/upload/deploy skipped. No second-batch candidates integrated or deployed. Development is not blocked."
+    "detail": "Latest main release 39925660833 freshly checked: routes/assets passed. Configure GitHub Pages reports Get Pages site: Not Found, followed by Create Pages site: Resource not accessible by integration. Prepare/upload/deploy skipped. No second-batch candidates integrated or deployed; development is not blocked."
   },
   "candidates": [
     {
@@ -638,7 +638,7 @@
       "id": "static-orchard",
       "title": "Static Orchard",
       "coreLoop": "Charge and release electric fruit to chain arcs through moving pests and power harvest tools.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/static-orchard",
       "improvementPasses": [
         {
@@ -649,27 +649,50 @@
             "Keyboard T cycles moving target tracking; arrows and pointer aiming return to manual control.",
             "Rebalanced the overpowered global pulse into a 180-pixel emergency defense centered on the selected fruit, with explicit range and target count; it spends four harvest and bypasses armor."
           ],
-          "validation": "14 engine and 11 DOM checks pass. Native desktop/touch campaign verification pending; not counted finished."
+          "validation": "14 engine and 11 DOM checks; exact-source CI 39995202317 passed all four native desktop/touch defenses, purchases, every-orchard paused reloads, keyboard and touch cancellation, loss/restart, recovery/reset, navigation and real-time RAF. Full eleven-game regression and representative screenshots passed review."
         }
       ],
       "tests": [
-        "Initial playable: 12 engine and 9 DOM checks passed. Four-orchard winning campaign, idle loss/retry, charge tiers, chains, armor, queen shields, pulse economy, tool purchases, windseeds, strict saves, keyboard/pointer input, focus cancellation and isolated recovery/reset. Native browser QA and improvement still pending.",
-        "Improvement: all 25 checks pass, including pure/exact chain forecasts, real upgrade effects, keyboard tracking/manual override, scoped pulse damage/cost and target availability."
+        "Initial playable: 12 engine and 9 DOM checks passed. Four-orchard winning campaign, idle loss/retry, charge tiers, chains, armor, queen shields, pulse economy, tool purchases, windseeds, strict saves, keyboard/pointer input, focus cancellation and isolated recovery/reset. Native browser QA and improvement were pending at that initial commit.",
+        "Improvement: all 25 checks pass, including pure/exact chain forecasts, real upgrade effects, keyboard tracking/manual override, scoped pulse damage/cost and target availability.",
+        "Native CI 39995202317 Static Orchard step passed: four complete desktop/touch-emulated campaigns, all three tools, every-orchard exact paused reloads, keyboard tracking/fruit/manual aim, native touch cancellation, idle loss/restart, scoped recovery/reset, navigation and a normal-RAF charge check. Full prior-candidate regression and artifact inspection subsequently passed.",
+        "Additional engine reachability sweep: all 36 orchard/windseed combinations cleared with base equipment, 243 shots total and minimum six health. This is deterministic input coverage, not human duration or challenge measurement.",
+        "Final exact-source CI 39995202317 passed 254 engine + 196 DOM = 450 checks, all eleven desktop/touch campaigns, normal-RAF checks and public integrity gates.",
+        "Artifact 12519948143 verified: 266 PNG screenshots, including 28 Static Orchard captures. SHA256 6a1fca085d7fd05933ef74bb895f6e9a80cd9df0dc99589a24a4fe25f7adbfdc. Desktop charged-arc and phone completed-harvest images reviewed; direct local desktop/narrow-screen visual QA also passed.",
+        "Current public shell, bridge-pointer and relaxed collection checks passed locally. First-batch source hashes and all 19 bundled routes/55 HTML references preserved. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Initial playable only; no finished or quality score claimed before improvement and native verification."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Charged shots turn moving swarms into circuits; exact arc forecasts and optional keyboard tracking make releases readable. Harvest energy funds a local emergency pulse, while non-farmable records purchase three functional tools. Four compact authored defenses and nine entrance variations provide limited replay; no audio layer, endless campaign or colony economy. Original Canvas/CSS artwork. Native desktop and touch-emulated full campaigns passed, but no physical-device or human-hours/enjoyment claim. Full eleven-candidate regression and representative desktop/phone artifact inspection passed. Phone play requires some scrolling."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "a3485e64b8fc7af817f05384eae73713c3f9a7ff",
       "developmentCommits": [
-        "a3485e64b8fc7af817f05384eae73713c3f9a7ff"
-      ]
+        "a3485e64b8fc7af817f05384eae73713c3f9a7ff",
+        "c5572e4de57bf9b55edd14ca239fc4a853e3b807",
+        "e8f1e4ee390682193592005fc2ef38df0a841f72"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain for slate comparison as real-time aiming/defense variety. Compact depth must compete with the full collection; no automatic publication.",
+      "verification": {
+        "commit": "e8f1e4ee390682193592005fc2ef38df0a841f72",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39995202317",
+        "status": "passed",
+        "sha256": {
+          "engine.js": "93d8ed2f898d9d755ad912fa5bae7abfe1fb54f441b3aa15d8e7db86b41b14ce",
+          "game.js": "1b66bb128c06e65b0500c41e111f2d9a3aa0b3024cd68406e1a04e58f14f3e88",
+          "index.html": "66d7265b3fb7378d4d607b0e9770e89430287def60eff127bd87828e971ae0d0",
+          "style.css": "856d6013c8957b59c5ee54ab4c7949b2b7ab2b73ea6f3a08e17c7e6d3e768a5c"
+        },
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39995202317/artifacts/12519948143",
+        "artifactSha256": "6a1fca085d7fd05933ef74bb895f6e9a80cd9df0dc99589a24a4fe25f7adbfdc"
+      }
     },
     {
       "slot": 32,
@@ -853,8 +876,9 @@
     }
   ],
   "nextSteps": [
-    "Improve Static Orchard slot 31, then verify full desktop/touch campaigns and assess quality before counting it finished.",
-    "Nine slots remain planned; Static Orchard is playable but not finished. Preserve the broader variety objective.",
+    "Implement, improve and test Borrowed Gravity, slot 32: a room-based action puzzler where stealing gravity from objects powers movement.",
+    "Nine slots remain planned and uncounted. Keep action, blending and social deduction concepts mechanically distinct from existing games.",
+    "As native coverage grows, split independent game browser campaigns into bounded parallel CI jobs with separate artifacts before the existing 20-minute job limit becomes a blocker. Preserve every existing test.",
     "Revisit all candidates for deeper improvement and select a complementary group using COMPARISON.md; no automatic inclusion.",
     "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."
   ],
@@ -970,6 +994,16 @@
       "ci": "39990612900",
       "publicIntegration": null,
       "nextCandidate": 31
+    },
+    {
+      "date": "2026-10-24",
+      "result": "11 playable, 11 improved, 11 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "a3485e64b8fc7af817f05384eae73713c3f9a7ff",
+      "gameplayCommit": "c5572e4de57bf9b55edd14ca239fc4a853e3b807",
+      "verificationCommit": "e8f1e4ee390682193592005fc2ef38df0a841f72",
+      "ci": "39995202317",
+      "publicIntegration": null,
+      "nextCandidate": 32
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
