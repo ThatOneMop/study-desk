@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 11,
+    "playable": 12,
     "improved": 11,
     "finished": 11,
     "selected": 0,
@@ -699,17 +699,19 @@
       "id": "borrowed-gravity",
       "title": "Borrowed Gravity",
       "coreLoop": "A room-based action puzzler where stealing gravity from objects powers movement.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/borrowed-gravity",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial playable: 16 engine and 12 DOM checks passed. Four complete galleries, source/linked-gate conservation, reach/line checks, wall/floor jumping, scanner loss/retry, two calibration unlocks, strict save roundtrips/recovery, keyboard/touch adapters and scoped reset. Native verification and improvement pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Playable initial implementation; native verification and a meaningful improvement are required before finished status."
       },
       "selected": false,
       "integrationCommits": []
@@ -876,8 +878,8 @@
     }
   ],
   "nextSteps": [
-    "Implement, improve and test Borrowed Gravity, slot 32: a room-based action puzzler where stealing gravity from objects powers movement.",
-    "Nine slots remain planned and uncounted. Keep action, blending and social deduction concepts mechanically distinct from existing games.",
+    "Improve Borrowed Gravity slot 32, then run native campaigns and visual QA before counting it finished.",
+    "Eight slots remain planned; Borrowed Gravity is playable but not finished. Keep the slate mechanically distinct.",
     "As native coverage grows, split independent game browser campaigns into bounded parallel CI jobs with separate artifacts before the existing 20-minute job limit becomes a blocker. Preserve every existing test.",
     "Revisit all candidates for deeper improvement and select a complementary group using COMPARISON.md; no automatic inclusion.",
     "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."

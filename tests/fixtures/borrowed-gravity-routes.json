@@ -1,0 +1,160 @@
+[
+  {
+    "room": 0,
+    "frames": 372,
+    "transfers": 1,
+    "steps": [
+      {
+        "type": "start"
+      },
+      {
+        "type": "borrow"
+      },
+      {
+        "type": "tick",
+        "frames": 93,
+        "input": 0
+      },
+      {
+        "type": "tick",
+        "frames": 194,
+        "input": 2
+      },
+      {
+        "type": "return"
+      },
+      {
+        "type": "tick",
+        "frames": 85,
+        "input": 0
+      }
+    ]
+  },
+  {
+    "room": 1,
+    "frames": 295,
+    "transfers": 1,
+    "steps": [
+      {
+        "type": "room",
+        "room": 1
+      },
+      {
+        "type": "start"
+      },
+      {
+        "type": "borrow"
+      },
+      {
+        "type": "tick",
+        "frames": 138,
+        "input": 0
+      },
+      {
+        "type": "tick",
+        "frames": 129,
+        "input": 4
+      },
+      {
+        "type": "return"
+      },
+      {
+        "type": "tick",
+        "frames": 28,
+        "input": 1
+      }
+    ]
+  },
+  {
+    "room": 2,
+    "frames": 267,
+    "transfers": 1,
+    "steps": [
+      {
+        "type": "room",
+        "room": 2
+      },
+      {
+        "type": "start"
+      },
+      {
+        "type": "borrow"
+      },
+      {
+        "type": "tick",
+        "frames": 30,
+        "input": 4
+      },
+      {
+        "type": "tick",
+        "frames": 108,
+        "input": 0
+      },
+      {
+        "type": "tick",
+        "frames": 100,
+        "input": 4
+      },
+      {
+        "type": "return"
+      },
+      {
+        "type": "tick",
+        "frames": 29,
+        "input": 2
+      }
+    ]
+  },
+  {
+    "room": 3,
+    "frames": 456,
+    "transfers": 2,
+    "steps": [
+      {
+        "type": "room",
+        "room": 3
+      },
+      {
+        "type": "start"
+      },
+      {
+        "type": "borrow"
+      },
+      {
+        "type": "tick",
+        "frames": 93,
+        "input": 0
+      },
+      {
+        "type": "tick",
+        "frames": 208,
+        "input": 2
+      },
+      {
+        "type": "select",
+        "id": 1
+      },
+      {
+        "type": "borrow"
+      },
+      {
+        "type": "tick",
+        "frames": 8,
+        "input": 0
+      },
+      {
+        "type": "tick",
+        "frames": 129,
+        "input": 8
+      },
+      {
+        "type": "return"
+      },
+      {
+        "type": "tick",
+        "frames": 18,
+        "input": 1
+      }
+    ]
+  }
+]
