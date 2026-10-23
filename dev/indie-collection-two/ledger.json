@@ -22,7 +22,7 @@
   "totals": {
     "playable": 5,
     "improved": 5,
-    "finished": 4,
+    "finished": 5,
     "selected": 0,
     "meaningfulPasses": 5,
     "verifiedLive": 0
@@ -273,35 +273,58 @@
       "id": "hollow-keeper",
       "title": "Hollow Keeper",
       "coreLoop": "Defend a beetle settlement by carving reversible tunnels and luring invaders into traps.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/hollow-keeper",
       "improvementPasses": [
         {
-          "pass": 1,
           "changes": [
             "Added deterministic route overlays and exact remaining-wave scout reports so players can compare defenses before launching.",
             "Added staged tool previews, explicit confirmation/cancel, projected costs and hearts; selecting fruit pauses auto march.",
             "Preserved keyboard focus after rerenders, added Enter confirmation/Escape cancellation, and made depleted thorn beds visibly crossed out.",
             "Moved tool selection next to the map at all viewport sizes after phone-width inspection."
           ],
-          "validation": "25 engine and 20 DOM checks pass, including exact scouts on five full campaigns, lure recrossing, stationary thorn charging, preview isolation and keyboard focus. Browser campaign verification pending."
+          "validation": "Exact-source CI 39953185745 passed 25 Hollow Keeper engine + 20 DOM checks, all five three-seal desktop/touch hollows, exact scouts/costs, reloads, invalid previews, route toggles, loss/undo, keyboard focus/Enter/Space, auto pause, fruit, restart/cancel, isolated save recovery and navigation. All four previous candidates passed unchanged: 216 checks total, 102 screenshots.",
+          "passNumber": 1,
+          "date": "2026-10-23"
         }
       ],
       "tests": [
-        "Initial version: 21 engine and 15 DOM checks passed, including all five no-damage two-wave defenses.",
-        "Improved version: 25 engine and 20 DOM checks passed. Managed-browser first hollow completed with three seals; desktop and phone-width layout inspected. Full desktop/touch CI pending."
+        "Initial playable version: 21 engine and 15 DOM checks passed before the improvement commit.",
+        "Improved version: 25 engine checks cover five no-damage campaigns, connectivity, costs, charges/refill, armor, lures/recrossing, spawn occupancy, defeat/undo, progression, replay-verified saves, malformed actions and exact non-mutating forecasts.",
+        "20 DOM checks cover five full campaigns, onboarding, locks, keyboard/dialog guards, auto stopping, exact mid-wave reload, restart/cancel, loss/undo, navigation, isolated corrupt-save recovery, blocked storage, preview isolation, Enter focus and route/scout feedback.",
+        "Chromium desktop 1280x1000 and touch emulation 390x844 completed all five hollows at three seals; exact scouts/tool costs, per-hollow reload, invalid previews, route toggles, loss/undo, native keyboard focus/Enter/Space, auto pause, fruit, restart/cancel, isolated recovery and return navigation passed with no browser errors.",
+        "102 CI screenshots across five games, 22 for Hollow Keeper. Representative desktop hollow 4 and touch hollow 5 midgame captures visually inspected. Direct cloud UI completed hollow 1 at desktop width and hollows 2 and 3 in a 390px layout frame, all at three seals. Layout frame is not physical-device testing.",
+        "All prior 171 engine/DOM checks and four desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, static assets, nine first-batch selected-source hashes and exactly twenty-slot gate passed."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Improved implementation; full Chromium regression and final quality assessment pending."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Route shaping, shared approaches, limited thorn charges and fruit recrossing create a distinct compact maze-defense puzzle. Scout reports and safe previews support experimentation. Five authored hollows constrain replay depth; phone play still scrolls between planning and wave controls. Original SVG art, no audio dependency. Not a deep colony simulation or evidence of multi-hour content. No physical-device or full screen-reader audit."
       },
       "selected": false,
       "integrationCommits": [],
-      "initialCommit": "f6266bd85765772a9c7824b77f48e4f96b152837"
+      "initialCommit": "f6266bd85765772a9c7824b77f48e4f96b152837",
+      "developmentCommits": [
+        "f6266bd85765772a9c7824b77f48e4f96b152837",
+        "73b95527ab3861f9e75a9047564169c098a809db"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain for comparison with the wider slate. Maze-defense route shaping adds variety alongside ecology, balancing, navigation and mechanical timing; distinct from first-batch Queen of Cinders worker/rescue loop. No automatic public selection.",
+      "verification": {
+        "commit": "73b95527ab3861f9e75a9047564169c098a809db",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39953185745",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39953185745/artifacts/12502075149",
+        "sha256": {
+          "engine.js": "b495367acee02c03af2ac318b47e7d573633eb9a7984bf29c2b2eaefcc10e508",
+          "game.js": "af83579639206401bd2ee84d6e7397fef2698841278ba4f5578a19ec62cfb33d",
+          "index.html": "7e4d9b67acca78307205c4c8756d9af7d0dc849745234177e89c98cd22a30b33",
+          "style.css": "901b008a73c97119be8b7bc1d0363b194859b4a5e155a1ec353a1b09bbee174f"
+        }
+      }
     },
     {
       "slot": 26,
@@ -605,7 +628,7 @@
     }
   ],
   "nextSteps": [
-    "Complete Hollow Keeper desktop/touch Chromium verification, then assess it honestly before marking finished.",
+    "Implement candidate 26, Paper Odyssey: fold a paper map to change island connections and traversal. Establish a distinct enjoyable playable loop, then improve and test it.",
     "Fifteen candidates remain concepts. Next: candidate 26, Paper Odyssey.",
     "Compare the completed slate; integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions and verify Pages when configuration is available."
   ],
@@ -663,6 +686,15 @@
       "ci": "39945625373",
       "publicIntegration": null,
       "nextCandidate": 25
+    },
+    {
+      "date": "2026-10-23",
+      "result": "5 playable, 5 improved, 5 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "f6266bd85765772a9c7824b77f48e4f96b152837",
+      "gameplayCommit": "73b95527ab3861f9e75a9047564169c098a809db",
+      "ci": "39953185745",
+      "publicIntegration": null,
+      "nextCandidate": 26
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",

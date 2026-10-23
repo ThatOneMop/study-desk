@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` or `http://localhost:8000/games/copper-cadence/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` or `http://localhost:8000/games/hollow-keeper/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,17 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**4/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake and Copper Cadence are finished development candidates. Sixteen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
+**5/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper are finished development candidates. Fifteen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
 
-Copper Cadence is a hand-cranked percussion pipeline with five compact commissions: feed conserved beads into unequal tracks, hold exits, and rotate destinations. Its improvement adds exact next-turn and three-beat forecasts, bead motion, stable keyboard focus, compact phone controls, and a revised commission that provably requires braking for a perfect take. Sound is optional and synthesized; all events have visual equivalents. See [Copper Cadence report](RUN_REPORT_2026-10-23_COPPER_CADENCE.md).
+Hollow Keeper is a compact maze-defense game: redirect tunnels, tend limited-charge thorn beds and lure armored intruders away from a beetle nursery. Its improvement adds exact scout reports, route overlays, staged tool previews, stable keyboard focus, clearer depleted traps and tool selection beside the map. See [Hollow Keeper report](RUN_REPORT_2026-10-23_HOLLOW_KEEPER.md). Earlier candidate reports remain in this directory.
 
-Final exact-source [CI 39945625373](https://github.com/ThatOneMop/study-desk/actions/runs/39945625373) passed all **171 engine/interface tests** (94 engine, 77 DOM), full desktop and touch-emulated campaigns for all four candidates, and public integrity gates. Copper Cadence contributes 26 engine + 20 DOM checks. Its five commissions each completed at three seals in Chromium desktop 1280×1000 and touch emulation 390×844; tests cover forecast supplies, midgame reloads, blocked feeds, audio opt-in, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt-save recovery and return navigation, with no browser errors. [80 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39945625373/artifacts/12497792894) were retained, including 22 Copper Cadence captures. Representative final desktop and phone midgame screenshots were visually inspected.
+Final exact-source [CI 39953185745](https://github.com/ThatOneMop/study-desk/actions/runs/39953185745) passed **216 engine/interface tests** (119 engine, 97 DOM), full desktop and touch-emulated campaigns for all five candidates, and public integrity gates. Hollow Keeper completed all five hollows at three seals at 1280×1000 desktop and 390×844 touch emulation. Exact scouts and tool costs, midgame reload per hollow, invalid previews, route toggles, loss/undo, native keyboard focus/Enter/Space, auto pause, fruit, restart/cancel, isolated corrupt-save recovery and return navigation passed with no browser errors. [102 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39953185745/artifacts/12502075149) were retained, including 22 Hollow Keeper captures. Representative desktop hollow 4 and touch hollow 5 midgame captures were visually inspected.
 
 The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-Lanternwake and Copper Cadence checks follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Lanternwake's solve script generates bounded beam-search reference routes, not optimality proofs. Copper Cadence's author script records deliberate level designs; do not regenerate fixtures to conceal regression failures. Its unbraked-prefix search independently checks the third commission's teaching constraint.
+All five candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Hollow Keeper's bounded solver provides reference routes, not optimality proofs. Never regenerate fixtures to conceal a regression. Lanternwake's solver likewise uses bounded beam search; Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: implement Hollow Keeper, slot 25; improve and test it before counting it finished. Selection waits for broader comparison.
+Next: implement Paper Odyssey, slot 26; improve and test it before counting it finished. Selection waits for broader comparison.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 
