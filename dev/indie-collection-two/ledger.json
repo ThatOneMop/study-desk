@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 16,
-    "improved": 15,
+    "improved": 16,
     "finished": 15,
     "selected": 0,
-    "meaningfulPasses": 15,
+    "meaningfulPasses": 16,
     "verifiedLive": 0
   },
   "deployment": {
@@ -935,11 +935,23 @@
       "id": "night-clerk",
       "title": "Night Clerk",
       "coreLoop": "Infer guests\u2019 hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/night-clerk",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "passNumber": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Pure room forecasts expose known conflicts and collateral neighbour effects without revealing unasked needs.",
+            "Atomic key swaps and undo preserve later interviews while preventing bell rewinds.",
+            "Fixed phone key panel with native guest chooser, focus continuity, opaque controls and truthful completed-room labels."
+          ],
+          "validation": "18 engine and 12 DOM checks pass; native desktop/touch five-shift verification pending."
+        }
+      ],
       "tests": [
-        "Initial playable: 12 engine and seven interface checks pass, including five complete shifts, all seals, guest adjacency/noise rules, functional screen unlocks, natural failure/retry, replay saves, keyboard focus, recovery and blocked storage. Meaningful improvement and native verification pending."
+        "Initial playable: 12 engine and seven interface checks pass, including five complete shifts, all seals, guest adjacency/noise rules, functional screen unlocks, natural failure/retry, replay saves, keyboard focus, recovery and blocked storage. Meaningful improvement and native verification pending.",
+        "Improved: 18 engine and 12 DOM checks pass. Native campaign harness added; pending CI."
       ],
       "quality": {
         "enjoyment": null,
@@ -947,10 +959,14 @@
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Playable and improved; final review awaits native verification."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836",
+      "developmentCommits": [
+        "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836"
+      ]
     },
     {
       "slot": 37,
