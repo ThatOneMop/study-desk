@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` or `http://localhost:8000/games/counterweight/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/` or `http://localhost:8000/games/lanternwake/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,13 +26,15 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**2/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright and Counterweight are finished development candidates. Eighteen slots remain unimplemented concepts. The first batch and Nightshift collection are excluded.
+**3/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight and Lanternwake are finished development candidates. Seventeen slots remain concepts. The first batch, Nightshift and Afterlight are excluded.
 
-Counterweight is a pixel-art crane-and-ballast game with five authored harbour jobs, stack support, wind, fragile cargo, move medals, free undo and replay-validated saves. Its first improvement makes ballast controls physically consistent, migrates initial saves, previews exact balance/swing/damage before every move and brings landing advice closer to the controls. See [Counterweight run report](RUN_REPORT_2026-10-23_COUNTERWEIGHT.md) for evidence and limits.
+Lanternwake is a pixel-art light-routing game with five marsh crossings. Temporary lanterns enable sailing and attract moth swarms; oil recovery, refuges and expiry create route choices. Its improvement adds exact next-turn boat/moth/damage forecasts, optional tap-to-plan controls, keyboard commitment and compact layout. See [Lanternwake report](RUN_REPORT_2026-10-23_LANTERNWAKE.md).
 
-Exact gameplay [CI 39930163890](https://github.com/ThatOneMop/study-desk/actions/runs/39930163890) passes all 80 engine/DOM checks, both games' full desktop/touch campaigns, public asset/hash gates and 36 screenshots. The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still failed at Configure GitHub Pages before upload. Publishing is blocked; development can continue.
+Final gameplay [CI 39938472688](https://github.com/ThatOneMop/study-desk/actions/runs/39938472688) passes all **125 engine/DOM checks**, all three complete desktop/touch campaigns and public integrity gates, with 58 screenshots. Lanternwake contributes 24 engine + 21 DOM checks. The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-Next: prototype Lanternwake, slot 23, and improve/test it before counting it finished. Selection waits for broader comparison.
+Lanternwake checks follow the same commands/dependencies: `node --test tests/lanternwake-engine.cjs`, jsdom `tests/lanternwake-dom.cjs`, and Chromium `tests/lanternwake-browser.cjs`. Its `tests/lanternwake-solve.cjs` generates bounded beam-search reference routes, not optimality proofs.
+
+Next: implement Copper Cadence, slot 24; improve and test it before counting it finished. Selection waits for broader comparison.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 

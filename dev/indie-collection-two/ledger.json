@@ -14,7 +14,7 @@
   "baseMain": "bded102680166c0107fd8a58fef1559be7a22efa",
   "rules": [
     "Exactly 20 NEW slots, overall numbers 21\u201340. Planned concepts do not count as playable.",
-    "First batch and the separate Nightshift ten do not count toward this batch.",
+    "First batch and the separate Nightshift and Afterlight collections do not count toward this batch.",
     "One initial playable implementation and at least one tested meaningful improvement per candidate.",
     "Only finished, evaluated selections enter the real catalogue. No automatic selection of all candidates.",
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
@@ -22,7 +22,7 @@
   "totals": {
     "playable": 3,
     "improved": 3,
-    "finished": 2,
+    "finished": 3,
     "selected": 0,
     "meaningfulPasses": 3,
     "verifiedLive": 0
@@ -31,7 +31,7 @@
     "status": "blocked",
     "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
     "checked": "2026-10-23",
-    "detail": "Latest main release 39925660833 passed routes/assets, failed Configure GitHub Pages and skipped prepare/upload/deploy. No second-batch integration attempted."
+    "detail": "Latest main release 39925660833 freshly checked: routes/assets passed, Configure GitHub Pages failed, prepare/upload/deploy skipped. No second-batch candidates integrated or deployed. Development is not blocked."
   },
   "candidates": [
     {
@@ -156,7 +156,7 @@
       "id": "lanternwake",
       "title": "Lanternwake",
       "coreLoop": "Sail by placing temporary light beacons that reveal routes and attract dangerous moth swarms.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/lanternwake",
       "improvementPasses": [
         {
@@ -165,31 +165,49 @@
           "changes": [
             "Exact non-mutating next-turn previews show boat/moth positions, hull damage, oil, jars and every disappearing lantern, including newly thrown lights eaten immediately.",
             "Optional plan-before-acting controls support tap inspection, explicit commit/cancel and keyboard Enter without spending preview turns.",
-            "Compact the desktop map and header after visual inspection so rowing controls sit closer to the chart."
+            "Compact the desktop map and header after visual inspection so rowing controls sit closer to the chart.",
+            "Fix Enter-to-commit with focus remaining on an action button; explicitly label the turn that reaches the 180-action safety bound."
           ],
-          "validation": "24 engine checks pass, including every action forecast along all five reference routes. DOM and desktop/touch CI pending; cloud-browser first crossing completed with three medals."
+          "validation": "Final exact-source CI 39938472688 passed: 24 Lanternwake engine + 21 DOM/save tests, all five three-medal desktop and touch-emulated crossings, exact forecasts, planning/direct controls, reloads, failure/undo, restart, recovery and navigation. All Reefwright/Counterweight regressions unchanged; 58 screenshots across three games. All five Lanternwake crossings also completed through cloud-browser controls."
         }
       ],
       "tests": [
-        "24 engine tests passed locally; all five three-medal crossings.",
-        "Cloud-browser first crossing completed through real UI controls; planning leaves turns unspent until commit.",
-        "Authored 19 DOM/save tests and desktop/touch Chromium campaigns; pending GitHub CI."
+        "24 engine tests: five complete no-damage three-medal crossings; path-based illumination, expiry, oil recovery, moth choice/contact, failure/undo, bounded/forged saves, progression, permanent records and every action forecast along each reference route.",
+        "21 DOM tests: five campaigns in direct and optional planning modes, keyboard guards and Enter commitment, blocked moves, save/reload, restart/cancel, unlocks, unreadable-save protection, storage failure, danger/fading/end-of-run labels.",
+        "GitHub Chromium desktop 1280x1000 and touch emulation 390x844: all five three-medal crossings; every selected action forecast checked against actual hull/oil/jars/lights; midgame reload per crossing; loss/undo; direct/planned controls; keyboard; restart/cancel; corrupt recovery preserving another key; return navigation; no uncaught errors.",
+        "58 CI screenshots across three candidates, including 22 Lanternwake captures. Representative final desktop and phone midgame captures visually inspected. All five crossings additionally completed through cloud UI controls (first two desktop-width, last three in a 390px layout frame; not a physical-device claim).",
+        "All 80 prior Reefwright/Counterweight engine+DOM checks and their full desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, route/assets, nine selected-source hashes and exact twenty-slot gate also passed."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Light has a dual role: connected-water navigation and moth attraction. Five compact authored maps introduce expiry, oil recovery, refuges and competing swarms. Exact forecasts and optional planning make deterministic risks inspectable. Original pixel marsh art and responsive controls reviewed. No sound, procedural campaign, long-playtime claim, physical-device test or full screen-reader audit."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "203c0aaa5cac9cccaba1318bf9254b871188dceb",
       "developmentCommits": [
-        "203c0aaa5cac9cccaba1318bf9254b871188dceb"
+        "203c0aaa5cac9cccaba1318bf9254b871188dceb",
+        "d2836f64f1d12ae318924bb7f12349373e4928a5",
+        "c017ff969c15f763e59f4f5b22788f613f2e5ced"
       ],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "selectionReason": "Retain as a finished candidate until the wider second-batch slate can be compared. Temporary light both enables navigation and lures hazards; distinct from Reefwright ecology, Counterweight cargo balance and first-batch cargo/stealth loops.",
+      "verification": {
+        "commit": "c017ff969c15f763e59f4f5b22788f613f2e5ced",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39938472688",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39938472688/artifacts/12495137357",
+        "sha256": {
+          "engine.js": "59965e8de16d831c294466c3de2446c8c2e9fc0d492067c3ccc556aa413152a5",
+          "game.js": "6fcd9f4462c0746d2eb9e19683870c259fe3a7f79ed20623ca667154491b7157",
+          "index.html": "17a587fd661e68897ca1d00af79c18b8039c6dc527fff63fe0c3868b8f7a76da",
+          "style.css": "fc368a2a2d948693ac0f3e7c35dd6a8d6f6df446ade2d191ccaa250129f36918"
+        }
+      }
     },
     {
       "slot": 24,
@@ -533,9 +551,9 @@
     }
   ],
   "nextSteps": [
-    "Implement candidate 23, Lanternwake: sailing by temporary beacons that reveal routes and attract moth swarms. Prove a distinct worthwhile loop before counting it playable.",
-    "Eighteen candidates remain planned. Give each a playable implementation, meaningful tested improvement and quality assessment.",
-    "Compare completed candidates across the slate and integrate only selected winners into then-current main, preserving first-batch and concurrent work. Verify Pages deployment if repository access is repaired."
+    "Implement candidate 24, Copper Cadence: a musical machine built around manually timed and routed percussion strikes. Establish a distinct enjoyable loop before counting it playable.",
+    "Seventeen candidates remain concepts. Give each an initial playable implementation, a meaningful tested improvement and a quality assessment.",
+    "Compare the completed slate and integrate only selected winners into fresh main, preserving first-batch and concurrent work. Verify Pages if repository access is repaired."
   ],
   "baselineTestLimitations": [
     {
@@ -572,8 +590,17 @@
       "ci": "39930163890",
       "publicIntegration": null,
       "nextCandidate": 23
+    },
+    {
+      "date": "2026-10-23",
+      "result": "3 playable, 3 improved, 3 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "203c0aaa5cac9cccaba1318bf9254b871188dceb",
+      "gameplayCommit": "c017ff969c15f763e59f4f5b22788f613f2e5ced",
+      "ci": "39938472688",
+      "publicIntegration": null,
+      "nextCandidate": 24
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main advanced to ed2cf603aa47fc26e4f04216d5704351b72a32a9 with private messaging and movie/TV discovery work. This run wrote only the separate second-batch development branch; public catalogue and all first-batch source/tests are unchanged."
+  "concurrentWork": "Main re-read at ed2cf603aa47fc26e4f04216d5704351b72a32a9 with private messaging and movie/TV discovery. Only second-batch source/tests/workflow/records were written on the existing development branch. First-batch sources, saves and public catalogue remain unchanged; unfinished DOOM download preserved."
 }
