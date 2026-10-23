@@ -1,0 +1,26 @@
+# Second-batch comparison, through candidate 29
+
+This is an agent design review of the development slate, not a player survey or final catalogue selection. The ledger remains authoritative for completion and test status. No candidate is selected yet. First-batch games and the separate Nightshift/Afterlight collections are excluded.
+
+| Candidate | Strongest reason to retain | Main limitation | What it would add to the catalogue |
+| --- | --- | --- | --- |
+| Reefwright | Mixed habitats, open channels and adjacency create competing spatial goals; undo and exact previews encourage experimentation. | Five authored coasts; no broader ecosystem campaign. | A calm, readable planning game. |
+| Counterweight | Reach, ballast, swing and cumulative stack loads make deliberate crane work satisfying to reason through. | Discrete simulation and five compact jobs; another cargo theme. | Manual machinery with strategic load placement. |
+| Lanternwake | Light both reveals routes and attracts enemies, so each beacon has a cost beyond fuel. | Deterministic maps and compact progression. | Atmospheric route planning with pursuit. |
+| Copper Cadence | Conserved beads and unequal tracks make timing a mechanical puzzle; the braking commission tests its central idea. | Five commissions; subjective audio listening review remains limited. | A distinctive musical machine and the strongest audio identity so far. |
+| Hollow Keeper | Carving routes, placing traps and reusing approaches creates a compact settlement-defense loop. | It is a maze-defense puzzle, not a deep colony simulation; phone controls require scrolling. | Tactical defense and tunnel planning. |
+| Paper Odyssey | Folding changes the actual adjacency graph; scarce creases and repairs give spatial decisions consequences. | Five short charts and some phone scrolling. | A visually distinct paper-geometry puzzle. |
+| Ratchet Run | Throttle, braking, hopping and balance give direct physical control; best ghosts support cleaner retries. | Very short routes and modest progression; weaker depth than the planning candidates. | Immediate action, if the later action slate does not surpass it. |
+| Wellward | Winch motion, gravity, swing, cargo retrieval, banking and workshop purchases connect manual skill to progression. | Four finite wells; no rope wrapping or sound layer. | A manual retrieval/progression game closest to the requested satisfying-task taste. |
+| Salt & Sail | Packing changes real steering drift and speed; lashings trade cargo protection against limited capacity. Coastal steering makes the packing decision tangible. | Five brief passages; best trade value is a record, not a spendable economy. Full desktop/touch campaigns and save checks passed; evidence is in the ledger. | A packing/action hybrid; compare carefully with the other cargo-themed candidates. |
+
+Reefwright currently has the strongest recorded enjoyment/polish assessment. Copper Cadence supplies unusual machinery and sound; Wellward supplies the clearest bank-and-upgrade loop. These are provisional reasons to keep them in contention, not publication decisions. Ratchet Run should earn a place through responsive action and replay rather than being included merely to fill a genre slot.
+
+Salt & Sail shares a nautical setting with Lanternwake and cargo imagery with Counterweight/Ratchet Run, but its player decisions differ: fit shaped goods into a hold, choose two lashings, then compensate for that exact load while continuously steering and reefing. Reefwright's polyomino placement instead changes ecology and open-water scoring. Those mechanical distinctions justify a separate candidate; they do not justify publishing every thematically similar game.
+
+## Remaining evaluation work
+
+- Build the eleven unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining action, tactile excavation, tea blending and social deduction concepts should broaden the slate.
+- Revisit the strongest candidates after the full slate exists. Prioritize meaningful progression and readable controls over adding arbitrary counts or waiting time.
+- Compare finalists by enjoyment, depth, polish, reliability and variety, with explicit limitations. Automated winning routes establish reachability and regression coverage, not human enjoyment or hours of content.
+- Select a small complementary group, integrate against freshly read main, update catalogue/launch checks for the current shell, and test the actual release. Preserve the first batch and all unrelated work.

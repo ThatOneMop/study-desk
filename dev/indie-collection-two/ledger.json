@@ -22,7 +22,7 @@
   "totals": {
     "playable": 9,
     "improved": 9,
-    "finished": 8,
+    "finished": 9,
     "selected": 0,
     "meaningfulPasses": 9,
     "verifiedLive": 0
@@ -509,7 +509,7 @@
       "id": "salt-and-sail",
       "title": "Salt & Sail",
       "coreLoop": "Trade by packing a shifting ship hold; cargo placement changes balance and sailing control.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/salt-and-sail",
       "improvementPasses": [
         {
@@ -521,28 +521,48 @@
             "Keyboard hold arrows and rotation retain focus; mobile packing comes before the chart while at the quay.",
             "Reject malformed ship-fitting values and prevent saved cargo fields from overriding placement validation."
           ],
-          "validation": "28 engine and 16 DOM checks passed; full native desktop/touch browser campaigns added, CI sign-off pending."
+          "validation": "28 engine and 16 DOM checks; exact-source CI 39978965563 passed complete desktop and native multi-touch five-passage campaigns, every-passage exact paused reloads, cutter unlock, forecasts, loss/retry, cancellation, bridge pause, isolated recovery/reset and navigation. Normal-clock steering passed; desktop and phone images reviewed."
         }
       ],
       "tests": [
         "Initial implementation: 18 engine and 13 DOM tests pass, including all five three-seal full-cargo passages, packing/rotation/lash constraints, cargo-driven drift, sliding/damage, docking/loss, replay validation, saves, restart/recovery and keyboard/pointer controls.",
-        "Improved version: 28 engine and 16 DOM checks passed, including preview immutability, forecast/actual physics equality, warning/safe landing distinction, all five cutter passages, cutter replay saves and keyboard packing focus. Browser workflow pending."
+        "Final version: 28 engine and 16 DOM checks passed, including all five full-cargo keel routes, all five cutter routes, packing constraints, cargo-driven drift/slide/damage, docking/loss, exact replay saves, corrupted data, preview immutability, forecast physics equality and keyboard focus.",
+        "Exact-source CI 39978965563: 218 engine + 168 DOM = 386 checks across all nine candidates, complete desktop/touch campaigns and public integrity gates passed.",
+        "Chromium 1280x1000 native keyboard and 390x844 native multi-touch: five three-seal deliveries, packing previews, each passage reloaded at sea in exactly the same paused state, cutter unlock/selection, course forecast, cancellation, bridge pause, actual loss/retry, isolated corrupt-save recovery/new logbook and return navigation; no uncaught browser errors.",
+        "Separate normal-clock animation-frame check verified native steering changes course while the ship advances and pause persists the voyage.",
+        "Reviewed direct desktop and 390px phone layouts and representative CI campaign images. Sailing panel measured 733px tall; phone packing/setup still requires scrolling to launch. No physical-device or full screen-reader audit.",
+        "Public checks passed: 19 bundled routes/55 HTML asset references, nine first-batch selected-source hashes, exact 20-slot gate, current shell, pointer bridge and relaxed catalogue. The two inherited playerStudy launcher tests remain unchanged and are not claimed to pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Initial playable stowage and real-time sailing game. Five authored passages, rotatable cargo shapes, two lashings, optional goods, best-delivery records and an unlockable cutter. Improvement and browser sign-off pending."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Cargo shapes, mass, two lashings and sliding link packing decisions to continuous steering and reefing. Exact stow previews and an optional actual-physics course guide make consequences readable without autopilot. Five short authored passages, optional goods, best deliveries and an unlockable cutter provide modest replay. Reference keel routes total about 152 seconds of ideal sailing plus packing; not a human duration estimate or multi-hour claim. Best trade value is a record, not a spendable economy. Original smooth Canvas art; no sound layer, procedural campaign, physical-device test, full screen-reader audit or human enjoyment study. Phone setup requires scrolling, while the sailing panel fits the reviewed viewport."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "a57e8797b73dde7adc1b8132fb413aa4f97f27a0",
       "developmentCommits": [
         "a57e8797b73dde7adc1b8132fb413aa4f97f27a0",
-        "0fd2f6abaf5f57117bc3686d5b4f6e3cad5f25e3"
-      ]
+        "0fd2f6abaf5f57117bc3686d5b4f6e3cad5f25e3",
+        "3abdf9c1a79e75844abe9365a66e6b288da89554"
+      ],
+      "publishedUrl": null,
+      "selectionReason": "Retain as a finished packing/action candidate for broader comparison. Its core loop differs from crane operations, ecological placement and lantern navigation, but the repeated nautical/cargo theme and limited route depth argue against automatic selection.",
+      "verification": {
+        "commit": "3abdf9c1a79e75844abe9365a66e6b288da89554",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39978965563",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39978965563/artifacts/12514390032",
+        "sha256": {
+          "engine.js": "f718017776b1777cee70ecd451291200a63805a6ba93a63d47201e90036d5f54",
+          "game.js": "25ecd1037015f35510d7e745186dbdb0ec80eddc4eb2f0d5ea8144d2d33026ed",
+          "index.html": "458f69c875c8302e9f75d5b52ee5101041f74c613d1b1f9bb460a02679194383",
+          "style.css": "d1c95d6d00e5efa05b319b70890b9471e544864c453cd2fde6ca2ec96bfdc827"
+        }
+      }
     },
     {
       "slot": 30,
@@ -766,9 +786,10 @@
     }
   ],
   "nextSteps": [
-    "Complete native browser campaigns and visual review for Salt & Sail before marking candidate 29 finished.",
-    "Eleven slots remain planned and uncounted.",
-    "Compare finished candidates and integrate only selected winners onto fresh main."
+    "Implement, improve and test Pocket Palaeo, slot 30, as a distinct tactile fossil excavation/bracing/lifting game.",
+    "Eleven slots remain planned and uncounted. Avoid repeating five-stage optimization puzzles throughout the remaining slate.",
+    "Use COMPARISON.md and the full ledger to revisit quality and choose a complementary group; no automatic selection.",
+    "Integrate only selected winners onto freshly read main, preserve concurrent work and first-batch source/saves, update obsolete launcher assertions for the current shell, and verify actual release."
   ],
   "baselineTestLimitations": [
     {
@@ -862,6 +883,16 @@
       "ci": "39970632618",
       "publicIntegration": null,
       "nextCandidate": 29
+    },
+    {
+      "date": "2026-10-24",
+      "result": "9 playable, 9 improved, 9 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "a57e8797b73dde7adc1b8132fb413aa4f97f27a0",
+      "gameplayCommit": "0fd2f6abaf5f57117bc3686d5b4f6e3cad5f25e3",
+      "verificationCommit": "3abdf9c1a79e75844abe9365a66e6b288da89554",
+      "ci": "39978965563",
+      "publicIntegration": null,
+      "nextCandidate": 30
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
