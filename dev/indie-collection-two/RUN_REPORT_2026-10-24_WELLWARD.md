@@ -1,0 +1,39 @@
+# Wellward — second-batch increment, 24 October 2026
+
+Wellward (slot 28) is an original gravity-winch retrieval game. Slide an overhead winch, lower a swinging bucket through four winding wells, steady it to secure relics, then haul cargo to the central landing. Sixteen unique relics earn brass exactly once. Bank each well's seal to unlock the next; four seals finish the expedition and all sixteen relics complete the cabinet. Three two-tier workshop paths change winch speed, impact tolerance/swing damping and cargo capacity. Water ballast reduces wind and slows hauling.
+
+The four authored wells introduce broad chambers, bent shafts, flooded passages and stronger currents. The bucket, winch, brickwork, roots, water and relics are original Canvas drawings, presented with smooth illustrated graphics. No external assets or third-party game collection were used. This is a compact manual exploration game, not a realistic rope simulator or a long content campaign. The deterministic reference expedition takes 15,508 simulation frames (about 4 minutes 18 seconds of ideal continuous input); that is solver evidence, not measured human playtime. Alternate upgrade orders and collecting the optional relics provide modest replay value. No hours-of-content claim is made.
+
+## Implementation and meaningful improvement
+
+Initial version: `902ba544df8b138932b5ed1f2abad1051b4ea37e`, with 18 engine and 12 DOM checks passing locally. The engine uses fixed 60 Hz simulation, edge-triggered lifting/ballast actions and independent keyboard aliases and pointer holds. Shoulder collisions reject the attempted bucket motion rather than teleporting it across stone.
+
+Improvement version: `6180d74e9db13c9356ed9080e6908e85aaffbca8`. Added a selectable clearance sketch through every intervening shaft shoulder, live directional advice, a guide toggle, safe-distance/speed lifting feedback, cargo bank-value previews and exact workshop effects. The sketch does not move the bucket. Mobile layout was compacted so the entire shaft and controls fit together after Launch aligns the panel. Direct inspection at 390×844 measured a 744px play panel with controls ending at 600px.
+
+Collision follow-up: `81a926013f7ab058d7d354c62715fce12d6efffa`. Testing uncovered a bucket that could remain trapped against a wall when the winch reversed. Contact now retains overhead winch movement while holding the bucket against the wall, allowing a reverse pull to free it. An explicit two-wall escape regression passes, and all original expedition fixtures still complete unchanged. The browser loss fixture now uses three deliberate traversals/strikes instead of assuming that continually pushing into a single wall causes repeated high-speed impacts.
+
+Earlier CI 39970213873 completed the desktop four-well campaign, exact reloads and ballast checks, then failed its old loss assertion (`dive` versus `lost`). It is not counted as successful. The corrected run passed as recorded below.
+
+The isolated save key is `study-desk-wellward-v1`. Banked relics, paid upgrades and the current descent are validated snapshots, not input-replay proofs. Brass is recomputed from unique recovered relics minus upgrade costs. Loading validates cabinet uniqueness, unlocking, cargo, numeric physics bounds and terminal state. Reload restores the saved descent paused. Returning empty preserves the cabinet and upgrades; a new expedition requires confirmation. Unreadable bytes remain intact until explicit recovery, denied storage leaves a clear unsaved warning, and unrelated save keys are untouched. Blur, pointer cancellation and the Study Desk bridge are covered separately.
+
+## Verification
+
+Local checks passed: **342 engine/interface tests across eight candidates** (190 engine, 152 DOM). Wellward contributes **21 engine and 13 DOM tests**: every complete well, bank/upgrade economy, real pendulum response, damping, winch speed, shoulder collision, wall escape, loss/retry, ballast, lifting distance/speed/capacity, route locks, exact snapshot reload, recomputed brass, corrupt validation, sampled clearance geometry, route selection, keyboard/pointer cancellation, focus pause, confirmation/recovery and denied storage.
+
+Exact-source [CI 39970632618](https://github.com/ThatOneMop/study-desk/actions/runs/39970632618) passed all 342 engine/interface checks, public integrity gates and complete desktop/touch campaigns for all eight candidates. Wellward completed all four wells and sixteen relics through native keyboard input at 1280×1000 and native Chromium multi-touch at 390×844. Both campaigns bought upgrades, reloaded mid-descent in every well, exercised guidance, ballast, repeated wall-loss/retry, input cancellation, Study Desk bridge suspension, corrupt recovery, isolated new expedition and return navigation, with no uncaught browser errors. A separate normal-clock test verified real-time lowering and pause saving.
+
+The [screenshot artifact](https://github.com/ThatOneMop/study-desk/actions/runs/39970632618/artifacts/12509303160) contains **170 PNGs**, including **20 Wellward captures**. Desktop bent-shaft/completed-cabinet and final touch flooded-shaft/completed-cabinet samples were visually inspected. Direct cloud UI inspection independently covered start/pause, the clearance selector and desktop/390px mobile layouts. Deterministic browser campaigns use a controlled clock with the real input and animation paths; they are distinguished from the separate unmocked real-time check.
+
+Public shell, bridge-pointer and relaxed-collection checks pass. Buildless static checks pass: 19 public routes and 55 local references, nine first-batch selected-source hashes, JavaScript syntax and the exact twenty-slot selection gate. The earlier seven second-batch games are unchanged. Inherited `catalog-launch.cjs` and `curation-regression.cjs` still target the removed `playerStudy` control; neither is claimed to pass.
+
+## Assessment and selection
+
+Agent design review on a 1–5 scale, not player survey results: enjoyment 3.5, depth 3, polish 3.5, reliability 4.5, variety 4. The swing/steady/haul loop and banked workshop decisions fit manual progression tastes. Shaft bends, finite cargo capacity and ballast add decisions beyond repeated clicking. The finite four-well campaign limits depth. Retain for comparison against other finished candidates; no automatic catalogue selection. No physical-device testing, full screen-reader audit, sound layer, human enjoyment study or exhaustive action-space proof is claimed.
+
+## Preservation, publication and next work
+
+The first-batch report was freshly inspected at `c03682dc435ecdaacd94966273d789dd90e9f7b1`: 20 finished, nine selected, 66 improvement passes and zero verified live URLs. First-batch sources, saves, catalogue entries and tests remain preserved. Main was re-read at `ed2cf603aa47fc26e4f04216d5704351b72a32a9`; private messaging, movie/TV discovery, Gummy Bay and requested-game work were not overwritten. Changes use leased updates to `indie-collection-two-dev` only.
+
+Published second-batch links: **none**. Durable repository source is separate from public catalogue integration and deployment. Latest main release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833), freshly checked on 24 October, passes route/assets but fails Configure GitHub Pages; prepare, upload and publish are skipped. Development remains possible.
+
+**8/20 playable, improved and finished; 0 selected, integrated or verified live**. Twelve slots remain planned concepts. Next: implement Salt & Sail (slot 29), where cargo placement changes sailing balance. Reserve final work for comparative improvement, selecting winners, integration onto fresh main and complete regression. The additional batch is unfinished, so the automation remains active.

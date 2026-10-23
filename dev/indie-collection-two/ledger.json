@@ -22,7 +22,7 @@
   "totals": {
     "playable": 8,
     "improved": 8,
-    "finished": 7,
+    "finished": 8,
     "selected": 0,
     "meaningfulPasses": 8,
     "verifiedLive": 0
@@ -448,8 +448,8 @@
       "slot": 28,
       "id": "wellward",
       "title": "Wellward",
-      "coreLoop": "Manage a falling water bucket and swinging ropes to retrieve relics from branching shafts.",
-      "status": "improved",
+      "coreLoop": "Operate a swinging bucket through winding wells; bank unique relics and fit winch, padding and cargo upgrades.",
+      "status": "finished",
       "source": "games/wellward",
       "improvementPasses": [
         {
@@ -461,28 +461,48 @@
             "Compact phone canvas and controls to keep the shaft and winch controls together.",
             "Wall contact retains overhead winch movement so reversing pulls the bucket clear rather than trapping it against a wall."
           ],
-          "validation": "21 engine and 13 DOM tests pass locally; all initial route fixtures still complete without alteration. Chromium campaigns pending."
+          "validation": "21 engine and 13 DOM checks; exact-source CI 39970632618 passed complete desktop and native multi-touch four-well/16-relic campaigns, mid-descent reloads, ballast, wall loss/recovery, bridge pause, isolated reset and navigation. Normal-clock lowering smoke passed; phone and desktop visuals reviewed."
         }
       ],
       "tests": [
-        "Initial version: 18 engine and 12 DOM checks pass locally, including four complete 16-relic campaigns, upgrade purchases, collision/loss, ballast, exact mid-descent reload, corruption recovery and isolated reset. Browser checks and meaningful improvement still pending.",
-        "Improved version: 20 engine and 13 DOM tests pass; guidance segments sampled for clearance, state immutability, lifting readiness and UI selection/toggle/effects."
+        "Initial version: 18 engine and 12 DOM tests passed before the improvement pass.",
+        "Final version: 21 engine and 13 DOM tests passed, covering all four complete wells, purchases, gravity/swing, damping, ballast, wall contact/escape/loss, lifting constraints, banked economy, route locks, snapshot validation, clearance sketches and input/save/recovery behavior.",
+        "Exact-source CI 39970632618: 190 engine + 152 DOM tests across all eight candidates, all desktop/touch campaigns and public integrity gates passed.",
+        "Chromium 1280x1000 native keyboard and 390x844 native multi-touch: four complete wells and sixteen relics, purchased upgrades, exact mid-descent paused reloads on every well, guide toggle, ballast, input cancellation, wall-loss/retry, bridge pause, isolated corrupt recovery/new expedition, return navigation and no uncaught browser errors.",
+        "Independent normal-clock animation-frame check verified held keyboard lowering and pause persistence.",
+        "Direct desktop/390px phone layout review plus campaign screenshot review; no physical-device test or full screen-reader audit claimed.",
+        "19 public route/assets checks, nine first-batch selected-source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection tests passed. Inherited obsolete playerStudy launcher assertions remain preserved and are not claimed to pass."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Initial playable gravity-winch expedition: four authored wells, sixteen unique relics, banked brass and three two-tier workshop upgrades. Not yet improved or evaluated for selection."
+        "scale": "1\u20135, agent design review; not player survey scores",
+        "enjoyment": 3.5,
+        "depth": 3,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "notes": "Swing, steady and haul create a manual retrieval loop; cargo capacity, banked workshop purchases and optional water ballast add decisions. Four authored wells introduce bends, water and wind. The clearance sketch improves navigation without automating movement. Compact replay comes from optional relics and upgrade order; the finite campaign limits depth. Original smooth Canvas artwork. No sound layer, realistic rope wrapping, human enjoyment study, physical-device test or hours-of-content claim."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "902ba544df8b138932b5ed1f2abad1051b4ea37e",
       "developmentCommits": [
         "902ba544df8b138932b5ed1f2abad1051b4ea37e",
-        "6180d74e9db13c9356ed9080e6908e85aaffbca8"
-      ]
+        "6180d74e9db13c9356ed9080e6908e85aaffbca8",
+        "81a926013f7ab058d7d354c62715fce12d6efffa"
+      ],
+      "selectionReason": "Retain as a finished development candidate for broader comparison. Manual retrieval adds variety, but four wells provide modest depth; no catalogue selection yet.",
+      "publishedUrl": null,
+      "verification": {
+        "commit": "81a926013f7ab058d7d354c62715fce12d6efffa",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39970632618",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39970632618/artifacts/12509303160",
+        "sha256": {
+          "engine.js": "4d84c8e201bec40768eb465c3cdfb4e6cff3a797611a1467cb664fe4898be821",
+          "game.js": "14fffd202a72ee94cdf2e729be4da5384fd7ee4228a37bf5757fa9796e5af407",
+          "index.html": "9beb1c7b511727d4d2d6e8f008e4e3ec8aba59f74b570d6911c3423ecd73f2e7",
+          "style.css": "b55133c7fc3e8d6b05e69e17d82956581e3b972109b4c918798dab4363fd4d51"
+        }
+      }
     },
     {
       "slot": 29,
@@ -726,9 +746,9 @@
     }
   ],
   "nextSteps": [
-    "Improve and browser-test candidate 28 Wellward before marking it finished.",
-    "Twelve remaining planned candidates require implementation and improvement.",
-    "Compare finished candidates and integrate only selected winners on fresh main."
+    "Implement, improve and test candidate 29 Salt & Sail: cargo packing changes ship balance and sailing control.",
+    "Twelve slots remain planned concepts and need playable source, meaningful improvement and verification.",
+    "Compare finished candidates and integrate only selected winners onto fresh main, preserving first-batch and concurrent work. Reconcile inherited obsolete launcher assertions before integration; verify Pages when configuration is available."
   ],
   "baselineTestLimitations": [
     {
@@ -746,7 +766,7 @@
       "action": "Preserve the current public UI. Update obsolete launcher assertions as a separate Study Desk maintenance change before future integration."
     }
   ],
-  "designReview": "Read the full first-batch core-loop ledger. Replaced the proposed bartering slot with Night Clerk to avoid Moss Market overlap; reserved Windup Wrestling for action variety. Planned slots remain revisable concepts and never count as playable. Planned slot 28 renamed Wellward to avoid the separate Afterlight Moonwell title; its distinct rope-and-bucket concept remains unimplemented and uncounted.",
+  "designReview": "Read the full first-batch core-loop ledger. Replaced the proposed bartering slot with Night Clerk to avoid Moss Market overlap; reserved Windup Wrestling for action variety. Planned slots remain revisable concepts and never count as playable. Planned slot 28 renamed Wellward to avoid the separate Afterlight Moonwell title; its distinct gravity-winch retrieval game is now implemented, improved and verified in slot 28.",
   "runHistory": [
     {
       "date": "2026-10-23",
@@ -812,6 +832,16 @@
       "ci": "39961796704",
       "publicIntegration": null,
       "nextCandidate": 28
+    },
+    {
+      "date": "2026-10-24",
+      "result": "8 playable, 8 improved, 8 finished, 0 selected, 0 live; exactly 20 NEW slots",
+      "initialCommit": "902ba544df8b138932b5ed1f2abad1051b4ea37e",
+      "gameplayCommit": "6180d74e9db13c9356ed9080e6908e85aaffbca8",
+      "verificationCommit": "81a926013f7ab058d7d354c62715fce12d6efffa",
+      "ci": "39970632618",
+      "publicIntegration": null,
+      "nextCandidate": 29
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",

@@ -6,7 +6,7 @@ This branch starts from public main `bded102680166c0107fd8a58fef1559be7a22efa`. 
 
 ## Development launch
 
-Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` or `http://localhost:8000/games/ratchet-run/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
+Serve the repository root (`python -m http.server 8000`), then visit `http://localhost:8000/games/reefwright/` `http://localhost:8000/games/counterweight/`, `http://localhost:8000/games/lanternwake/` `http://localhost:8000/games/copper-cadence/` `http://localhost:8000/games/hollow-keeper/` `http://localhost:8000/games/paper-odyssey/` `http://localhost:8000/games/ratchet-run/` or `http://localhost:8000/games/wellward/`. The public catalogue intentionally does not list unselected candidates. No compile step or runtime dependencies are needed. All game illustrations are original inline SVG/CSS/Canvas; no outside game or asset collection was imported.
 
 ## Checks
 
@@ -26,17 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**7/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence, Hollow Keeper, Paper Odyssey and Ratchet Run are finished development candidates. Thirteen slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
+**8/20 playable, improved and finished; 0 selected, integrated or verified live.** Reefwright, Counterweight, Lanternwake, Copper Cadence, Hollow Keeper, Paper Odyssey, Ratchet Run and Wellward are finished development candidates. Twelve slots remain concepts. First-batch games, Nightshift and Afterlight are excluded.
 
-Ratchet Run adds real-time courier-bike action: hop gaps, brake for cobbles, protect cargo and stop in the bay. Its improvement adds exact hop forecasts, a best-delivery ghost, hazard advice, independent keyboard aliases and mobile riding focus. It is a compact five-route arcade candidate, retained for comparison rather than automatically selected. See [Ratchet Run report](RUN_REPORT_2026-10-24_RATCHET_RUN.md). Earlier reports remain in this directory.
+Wellward adds a manual gravity-winch expedition through four winding wells. Secure sixteen unique relics, bank brass, fit upgrades and use water ballast to control swing. Its improvement adds selectable clearance sketches, lifting feedback, exact upgrade effects, compact phone controls and a wall-contact escape fix. See [Wellward report](RUN_REPORT_2026-10-24_WELLWARD.md); earlier reports remain in this directory.
 
-Exact-source [CI 39961796704](https://github.com/ThatOneMop/study-desk/actions/runs/39961796704) passed **308 engine/interface checks** (169 engine, 139 DOM), complete desktop and touch-emulated campaigns for all seven candidates, and public integrity gates. Ratchet Run completed all five routes at three seals with native keyboard and multi-touch input, per-route reloads, ghost/arc rendering, bridge loss and suspension, restart/cancel, isolated recovery and return navigation, with no browser errors. The separate normal-clock riding smoke check passed. [150 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39961796704/artifacts/12504064428) were retained, including 24 Ratchet Run captures. Desktop night-route and touch riding captures were visually inspected.
+Exact-source [CI 39970632618](https://github.com/ThatOneMop/study-desk/actions/runs/39970632618) passed **342 engine/interface checks** (190 engine, 152 DOM), complete desktop/touch campaigns for all eight candidates and public integrity gates. Wellward completed all four wells and sixteen relics with native keyboard/multi-touch, every-well paused reloads, upgrades, ballast, wall-loss/recovery, bridge pause, isolated reset and navigation. Its normal-clock lowering smoke check passed. [170 screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/39970632618/artifacts/12509303160) were retained, including 20 Wellward captures; representative desktop and final touch campaign images were visually inspected.
 
 The latest public release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) still fails at Configure GitHub Pages before upload. Publishing is blocked; development continues.
 
-All seven candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
+All eight candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
 
-Next: implement, improve and test Wellward, slot 28, a rope-and-bucket relic retrieval game. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
+Next: implement, improve and test Salt & Sail, slot 29, where cargo placement changes sailing balance. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
 
 Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
 
