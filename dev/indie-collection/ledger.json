@@ -1442,13 +1442,14 @@
       "status": "finished",
       "source": "dev/indie-collection/echo-vault/",
       "initialPlayable": true,
-      "meaningfulImprovementPasses": 3,
+      "meaningfulImprovementPasses": 4,
       "changes": [
         "Initial playable: four handmade turn-based stealth vaults, directional watcher/listener beams, corridor/curtain-weighted sound, noisy strides/relics, recoverable/confiscatable decoy chimes, two-exposure capture, optional leaves, extraction and saved archive/best routes.",
         "Pass1: pure live-rule forecasts for every directional action/wait/chime, exact sentry destinations/facing/reasons IF WAIT and alternate throw response, intermediate-path capture/noise/loot/recovery feedback; 120-action session undo restores patrol memory, chimes, losses and complete extracted archive/records; inspection history isolation, focus recovery and clear-on-reload/replan/navigation.",
         "Rendered-QA follow-up: immediate first-exposure warning, fresh strength7 relic echo only on pickup, carried-loot/curtain guidance on later quiet moves; clear horizontal+vertical throw-range wording. Added manually discovered 27-turn/one-leaf/three-warning pursuit route as a regression. Core stealth rules unchanged.",
         "Pass2: best-route records now value intact chimes after leaves and exposed turns, with explicit result/record/on-map recovery feedback and backward-compatible loading of older untracked records. A bounded search found a distinct 13-turn all-leaf/relic route that recovers the opening decoy with one warning and zero confiscations, adding an equipment-conservation replay line beside the clean-stealth route.",
-        "Pass3: each vault now has three separately earnable persistent mastery seals—Ghost for zero exposed turns, Archivist for both leaves and Bellkeeper for throwing a chime then extracting with both intact. The12-seal campaign target, per-vault checklist and archive stamps make replay goals explicit; legacy saves infer only provable seals from their best records, and extraction undo rolls mastery back with the archive."
+        "Pass3: each vault now has three separately earnable persistent mastery seals—Ghost for zero exposed turns, Archivist for both leaves and Bellkeeper for throwing a chime then extracting with both intact. The12-seal campaign target, per-vault checklist and archive stamps make replay goals explicit; legacy saves infer only provable seals from their best records, and extraction undo rolls mastery back with the archive.",
+        "Pass4: the three mastery cards now distinguish permanent earned seals from live ON TRACK, READY and MISSED run feasibility. Pure current-state guidance exposes zero-exposure status,0/2→2/2 held leaves, required chime use and irreversible exposure/confiscation misses, updating through action, undo, extraction and reload without changing routes, rewards, saves or difficulty."
       ],
       "tests": [
         "Initial20a0b349 passed CI39449952563: 8 engine+11 DOM, repository/candidate gates and all19 earlier-game browser regressions; new candidate browser absent.",
@@ -1458,13 +1459,14 @@
         "PASS exact final8fe14ee7 CI39451640282:14 engine+19 DOM, real desktop four all-leaf ghost campaigns plus27-turn pursuit route and390/320px touch, full repository assets,116 candidate references/exact20/public isolation and all19 earlier-game regressions. Actual job steps and decoded logs inspected.",
         "Finish gate on exact unchanged source: managed visible controls completed all four all-leaf ghost heists at17/18/24/21 turns with zero exposed turns. The first used a recovered/confiscatable chime; later vaults combined copper noise, quiet creep, curtains, one deliberate wait and multi-sentry pace changes. Final4/4 relics and8/8 leaves survived reload with no game-page console errors. Exact cloned head03de5607 passed both asset gates plus14 engine and19 DOM/save checks locally.",
         "PASS exact development7894ebf CI39787235971:15 engine+20 DOM/save, repository assets, exact20/9-selected isolation, all20 engine, all20 DOM/save and every desktop/touch Chromium regression plus screenshots. The generated opening-vault route archives both leaves/relic in13 turns with one warning, recovers the thrown chime and records2/2 intact; a separate fixture proves intact-chime ranking and older record migration.",
-        "PASS pass3 exact development cc747b5 in CI39832423840: repository assets/exact20/9-selected gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshots. Echo Vault contributes17 engine+20 DOM/save checks covering cumulative separately earned mastery, legacy inference without invented Bellkeeper credit, visible0/12→8/12 campaign progress, reload and extraction-undo rollback. Public main be25223 contains the aligned source; release workflow39833489463 passed19 route/assets and all nine source hashes before Configure Pages failed."
+        "PASS pass3 exact development cc747b5 in CI39832423840: repository assets/exact20/9-selected gates, all20 engine suites, all20 DOM/save suites, every desktop/touch Chromium regression and screenshots. Echo Vault contributes17 engine+20 DOM/save checks covering cumulative separately earned mastery, legacy inference without invented Bellkeeper credit, visible0/12→8/12 campaign progress, reload and extraction-undo rollback. Public main be25223 contains the aligned source; release workflow39833489463 passed19 route/assets and all nine source hashes before Configure Pages failed.",
+        "PASS pass4 exact development5c38246 in CI39887129692: repository assets/exact20/9-selected gates, all20 engine and DOM/save suites and every desktop/touch Chromium regression. Echo Vault contributes18 engine+21 DOM checks proving pure ON TRACK/READY/MISSED transitions for exposure, leaves, chime use, confiscation and undo; rendered desktop asserts initial, ready and missed states. Artifact12473875535 preserves49 screenshots. Public main1a73bf1 aligns the selected source; release workflow39888314579 passed19 route/assets and all selected hashes before unchanged Configure Pages failure."
       ],
       "quality": {
         "enjoyment": "A 27-turn pursuit route, a four-vault clean campaign and a13-turn chime-recovery route completed. Pass3 turns those different styles into visible Ghost, Archivist and Bellkeeper pursuits that can be accumulated across runs instead of leaving replay motivation implicit. Independent human enjoyment remains unmeasured.",
         "depth": "Four compact handmade vaults, two sound sensitivities, noisy/quiet pace tradeoffs, curtains, reusable chimes, optional leaves and best-route records. Twelve separately earnable mastery seals now reward clean sight management, leaf routing and deliberate reusable-decoy play without requiring one dominant route. More authored obstacles remain desirable; no duration claim.",
-        "polish": "Original midnight-museum SVG/CSS now includes a readable per-vault three-goal checklist,12-seal campaign count and collection stamps. Exact action plans, IF WAIT intent, immediate exposure feedback and complete undo remain; exact Chromium390/320 checks pass, while physical touch and screen-reader review remain open.",
-        "reliability": "Exact development cc747b5 passes17 engine+20 DOM/save, repository assets, exact20/9-selected isolation and every desktop/touch Chromium regression plus screenshots in CI39832423840. Mastery persistence, cumulative routes, legacy inference, tamper rejection, reload and undo pass. Public be25223 passes19 route/assets and all nine selected-source hashes before the existing Pages permission failure.",
+        "polish": "Original midnight-museum SVG/CSS now separates permanent earned seals from legible live ON TRACK, READY and MISSED states for all three goals. Exact action plans, IF WAIT intent, immediate exposure feedback and complete undo remain; exact Chromium390/320 checks pass, while physical touch and screen-reader review remain open.",
+        "reliability": "Exact development5c38246 passes18 engine+21 DOM/save, repository assets, exact20/9-selected isolation and every desktop/touch Chromium regression plus49 screenshots in CI39887129692. Pure mastery feasibility, permanent persistence, cumulative routes, legacy inference, tamper rejection, reload and undo pass. Public1a73bf1 passes19 route/assets and all nine selected-source hashes before the existing Pages permission failure.",
         "variety": "Turn-based directional stealth and corridor-weighted sound diversion; not Inkline's card drafting, Pocket Expedition's pack/extraction risk or Last Match's realtime cone combat."
       },
       "selected": true,
@@ -1472,34 +1474,36 @@
       "integrationCommits": [
         "a9aa7b0d6f191a5a7d376ad1751016e42f3f91ed",
         "2e73e3080515a7e8a306dd77c724fab2c0113b20",
-        "be25223cbb9fecb978e897ee2dc7948472594080"
+        "be25223cbb9fecb978e897ee2dc7948472594080",
+        "1a73bf1235ba4d00a40e4aaa5ae7f0ac8819fb43"
       ],
       "publishedUrl": null,
       "nextSteps": [
         "Collect independent feedback on whether the three mastery goals create worthwhile alternate-route replay rather than checklist pressure.",
-        "Keep development/public presentation aligned, enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
+        "Enable GitHub Pages and verify the deployed route; physical touch and screen-reader review remain desirable."
       ],
       "developmentCommits": [
         "20a0b349a4cb5bfc1a4fdd4e5b43d277246fce20",
         "77fac6c12b86eba4c928ad5a782a1bf8fd1f4c45",
         "8fe14ee7afb7b187647ca639dd3e621f4d03ca0f",
         "7894ebf2c17b10c0cadebe7b07fe605d437f01c6",
-        "cc747b5c5c76c9d178e5a569d1bc76e6dbf3b436"
+        "cc747b5c5c76c9d178e5a569d1bc76e6dbf3b436",
+        "5c38246ea6eed2418c75c126fdf0707f1054ddeb"
       ],
       "verification": {
-        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39832423840",
-        "testedCommit": "cc747b5c5c76c9d178e5a569d1bc76e6dbf3b436",
+        "runUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39887129692",
+        "testedCommit": "5c38246ea6eed2418c75c126fdf0707f1054ddeb",
         "conclusion": "success",
-        "desktop": "Native arrows/Enter/Space/WASD/pace/T/Z and focus; four legal all-leaf campaigns visibly bank8/12 mastery seals, including Archivist+Bellkeeper in the13-turn recovery route; extraction undo/replay restores mastery exactly; patrol/inspection reload, pursuit/capture, retry and workshop navigation pass. Zero page errors.",
+        "desktop": "Native arrows/Enter/Space/WASD/pace/T/Z and focus; four legal all-leaf campaigns visibly bank8/12 mastery seals while live cards render ON TRACK, READY and MISSED as exposure, leaves, chime use and confiscation change. Extraction undo/replay restores mastery exactly; patrol/inspection reload, pursuit/capture, retry and workshop navigation pass. Zero page errors.",
         "touch": "Exactly-once chime/move taps, conserved charges/undo, saved mastery/inspection/patrol reload and retry cancellation; actual13-turn all-leaf first heist keeps both chimes and its two seals; >=44px controls, internal map scrolling and no390/320px page or button-text overflow. Zero page errors.",
-        "manual": "Earlier review used a chime diversion, curtains and a27-turn pursuit, then completed a four-vault zero-exposure campaign. Pass3 adds explicit goals over those proven styles; exact engine/DOM/browser suites verify cumulative seals,8/12 four-vault progress, truthful legacy inference and rollback. This remains automated/agent evidence, not an independent human replay study. Public be25223 passes release assets/source integrity before the unchanged Pages permission failure.",
+        "manual": "Earlier review used a chime diversion, curtains and a27-turn pursuit, then completed a four-vault zero-exposure campaign. Pass4 makes the already verified alternate-goal status explicit without changing those routes; exact engine/DOM/browser suites prove live feasibility, cumulative seals,8/12 four-vault progress, truthful legacy inference and rollback. This remains automated/agent evidence, not an independent human replay study. Public1a73bf1 passes release assets/source integrity before the unchanged Pages permission failure.",
         "notVerified": [
           "Independent human enjoyment and broader authored-route replay depth",
           "Physical touch hardware and screen-reader behavior",
           "Long-form content or testing hours",
           "Public deployment and live-route verification"
         ],
-        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39832423840"
+        "screenshotArtifact": "https://github.com/ThatOneMop/study-desk/actions/runs/39887129692/artifacts/12473875535"
       }
     }
   ],
@@ -2518,10 +2522,23 @@
       "verifiedCommit": "6c3c7fcd1cb0d5000b443c350e3d72d0fee24f24",
       "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39884289798",
       "inspectedMainCommit": "e0501711b75f5c58d4c4348711957ed7c9984166"
+    },
+    {
+      "run": 80,
+      "date": "2026-10-23",
+      "initialPlayableTotal": 20,
+      "improvedTotal": 20,
+      "finishedTotal": 20,
+      "publishedTotal": 0,
+      "summary": "Echo Vault received meaningful pass4, bringing the20-game collection to65 recorded passes. Each mastery card now separates permanent earned seals from live ON TRACK, READY and MISSED feasibility for exposure, leaves, chime use and confiscation; pure guidance updates through action, undo, extraction and reload without changing routes, rewards, saves or difficulty. Exact development5c38246 passed repository/selection gates, all20 engine suites, all20 DOM/save suites and every desktop/touch Chromium regression in CI39887129692; Echo Vault contributes18 engine+21 DOM checks and49 screenshots are preserved in artifact12473875535. The aligned selected source and integrity pins passed fresh-main release gates and were promoted to public main1a73bf1. Release workflow39888314579 passed19 route/assets, then failed Configure GitHub Pages before upload/deploy;0 live URLs remain honestly claimed.",
+      "implementationCommit": "5c38246ea6eed2418c75c126fdf0707f1054ddeb",
+      "verifiedCommit": "5c38246ea6eed2418c75c126fdf0707f1054ddeb",
+      "ciUrl": "https://github.com/ThatOneMop/study-desk/actions/runs/39887129692",
+      "inspectedMainCommit": "1a73bf1235ba4d00a40e4aaa5ae7f0ac8819fb43"
     }
   ],
   "collectionReview": {
-    "status": "All20 candidates playable, improved and finished with64 passes; nine selected/source-integrated on public maine050171 including fully verified Little Foundry pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
+    "status": "All20 candidates playable, improved and finished with65 passes; nine selected/source-integrated on public main1a73bf1 including fully verified Echo Vault pass4;0live URLs because GitHub Pages configuration still fails before upload/deploy",
     "playable": 20,
     "improved": 20,
     "finished": 20,
@@ -2539,7 +2556,7 @@
       "glasshouse"
     ],
     "finalistStatus": "All nine passed the fresh-main source, catalogue, navigation and combined regression gates and are present in the public source catalogue. GitHub Pages did not deploy because Configure Pages lacks repository access; publishedUrl remains null for every candidate.",
-    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39885665347 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
+    "next": "Enable GitHub Pages/repository Actions access, rerun release workflow39888314579 and do not claim live URLs until deployment plus all nine live routes are verified. Keep the eleven non-selected finished candidates as development reserves; use remaining time for selected-game polish, combined regression and final reporting. No new slots.",
     "integrationPolicy": "No wholesale old-dev merge. Scoped selected finished source/catalogue changes against fresh main and combined regressions; preserve Study Desk/After Hours/requested-GitHub-games/Gummy Bay.",
     "reviewSource": "dev/indie-collection/QUALITY_REVIEW.md"
   }
