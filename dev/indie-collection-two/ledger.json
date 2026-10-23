@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 4,
+    "playable": 5,
     "improved": 4,
     "finished": 4,
     "selected": 0,
@@ -273,17 +273,19 @@
       "id": "hollow-keeper",
       "title": "Hollow Keeper",
       "coreLoop": "Defend a beetle settlement by carving reversible tunnels and luring invaders into traps.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/hollow-keeper",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Initial version: 21 engine and 15 DOM checks pass, including all five no-damage two-wave defenses. Improvement and browser verification pending."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Initial playable implementation exists; not yet improved or finished."
       },
       "selected": false,
       "integrationCommits": []
