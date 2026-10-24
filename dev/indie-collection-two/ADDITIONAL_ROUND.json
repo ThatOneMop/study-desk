@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 2,
+  "completed": 3,
   "required": 20,
   "candidates": [
     {
@@ -193,16 +193,19 @@
       "slot": 35,
       "id": "murmuration",
       "title": "Murmuration",
-      "status": "verification_pending",
+      "status": "verified",
       "observedWeakness": "Rendered first island/channel play showed food as only a quota and bird losses as irreversible; recovery offered only retry.",
       "before": "Food only counted toward arrival; turned-back birds could not rejoin.",
       "after": "Two clear-air regroup calls per migration spend two food each to recover up to two birds. Remaining supplies determine arrival success; a live preview exposes the survival versus food tradeoff. Keyboard R and a touch-sized button trigger the call.",
-      "implementationCommit": null,
+      "implementationCommit": "b1c2421ba2286bc833d62e12ffb256e8cf4795fc",
       "testing": [
         "18 engine and nine existing DOM tests pass; natural partial losses, recovery, food spending, bounded calls, unsafe-air rejection, exact replay and legacy histories.",
-        "Expanded native browser suite includes a natural ten-bird flight, regroup by keyboard/touch, saved recovery reload and successful arrival; verification pending."
+        "Expanded native browser suite includes a natural ten-bird flight, regroup by keyboard/touch, saved recovery reload and successful arrival; verification pending.",
+        "Cloud rendered baseline and changed flight inspected: keyboard regroup raised birds 8\u219210 while supplies fell 5\u21923; both calls exhausted. Saved flight reloaded at 390px with resources and call limit intact; screenshot inspected.",
+        "Native Chrome desktop and emulated touch: natural ten-bird flight, R/button recovery to twelve, two food spent, exact paused reload, successful ten-food arrival; all four original full-feather migrations, loss/retry, keyboard/touch cancellation, bridge pause, recovery/reset and navigation pass. CI 40048553658 job 120736070238.",
+        "32 retained screenshots; inspected desktop-regroup-choice, touch-regroup-reloaded and touch-regroup-arrival. Artifact 12541339884 ZIP SHA256 def0a8d8c686e13ecf0dd2faf3622f7f3118065965c2ebc1b0845d4620cda876. Automated reliability evidence is not human enjoyment evidence."
       ],
-      "remaining": "Complete rendered recovery review, native desktop/touch regression and screenshot inspection before counting this additional pass."
+      "remaining": "Verified additional mechanical pass; retain for final slate comparison."
     },
     {
       "slot": 36,

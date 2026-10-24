@@ -24,7 +24,7 @@
     "improved": 17,
     "finished": 17,
     "selected": 0,
-    "meaningfulPasses": 19,
+    "meaningfulPasses": 20,
     "verifiedLive": 0
   },
   "deployment": {
@@ -927,6 +927,17 @@
             "Clicking or touching the sky restores keyboard focus. Natural conservative feeding and underfed-arrival routes are verified without injected game state."
           ],
           "validation": "23 focused engine/interface checks plus all four twelve-bird/all-food desktop and touch-emulated migrations pass in CI 40023020207. Exact paused reloads, forecasts, pointer/keyboard focus, cancellation, bridge pause, collision and natural food-shortfall failures, retry/recovery/reset, navigation and normal-RAF flight pass. Screenshot review recorded in the run report."
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-24",
+          "changes": [
+            "Two clear-air regroup calls per migration spend two food each to recover up to two birds. Remaining supplies determine arrival success; a live preview exposes the survival versus food tradeoff. Keyboard R and a touch-sized button trigger the call.",
+            "Observed food-only quota and irreversible losses now permit a limited recovery choice. Old three-field input trails replay unchanged; extended one-frame call records reproduce resource spending and returning birds."
+          ],
+          "implementationCommit": "b1c2421ba2286bc833d62e12ffb256e8cf4795fc",
+          "validation": "18 engine and nine DOM checks pass. Native desktop/touch natural damaged-flight recovery, food spending, exact reload and successful arrival pass alongside all four original full-feather campaigns, loss/retry, input cancellation, bridge pause, recovery/reset and navigation. CI 40048553658; 32 screenshots retained, three new-mechanic views inspected. Cloud rendered keyboard recovery and phone reload reviewed; no physical-device or human enjoyment claim."
         }
       ],
       "tests": [
@@ -934,15 +945,16 @@
         "Final: 14 engine and nine DOM checks pass, including four perfect campaigns, conservative ten-food victory, natural six-food arrival failure, collision loss, exact pure forecasts, immutable/bounded replay saves, unlocks, restart, paused planning, keyboard focus, pointer cancellation, recovery and blocked storage.",
         "CI 40023020207: native desktop 1280x1000 and touch emulation 390x844 complete all four migrations with twelve birds, fourteen feeding spots and three feathers. Mid-route exact reload on each migration, forecast changes while paused, mouse/keyboard/touch controls, cancellation, bridge suspension, collision and natural food-shortfall failures, retry/cancel, corrupt-save recovery, unrelated-key preservation and navigation pass. Zero browser errors; separate normal-RAF flight smoke passes.",
         "26 native screenshots retained in artifact 12531686836. ZIP digest verified; desktop route-four completion, phone pause-planning and phone natural food-shortfall images visually inspected. Cloud UI additionally reviewed desktop/390-pixel layouts, start/split/pause and a safe-to-unsafe forecast change. No physical-device claim.",
-        "All 570 aggregate engine/interface checks and all fifteen native desktop/touch suites pass on exact verification commit 8ee1304 in CI 40023020207. All six jobs completed successfully; first-batch integrity, public routes and the exact twenty-slot gate pass."
+        "All 570 aggregate engine/interface checks and all fifteen native desktop/touch suites pass on exact verification commit 8ee1304 in CI 40023020207. All six jobs completed successfully; first-batch integrity, public routes and the exact twenty-slot gate pass.",
+        "18 engine and nine DOM checks pass. Native desktop/touch natural damaged-flight recovery, food spending, exact reload and successful arrival pass alongside all four original full-feather campaigns, loss/retry, input cancellation, bridge pause, recovery/reset and navigation. CI 40048553658; 32 screenshots retained, three new-mechanic views inspected. Cloud rendered keyboard recovery and phone reload reviewed; no physical-device or human enjoyment claim."
       ],
       "quality": {
-        "enjoyment": 3,
-        "depth": 2.5,
+        "enjoyment": 3.5,
+        "depth": 3,
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Agent review, not a human player survey. A distinct real-time flock-spacing loop with food/survival tradeoffs, individual bird collisions, forecast paths and readable sunset-estuary presentation. Conservative one-wing feeding can win with fewer feathers; a wider detour fails from inadequate food. Four short authored migrations share two obstacle families; progression is route unlocks and best records, without equipment, audio or an extended campaign. No long-playtime, physical-device or full screen-reader certification claim."
+        "notes": "Agent review, not a human player survey. Food-funded regrouping adds recovery and supply-budget choices to flock spacing. Two calls and safe-air restrictions prevent unrestricted healing; spending can jeopardize arrival requirements. Four short authored migrations and two obstacle families still limit progression; no equipment, audio, long-playtime or physical-device claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -951,19 +963,20 @@
         "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
         "1a7ab925e6db1404606db3f1bd27df7154e8582a",
         "7d9d644fb6eabe22b50d236fe0b4dc602eb3a3e3",
-        "8ee13044e2bcb050fe9417b2eee921c45b4c1dec"
+        "8ee13044e2bcb050fe9417b2eee921c45b4c1dec",
+        "b1c2421ba2286bc833d62e12ffb256e8cf4795fc"
       ],
       "verification": {
         "status": "passed",
-        "commit": "8ee13044e2bcb050fe9417b2eee921c45b4c1dec",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40023020207",
-        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40023020207/artifacts/12531686836",
-        "artifactSha256": "95c3ae1c41ffb50bf9b013fb99c20e3b3bcfb7afc6da4d0debd7b46b0044b3bd",
+        "commit": "b1c2421ba2286bc833d62e12ffb256e8cf4795fc",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40048553658",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40048553658/artifacts/12541339884",
+        "artifactSha256": "def0a8d8c686e13ecf0dd2faf3622f7f3118065965c2ebc1b0845d4620cda876",
         "sha256": {
-          "engine.js": "2424ac0cecd49247582d3127ac078a8c6e37bcb3c008d72dad58632ec3c2f410",
-          "game.js": "f21ae9c51287515ec37a788c7320a177b36983cf7611eb847f4d830be525fb0c",
-          "index.html": "dca51a811330bdbfa4c193d1030e9694ae131bf9c2f157b9f761490291b3b63b",
-          "style.css": "23aca454aee10b71f29779ece14f3a2fe33c0f06974f430866df9c3b2e72e5b3"
+          "engine.js": "170e91a61cc43daeacb4e7ea8d5f8fa2a05f635182f03fe038bbf79b08dd408d",
+          "game.js": "a5a5217df01e3acc6b5ff84e11a96a6270d2a523bc62030e6ca0fc906874e122",
+          "index.html": "ef1a8c7da86e7718276f09a4cfcd702a7c79ad20e4b545a0df57239eefaea8b1",
+          "style.css": "39ad19cb52b7ccdfdce358a39461574ac9e75dce038fcc16e14a5810544623c2"
         }
       },
       "selectionReason": "Retain as a finished development candidate for comparison across the full slate. Its flock action broadens variety, but compact progression and repeated obstacle vocabulary limit depth. No catalogue write by this increment.",
@@ -1145,8 +1158,8 @@
     }
   ],
   "nextSteps": [
-    "Continue the additional substantial improvement round: Ratchet Run and Cairn & Cord verified, 2/20 complete. Earlier initial passes remain excluded.",
-    "Prioritize weakest remaining existing games: Murmuration, Night Clerk, Borrowed Gravity and Static Orchard; play each rendered core loop before changing.",
+    "Continue the additional round: Ratchet Run, Cairn & Cord and Murmuration verified, 3/20. Earlier initial passes remain excluded.",
+    "Prioritize weakest remaining existing games: Night Clerk, Borrowed Gravity and Static Orchard; play before changing.",
     "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
     "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
     "Pages permission checked once for this new round: unchanged integration access failure. Do not retry without changed permissions/evidence."
@@ -1358,16 +1371,47 @@
       "publicIntegration": null,
       "regressionStatus": "All seven CI jobs successful: 387 engine + 282 DOM checks and all seventeen native desktop/touch suites. Cairn original and survey routes, tether reload, loss/undo/retry, old records, controls and navigation pass; 54 native screenshots retained with representative views inspected.",
       "nextSteps": "Eighteen additional upgrades remain, including finishing three missing candidates and their initial improvements; final comparison/integration follows the complete round."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Murmuration food-funded regroup upgrade verified; additional round 3/20, overall 17 playable/initially improved/finished and three planned. No new public integration or live release.",
+      "gameplayCommit": "b1c2421ba2286bc833d62e12ffb256e8cf4795fc",
+      "verificationCommit": "b1c2421ba2286bc833d62e12ffb256e8cf4795fc",
+      "ci": "40048553658",
+      "publicIntegration": null,
+      "regressionStatus": "All seven CI jobs passed: 391 engine + 282 DOM checks and all seventeen native desktop/touch suites. Murmuration natural recovery, supplies, reload, successful arrival, original campaigns and regression pass; representative screenshots inspected.",
+      "nextSteps": "Seventeen additional upgrades remain, including finishing three missing candidates and their initial improvements; final comparison/integration follows."
     }
   ],
-  "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-  "concurrentWork": "Main reread at ed2cf603aa47fc26e4f04216d5704351b72a32a9 before implementation and documentation push. Separate all-games checkout, first collection, requested games, Gummy Bay, messaging and movie/TV work preserved. Only Ratchet Run source/tests, the second-batch ledger/checklist/report and ledger gate changed. No catalogue or hosting writes.",
+  "latestObservedMain": "0f295c9795590f96a90c6ceb8c1d165e77fcd3a7",
+  "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 2,
+    "completed": 3,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
+  },
+  "concurrentIntegration": {
+    "commit": "0f295c9795590f96a90c6ceb8c1d165e77fcd3a7",
+    "catalogueTotal": 64,
+    "secondBatchCount": 13,
+    "secondBatchIds": [
+      "reefwright",
+      "counterweight",
+      "lanternwake",
+      "copper-cadence",
+      "hollow-keeper",
+      "paper-odyssey",
+      "ratchet-run",
+      "wellward",
+      "salt-and-sail",
+      "pocket-palaeo",
+      "static-orchard",
+      "borrowed-gravity",
+      "tea-for-ghosts"
+    ],
+    "scope": "Concurrent initial-game catalogue integration, separate from final additional-round selection and from this Murmuration upgrade. Live deployment not verified here."
   }
 }
