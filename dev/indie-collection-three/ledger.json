@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 0,
+    "built": 1,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -12,17 +12,16 @@
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
-    "implemented": 17,
+    "observedCommit": "f71768f6cd4a25f02ba33ca55d8e22bff1b9439f",
+    "implemented": 20,
+    "initiallyImproved": 20,
     "additionalRoundVerified": 6,
-    "remainingInitialSlots": [
-      38,
-      39,
-      40
-    ],
-    "remainingAdditional": 14
+    "remainingInitialSlots": [],
+    "remainingAdditional": 14,
+    "pendingRenderedUpgrade": "Windup Wrestling kits implemented; not counted in additional round."
   },
   "rules": [
-    "Slots 41\u201390 are reserved work slots, not playable games. Unassigned slots count as zero.",
+    "Slots 41–90 are reserved work slots, not playable games. Unassigned slots count as zero.",
     "No existing game, reskin, renamed copy or placeholder counts toward these 50.",
     "Require a distinct implemented core loop, rendered-play improvement pass and browser evidence before catalogue integration.",
     "Preserve all prior source, saves and concurrent catalogue work.",
@@ -31,21 +30,36 @@
   "candidates": [
     {
       "slot": 41,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "stencil-studio",
+      "title": "Stencil Studio",
+      "coreLoop": "Position and rotate stencils, overlay three ink colours, and reproduce spatial print commissions with limited impressions.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/stencil-studio",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "6 engine tests: three commission solutions, exact saves/unlocks, overlap, rotation/bounds, loss/undo/retry, no-op stamps and malformed saves.",
+        "3 DOM tests: all commissions via controls with repeated reloads, keyboard, pause, modal cancellation, isolated reset/recovery, ink filter and navigation href.",
+        "Asset reference and first-batch integrity checks passed. Syntax and git diff checks passed.",
+        "No rendered browser, touch-emulation, screenshot or enjoyment evidence for this prototype yet."
+      ],
+      "commits": [
+        "035611d0c1a147dc63a09484abfc30ed8bee29c0"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact authored commissions. Initial mechanics only; no playtest-led improvement yet."
+      },
+      "nextSteps": [
+        "Play actual rendered core loop; assess stencil readability, mobile targeting and progression depth.",
+        "Implement substantive improvement based on observed weakness; verify natural wins/loss/retry, save/reload, reset/navigation, desktop/touch and inspect screenshots before integration."
+      ]
     },
     {
       "slot": 42,
@@ -931,8 +945,18 @@
     }
   ],
   "nextSteps": [
-    "Finish missing second-batch game 38 Ember Parcel; do not count it as third-batch work.",
-    "Continue the remaining second-batch additional passes.",
-    "Assign and implement distinct third-batch candidates incrementally; compare against first/second batches and separate collections before authoring."
+    "Complete fourteen remaining second-batch additional upgrades; Windup implementation awaits rendered review.",
+    "Render/play Stencil Studio and implement its first meaningful improvement before catalogue selection.",
+    "Implement remaining 49 distinct third-batch games incrementally; leave unfinished entries unlisted."
+  ],
+  "updated": "2026-10-25",
+  "latestObservedMain": "432a0d75bd44e3c43975b8d11ae683fa0d7e2325",
+  "runHistory": [
+    {
+      "date": "2026-10-25",
+      "commit": "035611d0c1a147dc63a09484abfc30ed8bee29c0",
+      "result": "Slot 41 implemented and engine/DOM tested; 1 built, 0 improved/browser-tested/integrated/live. No public changes.",
+      "browserStatus": "Previously recorded preview policy block remains unresolved; no workaround or alternate browser surface used."
+    }
   ]
 }
