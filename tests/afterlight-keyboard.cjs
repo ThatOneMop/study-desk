@@ -1,0 +1,14 @@
+const assert=require('assert'),fs=require('fs'),{JSDOM}=require('jsdom'),root=__dirname+'/../games/afterlight/';
+const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{runScripts:'outside-only',url:'http://study.test/games/afterlight/?game=4'}),w=dom.window,d=w.document;
+const gradient={addColorStop(){}},ctx=new Proxy({}, {get:(o,k)=>k==='createLinearGradient'||k==='createRadialGradient'?()=>gradient:k==='measureText'?()=>({width:20}):o[k]||(()=>{}),set:(o,k,v)=>(o[k]=v,true)});
+w.HTMLCanvasElement.prototype.getContext=()=>ctx;w.requestAnimationFrame=()=>0;w.scrollTo=()=>{};w.URL.createObjectURL=()=>'/save.json';w.URL.revokeObjectURL=()=>{};
+w.eval(fs.readFileSync(root+'save-store.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8')+';window.probe={start,pointer:()=>({...pointer}),state:()=>s,down:()=>down,keyboard:()=>keyboard};');
+const canvas=d.getElementById('canvas'),key=(type,k,repeat=false)=>w.dispatchEvent(new w.KeyboardEvent(type,{key:k,repeat,bubbles:true}));
+assert.equal(d.activeElement,canvas);assert.equal(canvas.tabIndex,0);assert.match(canvas.getAttribute('aria-label'),/arrows select a pipe/i);assert.match(d.getElementById('instructions').textContent,/Keyboard:/);
+let before=w.probe.state().rot[1];key('keydown','ArrowRight');assert.deepEqual(w.probe.pointer(),{x:445,y:145});key('keydown','Enter');assert.equal(w.probe.state().rot[1],(before+1)%4);assert(w.probe.keyboard());
+w.probe.start(1);key('keydown',' ');assert(w.probe.down());key('keyup',' ');assert(!w.probe.down(),'brush stops on Space release');
+w.probe.start(0);key('keydown',' ');assert.equal(w.probe.state().path.length,1);key('keydown','ArrowRight');assert.equal(w.probe.state().path.length,2);key('keydown',' ');assert.equal(w.probe.state().path.length,0);assert.match(d.getElementById('message').textContent,/matching glowing dock/);
+w.probe.start(7);key('keydown',' ');assert(w.probe.state().aim);const aim=w.probe.pointer();key('keydown','ArrowLeft');assert.equal(w.probe.pointer().x,aim.x-28);key('keydown',' ');assert(w.probe.state().flying);assert.equal(w.probe.state().aim,null);
+w.probe.start(9);const cells=JSON.stringify(w.probe.state().cells);key('keydown','ArrowDown');assert.equal(w.probe.pointer().y,225);key('keydown',' ');assert.notEqual(JSON.stringify(w.probe.state().cells),cells);
+w.probe.start(4);d.getElementById('back').focus();const still=w.probe.pointer();key('keydown','ArrowRight');assert.deepEqual(w.probe.pointer(),still,'game keys ignored outside focused canvas');
+dom.window.close();console.log('PASS Afterlight keyboard: focus/instructions, grid movement/action, hold/release, route plotting, Moonwell aim/launch, seed growth and focus guard.');
