@@ -185,12 +185,13 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "5 engine tests pass: all three clear-water finishes/unlocks and exact saves; wind/turn restrictions; intermediate buoy crossing; grounding/loss/undo/retry; malformed saves.",
-        "3 DOM tests pass: all course routes through controls and reloads, keyboard chart sailing, pause, loss/retry, save recovery, isolated reset, guide cancellation and Games href.",
-        "Syntax, local asset references and catalogue-exclusion checks passed. No rendered browser, screenshot, touch or human enjoyment evidence. Full repository build not run from partial checkout."
+        "7 engine tests pass: original course solutions/unlocks/saves, wind/helm limits, intermediate buoy crossing, collision/loss/undo/retry, malformed saves, projection equivalence/nonmutation and later-leg validity.",
+        "6 DOM tests pass: original course/save/control regressions; drafting and executing all three routes one tack at a time; trim/clear, pause, cancel, reload, future-heading/grounding warnings and clearing stale drafts after undo.",
+        "Syntax and catalogue exclusion checks passed. No rendered browser, screenshot, touch or human enjoyment evidence. Full repository build not run from partial checkout."
       ],
       "commits": [
-        "ba16b341745c0c7db43300111b81b58faff9134b"
+        "ba16b341745c0c7db43300111b81b58faff9134b",
+        "be2fd59bca2a9e07b327a86e69edcfbffb842510"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -201,7 +202,14 @@
       "nextSteps": [
         "Play actual rendered tacking and sail-size decisions on desktop/touch; inspect chart/preview screenshots.",
         "Use observed weakness for a substantive improvement pass; verify progression, grounding/retry, save/reload, restart and real navigation before integration."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "be2fd59bca2a9e07b327a86e69edcfbffb842510",
+        "basis": "Source inspection showed only the immediate tack could be previewed. Not a rendered-play observation.",
+        "before": "Players had to execute a tack before checking the next turn limit, reef approach or buoy crossing.",
+        "after": "An editable draft of up to six tacks projects successive headings, paths, hull and buoys without spending moves. A separate action sails the first tack only; the remainder stays editable. Drafts do not alter saved progress and are explicitly temporary.",
+        "testing": "13 engine/DOM checks passed. No completed improvement credit until actual rendered playtesting, screenshots and game-specific quality assessment."
+      }
     },
     {
       "slot": 45,
@@ -1088,6 +1096,12 @@
       "commit": "ba16b341745c0c7db43300111b81b58faff9134b",
       "result": "Pocket Regatta candidate 44 implemented; 8 engine/DOM checks passed. 4/50 built; 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing browser-policy blocker unresolved. No new rendered claim or workaround."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "be2fd59bca2a9e07b327a86e69edcfbffb842510",
+      "result": "Pocket Regatta multi-tack planning implemented; 13 engine/DOM checks pass. Counts unchanged: 4/50 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing browser-policy blocker unresolved; no workaround or new rendered claim."
     }
   ]
 }
