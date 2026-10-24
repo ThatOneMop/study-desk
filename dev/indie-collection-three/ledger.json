@@ -87,12 +87,13 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "4 engine tests pass: all three legal solutions, exact action-by-action save roundtrips, sequential unlocks, alternating movement, clutch isolation, undo/retry and invalid journals.",
-        "2 DOM tests pass: all mechanisms won through ordinary handlers with reload after each action, keyboard, pause, modal cancellation, isolated reset/recovery and navigation href.",
+        "5 engine tests pass: original solutions/saves, clutch isolation, undo/retry, malformed journals, selected-dial migration/validation and smaller-mechanism clamp.",
+        "4 DOM tests pass: all mechanisms/reloads, keyboard/pause/modals/reset/recovery, saved selection, retained dial/hand nodes and focus, coupling focus, isolation labels and one-tooth wraparound/undo.",
         "Syntax checks pass. No rendered browser, screenshot, touch or enjoyment evidence; not selected."
       ],
       "commits": [
-        "60dd61044207070fef97638b829242cf1e273715"
+        "60dd61044207070fef97638b829242cf1e273715",
+        "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -103,7 +104,18 @@
       "nextSteps": [
         "Play actual rendered loop; inspect readability of coupled motion and touch selection.",
         "Implement a substantive playtest-led improvement, then verify desktop/touch, progression, undo/retry, save/reload, reset and navigation before integration."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
+        "basis": "Code and DOM inspection; not rendered playtesting.",
+        "changes": [
+          "Save selected dial immediately; migrate old saves to dial A and validate selection bounds.",
+          "Keep dial/hand DOM elements across updates to preserve focus and permit existing CSS transitions.",
+          "Use accumulated rotation so 5-to-0 and undo move one tooth rather than almost a full revolution.",
+          "Label moving/isolated dials and restore coupling-button focus after redraws."
+        ],
+        "remaining": "Rendered desktop/touch gameplay, animation/readability review and a substantive playtest-led improvement. This repair is not counted as completed improvement."
+      }
     },
     {
       "slot": 43,
@@ -996,6 +1008,12 @@
       "result": "Moon Dial slot 42 implemented. Six engine/DOM tests pass; 2/50 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Previous preview-policy blocker unresolved. No attempt to bypass it; no new rendered claim.",
       "preservation": "GitHub base-tree commit changes only new Moon Dial files and third-batch records; other branches untouched."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
+      "result": "Moon Dial input/save/feedback repairs verified by 9 engine/DOM tests. Counts unchanged: 2 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Previously recorded policy blocker remains unresolved; no workaround, new browser run or screenshot claim."
     }
   ]
 }
