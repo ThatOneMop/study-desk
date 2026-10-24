@@ -26,13 +26,13 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable; 19 initially improved and finished; 6/20 additional upgrades verified.** Last Lighthouse is an unfinished optical harbour prototype. First-batch games, Nightshift and Afterlight are excluded.
+**20/20 playable, initially improved and finished; 6/20 additional upgrades verified.** Last Lighthouse now includes verified optional lifeboat routing. First-batch games, Nightshift and Afterlight are excluded.
 
 Windup Wrestling is the nineteenth candidate: seven-space spring grappling, telegraphed rival actions, braces and momentum reversals. Its initial improvement replaces an identical three-move win across rivals with reactive guarding and an early grapple. See [the implementation report](WINDUP_WRESTLING_INITIAL.md). Its separate additional-round upgrade is not counted.
 
 Exact-source CI [40080637524](https://github.com/ThatOneMop/study-desk/actions/runs/40080637524) passed **713 engine/interface checks** (421 engine, 292 DOM), plus source and asset preservation gates. Changed-game native desktop/touch campaigns pass; ten screenshots retained and three inspected. Other browser groups remain in progress at checkpoint. Earlier Ember CI 40076388835 has now passed all seven jobs and all eighteen native suites.
 
-Next: substantively improve and verify Last Lighthouse, complete fourteen remaining additional upgrades, compare and integrate selections. The third-batch branch has exactly 50 planned slots and no built games yet. The full task remains unfinished.
+Next: complete fourteen remaining additional upgrades, compare and integrate selections. The third-batch branch has exactly 50 planned slots and no built games yet. The full task remains unfinished.
 
 The existing workspace-control and publication audit on main `b311b35` found no remaining Switch workspace controls. Preserve Games/Collection navigation, search, grouping, sorting and favourites. GitHub Pages configuration remains a previously recorded permission blocker; no unchanged retry was made. Separate hosted deployment was not verified through its sign-in wall. Repository commits are not live release evidence.
 
@@ -57,3 +57,5 @@ Ember native desktop/touch verification and in-page confirmations now pass on co
 ## Last Lighthouse prototype
 
 Launch `/games/last-lighthouse/`. See [initial evidence and weaknesses](LAST_LIGHTHOUSE_INITIAL.md). All twenty slots now contain playable source, but this is not twenty finished games.
+
+Last Lighthouse now has optional lifeboat beam routes and earned pennants, using spare power or risking hull on cranking. [Initial improvement evidence](LAST_LIGHTHOUSE_RESCUES.md). This does not count toward the additional round.

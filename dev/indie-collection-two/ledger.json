@@ -13,7 +13,7 @@
   },
   "baseMain": "bded102680166c0107fd8a58fef1559be7a22efa",
   "rules": [
-    "Exactly 20 NEW slots, overall numbers 21–40. Planned concepts do not count as playable.",
+    "Exactly 20 NEW slots, overall numbers 21\u201340. Planned concepts do not count as playable.",
     "First batch and the separate Nightshift and Afterlight collections do not count toward this batch.",
     "One initial playable implementation and at least one tested meaningful improvement per candidate.",
     "Only finished, evaluated selections enter the real catalogue. No automatic selection of all candidates.",
@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 20,
-    "improved": 19,
-    "finished": 19,
+    "improved": 20,
+    "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 25,
+    "meaningfulPasses": 26,
     "verifiedLive": 0
   },
   "deployment": {
@@ -65,13 +65,13 @@
       "tests": [
         "21 engine tests: five full three-medal campaigns, species scoring, topology, bounds, mutation isolation, win/loss, undo, replay validation and save integrity.",
         "19 DOM/save/input tests: complete campaign UI actions, exact forecasts, channel-closure warning, reload, restart, keyboard, blocked storage, malformed-save recovery and navigation markup.",
-        "Chromium desktop 1280×1000 and touch emulation 390×844: all five coasts through real UI actions, previews, rotation, score forecasts, loss/reopen, persistence, restart/cancel, keyboard traversal, corrupt-save recovery, return navigation and zero uncaught browser errors.",
+        "Chromium desktop 1280\u00d71000 and touch emulation 390\u00d7844: all five coasts through real UI actions, previews, rotation, score forecasts, loss/reopen, persistence, restart/cancel, keyboard traversal, corrupt-save recovery, return navigation and zero uncaught browser errors.",
         "14 screenshots captured; initial and final desktop/mobile samples visually inspected. Compact mobile chooser refinement passed the complete repeat campaign.",
         "19 public routes/assets, nine first-batch selected-source hashes, exact 20-slot second-batch gate, shell, bridge-pointer and relaxed-collection tests passed.",
         "Two inherited launcher tests still target the removed playerStudy control; see baselineTestLimitations."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 4,
         "depth": 3.5,
         "polish": 4,
@@ -129,7 +129,7 @@
         "All 40 Reefwright engine/DOM checks and both complete five-coast browser campaigns pass unchanged. Public route/assets, nine first-batch source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection checks pass."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3.5,
         "polish": 3.5,
@@ -186,7 +186,7 @@
         "All 80 prior Reefwright/Counterweight engine+DOM checks and their full desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, route/assets, nine selected-source hashes and exact twenty-slot gate also passed."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3.5,
         "polish": 3.5,
@@ -244,7 +244,7 @@
         "All prior 125 engine/DOM checks and three desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, assets, nine first-batch source hashes and exactly twenty-slot gate passed."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3.5,
         "polish": 4,
@@ -304,7 +304,7 @@
         "All prior 171 engine/DOM checks and four desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, static assets, nine first-batch selected-source hashes and exactly twenty-slot gate passed."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3.5,
         "polish": 3.5,
@@ -361,7 +361,7 @@
         "All prior 216 engine/DOM checks and five desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, static assets, nine first-batch selected-source hashes and exact twenty-slot gate passed."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3,
         "polish": 4,
@@ -433,7 +433,7 @@
         "Additional round 2026-10-24: 40 engine + 36 DOM checks; native classic campaign plus ten kit deliveries on both desktop and touch, active resource use and mid-use reload, kit loss/retry, short taps, separate records, navigation and unmocked steady-pedal/brake check. All seventeen suites and 659 checks passed CI 40038858541. 60 Ratchet screenshots retained; desktop-spring-4-used.png and touch-repair-3-used.png inspected, alongside direct rendered manual play."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3,
         "polish": 3.5,
@@ -499,7 +499,7 @@
         "19 public route/assets checks, nine first-batch selected-source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection tests passed. Inherited obsolete playerStudy launcher assertions remain preserved and are not claimed to pass."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3,
         "polish": 3.5,
@@ -559,7 +559,7 @@
         "Public checks passed: 19 bundled routes/55 HTML asset references, nine first-batch selected-source hashes, exact 20-slot gate, current shell, pointer bridge and relaxed catalogue. The two inherited playerStudy launcher tests remain unchanged and are not claimed to pass."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3,
         "polish": 3.5,
@@ -608,7 +608,7 @@
             "Preserve full journals at the replay limit instead of writing saves that cannot reload.",
             "Native touch diagnostic found missing compatibility clicks after a rapid drag; controls now activate on a valid stationary release, suppress duplicate clicks, and retain keyboard input.",
             "Distinguish native pointer clicks with zero detail from keyboard activation, preventing a touch tap from brushing twice.",
-            "Suppress the handled touch gesture’s compatibility click even when opening a dialog retargets that click onto another control."
+            "Suppress the handled touch gesture\u2019s compatibility click even when opening a dialog retargets that click onto another control."
           ],
           "validation": "22 engine and 17 DOM checks; exact-source CI 39990612900 passed complete desktop and native touch three-site/six-specimen campaigns, every-site reloads, purchases, fast strokes, previews, fracture/restart, isolated recovery/reset and navigation. Desktop and phone images reviewed."
         }
@@ -624,7 +624,7 @@
         "Public checks passed: 19 bundled routes/55 HTML asset references, nine selected first-batch source hashes, exact 20-slot gate, current shell, bridge-pointer and relaxed collection. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3,
         "polish": 3.5,
@@ -703,7 +703,7 @@
         "32 Static Orchard screenshots retained in artifact 12548040142. Inspected desktop-lure-placed, touch-lure-reloaded and touch-orchard-4-won. ZIP SHA256 790bd8fe203a03ef197974eabde5a138bb9b6a08f622ba5ae835e386eb41cbb1. Automated routes verify reliability, not human enjoyment."
       ],
       "quality": {
-        "scale": "1–5, agent design review; not player survey scores",
+        "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
         "depth": 3,
         "polish": 3.5,
@@ -815,7 +815,7 @@
           "pass": 1,
           "date": "2026-10-24",
           "changes": [
-            "Live pure flavour preview before brewing and comparison with the visitor’s most recent cup.",
+            "Live pure flavour preview before brewing and comparison with the visitor\u2019s most recent cup.",
             "Undo the last recipe adjustment without spending an attempt; keep keyboard focus after dynamically rendered scoop controls.",
             "Validate saved records and journal feedback against actual recipe outcomes; migrate original saves and preserve strainer provenance after equipment changes.",
             "Bring service feedback and new visitor names into keyboard focus; preserve record recipes beyond recent journal retention."
@@ -1015,7 +1015,7 @@
       "slot": 36,
       "id": "night-clerk",
       "title": "Night Clerk",
-      "coreLoop": "Infer guests’ hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
+      "coreLoop": "Infer guests\u2019 hidden needs from clues and allocate interdependent rooms without triggering haunted conflicts.",
       "status": "finished",
       "source": "games/night-clerk",
       "improvementPasses": [
@@ -1161,12 +1161,12 @@
       "tests": [
         "8 engine checks passed: all four authored routes solved through ordinary actions with per-action save roundtrips; walls and locked routes; natural heat loss/undo; flare and garden costs; melt and cloak water; invalid save rejection.",
         "2 DOM checks passed: keyboard delivery, equipment unlock, pause, undo, reload, isolated reset and unreadable-save preservation/recovery.",
-        "Rendered browser: delivered first and ice routes on desktop, keyboard movement and mid-melt reload; delivered glasshouse route via controls at 390×844 iframe size; natural heat loss, undo and retry preserving records. Desktop and phone-size screenshots inspected. Phone-size clicks are not physical-device/touch-emulation evidence.",
+        "Rendered browser: delivered first and ice routes on desktop, keyboard movement and mid-melt reload; delivered glasshouse route via controls at 390\u00d7844 iframe size; natural heat loss, undo and retry preserving records. Desktop and phone-size screenshots inspected. Phone-size clicks are not physical-device/touch-emulation evidence.",
         "Initial improvement: 10 engine + 3 DOM checks; packed fuel, capacity, deferred warmth, garden preservation, zero-warmth rescue, old action replay, mode exclusion and save/undo. Rendered phone-width clicks are not touch-device evidence.",
         "Exact-source CI 40076388835 night-desk browser job passed desktop and native touch-emulated four-delivery campaigns, fuel rescue, reload, loss/undo/retry, confirmation cancellation/Escape, equipment cancellation, pause, isolated reset/recovery and navigation. Fourteen screenshots retained; desktop fuel rescue and touch final delivery inspected."
       ],
       "quality": {
-        "scale": "1–5 provisional agent design review, not human enjoyment evidence",
+        "scale": "1\u20135 provisional agent design review, not human enjoyment evidence",
         "enjoyment": 3,
         "depth": 2.5,
         "polish": 3.5,
@@ -1229,7 +1229,7 @@
         "Native Chrome desktop and emulated touch: all three distinct rival wins, reversal, brace, mid-bout and won reload, natural loss/undo/retry, pause, modal cancellation, isolated reset/recovery and navigation. Ten screenshots retained; desktop-bout-1, touch-bout-2 and touch-guide inspected. Readable layouts, no horizontal overflow; touch guide fits viewport. CI 40080637524, job 120833480441, artifact 12555156061."
       ],
       "quality": {
-        "scale": "1–5 provisional agent design review, not human enjoyment evidence",
+        "scale": "1\u20135 provisional agent design review, not human enjoyment evidence",
         "enjoyment": 3,
         "depth": 2,
         "polish": 3,
@@ -1267,46 +1267,62 @@
       "id": "last-lighthouse",
       "title": "Last Lighthouse",
       "coreLoop": "Aim beams through rotating mirrors to guide ships while budgeting power and repairs.",
-      "status": "playable",
+      "status": "finished",
       "source": "games/last-lighthouse",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "observedWeakness": "Rendered first harbour finished with spare power and repeated fixed convoy routes; resource budget barely affected clean play.",
+          "changes": [
+            "Optional lifeboat receiver in each harbour creates a separate beam-routing choice costing two power before the last convoy delivery.",
+            "Complete the convoy after rescue to earn a permanent pennant; mistakes compete with rescue power and hull-costing cranking.",
+            "Preserve old journals/records; save and undo target/rescue state. Compact phone chart, sticky controls, R input and bridge pause."
+          ],
+          "implementationCommit": "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
+          "validation": "Seven focused engine tests and preservation gates pass. Rendered first harbour rescue/reload/full convoy win with zero power and pennant; desktop screenshot inspected. Native CI 40088157129 pending. Native Chrome desktop/touch all original deliveries and all three rescues pass, with 34 screenshots retained and phone rescue-preview/desktop rescue-win inspected. Full checks: 720 passing."
+        }
+      ],
       "tests": [
         "Four engine checks pass: all six ships through ordinary actions with exact save roundtrips; natural loss/undo/retry; crank power/hull tradeoff; locked harbours and corrupt journals.",
         "Rendered cloud desktop walkthrough completed Lantern Reach with two signals and unlocked Broken Shoal. Beam routing and completed-harbour screenshot inspected.",
         "CI 40084157781 checks job passed 425 engine + 292 DOM = 717 checks and preservation gates. Completed first harbour and record survived cloud browser reload.",
-        "Native CI 40084157781 job 120843842346 passed desktop and emulated touch: all six ships/progression, exact saves/reload, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation. 22 screenshots retained in artifact 12556472208; touch-path-2-0 and desktop-win-2 inspected. No horizontal clipping; phone signal requires scrolling below board. Initial improvement still pending."
+        "Native CI 40084157781 job 120843842346 passed desktop and emulated touch: all six ships/progression, exact saves/reload, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation. 22 screenshots retained in artifact 12556472208; touch-path-2-0 and desktop-win-2 inspected. No horizontal clipping; phone signal requires scrolling below board. Initial improvement still pending.",
+        "Seven focused engine tests and preservation gates pass. Rendered first harbour rescue/reload/full convoy win with zero power and pennant; desktop screenshot inspected. Native CI 40088157129 pending.",
+        "Exact-source CI checks passed: 428 engine + 292 DOM = 720 checks, plus preservation gates.",
+        "CI 40088157129 job 120855438529: all three optional rescues, pennants, rescue save/reload, original six ships, progression, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation pass on desktop and touch. Cloud mistake/crank route wins with one hull."
       ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Playable prototype only. Observed in rendered first harbour: deterministic fixed ship positions and surplus battery on a clean route limit meaningful replay/resource choices. Needs substantive initial improvement, additional-round upgrade and completed native testing. No human enjoyment or duration claim."
+        "scale": "1\u20135 provisional agent design review; not human enjoyment evidence",
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3,
+        "reliability": 4,
+        "variety": 4,
+        "notes": "Optional lifeboat routing gives spare power an earned-pennant use and creates mistake/crank tradeoffs. Three short fixed harbours remain limited; separate additional upgrade still pending. Not selected."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
       "developmentCommits": [
-        "88b6d16534ad9d1b7b0227810b5692cdf799c1c7"
+        "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
+        "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5"
       ],
       "publishedUrl": null,
       "nextSteps": [
-        "Give the power budget and routing meaningful competing uses, based on the rendered first-harbour weakness; do not pad fixed levels.",
-        "Complete native desktop/touch and keyboard verification; inspect captured layouts; improve phone controls if needed.",
-        "Then implement a separate additional-round upgrade, preserving journals and records."
+        "Play improved slate and implement a distinct additional-round upgrade; do not recount lifeboat initial pass."
       ],
       "verification": {
-        "commit": "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40084157781",
-        "artifact": 12556472208,
-        "artifactSha256": "47dbf636760d8c362c780da337fe34eab06810d099e6e97ad07e69e282cc42df",
-        "status": "Native CI 40084157781 job 120843842346 passed desktop and emulated touch: all six ships/progression, exact saves/reload, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation. 22 screenshots retained in artifact 12556472208; touch-path-2-0 and desktop-win-2 inspected. No horizontal clipping; phone signal requires scrolling below board. Initial improvement still pending."
+        "commit": "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40088157129",
+        "artifact": 12557089508,
+        "artifactSha256": "3380bef8f163730485a47bc32d70df54b22c7dc0d6a1ca6381715a76d2627f54",
+        "status": "720 checks, preservation gates and changed-game native desktop/touch pass. 34 screenshots retained; touch-rescue-preview-2 and desktop-rescue-won-2 inspected. Broader browser groups still in progress."
       }
     }
   ],
   "nextSteps": [
-    "Improve Last Lighthouse initial prototype and complete native verification. All twenty slots now have playable source; only nineteen are initially improved/finished.",
+    "All twenty initial implementations/improvements now verified. Complete fourteen separate additional-round upgrades before final slate comparison/integration.",
     "Complete all fourteen remaining second-batch additional upgrades before final slate selection; initial Windup rival work does not count twice.",
     "Preserve thirteen concurrent main catalogue entries and current 64-game catalogue at 18b81b1. No main edits in this increment.",
     "Continue third-batch exactly 50 new games on indie-collection-three-dev; current 50-slot ledger still zero built/improved/tested/integrated/live.",
@@ -1561,7 +1577,7 @@
       "result": "Ember Parcel initial playable prototype: 18 playable, 17 initially improved/finished, six additional upgrades verified, two unbuilt slots. No new integration or live release.",
       "publicIntegration": null,
       "regressionStatus": "699 local engine/DOM checks pass (411 engine, 288 DOM). Three routes played through rendered desktop/phone-size UI, plus natural loss/undo/retry, saved melt and navigation. Dedicated native touch campaign pending; no initial or additional improvement credited. Prior implementation CI 40069251133 subsequently confirmed successful.",
-      "nextSteps": "Substantially improve Ember Parcel, then its separate additional-round pass; build slots 39–40; finish the remaining additional upgrades; continue third collection of 50.",
+      "nextSteps": "Substantially improve Ember Parcel, then its separate additional-round pass; build slots 39\u201340; finish the remaining additional upgrades; continue third collection of 50.",
       "initialCommit": "07293192e3077669d4ce7487d07047cfe02eb18a",
       "ci": "40069251133"
     },
@@ -1570,7 +1586,7 @@
       "result": "Ember Parcel initial improvement: deferred kindling fuel and compact phone controls. 18 playable/improved, 17 finished, six additional upgrades verified; third collection unchanged at zero built.",
       "publicIntegration": null,
       "regressionStatus": "702 local engine/DOM checks passed plus preservation gates. Rendered deferred-fuel rescue and ice delivery checked; native touch campaign still pending.",
-      "nextSteps": "Finish Ember native desktop/touch coverage and confirmation UX, then implement its separate additional-round improvement; build slots 39–40 and continue remaining additional upgrades and third batch.",
+      "nextSteps": "Finish Ember native desktop/touch coverage and confirmation UX, then implement its separate additional-round improvement; build slots 39\u201340 and continue remaining additional upgrades and third batch.",
       "gameplayCommit": "e3d85c8aea11d14934aecfa0cb34899019f0ccf4"
     },
     {
@@ -1580,7 +1596,7 @@
       "ci": "40076388835",
       "publicIntegration": null,
       "regressionStatus": "All seven CI jobs subsequently confirmed successful: 703 engine/DOM checks and eighteen native desktop/touch suites.",
-      "nextSteps": "Build slots 39–40 and complete fourteen remaining additional-round upgrades; third 50 and final integration still outstanding."
+      "nextSteps": "Build slots 39\u201340 and complete fourteen remaining additional-round upgrades; third 50 and final integration still outstanding."
     },
     {
       "date": "2026-10-24",
@@ -1599,9 +1615,16 @@
       "ci": "40084157781",
       "publicIntegration": null,
       "nextSteps": "Substantively improve Last Lighthouse and verify; fourteen additional upgrades plus third fifty remain."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Last Lighthouse lifeboat initial improvement verified: twenty playable, initially improved and finished; six additional upgrades; third fifty unbuilt.",
+      "gameplayCommit": "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
+      "ci": "40088157129",
+      "publicIntegration": null
     }
   ],
-  "latestObservedMain": "18b81b1d0a3c73a04268c84ba734b12ffd9bf37a",
+  "latestObservedMain": "7b356c8c4226e79848b038fc70e297808e506651",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",

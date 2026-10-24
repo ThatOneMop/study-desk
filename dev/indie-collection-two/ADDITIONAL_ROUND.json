@@ -282,7 +282,7 @@
       "after": null,
       "implementationCommit": null,
       "testing": [],
-      "remaining": "Initial prototype implemented; first harbour played. Complete a meaningful initial improvement and native verification, then a separate additional upgrade. No passes counted."
+      "remaining": "Lifeboat initial improvement and native rescue routes verified. A separate additional upgrade is still required; initial pass does not count twice."
     }
   ]
 }
