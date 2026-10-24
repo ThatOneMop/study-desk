@@ -1,5 +1,22 @@
 # Study Desk improvement ledger
 
+## 2026-10-24 — active credits cleanup
+
+Base Sites source: 969b15fc199382152a6c2b9908238bb3d64a0b62 (live version 30). GitHub base: b311b35c85c267b25fd94164d0b6d2606bcf2032. Opened the latest Sites source and current GitHub head before editing. The 64-entry curated collection, study tools, saves, and the later user-requested removal of workspace-switch controls are preserved.
+
+### Implemented
+- Removed stale public credit blocks and links for retired GitHub imports, the retired random-game catalogue, and the obsolete PolyTrack official-site shortcut. Retired source and licence files remain in the repository for recoverability; they are no longer presented as active Study Desk games.
+- Updated After Hours attribution to state that it is a user-created Balatro-inspired poker roguelike, not the commercial Balatro game, and linked the exact `ThatOneMop/Balatro` source at commit `bfbffaa3e9c2ce5d651831bcec2506e22bcc6f61`.
+- Added an active-credits regression check that resolves every current catalogue credit anchor and rejects the retired public sections and wording. Repaired stale catalogue/navigation tests to use the current grouped 64-entry collection and the PPP study-return shortcut; runtime game code is unchanged.
+
+### Validation
+- The new credits check first failed against the retired 2048 credit, then passed after cleanup. The full regression suite passed, including all 64 catalogue launch routes, After Hours, Autumn, Underleaf, study storage/import/conflict coverage, bridge controls, collection navigation, and source syntax checks.
+- Asset validation passed for all 63 bundled routes and 231 HTML references with no missing files. `git diff --check` passed.
+- Browser preview rendered the revised credits page; accessibility inspection confirmed the current-only introduction, active game sections, accurate After Hours wording/source, and absence of retired credits and PolyTrack. Physical mobile and screen-reader testing were not performed in this pass.
+
+### Pending
+- No requested commercial-title repository was added in this pass. The documented identity, licence, original-asset, startup, or redistribution blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider, and Minecraft. No unrelated replacement or empty card was added.
+
 ## 2026-10-22 — selected indie collection integration
 
 GitHub base: 42e32a7efa25a120f579dbef6a706d8588a2c3a8. The active ten-game catalogue and retired-catalogue archive were preserved. Nine finished, original candidates were copied from `indie-collection-dev` into a separate **Indie collection** group; unfinished candidates remain development-only.
@@ -359,8 +376,6 @@ Base Sites source: 0f003c25cc63df3600c37444bf4db4d78fe96706 (live version 13). G
 - A GitHub search for MIT-licensed Tiny Fishing candidates returned DinkySnep/Final-Project-Tiny-Fishing-Club. Its README describes a separate month-long fishing-game beta with skill minigames/collection, not the requested original Tiny Fishing. Rejected on identity; did not integrate or run it. Other hits were different named fishing projects, not authorised original-game evidence.
 - No new games added. Previously recorded identity/provenance/reuse blockers remain for the requested titles. Continue focused source vetting and meaningful reliability work; do not re-add retired selections or silently substitute similar games. Preserve GitHub's community link and independent game assets when syncing.
 
-Sites publication succeeded at source commit 09625ce3585feaebdac7566f417c218427426a12. Live URL: https://study-desk-after-class.work-7072.chatgpt.site.
-
 ## 2026-10-20 — pass 4
 
 Base Sites source: 885da166cfa81c59dc6fac3694b9ba8c4cb5642b (live version 12). GitHub base: ee9f2be1459292292d4cc53775f6653b7022ef6d. Separate checkout; other game assets and community work were untouched.
@@ -381,8 +396,6 @@ Base Sites source: 885da166cfa81c59dc6fac3694b9ba8c4cb5642b (live version 12). G
 - https://github.com/Hexcein-moonsters/polytrack README identifies an unaffiliated copy of Kodub's game, with archived modified builds, CORS/server limitations and version-specific replay bugs. Root inventory contains 0.3.1/0.5.0 bundles and a package.json with Redis but no useful build/test workflow. LICENSE says MIT, copyright 2024 Chrome Extensions; this does not establish the original creator's grant for the copied game/assets. No integration until provenance/reuse permission is verified; do not label it as an authorised original.
 - Other requested-game blockers from earlier passes remain. No placeholders, random alternatives or new game entries added. Preserve the separate paused play-count cleanup and GitHub Pages permission boundary.
 
-Sites publication succeeded at source commit 0f003c25cc63df3600c37444bf4db4d78fe96706. Live URL: https://study-desk-after-class.work-7072.chatgpt.site.
-
 ## 2026-10-20 — pass 3
 
 Base Sites source: 01dacd248e8ef0fb237f83025ad2947c789815ce (live version 11). GitHub base: 7053d01fc3831078acfa9280b144953d936d237c. Isolated checkout again; unrelated Gummy Bay edits and its running preview were not changed or stopped.
@@ -399,8 +412,6 @@ Passed new launcher-navigation.cjs (Browse vs PPP, unchanged iframe on return, h
 
 ### Pending
 The requested-game identity/permission blockers in passes 1–2 are unchanged; no new repository eligibility claims were made this pass. Continue targeted authorised-source research or browser/gameplay checks when the shared preview is free. GitHub Pages permission blocker remains separate from functioning Sites publishing. Preserve GitHub's community link when syncing the launcher. Do not resume the paused play-count task.
-
-Published through Sites successfully at source commit 885da166cfa81c59dc6fac3694b9ba8c4cb5642b. Live URL: https://study-desk-after-class.work-7072.chatgpt.site.
 
 ## 2026-10-20 — pass 2
 
@@ -453,5 +464,3 @@ No browser-control skill was available; rendered gameplay, mobile layout, WebGL,
 
 ### Next pass
 Read this ledger and latest source before editing. Reconcile concurrent work; keep original games and community features. Continue targeted requested-repository checks, or improve an observed launcher/game defect with meaningful validation. Do not repeatedly remove games, invent additions or count a scheduled invocation as a complete game overhaul. Preserve current audience. Stop new work at 2026-10-23 15:00 Australia/Sydney.
-
-GitHub mirror: shell changes and curated catalogue applied while retaining that repository's original game metadata (except After Hours clarification), game assets, community page/link and workflow. Sites game assets and GitHub game assets are independent versions; do not overwrite them blindly.
