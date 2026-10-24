@@ -1,5 +1,22 @@
 # Study Desk improvement ledger
 
+## 2026-10-24 — Reefwright dialog keyboard recovery
+
+Base Sites source: eddd9cc9eedc37019d131a215fac2fefac27e732 (live version 32). GitHub base: 39b7c4be06b2307d26cded378ef8324950640726. Opened the latest Site and current GitHub head before editing; the Tiny Wilds save-safety work, 64-entry catalogue, study tools, game saves and owner-only audience are preserved.
+
+### Implemented
+- Fixed Reefwright's confirmation and field-guide dialogs dropping keyboard focus after button close, Escape cancellation, or a confirmed restart. Each dialog now records the exact opener, moves focus to its safe first action, and restores the opener after closing.
+- Dynamic grid, offer and coast controls are resolved again by stable data attributes before focus restoration, so redraws do not target detached buttons. Focus restoration is skipped while the document is inactive to avoid stealing focus from another tab or app.
+- Native Escape cancellation now clears the pending confirmation action before closing. Dialogs have explicit accessible names, and the confirmation description is programmatically connected. Reef layouts, scoring, records, save keys and progression are unchanged.
+
+### Validation
+- New DOM regression coverage passed dialog names/descriptions, initial focus, close-button and Escape cancellation, confirmed-action return, stable opener recovery and the inactive-document guard.
+- The complete regression suite passed, including every 64-entry launch route and all existing game, study, bridge, navigation and save-protection checks. Asset validation passed all 63 bundled routes and 232 HTML references with no missing files; JavaScript syntax and `git diff --check` passed.
+- Browser preview confirmed Field guide and Restart this reef both focus their safe action, Escape closes them, and focus returns to the exact opener. No Reefwright console errors were observed; the browser extension emitted unrelated metadata errors. Physical mobile and screen-reader output remain unverified.
+
+### Pending
+- No requested commercial-title repository was added in this pass. The documented identity, licence, original-asset, startup, or redistribution blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider, and Minecraft. No unrelated replacement or empty card was added.
+
 ## 2026-10-24 — Tiny Wilds save protection
 
 Base Sites source: 203d50b25fdb5e8078b7c66bf4d8c9f8707ddcc3 (live version 31). GitHub base: e89fe39b8e969300e3fb25ffa36c00af029e2f11. Opened the latest Site and current GitHub head before editing; the 64-entry catalogue, study tools, all existing game data formats, and owner-only audience are preserved.
