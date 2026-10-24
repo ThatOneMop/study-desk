@@ -1,0 +1,18 @@
+/* Original Stencil Studio rules. No third-party code or assets. */
+(function(root,factory){if(typeof module==='object')module.exports=factory();else root.StencilStudio=factory()})(globalThis,()=>{'use strict';
+const KEY='study-desk-stencil-studio-v1',SIZE=5,LIMIT=5;
+const SHAPES=[{name:'Corner',cells:[[0,0],[1,0],[0,1]]},{name:'Ribbon',cells:[[0,0],[1,0],[2,0]]},{name:'Window',cells:[[0,0],[1,0],[0,1],[1,1]]}];
+const INKS=[{name:'Sea',bit:1},{name:'Rose',bit:2},{name:'Sun',bit:4}];
+const COLOURS=['#f5ecd7','#68bdc7','#e187a4','#7771b1','#efc65e','#77a573','#db8b57','#51475b'];
+const NAMES=['Paper garden','Harbour flags','Evening windows'];
+const RECIPES=[[[0,0,0,0,1],[0,1,1,0,2],[1,1,1,1,4]],[[1,0,0,1,1],[0,2,2,1,2],[2,0,1,1,4]],[[2,0,1,1,1],[1,1,2,0,2],[0,3,2,2,4]]];
+function cells(shape,rotation,x,y){let c=SHAPES[shape].cells.map(p=>p.slice());for(let i=0;i<rotation;i++)c=c.map(([a,b])=>[-b,a]);const minX=Math.min(...c.map(p=>p[0])),minY=Math.min(...c.map(p=>p[1]));return c.map(([a,b])=>[a-minX+x,b-minY+y])}
+function fits(mark){return Array.isArray(mark)&&mark.length===5&&mark.every(Number.isInteger)&&mark[0]>=0&&mark[0]<3&&mark[1]>=0&&mark[1]<4&&[1,2,4].includes(mark[4])&&cells(...mark.slice(0,4)).every(([x,y])=>x>=0&&x<SIZE&&y>=0&&y<SIZE)}
+function paint(board,mark){const out=board.slice();for(const [x,y]of cells(...mark.slice(0,4)))out[y*SIZE+x]|=mark[4];return out}
+function target(level){return RECIPES[level].reduce(paint,Array(25).fill(0))}
+function create(){return{version:1,level:0,history:[],records:[null,null,null]}}
+function unlocked(s){let n=0;while(n<2&&s.records[n]!==null)n++;return n}
+function run(s){const board=s.history.reduce(paint,Array(25).fill(0)),goal=target(s.level),match=board.every((v,i)=>v===goal[i]);return{board,goal,phase:match?'won':s.history.length>=LIMIT?'lost':'active',wrong:board.reduce((n,v,i)=>n+((v&~goal[i])!==0),0),remaining:LIMIT-s.history.length}}
+function act(old,action){const s=structuredClone(old);if(action==='undo'){if(!s.history.length)return{ok:false,state:old};s.history.pop()}else if(action==='retry')s.history=[];else if(Number.isInteger(action)){if(action<0||action>unlocked(s))return{ok:false,state:old};s.level=action;s.history=[]}else{if(run(s).phase!=='active'||!fits(action))return{ok:false,state:old};const r=run(s),next=paint(r.board,action);if(next.every((v,i)=>v===r.board[i]))return{ok:false,state:old};s.history.push(action.slice());if(run(s).phase==='won'&&(s.records[s.level]===null||s.history.length<s.records[s.level]))s.records[s.level]=s.history.length}return{ok:true,state:s}}
+function decode(raw){if(typeof raw!=='string'||raw.length>5000)throw Error('Oversize save');const a=JSON.parse(raw);if(a.version!==1||!Array.isArray(a.records)||a.records.length!==3||!Array.isArray(a.history)||a.history.length>LIMIT)throw Error('Invalid save');const s=create();s.records=a.records.map((n,i)=>{if(n===null)return null;if(!Number.isInteger(n)||n<1||n>LIMIT||(i&&a.records[i-1]===null))throw Error('Invalid record');return n});if(!Number.isInteger(a.level)||a.level<0||a.level>unlocked(s))throw Error('Locked print');s.level=a.level;for(const mark of a.history){const t=act(s,mark);if(!t.ok)throw Error('Invalid journal');s.history=t.state.history}return s}
+return{KEY,SIZE,LIMIT,SHAPES,INKS,COLOURS,NAMES,RECIPES,cells,fits,paint,target,create,unlocked,run,act,decode};});
