@@ -1,5 +1,23 @@
 # Study Desk improvement ledger
 
+## 2026-10-24 — Tiny Wilds save protection
+
+Base Sites source: 203d50b25fdb5e8078b7c66bf4d8c9f8707ddcc3 (live version 31). GitHub base: e89fe39b8e969300e3fb25ffa36c00af029e2f11. Opened the latest Site and current GitHub head before editing; the 64-entry catalogue, study tools, all existing game data formats, and owner-only audience are preserved.
+
+### Implemented
+- Fixed a reproduced Tiny Wilds data-loss path: malformed current save text was silently ignored and then overwritten by the one-second autosave. Current save data now receives bounded shape validation before use; unreadable text is preserved byte-for-byte and autosave remains paused.
+- Added optimistic conflict detection so an older Tiny Wilds tab cannot overwrite a newer tab's progress. Storage read/write failure produces a persistent session-only warning instead of falsely claiming that local saving is enabled.
+- Added a current-world backup download, preserved-data export, an explicit confirmed replacement choice for unreadable data, and a reload path for newer saves. The fishing and ant-colony rules, progression, legacy migration and save key remain unchanged.
+- Added responsive, accessible status messaging. Healthy saves keep the compact existing badge; warnings explain the exact state and expose only the relevant recovery controls.
+
+### Validation
+- New save-module tests passed malformed-text preservation, schema bounds, explicit replacement, conflict blocking, unavailable storage, normal writes and backup wiring. New DOM tests passed warning visibility, cancelled and confirmed replacement, healthy-state recovery and two-tab conflict protection.
+- The complete regression suite passed, including every 64-entry launch route and all existing After Hours, Autumn Drift, Underleaf, study, bridge and navigation checks. Asset validation passed all 63 bundled routes and 232 HTML references with no missing files; JavaScript syntax and `git diff --check` passed.
+- Browser preview rendered Tiny Wilds with its healthy save notice correctly hidden, backup control visible, no game console errors, and successful fishing/ant-colony tab switching. Damaged-save UI was exercised in the DOM regression fixture rather than by modifying the preview browser's stored data. Completed file downloads, physical mobile and screen-reader output remain unverified.
+
+### Pending
+- No requested commercial-title repository was added in this pass. The documented identity, licence, original-asset, startup, or redistribution blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider, and Minecraft. No unrelated replacement or empty card was added.
+
 ## 2026-10-24 — active credits cleanup
 
 Base Sites source: 969b15fc199382152a6c2b9908238bb3d64a0b62 (live version 30). GitHub base: b311b35c85c267b25fd94164d0b6d2606bcf2032. Opened the latest Sites source and current GitHub head before editing. The 64-entry curated collection, study tools, saves, and the later user-requested removal of workspace-switch controls are preserved.
