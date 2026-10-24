@@ -87,13 +87,14 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "5 engine tests pass: original solutions/saves, clutch isolation, undo/retry, malformed journals, selected-dial migration/validation and smaller-mechanism clamp.",
-        "4 DOM tests pass: all mechanisms/reloads, keyboard/pause/modals/reset/recovery, saved selection, retained dial/hand nodes and focus, coupling focus, isolation labels and one-tooth wraparound/undo.",
-        "Syntax checks pass. No rendered browser, screenshot, touch or enjoyment evidence; not selected."
+        "7 engine tests pass, including all original solutions/saves, optional shortest-action guidance, nonmutation and recovery from 24 legal detours across three mechanisms.",
+        "6 DOM tests pass, including prior control/save regressions, optional guidance, hint clearing after moves, paused/won handling, unreadable-save preservation and full-journal explanation.",
+        "JavaScript syntax checks passed. No rendered browser, screenshot, touch or enjoyment evidence. Full repository build was not run from the partial checkout."
       ],
       "commits": [
         "60dd61044207070fef97638b829242cf1e273715",
-        "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f"
+        "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
+        "86cded4d921af68656fc13ab3304d7de161be834"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -115,6 +116,13 @@
           "Label moving/isolated dials and restore coupling-button focus after redraws."
         ],
         "remaining": "Rendered desktop/touch gameplay, animation/readability review and a substantive playtest-led improvement. This repair is not counted as completed improvement."
+      },
+      "pendingGuidance": {
+        "commit": "86cded4d921af68656fc13ab3304d7de161be834",
+        "basis": "Source inspection: players had no recovery guidance after getting lost in gear coupling. Not a rendered observation.",
+        "before": "Only restart or manual trial and error could help a stuck player.",
+        "after": "Optional next-step guidance searches the current mechanism, explains one action and route length, never moves gears or changes the save, and clears after a move.",
+        "verification": "13 engine/DOM tests pass. Rendered gameplay/readability/touch review still required; no improvement-pass credit."
       }
     },
     {
@@ -1054,6 +1062,12 @@
       "commit": "db3b0fa00d19be493cfe6fcea0619443497cff9f",
       "result": "Pebble Rink timing/input repairs and read-only shot review implemented; 14 engine/DOM tests pass. Totals unchanged: 3/50 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Previously recorded browser-policy blocker remains unresolved. No workaround or new rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "86cded4d921af68656fc13ab3304d7de161be834",
+      "result": "Moon Dial optional guidance implemented and verified by 13 engine/DOM tests. Counts remain 3 built / 0 improved / 0 browser-tested / 0 integrated / 0 live.",
+      "browserStatus": "Existing browser-policy blocker unresolved; no workaround or new rendered claim."
     }
   ]
 }
