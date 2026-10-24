@@ -21,7 +21,7 @@
     "pendingRenderedUpgrade": "Windup Wrestling kits implemented; not counted in additional round."
   },
   "rules": [
-    "Slots 41\u201390 are reserved work slots, not playable games. Unassigned slots count as zero.",
+    "Slots 41–90 are reserved work slots, not playable games. Unassigned slots count as zero.",
     "No existing game, reskin, renamed copy or placeholder counts toward these 50.",
     "Require a distinct implemented core loop, rendered-play improvement pass and browser evidence before catalogue integration.",
     "Preserve all prior source, saves and concurrent catalogue work.",
@@ -131,12 +131,14 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "5 engine tests pass: all rink wins/unlocks and exact saves, opposite curl directions, stone collision, bank/island bounds, exact film endpoint, natural loss/undo/retry and malformed-save rejection.",
-        "3 DOM tests pass: all rinks won through controls, reload during animation, pause/resume, keyboard aim, natural misses, undo/retry, isolated reset/recovery and Games href. Canvas is mocked; these are not rendered tests.",
-        "JavaScript syntax checks and fifty-slot/count/catalogue exclusion checks passed. Full repository build/preservation suite not run from the partial checkout."
+        "7 engine tests pass: all three rink wins/unlocks and exact saves, opposite curl, collisions/bounds, film endpoints, loss/undo/retry, malformed saves, read-only review and precise undo setup recall.",
+        "7 DOM tests pass: all rink routes/reloads, pause/resume, loss/retry/reset/recovery, elapsed-time playback at different callback rates, read-only replay, per-stone scoring notes, native focused-control keys and help cancellation. Canvas and animation timestamps are mocked.",
+        "Syntax, local asset references and exact fifty-slot/count checks passed. Remote change comparison confirms only Pebble Rink source/tests and its development documentation changed. Full repository build/preservation suite not run from partial checkout.",
+        "No rendered, screenshot, physical-touch or enjoyment evidence. Not selected."
       ],
       "commits": [
-        "2fd5e3af77d206f05f0231e8dda5435e0909ab34"
+        "2fd5e3af77d206f05f0231e8dda5435e0909ab34",
+        "db3b0fa00d19be493cfe6fcea0619443497cff9f"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -147,7 +149,19 @@
       "nextSteps": [
         "Play rendered aiming, curl and collision loops on desktop/touch; inspect screenshots and tune mechanics from observed weaknesses.",
         "Complete a substantive improvement pass and verify progression/loss/retry, saves/reload, reset and real navigation before catalogue integration."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "db3b0fa00d19be493cfe6fcea0619443497cff9f",
+        "basis": "Source inspection and reproduced engine/DOM behavior, not rendered playtesting.",
+        "changes": [
+          "Replace one-frame-per-callback animation with elapsed-time playback; paused dialogs/tabs do not accumulate catch-up time.",
+          "Keep native Space/arrow behavior on focused controls and navigation; focusable rink accepts gameplay shortcuts.",
+          "Replay the previous shot and its collisions without changing the shot journal, records or save; show each stone's points before and after the shot.",
+          "Undo recalls the removed shot's angle, weight and curl and restores previous stone positions, allowing targeted adjustment.",
+          "Refresh disabled controls after native guide cancellation and preserve rink-selection focus."
+        ],
+        "remaining": "Rendered desktop/touch review, screenshot inspection and substantive playtest-led improvement remain required. No completed improvement credit."
+      }
     },
     {
       "slot": 44,
@@ -1034,6 +1048,12 @@
       "commit": "2fd5e3af77d206f05f0231e8dda5435e0909ab34",
       "result": "Pebble Rink slot 43 implemented; 8 engine/DOM tests pass. 3/50 built; 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Previously recorded browser-policy blocker unresolved. No workaround or new rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "db3b0fa00d19be493cfe6fcea0619443497cff9f",
+      "result": "Pebble Rink timing/input repairs and read-only shot review implemented; 14 engine/DOM tests pass. Totals unchanged: 3/50 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Previously recorded browser-policy blocker remains unresolved. No workaround or new rendered claim."
     }
   ]
 }
