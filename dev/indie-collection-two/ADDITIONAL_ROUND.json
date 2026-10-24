@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 4,
+  "completed": 5,
   "required": 20,
   "candidates": [
     {
@@ -150,13 +150,18 @@
       "slot": 32,
       "id": "borrowed-gravity",
       "title": "Borrowed Gravity",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "verified",
+      "observedWeakness": "Rendered baseline borrowing/returning confirms a fixed traversal; operator notes and engine expose whole-attempt restart after collision with no player-chosen recovery point.",
+      "before": "Four fixed galleries; scanner collisions require restarting the current gallery.",
+      "after": "One surface anchor can be repositioned before use. Recall restores its gravity, position and secured samples even after loss, while retaining elapsed frames and transfers; later samples must be recovered again. Safe placement and scanner proximity restrict use.",
+      "implementationCommit": "dca02c401239e0d9060a7037ea9139a23597c82d",
+      "testing": [
+        "26 engine and 16 DOM checks pass: original four campaigns, naturally reached scanner loss/recall, sample rollback, single charge, effort preservation, legacy save migration, malformed anchor rejection and saved UI recall.",
+        "Cloud rendered baseline borrowing and upgraded ceiling-anchor/return/recall played. A separate 390px floor-anchor/borrow/recall and reload played; desktop and phone screenshots inspected.",
+        "Native Chrome 155 desktop and emulated touch pass all four galleries, keyboard/touch anchor placement, natural scanner loss, saved anchor reload, recall, spent-charge reload, second loss/retry, bridge pause, recovery/reset and navigation. CI 40057078381 job 120762708153.",
+        "34 screenshots retained; inspected desktop-anchor-ready, touch-anchor-recalled and touch-anchor-spent-reloaded. Artifact 12546132023 SHA256 db75395ce29fcc44023b1aa3eaac839fda5cd2f42d470158fe74845dd49aacf2. Additional engine walkthrough completes gallery one after recall with all samples, unlock and effort retained."
+      ],
+      "remaining": "Verified additional pass; compare with the full slate after the remaining fifteen upgrades."
     },
     {
       "slot": 33,

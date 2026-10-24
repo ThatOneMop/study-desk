@@ -24,7 +24,7 @@
     "improved": 17,
     "finished": 17,
     "selected": 0,
-    "meaningfulPasses": 21,
+    "meaningfulPasses": 22,
     "verifiedLive": 0
   },
   "deployment": {
@@ -737,12 +737,23 @@
             "Contextual movement instructions follow gravity orientation; rejected actions remain readable for three simulated seconds."
           ],
           "validation": "23 engine and 15 DOM checks passed; original authored routes unchanged. Native Chromium desktop and multi-touch campaigns, exact paused reloads, jump/cancellation, scanner loss/retry, isolated save recovery/reset, navigation and normal RAF passed in CI 40002581593."
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-24",
+          "changes": [
+            "One surface anchor can be repositioned before use. Recall restores its gravity, position and secured samples even after loss, while retaining elapsed frames and transfers; later samples must be recovered again. Safe placement and scanner proximity restrict use."
+          ],
+          "implementationCommit": "dca02c401239e0d9060a7037ea9139a23597c82d",
+          "validation": "42 focused checks and native desktop/touch full campaigns, natural loss/anchor reload/recall, spent-charge reload, second loss/retry, input/bridge/recovery/reset/navigation pass. Cloud desktop/390px recovery played; 34 native screenshots retained, three inspected. CI 40057078381. Post-recall completion additionally verified with ordinary engine route inputs."
         }
       ],
       "tests": [
         "Initial playable: 16 engine and 12 DOM checks passed before improvement, covering four galleries, source/gate conservation, reach, wall/floor jumping, scanner loss/retry, calibration unlocks and strict saves. Initial commit skipped CI; no native pass claimed for that version.",
         "Improved version: 38 checks (23 engine, 15 DOM) pass, including pure/exact drift endpoints, scanner forecasts, unsafe-return guard, buffered/late jumps, no held-key bunnyhop, save migration and persistent rejection feedback.",
-        "Native desktop and touch-emulated Chromium: all four galleries, two-source swaps, calibration unlocks, pure preview selection, exact paused reload in every gallery, keyboard/multi-touch input, jumping, cancellation/bridge pause, scanner loss/retry, isolated corrupt recovery/reset, back navigation and normal RAF passed. 28 screenshots retained; desktop gallery-four preview and phone completed archive visually reviewed."
+        "Native desktop and touch-emulated Chromium: all four galleries, two-source swaps, calibration unlocks, pure preview selection, exact paused reload in every gallery, keyboard/multi-touch input, jumping, cancellation/bridge pause, scanner loss/retry, isolated corrupt recovery/reset, back navigation and normal RAF passed. 28 screenshots retained; desktop gallery-four preview and phone completed archive visually reviewed.",
+        "42 focused checks and native desktop/touch full campaigns, natural loss/anchor reload/recall, spent-charge reload, second loss/retry, input/bridge/recovery/reset/navigation pass. Cloud desktop/390px recovery played; 34 native screenshots retained, three inspected. CI 40057078381. Post-recall completion additionally verified with ordinary engine route inputs."
       ],
       "quality": {
         "enjoyment": 3.5,
@@ -750,28 +761,29 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Agent comparative assessment, not a player survey. Conserved gravity/barrier transfers and readable drift previews provide a distinct platforming loop. Four very short authored galleries, modest calibration progression, no audio layer and phone scrolling limit depth/polish. Touch emulation only; no hours-of-content or full accessibility claim."
+        "notes": "Agent assessment, not human enjoyment evidence. Player-chosen surface anchors add a limited recovery decision to gravity routing; recalling sacrifices samples collected later and does not erase time or transfers. Four short authored galleries still limit depth. Existing art, saves and calibrations preserved; no long-playtime or physical-device claim."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "64b73b611e18fb8563fb6b6d64cad5159ee58dca",
       "developmentCommits": [
         "64b73b611e18fb8563fb6b6d64cad5159ee58dca",
-        "c4a3ab98f1177fbbed7c4ae62c910d49509f9702"
+        "c4a3ab98f1177fbbed7c4ae62c910d49509f9702",
+        "dca02c401239e0d9060a7037ea9139a23597c82d"
       ],
       "selectionReason": "Retain for comparison as gravity platforming variety; especially short campaign means it must earn a place against stronger depth contenders. Not selected.",
       "verification": {
-        "commit": "c4a3ab98f1177fbbed7c4ae62c910d49509f9702",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40002581593",
         "status": "passed",
+        "commit": "dca02c401239e0d9060a7037ea9139a23597c82d",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40057078381",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40057078381/artifacts/12546132023",
+        "artifactSha256": "db75395ce29fcc44023b1aa3eaac839fda5cd2f42d470158fe74845dd49aacf2",
         "sha256": {
-          "engine.js": "37f54adf93fb0da9efda921eade16a326248d28b8241d8fabcab2ebac63b47a7",
-          "game.js": "a8f75b2f19876566c563c9a985e483fecda06916e0498594bd394a6c5ca6482a",
-          "index.html": "ed5f9fbf387ded8d7d4a20b44b07ae614f8703e6de6ad5726aa4385a783bf172",
+          "engine.js": "c6352823a087606298c59508c921c7f5f7b5d7caa9bea7cf913ab5c125e07810",
+          "game.js": "cd6cf2c3bf2f2f4e42c5752727fcaaff6d5c46a345fefe072063c9355bf0a391",
+          "index.html": "2d0d4ef1043742d0740b44be22c826ad1a642cd78fb7353f39a7561727af864b",
           "style.css": "2ead25fc359acb453e5b70f92cae27d446465a23a180dc07fdae19b0fa870d75"
-        },
-        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40002581593/artifacts/12523620121",
-        "artifactSha256": "7fba9d373f9f3ef872f429078c088a5b54af417eece15850601132c85f8a35b1"
+        }
       }
     },
     {
@@ -1171,8 +1183,8 @@
     }
   ],
   "nextSteps": [
-    "Continue additional round: Ratchet Run, Cairn & Cord, Murmuration and Night Clerk verified, 4/20. Earlier initial passes remain excluded.",
-    "Prioritize weakest remaining existing games: Borrowed Gravity and Static Orchard; play before changing. Then continue remaining unchecked candidates, including Clockwork Tide.",
+    "Continue additional round: Ratchet Run, Cairn & Cord, Murmuration, Night Clerk and Borrowed Gravity verified, 5/20. Earlier initial passes excluded.",
+    "Prioritize Static Orchard and remaining unchecked candidates after rendered play; finish the three missing games and their separate passes.",
     "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
     "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
     "Pages permission checked once for this new round: unchanged integration access failure. Do not retry without changed permissions/evidence."
@@ -1404,6 +1416,14 @@
       "publicIntegration": null,
       "regressionStatus": "All seven CI jobs passed: 397 engine + 284 DOM checks and all seventeen native desktop/touch suites. Night Clerk cart alternatives, collateral noise/undo, exact reload, wins, original campaigns and regression pass; representative screenshots inspected.",
       "nextSteps": "Sixteen additional upgrades remain, including finishing three missing candidates and their initial improvements; final comparison/integration follows."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Borrowed Gravity surface-anchor upgrade verified; 17 initial games, five additional upgrades verified and three games unbuilt. No integration/live release.",
+      "gameplayCommit": "dca02c401239e0d9060a7037ea9139a23597c82d",
+      "ci": "40057078381",
+      "publicIntegration": null,
+      "regressionStatus": "685 engine/interface checks pass. Changed-game native desktop/touch suites and screenshot review pass; other collection-wide browser groups still pending."
     }
   ],
   "latestObservedMain": "0f295c9795590f96a90c6ceb8c1d165e77fcd3a7",
@@ -1411,7 +1431,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 4,
+    "completed": 5,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

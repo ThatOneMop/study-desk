@@ -1,4 +1,4 @@
-# Additional improvement round — 4/20 verified
+# Additional improvement round — 5/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -13,7 +13,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 29. Salt & Sail
 - [ ] 30. Pocket Palaeo
 - [ ] 31. Static Orchard
-- [ ] 32. Borrowed Gravity
+- [x] 32. Borrowed Gravity — safe surface anchors and one-use recovery choices; verified commit `dca02c401239e0d9060a7037ea9139a23597c82d`, CI 40057078381.
 - [ ] 33. Tea for Ghosts
 - [x] 34. Cairn & Cord — anchored lateral traverses, haul-back grip choices and separate survey records; verified commit `eb10e9e87ee414f0a218afe6176cc2589151a592`, CI 40044161548.
 - [x] 35. Murmuration — food-funded clear-air regroup calls and supply/survival choices; verified commit `b1c2421ba2286bc833d62e12ffb256e8cf4795fc`, CI 40048553658.
