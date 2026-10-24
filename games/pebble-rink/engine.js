@@ -12,6 +12,12 @@ for(let i=0;i<stones.length;i++)for(let j=i+1;j<stones.length;j++){const p=stone
 if(frames&&tick%3===0)trail.push(stones.map(p=>({x:p.x,y:p.y})));if(!moving)break}
 const end=stones.map(p=>({x:p.x,y:p.y}));if(frames)trail.push(end);return{stones:end,frames:trail}}
 function run(s){let stones=[];for(const shot of s.shots)stones=simulate(stones,shot,s.level).stones;const total=score(stones);return{stones,score:total,phase:s.shots.length<3?'aiming':total>=COURSES[s.level].goal?'won':'lost'}}
-function act(old,a){const s=structuredClone(old);if(a==='undo'){if(!s.shots.length)return{ok:false,state:old};s.shots.pop()}else if(a==='retry')s.shots=[];else if(Number.isInteger(a)){if(a<0||a>unlocked(s))return{ok:false,state:old};s.level=a;s.shots=[]}else{if(s.shots.length>=3||!valid(a))return{ok:false,state:old};s.shots.push({angle:a.angle,power:a.power,spin:a.spin});const r=run(s);if(r.phase==='won')s.records[s.level]=Math.max(s.records[s.level]??0,r.score)}return{ok:true,state:s}}
+function review(s){
+if(!s.shots.length)return null;
+const shot={...s.shots.at(-1)},before=run({...s,shots:s.shots.slice(0,-1)}).stones;
+const film=simulate(before,shot,s.level,true),changes=film.stones.map((p,i)=>({stone:i+1,before:before[i]?points(before[i]):0,after:points(p)}));
+return{shot,frames:film.frames,changes,scoreBefore:score(before),scoreAfter:score(film.stones)};
+}
+function act(old,a){const s=structuredClone(old);if(a==='undo'){if(!s.shots.length)return{ok:false,state:old};s.setup={...s.shots.pop()}}else if(a==='retry')s.shots=[];else if(Number.isInteger(a)){if(a<0||a>unlocked(s))return{ok:false,state:old};s.level=a;s.shots=[]}else{if(s.shots.length>=3||!valid(a))return{ok:false,state:old};s.shots.push({angle:a.angle,power:a.power,spin:a.spin});const r=run(s);if(r.phase==='won')s.records[s.level]=Math.max(s.records[s.level]??0,r.score)}return{ok:true,state:s}}
 function decode(raw){if(typeof raw!=='string'||raw.length>5000)throw Error('Oversize save');const a=JSON.parse(raw);if(!a||a.version!==1||!Array.isArray(a.shots)||a.shots.length>3||!Array.isArray(a.records)||a.records.length!==3)throw Error('Invalid save');const s=create();s.records=a.records.map((v,i)=>{if(v===null)return null;if(!Number.isInteger(v)||v<COURSES[i].goal||v>9||(i&&a.records[i-1]===null))throw Error('Invalid medal');return v});if(!Number.isInteger(a.level)||a.level<0||a.level>unlocked(s)||!valid(a.setup))throw Error('Invalid setup');s.level=a.level;s.setup={angle:a.setup.angle,power:a.setup.power,spin:a.setup.spin};s.shots=a.shots.map(x=>{if(!valid(x))throw Error('Invalid shot');return{angle:x.angle,power:x.power,spin:x.spin}});return s}
-return{KEY,COURSES,R,create,valid,unlocked,points,score,simulate,run,act,decode};});
+return{KEY,COURSES,R,create,valid,unlocked,points,score,simulate,run,review,act,decode};});
