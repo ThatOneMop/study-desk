@@ -43,7 +43,23 @@
     const raw=encode(value);storage.setItem(key,raw);expected=raw;originalRaw=raw;status='ready';return true;
    }catch{status='unavailable';return false}
   }
-  return {load,save,replace,exportText:value=>status==='invalid'&&originalRaw!==null?originalRaw:JSON.stringify(restore(id,value),null,2),readBackup:()=>storage.getItem(backupKey),get status(){return status},get originalRaw(){return originalRaw},key,backupKey};
+  function backup(){
+   let text;
+   try{text=storage.getItem(backupKey)}catch{return {status:'unavailable'}}
+   if(text===null)return {status:'missing'};
+   try{return {status:'ready',text,value:parse(text)}}catch{return {status:'invalid',text}}
+  }
+  function restoreBackup(){
+   if(status==='unavailable')return {ok:false,reason:'unavailable'};
+   let current;
+   try{current=read()}catch{status='unavailable';return {ok:false,reason:'unavailable'}}
+   if(current!==expected){status='conflict';return {ok:false,reason:'conflict'}}
+   const previous=backup();
+   if(previous.status!=='ready')return {ok:false,reason:previous.status};
+   try{const raw=encode(previous.value);storage.setItem(key,raw);expected=raw;originalRaw=raw;status='ready';return {ok:true,value:previous.value}}
+   catch{status='unavailable';return {ok:false,reason:'unavailable'}}
+  }
+  return {load,save,replace,backup,restoreBackup,exportText:value=>status==='invalid'&&originalRaw!==null?originalRaw:JSON.stringify(restore(id,value),null,2),readBackup:()=>storage.getItem(backupKey),get status(){return status},get originalRaw(){return originalRaw},key,backupKey};
  }
  return {create,PREFIX,BACKUP_PREFIX};
 });
