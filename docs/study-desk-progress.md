@@ -1,6 +1,23 @@
 # Study Desk improvement ledger
 
-+## 2026-10-24 — Nightshift save protection
+## 2026-10-24 — Afterlight collection save protection
+
+Base Sites source: ec419c21f82016414ad18475eee31df13fd1dc1c (live version 34). GitHub base: 7b356c8c4226e79848b038fc70e297808e506651. Opened the latest Site and current GitHub head before editing; the Nightshift save work, 64-entry catalogue, study tools, game routes and owner-only audience are preserved.
+
+### Implemented
+- Fixed a reproduced Afterlight data-loss path across its ten original games: malformed, oversized or out-of-bounds collection progress is no longer silently converted to fresh data and overwritten on the next reward. The exact loaded text is preserved and autosaving pauses.
+- Added optimistic conflict detection so an older Afterlight tab cannot overwrite newer chapters, credits, upgrades or best scores. Storage failure now produces a persistent session-only warning instead of claiming progress is safe.
+- Added a downloadable collection save for healthy, conflicted and damaged states. Damaged data exposes an explicit confirmed fresh-start action that keeps the previous stored value in a browser backup first; conflicts instead offer a safe reload. Existing save key, valid partial legacy saves, game rules, balance and campaigns remain compatible.
+
+### Validation
+- New save-module tests passed partial legacy normalisation, field and size bounds, exact damaged-data preservation/export, optimistic conflict blocking, unavailable storage, normal writes, explicit replacement and previous-save backup.
+- The complete regression suite passed, including every 64-entry launch route and all existing game, study, bridge, navigation and save-protection checks. Asset validation passed all 63 bundled routes and 232 HTML references with no missing files; JavaScript syntax and `git diff --check` passed.
+- Browser preview rendered Harbourlight with the healthy save notice and recovery controls. A real collection-save download completed, pause/resume worked, and no Afterlight console errors were observed; the browser extension emitted unrelated metadata errors. Damaged/conflict states are covered by the module test; physical mobile and screen-reader output remain unverified.
+
+### Pending
+- No requested commercial-title repository was added in this pass. The documented identity, licence, original-asset, startup, or redistribution blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider, and Minecraft. No unrelated replacement or empty card was added.
+
+## 2026-10-24 — Nightshift save protection
 
 Base Sites source: 936e1580161ec0a1e7f611d1c1584222d07caff0 (live version 33). GitHub base: 18b81b1d0a3c73a04268c84ba734b12ffd9bf37a. Opened the latest Site and current GitHub head before editing; the 64-entry catalogue, study tools, all game routes and owner-only audience are preserved.
 
