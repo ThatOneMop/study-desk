@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 19,
+    "playable": 20,
     "improved": 19,
     "finished": 19,
     "selected": 0,
@@ -1248,7 +1248,7 @@
       "verification": {
         "commit": "562848a8e8218cb32c45213a0d071c01eaf5eb71",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40080637524",
-        "status": "713 local/CI engine and DOM checks, preservation gates, and native Chrome desktop/touch-emulated three-rival campaigns pass. Screenshots inspected; broader browser groups pending at checkpoint.",
+        "status": "All seven CI 40080637524 jobs passed: 713 engine/DOM checks and all nineteen desktop/touch suites. Confirmed during Last Lighthouse increment.",
         "sha256": {
           "engine.js": "4ea32ad89e85a6e2c0eb55ee2ad2420640add71f7b79be423621be086d93b038",
           "game.js": "c960daead7915cf7e8249eb1d5120b36b4f417a6e0638ba641ad4bafa5585803",
@@ -1267,24 +1267,39 @@
       "id": "last-lighthouse",
       "title": "Last Lighthouse",
       "coreLoop": "Aim beams through rotating mirrors to guide ships while budgeting power and repairs.",
-      "status": "planned",
-      "source": null,
+      "status": "playable",
+      "source": "games/last-lighthouse",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "Four engine checks pass: all six ships through ordinary actions with exact save roundtrips; natural loss/undo/retry; crank power/hull tradeoff; locked harbours and corrupt journals.",
+        "Rendered cloud desktop walkthrough completed Lantern Reach with two signals and unlocked Broken Shoal. Beam routing and completed-harbour screenshot inspected.",
+        "Native desktop/touch campaign CI 40084157781 pending; no completion claim yet.",
+        "CI 40084157781 checks job passed 425 engine + 292 DOM = 717 checks and preservation gates. Completed first harbour and record survived cloud browser reload."
+      ],
       "quality": {
         "enjoyment": null,
         "depth": null,
         "polish": null,
         "reliability": null,
         "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "notes": "Playable prototype only. Observed in rendered first harbour: deterministic fixed ship positions and surplus battery on a clean route limit meaningful replay/resource choices. Needs substantive initial improvement, additional-round upgrade and completed native testing. No human enjoyment or duration claim."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
+      "developmentCommits": [
+        "88b6d16534ad9d1b7b0227810b5692cdf799c1c7"
+      ],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Give the power budget and routing meaningful competing uses, based on the rendered first-harbour weakness; do not pad fixed levels.",
+        "Complete native desktop/touch and keyboard verification; inspect captured layouts; improve phone controls if needed.",
+        "Then implement a separate additional-round upgrade, preserving journals and records."
+      ]
     }
   ],
   "nextSteps": [
-    "Build Last Lighthouse (40), the sole unimplemented second-batch candidate, with initial and separate additional improvements.",
+    "Improve Last Lighthouse initial prototype and complete native verification. All twenty slots now have playable source; only nineteen are initially improved/finished.",
     "Complete all fourteen remaining second-batch additional upgrades before final slate selection; initial Windup rival work does not count twice.",
     "Preserve thirteen concurrent main catalogue entries and current 64-game catalogue at 18b81b1. No main edits in this increment.",
     "Continue third-batch exactly 50 new games on indie-collection-three-dev; current 50-slot ledger still zero built/improved/tested/integrated/live.",
@@ -1569,6 +1584,14 @@
       "publicIntegration": null,
       "regressionStatus": "713 local/CI engine and DOM checks, preservation gates, and native Chrome desktop/touch-emulated three-rival campaigns pass. Screenshots inspected; broader browser groups pending at checkpoint.",
       "nextSteps": "Build Last Lighthouse; fourteen additional upgrades and third fifty remain."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Last Lighthouse initial optical harbour prototype implemented and first harbour played in rendered browser. 20 playable, 19 initially improved/finished; six additional upgrades; third fifty still unbuilt.",
+      "initialCommit": "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
+      "ci": "40084157781",
+      "publicIntegration": null,
+      "nextSteps": "Substantively improve Last Lighthouse and verify; fourteen additional upgrades plus third fifty remain."
     }
   ],
   "latestObservedMain": "18b81b1d0a3c73a04268c84ba734b12ffd9bf37a",

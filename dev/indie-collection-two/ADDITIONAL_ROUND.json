@@ -282,7 +282,7 @@
       "after": null,
       "implementationCommit": null,
       "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "remaining": "Initial prototype implemented; first harbour played. Complete a meaningful initial improvement and native verification, then a separate additional upgrade. No passes counted."
     }
   ]
 }
