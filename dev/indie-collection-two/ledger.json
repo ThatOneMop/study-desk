@@ -22,7 +22,7 @@
   "totals": {
     "playable": 18,
     "improved": 18,
-    "finished": 17,
+    "finished": 18,
     "selected": 0,
     "meaningfulPasses": 24,
     "verifiedLive": 0
@@ -1143,7 +1143,7 @@
       "id": "ember-parcel",
       "title": "Ember Parcel",
       "coreLoop": "Carry warmth to sleeping hearths, consuming dry timber, melting ice and choosing between water costs and garden damage.",
-      "status": "improved",
+      "status": "finished",
       "source": "games/ember-parcel",
       "improvementPasses": [
         {
@@ -1154,7 +1154,7 @@
             "Packed fuel can revive a zero-warmth ember; action journals preserve kindling through reload and undo without changing existing routes or records.",
             "Move travel controls alongside the map, compact phone title/routes and restore full terrain contrast; add pack/stoke keyboard controls and field-guide instructions."
           ],
-          "validation": "13 focused checks pass; rendered desktop pack/reload/zero-warmth stoke and phone-size ice delivery with deferred fuel pass; screenshots inspected. Full native touch suite remains pending.",
+          "validation": "13 focused checks pass; rendered desktop pack/reload/zero-warmth stoke and phone-size ice delivery with deferred fuel pass; screenshots inspected. Full native touch suite remains pending. Completion verification at 61d1c8d: 703 full engine/DOM checks and native desktop/touch campaigns pass; confirmation UI polished; 14 screenshots retained and representative images inspected.",
           "implementationCommit": "e3d85c8aea11d14934aecfa0cb34899019f0ccf4"
         }
       ],
@@ -1162,39 +1162,41 @@
         "8 engine checks passed: all four authored routes solved through ordinary actions with per-action save roundtrips; walls and locked routes; natural heat loss/undo; flare and garden costs; melt and cloak water; invalid save rejection.",
         "2 DOM checks passed: keyboard delivery, equipment unlock, pause, undo, reload, isolated reset and unreadable-save preservation/recovery.",
         "Rendered browser: delivered first and ice routes on desktop, keyboard movement and mid-melt reload; delivered glasshouse route via controls at 390\u00d7844 iframe size; natural heat loss, undo and retry preserving records. Desktop and phone-size screenshots inspected. Phone-size clicks are not physical-device/touch-emulation evidence.",
-        "Initial improvement: 10 engine + 3 DOM checks; packed fuel, capacity, deferred warmth, garden preservation, zero-warmth rescue, old action replay, mode exclusion and save/undo. Rendered phone-width clicks are not touch-device evidence."
+        "Initial improvement: 10 engine + 3 DOM checks; packed fuel, capacity, deferred warmth, garden preservation, zero-warmth rescue, old action replay, mode exclusion and save/undo. Rendered phone-width clicks are not touch-device evidence.",
+        "Exact-source CI 40076388835 night-desk browser job passed desktop and native touch-emulated four-delivery campaigns, fuel rescue, reload, loss/undo/retry, confirmation cancellation/Escape, equipment cancellation, pause, isolated reset/recovery and navigation. Fourteen screenshots retained; desktop fuel rescue and touch final delivery inspected."
       ],
       "quality": {
         "scale": "1\u20135 provisional agent design review, not human enjoyment evidence",
         "enjoyment": 3,
         "depth": 2.5,
-        "polish": 3,
-        "reliability": 3.5,
+        "polish": 3.5,
+        "reliability": 4,
         "variety": 4,
-        "notes": "Initial improvement implements deferred fuel choices and a compact phone layout. Four short routes remain; native touch campaign, confirmation-dialog improvement and a distinct additional-round upgrade are outstanding. Not finished or selected."
+        "notes": "Finished compact initial candidate, not selected: four short authored routes, two equipment options, garden/efficiency records and deferred fuel tradeoffs. Full desktop/touch-emulated campaigns pass; screenshots inspected. Depth remains limited and a distinct additional-round gameplay upgrade is still required. No human enjoyment or long-duration content claim."
       },
       "selected": false,
       "integrationCommits": [],
       "publishedUrl": null,
       "nextSteps": [
-        "Add meaningful choices to how timber is carried or consumed; do not extend play by repeating the same routes.",
-        "Keep warmth, map and primary controls together on phones; replace native confirmation interruptions with accessible in-page confirmation.",
-        "Complete native desktop/touch campaign and navigation coverage; then record initial improvement separately from the additional round."
+        "Play and implement a distinct additional-round progression/replay upgrade; initial kindling work does not count again.",
+        "Compare with the improved slate before selection; preserve existing records and concurrent main integration."
       ],
       "initialCommit": "07293192e3077669d4ce7487d07047cfe02eb18a",
       "developmentCommits": [
         "07293192e3077669d4ce7487d07047cfe02eb18a",
-        "e3d85c8aea11d14934aecfa0cb34899019f0ccf4"
+        "e3d85c8aea11d14934aecfa0cb34899019f0ccf4",
+        "61d1c8d4b2820e83cc8144a3374de6ee358432ed"
       ],
       "verification": {
-        "commit": "07293192e3077669d4ce7487d07047cfe02eb18a",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40069251133",
-        "status": "699 local engine/DOM checks and preservation gates passed; remote regression in progress at checkpoint. No dedicated Ember native-touch suite yet.",
+        "commit": "61d1c8d4b2820e83cc8144a3374de6ee358432ed",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40076388835",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40076388835/artifacts/12553621892",
+        "status": "703 local and CI engine/DOM checks pass, preservation gates pass, changed-game desktop/touch campaigns pass. Other browser groups still running at checkpoint.",
         "sha256": {
-          "engine.js": "e4ad8f006d6a2b8272317e8b2bf36e7c73757021997ad31d99026a22dd97ed98",
-          "game.js": "a3d81391690fd7486d9e4b08c774ba9955282b4b8dfe622da1b216264f195581",
-          "index.html": "d646fed6f22dc44b6946ea5a5d718f6831bd49bbab38876d21ccecbec82bb517",
-          "style.css": "8084bf54dd13a26651c0132e41c7714757a732b087da6b28e23ea644a9017881"
+          "game.js": "c2f94bf5f4fc34cebb0c64b0ea90e488f3804606f3a8cf1e25f0c4430cd819c3",
+          "style.css": "6902bcb3370d2916079cc598168b2abd630709411d9cd045f9ff19259097ab03",
+          "index.html": "61cc6f70b58ab031792ea8ea05c5da2f19268b216c79c2cb6a35b5aaadb3da4a",
+          "engine.js": "9c18c884ec2088a70a5f53d4dc97c5e926fe562551940901612e866bfeb0bb9a"
         }
       }
     },
@@ -1240,7 +1242,7 @@
     }
   ],
   "nextSteps": [
-    "Finish Ember Parcel with a substantive initial improvement based on the observed shallow choices and phone layout; its later additional-round pass must be separate.",
+    "Ember initial implementation/improvement is complete with native browser coverage; implement its separate additional-round upgrade.",
     "Build Windup Wrestling (39) and Last Lighthouse (40), including initial improvements and additional-round upgrades.",
     "Complete all fourteen remaining second-batch additional upgrades before final slate selection, preserving the thirteen concurrent main catalogue entries.",
     "Continue third-batch exactly 50 new games on indie-collection-three-dev; its existing 50-slot ledger currently records zero built/improved/tested/integrated/live.",
@@ -1506,9 +1508,18 @@
       "regressionStatus": "702 local engine/DOM checks passed plus preservation gates. Rendered deferred-fuel rescue and ice delivery checked; native touch campaign still pending.",
       "nextSteps": "Finish Ember native desktop/touch coverage and confirmation UX, then implement its separate additional-round improvement; build slots 39\u201340 and continue remaining additional upgrades and third batch.",
       "gameplayCommit": "e3d85c8aea11d14934aecfa0cb34899019f0ccf4"
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Ember Parcel initial completion verified after confirmation UI repair and full desktop/touch campaign tests. 18 playable/improved/finished; six additional upgrades; two unbuilt. Third collection zero built.",
+      "gameplayCommit": "61d1c8d4b2820e83cc8144a3374de6ee358432ed",
+      "ci": "40076388835",
+      "publicIntegration": null,
+      "regressionStatus": "703 local/CI engine and DOM checks plus preservation gates pass. Changed-game native desktop/touch job passes and screenshots reviewed; broader browser groups pending at checkpoint.",
+      "nextSteps": "Build slots 39\u201340 and complete fourteen remaining additional-round upgrades; third 50 and final integration still outstanding."
     }
   ],
-  "latestObservedMain": "b311b35c85c267b25fd94164d0b6d2606bcf2032",
+  "latestObservedMain": "e89fe39b8e969300e3fb25ffa36c00af029e2f11",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",

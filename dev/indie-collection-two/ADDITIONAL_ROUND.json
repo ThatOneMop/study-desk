@@ -258,7 +258,7 @@
       "after": null,
       "implementationCommit": null,
       "testing": [],
-      "remaining": "Initial kindling/phone-layout improvement implemented and rendered-tested; finish native touch coverage, then implement a distinct additional-round upgrade. This initial pass does not count toward the additional round."
+      "remaining": "Initial kindling pass and native desktop/touch verification complete. Play the improved game and implement a distinct substantial additional-round upgrade; none counted yet."
     },
     {
       "slot": 39,
