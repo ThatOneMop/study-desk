@@ -11,3 +11,5 @@ Ten engine and three DOM tests pass, including the original four routes, bounded
 Counts: second batch 18 playable, 18 initially improved, 17 finished; additional round remains 6/20 because this is Ember's initial pass. Two candidates remain unbuilt. Third batch stays 0/50 built/improved/browser-tested/integrated/live. Zero catalogue additions or live releases in this increment. Existing main integration, first-batch work and saves are untouched. The already-investigated publication limitation was not retried.
 
 Next: native desktop/touch campaign coverage and confirmation UX, then a separate substantive additional-round upgrade; finish slots 39–40 and remaining additional upgrades before final slate selection. No timers, repeated levels or gameplay-hour claims were added.
+
+Gameplay commit: `e3d85c8aea11d14934aecfa0cb34899019f0ccf4`. Complete local regression: **702 engine/interface checks passed**. This excludes unrun native touch coverage.

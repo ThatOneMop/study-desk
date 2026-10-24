@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**18/20 playable; 17 initially improved and finished; 6/20 additional upgrades verified.** Ember Parcel is an unfinished playable prototype. Two slots remain planned. First-batch games, Nightshift and Afterlight are excluded.
+**18/20 playable; 18 initially improved, 17 finished; 6/20 additional upgrades verified.** Ember Parcel is an unfinished playable prototype. Two slots remain planned. First-batch games, Nightshift and Afterlight are excluded.
 
 Clockwork Tide operates a miniature tidal mill: store high water, release it through the wheel, select gears and feed the stone at the right speed and torque. Four authored commissions earn two functional workshop upgrades. Its improvement adds exact next-stroke previews, manual braking, reversible failed strokes and fixed phone controls. All 30 focused checks pass (19 engine, 11 DOM). Exhaustive first-commission search confirms high-water storage is essential.
 
@@ -53,3 +53,5 @@ At the first increment’s concurrency check, public main had advanced to `013a8
 ## Ember Parcel initial checkpoint — 24 October 2026
 
 Launch `/games/ember-parcel/` from a local server. This eighteenth candidate has four short authored flame-delivery routes, warmth/terrain interactions, two equipment options, undo/retry and isolated replay-validated saves. It is deliberately unlisted and unfinished. See [EMBER_PARCEL_INITIAL.md](EMBER_PARCEL_INITIAL.md) for observed weaknesses and the evidence boundary. Its initial improvement and additional-round pass remain outstanding.
+
+Ember Parcel initial pass now adds carried kindling: pack nearby timber and burn it later, including zero-warmth recovery. Phone map/controls are closer together. It remains unfinished pending native touch coverage and further progression work; its additional-round upgrade is not counted.

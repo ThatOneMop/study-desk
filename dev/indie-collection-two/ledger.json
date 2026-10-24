@@ -21,10 +21,10 @@
   ],
   "totals": {
     "playable": 18,
-    "improved": 17,
+    "improved": 18,
     "finished": 17,
     "selected": 0,
-    "meaningfulPasses": 23,
+    "meaningfulPasses": 24,
     "verifiedLive": 0
   },
   "deployment": {
@@ -1143,22 +1143,35 @@
       "id": "ember-parcel",
       "title": "Ember Parcel",
       "coreLoop": "Carry warmth to sleeping hearths, consuming dry timber, melting ice and choosing between water costs and garden damage.",
-      "status": "playable",
+      "status": "improved",
       "source": "games/ember-parcel",
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "changes": [
+            "Pack adjacent timber for one warmth, carry up to two bundles and stoke one later for four warmth without scorching gardens. This trades actions and immediate warmth for deferred fuel.",
+            "Packed fuel can revive a zero-warmth ember; action journals preserve kindling through reload and undo without changing existing routes or records.",
+            "Move travel controls alongside the map, compact phone title/routes and restore full terrain contrast; add pack/stoke keyboard controls and field-guide instructions."
+          ],
+          "validation": "13 focused checks pass; rendered desktop pack/reload/zero-warmth stoke and phone-size ice delivery with deferred fuel pass; screenshots inspected. Full native touch suite remains pending.",
+          "implementationCommit": "e3d85c8aea11d14934aecfa0cb34899019f0ccf4"
+        }
+      ],
       "tests": [
         "8 engine checks passed: all four authored routes solved through ordinary actions with per-action save roundtrips; walls and locked routes; natural heat loss/undo; flare and garden costs; melt and cloak water; invalid save rejection.",
         "2 DOM checks passed: keyboard delivery, equipment unlock, pause, undo, reload, isolated reset and unreadable-save preservation/recovery.",
-        "Rendered browser: delivered first and ice routes on desktop, keyboard movement and mid-melt reload; delivered glasshouse route via controls at 390\u00d7844 iframe size; natural heat loss, undo and retry preserving records. Desktop and phone-size screenshots inspected. Phone-size clicks are not physical-device/touch-emulation evidence."
+        "Rendered browser: delivered first and ice routes on desktop, keyboard movement and mid-melt reload; delivered glasshouse route via controls at 390\u00d7844 iframe size; natural heat loss, undo and retry preserving records. Desktop and phone-size screenshots inspected. Phone-size clicks are not physical-device/touch-emulation evidence.",
+        "Initial improvement: 10 engine + 3 DOM checks; packed fuel, capacity, deferred warmth, garden preservation, zero-warmth rescue, old action replay, mode exclusion and save/undo. Rendered phone-width clicks are not touch-device evidence."
       ],
       "quality": {
         "scale": "1\u20135 provisional agent design review, not human enjoyment evidence",
-        "enjoyment": 2.5,
-        "depth": 2,
-        "polish": 2.5,
-        "reliability": 3,
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3,
+        "reliability": 3.5,
         "variety": 4,
-        "notes": "Playable initial prototype, deliberately unfinished. First delivery takes four moves; current route choices are too shallow, and phone header/routes place the board and controls too far apart. Needs a substantive initial improvement, then a separate additional-round upgrade, full native touch/browser regression and selection review."
+        "notes": "Initial improvement implements deferred fuel choices and a compact phone layout. Four short routes remain; native touch campaign, confirmation-dialog improvement and a distinct additional-round upgrade are outstanding. Not finished or selected."
       },
       "selected": false,
       "integrationCommits": [],
@@ -1170,7 +1183,8 @@
       ],
       "initialCommit": "07293192e3077669d4ce7487d07047cfe02eb18a",
       "developmentCommits": [
-        "07293192e3077669d4ce7487d07047cfe02eb18a"
+        "07293192e3077669d4ce7487d07047cfe02eb18a",
+        "e3d85c8aea11d14934aecfa0cb34899019f0ccf4"
       ],
       "verification": {
         "commit": "07293192e3077669d4ce7487d07047cfe02eb18a",
@@ -1480,10 +1494,18 @@
       "date": "2026-10-24",
       "result": "Ember Parcel initial playable prototype: 18 playable, 17 initially improved/finished, six additional upgrades verified, two unbuilt slots. No new integration or live release.",
       "publicIntegration": null,
-      "regressionStatus": "699 local engine/DOM checks pass (411 engine, 288 DOM). Three routes played through rendered desktop/phone-size UI, plus natural loss/undo/retry, saved melt and navigation. Dedicated native touch campaign pending; no initial or additional improvement credited.",
+      "regressionStatus": "699 local engine/DOM checks pass (411 engine, 288 DOM). Three routes played through rendered desktop/phone-size UI, plus natural loss/undo/retry, saved melt and navigation. Dedicated native touch campaign pending; no initial or additional improvement credited. Prior implementation CI 40069251133 subsequently confirmed successful.",
       "nextSteps": "Substantially improve Ember Parcel, then its separate additional-round pass; build slots 39\u201340; finish the remaining additional upgrades; continue third collection of 50.",
       "initialCommit": "07293192e3077669d4ce7487d07047cfe02eb18a",
       "ci": "40069251133"
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Ember Parcel initial improvement: deferred kindling fuel and compact phone controls. 18 playable/improved, 17 finished, six additional upgrades verified; third collection unchanged at zero built.",
+      "publicIntegration": null,
+      "regressionStatus": "702 local engine/DOM checks passed plus preservation gates. Rendered deferred-fuel rescue and ice delivery checked; native touch campaign still pending.",
+      "nextSteps": "Finish Ember native desktop/touch coverage and confirmation UX, then implement its separate additional-round improvement; build slots 39\u201340 and continue remaining additional upgrades and third batch.",
+      "gameplayCommit": "e3d85c8aea11d14934aecfa0cb34899019f0ccf4"
     }
   ],
   "latestObservedMain": "b311b35c85c267b25fd94164d0b6d2606bcf2032",

@@ -258,7 +258,7 @@
       "after": null,
       "implementationCommit": null,
       "testing": [],
-      "remaining": "Initial Ember Parcel prototype now exists; first complete its substantive initial improvement, then observe and implement a separate additional-round upgrade. Neither is counted yet."
+      "remaining": "Initial kindling/phone-layout improvement implemented and rendered-tested; finish native touch coverage, then implement a distinct additional-round upgrade. This initial pass does not count toward the additional round."
     },
     {
       "slot": 39,
