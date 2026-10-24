@@ -9,6 +9,8 @@ on:
       - 'games/copper-cadence/**'
       - 'games/hollow-keeper/**'
       - 'games/paper-odyssey/**'
+      - 'games/last-lighthouse/**'
+      - 'tests/last-lighthouse-*'
       - 'games/windup-wrestling/**'
       - 'tests/windup-wrestling-*'
       - 'games/ember-parcel/**'
@@ -93,6 +95,8 @@ jobs:
           node --check games/wellward/game.js
           node --check games/salt-and-sail/engine.js
           node --check games/salt-and-sail/game.js
+          node --check games/last-lighthouse/engine.js
+          node --check games/last-lighthouse/game.js
           node --check games/windup-wrestling/engine.js
           node --check games/windup-wrestling/game.js
           node --check games/ember-parcel/engine.js
@@ -114,7 +118,7 @@ jobs:
           node --check games/pocket-palaeo/engine.js
           node --check games/pocket-palaeo/game.js
       - name: Engine and full campaign checks
-        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs tests/pocket-palaeo-engine.cjs tests/static-orchard-engine.cjs tests/borrowed-gravity-engine.cjs tests/tea-for-ghosts-engine.cjs tests/cairn-and-cord-engine.cjs tests/murmuration-engine.cjs tests/night-clerk-engine.cjs tests/clockwork-tide-engine.cjs tests/ember-parcel-engine.cjs tests/windup-wrestling-engine.cjs
+        run: node --test tests/reefwright-engine.cjs tests/counterweight-engine.cjs tests/lanternwake-engine.cjs tests/copper-cadence-engine.cjs tests/hollow-keeper-engine.cjs tests/paper-odyssey-engine.cjs tests/ratchet-run-engine.cjs tests/wellward-engine.cjs tests/salt-and-sail-engine.cjs tests/pocket-palaeo-engine.cjs tests/static-orchard-engine.cjs tests/borrowed-gravity-engine.cjs tests/tea-for-ghosts-engine.cjs tests/cairn-and-cord-engine.cjs tests/murmuration-engine.cjs tests/night-clerk-engine.cjs tests/clockwork-tide-engine.cjs tests/ember-parcel-engine.cjs tests/windup-wrestling-engine.cjs tests/last-lighthouse-engine.cjs
       - name: Install test-only dependencies
         run: |
           npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0
@@ -130,7 +134,7 @@ jobs:
       matrix:
         include:
           - group: night-desk
-            games: clockwork-tide night-clerk ember-parcel windup-wrestling
+            games: clockwork-tide night-clerk ember-parcel windup-wrestling last-lighthouse
           - group: new-games
             games: cairn-and-cord tea-for-ghosts borrowed-gravity static-orchard
           - group: flock
