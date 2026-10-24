@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 3,
+    "built": 4,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -173,21 +173,35 @@
     },
     {
       "slot": 44,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "pocket-regatta",
+      "title": "Pocket Regatta",
+      "coreLoop": "Tack a small sailboat around ordered buoys using wind direction, limited helm turns and short/full sail while avoiding grounding.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/pocket-regatta",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "5 engine tests pass: all three clear-water finishes/unlocks and exact saves; wind/turn restrictions; intermediate buoy crossing; grounding/loss/undo/retry; malformed saves.",
+        "3 DOM tests pass: all course routes through controls and reloads, keyboard chart sailing, pause, loss/retry, save recovery, isolated reset, guide cancellation and Games href.",
+        "Syntax, local asset references and catalogue-exclusion checks passed. No rendered browser, screenshot, touch or human enjoyment evidence. Full repository build not run from partial checkout."
+      ],
+      "commits": [
+        "ba16b341745c0c7db43300111b81b58faff9134b"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three compact fixed-wind courses, solved in 10/9/12 moves by automated search. Unlimited undo; no content-hours claim. Course readability, touch comfort and longer-term depth require rendered assessment."
+      },
+      "nextSteps": [
+        "Play actual rendered tacking and sail-size decisions on desktop/touch; inspect chart/preview screenshots.",
+        "Use observed weakness for a substantive improvement pass; verify progression, grounding/retry, save/reload, restart and real navigation before integration."
+      ]
     },
     {
       "slot": 45,
@@ -1020,8 +1034,8 @@
   ],
   "nextSteps": [
     "Complete fourteen remaining second-batch additional upgrades; Windup implementation awaits rendered review.",
-    "Render/play Stencil Studio, Moon Dial and Pebble Rink and complete substantive improvement passes before selection.",
-    "Implement remaining 47 distinct third-batch games incrementally, keeping unfinished entries unlisted."
+    "Render/play Stencil Studio, Moon Dial, Pebble Rink and Pocket Regatta and complete substantive improvement passes before selection.",
+    "Implement remaining 46 distinct third-batch games incrementally, keeping unfinished entries unlisted."
   ],
   "updated": "2026-10-25",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -1068,6 +1082,12 @@
       "commit": "86cded4d921af68656fc13ab3304d7de161be834",
       "result": "Moon Dial optional guidance implemented and verified by 13 engine/DOM tests. Counts remain 3 built / 0 improved / 0 browser-tested / 0 integrated / 0 live.",
       "browserStatus": "Existing browser-policy blocker unresolved; no workaround or new rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "ba16b341745c0c7db43300111b81b58faff9134b",
+      "result": "Pocket Regatta candidate 44 implemented; 8 engine/DOM checks passed. 4/50 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing browser-policy blocker unresolved. No new rendered claim or workaround."
     }
   ]
 }
