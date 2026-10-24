@@ -1,4 +1,4 @@
-# Additional improvement round — 1/20 verified
+# Additional improvement round — 2/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -15,7 +15,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 31. Static Orchard
 - [ ] 32. Borrowed Gravity
 - [ ] 33. Tea for Ghosts
-- [ ] 34. Cairn & Cord
+- [x] 34. Cairn & Cord — anchored lateral traverses, haul-back grip choices and separate survey records; verified commit `eb10e9e87ee414f0a218afe6176cc2589151a592`, CI 40044161548.
 - [ ] 35. Murmuration
 - [ ] 36. Night Clerk
 - [ ] 37. Clockwork Tide

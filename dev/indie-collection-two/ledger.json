@@ -24,7 +24,7 @@
     "improved": 17,
     "finished": 17,
     "selected": 0,
-    "meaningfulPasses": 18,
+    "meaningfulPasses": 19,
     "verifiedLive": 0
   },
   "deployment": {
@@ -854,21 +854,34 @@
             "Larger holds and height-scaled walls prevent overlap. A fixed phone action panel keeps forecasts, rope and chalk controls beside the move button. Keyboard focus survives redraws and follows route changes."
           ],
           "validation": "25 engine/interface checks and complete four-route three-badge desktop/touch campaigns pass in CI 40018382932. Every move forecast, mid-route reloads, natural loss/undo/retry, keyboard/touch input, quick phone tools, bridge pause, recovery/reset and navigation pass. 28 screenshots retained; desktop final-wall preview and phone traverse preview inspected."
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-24",
+          "changes": [
+            "Anchored lateral traverses reach optional survey outcrops and ordinary holds; haul back costs two grip. Four independent replay-validated survey stamps preserve existing three-badge records. Phone return bar keeps chalk and haul accessible.",
+            "Observed baseline: three-badge Warmup completion without any placed anchor. New survey outcrops require anchored traverses, so anchor choice now enables access as well as limiting falls.",
+            "Phone walkthrough exposed off-screen return controls; added a fixed haul/chalk bar with exact grip forecast while tethered. Existing v1 notebooks migrate without changing summit records."
+          ],
+          "implementationCommit": "eb10e9e87ee414f0a218afe6176cc2589151a592",
+          "validation": "35 Cairn checks (23 engine + 12 DOM), four original and four survey three-badge campaigns on native desktop and emulated touch in CI 40044161548, with exact forecasts, tether reloads, natural loss/undo/retry, retained old records, bridge pause, isolated recovery/reset and navigation. 54 screenshots retained; desktop forecast, touch return controls and touch loss inspected. Rendered cloud Warmup and Fox survey routes completed through actual controls, including chalk choice and warned fall/undo. No physical-device or human-enjoyment claim."
         }
       ],
       "tests": [
         "Initial playable: 12 engine and five DOM tests pass, including all four clean cairn campaigns, ropes/anchors, grip/wind, fall/loss, unlocks, replay-validated saves, restart/recovery and pause. Native verification and meaningful improvement pending.",
         "Improved: 16 engine and nine DOM tests pass; exact forecasts along all routes, natural exhaustion/loss/undo, storage errors, focus and quick phone rope controls. Full native verification pending.",
         "25 engine/interface checks and complete four-route three-badge desktop/touch campaigns pass in CI 40018382932. Every move forecast, mid-route reloads, natural loss/undo/retry, keyboard/touch input, quick phone tools, bridge pause, recovery/reset and navigation pass. 28 screenshots retained; desktop final-wall preview and phone traverse preview inspected.",
-        "Additional cloud UI walkthrough: first route completed at desktop width, remaining three in a 390-pixel frame, all three badges. Initial and revised phone control layout visually reviewed; not physical-device touch testing."
+        "Additional cloud UI walkthrough: first route completed at desktop width, remaining three in a 390-pixel frame, all three badges. Initial and revised phone control layout visually reviewed; not physical-device touch testing.",
+        "35 Cairn checks (23 engine + 12 DOM), four original and four survey three-badge campaigns on native desktop and emulated touch in CI 40044161548, with exact forecasts, tether reloads, natural loss/undo/retry, retained old records, bridge pause, isolated recovery/reset and navigation. 54 screenshots retained; desktop forecast, touch return controls and touch loss inspected. Rendered cloud Warmup and Fox survey routes completed through actual controls, including chalk choice and warned fall/undo. No physical-device or human-enjoyment claim."
       ],
       "quality": {
-        "enjoyment": 3,
-        "depth": 2.5,
+        "enjoyment": 3.5,
+        "depth": 3,
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Agent review, not a player survey. Four compact climbing routes with rope-path, grip, wind and anchor safety decisions. Exact slip forecasts, undo and a fixed mobile move panel make choices readable. Anchors chiefly protect mistakes rather than being required by clean routes. Short campaign, some scrolling and no audio limit depth/polish; no long-playtime or physical-device claim."
+        "notes": "Agent review, not a player survey. Optional survey detours make anchors useful for access; chalk, return grip and belay placement matter. Ordinary holds also support lateral traverses. Separate survey stamps preserve faster original summit records. Four compact authored walls, scrolling and no audio still limit depth/polish; no extended-playtime claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -877,20 +890,21 @@
         "e377ee962c3440138d9402c87bac6428d18e6ba8",
         "6584f914e61a3d92f0cb7ff37c74ca93c439203f",
         "23c2bb63fd24ae9d9a0268248f60fcb62f4225ee",
-        "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81"
+        "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
+        "eb10e9e87ee414f0a218afe6176cc2589151a592"
       ],
       "verification": {
         "status": "passed",
+        "commit": "eb10e9e87ee414f0a218afe6176cc2589151a592",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40044161548",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40044161548/artifacts/12540757754",
+        "artifactSha256": "422b5cbebd3c2244710a7699b1c4c4c1522c132aa689174365734861f47120a0",
         "sha256": {
-          "game.js": "e7bc290317296decf9714cc3bbc8feaa83a79357f01ef5296bff5f2f527b9cca",
-          "style.css": "a6190a56d1d2c47f5357af1e6dff46c2cc3cbe40af9f643dbece63de913566fb",
-          "engine.js": "b973684aa1d0db0bd0824953f8fa42645498e79501512305baa32f3f34171535",
-          "index.html": "47222e6569355a9eac4136b6134fc5e09fa51e5c93d87b82312c507720d3d7ff"
-        },
-        "commit": "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40018382932",
-        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40018382932/artifacts/12528844767",
-        "artifactSha256": "b4af6bfb14956dfd9caf25de8f22543005b117abc1e4733158f175a2774f1e76"
+          "game.js": "59d4664a99cd68ae63c14c9848760e6cbcd1dc79a58facddb08f891515683681",
+          "style.css": "e10b19c61513878ecf8b4ae49a534a08db821f4e8bcb9d0f7e18d9affc3fbcbe",
+          "engine.js": "ddcd032bc32da13d7de758ba689d8f02ff0a47c58a1a51ec70b4d42c8c251b37",
+          "index.html": "586f0e926df8db54c311bdb4e9519e6163a746f755070bbf84435ed6707af1a1"
+        }
       },
       "selectionReason": "Retain as a finished development candidate for comparison across the complete second-batch slate. No public catalogue write by this run.",
       "publishedUrl": null
@@ -1131,8 +1145,8 @@
     }
   ],
   "nextSteps": [
-    "Continue the additional substantial improvement round for every slot 21\u201340; Ratchet Run is verified, 1/20 complete. Earlier initial passes remain excluded.",
-    "Prioritize other weakest existing games: Cairn & Cord, Murmuration, Night Clerk, Borrowed Gravity and Static Orchard; play before changing.",
+    "Continue the additional substantial improvement round: Ratchet Run and Cairn & Cord verified, 2/20 complete. Earlier initial passes remain excluded.",
+    "Prioritize weakest remaining existing games: Murmuration, Night Clerk, Borrowed Gravity and Static Orchard; play each rendered core loop before changing.",
     "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
     "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
     "Pages permission checked once for this new round: unchanged integration access failure. Do not retry without changed permissions/evidence."
@@ -1334,6 +1348,16 @@
       "publicIntegration": null,
       "regressionStatus": "All seven final CI jobs successful: 380 engine + 279 DOM checks and all seventeen native desktop/touch suites. New-round natural rendered classic, spring and repaired-cargo deliveries completed; representative exact-source desktop/touch artifacts inspected.",
       "nextSteps": "Prioritize another weak existing candidate after actual play, continue missing candidates, then complete all twenty additional upgrades before final selection/integration."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Additional round 2/20 verified after Cairn & Cord anchored survey upgrade. Overall 17 playable/initially improved/finished; three planned. No new public integration/live release by this increment.",
+      "gameplayCommit": "eb10e9e87ee414f0a218afe6176cc2589151a592",
+      "verificationCommit": "eb10e9e87ee414f0a218afe6176cc2589151a592",
+      "ci": "40044161548",
+      "publicIntegration": null,
+      "regressionStatus": "All seven CI jobs successful: 387 engine + 282 DOM checks and all seventeen native desktop/touch suites. Cairn original and survey routes, tether reload, loss/undo/retry, old records, controls and navigation pass; 54 native screenshots retained with representative views inspected.",
+      "nextSteps": "Eighteen additional upgrades remain, including finishing three missing candidates and their initial improvements; final comparison/integration follows the complete round."
     }
   ],
   "latestObservedMain": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
@@ -1341,7 +1365,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 1,
+    "completed": 2,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

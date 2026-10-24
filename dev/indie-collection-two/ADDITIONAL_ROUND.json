@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 1,
+  "completed": 2,
   "required": 20,
   "candidates": [
     {
@@ -174,17 +174,20 @@
       "slot": 34,
       "id": "cairn-and-cord",
       "title": "Cairn & Cord",
-      "status": "verification_pending",
+      "status": "verified",
       "observedWeakness": "Rendered Warmup stone route earned all three badges in six moves without setting any anchor. Anchors chiefly insured mistakes; no alternative objective used their reach.",
       "before": "Four fixed summit/cairn routes; anchors only limited falls and there was no lateral rope movement.",
       "after": "Anchored lateral traverses reach optional survey outcrops and ordinary holds; haul back costs two grip. Four independent replay-validated survey stamps preserve existing three-badge records. Phone return bar keeps chalk and haul accessible.",
-      "implementationCommit": null,
+      "implementationCommit": "eb10e9e87ee414f0a218afe6176cc2589151a592",
       "testing": [
         "35 local checks pass: 23 engine and 12 DOM; all original and survey campaigns, legacy save migration, exact reload, record preservation, natural traverse exhaustion/loss/undo and invalid moves.",
         "Cloud rendered baseline and revised Warmup completed through actual desktop controls; migrated existing notebook, reloaded at survey, hauled back and won; separate survey stamp preserved old record.",
-        "390px rendered phone walkthrough completed; inspected forecast and return-bar screenshots. Full native desktop/touch regression pending."
+        "390px rendered phone walkthrough completed; inspected forecast and return-bar screenshots. Full native desktop/touch regression pending.",
+        "Additional rendered Fox Traverse survey route completed at 390px: rough-hold warning, fall/undo, chalk choice and independent summit stamp. Local full suite: 387 engine + 282 DOM checks, asset/first-batch/gate and shell/bridge/collection checks pass.",
+        "Native Chrome desktop and emulated touch pass all four original plus four survey campaigns, independent old records, every movement forecast, tether reloads, natural traversal exhaustion/loss/undo/retry, keyboard/touch, pause, recovery/reset and navigation. CI 40044161548, job 120722389442.",
+        "54 native Cairn screenshots retained in artifact 12540757754; inspected desktop Copper Teeth survey forecast, touch Blue Hour outcrop/return controls and touch natural survey loss. ZIP SHA256 422b5cbebd3c2244710a7699b1c4c4c1522c132aa689174365734861f47120a0. Agent walkthroughs and automation are not human enjoyment evidence."
       ],
-      "remaining": "Run native desktop/touch regression, inspect retained screenshots, then record implementation SHA and mark verified."
+      "remaining": "No additional-round work outstanding for this candidate. Retain for final slate comparison after all twenty are upgraded."
     },
     {
       "slot": 35,
