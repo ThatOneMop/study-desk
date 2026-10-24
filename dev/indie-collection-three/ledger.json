@@ -225,12 +225,13 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "5 engine tests pass: all jobs seal/unlock/save; bounds/braces/overlap rejection; padding and heavy-contact rules; remove/undo/repack; corrupt settings and journals.",
-        "3 DOM tests pass: all jobs through controls with reloads; keyboard anchor/rotation/place, pause and undo; corrupt-save preservation/recovery, scoped reset, guide cancellation and Games href.",
-        "Syntax, asset-reference and catalogue-exclusion checks pass. No rendered browser, screenshot, touch or enjoyment evidence; full repository build not run from partial checkout."
+        "8 engine tests pass: original pack/seal/unlock/save checks, fit/contact rules, undo/repack, corruption rejection, all three achievable care goals, award timing/persistence, legacy save migration and nonmutating protection forecasts.",
+        "5 DOM tests pass: original control/reload/recovery checks plus care-goal feedback, prospective protection, award reload and selecting packed parcels without moving them.",
+        "Syntax and catalogue exclusion pass. No rendered browser, screenshot, touch or enjoyment evidence; full repository build not run from partial checkout."
       ],
       "commits": [
-        "56bba933abc8a6c8b389619d17db74592f806af0"
+        "56bba933abc8a6c8b389619d17db74592f806af0",
+        "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -241,7 +242,14 @@
       "nextSteps": [
         "Play actual rendered packing loop and inspect desktop/touch previews, controls and occupied-cell readability.",
         "Identify the primary enjoyment/depth weakness and implement a substantial improvement, then verify saves/reload, undo/repack, restart and real navigation before selection."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
+        "basis": "Source inspection and automated packing search, not rendered playtesting.",
+        "before": "Only normal dispatch and move-count records; protection feedback appeared after placement. Reselecting a parcel recalled rotation but not its position.",
+        "after": "Optional job-specific care seals reward extra blanket/foam protection while retaining normal dispatch. Pre-placement feedback shows resulting contacts and readiness. Reselecting packed parcels recalls anchor and rotation. Old saves migrate without invented care awards.",
+        "testing": "13 engine/DOM checks passed. All three optional goals have valid packing solutions. Rendered review and substantive playtest-led improvement still required; no completed improvement credit."
+      }
     },
     {
       "slot": 46,
@@ -1122,6 +1130,12 @@
       "commit": "56bba933abc8a6c8b389619d17db74592f806af0",
       "result": "Crate & Cushion candidate 45 implemented; 8 engine/DOM checks pass. 5/50 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing browser-policy blocker unresolved. No workaround or new rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
+      "result": "Crate & Cushion care goals, protection forecasts and parcel recall implemented; 13 engine/DOM tests pass. Counts remain 5 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing browser-policy blocker unresolved; no workaround or rendered claim."
     }
   ]
 }
