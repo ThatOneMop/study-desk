@@ -1,5 +1,22 @@
 # Study Desk improvement ledger
 
+## 2026-10-24 — Nightshift previous-save recovery
+
+Base Sites source: d82e3e5ac1c1a96f54b51e0ebe690d09762e1758 (live version 36). GitHub base: 432a0d75bd44e3c43975b8d11ae683fa0d7e2325. Opened the latest Site and current GitHub head before editing; the Afterlight keyboard work, 64-entry catalogue, study tools, game routes and owner-only audience are preserved.
+
+### Implemented
+- Made Nightshift's pre-reset backup useful from the interface: each of its ten games now exposes the previous save for download and offers a confirmed restore after a backup exists.
+- Previous backups receive the same strict identity, schema, value-bound and size validation as live saves. An unreadable backup remains downloadable but cannot replace current progress.
+- Recovery checks the live save again before writing, so a newer tab cannot be overwritten. Restore keeps the backup copy available, resets the active contract safely, returns keyboard focus to the playfield, and does not change existing save keys, game rules, progression or balance.
+
+### Validation
+- Extended Nightshift save-module regression coverage passed valid backup inspection and restoration, exact unreadable-backup download preservation, invalid-backup rejection, newer-tab conflict blocking, normal writes and unavailable storage.
+- The complete regression suite passed, including every 64-entry launch route and all existing game, study, bridge, navigation, keyboard and save-protection checks. Asset validation passed all 63 bundled routes and 232 HTML references with no missing files; JavaScript syntax and `git diff --check` passed.
+- Browser preview confirmed Garden Gone Rogue keeps previous-backup actions hidden until a backup exists, its current-save download remains available, and the updated recovery controls introduce no console errors. Destructive reset/restore was not exercised in browser; the module test covers the write path. Physical mobile and screen-reader output remain unverified.
+
+### Pending
+- No requested commercial-title repository was added in this pass. The documented identity, licence, original-asset, startup, or redistribution blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider, and Minecraft. No unrelated replacement or empty card was added.
+
 ## 2026-10-24 — Afterlight keyboard play
 
 Base Sites source: 6aba3131f418e83da878e58479d374388fabda3e (live version 35). GitHub base: 7b70522e89e697359c4640d9e377ab274cb7bbbf. Opened the latest Site and current GitHub head before editing; Afterlight's new collection save protection, the 64-entry catalogue, study tools, game data and owner-only audience are preserved.
