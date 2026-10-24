@@ -3,4 +3,4 @@
 
 /* Pixel edition: nearest-neighbour scaling at every viewport. */
 canvas{image-rendering:pixelated;image-rendering:crisp-edges}.card{border-radius:4px;box-shadow:0 5px 0 #080e10}.card canvas{border-bottom:2px solid #627462}.stage{border-radius:4px}.pills span{border-radius:3px}.launch{font-family:monospace}.card:hover canvas{filter:brightness(1.08)}
-#save-status{color:#aab8a5}#save-status[data-warning="true"]{color:#f0c88b}#export-save{width:100%;font-size:12px}
+#save-status{color:#aab8a5}#save-status[data-warning="true"]{color:#f0c88b}.save-tools{display:grid;gap:8px}.save-tools button{width:100%;font-size:12px}
