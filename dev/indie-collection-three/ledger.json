@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 4,
+    "built": 5,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -213,21 +213,35 @@
     },
     {
       "slot": 45,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "crate-and-cushion",
+      "title": "Crate & Cushion",
+      "coreLoop": "Rotate and fit parcels around tray braces, cushion a telescope along shared edges and keep the heavy toolbox away before sealing.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/crate-and-cushion",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "5 engine tests pass: all jobs seal/unlock/save; bounds/braces/overlap rejection; padding and heavy-contact rules; remove/undo/repack; corrupt settings and journals.",
+        "3 DOM tests pass: all jobs through controls with reloads; keyboard anchor/rotation/place, pause and undo; corrupt-save preservation/recovery, scoped reset, guide cancellation and Games href.",
+        "Syntax, asset-reference and catalogue-exclusion checks pass. No rendered browser, screenshot, touch or enjoyment evidence; full repository build not run from partial checkout."
+      ],
+      "commits": [
+        "56bba933abc8a6c8b389619d17db74592f806af0"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three small four-parcel jobs. Automated solutions use four placements plus sealing. No loss condition; undo/repacking is unrestricted within journal bounds. Difficulty and replay depth require rendered playtesting."
+      },
+      "nextSteps": [
+        "Play actual rendered packing loop and inspect desktop/touch previews, controls and occupied-cell readability.",
+        "Identify the primary enjoyment/depth weakness and implement a substantial improvement, then verify saves/reload, undo/repack, restart and real navigation before selection."
+      ]
     },
     {
       "slot": 46,
@@ -1042,8 +1056,8 @@
   ],
   "nextSteps": [
     "Complete fourteen remaining second-batch additional upgrades; Windup implementation awaits rendered review.",
-    "Render/play Stencil Studio, Moon Dial, Pebble Rink and Pocket Regatta and complete substantive improvement passes before selection.",
-    "Implement remaining 46 distinct third-batch games incrementally, keeping unfinished entries unlisted."
+    "Render/play Stencil Studio, Moon Dial, Pebble Rink Pocket Regatta and Crate & Cushion and complete substantive improvement passes before selection.",
+    "Implement remaining 45 distinct third-batch games incrementally, keeping unfinished entries unlisted."
   ],
   "updated": "2026-10-25",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -1102,6 +1116,12 @@
       "commit": "be2fd59bca2a9e07b327a86e69edcfbffb842510",
       "result": "Pocket Regatta multi-tack planning implemented; 13 engine/DOM checks pass. Counts unchanged: 4/50 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing browser-policy blocker unresolved; no workaround or new rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "56bba933abc8a6c8b389619d17db74592f806af0",
+      "result": "Crate & Cushion candidate 45 implemented; 8 engine/DOM checks pass. 5/50 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing browser-policy blocker unresolved. No workaround or new rendered claim."
     }
   ]
 }
