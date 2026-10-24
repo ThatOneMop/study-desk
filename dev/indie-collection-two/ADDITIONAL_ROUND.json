@@ -258,7 +258,7 @@
       "after": null,
       "implementationCommit": null,
       "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "remaining": "Initial Ember Parcel prototype now exists; first complete its substantive initial improvement, then observe and implement a separate additional-round upgrade. Neither is counted yet."
     },
     {
       "slot": 39,

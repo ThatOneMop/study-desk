@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**17/20 playable, meaningfully improved and finished.** Clockwork Tide’s native desktop/touch campaigns passed. Three slots remain planned. First-batch games, Nightshift and Afterlight are excluded.
+**18/20 playable; 17 initially improved and finished; 6/20 additional upgrades verified.** Ember Parcel is an unfinished playable prototype. Two slots remain planned. First-batch games, Nightshift and Afterlight are excluded.
 
 Clockwork Tide operates a miniature tidal mill: store high water, release it through the wheel, select gears and feed the stone at the right speed and torque. Four authored commissions earn two functional workshop upgrades. Its improvement adds exact next-stroke previews, manual braking, reversible failed strokes and fixed phone controls. All 30 focused checks pass (19 engine, 11 DOM). Exhaustive first-commission search confirms high-water storage is essential.
 
@@ -49,3 +49,7 @@ Git CLI reads work in this environment but CLI push had no credentials. Supporte
 The public `catalog-launch.cjs` and `curation-regression.cjs` tests are stale against base main: both still click the removed `playerStudy` button. These tests and public shell files are unchanged here. Current `dom-checks.cjs`, `bridge-pointer.cjs` and `relaxed-collection.cjs` pass. See the ledger and run report for the evidence boundary.
 
 At the first increment’s concurrency check, public main had advanced to `013a8d009286fe02a37ebce76126f44c19c72ecf` with private-messaging links/docs. This branch did not write main. Re-read and preserve those changes when later integrating selected games.
+
+## Ember Parcel initial checkpoint — 24 October 2026
+
+Launch `/games/ember-parcel/` from a local server. This eighteenth candidate has four short authored flame-delivery routes, warmth/terrain interactions, two equipment options, undo/retry and isolated replay-validated saves. It is deliberately unlisted and unfinished. See [EMBER_PARCEL_INITIAL.md](EMBER_PARCEL_INITIAL.md) for observed weaknesses and the evidence boundary. Its initial improvement and additional-round pass remain outstanding.

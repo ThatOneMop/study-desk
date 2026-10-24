@@ -20,7 +20,7 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 17,
+    "playable": 18,
     "improved": 17,
     "finished": 17,
     "selected": 0,
@@ -1142,21 +1142,32 @@
       "slot": 38,
       "id": "ember-parcel",
       "title": "Ember Parcel",
-      "coreLoop": "Carry a spreading living flame through destructible terrain, choosing what to consume.",
-      "status": "planned",
-      "source": null,
+      "coreLoop": "Carry warmth to sleeping hearths, consuming dry timber, melting ice and choosing between water costs and garden damage.",
+      "status": "playable",
+      "source": "games/ember-parcel",
       "improvementPasses": [],
-      "tests": [],
+      "tests": [
+        "8 engine checks passed: all four authored routes solved through ordinary actions with per-action save roundtrips; walls and locked routes; natural heat loss/undo; flare and garden costs; melt and cloak water; invalid save rejection.",
+        "2 DOM checks passed: keyboard delivery, equipment unlock, pause, undo, reload, isolated reset and unreadable-save preservation/recovery.",
+        "Rendered browser: delivered first and ice routes on desktop, keyboard movement and mid-melt reload; delivered glasshouse route via controls at 390\u00d7844 iframe size; natural heat loss, undo and retry preserving records. Desktop and phone-size screenshots inspected. Phone-size clicks are not physical-device/touch-emulation evidence."
+      ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "scale": "1\u20135 provisional agent design review, not human enjoyment evidence",
+        "enjoyment": 2.5,
+        "depth": 2,
+        "polish": 2.5,
+        "reliability": 3,
+        "variety": 4,
+        "notes": "Playable initial prototype, deliberately unfinished. First delivery takes four moves; current route choices are too shallow, and phone header/routes place the board and controls too far apart. Needs a substantive initial improvement, then a separate additional-round upgrade, full native touch/browser regression and selection review."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "publishedUrl": null,
+      "nextSteps": [
+        "Add meaningful choices to how timber is carried or consumed; do not extend play by repeating the same routes.",
+        "Keep warmth, map and primary controls together on phones; replace native confirmation interruptions with accessible in-page confirmation.",
+        "Complete native desktop/touch campaign and navigation coverage; then record initial improvement separately from the additional round."
+      ]
     },
     {
       "slot": 39,
@@ -1200,11 +1211,11 @@
     }
   ],
   "nextSteps": [
-    "Continue additional round: six of twenty independently verified (Ratchet Run, Cairn & Cord, Murmuration, Night Clerk, Borrowed Gravity and Static Orchard). Earlier initial passes excluded.",
-    "Prioritize a missing playable candidate and remaining weak fixed campaigns such as Tea for Ghosts and Clockwork Tide after rendered play.",
-    "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
-    "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
-    "Pages permission checked once for this new round: unchanged integration access failure. Do not retry without changed permissions/evidence."
+    "Finish Ember Parcel with a substantive initial improvement based on the observed shallow choices and phone layout; its later additional-round pass must be separate.",
+    "Build Windup Wrestling (39) and Last Lighthouse (40), including initial improvements and additional-round upgrades.",
+    "Complete all fourteen remaining second-batch additional upgrades before final slate selection, preserving the thirteen concurrent main catalogue entries.",
+    "Continue third-batch exactly 50 new games on indie-collection-three-dev; its existing 50-slot ledger currently records zero built/improved/tested/integrated/live.",
+    "Use existing workspace-control/publication audit on main b311b35; do not repeat unchanged publishing failure as progress."
   ],
   "baselineTestLimitations": [
     {
@@ -1448,10 +1459,17 @@
       "gameplayCommit": "304976b32bb3c7a114d23c235f19f853826041f2",
       "ci": "40061003554",
       "publicIntegration": null,
-      "regressionStatus": "689 engine/DOM checks and preservation gates pass; changed-game native desktop/touch campaigns and screenshot review pass. Motion, planning and craft/cargo groups still running at this checkpoint."
+      "regressionStatus": "All seven CI jobs in 40061003554 confirmed successful on 2026-10-24: 689 engine/DOM checks, preservation gates and all seventeen native desktop/touch suites. Earlier running groups resolved."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Ember Parcel initial playable prototype: 18 playable, 17 initially improved/finished, six additional upgrades verified, two unbuilt slots. No new integration or live release.",
+      "publicIntegration": null,
+      "regressionStatus": "699 local engine/DOM checks pass (411 engine, 288 DOM). Three routes played through rendered desktop/phone-size UI, plus natural loss/undo/retry, saved melt and navigation. Dedicated native touch campaign pending; no initial or additional improvement credited.",
+      "nextSteps": "Substantially improve Ember Parcel, then its separate additional-round pass; build slots 39\u201340; finish the remaining additional upgrades; continue third collection of 50."
     }
   ],
-  "latestObservedMain": "0f295c9795590f96a90c6ceb8c1d165e77fcd3a7",
+  "latestObservedMain": "b311b35c85c267b25fd94164d0b6d2606bcf2032",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
