@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 5,
+  "completed": 6,
   "required": 20,
   "candidates": [
     {
@@ -138,13 +138,20 @@
       "slot": 31,
       "id": "static-orchard",
       "title": "Static Orchard",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "verified",
+      "observedWeakness": "Rendered baseline medium shot earned three harvest energy with three pests surviving, but the only active harvest option cost four and required pests close to a tree. Four compact fixed defenses offered little spending or positioning choice.",
+      "before": "Harvest only funded a four-energy emergency pulse near the selected fruit; players could not reshape approaching swarms.",
+      "after": "Three-energy blossom lures attract nearby pests toward the selected west, centre or east tree for six seconds, without damage or slowing descent. Two placements per defense compete with emergency pulse spending; a second placement replaces the first. Keyboard L, touch button, blossom marker, remaining-use feedback and field-guide rules expose the choice. Existing save keys and legacy saves are retained.",
+      "implementationCommit": "304976b32bb3c7a114d23c235f19f853826041f2",
+      "testing": [
+        "17 engine and 12 DOM checks pass locally, including earned-resource use, attraction without damage/descent changes, two-use budget, retry, expiry, deterministic reload and legacy save migration.",
+        "Natural-input engine comparison: a medium first shot earned three energy and left three pests. Spending it reduced their base-position spread from 45 to zero after 100 ticks, with matching descent and health in the no-lure control.",
+        "Rendered baseline and upgraded desktop play spent the naturally earned three energy on a centre-tree lure; reload retained its use count and placement. The shared save was inspected at 390px. Desktop blossom marker and narrow-screen controls/screenshots inspected.",
+        "https://github.com/ThatOneMop/study-desk/actions/runs/40061003554 passes 403 engine + 286 DOM checks, first-batch selected-source hashes, assets and twenty-slot/additional-round gates.",
+        "Native Chrome desktop and emulated touch each pass all four defenses, keyboard/touch lure placement with earned energy, exact lure/pest reload, tools/unlocks, queen shield, loss/retry, scoped recovery/reset, navigation and normal RAF. CI 40061003554 job 120774708250.",
+        "32 Static Orchard screenshots retained in artifact 12548040142. Inspected desktop-lure-placed, touch-lure-reloaded and touch-orchard-4-won. ZIP SHA256 790bd8fe203a03ef197974eabde5a138bb9b6a08f622ba5ae835e386eb41cbb1. Automated routes verify reliability, not human enjoyment."
+      ],
+      "remaining": "Verified additional pass. Retain for final slate comparison; four short defenses and phone scrolling remain limitations."
     },
     {
       "slot": 32,

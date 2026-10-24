@@ -24,7 +24,7 @@
     "improved": 17,
     "finished": 17,
     "selected": 0,
-    "meaningfulPasses": 22,
+    "meaningfulPasses": 23,
     "verifiedLive": 0
   },
   "deployment": {
@@ -675,6 +675,16 @@
             "Rebalanced the overpowered global pulse into a 180-pixel emergency defense centered on the selected fruit, with explicit range and target count; it spends four harvest and bypasses armor."
           ],
           "validation": "14 engine and 11 DOM checks; exact-source CI 39995202317 passed all four native desktop/touch defenses, purchases, every-orchard paused reloads, keyboard and touch cancellation, loss/restart, recovery/reset, navigation and real-time RAF. Full eleven-game regression and representative screenshots passed review."
+        },
+        {
+          "pass": 2,
+          "date": "2026-10-24",
+          "round": "additional-2026-10-24",
+          "changes": [
+            "Three-energy blossom lures attract nearby pests toward the selected west, centre or east tree for six seconds, without damage or slowing descent. Two placements per defense compete with emergency pulse spending; a second placement replaces the first. Keyboard L, touch button, blossom marker, remaining-use feedback and field-guide rules expose the choice. Existing save keys and legacy saves are retained."
+          ],
+          "implementationCommit": "304976b32bb3c7a114d23c235f19f853826041f2",
+          "validation": "29 focused and 689 full engine/DOM checks pass. Rendered natural-resource placement and reload, native desktop/touch four-defense campaigns, lure saves, loss/retry, navigation and inspected screenshots pass."
         }
       ],
       "tests": [
@@ -684,16 +694,22 @@
         "Additional engine reachability sweep: all 36 orchard/windseed combinations cleared with base equipment, 243 shots total and minimum six health. This is deterministic input coverage, not human duration or challenge measurement.",
         "Final exact-source CI 39995202317 passed 254 engine + 196 DOM = 450 checks, all eleven desktop/touch campaigns, normal-RAF checks and public integrity gates.",
         "Artifact 12519948143 verified: 266 PNG screenshots, including 28 Static Orchard captures. SHA256 6a1fca085d7fd05933ef74bb895f6e9a80cd9df0dc99589a24a4fe25f7adbfdc. Desktop charged-arc and phone completed-harvest images reviewed; direct local desktop/narrow-screen visual QA also passed.",
-        "Current public shell, bridge-pointer and relaxed collection checks passed locally. First-batch source hashes and all 19 bundled routes/55 HTML references preserved. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass."
+        "Current public shell, bridge-pointer and relaxed collection checks passed locally. First-batch source hashes and all 19 bundled routes/55 HTML references preserved. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass.",
+        "17 engine and 12 DOM checks pass locally, including earned-resource use, attraction without damage/descent changes, two-use budget, retry, expiry, deterministic reload and legacy save migration.",
+        "Natural-input engine comparison: a medium first shot earned three energy and left three pests. Spending it reduced their base-position spread from 45 to zero after 100 ticks, with matching descent and health in the no-lure control.",
+        "Rendered baseline and upgraded desktop play spent the naturally earned three energy on a centre-tree lure; reload retained its use count and placement. The shared save was inspected at 390px. Desktop blossom marker and narrow-screen controls/screenshots inspected.",
+        "https://github.com/ThatOneMop/study-desk/actions/runs/40061003554 passes 403 engine + 286 DOM checks, first-batch selected-source hashes, assets and twenty-slot/additional-round gates.",
+        "Native Chrome desktop and emulated touch each pass all four defenses, keyboard/touch lure placement with earned energy, exact lure/pest reload, tools/unlocks, queen shield, loss/retry, scoped recovery/reset, navigation and normal RAF. CI 40061003554 job 120774708250.",
+        "32 Static Orchard screenshots retained in artifact 12548040142. Inspected desktop-lure-placed, touch-lure-reloaded and touch-orchard-4-won. ZIP SHA256 790bd8fe203a03ef197974eabde5a138bb9b6a08f622ba5ae835e386eb41cbb1. Automated routes verify reliability, not human enjoyment."
       ],
       "quality": {
         "scale": "1\u20135, agent design review; not player survey scores",
         "enjoyment": 3.5,
-        "depth": 2.5,
+        "depth": 3,
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Charged shots turn moving swarms into circuits; exact arc forecasts and optional keyboard tracking make releases readable. Harvest energy funds a local emergency pulse, while non-farmable records purchase three functional tools. Four compact authored defenses and nine entrance variations provide limited replay; no audio layer, endless campaign or colony economy. Original Canvas/CSS artwork. Native desktop and touch-emulated full campaigns passed, but no physical-device or human-hours/enjoyment claim. Full eleven-candidate regression and representative desktop/phone artifact inspection passed. Phone play requires some scrolling."
+        "notes": "Charged shots turn moving swarms into circuits; exact arc forecasts and optional keyboard tracking make releases readable. Harvest energy funds a local emergency pulse, while non-farmable records purchase three functional tools. Four compact authored defenses and nine entrance variations provide limited replay; no audio layer, endless campaign or colony economy. Original Canvas/CSS artwork. Native desktop and touch-emulated full campaigns passed, but no physical-device or human-hours/enjoyment claim. Full eleven-candidate regression and representative desktop/phone artifact inspection passed. Phone play requires some scrolling. Additional round: lure placement adds a limited resource and swarm-positioning choice; four short defenses remain the depth ceiling. No human enjoyment or physical-touch-device claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -701,22 +717,23 @@
       "developmentCommits": [
         "a3485e64b8fc7af817f05384eae73713c3f9a7ff",
         "c5572e4de57bf9b55edd14ca239fc4a853e3b807",
-        "e8f1e4ee390682193592005fc2ef38df0a841f72"
+        "e8f1e4ee390682193592005fc2ef38df0a841f72",
+        "304976b32bb3c7a114d23c235f19f853826041f2"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain for slate comparison as real-time aiming/defense variety. Compact depth must compete with the full collection; no automatic publication.",
       "verification": {
-        "commit": "e8f1e4ee390682193592005fc2ef38df0a841f72",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39995202317",
+        "commit": "304976b32bb3c7a114d23c235f19f853826041f2",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40061003554",
         "status": "passed",
         "sha256": {
-          "engine.js": "93d8ed2f898d9d755ad912fa5bae7abfe1fb54f441b3aa15d8e7db86b41b14ce",
-          "game.js": "1b66bb128c06e65b0500c41e111f2d9a3aa0b3024cd68406e1a04e58f14f3e88",
-          "index.html": "66d7265b3fb7378d4d607b0e9770e89430287def60eff127bd87828e971ae0d0",
-          "style.css": "856d6013c8957b59c5ee54ab4c7949b2b7ab2b73ea6f3a08e17c7e6d3e768a5c"
+          "engine.js": "69f5be22575ae6f562c7e3745c7f47f2c273b5fed762113b75e69f8d6c917221",
+          "game.js": "19fbe3dea47333561a033469699887b1c3790ae2e97a27fd46c1c6bce411af83",
+          "style.css": "856d6013c8957b59c5ee54ab4c7949b2b7ab2b73ea6f3a08e17c7e6d3e768a5c",
+          "index.html": "f5b4549113cc6de655644231b4ff8d527ba86248c50980570a2445a4683eac13"
         },
-        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/39995202317/artifacts/12519948143",
-        "artifactSha256": "6a1fca085d7fd05933ef74bb895f6e9a80cd9df0dc99589a24a4fe25f7adbfdc"
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40061003554/artifacts/12548040142",
+        "artifactSha256": "790bd8fe203a03ef197974eabde5a138bb9b6a08f622ba5ae835e386eb41cbb1"
       }
     },
     {
@@ -1183,8 +1200,8 @@
     }
   ],
   "nextSteps": [
-    "Continue additional round: Ratchet Run, Cairn & Cord, Murmuration, Night Clerk and Borrowed Gravity verified, 5/20. Earlier initial passes excluded.",
-    "Prioritize Static Orchard and remaining unchecked candidates after rendered play; finish the three missing games and their separate passes.",
+    "Continue additional round: six of twenty independently verified (Ratchet Run, Cairn & Cord, Murmuration, Night Clerk, Borrowed Gravity and Static Orchard). Earlier initial passes excluded.",
+    "Prioritize a missing playable candidate and remaining weak fixed campaigns such as Tea for Ghosts and Clockwork Tide after rendered play.",
     "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
     "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
     "Pages permission checked once for this new round: unchanged integration access failure. Do not retry without changed permissions/evidence."
@@ -1423,7 +1440,15 @@
       "gameplayCommit": "dca02c401239e0d9060a7037ea9139a23597c82d",
       "ci": "40057078381",
       "publicIntegration": null,
-      "regressionStatus": "685 engine/interface checks pass. Changed-game native desktop/touch suites and screenshot review pass; other collection-wide browser groups still pending."
+      "regressionStatus": "685 engine/interface checks and all seven jobs in CI 40057078381 subsequently confirmed successful on 2026-10-24; previous pending browser groups resolved."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Static Orchard lure upgrade verified; 17 initial games, six additional upgrades verified and three games unbuilt. No integration/live release.",
+      "gameplayCommit": "304976b32bb3c7a114d23c235f19f853826041f2",
+      "ci": "40061003554",
+      "publicIntegration": null,
+      "regressionStatus": "689 engine/DOM checks and preservation gates pass; changed-game native desktop/touch campaigns and screenshot review pass. Motion, planning and craft/cargo groups still running at this checkpoint."
     }
   ],
   "latestObservedMain": "0f295c9795590f96a90c6ceb8c1d165e77fcd3a7",
@@ -1431,7 +1456,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 5,
+    "completed": 6,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
