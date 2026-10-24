@@ -7,7 +7,7 @@ assert.equal(count(),w.GAME_CATALOG.length);assert.equal($('arcade').hidden,fals
 change('search','POKER balatro','input');assert.equal(count(),1);
 $('clearFilters').click();change('genre','Fishing');assert.equal(count(),2);
 change('search','no matching game','input');assert(d.querySelector('.empty'));d.querySelector('.empty button').click();assert.equal(count(),w.GAME_CATALOG.length);
-change('groupBy','collection');assert.equal(d.querySelectorAll('.game-section').length,2);
+change('groupBy','collection');assert.equal(d.querySelectorAll('.game-section').length,new Set(w.GAME_CATALOG.map(g=>g.group)).size);
 change('groupBy','none');change('sortGames','az');const titles=[...d.querySelectorAll('.game h3')].map(e=>e.textContent);assert.deepEqual(titles,[...titles].sort((a,b)=>a.localeCompare(b)));
 d.querySelector('.fav').click();[...$('filters').children].find(e=>e.textContent==='Favourites').click();assert.equal(count(),1);
 $('clearFilters').click();assert.equal($('groupBy').value,'genre');assert.equal(count(),w.GAME_CATALOG.length);

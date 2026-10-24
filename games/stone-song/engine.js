@@ -1,0 +1,39 @@
+'use strict';
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.StoneSong=api})(typeof window==='object'?window:globalThis,()=>{
+ const notes=[{name:'Dawn',glyph:'Ⅰ',hz:293.66,color:'#f6cc87'},{name:'Copper',glyph:'Ⅱ',hz:349.23,color:'#f18e77'},{name:'Night',glyph:'Ⅲ',hz:440,color:'#9ab8e9'}];
+ const chapters=[
+  {name:'The waking wall',story:'The quarry has forgotten its morning song. Slide two stone rhythms into the empty spaces.',target:[0,1,0,2,0,1,0,2],par:5,tune:false,mute:false,stones:[{name:'Sunstone',pulses:[0,4],note:0,shift:0,on:true},{name:'Red shale',pulses:[0,4],note:1,shift:0,on:true}]},
+  {name:'A gap in the rain',story:'Not every beat needs a voice. Uneven stones leave little pockets of quiet.',target:[2,0,1,0,2,1,0,0],par:6,tune:false,mute:false,stones:[{name:'Rain slate',pulses:[0,3],note:0,shift:0,on:true},{name:'Split flint',pulses:[0,4],note:1,shift:2,on:true}]},
+  {name:'Blue mineral',story:'A third voice hums beneath the surface. Tune each stone, then find its place in the phrase.',target:[1,0,2,4,1,0,2,4],par:8,tune:true,mute:false,stones:[{name:'Mica',pulses:[0,4],note:0,shift:0,on:true},{name:'Ironstone',pulses:[0,4],note:0,shift:0,on:true},{name:'Azurite',pulses:[0,4],note:0,shift:0,on:true}]},
+  {name:'The meeting seam',story:'Two voices can share a beat. Strike both, in either order, before carrying on.',target:[0,3,0,4,0,3,0,4],par:9,tune:true,mute:false,stones:[{name:'Twin amber',pulses:[0,4],note:2,shift:0,on:true},{name:'Twin jasper',pulses:[0,4],note:2,shift:0,on:true},{name:'Lapis',pulses:[0,4],note:2,shift:0,on:true}]},
+  {name:'Leave one sleeping',story:'One stone is singing over the others. Let it sleep; the quiet matters as much as the notes.',target:[1,2,4,0,1,2,4,0],par:10,tune:true,mute:true,stones:[{name:'Chalk bell',pulses:[0,4],note:2,shift:0,on:true},{name:'Ember quartz',pulses:[0,4],note:0,shift:0,on:true},{name:'Sodalite',pulses:[0,4],note:1,shift:0,on:true},{name:'Loose scree',pulses:[0,2,4,6],note:1,shift:0,on:true}]},
+  {name:'An open mountain',story:'The whole wall answers. Interlock unequal phrases and leave a final breath of silence.',target:[1,2,4,3,0,4,1,0],par:12,tune:true,mute:true,stones:[{name:'Long morning',pulses:[0,3,6],note:1,shift:2,on:true},{name:'Short dusk',pulses:[0,2],note:2,shift:0,on:true},{name:'Blue echo',pulses:[0,3],note:0,shift:0,on:true},{name:'Sleeping coal',pulses:[0,1,2,3],note:0,shift:0,on:true}]}
+ ];
+ const clone=x=>JSON.parse(JSON.stringify(x)),int=(x,a,b)=>Number.isInteger(x)&&x>=a&&x<=b;
+ function fresh(index){return{index,status:'active',phase:'arrange',stones:chapters[index].stones.map(s=>({shift:s.shift,note:s.note,on:s.on})),moves:0,beat:0,played:0,faults:0,stars:0,message:'Read the engraved target above. Shift each stone until its notes line up.'}}
+ function create(){return{version:1,profile:{best:[0,0,0,0,0,0]},run:fresh(0)}}
+ function row(o,i){const r=Array(8).fill(0),s=o.run.stones[i];if(s.on)for(const p of chapters[o.run.index].stones[i].pulses)r[(p+s.shift)%8]=1<<s.note;return r}
+ function song(o){const r=Array(8).fill(0);o.run.stones.forEach((_,i)=>row(o,i).forEach((n,b)=>r[b]|=n));return r}
+ function matches(o){const target=chapters[o.run.index].target;return song(o).map((n,b)=>n===target[b])}
+ function inspect(o){const target=chapters[o.run.index].target,chorus=song(o);return chorus.map((mask,beat)=>({beat,mask,target:target[beat],missing:target[beat]&~mask,extra:mask&~target[beat],stones:o.run.stones.map((_,i)=>row(o,i)[beat]?i:-1).filter(i=>i>=0)}))}
+ function assess(o){const s=o.run,c=chapters[s.index],aligned=matches(o).filter(Boolean).length,release=s.status==='complete',performed=s.phase==='perform'?Math.min(s.beat,8):0;return{status:s.status,phase:s.phase,aligned,performed,release,clean:s.faults===0,efficient:s.moves<=c.par,moves:s.moves,moveTarget:c.par,moveDelta:c.par-s.moves,clashes:s.faults,nextIndex:release&&s.index<chapters.length-1?s.index+1:null}}
+ function adjust(o,i,action){const s=o.run,c=chapters[s.index];if(s.status!=='active'||s.phase!=='arrange'||s.moves>=100000||!int(i,0,s.stones.length-1)||!['left','right','tune','toggle'].includes(action)||action==='tune'&&!c.tune||action==='toggle'&&!c.mute)return false;const stone=s.stones[i];if(action==='left')stone.shift=(stone.shift+7)%8;if(action==='right')stone.shift=(stone.shift+1)%8;if(action==='tune')stone.note=(stone.note+1)%3;if(action==='toggle')stone.on=!stone.on;s.moves++;s.message=matches(o).every(Boolean)?'The seam is in tune. Perform the eight-beat phrase to release it.':'Listen, compare, shift. Nothing is lost while arranging.';return true}
+ function begin(o){const s=o.run;if(s.status!=='active'||s.phase!=='arrange'||!matches(o).every(Boolean))return false;s.phase='perform';s.beat=0;s.played=0;s.faults=0;s.message='Follow the bright beat. Strike every named voice, or choose Rest for silence. No timer.';return true}
+ function hit(o,note){const s=o.run;if(s.status!=='active'||s.phase!=='perform'||!int(note,-1,2))return false;const mask=chapters[s.index].target[s.beat],bit=note<0?0:1<<note;
+  if(mask===0&&note===-1||bit&&(mask&bit)&&!(s.played&bit)){s.played|=bit;if(s.played===mask){s.beat++;s.played=0;s.message='Clean resonance. The wall is opening.';if(s.beat===8){s.status='complete';s.stars=1+(s.faults===0?1:0)+(s.moves<=chapters[s.index].par?1:0);o.profile.best[s.index]=Math.max(o.profile.best[s.index],s.stars);s.message=`Seam released · ${s.stars} medals. The quarry remembers your best performance.`}}else s.message='One voice rings. Add the other voice on this beat.';return true}
+  s.faults++;s.message='That voice clashes. The same beat is waiting; read its engraved names.';if(s.faults>=5){s.status='lost';s.message='The seam fractured. Your earlier records are safe. Retry this room or return to arranging.'}return true}
+ function arrange(o){const s=o.run;if(s.phase!=='perform'||s.status==='complete')return false;s.status='active';s.phase='arrange';s.beat=0;s.played=0;s.faults=0;s.stars=0;s.message='Back at the score. Your arrangement is kept; perform again when ready.';return true}
+ function retry(o){o.run=fresh(o.run.index);return true}
+ function next(o,index){if(o.run.status==='active'||!int(index,0,5)||index>0&&!o.profile.best[index-1])return false;o.run=fresh(index);return true}
+ function valid(o){try{const p=o.profile,s=o.run,c=chapters[s.index];if(o.version!==1||!p||!s||!c||!int(s.index,0,5)||!['active','lost','complete'].includes(s.status)||!['arrange','perform'].includes(s.phase)||!int(s.moves,0,100000)||!int(s.beat,0,8)||!int(s.played,0,7)||!int(s.faults,0,5)||!int(s.stars,0,3)||typeof s.message!=='string'||s.message.length>600)return false;
+   if(!Array.isArray(p.best)||p.best.length!==6||!p.best.every(x=>int(x,0,3))||p.best.some((x,i)=>i&&x&&!p.best[i-1])||s.index&&!p.best[s.index-1])return false;
+   if(!Array.isArray(s.stones)||s.stones.length!==c.stones.length||!s.stones.every((v,i)=>v&&int(v.shift,0,7)&&int(v.note,0,2)&&typeof v.on==='boolean'&&(c.tune||v.note===c.stones[i].note)&&(c.mute||v.on)))return false;
+   if(s.phase==='arrange')return s.status==='active'&&s.beat===0&&s.played===0&&s.faults===0&&s.stars===0;
+   if(!matches(o).every(Boolean))return false;
+   if(s.status==='complete')return s.beat===8&&s.played===0&&s.faults<5&&s.stars===1+(s.faults===0?1:0)+(s.moves<=c.par?1:0)&&p.best[s.index]>=s.stars;
+   const target=c.target[s.beat];return s.beat<8&&s.stars===0&&(s.played&~target)===0&&(s.played===0||s.played!==target)&&(s.status==='lost'?s.faults===5:s.faults<5)
+  }catch{return false}}
+ function encode(o){return JSON.stringify(o)}
+ function decode(raw){try{if(typeof raw!=='string'||raw.length>12000)return null;const o=JSON.parse(raw);return valid(o)?o:null}catch{return null}}
+ return{notes,chapters,clone,create,row,song,matches,inspect,assess,adjust,begin,hit,arrange,retry,next,valid,encode,decode};
+});
