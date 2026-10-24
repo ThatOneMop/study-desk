@@ -21,7 +21,7 @@
     "pendingRenderedUpgrade": "Windup Wrestling kits implemented; not counted in additional round."
   },
   "rules": [
-    "Slots 41–90 are reserved work slots, not playable games. Unassigned slots count as zero.",
+    "Slots 41\u201390 are reserved work slots, not playable games. Unassigned slots count as zero.",
     "No existing game, reskin, renamed copy or placeholder counts toward these 50.",
     "Require a distinct implemented core loop, rendered-play improvement pass and browser evidence before catalogue integration.",
     "Preserve all prior source, saves and concurrent catalogue work.",
@@ -42,13 +42,14 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "6 engine tests: three commission solutions, exact saves/unlocks, overlap, rotation/bounds, loss/undo/retry, no-op stamps and malformed saves.",
-        "3 DOM tests: all commissions via controls with repeated reloads, keyboard, pause, modal cancellation, isolated reset/recovery, ink filter and navigation href.",
+        "9 engine tests pass: all original commission routes, mixed-ink forecasts, bounded setup migration, strict stamp-only journals, saves and loss/retry.",
+        "6 DOM tests pass: all commission wins, setup/filter reload, focus retention, pre-print warning, pause/modal/reset/recovery and malformed-save preservation.",
         "Asset reference and first-batch integrity checks passed. Syntax and git diff checks passed.",
         "No rendered browser, touch-emulation, screenshot or enjoyment evidence for this prototype yet."
       ],
       "commits": [
-        "035611d0c1a147dc63a09484abfc30ed8bee29c0"
+        "035611d0c1a147dc63a09484abfc30ed8bee29c0",
+        "c7fdaa6bb22f71405466d434b797ec145885390b"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -59,7 +60,18 @@
       "nextSteps": [
         "Play actual rendered core loop; assess stencil readability, mobile targeting and progression depth.",
         "Implement substantive improvement based on observed weakness; verify natural wins/loss/retry, save/reload, reset/navigation, desktop/touch and inspect screenshots before integration."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "c7fdaa6bb22f71405466d434b797ec145885390b",
+        "basis": "Code inspection and reproduced unit/DOM behaviour; not rendered playtesting.",
+        "changes": [
+          "Persist selected stencil, rotation, ink, origin and layer filter even before printing; old saves use defaults.",
+          "Reject non-stamp save journals instead of silently consuming retry/undo commands. Preserve unreadable save until confirmed recovery.",
+          "Preview prospective mixed colours and excess-ink/mismatch counts before stamping. Keep focused board square across redraws.",
+          "Place ink/stencil controls inside printing-bed section for closer access. Layout remains unverified."
+        ],
+        "remaining": "Rendered desktop/touch review, substantive playtest-led improvement, progression/loss/retry, saves/navigation and inspected screenshots still required. No completed improvement credit."
+      }
     },
     {
       "slot": 42,
@@ -950,13 +962,19 @@
     "Implement remaining 49 distinct third-batch games incrementally; leave unfinished entries unlisted."
   ],
   "updated": "2026-10-25",
-  "latestObservedMain": "432a0d75bd44e3c43975b8d11ae683fa0d7e2325",
+  "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
   "runHistory": [
     {
       "date": "2026-10-25",
       "commit": "035611d0c1a147dc63a09484abfc30ed8bee29c0",
       "result": "Slot 41 implemented and engine/DOM tested; 1 built, 0 improved/browser-tested/integrated/live. No public changes.",
       "browserStatus": "Previously recorded preview policy block remains unresolved; no workaround or alternate browser surface used."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "c7fdaa6bb22f71405466d434b797ec145885390b",
+      "result": "Stencil setup persistence, save validation and mixed-ink forecast repaired; 15 engine/DOM tests pass. Counts unchanged: 1 built, zero improved/browser-tested/integrated/live.",
+      "browserStatus": "Prior browser-policy access blocker unresolved. No workaround or new rendered-evidence claim."
     }
   ]
 }
