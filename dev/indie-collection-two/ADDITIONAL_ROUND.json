@@ -193,13 +193,16 @@
       "slot": 35,
       "id": "murmuration",
       "title": "Murmuration",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
+      "status": "verification_pending",
+      "observedWeakness": "Rendered first island/channel play showed food as only a quota and bird losses as irreversible; recovery offered only retry.",
+      "before": "Food only counted toward arrival; turned-back birds could not rejoin.",
+      "after": "Two clear-air regroup calls per migration spend two food each to recover up to two birds. Remaining supplies determine arrival success; a live preview exposes the survival versus food tradeoff. Keyboard R and a touch-sized button trigger the call.",
       "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "testing": [
+        "18 engine and nine existing DOM tests pass; natural partial losses, recovery, food spending, bounded calls, unsafe-air rejection, exact replay and legacy histories.",
+        "Expanded native browser suite includes a natural ten-bird flight, regroup by keyboard/touch, saved recovery reload and successful arrival; verification pending."
+      ],
+      "remaining": "Complete rendered recovery review, native desktop/touch regression and screenshot inspection before counting this additional pass."
     },
     {
       "slot": 36,
