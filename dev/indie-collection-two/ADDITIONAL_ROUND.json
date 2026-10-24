@@ -174,13 +174,17 @@
       "slot": 34,
       "id": "cairn-and-cord",
       "title": "Cairn & Cord",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
+      "status": "verification_pending",
+      "observedWeakness": "Rendered Warmup stone route earned all three badges in six moves without setting any anchor. Anchors chiefly insured mistakes; no alternative objective used their reach.",
+      "before": "Four fixed summit/cairn routes; anchors only limited falls and there was no lateral rope movement.",
+      "after": "Anchored lateral traverses reach optional survey outcrops and ordinary holds; haul back costs two grip. Four independent replay-validated survey stamps preserve existing three-badge records. Phone return bar keeps chalk and haul accessible.",
       "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "testing": [
+        "35 local checks pass: 23 engine and 12 DOM; all original and survey campaigns, legacy save migration, exact reload, record preservation, natural traverse exhaustion/loss/undo and invalid moves.",
+        "Cloud rendered baseline and revised Warmup completed through actual desktop controls; migrated existing notebook, reloaded at survey, hauled back and won; separate survey stamp preserved old record.",
+        "390px rendered phone walkthrough completed; inspected forecast and return-bar screenshots. Full native desktop/touch regression pending."
+      ],
+      "remaining": "Run native desktop/touch regression, inspect retained screenshots, then record implementation SHA and mark verified."
     },
     {
       "slot": 35,
