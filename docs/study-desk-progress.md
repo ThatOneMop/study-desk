@@ -1,5 +1,23 @@
 # Study Desk improvement ledger
 
++## 2026-10-24 — Nightshift save protection
+
+Base Sites source: 936e1580161ec0a1e7f611d1c1584222d07caff0 (live version 33). GitHub base: 18b81b1d0a3c73a04268c84ba734b12ffd9bf37a. Opened the latest Site and current GitHub head before editing; the 64-entry catalogue, study tools, all game routes and owner-only audience are preserved.
+
+### Implemented
+- Fixed a reproduced Nightshift data-loss path across its ten original games: malformed or out-of-bounds stored progress is no longer silently replaced by fresh state on launch. The exact loaded text is preserved, autosaving pauses, and the warning explains the recovery choice.
+- Added optimistic conflict detection so an older open tab cannot overwrite newer coins, upgrades or completed contracts. Storage failures now produce an accurate session-only warning instead of claiming progress was saved.
+- Added a downloadable save copy for healthy, conflicted and damaged states. Confirmed New save is now the only path that replaces protected data, keeping the previous stored value in a per-game backup first. Existing save keys, valid progress format, contract rules and balance are unchanged.
+
+### Validation
+- New save-module regression coverage passed normal writes, strict schema bounds, exact malformed-data preservation/export, two-tab conflict blocking, unavailable storage, explicit replacement and previous-save backup.
+- The complete regression suite passed, including every 64-entry launch route and all existing game, study, bridge, navigation and save-protection checks. Asset validation passed all 63 bundled routes and 232 HTML references with no missing files; JavaScript syntax and `git diff --check` passed.
+- Browser preview rendered Garden Gone Rogue with the healthy save notice and new copy control. A real save download completed, the destructive reset confirmation was displayed and cancelled, and the stored-save notice remained healthy. No Nightshift console errors were observed; the browser extension emitted unrelated metadata errors. Damaged-save UI is covered by the automated module test; physical mobile and screen-reader output remain unverified.
+
+### Pending
+- No requested commercial-title repository was added in this pass. The documented identity, licence, original-asset, startup, or redistribution blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider, and Minecraft. No unrelated replacement or empty card was added.
+
+
 ## 2026-10-24 — Reefwright dialog keyboard recovery
 
 Base Sites source: eddd9cc9eedc37019d131a215fac2fefac27e732 (live version 32). GitHub base: 39b7c4be06b2307d26cded378ef8324950640726. Opened the latest Site and current GitHub head before editing; the Tiny Wilds save-safety work, 64-entry catalogue, study tools, game saves and owner-only audience are preserved.
