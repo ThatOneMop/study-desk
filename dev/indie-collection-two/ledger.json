@@ -1242,7 +1242,8 @@
       "initialCommit": "ff5b3c500bb3646d3f7838a66e062da603004719",
       "developmentCommits": [
         "ff5b3c500bb3646d3f7838a66e062da603004719",
-        "562848a8e8218cb32c45213a0d071c01eaf5eb71"
+        "562848a8e8218cb32c45213a0d071c01eaf5eb71",
+        "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c"
       ],
       "publishedUrl": null,
       "verification": {
@@ -1259,8 +1260,30 @@
         "artifactSha256": "1c317747154e2b800f59f7af6a3e1ac3b3a7e6aa04c286509c9f91fdc07ce3fe"
       },
       "nextSteps": [
-        "Play improved bouts and add a separate substantial additional-round progression/replay upgrade; reactive-rival initial pass does not count again."
-      ]
+        "Rendered baseline/after core-loop review and balance assessment when permitted; revise based on findings.",
+        "Desktop and touch layout screenshots, kit switching, progression, saves/reload, loss/retry, reset and navigation.",
+        "Only then count the additional pass; remain unselected."
+      ],
+      "pendingAdditionalUpgrade": {
+        "implementationCommit": "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c",
+        "status": "implemented-awaiting-rendered-review",
+        "weaknessBasis": "Source and existing initial-pass evidence: three short fixed bouts offer only best-turn replay. Current rendered inspection was blocked; this is a design hypothesis, not a new playtest finding.",
+        "changes": [
+          "First standard bell unlocks two mechanical kits with different capacity, brace and slip costs.",
+          "Brass boots: capacity 2, brace 3, slip cost 2. Long coil: capacity 4, brace 1, slip cost 1.",
+          "Separate alternate-kit records preserve standard bells, rival unlocks and legacy journal outcomes. Fitting a kit requires restart confirmation."
+        ],
+        "tests": [
+          "13 Windup engine tests and 3 DOM tests pass. All six alternate kit/rival combinations have legal winning routes with per-action save roundtrips.",
+          "Whole local engine glob: 434 checks passed; DOM glob: 293 passed. Asset, first-batch integrity and second-batch/additional-round gates passed.",
+          "No rendered upgrade, mobile layout or human-enjoyment claim. Browser security policy blocked preview access. No alternative browser surface or CI browser run initiated to work around the block. Source commit uses [skip ci]."
+        ],
+        "remaining": [
+          "Rendered baseline/after core-loop review and balance assessment when permitted; revise based on findings.",
+          "Desktop and touch layout screenshots, kit switching, progression, saves/reload, loss/retry, reset and navigation.",
+          "Only then count the additional pass; remain unselected."
+        ]
+      }
     },
     {
       "slot": 40,
@@ -1317,14 +1340,14 @@
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40088157129",
         "artifact": 12557089508,
         "artifactSha256": "3380bef8f163730485a47bc32d70df54b22c7dc0d6a1ca6381715a76d2627f54",
-        "status": "720 checks, preservation gates and changed-game native desktop/touch pass. 34 screenshots retained; touch-rescue-preview-2 and desktop-rescue-won-2 inspected. Broader browser groups still in progress."
+        "status": "CI 40088157129 now confirmed completed/success. Existing 720-check record, all browser groups, preservation gates and changed-game native desktop/touch passed. Previously inspected screenshots remain documented; no new screenshots in this increment."
       }
     }
   ],
   "nextSteps": [
-    "All twenty initial implementations/improvements now verified. Complete fourteen separate additional-round upgrades before final slate comparison/integration.",
+    "Windup kits implemented but NOT additional-round verified: resume permitted rendered review before counting. Additional round remains 6/20.",
     "Complete all fourteen remaining second-batch additional upgrades before final slate selection; initial Windup rival work does not count twice.",
-    "Preserve thirteen concurrent main catalogue entries and current 64-game catalogue at 18b81b1. No main edits in this increment.",
+    "Preserve concurrent main at 432a0d75bd44e3c43975b8d11ae683fa0d7e2325; this increment edits only Windup source/tests and second-batch development records. No main integration.",
     "Continue third-batch exactly 50 new games on indie-collection-three-dev; current 50-slot ledger still zero built/improved/tested/integrated/live.",
     "Use existing workspace-control/publication audit on main b311b35; do not repeat unchanged publishing failure as progress."
   ],
@@ -1622,9 +1645,17 @@
       "gameplayCommit": "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
       "ci": "40088157129",
       "publicIntegration": null
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Windup mechanical-kit implementation and unit/interface checks saved; rendered review blocked, so additional-round count stays 6/20.",
+      "gameplayCommit": "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c",
+      "tests": "434 engine + 293 DOM; all three preservation gates pass",
+      "publicIntegration": null,
+      "blocker": "Cloud browser URL/security policy rejected preview observation; no workaround attempted. Not fully blocked: development source and tests preserved."
     }
   ],
-  "latestObservedMain": "7b356c8c4226e79848b038fc70e297808e506651",
+  "latestObservedMain": "432a0d75bd44e3c43975b8d11ae683fa0d7e2325",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",

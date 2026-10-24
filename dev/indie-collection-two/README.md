@@ -59,3 +59,7 @@ Ember native desktop/touch verification and in-page confirmations now pass on co
 Launch `/games/last-lighthouse/`. See [initial evidence and weaknesses](LAST_LIGHTHOUSE_INITIAL.md). All twenty slots now contain playable source, but this is not twenty finished games.
 
 Last Lighthouse now has optional lifeboat beam routes and earned pennants, using spare power or risking hull on cranking. [Initial improvement evidence](LAST_LIGHTHOUSE_RESCUES.md). This does not count toward the additional round.
+
+## Latest checkpoint: Windup mechanical kits
+
+Implementation and 727 automated engine/DOM checks are saved; rendered review is blocked and additional-round completion remains 6/20. See [Windup kit checkpoint](WINDUP_WRESTLING_KITS.md). No catalogue integration or live release in this increment.

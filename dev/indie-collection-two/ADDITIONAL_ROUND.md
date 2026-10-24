@@ -20,7 +20,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 36. Night Clerk — movable moon/stove service cart, alternative room plans and collateral noise choices; verified commit `08fb6223f98854ee3097560b685b310f22d37dc6`, CI 40052886087.
 - [ ] 37. Clockwork Tide
 - [ ] 38. Ember Parcel
-- [ ] 39. Windup Wrestling
+- [ ] 39. Windup Wrestling — mechanical kits implemented in `dc5d51f2076f3029ccdd39890dcc3bfe63668a1c`; engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 40. Last Lighthouse
 
 No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Fourteen candidates require the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
