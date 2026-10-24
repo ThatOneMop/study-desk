@@ -1,5 +1,23 @@
 # Study Desk improvement ledger
 
+## 2026-10-24 — Afterlight keyboard play
+
+Base Sites source: 6aba3131f418e83da878e58479d374388fabda3e (live version 35). GitHub base: 7b70522e89e697359c4640d9e377ab274cb7bbbf. Opened the latest Site and current GitHub head before editing; Afterlight's new collection save protection, the 64-entry catalogue, study tools, game data and owner-only audience are preserved.
+
+### Implemented
+- Made the Afterlight play canvas keyboard-focusable, gave it a visible focus ring, and connected game-specific keyboard instructions to its accessible name and description.
+- Added keyboard play across all ten originals: route plotting for Harbourlight; brush, drone and submarine hold controls; flippers; selectable pipe and seed grids; basket steering; Moonwell aim/launch; and timed cutting.
+- Arrow-selected targets now receive a visible in-game ring. Controls run only while the canvas owns focus, clear held input on blur, ignore repeat for one-shot actions, and preserve all pointer/touch behavior, progression, balance and saves.
+
+### Validation
+- New DOM regression coverage passed initial focus and instructions, pipe selection/rotation, brush hold/release, Harbourlight route plotting, Moonwell aim/launch, seed growth, and the outside-canvas focus guard.
+- The complete regression suite passed, including every 64-entry launch route and all existing game, study, bridge, navigation and save-protection checks. Asset validation passed all 63 bundled routes and 232 HTML references with no missing files; JavaScript syntax and `git diff --check` passed.
+- Browser preview confirmed Copper & Steam accepts Arrow/Enter input, Moonwell accepts Space/Arrow/Space aim and launch, focus remains on the canvas, and the game-specific accessible label updates. No Afterlight console errors were observed; the browser extension emitted unrelated metadata errors. Physical mobile and screen-reader output remain unverified.
+
+### Pending
+- No requested commercial-title repository was added in this pass. The documented identity, licence, original-asset, startup, or redistribution blockers remain for Tiny Fishing, polytack/PolyTrack, commercial Balatro, Geometry Dash, Snow Rider, and Minecraft. No unrelated replacement or empty card was added.
+
+
 ## 2026-10-24 — Afterlight collection save protection
 
 Base Sites source: ec419c21f82016414ad18475eee31df13fd1dc1c (live version 34). GitHub base: 7b356c8c4226e79848b038fc70e297808e506651. Opened the latest Site and current GitHub head before editing; the Nightshift save work, 64-entry catalogue, study tools, game routes and owner-only audience are preserved.
