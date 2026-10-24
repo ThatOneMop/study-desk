@@ -24,7 +24,7 @@
     "improved": 17,
     "finished": 17,
     "selected": 0,
-    "meaningfulPasses": 20,
+    "meaningfulPasses": 21,
     "verifiedLive": 0
   },
   "deployment": {
@@ -999,6 +999,17 @@
             "Fixed phone key panel with native guest chooser, focus continuity, opaque controls and truthful completed-room labels."
           ],
           "validation": "18 engine and 12 DOM checks plus all five three-seal shifts on native desktop and touch emulation pass in CI 40027839541. Pure previews, swaps/undo, functional screens, exact mid-plan and won reloads, natural three-bell loss, retry, bridge pause, isolated recovery/reset and navigation pass."
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-24",
+          "changes": [
+            "One movable service cart offers a silent moon mirror or a noisy stove. It enables alternative allocations; moving it removes the old benefit, and stove noise affects its own room and neighbours. Exact known-needs previews, undo and replay saves include cart changes.",
+            "Rendered static-feature bottleneck now permits a player-chosen room modification with a noise tradeoff. Legacy v1 journals replay with no cart; new cart actions preserve exact undo/save state and existing records."
+          ],
+          "implementationCommit": "08fb6223f98854ee3097560b685b310f22d37dc6",
+          "validation": "24 engine and 14 DOM checks pass. Native desktop/touch verify two cart-enabled alternatives, forecasts, collateral noise/undo, exact reload and wins, plus all five original shifts, screens, swaps, loss/retry, input cancellation, bridge pause, recovery/reset and navigation. CI 40052886087, job 120749480017; 36 screenshots retained and three new-mechanic views inspected. Actual cloud rendered baseline failure, stove repair and phone moon-mirror victory reviewed. No physical-device or human enjoyment claim."
         }
       ],
       "tests": [
@@ -1006,34 +1017,36 @@
         "Improved: 18 engine and 12 DOM checks pass. All five authored shifts, adjacency/noise rules, functional screen unlocks, pure nonspoiler forecasts including neighbour effects, atomic swaps, undo retaining later interviews, immutable bounded replay logs, loss/retry, save recovery, focus and storage failure are covered. Exhaustive unpadded room permutations prove shifts three through five require a felt screen.",
         "Native CI 40027839541 on 92004a2: desktop 1280x1000 and touch emulation 390x844 each complete all five shifts with three seals. Every placement forecast matches actual known state; mid-plan and won saves reload exactly. Screens/undo, key swaps, real keyboard controls or touch/cancel, natural three-bell failure, retry/cancel, bridge pause, isolated recovery/reset and return navigation pass. Zero browser errors.",
         "26 native screenshots retained in artifact 12533646510; ZIP SHA256 verified. Desktop shift-five completion and phone key-swap conflict images visually inspected. Cloud UI also completed a desktop shift and phone-width shift, and verified kit unlocking. No physical-device claim.",
-        "All seven CI jobs passed on exact verification commit 92004a2: 600 engine/interface checks and all sixteen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass."
+        "All seven CI jobs passed on exact verification commit 92004a2: 600 engine/interface checks and all sixteen native desktop/touch suites. First-batch integrity, public routes and the exact twenty-slot gate pass.",
+        "24 engine and 14 DOM checks pass. Native desktop/touch verify two cart-enabled alternatives, forecasts, collateral noise/undo, exact reload and wins, plus all five original shifts, screens, swaps, loss/retry, input cancellation, bridge pause, recovery/reset and navigation. CI 40052886087, job 120749480017; 36 screenshots retained and three new-mechanic views inspected. Actual cloud rendered baseline failure, stove repair and phone moon-mirror victory reviewed. No physical-device or human enjoyment claim."
       ],
       "quality": {
-        "enjoyment": 3,
-        "depth": 2.5,
+        "enjoyment": 3.5,
+        "depth": 3,
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 3.5,
-        "notes": "Agent assessment, not a human player survey. Distinct interdependent room-assignment puzzle with conversation clues, noisy neighbours, physical adjacency and a functional felt-screen kit. Nonspoiler forecasts and atomic swaps make revisions readable; original CSS hotel windows and SVG guests provide a coherent identity. Five short fixed shifts, six rooms and one kit limit depth. No generated guests, economy, audio, long-playtime or physical-device certification claim. The ghost-hospitality theme overlaps Tea for Ghosts despite different mechanics."
+        "notes": "Agent assessment, not a human player survey. A single movable moon mirror/stove allows alternative allocations and creates a warmth-versus-neighbour-noise decision. Exact forecasts, undo and legacy-compatible saves make experimentation comfortable. Five fixed shifts and six rooms still limit progression; no generated campaign, economy, audio or long-playtime claim. Ghost hospitality overlaps Tea for Ghosts despite different mechanics."
       },
       "selected": false,
       "integrationCommits": [],
       "initialCommit": "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836",
       "developmentCommits": [
         "bd0c93d7b466d3a0d350d74dfd2f9bc90944a836",
-        "92004a256d53717b6ec6c9c0f5bf412ed1db1291"
+        "92004a256d53717b6ec6c9c0f5bf412ed1db1291",
+        "08fb6223f98854ee3097560b685b310f22d37dc6"
       ],
       "verification": {
         "status": "passed",
-        "commit": "92004a256d53717b6ec6c9c0f5bf412ed1db1291",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40027839541",
-        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40027839541/artifacts/12533646510",
-        "artifactSha256": "f748e3e54b60ff0550dec60ad7d52fe02b538e71c34fb7799dd38e523fda1062",
+        "commit": "08fb6223f98854ee3097560b685b310f22d37dc6",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40052886087",
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40052886087/artifacts/12544510261",
+        "artifactSha256": "95fd1ac2e0a6ed8d59615cae12cb99ac16da24d168e6a9433789b18164ed0b9f",
         "sha256": {
-          "engine.js": "80f8a4c23a5ddba8d44a32510ef4db481070fcd5f5d6be764292d66f06759d7c",
-          "game.js": "40703ece2cf62a698d2a27271028147c6cb8d084c344c35fcee8a21e3ad4dcbf",
-          "index.html": "730f70bc327b7c5b6bc6c19221a7a4f377e8ed6537ad58e3d5158847e838e22e",
-          "style.css": "a529e0cd8cb20a9d901876c9937ba6cab3b6a0788bb53200a1a4352556161296"
+          "engine.js": "960119b2d6e261a24fc1d5acc4845d6a9d441974c6fad21cebbc75159449edfd",
+          "game.js": "b3e432454d470fb7d32681d5d86cbd2046bd1b3bf1cdadc48e627aec1719d6d2",
+          "index.html": "716d5794dd45162bbfc0bbc692c08cf199d251ca38dc54e9871224aa978e3b93",
+          "style.css": "076f4dae0558b3ad519033ab3f820c4c5521aab36d264b981db26e1e7c351009"
         }
       },
       "selectionReason": "Retain as a finished development candidate, unselected. Compare its social/spatial reasoning against the other calm planners, including the thematically similar Tea for Ghosts. Compact depth prevents automatic selection.",
@@ -1158,8 +1171,8 @@
     }
   ],
   "nextSteps": [
-    "Continue the additional round: Ratchet Run, Cairn & Cord and Murmuration verified, 3/20. Earlier initial passes remain excluded.",
-    "Prioritize weakest remaining existing games: Night Clerk, Borrowed Gravity and Static Orchard; play before changing.",
+    "Continue additional round: Ratchet Run, Cairn & Cord, Murmuration and Night Clerk verified, 4/20. Earlier initial passes remain excluded.",
+    "Prioritize weakest remaining existing games: Borrowed Gravity and Static Orchard; play before changing. Then continue remaining unchecked candidates, including Clockwork Tide.",
     "Finish Ember Parcel, Windup Wrestling and Last Lighthouse, then give each an additional round beyond its initial improvement.",
     "Only after all twenty additional-round entries are verified: compare, select, integrate with current main/concurrent catalogue work and run final regressions.",
     "Pages permission checked once for this new round: unchanged integration access failure. Do not retry without changed permissions/evidence."
@@ -1381,6 +1394,16 @@
       "publicIntegration": null,
       "regressionStatus": "All seven CI jobs passed: 391 engine + 282 DOM checks and all seventeen native desktop/touch suites. Murmuration natural recovery, supplies, reload, successful arrival, original campaigns and regression pass; representative screenshots inspected.",
       "nextSteps": "Seventeen additional upgrades remain, including finishing three missing candidates and their initial improvements; final comparison/integration follows."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Night Clerk movable service-cart upgrade verified; additional round 4/20, overall 17 playable/initially improved/finished and three planned. No new public integration or live release.",
+      "gameplayCommit": "08fb6223f98854ee3097560b685b310f22d37dc6",
+      "verificationCommit": "08fb6223f98854ee3097560b685b310f22d37dc6",
+      "ci": "40052886087",
+      "publicIntegration": null,
+      "regressionStatus": "All seven CI jobs passed: 397 engine + 284 DOM checks and all seventeen native desktop/touch suites. Night Clerk cart alternatives, collateral noise/undo, exact reload, wins, original campaigns and regression pass; representative screenshots inspected.",
+      "nextSteps": "Sixteen additional upgrades remain, including finishing three missing candidates and their initial improvements; final comparison/integration follows."
     }
   ],
   "latestObservedMain": "0f295c9795590f96a90c6ceb8c1d165e77fcd3a7",
@@ -1388,7 +1411,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 3,
+    "completed": 4,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
@@ -1412,6 +1435,6 @@
       "borrowed-gravity",
       "tea-for-ghosts"
     ],
-    "scope": "Concurrent initial-game catalogue integration, separate from final additional-round selection and from this Murmuration upgrade. Live deployment not verified here."
+    "scope": "Concurrent initial-game catalogue integration, separate from final additional-round selection and these development-branch upgrades. Live deployment not verified here."
   }
 }

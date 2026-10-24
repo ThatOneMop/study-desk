@@ -1,4 +1,4 @@
-# Additional improvement round — 3/20 verified
+# Additional improvement round — 4/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -17,7 +17,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 33. Tea for Ghosts
 - [x] 34. Cairn & Cord — anchored lateral traverses, haul-back grip choices and separate survey records; verified commit `eb10e9e87ee414f0a218afe6176cc2589151a592`, CI 40044161548.
 - [x] 35. Murmuration — food-funded clear-air regroup calls and supply/survival choices; verified commit `b1c2421ba2286bc833d62e12ffb256e8cf4795fc`, CI 40048553658.
-- [ ] 36. Night Clerk
+- [x] 36. Night Clerk — movable moon/stove service cart, alternative room plans and collateral noise choices; verified commit `08fb6223f98854ee3097560b685b310f22d37dc6`, CI 40052886087.
 - [ ] 37. Clockwork Tide
 - [ ] 38. Ember Parcel
 - [ ] 39. Windup Wrestling
