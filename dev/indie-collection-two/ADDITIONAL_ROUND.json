@@ -211,13 +211,16 @@
       "slot": 36,
       "id": "night-clerk",
       "title": "Night Clerk",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
+      "status": "verification_pending",
+      "observedWeakness": "Rendered alternate first-shift allocation failed solely because Bram\u2019s ground-floor room had no hearth; static room features restricted replay choices.",
+      "before": "Six rooms had immutable features; only felt screens could change room suitability.",
+      "after": "One movable service cart offers a silent moon mirror or a noisy stove. It enables alternative allocations; moving it removes the old benefit, and stove noise affects its own room and neighbours. Exact known-needs previews, undo and replay saves include cart changes.",
       "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "testing": [
+        "24 engine and 14 DOM checks pass locally; both new allocations, collateral noise, felt protection, atomic invalid actions, old journal migration, exact reload, undo, loss/retry and paused controls.",
+        "Rendered desktop baseline plan failed, then succeeded after stove placement. Reload preserved the cart; moving it previewed two conflicts; undo restored the workable plan. Native full regression and phone review pending."
+      ],
+      "remaining": "Complete native desktop/touch and screenshot review before counting this additional upgrade."
     },
     {
       "slot": 37,
