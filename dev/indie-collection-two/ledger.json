@@ -1167,7 +1167,22 @@
         "Add meaningful choices to how timber is carried or consumed; do not extend play by repeating the same routes.",
         "Keep warmth, map and primary controls together on phones; replace native confirmation interruptions with accessible in-page confirmation.",
         "Complete native desktop/touch campaign and navigation coverage; then record initial improvement separately from the additional round."
-      ]
+      ],
+      "initialCommit": "07293192e3077669d4ce7487d07047cfe02eb18a",
+      "developmentCommits": [
+        "07293192e3077669d4ce7487d07047cfe02eb18a"
+      ],
+      "verification": {
+        "commit": "07293192e3077669d4ce7487d07047cfe02eb18a",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40069251133",
+        "status": "699 local engine/DOM checks and preservation gates passed; remote regression in progress at checkpoint. No dedicated Ember native-touch suite yet.",
+        "sha256": {
+          "engine.js": "e4ad8f006d6a2b8272317e8b2bf36e7c73757021997ad31d99026a22dd97ed98",
+          "game.js": "a3d81391690fd7486d9e4b08c774ba9955282b4b8dfe622da1b216264f195581",
+          "index.html": "d646fed6f22dc44b6946ea5a5d718f6831bd49bbab38876d21ccecbec82bb517",
+          "style.css": "8084bf54dd13a26651c0132e41c7714757a732b087da6b28e23ea644a9017881"
+        }
+      }
     },
     {
       "slot": 39,
@@ -1466,7 +1481,9 @@
       "result": "Ember Parcel initial playable prototype: 18 playable, 17 initially improved/finished, six additional upgrades verified, two unbuilt slots. No new integration or live release.",
       "publicIntegration": null,
       "regressionStatus": "699 local engine/DOM checks pass (411 engine, 288 DOM). Three routes played through rendered desktop/phone-size UI, plus natural loss/undo/retry, saved melt and navigation. Dedicated native touch campaign pending; no initial or additional improvement credited.",
-      "nextSteps": "Substantially improve Ember Parcel, then its separate additional-round pass; build slots 39\u201340; finish the remaining additional upgrades; continue third collection of 50."
+      "nextSteps": "Substantially improve Ember Parcel, then its separate additional-round pass; build slots 39\u201340; finish the remaining additional upgrades; continue third collection of 50.",
+      "initialCommit": "07293192e3077669d4ce7487d07047cfe02eb18a",
+      "ci": "40069251133"
     }
   ],
   "latestObservedMain": "b311b35c85c267b25fd94164d0b6d2606bcf2032",
