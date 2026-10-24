@@ -23,4 +23,4 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 39. Windup Wrestling
 - [ ] 40. Last Lighthouse
 
-No final selection or pause until this round and the integration goal are complete. Three candidates remain unimplemented; they also need their own later additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
+No final selection or pause until this round and the integration goal are complete. One candidate remains unimplemented; it also needs its own later additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.

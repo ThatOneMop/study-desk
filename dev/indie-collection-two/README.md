@@ -26,21 +26,17 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**18/20 playable; 18 initially improved and finished; 6/20 additional upgrades verified.** Ember Parcel is an unfinished playable prototype. Two slots remain planned. First-batch games, Nightshift and Afterlight are excluded.
+**19/20 playable, initially improved and finished; 6/20 additional upgrades verified.** Last Lighthouse is the sole unimplemented candidate. First-batch games, Nightshift and Afterlight are excluded.
 
-Clockwork Tide operates a miniature tidal mill: store high water, release it through the wheel, select gears and feed the stone at the right speed and torque. Four authored commissions earn two functional workshop upgrades. Its improvement adds exact next-stroke previews, manual braking, reversible failed strokes and fixed phone controls. All 30 focused checks pass (19 engine, 11 DOM). Exhaustive first-commission search confirms high-water storage is essential.
+Windup Wrestling is the nineteenth candidate: seven-space spring grappling, telegraphed rival actions, braces and momentum reversals. Its initial improvement replaces an identical three-move win across rivals with reactive guarding and an early grapple. See [the implementation report](WINDUP_WRESTLING_INITIAL.md). Its separate additional-round upgrade is not counted.
 
-Exact-source CI [40031851485](https://github.com/ThatOneMop/study-desk/actions/runs/40031851485) passed all **630 engine/interface checks** (365 engine, 265 DOM). All seventeen native desktop/touch suites passed, including all four Clockwork Tide commissions. All seven CI jobs succeeded. All seventeen suites remain enabled across six groups with at most three concurrent jobs, using installed Chrome when available and Playwright’s browser installation as a fallback. Evidence is in the [Clockwork Tide report](RUN_REPORT_2026-10-24_CLOCKWORK_TIDE.md).
+Exact-source CI [40080637524](https://github.com/ThatOneMop/study-desk/actions/runs/40080637524) passed **713 engine/interface checks** (421 engine, 292 DOM), plus source and asset preservation gates. Changed-game native desktop/touch campaigns pass; ten screenshots retained and three inspected. Other browser groups remain in progress at checkpoint. Earlier Ember CI 40076388835 has now passed all seven jobs and all eighteen native suites.
 
-Cloud UI reviewed desktop and 390-pixel layouts and completed the first commission through the phone-width controls with three seals. All 22 Clockwork Tide native screenshots are retained; desktop final-delivery and phone high-water-planning captures were visually inspected. This is not physical-device certification. [Night Clerk’s preceding report](RUN_REPORT_2026-10-24_NIGHT_CLERK.md) retains the previous increment’s evidence.
+Next: build Last Lighthouse, complete fourteen remaining additional upgrades, compare and integrate selections. The third-batch branch has exactly 50 planned slots and no built games yet. The full task remains unfinished.
 
-The latest public Pages release [39925660833](https://github.com/ThatOneMop/study-desk/actions/runs/39925660833) remains failed at Configure GitHub Pages before upload. No public catalogue or hosting changes were made by this increment. Separate all-created-games integration work is preserved and must be reread before future promotion; the Pages failure does not establish the status of another host.
+The existing workspace-control and publication audit on main `b311b35` found no remaining Switch workspace controls. Preserve Games/Collection navigation, search, grouping, sorting and favourites. GitHub Pages configuration remains a previously recorded permission blocker; no unchanged retry was made. Separate hosted deployment was not verified through its sign-in wall. Repository commits are not live release evidence.
 
-All implemented candidates follow the same dependency setup: `node --test tests/<game>-engine.cjs`, jsdom `tests/<game>-dom.cjs`, and Chromium `tests/<game>-browser.cjs`. Authoring solvers provide reference routes, not general optimality proofs. Never regenerate fixtures to conceal a regression. Copper Cadence's independent unbraked-prefix search checks its third commission's teaching constraint.
-
-Next: build Ember Parcel, slot 38. Selection waits for broader comparison; reserve final work for improving the slate, choosing winners, integration and regression.
-
-Keep future commits scoped to this collection. Re-read remote main and development heads before writes; never force-push over concurrent work. Preserve the new relaxed Study Desk layout and all Gummy Bay/requested-game work.
+Main reread at `18b81b1`: its 64 entries include thirteen earlier second-batch games from concurrent integration. No main or public catalogue edits in this increment. Re-read remote heads before future integration and preserve all Gummy Bay/requested-game work.
 
 ## Writing and evidence notes
 

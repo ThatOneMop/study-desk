@@ -20,11 +20,11 @@
     "Retain original source, unique save keys, evidence boundaries and concurrent repository changes."
   ],
   "totals": {
-    "playable": 18,
-    "improved": 18,
-    "finished": 18,
+    "playable": 19,
+    "improved": 19,
+    "finished": 19,
     "selected": 0,
-    "meaningfulPasses": 24,
+    "meaningfulPasses": 25,
     "verifiedLive": 0
   },
   "deployment": {
@@ -1191,7 +1191,7 @@
         "commit": "61d1c8d4b2820e83cc8144a3374de6ee358432ed",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40076388835",
         "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40076388835/artifacts/12553621892",
-        "status": "703 local and CI engine/DOM checks pass, preservation gates pass, changed-game desktop/touch campaigns pass. Other browser groups still running at checkpoint.",
+        "status": "All seven jobs in CI 40076388835 completed successfully: 703 engine/DOM checks, preservation gates, and all eighteen native desktop/touch suites. Confirmed during Windup Wrestling increment.",
         "sha256": {
           "game.js": "c2f94bf5f4fc34cebb0c64b0ea90e488f3804606f3a8cf1e25f0c4430cd819c3",
           "style.css": "6902bcb3370d2916079cc598168b2abd630709411d9cd045f9ff19259097ab03",
@@ -1205,20 +1205,62 @@
       "id": "windup-wrestling",
       "title": "Windup Wrestling",
       "coreLoop": "Read rival windup tells, redirect grapples and spend stored spring tension in compact arena bouts.",
-      "status": "planned",
-      "source": null,
-      "improvementPasses": [],
-      "tests": [],
+      "status": "finished",
+      "source": "games/windup-wrestling",
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-24",
+          "observedWeakness": "Rendered first bout won in three moves; engine exploration showed the identical advance/wind/shove route beat every initial rival, undermining the three-rival progression.",
+          "changes": [
+            "Ram now reacts to an adjacent fully wound player by bracing. His rhythm supports lower-power shoves and baited grapple reversals.",
+            "Velvet starts with two springs and grapples early; bracing, retreating or slipping becomes useful. Each rival has an explicit scouting note.",
+            "Save rules are journal-versioned: existing bouts retain the original tactics until an explicit retry or new bout, preserving old progress."
+          ],
+          "validation": "8 engine and 2 DOM checks pass. Rendered Ram reversal succeeded in seven ordinary moves; Velvet early grapple was absorbed by brace. Desktop screenshot inspected. Native browser verification pending. Native desktop/touch-emulated all-rival wins, saves/reloads, natural loss/undo/retry, modal cancellation, pause, isolated reset/recovery and navigation pass in CI 40080637524 job 120833480441. Ten screenshots retained; desktop reversal, touch final win and touch guide visually inspected.",
+          "implementationCommit": "562848a8e8218cb32c45213a0d071c01eaf5eb71"
+        }
+      ],
+      "tests": [
+        "Eight engine checks: all three sequential rival wins, exact action/save roundtrips, natural ring-out loss/undo/retry, brace and reversal mechanics, action atomicity, malformed journals and legacy-save rules.",
+        "Two jsdom checks: keyboard progression, reload, pause, modal cancellation, isolated reset and unreadable-save preservation/recovery.",
+        "713 full engine/interface checks pass locally and CI: 421 engine, 292 DOM. Assets, first-batch source hashes and twenty-slot/additional-round gates pass.",
+        "Cloud rendered walkthrough: first win/reload, Ram seven-move grapple reversal, Velvet approach/brace/wind. Desktop screenshot inspected. Cloud policy rejected the final click/reload request; no workaround attempted. Native CI was already running independently.",
+        "Native Chrome desktop and emulated touch: all three distinct rival wins, reversal, brace, mid-bout and won reload, natural loss/undo/retry, pause, modal cancellation, isolated reset/recovery and navigation. Ten screenshots retained; desktop-bout-1, touch-bout-2 and touch-guide inspected. Readable layouts, no horizontal overflow; touch guide fits viewport. CI 40080637524, job 120833480441, artifact 12555156061."
+      ],
       "quality": {
-        "enjoyment": null,
-        "depth": null,
-        "polish": null,
-        "reliability": null,
-        "variety": null,
-        "notes": "Concept only; no implementation counted."
+        "scale": "1\u20135 provisional agent design review, not human enjoyment evidence",
+        "enjoyment": 3,
+        "depth": 2,
+        "polish": 3,
+        "reliability": 4,
+        "variety": 4,
+        "notes": "Compact turn-based seven-space spring grappling. Three rival patterns, six actions, undo and best-turn medals; no timers. Distinct reactive guard and early grapple encourage different tactics. Three short bouts limit depth; not selected and requires a separate substantial additional-round upgrade. No human enjoyment or hours-of-content claim."
       },
       "selected": false,
-      "integrationCommits": []
+      "integrationCommits": [],
+      "initialCommit": "ff5b3c500bb3646d3f7838a66e062da603004719",
+      "developmentCommits": [
+        "ff5b3c500bb3646d3f7838a66e062da603004719",
+        "562848a8e8218cb32c45213a0d071c01eaf5eb71"
+      ],
+      "publishedUrl": null,
+      "verification": {
+        "commit": "562848a8e8218cb32c45213a0d071c01eaf5eb71",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40080637524",
+        "status": "713 local/CI engine and DOM checks, preservation gates, and native Chrome desktop/touch-emulated three-rival campaigns pass. Screenshots inspected; broader browser groups pending at checkpoint.",
+        "sha256": {
+          "engine.js": "4ea32ad89e85a6e2c0eb55ee2ad2420640add71f7b79be423621be086d93b038",
+          "game.js": "c960daead7915cf7e8249eb1d5120b36b4f417a6e0638ba641ad4bafa5585803",
+          "index.html": "47d6445564182e36ca7207677fe689662abf1d86f4f94925b04afce10059b087",
+          "style.css": "cc16e4a3e1845fc29689876b94a251d0a1cc31fa9380166088d1a0deff6156af"
+        },
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40080637524/artifacts/12555156061",
+        "artifactSha256": "1c317747154e2b800f59f7af6a3e1ac3b3a7e6aa04c286509c9f91fdc07ce3fe"
+      },
+      "nextSteps": [
+        "Play improved bouts and add a separate substantial additional-round progression/replay upgrade; reactive-rival initial pass does not count again."
+      ]
     },
     {
       "slot": 40,
@@ -1242,10 +1284,10 @@
     }
   ],
   "nextSteps": [
-    "Ember initial implementation/improvement is complete with native browser coverage; implement its separate additional-round upgrade.",
-    "Build Windup Wrestling (39) and Last Lighthouse (40), including initial improvements and additional-round upgrades.",
-    "Complete all fourteen remaining second-batch additional upgrades before final slate selection, preserving the thirteen concurrent main catalogue entries.",
-    "Continue third-batch exactly 50 new games on indie-collection-three-dev; its existing 50-slot ledger currently records zero built/improved/tested/integrated/live.",
+    "Build Last Lighthouse (40), the sole unimplemented second-batch candidate, with initial and separate additional improvements.",
+    "Complete all fourteen remaining second-batch additional upgrades before final slate selection; initial Windup rival work does not count twice.",
+    "Preserve thirteen concurrent main catalogue entries and current 64-game catalogue at 18b81b1. No main edits in this increment.",
+    "Continue third-batch exactly 50 new games on indie-collection-three-dev; current 50-slot ledger still zero built/improved/tested/integrated/live.",
     "Use existing workspace-control/publication audit on main b311b35; do not repeat unchanged publishing failure as progress."
   ],
   "baselineTestLimitations": [
@@ -1515,11 +1557,21 @@
       "gameplayCommit": "61d1c8d4b2820e83cc8144a3374de6ee358432ed",
       "ci": "40076388835",
       "publicIntegration": null,
-      "regressionStatus": "703 local/CI engine and DOM checks plus preservation gates pass. Changed-game native desktop/touch job passes and screenshots reviewed; broader browser groups pending at checkpoint.",
+      "regressionStatus": "All seven CI jobs subsequently confirmed successful: 703 engine/DOM checks and eighteen native desktop/touch suites.",
       "nextSteps": "Build slots 39\u201340 and complete fourteen remaining additional-round upgrades; third 50 and final integration still outstanding."
+    },
+    {
+      "date": "2026-10-24",
+      "result": "Windup Wrestling initial playable and substantive reactive-rival improvement verified. 19 playable/improved/finished; one unbuilt; additional round unchanged at six.",
+      "initialCommit": "ff5b3c500bb3646d3f7838a66e062da603004719",
+      "gameplayCommit": "562848a8e8218cb32c45213a0d071c01eaf5eb71",
+      "ci": "40080637524",
+      "publicIntegration": null,
+      "regressionStatus": "713 local/CI engine and DOM checks, preservation gates, and native Chrome desktop/touch-emulated three-rival campaigns pass. Screenshots inspected; broader browser groups pending at checkpoint.",
+      "nextSteps": "Build Last Lighthouse; fourteen additional upgrades and third fifty remain."
     }
   ],
-  "latestObservedMain": "e89fe39b8e969300e3fb25ffa36c00af029e2f11",
+  "latestObservedMain": "18b81b1d0a3c73a04268c84ba734b12ffd9bf37a",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",

@@ -270,7 +270,7 @@
       "after": null,
       "implementationCommit": null,
       "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "remaining": "Initial reactive-rival pass and native desktop/touch verification complete. Play improved game and implement a distinct substantial additional-round upgrade; none counted yet."
     },
     {
       "slot": 40,
