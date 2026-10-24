@@ -12,6 +12,15 @@ function forecast(r,a){if(!valid(a))return{ok:false,reason:'Choose a heading and
  return{ok:true,x,y,mark,path,collision,speed};}
 function step(old,a){const f=forecast(old,a);if(!f.ok)return null;const r={...old,x:f.x,y:f.y,mark:f.mark,heading:a.heading,hull:old.hull-(f.collision?1:0),turns:old.turns+1};r.phase=r.mark===COURSES[r.level].marks.length?'won':r.hull===0?'lost':'sailing';r.message=r.phase==='won'?'Pennant earned! All buoys rounded.':r.phase==='lost'?'Hull damaged. Undo the grounding or restart.':f.collision?'Grounded: one hull lost. Shorten sail or steer clear.':r.mark>old.mark?'Buoy rounded. Set your next course.':'Clean water. Choose your next tack.';return r}
 function run(s){let r=fresh(s.level);for(const a of s.journal){r=step(r,a);if(!r)throw Error('Invalid journal')}return r}
+function project(s,actions){
+ if(!Array.isArray(actions)||actions.length>6)return{ok:false,index:0};
+ let r=run(s);const legs=[];
+ for(let i=0;i<actions.length;i++){
+  const f=forecast(r,actions[i]);if(!f.ok)return{ok:false,index:i,reason:f.reason};
+  r=step(r,actions[i]);legs.push({action:{...actions[i]},path:f.path,collision:f.collision,x:r.x,y:r.y,mark:r.mark,hull:r.hull});
+ }
+ return{ok:true,state:r,legs};
+}
 function act(old,a){const s=clone(old);if(a==='undo'){if(!s.journal.length)return{ok:false,state:old};s.setup=s.journal.pop()}else if(a==='retry')s.journal=[];else if(Number.isInteger(a)){if(a<0||a>unlocked(s))return{ok:false,state:old};s.level=a;s.journal=[];s.setup={heading:COURSES[a].heading,reefed:true}}else{if(s.journal.length>=200||!step(run(s),a))return{ok:false,state:old};s.journal.push({heading:a.heading,reefed:a.reefed});const r=run(s);if(r.phase==='won')s.records[s.level]=Math.min(s.records[s.level]??Infinity,r.turns)}return{ok:true,state:s}}
 function decode(raw){if(typeof raw!=='string'||raw.length>15000)throw Error('Oversize save');const a=JSON.parse(raw);if(!a||a.version!==1||!Array.isArray(a.records)||a.records.length!==3||!Array.isArray(a.journal)||a.journal.length>200||!valid(a.setup))throw Error('Invalid save');const s=create();s.records=a.records.map((n,i)=>{if(n===null)return n;if(!Number.isInteger(n)||n<1||n>200||(i&&a.records[i-1]===null))throw Error('Invalid record');return n});if(!Number.isInteger(a.level)||a.level<0||a.level>unlocked(s))throw Error('Locked course');s.level=a.level;s.setup={heading:a.setup.heading,reefed:a.setup.reefed};s.journal=a.journal.map(x=>{if(!valid(x))throw Error('Invalid action');return{heading:x.heading,reefed:x.reefed}});run(s);return s}
-return{KEY,DIRS,NAMES,COURSES,create,unlocked,fresh,forecast,step,run,act,decode};});
+return{KEY,DIRS,NAMES,COURSES,create,unlocked,fresh,forecast,step,run,project,act,decode};});
