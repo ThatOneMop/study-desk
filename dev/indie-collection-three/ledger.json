@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 1,
+    "built": 2,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -75,21 +75,35 @@
     },
     {
       "slot": 42,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "moon-dial",
+      "title": "Moon Dial",
+      "coreLoop": "Rotate coupled dials while shifting a single clutch to isolate connected components and align every hand to its target.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/moon-dial",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "4 engine tests pass: all three legal solutions, exact action-by-action save roundtrips, sequential unlocks, alternating movement, clutch isolation, undo/retry and invalid journals.",
+        "2 DOM tests pass: all mechanisms won through ordinary handlers with reload after each action, keyboard, pause, modal cancellation, isolated reset/recovery and navigation href.",
+        "Syntax checks pass. No rendered browser, screenshot, touch or enjoyment evidence; not selected."
+      ],
+      "commits": [
+        "60dd61044207070fef97638b829242cf1e273715"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact mechanisms; solutions use 3, 6 and 11 total actions. Unlimited undo; no failure condition. No long-play claim."
+      },
+      "nextSteps": [
+        "Play actual rendered loop; inspect readability of coupled motion and touch selection.",
+        "Implement a substantive playtest-led improvement, then verify desktop/touch, progression, undo/retry, save/reload, reset and navigation before integration."
+      ]
     },
     {
       "slot": 43,
@@ -958,8 +972,8 @@
   ],
   "nextSteps": [
     "Complete fourteen remaining second-batch additional upgrades; Windup implementation awaits rendered review.",
-    "Render/play Stencil Studio and implement its first meaningful improvement before catalogue selection.",
-    "Implement remaining 49 distinct third-batch games incrementally; leave unfinished entries unlisted."
+    "Play Stencil Studio and Moon Dial in a permitted rendered environment, then perform their first substantive improvement passes before selection.",
+    "Implement remaining 48 distinct third-batch candidates incrementally; keep unfinished entries unlisted."
   ],
   "updated": "2026-10-25",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -975,6 +989,13 @@
       "commit": "c7fdaa6bb22f71405466d434b797ec145885390b",
       "result": "Stencil setup persistence, save validation and mixed-ink forecast repaired; 15 engine/DOM tests pass. Counts unchanged: 1 built, zero improved/browser-tested/integrated/live.",
       "browserStatus": "Prior browser-policy access blocker unresolved. No workaround or new rendered-evidence claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "60dd61044207070fef97638b829242cf1e273715",
+      "result": "Moon Dial slot 42 implemented. Six engine/DOM tests pass; 2/50 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Previous preview-policy blocker unresolved. No attempt to bypass it; no new rendered claim.",
+      "preservation": "GitHub base-tree commit changes only new Moon Dial files and third-batch records; other branches untouched."
     }
   ]
 }
