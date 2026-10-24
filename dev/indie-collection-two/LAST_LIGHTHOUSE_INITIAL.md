@@ -15,3 +15,9 @@ Totals: **20/20 playable; 19 initially improved and finished; 6/20 additional up
 Existing workspace-control/publication audit retained; no unchanged publishing failure retried. No public shell, catalogue or Gummy Bay edits. Remaining work: Last Lighthouse initial improvement and verification, fourteen separate additional upgrades, slate comparison/integration, and all fifty third-batch games.
 
 Checks job 120843561920 passed **717 checks** (425 engine, 292 DOM) plus preservation gates. Cloud reload retained the completed harbour and two-signal record. Native campaigns remain pending at this documentation checkpoint.
+
+## Native verification completed
+
+Native CI 40084157781 job 120843842346 passed desktop and emulated touch: all six ships/progression, exact saves/reload, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation. 22 screenshots retained in artifact 12556472208; touch-path-2-0 and desktop-win-2 inspected. No horizontal clipping; phone signal requires scrolling below board. Initial improvement still pending.
+
+ZIP SHA256: `47dbf636760d8c362c780da337fe34eab06810d099e6e97ad07e69e282cc42df`. Automated routes demonstrate reliability, not human enjoyment or physical-device certification. Broader browser groups still running at checkpoint. Status stays playable, not improved/finished.
