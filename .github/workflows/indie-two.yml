@@ -126,7 +126,7 @@ jobs:
       matrix:
         include:
           - group: night-desk
-            games: clockwork-tide night-clerk
+            games: clockwork-tide night-clerk ember-parcel
           - group: new-games
             games: cairn-and-cord tea-for-ghosts borrowed-gravity static-orchard
           - group: flock
