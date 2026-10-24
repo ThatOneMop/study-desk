@@ -956,9 +956,9 @@ function updateStationInput(dt){
 
 const agree13=agree;agree=function(i,price){const t=s.threads[i];if(!t||t.status!=='negotiating'||s.deals.some(d=>d.npc===i)||s.packs[t.t]-reservedQty(t.t)<t.qty)return;agree13(i,price);};
 const placement13=placementValid;placementValid=function(i,p){if(!placement13(i,p))return false;return !points.some(q=>q.home===s.house&&['craft','sink','mix','stockroom'].includes(q.type)&&Math.abs(q.x-p.x)<2.2&&Math.abs(q.z-p.z)<2.2);};
-function stationStatus(){if(stationTask)return 'Working';if(!s.room)return 'Rent a workshop';if(!s.packStation)return 'Packaging station needed';if(!s.wrappers)return 'Missing wrappers';if(stockUsed()>=stockCapacity())return 'Stock full — sell or store existing goods';if(!s.raw.some(n=>n)&&!s.gummies.some(n=>n))return 'Waiting for harvest';return 'Ready';}
+function worktableStatus(){if(stationTask)return 'Working';if(!s.room)return 'Rent a workshop';if(!s.packStation)return 'Packaging station needed';if(!s.wrappers)return 'Missing wrappers';if(stockUsed()>=stockCapacity())return 'Stock full — sell or store existing goods';if(!s.raw.some(n=>n)&&!s.gummies.some(n=>n))return 'Waiting for harvest';return 'Ready';}
 const menu14=menu;menu=function(which,data){menu14(which,data);
- if(which==='craft')$('modal').insertAdjacentHTML('afterbegin','<div class="machine-status">Worktable · '+stationStatus()+'</div>');
+ if(which==='craft')$('modal').insertAdjacentHTML('afterbegin','<div class="machine-status">Worktable · '+worktableStatus()+'</div>');
  if(which==='stockroom'){
   $('modal').insertAdjacentHTML('afterbegin','<p class="note">Shelf models are a stock preview (up to 12 packs), not individually collectible items. Transfer exact quantities below. Reserved deliveries stay in your bag.</p>');
   for(let i=0;i<STRAINS.length;i++){let reserved=reservedQty(i),free=Math.max(0,s.packs[i]-reserved),room=Math.max(0,storageCapacity()-storedUsed()),store=Math.min(free,room),take=s.storedPacks[i];if(!free&&!take&&!reserved)continue;
