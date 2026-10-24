@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 2,
+    "built": 3,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -119,21 +119,35 @@
     },
     {
       "slot": 43,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "pebble-rink",
+      "title": "Pebble Rink",
+      "coreLoop": "Aim, weight and curl three stones; use friction, banks and collisions to leave stones in scoring rings.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/pebble-rink",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "5 engine tests pass: all rink wins/unlocks and exact saves, opposite curl directions, stone collision, bank/island bounds, exact film endpoint, natural loss/undo/retry and malformed-save rejection.",
+        "3 DOM tests pass: all rinks won through controls, reload during animation, pause/resume, keyboard aim, natural misses, undo/retry, isolated reset/recovery and Games href. Canvas is mocked; these are not rendered tests.",
+        "JavaScript syntax checks and fifty-slot/count/catalogue exclusion checks passed. Full repository build/preservation suite not run from the partial checkout."
+      ],
+      "commits": [
+        "2fd5e3af77d206f05f0231e8dda5435e0909ab34"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three compact rinks with finite three-stone ends. No rendered/touch or human enjoyment evidence. Physics tuning and readability need review."
+      },
+      "nextSteps": [
+        "Play rendered aiming, curl and collision loops on desktop/touch; inspect screenshots and tune mechanics from observed weaknesses.",
+        "Complete a substantive improvement pass and verify progression/loss/retry, saves/reload, reset and real navigation before catalogue integration."
+      ]
     },
     {
       "slot": 44,
@@ -984,8 +998,8 @@
   ],
   "nextSteps": [
     "Complete fourteen remaining second-batch additional upgrades; Windup implementation awaits rendered review.",
-    "Play Stencil Studio and Moon Dial in a permitted rendered environment, then perform their first substantive improvement passes before selection.",
-    "Implement remaining 48 distinct third-batch candidates incrementally; keep unfinished entries unlisted."
+    "Render/play Stencil Studio, Moon Dial and Pebble Rink and complete substantive improvement passes before selection.",
+    "Implement remaining 47 distinct third-batch games incrementally, keeping unfinished entries unlisted."
   ],
   "updated": "2026-10-25",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -1014,6 +1028,12 @@
       "commit": "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
       "result": "Moon Dial input/save/feedback repairs verified by 9 engine/DOM tests. Counts unchanged: 2 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Previously recorded policy blocker remains unresolved; no workaround, new browser run or screenshot claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "2fd5e3af77d206f05f0231e8dda5435e0909ab34",
+      "result": "Pebble Rink slot 43 implemented; 8 engine/DOM tests pass. 3/50 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Previously recorded browser-policy blocker unresolved. No workaround or new rendered claim."
     }
   ]
 }
