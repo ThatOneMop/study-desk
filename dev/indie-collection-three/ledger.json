@@ -265,13 +265,13 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "6 engine tests pass: 15 seeded wins using all three equipment focuses, exact replay/reload, kept dice and reroll limits, damage/repair/thorn forecasts, natural loss/retry, records and corrupt-save rejection.",
-        "4 jsdom tests pass: three equipment routes through DOM controls, reload, setup/focus and native-key behavior, loss/retry, pause/help/reset, corruption recovery and storage failure. Dialog methods are simulated.",
-        "JavaScript syntax, local assets, navigation target references, hidden-state CSS and exclusion from main catalogue checked. No full repository build from the partial checkout.",
-        "No rendered browser, inspected screenshot, touch or human enjoyment evidence. No improvement-pass credit or public integration."
+        "8 engine tests pass: 25 seeded wins across five equipment focuses, exact saves/replay, reroll constraints, forecasts, loss/retry/records, malformed saves, conditional bonus rules and pre-upgrade journal compatibility.",
+        "5 jsdom tests pass: equipment routes, reload, setup/focus/native keys, loss/retry/pause/help/reset, unreadable-save preservation and new equipment/forecast persistence. Dialog methods simulated.",
+        "Script syntax passed. No rendered browser, screenshots, touch or human-enjoyment evidence. Full repository build not run from partial checkout."
       ],
       "commits": [
-        "53da98cfae1c9620d8f1612ce1e7185d235dcc52"
+        "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
+        "d78751b7aeca9bc882c294126ce8dbbd55b826f1"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -282,7 +282,14 @@
       "nextSteps": [
         "Play the actual rendered loop on desktop and touch; assess dice pinning, exact forecast readability, equipment tradeoffs and progression depth.",
         "Implement a substantive improvement based on observed play, verify natural progression/loss/retry/saves/restart/navigation and inspect screenshots before integration."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
+        "basis": "Source inspection and engine/DOM behavior, not rendered playtesting.",
+        "before": "All three equipment options only increased an existing job's yield; small dice had no special role and mixed allocations offered no gear synergy.",
+        "after": "Acorn Sling grants +3 attack per attack die showing 1 or 2; Three-leaf Clasp grants +4 attack when attack, guard and repair all receive dice. Both stack and compete with existing equipment at the same two clearings. Exact preview exposes the conditional bonus.",
+        "remaining": "Rendered play, balance/readability review, meaningful playtest-led improvement and all public integration gates remain outstanding. No completed improvement credit."
+      }
     },
     {
       "slot": 47,
@@ -1157,6 +1164,12 @@
       "commit": "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
       "result": "Bramble Dice slot 46 implemented; 10 engine/DOM checks pass. 6/50 built; 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing browser-policy blocker unresolved. No workaround or new rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
+      "result": "Bramble Dice conditional equipment implemented; 13 engine/DOM tests passed. Counts unchanged: 6 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing policy blocker unresolved. No workaround or rendered claim."
     }
   ]
 }
