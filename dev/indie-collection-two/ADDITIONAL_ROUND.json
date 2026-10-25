@@ -126,13 +126,16 @@
       "slot": 29,
       "id": "salt-and-sail",
       "title": "Salt & Sail",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: optional cargo cannot be sacrificed when its weight and list become a liability at sea. No new rendered observation while preview access remains blocked.",
+      "before": "Cargo decisions end at launch; only collision damage can remove optional goods during a voyage.",
+      "after": "Confirmed jettison can discard either surviving optional load. Preview shows lost value, mass and list, warning that balance may worsen. Required contracts cannot be selected. Confirmation records one reefed simulation step and leaves sailing paused. Cargo contributes no further mass/value or full-cargo seal; retry restores packing.",
+      "implementationCommit": "ef574e418ff648ad99e553b96818016af03621b7",
+      "testing": [
+        "36 engine + 18 jsdom checks pass. Original five full-cargo keel and cutter routes remain valid. Five new jettison routes deliver required contracts with values 19/36/27/36/29 and seals 2/2/2/2/1. The fifth route takes a hull hit and loses citrus as well: removing balancing salt is not uniformly beneficial.",
+        "Pure preview matches the recorded reefed frame; forecast, exact replay/reload, both optional slots, protected contracts, repeated/invalid rejection, legacy best records, confirm/cancel, paused reload, retry, isolated saves and navigation are checked. Both scripts pass syntax. DOM uses simulated frames and a null canvas, not rendered play; no screenshot, actual touch, human enjoyment or full-repository check claimed."
+      ],
+      "remaining": "Perform supported rendered before/after play, assess whether the optional sacrifice improves decisions, inspect live hold feedback and desktop/phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     },
     {
       "slot": 30,

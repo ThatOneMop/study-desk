@@ -10,7 +10,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 26. Paper Odyssey — stitched bridges implemented in `21d5fb515207f12feca724c2f5bffb8574a5a6bb`; 59 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
 - [ ] 28. Wellward — cargo-costing repair kit implemented in `5b0fb766926891c874870f04331198f3802d1a16`; 42 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 29. Salt & Sail
+- [ ] 29. Salt & Sail — confirmed optional cargo jettison implemented in `ef574e418ff648ad99e553b96818016af03621b7`; 54 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 30. Pocket Palaeo — resin jackets implemented in `282ad742f526e7e30eb22667bc673bce4f449ac7`; 44 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [x] 31. Static Orchard — earned-energy blossom lures, tree-placement and limited-resource choices; verified commit `304976b32bb3c7a114d23c235f19f853826041f2`, CI 40061003554.
 - [x] 32. Borrowed Gravity — safe surface anchors and one-use recovery choices; verified commit `dca02c401239e0d9060a7037ea9139a23597c82d`, CI 40057078381.

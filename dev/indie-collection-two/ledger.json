@@ -637,7 +637,8 @@
       "developmentCommits": [
         "a57e8797b73dde7adc1b8132fb413aa4f97f27a0",
         "0fd2f6abaf5f57117bc3686d5b4f6e3cad5f25e3",
-        "3abdf9c1a79e75844abe9365a66e6b288da89554"
+        "3abdf9c1a79e75844abe9365a66e6b288da89554",
+        "ef574e418ff648ad99e553b96818016af03621b7"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain as a finished packing/action candidate for broader comparison. Its core loop differs from crane operations, ecological placement and lantern navigation, but the repeated nautical/cargo theme and limited route depth argue against automatic selection.",
@@ -651,6 +652,21 @@
           "index.html": "458f69c875c8302e9f75d5b52ee5101041f74c613d1b1f9bb460a02679194383",
           "style.css": "d1c95d6d00e5efa05b319b70890b9471e544864c453cd2fde6ca2ec96bfdc827"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 29,
+        "id": "salt-and-sail",
+        "title": "Salt & Sail",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: optional cargo cannot be sacrificed when its weight and list become a liability at sea. No new rendered observation while preview access remains blocked.",
+        "before": "Cargo decisions end at launch; only collision damage can remove optional goods during a voyage.",
+        "after": "Confirmed jettison can discard either surviving optional load. Preview shows lost value, mass and list, warning that balance may worsen. Required contracts cannot be selected. Confirmation records one reefed simulation step and leaves sailing paused. Cargo contributes no further mass/value or full-cargo seal; retry restores packing.",
+        "implementationCommit": "ef574e418ff648ad99e553b96818016af03621b7",
+        "testing": [
+          "36 engine + 18 jsdom checks pass. Original five full-cargo keel and cutter routes remain valid. Five new jettison routes deliver required contracts with values 19/36/27/36/29 and seals 2/2/2/2/1. The fifth route takes a hull hit and loses citrus as well: removing balancing salt is not uniformly beneficial.",
+          "Pure preview matches the recorded reefed frame; forecast, exact replay/reload, both optional slots, protected contracts, repeated/invalid rejection, legacy best records, confirm/cancel, paused reload, retry, isolated saves and navigation are checked. Both scripts pass syntax. DOM uses simulated frames and a null canvas, not rendered play; no screenshot, actual touch, human enjoyment or full-repository check claimed."
+        ],
+        "remaining": "Perform supported rendered before/after play, assess whether the optional sacrifice improves decisions, inspect live hold feedback and desktop/phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
       }
     },
     {
@@ -1491,7 +1507,7 @@
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Paper Odyssey stitches and nine previously recorded source upgrades await supported rendered review and observed iteration.",
+    "Additional round remains 6/20 verified. Salt & Sail jettison and ten previously recorded source upgrades await supported rendered review and observed iteration. Reefwright, Lanternwake and Copper Cadence still need an additional implementation pass.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1850,6 +1866,13 @@
       "result": "Paper Odyssey stitched bridges implemented; 59 scoped engine/DOM checks pass. Additional round remains 6/20; no new integration or live release.",
       "publicIntegration": null,
       "nextSteps": "Perform supported rendered before/after play, assess bridge placement and route-budget balance, inspect stitched lines and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "ef574e418ff648ad99e553b96818016af03621b7",
+      "result": "Salt & Sail optional cargo jettison implemented; 54 scoped engine/DOM checks pass. Additional round remains 6/20; no new integration or live release.",
+      "publicIntegration": null,
+      "nextSteps": "Perform supported rendered before/after play, assess whether the optional sacrifice improves decisions, inspect live hold feedback and desktop/phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
