@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 6,
+    "built": 7,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -12,13 +12,14 @@
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
-    "observedCommit": "f71768f6cd4a25f02ba33ca55d8e22bff1b9439f",
+    "observedCommit": "3949e3d9f8e2e9846dc4c91c436d90b19bbbd341",
     "implemented": 20,
     "initiallyImproved": 20,
     "additionalRoundVerified": 6,
     "remainingInitialSlots": [],
     "remainingAdditional": 14,
-    "pendingRenderedUpgrade": "Windup Wrestling kits implemented; not counted in additional round."
+    "pendingRenderedUpgrade": "All 20 second-batch additional source upgrades are implemented. Fourteen await rendered review; source/engine/DOM checks do not count as verified completion.",
+    "additionalRoundSourceImplemented": 20
   },
   "rules": [
     "Slots 41–90 are reserved work slots, not playable games. Unassigned slots count as zero.",
@@ -293,21 +294,35 @@
     },
     {
       "slot": 47,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "needlepath",
+      "title": "Needlepath",
+      "coreLoop": "Route a needle through flower pins with alternating horizontal front stitches and vertical back stitches; use optional guide pins and one costly knot to finish within the thread budget, then optimize ribbons.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/needlepath",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "9 engine tests pass: exhaustive finite route enumeration reproduces 6/14/11 winning action sequences; every route replays and saves exactly. Checks cover axis/overlap rules, optional pins, knot cost, budgets, dead ends, undo/retry, sequential unlocks, better records and malformed saves.",
+        "5 jsdom 26.1.0 tests pass: three-sampler campaign through UI handlers, reload, dead-end recovery, retry/reset confirmation, arrow focus/K/U shortcuts, pause/help/bridge guards, unreadable-save preservation and quota failure. Dialog methods are simulated.",
+        "Both gameplay scripts pass node --check. No rendered browser, screenshots, native keyboard activation, touch or human-enjoyment evidence. Full repository checks not run from partial checkout."
+      ],
+      "commits": [
+        "d0ea3fa23950b1005e8d41ba56c960503c2d216c"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three compact authored samplers. Exhaustive engine checks find 31 finishing action sequences, not 31 authored levels. Fewest-thread goals are attainable at 12/14/18; optimization and knot tradeoffs remain unassessed for human enjoyment. No content-duration claim."
+      },
+      "nextSteps": [
+        "Play the actual rendered core loop on desktop and touch; inspect thread faces, optional pins, flower endpoints and pass-over-pin readability.",
+        "Implement a substantive improvement from observed rendered play; verify progression, dead ends/retry, saves/reload, restart, navigation and screenshots before integration."
+      ]
     },
     {
       "slot": 48,
@@ -1085,9 +1100,9 @@
     }
   ],
   "nextSteps": [
-    "Complete fourteen remaining second-batch additional upgrades; Windup implementation awaits rendered review.",
-    "Render/play all six third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement the remaining 44 distinct third-batch games incrementally, keeping unfinished entries unlisted."
+    "Render and verify the fourteen pending second-batch additional upgrades; keep verified count at 6/20 until actual rendered evidence exists.",
+    "Render/play all seven third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement the remaining 43 distinct third-batch games incrementally, keeping unfinished entries unlisted."
   ],
   "updated": "2026-10-25",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -1170,6 +1185,12 @@
       "commit": "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
       "result": "Bramble Dice conditional equipment implemented; 13 engine/DOM tests passed. Counts unchanged: 6 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing policy blocker unresolved. No workaround or rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "d0ea3fa23950b1005e8d41ba56c960503c2d216c",
+      "result": "Needlepath slot 47 implemented with three stitching samplers, optional guide pins, knot tradeoffs, ribbons and safe saves. 14 engine/DOM tests pass, including exhaustive enumeration of 31 winning routes. Third-batch totals: 7 built, 0 improved/browser-tested/integrated/live. Second-batch status reconciled to 20 additional source upgrades, 6 verified and 14 pending rendered review.",
+      "browserStatus": "Existing policy blocker unresolved; not retried or bypassed. No rendered, integration or live-release claim."
     }
   ]
 }
