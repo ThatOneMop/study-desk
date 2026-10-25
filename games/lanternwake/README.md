@@ -7,12 +7,12 @@ Open `index.html` from a static server rooted at the repository. There is no bui
 ## Controls and progression
 
 - WASD/arrows row one water space. Shift + direction throws a lantern two clear water spaces away.
-- R reclaims the oldest adjacent lantern; Space holds position; Z undoes for free.
+- R reclaims the oldest adjacent lantern; H toggles its hood; Space holds position; Z undoes for free. H selects the least remaining life, then lowest map position. Hooded lanterns light one water step and do not attract moths. Toggling spends a turn and life; it does not restore oil.
 - Optional planning mode stages an action, shows the precise next boat/moth positions, then commits with its button or Enter. Previewing never advances the game or saves progress.
 - All actions also have touch buttons, permanent risk labels, and descriptive focus/hover previews.
 - Complete crossings to unlock the next one. Earn medals for delivery, a clean crossing and meeting the turn/throw targets. Replay unlocked crossings to improve records.
 - Lanterns illuminate three water steps, home/start docks two, and reed refuges one. Light travels around rocks. Each refuge supplies one oil once per attempt.
-- Moths choose the closest lantern by water-path length (oldest first on ties), move one step (north/east/south/west tie order), then eat any lantern they reach. Contact with any number of adjacent moths loses one hull per turn.
+- Moths choose the closest unhooded lantern by water-path length (oldest first on ties), move one step (north/east/south/west tie order), then eat any lantern they reach. Contact with any number of adjacent moths loses one hull per turn.
 - No real-time clock. The 180-action limit bounds stored route history; it is not advertised playtime or content.
 
 ## Saving
