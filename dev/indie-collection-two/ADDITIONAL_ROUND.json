@@ -50,13 +50,16 @@
       "slot": 24,
       "id": "copper-cadence",
       "title": "Copper Cadence",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: circulating beads can only sound or remain queued behind brakes; there is no limited way to recycle an unwanted exit silently. No new rendered observation while browser access remains blocked.",
+      "before": "Every unbraked exit sounds its routed instrument. Brakes retain beads and delay their return to supply.",
+      "after": "Two silent catches per take recycle one selected exiting bead without sounding it. A catch requires an open brake and an exit bead, resets after one crank, and counts against the third-seal efficiency target. Exact preview, 4/5/6 shortcuts, labelled catcher indicators and undo/replay saves expose the tradeoff.",
+      "implementationCommit": "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
+      "testing": [
+        "31 engine + 28 jsdom checks pass. All five original three-seal campaigns remain unchanged. Five additional catch-assisted routes finish with zero note errors and seals 2/2/2/3/3. Catches conserve stock, recycle before feeding, can cause a missing required note, reject unavailable/empty/braked/exhausted use atomically and replay exactly after each action.",
+        "Interface simulations verify staging/cancel, forecast, keyboard/button use, saved resource reload, focus retention, modal/bridge guards, undo refund and restart with unrelated saves preserved. Syntax checks pass. No rendered play, actual touch/audio quality, inspected screenshots, human enjoyment or full-repository check claimed."
+      ],
+      "remaining": "Perform supported rendered before/after play, assess catch allocation and efficiency balance, inspect machine indicators and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     },
     {
       "slot": 25,

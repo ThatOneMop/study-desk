@@ -291,7 +291,8 @@
         "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
         "3a4d8659f47a4b3788af906ee907a93bcfbcad04",
         "9d33ea9fcfe9347c6adbe11019da406592b9c95d",
-        "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6"
+        "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6",
+        "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain for comparison with the wider second-batch slate. A scarce-bead mechanical pipeline is distinct from first-batch Stone Song rhythm arrangement, Reefwright ecology, Counterweight balance and Lanternwake navigation. No automatic public selection.",
@@ -305,6 +306,21 @@
           "index.html": "f2a8be6d4813f9d01830fbcf352fb5bed12165d7a651edbea560301c50e112cb",
           "style.css": "65946eaba810dfef7cbc080b84fc20cd60daa5136aa88a2f2669ba2f8b749200"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 24,
+        "id": "copper-cadence",
+        "title": "Copper Cadence",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: circulating beads can only sound or remain queued behind brakes; there is no limited way to recycle an unwanted exit silently. No new rendered observation while browser access remains blocked.",
+        "before": "Every unbraked exit sounds its routed instrument. Brakes retain beads and delay their return to supply.",
+        "after": "Two silent catches per take recycle one selected exiting bead without sounding it. A catch requires an open brake and an exit bead, resets after one crank, and counts against the third-seal efficiency target. Exact preview, 4/5/6 shortcuts, labelled catcher indicators and undo/replay saves expose the tradeoff.",
+        "implementationCommit": "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
+        "testing": [
+          "31 engine + 28 jsdom checks pass. All five original three-seal campaigns remain unchanged. Five additional catch-assisted routes finish with zero note errors and seals 2/2/2/3/3. Catches conserve stock, recycle before feeding, can cause a missing required note, reject unavailable/empty/braked/exhausted use atomically and replay exactly after each action.",
+          "Interface simulations verify staging/cancel, forecast, keyboard/button use, saved resource reload, focus retention, modal/bridge guards, undo refund and restart with unrelated saves preserved. Syntax checks pass. No rendered play, actual touch/audio quality, inspected screenshots, human enjoyment or full-repository check claimed."
+        ],
+        "remaining": "Perform supported rendered before/after play, assess catch allocation and efficiency balance, inspect machine indicators and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
       }
     },
     {
@@ -1523,7 +1539,7 @@
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Reefwright selective cuts and eleven previously recorded source upgrades await supported rendered review and observed iteration. Lanternwake and Copper Cadence still need an additional implementation pass.",
+    "Additional round remains 6/20 verified. Copper Cadence silent catches and twelve other source upgrades await supported rendered review and observed iteration. Lanternwake is the only additional implementation still pending.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1896,6 +1912,13 @@
       "result": "Reefwright selective cuts implemented; 56 scoped engine/DOM checks pass. Additional round remains 6/20; no new integration or live release.",
       "publicIntegration": null,
       "nextSteps": "Perform supported rendered before/after play and balance iteration; inspect removal highlights and the enlarged desktop/phone toolbar. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
+      "result": "Copper Cadence silent catches implemented; 59 scoped engine/DOM checks pass. Additional round remains 6/20; no new integration or live release.",
+      "publicIntegration": null,
+      "nextSteps": "Perform supported rendered before/after play, assess catch allocation and efficiency balance, inspect machine indicators and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
