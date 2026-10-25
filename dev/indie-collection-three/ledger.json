@@ -428,10 +428,12 @@
       "tests": [
         "4 engine tests: sequential campaign, exact journal saves/reload, undo/records, exhaustive reachable boards (8/32/37), shortest paths (3/5/5), collisions/locking/no-ops and invalid saves.",
         "3 jsdom 26.1.0 tests: UI campaign and every-tilt reload, navigation markup, arrow/form focus guards, undo/retry, pause/parent hide, isolated reset, corrupt recovery and storage failure. Dialogs simulated.",
-        "Both scripts pass syntax checks. No rendered/browser/mobile/native-input/enjoyment claim. Full repository checks not run from partial checkout."
+        "Both scripts pass syntax checks. No rendered/browser/mobile/native-input/enjoyment claim. Full repository checks not run from partial checkout.",
+        "Clamp refinement: 11 total tests pass (6 engine, 5 jsdom). Three position-changing clamp-assisted wins, single-use/locked/no-op rejection, undo/reload, old v1 string journals, owned object journals, selector keyboard focus and pause/dialog guards. Both scripts pass syntax checks."
       ],
       "commits": [
-        "0c67d045d33c8170dd461e5b66a08d3507857ef8"
+        "0c67d045d33c8170dd461e5b66a08d3507857ef8",
+        "a32f7119573ed337e270ac68279d41ff0219ff18"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -442,7 +444,14 @@
       "nextSteps": [
         "Play all trays naturally in a rendered desktop/touch browser and inspect screenshots.",
         "Implement a substantial playtest-led upgrade to depth and feedback, then verify saves/restart/navigation before selection."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "a32f7119573ed337e270ac68279d41ff0219ff18",
+        "basis": "Source/engine/DOM inspection, not rendered play.",
+        "before": "Every tilt moved all loose beads; no targeted intervention was available.",
+        "after": "One clamp per attempt can hold one loose bead for a single tilt, competing with saving it for later. Other beads move normally. No-op tilts do not consume it; undo and retry restore it. New object journal entries are replay-validated, while existing string journals remain compatible.",
+        "remaining": "Rendered desktop/touch assessment, screenshot inspection, depth/feedback review and a substantive playtest-led improvement are still required."
+      }
     },
     {
       "slot": 51,
@@ -1171,7 +1180,7 @@
     "Implement remaining 40 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
-  "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
+  "latestObservedMain": "dc88f09cfb30cae92e3f0e9afe65cd2f7ddaf4f7",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1293,6 +1302,12 @@
       "commit": "0c67d045d33c8170dd461e5b66a08d3507857ef8",
       "result": "Tumbleglass slot 50 implemented: simultaneous bead sliding, locking sockets, three trays, unlimited undo, best records and replay-validated saves. Seven engine/DOM tests pass. Third batch: 10 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing policy blocker unchanged; not retried or bypassed. No rendered credit."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "a32f7119573ed337e270ac68279d41ff0219ff18",
+      "result": "Tumbleglass single-use clamp implemented; 11 engine/DOM tests pass, legacy and three distinct assisted routes solve all trays. Counts unchanged: 10 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Rendering blocker not retried or bypassed. New main publication run 40236385785 passes route checks but fails Configure GitHub Pages before upload/deploy."
     }
   ]
 }
