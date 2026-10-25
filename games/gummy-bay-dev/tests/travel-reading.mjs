@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {TRAVEL_DISTRICTS,TRAVEL_LANDMARKS,nearestTravelPoint,travelDistrictContext,travelHeading,targetBearing,travelMapScale,formatTravelDistance,travelReading} from '../dist/town-experience.mjs';
+
+assert.equal(TRAVEL_DISTRICTS.length,7);assert.equal(TRAVEL_LANDMARKS.length,10);
+assert(Object.isFrozen(TRAVEL_DISTRICTS)&&TRAVEL_DISTRICTS.every(Object.isFrozen));
+assert(Object.isFrozen(TRAVEL_LANDMARKS)&&TRAVEL_LANDMARKS.every(Object.isFrozen));
+const before=JSON.stringify([TRAVEL_DISTRICTS,TRAVEL_LANDMARKS]);
+assert.equal(nearestTravelPoint({x:-107,z:-159},TRAVEL_DISTRICTS).point.name,'Westside');
+assert.equal(nearestTravelPoint({x:139,z:-147},TRAVEL_LANDMARKS).point.name,'East Market packaging');
+assert.equal(nearestTravelPoint({x:0,z:0},[{name:'first',x:-1,z:0},{name:'second',x:1,z:0}]).point.name,'first');
+assert.equal(nearestTravelPoint({x:NaN,z:0},TRAVEL_DISTRICTS),null);assert.equal(nearestTravelPoint({x:0,z:0},[{x:Infinity,z:0}]),null);
+assert.equal(travelHeading(0),'south');assert.equal(travelHeading(Math.PI/2),'east');assert.equal(travelHeading(Math.PI),'north');assert.equal(travelHeading(-Math.PI/2),'west');assert.equal(travelHeading(Infinity),'south');
+const origin={x:0,z:0};
+assert.equal(targetBearing(origin,0,{x:0,z:40}).cue,'ahead');assert.equal(targetBearing(origin,0,{x:40,z:0}).cue,'left');assert.equal(targetBearing(origin,0,{x:-40,z:0}).cue,'right');assert.equal(targetBearing(origin,0,{x:0,z:-40}).cue,'behind');assert.equal(targetBearing(origin,0,{x:2,z:2}).cue,'arriving');assert.equal(targetBearing(origin,0,{x:Infinity,z:0}),null);
+assert.equal(travelMapScale(false),1.25);assert.equal(travelMapScale(true),.72);assert(travelMapScale(true)<travelMapScale(false));
+assert.equal(formatTravelDistance(74.4),'74 m');assert.equal(formatTravelDistance(1234),'1.2 km');assert.equal(formatTravelDistance(-1),'—');
+const read=travelReading({x:-108,z:-160,heading:Math.PI},{target:{x:-70,z:-147,label:'Westside seeds'}});
+assert.equal(read.district,'Westside');assert.equal(read.districtNeighbor,null);assert.equal(read.heading,'north');assert.equal(read.target.label,'Westside seeds');assert.equal(read.target.cue,'right');assert(read.target.distance>40&&read.target.distance<41);assert.equal(read.landmark.label,'Westside seeds');assert.equal(JSON.stringify([TRAVEL_DISTRICTS,TRAVEL_LANDMARKS]),before);
+assert.deepEqual(travelDistrictContext({x:0,z:-160}),{district:'Westside',neighbor:'East Market'});
+assert.deepEqual(travelDistrictContext({x:20,z:-160}),{district:'East Market',neighbor:null});
+assert.deepEqual(travelReading(null,{districts:[],landmarks:[],target:{x:NaN,z:0}}),{district:'Gummy Bay',districtNeighbor:null,heading:'south',landmark:null,target:null});
+console.log('PASS: immutable town geography, deterministic district/landmark and border lookup, eight-way headings, tracked bearings, arrival and broader driving-map scale. No browser rendering or routefinding tested.');

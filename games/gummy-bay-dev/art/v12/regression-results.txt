@@ -1,0 +1,10 @@
+PASS real glTF character integration
+PASS: manual completion and cancellation, starter equipment, samples, relationships, order deadlines, deposit cap and rollover, jump/gravity/crouch, legacy equipment migration
+PASS: placement bounds/crop preservation, storage reservations, worker toggles, vehicle purchase/drive/brake/exit, NPC routines/tracking, prop ownership/gravity, extended save persistence
+PASS: exact 10x area, 7 clear bus destinations, connected new roads, map and shuttle panels
+PASS: daylight, dusk and night render orchestration
+PASS: NEW: servo purchases, explicit cash/card choice, insufficient-funds isolation, fee-free ATM transfers, mixer unlock and 24 mixed products, stock protection, listing/negotiating/selling mixes, daily litter and cents, hover-look, quality settings and old-save migration.
+PASS: exact $400 start, no free equipment, all starter purchases, install/soil/seed/two waterings/harvest/make/wrap, asking prices, text negotiation, reservation rules, agreed-price sales, Gramps calls, property relocation, equipment levels, automation, banking, six isolated save slots, guest save protection, movement, shop access, all 29 menus, HUD and 3D scene.
+3D scene: 1689 objects; 163 colliders;  90 interaction points.
+PASS: tutorial grace, detection, compliance, search seizure, protected storage/bank, reserved-order cleanup, clean search, capped fines, wall occlusion, lost sight, guest compliance and save persistence
+PASS V12: batch atomicity/cancellation, assignments/supplies/capacity/reservations, recovery, persistence, duplicate network commands/proximity/disconnect, actual LOD switching and controls, swept vehicle collision

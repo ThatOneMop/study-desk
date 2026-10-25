@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';
+import {residentPlan,residentDescription,citizenRoute,segmentClear,orderOverview} from '../dist/resident-life.mjs';
+const home={x:3,z:4};assert.equal(residentPlan(0,540,home).label,'Palm Court');assert.equal(residentPlan(1,540,home).label,'Milo’s garden shop');assert.deepEqual(residentPlan(0,540,home,true).x,3);assert.equal(residentPlan(0,1300,home).activity,'phone');
+assert.match(residentDescription(residentPlan(0,540,home),home),/^Walking/);assert.match(residentDescription(residentPlan(0,540,home),home,true),/^Waiting for a clear path/);
+const wall=(x,z)=>x>.4&&x<1.6&&Math.abs(z)<2;const path=citizenRoute({x:0,z:0},{x:3,z:0},wall);assert(path);let prev={x:0,z:0};for(const p of path){assert(segmentClear(prev,p,wall));prev=p;}assert.deepEqual(prev,{x:3,z:0});assert.equal(citizenRoute({x:0,z:0},{x:3,z:0},()=>true),null);
+const s={packs:[3],day:1,time:540,deals:[{npc:0,t:0,qty:2,price:30,due:700},{npc:1,t:0,qty:2,price:35,due:600}]},snapshot=JSON.stringify(s);const orders=orderOverview(s);assert.equal(orders[0].npc,1);assert.equal(orders[0].missing,0);assert.equal(orders[1].missing,1);assert.equal(orders[0].minutesLeft,60);assert.equal(JSON.stringify(s),snapshot);
+console.log('PASS: individual schedules, meeting priority, route detours/blockage, deadlines and nonduplicated read-only stock allocation.');

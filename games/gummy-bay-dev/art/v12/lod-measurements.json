@@ -1,0 +1,35 @@
+[
+  {
+    "variant": 0,
+    "high": {
+      "triangles": 15756,
+      "bytes": 907220
+    },
+    "low": {
+      "triangles": 5040,
+      "bytes": 346128
+    }
+  },
+  {
+    "variant": 1,
+    "high": {
+      "triangles": 15756,
+      "bytes": 907220
+    },
+    "low": {
+      "triangles": 5040,
+      "bytes": 346132
+    }
+  },
+  {
+    "variant": 2,
+    "high": {
+      "triangles": 15756,
+      "bytes": 907220
+    },
+    "low": {
+      "triangles": 5040,
+      "bytes": 345940
+    }
+  }
+]

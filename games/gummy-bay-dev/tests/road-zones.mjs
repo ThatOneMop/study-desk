@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {VEHICLE_ROADS,PEDESTRIAN_WAYS,drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine} from '../dist/road-zones.mjs';
+
+const zone=(x,z,angle=0,dimensions)=>drivingSurfaceZone({x,z,angle},dimensions);
+assert.equal(zone(-40,-160).key,'road','horizontal road lane');
+assert.equal(zone(-105,-120).key,'road','vertical road lane');
+assert.equal(zone(-105,-160).key,'junction','authored road crossing');
+assert.equal(zone(-40,-151.9).key,'pavement','authored pedestrian strip');
+assert.equal(zone(-40,-153.8).key,'curb','vehicle footprint straddles curb boundary');
+assert.equal(zone(-40,-140).key,'offroad','open ground remains distinct');
+assert.equal(zone(0,-120,0).key,'road','north-south van fits central avenue');
+assert.equal(zone(-40,-160,Math.PI/2).key,'road','rotated van fits horizontal road');
+assert.equal(zone(0,-71.5,0).key,'curb','avenue endpoint is not extended into old town');
+assert.equal(zone(-180,8.1,Math.PI/2).key,'pavement','outer old-town pavement is authored');
+assert.equal(zone(0,8.1,Math.PI/2).key,'offroad','no fictional central pavement record');
+assert.equal(zone(-40,-151.9,0,{halfWidth:0,halfLength:0}).key,'pavement');
+
+for(const pose of [{x:NaN,z:0,angle:0},{x:0,z:0,angle:Infinity},null])assert.equal(drivingSurfaceZone(pose).key,'offroad');
+for(const dimensions of [{halfWidth:-1,halfLength:1},{halfWidth:1,halfLength:Infinity},{halfWidth:5,halfLength:1}])assert.equal(drivingSurfaceZone({x:0,z:0,angle:0},dimensions).key,'offroad');
+assert.equal(limitVehicleZoneSpeed(16,zone(-40,-160),.06),16,'road preserves original maximum');
+assert.equal(limitVehicleZoneSpeed(12,zone(-105,-160),.06),11.28,'junction slows progressively');
+assert.equal(limitVehicleZoneSpeed(-5,zone(-40,-151.9),.06),-4.28,'reverse speed obeys pedestrian limit progressively');
+assert.equal(limitVehicleZoneSpeed(2,zone(-40,-151.9),.06),2,'already-safe speed unchanged');
+assert.equal(limitVehicleZoneSpeed(NaN,zone(-40,-160),.06),0,'hostile speed is neutralised');
+assert.equal(limitVehicleZoneSpeed(12,null,.06),12,'unknown zone cannot invent a restriction');
+assert.equal(roadZoneLine(zone(-105,-160)),'SURFACE · JUNCTION · 40 km/h limit · Ease off and watch crossings');
+assert.equal(roadZoneLine(null),'SURFACE · OFF ROAD · 29 km/h limit · Slow down on uneven ground');
+assert(Object.isFrozen(VEHICLE_ROADS)&&VEHICLE_ROADS.every(Object.isFrozen));
+assert(Object.isFrozen(PEDESTRIAN_WAYS)&&PEDESTRIAN_WAYS.every(Object.isFrozen));
+const pose={x:-40,z:-160,angle:0},before=JSON.stringify(pose);drivingSurfaceZone(pose);assert.equal(JSON.stringify(pose),before,'input remains immutable');
+console.log('PASS: immutable authored road/pavement zones, oriented van footprint, curb/junction/off-road classification, progressive limits and hostile fallbacks. No rendered curb acceptance.');

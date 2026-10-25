@@ -1,0 +1,1122 @@
+[
+  {
+    "point": 1,
+    "reference": "Schedule I feels like running a business from inside the world",
+    "source": "dist/business-core.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 2,
+    "reference": "Its setting gives everything a shared identity",
+    "source": "dist/town-palette.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 3,
+    "reference": "The graphics use deliberate simplification",
+    "source": "dist/town-materials.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 4,
+    "reference": "The people have a consistent kind of weirdness",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 5,
+    "reference": "Character identity comes from a few strong differences",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 6,
+    "reference": "People matter because they have recurring roles in your day",
+    "source": "dist/resident-life.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 7,
+    "reference": "Small activities make those residents seem occupied",
+    "source": "dist/resident-animation.mjs",
+    "status": "v117 motion corrections implemented; playfeel acceptance pending",
+    "note": "Horizontal-distance gait speed, exponential response and height-based cadence; buffered landing jump added for the player. See v117 tests. No visual/playfeel acceptance claim."
+  },
+  {
+    "point": 8,
+    "reference": "Conversation keeps the person visually important",
+    "source": "dist/customer-context.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 9,
+    "reference": "The town has depth beyond the pavement beneath you",
+    "source": "dist/district-horizon.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 10,
+    "reference": "Roads connect the environment into one place",
+    "source": "dist/road-zones.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 11,
+    "reference": "Landmarks make individual places recognisable",
+    "source": "dist/town-skyline.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 12,
+    "reference": "Vegetation gives the built environment softer edges",
+    "source": "dist/graphics-landscape.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 13,
+    "reference": "Buildings gain character from proportion and depth",
+    "source": "dist/district-architecture.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 14,
+    "reference": "Materials help explain what objects are",
+    "source": "dist/town-materials.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 15,
+    "reference": "Lighting gives different places different moods",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 16,
+    "reference": "Interiors feel arranged for activities",
+    "source": "dist/domestic-workplace.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 17,
+    "reference": "Physical stock makes business progress visible",
+    "source": "dist/stock-display.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 18,
+    "reference": "Hands-on work is central to its appeal",
+    "source": "dist/tactile-work.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 19,
+    "reference": "Different tasks give that work variety",
+    "source": "dist/tactile-work.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 20,
+    "reference": "Equipment upgrades can change how you play",
+    "source": "dist/equipment-guide.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 21,
+    "reference": "The hotbar makes your immediate options visible",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 22,
+    "reference": "Money has a clear visual identity",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 23,
+    "reference": "The phone gives business management an everyday form",
+    "source": "dist/phone-device.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 24,
+    "reference": "First-person presentation keeps actions close",
+    "source": "dist/player-view.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 25,
+    "reference": "Travel is part of doing business",
+    "source": "dist/vehicle-access.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 26,
+    "reference": "Progression gradually changes the player\u2019s responsibilities",
+    "source": "dist/journey-progress.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 27,
+    "reference": "Pressure interrupts the comfortable routine",
+    "source": "dist/police-feedback.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 28,
+    "reference": "Humour runs through the presentation",
+    "source": "dist/scruffy-welcome.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 29,
+    "reference": "Its identity depends on systems working together, and those systems still need maintenance",
+    "source": "dist/business-core.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 30,
+    "reference": "What makes Schedule I feel like Schedule I is the connection between a familiar place, memorable people, physical tasks and visible progress",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 31,
+    "reference": "A scruffy world with an oddly comfortable atmosphere",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 32,
+    "reference": "Lanky characters with oversized heads",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 33,
+    "reference": "Eyes and eyebrows carry much of the personality",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 34,
+    "reference": "Distinctive people are built from a few strong choices",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 35,
+    "reference": "Clothing stays ordinary enough to make extravagant outfits amusing",
+    "source": "dist/resident-clothing.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 36,
+    "reference": "Character movement preserves their awkward personality",
+    "source": "dist/resident-animation.mjs",
+    "status": "v117 motion corrections implemented; playfeel acceptance pending",
+    "note": "Horizontal-distance gait speed, exponential response and height-based cadence; buffered landing jump added for the player. See v117 tests. No visual/playfeel acceptance claim."
+  },
+  {
+    "point": 37,
+    "reference": "The first-person viewpoint makes the town personal",
+    "source": "dist/player-view.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 38,
+    "reference": "Work is expressed through manipulating visible objects",
+    "source": "dist/visual-polish.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 39,
+    "reference": "Stock has a physical presence",
+    "source": "dist/stock-display.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 40,
+    "reference": "Equipment looks recognisable before its interface explains it",
+    "source": "dist/equipment-guide.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 41,
+    "reference": "Building a business also means arranging a room",
+    "source": "dist/workshop-move.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 42,
+    "reference": "Interiors retain the lives they had before becoming workplaces",
+    "source": "dist/domestic-workplace.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 43,
+    "reference": "Buildings belong to recognisable everyday categories",
+    "source": "dist/district-architecture.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 44,
+    "reference": "Facades have depth and construction detail",
+    "source": "dist/district-architecture.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 45,
+    "reference": "Streets are complete spaces between buildings",
+    "source": "dist/street-construction.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 46,
+    "reference": "Vertical layers give the town a stronger identity",
+    "source": "dist/vertical-town.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 47,
+    "reference": "Small street details suggest ordinary use",
+    "source": "dist/contextual-street-props.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 48,
+    "reference": "Signs provide both navigation and humour",
+    "source": "dist/signage.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 49,
+    "reference": "The environment is more textured than the characters",
+    "source": "dist/town-materials.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 50,
+    "reference": "Colour is selective rather than uniformly saturated",
+    "source": "dist/town-palette.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 51,
+    "reference": "Daylight gives modest buildings atmosphere",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 52,
+    "reference": "Night is organised around local light sources",
+    "source": "dist/window-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 53,
+    "reference": "Vegetation and distant scenery give the town a setting",
+    "source": "dist/district-horizon.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 54,
+    "reference": "Business happens with recognisable individuals",
+    "source": "dist/customer-context.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 55,
+    "reference": "Interfaces often take the form of objects inside the world",
+    "source": "dist/phone-device.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 56,
+    "reference": "Progression changes the player\u2019s surroundings",
+    "source": "dist/progression-portrait.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 57,
+    "reference": "Automation is represented by people performing work",
+    "source": "dist/staff-status.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 58,
+    "reference": "Physicality is playful and readable, but footage cannot establish exact handling",
+    "source": "dist/prop-motion.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 59,
+    "reference": "Police introduce tension inside an otherwise familiar routine",
+    "source": "dist/police-feedback.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 60,
+    "reference": "The systems create a setting for shared, ridiculous stories",
+    "source": "dist/coop-activity.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 61,
+    "reference": "A title screen that already belongs to the world",
+    "source": "dist/game.js",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 62,
+    "reference": "Negative space protects the menu",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 63,
+    "reference": "A modest title suits the setting",
+    "source": "dist/game.js",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 64,
+    "reference": "The doorway creates curiosity",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 65,
+    "reference": "The loading image establishes a different geography",
+    "source": "dist/assets/coast-arrival.svg; dist/index.html",
+    "status": "Original island loading illustration added; visual acceptance pending",
+    "note": "An original vector island, harbor, hills and road illustration appears during initial loading."
+  },
+  {
+    "point": 66,
+    "reference": "Waking up introduces a body",
+    "source": "dist/arrival-workplace.mjs; dist/game.js",
+    "status": "Waking camera transition implemented; embodied presentation still partial",
+    "note": "A 2.4-second lowered-to-standing eye-height transition with easing and roll. No visible legs/body yet; no claim of complete waking body animation."
+  },
+  {
+    "point": 67,
+    "reference": "The first room limits the learning problem",
+    "source": "dist/game.js",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 68,
+    "reference": "Domestic objects give the prologue a life",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 69,
+    "reference": "The tutorial follows a chain of verbs",
+    "source": "dist/game.js",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 70,
+    "reference": "Hints arrive beside the current task",
+    "source": "dist/game.js",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 71,
+    "reference": "A town is made from adjoining blocks",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 72,
+    "reference": "Street frontage provides a continuous edge",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 73,
+    "reference": "Blocks contain secondary spaces",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 74,
+    "reference": "The elevated structure gives the city a backbone",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 75,
+    "reference": "Intersections reveal several choices at once",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 76,
+    "reference": "Sloping roads change what becomes visible",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 77,
+    "reference": "Retaining edges make elevation believable",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 78,
+    "reference": "The horizon gives the town a region",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 79,
+    "reference": "A finite map needs a convincing transition",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 80,
+    "reference": "Landmarks use everyday businesses",
+    "source": "dist/island-neighborhoods.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 81,
+    "reference": "Grime accumulates where use would leave it",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 82,
+    "reference": "Service clutter explains the back of a shop",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 83,
+    "reference": "Graffiti supplies a human trace",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 84,
+    "reference": "Utility wires connect separate structures",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 85,
+    "reference": "Roof details prevent empty upper surfaces",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 86,
+    "reference": "Curbs give the street a cross-section",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 87,
+    "reference": "Street furniture supplies everyday scale",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 88,
+    "reference": "Fences divide ownership without hiding everything",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 89,
+    "reference": "Vegetation follows the built environment",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 90,
+    "reference": "Different materials carry different histories",
+    "source": "dist/gritty-streets.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 91,
+    "reference": "Purple light identifies specialist activity",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 92,
+    "reference": "Warm streetlights make small islands of visibility",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 93,
+    "reference": "Headlights describe the space ahead",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 94,
+    "reference": "Emergency colors interrupt the normal palette",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 95,
+    "reference": "Haze separates depth layers",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 96,
+    "reference": "Low sunlight reveals simple geometry",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 97,
+    "reference": "Interior lights make work areas readable",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 98,
+    "reference": "Windows connect rooms to an outside world",
+    "source": "dist/world-lighting.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 99,
+    "reference": "Weather changes the mood of familiar assets",
+    "source": "dist/graphics-atmosphere.mjs; dist/game.js",
+    "status": "v114 coastal weather implemented; rendered acceptance pending",
+    "note": "Continuous clear/cloud/overcast/mist cycle affects sky, sea and lighting. No precipitation or storms. See coastal-identity and boot regression tests."
+  },
+  {
+    "point": 100,
+    "reference": "Fire supplies an irregular focal point",
+    "source": "dist/arrival-workplace.mjs; dist/game.js",
+    "status": "Contained campsite fire implemented; rendered acceptance pending",
+    "note": "Bounded flame animation with shared geometry and a solid barrel footprint. No destructive fire propagation or story fire sequence."
+  },
+  {
+    "point": 101,
+    "reference": "Character proportions establish the style immediately",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 102,
+    "reference": "Large eyes carry attention",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 103,
+    "reference": "Eyelids create personality with little geometry",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 104,
+    "reference": "Brows and forehead marks strengthen expression",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 105,
+    "reference": "Hair establishes an outer silhouette",
+    "source": "dist/resident-accessories.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 106,
+    "reference": "Facial hair acts as a graphic identifier",
+    "source": "dist/resident-accessories.mjs; dist/game.js",
+    "status": "v114 facial-hair variants implemented; rendered acceptance pending",
+    "note": "Four shared head-attached facial-hair styles plus clean shaven, stable actor selection and duplicate-free high/low LODs. CPU geometry and integration tested; aesthetic acceptance outstanding."
+  },
+  {
+    "point": 107,
+    "reference": "Clothes communicate occupation",
+    "source": "dist/occupational-outfits.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 108,
+    "reference": "Outfit contrast makes avatars distinguishable",
+    "source": "dist/resident-clothing.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 109,
+    "reference": "Accessories refine a character's identity",
+    "source": "dist/resident-accessories.mjs",
+    "status": "v117 animated accessory attachment corrected; visual acceptance pending",
+    "note": "Occupational hats follow the active Head bone across LODs, and hide with culled characters. Matrix tests cover motion, scale and LOD switching."
+  },
+  {
+    "point": 110,
+    "reference": "Expressions remain compatible with the whole world",
+    "source": "dist/resident-rounding.mjs; dist/resident-proportions.mjs; dist/resident-expressions.mjs",
+    "status": "v118 character geometry and expressions reworked; rendered acceptance pending",
+    "note": "Longer slimmer body with planted-foot compensation, oval/broad jaw silhouettes, stronger nose, flatter cheeks and individual resting eyelids/brows. Shared NPC/co-op high/low rig pipeline. CPU model study and asset/animation tests; no WebGL acceptance claim."
+  },
+  {
+    "point": 111,
+    "reference": "Eye height makes ordinary spaces personal",
+    "source": "dist/player-view.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 112,
+    "reference": "Walking is communicated through nearby parallax",
+    "source": "dist/player-view.mjs",
+    "status": "v117 motion corrections implemented; playfeel acceptance pending",
+    "note": "Horizontal-distance gait speed, exponential response and height-based cadence; buffered landing jump added for the player. See v117 tests. No visual/playfeel acceptance claim."
+  },
+  {
+    "point": 113,
+    "reference": "A work camera changes the player's attention",
+    "source": "dist/player-view.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 114,
+    "reference": "Held tools make the current action visible",
+    "source": "dist/player-view.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 115,
+    "reference": "Skating gives travel a distinct bodily posture",
+    "source": "dist/player-view.mjs",
+    "status": "Not implemented literally / adaptation or remaining gap",
+    "note": "No skateboard controller; current travel is walking, van and bus."
+  },
+  {
+    "point": 116,
+    "reference": "Vehicle framing emphasizes the route ahead",
+    "source": "dist/vehicle-access.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 117,
+    "reference": "Road curvature gives movement anticipation",
+    "source": "dist/road-zones.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 118,
+    "reference": "Recoil makes an action visibly cost time",
+    "source": "dist/player-view.mjs",
+    "status": "Not implemented literally / adaptation or remaining gap",
+    "note": "No weapon recoil system; task motions and prop throws are present."
+  },
+  {
+    "point": 119,
+    "reference": "Targets react to impacts",
+    "source": "dist/player-view.mjs",
+    "status": "Not implemented literally / adaptation or remaining gap",
+    "note": "No character hit-reaction/combat system; crates have collision reactions."
+  },
+  {
+    "point": 120,
+    "reference": "Physical appearance does not require unrestricted simulation",
+    "source": "dist/player-view.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 121,
+    "reference": "The targeted object names the available action",
+    "source": "dist/interaction-focus.mjs; dist/point-access.mjs; dist/game.js",
+    "status": "v117 direction-aware interaction targeting implemented; playfeel acceptance pending",
+    "note": "View-direction ranking, short-range reach, small focus-retention margin, stale E-target rejection and unchanged physical access checks. Floor marker uses real floor height."
+  },
+  {
+    "point": 122,
+    "reference": "Workspaces use deliberate object arrangement",
+    "source": "dist/visual-polish.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 123,
+    "reference": "Manipulation includes a visible journey",
+    "source": "dist/visual-polish.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 124,
+    "reference": "Rotation exposes a three-dimensional target",
+    "source": "dist/tactile-work.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 125,
+    "reference": "Local removal makes progress concrete",
+    "source": "dist/tactile-work.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 126,
+    "reference": "Pouring communicates direction and continuity",
+    "source": "dist/visual-polish.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 127,
+    "reference": "Machines have readable moving parts",
+    "source": "dist/equipment-guide.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 128,
+    "reference": "A machine's control belongs to its body",
+    "source": "dist/equipment-guide.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 129,
+    "reference": "Containers distinguish states of an item",
+    "source": "dist/production-containers.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 130,
+    "reference": "Small completed actions build a rhythm",
+    "source": "dist/visual-polish.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 131,
+    "reference": "The hotbar is a stable equipment map",
+    "source": "dist/game.js",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 132,
+    "reference": "Empty slots communicate capacity",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 133,
+    "reference": "Cash and card balances are visually separate",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 134,
+    "reference": "The phone turns a menu into an object",
+    "source": "dist/phone-device.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 135,
+    "reference": "Message choices keep routine decisions compact",
+    "source": "dist/customer-context.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 136,
+    "reference": "Face-to-face dialogue preserves location",
+    "source": "dist/exchange-gesture.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 137,
+    "reference": "Focus effects separate interface from scenery",
+    "source": "dist/graphics-interface.css",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 138,
+    "reference": "A visible timer turns waiting into a state",
+    "source": "dist/workshop-state.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 139,
+    "reference": "Storage connects physical furniture to capacity",
+    "source": "dist/stock-display.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 140,
+    "reference": "An in-world computer makes management tangible",
+    "source": "dist/arrival-workplace.mjs; dist/game.js",
+    "status": "Physical workshop computers and production planner implemented; rendered acceptance pending",
+    "note": "One terminal per owned workshop uses existing guarded worker actions. Read-only planner separates loose, raw, promised, stored and in-transit stock and computes wrapper shortfalls and saved-clock deadlines."
+  },
+  {
+    "point": 141,
+    "reference": "Growth is visible in occupied floor space",
+    "source": "dist/progression-portrait.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 142,
+    "reference": "Equipment arrangement becomes a planning problem",
+    "source": "dist/workshop-move.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 143,
+    "reference": "Shelving makes accumulation visible",
+    "source": "dist/stock-display.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 144,
+    "reference": "Workers turn automation into an inhabited process",
+    "source": "dist/workshop-logistics.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 145,
+    "reference": "Recruitment has a place in the town",
+    "source": "dist/staff-status.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 146,
+    "reference": "Progression moves from doing to coordinating",
+    "source": "dist/staff-status.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 147,
+    "reference": "Commercial buildings make spending imaginable",
+    "source": "dist/district-architecture.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 148,
+    "reference": "Vehicle variety expresses changing status",
+    "source": "dist/fleet.mjs; dist/game.js; dist/point-access.mjs",
+    "status": "Three drivable fleet types implemented; visual/handling acceptance pending",
+    "note": "Original van plus compact and estate with distinct models, unlock prices and driving profiles. Existing saves, road limits, collision/door rules retained. Shared purchases and selection use host proximity/freshness/replay guards. No added cargo capacity; compact uses conservative van collision envelope."
+  },
+  {
+    "point": 149,
+    "reference": "Co-op makes progress socially visible",
+    "source": "dist/coop-activity.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 150,
+    "reference": "The loop alternates private work and public travel",
+    "source": "dist/delivery-round.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 151,
+    "reference": "Police are recognizable before interaction starts",
+    "source": "dist/occupational-outfits.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 152,
+    "reference": "Enforcement can be an encounter rather than only combat",
+    "source": "dist/police-feedback.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 153,
+    "reference": "A pursuit uses familiar streets differently",
+    "source": "dist/patrol-expansion.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 154,
+    "reference": "Combat keeps the setting recognizable",
+    "source": "dist/police-feedback.mjs",
+    "status": "Not implemented literally / adaptation or remaining gap",
+    "note": "Combat is not implemented."
+  },
+  {
+    "point": 155,
+    "reference": "Stylized faces keep danger tonally unusual",
+    "source": "dist/resident-expressions.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 156,
+    "reference": "The RV is a recurring narrative object",
+    "source": "dist/scruffy-welcome.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 157,
+    "reference": "Nelson's design suggests a history",
+    "source": "dist/game.js",
+    "status": "Not implemented literally / adaptation or remaining gap",
+    "note": "Nelson is not copied; Gummy Bay retains its own Gramps storyline."
+  },
+  {
+    "point": 158,
+    "reference": "The starting premise makes growth understandable",
+    "source": "dist/journey-progress.mjs",
+    "status": "Reworked; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 159,
+    "reference": "Fictional brands create local culture",
+    "source": "dist/signage.mjs",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  },
+  {
+    "point": 160,
+    "reference": "The strongest identity comes from connected decisions",
+    "source": "dist/game.js",
+    "status": "Existing system reviewed; visual/playfeel acceptance pending",
+    "note": "Source presence is not proof of quality. See baseline and final test evidence; no WebGL acceptance claim."
+  }
+]

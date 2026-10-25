@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import * as THREE from '../dist/vendor/three.module.min.js';
+import {createVisualPolish} from '../dist/visual-polish.mjs';
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera();scene.add(camera);
+const v=createVisualPolish({scene,camera,homes:[{x:-25,z:40}],buildings:[{x:0,z:0,w:18,d:13}],reflectionMap:null});
+const state={room:true,house:0,wrappers:5};
+v.update({active:true,state,task:{k:'mix',step:1},held:true,now:1,quality:'balanced'});
+assert.equal(v.workshops[0].g.visible,true);assert.equal(v.rig.visible,true);
+v.update({active:false,state,task:null,held:false,now:2,quality:'performance'});
+assert.equal(v.workshops[0].g.visible,false);assert.equal(v.rig.visible,false);assert.equal(v.exterior.visible,false);
+let count=0;scene.traverse(o=>{if(o.isMesh){count++;assert(o.position.toArray().every(Number.isFinite));assert(o.geometry.attributes.position.count>0)}});
+console.log('PASS: '+count+' mesh objects construct with finite positions; workshop/task/quality visibility transitions. No WebGL rendering performed.');
+v.update({active:true,state,task:{k:'mix',step:2,progress:.5},held:true,now:3,quality:'balanced'});
+assert.equal(v.stream.visible,true);assert(v.stream.scale.y>0);assert(v.stream.quaternion.toArray().every(Number.isFinite));
+v.update({active:true,state,task:null,held:false,now:4,quality:'balanced'});assert.equal(v.stream.visible,false);
+console.log('PASS: pouring stream transforms and cancellation visibility.');
+// Ownership and cancellation must not imply purchased or completed output.
+v.update({active:true,state:{...state,packStation:false},task:{k:'pack',step:0,progress:90},held:true,now:5,quality:'balanced',productColor:0x93c35b});
+assert.equal(v.workshops[0].sealer.visible,false);assert.equal(v.packing.visible,true);
+assert(Math.abs(v.packSweet.position.x-(-.07))<1e-8);
+assert.equal(v.packSweet.material.color.getHex(),0x93c35b);
+v.update({active:true,state:{...state,packStation:true},task:{k:'pack',step:1,progress:.8},held:true,now:6,quality:'balanced'});
+assert.equal(v.workshops[0].sealer.visible,true);assert.equal(v.packSweet.visible,false);
+v.update({active:true,state,task:{k:'make',step:0,progress:120},held:true,now:7,quality:'balanced'});
+assert.equal(v.cavities.filter(x=>x.visible).length,3);
+v.update({active:true,state,task:{k:'mix',step:2,progress:.55},held:true,now:8,quality:'balanced'});
+assert.equal(v.mould.visible,true);assert(v.cavities.every(x=>x.visible&&x.scale.y===.5));
+v.update({active:true,state,task:null,held:false,now:9,quality:'balanced'});assert.equal(v.rig.visible,false);
+// Repeated animation updates must reuse geometry/materials.
+const geometrySet=new Set(),materialSet=new Set();scene.traverse(o=>{if(o.isMesh){geometrySet.add(o.geometry);materialSet.add(o.material)}});
+for(let i=0;i<300;i++)v.update({active:true,state,task:{k:'pack',step:i%2,progress:.4},held:true,now:i/60,quality:'balanced'});
+scene.traverse(o=>{if(o.isMesh){assert(geometrySet.has(o.geometry));assert(materialSet.has(o.material));assert(o.position.toArray().every(Number.isFinite));}});
+console.log('PASS: equipment ownership, stage-specific packaging/moulding, colour, cancellation and stable resource identities over 300 updates.');
