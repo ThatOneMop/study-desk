@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import * as THREE from '../dist/vendor/three.module.min.js';
+import {sceneResources} from './scene-resources.mjs';
+const scene=new THREE.Scene(),g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute([0,0,0,1,0,0,0,1,0],3));
+const texture=new THREE.Texture(),m=new THREE.MeshBasicMaterial({map:texture}),hidden=new THREE.Group();hidden.visible=false;
+const first=new THREE.Mesh(g,m),instances=new THREE.InstancedMesh(g,m,3),last=new THREE.Mesh(g,m);hidden.add(last);scene.add(first,instances,hidden);
+const before=JSON.stringify(scene.toJSON()),a=sceneResources(scene);
+assert.equal(a.counts.objects,5);assert.equal(a.counts.meshes,3);assert.equal(a.counts.geometries,1);assert.equal(a.counts.materials,1);assert.equal(a.counts.textures,1);assert.equal(a.counts.instanced,1);assert.equal(a.counts.visibleMeshes,2);assert.equal(a.counts.visiblePotentialTriangles,4);assert.equal(JSON.stringify(scene.toJSON()),before);
+hidden.visible=true;const b=sceneResources(scene);assert.equal(b.counts.visibleMeshes,3);assert.equal(b.counts.visiblePotentialTriangles,5);assert.equal(b.geometries.size,1);
+console.log('PASS: scene inventory deduplicates shared resources, respects inherited visibility and instancing, and leaves scene data unchanged. Potential triangles are not rasterized triangles or draw calls.');

@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-23",
+  "baselineVersion": 110,
+  "baselineCommit": "8ec2767333d6080e6032633c1771c903350915a1",
+  "baselineURL": "https://nightshift.work-7072.chatgpt.site",
+  "previewURL": "http://terminal.local:4173/",
+  "sourceAccess": "Verified clean latest remote checkout through Sites helper; initial empty-directory opening failed, then succeeded after ordinary git init.",
+  "browser": {
+    "name": "Chrome",
+    "type": "cdp",
+    "availableBrowsers": 1,
+    "optionalBrowserCapabilities": [],
+    "visibleError": "3D graphics are unavailable. Enable hardware acceleration in your desktop browser, then reload.",
+    "consoleError": "THREE.WebGLRenderer: A WebGL context could not be created. Reason: Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, GL_VENDOR = Disabled, GL_RENDERER = Disabled, Sandboxed = yes, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = BindToCurrentSequence failed.",
+    "failureLocation": "game.js?v=110:89:27",
+    "screenshot": "preview-failure.jpg"
+  },
+  "investigation": [
+    "Supported sites-preview supervisor started successfully; HTML, CSS and local JS loaded.",
+    "Supported browser screenshot and developer logs establish initialization failure before 3D rendering.",
+    "Browser inventory exposes only one cloud Chrome. Its documented optional browser capability list is empty; no renderer configuration or local desktop browser control is exposed.",
+    "Read Sites managed-preview and troubleshooting references plus browser-troubleshooting guidance. Managed environment does not permit replacing preview infrastructure with an improvised browser.",
+    "Source contains no GitHub Actions workflow or package.json; repository access is a Sites Git endpoint, not an identified GitHub CI runner. No supported GPU CI launch tool was discovered.",
+    "Existing co-op uses real RTCPeerConnection with manual invite/reply exchange. Initialization fails before the interactive multiplayer menu is usable. No live co-op test performed."
+  ],
+  "performedTests": [
+    "Opened actual unmodified v110 in supported browser and inspected failure screenshot and console",
+    "Verified restored original 80 criteria and 30-point tracker"
+  ],
+  "notPerformed": [
+    "Rendered 3D baseline",
+    "Natural core-loop traversal",
+    "Before/after comparison",
+    "Shader compilation and visual acceptance",
+    "GPU or software-renderer FPS measurement",
+    "Live two-client multiplayer",
+    "Regression test suite in this audit-only run"
+  ],
+  "nextAction": "Provide a supported WebGL-enabled browser or move the project checkout to a local coding session with hardware-accelerated Chrome; then capture baseline and run core loop before visual implementation.",
+  "publication": "No runtime or asset changes, no new deployment; this is evidence only, not an overhaul or full pass."
+}

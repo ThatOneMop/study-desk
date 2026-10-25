@@ -61,7 +61,10 @@ export function createVisualPolish({scene,camera,homes,buildings,reflectionMap})
  const band=box(packing,.13,-.30,-1.02,.07,.012,.28,M.paint);
  const paddle=box(rig,-.18,-.22,-1.04,.025,.25,.035,M.wood);
  rig.traverse(o=>{if(!o.isMesh)return;o.material=o.material.clone();o.material.depthTest=false;o.castShadow=false;o.receiveShadow=false;o.renderOrder=52;});
+ let previousTime=null,toolTilt=0,pourTilt=0,toolX=.21,toolY=-.10,stirPhase=0;
  function update({active,state,task,held,now,near,quality,productColor=0xd8a850}){
+  const dt=previousTime===null?0:Math.max(0,Math.min(.1,now-previousTime));previousTime=now;
+  const follow=1-Math.exp(-dt*18);
   for(const [i,w]of workshops.entries()){
    w.g.visible=!!(active&&state.room&&state.house===i);
    w.sealer.visible=!!state.packStation;
@@ -71,7 +74,7 @@ export function createVisualPolish({scene,camera,homes,buildings,reflectionMap})
   exterior.visible=quality!=='performance';
   rig.visible=!!active&&!!task&&['mix','make','pack','prepare','water','fill'].includes(task.k);
   for(const o of [stream,rim,bowl,contents,paddle,container,mould,packing])o.visible=false;
-  if(!rig.visible)return;
+  if(!rig.visible){toolTilt=0;pourTilt=0;toolX=.21;toolY=-.10;stirPhase=0;return;}
   const k=task.k,step=task.step||0;
   for(const o of [contents,packSweet,...cavities])o.material.color.set(productColor);
   const limit=k==='mix'?[1,300,1.1][step]:k==='make'?[240,1][step]:k==='pack'?[180,.9][step]:1;
@@ -98,15 +101,15 @@ export function createVisualPolish({scene,camera,homes,buildings,reflectionMap})
   for(const sweet of cavities){sweet.visible=pourMould&&progress>0;sweet.scale.y=Math.max(.04,progress);}
   bowl.position.x=contents.position.x=rim.position.x=pourMould?-.31:-.18;
   bowl.position.y=pourMould?-.16:-.34;contents.position.y=rim.position.y=pourMould?-.095:-.275;
-  bowl.rotation.z=contents.rotation.z=rim.rotation.z=pourMould&&held?-.7:0;
+  pourTilt+=((pourMould&&held?-.7:0)-pourTilt)*follow;bowl.rotation.z=contents.rotation.z=rim.rotation.z=pourTilt;
   contents.scale.y=pourMould?Math.max(.05,1-progress):1;
   paddle.visible=mixing&&step===1;
-  paddle.position.x=-.18+(held?Math.sin(now*7)*.07:0);
-  paddle.position.z=-1.04+(held?Math.cos(now*7)*.07:0);
+  stirPhase+=(held?dt*7:0);paddle.position.x+=(-.18+(held?Math.sin(stirPhase)*.07:0)-paddle.position.x)*follow;
+  paddle.position.z+=(-1.04+(held?Math.cos(stirPhase)*.07:0)-paddle.position.z)*follow;
   container.visible=!mixing||step===0;
   const pouring=held&&(container.visible||pourMould);
-  container.position.set(pouring?-.24:.21,pouring?-.04:-.10,-1.04);
-  container.rotation.z=pouring?2.15:0;
+  toolX+=((pouring?-.24:.21)-toolX)*follow;toolY+=((pouring?-.04:-.10)-toolY)*follow;toolTilt+=((pouring?2.15:0)-toolTilt)*follow;container.position.set(toolX,toolY,-1.04);
+  container.rotation.z=toolTilt;
   if(pouring){
    if(pourMould){spout.set(-.19,-.10,-1.04);destination.set(-.04,-.30,-1.04);}
    else{container.updateMatrix();spout.set(0,.125,0).applyMatrix4(container.matrix);destination.set(-.18,-.27,-1.04);}

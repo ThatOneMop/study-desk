@@ -24,7 +24,7 @@ Lucky Company's optional original online-site link opens separately. Return to t
 
 ## Recovered versions and implemented features
 
-- Gummy Bay: Sites v12, source 8463637b06e8a5796696998219a7684a5e69e2a0. Includes exported Blender town/van, v11 environment/equipment/rigged character variants and v12 character detail levels, animation and audio settings. Compiled game assets are included; original Blender authoring files remain in the source project. Original gummybay-v3 mode/slot save keys are retained.
+- Gummy Bay: playable build is the v121 export in games/gummy-bay/. Blender sources, tests and version notes are in games/gummy-bay-dev/ and are excluded from the Pages upload. SOURCE_VERSIONS.json index 5 still records the older recovered commit 8463637b06e8a5796696998219a7684a5e69e2a0. Original gummybay-v3 mode/slot save keys are retained.
 - Little Lake: Sites v2, source 76a7e268536bc28b2598c54c04a5521dd638604b. Code actually implements 7,000 generated species and 8,000,000 generated area indices. These are procedural combinations, not millions of hand-built scenes. littleLakeV1 saves retained.
 - Autumn Drift: recovered v2 implements individual leaf collection, 5,000 generated areas and 20,000 upgrade ranks.
 - Underleaf: recovered Sites v2 colony game.

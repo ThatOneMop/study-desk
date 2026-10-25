@@ -1,0 +1,70 @@
+/* Stage 5: a coastal field notebook, brass HUD fittings and a distinct handset. */
+:root{--gb-ink:#142c30;--gb-panel:#162e32;--gb-paper:#f1e5c9;--gb-brass:#e6bd73;--gb-sea:#9fcac2;--gb-stroke:#b6c5b43d}
+body{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:var(--gb-paper)}
+#objective{background:linear-gradient(115deg,#142c30f5,#1d3d3be8);border:1px solid var(--gb-stroke);border-left:3px solid var(--gb-brass);padding:17px 20px;box-shadow:0 6px 22px #071c2240;border-radius:3px 12px 12px 3px}
+#objective .overline{font:700 9px ui-monospace,monospace;letter-spacing:2px;color:var(--gb-brass)}
+#objective h2{font-weight:650;line-height:1.35;letter-spacing:-.3px;margin:9px 0;color:#fff2d5}
+#objective p{color:#becfc3;line-height:1.65}.trackbtn{border-color:#bbcdac4d;color:#d7e9cc;background:#d6eac50a}
+.hotbar{gap:7px;padding:7px 9px;border:1px solid #a1b9ad40;border-radius:12px;background:#10272bba;box-shadow:0 7px 24px #071c2260}
+.hotbar button{border-radius:6px;background:linear-gradient(#344a49,#233b3c);border:1px solid #b4c4b437;box-shadow:inset 0 1px #eef4d916}
+.hotbar button.selected{background:linear-gradient(#536a54,#344d44);border-color:#edc579;box-shadow:inset 0 -3px #e6bd73,0 0 12px #e6bd7312}
+.hotbar button i{color:#f0c983;font-style:normal}.hotbar button span{letter-spacing:.7px;color:#d3dac6}
+.statbox .value{font-variant-numeric:tabular-nums;text-shadow:0 2px 3px #071d28,0 0 14px #0a2025}.statbox .label{color:#d0c6a6;letter-spacing:1.6px}.statbox #cash{color:#e6cf8c}
+.mapbox{background:#142c30ed;border:1px solid #a9b9a15c;border-radius:12px;padding:9px;box-shadow:0 5px 25px #071c2255}.mapbox canvas{border-radius:6px}.mapbox span{color:var(--gb-brass);letter-spacing:1.5px;font-family:ui-monospace,monospace;font-size:8px}
+.prompt,#work,#drivingHUD,#placementHUD{background:linear-gradient(120deg,#142c30f5,#274441ef);border:1px solid #d6c9a15c;border-radius:7px;box-shadow:0 6px 30px #071c2240}
+.key{background:#eedcb6;color:#253b38;box-shadow:0 2px #a69777}.stamina{background:#10272b99;height:3px}.stamina div{background:#d9c896}
+#toast{background:#132f32f2;border:1px solid #cbca9a66;border-radius:7px;color:#f0e3c4}
+#overlay:not(.titleMode){backdrop-filter:blur(5px)}
+.modal{background:linear-gradient(145deg,#233d3e,#152e32);border:1px solid #abbba755;border-radius:13px;box-shadow:0 28px 100px #051a227a;scrollbar-color:#789083 #173237;scrollbar-width:thin}
+.modal h2{color:#f6e7c7;font-size:28px;font-weight:650}.modal h3{color:#deca9a;font-weight:650;letter-spacing:.15px}.modal p{color:#c6d1c4}.modal strong{color:#f5e5be}
+.primary{background:#dfc68b;color:#243b37;border-radius:5px;min-height:42px}.primary:hover:not(:disabled){background:#f2dca4}.ghost,.tabs button,.controls button{background:#adc6ae09;border-color:#a8bba448;color:#e7e4ca;border-radius:5px}.tabs button.on{background:#ccbe91;color:#243f3e}
+input,select,textarea{background:#10292d;border-color:#91afa45e;color:#f0e7cf}.choice{background:linear-gradient(145deg,#3c56513d,#10292d3d);border-color:#acbaa64a;border-radius:9px}.choice:hover{border-color:#dfbd76;background:#a6bf9514}
+.item,.row{border-color:#b5c6ac25}.staffcard,.contact-card,.order-card,.customerCard{background:#10292d7a;border-color:#9cb59b3d;border-radius:9px;padding:15px}.order-card.ready{border-left:3px solid #a8c697}.order-card.needs-stock{border-left:3px solid #dcac74}
+.phone .modal{background:#172d30;border:9px solid #3c4c49;border-bottom-width:16px;border-radius:30px;box-shadow:inset 0 0 0 2px #82938744,0 24px 90px #051a22a8;padding:22px;max-width:min(480px,94vw)}
+.device-status{background:#0c2227;color:#c6d8b9;border-color:#7f9a804d;border-radius:9px;font-size:10px}.device-screen{color:#e1c081}.device-keys{gap:7px;border-color:#9db2a72c}.device-keys button{min-height:40px;background:#293f3f;border-radius:5px;color:#d0d8bf}.device-keys button.on{background:#d5c493;color:#183532}
+.message{background:#294645;color:#e5e7d0;border-radius:12px 12px 12px 2px;padding:13px 16px;line-height:1.65}.message.mine{background:#526149;border-radius:12px 12px 2px 12px}.message small{color:#bad0b8}.contact-initial,.avatar{background:#829b80;color:#142c30;border:2px solid #b5c39e;box-shadow:0 3px 8px #071c2230}
+#stationHUD{border:1px solid #d2bd885c;border-top:3px solid #dfbf79;border-radius:8px;background:#152f32f0}#stationHUD h2{color:#f2dfb4}.progress{background:#0d252b}.progress div{background:linear-gradient(90deg,#789d83,#e2c987)}
+.titleMode .modal{background:transparent;border:0;box-shadow:none}.titleBrand{font-weight:950;letter-spacing:-7px;line-height:.85;color:#f0e1b9;text-shadow:0 5px #203c3e,0 12px 50px #142e3266}.titleBrand .roman{color:#c5a467}.titleSub{color:#d5bd86;letter-spacing:4px}.titleNav{border-left:2px solid #c5a46766;padding-left:20px}.titleNav button{letter-spacing:1.2px;color:#efe6c9;transition:color .15s,transform .15s}.titleNav button:hover{color:#edc67d;transform:translateX(5px)}.titleFooter{color:#c4d0bb;line-height:1.8}.titleFooter span{color:#a6bbac}
+@media(max-width:600px){#objective{padding:10px 12px}.hotbar{padding:5px;gap:3px;border-radius:8px}.hotbar button span{letter-spacing:0}.phone .modal{padding:15px;border-width:6px;border-bottom-width:11px;max-width:100%;border-radius:23px}.modal h2{font-size:24px}.device-keys button{min-height:44px}.titleBrand{letter-spacing:-4px}.titleNav{padding-left:13px}.modal{padding:19px}.mapbox{padding:6px}}
+@media(prefers-reduced-motion:reduce){.titleNav button{transition:none}.titleNav button:hover{transform:none}}
+body.titleMode #overlay{backdrop-filter:none}
+/* Run-down town interface: charcoal handset, restrained amber and readable slots. */
+:root{--gb-panel:#202322;--gb-ink:#191d1c;--gb-brass:#c7ad73;--gb-sea:#9aa898}
+#objective{background:linear-gradient(110deg,#202523f2,#252b27de);border-left-color:#bca269;box-shadow:0 4px 16px #0004}
+.modal{background:linear-gradient(145deg,#2a302c,#1b211f);border-color:#929b7c44}.phone .modal{background:linear-gradient(#25312f,#161f1f);border-color:#242827;border-radius:28px;border-top-width:15px;border-bottom-width:12px;box-shadow:inset 0 0 0 2px #6a70654d,0 26px 80px #0009;width:min(430px,94vw)}
+.device-status{background:#111918;border:0;border-bottom:1px solid #879b7733;border-radius:0;color:#c8d1bd}.device-status>span:first-child b{font-size:8px;letter-spacing:1px}.device-keys{position:sticky;bottom:-15px;background:#18201ff5;padding:12px 0 4px;z-index:1}.device-keys button{background:#28312d;border-color:#82907744;font-size:10px}.device-keys button.on{background:#aab18b;color:#16221c}
+.phone-home-clock{font:300 58px system-ui,sans-serif;letter-spacing:-3px;text-align:center;color:#e3e7d5;padding-top:18px}.phone-home-day{text-align:center;letter-spacing:2px;font-size:9px!important;color:#9cae98!important;margin:2px 0 30px!important}
+.phone-app-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px 10px}.phone-app-grid button{background:none;border:0;color:#e2e4d1;min-width:0;padding:0 2px;min-height:95px;cursor:pointer}.phone-app-grid b{display:grid;place-items:center;width:53px;height:53px;margin:0 auto 9px;border-radius:13px;background:linear-gradient(140deg,#687b61,#394f47);box-shadow:inset 0 1px #d9e4bd33,0 4px 8px #0004;color:#e1dfbd;font:26px system-ui}.phone-app-grid button:nth-child(2) b{background:linear-gradient(140deg,#9d8858,#615a40)}.phone-app-grid button:nth-child(3) b{background:linear-gradient(140deg,#657b84,#3b5159)}.phone-app-grid button:nth-child(4) b{background:linear-gradient(140deg,#617958,#344d3b)}.phone-app-grid button:nth-child(5) b{background:linear-gradient(140deg,#918563,#5b6048)}.phone-app-grid button:nth-child(6) b{background:linear-gradient(140deg,#847365,#4c443c)}.phone-app-grid strong{font-size:10px;display:block;letter-spacing:.2px}.phone-app-grid small{font-size:8px;color:#a9b6a2;display:block;margin-top:4px;line-height:1.4}.phone-home-summary{text-align:center;border-top:1px solid #a7b69030;margin-top:27px;padding-top:16px;color:#bec5ad;font-size:10px}.phone-home-button{display:block;margin:20px auto -3px;background:none;border:0;color:#7f8d7b;font-size:22px;min-width:60px;min-height:35px}
+.hotbar{background:#131918c7;border-color:#80907540;border-radius:5px;gap:4px;padding:5px}.hotbar button{background:linear-gradient(#39413a,#232b26);border-radius:3px;border-color:#a3ad8a40;width:55px;height:62px}.hotbar button.selected{background:#4d5b43;border-color:#c7b47b;box-shadow:inset 0 -2px #d0b779}.hotbar button i{color:#d0c49d}.hotbar button span{font-size:8px}.mapbox{background:#1b2421eb;border-color:#9fa58855;border-radius:5px}.controls button{background:#202a24e8}.message{background:#33443b}.message.mine{background:#566347}.primary{background:#b9bf92;color:#1d3024}.prompt{background:#1e2824f0;border-color:#b8bd9060}
+@media(max-width:600px){.hotbar button{width:100%;height:53px}.phone-app-grid{gap:18px 7px}.phone-home-clock{font-size:48px}.phone .modal{border-top-width:10px}.phone-app-grid b{width:48px;height:48px}.phone-home-summary{margin-top:18px}}
+/* V113: keep the street visible on phones; expand details in the notebook. */
+#objective{width:230px;padding:11px 13px;background:#1d2422d9}
+#objective h2{font-size:14px;margin:5px 0}#objective p{font-size:11px;line-height:1.45}
+body:not(.hasMenu) #view{cursor:grab}body:not(.hasMenu) #view:active{cursor:grabbing}
+body[data-panel="arrival"] #overlay{background:linear-gradient(90deg,#101714e8,#10171466,transparent);backdrop-filter:none;justify-content:flex-start}
+body[data-panel="arrival"] #modal{width:min(470px,90vw);background:transparent;border:0;box-shadow:none;margin:8vh 5vw;padding:24px}
+.arrival-scene h2{font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-1px}.arrival-scene p{font-size:16px;line-height:1.7;max-width:33ch}.arrival-actions{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 20px}.arrival-scene small{color:#c1c3ac;letter-spacing:3px}
+body[data-panel="payphone"] .modal{max-width:490px}body[data-panel="payphone"] .message{font-size:17px;line-height:1.7;margin:22px 0}body[data-panel="payphone"] .primary{width:100%;min-height:48px}
+@media(max-width:600px){
+ #objective{top:88px;left:12px;width:calc(100vw - 140px);max-width:235px;padding:8px 10px;border-left-width:2px}
+ #objective .overline{font-size:7px;letter-spacing:.7px}#objective h2{font-size:12px;line-height:1.3;margin:4px 0}
+ #objective p{display:none}#objective .trackbtn{min-height:32px;font-size:10px}
+ #businessHUD{bottom:158px;left:162px;right:12px;padding:7px;font-size:9px;line-height:1.5}
+ .stamina{bottom:218px;width:90px}.prompt{bottom:230px;max-width:calc(100vw - 24px)}
+ body[data-panel="arrival"] #modal{margin:0;padding:18px}.arrival-scene p{font-size:14px}
+ body[data-panel="payphone"] .message{font-size:15px}
+}
+@media(max-height:500px) and (orientation:landscape){
+ #objective{top:12px;width:215px}#objective p{display:none}.hotbar{bottom:8px}.hotbar button{height:45px}.touch{bottom:65px}.controls{bottom:65px}#businessHUD{display:none!important}.location{display:none}.prompt{top:45%;bottom:auto}#stationHUD{max-height:70dvh;overflow:auto}
+}
+
+body.mouseCaptured #view{cursor:none}
+
+#vehicleExit{position:fixed;right:14px;top:148px;z-index:26;min-height:44px;padding:10px 16px;background:#243d34;color:#eee5cc;border:1px solid #b8bd90;border-radius:7px}#vehicleExit[hidden]{display:none}#vehicleExit:disabled{opacity:.65}
+/* Small physical-action prompt leaves the object itself visible. */
+#carryHint{position:absolute;left:50%;bottom:128px;transform:translateX(-50%);padding:8px 13px;border:1px solid #c7ad7340;border-radius:4px;background:#161d1ce8;color:#ded2b1;font:10px ui-monospace,monospace;letter-spacing:.7px;pointer-events:none;text-align:center;max-width:90vw;z-index:2}
+#carryHint[hidden]{display:none}
+.prompt{padding:9px 13px;background:#18211ee8;border-color:#c8b88a50;font-size:12px;box-shadow:0 3px 14px #0003}
+@media(max-width:800px){#carryHint{bottom:170px;font-size:9px}}
+
+.parcel-notes{margin-top:25px;border-top:1px solid #c7ad7338;padding-top:18px}.parcel-notes article{padding:3px 15px;border-left:2px solid #9f8654;margin-top:18px;background:#bfa77508}.parcel-notes article h3{font:600 13px ui-monospace,monospace}

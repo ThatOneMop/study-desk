@@ -35,6 +35,10 @@ export function validateSave(v,strainCount,world){
  if(v.x<world.minX||v.x>world.maxX||v.z<world.minZ||v.z>world.maxZ)return fail('Saved position is outside the town.');
  for(const key of ['seeds','raw','gummies','packs'])if(!Array.isArray(v[key])||v[key].length<6||v[key].length>strainCount||!v[key].every(integer))return fail('Invalid '+key+' inventory.');
  for(const key of ['storedPacks','ingredients'])if(v[key]!==undefined&&(!Array.isArray(v[key])||v[key].length>strainCount||!v[key].every(integer)))return fail('Invalid '+key+' inventory.');
+ if(v.visits!==undefined){
+  if(!v.visits||typeof v.visits!=='object'||Array.isArray(v.visits)||Object.keys(v.visits).length>9)return fail('Invalid location visits.');
+  for(const record of Object.values(v.visits))if(!record||typeof record!=='object'||Array.isArray(record)||!Number.isSafeInteger(record.count)||record.count<1||record.count>9999||!Number.isSafeInteger(record.lastDay)||record.lastDay<1||!Number.isFinite(record.lastTime)||record.lastTime<0||record.lastTime>=1440)return fail('Invalid location visit.');
+ }
  if(!Array.isArray(v.plants)||v.plants.length>8||!Array.isArray(v.deals)||!v.threads||typeof v.threads!=='object'||Array.isArray(v.threads))return fail('Invalid production or orders.');
  if(v.house!==undefined&&![0,1,2].includes(v.house))return fail('Invalid property.');
  for(const key of ['wrappers','soil','water','made','mixed','sold','earned','tents','bench','lights'])if(v[key]!==undefined&&!integer(v[key]))return fail('Invalid '+key+'.');

@@ -9,17 +9,48 @@ export function pickupCargo(s){
 }
 export function processCargo(s){const c=s.crafterCargo;if(!c||c.phase!=='input')return false;if(c.source==='raw')s.made++;c.phase='output';return true;}
 export function depositCargo(s,capacity){const c=s.crafterCargo;if(!c||c.phase!=='output'||s.storedPacks.reduce((a,b)=>a+b,0)>=capacity)return false;s.storedPacks[c.index]++;s.crafterCargo=null;return true;}
-// Four-neighbour grid with sampled edges; bounded to the current workshop.
-export function findRoute(start,end,bounds,blocked,step=.5){
+// One bounded flood can check every station and tent entrance. Endpoint
+// attachments try nearby clear nodes: rounding alone rejects usable door edges.
+export function findReachableRoutes(start,ends,bounds,blocked,step=.5){
+ const paths=ends.map(()=>null),inside=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.z)&&p.x>=bounds.minX&&p.x<=bounds.maxX&&p.z>=bounds.minZ&&p.z<=bounds.maxZ;
+ if(!Number.isFinite(step)||step<=0||!Object.values(bounds).every(Number.isFinite)||bounds.minX>bounds.maxX||bounds.minZ>bounds.maxZ||!inside(start))return paths;
+ const width=Math.floor((bounds.maxX-bounds.minX)/step),depth=Math.floor((bounds.maxZ-bounds.minZ)/step);
+ if((width+1)*(depth+1)>10000)return paths;
  const key=(x,z)=>x+','+z,point=(x,z)=>({x:bounds.minX+x*step,z:bounds.minZ+z*step});
- const cell=p=>({x:Math.round((p.x-bounds.minX)/step),z:Math.round((p.z-bounds.minZ)/step)});
- const a=cell(start),b=cell(end),width=Math.floor((bounds.maxX-bounds.minX)/step),depth=Math.floor((bounds.maxZ-bounds.minZ)/step);
- const clear=(p,q)=>{const n=Math.max(1,Math.ceil(Math.hypot(q.x-p.x,q.z-p.z)/.15));for(let i=0;i<=n;i++)if(blocked(p.x+(q.x-p.x)*i/n,p.z+(q.z-p.z)*i/n))return false;return true;};
- if(!clear(start,point(a.x,a.z))||!clear(point(b.x,b.z),end))return null;
- const queue=[a],previous=new Map([[key(a.x,a.z),null]]);let head=0;
- while(head<queue.length&&head<10000){const c=queue[head++];if(c.x===b.x&&c.z===b.z){const path=[end];let k=key(c.x,c.z);while(k!==null){const [x,z]=k.split(',').map(Number);path.push(point(x,z));k=previous.get(k);}return path.reverse();}
-  for(const [dx,dz]of [[1,0],[-1,0],[0,1],[0,-1]]){const x=c.x+dx,z=c.z+dz,k=key(x,z);if(x<0||z<0||x>width||z>depth||previous.has(k)||!clear(point(c.x,c.z),point(x,z)))continue;previous.set(k,key(c.x,c.z));queue.push({x,z});}
- }return null;
+ const clear=(p,q)=>{const n=Math.max(1,Math.ceil(Math.hypot(q.x-p.x,q.z-p.z)/.1));for(let i=0;i<=n;i++)if(blocked(p.x+(q.x-p.x)*i/n,p.z+(q.z-p.z)*i/n))return false;return true;};
+ const attachments=p=>{
+  if(!inside(p)||blocked(p.x,p.z))return [];
+  const x=Math.round((p.x-bounds.minX)/step),z=Math.round((p.z-bounds.minZ)/step),result=[];
+  for(let dx=-1;dx<=1;dx++)for(let dz=-1;dz<=1;dz++){
+   const xx=x+dx,zz=z+dz;
+   if(xx>=0&&zz>=0&&xx<=width&&zz<=depth&&clear(p,point(xx,zz)))result.push({x:xx,z:zz});
+  }
+  return result.sort((a,b)=>Math.hypot(point(a.x,a.z).x-p.x,point(a.x,a.z).z-p.z)-Math.hypot(point(b.x,b.z).x-p.x,point(b.x,b.z).z-p.z));
+ };
+ const queue=attachments(start),previous=new Map(queue.map(p=>[key(p.x,p.z),null]));
+ if(!queue.length)return paths;
+ const targets=ends.map(attachments),pending=new Set(targets.flatMap((a,i)=>a.length?[i]:[]));let head=0;
+ while(head<queue.length&&pending.size){const c=queue[head++],k=key(c.x,c.z);
+  for(const i of pending)if(targets[i].some(p=>p.x===c.x&&p.z===c.z)){
+   const path=[ends[i]];let at=k;
+   while(at!==null){const [x,z]=at.split(',').map(Number);path.push(point(x,z));at=previous.get(at);}
+   path.push(start);paths[i]=path.reverse();pending.delete(i);
+  }
+  if(!pending.size)break;
+  for(const [dx,dz]of [[1,0],[-1,0],[0,1],[0,-1]]){const x=c.x+dx,z=c.z+dz,next=key(x,z);if(x<0||z<0||x>width||z>depth||previous.has(next)||!clear(point(c.x,c.z),point(x,z)))continue;previous.set(next,k);queue.push({x,z});}
+ }
+ return paths;
+}
+export function findRoute(start,end,bounds,blocked,step=.5){return findReachableRoutes(start,[end],bounds,blocked,step)[0];}
+// A single-entry cache cannot grow with mouse movement. Caller keys include all
+// geometry affecting access; stock quantities are intentionally not involved.
+export function createAccessAudit(){
+ let previousKey,result;
+ return (key,{exit,targets,bounds,blocked})=>{
+  if(result&&key===previousKey)return result;
+  const routes=findReachableRoutes(exit,targets,bounds,blocked),failed=routes.findIndex(p=>!p);
+  result={ok:failed<0,failed:failed<0?null:targets[failed].label,checked:targets.length};previousKey=key;return result;
+ };
 }
 export class StockroomCrafter{
  constructor(){this.home=-1;this.position={x:0,z:0};this.path=null;this.target='';this.progress=0;this.status='Not hired';this.retry=0;}

@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {stationReadiness as hint} from '../dist/station-readiness.mjs';
+const s={room:true,can:true,water:3,mixer:true,raw:[2],ingredients:[1],gummies:[4],wrappers:2,packStation:true,packs:[3],storedPacks:[5]};
+const before=JSON.stringify(s);
+assert.equal(hint('craft',s).text,'2 ready to wrap · 2 ready to shape');
+assert.equal(hint('craft',{...s,raw:[],wrappers:0}).text,'Missing wrappers');
+assert.equal(hint('craft',{...s,raw:[],packStation:false}).text,'Buy packaging equipment');
+assert.equal(hint('mix',{...s,ingredients:[]}).ready,false);
+assert.equal(hint('mix',{...s,mixer:false}).ready,false);
+assert.equal(hint('mix',{...s,gummies:[],packs:[3],deals:[{t:0,qty:3}]}).ready,false);
+assert.equal(hint('mix',{...s,gummies:[0,0,0,0,0,0,4],packs:[]}).ready,false);
+assert.equal(hint('mix',{...s,gummies:[],packs:[],raw:[100]}).ready,false);
+assert.equal(hint('sink',{...s,water:6}).ready,false);
+assert.equal(hint('sink',{...s,can:false}).text,'Missing watering can');
+assert.equal(hint('stockroom',s).text,'5 / 40 stored · 35 shelf spaces free');
+assert.equal(hint('craft',{...s,room:false}).ready,false);
+assert.equal(hint('customer',s),null);
+assert.equal(JSON.stringify(s),before);
+console.log('PASS: readiness respects real supplies, ownership, can capacity and inventory conservation.');
+
+assert.equal(hint('stockroom',{...s,house:1}).text,'5 / 160 stored · 155 shelf spaces free');
+assert.equal(hint('stockroom',{...s,storedPacks:[40]}).ready,false);
+assert.equal(hint('stockroom',{...s,house:2,storedPacks:[401]}).text,'401 / 400 stored · Shelves full — collect packs');

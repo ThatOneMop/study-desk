@@ -9,6 +9,7 @@
 @media(max-width:700px){.hotbar{bottom:155px}.stamina{bottom:215px}}
 #stationHUD{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);width:min(440px,90vw);padding:18px 22px;background:#202b29ed;border:1px solid #c8c5a560;border-radius:4px;z-index:30;text-align:center}#stationHUD[hidden]{display:none}#stationHUD h2{font-size:19px;margin:9px 0}#stationHUD p{color:#c8d1c5;font-size:12px}#stationHUD button{margin-top:12px;background:transparent;color:#c9cbb9;border:0}#stationHUD .progress>div{height:100%;background:#d8c18b}.customerCard{padding:13px;margin-top:15px;border:1px solid #85978166;border-radius:4px;background:#ffffff05}.customerCard span{float:right;color:#dfc98e;font-size:11px}.customerCard p{font-size:11px}#objective{background:linear-gradient(90deg,#26322ee8,#26322e95);border-left:3px solid #c3b982;border-radius:2px;box-shadow:none}#objective h2{font-size:15px}.modal{background:#23302bf5;border-radius:5px}.row{border-color:#d5d2b528}.row button{border-radius:3px}.phone .modal{background:#1c2824}.message{border-radius:5px}
 #placementHUD,#drivingHUD{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);padding:13px 20px;background:#23352eea;border:1px solid #c8d5b570;border-radius:5px;z-index:25;text-align:center;line-height:1.7}#placementHUD[hidden],#drivingHUD[hidden]{display:none}#placementHUD button{display:block;margin:8px auto 0;background:#c9d5ac;color:#273d31;border:0;padding:7px 16px;border-radius:3px}
+#drivingHUD{width:min(540px,calc(100vw - 32px));white-space:pre-line;font-variant-numeric:tabular-nums}
 
 #policeHUD{position:fixed;top:100px;left:50%;transform:translateX(-50%);z-index:50;background:#182a40ed;border:1px solid #e8ae78;color:#fff2df;padding:12px 18px;border-radius:8px;text-align:center;max-width:90vw;font-size:13px;box-shadow:0 8px 28px #0006}#policeHUD[hidden]{display:none}#policeHUD button{display:block;margin:8px auto 0}#policeHUD button[hidden]{display:none}
 /* Business assignments share the existing subdued panel palette. */
@@ -21,3 +22,60 @@
 
 /* Workshop production status: readable without hiding the world. */
 .workflow-status{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0}.workflow-status>div{padding:12px;border:1px solid #738b8055;border-radius:10px;background:#172b29}.workflow-status small{display:block;color:#c8b880;font-size:10px;letter-spacing:.08em;margin-bottom:6px}.workflow-status b{font-size:13px;line-height:1.4;display:block} @media(max-width:600px){.workflow-status{grid-template-columns:1fr}}
+
+/* V21: see the customer, read stock, and keep everyday management compact. */
+body[data-panel="customer"] #overlay{background:linear-gradient(0deg,#101d2577,transparent 65%);align-items:end;backdrop-filter:none;padding-bottom:115px}
+body[data-panel="customer"] #modal{width:530px;max-height:34vh;padding:16px 22px;background:#20332ff5;border:1px solid #c6d0b85c;border-radius:9px}
+body[data-panel="customer"] #modal h2{font-size:21px;margin:7px 0}
+body[data-panel="customer"] #modal .item{padding:8px 0}
+body[data-panel="customer"] #objective,body[data-panel="customer"] .mapbox{opacity:.25}
+#businessHUD{position:absolute;bottom:98px;left:50%;transform:translateX(-50%);text-align:center;color:#e9ead9;max-width:calc(100vw - 32px)}
+#businessHUD button{display:flex;gap:16px;width:100%;justify-content:center;border:1px solid #c7d6c32b;background:#1e302be8;color:inherit;border-radius:6px;padding:9px 14px;cursor:pointer;min-height:42px}
+#businessHUD span{font-size:9px;letter-spacing:.06em;white-space:nowrap}#businessHUD b{font-size:15px;margin-left:5px;color:#c6dfac}
+#businessHUD small{display:block;font-size:10px;margin-top:5px;text-shadow:0 2px 3px #000}
+#businessHUD[hidden],#moneyReceipt[hidden]{display:none}
+#moneyReceipt{position:absolute;left:27px;bottom:117px;color:#eeb29c;background:#172c26ed;border-left:3px solid currentColor;padding:9px 12px;font-size:13px;pointer-events:none;z-index:7}
+#moneyReceipt[data-positive="true"]{color:#b9df9c}
+.hotbar button{min-height:48px}.hotbar button:focus-visible,#businessHUD button:focus-visible{outline:2px solid #f0db94;outline-offset:3px}
+.statbox>div:first-child .value{color:#c3e2a8}.statbox>div:nth-child(2) .value{color:#a5c9e5}
+.stamina{bottom:86px}#toast{bottom:170px}
+@media(max-width:800px){#businessHUD{bottom:130px;left:auto;right:12px;transform:none;max-width:calc(100vw - 175px)}#businessHUD button{gap:8px;padding:8px;flex-wrap:wrap}#businessHUD span{font-size:8px}#businessHUD b{font-size:12px}#businessHUD small{font-size:9px}#moneyReceipt{bottom:auto;top:145px;left:14px;font-size:11px}body[data-panel="customer"] #overlay{padding:12px 12px 112px}body[data-panel="customer"] #modal{max-height:43vh}.stamina{bottom:118px}#toast{bottom:205px}}
+@media(max-height:500px){#businessHUD{display:none}body[data-panel="customer"] #overlay{padding-bottom:12px}body[data-panel="customer"] #modal{max-height:60vh}}
+
+/* Eight compact slots, with equipped goods distinct from management shortcuts. */
+.hotbar{gap:4px}.hotbar button{min-width:48px;padding-left:9px;padding-right:9px}
+#equipCan.selected,#equipPacks.selected{background:#e0d7b9;color:#253a35;border-color:#fff1bd;box-shadow:0 0 0 2px #e0d7b933}
+.resident-line{font-style:italic;color:#eee0bd!important;border-left:2px solid #b7c591;padding-left:10px}
+@media(max-width:800px){.hotbar{max-width:calc(100vw - 24px);gap:3px}.hotbar button{min-width:34px;padding-left:5px;padding-right:5px}.hotbar button span{font-size:8px}}
+/* V23: fit the actual phone viewport and keep thumb controls separate. */
+#overlay{min-width:0;grid-template-columns:minmax(0,1fr)}#modal{justify-self:center;min-width:0;overflow-wrap:anywhere;width:min(680px,100%)}
+#bootError{max-width:calc(100vw - 32px);overflow-wrap:anywhere}
+body.titleMode .touch,body.titleMode .hotbar,body.titleMode .mapbox,body.titleMode .controls,body.titleMode header,body.titleMode #objective,body.titleMode .stamina{display:none!important}
+#cyclePack{position:absolute;right:24px;bottom:212px;background:#20372ff2;color:#f3e7c9;border:1px solid #b6c592;padding:10px 14px;border-radius:6px;min-height:44px;max-width:240px;z-index:3}
+#cyclePack[hidden]{display:none}
+@media(max-width:600px){
+ #overlay{padding:12px;padding-top:max(12px,env(safe-area-inset-top));padding-bottom:max(12px,env(safe-area-inset-bottom))}
+ #modal{width:100%;max-height:calc(100dvh - 32px);padding:18px}.modal h1{font-size:34px}.choiceGrid{grid-template-columns:1fr}.choice{padding:13px}.choice h3{margin:5px 0}.modal .item{flex-wrap:wrap;gap:8px}.modal .item button{min-height:44px}
+ .hotbar{left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));transform:none;max-width:none;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px}
+ .hotbar button{width:100%;min-width:0;height:54px;padding:5px 1px}.hotbar button b{font-size:17px}.hotbar button span{font-size:7px;letter-spacing:0}.hotbar svg{width:24px;height:24px}
+ .mapbox{display:none}.touch{left:14px;bottom:90px;grid-template-columns:repeat(3,44px);gap:3px}.touch button{min-height:44px;padding:8px}
+ .controls{right:12px;bottom:88px}.controls button{min-height:44px;font-size:10px;padding:9px}
+ #businessHUD{left:12px;right:12px;bottom:237px;max-width:none}.stamina{bottom:224px}
+ #objective{left:12px;top:85px;width:calc(100vw - 140px);max-width:250px;padding:9px 11px}#objective h2{font-size:13px;margin:4px 0}#objective p{font-size:10px;max-height:45px;overflow:auto}#objective .trackbtn{min-height:28px;margin-top:4px}
+ .statbox>div:nth-child(1){left:12px;top:12px;bottom:auto}.statbox>div:nth-child(2){left:12px;top:47px;bottom:auto}.statbox>div:nth-child(3){right:12px;top:54px}.statbox>div:nth-child(4){right:12px;top:12px}.statbox>div:nth-child(5){right:12px;top:98px}.statbox .value{font-size:18px}.statbox .label{font-size:8px}
+ #cyclePack{right:12px;bottom:148px;max-width:calc(100vw - 172px);font-size:10px}
+ .prompt{top:auto;bottom:286px;max-width:calc(100vw - 24px);font-size:11px;min-height:44px}#toast{bottom:345px;max-width:calc(100vw - 24px);width:max-content;font-size:11px}
+ #moneyReceipt{top:190px;left:12px;bottom:auto;font-size:11px}
+ body[data-panel="customer"] #overlay{padding-bottom:76px}body[data-panel="customer"] #modal{max-height:42dvh}
+ #stationHUD{max-width:calc(100vw - 24px);max-height:55dvh}
+}
+/* V24: familiar people and a readable delivery round. */
+.contact-card,.order-card{border:1px solid #b5c6b533;border-radius:9px;background:#182d2780;padding:14px 16px;margin:11px 0}
+.contact-heading,.order-heading{display:flex;align-items:center;gap:12px;justify-content:space-between}.contact-heading{justify-content:flex-start}.contact-heading small{display:block;margin-top:4px;font-size:10px;color:#b9c7b2;line-height:1.4}.contact-initial{flex:0 0 38px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#a5b891;color:#26392e;font-size:20px;font-weight:700}.contact-card p{margin:10px 0;font-size:12px}.order-heading h3{margin:0}.order-heading>b{font-size:21px;color:#cee1ab}.order-card>strong{font-size:12px;color:#c9dda7}.order-card.needs-stock>strong{color:#edbd91}.order-actions{display:flex;gap:7px;flex-wrap:wrap}.order-actions button{min-height:42px}.order-card p{margin:8px 0}.order-card.ready{border-left:3px solid #9cb87e}.order-card.needs-stock{border-left:3px solid #c49a6c}
+@media(max-width:600px){.contact-card,.order-card{padding:12px}.order-actions button{flex:1;padding:9px;font-size:11px}.contact-heading small{font-size:10px}}
+
+/* V25: large, readable timing cue; does not cover the working surface. */
+.seal-meter{height:26px;position:relative;background:#263f43;border:1px solid #c0b997;border-radius:6px;margin:18px 8px;overflow:hidden}.seal-zone{position:absolute;left:35%;width:30%;height:100%;background:#83ab70}.seal-meter i{position:absolute;left:0;top:0;width:5px;height:100%;background:#fff8de;transform:translateX(-50%)}.tactile-tip{color:#edda9d;border-left:3px solid #c1a460;padding-left:12px}
+#placementHUD{width:min(560px,calc(100vw - 32px));box-sizing:border-box}#placementStatus{margin:4px 0;font-size:13px;line-height:1.5}#placementConfirm:disabled{opacity:.5;cursor:not-allowed}
+.customerCard small{display:block;margin-top:5px;color:#bac9b9;font-size:10px}.customer-memory{font-size:10px!important;color:#d7c590!important;line-height:1.5}.customer-commitment{font-size:11px;color:#cee0b6}.sample-choice{margin-top:10px}.sample-choice label{font-size:11px;color:#c5d0bc}.sample-choice select{min-width:0;max-width:100%;flex:1}.sample-choice .form{flex-wrap:wrap}
+.crew-status{padding:9px 11px;background:#101f1a66;border-left:2px solid #b7c491;margin:8px 0}.crew-status strong{font-size:12px;color:#e1d8b2}.crew-status p{font-size:11px;margin:5px 0}.crew-assignment{font-size:11px;color:#c4d4be}.crew-cargo{color:#e5ca97!important}.staffcard label{display:block;margin-top:9px}.staffcard select{max-width:100%}
