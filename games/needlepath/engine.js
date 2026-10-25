@@ -1,0 +1,24 @@
+/* Needlepath — original code and geometry; no external assets. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.Needlepath=api;})(typeof globalThis==='object'?globalThis:this,function(){
+'use strict';
+const KEY='study-desk-needlepath-v1';
+const LEVELS=[
+ {name:'Window fern',pegs:[[0,0],[2,0],[4,0],[0,2],[2,2],[4,2],[0,4],[2,4],[4,4]],end:8,flowers:[4,6],par:12,budget:22},
+ {name:'Cross-stitch quay',pegs:[[0,0],[1,0],[3,0],[4,0],[0,2],[1,2],[3,2],[4,2],[0,4],[1,4],[3,4],[4,4]],end:11,flowers:[2,4,6,8],par:14,budget:30},
+ {name:'Evening lattice',pegs:[[0,0],[2,0],[4,0],[0,1],[2,1],[4,1],[0,3],[2,3],[4,3],[0,4],[2,4],[4,4]],end:10,flowers:[2,3,7,9],par:18,budget:32}
+];
+const clone=x=>JSON.parse(JSON.stringify(x)),int=(n,a,b)=>Number.isInteger(n)&&n>=a&&n<=b;
+function fresh(level){return{level,at:0,visited:[0],face:0,knot:false,used:0,segments:[],phase:'active',last:'Start at pin 1. Front stitches run across; back stitches run up or down.'};}
+function quote(r,to){const l=LEVELS[r.level];if(r.phase!=='active')return{ok:false,reason:'This sampler has ended.'};if(!int(to,0,l.pegs.length-1))return{ok:false,reason:'Choose a pin.'};if(r.visited.includes(to))return{ok:false,reason:'That pin is already stitched.'};if(to===l.end&&!l.flowers.every(i=>r.visited.includes(i)))return{ok:false,reason:'Stitch each flower pin before the gold finish.'};const a=l.pegs[r.at],b=l.pegs[to],axis=r.face===0?0:1,other=1-axis;if(a[other]!==b[other])return{ok:false,reason:r.face===0?'Front: choose a pin in this row.':'Back: choose a pin in this column.'};const low=Math.min(a[axis],b[axis]),high=Math.max(a[axis],b[axis]);if(r.segments.some(s=>s.face===r.face&&s.a[other]===a[other]&&Math.max(low,Math.min(s.a[axis],s.b[axis]))<Math.min(high,Math.max(s.a[axis],s.b[axis]))))return{ok:false,reason:'Threads cannot overlap on the same face.'};const cost=high-low;if(r.used+cost>l.budget)return{ok:false,reason:'Not enough thread. Undo or retry.'};return{ok:true,cost,left:l.budget-r.used-cost};}
+function knotAvailable(r){return r.phase==='active'&&!r.knot&&r.used+2<=LEVELS[r.level].budget;}
+function hasMove(r){return LEVELS[r.level].pegs.some((_,i)=>quote(r,i).ok);}
+function settle(r){if(r.at===LEVELS[r.level].end){r.phase='won';r.last='Sampler complete. Every flower stitched.';return;}if(hasMove(r))return;if(knotAvailable(r)){const test={...r,face:1-r.face,knot:true,used:r.used+2};if(hasMove(test)){r.last='No stitch on this face. Use your knot to turn the needle, or undo.';return;}}r.phase='lost';r.last='The thread has no route onward. Undo a stitch or retry the sampler.';}
+function step(r,a){if(r.phase!=='active')return false;if(a==='knot'){if(!knotAvailable(r))return false;r.face=1-r.face;r.knot=true;r.used+=2;r.last='One knot tied: needle turned to the other face (2 thread).';settle(r);return true;}const q=quote(r,a);if(!q.ok)return false;const l=LEVELS[r.level];r.segments.push({a:l.pegs[r.at].slice(),b:l.pegs[a].slice(),face:r.face});r.at=a;r.visited.push(a);r.used+=q.cost;r.face=1-r.face;r.last='Stitch placed. '+q.left+' thread remains.';settle(r);return true;}
+function create(){return{version:1,level:0,journal:[],records:[null,null,null]};}
+function run(s){const r=fresh(s.level);for(const a of s.journal)if(!step(r,a))throw Error('Invalid stitch journal');return r;}
+function stars(level,used){return used<=LEVELS[level].par?3:used<=LEVELS[level].par+4?2:1;}
+function unlocked(s,level){return int(level,0,2)&&(level===0||s.records[level-1]!==null);}
+function act(state,a){const s=clone(state);if(a==='undo'){if(!s.journal.length)return{ok:false,state};s.journal.pop();return{ok:true,state:s};}if(a==='retry'){s.journal=[];return{ok:true,state:s};}if(a&&typeof a==='object'&&a.type==='level'){if(!unlocked(s,a.level))return{ok:false,state};s.level=a.level;s.journal=[];return{ok:true,state:s};}const r=run(s);if(!step(r,a))return{ok:false,state,reason:typeof a==='number'?quote(r,a).reason:'The knot is unavailable.'};s.journal.push(a);if(r.phase==='won')s.records[s.level]=Math.min(s.records[s.level]??Infinity,r.used);return{ok:true,state:s};}
+function decode(raw){const s=JSON.parse(raw);if(!s||s.version!==1||!int(s.level,0,2)||!Array.isArray(s.journal)||s.journal.length>13||!s.journal.every(a=>a==='knot'||int(a,0,11))||!Array.isArray(s.records)||s.records.length!==3||!s.records.every((n,i)=>n===null||int(n,1,LEVELS[i].budget))||s.records.some((n,i)=>n!==null&&i>0&&s.records[i-1]===null)||!unlocked(s,s.level))throw Error('Invalid save');const clean={version:1,level:s.level,journal:s.journal.slice(),records:s.records.slice()},r=run(clean);if(r.phase==='won'&&(s.records[s.level]===null||s.records[s.level]>r.used))throw Error('Missing completion record');return clean;}
+return{KEY,LEVELS,create,fresh,run,quote,knotAvailable,step,act,decode,stars,unlocked};
+});
