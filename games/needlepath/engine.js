@@ -17,8 +17,15 @@ function step(r,a){if(r.phase!=='active')return false;if(a==='knot'){if(!knotAva
 function create(){return{version:1,level:0,journal:[],records:[null,null,null]};}
 function run(s){const r=fresh(s.level);for(const a of s.journal)if(!step(r,a))throw Error('Invalid stitch journal');return r;}
 function stars(level,used){return used<=LEVELS[level].par?3:used<=LEVELS[level].par+4?2:1;}
+// Optional read-only advice. Bound work so future larger samplers cannot freeze the UI.
+function advise(state,limit=20000){const initial=run(state);let nodes=0,cutoff=false,best=null;
+ function search(r,path){if(++nodes>limit){cutoff=true;return;}if(r.phase==='won'){if(!best||r.used<best.total)best={path:path.slice(),total:r.used};return;}if(r.phase==='lost'||(best&&r.used>=best.total))return;
+  for(const a of [...LEVELS[r.level].pegs.map((_,i)=>i),'knot']){const next=clone(r);if(step(next,a))search(next,[...path,a]);if(cutoff)return;}
+ }
+ search(initial,[]);if(cutoff)return{status:'unknown',nodes};if(!best)return{status:'blocked',nodes};return{status:initial.phase==='won'?'complete':'route',next:best.path[0]??null,total:best.total,remaining:best.total-initial.used,ribbons:stars(state.level,best.total),nodes};
+}
 function unlocked(s,level){return int(level,0,2)&&(level===0||s.records[level-1]!==null);}
 function act(state,a){const s=clone(state);if(a==='undo'){if(!s.journal.length)return{ok:false,state};s.journal.pop();return{ok:true,state:s};}if(a==='retry'){s.journal=[];return{ok:true,state:s};}if(a&&typeof a==='object'&&a.type==='level'){if(!unlocked(s,a.level))return{ok:false,state};s.level=a.level;s.journal=[];return{ok:true,state:s};}const r=run(s);if(!step(r,a))return{ok:false,state,reason:typeof a==='number'?quote(r,a).reason:'The knot is unavailable.'};s.journal.push(a);if(r.phase==='won')s.records[s.level]=Math.min(s.records[s.level]??Infinity,r.used);return{ok:true,state:s};}
 function decode(raw){const s=JSON.parse(raw);if(!s||s.version!==1||!int(s.level,0,2)||!Array.isArray(s.journal)||s.journal.length>13||!s.journal.every(a=>a==='knot'||int(a,0,11))||!Array.isArray(s.records)||s.records.length!==3||!s.records.every((n,i)=>n===null||int(n,1,LEVELS[i].budget))||s.records.some((n,i)=>n!==null&&i>0&&s.records[i-1]===null)||!unlocked(s,s.level))throw Error('Invalid save');const clean={version:1,level:s.level,journal:s.journal.slice(),records:s.records.slice()},r=run(clean);if(r.phase==='won'&&(s.records[s.level]===null||s.records[s.level]>r.used))throw Error('Missing completion record');return clean;}
-return{KEY,LEVELS,create,fresh,run,quote,knotAvailable,step,act,decode,stars,unlocked};
+return{KEY,LEVELS,create,fresh,run,quote,knotAvailable,step,act,decode,stars,unlocked,advise};
 });

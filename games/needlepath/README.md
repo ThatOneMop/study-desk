@@ -20,8 +20,14 @@ Only `study-desk-needlepath-v1` is used. Version, current sampler, replayable ac
 
 `NODE_PATH=/path/to/jsdom/node_modules node --test tests/needlepath-dom.cjs`
 
-DOM checks use jsdom 26.1.0 with simulated dialog methods; no runtime npm package is added to the repository. Nine engine tests enumerate 31 winning routes (6/14/11), including knot and knot-free choices in each sampler; five DOM tests cover progression, saves, retries, controls, blocking states and navigation markup. These are automated engine/DOM checks, not rendered-browser, native keyboard synthesis, touch, screenshots or human-enjoyment evidence. Serve from repository root with a normal static server for future authorized rendered review.
+DOM checks use jsdom 26.1.0 with simulated dialog methods; no runtime npm package is added to the repository. Eleven engine tests enumerate 31 winning routes (6/14/11), including knot and knot-free choices in each sampler; seven DOM tests cover progression, saves, retries, controls, blocking states and navigation markup. These are automated engine/DOM checks, not rendered-browser, native keyboard synthesis, touch, screenshots or human-enjoyment evidence. Serve from repository root with a normal static server for future authorized rendered review.
 
 ## Remaining
 
 Render and play all samplers naturally on desktop and touch, inspect the cloth/thread/flower distinction and passing-over-pin clarity, assess whether optimization is enjoyable and sufficiently deep, then make a substantive playtest-led improvement. Verify real dialogs, navigation and saves/reload. Do not promote this prototype before those gates.
+
+## Optional thread guide
+
+Ask the thread guide to see one next move toward the least-thread finish and its total thread/ribbon forecast. It can warn that no finish remains even when a local stitch is legal. It never moves the needle or spends thread. Advice is hidden by default and after reload; saves remain byte-compatible with the initial journal format. A bounded search returns “unknown” rather than claiming impossibility when its work limit is reached.
+
+The guide was checked against all 1,262 reachable action prefixes and the independent initial winning-route fixture. Source/engine inspection motivated it; this is not a credited rendered-playtest improvement. Rendered usability and visual highlighting remain pending.
