@@ -38,13 +38,16 @@
       "slot": 23,
       "id": "lanternwake",
       "title": "Lanternwake",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: lantern light and moth attraction are inseparable; reclaiming removes both illumination and lure. No new rendered observation while preview access remains blocked.",
+      "before": "Every floating lantern lights three water steps and attracts moths until reclaimed, eaten or expired.",
+      "after": "H toggles the adjacent lantern with least life remaining. Hooded lanterns light one water step and do not attract moths. Opening restores broad light and attraction immediately. Toggling spends a turn and life without refunding oil; moths may still eat a hooded lantern reached while pursuing another light. Planning previews, labelled hood graphics, undo and replay saves expose the choice.",
+      "implementationCommit": "237c2d8fbae76778b706f0681fdcc76b86e240b9",
+      "testing": [
+        "30 engine + 26 jsdom checks pass. All five original three-medal crossings remain unchanged. Three hood-assisted routes (crossings 2, 3 and 5) finish without damage and earn three medals, with every action matching forecasts and exact replay. A natural two-action setup on crossing 4 shows both moths stop when the only light is hooded and resume on reopening.",
+        "Tests cover narrower illumination, unchanged oil, life/turn cost, expiry, reclaim, eating a hooded light, invalid adjacency/terminal rejection, deterministic selection, planned preview/cancel/confirm, H/button, saved hood reload, undo, restart and modal/bridge guards. Syntax passes. No rendered play, inspected screenshots, actual touch, human enjoyment or full-repository check claimed."
+      ],
+      "remaining": "Perform supported rendered before/after play, assess hood/lure routing and balance, inspect hood contrast and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     },
     {
       "slot": 24,

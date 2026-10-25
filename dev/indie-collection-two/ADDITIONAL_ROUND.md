@@ -4,7 +4,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 
 - [ ] 21. Reefwright — selective habitat cuts implemented in `0db09c81e7d4227733b4a9f16a6cd839187895f1`; 56 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 22. Counterweight — padded cradles implemented in `66e77e8d2e7a50acab5e99228cd92be17d958f63`; 56 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 23. Lanternwake
+- [ ] 23. Lanternwake — hooded light implemented in `237c2d8fbae76778b706f0681fdcc76b86e240b9`; 56 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 24. Copper Cadence — silent catches implemented in `8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9`; 59 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 26. Paper Odyssey — stitched bridges implemented in `21d5fb515207f12feca724c2f5bffb8574a5a6bb`; 59 engine/DOM checks pass, rendered review blocked. **Not counted.**
@@ -24,3 +24,5 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 40. Last Lighthouse — portable prism implemented in `561cacd84e10bf4400a93d7bd78f224470b793ce`; 18 engine/DOM checks pass, rendered review blocked. **Not counted.**
 
 No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Fourteen candidates require the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
+
+26 October checkpoint: all twenty additional upgrades have implementation source. Six are verified; fourteen still require rendered observation and iteration. This is not 20/20 completed additional improvements.
