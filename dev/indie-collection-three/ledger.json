@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 8,
+    "built": 9,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -374,21 +374,35 @@
     },
     {
       "slot": 49,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "beepline",
+      "title": "Beepline",
+      "coreLoop": "Compose a short repeating flight program with forward, glide and turn commands; debug its route to collect flowers and return to the hive, then optimize command count.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/beepline",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "5 engine tests pass: sequential three-garden wins and exact frame save/reload, exhaustive 5,460 programs per garden proving minimum command counts 3/2/5, glide collection, crash/loop detection, editing/rewind/records and malformed saves.",
+        "4 jsdom 26.1.0 tests pass: UI campaign and navigation markup, playback/edit/Run/Stop/pause/parent guards, Space/form controls, crash/loop recovery, reset isolation, unreadable-save recovery and quota failure. Dialogs and intervals simulated.",
+        "Both scripts pass syntax checks. No rendered play, screenshots, native keyboard activation, touch/mobile layout or human-enjoyment evidence. Full repository checks not run from partial checkout."
+      ],
+      "commits": [
+        "4271c69152ec426d0c3df7452c252b0c90bb1706"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three compact authored gardens. Enumerated winning programs (37/785/48) are validation, not additional levels. Tested shortest programs use 3/2/5 commands. Debugging clarity, visual identity and replay enjoyment need rendered assessment; no content-duration claim."
+      },
+      "nextSteps": [
+        "Play all three gardens naturally in a rendered browser on desktop and touch; inspect glide-in-progress highlighting, control focus and loop explanations.",
+        "Implement a substantive playtest-led improvement and verify saves/reload, crash/loop retry, restart and launcher navigation before selection."
+      ]
     },
     {
       "slot": 50,
@@ -1130,9 +1144,9 @@
     }
   ],
   "nextSteps": [
-    "Render and verify the fourteen pending second-batch additional upgrades; verified count stays at 6/20 until rendered evidence exists.",
-    "Render/play all eight third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement the remaining 42 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
+    "Render/play all nine third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement the remaining 41 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -1239,6 +1253,12 @@
       "commit": "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
       "result": "Reedbreaker reed-hook repositioning implemented. 15 engine/DOM tests pass; original routes unchanged and hook routes clear all three banks. Counts remain 8 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing policy blocker unchanged; no retry or workaround, no rendered credit."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "4271c69152ec426d0c3df7452c252b0c90bb1706",
+      "result": "Built Beepline slot 49: repeating program editor, three gardens, glide/step playback, loop detection, records and safe saves. Nine engine/DOM tests pass. Third batch: 9 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing policy blocker unresolved; no retry or workaround and no rendered credit."
     }
   ]
 }
