@@ -9,7 +9,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 26. Paper Odyssey
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
-- [ ] 28. Wellward
+- [ ] 28. Wellward — cargo-costing repair kit implemented in `5b0fb766926891c874870f04331198f3802d1a16`; 42 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 29. Salt & Sail
 - [ ] 30. Pocket Palaeo — resin jackets implemented in `282ad742f526e7e30eb22667bc673bce4f449ac7`; 44 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [x] 31. Static Orchard — earned-energy blossom lures, tree-placement and limited-resource choices; verified commit `304976b32bb3c7a114d23c235f19f853826041f2`, CI 40061003554.

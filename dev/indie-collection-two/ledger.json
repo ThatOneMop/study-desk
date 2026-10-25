@@ -545,7 +545,8 @@
       "developmentCommits": [
         "902ba544df8b138932b5ed1f2abad1051b4ea37e",
         "6180d74e9db13c9356ed9080e6908e85aaffbca8",
-        "81a926013f7ab058d7d354c62715fce12d6efffa"
+        "81a926013f7ab058d7d354c62715fce12d6efffa",
+        "5b0fb766926891c874870f04331198f3802d1a16"
       ],
       "selectionReason": "Retain as a finished development candidate for broader comparison. Manual retrieval adds variety, but four wells provide modest depth; no catalogue selection yet.",
       "publishedUrl": null,
@@ -559,6 +560,21 @@
           "index.html": "9beb1c7b511727d4d2d6e8f008e4e3ec8aba59f74b570d6911c3423ecd73f2e7",
           "style.css": "b55133c7fc3e8d6b05e69e17d82956581e3b972109b4c918798dab4363fd4d51"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 28,
+        "id": "wellward",
+        "title": "Wellward",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: damaged straps offer only retreat or risking the entire load, with no loadout choice to reserve capacity for recovery. No new rendered observation while preview access remains blocked.",
+        "before": "All hooks carry relics; straps only repair on returning to the landing.",
+        "after": "At the landing, optionally pack a single repair kit that reserves one cargo hook. After impact cooldown clears and speed falls below 20, repair restores one strap and consumes the kit, releasing the hook. R/button repair pauses for safe replanning. Full-health, fast, lost and repeated repairs reject; returning resets the loadout.",
+        "implementationCommit": "5b0fb766926891c874870f04331198f3802d1a16",
+        "testing": [
+          "26 engine + 16 jsdom checks pass, including all four original complete wells and sixteen relics. A natural 117-frame rightward collision followed by settling permits one repair; position and saved physics remain exact. The original first cargo route banks one relic instead of two with a packed kit, proving the capacity cost; skipped relic remains available.",
+          "Checks include packed/used/legacy saves, invalid flags and overcapacity rejection, single-use/health/speed/cooldown/phase gates, no mutation on rejection, keyboard R, pause/dialog guards, reload, retry, isolated reset and navigation markup. JavaScript syntax passes. DOM uses a null canvas and simulated animation frames, not rendering; no screenshot, actual touch, human enjoyment or full-repository check claim."
+        ],
+        "remaining": "Perform supported rendered before/after play, evaluate kit versus cargo choices, inspect desktop/phone controls and feedback, and iterate. Verify actual keyboard/touch, progression, loss/retry, saves, restart/navigation and screenshots before counting."
       }
     },
     {
@@ -1459,7 +1475,7 @@
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Clockwork storage, Hollow regrowth, Ember boardwalks, Lighthouse prism, Counterweight cradles, Palaeo jackets, Tea half measures and Windup kits have source upgrades pending supported rendered review and observed iteration.",
+    "Additional round remains 6/20 verified. Wellward kits plus the eight previously recorded source upgrades await supported rendered review and observed iteration.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1804,6 +1820,13 @@
       "result": "Clockwork Tide counterweight energy storage implemented; 42 scoped engine/DOM checks pass. Additional round remains 6/20; no new catalogue integration or live release.",
       "publicIntegration": null,
       "nextSteps": "Perform supported rendered before/after play, assess energy allocation and balance, inspect the enlarged phone panel and reserve readability, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "5b0fb766926891c874870f04331198f3802d1a16",
+      "result": "Wellward optional repair kit implemented; 42 scoped engine/DOM checks pass. Additional round remains 6/20; no new integration or live release.",
+      "publicIntegration": null,
+      "nextSteps": "Perform supported rendered before/after play, evaluate kit versus cargo choices, inspect desktop/phone controls and feedback, and iterate. Verify actual keyboard/touch, progression, loss/retry, saves, restart/navigation and screenshots before counting."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",

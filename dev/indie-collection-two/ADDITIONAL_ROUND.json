@@ -108,13 +108,16 @@
       "slot": 28,
       "id": "wellward",
       "title": "Wellward",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: damaged straps offer only retreat or risking the entire load, with no loadout choice to reserve capacity for recovery. No new rendered observation while preview access remains blocked.",
+      "before": "All hooks carry relics; straps only repair on returning to the landing.",
+      "after": "At the landing, optionally pack a single repair kit that reserves one cargo hook. After impact cooldown clears and speed falls below 20, repair restores one strap and consumes the kit, releasing the hook. R/button repair pauses for safe replanning. Full-health, fast, lost and repeated repairs reject; returning resets the loadout.",
+      "implementationCommit": "5b0fb766926891c874870f04331198f3802d1a16",
+      "testing": [
+        "26 engine + 16 jsdom checks pass, including all four original complete wells and sixteen relics. A natural 117-frame rightward collision followed by settling permits one repair; position and saved physics remain exact. The original first cargo route banks one relic instead of two with a packed kit, proving the capacity cost; skipped relic remains available.",
+        "Checks include packed/used/legacy saves, invalid flags and overcapacity rejection, single-use/health/speed/cooldown/phase gates, no mutation on rejection, keyboard R, pause/dialog guards, reload, retry, isolated reset and navigation markup. JavaScript syntax passes. DOM uses a null canvas and simulated animation frames, not rendering; no screenshot, actual touch, human enjoyment or full-repository check claim."
+      ],
+      "remaining": "Perform supported rendered before/after play, evaluate kit versus cargo choices, inspect desktop/phone controls and feedback, and iterate. Verify actual keyboard/touch, progression, loss/retry, saves, restart/navigation and screenshots before counting."
     },
     {
       "slot": 29,
