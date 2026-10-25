@@ -1379,7 +1379,8 @@
       "initialCommit": "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
       "developmentCommits": [
         "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
-        "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5"
+        "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
+        "561cacd84e10bf4400a93d7bd78f224470b793ce"
       ],
       "publishedUrl": null,
       "nextSteps": [
@@ -1391,11 +1392,26 @@
         "artifact": 12557089508,
         "artifactSha256": "3380bef8f163730485a47bc32d70df54b22c7dc0d6a1ca6381715a76d2627f54",
         "status": "CI 40088157129 now confirmed completed/success. Existing 720-check record, all browser groups, preservation gates and changed-game native desktop/touch passed. Previously inspected screenshots remain documented; no new screenshots in this increment."
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 40,
+        "id": "last-lighthouse",
+        "title": "Last Lighthouse",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: three small harbours constrain beam routing to fixed relay positions. No new rendered observation while browser access remains blocked.",
+        "before": "Only the six fixed relays could shape a beam. Spare power funded rescue or mistakes.",
+        "after": "One portable prism can be placed or moved onto clear water for one power; rotation is free. Its prior position becomes water. It competes with rescue power and hull-costing cranking, and allows new beam paths. Coordinate selectors, cost preview, outlined prism, keyboard 7 and undo/save support expose the choice.",
+        "implementationCommit": "561cacd84e10bf4400a93d7bd78f224470b793ce",
+        "testing": [
+          "13 engine + 5 jsdom checks pass, including all six original ships, original rescue routes, three prism-dependent rescues followed by complete convoys, exact journal roundtrips, cost/exhaustion, relocation/undo, blocked cells, caller mutation isolation and legacy saves.",
+          "DOM checks cover all three prism campaigns, keyboard rotation, controls, saved relocation, pause, retry confirmation, corrupt-save recovery and navigation markup. Syntax checks pass. No rendered review, screenshots, actual touch, human enjoyment or full-repository check claimed."
+        ],
+        "remaining": "Perform supported rendered before/after play, inspect desktop/phone readability and controls, assess the new routing/resource choice and iterate. Verify progression, loss/retry, saves, restart/navigation and screenshots before credit."
       }
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Counterweight cradles, Pocket Palaeo jackets, Tea half measures and Windup kits have pending source upgrades; each still needs supported rendered review and observed iteration before credit.",
+    "Additional round remains 6/20 verified. Last Lighthouse prism, Counterweight cradles, Pocket Palaeo jackets, Tea half measures and Windup kits are implemented pending supported rendered review and observed iteration.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1711,6 +1727,14 @@
       "tests": "32 engine + 24 jsdom checks; syntax checks pass. No full repository or rendered suite.",
       "publicIntegration": null,
       "nextSteps": "Supported rendered before/after observation and balance iteration required; continue independent remaining development."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "561cacd84e10bf4400a93d7bd78f224470b793ce",
+      "result": "Last Lighthouse portable prism implemented; 18 scoped engine/DOM checks pass. Additional round remains 6/20; no new catalogue integration or verified live release.",
+      "publicIntegration": null,
+      "blocker": "Rendered preview security-policy block unchanged; source work continued without alternative browser or CI rendering.",
+      "nextSteps": "Perform supported rendered before/after play, inspect desktop/phone readability and controls, assess the new routing/resource choice and iterate. Verify progression, loss/retry, saves, restart/navigation and screenshots before credit."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",

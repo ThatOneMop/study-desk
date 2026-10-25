@@ -289,13 +289,16 @@
       "slot": 40,
       "id": "last-lighthouse",
       "title": "Last Lighthouse",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Lifeboat initial improvement and native rescue routes verified. A separate additional upgrade is still required; initial pass does not count twice."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: three small harbours constrain beam routing to fixed relay positions. No new rendered observation while browser access remains blocked.",
+      "before": "Only the six fixed relays could shape a beam. Spare power funded rescue or mistakes.",
+      "after": "One portable prism can be placed or moved onto clear water for one power; rotation is free. Its prior position becomes water. It competes with rescue power and hull-costing cranking, and allows new beam paths. Coordinate selectors, cost preview, outlined prism, keyboard 7 and undo/save support expose the choice.",
+      "implementationCommit": "561cacd84e10bf4400a93d7bd78f224470b793ce",
+      "testing": [
+        "13 engine + 5 jsdom checks pass, including all six original ships, original rescue routes, three prism-dependent rescues followed by complete convoys, exact journal roundtrips, cost/exhaustion, relocation/undo, blocked cells, caller mutation isolation and legacy saves.",
+        "DOM checks cover all three prism campaigns, keyboard rotation, controls, saved relocation, pause, retry confirmation, corrupt-save recovery and navigation markup. Syntax checks pass. No rendered review, screenshots, actual touch, human enjoyment or full-repository check claimed."
+      ],
+      "remaining": "Perform supported rendered before/after play, inspect desktop/phone readability and controls, assess the new routing/resource choice and iterate. Verify progression, loss/retry, saves, restart/navigation and screenshots before credit."
     }
   ]
 }
