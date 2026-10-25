@@ -11,7 +11,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
 - [ ] 28. Wellward
 - [ ] 29. Salt & Sail
-- [ ] 30. Pocket Palaeo
+- [ ] 30. Pocket Palaeo — resin jackets implemented in `282ad742f526e7e30eb22667bc673bce4f449ac7`; 44 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [x] 31. Static Orchard — earned-energy blossom lures, tree-placement and limited-resource choices; verified commit `304976b32bb3c7a114d23c235f19f853826041f2`, CI 40061003554.
 - [x] 32. Borrowed Gravity — safe surface anchors and one-use recovery choices; verified commit `dca02c401239e0d9060a7037ea9139a23597c82d`, CI 40057078381.
 - [ ] 33. Tea for Ghosts — half-measure spoon and recipe refinement implemented in `a66b0a0cc55289c94fe7d845401d11d2065b1aae`; 39 engine/DOM checks pass, rendered review blocked. **Not counted.**

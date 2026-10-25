@@ -126,13 +126,16 @@
       "slot": 30,
       "id": "pocket-palaeo",
       "title": "Pocket Palaeo",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: resin only repairs excavation errors; lifting decisions rely on reusable brace placement. No new rendered observation while browser access is blocked.",
+      "before": "Resin restores cracked bones; only grip and reusable braces affect lift damage.",
+      "after": "A resin jacket spends one shared charge to absorb two lifting damage on one exposed bone. Jackets cannot move/refund, do not repair health or protect digging, and leave with recovery. Lift forecasts include protection; sixth keyboard/touch control and markers expose it.",
+      "implementationCommit": "282ad742f526e7e30eb22667bc673bce4f449ac7",
+      "testing": [
+        "25 engine and 19 jsdom checks pass. Original three-site/six-perfect-specimen campaign unchanged; jacket route improves Reedfin from 93% to 100% at cost of both repair charges. Exact forecasts, saves/reload, resource exhaustion, invalid actions, non-protection against picks, fracture/retry, reset and duplicate touch events checked.",
+        "Syntax passes. DOM touch events and dialogs are simulated. No rendered play, screenshot inspection, physical touch or human enjoyment evidence; no full repository suite from partial checkout."
+      ],
+      "remaining": "Perform supported rendered before/after play and balance iteration; verify mobile layout, real keyboard/touch controls, saves, progression/loss/retry, restart/navigation and inspect screenshots. Do not count until complete."
     },
     {
       "slot": 31,

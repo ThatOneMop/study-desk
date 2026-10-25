@@ -621,7 +621,8 @@
         "Final exact-source CI 39990612900: 240 engine + 185 DOM = 425 checks across all ten candidates, complete desktop/touch campaigns and public integrity gates passed.",
         "Pocket Palaeo Chromium 1280x1000 desktop and 390x844 native touch: all six perfect museum recoveries, all three upgrades, every-site exact reload, native fast strokes, desktop Enter/Space and arrow navigation, safe and dangerous lift previews, deliberate fracture, restart cancellation/confirmation, isolated corrupt-save recovery and new journal, return navigation, no uncaught browser errors.",
         "Artifacts retain 238 screenshots across ten candidates, including 34 Pocket Palaeo captures. Representative desktop cradle/museum and phone museum images inspected; direct browser visual QA also checked trapped soil and overload feedback.",
-        "Public checks passed: 19 bundled routes/55 HTML asset references, nine selected first-batch source hashes, exact 20-slot gate, current shell, bridge-pointer and relaxed collection. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass."
+        "Public checks passed: 19 bundled routes/55 HTML asset references, nine selected first-batch source hashes, exact 20-slot gate, current shell, bridge-pointer and relaxed collection. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass.",
+        "Additional source upgrade 282ad742f526e7e30eb22667bc673bce4f449ac7: 44 engine/DOM tests passed; rendered review pending. Historical verification and quality scores apply to the initial version, not this new source."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -641,7 +642,8 @@
         "352c19ef122d680c42c79c96b950514c9f499ed1",
         "b681dd37d5efed4b133cbd26c619313ecef601dd",
         "d7f940334afe98828517629fd84f7f671728f08c",
-        "fac96672c40a85256d0c32eaf2a60aba994161b5"
+        "fac96672c40a85256d0c32eaf2a60aba994161b5",
+        "282ad742f526e7e30eb22667bc673bce4f449ac7"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain for comparison as a calm manual collection-and-upgrade candidate. Do not select automatically: its fixed finds and limited long-term discovery must be weighed against the full slate.",
@@ -656,6 +658,21 @@
           "index.html": "f832f7dfd2689f8c54d3fb87c49e85d9c275ec074b7aa3e362b7f1fc7bcca0d4",
           "style.css": "798cf0c2dc6be5bfe33c1e7541ad2f97e5cdb07dc169965bce1a61ee03ecdd42"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 30,
+        "id": "pocket-palaeo",
+        "title": "Pocket Palaeo",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: resin only repairs excavation errors; lifting decisions rely on reusable brace placement. No new rendered observation while browser access is blocked.",
+        "before": "Resin restores cracked bones; only grip and reusable braces affect lift damage.",
+        "after": "A resin jacket spends one shared charge to absorb two lifting damage on one exposed bone. Jackets cannot move/refund, do not repair health or protect digging, and leave with recovery. Lift forecasts include protection; sixth keyboard/touch control and markers expose it.",
+        "implementationCommit": "282ad742f526e7e30eb22667bc673bce4f449ac7",
+        "testing": [
+          "25 engine and 19 jsdom checks pass. Original three-site/six-perfect-specimen campaign unchanged; jacket route improves Reedfin from 93% to 100% at cost of both repair charges. Exact forecasts, saves/reload, resource exhaustion, invalid actions, non-protection against picks, fracture/retry, reset and duplicate touch events checked.",
+          "Syntax passes. DOM touch events and dialogs are simulated. No rendered play, screenshot inspection, physical touch or human enjoyment evidence; no full repository suite from partial checkout."
+        ],
+        "remaining": "Perform supported rendered before/after play and balance iteration; verify mobile layout, real keyboard/touch controls, saves, progression/loss/retry, restart/navigation and inspect screenshots. Do not count until complete."
       }
     },
     {
