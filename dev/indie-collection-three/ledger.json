@@ -306,12 +306,13 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "9 engine tests pass: exhaustive finite route enumeration reproduces 6/14/11 winning action sequences; every route replays and saves exactly. Checks cover axis/overlap rules, optional pins, knot cost, budgets, dead ends, undo/retry, sequential unlocks, better records and malformed saves.",
-        "5 jsdom 26.1.0 tests pass: three-sampler campaign through UI handlers, reload, dead-end recovery, retry/reset confirmation, arrow focus/K/U shortcuts, pause/help/bridge guards, unreadable-save preservation and quota failure. Dialog methods are simulated.",
-        "Both gameplay scripts pass node --check. No rendered browser, screenshots, native keyboard activation, touch or human-enjoyment evidence. Full repository checks not run from partial checkout."
+        "11 engine tests pass, including all 31 initial winning routes and advisory correctness against independent winning-route fixtures at all 1,262 reachable action prefixes. Search cutoff reports unknown conservatively; advice preserves state and save format.",
+        "7 jsdom 26.1.0 tests pass, including guide opt-in/hide/reload, target highlights, knot advice, early blocked-branch explanation, campaign, saves, resets and pause/dialog/bridge guards. Dialog methods are simulated.",
+        "Both gameplay scripts pass syntax checks. No rendered/browser, screenshot, native keyboard activation, touch or human-enjoyment evidence. Full repository checks not run from partial checkout."
       ],
       "commits": [
-        "d0ea3fa23950b1005e8d41ba56c960503c2d216c"
+        "d0ea3fa23950b1005e8d41ba56c960503c2d216c",
+        "df16bfbc9a301c27b56090e4d8030cc3e72b7b00"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -322,7 +323,14 @@
       "nextSteps": [
         "Play the actual rendered core loop on desktop and touch; inspect thread faces, optional pins, flower endpoints and pass-over-pin readability.",
         "Implement a substantive improvement from observed rendered play; verify progression, dead ends/retry, saves/reload, restart, navigation and screenshots before integration."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "df16bfbc9a301c27b56090e4d8030cc3e72b7b00",
+        "basis": "Source and engine inspection, not rendered playtesting.",
+        "before": "Immediate legal-stitch highlights did not tell players whether a completion remained; a locally legal branch could be doomed without an explanation until later.",
+        "after": "An optional read-only thread guide suggests one next move toward the least-thread completion, forecasts remaining/total thread and ribbon, and explains when undo is required. Knot advice is included. No auto-play, thread cost or save-format change.",
+        "remaining": "Rendered desktop/touch play, screenshot inspection and a substantive playtest-led improvement remain required."
+      }
     },
     {
       "slot": 48,
@@ -1104,7 +1112,7 @@
     "Render/play all seven third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
     "Implement the remaining 43 distinct third-batch games incrementally, keeping unfinished entries unlisted."
   ],
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
   "runHistory": [
     {
@@ -1191,6 +1199,12 @@
       "commit": "d0ea3fa23950b1005e8d41ba56c960503c2d216c",
       "result": "Needlepath slot 47 implemented with three stitching samplers, optional guide pins, knot tradeoffs, ribbons and safe saves. 14 engine/DOM tests pass, including exhaustive enumeration of 31 winning routes. Third-batch totals: 7 built, 0 improved/browser-tested/integrated/live. Second-batch status reconciled to 20 additional source upgrades, 6 verified and 14 pending rendered review.",
       "browserStatus": "Existing policy blocker unresolved; not retried or bypassed. No rendered, integration or live-release claim."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "df16bfbc9a301c27b56090e4d8030cc3e72b7b00",
+      "result": "Needlepath optional thread guide implemented; 18 engine/DOM tests pass including 1,262 reachable prefixes. Counts unchanged: 7 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing policy blocker unresolved; not retried or bypassed. No rendered credit."
     }
   ]
 }
