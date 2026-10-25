@@ -14,6 +14,12 @@ Only `study-desk-reedbreaker-v1` is read or changed. Saves contain version, bank
 
 `NODE_PATH=/path/to/node_modules node --test tests/reedbreaker-dom.cjs` (jsdom 26.1.0)
 
-Five engine tests and four DOM tests pass. Saved winning routes clear the banks in 8/5/6 turns with 6/5/5 shield respectively. A state-space search found these routes; they are automated evidence, not a measure of enjoyment. Checks cover exact forecasts/reload, unlocks, water/rock/occupied shove behavior, energy, loss/retry, malformed saves, modal/keyboard/pause/bridge handlers, storage failure and navigation markup. Dialog methods are simulated. No screenshot, rendered play, actual touch/native keyboard activation or complete-repository build is claimed.
+Nine engine tests and six DOM tests pass. Saved winning routes clear the banks in 8/5/6 turns with 6/5/5 shield respectively. A state-space search found these routes; they are automated evidence, not a measure of enjoyment. Checks cover exact forecasts/reload, unlocks, water/rock/occupied shove behavior, energy, loss/retry, malformed saves, modal/keyboard/pause/bridge handlers, storage failure and navigation markup. Dialog methods are simulated. No screenshot, rendered play, actual touch/native keyboard activation or complete-repository build is claimed.
 
 This is a compact three-bank prototype. Assess readability, enemy predictability, dash choices and depth through rendered desktop/touch play before making the required substantive improvement pass or adding it to the public catalogue. Existing saves, games and shared launcher files are untouched.
+
+## Reed hook
+
+Choose Hook (H), then the direction toward an adjacent beetle. Spend one energy to step backward onto free land and draw the beetle into your old square. The hooked beetle skips its response; all others respond normally. Water, rock, occupied retreat or missing target blocks the action without cost. This allows drawing enemies away from obstacles, but competes with saving two energy for a dash. Forecasts include the entire response. Saves retain the original key/schema; old walk/dash journals replay unchanged.
+
+Hook-assisted routes clear the three banks in 9/8/9 turns with 6/5/6 shield. In the third bank the tested hook route trades extra turns for one more shield than the original route. These automated routes establish mechanics and options, not measured enjoyment. This refinement comes from source/engine inspection and awaits rendered playtesting; it does not count as the required completed improvement pass.
