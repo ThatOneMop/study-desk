@@ -333,7 +333,8 @@
       "initialCommit": "f6266bd85765772a9c7824b77f48e4f96b152837",
       "developmentCommits": [
         "f6266bd85765772a9c7824b77f48e4f96b152837",
-        "73b95527ab3861f9e75a9047564169c098a809db"
+        "73b95527ab3861f9e75a9047564169c098a809db",
+        "2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain for comparison with the wider slate. Maze-defense route shaping adds variety alongside ecology, balancing, navigation and mechanical timing; distinct from first-batch Queen of Cinders worker/rescue loop. No automatic public selection.",
@@ -347,6 +348,21 @@
           "index.html": "7e4d9b67acca78307205c4c8756d9af7d0dc849745234177e89c98cd22a30b33",
           "style.css": "901b008a73c97119be8b7bc1d0363b194859b4a5e155a1ec353a1b09bbee174f"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 25,
+        "id": "hollow-keeper",
+        "title": "Hollow Keeper",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: during attacks resin only funds fruit; depleted beds cannot compete for those supplies until the next preparation. No new rendered observation while preview access remains blocked.",
+        "before": "Thorn strikes only refill between waves; active spending is limited to fruit lures.",
+        "after": "Regrow spends two resin to restore up to two strikes, capped at three, then advances the attack immediately. It competes with fruit and later upgrades. Exact previews/scout reports include the advancing step. Tool 6 supports staged confirmation and saved replay.",
+        "implementationCommit": "2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709",
+        "testing": [
+          "28 engine + 22 jsdom checks pass. All five original two-wave campaigns remain unchanged. An earned single reinforced-bed route otherwise loses one heart; regrowth preserves all three hearts and earns three seals. Costs, caps, immediate charge consumption, exact forecasts, saves, undo, invalid use and progression checked.",
+          "DOM checks cover shortcut 6, forecast/cancel/confirm, auto-march pause, saved regrowth and win, undo and restart. Original loss/recovery, navigation markup and scoped saves also pass. Syntax passes; no rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed."
+        ],
+        "remaining": "Perform supported rendered before/after play, assess resin allocation and pacing, inspect six-tool layout on phones and iterate. Verify actual controls, progression/loss/retry, saves, restart/navigation and screenshots before counting."
       }
     },
     {
@@ -1427,7 +1443,7 @@
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Ember boardwalks, Lighthouse prism, Counterweight cradles, Palaeo jackets, Tea half measures and Windup kits have source upgrades pending supported rendered review and observed iteration.",
+    "Additional round remains 6/20 verified. Hollow regrowth, Ember boardwalks, Lighthouse prism, Counterweight cradles, Palaeo jackets, Tea half measures and Windup kits have source upgrades pending supported rendered review and observed iteration.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1758,6 +1774,13 @@
       "result": "Ember Parcel boardwalks implemented; 26 engine/DOM checks pass. Additional-round verification remains 6/20; no new catalogue integration or live release.",
       "publicIntegration": null,
       "nextSteps": "Perform supported rendered before/after play, inspect phone controls and boardwalk readability, evaluate fuel versus construction choices and iterate. Verify progression/loss/retry, saves, restart/navigation and screenshots before counting."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709",
+      "result": "Hollow Keeper mid-wave regrowth implemented; 50 scoped engine/DOM checks pass. Additional round remains 6/20; no new catalogue integration or live release.",
+      "publicIntegration": null,
+      "nextSteps": "Perform supported rendered before/after play, assess resin allocation and pacing, inspect six-tool layout on phones and iterate. Verify actual controls, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
