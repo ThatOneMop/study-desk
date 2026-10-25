@@ -87,10 +87,10 @@
       "implementationCommit": "6599f77659f45ceb6994970000654b051236d66b",
       "testing": [
         "40 engine and 36 DOM Ratchet checks passed, including ten kit deliveries and all unchanged classic routes.",
-        "https://github.com/ThatOneMop/study-desk/actions/runs/40038858541 \u2014 all seven jobs successful; 659 engine/DOM checks and all seventeen native desktop/touch suites.",
+        "https://github.com/ThatOneMop/study-desk/actions/runs/40038858541 — all seven jobs successful; 659 engine/DOM checks and all seventeen native desktop/touch suites.",
         "Native keyboard and multi-touch: ten kit deliveries per mode, spent-resource reload, separate records, loss/retry, short tap/reload, save recovery, restart, navigation and unmocked riding/steady-pedal/braking.",
         "Direct rendered play: original Milk Run three seals; spring-kit Canal Cut three seals after an observed loss/control fix/retry; spare-strap Cobble Exchange two seals after two actual repairs, mid-route reload and subsequent unlock. Restart cancel/confirm and return link checked.",
-        "https://github.com/ThatOneMop/study-desk/actions/runs/40038858541/artifacts/12538996156 \u2014 60 Ratchet screenshots. Desktop spring use and touch repair use inspected. ZIP SHA-256 9aa415ec56e3bf6bedd73a5d92d0b97c24a383fe3c0489f5cea0cc8650d05137"
+        "https://github.com/ThatOneMop/study-desk/actions/runs/40038858541/artifacts/12538996156 — 60 Ratchet screenshots. Desktop spring use and touch repair use inspected. ZIP SHA-256 9aa415ec56e3bf6bedd73a5d92d0b97c24a383fe3c0489f5cea0cc8650d05137"
       ],
       "remaining": "No blocker for this entry. Retain for comparative selection after the other nineteen entries and three missing playable candidates are complete.",
       "implementationCommits": [
@@ -174,13 +174,16 @@
       "slot": 33,
       "id": "tea-for-ghosts",
       "title": "Tea for Ghosts",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source/DOM finding only: whole-scoop increments constrain flavour ratios, and Adjust another cup discards the prior recipe. Rendered observation remains blocked.",
+      "before": "Three whole scoops; two tools; the next-cup action empties the pot, even when the player wants to adjust the last tasting.",
+      "after": "Earned half-measure spoon costs two seals and enables fractional ratios within unchanged capacity. Refine this blend retains the tasted recipe and normal attempt count; fresh blend remains a separate choice. Source implemented, not rendered verified.",
+      "implementationCommit": "a66b0a0cc55289c94fe7d845401d11d2065b1aae",
+      "testing": [
+        "24 engine and 15 jsdom checks pass: all six original visitors, earned spoon and competing seal purchases, fractional capacity/locks, semantic saves, exact profiles, refinement/undo/attempt limits, legacy migration, natural loss/retry/reset and unrelated-save preservation.",
+        "JavaScript syntax passes. No rendered browser, screenshot, actual touch or human-enjoyment claim. Full repository suite not run from the partial checkout."
+      ],
+      "remaining": "Play rendered before/after behavior, assess meaningful choice and mobile layout, iterate from observed weakness and verify saves/reload, loss/retry, navigation and screenshots before counting."
     },
     {
       "slot": 34,
@@ -213,7 +216,7 @@
       "testing": [
         "18 engine and nine existing DOM tests pass; natural partial losses, recovery, food spending, bounded calls, unsafe-air rejection, exact replay and legacy histories.",
         "Expanded native browser suite includes a natural ten-bird flight, regroup by keyboard/touch, saved recovery reload and successful arrival; verification pending.",
-        "Cloud rendered baseline and changed flight inspected: keyboard regroup raised birds 8\u219210 while supplies fell 5\u21923; both calls exhausted. Saved flight reloaded at 390px with resources and call limit intact; screenshot inspected.",
+        "Cloud rendered baseline and changed flight inspected: keyboard regroup raised birds 8→10 while supplies fell 5→3; both calls exhausted. Saved flight reloaded at 390px with resources and call limit intact; screenshot inspected.",
         "Native Chrome desktop and emulated touch: natural ten-bird flight, R/button recovery to twelve, two food spent, exact paused reload, successful ten-food arrival; all four original full-feather migrations, loss/retry, keyboard/touch cancellation, bridge pause, recovery/reset and navigation pass. CI 40048553658 job 120736070238.",
         "32 retained screenshots; inspected desktop-regroup-choice, touch-regroup-reloaded and touch-regroup-arrival. Artifact 12541339884 ZIP SHA256 def0a8d8c686e13ecf0dd2faf3622f7f3118065965c2ebc1b0845d4620cda876. Automated reliability evidence is not human enjoyment evidence."
       ],
@@ -224,7 +227,7 @@
       "id": "night-clerk",
       "title": "Night Clerk",
       "status": "verified",
-      "observedWeakness": "Rendered alternate first-shift allocation failed solely because Bram\u2019s ground-floor room had no hearth; static room features restricted replay choices.",
+      "observedWeakness": "Rendered alternate first-shift allocation failed solely because Bram’s ground-floor room had no hearth; static room features restricted replay choices.",
       "before": "Six rooms had immutable features; only felt screens could change room suitability.",
       "after": "One movable service cart offers a silent moon mirror or a noisy stove. It enables alternative allocations; moving it removes the old benefit, and stove noise affects its own room and neighbours. Exact known-needs previews, undo and replay saves include cart changes.",
       "implementationCommit": "08fb6223f98854ee3097560b685b310f22d37dc6",
