@@ -252,13 +252,16 @@
       "slot": 37,
       "id": "clockwork-tide",
       "title": "Clockwork Tide",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: the flywheel only permits immediate use, decay or disposal of energy, with no alternative reserve to manage across idle tide marks. No new rendered observation while preview access remains blocked.",
+      "before": "Flywheel energy loses one or two each stroke; excess speed can only be discarded with the brake/governor. Four fixed commissions remain.",
+      "after": "A counterweight banks up to six existing flywheel energy before the wheel turns, capped at eight stored without friction. Release returns up to six before capacity/brake/governor/load calculations. Banking can stall a load; releasing can scorch one or overflow. Exact forecasts, one-stroke native selector, reserve meter, undo and replay saves expose the tradeoff.",
+      "implementationCommit": "2fecaad67037611daa8f410ae723e35992b3ac2d",
+      "testing": [
+        "28 engine + 14 jsdom checks pass. All four original campaigns remain valid. Four separate storage routes earn three seals, actually bank and release energy, match pure forecasts and round-trip saves after every action. Conservation, eight-energy capacity, six-energy transfer, partial/empty/full transfers, friction-free holding, stalling, overspeed, overflow and governor interactions checked.",
+        "DOM coverage includes all four storage campaigns, saved selection/transfers/wins, selector reset to Hold, focus, pause/dialog guards, undo and retry confirmation. Existing failure, recovery/reset and navigation markup checks pass. Syntax passes. No rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed."
+      ],
+      "remaining": "Perform supported rendered before/after play, assess energy allocation and balance, inspect the enlarged phone panel and reserve readability, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     },
     {
       "slot": 38,

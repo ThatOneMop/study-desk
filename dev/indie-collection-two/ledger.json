@@ -1186,7 +1186,8 @@
       "initialCommit": "3f5276be1a439d5c5abb1606e704d7d93c367ac6",
       "developmentCommits": [
         "3f5276be1a439d5c5abb1606e704d7d93c367ac6",
-        "28583831dc5a72398865bc1665eabbd367e6dd2f"
+        "28583831dc5a72398865bc1665eabbd367e6dd2f",
+        "2fecaad67037611daa8f410ae723e35992b3ac2d"
       ],
       "verification": {
         "status": "passed",
@@ -1202,7 +1203,22 @@
         }
       },
       "selectionReason": "Retain as finished but unselected. Compare its hydraulic resource decisions against Copper Cadence and the stronger progression candidates; compact depth and finite workshop spending prevent automatic selection.",
-      "publishedUrl": null
+      "publishedUrl": null,
+      "pendingAdditionalUpgrade": {
+        "slot": 37,
+        "id": "clockwork-tide",
+        "title": "Clockwork Tide",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: the flywheel only permits immediate use, decay or disposal of energy, with no alternative reserve to manage across idle tide marks. No new rendered observation while preview access remains blocked.",
+        "before": "Flywheel energy loses one or two each stroke; excess speed can only be discarded with the brake/governor. Four fixed commissions remain.",
+        "after": "A counterweight banks up to six existing flywheel energy before the wheel turns, capped at eight stored without friction. Release returns up to six before capacity/brake/governor/load calculations. Banking can stall a load; releasing can scorch one or overflow. Exact forecasts, one-stroke native selector, reserve meter, undo and replay saves expose the tradeoff.",
+        "implementationCommit": "2fecaad67037611daa8f410ae723e35992b3ac2d",
+        "testing": [
+          "28 engine + 14 jsdom checks pass. All four original campaigns remain valid. Four separate storage routes earn three seals, actually bank and release energy, match pure forecasts and round-trip saves after every action. Conservation, eight-energy capacity, six-energy transfer, partial/empty/full transfers, friction-free holding, stalling, overspeed, overflow and governor interactions checked.",
+          "DOM coverage includes all four storage campaigns, saved selection/transfers/wins, selector reset to Hold, focus, pause/dialog guards, undo and retry confirmation. Existing failure, recovery/reset and navigation markup checks pass. Syntax passes. No rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed."
+        ],
+        "remaining": "Perform supported rendered before/after play, assess energy allocation and balance, inspect the enlarged phone panel and reserve readability, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+      }
     },
     {
       "slot": 38,
@@ -1443,7 +1459,7 @@
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Hollow regrowth, Ember boardwalks, Lighthouse prism, Counterweight cradles, Palaeo jackets, Tea half measures and Windup kits have source upgrades pending supported rendered review and observed iteration.",
+    "Additional round remains 6/20 verified. Clockwork storage, Hollow regrowth, Ember boardwalks, Lighthouse prism, Counterweight cradles, Palaeo jackets, Tea half measures and Windup kits have source upgrades pending supported rendered review and observed iteration.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1781,6 +1797,13 @@
       "result": "Hollow Keeper mid-wave regrowth implemented; 50 scoped engine/DOM checks pass. Additional round remains 6/20; no new catalogue integration or live release.",
       "publicIntegration": null,
       "nextSteps": "Perform supported rendered before/after play, assess resin allocation and pacing, inspect six-tool layout on phones and iterate. Verify actual controls, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "2fecaad67037611daa8f410ae723e35992b3ac2d",
+      "result": "Clockwork Tide counterweight energy storage implemented; 42 scoped engine/DOM checks pass. Additional round remains 6/20; no new catalogue integration or live release.",
+      "publicIntegration": null,
+      "nextSteps": "Perform supported rendered before/after play, assess energy allocation and balance, inspect the enlarged phone panel and reserve readability, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",

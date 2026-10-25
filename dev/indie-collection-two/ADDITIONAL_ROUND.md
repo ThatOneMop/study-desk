@@ -18,7 +18,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 34. Cairn & Cord — anchored lateral traverses, haul-back grip choices and separate survey records; verified commit `eb10e9e87ee414f0a218afe6176cc2589151a592`, CI 40044161548.
 - [x] 35. Murmuration — food-funded clear-air regroup calls and supply/survival choices; verified commit `b1c2421ba2286bc833d62e12ffb256e8cf4795fc`, CI 40048553658.
 - [x] 36. Night Clerk — movable moon/stove service cart, alternative room plans and collateral noise choices; verified commit `08fb6223f98854ee3097560b685b310f22d37dc6`, CI 40052886087.
-- [ ] 37. Clockwork Tide
+- [ ] 37. Clockwork Tide — counterweight storage implemented in `2fecaad67037611daa8f410ae723e35992b3ac2d`; 42 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 38. Ember Parcel — boardwalks implemented in `736f0982041f909c218328e06edcf2b1bda7865d`; 26 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 39. Windup Wrestling — mechanical kits implemented in `dc5d51f2076f3029ccdd39890dcc3bfe63668a1c`; engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 40. Last Lighthouse — portable prism implemented in `561cacd84e10bf4400a93d7bd78f224470b793ce`; 18 engine/DOM checks pass, rendered review blocked. **Not counted.**
