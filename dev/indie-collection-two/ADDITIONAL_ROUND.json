@@ -8,13 +8,16 @@
       "slot": 21,
       "id": "reefwright",
       "title": "Reefwright",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: an obstructing habitat can only be removed by undoing whole later placements; there is no limited way to reshape an established reef. No new rendered observation while preview access remains blocked.",
+      "before": "Eight mixed-species placements only add habitat; undo reverses complete placements and all later work must be retraced.",
+      "after": "Two selective cuts per reef remove individual coral, kelp or nursery squares. Open water can reconnect sea channels or receive a later piece, but the removed habitat and its adjacency benefits are lost. Cuts do not advance or refund the eight-offer deck. Exact staged forecasts, highlighted removal, X shortcut, confirmation, undo and replay saves expose the tradeoff.",
+      "implementationCommit": "0db09c81e7d4227733b4a9f16a6cd839187895f1",
+      "testing": [
+        "30 engine + 26 jsdom checks pass. All five original three-medal campaigns remain unchanged; five new cut-assisted routes earn three medals with vitality 51/41/43/44/49. A channel cut raises thriving nurseries from three to four; another cut drops required forest kelp from six to five and causes survey loss. Replanting cleared space, exhausted stock, invalid operations and per-action replay roundtrips pass.",
+        "UI simulations cover pure exact previews, cancel/Enter confirm, cut reload, progression, undo after loss, modal/bridge guards, scoped restart, preserved best records and navigation markup. Both scripts pass syntax checks. No rendered play, screenshots, actual touch, human enjoyment or full-repository check claimed."
+      ],
+      "remaining": "Perform supported rendered before/after play and balance iteration; inspect removal highlights and the enlarged desktop/phone toolbar. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     },
     {
       "slot": 22,

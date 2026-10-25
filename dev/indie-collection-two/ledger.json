@@ -85,7 +85,8 @@
       "developmentCommits": [
         "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
         "235994ffe87a59ef7e0d864f200696a211d7b07b",
-        "0cb2dee04c5190e30ac0f4a3c406c9394e061346"
+        "0cb2dee04c5190e30ac0f4a3c406c9394e061346",
+        "0db09c81e7d4227733b4a9f16a6cd839187895f1"
       ],
       "selectionReason": "Retain as a finished development candidate until other second-batch candidates can be compared for enjoyment, depth, polish, reliability and collection variety.",
       "publishedUrl": null,
@@ -99,6 +100,21 @@
           "style.css": "dce1763587ddd3a0766d9c9303e9ef0fefd212f605aacd82863bd82323f93a53",
           "index.html": "4efef80137949a50e15b1c124d3460848519ff7c5279852077e9e159e4868323"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 21,
+        "id": "reefwright",
+        "title": "Reefwright",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: an obstructing habitat can only be removed by undoing whole later placements; there is no limited way to reshape an established reef. No new rendered observation while preview access remains blocked.",
+        "before": "Eight mixed-species placements only add habitat; undo reverses complete placements and all later work must be retraced.",
+        "after": "Two selective cuts per reef remove individual coral, kelp or nursery squares. Open water can reconnect sea channels or receive a later piece, but the removed habitat and its adjacency benefits are lost. Cuts do not advance or refund the eight-offer deck. Exact staged forecasts, highlighted removal, X shortcut, confirmation, undo and replay saves expose the tradeoff.",
+        "implementationCommit": "0db09c81e7d4227733b4a9f16a6cd839187895f1",
+        "testing": [
+          "30 engine + 26 jsdom checks pass. All five original three-medal campaigns remain unchanged; five new cut-assisted routes earn three medals with vitality 51/41/43/44/49. A channel cut raises thriving nurseries from three to four; another cut drops required forest kelp from six to five and causes survey loss. Replanting cleared space, exhausted stock, invalid operations and per-action replay roundtrips pass.",
+          "UI simulations cover pure exact previews, cancel/Enter confirm, cut reload, progression, undo after loss, modal/bridge guards, scoped restart, preserved best records and navigation markup. Both scripts pass syntax checks. No rendered play, screenshots, actual touch, human enjoyment or full-repository check claimed."
+        ],
+        "remaining": "Perform supported rendered before/after play and balance iteration; inspect removal highlights and the enlarged desktop/phone toolbar. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
       }
     },
     {
@@ -1507,7 +1523,7 @@
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Salt & Sail jettison and ten previously recorded source upgrades await supported rendered review and observed iteration. Reefwright, Lanternwake and Copper Cadence still need an additional implementation pass.",
+    "Additional round remains 6/20 verified. Reefwright selective cuts and eleven previously recorded source upgrades await supported rendered review and observed iteration. Lanternwake and Copper Cadence still need an additional implementation pass.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1873,6 +1889,13 @@
       "result": "Salt & Sail optional cargo jettison implemented; 54 scoped engine/DOM checks pass. Additional round remains 6/20; no new integration or live release.",
       "publicIntegration": null,
       "nextSteps": "Perform supported rendered before/after play, assess whether the optional sacrifice improves decisions, inspect live hold feedback and desktop/phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "0db09c81e7d4227733b4a9f16a6cd839187895f1",
+      "result": "Reefwright selective cuts implemented; 56 scoped engine/DOM checks pass. Additional round remains 6/20; no new integration or live release.",
+      "publicIntegration": null,
+      "nextSteps": "Perform supported rendered before/after play and balance iteration; inspect removal highlights and the enlarged desktop/phone toolbar. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
