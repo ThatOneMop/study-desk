@@ -5,6 +5,15 @@ export function remoteWorkerStatus(worker,connected,age){
  if(!Number.isFinite(age)||age<0||age>5000)return 'Host update stale';
  return REMOTE_STATES.has(worker?.status)?worker.status:'Awaiting host status';
 }
+// A gummy maker with no saved stock mode walks the workshop. An explicit
+// carried or stored choice already in a version-3 save is left alone.
+export function normalizeStaffRole(role,incoming,strainCount){
+ const stockDefault=role==='crafter'?'stored':'carried';
+ const strain=Number.isInteger(incoming?.strain)&&incoming.strain>=-1&&incoming.strain<strainCount?incoming.strain:-1;
+ const tent=Number.isInteger(incoming?.tent)&&incoming.tent>=-1&&incoming.tent<=7?incoming.tent:-1;
+ const stock=['carried','stored'].includes(incoming?.stock)?incoming.stock:stockDefault;
+ return {strain,tent,stock};
+}
 export function staffAssignment(role,config,products){
  const product=config.strain>=0?products[config.strain]?.name||'Unknown product':'Any product';
  return product+' · '+(role==='gardener'?(config.tent>=0?'Tent '+(config.tent+1):'All installed tents'):(config.stock==='stored'?'Stockroom packs':'Carried packs'));
