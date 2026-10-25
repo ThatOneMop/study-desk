@@ -13,3 +13,20 @@ test('dialogs block game shortcuts',()=>{const d=boot();d.click('#help');d.w.doc
 test('every action exposes exact previews without mutating save on focus',()=>{const d=boot();d.click('[data-action=hook]');d.click('[data-action=up]');const before=d.w.localStorage.getItem(key),b=d.$('[data-action=left]');assert.match(b.title,/Balance -2, swing 2/);assert.match(b.querySelector('small').textContent,/B -2 · S 2/);b.focus();assert.match(d.$('#forecast').textContent,/Balance -2, swing 2/);assert.equal(d.w.localStorage.getItem(key),before);d.click('[data-action=left]');assert.equal(d.$('#balance').textContent,'-2');assert.match(d.$('#landing').textContent,/L2 level 0/);d.close();});
 test('unsafe controls have a visible warning before an overload',()=>{const d=boot();for(const a of ['hook','up','left','left'])d.click(`[data-action=${a}]`);assert.equal(d.$('[data-action=left]').dataset.risk,'danger');assert.match(d.$('[data-action=left]').title,/OVERLOAD/);d.close();});
 test('ballast keys move physical weight opposite the load to reduce torque',()=>{const d=boot();for(const a of ['hook','up','left','left','ballastRight'])d.click(`[data-action=${a}]`);assert.equal(d.$('#balance').textContent,'-1');assert.equal(d.$('#ballast').textContent,'1');d.close();});
+
+const cradles=require('./fixtures/counterweight-cradles.json');
+for(const r of cradles)test('cradle DOM campaign '+(r.job+1),()=>{
+ let v=E.blank();for(let i=0;i<r.job;i++)v=E.record(v,E.replay(i,routes[i].actions));v.current={job:r.job,actions:[]};const d=boot(JSON.stringify(v));
+ for(const a of r.actions)d.click(`[data-action=${a}]`);
+ assert.match(d.$('#result').textContent,/Everything in its place/);assert.equal(d.saved().records[r.job].medals,3);assert.equal(d.saved().records[r.job].moves,r.moves);assert.match(d.$('#rigging').textContent,r.job===0?/1 \/ 2/:/0 \/ 2/);assert.equal(d.w.localStorage.getItem('other-game'),'keep');d.close();
+});
+test('cradle keyboard setup, exact warning, carried reload and scoped restart',()=>{
+ const d=boot(),press=key=>d.w.document.dispatchEvent(new d.w.KeyboardEvent('keydown',{key,bubbles:true}));
+ press('c');assert.equal(d.$('#rig').getAttribute('aria-pressed'),'true');assert.match(d.$('#rigging').textContent,/2 \/ 2.*ready/);assert.match(d.$('#landing').textContent,/safe swing ≤5.*carried 3t/);
+ press(' ');press('w');press('a');assert.match(d.$('#scene').getAttribute('aria-label'),/padded cradle/);assert.match(d.$('[data-action=left]').title,/OVERLOAD/);assert.match(d.$('#rigging').textContent,/1 \/ 2.*carried/);
+ const raw=d.w.localStorage.getItem(key);press('c');assert.equal(d.w.localStorage.getItem(key),raw);d.close();
+ const e=boot(raw);assert.match(e.$('#scene').getAttribute('aria-label'),/padded cradle/);assert.match(e.$('#landing').textContent,/carried 3t/);e.click('#restart');e.click('#cancel');assert.equal(e.w.localStorage.getItem(key),raw);e.click('#restart');e.click('#accept');assert.match(e.$('#rigging').textContent,/2 \/ 2/);assert.equal(e.saved().current.actions.length,0);assert.equal(e.w.localStorage.getItem('other-game'),'keep');e.close();
+});
+test('tap-style cradle control and undo return reservation without spending supply',()=>{
+ const d=boot();d.click('#rig');d.click('#hook');assert.match(d.$('#rigging').textContent,/1 \/ 2/);d.click('#undo');assert.match(d.$('#rigging').textContent,/2 \/ 2.*ready/);assert.equal(d.$('#rig').getAttribute('aria-pressed'),'true');d.click('#rig');assert.equal(d.$('#rig').getAttribute('aria-pressed'),'false');d.click('#help');d.w.document.dispatchEvent(new d.w.KeyboardEvent('keydown',{key:'c',bubbles:true}));assert.equal(d.$('#rig').getAttribute('aria-pressed'),'false');assert.match(d.$('#guide').textContent,/one tonne more/);d.close();
+});
