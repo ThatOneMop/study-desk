@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 9,
+    "built": 10,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -414,21 +414,35 @@
     },
     {
       "slot": 50,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "tumbleglass",
+      "title": "Tumbleglass",
+      "coreLoop": "Tilt a tray to slide multiple beads; matching sockets lock beads into obstacles, making settling order matter. Undo, solve and optimize tilt counts.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/tumbleglass",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "4 engine tests: sequential campaign, exact journal saves/reload, undo/records, exhaustive reachable boards (8/32/37), shortest paths (3/5/5), collisions/locking/no-ops and invalid saves.",
+        "3 jsdom 26.1.0 tests: UI campaign and every-tilt reload, navigation markup, arrow/form focus guards, undo/retry, pause/parent hide, isolated reset, corrupt recovery and storage failure. Dialogs simulated.",
+        "Both scripts pass syntax checks. No rendered/browser/mobile/native-input/enjoyment claim. Full repository checks not run from partial checkout."
+      ],
+      "commits": [
+        "0c67d045d33c8170dd461e5b66a08d3507857ef8"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three small initial puzzles with shortest routes of 3/5/5 tilts. Depth, settling-order readability and physical touch need review; no hours claim."
+      },
+      "nextSteps": [
+        "Play all trays naturally in a rendered desktop/touch browser and inspect screenshots.",
+        "Implement a substantial playtest-led upgrade to depth and feedback, then verify saves/restart/navigation before selection."
+      ]
     },
     {
       "slot": 51,
@@ -1153,8 +1167,8 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all nine third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement the remaining 41 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all ten third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 40 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -1273,6 +1287,12 @@
       "commit": "882241479028fb664a192b21b05550312ba78e01",
       "result": "Beepline conditional Scout commands and backward playback implemented. 15 engine/DOM tests pass, all legacy programs retain outcomes, conditional routes complete every garden and v1 saves remain compatible. Counts unchanged: 9 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing policy blocker unchanged; not retried or bypassed. No rendered verification or public release."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "0c67d045d33c8170dd461e5b66a08d3507857ef8",
+      "result": "Tumbleglass slot 50 implemented: simultaneous bead sliding, locking sockets, three trays, unlimited undo, best records and replay-validated saves. Seven engine/DOM tests pass. Third batch: 10 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing policy blocker unchanged; not retried or bypassed. No rendered credit."
     }
   ]
 }
