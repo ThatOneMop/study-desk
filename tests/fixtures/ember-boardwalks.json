@@ -1,0 +1,214 @@
+[
+  {
+    "level": 0,
+    "actions": [
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "gather",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 3
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "bridge",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 0
+      },
+      {
+        "type": "move",
+        "dir": 0
+      }
+    ]
+  },
+  {
+    "level": 1,
+    "actions": [
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "gather",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 0
+      },
+      {
+        "type": "bridge",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 0
+      },
+      {
+        "type": "move",
+        "dir": 0
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "actions": [
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "gather",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 3
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "bridge",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 0
+      },
+      {
+        "type": "move",
+        "dir": 0
+      }
+    ]
+  },
+  {
+    "level": 3,
+    "actions": [
+      {
+        "type": "gather",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "bridge",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 1
+      },
+      {
+        "type": "move",
+        "dir": 2
+      },
+      {
+        "type": "move",
+        "dir": 0
+      },
+      {
+        "type": "move",
+        "dir": 0
+      },
+      {
+        "type": "move",
+        "dir": 0
+      }
+    ]
+  }
+]
