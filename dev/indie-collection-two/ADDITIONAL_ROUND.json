@@ -20,13 +20,16 @@
       "slot": 22,
       "id": "counterweight",
       "title": "Counterweight",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Play current core loop, implement substantial new upgrade, verify and record; initial passes excluded."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis only: five fixed manifests allow movement and ballast decisions but no cargo-specific equipment allocation. No new rendered observation while browser access is blocked.",
+      "before": "Every load uses its fixed swing tolerance and bare weight; only hoist, ballast and settling actions soften landings.",
+      "after": "Two expendable padded cradles per job can be prepared at the dock. Each adds three safe swing and one tonne while carried, consumes a supply on pickup and leaves on delivery. Exact forecasts, carried-weight/tolerance advice, keyboard C, tap-sized control and original cradle outline expose the tradeoff. Existing journals and records retain outcomes.",
+      "implementationCommit": "66e77e8d2e7a50acab5e99228cd92be17d958f63",
+      "testing": [
+        "32 engine + 24 jsdom checks pass: all five original three-medal jobs unchanged; five separate cradle routes complete with exact forecast and per-action save roundtrips. Route move counts 17/39/45/53/63 versus old 17/38/46/51/63 show equipment is not uniformly better. Stock exhaustion, invalid use, bounded protection, extra-weight overload/loss/undo, progression, records, reload, keyboard and scoped restart checked.",
+        "JavaScript syntax passes. DOM clicks/keys/dialogs are simulated; no rendered play, screenshot inspection, physical touch or human enjoyment evidence. Full repository checks were not run from the partial checkout."
+      ],
+      "remaining": "Perform supported rendered before/after play, assess controls, mobile layout and balance, iterate from observed weakness, then verify progression/loss/retry, saves, restart/navigation and inspect screenshots before counting."
     },
     {
       "slot": 23,

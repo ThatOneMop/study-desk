@@ -142,7 +142,8 @@
       "initialCommit": "922d502a8e59c5df7637e008e10802f7f2faea26",
       "developmentCommits": [
         "922d502a8e59c5df7637e008e10802f7f2faea26",
-        "a7f25641eb9a7957a35d580c3d905066234a32ee"
+        "a7f25641eb9a7957a35d580c3d905066234a32ee",
+        "66e77e8d2e7a50acab5e99228cd92be17d958f63"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain as a finished development candidate. Compare against the wider second-batch slate before public selection; it adds physical load-balancing and manual control distinct from Reefwright spatial ecology.",
@@ -156,6 +157,21 @@
           "style.css": "63d2758bc3115eb971b7f2169e254cc5bb54cf9486ef0f42c0851704cf0e4778",
           "index.html": "7246d063bb0d27f8b4d4991dd907ba2df7d87ead2b69a032f2b92cb512577e52"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 22,
+        "id": "counterweight",
+        "title": "Counterweight",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis only: five fixed manifests allow movement and ballast decisions but no cargo-specific equipment allocation. No new rendered observation while browser access is blocked.",
+        "before": "Every load uses its fixed swing tolerance and bare weight; only hoist, ballast and settling actions soften landings.",
+        "after": "Two expendable padded cradles per job can be prepared at the dock. Each adds three safe swing and one tonne while carried, consumes a supply on pickup and leaves on delivery. Exact forecasts, carried-weight/tolerance advice, keyboard C, tap-sized control and original cradle outline expose the tradeoff. Existing journals and records retain outcomes.",
+        "implementationCommit": "66e77e8d2e7a50acab5e99228cd92be17d958f63",
+        "testing": [
+          "32 engine + 24 jsdom checks pass: all five original three-medal jobs unchanged; five separate cradle routes complete with exact forecast and per-action save roundtrips. Route move counts 17/39/45/53/63 versus old 17/38/46/51/63 show equipment is not uniformly better. Stock exhaustion, invalid use, bounded protection, extra-weight overload/loss/undo, progression, records, reload, keyboard and scoped restart checked.",
+          "JavaScript syntax passes. DOM clicks/keys/dialogs are simulated; no rendered play, screenshot inspection, physical touch or human enjoyment evidence. Full repository checks were not run from the partial checkout."
+        ],
+        "remaining": "Perform supported rendered before/after play, assess controls, mobile layout and balance, iterate from observed weakness, then verify progression/loss/retry, saves, restart/navigation and inspect screenshots before counting."
       }
     },
     {
@@ -1379,11 +1395,11 @@
     }
   ],
   "nextSteps": [
-    "Windup kits implemented but NOT additional-round verified: resume permitted rendered review before counting. Additional round remains 6/20.",
-    "Complete all fourteen remaining second-batch additional upgrades before final slate selection; initial Windup rival work does not count twice.",
-    "Preserve concurrent main at 432a0d75bd44e3c43975b8d11ae683fa0d7e2325; this increment edits only Windup source/tests and second-batch development records. No main integration.",
-    "Continue third-batch exactly 50 new games on indie-collection-three-dev; current 50-slot ledger still zero built/improved/tested/integrated/live.",
-    "Use existing workspace-control/publication audit on main b311b35; do not repeat unchanged publishing failure as progress."
+    "Additional round remains 6/20 verified. Counterweight cradles, Pocket Palaeo jackets, Tea half measures and Windup kits have pending source upgrades; each still needs supported rendered review and observed iteration before credit.",
+    "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
+    "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
+    "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
+    "Use the existing workspace-control/publication audit on main b311b35; do not repeat unchanged publishing failures or work around the browser policy block."
   ],
   "baselineTestLimitations": [
     {
@@ -1687,9 +1703,17 @@
       "tests": "434 engine + 293 DOM; all three preservation gates pass",
       "publicIntegration": null,
       "blocker": "Cloud browser URL/security policy rejected preview observation; no workaround attempted. Not fully blocked: development source and tests preserved."
+    },
+    {
+      "date": "2026-10-25",
+      "result": "Counterweight padded cradle source upgrade preserved; additional round remains 6/20 pending rendered review. Third batch unchanged at six built prototypes.",
+      "gameplayCommit": "66e77e8d2e7a50acab5e99228cd92be17d958f63",
+      "tests": "32 engine + 24 jsdom checks; syntax checks pass. No full repository or rendered suite.",
+      "publicIntegration": null,
+      "nextSteps": "Supported rendered before/after observation and balance iteration required; continue independent remaining development."
     }
   ],
-  "latestObservedMain": "432a0d75bd44e3c43975b8d11ae683fa0d7e2325",
+  "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",

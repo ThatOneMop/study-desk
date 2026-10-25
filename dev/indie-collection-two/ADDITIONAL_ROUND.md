@@ -3,7 +3,7 @@
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
 - [ ] 21. Reefwright
-- [ ] 22. Counterweight
+- [ ] 22. Counterweight — padded cradles implemented in `66e77e8d2e7a50acab5e99228cd92be17d958f63`; 56 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 23. Lanternwake
 - [ ] 24. Copper Cadence
 - [ ] 25. Hollow Keeper
