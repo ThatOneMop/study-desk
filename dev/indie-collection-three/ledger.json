@@ -346,12 +346,13 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "5 engine tests pass: three authored winning routes, exact forecasts and save replay, unlocks, energy, blocked moves, water/rock/occupied shoves, retaliation, loss/retry and malformed saves.",
-        "4 jsdom 26.1.0 tests pass: campaign controls and next-bank navigation, forecasts, reload, keyboard/pause/confirm guards, reset isolation, unreadable-save recovery, quota failure and parent hide messages. Dialog methods are simulated.",
-        "Both gameplay scripts pass syntax checks. No rendered, screenshot, actual touch/native keyboard activation or human-enjoyment evidence. Full repository checks not run from partial checkout."
+        "9 engine tests pass: all original routes and saves, three hook-assisted routes with exact forecasts/reloads, hook energy/retreat constraints, other-beetle retaliation, loss/retry, records and malformed saves.",
+        "6 jsdom 26.1.0 tests pass: original and hook campaigns, button/H-key selection, previews, reload, pause/confirmation/bridge guards, reset isolation, unreadable recovery and quota failures. Dialogs simulated.",
+        "Both gameplay scripts pass syntax checks. No rendered/browser, screenshot, actual touch/native keyboard activation or human-enjoyment evidence. Full repository checks not run from partial checkout."
       ],
       "commits": [
-        "cfd3d84885b77c5ea8968e8adf636d571dc64b3d"
+        "cfd3d84885b77c5ea8968e8adf636d571dc64b3d",
+        "8bca0da32edd592e13e4a498b2e33a9ab1594eda"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -362,7 +363,14 @@
       "nextSteps": [
         "Play each bank naturally in a rendered desktop/touch browser; inspect movement, shove feedback, enemy priorities and whole-turn previews.",
         "Implement a substantive improvement based on observed play, verify progression/loss/retry/saves/restart/navigation and screenshots before catalogue selection."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
+        "basis": "Source/engine inspection; rendered playtesting remains blocked.",
+        "before": "Only walking and forward dash shoves were possible. Players could not directly draw beetles away from an obstacle.",
+        "after": "Hook costs one energy to pull an adjacent beetle into the ranger's old square while retreating one square onto free land. Only the hooked beetle skips its response. The choice competes with saving two energy for dashing; whole-turn forecasts include all responses.",
+        "remaining": "Rendered desktop/touch play, screenshot inspection, balance/clarity assessment and substantive playtest-led improvement remain required."
+      }
     },
     {
       "slot": 49,
@@ -1225,6 +1233,12 @@
       "commit": "cfd3d84885b77c5ea8968e8adf636d571dc64b3d",
       "result": "Built Reedbreaker slot 48: tactical walking, energy-limited dashes, beetle shoves, three banks, turn forecasts, safe saves and records. Nine engine/DOM tests pass. Third batch: 8 built; 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendered-preview policy blocker unresolved; no retry or workaround. No rendered completion credit."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
+      "result": "Reedbreaker reed-hook repositioning implemented. 15 engine/DOM tests pass; original routes unchanged and hook routes clear all three banks. Counts remain 8 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing policy blocker unchanged; no retry or workaround, no rendered credit."
     }
   ]
 }
