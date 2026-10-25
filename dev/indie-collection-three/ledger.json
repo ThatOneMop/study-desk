@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 5,
+    "built": 6,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -253,21 +253,36 @@
     },
     {
       "slot": 46,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "bramble-dice",
+      "title": "Bramble Dice",
+      "coreLoop": "Keep or reroll four dice, allocate every die to attack, guard or repair against visible enemy intents, then choose stacking equipment between woodland encounters.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/bramble-dice",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "6 engine tests pass: 15 seeded wins using all three equipment focuses, exact replay/reload, kept dice and reroll limits, damage/repair/thorn forecasts, natural loss/retry, records and corrupt-save rejection.",
+        "4 jsdom tests pass: three equipment routes through DOM controls, reload, setup/focus and native-key behavior, loss/retry, pause/help/reset, corruption recovery and storage failure. Dialog methods are simulated.",
+        "JavaScript syntax, local assets, navigation target references, hidden-state CSS and exclusion from main catalogue checked. No full repository build from the partial checkout.",
+        "No rendered browser, inspected screenshot, touch or human enjoyment evidence. No improvement-pass credit or public integration."
+      ],
+      "commits": [
+        "53da98cfae1c9620d8f1612ce1e7185d235dcc52"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three authored encounters with changing intent cycles. Automated winning routes take 6–10 turns for the sampled seeds/equipment; dice-seed variation is not additional authored content. No playtime or enjoyment claim."
+      },
+      "nextSteps": [
+        "Play the actual rendered loop on desktop and touch; assess dice pinning, exact forecast readability, equipment tradeoffs and progression depth.",
+        "Implement a substantive improvement based on observed play, verify natural progression/loss/retry/saves/restart/navigation and inspect screenshots before integration."
+      ]
     },
     {
       "slot": 47,
@@ -1064,8 +1079,8 @@
   ],
   "nextSteps": [
     "Complete fourteen remaining second-batch additional upgrades; Windup implementation awaits rendered review.",
-    "Render/play Stencil Studio, Moon Dial, Pebble Rink Pocket Regatta and Crate & Cushion and complete substantive improvement passes before selection.",
-    "Implement remaining 45 distinct third-batch games incrementally, keeping unfinished entries unlisted."
+    "Render/play all six third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement the remaining 44 distinct third-batch games incrementally, keeping unfinished entries unlisted."
   ],
   "updated": "2026-10-25",
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
@@ -1136,6 +1151,12 @@
       "commit": "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
       "result": "Crate & Cushion care goals, protection forecasts and parcel recall implemented; 13 engine/DOM tests pass. Counts remain 5 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing browser-policy blocker unresolved; no workaround or rendered claim."
+    },
+    {
+      "date": "2026-10-25",
+      "commit": "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
+      "result": "Bramble Dice slot 46 implemented; 10 engine/DOM checks pass. 6/50 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing browser-policy blocker unresolved. No workaround or new rendered claim."
     }
   ]
 }
