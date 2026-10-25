@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 10,
+    "built": 11,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -455,21 +455,35 @@
     },
     {
       "slot": 51,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "soundings",
+      "title": "Soundings",
+      "coreLoop": "Place sonar buoys, combine distances to the nearer of two hidden beacons, and choose when to spend scarce fuel on recoveries; notebook deductions narrow possible pairs.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/soundings",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "6 engine tests pass: all 300 beacon pairs solved within fuel using only visible-evidence policy; 100 seeded three-sector campaigns; nearest readings and true-pair retention; loss/retry/new voyage; duplicates and invalid inputs; owned journals; decode/unlock/record validation.",
+        "4 jsdom 26.1.0 tests pass: UI campaigns using known targets, certainty labels, saves/reload, navigation markup, loss/retry/new voyage, pause/dialog/parent guards, isolated reset, corrupt recovery and quota failure. Dialog APIs simulated.",
+        "Both scripts pass syntax checks. No rendered play, screenshots, native keyboard/touch, mobile-layout or enjoyment claim. Full repository checks not run from partial checkout."
+      ],
+      "commits": [
+        "53b115faa06a46e8b7512a6f1cae13caa5e964b8"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three sectors share the same rule set with distinct deterministic placements. Compact deduction loop; chart counts are not authored content. Casual records across charts/retries are not competitive scores. Notebook clarity, fuel tension and replay enjoyment need natural play."
+      },
+      "nextSteps": [
+        "Naturally play on desktop/touch and inspect screenshots, especially nearest-beacon ambiguity and notebook certainty feedback.",
+        "Implement a substantive playtest-led improvement; verify loss/retry, saves/reload, restart and launch/navigation before catalogue selection."
+      ]
     },
     {
       "slot": 52,
@@ -1176,8 +1190,8 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all ten third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 40 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all eleven third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 39 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
   "latestObservedMain": "dc88f09cfb30cae92e3f0e9afe65cd2f7ddaf4f7",
@@ -1308,6 +1322,12 @@
       "commit": "a32f7119573ed337e270ac68279d41ff0219ff18",
       "result": "Tumbleglass single-use clamp implemented; 11 engine/DOM tests pass, legacy and three distinct assisted routes solve all trays. Counts unchanged: 10 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Rendering blocker not retried or bypassed. New main publication run 40236385785 passes route checks but fails Configure GitHub Pages before upload/deploy."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "53b115faa06a46e8b7512a6f1cae13caa5e964b8",
+      "result": "Built Soundings slot 51: nearest-beacon sonar deduction, candidate notebook, fuel-limited salvage, loss/retry, changing charts and safe saves. Ten engine/DOM tests pass, including all 300 target pairs. Third batch: 11 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering blocker unchanged; not retried or bypassed. No rendered credit or public release."
     }
   ]
 }
