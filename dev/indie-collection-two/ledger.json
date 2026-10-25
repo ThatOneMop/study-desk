@@ -1235,7 +1235,8 @@
       "developmentCommits": [
         "07293192e3077669d4ce7487d07047cfe02eb18a",
         "e3d85c8aea11d14934aecfa0cb34899019f0ccf4",
-        "61d1c8d4b2820e83cc8144a3374de6ee358432ed"
+        "61d1c8d4b2820e83cc8144a3374de6ee358432ed",
+        "736f0982041f909c218328e06edcf2b1bda7865d"
       ],
       "verification": {
         "commit": "61d1c8d4b2820e83cc8144a3374de6ee358432ed",
@@ -1248,6 +1249,21 @@
           "index.html": "61cc6f70b58ab031792ea8ea05c5da2f19268b216c79c2cb6a35b5aaadb3da4a",
           "engine.js": "9c18c884ec2088a70a5f53d4dc97c5e926fe562551940901612e866bfeb0bb9a"
         }
+      },
+      "pendingAdditionalUpgrade": {
+        "slot": 38,
+        "id": "ember-parcel",
+        "title": "Ember Parcel",
+        "status": "implemented-awaiting-rendered-review",
+        "observedWeakness": "Source-based hypothesis: packed timber has only one use, stoking; garden avoidance and water routes cannot be improved by spending carried supplies. No new rendered observation while preview access is blocked.",
+        "before": "Packed kindling only restores warmth. Walking on gardens burns them; water costs four warmth, or two with cloak.",
+        "after": "Boardwalk mode spends one packed bundle and one warmth to cover adjacent water or a garden without moving. Crossings persist for the journey, cost one warmth to walk on and protect gardens from steps and flares. This competes with stoking for four warmth. V shortcut, mutually exclusive modes, labelled map tiles and undo/replay saves expose the choice.",
+        "implementationCommit": "736f0982041f909c218328e06edcf2b1bda7865d",
+        "testing": [
+          "17 engine + 9 jsdom checks pass. All four original routes remain valid; four new earned-boardwalk routes finish with zero burned gardens, with per-action save roundtrips. Construction costs, invalid targets, exhausted resources, zero-warmth loss/recovery, flare protection, undo/retry and records are checked.",
+          "DOM checks include four boardwalk deliveries, V shortcut, mode exclusivity, construction reload, pause, retry confirmation, navigation markup and existing scoped save recovery/reset. Syntax checks pass. No rendered review, screenshot inspection, actual touch, human enjoyment or full-repository test claim."
+        ],
+        "remaining": "Perform supported rendered before/after play, inspect phone controls and boardwalk readability, evaluate fuel versus construction choices and iterate. Verify progression/loss/retry, saves, restart/navigation and screenshots before counting."
       }
     },
     {
@@ -1411,7 +1427,7 @@
     }
   ],
   "nextSteps": [
-    "Additional round remains 6/20 verified. Last Lighthouse prism, Counterweight cradles, Pocket Palaeo jackets, Tea half measures and Windup kits are implemented pending supported rendered review and observed iteration.",
+    "Additional round remains 6/20 verified. Ember boardwalks, Lighthouse prism, Counterweight cradles, Palaeo jackets, Tea half measures and Windup kits have source upgrades pending supported rendered review and observed iteration.",
     "Complete the fourteen remaining second-batch additional passes, compare the full slate, and integrate selected upgrades without overwriting concurrent initial catalogue entries.",
     "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
     "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
@@ -1735,6 +1751,13 @@
       "publicIntegration": null,
       "blocker": "Rendered preview security-policy block unchanged; source work continued without alternative browser or CI rendering.",
       "nextSteps": "Perform supported rendered before/after play, inspect desktop/phone readability and controls, assess the new routing/resource choice and iterate. Verify progression, loss/retry, saves, restart/navigation and screenshots before credit."
+    },
+    {
+      "date": "2026-10-25",
+      "gameplayCommit": "736f0982041f909c218328e06edcf2b1bda7865d",
+      "result": "Ember Parcel boardwalks implemented; 26 engine/DOM checks pass. Additional-round verification remains 6/20; no new catalogue integration or live release.",
+      "publicIntegration": null,
+      "nextSteps": "Perform supported rendered before/after play, inspect phone controls and boardwalk readability, evaluate fuel versus construction choices and iterate. Verify progression/loss/retry, saves, restart/navigation and screenshots before counting."
     }
   ],
   "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",

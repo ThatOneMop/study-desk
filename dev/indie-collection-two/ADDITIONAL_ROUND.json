@@ -261,13 +261,16 @@
       "slot": 38,
       "id": "ember-parcel",
       "title": "Ember Parcel",
-      "status": "pending",
-      "observedWeakness": null,
-      "before": null,
-      "after": null,
-      "implementationCommit": null,
-      "testing": [],
-      "remaining": "Initial kindling pass and native desktop/touch verification complete. Play the improved game and implement a distinct substantial additional-round upgrade; none counted yet."
+      "status": "implemented-awaiting-rendered-review",
+      "observedWeakness": "Source-based hypothesis: packed timber has only one use, stoking; garden avoidance and water routes cannot be improved by spending carried supplies. No new rendered observation while preview access is blocked.",
+      "before": "Packed kindling only restores warmth. Walking on gardens burns them; water costs four warmth, or two with cloak.",
+      "after": "Boardwalk mode spends one packed bundle and one warmth to cover adjacent water or a garden without moving. Crossings persist for the journey, cost one warmth to walk on and protect gardens from steps and flares. This competes with stoking for four warmth. V shortcut, mutually exclusive modes, labelled map tiles and undo/replay saves expose the choice.",
+      "implementationCommit": "736f0982041f909c218328e06edcf2b1bda7865d",
+      "testing": [
+        "17 engine + 9 jsdom checks pass. All four original routes remain valid; four new earned-boardwalk routes finish with zero burned gardens, with per-action save roundtrips. Construction costs, invalid targets, exhausted resources, zero-warmth loss/recovery, flare protection, undo/retry and records are checked.",
+        "DOM checks include four boardwalk deliveries, V shortcut, mode exclusivity, construction reload, pause, retry confirmation, navigation markup and existing scoped save recovery/reset. Syntax checks pass. No rendered review, screenshot inspection, actual touch, human enjoyment or full-repository test claim."
+      ],
+      "remaining": "Perform supported rendered before/after play, inspect phone controls and boardwalk readability, evaluate fuel versus construction choices and iterate. Verify progression/loss/retry, saves, restart/navigation and screenshots before counting."
     },
     {
       "slot": 39,
