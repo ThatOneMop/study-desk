@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {remoteWorkerStatus,staffAssignment,workerAdvice} from '../dist/staff-status.mjs';
+import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from '../dist/staff-status.mjs';
 assert.equal(remoteWorkerStatus({status:'Carrying supplies'},true,100),'Carrying supplies');
 assert.equal(remoteWorkerStatus({status:'Route blocked'},true,5000),'Route blocked');
 assert.equal(remoteWorkerStatus({status:'<script>bad</script>'},true,10),'Awaiting host status');
@@ -18,4 +18,11 @@ assert.equal(workerAdvice('Route blocked').target,'craft');
 assert.equal(workerAdvice('Host update stale').screen,'network');
 assert.match(workerAdvice('Assignment paused').text,/retained/);
 assert.match(workerAdvice('Station occupied').text,/Finish or cancel/);
+assert.deepEqual(normalizeStaffRole('crafter',undefined,6),{strain:-1,tent:-1,stock:'stored'});
+assert.deepEqual(normalizeStaffRole('gardener',undefined,6).stock,'carried');
+assert.deepEqual(normalizeStaffRole('seller',{},6).stock,'carried');
+assert.deepEqual(normalizeStaffRole('crafter',{stock:'carried',strain:2,tent:9},6),{strain:2,tent:-1,stock:'carried'});
+assert.equal(normalizeStaffRole('crafter',{stock:'nope'},6).stock,'stored');
+assert.equal(normalizeStaffRole('seller',{stock:'stored',strain:1},6).stock,'stored');
 console.log('PASS: authoritative/stale/legacy worker status, safe fixed advice, current assignment summaries and full-stock/cargo guidance.');
+console.log('PASS: new gummy makers walk the workshop; explicit carried or stored choices and other roles stay as saved.');

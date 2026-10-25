@@ -1,6 +1,12 @@
-# Gummy Bay v121
+# Gummy Bay v122
 
-The playable game in `games/gummy-bay/` is the v121 web build (`dist/` from the ChatGPT export). Study Desk still opens it at `games/gummy-bay/index.html`. The Study Desk bridge script is included before `game.js`, which the exported `index.html` did not contain. Save keys stay `gummybay-v3-{story|free}-{1|2|3}`.
+The playable game in `games/gummy-bay/` is the v121 export plus the v122 simulation and workshop-staff pass. Study Desk still opens it at `games/gummy-bay/index.html`. Entry script is `game.js?v=122`. Save keys stay `gummybay-v3-{story|free}-{1|2|3}` and the save version stays 3.
+
+v122 runs the world in fixed 1/60 second steps. One real second matches at 30 FPS and 120 FPS. A hitch catches up at most a quarter second instead of freezing the clock, movement, police and workers at 60 ms. A new gummy maker walks the workshop. A save that already chose carried or stored stock keeps that choice. Gardening and selling stay on their timers. See `games/gummy-bay-dev/docs/overhaul-v122.md`.
+
+## v121 import
+
+The playable files began as the v121 web build (`dist/` from the ChatGPT export). Study Desk still opens it at `games/gummy-bay/index.html`. The Study Desk bridge script is included before `game.js`, which the exported `index.html` did not contain. Save keys stay `gummybay-v3-{story|free}-{1|2|3}`.
 
 Blender files, the v121 test suite, and the version notes live in `games/gummy-bay-dev/`. `games/gummy-bay-dev/dist` points at the playable folder so those tests keep their `../dist` imports. GitHub Pages excludes `games/gummy-bay-dev/` so the Blender sources and evidence images are not part of the site upload.
 
