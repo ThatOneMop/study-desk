@@ -1,0 +1,70 @@
+[
+  {
+    "level": 0,
+    "actions": [
+      "rescue",
+      {
+        "type": "prism",
+        "x": 2,
+        "y": 0
+      },
+      0,
+      "signal",
+      1,
+      "signal",
+      "charge",
+      0,
+      1,
+      1,
+      4,
+      4,
+      "signal"
+    ]
+  },
+  {
+    "level": 1,
+    "actions": [
+      "rescue",
+      {
+        "type": "prism",
+        "x": 1,
+        "y": 0
+      },
+      0,
+      "signal",
+      1,
+      "signal",
+      "charge",
+      2,
+      2,
+      3,
+      3,
+      "signal"
+    ]
+  },
+  {
+    "level": 2,
+    "actions": [
+      "rescue",
+      {
+        "type": "prism",
+        "x": 2,
+        "y": 2
+      },
+      0,
+      2,
+      3,
+      "signal",
+      2,
+      2,
+      3,
+      3,
+      "signal",
+      "charge",
+      0,
+      4,
+      4,
+      "signal"
+    ]
+  }
+]
