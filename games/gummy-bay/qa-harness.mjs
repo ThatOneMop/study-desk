@@ -86,8 +86,7 @@ function segmentHits(x,z,tx,tz,box){
  }
  return t0<=t1&&t1>=0&&t0<=1;
 }
-function approachBlocked(x,z,id){
- const [tx,tz]=NODES[id];
+function lineBlocked(x,z,tx,tz){
  for(const shell of SHELLS){
   if(inBox(x,z,shell))continue;
   if(!segmentHits(x,z,tx,tz,shell))continue;
@@ -96,6 +95,7 @@ function approachBlocked(x,z,id){
  }
  return false;
 }
+function approachBlocked(x,z,id){const [tx,tz]=NODES[id];return lineBlocked(x,z,tx,tz);}
 function routePoints(x,z,place){
  const goal=PLACE_NODE[place];
  if(!goal)return [];
@@ -114,18 +114,24 @@ function routePoints(x,z,place){
  if(!best){const shell=SHELLS.find(item=>item.nodes.includes(goal));return shell?[shell.plaza]:[];}
  const path=best.map(id=>NODES[id]);
  let i=0;
- while(i<path.length-1&&Math.hypot(x-path[i][0],z-path[i][1])<2.2)i++;
- if(i<path.length-1&&Math.hypot(x-path[i+1][0],z-path[i+1][1])+1<Math.hypot(x-path[i][0],z-path[i][1]))i++;
+ while(i<path.length-1){
+  const [ax,az]=path[i],[bx,bz]=path[i+1];
+  const near=Math.hypot(x-ax,z-az)<2.2;
+  const abx=bx-ax,abz=bz-az,len2=abx*abx+abz*abz;
+  const t=len2?((x-ax)*abx+(z-az)*abz)/len2:0;
+  if(!(near||(t>0.15&&!lineBlocked(x,z,bx,bz))))break;
+  i++;
+ }
  return path.slice(i);
 }
 // Shop shells are solid except the front door. Leave through that door.
 function buildingExit(x,z,place){
- if(x>-35&&x<-15&&z>12&&z<27&&place!=='reception')return [-25,28.4];
- if(x>-35&&x<-15&&z>31&&z<50&&!['tent','sink','craft'].includes(place))return [-25,52];
- if(x>-35&&x<-13&&z<-13.5&&z>-33&&place!=='hardware')return [-24,-11.6];
- if(x>15&&x<35&&z>13&&z<32&&place!=='dealer')return [25,34.2];
- if(x>13&&x<35&&z<-15.5&&z>-35&&place!=='store')return [24,-12.4];
- if(x>-63&&x<-43&&z<-15.5&&z>-35&&place!=='helpers')return [-53,-11.6];
+ if(inBox(x,z,SHELLS[1])&&place!=='reception')return SHELLS[1].plaza;
+ if(inBox(x,z,SHELLS[0])&&!['tent','sink','craft'].includes(place))return SHELLS[0].plaza;
+ if(inBox(x,z,SHELLS[2])&&place!=='hardware')return SHELLS[2].plaza;
+ if(inBox(x,z,SHELLS[3])&&place!=='dealer')return SHELLS[3].plaza;
+ if(inBox(x,z,SHELLS[4])&&place!=='store')return SHELLS[4].plaza;
+ if(inBox(x,z,SHELLS[5])&&place!=='helpers')return SHELLS[5].plaza;
  return null;
 }
 // The payphone booth blocks the straight line east of the camper door.

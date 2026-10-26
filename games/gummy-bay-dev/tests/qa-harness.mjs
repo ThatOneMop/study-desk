@@ -48,6 +48,13 @@ assert.ok(besideRoom.aim&&(besideRoom.aim.x>-14||besideRoom.aim.z>49),'Room 04 t
 const indoors=createDayDirector();
 const atBench=indoors.intent(world({x:-24,z:40,installed:false}));
 assert.ok(atBench.aim&&atBench.aim.x<-24,'inside Room 04 the install walk continues to the tent');
+const leaving=createDayDirector();
+const pastLane=leaving.intent(world({x:-7.9,z:18.6,tents:0}));
+assert.equal(pastLane.phase,'buyTent');
+assert.ok(pastLane.aim&&pastLane.aim.z<10,'east of Palm Court the hardware walk continues to the road');
+const corner=createDayDirector();
+const outsideWall=corner.intent(world({x:-15.6,z:26.6,tents:0}));
+assert.ok(outsideWall.aim&&outsideWall.aim.x>-16,'the Palm Court corner does not aim back through the wall');
 
 const rich=createDayDirector();
 const hireSnap=world({level:3,cash:700,xp:60,sold:12,harvested:12,policeReport:true,reach:true});
