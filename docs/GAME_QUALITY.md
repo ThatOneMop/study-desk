@@ -27,10 +27,10 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Autumn Drift | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass | pass | pass |
 | Underleaf | pass | pass | pass | pass | pass | fail | pass | pass | pass | fail | pass | pass |
 | Little Lake | pass | pass | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass |
-| Lost & Found | pass | fail | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Lost & Found on the Moon | pass | pass | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass |
+| Lost & Found | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Lost & Found on the Moon | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | After Hours | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Tiny Wilds | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass | pass |
+| Tiny Wilds | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lucky Company | pass | pass | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass |
 | Forge Arena | pass | fail | pass | pass | fail | pass | pass | pass | pass | pass | pass | pass |
 | Tidepost | pass | fail | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
@@ -96,7 +96,10 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Lanternwake, Paper Odyssey, and Reefwright gained a title gate, pause, sound, shake, and particles, and an easier first stage.
 - Tiny Wilds’ first reel is wider and slower. Afterlight and Nightshift use a shorter first chapter on screens at most 600px wide, and their embedded Back button returns to the Study Desk catalogue.
 - Forge Arena uses the 3D battle inside the Study Desk iframe when WebGL is available.
+- Tiny Wilds has a title screen, sound with a mute toggle, and a Stardew-style vertical reel. Hold to lift the bar, and fish dart, sink or float. A catch the fish never leaves pays ×1.5, and treasure chests appear once you know two species. The waters are redrawn as cached pixel art with a crisp bitmap font, and catches leap to the angler with particles, ripples and shake.
+- Lost & Found plays more like a metal detector. It has a target-ID and depth screen, a high or low tone by ID, junk targets with a filter (Q), a SPACE pinpointer, and digging one stroke at a time with a reveal card. It also gained a title screen, pause (P/Esc), sea ambience, and painted coasts. Later coasts bury finds deeper and add more junk.
+- Lost & Found on the Moon has a glowing tether with a winch hum, low-gravity hops and dust, and Earth in the sky. Hauls of several items earn up to ×2 credits, and work orders pay +50%. It shows a best-haul record, and the first sector is closer in and lighter.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 54, Goals 63, Hints 62, Feedback 33, Curve 28, Saves 63, Best 58, Art 63, Keys 61, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 55, Goals 63, Hints 62, Feedback 34, Curve 30, Saves 63, Best 59, Art 63, Keys 61, Touch 63, Copy 63.
 
