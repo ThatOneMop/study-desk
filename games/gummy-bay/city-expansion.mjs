@@ -6,7 +6,7 @@
 // deterministically around every existing collider, gameplay point and access
 // corridor, so shops, homes and stations stay reachable.
 import * as THREE from './vendor/three.module.min.js';
-import {CityBatch,TILE,TAGS,ARCHETYPES,buildLot,createCityMaterials,rng} from './building-kit.mjs?v=133';
+import {CityBatch,TILE,TAGS,ARCHETYPES,buildLot,createCityMaterials,rng} from './building-kit.mjs?v=155';
 import {NAMED_BUSINESSES,GENERIC_SIGNS,HIGHWAY_SIGNS,SIGN_SPECS,SignBatch,createSignMaterial} from './town-signs.mjs?v=133';
 
 export const CITY_BOUNDS=Object.freeze({minX:-284,maxX:284,minZ:-449,maxZ:92});
