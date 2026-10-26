@@ -30,6 +30,7 @@ import {townPropFloorHeight} from './town-surfaces.mjs?v=54';
 import {crouchStep,dampedTravel,jumpStep,bufferedJump,playerViewHeights,firstPersonVisibility,limitPlayerJump,playerHeadFits,riseTooSteep} from './player-view.mjs?v=119';
 import {readExchangeReceipt,exchangeRequest,matchExchangeReceipt,exchangeGesturePose,EXCHANGE_GESTURE_MS} from './exchange-gesture.mjs?v=43';
 import {worldLighting,sunOffset,selectPracticalLights} from './world-lighting.mjs?v=122';
+import {gfxLightGrade,createGroundOcclusion,gfxLerpHex} from './gfx-lighting.mjs?v=150';
 import {atmosphericDistancePlan} from './atmospheric-distance.mjs?v=103';
 import {SCRUFFY_WELCOME_SITES,SCRUFFY_WELCOME_COLLIDERS,scruffyWelcomeProfile,scruffyWelcomeMounted,createScruffyWelcome} from './scruffy-welcome.mjs?v=126';
 import {workshopEquipment,assemblyWording} from './equipment-guide.mjs?v=39';
@@ -150,7 +151,7 @@ import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
-import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=122';
+import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=150';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
 const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:42,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:56,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:72,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:92,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:118,level:7,time:50}];
@@ -3877,6 +3878,19 @@ try{
  streetLighting.update(lastGrade);
  window.__gummyLight={stats:()=>({lamps:streetLighting.lamps,soffit:streetLighting.soffit,meshes:streetLighting.meshes.length,trees:streetLighting.trees,oldTownTrees:oldTrees.length,planters:streetLighting.planters,verts:streetLighting.verts,grade:lastGrade})};
 }catch(error){console.warn('Street lighting skipped',error);}
+// v150 graphics pass step 1: warmer golden hour, a moonlit night key, softer real shadows on
+// Medium/High and a one-draw-call ground occlusion skirt (the Low shadow fallback).
+let gfxOcclusion=null;try{const fp=colliders.filter(c=>!c.cityProp&&c.w>=3&&c.d>=3&&c.w<80&&c.d<80);gfxOcclusion=createGroundOcclusion(THREE,scene,fp,{height:terrainHeight});}catch(error){console.warn('Ground occlusion skipped',error);}
+const gfxBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gfxBaseRefresh();
+ if(!active&&!cine.lit){sun.shadow.intensity=1;gfxOcclusion?.set(.3);return;}
+ const g=gfxLightGrade(sceneLighting(s.time,active),quality);
+ sun.intensity=Math.max(sun.intensity*g.sunScale,g.moon);
+ sun.color.setHex(gfxLerpHex(gfxLerpHex(sun.color.getHex(),g.sunWarm,g.sunColorMix),g.moonColor,g.night*.6));
+ hemi.color.setHex(gfxLerpHex(hemi.color.getHex(),g.hemiSkyTarget,g.hemiSkyMix));hemi.groundColor.setHex(gfxLerpHex(hemi.groundColor.getHex(),g.hemiGroundTarget,g.hemiGroundMix));hemi.intensity*=g.hemiScale;
+ fillLight.intensity*=g.fillScale;fillLight.color.setHex(gfxLerpHex(fillLight.color.getHex(),g.fillWarmColor,g.fillWarm));renderer.toneMappingExposure*=g.exposureScale;sun.shadow.intensity=g.shadowIntensity||1;
+ gfxOcclusion?.set(g.occlusion);
+};
+window.__gummyGfx={occlusion:()=>gfxOcclusion?{verts:gfxOcclusion.verts,opacity:gfxOcclusion.mesh.material.opacity}:null,grade:()=>gfxLightGrade(sceneLighting(s.time,active),quality)};
 // v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).
 var staticBatcher=null;

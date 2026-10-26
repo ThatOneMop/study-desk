@@ -12,7 +12,7 @@ assert.equal(detectLookQuality({cores:2,saved:'high'}),'high');
 assert.equal(detectLookQuality({saved:'low'}),'performance');
 assert.equal(detectLookQuality({saved:'medium'}),'balanced');
 const day=lookGrade(0,0),night=lookGrade(1,1),gold=lookGrade(0,1);
-assert(day.gain[0]>day.gain[2]&&day.saturation<.95,'day grade warms and eases saturation');
+assert(day.gain[0]>day.gain[2]&&day.saturation<=1&&gold.saturation>day.saturation,'day grade warms; golden hour is richer (v150: grade runs after the AgX tone map)');
 assert(night.gain[2]>night.gain[0]&&night.lift[2]>day.lift[2],'night grade lifts toward blue');
 assert(gold.gain[0]>day.gain[0],'golden hour pushes warm highlights');
 assert(day.vignette>=.3&&day.vignette<=.45&&night.vignette>day.vignette);
