@@ -439,11 +439,13 @@
         "4 engine tests: sequential campaign, exact journal saves/reload, undo/records, exhaustive reachable boards (8/32/37), shortest paths (3/5/5), collisions/locking/no-ops and invalid saves.",
         "3 jsdom 26.1.0 tests: UI campaign and every-tilt reload, navigation markup, arrow/form focus guards, undo/retry, pause/parent hide, isolated reset, corrupt recovery and storage failure. Dialogs simulated.",
         "Both scripts pass syntax checks. No rendered/browser/mobile/native-input/enjoyment claim. Full repository checks not run from partial checkout.",
-        "Clamp refinement: 11 total tests pass (6 engine, 5 jsdom). Three position-changing clamp-assisted wins, single-use/locked/no-op rejection, undo/reload, old v1 string journals, owned object journals, selector keyboard focus and pause/dialog guards. Both scripts pass syntax checks."
+        "Clamp refinement: 11 total tests pass (6 engine, 5 jsdom). Three position-changing clamp-assisted wins, single-use/locked/no-op rejection, undo/reload, old v1 string journals, owned object journals, selector keyboard focus and pause/dialog guards. Both scripts pass syntax checks.",
+        "Tray guidance refinement: 16 total tests pass (8 engine, 8 jsdom). Reverse-graph verification covers all 269 reachable board/clamp states and 14 dead ends; every suggested route replays to a win. Read-only save/selection behavior, stale advice, guards, undo recovery and journal-capacity feedback pass."
       ],
       "commits": [
         "0c67d045d33c8170dd461e5b66a08d3507857ef8",
-        "a32f7119573ed337e270ac68279d41ff0219ff18"
+        "a32f7119573ed337e270ac68279d41ff0219ff18",
+        "4c3e706ec38567eba77b6ffcfaee219dd0d3aca6"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -452,8 +454,8 @@
         "knownLimits": "Three small initial puzzles with shortest routes of 3/5/5 tilts. Depth, settling-order readability and physical touch need review; no hours claim."
       },
       "nextSteps": [
-        "Play all trays naturally in a rendered desktop/touch browser and inspect screenshots.",
-        "Implement a substantial playtest-led upgrade to depth and feedback, then verify saves/restart/navigation before selection."
+        "Play all trays naturally in a rendered browser; inspect locking order, clamp usability, and the optional adviser on desktop/touch.",
+        "Make a substantive playtest-led improvement and verify saves/restart/navigation before selection."
       ],
       "pendingSourceRefinement": {
         "commit": "a32f7119573ed337e270ac68279d41ff0219ff18",
@@ -461,6 +463,13 @@
         "before": "Every tilt moved all loose beads; no targeted intervention was available.",
         "after": "One clamp per attempt can hold one loose bead for a single tilt, competing with saving it for later. Other beads move normally. No-op tilts do not consume it; undo and retry restore it. New object journal entries are replay-validated, while existing string journals remain compatible.",
         "remaining": "Rendered desktop/touch assessment, screenshot inspection, depth/feedback review and a substantive playtest-led improvement are still required."
+      },
+      "pendingGuidance": {
+        "commit": "4c3e706ec38567eba77b6ffcfaee219dd0d3aca6",
+        "basis": "Source and exhaustive engine-state analysis, not rendered playtesting.",
+        "before": "Only layouts with no legal movement were called wedged. Irrecoverable but still-moving bead arrangements had no recovery explanation.",
+        "after": "Optional Check tray searches legal tilts and remaining clamp use, gives one shortest-route action or detects no remaining solution and explains undo/retry. It leaves saves and selection unchanged, hides during pause/dialogs, clears after successful actions and warns if the route exceeds journal capacity.",
+        "remaining": "Rendered natural desktop/touch play, screenshot inspection and assessment of whether optional guidance supports rather than spoils exploration. No completed improvement credit."
       }
     },
     {
@@ -1393,6 +1402,12 @@
       "commit": "a7f13d7c632d87b8bdcc63c913b25a0d58e0f834",
       "result": "Beepline optional pollen-delivery challenge implemented and 18 engine/DOM tests passed. Counts unchanged: 12 built; 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering blocker not retried or bypassed; no rendered credit."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "4c3e706ec38567eba77b6ffcfaee219dd0d3aca6",
+      "result": "Tumbleglass optional dead-end detection/shortest-route guidance implemented. 16 engine/DOM tests pass across all 269 reachable board/clamp states. Counts unchanged: 12 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering blocker not retried or bypassed. No rendered credit or live release."
     }
   ]
 }
