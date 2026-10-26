@@ -231,7 +231,14 @@ export function createDayDirector(){
   const key=goalNow.id+':'+Math.round(dest[0]/3)+','+Math.round(dest[1]/3);
   const stuck=wp.id===goalNow.id?wp.stuck:0;
   const off=plan.path?.length&&Math.hypot(snap.x-plan.path[0][0],snap.z-plan.path[0][1])>40;
-  if(plan.key!==key||!plan.path||off||(stuck>3&&stuck-plan.stuckAt>3)){
+  const jammed=plan.key===key&&plan.path?.length&&stuck>3&&stuck-plan.stuckAt>3;
+  if(jammed&&typeof snap.routeAvoid==='function'){
+   // Something the grid did not know about is in the way: mark the spot just ahead and plan round it.
+   const [nx,nz]=plan.path[0],d=Math.hypot(nx-snap.x,nz-snap.z)||1;
+   snap.routeAvoid(snap.x+(nx-snap.x)/d*.9,snap.z+(nz-snap.z)/d*.9);
+   note(snap,'stuck '+goalNow.id+' at '+snap.x.toFixed(1)+','+snap.z.toFixed(1)+' toward '+nx.toFixed(1)+','+nz.toFixed(1));
+  }
+  if(plan.key!==key||!plan.path||off||jammed){
    plan.key=key;plan.stuckAt=stuck;
    plan.path=snap.route(snap.x,snap.z,dest[0],dest[1]);
    if(plan.path&&plan.path.length)note(snap,'route '+goalNow.id+' '+plan.path.length+' legs');

@@ -1,14 +1,18 @@
 // On-foot route planner over the real collision test. Used by the ?qa=day bot
 // and by the route-budget test, so both measure the same walk a player makes.
 // Grid A* (8-way, no corner cutting) with lazy cell tests, then string-pulled
-// into a few straight legs. Pure module: callers pass blocked(x,z) and bounds.
-export function createWalkGrid({blocked,minX,maxX,minZ,maxZ,res=.5}){
+// into a few straight legs. Pure module: callers pass blocked(x,z), bounds and
+// optionally step(ax,az,bx,bz) to reject moves such as kerbs that are too tall.
+// avoid(x,z,r) marks cells a walker got stuck on so the next plan goes round.
+export function createWalkGrid({blocked,step=null,minX,maxX,minZ,maxZ,res=.5}){
  const W=Math.ceil((maxX-minX)/res),H=Math.ceil((maxZ-minZ)/res);
  const state=new Uint8Array(W*H); // 0 unknown, 1 free, 2 blocked
  const cx=i=>minX+(i+.5)*res,cz=j=>minZ+(j+.5)*res;
- function freeCell(i,j){if(i<0||j<0||i>=W||j>=H)return false;const k=j*W+i;if(!state[k])state[k]=blocked(cx(i),cz(j))?2:1;return state[k]===1;}
+ function freeCell(i,j){if(i<0||j<0||i>=W||j>=H)return false;const k=j*W+i;if(!state[k])state[k]=blocked(cx(i),cz(j))?2:1;return state[k]===1;} // 3 = avoided
  const toI=x=>Math.floor((x-minX)/res),toJ=z=>Math.floor((z-minZ)/res);
- function lineClear(ax,az,bx,bz){const n=Math.max(1,Math.ceil(Math.hypot(bx-ax,bz-az)/.2));for(let i=0;i<=n;i++)if(blocked(ax+(bx-ax)*i/n,az+(bz-az)*i/n))return false;return true;}
+ function lineClear(ax,az,bx,bz){const n=Math.max(1,Math.ceil(Math.hypot(bx-ax,bz-az)/.2));let px=ax,pz=az;for(let i=0;i<=n;i++){const x=ax+(bx-ax)*i/n,z=az+(bz-az)*i/n;if(blocked(x,z)||state[cellAt(x,z)]===3||i&&step&&!step(px,pz,x,z))return false;px=x;pz=z;}return true;}
+ const cellAt=(x,z)=>{const i=toI(x),j=toJ(z);return i<0||j<0||i>=W||j>=H?-1:j*W+i;};
+ function avoid(x,z,r=.6){const n=Math.ceil(r/res);for(let dj=-n;dj<=n;dj++)for(let di=-n;di<=n;di++){const i=toI(x)+di,j=toJ(z)+dj;if(i>=0&&j>=0&&i<W&&j<H&&Math.hypot(cx(i)-x,cz(j)-z)<=r)state[j*W+i]=3;}}
  function nearestFree(x,z,radius){let best=null,bd=Infinity;const r=Math.ceil(radius/res),i0=toI(x),j0=toJ(z);for(let dj=-r;dj<=r;dj++)for(let di=-r;di<=r;di++){const i=i0+di,j=j0+dj,d=Math.hypot(cx(i)-x,cz(j)-z);if(d>radius||d>=bd)continue;if(freeCell(i,j)){bd=d;best=[i,j];}}return best;}
  // A* from (ax,az) to any free cell within `reach` of (bx,bz). Returns
  // waypoints [[x,z],...] ending at the goal cell, or null when no route.
@@ -24,7 +28,7 @@ export function createWalkGrid({blocked,minX,maxX,minZ,maxZ,res=.5}){
   let found=false,expanded=0;
   while(heap.length){const [,c]=pop();if(closed.has(c))continue;if(c===goal){found=true;break;}closed.add(c);if(++expanded>maxNodes)break;
    const i=c%W,j=(c/W)|0,gc=gs.get(c);
-   for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){if(!di&&!dj)continue;const ni=i+di,nj=j+dj;if(!freeCell(ni,nj))continue;if(di&&dj&&(!freeCell(i+di,j)||!freeCell(i,j+dj)))continue;const n=nj*W+ni;if(closed.has(n))continue;const ng=gc+(di&&dj?Math.SQRT2*res:res);if(ng<(gs.get(n)??Infinity)){gs.set(n,ng);prev.set(n,c);push([ng+h(ni,nj),n]);}}}
+   for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){if(!di&&!dj)continue;const ni=i+di,nj=j+dj;if(!freeCell(ni,nj))continue;if(di&&dj&&(!freeCell(i+di,j)||!freeCell(i,j+dj)))continue;if(step&&!step(cx(i),cz(j),cx(ni),cz(nj)))continue;const n=nj*W+ni;if(closed.has(n))continue;const ng=gc+(di&&dj?Math.SQRT2*res:res);if(ng<(gs.get(n)??Infinity)){gs.set(n,ng);prev.set(n,c);push([ng+h(ni,nj),n]);}}}
   if(!found)return null;
   const cells=[];for(let c=goal;c!==-1;c=prev.get(c))cells.push([cx(c%W),cz((c/W)|0)]);cells.reverse();
   // String-pull: keep only the corners the straight line cannot skip.
@@ -34,5 +38,5 @@ export function createWalkGrid({blocked,minX,maxX,minZ,maxZ,res=.5}){
   return out;
  }
  function length(ax,az,path){if(!path)return Infinity;let d=0,x=ax,z=az;for(const [px,pz] of path){d+=Math.hypot(px-x,pz-z);x=px;z=pz;}return d;}
- return {route,lineClear,length,res,W,H};
+ return {route,lineClear,length,avoid,res,W,H};
 }

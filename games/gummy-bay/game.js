@@ -2806,15 +2806,16 @@ if(qaKey){
  const qaToast=toast;toast=function(msg){qaToasts.push(String(msg).slice(0,160));if(qaToasts.length>30)qaToasts.shift();qaToast(msg);};
  save=function(){if(!active||net.role==='guest'||processingRemote)return;s.x=player.x;s.z=player.z;s.yaw=yaw;s.pitch=pitch;s.savedAt=Date.now();try{localStorage.setItem(qaKey,JSON.stringify(s));}catch(e){}};
  let qaStep=0;
- let qaGrid=null,qaGridKey='';
+ let qaGrid=null,qaGridKey='',qaGridAt=0;
  function qaRoute(x,z,tx,tz){
-  const key=[s.house,s.tents,(s.installed||[]).join('.'),JSON.stringify(s.layout||{})].join('|');
-  if(!qaGrid||qaGridKey!==key){qaGridKey=key;qaGrid=createWalkGrid({blocked:(px,pz)=>blocked(px,pz),minX:WORLD.minX,maxX:WORLD.maxX,minZ:WORLD.minZ,maxZ:WORLD.maxZ,res:.5});}
+  // Colliders keep arriving while models stream in, so the cached grid is keyed on the collider set too.
+  const key=[s.house,s.tents,(s.installed||[]).join('.'),JSON.stringify(s.layout||{}),colliders.length,colliders.filter(c=>c.furniture&&colliderEnabled(c)).length].join('|');
+  if(!qaGrid||qaGridKey!==key||performance.now()-qaGridAt>20000){qaGridAt=performance.now();qaGridKey=key;const floors=new Map(),floorAt=(px,pz)=>{const k=Math.round(px*4)+','+Math.round(pz*4);let y=floors.get(k);if(y===undefined){y=floorHeight(px,pz);floors.set(k,y);}return y;};qaGrid=createWalkGrid({blocked:(px,pz)=>blocked(px,pz)||!playerHeadFits({ground:floorAt(px,pz),crouch:0,jump:0,ceiling:ceilingHeight(px,pz)}),step:(ax,az,bx,bz)=>!riseTooSteep(floorAt(ax,az),floorAt(bx,bz),false),minX:WORLD.minX,maxX:WORLD.maxX,minZ:WORLD.minZ,maxZ:WORLD.maxZ,res:.5});}
   return qaGrid.route(x,z,tx,tz,{reach:1.5});
  }
  function qaSnapshot(){
   const police=ensurePolice(),feedback=currentPoliceFeedback();
-  return {route:qaRoute,active,panel:panel==='station'?'':panel,station:!!stationTask,stationKind:stationTask?.k||'',work:!!work,search:!!police.search,policeReport:!!police.report,canComply:!!feedback.canComply,
+  return {route:qaRoute,routeAvoid:(x,z)=>qaGrid?.avoid(x,z,.6),active,panel:panel==='station'?'':panel,station:!!stationTask,stationKind:stationTask?.k||'',work:!!work,search:!!police.search,policeReport:!!police.report,canComply:!!feedback.canComply,
    x:player.x,z:player.z,yaw,time:s.time,day:s.day,curfew:curfewActive(s.time),cash:s.cash,xp:s.xp,level:level(),heat:s.heat,
    called:s.called,room:!!s.room,tents:s.tents,installed:!!s.installed?.includes(0),can:!!s.can,trimmers:!!s.trimmers,packStation:!!s.packStation,
    seeds:s.seeds[0]||0,soil:s.soil||0,wrappers:s.wrappers||0,water:s.water||0,plant:s.plants[0]?{phase:s.plants[0].phase,waterings:s.plants[0].waterings}:null,
