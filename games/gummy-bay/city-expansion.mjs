@@ -117,7 +117,7 @@ export function planCity({obstacles=[],points=[],routes=[],reserved=CITY_RESERVE
  }
  // Back-lot infill: fills the interior fields behind the frontage with detached
  // sheds, flats and warehouses, each with a walkable alley all round.
- for(let z=CITY_BOUNDS.minZ+6;z<-8;z+=2)for(let x=CITY_BOUNDS.minX+6;x<CITY_BOUNDS.maxX-6;x+=2){
+ for(let z=CITY_BOUNDS.minZ+6;z<66;z+=2)for(let x=CITY_BOUNDS.minX+6;x<CITY_BOUNDS.maxX-6;x+=2){
   if(!grid.free(x-3,x+3,z-3,z+3))continue;
   const road=nearestRoad(x,z);if(!road||road.d>60)continue;
   const type=weighted(r,INFILL_MIX),a=ARCHETYPES[type];
@@ -163,7 +163,7 @@ export function createCityExpansion({scene,obstacles=[],points=[],routes=[],qual
    const letters=spec.style==='letters'&&slot.face==='roof';
    const h=slot.h,w=Math.min(slot.w,slot.face==='front'?h*5:h*4.6);
    if(slot.face==='pole'){c.signs.sign(wx,wy,wz,lot.rot+Math.PI/2,w,h,cell,{depth:.3});}
-   else c.signs.sign(wx,wy+(lot.y||0),wz,lot.rot,w,h,cell,{depth:letters?.22:.16,letters});
+   else c.signs.sign(wx,wy+(lot.y||0),wz,lot.rot,w,h,cell,{depth:letters?.16:.16,letters});
    if(slot.face==='roof'){ // scaffold legs behind roof signs
     for(const lx of [-w*.35,w*.35]){const [px,,pz]=worldOf(lot,slot.x+lx,0,slot.z-.3);c.detail.place(px,0,pz,lot.rot).box(0,wy-h/2-1.1,0,.12,1.2,.12,TILE.PLAIN,null,0x3a3d3c);}
    }

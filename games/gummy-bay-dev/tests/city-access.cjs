@@ -23,5 +23,6 @@ while(q.length){const c=q.pop(),cx=c%W,cz=(c/W)|0;for(const [dx,dz] of [[1,0],[-
 const reach=(x,z)=>{for(let dx=-3;dx<=3;dx+=1.5)for(let dz=-3;dz<=3;dz+=1.5){const i=idx(x+dx,z+dz);if(seen[i])return true;}return false;};
 bad=[...CONTACTS,...points.filter(p=>p.type!=='litter'&&p.type!=='prop')].filter(p=>p.x>-290&&p.x<290&&p.z>-460&&p.z<100&&!reach(p.x,p.z)).map(p=>(p.type||p.name)+'@'+p.x.toFixed(0)+','+p.z.toFixed(0));
 check(!bad.length,'reachable past city lots: '+bad.slice(0,6));
+bad=[...(typeof HIDE_SPOTS!=='undefined'?HIDE_SPOTS:[]),SQUAD_SHOP,SQUAD_PAN].filter(p=>inLot(p.x,p.z,1)||!reach(p.x,p.z)).map(p=>(p.kind||p.label)+'@'+p.x+','+p.z);check(!bad.length,'hide spots and squad shop clear: '+bad);console.log('BIZ',JSON.stringify(cityExpansion.businesses.map(b=>[b.key,Math.round(b.x),Math.round(b.z)])));console.log('hide spots checked',typeof HIDE_SPOTS!=='undefined'?HIDE_SPOTS.length:0);
 console.log('PASS: city expansion',JSON.stringify(cityExpansion.stats()),'routes/contacts/points clear and reachable');
 `,env);})().catch(e=>{console.error(e);process.exitCode=1;});

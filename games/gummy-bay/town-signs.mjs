@@ -110,7 +110,7 @@ export class SignBatch{
   const hw=w/2,hh=h/2;
   if(letters){
    // two layers: dark back plate letters and bright face → reads as extruded
-   quad(P(-hw,-hh,-depth),P(hw,-hh,-depth),P(hw,hh,-depth),P(-hw,hh,-depth),N(0,1),uv,.35);
+   for(const f of [1,.75,.5,.25])quad(P(-hw,-hh,-depth*f),P(hw,-hh,-depth*f),P(hw,hh,-depth*f),P(-hw,hh,-depth*f),N(0,1),uv,.3+.12*(1-f)); // stacked layers read as solid extrusion, not a ghost copy
    quad(P(-hw,-hh,0),P(hw,-hh,0),P(hw,hh,0),P(-hw,hh,0),N(0,1),uv,1);
    // back face so the sign reads from behind as dark letters
    quad(P(hw,-hh,-depth-.02),P(-hw,-hh,-depth-.02),P(-hw,hh,-depth-.02),P(hw,hh,-depth-.02),N(0,-1),uv,.25);
