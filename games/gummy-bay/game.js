@@ -3862,7 +3862,8 @@ try{
 
 // ---- Story Acts 2-3: phone missions, letterboxed cutscenes, the Sugar Squad raid (story-acts.mjs) ----
 try{
- const STORY_DOORS=[{x:-25,z:31.2,yaw:0},{x:-54,z:44.8,yaw:0},{x:54,z:39.8,yaw:0}];
+ // Open fronts of Room 04 / Harbor workshop / Hillside house face +z (doorway-reveals frontZ); local -z = outside.
+ const STORY_DOORS=HOMES.map(h=>({x:h.x,z:h.z+h.d/2,yaw:Math.PI}));
  const storyUI={el:null,view:null,cut:null,queue:[],timer:0,props:null,stash:null,choice:null,fov:null,cardId:'',stampText:''};
  const storyOn=()=>mode==='story'&&active&&net.role!=='guest';
  const ensureStory=()=>{if(!s.story||s.story.v!==STORY_VERSION)s.story=normalizeStory(s.story);return s.story;};
@@ -3901,7 +3902,7 @@ try{
   const ground=p=>{try{return typeof terrainHeight==='function'?terrainHeight(p.x,p.z):0;}catch(e){return 0;}};
   if(id==='raid'){
    g.userData.lights=[];
-   for(const [dx,dz,turn] of [[-5.5,-9,.5],[5,-10.5,-.4]]){
+   for(const [dx,dz,turn] of [[-4.8,-6.6,.55],[4.9,-8.2,-.45]]){
     const van=new THREE.Group(),p=at(dx,0,dz);van.position.set(p.x,ground(p),p.z);van.rotation.y=(a.yaw||0)+turn;
     add(new THREE.BoxGeometry(2.3,1.9,4.6),mat(0xf3f1ea),new THREE.Vector3(0,1.25,0),van);
     add(new THREE.BoxGeometry(2.34,.42,4.64),mat(0x2f62c9),new THREE.Vector3(0,1.05,0),van);
@@ -3911,8 +3912,9 @@ try{
     g.add(van);
    }
    const door=new THREE.Group(),dp=at(0,0,-.15);door.position.set(dp.x,ground(dp),dp.z);door.rotation.y=a.yaw||0;
-   add(new THREE.BoxGeometry(1.2,2.2,.12),mat(0x8a5a33),new THREE.Vector3(0,1.1,0),door);
-   add(new THREE.SphereGeometry(.07,8,6),mat(0xe8c14a,{metalness:.6}),new THREE.Vector3(.42,1.05,-.1),door);
+   add(new THREE.BoxGeometry(2.4,2.5,.14),mat(0x8a5a33),new THREE.Vector3(0,1.25,0),door);
+   add(new THREE.BoxGeometry(2.1,.18,.18),mat(0x6d4526),new THREE.Vector3(0,1.9,-.08),door);add(new THREE.BoxGeometry(2.1,.18,.18),mat(0x6d4526),new THREE.Vector3(0,.6,-.08),door);
+   add(new THREE.SphereGeometry(.09,8,6),mat(0xe8c14a,{metalness:.6}),new THREE.Vector3(.9,1.2,-.12),door);
    door.userData.home=door.position.clone();g.userData.door=door;g.add(door);
   }
   if(id==='finale'){
@@ -3921,10 +3923,10 @@ try{
    for(const x of [-.85,.85])add(new THREE.SphereGeometry(.45,12,10),gum,new THREE.Vector3(x,5.45,0),bear);
    for(const x of [-.45,.45])add(new THREE.SphereGeometry(.13,8,6),mat(0x2a0a0e),new THREE.Vector3(x,4.6,-1.1),bear);
    add(new THREE.BoxGeometry(4.6,.5,4.2),mat(0xd9b25a),new THREE.Vector3(0,.45,0),bear);
-   const p=at(0,0,16);bear.position.set(p.x,.3,p.z);bear.userData.from=16;bear.userData.to=1;g.userData.bear=bear;g.add(bear);
+   const p=at(0,0,16);bear.position.set(p.x,.3,p.z);bear.userData.from=17;bear.userData.to=9;g.userData.bear=bear;g.add(bear);
    const burst=new THREE.InstancedMesh(new THREE.SphereGeometry(.22,6,4),new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false,fog:false}),180);
    burst.instanceMatrix.setUsage(THREE.DynamicDrawUsage);const col=new THREE.Color(),cols=[0xff5a7a,0xffd24a,0x6ff0c8,0x8fb4ff,0xffa04a,0xd78bff];
-   for(let i=0;i<180;i++)burst.setColorAt(i,col.setHex(cols[Math.floor(i/30)%cols.length]));burst.frustumCulled=false;burst.userData.origin=at(0,0,24);g.userData.burst=burst;g.add(burst);
+   for(let i=0;i<180;i++)burst.setColorAt(i,col.setHex(cols[Math.floor(i/30)%cols.length]));burst.frustumCulled=false;burst.userData.origin=at(0,0,32);g.userData.burst=burst;g.add(burst);
   }
   scene.add(g);storyUI.props=g;
  }
@@ -3936,7 +3938,7 @@ try{
   if(u.door){const k=Math.max(0,t-3.95),d=u.door;d.position.copy(d.userData.home);if(k>0){const yw=storyUI.cut?.anchors?.home?.yaw||0;d.position.x+=Math.sin(yw)*k*6;d.position.z+=Math.cos(yw)*k*6;d.position.y+=Math.max(0,k*5-k*k*9);d.rotation.x=-Math.min(1.45,k*3);}else d.rotation.x=0;}
   if(u.bear){const b=u.bear,f=Math.max(0,Math.min(1,(t-6)/12)),z=b.userData.from+(b.userData.to-b.userData.from)*f,a=CUT_ANCHORS.pier;b.position.z=a.z+z;b.position.y=.3+Math.abs(Math.sin(t*3))*.12;b.rotation.y=Math.sin(t*1.3)*.12;}
   if(u.burst){const m=u.burst,o=m.userData.origin;for(let i=0;i<180;i++){const k=Math.floor(i/30),start=k*1.3+(k>2?14:.8),age=((t-start)%9+9)%9,life=2.2;const seed=i*12.9898,th=(seed%6.283),ph=((i*7.31)%3.14);
-    let r=age<life?Math.min(1,age/.5)*7:0,sc=age<life?Math.max(0,1-age/life)*1.3:0;const cx=o.x+((k*37)%3-1)*14,cy=20+(k%3)*5,cz=o.z+(k%2)*8;
+    let r=age<life?Math.min(1,age/.5)*7:0,sc=age<life?Math.max(0,1-age/life)*1.3:0;const cx=o.x+((k*37)%3-1)*13,cy=13+(k%3)*4,cz=o.z+(k%2)*6;
     tmpP.set(cx+Math.cos(th)*Math.sin(ph)*r,cy+Math.cos(ph)*r-age*age*.6,cz+Math.sin(th)*Math.sin(ph)*r);tmpS.setScalar(Math.max(.001,sc));tmpM.compose(tmpP,tmpQ,tmpS);m.setMatrixAt(i,tmpM);}
    m.instanceMatrix.needsUpdate=true;}
  }
@@ -4063,7 +4065,7 @@ try{
  }
  const storyMenu=menu;menu=function(which,data){storyMenu(which,data);if(which==='story'&&panel==='story')$('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="story-phone">'+storyHTML()+'</div><button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';};window.menu=menu;
  const storyPhoneHome=phoneHome;phoneHome=function(){storyPhoneHome();if(mode!=='story'||panel!=='phone')return;const st=ensureStory(),q=currentQuest(st),pr=q&&questProgress(q,storyFactsNow());
-  $('modal').insertAdjacentHTML?.('beforeend','<button class="story-phone-card" onclick="menu(\'story\')"><b>📖 STORY</b><strong>'+(!st.open?'Gramps’ notebook first':q?q.title:'Story complete')+'</strong><small>'+(pr?pr.label+' · '+currentAct(st).title:st.open?'Replay the cutscenes':'Make a sale, call Gramps')+'</small></button>');};window.phoneHome=phoneHome;
+  const card='<button class="story-phone-card" onclick="menu(\'story\')"><b>📖 STORY</b><strong>'+(!st.open?'Gramps’ notebook first':q?q.title:'Story complete')+'</strong><small>'+(pr?pr.label+' · '+currentAct(st).title:st.open?'Replay the cutscenes':'Make a sale, call Gramps')+'</small></button>';const grid=$('modal').querySelector?.('.phone-app-grid');if(grid)grid.insertAdjacentHTML('afterend',card);else $('modal').insertAdjacentHTML?.('beforeend',card);};window.phoneHome=phoneHome;
  const storyUI2=updateUI;updateUI=function(){storyUI2();if(mode!=='story'||!active)return;const st=s.story,q=st&&currentQuest(st);const el=$('objective');if(!el||!q)return;const pr=questProgress(q,storyFactsNow());
   el.insertAdjacentHTML?.('beforeend','<div class="story-hud" onclick="menu(\'story\')"><b>'+currentAct(st).title.toUpperCase()+'</b> '+q.title+' · '+pr.label+'</div>');};
 

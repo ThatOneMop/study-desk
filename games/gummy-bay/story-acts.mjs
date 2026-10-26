@@ -153,9 +153,9 @@ export const CUTS=Object.freeze({
    {at:24,until:29.6,kind:'sub',who:'BAY BUGLE RADIO',text:'And Inspector Hank Hardtack promises a “crackdown on suspicious sweetness” this week.'},
    {at:24,until:29.6,kind:'chyron',head:'SUGAR SQUAD',text:'Inspector Hardtack: “Every lollipop leaves a trail”'}]},
  raid:{title:'Raid!',anchor:'home',shots:[
-   {duration:3.2,cam:[[-13,3.4,-17],[-9,2.7,-13],[-6.5,2.3,-10]],look:[[0,1.3,-2],[0,1.3,-1],[0,1.3,0]],fov:[50,44],ease:'outCubic',fadeIn:.3,vans:true},
-   {duration:2.6,cam:[[2.4,1.7,-4.6],[1.8,1.65,-3.8],[1.4,1.6,-3.2]],look:[[0,1.4,0],[0,1.4,0],[0,1.4,0]],fov:[42,34],ease:'inOutSine',vans:true,door:true},
-   {duration:2.4,cam:[[-7,5,-12],[-6,4.6,-11],[-5,4.2,-10]],look:[[0,1.4,0],[0,1.4,0],[0,1.4,0]],fov:[46,42],ease:'linear',fadeOut:.3,vans:true,door:true}],
+   {duration:3.2,cam:[[-15,4.6,-20],[-12,3.8,-17],[-10,3.2,-14]],look:[[0,1.3,-4],[0,1.3,-2],[0,1.3,0]],fov:[50,44],ease:'outCubic',fadeIn:.3,vans:true},
+   {duration:2.6,cam:[[2.6,1.8,-5.2],[2,1.7,-4.4],[1.6,1.65,-3.8]],look:[[0,1.3,0],[0,1.3,0],[0,1.3,0]],fov:[44,36],ease:'inOutSine',vans:true,door:true},
+   {duration:2.4,cam:[[0,6.4,-15],[0,6,-14],[0,5.6,-13]],look:[[0,1.3,0],[0,1.3,0],[0,1.3,0]],fov:[46,42],ease:'linear',fadeOut:.3,vans:true,door:true}],
   beats:[
    {at:.2,until:3.2,kind:'sub',who:'',text:'Sirens. Two Sugar Squad vans skid up outside.'},
    {at:.1,until:8,kind:'sfx',sfx:'siren'},
