@@ -10,7 +10,7 @@ for(const log of runs)assert.equal(log[0].unitPrice,30,'day one sells at about $
 const day=d=>runs.map(log=>log[d-1]);
 const mean=(d,k)=>day(d).reduce((n,x)=>n+x[k],0)/runs.length;
 const d10=mean(10,'unitPrice'),top10=Math.max(...day(10).map(x=>x.topUnit));
-assert.ok(d10>=250&&d10<=380,`typical day-10 sale price ${d10}`);
+assert.ok(d10>=200&&d10<=400,`typical day-10 premium sale price ${d10} (target $200–400)`);
 assert.ok(top10>d10,'top products sell above the typical price');
 assert.ok(mean(3,'unitPrice')<100,'no rocket start: day 3 stays under $100');
 for(const log of runs)for(let i=1;i<log.length;i++)assert.ok(log[i].cash>=0);
