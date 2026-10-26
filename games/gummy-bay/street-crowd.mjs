@@ -116,13 +116,15 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    const plan=crowdPlan(person.id,timeValue),spot=clearSpot(plan.x,plan.z,wall);
    const dx=spot.x-person.x,dz=spot.z-person.z,dist=Math.hypot(dx,dz);
    let moving=false;
-   if(dist>.15&&step>0){
+   const knocked=person.koUntil>clock;
+   const calling=!knocked&&person.callUntil>clock;
+   if(dist>.15&&step>0&&!knocked&&!calling){
     const speed=plan.pose==='walk'?1.35:.8,move=Math.min(dist,speed*step);
     person.x+=dx/dist*move;person.z+=dz/dist*move;person.phase+=move*2.6;person.yaw=Math.atan2(dx,dz);moving=true;
    }else person.yaw+=(Math.atan2(Math.sin(plan.yaw-person.yaw),Math.cos(plan.yaw-person.yaw)))*Math.min(1,step*4);
-   person.activity=plan.activity;person.pose=plan.pose;
+   person.activity=knocked?'ko':calling?'phone':plan.activity;person.pose=knocked?'sit':calling?'use':plan.pose;
    const ground=typeof floor==='function'?finite(floor(person.x,person.z)):0;
-   const sitting=person.pose==='sit',walking=moving||person.pose==='walk';
+   const sitting=person.pose==='sit',walking=!knocked&&(moving||person.pose==='walk');
    const cameraDistance=camera?.position?Math.hypot(camera.position.x-person.x,camera.position.z-person.z):0;
    const detail=cameraDistance<STREET_CROWD_FAR;
    if(detail)near++;
@@ -136,6 +138,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
   propMesh.visible=active;
   return {count:people.length,near,written:people.length*STREET_CROWD_PARTS.length};
  };
+ const knock=(id,seconds,at=0)=>{const person=people[id];if(!person)return null;person.koUntil=finite(at)+Math.max(0,finite(seconds));person.koStyle=person.koStyle||'stars';return person;};
  const setQuality=q=>{for(const m of [meshes.box,meshes.round])m.castShadow=q==='high',m.receiveShadow=q!=='performance';propMesh.castShadow=q==='high';propMesh.receiveShadow=q!=='performance';};
  const focus=mode=>{
   if(mode==='sit')return people.find(person=>person.pose==='sit')||people[0];
@@ -146,5 +149,5 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
  setQuality('balanced');sync(time);update({time,active:true,floorHeight,blocked});
  const boxTris=12,roundTris=48,count=(list,far)=>list.filter(p=>!far||p.far);
  const tris=far=>count(PERSON_PARTS.filter(p=>p.mesh==='box'),far).length*boxTris+count(PERSON_PARTS.filter(p=>p.mesh==='round'),far).length*roundTris+(far?0:2);
- return Object.freeze({mesh,headMesh:meshes.round,faceMesh:meshes.face,propMesh,people,sync,update,setQuality,focus,nearCount,place,drawCalls:4,count:capacity,counts:Object.freeze({people:capacity,parts:STREET_CROWD_PARTS.length,farParts:STREET_CROWD_PARTS.filter(item=>item.far).length,props:props.length,trianglesNear:tris(false),trianglesFar:tris(true),colliders:0})});
+ return Object.freeze({mesh,headMesh:meshes.round,faceMesh:meshes.face,propMesh,people,sync,update,knock,setQuality,focus,nearCount,place,drawCalls:4,count:capacity,counts:Object.freeze({people:capacity,parts:STREET_CROWD_PARTS.length,farParts:STREET_CROWD_PARTS.filter(item=>item.far).length,props:props.length,trianglesNear:tris(false),trianglesFar:tris(true),colliders:0})});
 }
