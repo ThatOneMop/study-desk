@@ -1,7 +1,7 @@
 // Original townsfolk for the bay streets. One instanced batch, with face detail
 // up close and a shorter silhouette past 40 m. Schedules are visual only.
 import * as THREE from './vendor/three.module.min.js';
-import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=142';
+import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,namedLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,breathe,personTriangles} from './people-kit.mjs?v=146';
 
 export const STREET_CROWD_COLLIDERS=Object.freeze([]);
 export const STREET_CROWD_FAR=40;
@@ -24,7 +24,16 @@ const HAIR=Object.freeze([0x2a241f,0x4a3428,0x6b5034,0x8a6840,0x202428,0x5c4030,
 const OUTFITS=Object.freeze([0xc47b62,0x4f7d8a,0x7d6a9a,0xb08948,0x5d7a55,0x8d4d55,0x3f6f78,0xa36b48]);
 const PANTS=Object.freeze([0x2c3444,0x3a332c,0x243044,0x3d342e,0x2a3330,0x353044]);
 
-// v126: parts come from the shared person kit (box bodies, rounded heads, painted faces).
+// v146: story characters stand where their cutscenes frame them. Gramps only
+// comes home to the pier once the story is complete (namedVisible hook).
+export const STREET_NAMED=Object.freeze([
+ Object.freeze({key:'marge',label:'Marge',x:0,z:82,yaw:Math.atan2(3,-7),pose:'idle'}),
+ Object.freeze({key:'tilly',label:'Tilly',x:-2.6,z:78.4,yaw:Math.PI*.85,pose:'idle'}),
+ Object.freeze({key:'gramps',label:'Gramps Gus',x:1.9,z:83.2,yaw:Math.PI*.9,pose:'idle',story:true}),
+ Object.freeze({key:'lemon larry',label:'Lemon Larry',x:-92,z:-24,yaw:Math.atan2(11,12),pose:'idle'}),
+ Object.freeze({key:'mayor prudence',label:'Mayor Prudence Plum',x:3,z:5.2,yaw:0,pose:'idle'})
+]);
+// v126: parts come from the shared person kit (soft bodies, rounded heads, painted faces).
 export const STREET_CROWD_PARTS=PERSON_PARTS;
 export const STREET_CROWD_PART_INDEX=PERSON_SLOT;
 export const STREET_BOX=PEOPLE_BOX_GEOMETRY;
@@ -77,7 +86,8 @@ export function crowdPalette(id=0){
 export function crowdLook(id=0){
  const colors=crowdPalette(id),base=personLook(id,'townsfolk',{skin:colors.skin,hair:colors.hair,color:colors.outfit});
  const topStyle=colors.hoodie?'hoodie':base.topStyle==='hoodie'?'jacket':base.topStyle;
- return Object.freeze({...base,topStyle,top:colors.outfit,sleeve:topStyle==='tee'?colors.skin:colors.outfit,pants:colors.pants,hood:colors.hood,glasses:colors.glasses,hoodUp:colors.hoodie&&base.hoodUp});
+ const bare=topStyle==='tee'||topStyle==='polo'||topStyle==='overalls',eyewear=colors.glasses?(id%3===0?2:1):base.eyewear===2?2:0;
+ return Object.freeze({...base,topStyle,top:colors.outfit,sleeve:bare?colors.skin:colors.outfit,arm:topStyle==='overalls'?base.inner:colors.outfit,pants:topStyle==='overalls'?base.pants:colors.pants,hood:colors.hood,glasses:eyewear>0,eyewear,hoodUp:colors.hoodie&&base.hoodUp});
 }
 function clearSpot(x,z,blocked){
  if(typeof blocked!=='function'||!blocked(x,z))return {x,z};
@@ -88,14 +98,27 @@ function clearSpot(x,z,blocked){
  return {x,z};
 }
 
-const local=new THREE.Object3D(),root=new THREE.Matrix4(),scratch=new THREE.Color(),up=new THREE.Vector3(0,1,0),quat=new THREE.Quaternion(),pos=new THREE.Vector3(),unit=new THREE.Vector3(1,1,1),joints=createJointSet();
+const local=new THREE.Object3D(),root=new THREE.Matrix4(),scratch=new THREE.Color(),up=new THREE.Vector3(0,1,0),quat=new THREE.Quaternion(),pos=new THREE.Vector3(),unit=new THREE.Vector3(1,1,1),scale=new THREE.Vector3(1,1,1),joints=createJointSet();
 // Roughly one in three pedestrians carries an umbrella on rainy days.
 export const crowdUmbrella=person=>!!person&&((person.id*7+3)%3===0);
-export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHeight=()=>0,capacity=STREET_CROWD_SIZE,time=540}={}){
+export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHeight=()=>0,capacity=STREET_CROWD_SIZE,time=540,named=STREET_NAMED,followSlots=6}={}){
  if(!scene?.add)throw new TypeError('A street crowd needs a scene.');
  if(!Number.isSafeInteger(capacity)||capacity<8)throw new RangeError('Street crowd capacity must be an integer of at least 8.');
- const meshes=createPeopleMeshes(three,scene,capacity,'Street crowd'),mesh=meshes.box;
+ const cast=Array.isArray(named)?named:[];
+ const spare=Math.max(0,Math.trunc(finite(followSlots)));
+ const meshes=createPeopleMeshes(three,scene,capacity+cast.length+spare,'Street crowd'),mesh=meshes.box;
  const people=Array.from({length:capacity},(_,id)=>({id,x:0,z:0,yaw:0,activity:'home',pose:'idle',phase:id,look:crowdLook(id)}));
+ const stars=cast.map((entry,index)=>({...entry,slot:capacity+index,look:namedLook(entry.key,null,200+index),visible:!entry.story,spotX:entry.x,spotZ:entry.z}));
+ // Followers: named people whose position comes from a game object (the Sweet
+ // Network dealers). The object's own visibility decides whether they show.
+ const followers=[];
+ const follow=(label,object)=>{
+  if(!object?.position)return null;
+  const existing=followers.find(entry=>entry.object===object);if(existing)return existing;
+  if(followers.length>=spare)return null;
+  const entry={label:String(label||''),object,slot:capacity+stars.length+followers.length,look:namedLook(label,personLook(300+followers.length,'dealer'),300+followers.length),visible:false};
+  followers.push(entry);return entry;
+ };
  const props=[];
  for(const bench of BENCHES){props.push({x:bench.x,y:.48,z:bench.z,w:1.15,h:.08,d:.42,color:0x8a6244},{x:bench.x,y:.78,z:bench.z+.18,w:1.15,h:.42,d:.08,color:0x6d4c34});}
  for(const machine of VENDING){props.push({x:machine.x,y:.95,z:machine.z,w:.72,h:1.7,d:.5,color:0x3c6e62},{x:machine.x,y:1.15,z:machine.z+.28,w:.5,h:.72,d:.04,color:0xd5e2b4});}
@@ -109,9 +132,10 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    const plan=crowdPlan(person.id,timeValue),spot=place(plan);
    person.x=spot.x;person.z=spot.z;person.yaw=plan.yaw;person.activity=plan.activity;person.pose=plan.pose;
   }
+  for(const star of stars){const at=clearSpot(star.x,star.z,blocked);star.spotX=at.x;star.spotZ=at.z;}
   return people.length;
  };
- const update=({dt=0,now=0,time:timeValue=540,camera=null,active=true,floorHeight:floor=floorHeight,blocked:wall=blocked,rain=0}={})=>{
+ const update=({dt=0,now=0,time:timeValue=540,camera=null,active=true,floorHeight:floor=floorHeight,blocked:wall=blocked,rain=0,namedVisible=null}={})=>{
   const step=Math.max(0,Math.min(.08,finite(dt))),clock=finite(now);
   let near=0;
   for(const person of people){
@@ -146,11 +170,34 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    if(detail)near++;
    const swing=walking?Math.sin(person.phase):0;
    const blink=Math.abs(Math.sin(clock*.9+person.id*1.7))>.97;
-   pos.set(person.x,ground,person.z);quat.setFromAxisAngle(up,person.yaw);root.compose(pos,quat,unit);
-   proceduralJoints(joints,root,{swing,sit:sitting,bob:walking?Math.abs(Math.cos(person.phase))*.03:0,raise:person.pose==='use'&&!calling?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0,turn,...(react&&!away?react.pose:null),...(calling?{armR:{x:-.45,z:.55,fore:-2.3}}:null)});
+   pos.set(person.x,ground,person.z);quat.setFromAxisAngle(up,person.yaw);root.compose(pos,quat,scale.setScalar(person.look.height||1));
+   proceduralJoints(joints,root,{swing,sit:sitting,breath:walking||knocked?0:breathe(clock,person.id),bob:walking?Math.abs(Math.cos(person.phase))*.04:0,raise:person.pose==='use'&&!calling?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0,turn,...(react&&!away?react.pose:null),...(calling?{armR:{x:-.45,z:.55,fore:-2.3}}:null)});
    writePerson(meshes,person.id,joints,person.look,{detail,face:blink?'blink':'open',active});
   }
-  flushPeopleMeshes(meshes,active);
+  for(const star of stars){
+   star.visible=!star.story||(typeof namedVisible==='function'&&!!namedVisible(star.key));
+   if(!star.visible||!active){writePerson(meshes,star.slot,joints,star.look,{active:false});continue;}
+   const ground=typeof floor==='function'?finite(floor(star.spotX,star.spotZ)):0;
+   const cameraDistance=camera?.position?Math.hypot(camera.position.x-star.spotX,camera.position.z-star.spotZ):0;
+   const detail=cameraDistance<STREET_CROWD_FAR;if(detail)near++;
+   pos.set(star.spotX,ground,star.spotZ);quat.setFromAxisAngle(up,star.yaw);root.compose(pos,quat,scale.setScalar(star.look.height||1));
+   const chat=Math.sin(clock*.5+star.slot)>.55;
+   proceduralJoints(joints,root,{sway:Math.sin(clock*1.1+star.slot)*.035,breath:breathe(clock,star.slot),nod:chat?Math.sin(clock*5)*.06:0,armR:chat?{x:-.5+Math.sin(clock*2.2)*.15,z:.25,fore:-1.1}:null});
+   const blink=Math.abs(Math.sin(clock*.9+star.slot*1.7))>.97;
+   writePerson(meshes,star.slot,joints,star.look,{detail,face:blink?'blink':chat&&Math.sin(clock*9)>0?'talk':'open',active:true});
+  }
+  for(const entry of followers){
+   const o=entry.object;entry.visible=!!(active&&o.visible!==false&&o.parent);
+   if(!entry.visible){writePerson(meshes,entry.slot,joints,entry.look,{active:false});continue;}
+   const x=o.position.x,z=o.position.z,ground=typeof floor==='function'?finite(floor(x,z)):0;
+   const detail=!camera?.position||Math.hypot(camera.position.x-x,camera.position.z-z)<STREET_CROWD_FAR;if(detail)near++;
+   pos.set(x,ground,z);quat.setFromAxisAngle(up,finite(o.rotation?.y));root.compose(pos,quat,scale.setScalar(entry.look.height||1));
+   const pitch=Math.sin(clock*.7+entry.slot)>.4;
+   proceduralJoints(joints,root,{sway:Math.sin(clock*1.3+entry.slot)*.03,breath:breathe(clock,entry.slot),bob:Math.abs(Math.sin(clock*1.6+entry.slot))*.012,armR:pitch?{x:-.7,z:.2,fore:-.9}:null,turn:Math.sin(clock*.4+entry.slot)*.35});
+   writePerson(meshes,entry.slot,joints,entry.look,{detail,face:Math.abs(Math.sin(clock*.9+entry.slot*1.7))>.97?'blink':pitch&&Math.sin(clock*8)>0?'talk':'open',active:true});
+  }
+  for(let slot=capacity+stars.length+followers.length;slot<capacity+stars.length+spare;slot++)writePerson(meshes,slot,joints,null,{active:false});
+  flushPeopleMeshes(meshes,active,capacity+stars.length+followers.length);
   propMesh.visible=active;
   return {count:people.length,near,written:people.length*STREET_CROWD_PARTS.length};
  };
@@ -163,7 +210,6 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
  };
  const nearCount=camera=>people.filter(person=>camera?.position&&Math.hypot(camera.position.x-person.x,camera.position.z-person.z)<STREET_CROWD_FAR).length;
  setQuality('balanced');sync(time);update({time,active:true,floorHeight,blocked});
- const boxTris=12,roundTris=48,count=(list,far)=>list.filter(p=>!far||p.far);
- const tris=far=>count(PERSON_PARTS.filter(p=>p.mesh==='box'),far).length*boxTris+count(PERSON_PARTS.filter(p=>p.mesh==='round'),far).length*roundTris+(far?0:2);
- return Object.freeze({mesh,headMesh:meshes.round,faceMesh:meshes.face,propMesh,people,sync,update,knock,setQuality,focus,nearCount,place,drawCalls:4,count:capacity,counts:Object.freeze({people:capacity,parts:STREET_CROWD_PARTS.length,farParts:STREET_CROWD_PARTS.filter(item=>item.far).length,props:props.length,trianglesNear:tris(false),trianglesFar:tris(true),colliders:0})});
+ const tris=far=>personTriangles(far);
+ return Object.freeze({mesh,headMesh:meshes.round,bodyMesh:meshes.round,faceMesh:meshes.face,propMesh,people,named:stars,followers,follow,sync,update,knock,setQuality,focus,nearCount,place,drawCalls:4,count:capacity,counts:Object.freeze({people:capacity,named:stars.length,parts:STREET_CROWD_PARTS.length,farParts:STREET_CROWD_PARTS.filter(item=>item.far).length,props:props.length,trianglesNear:tris(false),trianglesFar:tris(true),colliders:0})});
 }
