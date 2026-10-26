@@ -4,7 +4,7 @@
 
 ## Upload to GitHub Pages
 
-Create a dedicated repository such as `study-desk`. Extract this archive and upload its contents with index.html at the repository root. Do not upload the ZIP as the website. Settings → Pages → Deploy from a branch → main → / (root) → Save. Alternatively use the included .github/workflows/pages.yml and select GitHub Actions as Pages source. Paths support repository subfolders. No build or backend is needed for solo games. GitHub's web uploader has individual-file limits: freedoom1.wad is approximately 28 MB, so use GitHub Desktop or git to commit the complete folder if web upload rejects it. Do not omit the WAD or source archives.
+Create a dedicated repository such as `study-desk`. Extract this archive and upload its contents with index.html at the repository root. Do not upload the ZIP as the website. The included `.github/workflows/pages.yml` publishes this static site with GitHub Actions. It does not create the Pages site: in Settings → Pages, set Source to GitHub Actions first. Until that setting is on, the workflow cannot deploy. After it is on, a push to main runs the asset checks and publishes. Paths support repository subfolders. No build or backend is needed for solo games. GitHub's web uploader has individual-file limits: freedoom1.wad is approximately 28 MB, so use GitHub Desktop or git to commit the complete folder if web upload rejects it. Do not omit the WAD or source archives.
 
 This delivery was not published: the connected GitHub integration did not expose dedicated repository creation or Pages configuration. No unrelated existing repository was modified. Use the URL GitHub displays after deployment; no live URL has been verified.
 
@@ -13,6 +13,8 @@ For local use, run `python -m http.server 8000` in this folder and visit http://
 ## Flashcards
 
 Study opens first. Create, edit and delete cards and decks in Create cards. Flip, shuffle, navigate, and mark mastered or review again. Export/import JSON backups; old array exports and new version-2 exports are supported. Imports append without overwriting cards. Empty decks are retained. Storage failures show a warning; keep an export before closing the tab. Original study-desk-v1 card storage is preserved.
+
+Monday pick chooses one bundled game for the calendar week, starting each Monday, on the study page and the game collection. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves replaces only the keys in that file, after confirmation, then reloads. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
 
 ## Switching
 
@@ -48,7 +50,7 @@ Read credits.html. Preserve copyright notices, licences and source files when pu
 
 ## Saves and domain changes
 
-Existing game keys/formats are unchanged. All bundled games share this site's origin, as before. Browser local storage is tied to protocol and hostname, so saves on original Sites URLs do not automatically transfer to GitHub Pages. Changing only a repository path on the same username.github.io origin does not isolate or migrate storage. Use the original game's export/import where available (Gummy Bay supports this), and flashcard exports. Games without export support require manual storage transfer; this package does not claim universal save migration. Never overwrite a populated destination save without a backup. Some games do not provide persistent progress at all.
+Existing game keys/formats are unchanged. All bundled games share this site's origin, as before. Browser local storage is tied to protocol and hostname, so saves on original Sites URLs do not automatically transfer to GitHub Pages. Changing only a repository path on the same username.github.io origin does not isolate or migrate storage. Use Export all saves to carry every stored key to another browser on a file, or the original game's export/import where available (Gummy Bay supports this), and flashcard exports. Games without export support require manual storage transfer; this package does not claim universal save migration. Never overwrite a populated destination save without a backup. Some games do not provide persistent progress at all.
 
 ## Verification
 

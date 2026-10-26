@@ -1,5 +1,23 @@
 # Study Desk improvement ledger
 
+## 2026-10-26 — Monday pick and portable saves
+
+GitHub base: origin/main after the Gummy Bay v123 merge. Catalogue entries, study tools, existing save keys and owner-only access were left in place. Game folders were not edited.
+
+### Implemented
+- Monday pick: one bundled game for the calendar week, Monday through Sunday, on the study page and the game collection. The same title stays up until the next Monday. External links are not picked.
+- Export all saves writes every localStorage key on this origin to `study-desk-saves.json`, raw text included. Import replaces only keys in the file after confirmation, leaves every other key, rolls back if a write fails, and reloads. Card export is unchanged and still includes open edits.
+- Pages workflow no longer tries to create the Pages site. Settings → Pages → Source: GitHub Actions is still required before a run can deploy.
+
+### Validation
+- `tests/shell-picks-and-saves.cjs` passed week boundaries, exact damaged-byte export, separate card backup, oversized/malformed/duplicate rejection, cancel, quota rollback and confirmed import.
+- Existing `tests/*.cjs` passed, including the 64-entry launch routes, study storage/import/conflict checks and collection navigation. `tests/assets.py` checked 63 bundled routes and 234 HTML references. `tests/selected-indie.py` passed. `tests/relaxed-browser.cjs` now expects the live collection-group count; it had been failing on 5 sections versus a stale expectation of 2.
+- Headless Chromium completed a real `study-desk-saves.json` download, cancelled then confirmed an import, kept an unrelated key, launched the Monday pick from the keyboard, and stayed within a 390px viewport. The accessibility tree names the Monday pick heading and button. A physical screen reader was not used.
+
+### Pending
+- GitHub Pages still has to be switched on in repository settings. This workflow cannot do that.
+- Physical screen-reader output and a real phone file picker remain unverified.
+
 ## 2026-10-24 — Nightshift previous-save recovery
 
 Base Sites source: d82e3e5ac1c1a96f54b51e0ebe690d09762e1758 (live version 36). GitHub base: 432a0d75bd44e3c43975b8d11ae683fa0d7e2325. Opened the latest Site and current GitHub head before editing; the Afterlight keyboard work, 64-entry catalogue, study tools, game routes and owner-only audience are preserved.
