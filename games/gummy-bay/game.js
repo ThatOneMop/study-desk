@@ -4109,7 +4109,7 @@ try{
   if(pick&&performance.now()-NET.lastToast>2500){NET.lastToast=performance.now();toast(pick.text);}
   if(ev.length&&panel==='sweetnet')menu('sweetnet');return ev;}
  // ---- Where the dealers stand: their district, nudged onto open pavement ----
- function freeSpot(x,z){if(!blocked(x,z))return {x,z};for(let r=1;r<=14;r+=1)for(let i=0;i<16;i++){const a=i*Math.PI/8,p={x:x+Math.cos(a)*r,z:z+Math.sin(a)*r};if(!blocked(p.x,p.z))return p;}return {x,z};}
+ function freeSpot(x,z){const clear=(x,z)=>!blocked(x,z)&&!blocked(x+.9,z)&&!points.some(q=>Math.hypot(q.x-x,q.z-z)<6);if(clear(x,z))return {x,z};for(let r=1;r<=18;r+=1)for(let i=0;i<16;i++){const a=i*Math.PI/8,p={x:x+Math.cos(a)*r,z:z+Math.sin(a)*r};if(clear(p.x,p.z))return p;}return {x,z};}
  DEALER_ROSTER.forEach((d,i)=>{const p=freeSpot(d.x,d.z);NET.spots[d.id]=p;
   const g=figure(p.x,p.z,d.color,0xd8b48f,0x3d2b22,1);g.rotation.y=Math.atan2(-p.x,-p.z);g.visible=false;
   const stall=new THREE.Group();stall.position.set(p.x+.9,0,p.z);scene.add(stall);

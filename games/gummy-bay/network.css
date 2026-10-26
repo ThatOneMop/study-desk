@@ -27,3 +27,20 @@
 .net-phone-card{background:linear-gradient(90deg,#3bb3a1,#8be0a4);color:#0d2a24}
 .net-inline{padding:0}.net-inline .net-card{margin-top:4px}
 #modal .net-inline,#modal .net-inline p{color:inherit}
+/* Dark ink on the mint card so every line clears contrast on the light end of the gradient. */
+.net-phone-card{background:linear-gradient(90deg,#2f9e8e,#7fd69a)}
+body #overlay.phone #modal .net-phone-card b,body #overlay.phone #modal .net-phone-card strong,body #overlay.phone #modal .net-phone-card b,.net-phone-card b,.net-phone-card strong{color:#06231d!important}
+body #overlay.phone #modal .net-phone-card small,.net-phone-card small{color:#0b3a30!important;opacity:1;font-weight:700}
+/* The phone is a light sheet: text outside cards uses dark ink, text inside the dark cards is forced light
+   (hud-s1 paints every #modal p/small grey with !important, so these need matching specificity). */
+body #overlay.phone #modal .net-phone>.net-meta,body #overlay.phone #modal .net-phone>p{color:#3b3540!important}
+body #overlay.phone #modal .net-phone>.net-meta b{color:#15191d!important}
+body #overlay.phone #modal .net-card p,body #overlay.phone #modal .net-card .net-meta{color:#eadbc8!important}
+body #overlay.phone #modal .net-card .net-meta b,body #overlay.phone #modal .net-card strong,body #overlay.phone #modal .net-row b{color:#fff!important}
+body #overlay.phone #modal .net-card .net-meta .warn{color:#ffb0a0!important}
+body #overlay.phone #modal .net-row small{color:#ffb27a!important}
+body #overlay.phone #modal .net-log li{color:#2a2230!important;border-bottom-color:#0000001a}
+body #overlay.phone #modal .net-log li small{color:#6b6470!important}
+body #overlay.phone #modal .net-log li.bust{color:#a3231a!important}
+body #overlay.phone #modal .net-log li.short{color:#865400!important}
+body #overlay.phone #modal .net-log li.cash{color:#1d6b35!important}

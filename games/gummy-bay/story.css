@@ -53,3 +53,6 @@
 .story-phone-card b{font-size:10px;letter-spacing:.2em}.story-phone-card strong{font-size:15px}.story-phone-card small{font-size:12px;opacity:.8}
 .story-hud{margin-top:8px;padding:6px 10px;border-radius:10px;background:#1d1611e8;border:1px solid #ff9c6b99;border-left:4px solid #ff9c6b;font-size:12px;font-weight:600;color:#fff4e2;text-shadow:none;cursor:pointer;pointer-events:auto}
 .story-hud b{font-size:10px;letter-spacing:.14em;color:#ffc896;margin-right:4px}
+/* v142 contrast: the act line on the orange phone card was pale-on-orange; force dark ink at full opacity. */
+body #overlay.phone #modal .story-phone-card b,body #overlay.phone #modal .story-phone-card strong,body #overlay.phone #modal .story-phone-card b,.story-phone-card b,.story-phone-card strong{color:#2a1206!important}
+body #overlay.phone #modal .story-phone-card small,.story-phone-card small{color:#3d1a06!important;opacity:1;font-weight:700}
