@@ -1,6 +1,7 @@
 import {createTimeline} from './cinematics.mjs?v=129';
+import {NAMED_LOOKS} from './people-kit.mjs?v=146';
 // Act 1 "Last Call": the backstory cutscene that opens a new story save.
-// It explains, in about fifty seconds, why gummies are against the law in Gummy Bay,
+// It explains, in under thirty seconds, why gummies are against the law in Gummy Bay,
 // then gives the player the doorstep beside the ringing payphone.
 // Everything is original: the script, the people and the art. The two "archive" beats
 // are procedural SVG strings, so no image is downloaded. This file is DOM-free and testable.
@@ -10,46 +11,50 @@ export const ACT1_TITLE='Act 1 · Last Call';
 // 3D camera shots. `minutes` is the time of day the world is lit for during the shot.
 // Shot 2 sits behind the archive panels and is barely seen; it only keeps the frame alive.
 export const ACT1_SHOTS=Object.freeze([
- {id:'evening',duration:7,minutes:17*60+20,cam:[[-62,24,98],[-47,20.5,80],[-33,18,64]],look:[[6,2,-30],[8,2,-38],[10,2,-46]],fov:[54,50],ease:'inOutSine',fadeIn:1.2,fadeOut:.5},
- {id:'archive',duration:18,minutes:8*60,cam:[[6,4.5,62],[5,5,52],[4,5.5,44]],look:[[-2,4,-10],[-3,4.5,-18],[-4,5,-26]],fov:50,ease:'linear',fadeIn:.4,fadeOut:.4},
- {id:'news',duration:11,minutes:17*60+40,cam:[[8,4.2,58],[6,4.6,44],[4,5,32]],look:[[-2,4,-10],[-3,4.4,-20],[-4,4.8,-30]],fov:[50,47],ease:'inOutSine',fadeIn:.5,fadeOut:.5},
- {id:'table',duration:9,minutes:9*60+20,cam:[[-52.4,3.4,41.6],[-55,2.5,38.2],[-56.75,1.95,36.45]],look:[[-58.4,1,34],[-58.1,.9,34.5],[-57.8,.82,34.8]],fov:[46,38],ease:'inOutSine',fadeIn:.5,fadeOut:.4},
- {id:'payphone',duration:6,minutes:9*60+20,cam:[[-49.5,2.6,37.5],[-51.4,2.1,33],[-52.6,1.8,29.4]],look:[[-46.6,1.5,31.4],[-46.8,1.45,30.9],[-47,1.4,30.5]],fov:[46,50],ease:'inOutSine',fadeIn:.4}
+ {id:'evening',duration:4,minutes:17*60+20,cam:[[-62,24,98],[-47,20.5,80],[-33,18,64]],look:[[6,2,-30],[8,2,-38],[10,2,-46]],fov:[54,50],ease:'inOutSine',fadeIn:.6,fadeOut:.35},
+ {id:'archive',duration:11,minutes:8*60,cam:[[6,4.5,62],[5,5,52],[4,5.5,44]],look:[[-2,4,-10],[-3,4.5,-18],[-4,5,-26]],fov:50,ease:'linear',fadeIn:.3,fadeOut:.3},
+ {id:'news',duration:6,minutes:17*60+40,cam:[[8,4.2,58],[6,4.6,44],[4,5,32]],look:[[-2,4,-10],[-3,4.4,-20],[-4,4.8,-30]],fov:[50,47],ease:'inOutSine',fadeIn:.35,fadeOut:.35},
+ {id:'table',duration:4.5,minutes:9*60+20,cam:[[-52.4,3.4,41.6],[-55,2.5,38.2],[-56.75,1.95,36.45]],look:[[-58.4,1,34],[-58.1,.9,34.5],[-57.8,.82,34.8]],fov:[46,38],ease:'inOutSine',fadeIn:.35,fadeOut:.3},
+ {id:'payphone',duration:3,minutes:9*60+20,cam:[[-50.8,2.3,34.6],[-51.9,1.95,31.6],[-52.6,1.8,29.4]],look:[[-46.6,1.5,31.4],[-46.8,1.45,30.9],[-47,1.4,30.5]],fov:[46,50],ease:'inOutSine',fadeIn:.3}
 ]);
 export const ACT1=createTimeline(ACT1_SHOTS);
 export const ACT1_DURATION=ACT1.duration;
 // The last stretch blends from the payphone shot into the player's own eyes.
 export const ACT1_HANDOFF=.9;
+// v148: the skip hint shows for the first few seconds; Esc must be held this long.
+export const ACT1_SKIP_HINT=3;
+export const ACT1_SKIP_HOLD=.6;
 
 // Timed beats. kind: sub (speaker + line), cap (title card), panel (2D archive art),
-// chyron (news strap), sfx (one-shot sound cue), props (show the campsite table set).
+// chyron (news strap, optionally with a people-kit portrait), sfx (one-shot sound
+// cue), props (show the campsite table set). v148 cut the dead air: ~51 s -> 28.5 s.
 export const ACT1_BEATS=Object.freeze([
- {at:.8,until:6.6,kind:'cap',title:'GUMMY BAY',line:'Act 1 · Last Call'},
- {at:1.4,until:6.8,kind:'sub',who:'BAY BUGLE RADIO',text:'Good evening, Gummy Bay! Warm, breezy, and, as always, completely sugar-free.'},
- {at:7,until:12,kind:'panel',panel:'float'},
- {at:12,until:17,kind:'panel',panel:'melt'},
- {at:7.3,until:11.9,kind:'sub',who:'BAY BUGLE RADIO',text:'Thirty years ago this week, a local candy maker built the biggest gummy bear the world had ever seen.'},
- {at:12.1,until:16.9,kind:'sub',who:'BAY BUGLE RADIO',text:'Then came the heatwave. Mayor Prudence Plum was glued to her podium for six hours.'},
- {at:7,until:17,kind:'sfx',sfx:'film'},
- {at:17,until:25,kind:'panel',panel:'paper'},
- {at:17.4,until:24.8,kind:'sub',who:'BAY BUGLE RADIO',text:'A week later, the Sugar-Free Bay Act made every unlicensed sweet contraband. The Sugar Squad has kept the town tidy, and the dentists bored, ever since.'},
- {at:17,until:17.6,kind:'sfx',sfx:'whoosh'},
- {at:25.6,until:35.6,kind:'chyron',head:'BREAKING',text:'Local candy maker “Gramps Gus” nabbed with 3,000 gummies'},
- {at:25.8,until:30.4,kind:'sub',who:'BAY BUGLE RADIO',text:'In other news, Gramps Gus was caught this afternoon with three thousand gummy bears.'},
- {at:30.6,until:35.7,kind:'sub',who:'BAY BUGLE RADIO',text:'He says they were “for personal morale”. Nobody has seen him since.'},
- {at:36,until:45,kind:'props'},
- {at:36.6,until:41,kind:'cap',title:'DRIFTWOOD CAMPSITE',line:'The next morning · 9:00 AM'},
- {at:37,until:41,kind:'sub',who:'',text:'He left you his camper, a dented recipe tin, and four hundred dollars.'},
- {at:41.2,until:44.8,kind:'sub',who:'THE NOTE',text:'“Keep the lights on, kid. —G”'},
- {at:44.2,until:51,kind:'sfx',sfx:'ring'},
- {at:45.4,until:50,kind:'sub',who:'',text:'Somewhere close by, a payphone starts to ring.'}
+ {at:.3,until:3.8,kind:'cap',title:'GUMMY BAY',line:'Act 1 · Last Call'},
+ {at:.5,until:3.9,kind:'sub',who:'BAY BUGLE RADIO',text:'Good evening, Gummy Bay! Warm, breezy and, as always, sugar-free.'},
+ {at:4,until:7.6,kind:'panel',panel:'float'},
+ {at:7.6,until:11.2,kind:'panel',panel:'melt'},
+ {at:4.1,until:7.5,kind:'sub',who:'BAY BUGLE RADIO',text:'Thirty years ago, a local candy maker built the biggest gummy bear ever.'},
+ {at:7.7,until:11.1,kind:'sub',who:'BAY BUGLE RADIO',text:'Then came the heatwave. Mayor Prudence Plum was glued to her podium.'},
+ {at:4,until:11.2,kind:'sfx',sfx:'film'},
+ {at:11.2,until:15,kind:'panel',panel:'paper'},
+ {at:11.2,until:11.8,kind:'sfx',sfx:'whoosh'},
+ {at:11.3,until:14.9,kind:'sub',who:'BAY BUGLE RADIO',text:'The Sugar-Free Bay Act made unlicensed sweets contraband. Enter the Sugar Squad.'},
+ {at:15.2,until:21,kind:'chyron',head:'BREAKING',text:'Local candy maker “Gramps Gus” nabbed with 3,000 gummies',portrait:'gramps'},
+ {at:15.3,until:18.1,kind:'sub',who:'BAY BUGLE RADIO',text:'Breaking: Gramps Gus was caught with three thousand gummy bears.'},
+ {at:18.2,until:21,kind:'sub',who:'BAY BUGLE RADIO',text:'He says they were “for personal morale”. Nobody has seen him since.'},
+ {at:21,until:26,kind:'props'},
+ {at:21.2,until:24,kind:'cap',title:'DRIFTWOOD CAMPSITE',line:'The next morning · 9:00 AM'},
+ {at:21.2,until:24,kind:'sub',who:'',text:'He left you his camper, a recipe tin and four hundred dollars.'},
+ {at:24.1,until:25.6,kind:'sub',who:'THE NOTE',text:'“Keep the lights on, kid. —G”'},
+ {at:24.6,until:28.5,kind:'sfx',sfx:'ring'},
+ {at:25.7,until:28.2,kind:'sub',who:'',text:'Somewhere close by, a payphone starts to ring.'}
 ]);
 
 export function act1At(seconds){
  const t=Math.max(0,Math.min(ACT1_DURATION,Number.isFinite(seconds)?seconds:0));
  const at=ACT1.at(t),beats=ACT1_BEATS.filter(b=>t>=b.at&&t<b.until),pick=k=>beats.filter(b=>b.kind===k).pop()||null;
  return {...at,time:t,done:Number.isFinite(seconds)&&seconds>=ACT1_DURATION,minutes:at.shot.minutes,
-  sub:pick('sub'),cap:pick('cap'),panel:pick('panel'),chyron:pick('chyron'),props:!!pick('props'),sfx:beats.filter(b=>b.kind==='sfx').map(b=>b.sfx),
+  sub:pick('sub'),cap:pick('cap'),skipHint:t<ACT1_SKIP_HINT,panel:pick('panel'),chyron:pick('chyron'),props:!!pick('props'),sfx:beats.filter(b=>b.kind==='sfx').map(b=>b.sfx),
   handoff:Math.max(0,Math.min(1,(t-(ACT1_DURATION-ACT1_HANDOFF))/ACT1_HANDOFF))};
 }
 
@@ -114,9 +119,35 @@ export function archiveSvg(kind){
  ${crowd(548,15,3)}<text x="80" y="236" font-size="20" fill="#3a2b1c" font-family="Georgia,serif" font-style="italic">40,000 gummies.</text><text x="80" y="262" font-size="20" fill="#3a2b1c" font-family="Georgia,serif" font-style="italic">One very hot afternoon.</text>`;
  return filmFrame(inner,'BAY BUGLE NEWSREEL · 1996');
 }
+
+// ---- People-kit portraits: the same named looks the 3D cast wears (v146 kit). ----
+const hx=c=>'#'+(Number(c)>>>0).toString(16).padStart(6,'0').slice(-6);
+export function act1PortraitSvg(key,{label='',mug=false}={}){
+ const l=NAMED_LOOKS[key];if(!l)return '';
+ const skin=hx(l.skin),hair=hx(l.hair),top=hx(l.top),inner=hx(l.inner??0xf1e7cf),beard=hx(l.beardColor??l.hair),ink='#2a1d18';
+ let hairBack='',hairFront='';
+ if(l.hairStyle==='bob')hairBack=`<path d="M30 58 Q30 20 60 20 Q90 20 90 58 L90 74 L78 74 L78 46 L42 46 L42 74 L30 74 Z" fill="${hair}"/>`,hairFront=`<path d="M38 44 Q46 26 72 30 Q84 34 84 46 Q64 36 38 44 Z" fill="${hair}"/>`;
+ else if(l.hairStyle==='combover')hairFront=`<path d="M36 40 Q50 26 80 34 L82 40 Q60 32 38 44 Z" fill="${hair}"/><path d="M33 46 q-4 10 2 18 M87 46 q4 10 -2 18" stroke="${hair}" stroke-width="7" stroke-linecap="round" fill="none"/>`;
+ else hairFront=`<path d="M36 44 Q40 22 60 22 Q82 22 84 44 Q60 32 36 44 Z" fill="${hair}"/>`;
+ const glasses=(l.eyewear??0)===1?`<g fill="none" stroke="${ink}" stroke-width="2.4"><circle cx="50" cy="56" r="7"/><circle cx="70" cy="56" r="7"/><path d="M57 56 h6"/></g>`:'';
+ const beardSvg=l.beard==='full'?`<path d="M38 62 Q40 92 60 94 Q80 92 82 62 Q74 74 60 72 Q46 74 38 62 Z" fill="${beard}"/>`:l.beard==='moustache'?`<path d="M48 70 q12 -8 24 0 q-12 4 -24 0 Z" fill="${beard}"/>`:'';
+ const lines=mug?Array.from({length:5},(_,i)=>`<path d="M0 ${24+i*20} h120" stroke="#c9bfae" stroke-width="1.4"/><text x="4" y="${21+i*20}" font-size="7" fill="#8f826e" font-family="monospace">${6-i}′</text>`).join(''):'';
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="${esc(label||key)}"><rect width="120" height="120" fill="${mug?'#e9e2d2':'#d9cfbb'}"/>${lines}
+ ${hairBack}<path d="M20 120 Q22 92 60 90 Q98 92 100 120 Z" fill="${top}"/><path d="M50 92 L60 106 L70 92 Z" fill="${inner}"/><rect x="52" y="78" width="16" height="14" fill="${skin}"/>
+ <ellipse cx="34" cy="58" rx="5" ry="7" fill="${skin}"/><ellipse cx="86" cy="58" rx="5" ry="7" fill="${skin}"/><rect x="34" y="30" width="52" height="54" rx="20" fill="${skin}"/>
+ ${hairFront}<circle cx="50" cy="56" r="3.4" fill="${ink}"/><circle cx="70" cy="56" r="3.4" fill="${ink}"/><circle cx="51" cy="55" r="1.1" fill="#fff"/><circle cx="71" cy="55" r="1.1" fill="#fff"/>
+ <path d="M45 47 q5 -3 10 0 M65 47 q5 -3 10 0" stroke="${ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="64" rx="4" ry="3.4" fill="${skin}" stroke="#0002"/>
+ ${glasses}${beardSvg}<path d="M53 75 q7 5 14 0" stroke="${ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/>${mug?`<rect x="30" y="100" width="60" height="16" fill="#2a1d18"/><text x="60" y="112" font-size="9" text-anchor="middle" fill="#fff" font-family="monospace">BAY PD · 3000</text>`:''}</svg>`;
+}
+// Chyron markup, shared by the intro and story cuts.
+export function act1ChyronHtml(c){
+ if(!c)return '';
+ const mug=c.portrait?`<i class="cine-mug">${act1PortraitSvg(c.portrait,{label:c.text,mug:true})}</i>`:'';
+ return mug+'<strong>'+esc(c.head)+'</strong><span>'+esc(c.text)+'</span>';
+}
 // The front page, as HTML (styled in cinematics.css).
 export function newspaperHtml(){
- const plum=`<svg viewBox="0 0 200 150" aria-hidden="true"><rect width="200" height="150" fill="#d9cfbb"/><rect x="54" y="88" width="92" height="62" fill="#6d6152"/><circle cx="100" cy="58" r="28" fill="#b9aa92" stroke="#3b3329" stroke-width="3"/><path d="M72 46 q28 -30 56 0" fill="#3b3329"/><path d="M88 66 q12 8 24 0" stroke="#3b3329" stroke-width="3" fill="none"/><circle cx="90" cy="54" r="3" fill="#3b3329"/><circle cx="110" cy="54" r="3" fill="#3b3329"/><rect x="40" y="118" width="120" height="10" fill="#8f826e"/><path d="M128 112 l26 -8" stroke="#3b3329" stroke-width="4"/></svg>`;
+ const plum=act1PortraitSvg('mayor prudence',{label:'Mayor Prudence Plum'}).replace('<svg ','<svg class="bugle-photo" ');
  return `<article class="bugle"><header><small>Thirty years ago · Gummy Bay’s only newspaper · Price: one (1) carrot</small><h3>THE BAY BUGLE</h3></header>
  <h4>SUGAR-FREE BAY ACT PASSES</h4><p class="deck">Unlicensed sweets declared contraband · New “Sugar Squad” to patrol</p>
  <div class="cols"><figure>${plum}<figcaption>Mayor Prudence Plum, finally unstuck, signs the Act.</figcaption></figure>

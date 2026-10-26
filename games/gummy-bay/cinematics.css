@@ -90,3 +90,12 @@ body.cineScene>:not(#view):not(#cineLoad):not(script):not(style):not(link){visib
 .bugle figure svg{width:100%;height:auto;display:block;filter:grayscale(1) contrast(1.1)}
 .bugle figcaption{font-size:.82em;font-style:italic;margin-top:4px}
 @media (prefers-reduced-motion:reduce){.bugle,.cine-panel svg{animation:none!important}}
+/* v148: first-seconds skip hint (hold Esc / tap) with a hold-progress bar, and chyron mugshots. */
+.cine-skiphint{position:absolute;left:50%;top:calc(10.5vh + 18px);transform:translate(-50%,-8px);z-index:4;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;text-align:center;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff2dd;background:#0d0a08a8;border:1px solid #ffe2b040;border-radius:999px;padding:8px 16px 10px;overflow:hidden}
+.cine-skiphint.on{opacity:1;transform:translate(-50%,0)}
+.cine-skiphint kbd{font:inherit;font-size:11px;padding:2px 6px;border-radius:5px;background:#ffffff26}
+.cine-skiphint i{position:absolute;left:0;bottom:0;height:3px;width:calc(var(--hold,0) * 100%);background:#ffd36a}
+.cine-chyron .cine-mug{float:left;width:clamp(64px,7vw,92px);margin:0 12px 0 0;border:3px solid #fff7e8;box-shadow:0 4px 14px #0006;background:#e9e2d2;line-height:0}
+.cine-chyron .cine-mug svg{width:100%;height:auto;display:block}
+.cine-chyron:has(.cine-mug) span{overflow:hidden}
+@media (max-width:640px){.cine-skiphint{top:calc(10.5vh + 62px);font-size:11px;padding:7px 12px 9px}}
