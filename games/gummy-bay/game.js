@@ -33,7 +33,7 @@ import {policeSight,policeFeedback,readPoliceReport} from './police-feedback.mjs
 import {physicalPointTypes,actionPointTypes,actionPointMatches,pointApproach} from './point-access.mjs?v=116-35';
 import {exchangeAccess,freshExchangePose} from './exchange-access.mjs?v=34';
 import {vehicleDoorAccess} from './vehicle-access.mjs?v=33';
-import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine} from './road-zones.mjs?v=68';
+import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine,VEHICLE_ROADS,PEDESTRIAN_WAYS} from './road-zones.mjs?v=68';
 import {PARKING_BAYS,parkingGuide,parkingSnapPose,parkingGuideLine} from './parking-guide.mjs?v=69';
 import {DISTRICT_BUILDING_SITES,DISTRICT_CONTRAST_COLLIDERS,districtArchitectureProfile,districtGeometricContrast,createDistrictArchitecture} from './district-architecture.mjs?v=126';
 import {createStreetConstruction} from './street-construction.mjs?v=126';
@@ -76,14 +76,15 @@ import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequenc
 import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
-import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=128';
+import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=134';
 import {residentPlan,residentDescription,citizenRouteSteps,segmentClear,curfewActive} from './resident-life.mjs?v=125';
 import {residentLocomotionClip,residentActionRate,applyResidentTransition} from './resident-animation.mjs?v=109';
 import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
-import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=1';
+import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=134';
+import {BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=134';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
@@ -2774,6 +2775,8 @@ action=function(k,a,b,c){
 window.action=action;
 const renderBench=renderFrame;
 renderFrame=function(){if(benchSession?.active)benchSession.applyCamera();renderBench();};
+// Dev-only screenshot hook (?benchqa=1): poses the close-up bench without a station task.
+if(typeof location!=='undefined'&&/[?&]benchqa=1\b/.test(location.search))window.__benchQa={pose:(k='pour',at=.45)=>{if(!benchSession)return 'no bench';benchSession.holdPose(k,at);return benchSession.kind;},close:()=>{benchSession?.close(true);return 'closed';}};
 
 // Test-only day harness. Absent unless the URL is exactly ?qa=day. Saves go to
 // gummybay-qa-day so the six story/free slots stay untouched. Boot tests strip
@@ -2843,7 +2846,7 @@ var s1Minimap=(()=>{try{return localStorage.getItem('gummybay-hud-minimap')==='1
 function s1PhoneScreen(which){return Object.hasOwn(PHONE_SCREENS,which)||which==='map';}
 function paintHotbarSelection(){
  document.querySelectorAll('.hotbar .slot,.hotbar .money-tile').forEach(b=>{
-  const target=b.dataset.panel,tool=b.id==='equipCan'?'can':b.id==='equipPacks'?'packs':'';
+  const target=b.dataset.panel,tool=b.id==='equipCan'?'can':b.id==='equipPacks'?'packs':b.id==='equipBoard'?'board':'';
   const chosen=tool?equippedTool===tool:!!target&&panel===target;
   b.classList.toggle('selected',chosen);b.setAttribute('aria-pressed',String(chosen));
  });
@@ -3101,6 +3104,8 @@ let squadCast=null,squadDizzy=null,squadAwake=false,squadPressure=0,hideWas='',b
 const squadHits=new Map(),squadWitnesses=[];
 function squadQaDay(){try{return new URLSearchParams(location.search).get('qa')==='day';}catch{return false;}}
 function squadLive(){return active&&!squadQaDay()&&!firstSaleProtected(s);}
+// Set by the skateboard block: a fast board counts as bolting from a squad officer.
+let skateBolting=()=>false;
 function ensureChase(p){if(!p.chase||typeof p.chase.stage!=='string')p.chase=freshChase();return p.chase;}
 function clearSquad(p,note){
  const police=p||ensurePolice();
@@ -3109,7 +3114,8 @@ function clearSquad(p,note){
  for(const cop of police.officers){if(!cop.squad)continue;cop.mode='patrol';cop.target=null;cop.suspicion=0;cop.lost=0;cop.grab=0;cop.squad='';}
  if(note)toast(note);
 }
-function copSeesPlayer(cop){return inVision({x:cop.x,y:1.55,z:cop.z,angle:cop.angle},{x:player.x,y:player.y||1.2,z:player.z},{sight:(a,b)=>copSight(a,b)}).seen;}
+// An officer standing on top of you always counts: the cone's pitch test failed at arm's length.
+function copSeesPlayer(cop){if((cop.ko||0)<=0&&Math.hypot(cop.x-player.x,cop.z-player.z)<1.2)return true;return inVision({x:cop.x,y:1.55,z:cop.z,angle:cop.angle},{x:player.x,y:player.y||1.2,z:player.z},{sight:(a,b)=>copSight(a,b)}).seen;}
 function squadWakeFrom(event){
  if(!squadLive())return;
  const key=event?.key?.toLowerCase?.()||'';
@@ -3154,7 +3160,7 @@ function stepSquadOfficer(cop,i,dt,p){
   const distracted=Math.max(0,(chase.distracted||0)-dt);
   const stepped=stepChase(chase,dt,seen&&!wasDistracted);
   p.chase={...stepped,distracted,backup:chase.backup===true};
-  if(seen&&!wasDistracted&&keys.shift&&(keys.w||keys.arrowup)){
+  if(seen&&!wasDistracted&&((keys.shift&&(keys.w||keys.arrowup))||skateBolting())){
    squadPressure+=dt;
    if(squadPressure>3&&p.chase.stage!=='clear'){p.chase=escalateChase(p.chase);p.chase.backup=false;squadPressure=0;toast('You bolted. The squad steps it up.');}
   }else if(!seen)squadPressure=Math.max(0,squadPressure-dt);
@@ -3522,6 +3528,192 @@ function gummySquadChaseFrame(step=0){
 window.gummySquadChaseFrame=gummySquadChaseFrame;
 syncSquadCast();
 
+// v133 skateboards (P1-5). Six decks from the Kickflip Container live in hotbar
+// slot 9. Equip, then click or press R to drop the board and ride in a chase
+// camera. W pushes, A/D or the mouse carve, hold and release Space to ollie,
+// S brakes. Kerbs over 12 cm without an ollie are a bail. Boards are an
+// additive save field (boards, boardSel); older saves own none.
+const skate={ride:null,model:null,modelId:'',held:null,heldId:'',rider:null,audio:null,shake:0,sparks:null,sparkAt:0,firstPerson:false,cam:null};
+try{skate.firstPerson=localStorage.getItem('gummybay-skate-cam')==='fp';}catch{}
+createKickflipContainer(scene);colliders.push(...KICKFLIP_COLLIDERS);
+const kickflipPoint=addPoint('kickflip','Kickflip Container · Skateboards',KICKFLIP_POINT.x,KICKFLIP_POINT.z);skate.keeper=createKickflipKeeper(scene);
+const skateBaseFloor=floorHeight;
+floorHeight=function(x,z){const h=skateBaseFloor(x,z);return Math.abs(x-KICKFLIP_SITE.x)<12&&Math.abs(z-KICKFLIP_SITE.z-7)<5?Math.max(h,skateSpotHeight(x,z)):h;};
+const skateNormalize=normalize;normalize=function(v){const out=skateNormalize(v);normalizeSkate(out??v);return out;};
+function skateBoard(){return boardById(s?.boardSel)||null;}
+function skateRough(x,z){if(x>-200&&x<200&&z>-120&&z<60)return false;const on=r=>Math.abs(x-r.x)<=r.w/2&&Math.abs(z-r.z)<=r.d/2;return !VEHICLE_ROADS.some(on)&&!PEDESTRIAN_WAYS.some(on);}
+function skateModel(){
+ const b=skateBoard();if(!b)return null;
+ if(skate.modelId!==b.id){if(skate.model)scene.remove(skate.model);skate.model=createBoardModel(b);skate.modelId=b.id;scene.add(skate.model);skate.model.visible=false;}
+ return skate.model;
+}
+function skateHeld(){
+ const b=skateBoard();if(!b)return null;
+ if(skate.heldId!==b.id){if(skate.held)camera.remove(skate.held);skate.held=createBoardModel(b,{shadow:false});skate.heldId=b.id;skate.held.position.set(.42,-.62,-.78);skate.held.rotation.set(.15,.35,1.25);skate.held.scale.setScalar(.9);camera.add(skate.held);}
+ return skate.held;
+}
+function skateSparks(){
+ if(skate.sparks)return skate.sparks;
+ const g=new THREE.Group();g.name='Gummy Gold sparkle trail';const geo=new THREE.OctahedronGeometry(.055,0);
+ for(let i=0;i<36;i++){const m=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:i%3?0xffe27a:0xff8fc0,transparent:true,opacity:0,depthWrite:false}));m.userData.life=0;g.add(m);}
+ scene.add(g);skate.sparks=g;return g;
+}
+function skateVolume(){return soundEnabled?(audioLevels?.master??.8)*(audioLevels?.effects??.8):0;}
+function skateAudio(){if(!skate.audio&&audioContext){try{skate.audio=createSkateAudio(audioContext,audioContext.destination);}catch(e){skate.audio=null;}}return skate.audio;}
+function canRide(){return active&&!panel&&!work&&!stationTask&&!driving&&!placeMode&&net.role!=='guest';}
+function mountBoard(){
+ const b=skateBoard();if(!b||skate.ride||!canRide())return false;
+ if(insideRvShell(player.x,player.z)||ceilingHeight(player.x,player.z)<4){toast('Take the board outside first.');return false;}
+ const fwdX=-Math.sin(yaw),fwdZ=-Math.cos(yaw),carry=Math.max(0,locomotion.x*fwdX+locomotion.z*fwdZ);
+ skate.ride=createRide(b,{x:player.x,z:player.z,y:floorHeight(player.x,player.z),heading:yaw,speed:Math.min(b.top,carry*.8)});
+ Object.assign(locomotion,{x:0,z:0,jump:0,vertical:0,jumpQueued:0});
+ skateAudio();skate.audio?.land(false,skateVolume()*.7);
+ if(!s.skateTipSeen){s.skateTipSeen=true;toast('W to push · A/D carve · hold Space then release to ollie · R to step off');}
+ return true;
+}
+function dismountBoard(quiet=false){
+ if(!skate.ride)return;
+ const r=skate.ride;skate.ride=null;
+ if(!blocked(r.x,r.z)){player.x=r.x;player.z=r.z;}
+ yaw=Math.atan2(Math.sin(yaw),Math.cos(yaw));
+ Object.assign(locomotion,{x:-Math.sin(r.heading)*Math.min(r.speed,WALK_SPEED_SKATE),z:-Math.cos(r.heading)*Math.min(r.speed,WALK_SPEED_SKATE),jump:0,vertical:0});
+ skate.fov=NaN;if(skate.model)skate.model.visible=false;updateRider(skate.rider,null,{visible:false});skate.audio?.stop();
+ hand.scale.setScalar(1);camera.fov=fovBase;camera.updateProjectionMatrix();syncPlayerView();camera.rotation.set(pitch,yaw,0,'YXZ');
+ if(!quiet)skate.audio?.push(skateVolume());
+}
+const WALK_SPEED_SKATE=3.6;
+const skateEquip=equipTool;equipTool=function(tool){
+ if(tool==='board'){
+  if(!skateBoard()){toast('Buy a skateboard at the Kickflip Container, by the Coastway servo.');return;}
+  if(skate.ride){dismountBoard();equippedTool=null;updateBusinessHUD();paintHotbarSelection?.();return;}
+ }else if(skate.ride)dismountBoard();
+ skateEquip(tool);
+};
+window.equipTool=equipTool;
+const skateDoAction=doAction;doAction=function(k,a,b,c){
+ if(k==='buyBoard'){
+  if(net.role==='guest'){toast('The host owns the shop counter in co-op.');return;}
+  const before=s.boardSel,result=buyBoard(s,a,n=>spend(n));
+  if(result.ok){if(result.bought){toast(result.board.name+' bought. It is in hotbar slot 9.');skateAudio();skate.audio?.pop(skateVolume());}else if(before!==a)toast('Riding the '+result.board.name+' now.');equippedTool='board';save();refresh('kickflip');}
+  else if(result.reason==='funds')toast('Not enough '+(s.payment==='card'?'in the bank':'cash')+' for the '+boardById(a).name+'.');
+  return;
+ }
+ skateDoAction(k,a,b,c);
+};
+const skateMenu=menu;menu=function(which,data){
+ if(skate.ride&&which!=='kickflip'&&!['phone','thread','map','pause','settings'].includes(which))dismountBoard(true);
+ skateMenu(which,data);
+ if(which!=='kickflip'||processingRemote||!active)return;
+ $('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="paymentstrip"><span>PAYMENT</span><button class="'+(s.payment==='cash'?'on':'')+'" onclick="action(\'payment\',\'cash\')">CASH '+cash(s.cash)+'</button><button class="'+(s.payment==='card'?'on':'')+'" onclick="action(\'payment\',\'card\')">CARD '+cash(s.bank)+'</button></div>'+kickflipShopHTML(s,{money:cash,available:s.payment==='card'?s.bank:s.cash,esc});
+};
+window.menu=menu;
+// Police: a fast board while seen is bolting, a bust or a search takes the board
+// off you first (the bust moves you home), and you cannot hide while riding.
+skateBolting=()=>!!skate.ride&&skate.ride.speed>6.5;
+const skateBust=performBust;performBust=function(){if(skate.ride)dismountBoard(true);return skateBust();};
+const skateSearch=beginPoliceSearch;beginPoliceSearch=function(role,fled){if(skate.ride)dismountBoard(true);return skateSearch(role,fled);};
+const skateHide=tickHide;tickHide=function(){if(skate.ride)return;return skateHide();};
+const skateEnter=enterVehicle;enterVehicle=function(){if(skate.ride)dismountBoard(true);skateEnter();};
+addEventListener('keydown',e=>{
+ if(!active||e.repeat||panel||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
+ const k=e.key.toLowerCase();
+ if(k==='r'&&!placeMode){if(skate.ride){dismountBoard();}else if(equippedTool==='board')mountBoard();}
+ if(k==='v'&&skate.ride){skate.firstPerson=!skate.firstPerson;try{localStorage.setItem('gummybay-skate-cam',skate.firstPerson?'fp':'tp');}catch{}}
+});
+canvas.addEventListener?.('pointerdown',e=>{if(e.button===0&&equippedTool==='board'&&!skate.ride&&canRide())mountBoard();});
+const skateUpdate=update;update=function(dt){
+ const r=skate.ride;
+ if(!r||!active||panel){skateUpdate(dt);return;}
+ if(stationTask||driving||work){dismountBoard(true);skateUpdate(dt);return;}
+ // The walking controller sees no movement keys while the board carries us.
+ const real=keys,input={push:!!(real.w||real.arrowup),brake:!!(real.s||real.arrowdown),left:!!(real.a||real.arrowleft),right:!!(real.d||real.arrowright),ollieHeld:!!real[' ']};
+ const quiet=Object.assign({},real,{w:false,a:false,s:false,d:false,' ':false,shift:false,arrowup:false,arrowdown:false,arrowleft:false,arrowright:false,control:false});
+ keys=quiet;Object.assign(locomotion,{x:0,z:0,jump:0,vertical:0,jumpQueued:0,space:false});
+ const beforeYaw=yaw;
+ try{skateUpdate(dt);}finally{if(keys===quiet)keys=real;}
+ if(!skate.ride||panel)return;
+ // Mouse look steers the deck at the board's turn limit; A/D carve directly.
+ const steer=Math.atan2(Math.sin(yaw-r.heading),Math.cos(yaw-r.heading));
+ const before=r.heading;
+ if(!skate.hold)stepRide(r,{...input,steer:Math.abs(steer)>.02?steer:0},dt,{floorAt:floorHeight,blocked:(x,z)=>blocked(x,z),rough:skateRough});else r.events=[];
+ if(input.left||input.right)yaw+=Math.atan2(Math.sin(r.heading-before),Math.cos(r.heading-before));
+ void beforeYaw;
+ player.x=r.x;player.z=r.z;
+ const ground=floorHeight(r.x,r.z);
+ locomotion.jump=Math.max(0,r.y-ground);
+ player.y=r.y+DECK_HEIGHT+1.72;
+ const vol=skateVolume(),au=skateAudio();
+ for(const ev of r.events){
+  if(ev==='push')au?.push(vol);
+  else if(ev==='ollie')au?.pop(vol);
+  else if(ev==='land'||ev==='land-hard'){au?.land(ev==='land-hard',vol);skate.shake=Math.max(skate.shake,ev==='land-hard'?.35:.15);}
+  else if(ev==='bail'){au?.bail(vol);skate.shake=.6;toast(r.bailReason==='wall'?'Bailed into a wall! Slow down near buildings.':'Bailed! Hold and release Space to ollie up kerbs.');}
+  else if(ev==='recovered'){dismountBoard(true);return;}
+ }
+ au?.update(r.speed,!r.air&&r.bail===0,vol,r.dist);
+ skate.shake=Math.max(0,skate.shake-dt*1.6);
+ if(Number.isFinite(skate.fov)&&Math.abs(camera.fov-skate.fov)>.01){camera.fov=skate.fov;camera.updateProjectionMatrix();}
+ walk=false;
+};
+function skateCameraPose(){
+ const r=skate.ride;if(!r)return;
+ const sh=skate.shake>0?skate.shake*.06:0,jx=sh?(Math.random()-.5)*sh:0,jy=sh?(Math.random()-.5)*sh:0;
+ if(skate.firstPerson){
+  camera.position.set(r.x,r.y+DECK_HEIGHT+1.62+jy-(r.charging?r.charge*.25:0),r.z);camera.rotation.set(pitch,yaw,-r.lean*.06+jx,'YXZ');
+ }else{
+  const pose=skate.cam||rideCamera(r,yaw,pitch,{blocked:(x,z)=>blocked(x,z)});
+  camera.position.set(pose.x+jx,pose.y+jy,pose.z);camera.lookAt(pose.lookX,pose.lookY,pose.lookZ);
+  if(!skate.cam)camera.rotateZ(-r.lean*.04);
+ }
+ const fov=skateFov(fovBase,r.speed);skate.fov=Number.isFinite(skate.fov)?skate.fov+(fov-skate.fov)*.12:camera.fov;if(Math.abs(camera.fov-skate.fov)>.01){camera.fov=skate.fov;camera.updateProjectionMatrix();}
+}
+function skateSparkle(dt){
+ const r=skate.ride,g=skate.sparks;
+ if(r&&r.board.sparkle&&r.speed>2&&now-skate.sparkAt>.04){skate.sparkAt=now;const m=skateSparks().children.find(c=>c.userData.life<=0);if(m){m.userData.life=1;m.position.set(r.x+Math.sin(r.heading)*.45+(Math.random()-.5)*.2,r.y+.05+Math.random()*.12,r.z+Math.cos(r.heading)*.45+(Math.random()-.5)*.2);}}
+ if(g)for(const m of g.children){if(m.userData.life>0){m.userData.life-=dt*1.4;m.material.opacity=Math.max(0,m.userData.life);m.rotation.y+=dt*6;m.position.y+=dt*.15;}else m.material.opacity=0;}
+}
+let skateLastRender=0;
+const skateRender=renderFrame;renderFrame=function(){
+ const t=performance.now()/1000,dt=skateLastRender?Math.min(.1,t-skateLastRender):0;skateLastRender=t;
+ const r=skate.ride,model=r?skateModel():null;
+ if(skate.model&&skate.model!==model)skate.model.visible=false;
+ if(model){
+  model.visible=true;const bailT=r.bail>0?1-r.bail/BAIL_TIME:0;
+  model.position.set(r.x+(bailT?Math.sin(r.heading)*-bailT*.8:0),r.y,r.z+(bailT?Math.cos(r.heading)*-bailT*.8:0));
+  model.rotation.set(0,r.heading,0,'YXZ');model.rotateZ(r.lean*-.12+(bailT?bailT*2.8:0));
+  if(r.charging)model.rotateX(-r.charge*.12);else if(r.air)model.rotateX(r.vy>0?-.22:.08);
+  spinBoardWheels(model,r.dist);
+ }
+ if(!skate.rider&&r)skate.rider=createRider(scene);
+ updateRider(skate.rider,r,{visible:!!r&&!skate.firstPerson,t});
+ skateSparkle(dt);
+ if(skate.keeper&&Math.hypot(player.x-KICKFLIP_SITE.x,player.z-KICKFLIP_SITE.z)<45)updateKickflipKeeper(skate.keeper,t,{talk:panel==='kickflip'});
+ if(r){skateCameraPose();hand.scale.setScalar(1e-4);}
+ const held=equippedTool==='board'&&!r&&active&&!panel&&!stationTask&&!driving&&!placeMode?skateHeld():null;
+ if(skate.held)skate.held.visible=!!held&&skate.held===held;
+ if(held){held.position.y=-.62+(walk&&comfort.bob?Math.sin(walkPhase)*.012:0);}
+ skateRender();
+};
+const skateHUD=paintS1Hud;paintS1Hud=function(){
+ skateHUD();
+ const b=document.querySelector?.('.hotbar .slot[data-slot="board"]');if(!b)return;
+ const owned=!!skateBoard();b.classList.toggle('empty',!owned);b.classList.toggle('selected',equippedTool==='board');b.setAttribute('aria-pressed',String(equippedTool==='board'));
+ const em=b.querySelector('em');if(em)em.textContent=skate.ride?Math.round(skate.ride.speed*3.6)+'':'';
+ const deck=b.querySelector('.deck');if(deck&&owned)deck.setAttribute('fill','#'+skateBoard().deck.toString(16).padStart(6,'0'));
+ document.body.classList.toggle('skating',!!skate.ride);
+};
+if(typeof window!=='undefined')window.__skate={
+ grant:(id='street')=>{normalizeSkate(s);if(!s.boards.includes(id))s.boards.push(id);s.boardSel=id;save();return s.boards.slice();},
+ equip:()=>{equippedTool='board';return equippedTool;},mount:()=>mountBoard(),dismount:()=>dismountBoard(),
+ teleport:(x,z,h=yaw)=>{player.x=x;player.z=z;yaw=h;if(skate.ride){skate.ride.x=x;skate.ride.z=z;skate.ride.heading=h;skate.ride.y=floorHeight(x,z);}syncPlayerView();return [x,z];},
+ set:(o={})=>{if(skate.ride)Object.assign(skate.ride,o);return !!skate.ride;},
+ cam:p=>{skate.cam=p||null;return !!p;},hold:on=>{skate.hold=!!on;return skate.hold;},look:(y,p)=>{yaw=y;pitch=p??pitch;},
+ state:()=>{const r=skate.ride;return {owned:s?.boards?.slice()||[],sel:s?.boardSel||null,equipped:equippedTool,riding:!!r,speed:r?r.speed:0,y:r?r.y:0,air:r?r.air:false,bail:r?r.bail:0,x:player.x,z:player.z,fov:camera.fov,panel};},
+ point:()=>({x:kickflipPoint.x,z:kickflipPoint.z}),
+ hour:h=>{s.time=h*60;return s.time;},cash:n=>{s.cash=n;updateUI();return s.cash;},
+ chase:(stage='pursuit',d=12)=>{s.day=Math.max(2,s.day);s.sold=Math.max(1,s.sold||0);squadAwake=true;const p=ensurePolice();p.cooldown=0;p.search=null;p.chase=spotChase(freshChase(),stage);const cop=p.officers[0];if(!cop)return 'no officer';cop.squad=p.chase.stage;cop.target=localPoliceRole();cop.mode='pursuit';cop.ko=0;cop.x=player.x+Math.sin(yaw)*d;cop.z=player.z+Math.cos(yaw)*d;cop.angle=Math.atan2(player.x-cop.x,player.z-cop.z);return p.chase.stage;},
+ police:()=>{const p=ensurePolice(),cop=p.officers.find(c=>c.squad)||p.officers[0];return {stage:p.chase?.stage||'clear',arrests:p.arrests||0,copDist:cop?Math.round(Math.hypot(cop.x-player.x,cop.z-player.z)*10)/10:null,riding:!!skate.ride,bust:!!bustPlaying};}
+};
 
 // v133 City expansion (P1-3): compact filler blocks, named businesses, alleys and the expressway.
 // Planned last, against every collider and gameplay point that exists by now, plus the

@@ -10,14 +10,14 @@ assert.equal(s1Clock(3,1245).label,'8:45 PM · Wed');
 assert.equal(s1Clock(8,600).short,'Mon','the week wraps');
 assert.ok(s1Clock(1,1380).night&&!s1Clock(1,720).night);
 
-// Hotbar: eight unlabelled slots on keys 1–8, every slot drawn with an icon.
-assert.equal(HOTBAR_SLOTS.length,8);
-assert.deepEqual(HOTBAR_SLOTS.map(s=>s.key),['1','2','3','4','5','6','7','8']);
+// Hotbar: nine unlabelled slots on keys 1–9 (9 is the skateboard), every slot drawn with an icon.
+assert.equal(HOTBAR_SLOTS.length,9);
+assert.deepEqual(HOTBAR_SLOTS.map(s=>s.key),['1','2','3','4','5','6','7','8','9']);
 for(const slot of HOTBAR_SLOTS)assert.match(HUD_ICONS[slot.id],/^<svg/,slot.id+' has an original inline icon');
-assert.equal(hotbarSlot('2').target,'can');assert.equal(hotbarSlot('9'),null);assert.equal(hotbarSlot('Tab'),null);
+assert.equal(hotbarSlot('2').target,'can');assert.equal(hotbarSlot('9').target,'board');assert.equal(hotbarSlot('0'),null);assert.equal(hotbarSlot('Tab'),null);
 const esc=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const html=hotbarHTML(esc);
-assert.equal((html.match(/class="slot"/g)||[]).length,8);
+assert.equal((html.match(/class="slot"/g)||[]).length,9);
 assert.ok(html.includes('id="cashSlotValue"')&&html.includes('id="cardSlotValue"'),'cash and card tiles are present');
 assert.ok(html.includes('id="equipCan"')&&html.includes('id="equipPacks"'),'legacy equip ids survive for existing code paths');
 assert.ok(!/>\s*(Bag|Can|Packs|Grow|Mix|Map)\s*</.test(html),'slots carry no visible text labels');

@@ -268,7 +268,7 @@ body.titleMode #s1clock,body.titleMode #notifs,body.titleMode .controls,body.tit
 }
 @media(max-width:600px){
  body .hotbar{left:8px!important;right:8px!important;transform:none!important;bottom:max(8px,env(safe-area-inset-bottom))!important;flex-direction:column-reverse;align-items:stretch;gap:6px!important}
- .hotbar .slots{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+ .hotbar .slots{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
  .hotbar .slot{width:auto;height:auto;aspect-ratio:1}
  .hotbar .slot svg{width:26px;height:26px}.hotbar .slot i{font-size:9px;left:4px}.hotbar .slot em{font-size:11px;right:4px}
  .hotbar .money{align-self:flex-end;gap:6px}
@@ -333,3 +333,15 @@ body .customerCard span{color:#ffd34d}
 #slipBar span{width:28px;height:10px;border-radius:99px;background:#2a3138}
 #slipBar span.open{background:#f0d56a}
 #slipBar em{font:800 10px/1 system-ui,sans-serif;font-style:normal;letter-spacing:.6px;margin-left:4px}
+/* v133 Kickflip Container shop rows and the skating HUD state. */
+#modal .skate-list{display:grid;gap:2px;margin-top:6px}
+#modal .item.skate-item{display:grid!important;grid-template-columns:86px minmax(0,1fr) auto;align-items:center;gap:14px;text-align:left;justify-content:stretch}
+#modal .item.skate-item>div{min-width:0}
+#modal .item.skate-item strong{display:block;font-size:15px;color:var(--s1-text,#f3f5f6)}
+#modal .item.skate-item small{color:var(--s1-money,#7fd36a);font-weight:700;letter-spacing:.2px}
+#modal .skate-swatch{display:block;width:80px;height:22px;border-radius:11px;transform:rotate(-10deg);position:relative;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
+#modal .skate-swatch::before,#modal .skate-swatch::after{content:'';position:absolute;bottom:-7px;width:9px;height:9px;border-radius:50%;background:#f4e6c4;box-shadow:0 1px 2px #0008}
+#modal .skate-swatch::before{left:12px}#modal .skate-swatch::after{right:12px}
+#modal .item.skate-item button{min-width:84px}
+body.skating .crosshair,body.skating #crosshair{opacity:0}
+.hotbar .slot[data-slot="board"].selected em{color:#7ff0d9}
