@@ -20,7 +20,7 @@ const p0={x:player.x,z:player.z};let r=C.drive({w:true},3);check(r.speed>8&&r.rp
 check(Number.isFinite(player.x)&&Number.isFinite(driveAngle),'pose finite');
 r=C.drive({w:true,a:true,' ':true},.7);check(r.slip>.2&&r.skids>0,'handbrake turn slides and lays skid marks: '+JSON.stringify(r));
 let bt=0;for(;bt<8&&driveSpeed>.4;bt+=1/30)r=C.drive({s:true},1/30);r=C.drive({},.6);check(Math.abs(driveSpeed)<=1,'brakes to a stop '+driveSpeed+JSON.stringify(r)+JSON.stringify(C.CAR.sim));
-renderFrame();check(C.CAR.view==='chase'&&playerVan.visible,'chase camera shows the car body');
+renderFrame();check(C.CAR.view==='chase'&&playerVan.visible,'chase camera shows the car body');check(C.camGap()>3,'chase camera sits behind the car at render time: '+C.camGap());
 exitVehicle();check(!driving,'exit the car once stopped');
 // Trunk: exempt from a body search.
 s.packs.fill(0);s.packs[0]=5;action('trunkLoad',0,3);check(s.trunk[0]===3&&s.packs[0]===2,'load three packs into the trunk');

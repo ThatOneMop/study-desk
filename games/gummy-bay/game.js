@@ -4497,13 +4497,18 @@ try{
   const html=$('modal').innerHTML,at=html.indexOf('<div class="phone-app-grid">');$('modal').innerHTML=at<0?html+card:html.slice(0,at)+card+html.slice(at);};window.phoneHome=phoneHome;
 
  // Render: chase camera with turn lean and impact shake, the car body while driving, the lot cull, rain.
+ // The chase pose is applied at the last moment, inside renderer.render, so later render wrappers that re-sync the seat view cannot undo it.
+ function applyChasePose(cam){const q=CAR.chasePose;if(!q||cam!==camera)return;cam.position.set(q.x,q.y,q.z);cam.lookAt(q.lx,q.ly,q.lz);cam.rotateZ(q.roll);cam.updateMatrixWorld();}
+ if(renderer&&typeof renderer.render==='function'&&!renderer.__chaseHooked){const baseRender=renderer.render.bind(renderer);renderer.render=function(sc,cam){try{applyChasePose(cam);}catch{}return baseRender(sc,cam);};renderer.__chaseHooked=true;}
  const wheelsRender=renderFrame;renderFrame=function(){
   const dt=Math.min(.1,Math.max(0,(now-(CAR.lastFrame??now))));CAR.lastFrame=now;
   try{
    const c=CAR.sim;
+   if(!(driving&&c&&active))CAR.chasePose=null;
    if(driving&&c&&active){
     CAR.cam=chaseCamera(c,CAR.cam,dt||1/60,{blocked:(x,z)=>blocked(x,z)});CAR.shake=Math.max(0,CAR.shake-dt*2.5);const j=CAR.shake*.12;
-    if(CAR.view==='chase'&&!panel){const ground=floorHeight(c.x,c.z);camera.position.set(CAR.cam.x+(Math.random()-.5)*j,ground+CAR.cam.y+(Math.random()-.5)*j,CAR.cam.z);camera.lookAt(CAR.cam.lookX,ground+CAR.cam.lookY,CAR.cam.lookZ);camera.rotateZ(CAR.cam.roll*1.2);}
+    CAR.chasePose=null;
+    if(CAR.view==='chase'&&!panel){const ground=floorHeight(c.x,c.z);CAR.chasePose={x:CAR.cam.x+(Math.random()-.5)*j,y:ground+CAR.cam.y+(Math.random()-.5)*j,z:CAR.cam.z,lx:CAR.cam.lookX,ly:ground+CAR.cam.lookY,lz:CAR.cam.lookZ,roll:CAR.cam.roll*1.2};applyChasePose(camera);}
     else if(panel){syncPlayerView();camera.rotation.set(pitch,yaw,0);}
     else camera.rotateZ(CAR.cam.roll*.6);
    }
@@ -4530,7 +4535,7 @@ try{
  });
 
  // QA and test hooks.
- window.__cars={
+ window.__cars={quality:()=>quality,clock:m=>{if(Number.isFinite(m))s.time=m;return s.time;},camGap:()=>+Math.hypot(camera.position.x-player.x,camera.position.z-player.z).toFixed(2),look:(y,p=-.08)=>{yaw=y;pitch=p;syncPlayerView();return {x:player.x,z:player.z};},buy:id=>{doAction('buyLot',id);close();return s.lotCars?.slice();},enter:()=>{if(!driving&&window.__cars.toDoor())enterVehicle();return driving;},exit:()=>{if(driving)exitVehicle();return !driving;},give:(t=0,n=6)=>{s.packs[t]=n;return s.packs[t];},tail:(d=9)=>{const c=CAR.cruisers[0];if(!c)return false;const a=driveAngle;c.car.x=player.x-Math.sin(a)*d;c.car.z=player.z-Math.cos(a)*d;c.car.angle=a;c.car.vx=c.car.vz=0;return true;},endChase:()=>{clearSquad(ensurePolice(),'');clearCruisers();return true;},calls:()=>{const info=renderer.info;info.autoReset=false;info.reset();try{renderFrame();return {calls:info.render.calls,triangles:info.render.triangles};}finally{info.autoReset=true;}},
   CAR,RAIN,
   spec:()=>activeHandling(),
   state:()=>{const c=CAR.sim;return {driving,car:activeCarSpec().id,speed:+(c?.speed||0).toFixed(2),long:+driveSpeed.toFixed(2),rpm:c?.rpm||0,gear:c?.gear||0,slip:+(c?.slip||0).toFixed(3),drifting:!!c?.drifting,skids:CAR.skids.live,view:CAR.view,trunk:{...s.trunk},trunkCount:trunkCount(s.trunk),cruisers:CAR.cruisers.length,cruiserSeen:CAR.cruiserSeen,pull:+(CAR.pull||0).toFixed(2),lotVisible:CAR.lot.mesh.visible,lotCars:[...(s.lotCars||[])],carSel:s.carSel,x:+player.x.toFixed(2),z:+player.z.toFixed(2),angle:+driveAngle.toFixed(3)};},
