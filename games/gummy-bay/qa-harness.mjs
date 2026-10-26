@@ -267,9 +267,11 @@ export function createDayDirector(){
   const last=points.length===1;
   const arrive=goalNow.id==='police'&&last?3.2:1.15;
   let aimX=tx,aimZ=tz;
-  if(stuck>2.4){const side=(Math.floor(stuck)%2?1:-1)*2.4;aimX+=side;aimZ+=side*.35;}
+  if(stuck>2.4&&!planned){const side=(Math.floor(stuck)%2?1:-1)*2.4;aimX+=side;aimZ+=side*.35;}
   if(Math.hypot(snap.x-aimX,snap.z-aimZ)<=arrive&&last)return {hold:{},fast:goalNow.id==='police'?2:.35,note:goalNow.id};
-  return {aim:{x:aimX,z:aimZ,arrive,stuck},fast:.7,note:goalNow.id};
+  // Planned legs are wall-free, so face the next waypoint and walk; jams are
+  // handled by replanning round the spot rather than by backing up.
+  return {aim:{x:aimX,z:aimZ,arrive,stuck:planned?0:stuck,face:!!planned},fast:.7,note:goalNow.id};
  }
  function intent(snap){
   const goalNow=goal(snap);

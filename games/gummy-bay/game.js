@@ -2841,7 +2841,7 @@ if(qaKey){
   let left=Math.max(0,Math.min(8,intent.fast||0));
   while(left>1e-6){
    const dt=Math.min(1/60,left);left-=dt;now+=dt;
-   if(intent.aim&&!stationTask&&!work&&!panel){const steered=steerHold({yaw,x:player.x,z:player.z,tx:intent.aim.x,tz:intent.aim.z,stuck:intent.aim.stuck,arrive:intent.aim.arrive});if(steered.arrived){applyHold({});break;}applyHold(steered.hold);}
+   if(intent.aim&&!stationTask&&!work&&!panel){if(intent.aim.face)yaw=Math.atan2(-(intent.aim.x-player.x),-(intent.aim.z-player.z));const steered=steerHold({yaw,x:player.x,z:player.z,tx:intent.aim.x,tz:intent.aim.z,stuck:intent.aim.stuck,arrive:intent.aim.arrive});if(steered.arrived){applyHold({});break;}applyHold(steered.hold);}
    if(stationTask){const step=MANUAL[stationTask.k]?.[stationTask.step];if(step?.[1]==='tap')stationControl(true);else stationAssist=true;updateStationInput(dt);}
    else if(!work)update(dt);
   }
