@@ -48,7 +48,7 @@ import {openingCamera,openingDoorstep,insideRvShell} from './opening-shot.mjs?v=
 import {createCineOverlay,playWhoosh,playPhoneRing,blendPose} from './cinematics.mjs?v=132';
 import {FLYOVER_MINUTES,flyoverAt} from './loading-flyover.mjs?v=132';
 import {hintAt} from './hints.mjs?v=132';
-import {createSkyClouds} from './sky-clouds.mjs?v=132';
+import {createSkyClouds} from './sky-clouds.mjs?v=146';
 import {ACT1_DURATION,act1At,act1PanelHtml,doorstepEyePose} from './story-act1.mjs?v=132';
 import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml,storyHold} from './story-acts.mjs?v=144';
 import {DEALER_ROSTER,RUNNER_ROSTER,CREW,freshEmpire,normalizeEmpire,advanceEmpire,recruitDealer,assignCustomer,unassignCustomer,restockDealer,collectDealer,districtCustomers,dealerOf,runnerOf,stockTotal,hireCrew,crewSlots,slotUpgradeCost,buySlot,fireCrew,hireRunner,dispatchRunner,dealerLow,dealerForecast} from './dealer-network.mjs?v=143';
@@ -592,8 +592,13 @@ let upper=box(b.x,4.85,b.z-b.d*.2,b.w*.92,2.4,b.d*.52,0xc1bba9);upper.material=s
 for(let p of [{x:54,z:51,w:27,d:22},{x:-54,z:55,w:24,d:20}]){let roof=new THREE.Mesh(new THREE.ConeGeometry(p.w*.74,3,4),surface('roof',p.w,p.d,0xa5a28b));roof.scale.z=p.d/p.w;roof.rotation.y=Math.PI/4;roof.position.set(p.x,5.1,p.z);roof.castShadow=true;scene.add(roof)}
 // Contact shadows keep props and buildings grounded, without expensive real-time lights.
 let shadowCanvas=document.createElement('canvas');shadowCanvas.width=shadowCanvas.height=128;let sh=shadowCanvas.getContext('2d'),gradient=sh.createRadialGradient(64,64,8,64,64,63);gradient.addColorStop(0,'rgba(27,36,25,.28)');gradient.addColorStop(.6,'rgba(27,36,25,.12)');gradient.addColorStop(1,'rgba(27,36,25,0)');sh.fillStyle=gradient;sh.fillRect(0,0,128,128);const shadowTexture=new THREE.CanvasTexture(shadowCanvas);
-function contact(x,z,w,d){let p=new THREE.Mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshBasicMaterial({map:shadowTexture,transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1}));p.rotation.x=-Math.PI/2;p.position.set(x,.025,z);scene.add(p)}
+// v146: all contact shadows share one mesh (was one transparent draw call each). They are static, flat and the same
+// colour, so the merged blend is identical whatever order the quads draw in.
+const contactQuads=[];function contact(x,z,w,d){const g=new THREE.PlaneGeometry(w,d);g.applyMatrix4(new THREE.Matrix4().makeRotationX(-Math.PI/2).setPosition(x,.025,z));contactQuads.push(g);}
 for(let c of CONTACTS)contact(c.x,c.z,1.7,1.3);for(let b of [[-25,19,24,19],[-24,-23,26,23],[24,-25,26,24],[53,22,25,23],[-53,-25,24,24],[-58,26,7,12]])contact(...b);
+{const pos=[],nor=[],uv=[],idx=[];for(const g of contactQuads){const base=pos.length/3;pos.push(...g.attributes.position.array);nor.push(...g.attributes.normal.array);uv.push(...g.attributes.uv.array);for(const i of g.index.array)idx.push(base+i);g.dispose();}
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeBoundingSphere();
+ const p=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({map:shadowTexture,transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1}));p.name='Contact shadows';scene.add(p);}
 // Utility poles, cables, crates, hydrants and mailboxes break up the old empty spaces.
 for(let x of [-68,-36,14,52,81]){cyl(x,4,-11,.14,8,0x86745c);box(x,7.4,-11,2.5,.13,.13,0x736b56);for(let j of [-1,1])cyl(x+j*.85,7.62,-11,.06,.25,0xb8b9a5);}
 for(let pair of [[-68,-36],[-36,14],[14,52],[52,81]])for(let z of [-10.3,-11.7]){let curve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(pair[0],7.6,z),new THREE.Vector3((pair[0]+pair[1])/2,6.2,z),new THREE.Vector3(pair[1],7.6,z));let cable=new THREE.Mesh(new THREE.TubeGeometry(curve,16,.025,4,false),mat(0x4a5148));scene.add(cable)}
@@ -605,6 +610,13 @@ box(-77,4.3,-20,17,.3,9,0xd4d1b9);box(-77,4.15,-15.4,17,.4,.2,0xa35f4b);sign('CO
 function atm(x,z){rounded(x,1.05,z,1,2.1,.65,0x4f665d);rounded(x,1.42,z+.35,.7,.5,.05,0x87baa8);box(x,1,z+.36,.65,.1,.03,0x242e29);box(x,.7,z+.36,.7,.2,.06,0x9aaba0);sign('ATM',x,2.35,z+.36,1.3,'#354f43','#b5d5a2');addPoint('atm','ATM · Cash ↔ online card',x,z+1.1)}atm(16,-12);atm(-17,27);
 function recycleStation(x,z){rounded(x,1.1,z,1.8,2.2,1.2,0x74896a);box(x,1.4,z+.63,1.05,.55,.05,0x354b3b);rounded(x,.6,z+.65,.8,.4,.05,0xb7ba93);sign('TRASH FOR CASH',x,2.65,z+.62,2.8,'#566d4c','#e5e9cb');addPoint('recycler','Trash for cash · Recycling',x,z+1.5)}recycleStation(-38,9);recycleStation(67,-12);
 const litter=[];for(let i=0;i<28;i++){let x=-65+(i*29)%137,z=(i%2?1:-1)*(8.2+(i%3)*2.2);if(blocked(x,z))continue;let g=new THREE.Group();g.position.set(x,.1,z);scene.add(g);if(i%3===0){let can=cyl(0,.08,0,.1,.22,0xa6b4ab,g,8);can.rotation.z=Math.PI/2;}else if(i%3===1){let bottle=cyl(0,.08,0,.075,.3,0x93a9a0,g,8);bottle.rotation.z=1.4;box(.17,.08,0,.08,.04,.05,0xc6b88a,false,g);}else{let paper=box(0,0,0,.28,.025,.22,0xc8c0a5,false,g);paper.rotation.y=i;}litter.push({id:i,g});addPoint('litter','Pick up litter',x,z,{id:i});}
+// v146: litter draws as a few InstancedMeshes, one per piece kind (it was one or two draw calls per piece). The groups stay as
+// position holders and still carry .visible; a picked piece collapses to zero scale on the next frame.
+const litterInst=(()=>{const kinds=new Map(),zero=new THREE.Matrix4().makeScale(0,0,0);scene.updateMatrixWorld(true);
+ for(const p of litter){p.parts=[];p.shown=true;for(const m of [...p.g.children]){if(!m.isMesh||Array.isArray(m.material))continue;const k=m.geometry.type+JSON.stringify(m.geometry.parameters||{})+m.material.uuid;let kind=kinds.get(k);if(!kind){kind={geo:m.geometry,mat:m.material,cast:m.castShadow,recv:m.receiveShadow,items:[]};kinds.set(k,kind);}kind.items.push({p,m:m.matrixWorld.clone()});p.g.remove(m);}}
+ const meshes=[];for(const kind of kinds.values()){const im=new THREE.InstancedMesh(kind.geo,kind.mat,kind.items.length);im.name='Litter (instanced)';kind.items.forEach((it,i)=>{im.setMatrixAt(i,it.m);it.p.parts.push([im,i,it.m]);});im.instanceMatrix.needsUpdate=true;im.computeBoundingSphere?.();im.castShadow=kind.cast;im.receiveShadow=kind.recv;scene.add(im);meshes.push(im);}
+ return {meshes,sync(){for(const p of litter){const v=p.g.visible!==false;if(p.shown===v)continue;p.shown=v;for(const [im,i,m] of p.parts){im.setMatrixAt(i,v?m:zero);im.instanceMatrix.needsUpdate=true;}}}};})();
+{const litterFrame=renderFrame;renderFrame=function(){litterInst.sync();litterFrame();};}
 const mixers=[];for(let [home,p]of [[0,{x:-23,z:44}],[1,{x:-53,z:58}],[2,{x:55,z:56}]]){let g=new THREE.Group();g.position.set(p.x,0,p.z);scene.add(g);box(0,.6,0,2.2,1.2,1.1,0x7b9386,false,g);box(0,1.27,0,2.4,.12,1.3,0xd2d2bd,false,g);cyl(-.4,1.55,0,.42,.5,0xa1b0a3,g);cyl(-.4,1.83,0,.42,.07,0x718677,g);rounded(.6,1.54,0,.55,.5,.65,0x647f72,g);sphere(.6,1.7,.34,.06,0xb9cf83,g);mixers.push(g);addFurnishing('mixer',p.x,p.z,2.4,1.3,home);addPoint('mix','Mixing station',p.x,p.z+1.4,{home});}
 const previousPointVisible=pointVisible;pointVisible=function(p){if(p.type==='litter')return !s.picked[p.id]||s.picked[p.id]<s.day;if(p.type==='mix')return s.mixer&&(p.home===s.house);return previousPointVisible(p)};
 const previousUI=updateUI;updateUI=function(){previousUI();litter.forEach(p=>p.g.visible=!s.picked[p.id]||s.picked[p.id]<s.day);mixers.forEach((g,i)=>g.visible=s.mixer&&i===s.house);$('bank').textContent=cash(s.bank);};
@@ -700,7 +712,7 @@ shopLogo(19.1,30.7,'MILO’S','plant','#70825c');shopLogo(-30.8,-14.3,'HARDWARE'
 const smallDetails=[];scene.traverse(o=>{if(o.isMesh&&o.parent===scene&&o.geometry.type==='BoxGeometry'){const d=o.geometry.parameters;if(d.width<3&&d.height<.55&&d.depth<2){o.castShadow=false;smallDetails.push(o)}}});
 const artFrame=renderFrame;renderFrame=function(){
 skyDome.position.copy(camera.position);waterUniforms.uTime.value=now;
-for(let o of smallDetails)o.visible=camera.position.distanceToSquared(o.position)<6400;
+for(let o of smallDetails){if(o.__batchParent)continue;o.visible=camera.position.distanceToSquared(o.position)<6400;}
 for(let g of avatars){let id=g.userData.id;let phase=(now+id*.63)%5.3;g.userData.eyes.scale.y=phase>4.9&&phase<5.07?.1:1;g.userData.torso.scale.y=1+Math.sin(now*1.8+id)*.008;g.userData.left.rotation.z=.035+Math.sin(now*1.1+id)*.025;g.userData.right.rotation.z=-.035-Math.sin(now*1.1+id)*.025;if(g===patrol){g.userData.left.rotation.x=Math.sin(now*2.1)*.2;g.userData.right.rotation.x=-Math.sin(now*2.1)*.2;}}
 artFrame();};
 // ART V6 — depth, material response and close-range shadow fidelity.
@@ -1268,7 +1280,7 @@ if(typeof GLTFLoader!=='undefined')new GLTFLoader().load('./assets/equipment-v11
  tents.forEach((g,i)=>{for(const child of [...g.children])if(child!==plantVisuals[i])g.remove(child);g.add(tent.clone(true));});
  mixers.forEach(g=>{g.clear();g.add(mixer.clone(true));attachObjectSilhouette(g,'station',{quality});});
  for(const o of [...scene.children])if(o.isMesh&&Math.abs(o.position.x+47)<.7&&Math.abs(o.position.z-29)<.65&&o.position.y>0&&o.position.y<3.1)scene.remove(o);
- const model=phone.clone(true);dressPayphone(model);model.position.set(-47,0,29);scene.add(model);equipmentAssetStatus='ready';
+ const model=phone.clone(true);dressPayphone(model);model.position.set(-47,0,29);model.userData.batchStatic=true;model.traverse(o=>{if(o.isMesh&&o.userData)delete o.userData.name;});scene.add(model);equipmentAssetStatus='ready';
 },undefined,e=>{equipmentAssetStatus='failed';console.warn('Equipment retains previous artwork',e);});
 
 
@@ -2143,7 +2155,7 @@ if(streetShot){
   const walk=(o,top,vis)=>{if(!o.visible)return;if((o.isMesh||o.isLine||o.isPoints||o.isSprite)&&(!o.frustumCulled||(o.isSprite?true:(o.geometry.boundingSphere||o.geometry.computeBoundingSphere(),fr.intersectsObject(o))))){const k=top;groups[k]=(groups[k]||0)+(Array.isArray(o.material)?o.material.length:1);}for(const c of o.children)walk(c,top,vis);};
   for(const c of scene.children)walk(c,(c.name||c.type)+(c.isMesh?':'+(c.geometry?.type||''):''),true);return Object.entries(groups).sort((a,b)=>b[1]-a[1]).slice(0,40);},
  batchDebug:async()=>{const m=await import('./static-batch.mjs?v=139');const r={};const mats=new Map();for(const o of scene.children){const k=m.batchReject(o,scene)||'ok';const t=k+' '+(o.geometry?.type||o.type);r[t]=(r[t]||0)+1;if(k==='ok'){mats.set(o.material.uuid,(mats.get(o.material.uuid)||0)+1);}}const gn={};for(const o of scene.children)if(o.type==='Group'){const k=(o.name||'?')+' kids'+o.children.length;gn[k]=(gn[k]||0)+1;}const sm={};for(const o of scene.children){if(m.batchReject(o,scene)!=='')continue;if(mats.get(o.material.uuid)!==1)continue;const mm=o.material;const k=mm.type+' '+(o.name||'-')+' #'+mm.color?.getHexString()+' e'+mm.emissive?.getHexString()+' map'+!!mm.map;sm[k]=(sm[k]||0)+1;}const bs=scene.children.filter(o=>o.userData.staticBatch).map(o=>o.userData.staticBatch);const bm=new Set(scene.children.filter(o=>o.userData.staticBatch).map(o=>o.material.uuid)).size;camera.updateMatrixWorld();const fr=new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));const vis={};for(const o of scene.children){if(!o.isMesh||!o.visible||o.userData.staticBatch)continue;if(o.frustumCulled&&!fr.intersectsObject(o))continue;const k=(m.batchReject(o,scene)||'ok')+' '+o.geometry.type+' '+(o.name||'');vis[k]=(vis[k]||0)+1;}const bk={};for(const o of scene.children)if(o.userData.batchKey){const k=o.userData.batchKey.split('|').slice(0,5).join('|');bk[k]=(bk[k]||0)+1;}return {bk,vis,bsizes:bs.sort((a,b)=>a-b).join(','),bmats:bm,gn,sm,singleMats:[...mats.values()].filter(v=>v===1).length,mats:mats.size,stats:window.__gummyBatcher?.stats()};},
- callProfile:(detail=false)=>{if(shotCam){camera.position.set(shotCam[0],shotCam[1],shotCam[2]);camera.lookAt(shotCam[3],shotCam[4],shotCam[5]);camera.updateMatrixWorld();}const top=o=>{let a=o;while(a.parent&&a.parent!==scene)a=a.parent;if(detail){const m=o.material,r=[];if(Array.isArray(m))r.push('multi');else if(m){if(m.transparent)r.push('transp');if(m.map)r.push('map');if(m.emissive?.getHex?.())r.push('emis');}const u=Object.keys(o.userData||{});if(u.length)r.push('ud:'+u.join('+'));if(o.children.length)r.push('kids');if(o.renderOrder)r.push('ro');if(o.isInstancedMesh)r.push('inst');return (a.name||a.type+'@'+Math.round(a.position.x)+','+Math.round(a.position.z))+' > '+(o.name||o.geometry?.type||o.type)+' ['+r.join(',')+']';}return (a.name||a.type)+(a===o?':'+(o.geometry?.type||''):'');};const hits={},saved=[];scene.traverse(o=>{if(!o.isMesh&&!o.isLine&&!o.isPoints&&!o.isSprite)return;if(Object.prototype.hasOwnProperty.call(o,'onBeforeRender')){saved.push([o,o.onBeforeRender]);}else saved.push([o,null]);const prev=o.onBeforeRender,k=top(o);o.onBeforeRender=function(...a){hits[k]=hits[k]||{calls:0,tris:0};hits[k].calls++;const g=a[3];hits[k].tris+=g?((g.index?g.index.count:g.attributes.position?.count||0)/3*(o.isInstancedMesh?o.count:1)|0):0;return prev.apply(this,a);};});const info=renderer.info;info.autoReset=false;info.reset();try{renderFrame();}finally{info.autoReset=true;for(const [o,f] of saved){if(f)o.onBeforeRender=f;else delete o.onBeforeRender;}}return {calls:info.render.calls,triangles:info.render.triangles,top:Object.entries(hits).sort((a,b)=>b[1].calls-a[1].calls).slice(0,40)};},
+ scene:()=>scene,callProfile:(detail=false)=>{if(shotCam){camera.position.set(shotCam[0],shotCam[1],shotCam[2]);camera.lookAt(shotCam[3],shotCam[4],shotCam[5]);camera.updateMatrixWorld();}const top=o=>{let a=o;while(a.parent&&a.parent!==scene)a=a.parent;if(detail){const m=o.material,r=[];if(Array.isArray(m))r.push('multi');else if(m){if(m.transparent)r.push('transp');if(m.map)r.push('map');if(m.emissive?.getHex?.())r.push('emis');}const u=Object.keys(o.userData||{});if(u.length)r.push('ud:'+u.join('+'));if(o.children.length)r.push('kids');if(o.renderOrder)r.push('ro');if(o.isInstancedMesh)r.push('inst');return (a.name||a.type+'@'+Math.round(a.position.x)+','+Math.round(a.position.z))+' > '+(o.name||o.geometry?.type||o.type)+' ['+r.join(',')+']';}return (a.name||a.type)+(a===o?':'+(o.geometry?.type||''):'');};const hits={},saved=[];scene.traverse(o=>{if(!o.isMesh&&!o.isLine&&!o.isPoints&&!o.isSprite)return;if(Object.prototype.hasOwnProperty.call(o,'onBeforeRender')){saved.push([o,o.onBeforeRender]);}else saved.push([o,null]);const prev=o.onBeforeRender,k=top(o);o.onBeforeRender=function(...a){hits[k]=hits[k]||{calls:0,tris:0};hits[k].calls++;const g=a[3];hits[k].tris+=g?((g.index?g.index.count:g.attributes.position?.count||0)/3*(o.isInstancedMesh?o.count:1)|0):0;return prev.apply(this,a);};});const info=renderer.info;info.autoReset=false;info.reset();try{renderFrame();}finally{info.autoReset=true;for(const [o,f] of saved){if(f)o.onBeforeRender=f;else delete o.onBeforeRender;}}return {calls:info.render.calls,triangles:info.render.triangles,top:Object.entries(hits).sort((a,b)=>b[1].calls-a[1].calls).slice(0,40)};},
  frameCalls:()=>{const info=renderer.info;info.autoReset=false;info.reset();try{renderFrame();return {calls:info.render.calls,triangles:info.render.triangles};}finally{info.autoReset=true;}},
  read:()=>{const recent=streetShotFrames.slice(-90);return {status:townAssetStatus,calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,markings:starterStreet?.markingMesh.count??0,curbs:starterStreet?.hardscapeMesh.count??0,quality,budget:starterStreet?.activeBudget??'off',frames:streetShotFrames.length,frameMs:recent.length?recent.reduce((sum,ms)=>sum+ms,0)/recent.length:0};}
  };
@@ -3813,10 +3825,41 @@ try{
 // into per-material cells (browser only; a moved or hidden source splits its batch back).
 var staticBatcher=null;
 if(typeof location!=='undefined'&&!/[?&]batch=0\b/.test(location.search))try{
- staticBatcher=createStaticBatcher(scene);window.__gummyBatcher=staticBatcher;let batchState='waiting';
+ // v146: static signs (immutable shared lettering, 1024x256 canvases) pack into single-column 1024x4096 atlases of 16 boards and
+// draw as one mesh per atlas instead of one draw call per board. A single column keeps the mirrored back-face lookup
+// (u -> 1-u) inside the same board. Like the static batcher, any later change to a packed sign (visibility, material,
+// re-parenting, movement or a redrawn map) splits its atlas back into the original meshes, so behaviour never changes.
+ const signAtlases=[];
+ const splitSignAtlas=rec=>{if(rec.split)return;rec.split=true;scene.remove(rec.mesh);rec.mesh.geometry.dispose();rec.mesh.material.dispose();rec.tex.dispose();
+  for(const o of rec.signs){const v=o.__av,m=o.__am;delete o.visible;delete o.material;o.visible=v;o.material=m;delete o.__av;delete o.__am;delete o.__atlas;if(!o.parent)scene.add(o);}};
+ const signSnap=o=>[...o.position.toArray(),...o.quaternion.toArray(),...o.scale.toArray()];
+ const buildSignAtlases=()=>{
+  const list=scene.children.filter(o=>o.isMesh&&o.geometry===signPlane&&o.userData.signText!=null&&o.userData.dynamicSign===false&&o.visible&&!o.children.length&&!Array.isArray(o.material)&&o.material?.map?.image?.width===1024&&o.material.map.image.height===256);
+  if(list.length<4)return;scene.updateMatrixWorld(true);
+  const mats=[...new Set(list.map(o=>o.material))],P=signPlane.attributes.position,U=signPlane.attributes.uv,I=signPlane.index,v=new THREE.Vector3();
+  for(let a=0;a*16<mats.length;a++){
+   const chunk=mats.slice(a*16,a*16+16),rows=chunk.length,signs=list.filter(o=>chunk.includes(o.material));if(signs.length<2)continue;
+   const c=document.createElement('canvas');c.width=1024;c.height=256*rows;const g=c.getContext('2d');chunk.forEach((m,i)=>g.drawImage(m.map.image,0,i*256));
+   const m0=chunk[0].map,tex=new THREE.CanvasTexture(c);tex.colorSpace=m0.colorSpace;tex.anisotropy=m0.anisotropy;tex.minFilter=m0.minFilter;tex.magFilter=m0.magFilter;tex.generateMipmaps=m0.generateMipmaps;tex.needsUpdate=true;
+   const pos=[],uv=[],idx=[];
+   for(const o of signs){const row=chunk.indexOf(o.material),base=pos.length/3;
+    for(let k=0;k<P.count;k++){v.fromBufferAttribute(P,k).applyMatrix4(o.matrixWorld);pos.push(v.x,v.y,v.z);uv.push(U.getX(k),(rows-1-row+U.getY(k))/rows);}
+    for(let k=0;k<I.count;k++)idx.push(base+I.getX(k));}
+   const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeBoundingSphere();
+   const mat=readableBothSides(new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide,toneMapped:false}));
+   const mesh=new THREE.Mesh(geo,mat);mesh.name='Sign atlas';mesh.matrixAutoUpdate=false;mesh.userData.signAtlas=signs.length;scene.add(mesh);
+   const rec={mesh,tex,signs,snaps:new Map(signs.map(o=>[o,signSnap(o)])),maps:new Map(chunk.map(m=>[m,m.map.version])),split:false};signAtlases.push(rec);
+   for(const o of signs){o.__av=o.visible;o.__am=o.material;o.__atlas=rec;scene.remove(o);
+    Object.defineProperty(o,'visible',{configurable:true,enumerable:true,get(){return this.__av;},set(x){if(x!==this.__av){this.__av=x;splitSignAtlas(rec);}}});
+    Object.defineProperty(o,'material',{configurable:true,enumerable:true,get(){return this.__am;},set(x){if(x!==this.__am){this.__am=x;splitSignAtlas(rec);}}});}
+  }};
+ let signCheck=0;const checkSignAtlases=()=>{if(++signCheck%60)return;for(const rec of signAtlases){if(rec.split)continue;
+  if(rec.signs.some(o=>o.parent||signSnap(o).some((x,j)=>Math.abs(x-rec.snaps.get(o)[j])>1e-6))||[...rec.maps].some(([m,ver])=>m.map?.version!==ver))splitSignAtlas(rec);}};
+ window.__signAtlas={stats:()=>({atlases:signAtlases.filter(r=>!r.split).length,signs:signAtlases.filter(r=>!r.split).reduce((n,r)=>n+r.signs.length,0),split:signAtlases.filter(r=>r.split).length}),splitAll:()=>signAtlases.forEach(splitSignAtlas)};
+staticBatcher=createStaticBatcher(scene);window.__gummyBatcher=staticBatcher;let batchState='waiting';
  const batchRender=renderFrame;renderFrame=function(){
-  if(batchState==='waiting'&&townAssetStatus!=='loading'){batchState='built';try{window.__gummyBatch=staticBatcher.build();}catch(error){console.warn('Static batching skipped',error);}}
-  else if(batchState==='built')staticBatcher.update(camera);
+  if(batchState==='waiting'&&townAssetStatus!=='loading'){batchState='built';try{buildSignAtlases();}catch(error){console.warn('Sign atlas skipped',error);}try{for(const o of smallDetails)o.visible=true;window.__gummyBatch=staticBatcher.build();}catch(error){console.warn('Static batching skipped',error);}}
+  else if(batchState==='built'){staticBatcher.update(camera);checkSignAtlases();}
   batchRender();
  };
 }catch(error){console.warn('Static batching unavailable',error);}
