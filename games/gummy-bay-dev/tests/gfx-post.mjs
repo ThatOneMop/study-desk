@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import * as THREE from '../dist/vendor/three.module.min.js';
+import {postTuning,glowSources,sceneGlowExtras,createGlowHalos,isLowPost} from '../dist/gfx-post.mjs';
+import {createEffects} from '../dist/post-stack.mjs';
+assert.ok(isLowPost('performance'));
+const lowDay=postTuning('performance',0),lowNight=postTuning('performance',1),hi=postTuning('high',1),med=postTuning('balanced',.5);
+assert.equal(lowDay.halo,0,'no halo draw by day');assert.equal(lowNight.composer,false);
+assert.ok(lowNight.halo<hi.halo+.2&&lowNight.halo<=.6,'Low stays light');assert.ok(hi.bloom>postTuning('high',0).bloom,'night bloom stronger');assert.equal(med.composer,false);
+const src=glowSources({lamps:[{x:0,z:0,axis:'z',face:1},{x:0,z:0,axis:'z',face:1}],soffit:[{x:5,y:6,z:2}],height:()=>1});
+assert.equal(src.length,2,'dedupe');assert.ok(Math.abs(src[0].y-6.12)<1e-6&&Math.abs(src[0].z-1.15)<1e-6);
+const scene=new THREE.Scene();const sign=new THREE.Mesh(new THREE.BoxGeometry(1.4,.5,.1),new THREE.MeshStandardMaterial({emissive:0xffaa66,emissiveIntensity:1}));sign.name='Shop sign';sign.position.set(3,3,3);scene.add(sign);
+const big=new THREE.Mesh(new THREE.BoxGeometry(40,10,40),new THREE.MeshStandardMaterial({emissive:0xffffff}));scene.add(big);
+const ex=sceneGlowExtras(THREE,scene);assert.equal(ex.length,1,'only small lit things');
+const h=createGlowHalos(THREE,scene,glowSources({extra:ex}));assert.equal(h.count,1);assert.equal(h.mesh.visible,false);
+h.update(lowNight,{near:100,far:270});assert.ok(h.mesh.visible);h.update(lowDay,null);assert.equal(h.mesh.visible,false);
+assert.equal(typeof createEffects(null,null,null).setPost,'function');
+console.log('gfx-post ok');

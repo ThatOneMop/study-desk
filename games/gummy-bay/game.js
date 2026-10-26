@@ -153,7 +153,8 @@ import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
-import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=150';
+import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
+import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
 const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:42,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:56,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:72,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:92,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:118,level:7,time:50}];
@@ -3859,7 +3860,7 @@ if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
 // v134 Lighting and visual polish: bounce/moon fill, lifted hemisphere colours,
 // instanced street lamps with fake light pools, overpass soffit lights and
 // stylised trees placed only on free ground (never in front of a shopfront).
-var streetLighting=null;const fillLight=new THREE.AmbientLight(0xffffff,0);fillLight.name='Readability fill';scene.add(fillLight);
+var streetLighting=null,gfxGlowSpots=null,gfxHalos=null;const fillLight=new THREE.AmbientLight(0xffffff,0);fillLight.name='Readability fill';scene.add(fillLight);
 let lastGrade=readabilityGrade(sceneLighting(s?.time??540,active));
 const gradeBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gradeBaseRefresh();
  const plan=sceneLighting(s.time,active),g=readabilityGrade(plan);lastGrade=g;
@@ -3869,7 +3870,7 @@ const gradeBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){grad
 try{
  const grid=cityExpansion?.plan?.grid;
  const opZ=OVERPASS.z,soffit=[];for(let x=-262;x<262;x+=30){if(CITY_ROADS.x.concat([0]).some(rx=>Math.abs(x-rx)<10))continue;for(const dz of [-4.2,4.2])soffit.push({x,y:OVERPASS.y-.35,z:opZ+dz});}
- const spots=streetLampSpots({roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),skipZ:[0,opZ],obstacles:colliders,points});
+ const spots=streetLampSpots({roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),skipZ:[0,opZ],obstacles:colliders,points});gfxGlowSpots={lamps:spots,soffit};
  const grid0=grid;const freeTree=(x,z)=>grid0?grid0.free(x-2.6,x+2.6,z-2.6,z+2.6):false;
  // Old Town dressing: off the road bands, colliders, doors, police lanes and every crowd stop / walk line.
  const crowd=[];for(let i=0;i<STREET_CROWD_SIZE*2;i++){const c=crowdRoute(i);crowd.push({a:[c.home.x,c.home.z],b:[c.job.x,c.job.z]});for(const k of ['bench','vend','atm','street'])crowd.push({a:[c[k].x,c[k].z],b:[c.home.x,c.home.z]},{a:[c[k].x,c[k].z],b:[c.job.x,c.job.z]});}
@@ -3891,6 +3892,8 @@ const gfxBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gfxBas
  hemi.color.setHex(gfxLerpHex(hemi.color.getHex(),g.hemiSkyTarget,g.hemiSkyMix));hemi.groundColor.setHex(gfxLerpHex(hemi.groundColor.getHex(),g.hemiGroundTarget,g.hemiGroundMix));hemi.intensity*=g.hemiScale;
  fillLight.intensity*=g.fillScale;fillLight.color.setHex(gfxLerpHex(fillLight.color.getHex(),g.fillWarmColor,g.fillWarm));renderer.toneMappingExposure*=g.exposureScale;sun.shadow.intensity=g.shadowIntensity||1;
  gfxOcclusion?.set(g.occlusion);
+ // v153 post: night glow halos on every quality, High bloom/grade tuning, gentle fog layering off Low.
+ const t=postTuning(quality,g.night);gfxHalos?.update(t,scene.fog);effects?.setPost?.(t);
 };
 window.__gummyGfx={occlusion:()=>gfxOcclusion?{verts:gfxOcclusion.verts,opacity:gfxOcclusion.mesh.material.opacity}:null,grade:()=>gfxLightGrade(sceneLighting(s.time,active),quality)};
 // v151 graphics pass step 2: one procedural detail atlas shared by every static town material.
@@ -3912,7 +3915,8 @@ function gfxBuildDetail(){
  gfxDetail=createDetailMesh(THREE,scene,detailParts(buildings,{alleys:NARROW_ALLEY_PROFILES.filter(Boolean),wires}));
  const walls=[];for(const b of buildings)for(let i=0;i<2;i++)walls.push({x:b.x+(i?b.w/2+.5:-b.w/2-.5),z:b.z+(b.d*.3)*(i?1:-1)});
  gfxDecals=createDecals(THREE,scene,decalSpots({roads:[{axis:'z',at:0,mid:0,len:150,width:10},{axis:'x',at:0,mid:0,len:150,width:10}],walls}),{height:(x,z)=>Math.max(terrainHeight(x,z),.0)});
- window.__gummyDetail={buildings:buildings.length,parts:gfxDetail?.parts??0,decals:gfxDecals?.count??0};
+ if(!gfxHalos&&gfxGlowSpots){gfxHalos=createGlowHalos(THREE,scene,glowSources({...gfxGlowSpots,extra:sceneGlowExtras(THREE,scene),height:terrainHeight}));refreshWorldLighting();}
+ window.__gummyDetail={halos:gfxHalos?.count??0,buildings:buildings.length,parts:gfxDetail?.parts??0,decals:gfxDecals?.count??0};
 }
 // v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).
