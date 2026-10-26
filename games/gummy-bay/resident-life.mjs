@@ -4,10 +4,13 @@ export const PLACES={
  hardware:{x:-24,z:-11,label:'Hank’s Hardware'},store:{x:24,z:-13,label:'the Corner Store'},
  laundry:{x:53,z:34,label:'Suds & Sunshine'},waterfront:{x:12,z:65,label:'the waterfront'}
 };
+export const CURFEW_START=1320,CURFEW_END=360;
+export function curfewActive(time){const minute=((Number.isFinite(time)?time:0)%1440+1440)%1440;return minute>=CURFEW_START||minute<CURFEW_END;}
 const routine=(morning,lunch,afternoon)=>[
  {at:0,place:'meeting',activity:'rest',line:'Taking it easy before the shops open.'},
  {at:480,...morning},{at:720,...lunch},{at:960,...afternoon},
- {at:1200,place:'meeting',activity:'phone',line:'Winding down. Send me a message if you have something good.'}
+ {at:1200,place:'meeting',activity:'phone',line:'Winding down. Send me a message if you have something good.'},
+ {at:1320,place:'meeting',activity:'curfew',line:'Curfew. I’m staying at my usual spot until morning.'}
 ];
 export const ROUTINES=[
  routine({place:'motel',activity:'phone',line:'Checking the late-shift roster. A sweet break would help.'},{place:'waterfront',activity:'drink',line:'A little sea air before another shift.'},{place:'laundry',activity:'browse',line:'Picking up my clean work shirt. Again.'}),
@@ -27,7 +30,7 @@ export function residentDescription(plan,position,blocked=false){
  if(blocked)return 'Waiting for a clear path to '+plan.label;
  if(Math.hypot(position.x-plan.x,position.z-plan.z)>.7)return 'Walking to '+plan.label;
  if(plan.meeting)return 'Waiting for your delivery';
- const action={phone:'Checking messages',drink:'Taking a drink break',browse:'Looking around',rest:'Taking a break'}[plan.activity]||'Taking a break';
+ const action={phone:'Checking messages',drink:'Taking a drink break',browse:'Looking around',rest:'Taking a break',curfew:'Indoors for curfew'}[plan.activity]||'Taking a break';
  return action+' · '+plan.label;
 }
 export function segmentClear(a,b,blocked){const n=Math.max(1,Math.ceil(Math.hypot(b.x-a.x,b.z-a.z)/.2));for(let i=0;i<=n;i++)if(blocked(a.x+(b.x-a.x)*i/n,a.z+(b.z-a.z)*i/n))return false;return true;}
