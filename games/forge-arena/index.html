@@ -2362,7 +2362,7 @@ var hexRGB2 = window.hexRGB2;
    try{
      const map=tutorial?MAPS[0]:randomMap();
      $262('#modeModal').classList.add('hidden');$262('#loading').classList.remove('hidden');drawLoading(map,mode);
-     const preview=window.__forgeEmbeddedPreview262;
+     const preview=!((()=>{try{const c=document.createElement('canvas');return !!(c.getContext('webgl')||c.getContext('webgl2'))}catch(e){return false}})());
      const stages=preview
        ?[['VERIFYING LOADOUT',14],['PREPARING PREVIEW RENDERER',36],['DEPLOYING TRAINING AI',62],['CALIBRATING MOUSE AIM',84],['READY',100]]
        :[['VERIFYING LOADOUT',12],['BAKING NAVIGATION',30],['SYNCING HARD-SURFACE MATERIALS',48],['ASSIGNING BOT OBJECTIVES',66],['CALIBRATING TARGETING',84],['DEPLOYING',100]];

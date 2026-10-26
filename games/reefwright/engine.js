@@ -14,7 +14,7 @@ const PIECES=[
  {name:'Little refuge',cells:[[0,0,'C'],[1,0,'N']]}
 ];
 const STAGES=[
- {name:'First light',tag:'A sheltered beginning',rocks:[35],goals:{coral:5,nursery:2,kelp:3},par:30,deck:[[0,1,3],[1,2,4],[3,5,6],[0,4,8],[2,5,7],[1,3,6],[0,4,7],[1,5,8]],note:'Build one connected coral colony. A nursery needs coral beside it and a route through water to an edge.'},
+ {name:'First light',tag:'A sheltered beginning',rocks:[35],goals:{coral:4,nursery:1,kelp:3},par:14,deck:[[0,1,3],[1,2,4],[3,5,6],[0,4,8],[2,5,7],[1,3,6],[0,4,7],[1,5,8]],note:'First coast is shorter: 4 coral, 1 nursery, 3 kelp. A nursery needs coral beside it and a route through water to an edge.'},
  {name:'Split shoal',tag:'Work around the old stones',rocks:[8,14,20,27],goals:{coral:6,nursery:3,kelp:3},par:34,deck:[[6,3,0],[1,5,7],[0,4,2],[3,6,8],[5,1,2],[4,7,0],[3,6,1],[8,5,2]],note:'Stones split the bay. Leave a sea channel between your habitat clusters.'},
  {name:'Ribbon coast',tag:'A forest in the shallows',rocks:[0,1,6,29,34,35],goals:{coral:5,nursery:3,kelp:6},par:36,deck:[[3,0,4],[7,1,2],[3,5,6],[0,4,8],[3,6,1],[7,2,4],[0,3,8],[1,5,4]],note:'Only kelp in connected groups of at least three counts as forest.'},
  {name:'Cradle lagoon',tag:'Leave the water breathing',rocks:[7,10,25,28],goals:{coral:6,nursery:5,kelp:3},par:38,deck:[[6,3,4],[1,0,7],[2,4,5],[6,3,8],[1,7,0],[4,5,2],[3,6,1],[8,4,5]],note:'Nurseries can share a channel. A nursery at the edge has direct sea access.'},

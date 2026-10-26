@@ -2,7 +2,7 @@
 const SIZE=6,MAX_ACTIONS=160;
 // Cells are physical pieces of paper. Folding changes their coordinates, never their identities.
 const CHARTS=[
- {name:'A shore within reach',brief:'Fold the left shore onto the right. Islands that touch become a path. Bring the stamp to the lighthouse with the sheet flat.',spots:[[6,'start'],[7,'path'],[10,'stamp'],[11,'path'],[17,'goal']],axes:['x'],creases:4,par:2},
+ {name:'A shore within reach',brief:'A short first chart, with spare creases so you can experiment. Fold the left shore onto the right. Islands that touch become a path. Bring the stamp to the lighthouse with the sheet flat.',spots:[[6,'start'],[7,'path'],[10,'stamp'],[11,'path'],[17,'goal']],axes:['x'],creases:6,par:2},
  {name:'Four corners, one sea',brief:'North and south can meet too. Carry both stamps home; open the paper before landing at the lighthouse.',spots:[[0,'start'],[1,'path'],[5,'stamp'],[11,'path'],[30,'stamp'],[31,'path'],[35,'goal']],axes:['x','y'],creases:8,par:6},
  {name:'The ink estuary',brief:'Ink stains cost one heart the first time you land on them. Fold a gentler route; collecting a stamp never hurts.',spots:[[6,'start'],[7,'ink'],[9,'stamp'],[10,'path'],[11,'ink'],[15,'path'],[21,'ink'],[24,'stamp'],[25,'path'],[27,'path'],[29,'goal']],axes:['x','y'],creases:8,par:6},
  {name:'Mender’s archipelago',brief:'Thread spools mend two creases, once each. Visit a spool before wearing out the paper; a folded sheet cannot enter the lighthouse.',spots:[[0,'start'],[2,'path'],[3,'stamp'],[5,'spool'],[9,'path'],[11,'path'],[12,'ink'],[14,'path'],[16,'path'],[17,'stamp'],[18,'path'],[23,'spool'],[30,'stamp'],[32,'path'],[35,'goal']],axes:['x','y'],creases:4,par:6},
