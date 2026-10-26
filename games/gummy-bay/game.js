@@ -44,10 +44,12 @@ import {createFixedStepper} from './sim-clock.mjs?v=122';
 import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from './staff-status.mjs?v=123';
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=123';
 import {customerBrief,customerReply,readCustomerReceipt,sampleChoices} from './customer-context.mjs?v=30';
+import {normalizeCravings,noteSale,cravingBudgetBonus,cravingAsk,markAsked,cravingState} from './customer-craving.mjs?v=124';
+import {bindGameplayState,emitGameplay} from './gameplay-feed.mjs?v=124';
 import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
-import {residentPlan,residentDescription,citizenRouteSteps,segmentClear} from './resident-life.mjs?v=25';
+import {residentPlan,residentDescription,citizenRouteSteps,segmentClear,curfewActive} from './resident-life.mjs?v=124';
 import {residentLocomotionClip,residentActionRate,applyResidentTransition} from './resident-animation.mjs?v=109';
 import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
@@ -97,8 +99,9 @@ const INGREDIENTS=[{name:'Fizz syrup',effect:'Fizzy',cost:2,bonus:15,color:0xe3b
 for(let base=0;base<BASE_COUNT;base++)for(let ingredient=0;ingredient<INGREDIENTS.length;ingredient++){let p=STRAINS[base],f=INGREDIENTS[ingredient];STRAINS.push({...p,name:f.effect+' '+p.name,desc:'Mixed '+p.name+' with '+f.name.toLowerCase()+'.',price:p.price+f.bonus,color:new THREE.Color(p.color).lerp(new THREE.Color(f.color),.5).getHex(),mixed:true,base,ingredient});}
 function normalize(v){for(let k of ['seeds','raw','gummies','packs'])while(v[k].length<STRAINS.length)v[k].push(0);v.layout??={};v.storedPacks??=STRAINS.map(()=>0);while(v.storedPacks.length<STRAINS.length)v.storedPacks.push(0);v.workerEnabled??={gardener:true,crafter:true,seller:true};v.vehicleOwned??=false;v.vehiclePark??={x:-180,z:-155,angle:0};v.npcs??=[];v.packStation??=!!v.room;v.trimmers??=!!v.harvested;v.relations??={};v.atmWeek??=0;v.atmUsed??=0;v.ingredients??=INGREDIENTS.map(()=>0);v.mixer??=false;v.mixed??=0;v.payment??='cash';v.trash??=0;v.trashEarned??=0;v.picked??={};v.ledger??=[];v.visits=normalizeLocationVisits(v.visits);return v;}
 const CONTACTS=[{name:'Jules',x:-7,z:21,color:0xc67562,skin:0xc68d6a,budget:1.12,line:'Working the late shift again. Could use something sweet.'},{name:'Benji',x:18,z:8,color:0x80a7a8,skin:0xd8b991,budget:.98,line:'I’m on a budget, but I’ll come back if it’s good.'},{name:'Nina',x:-22,z:-9,color:0xb9a567,skin:0xb27e5b,budget:1.2,line:'Good flavour, fair price. That’s all I ask.'},{name:'Oz',x:38,z:-17,color:0x9e87b4,skin:0xe1b28f,budget:1.3,line:'I’ll pay more for premium stuff. Don’t disappoint me.'},{name:'Frankie',x:12,z:40,color:0x7f9f63,skin:0xc49674,budget:1.08,line:'Got a long walk home. Meet me by the pier.'}];
-const fresh=mode=>({version:3,mode,cash:400,bank:0,x:-58,z:26.7,yaw:-Math.PI/2,pitch:0,day:1,time:540,xp:0,heat:0,called:0,chapter:0,room:false,layout:{},storedPacks:STRAINS.map(()=>0),workerEnabled:{gardener:true,crafter:true,seller:true},vehicleOwned:false,vehiclePark:{x:-180,z:-155,angle:0},npcs:[],props:null,packStation:false,trimmers:false,relations:{},visits:{},atmWeek:0,atmUsed:0,tents:0,soil:0,seeds:STRAINS.map(()=>0),raw:STRAINS.map(()=>0),gummies:STRAINS.map(()=>0),packs:STRAINS.map(()=>0),ingredients:INGREDIENTS.map(()=>0),mixer:false,mixed:0,payment:'cash',trash:0,trashEarned:0,picked:{},ledger:[],wrappers:0,can:false,water:0,plants:[],lights:0,irrigation:false,bench:0,house:0,helpers:{gardener:false,crafter:false,seller:false},staffConfig:{gardener:{strain:-1,tent:-1,stock:'carried',route:'walk'},crafter:{strain:-1,tent:-1,stock:'stored',route:'timer'},seller:{strain:-1,tent:-1,stock:'carried',route:'walk'}},hired:0,planted:0,watered:0,harvested:0,made:0,listed:0,texted:0,sold:0,earned:0,listing:null,threads:{},deals:[],laundry:null,laundered:0,front:false,job:null,savedAt:Date.now()});
+const fresh=mode=>({version:3,mode,cash:400,bank:0,x:-58,z:26.7,yaw:-Math.PI/2,pitch:0,day:1,time:540,xp:0,heat:0,called:0,chapter:0,room:false,layout:{},storedPacks:STRAINS.map(()=>0),workerEnabled:{gardener:true,crafter:true,seller:true},vehicleOwned:false,vehiclePark:{x:-180,z:-155,angle:0},npcs:[],props:null,packStation:false,trimmers:false,relations:{},visits:{},cravings:{},atmWeek:0,atmUsed:0,tents:0,soil:0,seeds:STRAINS.map(()=>0),raw:STRAINS.map(()=>0),gummies:STRAINS.map(()=>0),packs:STRAINS.map(()=>0),ingredients:INGREDIENTS.map(()=>0),mixer:false,mixed:0,payment:'cash',trash:0,trashEarned:0,picked:{},ledger:[],wrappers:0,can:false,water:0,plants:[],lights:0,irrigation:false,bench:0,house:0,helpers:{gardener:false,crafter:false,seller:false},staffConfig:{gardener:{strain:-1,tent:-1,stock:'carried',route:'walk'},crafter:{strain:-1,tent:-1,stock:'stored',route:'timer'},seller:{strain:-1,tent:-1,stock:'carried',route:'walk'}},hired:0,planted:0,watered:0,harvested:0,made:0,listed:0,texted:0,sold:0,earned:0,listing:null,threads:{},deals:[],laundry:null,laundered:0,front:false,job:null,savedAt:Date.now()});
 let s=fresh('story'),mode='story',slot=1,active=false,panel='title',keys={},yaw=0,pitch=0,near=null,conversationPoint=null,track=null,stamina=100,now=0,last=0,uiTimer=0,saveTimer=0,walkPhase=0,walk=false,toastTimer=0,selected=0,phoneTab='messages',processingRemote=false,work=null,pendingReset=null;
+bindGameplayState(()=>({day:s.day,time:s.time,heat:s.heat,curfew:curfewActive(s.time),cravings:CONTACTS.map((_,i)=>cravingState(s.cravings?.[i],s.day))}));
 const player=new THREE.Vector3(s.x,1.72,s.z),camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,.08,330);camera.rotation.order='YXZ';
 let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'})}catch(e){$('modal').innerHTML='<h2>3D graphics are unavailable</h2><p>Enable hardware acceleration in your desktop browser, then reload.</p>';throw e}renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.93;
 const scene=new THREE.Scene();scene.background=new THREE.Color(0xb2d7df);scene.fog=new THREE.Fog(0xb2d7df,105,280);const hemi=new THREE.HemisphereLight(0xc6d5e2,0x71664d,1.15);scene.add(hemi);const sun=new THREE.DirectionalLight(0xffe2bb,3.1);sun.position.set(-38,65,45);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-37,right:37,top:37,bottom:-37,near:1,far:180});sun.shadow.normalBias=.025;sun.shadow.bias=-.0001;sun.shadow.radius=2;scene.add(sun);
@@ -429,7 +432,7 @@ const jumpInput=bufferedJump(locomotion.jumpQueued,!!keys[' ']&&!locomotion.spac
 locomotion.crouch=crouchStep(locomotion.crouch,!!keys.control,floorHeight(player.x,player.z),ceilingHeight(player.x,player.z),dt);const travelled=Math.hypot(player.x-beforeX,player.z-beforeZ);walk=travelled>.0001;if(running&&walk)stamina=Math.max(0,stamina-dt*15);else stamina=Math.min(100,stamina+dt*12);walkPhase+=travelled*(running?1.65:1.86);
 syncPlayerView();
 camera.fov+=( (running&&walk&&comfort.sprintFov?75:70)-camera.fov)*(1-Math.exp(-dt*5));camera.updateProjectionMatrix();camera.rotation.set(pitch,yaw,0);hand.position.y=comfort.bob&&walk?Math.sin(walkPhase)*.012:0;watering.rotation.z=work?Math.sin(now*4)*.15:0;
-if(net.role!=='guest'){s.time+=dt*1.2;if(s.time>=1440){s.time-=1440;s.day++}s.heat=Math.max(0,s.heat-dt*.9);catchCooldown=Math.max(0,catchCooldown-dt);}
+if(net.role!=='guest'){const wasCurfew=curfewActive(s.time);s.time+=dt*1.2;if(s.time>=1440){s.time-=1440;s.day++}const nowCurfew=curfewActive(s.time);if(nowCurfew!==wasCurfew)emitGameplay({type:'curfew',active:nowCurfew,day:s.day,time:s.time});if(!nowCurfew)s.heat=Math.max(0,s.heat-dt*.9);catchCooldown=Math.max(0,catchCooldown-dt);}
 people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z)<5){const desired=Math.atan2(player.x-g.position.x,player.z-g.position.z),delta=Math.atan2(Math.sin(desired-g.rotation.y),Math.cos(desired-g.rotation.y));g.rotation.y+=delta*(1-Math.exp(-dt*5));}g.userData.head.rotation.z=Math.sin(now*1.7+i)*.015});if(track&&!Number.isInteger(track.npc)&&Math.hypot(player.x-track.x,player.z-track.z)<2.3)track=null;
 // Environmental state is projected once before rendering, including paused menus.
 }
@@ -794,9 +797,9 @@ const economyAction=doAction;doAction=function(k,a,b,c){
  if(k==='sample'){if(!CONTACTS[a]||!STRAINS[b]||!Number.isInteger(b)||s.packs[b]-reservedQty(b)<1||!customerExchangeStatus(a).ok)return;s.packs[b]--;s.relations[a]=Math.min(100,relationship(a)+10);toast(CONTACTS[a].name+': Thanks! Text me your price.');refresh('customer',a);committedExchange('sample',a,b,1);return;}
  if(k==='atmDeposit'){let allowance=atmAllowance();if(Number.isInteger(a)&&a>allowance){toast('Weekly ATM limit: '+cash(allowance)+' remaining.');return;}let before=s.bank;economyAction(k,a,b,c);s.atmUsed+=Math.max(0,s.bank-before);save();if(!processingRemote&&panel==='atm')menu('atm');return;}
  const oldSold=s.sold,oldBudget=CONTACTS[a]?.budget;
- if(k==='text'&&CONTACTS[a]&&s.listing){let item=STRAINS[s.listing.t];CONTACTS[a].budget+=relationship(a)*.0015+(item.mixed&&item.ingredient===a%4?.15:0);}
+ if(k==='text'&&CONTACTS[a]&&s.listing){let item=STRAINS[s.listing.t];CONTACTS[a].budget+=relationship(a)*.0015+(item.mixed&&item.ingredient===a%4?.15:0)+cravingBudgetBonus(s.cravings?.[a],s.listing.t,s.day);}
  try{economyAction(k,a,b,c);}finally{if(oldBudget!==undefined)CONTACTS[a].budget=oldBudget;}
- if(k==='deliver'&&s.sold>oldSold){s.relations[a]=Math.min(100,relationship(a)+6);save();}
+ if(k==='deliver'&&s.sold>oldSold){s.relations[a]=Math.min(100,relationship(a)+6);const sale=s.threads[a]?.lastSale;if(sale)recordCravingSale(a,sale.t,sale.qty);save();}
 };ACTION_NAMES.push('buyPackStation','buyTrimmers','sample');
 const timedAgree=agree;agree=function(i,price){timedAgree(i,price);let d=s.deals.find(d=>d.npc===i);if(d)d.due=(s.day-1)*1440+s.time+180;s.threads[i].messages.push({mine:false,text:'Meet me within three game hours. I’ll hold the agreed price.'});};
 const dealProduction=production;production=function(dt){dealProduction(dt);const clock=(s.day-1)*1440+s.time;for(let d of [...s.deals])if(d.due&&clock>d.due){s.deals=s.deals.filter(x=>x!==d);s.relations[d.npc]=Math.max(0,relationship(d.npc)-5);let t=s.threads[d.npc];if(t){t.status='closed';t.messages.push({mine:false,text:'I had to leave. Text me again when you’re ready.'});}toast(CONTACTS[d.npc].name+' left. Your stock is available again.');}};
@@ -1127,7 +1130,7 @@ if(typeof GLTFLoader!=='undefined')new GLTFLoader().load('./assets/equipment-v11
 
 // V12: progression, explicit worker assignments and transactional batches.
 const normalize11=normalize;
-normalize=function(v){normalize11(v);v.tutorialHidden??=false;v.staffConfig??={};for(const role of ['gardener','crafter','seller'])v.staffConfig[role]=normalizeStaffRole(role,v.staffConfig[role],BASE_COUNT);return v;};normalize(s);
+normalize=function(v){normalize11(v);v.tutorialHidden??=false;v.staffConfig??={};for(const role of ['gardener','crafter','seller'])v.staffConfig[role]=normalizeStaffRole(role,v.staffConfig[role],BASE_COUNT);v.cravings=normalizeCravings(v.cravings,CONTACTS.length,STRAINS.length);return v;};normalize(s);
 STORY[2].text='At Hank’s buy one tent ($100), a watering can ($15), trimmers ($10) and a packaging station ($100). These are reusable.';
 STORY[2].done=()=>s.tents>0&&s.can&&s.trimmers&&s.packStation;
 STORY[3].done=()=>s.planted>0||(s.seeds.some(n=>n>0)&&s.soil>0);
@@ -1494,7 +1497,27 @@ function gardenContext(){const base=workerContext(),limit=maxTents(),cfg=s.staff
 }
 function sellerContext(){return {contacts:CONTACTS,blocked:(x,z)=>blocked(x,z),approach:6};}
 function placeFieldActor(actor,position,dt){const dx=position.x-actor.position.x,dz=position.z-actor.position.z;if(Math.hypot(dx,dz)>.001)actor.rotation.y=turnTowards(actor.rotation.y,Math.atan2(dx,dz),dt);actor.position.set(position.x,0,position.z);}
-const production19=production;production=function(dt){if(ensurePolice().search)return;production19(dt);if(physicalCrafter.tick(s,dt,workerContext()))save();if(physicalGardener.tick(s,dt,gardenContext()))save();const sale=physicalSeller.tick(s,dt,sellerContext());if(sale){save();toast('Sales assistant · '+cash(sale.pay)+' · '+STRAINS[sale.t].name+' · '+CONTACTS[sale.npc].name);}};
+let cravingAskTimer=0;
+function recordCravingSale(npc,product,qty){
+ s.cravings=noteSale(s.cravings,npc,product,qty,s.day,s.time);
+ emitGameplay({type:'craving-changed',npc,product,qty,level:s.cravings[npc]?.level??0,day:s.day,time:s.time});
+}
+function postCravingAsks(){
+ let posted=false;
+ for(let i=0;i<CONTACTS.length;i++){
+  const rec=s.cravings?.[i],thread=s.threads[i];
+  const ask=cravingAsk(rec,{day:s.day,time:s.time,hasDeal:s.deals.some(d=>d.npc===i),threadStatus:thread?.status});
+  if(!ask||!STRAINS[ask.t])continue;
+  const text=ask.qty>1?'I need two '+STRAINS[ask.t].name+'. Text me a price before the night gets away.':'I need a '+STRAINS[ask.t].name+'. Text me a price when you have one packed.';
+  if(!thread)s.threads[i]={status:'idle',messages:[{mine:false,text}]};
+  else{if(thread.status==='sold'||thread.status==='closed'||thread.status==='cancelled')thread.status='idle';(thread.messages??=[]).push({mine:false,text});}
+  s.cravings[i]=markAsked(s.cravings[i],s.day,s.time);
+  emitGameplay({type:'craving-ask',npc:i,product:ask.t,qty:ask.qty,level:ask.level,text});
+  posted=true;
+ }
+ if(posted)save();
+}
+const production19=production;production=function(dt){if(ensurePolice().search)return;production19(dt);if(physicalCrafter.tick(s,dt,workerContext()))save();if(physicalGardener.tick(s,dt,gardenContext()))save();const sale=physicalSeller.tick(s,dt,sellerContext());if(sale){recordCravingSale(sale.npc,sale.t,sale.qty);save();toast('Sales assistant · '+cash(sale.pay)+' · '+STRAINS[sale.t].name+' · '+CONTACTS[sale.npc].name);}cravingAskTimer+=dt;if(cravingAskTimer>=15){cravingAskTimer=0;postCravingAsks();}};
 const update19=update;update=function(dt){update19(dt);
  const remote=net.remote?.worker,isGuest=net.role==='guest';
  crafterActor.visible=!!(active&&s.room&&s.helpers.crafter&&s.staffConfig.crafter.stock==='stored'&&(!isGuest||(net.connected&&performance.now()-(net.workerSeenAt||0)<5000&&workerPoseValid(remote,WORLD)&&remote.visible)));
