@@ -1,0 +1,3 @@
+const E=require('../../games/field-album/engine.js');
+function route(seed,level){let b=E.initial(),moves=[];for(let day=0;day<6;day++){let best=null;for(let habitat=0;habitat<3;habitat++){const a={type:'survey',habitat},pack=E.step(b,a,seed,level);for(let card=0;card<3;card++)for(let p=0;p<12;p++){const c={type:'place',card,p},placed=E.step(pack,c,seed,level);if(!placed)continue;for(let card2=0;card2<3;card2++)for(let p2=0;p2<12;p2++){const d={type:'place',card:card2,p:p2},after=E.step(placed,d,seed,level);if(!after)continue;const score=E.score(after.cells,level).total;if(!best||score>best.score)best={score,b:after,moves:[a,c,d]}}}}b=best.b;moves.push(...best.moves)}return{seed,level,total:E.score(b.cells,level).total,moves}}
+module.exports=route;

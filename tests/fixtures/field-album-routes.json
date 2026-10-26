@@ -1,0 +1,275 @@
+[
+  {
+    "seed": 137,
+    "level": 0,
+    "total": 66,
+    "moves": [
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 5
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 0
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 1
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 2
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 6
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 10
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 3
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 7
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 4
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 11
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 8
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 9
+      }
+    ]
+  },
+  {
+    "seed": 137,
+    "level": 1,
+    "total": 64,
+    "moves": [
+      {
+        "type": "survey",
+        "habitat": 1
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 2
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 0
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 4
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 1
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 6
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 5
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 10
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 9
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 7
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 11
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 8
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 3
+      }
+    ]
+  },
+  {
+    "seed": 137,
+    "level": 2,
+    "total": 57,
+    "moves": [
+      {
+        "type": "survey",
+        "habitat": 2
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 0
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 6
+      },
+      {
+        "type": "survey",
+        "habitat": 1
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 3
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 11
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 1
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 2
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 4
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 5
+      },
+      {
+        "type": "survey",
+        "habitat": 0
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 8
+      },
+      {
+        "type": "place",
+        "card": 2,
+        "p": 9
+      },
+      {
+        "type": "survey",
+        "habitat": 1
+      },
+      {
+        "type": "place",
+        "card": 0,
+        "p": 7
+      },
+      {
+        "type": "place",
+        "card": 1,
+        "p": 10
+      }
+    ]
+  }
+]
