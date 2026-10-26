@@ -4198,7 +4198,7 @@ try{
   else if(e.crew.length<slots)h+='<div class="net-btns wide"><button class="go" onclick="netAct(\'hireCrew\',\'grower\')">Hire grower · '+money(CREW.hire)+'</button><button class="go" onclick="netAct(\'hireCrew\',\'bench\')">Hire bench hand · '+money(CREW.hire)+'</button></div>';
   h+=up!=null?'<div class="net-btns wide"><button onclick="netAct(\'buySlot\')"'+(s.house<1?' disabled':'')+'>'+(s.house<1?'🔒 Extra slots need a bigger place':'Add a work slot · '+money(up))+'</button></div>':'<p class="net-meta">All extra slots built.</p>';
   return h+'<p class="net-meta">Stockroom '+storedUsed()+'/'+storageCapacity()+' packs · wrappers '+(s.wrappers||0)+'</p>';}
- function networkHTML(){const e=ensureEmpire(),owed=Object.values(e.dealers).reduce((a,x)=>a+x.owed,0),st=e.stats;
+ function sweetNetHTML(){const e=ensureEmpire(),owed=Object.values(e.dealers).reduce((a,x)=>a+x.owed,0),st=e.stats;
   let h='<div class="overline">SWEET NETWORK</div><h2>Your candy empire</h2><p class="net-sum"><span><b>'+money(owed)+'</b>owed</span><span><b>'+Object.keys(e.dealers).length+'</b>dealers</span><span><b>'+e.crew.length+'</b>crew</span><span><b>'+storedUsed()+'</b>in stock</span></p>';
   h+='<div class="net-tabs">'+[['dealers','Dealers'],['runners','Runners'],['crew','Crew'],['log','Log']].map(([k,l])=>'<button class="'+(NET.tab===k?'on':'')+'" onclick="netAct(\'tab\',\''+k+'\')">'+l+'</button>').join('')+'</div>';
   if(NET.tab==='dealers')h+=DEALER_ROSTER.map(d=>dealerCard(d)).join('');
@@ -4207,7 +4207,7 @@ try{
   else h+='<ol class="net-log">'+(e.log.slice(-10).reverse().map(l=>'<li class="'+l.kind+'"><small>Day '+Math.floor(l.at/1440)+' '+String(Math.floor(l.at%1440/60)).padStart(2,'0')+':'+String(l.at%60).padStart(2,'0')+'</small> '+l.text+'</li>').join('')||'<li>Nothing yet. Recruit a dealer to get started.</li>')+'</ol><p class="net-meta">Lifetime: '+st.dealerSales+' packs via dealers · '+money(st.dealerNet)+' to you · cuts '+money(st.cuts)+' · wages '+money(st.wages)+' · confiscated '+st.seized+'</p>';
   return h;}
  const netMenu=menu;menu=function(which,data){netMenu(which,data);
-  if(which==='sweetnet'&&panel==='sweetnet'){netRun();$('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="story-phone net-phone">'+networkHTML()+'</div><button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';$('overlay').classList.toggle('phone',true);}
+  if(which==='sweetnet'&&panel==='sweetnet'){netRun();$('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="story-phone net-phone">'+sweetNetHTML()+'</div><button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';$('overlay').classList.toggle('phone',true);}
   if(which==='netdealer'&&panel==='netdealer'){NET.open=data;const d=DEALER_ROSTER[data];if(!d)return;netRun();const x=ensureEmpire().dealers[d.id];
    $('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="overline">SWEET NETWORK / '+d.district.toUpperCase()+'</div><h2>'+d.name+'</h2>'+(x?'':'<div class="message">“'+d.line+'”</div>')+'<div class="net-phone story-phone net-inline">'+dealerCard(d)+'</div>';}
  };window.menu=menu;
@@ -4221,6 +4221,6 @@ try{
   advance:minutes=>{const e=ensureEmpire();e.clock=Math.max(0,e.clock-Math.max(0,minutes|0));return netRun();},
   spot:id=>NET.spots[id],track:id=>{const p=NET.spots[id];if(!p)return false;track={x:p.x,z:p.z,label:dealerOf(id).name};close();toast('Tracking '+dealerOf(id).name);return true;},
   visuals:()=>({dealers:Object.fromEntries(DEALER_ROSTER.map(d=>[d.id,NET.actors[d.id].g.visible])),crew:NET.crew.filter(f=>f.g.visible).length,runner:!!NET.runner?.visible}),
-  html:()=>networkHTML()};
+  html:()=>sweetNetHTML()};
  window.loadGame=load;
 }catch(error){console.warn('Sweet Network unavailable',error);}
