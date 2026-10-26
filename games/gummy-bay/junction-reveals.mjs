@@ -1,7 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
-import {STREET_JUNCTIONS} from './street-construction.mjs?v=76';
-import {SKYLINE_LANDMARK_PROFILES} from './town-skyline.mjs?v=78';
-import {DISTRICT_BUILDING_SITES} from './district-architecture.mjs?v=92';
+import {STREET_JUNCTIONS} from './street-construction.mjs?v=126';
+import {SKYLINE_LANDMARK_PROFILES} from './town-skyline.mjs?v=126';
+import {DISTRICT_BUILDING_SITES} from './district-architecture.mjs?v=126';
 
 const freezeRecords=records=>Object.freeze(records.map(record=>Object.freeze(record)));
 export const JUNCTION_REVEAL_SITES=freezeRecords([
@@ -55,7 +55,7 @@ export function nearestJunctionReveal(position,profiles=JUNCTION_REVEAL_PROFILES
 }
 
 export function createJunctionReveals({scene,profiles=JUNCTION_REVEAL_PROFILES,quality='balanced'}={}){
- if(!scene||!Array.isArray(profiles))throw new TypeError('Junction reveals need a scene and profile records.');const valid=profiles.filter(Boolean),boxes=valid.flatMap(profile=>profile.boxes.map(part=>({...part,reveal:profile.id}))),cylinders=valid.flatMap(profile=>profile.cylinders.map(part=>({...part,reveal:profile.id}))),boxGeometry=new THREE.BoxGeometry(1,1,1),cylinderGeometry=new THREE.CylinderGeometry(1,1,1,10),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:.02,vertexColors:true,flatShading:true}),boxMesh=new THREE.InstancedMesh(boxGeometry,material,boxes.length),cylinderMesh=new THREE.InstancedMesh(cylinderGeometry,material.clone(),cylinders.length),object=new THREE.Object3D(),color=new THREE.Color();
+ if(!scene||!Array.isArray(profiles))throw new TypeError('Junction reveals need a scene and profile records.');const valid=profiles.filter(Boolean),boxes=valid.flatMap(profile=>profile.boxes.map(part=>({...part,reveal:profile.id}))),cylinders=valid.flatMap(profile=>profile.cylinders.map(part=>({...part,reveal:profile.id}))),boxGeometry=new THREE.BoxGeometry(1,1,1),cylinderGeometry=new THREE.CylinderGeometry(1,1,1,10),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:.02,flatShading:true}),boxMesh=new THREE.InstancedMesh(boxGeometry,material,boxes.length),cylinderMesh=new THREE.InstancedMesh(cylinderGeometry,material.clone(),cylinders.length),object=new THREE.Object3D(),color=new THREE.Color();
  boxMesh.userData.items=boxes;cylinderMesh.userData.items=cylinders;
  for(const [i,part] of boxes.entries()){object.position.set(part.x,part.y,part.z);object.rotation.set(0,part.ry||0,0);object.scale.set(part.w,part.h,part.d);object.updateMatrix();boxMesh.setMatrixAt(i,object.matrix);boxMesh.setColorAt(i,color.setHex(part.color));}
  for(const [i,part] of cylinders.entries()){object.position.set(part.x,part.y,part.z);object.rotation.set(0,0,0);object.scale.set(part.r,part.h,part.r);object.updateMatrix();cylinderMesh.setMatrixAt(i,object.matrix);cylinderMesh.setColorAt(i,color.setHex(part.color));}

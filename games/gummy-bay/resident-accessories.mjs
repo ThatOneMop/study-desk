@@ -87,7 +87,7 @@ export function selectResidentAccessories(points){
  return Object.freeze(entries);
 }
 function makeBatch(scene,geometry,items){
- const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.82,metalness:0,vertexColors:true,flatShading:false}),mesh=new THREE.InstancedMesh(geometry,material,items.length),color=new THREE.Color();
+ const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.82,metalness:0,flatShading:false}),mesh=new THREE.InstancedMesh(geometry,material,items.length),color=new THREE.Color();
  mesh.userData.items=items;for(let i=0;i<items.length;i++)mesh.setColorAt(i,color.setHex(items[i].part.color));
  mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=true;mesh.receiveShadow=true;mesh.frustumCulled=false;scene.add(mesh);return mesh;
 }

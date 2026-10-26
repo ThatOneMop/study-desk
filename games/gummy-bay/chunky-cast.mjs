@@ -2,6 +2,7 @@
 // existing animated bones: oversized heads, flat faces, mitten hands, role colours.
 import * as THREE from './vendor/three.module.min.js';
 import {residentExpressionState} from './resident-expressions.mjs';
+import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,personPartEnabled,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=126';
 
 export const CHUNKY_CAST_COLLIDERS=Object.freeze([]);
 const freeze=records=>Object.freeze(records.map(record=>Object.freeze(record)));
@@ -18,44 +19,14 @@ export const CHUNKY_CAST_PROFILES=freeze([
 export const CHUNKY_CAST_ROLES=Object.freeze(['police','worker','seller','dealer','customer','townsfolk']);
 const PANTS=[0x2c3444,0x3a332c,0x243044,0x3d342e,0x2a3330,0x353044,0x3e2c28,0x2e3840];
 
-const part=(name,bone,x,y,z,w,h,d,slot,when='always')=>Object.freeze({name,bone,x,y,z,w,h,d,slot,when});
-export const CHUNKY_PART_LAYOUT=freeze([
- part('head','Head',0,.36,-.02,.50,.48,.42,'skin'),
- part('face','Head',0,.42,.30,.34,.30,.04,'face'),
- part('eyeL','Head',-.09,.48,.345,.055,.07,.02,'ink','eye'),
- part('eyeR','Head',.09,.48,.345,.055,.07,.02,'ink','eye'),
- part('browL','Head',-.09,.575,.335,.11,.022,.018,'hair','brow'),
- part('browR','Head',.09,.575,.335,.11,.022,.018,'hair','brow'),
- part('mouth','Head',0,.30,.34,.11,.016,.016,'mouth','mouth'),
- part('neck','Head',0,.04,0,.14,.12,.12,'skin'),
- part('torso','Chest',0,.22,.02,.46,.40,.28,'outfit'),
- part('collar','Chest',0,.40,.12,.30,.06,.06,'collar','collar'),
- part('pelvis','Hips',0,.08,0,.38,.18,.24,'pants'),
- part('armL','UpperArm-1',0,.16,0,.14,.30,.14,'outfit'),
- part('armR','UpperArm1',0,.16,0,.14,.30,.14,'outfit'),
- part('foreL','Forearm-1',0,.12,0,.11,.22,.11,'skin'),
- part('foreR','Forearm1',0,.12,0,.11,.22,.11,'skin'),
- part('handL','Hand-1',.015,.075,-.02,.12,.14,.08,'skin','hand'),
- part('handR','Hand1',-.015,.075,-.02,.12,.14,.08,'skin','hand'),
- part('thumbL','Hand-1',.075,.04,-.015,.045,.07,.045,'skin'),
- part('thumbR','Hand1',-.075,.04,-.015,.045,.07,.045,'skin'),
- part('thighL','Thigh-1',0,.16,0,.16,.30,.16,'pants'),
- part('thighR','Thigh1',0,.16,0,.16,.30,.16,'pants'),
- part('shinL','Shin-1',0,.13,0,.12,.22,.12,'pants'),
- part('shinR','Shin1',0,.13,0,.12,.22,.12,'pants'),
- part('glassesL','Head',-.09,.48,.325,.10,.09,.012,'frame','glasses'),
- part('glassesR','Head',.09,.48,.325,.10,.09,.012,'frame','glasses'),
- part('bridge','Head',0,.50,.328,.08,.016,.012,'frame','glasses'),
- part('hood','Head',0,.52,-.06,.58,.30,.40,'hood','hood'),
- part('strapL','Chest',-.09,.24,.15,.045,.34,.02,'strap','worker'),
- part('strapR','Chest',.09,.24,.15,.045,.34,.02,'strap','worker'),
- part('shirt','Chest',0,.16,.145,.22,.16,.02,'shirt','worker'),
- part('badge','Chest',.12,.24,.155,.06,.07,.018,'badge','police'),
- part('pocket','Chest',-.12,.12,.15,.12,.1,.03,'pocket','pocket')
-]);
-export const CHUNKY_PART_INDEX=Object.freeze(Object.fromEntries(CHUNKY_PART_LAYOUT.map((item,index)=>[item.name,index])));
-export const CHUNKY_BOX_GEOMETRY=new THREE.BoxGeometry(1,1,1);
-const CAST_MATERIAL=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:0,vertexColors:true,flatShading:true});
+// v126: the cast shares the person kit with the street crowd. Parts ride the
+// animated bones by position and rotation only; bone stretch from the sculpted
+// rig is ignored, which is what made v125 heads tall blocks on thin limbs.
+export const CHUNKY_PART_LAYOUT=PERSON_PARTS;
+export const CHUNKY_PART_INDEX=PERSON_SLOT;
+export const CHUNKY_BOX_GEOMETRY=PEOPLE_BOX_GEOMETRY;
+export const CHUNKY_JOINT_BONES=Object.freeze({hips:'Hips',chest:'Chest',head:'Head',armL:'UpperArm-1',armR:'UpperArm1',foreL:'Forearm-1',foreR:'Forearm1',thighL:'Thigh-1',thighR:'Thigh1',shinL:'Shin-1',shinR:'Shin1'});
+const LIMB_JOINTS=new Set(['armL','armR','foreL','foreR','thighL','thighR','shinL','shinR']);
 const HAND_MATERIALS=new Map();
 function handMaterial(color){
  if(!HAND_MATERIALS.has(color))HAND_MATERIALS.set(color,new THREE.MeshStandardMaterial({color,roughness:.88,metalness:0,flatShading:true}));
@@ -78,15 +49,15 @@ export function chunkyCastRole(actor,points){
  if(type==='dealer')return 'dealer';
  return 'townsfolk';
 }
-export function chunkyPartEnabled(part,role,profile){
- if(part.when==='always'||part.when==='eye'||part.when==='brow'||part.when==='mouth'||part.when==='hand')return true;
- if(part.when==='glasses')return !!profile?.glasses;
- if(part.when==='hood')return !!profile?.hood&&role!=='police'&&role!=='worker';
- if(part.when==='collar')return !!profile?.collar&&role!=='worker';
- if(part.when==='worker')return role==='worker';
- if(part.when==='police')return role==='police';
- if(part.when==='pocket')return role==='dealer'||role==='seller';
- return false;
+export function chunkyCastLook(actor,role,id){
+ const palette=actor?.g?.userData?.palette||actor?.userData?.palette||{},profile=chunkyCastProfile(id);
+ const base=personLook(id,role,palette);
+ if(role==='police'||role==='worker')return base;
+ const topStyle=profile.hood?'hoodie':base.topStyle==='hoodie'?'jacket':base.topStyle;
+ return Object.freeze({...base,topStyle,glasses:profile.glasses,sleeve:topStyle==='tee'?base.skin:base.top,hood:base.top,hoodUp:topStyle==='hoodie'&&base.hoodUp});
+}
+export function chunkyPartEnabled(part,role,profile,id=0){
+ return personPartEnabled(part,chunkyCastLook({userData:{}},role,Number.isFinite(profile?.index)?profile.index:id));
 }
 export function chunkyCastPose({clip='Idle',blink=0,browLift=0,now=0}={}){
  const talking=clip==='Talk',working=clip==='Work'||clip==='Search';
@@ -100,74 +71,60 @@ export function chunkyCastPose({clip='Idle',blink=0,browLift=0,now=0}={}){
   reach:talking?.07:working?.045:0
  });
 }
-function paletteOf(actor,role,id){
- const palette=actor?.g?.userData?.palette||actor?.userData?.palette||{};
- const skin=Number.isFinite(palette.skin)?palette.skin:0xd5af88;
- const hair=Number.isFinite(palette.hair)?palette.hair:0x65503e;
- const outfit=role==='police'?0x243c58:role==='worker'?0x4a6d96:role==='seller'?0xc47b45:role==='dealer'?0x657f51:Number.isFinite(palette.color)?palette.color:0x497d89;
- return {skin,face:shift(skin,.04),hair,ink:0x1b1a17,mouth:0x6a3b38,outfit,pants:role==='police'?0x1a2838:role==='worker'?0x2a3c58:PANTS[id%PANTS.length],frame:0x23262b,hood:shift(outfit,-.08),strap:0x2c4a72,shirt:0xe4d2b4,badge:0xd1af61,pocket:role==='dealer'?0xc7d995:0x8d5a32,collar:shift(outfit,-.12)};
-}
-function shift(hex,amount){
- const color=new THREE.Color(hex);
- color.offsetHSL(0,0,amount);
- return color.getHex();
-}
-
 export function concealSculptedResident(body){
  let hidden=0;
  body?.traverse?.(object=>{if(object.isSkinnedMesh){object.visible=false;hidden++;}});
  return hidden;
 }
-function uncoverChunkyFace(body){
- body?.traverse?.(object=>{if(object.isMesh)object.visible=false;});
+function hideSculpted(actor){
+ actor?.body?.traverse?.(object=>{if(object.isMesh)object.visible=false;});
+ if(actor?.hairstyle?.mesh)actor.hairstyle.mesh.visible=false;
 }
-
-const local=new THREE.Object3D(),world=new THREE.Matrix4(),scratch=new THREE.Color();
+const bonePos=new THREE.Vector3(),boneQuat=new THREE.Quaternion(),boneScale=new THREE.Vector3(),chestPos=new THREE.Vector3(),flip=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),Math.PI),unit=new THREE.Vector3(1,1,1),drop=new THREE.Matrix4();
+// Upright, unstretched joint frames from the skeleton. Returns false when a bone is missing.
+export function chunkyJointsFromBody(body,joints){
+ for(const [joint,name] of Object.entries(CHUNKY_JOINT_BONES)){
+  const bone=body.getObjectByName(name);if(!bone)return false;
+  bone.matrixWorld.decompose(bonePos,boneQuat,boneScale);
+  if(LIMB_JOINTS.has(joint))boneQuat.multiply(flip);
+  joints[joint].compose(bonePos,boneQuat,unit);
+ }
+ // The sculpted rig keeps a long neck; seat the kit head 0.41 m above the chest bone.
+ chestPos.setFromMatrixPosition(joints.chest);bonePos.setFromMatrixPosition(joints.head);
+ const extra=Math.max(0,bonePos.distanceTo(chestPos)-.41);
+ if(extra>0)joints.head.multiply(drop.makeTranslation(0,-extra,0));
+ return true;
+}
 export function createChunkyCast({THREE:three=THREE,scene,actors,points,quality='balanced',capacity=48}={}){
  if(!scene?.add||!Array.isArray(actors))throw new TypeError('A chunky cast needs a scene and the live actor list.');
  if(!Number.isSafeInteger(capacity)||capacity<1)throw new RangeError('Chunky cast capacity must be a positive integer.');
- const geometry=CHUNKY_BOX_GEOMETRY,material=CAST_MATERIAL;
- const mesh=new three.InstancedMesh(geometry,material,capacity*CHUNKY_PART_LAYOUT.length);
- mesh.name='Chunky cast';mesh.count=0;mesh.frustumCulled=false;mesh.castShadow=false;mesh.receiveShadow=quality!=='performance';
- mesh.instanceMatrix.setUsage(three.DynamicDrawUsage);scene.add(mesh);
+ const meshes=createPeopleMeshes(three,scene,capacity,'Chunky cast'),mesh=meshes.box,joints=createJointSet(),looks=new Map();
  const update=({now=0,camera=null}={})=>{
-  let count=0,written=0;
+  let count=0;
   for(const actor of actors){
    if(count>=capacity)break;
    const body=actor?.body,root=actor?.g;
-   const show=!!body&&body.visible!==false&&root?.visible!==false&&typeof body.getObjectByName==='function';
+   let show=!!body&&body.visible!==false&&root?.visible!==false&&typeof body.getObjectByName==='function';
    const id=Number.isFinite(root?.userData?.id)?root.userData.id:count;
-   const role=chunkyCastRole(root,points),profile=chunkyCastProfile(id);
+   const role=chunkyCastRole(root,points);
+   const key=id+':'+role;if(!looks.has(key))looks.set(key,chunkyCastLook(actor,role,Math.abs(Math.trunc(id))));
    const clip=typeof actor?.current==='string'?actor.current:'Idle';
    const distance=camera?.position&&root?.position?.distanceTo?root.position.distanceTo(camera.position):0;
    const expression=residentExpressionState({now,id,talking:clip==='Talk',working:clip==='Work'||clip==='Search',moving:(actor?.speed||0)>.08,active:show,distance});
    const pose=chunkyCastPose({clip,blink:expression.blink,browLift:expression.browLift,now});
-   const colors=paletteOf(actor,role,Math.abs(Math.trunc(id)));
-   if(show){uncoverChunkyFace(body);body.updateWorldMatrix(true,true);}
-   for(const item of CHUNKY_PART_LAYOUT){
-    const bone=show?body.getObjectByName(item.bone):null;
-    const enabled=!!bone&&chunkyPartEnabled(item,role,profile);
-    let y=item.y,z=item.z,h=item.h,w=item.w;
-    local.rotation.set(0,0,0);
-    if(item.when==='eye')h=pose.eyeY;
-    if(item.when==='brow'){y+=pose.brow;local.rotation.z=(item.name==='browL'?1:-1)*(.12+expression.browTilt);}
-    if(item.when==='mouth')h=pose.mouthH;
-    if(item.when==='hand'&&pose.reach){z-=pose.reach*(item.name==='handR'||pose.working?1:.35);y-=pose.reach*.25;}
-    local.position.set(item.x,y,z);local.scale.set(enabled?w:0,enabled?h:0,enabled?item.d:0);local.updateMatrix();
-    if(enabled)world.multiplyMatrices(bone.matrixWorld,local.matrix);else world.makeScale(0,0,0);
-    mesh.setMatrixAt(written,world);
-    mesh.setColorAt(written,scratch.setHex(colors[item.slot]??colors.outfit));
-    written++;
-   }
+   if(show){hideSculpted(actor);body.updateWorldMatrix(true,true);show=chunkyJointsFromBody(body,joints);}
+   const face=expression.blink>.5?'blink':pose.talking&&pose.mouthH>.03?'talk':'open';
+   writePerson(meshes,count,joints,looks.get(key),{detail:distance<45,face,active:show});
    count++;
   }
-  mesh.count=written;mesh.visible=written>0;mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;
+  for(let slot=count;slot<capacity;slot++)writePerson(meshes,slot,joints,null,{active:false});
+  flushPeopleMeshes(meshes,count>0);
   return count;
  };
- const setQuality=q=>{mesh.castShadow=q==='high';mesh.receiveShadow=q!=='performance';mesh.visible=true;};
+ const setQuality=q=>{for(const m of [meshes.box,meshes.round]){m.castShadow=q==='high';m.receiveShadow=q!=='performance';}};
  setQuality(quality);update();
- const triangles=CHUNKY_BOX_GEOMETRY.index.count/3*CHUNKY_PART_LAYOUT.length;
- return Object.freeze({mesh,update,setQuality,drawCalls:1,capacity,counts:Object.freeze({parts:CHUNKY_PART_LAYOUT.length,trianglesPerActor:triangles,colliders:0,materials:1})});
+ const triangles=PERSON_PARTS.filter(p=>p.mesh==='box').length*12+PERSON_PARTS.filter(p=>p.mesh==='round').length*48+2;
+ return Object.freeze({mesh,headMesh:meshes.round,faceMesh:meshes.face,update,setQuality,drawCalls:3,capacity,counts:Object.freeze({parts:PERSON_PARTS.length,trianglesPerActor:triangles,colliders:0,materials:2})});
 }
 
 export function createChunkyPlayerHand(group){

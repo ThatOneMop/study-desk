@@ -1,6 +1,7 @@
 // Original townsfolk for the bay streets. One instanced batch, with face detail
 // up close and a shorter silhouette past 40 m. Schedules are visual only.
 import * as THREE from './vendor/three.module.min.js';
+import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=126';
 
 export const STREET_CROWD_COLLIDERS=Object.freeze([]);
 export const STREET_CROWD_FAR=40;
@@ -23,44 +24,23 @@ const HAIR=Object.freeze([0x2a241f,0x4a3428,0x6b5034,0x8a6840,0x202428,0x5c4030,
 const OUTFITS=Object.freeze([0xc47b62,0x4f7d8a,0x7d6a9a,0xb08948,0x5d7a55,0x8d4d55,0x3f6f78,0xa36b48]);
 const PANTS=Object.freeze([0x2c3444,0x3a332c,0x243044,0x3d342e,0x2a3330,0x353044]);
 
-const part=(name,x,y,z,w,h,d,slot,far)=>Object.freeze({name,x,y,z,w,h,d,slot,far});
-export const STREET_CROWD_PARTS=Object.freeze([
- part('head',0,1.56,0,.46,.34,.38,'skin',true),
- part('face',0,1.57,.21,.30,.24,.025,'face',false),
- part('eyeL',-.09,1.63,.232,.06,.055,.02,'ink',false),
- part('eyeR',.09,1.63,.232,.06,.055,.02,'ink',false),
- part('browL',-.09,1.70,.228,.11,.02,.016,'hair',false),
- part('browR',.09,1.70,.228,.11,.02,.016,'hair',false),
- part('mouth',0,1.48,.232,.11,.02,.016,'mouth',false),
- part('nose',0,1.56,.25,.05,.045,.04,'skin',false),
- part('neck',0,1.34,0,.12,.12,.12,'skin',true),
- part('torso',0,1.05,0,.36,.42,.24,'outfit',true),
- part('pelvis',0,.74,0,.34,.18,.22,'pants',true),
- part('armL',-.24,1.08,0,.11,.34,.11,'outfit',true),
- part('armR',.24,1.08,0,.11,.34,.11,'outfit',true),
- part('handL',-.24,.86,.02,.1,.1,.08,'skin',false),
- part('handR',.24,.86,.02,.1,.1,.08,'skin',false),
- part('thighL',-.09,.48,0,.13,.32,.13,'pants',true),
- part('thighR',.09,.48,0,.13,.32,.13,'pants',true),
- part('shinL',-.09,.2,0,.11,.28,.11,'pants',true),
- part('shinR',.09,.2,0,.11,.28,.11,'pants',true),
- part('hood',0,1.68,-.02,.52,.16,.42,'hood',false),
- part('glasses',0,1.63,.24,.28,.07,.012,'frame',false)
-]);
-export const STREET_CROWD_PART_INDEX=Object.freeze(Object.fromEntries(STREET_CROWD_PARTS.map((item,index)=>[item.name,index])));
-export const STREET_BOX=new THREE.BoxGeometry(1,1,1);
-const CROWD_MATERIAL=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:0,vertexColors:true,flatShading:true});
-const PROP_MATERIAL=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.92,metalness:0,vertexColors:true,flatShading:true});
+// v126: parts come from the shared person kit (box bodies, rounded heads, painted faces).
+export const STREET_CROWD_PARTS=PERSON_PARTS;
+export const STREET_CROWD_PART_INDEX=PERSON_SLOT;
+export const STREET_BOX=PEOPLE_BOX_GEOMETRY;
+const PROP_MATERIAL=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.92,metalness:0,flatShading:true});
 
 const finite=value=>Number.isFinite(value)?value:0;
 const minuteOf=time=>{const t=finite(time);return ((t%1440)+1440)%1440;};
 const mix=(a,b,t,yaw)=>Object.freeze({x:a.x+(b.x-a.x)*t,z:a.z+(b.z-a.z)*t,yaw});
 export function crowdRoute(id=0){
  const n=Math.abs(Math.trunc(finite(id)));
+ // People who share a spot stand side by side instead of inside each other.
+ const lane=(list,index=n,gap=.85)=>{const base=list[index%list.length],k=Math.floor(index/list.length);if(!k)return base;const side=k%2?1:-1,step=Math.ceil(k/2)*gap;return spot(base.x+Math.cos(base.yaw)*side*step,base.z-Math.sin(base.yaw)*side*step,base.yaw);};
  return Object.freeze({
   id:n,kind:n%4,
-  home:HOMES[n%HOMES.length],job:JOBS[n%JOBS.length],bench:BENCHES[n%BENCHES.length],
-  vend:VENDING[n%VENDING.length],atm:ATMS[n%ATMS.length],street:STREET[n%STREET.length]
+  home:lane(HOMES),job:lane(JOBS),bench:lane(BENCHES,(n>>2)%4+4*(n>>4),.5),
+  vend:lane(VENDING),atm:lane(ATMS),street:lane(STREET)
  });
 }
 export function crowdPlan(id=0,time=540){
@@ -94,6 +74,11 @@ export function crowdPalette(id=0){
   hood:n%3===1?0x2e3844:outfit,frame:0x23262b,hoodie:n%3===1,glasses:n%5===0
  });
 }
+export function crowdLook(id=0){
+ const colors=crowdPalette(id),base=personLook(id,'townsfolk',{skin:colors.skin,hair:colors.hair,color:colors.outfit});
+ const topStyle=colors.hoodie?'hoodie':base.topStyle==='hoodie'?'jacket':base.topStyle;
+ return Object.freeze({...base,topStyle,top:colors.outfit,sleeve:topStyle==='tee'?colors.skin:colors.outfit,pants:colors.pants,hood:colors.hood,glasses:colors.glasses,hoodUp:colors.hoodie&&base.hoodUp});
+}
 function clearSpot(x,z,blocked){
  if(typeof blocked!=='function'||!blocked(x,z))return {x,z};
  for(let ring=1;ring<=6;ring++)for(const [dx,dz] of [[1,0],[-1,0],[0,1],[0,-1]]){
@@ -103,19 +88,16 @@ function clearSpot(x,z,blocked){
  return {x,z};
 }
 
-const local=new THREE.Object3D(),root=new THREE.Matrix4(),world=new THREE.Matrix4(),scratch=new THREE.Color(),up=new THREE.Vector3(0,1,0),quat=new THREE.Quaternion(),pos=new THREE.Vector3(),unit=new THREE.Vector3(1,1,1);
+const local=new THREE.Object3D(),root=new THREE.Matrix4(),scratch=new THREE.Color(),up=new THREE.Vector3(0,1,0),quat=new THREE.Quaternion(),pos=new THREE.Vector3(),unit=new THREE.Vector3(1,1,1),joints=createJointSet();
 export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHeight=()=>0,capacity=STREET_CROWD_SIZE,time=540}={}){
  if(!scene?.add)throw new TypeError('A street crowd needs a scene.');
  if(!Number.isSafeInteger(capacity)||capacity<8)throw new RangeError('Street crowd capacity must be an integer of at least 8.');
- const geometry=STREET_BOX,material=CROWD_MATERIAL;
- const mesh=new three.InstancedMesh(geometry,material,capacity*STREET_CROWD_PARTS.length);
- mesh.name='Street crowd';mesh.frustumCulled=false;mesh.castShadow=false;mesh.receiveShadow=true;
- mesh.instanceMatrix.setUsage(three.DynamicDrawUsage);scene.add(mesh);
- const people=Array.from({length:capacity},(_,id)=>({id,x:0,z:0,yaw:0,activity:'home',pose:'idle',phase:id}));
+ const meshes=createPeopleMeshes(three,scene,capacity,'Street crowd'),mesh=meshes.box;
+ const people=Array.from({length:capacity},(_,id)=>({id,x:0,z:0,yaw:0,activity:'home',pose:'idle',phase:id,look:crowdLook(id)}));
  const props=[];
  for(const bench of BENCHES){props.push({x:bench.x,y:.48,z:bench.z,w:1.15,h:.08,d:.42,color:0x8a6244},{x:bench.x,y:.78,z:bench.z+.18,w:1.15,h:.42,d:.08,color:0x6d4c34});}
  for(const machine of VENDING){props.push({x:machine.x,y:.95,z:machine.z,w:.72,h:1.7,d:.5,color:0x3c6e62},{x:machine.x,y:1.15,z:machine.z+.28,w:.5,h:.72,d:.04,color:0xd5e2b4});}
- const propMesh=new three.InstancedMesh(geometry,PROP_MATERIAL,props.length);
+ const propMesh=new three.InstancedMesh(STREET_BOX,PROP_MATERIAL,props.length);
  propMesh.name='Street crowd props';propMesh.frustumCulled=false;propMesh.castShadow=false;propMesh.receiveShadow=true;scene.add(propMesh);
  props.forEach((item,index)=>{local.position.set(item.x,item.y,item.z);local.rotation.set(0,0,0);local.scale.set(item.w,item.h,item.d);local.updateMatrix();propMesh.setMatrixAt(index,local.matrix);propMesh.setColorAt(index,scratch.setHex(item.color));});
  propMesh.count=props.length;propMesh.instanceMatrix.needsUpdate=true;if(propMesh.instanceColor)propMesh.instanceColor.needsUpdate=true;
@@ -129,46 +111,32 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
  };
  const update=({dt=0,now=0,time:timeValue=540,camera=null,active=true,floorHeight:floor=floorHeight,blocked:wall=blocked}={})=>{
   const step=Math.max(0,Math.min(.08,finite(dt))),clock=finite(now);
-  let written=0,near=0;
+  let near=0;
   for(const person of people){
    const plan=crowdPlan(person.id,timeValue),spot=clearSpot(plan.x,plan.z,wall);
    const dx=spot.x-person.x,dz=spot.z-person.z,dist=Math.hypot(dx,dz);
+   let moving=false;
    if(dist>.15&&step>0){
     const speed=plan.pose==='walk'?1.35:.8,move=Math.min(dist,speed*step);
-    person.x+=dx/dist*move;person.z+=dz/dist*move;person.phase+=move*2.4;person.yaw=Math.atan2(dx,dz);
+    person.x+=dx/dist*move;person.z+=dz/dist*move;person.phase+=move*2.6;person.yaw=Math.atan2(dx,dz);moving=true;
    }else person.yaw+=(Math.atan2(Math.sin(plan.yaw-person.yaw),Math.cos(plan.yaw-person.yaw)))*Math.min(1,step*4);
    person.activity=plan.activity;person.pose=plan.pose;
    const ground=typeof floor==='function'?finite(floor(person.x,person.z)):0;
-   const sitting=person.pose==='sit';
+   const sitting=person.pose==='sit',walking=moving||person.pose==='walk';
    const cameraDistance=camera?.position?Math.hypot(camera.position.x-person.x,camera.position.z-person.z):0;
    const detail=cameraDistance<STREET_CROWD_FAR;
    if(detail)near++;
-   const colors=crowdPalette(person.id);
-   const swing=person.pose==='walk'?Math.sin(person.phase):Math.sin(clock*1.3+person.id)*.08;
+   const swing=walking?Math.sin(person.phase):0;
    const blink=Math.abs(Math.sin(clock*.9+person.id*1.7))>.97;
-   const raised=person.pose==='use'?-.7:0;
-   pos.set(person.x,ground+(sitting?-0.42:0),person.z);quat.setFromAxisAngle(up,person.yaw);root.compose(pos,quat,unit);
-   for(const item of STREET_CROWD_PARTS){
-    const enabled=active&&(detail||item.far)&&(item.name!=='hood'||colors.hoodie)&&(item.name!=='glasses'||colors.glasses);
-    let y=item.y,h=item.h,rotX=0,rotZ=0;
-    if(item.name.startsWith('thigh'))rotX=sitting?1.15:swing*(item.name.endsWith('L')?1:-1)*.55;
-    if(item.name.startsWith('shin'))rotX=sitting?-.9:0;
-    if(item.name.startsWith('arm'))rotX=(item.name==='armR'?raised:0)+swing*(item.name.endsWith('L')?-1:1)*.45;
-    if(item.name.startsWith('hand'))rotX=(item.name==='handR'?raised:0);
-    if(item.name==='eyeL'||item.name==='eyeR')h=blink?.012:item.h;
-    if(item.name==='torso')rotZ=person.pose==='idle'?Math.sin(clock*1.2+person.id)*.05:0;
-    local.position.set(item.x,y,item.z);local.rotation.set(rotX,0,rotZ);local.scale.set(enabled?item.w:0,enabled?h:0,enabled?item.d:0);local.updateMatrix();
-    if(enabled)world.multiplyMatrices(root,local.matrix);else world.makeScale(0,0,0);
-    mesh.setMatrixAt(written,world);
-    mesh.setColorAt(written,scratch.setHex(colors[item.slot]||colors.outfit));
-    written++;
-   }
+   pos.set(person.x,ground,person.z);quat.setFromAxisAngle(up,person.yaw);root.compose(pos,quat,unit);
+   proceduralJoints(joints,root,{swing,sit:sitting,bob:walking?Math.abs(Math.cos(person.phase))*.03:0,raise:person.pose==='use'?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0});
+   writePerson(meshes,person.id,joints,person.look,{detail,face:blink?'blink':'open',active});
   }
-  mesh.count=written;mesh.visible=active&&written>0;mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;
+  flushPeopleMeshes(meshes,active);
   propMesh.visible=active;
-  return {count:people.length,near,written};
+  return {count:people.length,near,written:people.length*STREET_CROWD_PARTS.length};
  };
- const setQuality=q=>{mesh.castShadow=q==='high';mesh.receiveShadow=q!=='performance';propMesh.castShadow=q==='high';propMesh.receiveShadow=q!=='performance';};
+ const setQuality=q=>{for(const m of [meshes.box,meshes.round])m.castShadow=q==='high',m.receiveShadow=q!=='performance';propMesh.castShadow=q==='high';propMesh.receiveShadow=q!=='performance';};
  const focus=mode=>{
   if(mode==='sit')return people.find(person=>person.pose==='sit')||people[0];
   if(mode==='close')return people.find(person=>person.pose==='idle'||person.pose==='use')||people[0];
@@ -176,6 +144,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
  };
  const nearCount=camera=>people.filter(person=>camera?.position&&Math.hypot(camera.position.x-person.x,camera.position.z-person.z)<STREET_CROWD_FAR).length;
  setQuality('balanced');sync(time);update({time,active:true,floorHeight,blocked});
- const nearParts=STREET_CROWD_PARTS.length,farParts=STREET_CROWD_PARTS.filter(item=>item.far).length,boxTris=STREET_BOX.index.count/3;
- return Object.freeze({mesh,propMesh,people,sync,update,setQuality,focus,nearCount,place,drawCalls:2,count:capacity,counts:Object.freeze({people:capacity,parts:nearParts,farParts,props:props.length,trianglesNear:boxTris*nearParts,trianglesFar:boxTris*farParts,colliders:0})});
+ const boxTris=12,roundTris=48,count=(list,far)=>list.filter(p=>!far||p.far);
+ const tris=far=>count(PERSON_PARTS.filter(p=>p.mesh==='box'),far).length*boxTris+count(PERSON_PARTS.filter(p=>p.mesh==='round'),far).length*roundTris+(far?0:2);
+ return Object.freeze({mesh,headMesh:meshes.round,faceMesh:meshes.face,propMesh,people,sync,update,setQuality,focus,nearCount,place,drawCalls:4,count:capacity,counts:Object.freeze({people:capacity,parts:STREET_CROWD_PARTS.length,farParts:STREET_CROWD_PARTS.filter(item=>item.far).length,props:props.length,trianglesNear:tris(false),trianglesFar:tris(true),colliders:0})});
 }

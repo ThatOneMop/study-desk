@@ -1,6 +1,6 @@
 import * as THREE from './vendor/three.module.min.js';
-import {DISTRICT_BUILDING_SITES,districtArchitectureProfile} from './district-architecture.mjs?v=77';
-export {TOWN_UTILITY_SITES,TOWN_UTILITY_KINDS,utilityInsideSupport,createTownUtilities} from './town-utilities.mjs?v=79';
+import {DISTRICT_BUILDING_SITES,districtArchitectureProfile} from './district-architecture.mjs?v=126';
+export {TOWN_UTILITY_SITES,TOWN_UTILITY_KINDS,utilityInsideSupport,createTownUtilities} from './town-utilities.mjs?v=126';
 
 const freezeRecords=records=>Object.freeze(records.map(record=>Object.freeze(record)));
 export const SKYLINE_LANDMARK_SITES=freezeRecords([
@@ -37,7 +37,7 @@ function box(list,x,y,z,sx,sy,sz,color,ry=0){list.push({x,y,z,sx,sy,sz,color,ry}
 function cylinder(list,x,y,z,sx,sy,sz,color){list.push({x,y,z,sx,sy,sz,color});}
 function cone(list,x,y,z,sx,sy,sz,color){list.push({x,y,z,sx,sy,sz,color});}
 function makeBatch(scene,geometry,items){
- const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.88,metalness:.04,vertexColors:true,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D(),color=new THREE.Color();
+ const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.88,metalness:.04,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D(),color=new THREE.Color();
  for(let i=0;i<items.length;i++){const item=items[i];dummy.position.set(item.x,item.y,item.z);dummy.rotation.set(0,item.ry||0,0);dummy.scale.set(item.sx,item.sy,item.sz);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);mesh.setColorAt(i,color.setHex(item.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=false;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;
 }

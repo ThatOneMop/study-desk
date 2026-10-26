@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../dist/vendor/three.module.min.js';
-import {DISTRICT_BUILDING_SITES,districtArchitectureProfile} from '../dist/district-architecture.mjs?v=77';
+import {DISTRICT_BUILDING_SITES,districtArchitectureProfile} from '../dist/district-architecture.mjs?v=126';
 import {TOWN_UTILITY_SITES,TOWN_UTILITY_KINDS,TOWN_UTILITY_PROFILES,townUtilityProfile,utilityInsideSupport,createTownUtilities} from '../dist/town-utilities.mjs?v=79';
 
 assert.equal(TOWN_UTILITY_SITES.length,10);assert.equal(TOWN_UTILITY_PROFILES.length,10);
@@ -19,7 +19,7 @@ assert.equal(townUtilityProfile(null),null);assert.equal(townUtilityProfile({...
 
 const scene=new THREE.Scene(),utilities=createTownUtilities({scene,quality:'balanced'});
 assert.equal(utilities.profiles.length,10);assert.equal(utilities.drawCalls,2);assert.deepEqual(utilities.counts,{sites:10,boxes:16,cylinders:17});assert.equal(scene.children.length,2);
-for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&mesh.material.vertexColors&&mesh.material.map==null&&!mesh.castShadow);}
+for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&!mesh.material.vertexColors&&mesh.material.map==null&&!mesh.castShadow);}
 const resources=scene.children.map(mesh=>[mesh,mesh.geometry,mesh.material,mesh.instanceMatrix,mesh.instanceColor]);
 utilities.setQuality('performance');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));
 utilities.setQuality('balanced');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));

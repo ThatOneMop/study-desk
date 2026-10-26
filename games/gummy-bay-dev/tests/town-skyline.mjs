@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../dist/vendor/three.module.min.js';
-import {DISTRICT_BUILDING_SITES} from '../dist/district-architecture.mjs?v=77';
+import {DISTRICT_BUILDING_SITES} from '../dist/district-architecture.mjs?v=126';
 import {SKYLINE_LANDMARK_SITES,SKYLINE_LANDMARK_PROFILES,SKYLINE_APPROACHES,skylineLandmarkProfile,skylineFootprintOnSupport,createTownSkyline} from '../dist/town-skyline.mjs?v=78';
 
 assert.equal(SKYLINE_LANDMARK_SITES.length,4);assert.equal(SKYLINE_LANDMARK_PROFILES.length,4);
@@ -22,7 +22,7 @@ assert.equal(skylineFootprintOnSupport(null),false);assert.equal(skylineFootprin
 
 const scene=new THREE.Scene(),skyline=createTownSkyline({scene,quality:'balanced'});
 assert.equal(skyline.profiles.length,4);assert.equal(skyline.drawCalls,3);assert.deepEqual(skyline.counts,{landmarks:4,boxes:11,cylinders:10,cones:4});assert.equal(scene.children.length,3);
-for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&mesh.material.vertexColors&&mesh.material.map==null&&!mesh.castShadow);}
+for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&!mesh.material.vertexColors&&mesh.material.map==null&&!mesh.castShadow);}
 const resources=scene.children.map(mesh=>[mesh,mesh.geometry,mesh.material,mesh.instanceMatrix,mesh.instanceColor]);
 skyline.setQuality('performance');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));
 skyline.setQuality('balanced');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));

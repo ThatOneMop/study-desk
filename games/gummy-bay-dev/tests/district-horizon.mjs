@@ -18,7 +18,7 @@ assert.equal(horizonSiteOutsideBounds(HORIZON_TREE_PROFILES[0],null),false);asse
 
 const scene=new THREE.Scene(),horizon=createDistrictHorizon({scene,bounds,quality:'balanced'});
 assert.equal(horizon.profiles.length,22);assert.equal(horizon.drawCalls,3);assert.deepEqual(horizon.counts,{trees:22,trunks:22,crowns:44,scrub:22});assert.equal(scene.children.length,3);
-for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&mesh.material.vertexColors&&mesh.material.map==null);}
+for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&!mesh.material.vertexColors&&mesh.material.map==null);}
 const resources=scene.children.map(mesh=>[mesh,mesh.geometry,mesh.material,mesh.instanceMatrix,mesh.instanceColor]);
 horizon.setQuality('performance');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));
 horizon.setQuality('balanced');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));

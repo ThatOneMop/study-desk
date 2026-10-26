@@ -78,7 +78,7 @@ function paint(mesh,items){
 }
 
 function makeBatch(scene,name,items){
- const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.94,metalness:0,vertexColors:true,flatShading:true,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
+ const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.94,metalness:0,flatShading:true,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
  const mesh=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),material,Math.max(1,items.length));
  mesh.name=name;paint(mesh,items);scene.add(mesh);return mesh;
 }

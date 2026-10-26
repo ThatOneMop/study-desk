@@ -22,7 +22,7 @@ for(let z=l.platformSouth;z>=l.southEnd;z-=.25){const height=verticalTownFloorHe
 const scene=new THREE.Scene(),terrace=createVerticalTownLayer({scene,quality:'balanced'});
 assert.equal(terrace.drawCalls,2);assert.deepEqual(terrace.counts,{steps:16,platforms:1,detail:26});
 assert.equal(scene.children.length,2);assert.equal(terrace.massMesh.count,17);assert.equal(terrace.detailMesh.count,26);
-for(const mesh of scene.children)assert(mesh.isInstancedMesh&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.material.vertexColors);
+for(const mesh of scene.children)assert(mesh.isInstancedMesh&&mesh.instanceMatrix.array.every(Number.isFinite)&&!mesh.material.vertexColors);
 const resources=scene.children.map(mesh=>[mesh,mesh.geometry,mesh.material,mesh.instanceMatrix,mesh.instanceColor]);
 terrace.setQuality('performance');assert(terrace.massMesh.visible&&terrace.detailMesh.visible&&!terrace.detailMesh.castShadow);
 terrace.setQuality('balanced');assert(terrace.detailMesh.castShadow);

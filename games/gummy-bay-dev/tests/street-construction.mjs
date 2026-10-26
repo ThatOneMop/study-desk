@@ -30,7 +30,7 @@ assert.deepEqual(construction.counts,{junctions:30,curbs:26,bays:5,markings:500,
 assert.equal(scene.children.length,2);
 assert.equal(construction.markingMesh.count,500);
 assert.equal(construction.hardscapeMesh.count,391);
-for(const mesh of scene.children)assert(mesh.isInstancedMesh&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.material.vertexColors);
+for(const mesh of scene.children)assert(mesh.isInstancedMesh&&mesh.instanceMatrix.array.every(Number.isFinite)&&!mesh.material.vertexColors);
 const resources=scene.children.map(mesh=>[mesh,mesh.geometry,mesh.material,mesh.instanceMatrix,mesh.instanceColor]);
 construction.setQuality('performance');
 assert(construction.markingMesh.visible&&construction.hardscapeMesh.visible&&!construction.hardscapeMesh.castShadow);

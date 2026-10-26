@@ -32,7 +32,7 @@ assert.equal(contextualStreetPropProfile({...STREET_PROP_SITES[0],x:NaN}),null);
 const scene=new THREE.Scene(),props=createContextualStreetProps({scene,quality:'balanced'});
 assert.equal(props.drawCalls,2);assert.deepEqual(props.counts,{sites:8,boxes:31,cylinders:28});assert.equal(scene.children.length,2);
 assert.equal(props.boxMesh.count,31);assert.equal(props.cylinderMesh.count,28);
-for(const mesh of scene.children)assert(mesh.isInstancedMesh&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.material.vertexColors);
+for(const mesh of scene.children)assert(mesh.isInstancedMesh&&mesh.instanceMatrix.array.every(Number.isFinite)&&!mesh.material.vertexColors);
 const resources=scene.children.map(mesh=>[mesh,mesh.geometry,mesh.material,mesh.instanceMatrix,mesh.instanceColor]);
 props.setQuality('performance');assert(props.boxMesh.visible&&props.cylinderMesh.visible&&!props.boxMesh.castShadow&&!props.cylinderMesh.castShadow);
 props.setQuality('balanced');assert(props.boxMesh.castShadow&&props.cylinderMesh.castShadow);

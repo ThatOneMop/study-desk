@@ -54,7 +54,7 @@ export function windowConnectionAligned(window,pane){
 
 export function createWindowConnections({scene,profiles=WINDOW_CONNECTION_PROFILES,quality='balanced'}={}){
  if(!scene||!Array.isArray(profiles))throw new TypeError('Window connections need a scene and profile records.');
- const windows=profiles.filter(Boolean).flatMap(profile=>profile.windows||[]),parts=windows.flatMap(window=>window.parts.map(part=>({...part,window:window.id}))),geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:0,vertexColors:true,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,parts.length),object=new THREE.Object3D(),color=new THREE.Color();
+ const windows=profiles.filter(Boolean).flatMap(profile=>profile.windows||[]),parts=windows.flatMap(window=>window.parts.map(part=>({...part,window:window.id}))),geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:0,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,parts.length),object=new THREE.Object3D(),color=new THREE.Color();
  mesh.userData.items=parts;
  for(const [index,part] of parts.entries()){object.position.set(part.x,part.y,part.z);object.scale.set(part.w,part.h,part.d);object.updateMatrix();mesh.setMatrixAt(index,object.matrix);mesh.setColorAt(index,color.setHex(part.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.computeBoundingSphere();scene.add(mesh);

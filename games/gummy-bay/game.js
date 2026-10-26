@@ -25,7 +25,7 @@ import {crouchStep,dampedTravel,jumpStep,bufferedJump,playerViewHeights,firstPer
 import {readExchangeReceipt,exchangeRequest,matchExchangeReceipt,exchangeGesturePose,EXCHANGE_GESTURE_MS} from './exchange-gesture.mjs?v=43';
 import {worldLighting,sunOffset,selectPracticalLights} from './world-lighting.mjs?v=122';
 import {atmosphericDistancePlan} from './atmospheric-distance.mjs?v=103';
-import {SCRUFFY_WELCOME_SITES,SCRUFFY_WELCOME_COLLIDERS,scruffyWelcomeProfile,scruffyWelcomeMounted,createScruffyWelcome} from './scruffy-welcome.mjs?v=104';
+import {SCRUFFY_WELCOME_SITES,SCRUFFY_WELCOME_COLLIDERS,scruffyWelcomeProfile,scruffyWelcomeMounted,createScruffyWelcome} from './scruffy-welcome.mjs?v=126';
 import {workshopEquipment,assemblyWording} from './equipment-guide.mjs?v=39';
 import {drawSignText,drawSignBoard,drawStockBoard} from './signage.mjs?v=38';
 import {WORKSHOP_NAMES,commitWorkshopMove,readWorkshopMove} from './workshop-move.mjs?v=37';
@@ -35,12 +35,12 @@ import {exchangeAccess,freshExchangePose} from './exchange-access.mjs?v=34';
 import {vehicleDoorAccess} from './vehicle-access.mjs?v=33';
 import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine} from './road-zones.mjs?v=68';
 import {PARKING_BAYS,parkingGuide,parkingSnapPose,parkingGuideLine} from './parking-guide.mjs?v=69';
-import {DISTRICT_BUILDING_SITES,DISTRICT_CONTRAST_COLLIDERS,districtArchitectureProfile,districtGeometricContrast,createDistrictArchitecture} from './district-architecture.mjs?v=121';
-import {createStreetConstruction} from './street-construction.mjs?v=76';
-import {createStarterStreet} from './starter-street.mjs?v=122';
+import {DISTRICT_BUILDING_SITES,DISTRICT_CONTRAST_COLLIDERS,districtArchitectureProfile,districtGeometricContrast,createDistrictArchitecture} from './district-architecture.mjs?v=126';
+import {createStreetConstruction} from './street-construction.mjs?v=126';
+import {createStarterStreet} from './starter-street.mjs?v=126';
 import {openingCamera,openingDoorstep,insideRvShell} from './opening-shot.mjs?v=122';
-import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=76';
-import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=76';
+import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
+import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
 import {createFixedStepper} from './sim-clock.mjs?v=122';
 import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=125';
@@ -64,34 +64,34 @@ import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPl
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
-import {HORIZON_TREE_SITES,horizonSiteOutsideBounds,horizonViewGap,createDistrictHorizon} from './district-horizon.mjs?v=77';
-import {SKYLINE_LANDMARK_SITES,SKYLINE_APPROACHES,skylineFootprintOnSupport,createTownSkyline} from './town-skyline.mjs?v=78';
-import {TOWN_UTILITY_SITES,TOWN_UTILITY_KINDS,utilityInsideSupport,createTownUtilities} from './town-utilities.mjs?v=79';
-import {OVERHEAD_INFRASTRUCTURE_SITES,OVERHEAD_INFRASTRUCTURE_PROFILES,roofSupportsContain,overheadCableSegments,createOverheadInfrastructure} from './overhead-infrastructure.mjs?v=80';
-import {TOWN_FENCE_PROFILES,TOWN_FENCE_COLLIDERS,fencePointBlocked,fenceGateClear,createTownFencing} from './town-fencing.mjs?v=81';
-import {FOREGROUND_DEPTH_PROFILES,FOREGROUND_DEPTH_COLLIDERS,foregroundPointBlocked,foregroundSightlineClear,createForegroundDepth} from './foreground-depth.mjs?v=82';
-import {DOMESTIC_WORKPLACE_PROFILES,DOMESTIC_WORKPLACE_COLLIDERS,EQUIPMENT_REPETITION_SLOTS,domesticPanelInsideHome,equipmentRepetitionState,createDomesticWorkplace} from './domestic-workplace.mjs?v=94';
-import {DOORWAY_REVEAL_SITES,DOORWAY_REVEAL_PROFILES,DOORWAY_REVEAL_COLLIDERS,doorwayRevealCollisionAligned,doorwayRevealPathClear,createDoorwayReveals} from './doorway-reveals.mjs?v=95';
+import {HORIZON_TREE_SITES,horizonSiteOutsideBounds,horizonViewGap,createDistrictHorizon} from './district-horizon.mjs?v=126';
+import {SKYLINE_LANDMARK_SITES,SKYLINE_APPROACHES,skylineFootprintOnSupport,createTownSkyline} from './town-skyline.mjs?v=126';
+import {TOWN_UTILITY_SITES,TOWN_UTILITY_KINDS,utilityInsideSupport,createTownUtilities} from './town-utilities.mjs?v=126';
+import {OVERHEAD_INFRASTRUCTURE_SITES,OVERHEAD_INFRASTRUCTURE_PROFILES,roofSupportsContain,overheadCableSegments,createOverheadInfrastructure} from './overhead-infrastructure.mjs?v=126';
+import {TOWN_FENCE_PROFILES,TOWN_FENCE_COLLIDERS,fencePointBlocked,fenceGateClear,createTownFencing} from './town-fencing.mjs?v=126';
+import {FOREGROUND_DEPTH_PROFILES,FOREGROUND_DEPTH_COLLIDERS,foregroundPointBlocked,foregroundSightlineClear,createForegroundDepth} from './foreground-depth.mjs?v=126';
+import {DOMESTIC_WORKPLACE_PROFILES,DOMESTIC_WORKPLACE_COLLIDERS,EQUIPMENT_REPETITION_SLOTS,domesticPanelInsideHome,equipmentRepetitionState,createDomesticWorkplace} from './domestic-workplace.mjs?v=126';
+import {DOORWAY_REVEAL_SITES,DOORWAY_REVEAL_PROFILES,DOORWAY_REVEAL_COLLIDERS,doorwayRevealCollisionAligned,doorwayRevealPathClear,createDoorwayReveals} from './doorway-reveals.mjs?v=126';
 import {townGapColliders} from './town-collision.mjs?v=122';
 import {wishAxes,groundSpeed,moveResponse,capAirWish,verticalGravity,cutJump,clampFall,cliffDrop,slopePush,staminaStep,coyoteLeft,landingDip,decayDip,headBob,slideMotion,groundSupport,canJumpNow,LOOK_SENSITIVITY,PITCH_LIMIT,FOV_BASE,FOV_RESPONSE,JUMP_LAUNCH,SNAP_DISTANCE,BOB_AMOUNT,SPRINT_SPEED} from './player-controller.mjs?v=122';
 import {colliderCandidates} from './spatial-hash.mjs?v=122';
 import {nearestOpenPoint} from './spawn-safety.mjs?v=122';
-import {WINDOW_CONNECTION_PROFILES,WINDOW_CONNECTION_COLLIDERS,windowApertureSamples,windowConnectionAligned,createWindowConnections} from './window-connections.mjs?v=96';
-import {ORDINARY_UNUSUAL_PROFILES,ORDINARY_UNUSUAL_COLLIDERS,ordinaryUnusualInsideHome,ordinaryUnusualPairing,createOrdinaryUnusualWork} from './ordinary-unusual-work.mjs?v=97';
-import {PUBLIC_SERVICE_PROFILES,PUBLIC_SERVICE_COLLIDERS,publicServiceOpposed,publicServiceMounted,createPublicServiceFronts} from './public-service-fronts.mjs?v=98';
-import {NARROW_ALLEY_PROFILES,NARROW_ALLEY_COLLIDERS,narrowAlleyPathSamples,narrowAlleyPathClear,createNarrowAlleys} from './narrow-alleys.mjs?v=121';
-import {JUNCTION_REVEAL_PROFILES,JUNCTION_REVEAL_COLLIDERS,junctionRevealReading,nearestJunctionReveal,createJunctionReveals} from './junction-reveals.mjs?v=100';
+import {WINDOW_CONNECTION_PROFILES,WINDOW_CONNECTION_COLLIDERS,windowApertureSamples,windowConnectionAligned,createWindowConnections} from './window-connections.mjs?v=126';
+import {ORDINARY_UNUSUAL_PROFILES,ORDINARY_UNUSUAL_COLLIDERS,ordinaryUnusualInsideHome,ordinaryUnusualPairing,createOrdinaryUnusualWork} from './ordinary-unusual-work.mjs?v=126';
+import {PUBLIC_SERVICE_PROFILES,PUBLIC_SERVICE_COLLIDERS,publicServiceOpposed,publicServiceMounted,createPublicServiceFronts} from './public-service-fronts.mjs?v=126';
+import {NARROW_ALLEY_PROFILES,NARROW_ALLEY_COLLIDERS,narrowAlleyPathSamples,narrowAlleyPathClear,createNarrowAlleys} from './narrow-alleys.mjs?v=126';
+import {JUNCTION_REVEAL_PROFILES,JUNCTION_REVEAL_COLLIDERS,junctionRevealReading,nearestJunctionReveal,createJunctionReveals} from './junction-reveals.mjs?v=126';
 import {NIGHT_OBSTACLE_PROFILES,NIGHT_SILHOUETTE_COLLIDERS,nightSilhouettePlan,nightObstacleProfile,createNightSilhouettes} from './night-silhouettes.mjs?v=101';
-import {SHOP_APPROACH_PROFILES,SHOP_APPROACH_COLLIDERS,shopApproachPointBlocked,shopApproachSightlineClear,createShopApproaches} from './shop-approaches.mjs?v=84';
-import {PRODUCTION_CONTAINER_PROFILES,PRODUCTION_CONTAINER_COLLIDERS,productionContainersOnTable,createProductionContainers} from './production-containers.mjs?v=85';
-import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOutfitParts,selectOccupationalActors,createOccupationalOutfits} from './occupational-outfits.mjs?v=86';
-import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=117';
+import {SHOP_APPROACH_PROFILES,SHOP_APPROACH_COLLIDERS,shopApproachPointBlocked,shopApproachSightlineClear,createShopApproaches} from './shop-approaches.mjs?v=126';
+import {PRODUCTION_CONTAINER_PROFILES,PRODUCTION_CONTAINER_COLLIDERS,productionContainersOnTable,createProductionContainers} from './production-containers.mjs?v=126';
+import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOutfitParts,selectOccupationalActors,createOccupationalOutfits} from './occupational-outfits.mjs?v=126';
+import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
-import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=123';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,createStreetCrowd} from './street-crowd.mjs?v=123';
-import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=118';
+import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=126';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,createStreetCrowd} from './street-crowd.mjs?v=126';
+import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
-import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=91';
+import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
 import {OBJECT_SILHOUETTE_COLLIDERS,OBJECT_SILHOUETTE_PROFILES,objectSilhouetteProfile,objectSilhouetteBounds,attachObjectSilhouette,setObjectSilhouetteQuality} from './object-silhouettes.mjs?v=93';
 import {turnTowards,sweepWalk,stockSummary,workerPoseValid,createBalanceFeedback,TRAVEL_DISTRICTS,TRAVEL_LANDMARKS,nearestTravelPoint,travelReading,travelMapScale,formatTravelDistance,projectMapMarker,projectMapPoint,mapRectVisible,travelMapCaption,projectTrackedCustomer} from './town-experience.mjs?v=60';
 import {StockroomCrafter,validCargo,findRoute,createAccessAudit} from './workshop-logistics.mjs?v=29';
@@ -1067,7 +1067,10 @@ const policeMenu=menu;menu=function(which,data){policeMenu(which,data);if(which=
 
 // V11 visual layer. Save data, world extents, collider arrays and gameplay are unchanged.
 const visualActors=[];
-residentFootSilhouettes=createResidentFootSilhouettes({THREE,scene,actors:visualActors,quality,capacity:48});
+// v126: the person kit draws shoes, uniforms and work clothes on the body itself. The older
+// fixed-position outfit, accessory and foot overlays stay built (and tested) but out of the scene.
+const retiredPeopleLayer=new THREE.Group();retiredPeopleLayer.name='Retired v125 people overlays';
+residentFootSilhouettes=createResidentFootSilhouettes({THREE,scene:retiredPeopleLayer,actors:visualActors,quality,capacity:48});
 chunkyCast=createChunkyCast({THREE,scene,actors:visualActors,points,quality,capacity:48});
 streetCrowd=createStreetCrowd({THREE,scene,blocked,floorHeight,capacity:32,time:s.time});
 function gummyCrowdPreview(mode='street'){
@@ -1085,6 +1088,19 @@ function gummyCrowdPreview(mode='street'){
  return {count:streetCrowd.count,near:visible,far:STREET_CROWD_FAR,colliders:STREET_CROWD_COLLIDERS.length,activity:focus.activity,x:+focus.x.toFixed(2),z:+focus.z.toFixed(2)};
 }
 window.gummyCrowdPreview=gummyCrowdPreview;
+// Screenshot hook: stand 1.6 m in front of the nth animated resident (optionally a role) and face them.
+function gummyCastPreview(index=0,role='',dist=1.7){
+ if(!active)load('story',1,true);
+ const overlay=document.getElementById('overlay');if(overlay)overlay.hidden=true;
+ if(document.body?.dataset)document.body.dataset.panel='';panel='';
+ const pool=visualActors.filter(a=>!role||(role==='police'?!!a.g.userData.cop:!a.g.userData.cop));
+ const a=pool[Math.max(0,Math.min(pool.length-1,index|0))];if(!a)return {count:0};
+ const p=a.g.position,face=a.g.rotation.y;
+ player.set(p.x+Math.sin(face)*dist,1.62,p.z+Math.cos(face)*dist);pitch=-.05;yaw=Math.atan2(player.x-p.x,player.z-p.z);
+ syncPlayerView();renderFrame();
+ return {count:pool.length,x:+p.x.toFixed(2),z:+p.z.toFixed(2),cop:!!a.g.userData.cop};
+}
+window.gummyCastPreview=gummyCastPreview;
 let citizenAssetStatus='loading';
 function cloneRig(source){
  const copy=source.clone(true),map=new Map();
@@ -1500,10 +1516,10 @@ const productionContainerColors=Object.freeze(STRAINS.map(strain=>strain.color))
 renderFrame=function(){productionContainers.update({active,room:s.room,home:s.house,raw:s.raw,gummies:s.gummies,packs:s.packs},productionContainerColors);productionContainerRender();};
 const domesticWorkplaceRender=renderFrame;
 renderFrame=function(){domesticWorkplace.update({active,room:s.room,home:s.house,can:s.can,trimmers:s.trimmers,packStation:s.packStation,mixer:s.mixer});domesticWorkplaceRender();};
-occupationalOutfits=createOccupationalOutfits({scene,points,quality});
+occupationalOutfits=createOccupationalOutfits({scene:retiredPeopleLayer,points,quality});
 const occupationalOutfitRender=renderFrame;
 renderFrame=function(){occupationalOutfits.update({active});occupationalOutfitRender();};
-residentAccessories=createResidentAccessories({scene,points,quality});
+residentAccessories=createResidentAccessories({scene:retiredPeopleLayer,points,quality});
 const residentAccessoryRender=renderFrame;
 renderFrame=function(){residentAccessories.update({active});residentAccessoryRender();};
 nightSilhouettes=createNightSilhouettes({scene,actors:avatars,quality});
