@@ -8,6 +8,9 @@ const games=[
  {id:'moon-salvage',title:'#intro',start:'#start',play:'canvas',key:'ArrowRight'},
  {id:'autumn-drift',title:'#intro',start:'#start',play:'#game',key:'ArrowRight'},
  {id:'underleaf',title:'#intro',start:'#start',play:'#game',key:'1'},
+ {id:'little-lake',title:'#title',start:'#begin',play:'#game',key:'d',check:async page=>{assert(await page.evaluate(()=>started&&Array.isArray(save.seen)&&typeof save.records==='object'),'Little Lake starts with a records-ready save')}},
+ {id:'lucky-company',title:'text=Your casino, to go.',start:'button:has-text("Start offline game")',play:'canvas',key:'w',prep:async page=>{await page.fill('input[placeholder="What should we call you?"]','Smoke')},check:async page=>{await page.click('button:has-text("Begin the run")',{force:true});await page.waitForTimeout(700);assert.match(await page.textContent('body'),/0 \/ 90 floor progress/,'the Lobby opens with the gentler 90-chip target');assert(await page.isVisible('#lcBest'),'best-run badge is shown')}},
+ {id:'forge-arena',title:'body[data-state="hangar"] #battleButton',start:'#quickTestBtn',play:'#battleCanvas',key:'KeyP',prep:async page=>{if(await page.isVisible('#tutorialSkip'))await page.click('#tutorialSkip',{force:true})},wait:2600,check:async page=>{assert(await page.isVisible('#fxPause'),'P opens the pause menu');assert(await page.evaluate(()=>ForgePause.paused&&ForgePause.engine.__fx27),'battle is paused with hit feedback attached');await page.keyboard.press('Escape');await page.waitForTimeout(200);assert(!(await page.isVisible('#fxPause')),'Esc resumes')}},
  {id:'tidepost',title:'#titleScreen',start:'#castOff',play:'#sea',key:'ArrowRight',check:async page=>assert.equal(await page.textContent('#turns'),'1','a sailing key takes a turn after Cast off')}
 ];
 (async()=>{
@@ -18,7 +21,8 @@ const games=[
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(`${BASE}/games/${g.id}/index.html`,{waitUntil:'load'});await page.waitForTimeout(400);
   assert(await page.isVisible(g.title),`${g.id}: title screen visible on boot`);
-  assert(await page.isVisible(g.start),`${g.id}: start control visible`);await page.click(g.start,{force:true});await page.waitForTimeout(350);
+  if(g.prep)await g.prep(page);
+  assert(await page.isVisible(g.start),`${g.id}: start control visible`);await page.click(g.start,{force:true});await page.waitForTimeout(g.wait||350);
   assert(!(await page.isVisible(g.title)),`${g.id}: title screen closes after start`);
   assert(await page.isVisible(g.play),`${g.id}: playfield visible after start`);
   await page.focus(g.play).catch(()=>{});await page.keyboard.press(g.key);await page.waitForTimeout(500);
