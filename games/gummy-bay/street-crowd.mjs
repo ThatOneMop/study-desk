@@ -89,6 +89,8 @@ function clearSpot(x,z,blocked){
 }
 
 const local=new THREE.Object3D(),root=new THREE.Matrix4(),scratch=new THREE.Color(),up=new THREE.Vector3(0,1,0),quat=new THREE.Quaternion(),pos=new THREE.Vector3(),unit=new THREE.Vector3(1,1,1),joints=createJointSet();
+// Roughly one in three pedestrians carries an umbrella on rainy days.
+export const crowdUmbrella=person=>!!person&&((person.id*7+3)%3===0);
 export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHeight=()=>0,capacity=STREET_CROWD_SIZE,time=540}={}){
  if(!scene?.add)throw new TypeError('A street crowd needs a scene.');
  if(!Number.isSafeInteger(capacity)||capacity<8)throw new RangeError('Street crowd capacity must be an integer of at least 8.');
@@ -109,7 +111,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
   }
   return people.length;
  };
- const update=({dt=0,now=0,time:timeValue=540,camera=null,active=true,floorHeight:floor=floorHeight,blocked:wall=blocked}={})=>{
+ const update=({dt=0,now=0,time:timeValue=540,camera=null,active=true,floorHeight:floor=floorHeight,blocked:wall=blocked,rain=0}={})=>{
   const step=Math.max(0,Math.min(.08,finite(dt))),clock=finite(now);
   let near=0;
   for(const person of people){
@@ -132,7 +134,8 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
     if(react.kind==='look')turn=Math.max(-1,Math.min(1,diff));else person.yaw+=diff*Math.min(1,step*6);
    }
    if((!react||react.kind==='look')&&dist>.15&&step>0&&!knocked&&!calling){
-    const speed=plan.pose==='walk'?1.35:.8,move=Math.min(dist,speed*step);
+    // In rain, pedestrians without an umbrella hurry for cover.
+    const hurry=rain>.2&&!crowdUmbrella(person)?2.3:1,speed=(plan.pose==='walk'?1.35:.8)*hurry,move=Math.min(dist,speed*step);
     person.x+=dx/dist*move;person.z+=dz/dist*move;person.phase+=move*2.6;person.yaw=Math.atan2(dx,dz);moving=true;
    }else person.yaw+=(Math.atan2(Math.sin(plan.yaw-person.yaw),Math.cos(plan.yaw-person.yaw)))*Math.min(1,step*4);
    person.activity=knocked?'ko':calling?'phone':react?react.kind:plan.activity;person.pose=knocked?'sit':calling?'use':away?'walk':react&&react.kind!=='look'?'idle':plan.pose;

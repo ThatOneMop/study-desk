@@ -11,6 +11,12 @@ import {roundResidentAsset} from './resident-rounding.mjs?v=121';
 import {EXTRA_PATROL_ROUTES,expandPoliceRoster} from './patrol-expansion.mjs?v=111';
 import {dressPayphone} from './payphone-detail.mjs?v=111';
 import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=132';
+import {LOT_CARS,LOT_SITE,lotCar,lotOwned,lotRequest,handlingFor,createCar,stepCar,resolveMove,setLong,chaseCamera,trunkCapacity,trunkCount,moveTrunk,seizeTrunk} from './car-physics.mjs?v=145';
+import {carGeometry,createLotModels,createLot,lotLayout,lotColliders,LOT_DOOR,createSkidMarks,createEngineAudio,CAR_MATERIAL} from './car-kit.mjs?v=145';
+import {CRUISER_SPEC,cruiserSpawn,createCruiser,stepCruisers,cruisersWanted,cruiserCount} from './police-cruisers.mjs?v=145';
+import {rainAt,wetnessAt,weatherSky,forecast,dayWeather,weatherBudget,weatherClock} from './weather.mjs?v=145';
+import {createRainFX,createRainAudio} from './weather-fx.mjs?v=145';
+function gbSky(){return weatherSky(coastalWeather(s.day,s.time),s.day,s.time);}
 import {createArchitectureOverhaul} from './graphics-architecture.mjs?v=110';
 import {createLandscapeOverhaul} from './graphics-landscape.mjs?v=110';
 import {createLifeOverhaul} from './graphics-life.mjs?v=113';
@@ -123,7 +129,7 @@ import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOut
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
 import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=142';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=142';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=145';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -1005,7 +1011,7 @@ const systemsAction=doAction;doAction=function(k,a,b,c){
  systemsAction(k,a,b,c);
 };ACTION_NAMES.push('placeTent','stash','unstash','worker','buyVehicle');
 // A fleet unlock gives each co-op player a delivery van; host parking is persisted.
-let driving=false,driveSpeed=0,driveSteer=0,driveFovNow=FOV_BASE,driveAngle=0,vehiclePose={x:-180,z:-155,angle:0};
+let carDrive=null,carDriveTop=0,driving=false,driveSpeed=0,driveSteer=0,driveFovNow=FOV_BASE,driveAngle=0,vehiclePose={x:-180,z:-155,angle:0};
 const playerVan=car(-180,-155,0x638e96),remoteVan=car(0,0,0x9c966c);playerVan.visible=remoteVan.visible=false;
 for(const van of [playerVan,remoteVan])attachObjectSilhouette(van,'van');
 if(typeof GLTFLoader!=='undefined')new GLTFLoader().load('./assets/delivery-van.glb',gltf=>{for(let van of [playerVan,remoteVan]){van.clear();const body=gltf.scene.clone(true);body.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});van.add(body);attachObjectSilhouette(van,'van',{quality});}},undefined,e=>console.warn('Using fallback delivery van',e));
@@ -1030,9 +1036,9 @@ function updateCustomers(dt){for(let i=0;i<CONTACTS.length;i++){const c=CONTACTS
  if(track?.npc===i){track=projectTrackedCustomer(track,CONTACTS,{guest:net.role==='guest',connected:net.connected,moving,blocked:!!s.npcs[i]?.routeBlocked});if(track&&Math.hypot(player.x-c.x,player.z-c.z)<=2.8&&customerExchangeStatus(i).ok){toast('You found '+c.name+'.');track=null;}}}
 }
 const systemsUpdate=update;update=function(dt){const operating=active&&!panel;if(driving&&operating){let input=keys;keys={};locomotion.x=locomotion.z=0;systemsUpdate(dt);keys=input;
- let throttle=(input.w?1:0)-(input.s?1:0);const vehicleSpec=activeFleet(s);driveSpeed+=throttle*dt*vehicleSpec.acceleration;if(!throttle)driveSpeed*=Math.exp(-dt*1.8);if(input[' '])driveSpeed*=Math.exp(-dt*9);driveSpeed=Math.max(-vehicleSpec.reverse,Math.min(vehicleSpec.top,driveSpeed));driveSteer=steerStep(driveSteer,(input.a?1:0)-(input.d?1:0),dt);let steering=driveSteer,nextAngle=driveAngle+steering*dt*driveYawRate(vehicleSpec.steering,driveSpeed,vehicleSpec.top)*Math.sign(driveSpeed||1);if(vehicleClear(player.x,player.z,nextAngle))driveAngle=nextAngle;
+ const vehicleSpec=carDrive&&carDriveTop?{...activeFleet(s),top:carDriveTop}:activeFleet(s);if(carDrive)carDrive(input,dt);else{let throttle=(input.w?1:0)-(input.s?1:0);driveSpeed+=throttle*dt*vehicleSpec.acceleration;if(!throttle)driveSpeed*=Math.exp(-dt*1.8);if(input[' '])driveSpeed*=Math.exp(-dt*9);driveSpeed=Math.max(-vehicleSpec.reverse,Math.min(vehicleSpec.top,driveSpeed));driveSteer=steerStep(driveSteer,(input.a?1:0)-(input.d?1:0),dt);let steering=driveSteer,nextAngle=driveAngle+steering*dt*driveYawRate(vehicleSpec.steering,driveSpeed,vehicleSpec.top)*Math.sign(driveSpeed||1);if(vehicleClear(player.x,player.z,nextAngle))driveAngle=nextAngle;
  const surface=drivingSurfaceZone({x:player.x,z:player.z,angle:driveAngle});driveSpeed=limitVehicleZoneSpeed(driveSpeed,surface,dt);
- let nx=player.x+Math.sin(driveAngle)*driveSpeed*dt,nz=player.z+Math.cos(driveAngle)*driveSpeed*dt;if(vehicleSweep(nx,nz,driveAngle)){player.x=nx;player.z=nz;}else{driveSpeed=0;playTone(60,.12,.03);}vehiclePose={x:player.x,z:player.z,angle:driveAngle};if(net.role!=='guest')s.vehiclePark={...vehiclePose};yaw=driveAngle+Math.PI;syncPlayerView();camera.rotation.set(pitch,yaw,0);hand.visible=false;driveFovNow+=(driveFov(fovBase,driveSpeed,vehicleSpec.top,comfort.sprintFov)-driveFovNow)*(1-Math.exp(-Math.min(.1,dt)*FOV_RESPONSE));camera.fov=driveFovNow;camera.updateProjectionMatrix();
+ let nx=player.x+Math.sin(driveAngle)*driveSpeed*dt,nz=player.z+Math.cos(driveAngle)*driveSpeed*dt;if(vehicleSweep(nx,nz,driveAngle)){player.x=nx;player.z=nz;}else{driveSpeed=0;playTone(60,.12,.03);}}vehiclePose={x:player.x,z:player.z,angle:driveAngle};if(net.role!=='guest')s.vehiclePark={...vehiclePose};yaw=driveAngle+Math.PI;syncPlayerView();camera.rotation.set(pitch,yaw,0);hand.visible=false;driveFovNow+=(driveFov(fovBase,driveSpeed,vehicleSpec.top,comfort.sprintFov)-driveFovNow)*(1-Math.exp(-Math.min(.1,dt)*FOV_RESPONSE));camera.fov=driveFovNow;camera.updateProjectionMatrix();
  }else{systemsUpdate(dt);hand.visible=active&&!driving&&!stationTask&&!panel&&!placeMode;}
  if(operating)updateCustomers(dt);
  if(placeMode){placeGhost.position.set(Math.round((player.x-Math.sin(yaw)*3)*2)/2,1.15,Math.round((player.z-Math.cos(yaw)*3)*2)/2);placeGhost.rotation.y=placeMode.r;const valid=placementValid(placeMode.i,{x:placeGhost.position.x,z:placeGhost.position.z,r:placeMode.r,home:s.house});placeGhost.material.color.set(valid?0x8bdb94:0xe58e74);const status=valid?'Access clear — tent entrances, stations and exit remain reachable.':placementFailure;$('placementConfirm').disabled=!valid;if($('placementStatus').textContent!==status)$('placementStatus').textContent=status;}
@@ -1044,7 +1050,7 @@ const systemsUpdate=update;update=function(dt){const operating=active&&!panel;if
  const destination=travel.target?targetKind+' · '+travel.target.label+' · '+formatTravelDistance(travel.target.distance)+' · '+travel.target.cue+targetStatus:'NEAR · '+travel.landmark.label+' · '+formatTravelDistance(travel.landmark.distance);
  const districtLabel=travel.district.toUpperCase()+(travel.districtNeighbor?' · '+travel.districtNeighbor.toUpperCase()+' BORDER':'');
  const surface=drivingSurfaceZone({x:player.x,z:player.z,angle:driveAngle}),parking=parkingGuide({x:player.x,z:player.z,angle:driveAngle},driveSpeed);
- $('drivingHUD').hidden=!driving;$('drivingHUD').textContent=Math.round(Math.abs(driveSpeed)*3.6)+' km/h · '+districtLabel+' · heading '+travel.heading+'\n'+roadZoneLine(surface)+'\n'+parkingGuideLine(parking)+(junctionLine?'\n'+junctionLine:'')+'\n'+destination+'\nW/S drive · A/D steer · Space brake · M map · F exit';
+ $('drivingHUD').hidden=!driving;$('drivingHUD').textContent=Math.round(Math.abs(driveSpeed)*3.6)+' km/h · '+districtLabel+' · heading '+travel.heading+'\n'+roadZoneLine(surface)+'\n'+parkingGuideLine(parking)+(junctionLine?'\n'+junctionLine:'')+'\n'+destination+'\nW/S drive · A/D steer · Space handbrake · V camera · T trunk · M map · F exit';
 };
 addEventListener('keydown',e=>{if(!active||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;if(e.key.toLowerCase()==='f'&&!panel&&!e.repeat){driving?exitVehicle():enterVehicle();}if(placeMode){if(e.key.toLowerCase()==='r')placeMode.r+=Math.PI/2;if(e.key==='Enter')confirmPlacement();if(e.key==='Escape')cancelPlacement();}});
 const systemsMenu=menu;menu=function(which,data){if(placeMode)cancelPlacement();systemsMenu(which,data);if(which==='tent'&&s.installed?.includes(selected))$('modal').innerHTML+='<button class="ghost" onclick="beginPlacement('+selected+')">Move / rotate this tent</button>';
@@ -1248,7 +1254,7 @@ renderFrame=function(){
  for(const a of visualActors){const distance=a.g.position.distanceTo(camera.position);const nearRig=distance<(quality==='performance'?75:125);a.body.visible=nearRig&&!a.isCop;if(nearRig)actorAnimation(a,dt,distance);else a.previous.copy(a.g.position);}
  residentFootSilhouettes.update({active});
  chunkyCast?.update({now,camera});
- streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked});
+ streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked,rain:active?rainAt(s.day,s.time):0});
  if(visualTown)for(const chunk of visualTown.children){const c=chunk.userData.center;if(c)chunk.visible=camera.position.distanceTo(c)<lookPreset(quality).townDistance+chunk.userData.radius;}
  visualRender();
 };
@@ -1987,8 +1993,8 @@ function refreshWorldLighting(){
  effects?.setGrade?.(plan.night,plan.warmth,plan.bloom);
  waterUniforms.uLight.value=plan.waterBrightness;waterUniforms.uFog.value.copy(scene.fog.color);
  refreshWindowLighting(plan.night);
- const weather=coastalWeather(s.day,s.time);
- if(active){sun.intensity*=1-weather.cloud*.42;hemi.intensity*=1-weather.cloud*.12;
+ const weather=gbSky();
+ if(active){sun.intensity*=(1-weather.cloud*.42)*(1-(weather.rain||0)*.3);hemi.intensity*=1-weather.cloud*.12;
  scene.fog.near*=1-weather.mist*.5;scene.fog.far*=1-weather.mist*.32;
  scene.fog.color.lerp(coastalMistColor,weather.mist*.18*plan.daylight);
  skyUniforms.top.value.lerp(coastalCloudColor,weather.cloud*.32*plan.daylight);
@@ -2009,7 +2015,7 @@ function refreshWorldLighting(){
  });
 }
 const skyClouds=createSkyClouds(scene);
-const worldLightingRender=renderFrame;renderFrame=function(){refreshWorldLighting();const cloudLight=sceneLighting(s.time,active);skyClouds.update(camera,{time:now,daylight:cloudLight.daylight,warmth:cloudLight.warmth,sunColor:cloudLight.sunColor,cloud:active&&!cine.lit?coastalWeather(s.day,s.time).cloud:.15});worldLightingRender();};
+const worldLightingRender=renderFrame;renderFrame=function(){refreshWorldLighting();const cloudLight=sceneLighting(s.time,active);skyClouds.update(camera,{time:now,daylight:cloudLight.daylight,warmth:cloudLight.warmth,sunColor:cloudLight.sunColor,cloud:active&&!cine.lit?gbSky().cloud:.15});worldLightingRender();};
 
 
  // Layout/installation changes may surround either player. Local-only unembedding
@@ -2282,7 +2288,7 @@ const graphicsLife=createLifeOverhaul({scene,actors:visualActors,homes:HOMES,ven
 for(const mesh of [districtArchitecture.massMesh,districtArchitecture.roofMesh,graphicsArchitecture.groups[0],graphicsArchitecture.groups[2]])if(mesh)applyCoastalSurface(mesh.material);
 const graphicsRender=renderFrame;
 renderFrame=function(){
- graphicsAtmosphere.update(now,active?coastalWeather(s.day,s.time):undefined);
+ graphicsAtmosphere.update(now,active?gbSky():undefined);
  graphicsArchitecture.update(sceneLighting(s.time,active).night,quality);
  graphicsLandscape.update(now,quality);
  graphicsLife.update({active,state:s,quality});
@@ -4386,3 +4392,192 @@ try{
   colliders:(x,z,r=12)=>colliders.filter(c=>Math.abs(c.x-x)<r&&Math.abs(c.z-z)<r).slice(0,40).map(c=>[+c.x.toFixed(2),+c.z.toFixed(2),+c.w.toFixed(2),+c.d.toFixed(2)])
  };
 }catch(error){console.warn('Feel QA hook unavailable',error);}
+
+// ── v145 Wheels & Weather ──────────────────────────────────────────────────────────────
+// Lucky Lou's used-car lot, arcade handling (weight, drift, handbrake), a leaning chase camera,
+// engine and tyre audio, skid marks, trunk stock, Sugar Squad cruisers, and the seeded rain.
+try{
+ const CAR={sim:null,cam:null,view:'chase',engine:null,skids:null,skidClock:0,lot:null,lotColliders:[],cruisers:[],cruiserMeshes:[],cruiserSeen:false,pull:0,lastHit:0,sirenClock:0,shake:0,forceRain:null,lastRain:0,rainAudio:null};
+ try{CAR.view=localStorage.getItem('gummybay-car-cam')==='fp'?'fp':'chase';}catch{}
+ const qk=()=>quality==='performance'?'low':quality==='high'?'high':'medium';
+ const carState=()=>{if(!Array.isArray(s.lotCars))s.lotCars=[];s.lotCars=s.lotCars.filter(id=>!!lotCar(id));if(typeof s.carSel!=='string'||(s.carSel&&!lotOwned(s,s.carSel)))s.carSel='';if(!s.trunk||typeof s.trunk!=='object'||Array.isArray(s.trunk))s.trunk={};return s;};
+ const activeCarSpec=()=>{carState();return s.carSel?lotCar(s.carSel):activeFleet(s);};
+ const activeHandling=()=>handlingFor(activeCarSpec());
+ const unsold=()=>{carState();return LOT_CARS.filter(c=>!s.lotCars.includes(c.id)).map(c=>c.id);};
+ const strainName=t=>STRAINS[t]?.name||('Strain '+t);
+
+ // The lot: one merged mesh, hidden beyond 95 m so it never costs a draw call on main street.
+ CAR.lot=createLot(scene,LOT_CARS.map(c=>c.id));
+ function refreshLot(){const list=unsold();CAR.lot.refresh(list);for(const c of CAR.lotColliders){const i=colliders.indexOf(c);if(i>=0)colliders.splice(i,1);}CAR.lotColliders=lotColliders(list);colliders.push(...CAR.lotColliders);}
+ refreshLot();
+ addPoint('lot',LOT_SITE.label,LOT_DOOR.x,LOT_DOOR.z);
+ CAR.lotModels=createLotModels();playerVan.add(CAR.lotModels.group);
+ CAR.skids=createSkidMarks(scene,qk()==='low'?60:qk()==='high'?200:120);
+ const nearLot=()=>Math.hypot(player.x-LOT_DOOR.x,player.z-LOT_DOOR.z)<7;
+ // Puts a freshly chosen car on the lot apron, ready to drive off.
+ function deliverToLot(){for(const [x,z,a] of [[LOT_SITE.x-2,LOT_SITE.z-11.5,Math.PI/2],[LOT_SITE.x+6,LOT_SITE.z-11.5,Math.PI/2],[LOT_SITE.x-10,LOT_SITE.z-12,Math.PI/2],[LOT_SITE.x+2,LOT_SITE.z-1,Math.PI]])if(vehicleClear(x,z,a)){vehiclePose={x,z,angle:a};if(net.role!=='guest')s.vehiclePark={...vehiclePose};return true;}return false;}
+
+ const wheelsCommit=doAction;doAction=function(k,a,b,c){
+  if(!['buyLot','selectLot','trunkLoad','trunkUnload'].includes(k)){wheelsCommit(k,a,b,c);return;}
+  if(!active||ensurePolice().search)return;
+  carState();
+  if(k==='buyLot'||k==='selectLot'){
+   if(driving){toast('Park before swapping cars.');return;}
+   if(!processingRemote&&!nearLot()){toast('Walk up to Lou’s office to do business.');return;}
+   if(k==='selectLot'&&a===''){s.carSel='';save();if(!processingRemote)menu('lot');return;}
+   const req=lotRequest(s,a,k==='selectLot');if(!req.ok){toast(req.reason);return;}
+   if(k==='buyLot'){if(!spend(req.car.price))return;s.lotCars=[...new Set([...s.lotCars,a])];refreshLot();toast('Lou hands you the keys to the '+req.car.name+'. “No refunds, no questions.”');}
+   s.carSel=a;deliverToLot();save();if(!processingRemote)menu('lot');return;
+  }
+  // Trunk: load or unload packs while standing by your parked car, or sitting in it stopped.
+  const t=Number(a),qty=Math.max(1,Math.floor(Number(b)||1));
+  if(!Number.isInteger(t)||t<0||t>=STRAINS.length)return;
+  if(!trunkReach()){toast('Stand by your car to use the trunk.');return;}
+  const cap=trunkCapacity(activeHandling()),moved=moveTrunk(s.packs,s.trunk,{type:t,qty,toTrunk:k==='trunkLoad',capacity:cap});
+  if(!moved.moved){toast(k==='trunkLoad'?(trunkCount(s.trunk)>=cap?'The trunk is full.':'No '+strainName(t)+' packs to load.'):'Nothing like that in the trunk.');return;}
+  s.packs=moved.packs;s.trunk=moved.trunk;save();if(!processingRemote)menu('trunk');
+ };ACTION_NAMES.push('buyLot','selectLot','trunkLoad','trunkUnload');
+ function trunkReach(){if(!s.vehicleOwned)return false;if(driving)return Math.abs(driveSpeed)<1;const back={x:vehiclePose.x-Math.sin(vehiclePose.angle)*2.6,z:vehiclePose.z-Math.cos(vehiclePose.angle)*2.6};return Math.hypot(player.x-back.x,player.z-back.z)<3.2||Math.hypot(player.x-vehiclePose.x,player.z-vehiclePose.z)<3.4;}
+ function carLine(car){return car.blurb+' Level '+car.level+' · '+Math.round(car.top*3.6)+' km/h · trunk '+car.trunk+' packs · '+(car.mass>1.5?'heavy':car.mass<.8?'featherweight':'mid-weight')+(car.drift>1.1?', loves to slide':'')+'.';}
+ const wheelsMenu=menu;menu=function(which,data){wheelsMenu(which,data);
+  if(which==='lot'&&panel==='lot'){carState();const current=activeCarSpec();
+   let h='<button class="close" onclick="closeMenu()">×</button><div class="overline">LUCKY LOU’S PRE-LOVED MOTORS</div><h2>“Every car comes with a full tank and a story.”</h2><p>Driving: '+esc(current.name)+'. Pay by '+(s.payment==='card'?'card':'cash')+'. Your pick is waiting out front on the apron.</p>'+(s.vehicleOwned?'':'<p class="note">Lou only deals with registered drivers. Buy the Harbor Motors van first.</p>');
+   for(const car of LOT_CARS){const owned=lotOwned(s,car.id),sel=s.carSel===car.id,req=lotRequest(s,car.id);h+=row(car.name,carLine(car),sel?'DRIVING':owned?'Drive this':cash(car.price),owned?"action('selectLot','"+car.id+"')":"action('buyLot','"+car.id+"')",sel||driving||(!owned&&!req.ok));}
+   if(s.vehicleOwned)h+=row('Your Harbor Motors vehicle','Switch back to the '+esc(activeFleet(s).name)+'.',s.carSel?'Drive this':'DRIVING',"action('selectLot','')",!s.carSel||driving);
+   $('modal').innerHTML=h;}
+  if(which==='trunk'&&panel==='trunk'){carState();const spec=activeHandling(),cap=trunkCapacity(spec),used=trunkCount(s.trunk);
+   let h='<button class="close" onclick="closeMenu()">×</button><div class="overline">'+esc(spec.name.toUpperCase())+' / TRUNK</div><h2>'+used+' of '+cap+' packs stowed.</h2><p>Packs in the trunk do not count in a body search. If the Sugar Squad pull you over, they take half.</p>';
+   STRAINS.forEach((st,t)=>{const bag=s.packs[t]||0,boot=s.trunk[t]||0;if(!bag&&!boot)return;h+='<div class="item"><div><strong>'+esc(st.name)+'</strong><p>'+bag+' carried · '+boot+' in the trunk</p></div><span class="trunk-buttons"><button class="primary" onclick="action(\'trunkLoad\','+t+',1)" '+(bag&&used<cap?'':'disabled')+'>Load</button><button class="ghost" onclick="action(\'trunkLoad\','+t+','+bag+')" '+(bag&&used<cap?'':'disabled')+'>All</button><button class="ghost" onclick="action(\'trunkUnload\','+t+','+boot+')" '+(boot?'':'disabled')+'>Take out</button></span></div>';});
+   if(!used&&!s.packs.some(n=>n>0))h+='<p class="note">No packs carried and the trunk is empty.</p>';
+   $('modal').innerHTML=h;}
+  if(which==='forecast'&&panel==='forecast'){$('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="story-phone weather-phone">'+forecastHTML()+'</div><button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';$('overlay').classList.toggle('phone',true);}
+ };window.menu=menu;
+
+ // Vehicle bodies: lot cars replace the van model on the same parked slot.
+ const wheelsSync=syncFleetModel;syncFleetModel=function(root,model){wheelsSync(root,model);if(root!==playerVan)return;if(CAR.lotModels.group.parent!==playerVan)playerVan.add(CAR.lotModels.group);const lot=s.carSel&&lotOwned(s,s.carSel);CAR.lotModels.select(lot?s.carSel:'');if(lot)for(const child of root.children)if(child!==CAR.lotModels.group)child.visible=false;};
+
+ // Entering seeds the physics body; exiting drops the engine.
+ const wheelsEnter=enterVehicle;enterVehicle=function(){wheelsEnter();if(driving){CAR.sim=createCar(player.x,player.z,driveAngle);CAR.lastLong=0;CAR.cam=null;CAR.pull=0;toast('W/S drive · A/D steer · Space handbrake · V camera · T trunk · F exit');}};
+ const wheelsExit=exitVehicle;exitVehicle=function(){wheelsExit();if(!driving){CAR.sim=null;CAR.engine?.update({on:false});}};
+ window.enterVehicle=enterVehicle;window.exitVehicle=exitVehicle;
+
+ carDrive=function(input,dt){
+  const h=activeHandling();
+  if(!CAR.sim){CAR.sim=createCar(player.x,player.z,driveAngle);CAR.lastLong=0;}
+  const c=CAR.sim;if(Math.hypot(c.x-player.x,c.z-player.z)>.01){c.x=player.x;c.z=player.z;}c.angle=driveAngle;
+  // Other systems (tests, police stops, replays) may write driveSpeed directly; honour that.
+  if(Math.abs(driveSpeed-(CAR.lastLong??0))>1e-6)setLong(c,driveSpeed);
+  const prev={x:c.x,z:c.z,angle:c.angle};
+  const throttle=(input.w||input.arrowup?1:0)-(input.s||input.arrowdown?1:0),steer=(input.a||input.arrowleft?1:0)-(input.d||input.arrowright?1:0);
+  // v144 feel: the wheel winds to lock gradually (steerStep), and stepCar softens turning with speed.
+  driveSteer=steerStep(driveSteer,steer,dt);carDriveTop=h.top;
+  stepCar(c,{throttle,steer:driveSteer,handbrake:!!input[' ']},h,dt);
+  const surface=drivingSurfaceZone({x:c.x,z:c.z,angle:c.angle}),limited=limitVehicleZoneSpeed(c.long,surface,dt);if(limited!==c.long)setLong(c,limited);
+  const hit=resolveMove(c,prev,(x,z,a)=>vehicleSweep(x,z,a));
+  if(hit!=='free'){const impact=Math.abs(c.long);if(impact>2.5&&now-CAR.lastHit>.35){CAR.lastHit=now;playTone(60,.12,.03);CAR.shake=Math.min(1,impact/14);}}
+  player.x=c.x;player.z=c.z;driveAngle=c.angle;driveSpeed=Math.round(c.long*1e6)/1e6;CAR.lastLong=driveSpeed;CAR.throttle=throttle;
+  // Skid marks from both rear tyres while sliding or braking hard.
+  CAR.skidClock-=dt;if(c.skid>.3&&CAR.skidClock<=0){CAR.skidClock=.05;const fx=Math.sin(c.angle),fz=Math.cos(c.angle),rx=Math.cos(c.angle),rz=-Math.sin(c.angle),moveA=Math.atan2(c.vx,c.vz);for(const side of [-.8,.8]){const x=c.x-fx*1.25+rx*side,z=c.z-fz*1.25+rz*side;CAR.skids.add(x,floorHeight(x,z),z,moveA);}}
+ };
+
+ // Police: cruisers join a pursuit while you drive. They feed the same chase ladder as officers on foot.
+ const footSees=copSeesPlayer;copSeesPlayer=function(cop){return footSees(cop)||(driving&&CAR.cruiserSeen===true);};
+ function cruiserMesh(i){if(CAR.cruiserMeshes[i])return CAR.cruiserMeshes[i];const g=new THREE.Mesh(carGeometry('cruiser'),CAR_MATERIAL);g.name='Sugar Squad cruiser';g.castShadow=true;const bar=new THREE.Mesh(new THREE.BoxGeometry(1.1,.14,.32),new THREE.MeshBasicMaterial({color:0xff3b3b}));bar.position.set(0,1.5,-.2);g.add(bar);g.userData.bar=bar;g.visible=false;scene.add(g);CAR.cruiserMeshes[i]=g;return g;}
+ function spawnCruiser(id){const spot=cruiserSpawn({x:player.x,z:player.z},VEHICLE_ROADS,{blocked:(x,z)=>!vehicleClear(x,z,0),heading:driveAngle,avoid:CAR.cruisers.map(c=>c.car)});return spot?createCruiser(spot,id):null;}
+ function clearCruisers(){CAR.cruisers=[];CAR.cruiserSeen=false;CAR.pull=0;for(const m of CAR.cruiserMeshes)m.visible=false;}
+ function pulledOver(){
+  const p=ensurePolice(),warning=penaltyTier(s.day)==='warning';let taken=0;
+  if(!warning&&trunkCount(s.trunk)){const out=seizeTrunk(s.trunk);s.trunk=out.trunk;taken=out.seized;}
+  driving=false;vehiclePose={x:player.x,z:player.z,angle:driveAngle};if(net.role!=='guest')s.vehiclePark={...vehiclePose};driveSpeed=0;CAR.sim=null;CAR.engine?.update({on:false});
+  const door=vehicleDoorAccess(vehiclePose,null,blocked,floorHeight);if(door)player.set(door.x,1.72+floorHeight(door.x,door.z),door.z);
+  clearCruisers();toast(warning?'Pulled over. First-day warning: they let you go.':'Pulled over! The Sugar Squad boxed you in'+(taken?' and took '+taken+' packs from the trunk.':'.'));
+  performBust();if(p.report)p.report.trunkSeized=taken;
+ }
+ function stepPoliceCars(dt){
+  if(net.role==='guest'||!active){if(CAR.cruisers.length)clearCruisers();return;}
+  const p=ensurePolice(),stage=p.chase?.stage||'clear';
+  if(!cruisersWanted(stage,driving)||p.search){if(CAR.cruisers.length)clearCruisers();return;}
+  const want=cruiserCount(stage,qk());let id=CAR.cruisers.reduce((m,c)=>Math.max(m,c.id+1),0);
+  while(CAR.cruisers.length<want){const cr=spawnCruiser(id++);if(!cr)break;CAR.cruisers.push(cr);if(CAR.cruisers.length===1)toast('Sirens. Sugar Squad cruisers are on your tail. Break line of sight to lose them.');}
+  const c=CAR.sim||{vx:0,vz:0};
+  const res=stepCruisers(CAR.cruisers,{player:{x:player.x,z:player.z,vx:c.vx,vz:c.vz},dt,clear:(x,z,a)=>vehicleClear(x,z,a),sight:(a,b)=>copSight(a,b),playerSpeed:driveSpeed,state:CAR});
+  CAR.cruiserSeen=res.seen;CAR.nearest=res.nearest;
+  // No foot officer ticked the ladder this frame (a pure car chase): the cruisers drive it, so breaking their line of sight runs the clock out.
+  if(!p._squadStepped&&p.chase&&p.chase.stage!=='clear'){p._squadStepped=true;const was=p.chase;p.chase={...stepChase(was,dt,res.seen&&!((was.distracted||0)>0)),distracted:Math.max(0,(was.distracted||0)-dt),backup:was.backup===true};if(p.chase.stage==='clear'){clearSquad(p,'They lost you.');clearCruisers();return;}}
+  for(const rid of res.respawn){const i=CAR.cruisers.findIndex(x=>x.id===rid),fresh=spawnCruiser(rid);if(i>=0){if(fresh)CAR.cruisers[i]=fresh;else CAR.cruisers.splice(i,1);}}
+  CAR.sirenClock-=dt;if(CAR.sirenClock<=0&&res.nearest<70){CAR.sirenClock=.42;CAR.sirenHigh=!CAR.sirenHigh;playTone(CAR.sirenHigh?880:660,.3,Math.max(.004,.018*(1-res.nearest/70)));}
+  if(res.pulled)pulledOver();
+ }
+ const wheelsUpdate=update;update=function(dt){wheelsUpdate(dt);try{stepPoliceCars(Math.min(.05,dt||0));CAR.skids.update(dt||0);}catch(error){console.warn('Wheels update',error);}};
+
+ // Rain: a seeded schedule drives drops, splashes, puddles, wet sheen, umbrellas and the hiss.
+ const wetSurface=(x,z)=>{const inside=r=>Math.abs(x-r.x)<=r.w/2-.6&&Math.abs(z-r.z)<=r.d/2-.6;return VEHICLE_ROADS.some(inside)||PEDESTRIAN_WAYS.some(inside);};
+ const RAIN={fx:createRainFX({scene,quality:qk(),floorHeight,wetSurface})};
+ {const mats=new Set();scene.traverse(o=>{const m=o.material;if(o.isMesh&&m&&!Array.isArray(m)&&['asphalt','concrete'].includes(m.userData?.gritKind))mats.add(m);});RAIN.fx.addWetMaterials([...mats]);RAIN.wetMats=mats.size;}
+ const wheelsQuality=setQuality;setQuality=function(q){wheelsQuality(q);RAIN.fx?.setQuality(qk());};
+ try{const f=new URLSearchParams(location.search).get('weather');if(f==='rain')CAR.forceRain=.85;else if(f==='clear')CAR.forceRain=0;}catch{}
+ const rainNow=()=>active?(CAR.forceRain!=null?CAR.forceRain:rainAt(s.day,s.time)):0;
+ const wetNow=()=>active?(CAR.forceRain!=null?Math.min(1,CAR.forceRain*1.1):wetnessAt(s.day,s.time)):0;
+ const umbrellaFor=person=>((person.id*7+3)%3===0)&&!(person.koUntil>now);
+ function forecastHTML(){const days=forecast(s.day,5),r=rainNow();
+  return '<div class="overline">WEATHER · GUMMY BAY</div><h2>'+(r>.01?'Raining now':days[0].kind==='clear'?'Dry today':'Rain later')+'</h2><p class="wx-now">'+(r>.01?'Roads are slick. Brake early, drift wide.':'Wet roads are slippery for a while after rain.')+'</p><ol class="wx-days">'+days.map((d,i)=>'<li class="wx-'+d.kind+'"><b>'+d.icon+'</b><strong>'+(i===0?'Today':i===1?'Tomorrow':'Day '+d.day)+'</strong><small>'+esc(d.label)+'</small></li>').join('')+'</ol>';}
+ const wheelsPhoneHome=phoneHome;phoneHome=function(){wheelsPhoneHome();if(panel!=='phone')return;const today=forecast(s.day,2),r=rainNow();
+  const card='<button class="phone-weather" onclick="menu(\'forecast\')" data-weather="'+today[0].kind+'"><b aria-hidden="true">'+(r>.01?'🌧️':today[0].icon)+'</b><strong>'+(r>.01?'Raining now':esc(today[0].label))+'</strong><small>Tomorrow: '+esc(today[1].label)+'</small></button>';
+  const html=$('modal').innerHTML,at=html.indexOf('<div class="phone-app-grid">');$('modal').innerHTML=at<0?html+card:html.slice(0,at)+card+html.slice(at);};window.phoneHome=phoneHome;
+
+ // Render: chase camera with turn lean and impact shake, the car body while driving, the lot cull, rain.
+ // The chase pose is applied at the last moment, inside renderer.render, so later render wrappers that re-sync the seat view cannot undo it.
+ // Low quality in steady rain: the overcast grade already fills the sky, so the ~20 cloud sprites are skipped; rain nets fewer draw calls than a dry day.
+ function overcastClouds(){if(typeof skyClouds==='undefined'||!skyClouds?.group)return;skyClouds.group.visible=!(quality==='performance'&&CAR.lastRain>.6);}
+ function applyChasePose(cam){const q=CAR.chasePose;if(!q||cam!==camera)return;if(driving&&CAR.sim){if(CAR.lotModels&&CAR.lotModels.group.parent!==playerVan)syncFleetModel(playerVan,localFleetModels);playerVan.visible=true;playerVan.position.set(CAR.sim.x,floorHeight(CAR.sim.x,CAR.sim.z),CAR.sim.z);playerVan.rotation.set(0,CAR.sim.angle,CAR.sim.lean*.6);playerVan.updateMatrixWorld(true);}cam.position.set(q.x,q.y,q.z);cam.lookAt(q.lx,q.ly,q.lz);cam.rotateZ(q.roll);cam.updateMatrixWorld();}
+ if(renderer&&typeof renderer.render==='function'&&!renderer.__chaseHooked){const baseRender=renderer.render.bind(renderer);renderer.render=function(sc,cam){try{applyChasePose(cam);overcastClouds();}catch{}return baseRender(sc,cam);};renderer.__chaseHooked=true;}
+ const wheelsRender=renderFrame;renderFrame=function(){
+  const dt=Math.min(.1,Math.max(0,(now-(CAR.lastFrame??now))));CAR.lastFrame=now;
+  try{
+   const c=CAR.sim;
+   if(!(driving&&c&&active))CAR.chasePose=null;
+   if(driving&&c&&active){
+    CAR.cam=chaseCamera(c,CAR.cam,dt||1/60,{blocked:(x,z)=>blocked(x,z)});CAR.shake=Math.max(0,CAR.shake-dt*2.5);const j=CAR.shake*.12;
+    CAR.chasePose=null;
+    if(CAR.view==='chase'&&!panel){const ground=floorHeight(c.x,c.z);CAR.chasePose={x:CAR.cam.x+(Math.random()-.5)*j,y:ground+CAR.cam.y+(Math.random()-.5)*j,z:CAR.cam.z,lx:CAR.cam.lookX,ly:ground+CAR.cam.lookY,lz:CAR.cam.lookZ,roll:CAR.cam.roll*1.2};applyChasePose(camera);}
+    else if(panel){syncPlayerView();camera.rotation.set(pitch,yaw,0);}
+    else camera.rotateZ(CAR.cam.roll*.6);
+   }
+   CAR.lot.mesh.visible=Math.hypot(camera.position.x-LOT_SITE.x,camera.position.z-LOT_SITE.z)<95;
+   CAR.cruisers.forEach((cr,i)=>{const m=cruiserMesh(i);m.visible=true;m.position.set(cr.car.x,floorHeight(cr.car.x,cr.car.z),cr.car.z);m.rotation.set(0,cr.car.angle,cr.car.lean*.5);m.userData.bar.material.color.setHex(Math.floor(now*4+i)%2?0x3b6bff:0xff3b3b);});
+   for(let i=CAR.cruisers.length;i<CAR.cruiserMeshes.length;i++)CAR.cruiserMeshes[i].visible=false;
+   const rain=rainNow(),wet=wetNow();CAR.lastRain=rain;
+   RAIN.stats=RAIN.fx.update({camera,rain,wet,dt,people:streetCrowd?.people||null,umbrellaFor});
+   if(typeof audioContext!=='undefined'&&audioContext&&soundEnabled){
+    if(!RAIN.audio)RAIN.audio=createRainAudio(audioContext);RAIN.audio.update(rain,{covered:driving});
+    if(driving&&!CAR.engine)CAR.engine=createEngineAudio(audioContext);
+    CAR.engine?.update({rpm:c?.rpm||900,throttle:CAR.throttle||0,skid:c?.skid||0,on:driving&&active&&!panel});
+   }else{RAIN.audio?.update(0);CAR.engine?.update({on:false});}
+  }catch(error){if(!CAR.renderWarned){CAR.renderWarned=true;console.warn('Wheels render',error);}}
+  wheelsRender();
+  if(driving&&CAR.sim&&CAR.view==='chase'&&active){playerVan.visible=true;playerVan.position.set(CAR.sim.x,floorHeight(CAR.sim.x,CAR.sim.z),CAR.sim.z);playerVan.rotation.set(0,CAR.sim.angle,CAR.sim.lean*.6);}
+ };
+
+ addEventListener('keydown',e=>{
+  if(!active||e.repeat||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
+  const k=e.key.toLowerCase();
+  if(k==='v'&&driving&&!panel){CAR.view=CAR.view==='chase'?'fp':'chase';try{localStorage.setItem('gummybay-car-cam',CAR.view);}catch{}toast(CAR.view==='chase'?'Chase camera':'Driver’s seat');}
+  if(k==='t'&&!panel&&trunkReach()){menu('trunk');}
+ });
+
+ // QA and test hooks.
+ window.__cars={quality:()=>quality,umbrellaView:(side=6)=>{const ppl=streetCrowd?.people||[];let best=null;for(const q of ppl){if(!umbrellaFor(q))continue;const d=Math.hypot(q.x-player.x,q.z-player.z);if(!best||d<best.d)best={q,d};}if(!best)return null;const q=best.q;let px=q.x+side,pz=q.z+side*.5;for(const [ox,oz] of [[side,side*.5],[-side,side*.5],[side,-side*.5],[-side,-side*.5],[0,side],[0,-side]]){if(!blocked(q.x+ox,q.z+oz)){px=q.x+ox;pz=q.z+oz;break;}}player.set(px,1.72+floorHeight(px,pz),pz);yaw=Math.atan2(-(q.x-px),-(q.z-pz));pitch=-.06;syncPlayerView();return {x:+q.x.toFixed(1),z:+q.z.toFixed(1),n:ppl.length};},clock:m=>{if(Number.isFinite(m))s.time=m;return s.time;},camGap:()=>+Math.hypot(camera.position.x-player.x,camera.position.z-player.z).toFixed(2),look:(y,p=-.08)=>{yaw=y;pitch=p;syncPlayerView();return {x:player.x,z:player.z};},buy:id=>{doAction('buyLot',id);close();return s.lotCars?.slice();},enter:()=>{if(!driving&&window.__cars.toDoor())enterVehicle();return driving;},exit:()=>{if(driving)exitVehicle();return !driving;},give:(t=0,n=6)=>{s.packs[t]=n;return s.packs[t];},tail:(d=9,side=0,face=0)=>{const c=CAR.cruisers[0];if(!c)return false;const a=driveAngle;c.car.x=player.x-Math.sin(a)*d+Math.cos(a)*side;c.car.z=player.z-Math.cos(a)*d-Math.sin(a)*side;c.car.angle=a+face;c.car.vx=c.car.vz=0;return true;},endChase:()=>{clearSquad(ensurePolice(),'');clearCruisers();return true;},calls:()=>{const info=renderer.info;info.autoReset=false;info.reset();try{renderFrame();return {calls:info.render.calls,triangles:info.render.triangles};}finally{info.autoReset=true;}},
+  CAR,RAIN,
+  spec:()=>activeHandling(),
+  state:()=>{const c=CAR.sim;return {driving,car:activeCarSpec().id,speed:+(c?.speed||0).toFixed(2),long:+driveSpeed.toFixed(2),rpm:c?.rpm||0,gear:c?.gear||0,slip:+(c?.slip||0).toFixed(3),drifting:!!c?.drifting,skids:CAR.skids.live,view:CAR.view,trunk:{...s.trunk},trunkCount:trunkCount(s.trunk),cruisers:CAR.cruisers.length,cruiserSeen:CAR.cruiserSeen,pull:+(CAR.pull||0).toFixed(2),lotVisible:CAR.lot.mesh.visible,lotCars:[...(s.lotCars||[])],carSel:s.carSel,x:+player.x.toFixed(2),z:+player.z.toFixed(2),angle:+driveAngle.toFixed(3)};},
+  stage:()=>{carState();s.vehicleOwned=true;s.xp=Math.max(s.xp,600);s.cash=Math.max(s.cash,30000);close();player.set(LOT_DOOR.x,1.72+floorHeight(LOT_DOOR.x,LOT_DOOR.z),LOT_DOOR.z-1.2);yaw=0;pitch=-.05;syncPlayerView();return {x:player.x,z:player.z};},
+  door:()=>vehicleDoorAccess(vehiclePose,null,blocked,floorHeight),
+  toDoor:()=>{const d=vehicleDoorAccess(vehiclePose,null,blocked,floorHeight);if(d)player.set(d.x,1.72+floorHeight(d.x,d.z),d.z);return d;},
+  drive:(input,seconds,step=1/30)=>{const old=keys;for(let t=0;t<seconds;t+=step){keys={...input};update(step);}keys=old;return window.__cars.state();},
+  pursuit:(stage='pursuit')=>{const p=ensurePolice();p.cooldown=0;p.search=null;p.chase={...spotChase(freshChase(),stage),backup:false};const cop=p.officers.find(o=>(o.ko||0)<=0)||p.officers[0];if(cop){cop.squad=stage;cop.mode='pursuit';cop.target=localPoliceRole();}return p.chase.stage;},
+  chase:()=>ensurePolice().chase,
+  rain:v=>{CAR.forceRain=v==null?null:Math.max(0,Math.min(1,v));return CAR.forceRain;},
+  weather:()=>({rain:rainNow(),wet:wetNow(),stats:{...(RAIN.stats||{})},budget:RAIN.fx.budget,wetMats:RAIN.wetMats,forecast:forecast(s.day,3),today:dayWeather(s.day)}),
+  lotRefresh:refreshLot
+ };
+}catch(error){console.warn('Wheels and weather unavailable',error);}
