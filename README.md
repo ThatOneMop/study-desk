@@ -1,6 +1,6 @@
-# Study Desk / After Class — 19 curated games
+# Study Desk — 65 games
 
-19 active catalogue entries: 10 recovered user-created games plus 9 selected original indie collection games. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
+The catalogue has 65 games. 64 run on this site, and Nightshift — Town Empire opens on its original site. Those 65 include the 10 recovered games, the indie selections, Nightshift, Afterlight, and Ashwake. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
 
 ## Upload to GitHub Pages
 
@@ -14,7 +14,9 @@ For local use, run `python -m http.server 8000` in this folder and visit http://
 
 Study opens first. Create, edit and delete cards and decks in Create cards. Flip, shuffle, navigate, and mark mastered or review again. Export/import JSON backups; old array exports and new version-2 exports are supported. Imports append without overwriting cards. Empty decks are retained. Storage failures show a warning; keep an export before closing the tab. Original study-desk-v1 card storage is preserved.
 
-Monday pick chooses one bundled game for the calendar week, starting each Monday, on the study page and the game collection. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves replaces only the keys in that file, after confirmation, then reloads. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
+Monday pick chooses one bundled game for the calendar week, starting each Monday, on the study page and the game collection. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves lists each key that will change, replaces only those keys after confirmation, then reloads. Identical keys are left alone. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
+
+The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, newer additions, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
 
 ## Switching
 
@@ -22,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. All 19 active catalogue games are bundled and include the Study Desk bridge; real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 64 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 

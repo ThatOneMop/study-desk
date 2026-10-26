@@ -38,3 +38,35 @@ for(const [file,title,view] of routes){
  dom.window.close();
 }
 console.log('PASS direct collection routes: Afterlight and Nightshift pages boot into the named game with save controls.');
+
+async function assertCataloguePagesClean(){
+ const {chromium}=require('playwright'),vm=require('vm');
+ const context={window:{}};
+ vm.runInNewContext(fs.readFileSync(path.join(root,'catalog.js'),'utf8'),context);
+ const games=context.window.GAME_CATALOG;
+ const external=Array.from(games,game=>game.type==='external'?String(game.id):'').filter(Boolean);
+ assert.deepEqual(external,['nightshift-empire']);
+ const local=Array.from(games).filter(game=>game.type!=='external');
+ const launch={headless:true,args:['--no-sandbox','--disable-dev-shm-usage']};
+ if(process.env.CHROME_PATH)launch.executablePath=process.env.CHROME_PATH;
+ const browser=await chromium.launch(launch);
+ const page=await browser.newPage();
+ const failures=[];
+ for(const game of local){
+  const errors=[];
+  const onError=error=>errors.push(error.message);
+  page.on('pageerror',onError);
+  let status=0;
+  try{
+   const response=await page.goto('http://127.0.0.1:8765/'+game.url,{waitUntil:'load',timeout:25000});
+   status=response?response.status():0;
+   await page.waitForTimeout(200);
+  }catch(error){errors.push(error.message)}
+  page.off('pageerror',onError);
+  if(status!==200||errors.length)failures.push(game.id+' '+game.url+' '+status+' '+errors.join(' | '));
+ }
+ await browser.close();
+ assert.deepEqual(failures,[],'a catalogue page raised a page error or did not load');
+ console.log('PASS catalogue pages: '+local.length+' bundled games loaded in headless Chromium with no page errors.');
+}
+assertCataloguePagesClean().catch(error=>{console.error(error);process.exit(1)});
