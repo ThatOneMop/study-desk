@@ -3104,6 +3104,8 @@ let squadCast=null,squadDizzy=null,squadAwake=false,squadPressure=0,hideWas='',b
 const squadHits=new Map(),squadWitnesses=[];
 function squadQaDay(){try{return new URLSearchParams(location.search).get('qa')==='day';}catch{return false;}}
 function squadLive(){return active&&!squadQaDay()&&!firstSaleProtected(s);}
+// Set by the skateboard block: a fast board counts as bolting from a squad officer.
+let skateBolting=()=>false;
 function ensureChase(p){if(!p.chase||typeof p.chase.stage!=='string')p.chase=freshChase();return p.chase;}
 function clearSquad(p,note){
  const police=p||ensurePolice();
@@ -3112,7 +3114,8 @@ function clearSquad(p,note){
  for(const cop of police.officers){if(!cop.squad)continue;cop.mode='patrol';cop.target=null;cop.suspicion=0;cop.lost=0;cop.grab=0;cop.squad='';}
  if(note)toast(note);
 }
-function copSeesPlayer(cop){return inVision({x:cop.x,y:1.55,z:cop.z,angle:cop.angle},{x:player.x,y:player.y||1.2,z:player.z},{sight:(a,b)=>copSight(a,b)}).seen;}
+// An officer standing on top of you always counts: the cone's pitch test failed at arm's length.
+function copSeesPlayer(cop){if((cop.ko||0)<=0&&Math.hypot(cop.x-player.x,cop.z-player.z)<1.2)return true;return inVision({x:cop.x,y:1.55,z:cop.z,angle:cop.angle},{x:player.x,y:player.y||1.2,z:player.z},{sight:(a,b)=>copSight(a,b)}).seen;}
 function squadWakeFrom(event){
  if(!squadLive())return;
  const key=event?.key?.toLowerCase?.()||'';
@@ -3157,7 +3160,7 @@ function stepSquadOfficer(cop,i,dt,p){
   const distracted=Math.max(0,(chase.distracted||0)-dt);
   const stepped=stepChase(chase,dt,seen&&!wasDistracted);
   p.chase={...stepped,distracted,backup:chase.backup===true};
-  if(seen&&!wasDistracted&&keys.shift&&(keys.w||keys.arrowup)){
+  if(seen&&!wasDistracted&&((keys.shift&&(keys.w||keys.arrowup))||skateBolting())){
    squadPressure+=dt;
    if(squadPressure>3&&p.chase.stage!=='clear'){p.chase=escalateChase(p.chase);p.chase.backup=false;squadPressure=0;toast('You bolted. The squad steps it up.');}
   }else if(!seen)squadPressure=Math.max(0,squadPressure-dt);
@@ -3604,6 +3607,12 @@ const skateMenu=menu;menu=function(which,data){
  $('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="paymentstrip"><span>PAYMENT</span><button class="'+(s.payment==='cash'?'on':'')+'" onclick="action(\'payment\',\'cash\')">CASH '+cash(s.cash)+'</button><button class="'+(s.payment==='card'?'on':'')+'" onclick="action(\'payment\',\'card\')">CARD '+cash(s.bank)+'</button></div>'+kickflipShopHTML(s,{money:cash,available:s.payment==='card'?s.bank:s.cash,esc});
 };
 window.menu=menu;
+// Police: a fast board while seen is bolting, a bust or a search takes the board
+// off you first (the bust moves you home), and you cannot hide while riding.
+skateBolting=()=>!!skate.ride&&skate.ride.speed>6.5;
+const skateBust=performBust;performBust=function(){if(skate.ride)dismountBoard(true);return skateBust();};
+const skateSearch=beginPoliceSearch;beginPoliceSearch=function(role,fled){if(skate.ride)dismountBoard(true);return skateSearch(role,fled);};
+const skateHide=tickHide;tickHide=function(){if(skate.ride)return;return skateHide();};
 const skateEnter=enterVehicle;enterVehicle=function(){if(skate.ride)dismountBoard(true);skateEnter();};
 addEventListener('keydown',e=>{
  if(!active||e.repeat||panel||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
@@ -3701,7 +3710,9 @@ if(typeof window!=='undefined')window.__skate={
  cam:p=>{skate.cam=p||null;return !!p;},hold:on=>{skate.hold=!!on;return skate.hold;},look:(y,p)=>{yaw=y;pitch=p??pitch;},
  state:()=>{const r=skate.ride;return {owned:s?.boards?.slice()||[],sel:s?.boardSel||null,equipped:equippedTool,riding:!!r,speed:r?r.speed:0,y:r?r.y:0,air:r?r.air:false,bail:r?r.bail:0,x:player.x,z:player.z,fov:camera.fov,panel};},
  point:()=>({x:kickflipPoint.x,z:kickflipPoint.z}),
- hour:h=>{s.time=h*60;return s.time;},cash:n=>{s.cash=n;updateUI();return s.cash;}
+ hour:h=>{s.time=h*60;return s.time;},cash:n=>{s.cash=n;updateUI();return s.cash;},
+ chase:(stage='pursuit',d=12)=>{s.day=Math.max(2,s.day);s.sold=Math.max(1,s.sold||0);squadAwake=true;const p=ensurePolice();p.cooldown=0;p.search=null;p.chase=spotChase(freshChase(),stage);const cop=p.officers[0];if(!cop)return 'no officer';cop.squad=p.chase.stage;cop.target=localPoliceRole();cop.mode='pursuit';cop.ko=0;cop.x=player.x+Math.sin(yaw)*d;cop.z=player.z+Math.cos(yaw)*d;cop.angle=Math.atan2(player.x-cop.x,player.z-cop.z);return p.chase.stage;},
+ police:()=>{const p=ensurePolice(),cop=p.officers.find(c=>c.squad)||p.officers[0];return {stage:p.chase?.stage||'clear',arrests:p.arrests||0,copDist:cop?Math.round(Math.hypot(cop.x-player.x,cop.z-player.z)*10)/10:null,riding:!!skate.ride,bust:!!bustPlaying};}
 };
 
 // v133 City expansion (P1-3): compact filler blocks, named businesses, alleys and the expressway.
