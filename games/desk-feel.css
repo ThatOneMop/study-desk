@@ -1,0 +1,13 @@
+.desk-shake{animation:deskShake .28s linear}
+@keyframes deskShake{0%,100%{transform:none}25%{transform:translate(-5px,2px)}50%{transform:translate(5px,-3px)}75%{transform:translate(-2px,1px)}}
+.desk-title,.desk-pause{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;background:#0d1c22d6;color:#f6edd4}
+.desk-title[hidden],.desk-pause[hidden]{display:none}
+.desk-title>div,.desk-pause>div{width:min(440px,100%);background:#1b3330;border:1px solid #e4c57a;border-radius:14px;padding:28px 26px;box-shadow:0 18px 50px #0008}
+.desk-title h2,.desk-pause h2{font:500 34px/1.1 Georgia,serif;margin:6px 0 10px}
+.desk-title p,.desk-pause p{margin:8px 0;color:#d5e0d2}
+.desk-title .desk-best,.desk-pause .desk-best{color:#e4c57a;font-size:13px}
+.desk-title .desk-hint{font-size:13px;color:#b7c9c2}
+.desk-title button,.desk-pause button{font:inherit;margin:8px 8px 0 0;min-height:44px;padding:10px 16px;border-radius:8px;border:1px solid #e4c57a;background:#24423c;color:#f6edd4;cursor:pointer}
+#desk-pause{min-height:44px}
+.desk-bit{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:50;animation:deskBit .48s ease-out forwards}
+@keyframes deskBit{to{transform:translate(var(--dx),var(--dy));opacity:0}}

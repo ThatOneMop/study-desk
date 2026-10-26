@@ -1,7 +1,7 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.Lanternwake=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){'use strict';
 const DIRS={n:[0,-1],e:[1,0],s:[0,1],w:[-1,0]},ACTIONS=['n','e','s','w','bn','be','bs','bw','wait','snuff'];
 const VOYAGES=[
- {name:'A light to follow',brief:'Carry two firefly jars home. Throw a lantern ahead, then sail through its glow.',oil:5,par:24,throws:3,rows:['#########','#S..#..D#','#...#...#','#..J..J.#','#...#...#','#...#...#','#########']},
+ {name:'A light to follow',brief:'A short first crossing: two jars, extra oil, and no moths. Throw a lantern ahead, then sail through its glow.',oil:8,par:32,throws:5,rows:['#########','#S..#..D#','#...#...#','#..J..J.#','#...#...#','#...#...#','#########']},
  {name:'The hungry wing',brief:'A moth follows your lanterns. Leave a light behind it, then take the other channel.',oil:5,par:28,throws:4,rows:['#########','#S...M.D#','#..###..#','#J.....J#','#..###..#','#...R...#','#########']},
  {name:'Reed islands',brief:'The reed refuge offers one fresh oil and a small pool of permanent light.',oil:4,par:30,throws:4,rows:['#########','#S.#...D#','#..#J#..#','#J...#..#','#..R...J#','#M.#....#','#########']},
  {name:'Twin embers',brief:'Two moths compete for the nearest light. Use the islands to delay them.',oil:5,par:34,throws:5,rows:['#########','#S..#J.D#','#...#...#','#J..R..J#','#..###..#','#M.....M#','#########']},
