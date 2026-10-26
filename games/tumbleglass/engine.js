@@ -7,7 +7,25 @@ function tilt(level,board,dir,hold=null){if(!Object.hasOwn(DIRS,dir)||!(hold===n
 function move(level,b,a){return typeof a==='string'?tilt(level,b,a):a&&typeof a==='object'&&!Array.isArray(a)&&Object.keys(a).length===2&&Object.hasOwn(a,'dir')&&Object.hasOwn(a,'hold')&&a.hold!==null?tilt(level,b,a.dir,a.hold):null}
 function board(s){let b=initial(s.level);for(const d of s.moves){b=move(s.level,b,d);if(!b)throw Error('Invalid journal')}return b}
 function won(b){return b.locked.every(Boolean)}
+// Breadth-first search is advisory only: it never changes the board or journal.
+function solve(level,start){
+ if(won(start))return{status:'complete',moves:[]};
+ const key=b=>b.beads.join(',')+'|'+b.locked.map(Number).join('')+'|'+Number(b.clampUsed);
+ const queue=[{b:clone(start),moves:[]}],seen=new Set([key(start)]);
+ for(let head=0;head<queue.length;head++){
+  const {b,moves}=queue[head],holds=[null];
+  if(!b.clampUsed)b.locked.forEach((locked,i)=>{if(!locked)holds.push(i)});
+  for(const hold of holds)for(const dir of Object.keys(DIRS)){
+   const n=tilt(level,b,dir,hold);if(!n)continue;
+   const k=key(n);if(seen.has(k))continue;seen.add(k);
+   const route=[...moves,hold===null?dir:{dir,hold}];
+   if(won(n))return{status:'solvable',moves:route};
+   queue.push({b:n,moves:route});
+  }
+ }
+ return{status:'dead-end',moves:[]};
+}
 function create(){return{version:1,level:0,moves:[],records:[null,null,null]}}
 function act(s,a){const n=clone(s);if(a==='undo'){if(!n.moves.length)return{ok:false,state:s};n.moves.pop();return{ok:true,state:n}}if(a==='retry'){n.moves=[];return{ok:true,state:n}}if(a?.type==='level'){if(!int(a.level,0,2)||(a.level>0&&n.records[a.level-1]===null))return{ok:false,state:s};n.level=a.level;n.moves=[];return{ok:true,state:n}}const b=board(s);if(won(b)||s.moves.length>=300)return{ok:false,state:s};const next=move(s.level,b,a);if(!next)return{ok:false,state:s};n.moves.push(clone(a));if(won(next))n.records[n.level]=Math.min(n.records[n.level]??Infinity,n.moves.length);return{ok:true,state:n}}
 function decode(raw){const s=JSON.parse(raw);if(!s||s.version!==1||!int(s.level,0,2)||!Array.isArray(s.moves)||s.moves.length>300||!Array.isArray(s.records)||s.records.length!==3||!s.records.every(x=>x===null||int(x,1,300))||s.records.some((x,i)=>x!==null&&i>0&&s.records[i-1]===null)||(s.level>0&&s.records[s.level-1]===null))throw Error('Invalid save');let b=initial(s.level);for(const d of s.moves){if(won(b))throw Error('Moves after completion');b=move(s.level,b,d);if(!b)throw Error('No-op in journal')}if(won(b)&&(s.records[s.level]===null||s.records[s.level]>s.moves.length))throw Error('Missing record');return{version:1,level:s.level,moves:s.moves.slice(),records:s.records.slice()}}
-return{KEY,DIRS,LEVELS,initial,tilt,move,board,won,create,act,decode};});
+return{KEY,DIRS,LEVELS,initial,tilt,move,board,won,solve,create,act,decode};});

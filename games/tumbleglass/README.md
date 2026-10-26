@@ -19,3 +19,11 @@ These are small initial puzzles, not substantial content-hour claims. Source imp
 ## Pending source refinement — 26 October
 
 Before: every tilt moved all loose beads, leaving no per-bead intervention. After: one clamp offers a choice of bead and timing, with undoable resource use. Assisted routes alter actual bead positions and solve all three trays in 3/5/5 tilts; the legacy routes remain valid. This comes from source/engine/DOM inspection, not rendered play, and does not earn the required improvement-pass credit. The campaign remains small; depth and feedback still need natural-play assessment.
+
+## Optional tray check
+
+Check tray performs a read-only breadth-first search over all legal tilts, locked beads and the unused clamp. It gives one next action on a shortest remaining route, explicitly stating whether to hold a bead or choose No clamp. It never applies a tilt, changes clamp selection or writes a save. If no solution remains, it recommends undo/retry even when beads can still move. Advice clears on successful actions and restart; pause/dialog guards hide it and prevent checking. Near the 300-action storage bound it explains when the remaining route cannot fit instead of suggesting an unusable plan.
+
+Source analysis found 14 unsolvable states among 269 reachable board/clamp states across the three trays (33/72/164 states, 6/0/8 dead ends). This enumeration is test coverage, not added game content. Previously only completely wedged layouts received a warning. Optional guidance now makes recoverable mistakes explicit without consuming the clamp or removing earned records.
+
+16 tests pass (8 engine, 8 jsdom 26.1.0). An independently traversed reverse state graph verifies every reachable state's solvability and shortest distance; every returned solution is replayed to a win. Other coverage includes original/clamped campaigns, exact saves, no mutation, dead-end undo recovery, stale-hint clearing, selection/pause/modal guards and journal capacity. Both scripts pass syntax checks. No rendered browser, screenshots, native keyboard/touch or full repository build evidence; this remains a source refinement awaiting natural play and usability review, not a completed improvement pass.
