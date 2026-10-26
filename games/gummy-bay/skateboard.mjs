@@ -228,7 +228,7 @@ export function createBoardModel(board,{shadow=true,grip:gripTint=null}={}){
  const metal=new THREE.MeshStandardMaterial({color:0xb9bec4,metalness:.85,roughness:.32});
  const bush=new THREE.MeshStandardMaterial({color:0xf3c241,roughness:.6});
  const wheelR=board.id==='cruiser'||board.id==='dirt'?.036:.028;
- const wheelMat=board.id==='gold'?new THREE.MeshPhysicalMaterial({color:board.wheel,roughness:.25,transmission:.35,thickness:.05,clearcoat:.8}):new THREE.MeshStandardMaterial({color:board.wheel,roughness:board.id==='dirt'?.95:.55});
+ const wheelMat=board.id==='gold'?new THREE.MeshPhysicalMaterial({color:board.wheel,roughness:.25,clearcoat:.8,clearcoatRoughness:.15,transparent:true,opacity:.86}) /* no transmission: it forces a second opaque scene pass */:new THREE.MeshStandardMaterial({color:board.wheel,roughness:board.id==='dirt'?.95:.55});
  const wheels=[];
  for(const s of [-1,1]){
   const z=s*.2;
@@ -365,7 +365,7 @@ export function createKickflipContainer(scene,site=KICKFLIP_SITE){
  // Static shell/yard/skate spot fold into the town batches (userData.batchStatic); the
  // deck rack and stickers are small detail kept as real models, shown only up close.
  g.userData.batchStatic=true;
- const near=new THREE.Group();near.name='Kickflip rack detail';const lod=new THREE.LOD();lod.name='Kickflip rack LOD';lod.userData.noBatch=true;lod.addLevel(near,0);lod.addLevel(new THREE.Object3D(),32);g.add(lod);
+ const near=new THREE.Group();near.name='Kickflip rack detail';const lod=new THREE.LOD();lod.name='Kickflip rack LOD';lod.userData.noBatch=true;lod.addLevel(near,0);lod.addLevel(new THREE.Object3D(),18);g.add(lod);
  const W=site.w,D=site.d,H=site.h;
  const paint=new THREE.MeshStandardMaterial({color:0xffffff,map:corrugated('#2f7a74'),roughness:.72,metalness:.25});if(!paint.map)paint.color.setHex(0x2f7a74);
  const paintEnd=new THREE.MeshStandardMaterial({color:0xffffff,map:corrugated('#2a6e68'),roughness:.75,metalness:.25});if(!paintEnd.map)paintEnd.color.setHex(0x2a6e68);
