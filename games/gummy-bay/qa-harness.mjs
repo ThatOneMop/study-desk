@@ -223,9 +223,34 @@ export function createDayDirector(){
   if(wp.stuck>8&&!wp.noted){wp.noted=true;note(snap,'held up on '+id);}
   return wp.stuck;
  }
+ // Grid A* over the game's real collision test, when the game supplies it.
+ // The hand-drawn node graph above stays as the fallback for unit tests.
+ const plan={key:'',path:null,stuckAt:0};
+ function plannedPoints(goalNow,snap,dest){
+  if(!dest)return null;
+  const key=goalNow.id+':'+Math.round(dest[0]/3)+','+Math.round(dest[1]/3);
+  const stuck=wp.id===goalNow.id?wp.stuck:0;
+  const off=plan.path?.length&&Math.hypot(snap.x-plan.path[0][0],snap.z-plan.path[0][1])>40;
+  const jammed=plan.key===key&&plan.path?.length&&stuck>3&&stuck-plan.stuckAt>3;
+  if(jammed&&typeof snap.routeAvoid==='function'){
+   // Something the grid did not know about is in the way: mark the spot just ahead and plan round it.
+   const [nx,nz]=plan.path[0],d=Math.hypot(nx-snap.x,nz-snap.z)||1;
+   snap.routeAvoid(snap.x+(nx-snap.x)/d*.9,snap.z+(nz-snap.z)/d*.9);
+   note(snap,'stuck '+goalNow.id+' at '+snap.x.toFixed(1)+','+snap.z.toFixed(1)+' toward '+nx.toFixed(1)+','+nz.toFixed(1));
+  }
+  if(plan.key!==key||!plan.path||off||jammed){
+   plan.key=key;plan.stuckAt=stuck;
+   plan.path=snap.route(snap.x,snap.z,dest[0],dest[1]);
+   if(plan.path&&plan.path.length)note(snap,'route '+goalNow.id+' '+plan.path.length+' legs');
+  }
+  if(!plan.path||!plan.path.length)return null;
+  while(plan.path.length>1&&Math.hypot(snap.x-plan.path[0][0],snap.z-plan.path[0][1])<1)plan.path.shift();
+  return plan.path.slice();
+ }
  function walk(goalNow,snap){
   let points;
-  const detour=goalNow.id==='exit'?null:buildingExit(snap.x,snap.z,goalNow.place)||furnitureDetour(snap.x,snap.z,goalNow.place)||campsiteDetour(snap.x,snap.z);
+  const routed=typeof snap.route==='function';
+  const detour=goalNow.id==='exit'||routed?null:buildingExit(snap.x,snap.z,goalNow.place)||furnitureDetour(snap.x,snap.z,goalNow.place)||campsiteDetour(snap.x,snap.z);
   if(detour)points=[detour];
   else if(goalNow.id==='police'){
    const cop=(snap.officers||[]).reduce((best,c)=>!c?best:!best||Math.hypot(snap.x-c.x,snap.z-c.z)<Math.hypot(snap.x-best.x,snap.z-best.z)?c:best,null);
@@ -235,15 +260,18 @@ export function createDayDirector(){
    points=routePoints(snap.x,snap.z,'jules').concat([[c.x,c.z]]);
   }else points=routePoints(snap.x,snap.z,goalNow.place);
   if(!points.length)return {hold:{},fast:.2,note:goalNow.id};
-  while(points.length>1&&Math.hypot(snap.x-points[0][0],snap.z-points[0][1])<2.2)points.shift();
+  const planned=routed?plannedPoints(goalNow,snap,points[points.length-1]):null;if(planned)points=planned;
+  while(points.length>1&&Math.hypot(snap.x-points[0][0],snap.z-points[0][1])<(planned?1:2.2))points.shift();
   const [tx,tz]=points[0];
   const stuck=trackStuck(goalNow.id,snap);
   const last=points.length===1;
   const arrive=goalNow.id==='police'&&last?3.2:1.15;
   let aimX=tx,aimZ=tz;
-  if(stuck>2.4){const side=(Math.floor(stuck)%2?1:-1)*2.4;aimX+=side;aimZ+=side*.35;}
+  if(stuck>2.4&&!planned){const side=(Math.floor(stuck)%2?1:-1)*2.4;aimX+=side;aimZ+=side*.35;}
   if(Math.hypot(snap.x-aimX,snap.z-aimZ)<=arrive&&last)return {hold:{},fast:goalNow.id==='police'?2:.35,note:goalNow.id};
-  return {aim:{x:aimX,z:aimZ,arrive,stuck},fast:.7,note:goalNow.id};
+  // Planned legs are wall-free, so face the next waypoint and walk; jams are
+  // handled by replanning round the spot rather than by backing up.
+  return {aim:{x:aimX,z:aimZ,arrive,stuck:planned?0:stuck,face:!!planned},fast:.7,note:goalNow.id};
  }
  function intent(snap){
   const goalNow=goal(snap);
