@@ -46,11 +46,13 @@
         "9 engine tests pass: all original commission routes, mixed-ink forecasts, bounded setup migration, strict stamp-only journals, saves and loss/retry.",
         "6 DOM tests pass: all commission wins, setup/filter reload, focus retention, pre-print warning, pause/modal/reset/recovery and malformed-save preservation.",
         "Asset reference and first-batch integrity checks passed. Syntax and git diff checks passed.",
-        "No rendered browser, touch-emulation, screenshot or enjoyment evidence for this prototype yet."
+        "No rendered browser, touch-emulation, screenshot or enjoyment evidence for this prototype yet.",
+        "Selective ink lift: 20 passing tests (12 engine, 8 jsdom), retaining original 15. Selected-channel removal, later-layer preservation, exact read-only forecasts, five-operation recovery route, allowance/no-op guards, undo/records, malformed journals, old saves/setup, UI preview/commit/reload, pause/guide and native-button Space ownership. Scripts pass syntax checks. No rendered evidence."
       ],
       "commits": [
         "035611d0c1a147dc63a09484abfc30ed8bee29c0",
-        "c7fdaa6bb22f71405466d434b797ec145885390b"
+        "c7fdaa6bb22f71405466d434b797ec145885390b",
+        "08600a642bbc4bba782731e5ddc9634d2ea51fc8"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -72,6 +74,13 @@
           "Place ink/stencil controls inside printing-bed section for closer access. Layout remains unverified."
         ],
         "remaining": "Rendered desktop/touch review, substantive playtest-led improvement, progression/loss/retry, saves/navigation and inspected screenshots still required. No completed improvement credit."
+      },
+      "pendingLiftRefinement": {
+        "commit": "08600a642bbc4bba782731e5ddc9634d2ea51fc8",
+        "basis": "Source inspection: mistakes could only be repaired by undoing the last layer, discarding later work to reach an earlier error. No rendered observation.",
+        "before": "Stencils could only add ink; local removal was unavailable.",
+        "after": "Lift mode removes just the selected ink through the current stencil, preserving other colours and later layers. It shares the five-operation allowance, previews the exact result and rejects empty lifts free. Old print journals and setup remain compatible. Native-button Space no longer unexpectedly stamps.",
+        "remaining": "Rendered natural desktop/touch play, screenshot inspection, mode clarity and whether the five-operation repair choice adds worthwhile depth. No completed improvement credit."
       }
     },
     {
@@ -1360,7 +1369,7 @@
     "Implement remaining 35 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "eefdcbcd98a59a1d0970a4f133bd88f0660b0612",
+  "latestObservedMain": "83fde46e12260e3a81785cee84fa75808399ff86",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1600,6 +1609,13 @@
       "result": "Bramble Dice opposite-face action implemented; 19 engine/DOM tests pass. Counts unchanged: third 15 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
       "mainObserved": "eefdcbcd98a59a1d0970a4f133bd88f0660b0612"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "08600a642bbc4bba782731e5ddc9634d2ea51fc8",
+      "result": "Stencil Studio selective ink lifts and native Space ownership implemented; 20 engine/DOM tests pass. Counts unchanged: third 15 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
+      "mainObserved": "83fde46e12260e3a81785cee84fa75808399ff86"
     }
   ]
 }
