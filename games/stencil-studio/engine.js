@@ -7,8 +7,8 @@ const COLOURS=['#f5ecd7','#68bdc7','#e187a4','#7771b1','#efc65e','#77a573','#db8
 const NAMES=['Paper garden','Harbour flags','Evening windows'];
 const RECIPES=[[[0,0,0,0,1],[0,1,1,0,2],[1,1,1,1,4]],[[1,0,0,1,1],[0,2,2,1,2],[2,0,1,1,4]],[[2,0,1,1,1],[1,1,2,0,2],[0,3,2,2,4]]];
 function cells(shape,rotation,x,y){let c=SHAPES[shape].cells.map(p=>p.slice());for(let i=0;i<rotation;i++)c=c.map(([a,b])=>[-b,a]);const minX=Math.min(...c.map(p=>p[0])),minY=Math.min(...c.map(p=>p[1]));return c.map(([a,b])=>[a-minX+x,b-minY+y])}
-function fits(mark){return Array.isArray(mark)&&mark.length===5&&mark.every(Number.isInteger)&&mark[0]>=0&&mark[0]<3&&mark[1]>=0&&mark[1]<4&&[1,2,4].includes(mark[4])&&cells(...mark.slice(0,4)).every(([x,y])=>x>=0&&x<SIZE&&y>=0&&y<SIZE)}
-function paint(board,mark){const out=board.slice();for(const [x,y]of cells(...mark.slice(0,4)))out[y*SIZE+x]|=mark[4];return out}
+function fits(mark){return Array.isArray(mark)&&(mark.length===5||(mark.length===6&&mark[5]===-1))&&mark.every(Number.isInteger)&&mark[0]>=0&&mark[0]<3&&mark[1]>=0&&mark[1]<4&&[1,2,4].includes(mark[4])&&cells(...mark.slice(0,4)).every(([x,y])=>x>=0&&x<SIZE&&y>=0&&y<SIZE)}
+function paint(board,mark){const out=board.slice();for(const [x,y]of cells(...mark.slice(0,4)))out[y*SIZE+x]=mark.length===6?out[y*SIZE+x]&~mark[4]:out[y*SIZE+x]|mark[4];return out}
 function target(level){return RECIPES[level].reduce(paint,Array(25).fill(0))}
 function create(){return{version:1,level:0,history:[],records:[null,null,null],setup:{shape:0,rotation:0,x:0,y:0,ink:1,isolate:false}}}
 function unlocked(s){let n=0;while(n<2&&s.records[n]!==null)n++;return n}
