@@ -55,14 +55,15 @@ assert.throws(()=>createChunkyCast({scene:null,actors}),TypeError);
 assert.throws(()=>createChunkyCast({scene,actors,capacity:0}),RangeError);
 const cast=createChunkyCast({THREE,scene,actors,points:[],quality:'balanced',capacity:4});
 assert.equal(cast.drawCalls,3);assert.equal(cast.counts.colliders,0);assert.equal(cast.counts.materials,2);
-assert.ok(cast.counts.trianglesPerActor<=800);assert.equal(cast.mesh.material.vertexColors,false);assert.equal(cast.mesh.geometry,CHUNKY_BOX_GEOMETRY);
+assert.ok(cast.counts.trianglesPerActor<=1500,'v146 soft bodies stay under 1.5k triangles a person');assert.equal(cast.mesh.material.vertexColors,false);assert.equal(cast.mesh.geometry,CHUNKY_BOX_GEOMETRY);
 assert.equal(CHUNKY_BOX_GEOMETRY.index.count/3,12);
 cast.update({now:0});
 const matrix=new THREE.Matrix4(),position=new THREE.Vector3(),quaternion=new THREE.Quaternion(),scale=new THREE.Vector3();
-const faces=cast.faceMesh.geometry.getAttribute('aFace'),FACE_ROW=8;
+const faces=cast.faceMesh.geometry.getAttribute('aFace'),FACE_ROW=24;
+assert.equal(cast.headMesh.count,cast.headMesh.geometry.getAttribute('aTaper').count/4,'only the one live actor is drawn from a capacity of four');
 assert.equal(Math.floor(faces.getX(0)/FACE_ROW),0,'idle face is the resting cell');
 cast.headMesh.getMatrixAt(CHUNKY_PART_INDEX.head,matrix);matrix.decompose(position,quaternion,scale);
-assert.ok(Math.abs(scale.x-.27)<.01&&Math.abs(scale.y-.30)<.01,'bone stretch no longer turns heads into tall blocks');
+assert.ok(Math.abs(scale.x-.29*1.12)<.01&&Math.abs(scale.y-.31*1.12)<.01,'bone stretch no longer turns heads into tall blocks; v146 heads are a deliberate 1.12x');
 assert.ok(position.y>1.4,'head rides the animated head bone');
 actors[0].current='Talk';
 let talked=false;for(let t=0;t<3&&!talked;t+=.05){cast.update({now:t});if(Math.floor(faces.getX(0)/FACE_ROW)===2)talked=true;}
@@ -73,7 +74,7 @@ for(let t=0;t<6&&!blinked;t+=.05){cast.update({now:t});if(Math.floor(faces.getX(
 assert.equal(blinked,true,'blink swaps to the closed-eye face');
 cast.faceMesh.getMatrixAt(0,matrix);matrix.decompose(position,quaternion,scale);
 assert.ok(position.length()>0);
-root.visible=false;cast.update({now:0});cast.mesh.getMatrixAt(0,matrix);matrix.decompose(position,quaternion,scale);assert.equal(scale.x,0);
+root.visible=false;cast.update({now:0});cast.mesh.getMatrixAt(0,matrix);matrix.decompose(position,quaternion,scale);assert.equal(scale.x,0);assert.equal(cast.mesh.visible,false,'no live actors draws nothing');
 root.visible=true;actors[0].current='Idle';cast.update({now:0});
 const before=cast.mesh.geometry;cast.setQuality('performance');assert.equal(cast.mesh.castShadow,false);assert.equal(cast.mesh.receiveShadow,false);cast.setQuality('high');assert.equal(cast.mesh.castShadow,true);cast.setQuality('balanced');assert.equal(cast.mesh.geometry,before);
 

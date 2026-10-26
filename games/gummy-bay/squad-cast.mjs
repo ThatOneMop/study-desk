@@ -1,6 +1,6 @@
 // Sugar Squad drawn with the shared person kit: navy uniform, yellow cap band,
 // grey vest. Original procedural props for cover, the stall and the dizzy stars.
-import {personLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,PERSON_SLOT,PERSON_MESH_PARTS} from './people-kit.mjs?v=142';
+import {personLook,namedLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,breathe,PERSON_SLOT,PERSON_MESH_PARTS} from './people-kit.mjs?v=146';
 import {HIDE_SPOTS} from './hide-spots.mjs?v=132';
 import {VISION_YAW} from './police-vision.mjs?v=132';
 
@@ -13,9 +13,10 @@ const BADGE=PERSON_SLOT.badge??0;
 export function createSquadCast({THREE,scene,capacity=10}={}){
  if(!scene?.add||!THREE)throw new TypeError('Sugar Squad needs a scene.');
  const meshes=createPeopleMeshes(THREE,scene,capacity,'Sugar Squad');
- const looks=Array.from({length:capacity},(_,index)=>personLook(index+3,'police'));
+ // v146: the lead officer is Inspector Hank Hardtack in his banded cap and moustache.
+ const looks=Array.from({length:capacity},(_,index)=>index===0?namedLook('hank hardtack',personLook(3,'police'),3):personLook(index+3,'police'));
  const joints=createJointSet();
- const root=new THREE.Matrix4(),pos=new THREE.Vector3(),quat=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),unit=new THREE.Vector3(1,1,1);
+ const root=new THREE.Matrix4(),pos=new THREE.Vector3(),quat=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),unit=new THREE.Vector3(1,1,1),heightScale=new THREE.Vector3(1,1,1);
  const scratch=new THREE.Color();
  const mat=color=>new THREE.MeshStandardMaterial({color,roughness:.84,metalness:0});
  const props=new THREE.Group();props.name='Sugar Squad props';scene.add(props);
@@ -70,6 +71,7 @@ export function createSquadCast({THREE,scene,capacity=10}={}){
  function update({officers=[],now=0,floor=()=>0,showCone=false,dizzy=null,legacy=[]}={}){
   const clock=Number.isFinite(now)?now:0;
   const list=Array.isArray(officers)?officers:[];
+  let used=0;
   for(let index=0;index<capacity;index++){
    const cop=list[index];
    const live=!!(cop&&Number.isFinite(cop.x)&&Number.isFinite(cop.z));
@@ -78,17 +80,19 @@ export function createSquadCast({THREE,scene,capacity=10}={}){
    const running=cop.squad==='pursuit'||cop.squad==='all-units'||cop.mode==='pursuit';
    const walking=running||cop.mode==='patrol'||cop.squad==='suspicious'||cop.squad==='investigating';
    const knocked=(cop.ko||0)>0;
-   pos.set(cop.x,ground,cop.z);quat.setFromAxisAngle(up,Number.isFinite(cop.angle)?cop.angle:0);root.compose(pos,quat,unit);
+   used=index+1;
+   pos.set(cop.x,ground,cop.z);quat.setFromAxisAngle(up,Number.isFinite(cop.angle)?cop.angle:0);root.compose(pos,quat,heightScale.setScalar(looks[index].height||1));
    proceduralJoints(joints,root,{
     swing:walking&&!knocked?Math.sin(clock*(running?8.5:4.6)+index):0,
     sit:knocked,bob:walking?Math.abs(Math.cos(clock*6+index))*.03:0,
     raise:cop.squad==='suspicious'&&!knocked?-.8:0,
-    sway:knocked?Math.sin(clock*2)*.08:0
+    sway:knocked?Math.sin(clock*2)*.08:0,
+    breath:walking||knocked?0:breathe(clock,index)
    });
    writePerson(meshes,index,joints,looks[index],{detail:true,face:knocked?'blink':'open',active:true});
    if(running)meshes.box.setColorAt(index*BOX_COUNT+BADGE,scratch.setHex(Math.sin(clock*18)>0?0xff4d4d:0x4d7dff));
   }
-  flushPeopleMeshes(meshes,true);
+  flushPeopleMeshes(meshes,used>0,used);
   const lead=list.find(cop=>cop&&(cop.squad==='suspicious'||cop.squad==='investigating'||cop.squad==='pursuit'||cop.squad==='all-units'));
   conePivot.visible=!!(showCone&&lead);
   if(conePivot.visible){const ground=typeof floor==='function'?floor(lead.x,lead.z)||0:0;conePivot.position.set(lead.x,ground+.12,lead.z);conePivot.rotation.y=lead.angle||0;}
