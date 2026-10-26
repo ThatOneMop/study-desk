@@ -7,10 +7,20 @@ function boot(entries={},confirm=()=>true){
  w.confirm=confirm;
  let reloaded=0;w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
  w.studyReloadAfterImport=()=>{reloaded++};
- return {w,d,$,reloads:()=>reloaded,close:()=>w.close()};
+ return {w,d,$,reloads:()=>reloaded,close:()=>w.close(),confirm};
 }
 function file(payload,size){const text=typeof payload==='string'?payload:JSON.stringify(payload);return {size:size??text.length,text:async()=>text}}
-async function choose(g,payload,size){const input=g.$('importSaves');Object.defineProperty(input,'files',{configurable:true,value:[file(payload,size)]});await input.onchange({target:input})}
+async function choose(g,payload,size){
+ const input=g.$('importSaves');
+ Object.defineProperty(input,'files',{configurable:true,value:[file(payload,size)]});
+ const pending=input.onchange({target:input});
+ let opened=false;
+ for(let i=0;i<40&&!opened;i++){await new Promise(resolve=>setImmediate(resolve));opened=!!g.$('saveImportDialog').open}
+ const keys=opened?[...g.$('saveImportList').querySelectorAll('code')].map(node=>node.textContent):[];
+ if(opened)g.$(g.confirm()?'saveImportConfirm':'saveImportCancel').click();
+ await pending;
+ return keys;
+}
 (async()=>{
  const sunday=new Date(2026,9,25,23,30),monday=new Date(2026,9,26,0,30),nextSunday=new Date(2026,10,1,23,30),nextMonday=new Date(2026,10,2,0,30);
  let g=boot();
@@ -53,8 +63,22 @@ async function choose(g,payload,size){const input=g.$('importSaves');Object.defi
  assert.equal(g.w.localStorage.getItem('keep-me'),'stay');
  g.close();
 
+ g=boot({'same':'1','keep-me':'stay'});
+ let sameKeys=await choose(g,{format:'study-desk-saves',version:1,entries:[{key:'same',value:'1'}]});
+ assert.deepEqual(sameKeys,[]);
+ assert.match(g.$('saveImportSummary').textContent,/Nothing in this file is different/);
+ assert.equal(g.w.localStorage.getItem('same'),'1');assert.equal(g.reloads(),0);
+ sameKeys=await choose(g,{format:'study-desk-saves',version:1,entries:[{key:'same',value:'1'},{key:'added',value:'2'}]});
+ assert.deepEqual(sameKeys,['added']);
+ assert.match(g.$('saveImportList').textContent,/added — new on this device/);
+ assert.equal(g.w.localStorage.getItem('same'),'1');assert.equal(g.w.localStorage.getItem('added'),'2');assert.equal(g.reloads(),1);
+ g.close();
+
  g=boot({'littleLakeV1':'{not json','keep-me':'stay'},()=>false);
- await choose(g,{format:'study-desk-saves',version:1,entries:[{key:'littleLakeV1',value:'{"money":2}'},{key:'<img id="pwn">',value:'<img id="pwn">'}]});
+ let keys=await choose(g,{format:'study-desk-saves',version:1,entries:[{key:'littleLakeV1',value:'{"money":2}'},{key:'<img id="pwn">',value:'<img id="pwn">'}]});
+ assert.deepEqual(keys,['littleLakeV1','<img id="pwn">']);
+ assert.match(g.$('saveImportList').textContent,/littleLakeV1 — replaces the copy on this device/);
+ assert.match(g.$('saveImportList').textContent,/<img id="pwn"> — new on this device/);
  assert.equal(g.w.localStorage.getItem('littleLakeV1'),'{not json');
  assert.equal(g.$('saveVaultStatus').textContent,'Import cancelled. Current saves were kept.');
  assert.equal(g.reloads(),0);assert.equal(g.d.getElementById('pwn'),null);
@@ -71,7 +95,9 @@ async function choose(g,payload,size){const input=g.$('importSaves');Object.defi
  g.close();
 
  g=boot({'littleLakeV1':'{not json','keep-me':'stay','study-desk-v1':'[]'});
- await choose(g,{format:'study-desk-saves',version:1,entries:[{key:'littleLakeV1',value:'{"money":2}'},{key:'fresh-game',value:'{"ok":true}'},{key:'<img id="pwn">',value:'<img id="pwn">'}]});
+ keys=await choose(g,{format:'study-desk-saves',version:1,entries:[{key:'littleLakeV1',value:'{"money":2}'},{key:'fresh-game',value:'{"ok":true}'},{key:'<img id="pwn">',value:'<img id="pwn">'}]});
+ assert.deepEqual(keys,['littleLakeV1','fresh-game','<img id="pwn">']);
+ assert.match(g.$('saveImportList').textContent,/littleLakeV1/);
  assert.equal(g.w.localStorage.getItem('littleLakeV1'),'{"money":2}');
  assert.equal(g.w.localStorage.getItem('fresh-game'),'{"ok":true}');
  assert.equal(g.w.localStorage.getItem('keep-me'),'stay');
