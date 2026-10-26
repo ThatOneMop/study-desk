@@ -23,8 +23,9 @@ check(N.act('hireRunner','pip')===true&&st().runners.pip,'Pip hired at level 4')
 s.storedPacks.fill(0);s.storedPacks[0]=8;check(N.act('send','pip','benny')===true&&st().runners.pip.state==='out','runner leaves with stockroom packs');
 check(s.storedPacks[0]<8,'cargo leaves the stockroom');
 check(N.act('hireCrew','grower')===true&&st().crew.length===1&&N.act('hireCrew','bench')===false,'one crew slot in the starter flat');
-N.tick();update(.5);const v=N.visuals();check(v.dealers.benny===true,'dealer stall visible near Old Town');
+const lay=s.empire.dealers.benny.lowUntil;s.empire.dealers.benny.lowUntil=0;const sp=N.spot('benny');player.x=sp.x+3;player.z=sp.z;N.tick();update(.5);const v=N.visuals();check(v.dealers.benny===true,'dealer stall visible near Old Town');
 s.room=1;player.x=HOMES[0].x;player.z=HOMES[0].z;update(.5);check(N.visuals().crew===1,'crew figure works at the workshop');s.room=0;
+s.empire.dealers.benny.lowUntil=s.day*1440+s.time+2880;update(.5);check(N.visuals().dealers.benny===false,'a dealer lying low is hidden');
 menu('sweetnet');const m=$('modal').innerHTML;check(m.includes('Benny')&&m.includes('Runners')&&m.includes('Crew'),'phone app lists dealers, runners and crew');close();
 menu('network');check($('modal').innerHTML.includes('TWO-PLAYER CO-OP'),'co-op network panel untouched');close();
 check(!/drug|weed|cocaine|kill|gun/i.test(N.html()),'family-friendly copy');
