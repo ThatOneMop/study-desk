@@ -964,5 +964,26 @@
     "internet": true,
     "multiplayer": "Single player",
     "credits": "credits.html#created-games"
+  },
+  {
+    "id": "ashwake",
+    "title": "Ashwake",
+    "description": "Walk a drowned orchard until dawn. The lantern fights for you — gather cinders, choose relics, and outlast the Bell Warden.",
+    "url": "games/ashwake/index.html",
+    "group": "Indie collection two",
+    "color": "#e07a3d",
+    "controls": "WASD or arrows move · Hold on the orchard or use the stick · Esc pauses · 1 2 3 choose a relic",
+    "icon": "🏮",
+    "genre": "Action",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#ashwake",
+    "aliases": [
+      "survivor",
+      "roguelite",
+      "orchard",
+      "lantern"
+    ]
   }
 ]
