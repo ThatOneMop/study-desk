@@ -49,7 +49,7 @@ import {createCineOverlay,playWhoosh,playPhoneRing,blendPose} from './cinematics
 import {FLYOVER_MINUTES,flyoverAt} from './loading-flyover.mjs?v=132';
 import {hintAt} from './hints.mjs?v=132';
 import {createSkyClouds} from './sky-clouds.mjs?v=147';
-import {ACT1_DURATION,act1At,act1PanelHtml,doorstepEyePose} from './story-act1.mjs?v=132';
+import {ACT1_DURATION,ACT1_SKIP_HOLD,act1At,act1PanelHtml,act1ChyronHtml,doorstepEyePose} from './story-act1.mjs?v=148';
 import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml,storyHold} from './story-acts.mjs?v=144';
 import {DEALER_ROSTER,RUNNER_ROSTER,CREW,freshEmpire,normalizeEmpire,advanceEmpire,recruitDealer,assignCustomer,unassignCustomer,restockDealer,collectDealer,districtCustomers,dealerOf,runnerOf,stockTotal,hireCrew,crewSlots,slotUpgradeCost,buySlot,fireCrew,hireRunner,dispatchRunner,dealerLow,dealerForecast} from './dealer-network.mjs?v=143';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
@@ -2211,23 +2211,30 @@ function cineTick(){
  cineLoadEl.classList.toggle('live',townAssetStatus!=='loading');cineLoadEl.classList.toggle('ready',ready);
 }
 if(cine.flyover){
- addEventListener('keydown',e=>{if(cine.scene&&active){e.preventDefault();e.stopImmediatePropagation();if(e.key==='Escape'&&!e.repeat)finishArrival();return;}if(cine.loading&&!active){if(['Tab',' '].includes(e.key))e.preventDefault();cineDismiss();}},true);
+ addEventListener('keydown',e=>{if(cine.scene&&active){e.preventDefault();e.stopImmediatePropagation();if(e.key==='Escape'&&!e.repeat&&!intro.hold)intro.hold=performance.now();return;}if(cine.loading&&!active){if(['Tab',' '].includes(e.key))e.preventDefault();cineDismiss();}},true);
  cineLoadEl.addEventListener('pointerdown',()=>cineDismiss());
+ // v148: hold Esc (ACT1_SKIP_HOLD s) or tap the cutscene to skip it. A tap only counts when the
+ // press started during the scene, so the click that starts the game cannot skip the intro.
+ addEventListener('keyup',e=>{if(e.key==='Escape')intro.hold=0;},true);
+ cineLoadEl.addEventListener('pointerdown',e=>{intro.down=!!cine.scene&&!e.target?.closest?.('.cine-skip');});
+ cineLoadEl.addEventListener('pointerup',()=>{const tap=intro.down;intro.down=false;if(tap&&cine.scene&&active)finishArrival();});
 }
 if(typeof window!=='undefined')window.__cine={seek:t=>{cine.seek=t==null?null:Number(t);},pose:p=>{cine.pose=p?{fov:50,...p}:null;},state:()=>({t:cine.t,loading:cine.loading,lit:cine.lit,progress:cine.progress,town:townAssetStatus,items:cine.items,shot:cine.shot,hint:cine.hint,camera:camera.position.toArray().map(v=>Math.round(v*10)/10)}),dismiss:cineDismiss,clouds:skyClouds.group};
 
-// v133 Act 1 intro, "Last Call". A new story save opens on a fifty-second
+// v133 Act 1 intro, "Last Call". A new story save opens on a short (v148: 28.5 s)
 // cutscene: the radio explains the Great Jelly Incident and the Sugar-Free Bay
 // Act, then the camera settles into the player's eyes beside the ringing
 // payphone. It uses the same finishArrival() path as the old cards, so saves
 // that have already seen the arrival or taken the call skip it. Esc or the Skip
-// button ends it at any time. Without the overlay (tests, ?qa=, ?shot=) the old
+// button ends it at any time (v148: hold Esc or tap; a hint shows for the first 3 s). Without the overlay (tests, ?qa=, ?shot=) the old
 // three cards still run.
 const introPanelEl=cine.flyover&&typeof cineLoadEl?.insertBefore==='function'?document.createElement('div'):null;
 if(introPanelEl){introPanelEl.className='cine-panel';cineLoadEl.insertBefore(introPanelEl,cineLoadEl.querySelector('.cine-fade'));}
 const introSkipEl=cine.flyover&&cineLoadEl?.querySelector?.('.cine-skip')||null;
 if(introSkipEl){introSkipEl.innerHTML='<button type="button">Skip intro <kbd>Esc</kbd></button>';introSkipEl.querySelector('button')?.addEventListener('click',e=>{e.stopPropagation();if(cine.scene)finishArrival();});}
-const intro={t:0,last:0,panel:'',sfx:new Set(),props:null,from:null,handPose:null};
+const intro={t:0,last:0,panel:'',sfx:new Set(),props:null,from:null,handPose:null,hold:0,down:false};
+const introHintEl=cine.flyover&&typeof cineLoadEl?.insertBefore==='function'?document.createElement('div'):null;
+if(introHintEl){introHintEl.className='cine-skiphint';introHintEl.setAttribute('aria-hidden','true');introHintEl.innerHTML='<span>Hold <kbd>Esc</kbd> / tap to skip</span><i></i>';cineLoadEl.appendChild(introHintEl);}
 function introProps(){
  if(intro.props)return intro.props;
  const g=new THREE.Group();g.name='Act 1 table props';g.visible=false;
@@ -2247,7 +2254,7 @@ function introProps(){
 }
 function startIntro(){
  if(!cine.flyover||!cineView||!cineLoadEl||cine.scene)return false;
- cine.scene=true;cine.lit=true;cine.grade=true;intro.t=0;intro.last=0;intro.panel='';intro.sfx.clear();intro.from=null;
+ cine.scene=true;cine.lit=true;cine.grade=true;intro.t=0;intro.last=0;intro.panel='';intro.sfx.clear();intro.from=null;intro.hold=0;intro.down=false;
  menu('arrival');arrivalStarted=now;$('modal').innerHTML='';
  document.body.classList.add('cineScene');cineLoadEl.hidden=false;cineLoadEl.classList.add('scene');cineLoadEl.classList.remove('loading','live','ready');
  cineView.reset();cineView.show(true);cineView.bars(true);cineView.caption('','');cineView.subtitle('','');cineView.chyron('');cineView.fade(1);
@@ -2256,7 +2263,7 @@ function startIntro(){
 function endIntro(){
  cine.scene=false;cine.lit=false;cine.grade=false;cine.shot=-1;
  document.body.classList.remove('cineScene');cineLoadEl?.classList?.remove('scene');
- if(introPanelEl){introPanelEl.className='cine-panel';introPanelEl.innerHTML='';}intro.panel='';
+ if(introPanelEl){introPanelEl.className='cine-panel';introPanelEl.innerHTML='';}intro.panel='';intro.hold=0;introHintEl?.classList?.remove('on');
  if(intro.props)intro.props.visible=false;
  cineView?.subtitle('','');cineView?.chyron('');cineView?.caption('','');cineView?.bars(false);cineView?.fade(0);
  if(cineLoadEl)cineLoadEl.hidden=true;
@@ -2273,12 +2280,15 @@ function introTick(){
  intro.t=cine.seek!=null?cine.seek:intro.t+dt;
  const at=act1At(intro.t);
  if(at.done&&cine.seek==null){finishArrival();return;}
+ const held=intro.hold?(performance.now()-intro.hold)/1000:0;
+ if(held>=ACT1_SKIP_HOLD){intro.hold=0;finishArrival();return;}
+ if(introHintEl){introHintEl.classList.toggle('on',at.skipHint||held>0);introHintEl.style.setProperty('--hold',String(Math.min(1,held/ACT1_SKIP_HOLD)));}
  cine.minutes=at.minutes;cine.lit=true;cine.grade=true;
  cineView.fade(at.fade);
  cineView.caption(at.cap?.title||'',at.cap?.line||'');
  if(cineParts?.cap)cineParts.cap.style.opacity=at.cap?'1':'0';
  cineView.subtitle(at.sub?.who||'',at.sub?.text||'');
- cineView.chyron(at.chyron?'<strong>'+at.chyron.head+'</strong><span>'+at.chyron.text+'</span>':'');
+ cineView.chyron(act1ChyronHtml(at.chyron));
  const panel=at.panel?.panel||'';
  if(introPanelEl&&panel!==intro.panel){intro.panel=panel;introPanelEl.className='cine-panel'+(panel?' on '+panel:'');introPanelEl.innerHTML=panel?act1PanelHtml(panel):'';}
  if(intro.props)intro.props.visible=at.props;

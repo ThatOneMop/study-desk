@@ -11,6 +11,39 @@ import {fileURLToPath} from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const chromeBin = '/usr/local/bin/google-chrome';
 
+// v148: robust on a busy box. Everything runs against one overall deadline that fits the
+// runner's 180 s cap; per-call timeouts scale with the machine's load, and every wait is
+// readiness polling (a slow Runtime.evaluate is retried, not fatal) instead of fixed sleeps.
+const started = Date.now();
+const BUDGET_MS = Number(process.env.AUDIO_BOOT_BUDGET_MS) || 165000;
+const deadline = started + BUDGET_MS;
+const load = os.loadavg()[0] / Math.max(1, os.cpus().length);
+const SLOW = Math.min(3, Math.max(1, 1 + load));
+const remaining = () => Math.max(0, deadline - Date.now());
+const callTimeout = () => Math.max(1000, Math.min(remaining(), 20000 * SLOW));
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const isTimeout = error => /timed out waiting for/.test(String(error?.message));
+// Poll `probe` until `ready(value)`; probe timeouts are retried until the deadline.
+async function poll(label, probe, ready, {every = 250, within = remaining()} = {}) {
+  const until = Math.min(deadline, Date.now() + within);
+  let last;
+  let lastError = null;
+  let wait = every;
+  while (Date.now() < until) {
+    try {
+      last = await probe();
+      lastError = null;
+      if (ready(last)) return last;
+    } catch (error) {
+      if (!isTimeout(error) && !/Cannot find context|Execution context was destroyed|Inspected target navigated/.test(String(error?.message))) throw error;
+      lastError = error;
+    }
+    await sleep(Math.min(wait, Math.max(0, until - Date.now())));
+    wait = Math.min(1000, wait * 1.5);
+  }
+  throw new Error(`${label}: not ready after ${Math.round((Date.now() - started) / 1000)} s (load ${load.toFixed(2)})` + (lastError ? `; last error ${lastError.message}` : `; last ${JSON.stringify(last)}`));
+}
+
 function freePort() {
   return new Promise((resolve, reject) => {
     const server = net.createServer();
@@ -66,7 +99,7 @@ function connect(wsUrl) {
     pending.delete(message.id);
     resolve(message);
   });
-  const send = (method, params = {}, timeout = 15000) => new Promise((resolve, reject) => {
+  const send = (method, params = {}, timeout = callTimeout()) => new Promise((resolve, reject) => {
     const id = ++next;
     const timer = setTimeout(() => {
       pending.delete(id);
@@ -104,6 +137,9 @@ const chrome = spawn(chromeBin, [
   '--enable-unsafe-swiftshader',
   '--ignore-gpu-blocklist',
   '--disable-gpu-sandbox',
+  '--disable-background-timer-throttling',
+  '--disable-renderer-backgrounding',
+  '--disable-backgrounding-occluded-windows',
   `--remote-debugging-port=${debugPort}`,
   `--user-data-dir=${profile}`,
   '--window-size=1280,800',
@@ -112,33 +148,25 @@ const chrome = spawn(chromeBin, [
 
 let failure = null;
 try {
-  let page = null;
-  for (let attempt = 0; attempt < 40 && !page; attempt++) {
+  const page = await poll('headless Chrome did not expose the game page', async () => {
     try {
       const targets = await readJson(`http://127.0.0.1:${debugPort}/json/list`);
-      page = targets.find(target => target.type === 'page' && target.url.includes('gummy-bay'));
-    } catch { /* chrome is still opening the port */ }
-    if (!page) await new Promise(resolve => setTimeout(resolve, 250));
-  }
-  assert.ok(page?.webSocketDebuggerUrl, 'headless Chrome did not expose the game page');
+      return targets.find(target => target.type === 'page' && target.url.includes('gummy-bay')) || null;
+    } catch { return null; /* chrome is still opening the port */ }
+  }, found => !!found?.webSocketDebuggerUrl, {within: 45000 * SLOW});
   const {socket, send, opened} = connect(page.webSocketDebuggerUrl);
   await opened;
   await send('Runtime.enable');
 
-  let status = null;
-  for (let attempt = 0; attempt < 40; attempt++) {
-    status = JSON.parse(await evaluate(send, `(() => JSON.stringify({
+  const status = await poll('the game never finished booting', async () => JSON.parse(await evaluate(send, `(() => JSON.stringify({
       town: typeof window.townAudio,
       unlocked: window.townAudio ? window.townAudio.unlocked === true : null,
       boot: document.getElementById('bootError')?.textContent || '',
       modal: (document.getElementById('modal')?.innerText || '').slice(0, 500),
       settings: [...document.querySelectorAll('button')].some(button => button.textContent.trim() === 'SETTINGS')
-    }))()`));
-    if (status.town === 'object' || status.settings || /3D graphics|Unable to start|WebGL/i.test(status.boot + status.modal)) break;
-    await new Promise(resolve => setTimeout(resolve, 250));
-  }
+    }))()`)), value => value.town === 'object' || value.settings || /3D graphics|Unable to start|WebGL/i.test(value.boot + value.modal));
 
-  const audioModule = await evaluate(send, `import('/games/gummy-bay/audio.mjs?v=124').then(module => typeof module.createTownAudio).catch(error => 'error:' + error.message)`);
+  const audioModule = await poll('audio module import', () => evaluate(send, `import('/games/gummy-bay/audio.mjs?v=124').then(module => typeof module.createTownAudio).catch(error => 'error:' + error.message)`), value => typeof value === 'string');
   assert.equal(audioModule, 'function', `audio module did not load: ${audioModule}`);
   const complaint = `${status.boot}\n${status.modal}`;
   assert.equal(/audio\.mjs/i.test(complaint), false, complaint);
@@ -146,38 +174,31 @@ try {
   if (status.town === 'object') {
     assert.equal(status.unlocked, false, 'audio must stay locked until a gesture');
     // v129: the cinematic loading card sits over the title until any key or tap.
-    const card = await evaluate(send, `document.getElementById('cineLoad')?.classList.contains('loading') === true`);
+    const card = await poll('loading card state', () => evaluate(send, `document.getElementById('cineLoad')?.classList.contains('loading') === true`), value => typeof value === 'boolean');
     if (card) {
       await send('Input.dispatchKeyEvent', {type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32});
       await send('Input.dispatchKeyEvent', {type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32});
-      const gone = await evaluate(send, `document.getElementById('cineLoad')?.classList.contains('loading') === false && !document.body.classList.contains('cineLoading')`);
-      assert.equal(gone, true, 'any key dismisses the loading card');
+      await poll('any key dismisses the loading card', () => evaluate(send, `document.getElementById('cineLoad')?.classList.contains('loading') === false && !document.body.classList.contains('cineLoading')`), gone => gone === true);
     }
-    const point = JSON.parse(await evaluate(send, `(() => {
+    const point = await poll('SETTINGS button was not on the title screen', async () => JSON.parse(await evaluate(send, `(() => {
       const button = [...document.querySelectorAll('button')].find(item => item.textContent.trim() === 'SETTINGS');
       if (!button) return 'null';
       const box = button.getBoundingClientRect();
       return JSON.stringify({x: box.x + box.width / 2, y: box.y + box.height / 2});
-    })()`));
-    assert.ok(point, 'SETTINGS button was not on the title screen');
+    })()`)), value => !!value, {within: 30000 * SLOW});
     await send('Input.dispatchMouseEvent', {type: 'mousePressed', x: point.x, y: point.y, button: 'left', clickCount: 1});
     await send('Input.dispatchMouseEvent', {type: 'mouseReleased', x: point.x, y: point.y, button: 'left', clickCount: 1});
-    let mix = null;
-    for (let attempt = 0; attempt < 20; attempt++) {
-      mix = JSON.parse(await evaluate(send, `(() => {
+    const mix = await poll('the settings mixer never opened', async () => JSON.parse(await evaluate(send, `(() => {
         const music = document.querySelector('[aria-label="music volume"]');
         const effects = document.querySelector('[aria-label="effects volume"]');
         const text = document.getElementById('modal')?.innerText || '';
         return JSON.stringify({music: !!music, effects: !!effects, sfx: text.includes('SFX'), master: text.includes('Master')});
-      })()`));
-      if (mix.music && mix.effects && mix.sfx) break;
-      await new Promise(resolve => setTimeout(resolve, 150));
-    }
+      })()`)), value => value.music && value.effects && value.sfx, {every: 150, within: 30000 * SLOW});
     assert.equal(mix.music, true);
     assert.equal(mix.effects, true);
     assert.equal(mix.sfx, true);
     assert.equal(mix.master, true);
-    const stored = JSON.parse(await evaluate(send, `(() => { setVolume('music', 0.35); return localStorage.getItem('gummybay-audio'); })()`));
+    const stored = JSON.parse(await poll('volume write', () => evaluate(send, `(() => { setVolume('music', 0.35); return localStorage.getItem('gummybay-audio'); })()`), value => typeof value === 'string'));
     assert.equal(stored.music, 0.35);
     assert.equal(typeof stored.effects, 'number');
     assert.equal(typeof stored.master, 'number');
@@ -202,4 +223,4 @@ try {
 }
 
 if (failure) throw failure;
-console.log('PASS: Gummy Bay boots in headless Chrome and the audio mixer is reachable without starting playback early.');
+console.log(`PASS: Gummy Bay boots in headless Chrome and the audio mixer is reachable without starting playback early (${((Date.now() - started) / 1000).toFixed(1)} s, load ${load.toFixed(2)}).`);
