@@ -61,6 +61,7 @@ import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=123';
+import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=1';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
@@ -460,7 +461,7 @@ people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z
 let streetShot=false,shotHour=null,shotKind='starter';const streetShotFrames=[];
 const simStepper=createFixedStepper({maxFrame:1});function frame(t){const real=last?Math.max(0,(t-last)/1000):0;last=t;const steps=simStepper.consume(real);const sim=steps.reduce((sum,step)=>sum+step,0);now+=sim;const streetShotStart=streetShot?performance.now():0;for(const step of steps)updateStationInput(step);if(work){let f=(performance.now()-work.start)/(work.seconds*1000);$('workProgress').style.width=Math.min(100,f*100)+'%';if(f>=1){work=null;$('work').style.display='none';watering.visible=false;save()}}for(const step of steps)update(step);if(streetShot){if(shotHour!=null)s.time=shotHour*60;if(shotKind==='opening'){const pose=openingCamera(.25);camera.position.set(pose.x,pose.y,pose.z);camera.lookAt(pose.lookX,pose.lookY,pose.lookZ);}else{camera.position.set(16,11.5,46);camera.lookAt(-36,2.2,18);}}else if(!active){camera.position.set(-43+Math.sin(now*.04),4.3,39);camera.lookAt(-57,1.5,25.5);}uiTimer+=sim;if(uiTimer>.14){uiTimer=0;if(active)updateUI()}saveTimer+=sim;if(saveTimer>5){saveTimer=0;save()}networkTick(sim);arrow.position.y=3.1+Math.sin(now*2.5)*.2;renderFrame();if(streetShot){streetShotFrames.push(performance.now()-streetShotStart);if(streetShotFrames.length>180)streetShotFrames.shift();}requestAnimationFrame(frame)}
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);resizeEffects()});let drag=false,touchLast=null;canvas.addEventListener('mouseenter',()=>mouseInside=true);canvas.addEventListener('mouseleave',()=>mouseInside=false);canvas.addEventListener('pointerdown',e=>{if(active&&!panel&&e.pointerType!=='touch'&&e.button===0){drag=true;canvas.setPointerCapture?.(e.pointerId)}});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);addEventListener('mousemove',e=>{if(active&&!panel&&(document.pointerLockElement===canvas||(drag&&e.target===canvas))){mouseInside=true;mouseX=e.clientX;mouseY=e.clientY;let dx=Math.max(-80,Math.min(80,e.movementX||0)),dy=Math.max(-80,Math.min(80,e.movementY||0));yaw-=dx*lookSensitivity;pitch=Math.max(-PITCH_LIMIT,Math.min(PITCH_LIMIT,pitch-dy*lookSensitivity))}});canvas.addEventListener('touchstart',e=>{if(e.touches[0])touchLast={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});canvas.addEventListener('touchmove',e=>{if(panel||!touchLast)return;let t=e.touches[0];yaw-=(t.clientX-touchLast.x)*.004;pitch=Math.max(-PITCH_LIMIT,Math.min(PITCH_LIMIT,pitch-(t.clientY-touchLast.y)*.004));touchLast={x:t.clientX,y:t.clientY};e.preventDefault()},{passive:false});canvas.addEventListener('touchend',()=>touchLast=null);
-addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&e.key!=='Escape')return;let k=e.key.toLowerCase();if(['tab','arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();if(!active)return;if(k==='escape'){panel?close():menu('pause');return}if(['e','t','tab','j','m'].includes(k)&&e.repeat)return;if(k==='e'){act();return}if(['t','tab','j','m'].includes(k)){if(work)return;panel?close():menu({t:'phone',tab:'bag',j:'journal',m:'map'}[k]);return}if(!panel)keys[k]=true});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);addEventListener('blur',()=>{keys={};drag=false;save()});document.addEventListener('visibilitychange',()=>{keys={};save();last=0});window.addEventListener('pagehide',save);document.querySelectorAll('[data-key]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);keys[b.dataset.key]=true};b.onpointerup=b.onpointercancel=()=>keys[b.dataset.key]=false});
+addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&e.key!=='Escape')return;let k=e.key.toLowerCase();if(['tab','arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();if(!active)return;if(k==='escape'){panel?close():menu('pause');return}if(['e','t','tab','j','m','i'].includes(k)&&e.repeat)return;if(k==='e'){act();return}if(['t','tab','j','m','i'].includes(k)){if(work)return;panel?close():k==='tab'?phoneHome():menu({t:'phone',j:'journal',m:'map',i:'bag'}[k]);return}if(!panel)keys[k]=true});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);addEventListener('blur',()=>{keys={};drag=false;save()});document.addEventListener('visibilitychange',()=>{keys={};save();last=0});window.addEventListener('pagehide',save);document.querySelectorAll('[data-key]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);keys[b.dataset.key]=true};b.onpointerup=b.onpointercancel=()=>keys[b.dataset.key]=false});
 Object.assign(window,{menu,slots,loadGame:load,closeMenu:close,action,act,trackPlace,trackCustomer,trackObjective,title,manualSave:()=>{save();toast(net.role==='guest'?'The host saves this shared world.':'Saved '+mode+' slot '+slot)},exportSave,importSave,confirmImport,modeName:()=>mode,slotNumber:()=>slot,hostCoop,joinCoop,acceptReply,copyCode,leaveCoop:()=>disconnect(true)});
 // Gummy Bay 4: small-town street dressing, physical mixing, ATMs, and recycling.
 const camperGlow=new THREE.PointLight(0xe7ad7c,5,9,2);camperGlow.position.set(-58,2.6,26);scene.add(camperGlow);
@@ -593,7 +594,7 @@ if(typeof location!=='undefined'&&typeof location.search==='string'){const shotP
 if(!(streetShot&&new URLSearchParams(location.search).get('streetBudget')==='off'))starterStreet=createStarterStreet({scene,quality});
 setQuality(quality);
 
-addEventListener('keydown',e=>{if(!active||panel||work||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;const screens={1:'phone',2:'bag',3:'journal',4:'wallet',6:'map'};if(screens[e.key])menu(screens[e.key]);if(e.key==='5')trackPlace('mix')});
+addEventListener('keydown',e=>{if(!active||panel||work||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;if(stationTask||placeMode)return;if(hotbarSlot(e.key)){e.preventDefault();useHotbarSlot(e.key);}});
 // Atmospheric sky and a stylized moving bay, built from local shaders.
 const skyUniforms={top:{value:new THREE.Color(0x6d9daf)},bottom:{value:new THREE.Color(0xc7c5ae)},night:{value:1}};
 const skyDome=new THREE.Mesh(new THREE.SphereGeometry(290,24,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:skyUniforms,vertexShader:'varying vec3 direction;void main(){direction=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'varying vec3 direction;uniform vec3 top;uniform vec3 bottom;uniform float night;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}void main(){vec3 dir=normalize(direction);float h=clamp(dir.y,0.,1.);vec3 col=mix(bottom,top,pow(h,.55));vec2 p=dir.xz/max(.15,dir.y)*2.;float n=noise(p)*.6+noise(p*2.1)*.28+noise(p*4.3)*.12;float cloud=smoothstep(.53,.73,n)*smoothstep(.03,.22,h);col=mix(col,vec3(.9,.91,.88),cloud*.72);gl_FragColor=vec4(col*night,1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}'}));skyDome.renderOrder=-20;scene.add(skyDome);
@@ -1419,8 +1420,7 @@ function refreshWorkshop(){
   }
  }
 }
-const ui13=updateUI;updateUI=function(){ui13();refreshWorkshop();document.querySelectorAll('.hotbar button').forEach((b,i)=>b.classList.toggle('selected',panel===['phone','bag','journal','wallet','mix','map'][i]||(i===0&&['thread','listing','deals'].includes(panel))));
- const bag=document.querySelector('.hotbar button:nth-child(2) span');if(bag)bag.textContent='Bag · '+s.packs.reduce((a,b)=>a+b,0);
+const ui13=updateUI;updateUI=function(){ui13();refreshWorkshop();paintHotbarSelection();
 };
 const stationPaint13=paintStation;paintStation=function(){stationPaint13();if(!stationTask)return;const t=stationTask,progress=Math.round(taskFraction(t,MANUAL[t.k])*100);$('stationHUD').insertAdjacentHTML('beforeend','<p class="station-summary">'+progress+'% complete · Supplies stay yours until completion.</p>');};
 // Different tools and visible material movement for each existing production task.
@@ -1637,8 +1637,7 @@ function updateBusinessHUD(){
  if(key!==businessKey){businessKey=key;businessHUD.innerHTML='<button onclick="menu(\'bag\')" aria-label="Open inventory"><span>SUPPLIES <b>'+q.raw+'</b></span><span>LOOSE <b>'+q.loose+'</b></span><span>WRAPPERS <b>'+q.wrappers+'</b></span><span>PACKS <b>'+q.carried+'</b></span></button><small>'+q.available+' available · '+q.reserved+' promised · '+q.stored+' stored'+(q.transit?' · 1 worker batch in transit':'')+'</small>';}
  const changes=balanceFeedback.sample(s.cash,s.bank);
  if(changes.length){receipt.textContent=changes.map(c=>(c.account==='cash'?'Wallet ':'Card ')+(c.amount>0?'+':'−')+cash(Math.abs(c.amount))).join('  ·  ');receipt.dataset.positive=String(changes.reduce((v,c)=>v+c.amount,0)>=0);receiptUntil=performance.now()+2800;receipt.hidden=false;}
- const destinations=['phone','bag','journal','wallet','mix','map'];
- document.querySelectorAll('.hotbar button').forEach((b,i)=>{const chosen=panel===destinations[i]||(i===0&&['thread','listing','deals'].includes(panel));b.classList.toggle('selected',chosen);b.setAttribute('aria-pressed',String(chosen));});
+ paintHotbarSelection();
 }
 
 // V22: equipped stock and everyday customer presentation, independent of transactions.
@@ -1660,12 +1659,10 @@ window.equipTool=equipTool;
 function cycleCarriedPack(){if(equippedTool!=='packs')return;for(let n=1;n<=s.packs.length;n++){const i=(equippedStrain+n)%s.packs.length;if(s.packs[i]>0){equippedStrain=i;toast(STRAINS[i].name+' · '+s.packs[i]+' carried');break;}}}
 window.cycleCarriedPack=cycleCarriedPack;
 const toolbar=document.querySelector('.hotbar');
-if(toolbar)toolbar.insertAdjacentHTML('beforeend','<button id="equipCan" onclick="equipTool(\'can\')"><i>7</i><b>♧</b><span>Can</span></button><button id="equipPacks" onclick="equipTool(\'packs\')"><i>8</i><b>▣</b><span>Packs</span></button>');
-const cashSlot=$('cashSlot');if(cashSlot&&toolbar)toolbar.appendChild(cashSlot);
+if(toolbar){toolbar.innerHTML=hotbarHTML(esc);toolbar.querySelectorAll('.slot').forEach(b=>b.addEventListener('click',()=>useHotbarSlot(b.querySelector('i')?.textContent)));toolbar.querySelector('#cashSlot')?.addEventListener('click',()=>menu('bag'));toolbar.querySelector('#cardSlot')?.addEventListener('click',()=>menu('wallet'));}
 addEventListener('keydown',e=>{
  if(!active||e.repeat||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)||stationTask||placeMode)return;
- if(e.key==='7'||e.key==='8'){e.preventDefault();equipTool(e.key==='7'?'can':'packs');}
- else if(!panel&&e.key.toLowerCase()==='q')cycleCarriedPack();
+ if(!panel&&e.key.toLowerCase()==='q')cycleCarriedPack();
 
 });
 const equipmentHUD=updateBusinessHUD;updateBusinessHUD=function(){equipmentHUD();
@@ -2054,7 +2051,7 @@ function phoneDeviceHTML(which){
  const status=phoneDeviceStatus(s,net,which);if(!status)return '';
  const signal=Array.from({length:4},(_,i)=>'<i class="'+(i<status.signal?'on':'')+'"></i>').join('');
  const nav=[['phone','MSG'],['contacts','PEOPLE'],['listing','LIST'],['deals','DEALS'],['wallet','CARD']].map(([screen,label])=>'<button '+(screen===which?'class="on" aria-current="page"':'')+' onclick="menu(\''+screen+'\')">'+label+'</button>').join('');
- return '<div class="device-status" aria-label="'+status.model+' phone status"><span><b>'+status.model+'</b><small>'+status.carrier+'</small></span><span class="device-screen">'+status.screen+'</span><span class="device-clock">D'+status.day+' · '+status.clock+'<small>'+status.link+'</small></span><span class="device-signal" aria-label="Signal '+status.signal+' of 4">'+signal+'</span></div><nav class="device-keys" aria-label="Phone functions">'+nav+'</nav>';
+ return '<div class="device-status" aria-label="'+status.model+' phone status"><span><b>'+status.model+'</b><small>'+status.carrier+'</small></span><span class="device-screen">'+status.screen+'</span><span class="device-clock">'+s1Clock(s.day,s.time).clock+'<small>'+status.link+'</small></span><span class="device-signal" aria-label="Signal '+status.signal+' of 4">'+signal+'</span></div><nav class="device-keys" aria-label="Phone functions">'+nav+'</nav>';
 }
 const phoneDeviceMenu=menu;menu=function(which,data){phoneDeviceMenu(which,data);if(!Object.hasOwn(PHONE_SCREENS,which))return;$('overlay').classList.toggle('phone',true);const shell=phoneDeviceHTML(which),cut=shell.indexOf('<nav');$('modal').innerHTML=shell.slice(0,cut)+$('modal').innerHTML+shell.slice(cut);};window.menu=menu;
 
@@ -2063,7 +2060,7 @@ if(streetShot){
  if(shotHour!=null){active=true;s.time=shotHour*60;}
  const hide=node=>{if(node)node.style.display='none';};
  hide($('overlay'));hide($('objective'));hide($('cross'));hide($('hint'));hide($('prompt'));hide($('work'));hide($('toast'));
- hide(document.querySelector('header'));hide(document.querySelector('.mapbox'));hide(document.querySelector('.hotbar'));hide(document.querySelector('.controls'));hide(document.querySelector('.stamina'));hide(document.querySelector('.location'));
+ hide(document.querySelector('header'));hide(document.querySelector('.mapbox'));hide(document.querySelector('.hotbar'));hide(document.querySelector('.controls'));hide(document.querySelector('.stamina'));hide(document.querySelector('.location'));hide($('s1clock'));hide($('notifs'));
  const requested=new URLSearchParams(location.search).get('quality');if(requested)setQuality(requested);
  window.__gummyShot={
   status:()=>townAssetStatus,
@@ -2119,7 +2116,7 @@ function phoneHome(){
  menu('phone');
  const status=phoneDeviceStatus(s,net,'phone'),orders=s.deals.length,packCount=s.packs.reduce((a,b)=>a+b,0);
  const homeDetail={phone:'Texts and offers',contacts:'Relationships',listing:s.listing?'Listing active':'Set a price',deals:orders+' agreed orders',wallet:cash(s.bank)+' on card',map:'Find your way'},badges=phoneBadges(s);
- $('modal').innerHTML=phoneDeviceHTML('phone').split('<nav')[0]+'<button class="close" onclick="closeMenu()" aria-label="Put phone away">×</button><div class="phone-home-clock">'+status.clock+'</div><p class="phone-home-day">DAY '+s.day+' · GUMMY BAY</p><div class="phone-app-grid">'+PHONE_HOME_APPS.map(app=>{const count=badges[app.screen]||0;return '<button onclick="menu(\''+app.screen+'\')" data-phone-key="'+app.key+'"><b aria-hidden="true">'+app.icon+(count?'<i class="app-badge">'+count+'</i>':'')+'</b><strong>'+app.name+'</strong><small>'+homeDetail[app.screen]+'</small><em>'+app.key+'</em></button>';}).join('')+'</div><p class="phone-keyhint">Tab phone · T messages · M map · J journal · 1–6 apps</p><div class="phone-home-summary">'+packCount+' packs carried · '+cash(s.cash)+' cash</div>';
+ $('modal').innerHTML=phoneDeviceHTML('phone').split('<nav')[0]+'<button class="close" onclick="closeMenu()" aria-label="Put phone away">×</button><div class="phone-home-clock">'+s1Clock(s.day,s.time).clock.replace(/ (AM|PM)$/,'<small> $1</small>')+'</div><p class="phone-home-day">'+s1Clock(s.day,s.time).weekday+' · Day '+s.day+'</p><div class="phone-app-grid">'+PHONE_HOME_APPS.map(app=>{const count=badges[app.screen]||0;return '<button onclick="menu(\''+app.screen+'\')" data-phone-key="'+app.key+'"><b aria-hidden="true">'+(APP_ICONS[app.screen]||app.icon)+(count?'<i class="app-badge">'+count+'</i>':'')+'</b><strong>'+app.name+'</strong><small>'+homeDetail[app.screen]+'</small><em>'+app.key+'</em></button>';}).join('')+'</div><p class="phone-keyhint">1–6 open apps · Tab puts the phone away</p><div class="phone-home-summary">'+packCount+' packs carried · '+cash(s.cash)+' cash</div>';
 }
 window.phoneHome=phoneHome;
 const grittyPhoneMenu=menu;menu=function(which,data){grittyPhoneMenu(which,data);if(Object.hasOwn(PHONE_SCREENS,which))$('modal').innerHTML+='<button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';};window.menu=menu;
@@ -2548,3 +2545,125 @@ if(qaKey){
 }
 }
 function round1(n){return Math.round(n*10)/10;}
+
+// P0-3: Schedule I-style minimal HUD. A small 12-hour clock, an item hotbar
+// with cash and card tiles, stacked notifications, a held phone that slides up
+// (the clock keeps running while it is out) and an end-of-day card. All of it
+// reads existing state; no save field is added or renamed.
+var s1Notices=[],s1NoticeKey='',s1District='',s1PlaceTimer=0,s1DayStart=null,s1StateRef=null,s1SleepTimer=0;
+var s1Minimap=(()=>{try{return localStorage.getItem('gummybay-hud-minimap')==='1';}catch{return false;}})();
+function s1PhoneScreen(which){return Object.hasOwn(PHONE_SCREENS,which)||which==='map';}
+function paintHotbarSelection(){
+ document.querySelectorAll('.hotbar .slot,.hotbar .money-tile').forEach(b=>{
+  const target=b.dataset.panel,tool=b.id==='equipCan'?'can':b.id==='equipPacks'?'packs':'';
+  const chosen=tool?equippedTool===tool:!!target&&panel===target;
+  b.classList.toggle('selected',chosen);b.setAttribute('aria-pressed',String(chosen));
+ });
+}
+function useHotbarSlot(key){
+ const slot=hotbarSlot(key);if(!slot||!active||stationTask||placeMode)return;
+ if(slot.act==='equip'){equipTool(slot.target);paintHotbarSelection();return;}
+ if(slot.act==='track'){if(panel)close();trackPlace(slot.target);return;}
+ if(panel===slot.target){close();return;}
+ menu(slot.target);
+}
+function togglePhone(){if(!active||work)return;if(panel)close();else phoneHome();}
+function setMinimap(on){s1Minimap=!!on;try{localStorage.setItem('gummybay-hud-minimap',on?'1':'0');}catch{}document.body.classList.toggle('show-minimap',s1Minimap);}
+function showPlace(name){const el=$('placeToast');if(!el)return;el.textContent=name;el.classList?.remove('show');void el.offsetWidth;el.classList?.add('show');}
+function paintNotices(){
+ const t=performance.now();s1Notices=s1Notices.filter(n=>n.until>t);
+ const key=s1Notices.map(n=>n.id).join('|');if(key===s1NoticeKey)return;s1NoticeKey=key;
+ const box=$('notifs');if(!box)return;
+ box.innerHTML=s1Notices.map(n=>'<div class="notice" data-app="'+n.app+'"><span class="notice-ico">'+(HUD_ICONS[n.app]||HUD_ICONS.message)+'</span><div><b>'+esc(n.title)+'</b><p>'+esc(n.text)+'</p></div></div>').join('');
+}
+function s1Snapshot(){return {day:s.day,cash:s.cash,bank:s.bank,sold:s.sold||0,xp:s.xp};}
+function showSleepCard(view){const el=$('sleepCard');if(!el)return;el.innerHTML=sleepCardHTML(view,cash);el.hidden=false;clearTimeout(s1SleepTimer);s1SleepTimer=setTimeout(dismissSleepCard,12000);}
+function dismissSleepCard(){const el=$('sleepCard');if(el)el.hidden=true;clearTimeout(s1SleepTimer);}
+function s1MarkMoney(root){
+ if(!root||typeof document.createTreeWalker!=='function')return;
+ const walker=document.createTreeWalker(root,4),hits=[];
+ while(walker.nextNode()){const node=walker.currentNode;if(/\$\d/.test(node.nodeValue)&&!node.parentElement?.closest?.('.money,button,input,select,label,.device-status'))hits.push(node);}
+ for(const node of hits){const span=document.createElement('span');span.innerHTML=esc(node.nodeValue).replace(/(\$\d[\d,]*(?:\.\d+)?)/g,'<b class="money">$1</b>');node.replaceWith(...span.childNodes);}
+}
+function s1PhoneDecorate(which){
+ document.body.dataset.phone=which||'';
+ const modal=$('modal');if(!modal||typeof modal.querySelector!=='function')return;
+ const head=modal.querySelector('.phoneheader');
+ if(head&&!head.querySelector('.s1-back'))head.insertAdjacentHTML('afterbegin','<button type="button" class="s1-back" aria-label="Back to messages" onclick="menu(\'phone\')">‹</button>');
+ s1MarkMoney(modal);
+}
+var s1PhoneMinute=-1;
+function s1PhoneClock(){
+ const minute=Math.floor(s.time);if(minute===s1PhoneMinute)return;s1PhoneMinute=minute;
+ const c=s1Clock(s.day,s.time);
+ const time=$('clockTime');if(time)time.textContent=c.clock;
+ if(typeof document.querySelector!=='function')return;
+ const device=document.querySelector('#overlay.phone .device-clock');if(device?.firstChild?.nodeType===3)device.firstChild.nodeValue=c.clock;
+ const home=document.querySelector('#overlay.phone .phone-home-clock');if(home)home.innerHTML=c.clock.replace(/ (AM|PM)$/,'<small> $1</small>');
+}
+function paintS1Hud(){
+ if(s1StateRef!==s){s1StateRef=s;s1DayStart=s1Snapshot();s1District='';}
+ const c=s1Clock(s.day,s.time);
+ const time=$('clockTime');if(time)time.textContent=c.clock;
+ const day=$('clockDay');if(day)day.textContent=c.short;
+ const clock=$('s1clock');if(clock){clock.hidden=!active;clock.dataset.night=String(c.night);}
+ const card=$('cardSlotValue');if(card)card.textContent=cash(s.bank);
+ $('cardSlot')?.classList?.toggle('paying',s.payment==='card');$('cashSlot')?.classList?.toggle('paying',s.payment!=='card');
+ const counts=hotbarCounts(s,stockSummary(s));
+ document.querySelectorAll('.hotbar .slot').forEach(b=>{const id=b.dataset.slot,n=counts[id]||0,em=b.querySelector('em');if(em)em.textContent=n>0&&id!=='can'?String(n):'';b.classList.toggle('empty',!n&&['can','packs','supplies','loose'].includes(id));});
+ paintHotbarSelection();
+ const bar=document.querySelector('.stamina');if(bar)bar.classList.toggle('full',stamina>=99.5);
+ const compass=$('compass');if(compass)compass.hidden=!active||!hudMarkers().length;
+ const place=$('district')?.textContent||'';if(active&&place&&place!==s1District){if(s1District)showPlace(place);s1District=place;}
+ paintNotices();
+}
+const s1Toast=toast;toast=function(msg){s1Toast(msg);if(processingRemote)return;const kind=noticeKind(msg);s1Notices=pushNotice(s1Notices,{text:String(msg),app:kind.app,title:kind.title},performance.now());paintNotices();};
+const s1UI=updateUI;updateUI=function(){s1UI();paintS1Hud();};
+const s1Update=update;update=function(dt){
+ s1Update(dt);
+ if(!active||!panel||net.role==='guest'||!s1PhoneScreen(panel))return;
+ if(ensurePolice().search)return;
+ const was=curfewActive(s.time);s.time+=dt*1.2;if(s.time>=1440){s.time-=1440;s.day++;}
+ const now2=curfewActive(s.time);if(now2!==was)emitGameplay({type:'curfew',active:now2,day:s.day,time:s.time});
+ production(dt);
+ s1PhoneClock();
+};
+const s1Do=doAction;doAction=function(k,a,b,c){
+ const before=k==='sleep'?(s1DayStart||s1Snapshot()):null,day=s.day;
+ s1Do(k,a,b,c);
+ if(before&&s.day>day){showSleepCard(sleepSummary(before,s1Snapshot(),xp=>Math.min(8,1+Math.floor(xp/30))));s1DayStart=s1Snapshot();}
+};
+const s1Menu=menu;menu=function(which,data){
+ s1Menu(which,data);
+ const overlay=$('overlay');if(!overlay?.classList)return;
+ const phone=s1PhoneScreen(which);
+ overlay.classList.toggle('phone',phone);
+ overlay.classList.toggle('landscape',phone&&['listing','contacts','map'].includes(which));
+ if(phone)s1PhoneDecorate(which);else document.body.dataset.phone='';
+ // Later wrappers rebuild the map screen with innerHTML+=, which wipes the canvas; repaint it last.
+ if(which==='map'){const town=$('townOverview');if(town?.getContext)paintTownMap(town.getContext('2d'),town.width||560,town.height||260);}
+ if(which==='settings'&&$('modal'))$('modal').innerHTML+='<h3>HUD</h3><label class="comfort-option"><input type="checkbox" '+(s1Minimap?'checked':'')+' onchange="setMinimap(this.checked)"> Show the corner minimap</label>';
+};window.menu=menu;
+const s1Home=phoneHome;phoneHome=function(){s1Home();const overlay=$('overlay');overlay?.classList?.remove('landscape');s1PhoneDecorate('home');};
+Object.assign(window,{phoneHome,togglePhone,useHotbarSlot,setMinimap,dismissSleepCard,showSleepCard,toast});
+document.body.classList.toggle('show-minimap',s1Minimap);
+{const pb=$('phoneButton');if(pb)pb.innerHTML=HUD_ICONS.phone;const mb=$('menuButton');if(mb)mb.innerHTML=HUD_ICONS.menu;}
+addEventListener('keydown',e=>{
+ if(!active||e.repeat||e.metaKey||e.ctrlKey||e.altKey)return;
+ const tag=document.activeElement?.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;
+ const card=$('sleepCard');if(card&&card.hidden===false&&(e.key==='Enter'||e.key===' '||e.key==='Escape')){dismissSleepCard();return;}
+ if(panel!=='customer'&&panel!=='payphone')return;
+ if(!/^[1-9]$/.test(e.key))return;
+ const modal=$('modal');if(typeof modal?.querySelectorAll!=='function')return;
+ const choices=[...modal.querySelectorAll('button:not(.close):not([disabled])')].filter(b=>b.offsetParent!==null);
+ const pick=choices[Number(e.key)-1];if(pick){e.preventDefault();pick.click();}
+});
+addEventListener('wheel',e=>{
+ if(!active||panel||stationTask||driving||placeMode||e.target!==canvas)return;
+ const options=[null];if(s.can)options.push('can');if(s.packs.some(n=>n>0))options.push('packs');
+ if(options.length<2)return;
+ const at=Math.max(0,options.indexOf(equippedTool)),next=options[(at+(e.deltaY>0?1:options.length-1))%options.length];
+ if(next===equippedTool)return;
+ if(next===null)equipTool(equippedTool);else equipTool(next);
+ paintHotbarSelection();
+},{passive:true});

@@ -1,0 +1,318 @@
+/* P0-3 · One HUD theme, modelled on Schedule I's minimal layout (original art).
+   Near-black translucent panels, white text, green money, blue card, red/blue
+   police accent, one humanist sans (Nunito, OFL, bundled) with tabular numbers.
+   Loaded last; it supersedes the olive and teal themes in the older sheets. */
+@font-face{font-family:"GB Nunito";src:url("assets/fonts/nunito-latin.woff") format("woff");font-weight:200 1000;font-display:swap}
+:root{--s1-font:"GB Nunito","Nunito","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;--s1-panel:rgba(16,20,24,.55);--s1-panel-solid:rgba(16,20,24,.92);--s1-line:rgba(255,255,255,.14);--s1-text:#fff;--s1-dim:#b9c0c6;--s1-money:#5fd35f;--s1-card:#4aa8ff;--s1-red:#ff4d4d;--s1-blue:#4d7dff;--s1-shadow:0 1px 2px rgba(0,0,0,.95),0 0 6px rgba(0,0,0,.6),0 0 14px rgba(0,0,0,.35)}
+body,body button,body input,body select,body textarea,body .titleBrand,body .titleNav button,body .device-status,body .device-keys button,body .mapbox span,body #carryHint,body .app-badge,body .phone-home-clock,body #objective .overline,body .parcel-notes article h3{font-family:var(--s1-font)!important}
+body{color:var(--s1-text);background:#101418;font-size:13px;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #fff!important;outline-offset:2px}
+
+/* ---------- Things S1 never shows on the street ---------- */
+body .statbox>div,body .brand,body .location,body #businessHUD,body #toast,body #hint{display:none!important}
+body .mapbox{display:none}
+body.show-minimap:not(.titleMode) .mapbox{display:block;right:16px;top:64px;bottom:auto;left:auto;padding:4px;background:var(--s1-panel);border:1px solid var(--s1-line);border-radius:6px;box-shadow:none}
+body.show-minimap .mapbox canvas{width:150px;height:128px;border-radius:3px}
+body.show-minimap .mapbox span{display:none}
+
+/* ---------- Clock: top right, 12-hour, day beside it ---------- */
+#s1clock{position:absolute;top:14px;right:18px;z-index:6;display:flex;align-items:baseline;gap:7px;padding:5px 11px 6px;border-radius:6px;background:var(--s1-panel);border:1px solid var(--s1-line);pointer-events:none;line-height:1}
+#s1clock[hidden]{display:none}
+#s1clock b{font-size:15px;font-weight:800;letter-spacing:.2px;color:#fff}
+#s1clock span{font-size:12px;font-weight:700;color:var(--s1-dim);text-transform:uppercase;letter-spacing:.8px}
+#s1clock[data-night="true"] b{color:#ffe7a8}
+
+/* ---------- Objective: plain shadowed text, top left, ≤3 lines ---------- */
+body #objective{top:16px;left:18px;width:min(300px,40vw);padding:0!important;background:none!important;border:0!important;box-shadow:none!important;border-radius:0;pointer-events:none;text-shadow:var(--s1-shadow)}
+body #objective .overline{display:none}
+body #objective h2{font-size:14px!important;font-weight:800;line-height:1.3;margin:0 0 3px!important;color:#fff;letter-spacing:0;padding-left:18px;position:relative}
+body #objective h2::before{content:"";position:absolute;left:0;top:3px;width:9px;height:9px;border:2px solid #fff;border-radius:2px;box-shadow:0 1px 2px #000a}
+body #objective p{font-size:12px!important;line-height:1.4!important;color:#fff!important;font-weight:600;margin:0!important;padding-left:18px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+body #objective .trackbtn{pointer-events:auto;margin:3px 0 0 18px!important;padding:2px 0!important;min-height:0!important;background:none!important;border:0!important;border-radius:0;color:#cfe8ff!important;font-size:11px!important;font-weight:700;text-shadow:var(--s1-shadow);cursor:pointer}
+body #objective .trackbtn:hover{color:#fff!important;text-decoration:underline}
+body #objective .progress,body #objective small,body #objective .tag{display:none}
+
+/* ---------- Crosshair and the interaction prompt ---------- */
+body #cross{width:4px;height:4px;margin:-2px 0 0 -2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.45)}
+body .prompt{top:calc(50% + 22px)!important;bottom:auto!important;padding:5px 10px 5px 5px!important;background:var(--s1-panel)!important;border:1px solid var(--s1-line)!important;border-radius:6px!important;box-shadow:none!important;font-size:13px!important;font-weight:700;color:#fff;white-space:nowrap;max-width:min(520px,calc(100vw - 24px));overflow:hidden;text-overflow:ellipsis}
+body .prompt small{display:none}
+body .key{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px!important;margin-right:8px!important;border-radius:4px!important;background:#fff!important;color:#101418!important;box-shadow:0 2px 0 #9aa3ab!important;font-weight:900;font-size:12px}
+
+/* ---------- Hotbar: 8 dark slots, then the cash and card tiles ---------- */
+body .hotbar{position:absolute;left:50%!important;right:auto!important;bottom:10px!important;transform:translateX(-50%)!important;width:auto!important;max-width:calc(100vw - 16px)!important;display:flex!important;align-items:flex-end;gap:22px!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important;border-radius:0;z-index:4}
+.hotbar .slots,.hotbar .money{display:flex;gap:10px}
+.hotbar .money{gap:8px}
+body .hotbar button{all:unset;box-sizing:border-box;position:relative;display:grid;place-items:center;cursor:pointer;flex:none}
+.hotbar .slot{width:56px;height:56px;background:rgba(20,25,30,.55);border:1px solid rgba(255,255,255,.16);border-radius:4px;transition:transform .08s,border-color .08s,background .08s}
+.hotbar .slot svg{width:34px;height:34px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.45))}
+.hotbar .slot i{position:absolute;top:2px;left:5px;font-style:normal;font-size:10px;font-weight:800;color:rgba(255,255,255,.55)}
+.hotbar .slot em{position:absolute;right:5px;bottom:2px;font-style:normal;font-size:12px;font-weight:900;color:#ffe066;text-shadow:0 1px 2px #000}
+.hotbar .slot.empty svg{opacity:.35;filter:grayscale(.8)}
+.hotbar .slot:hover{background:rgba(40,48,56,.7);border-color:rgba(255,255,255,.35)}
+.hotbar .slot.selected{border:2px solid #fff;background:rgba(48,58,68,.72);transform:translateY(-3px)}
+.hotbar .money-tile{height:56px;min-width:84px;padding:4px 10px 5px;grid-template-rows:1fr auto;gap:1px;background:rgba(20,25,30,.55);border:1px solid rgba(255,255,255,.16);border-radius:4px}
+.hotbar .money-tile svg{width:30px;height:30px}
+.hotbar .money-tile b{font-size:14px;font-weight:900;letter-spacing:.2px;line-height:1}
+.hotbar .cash-tile b{color:var(--s1-money)}
+.hotbar .card-tile b{color:var(--s1-card)}
+.hotbar .card-tile.paying{border-color:var(--s1-card);box-shadow:inset 0 0 0 1px var(--s1-card)}
+.hotbar .cash-tile.paying{border-color:rgba(95,211,95,.7)}
+.hotbar .money-tile.selected{transform:translateY(-3px)}
+.hotbar .money-tile:hover{background:rgba(40,48,56,.7)}
+body .stamina{bottom:76px!important;width:180px!important;height:3px!important;background:rgba(0,0,0,.35)!important;border-radius:2px;transition:opacity .4s;z-index:4}
+body .stamina.full{opacity:0}
+body .stamina div{background:#fff!important;border-radius:2px}
+body #moneyReceipt{left:auto!important;top:auto!important;right:calc(50% - 330px)!important;bottom:74px!important;background:none!important;border:0!important;padding:0!important;font-size:15px!important;font-weight:900;color:#ff7b6b;text-shadow:var(--s1-shadow);z-index:5}
+body #moneyReceipt[data-positive="true"]{color:var(--s1-money)}
+body #cyclePack{left:50%;right:auto!important;bottom:76px!important;transform:translateX(-50%);min-height:0!important;padding:5px 10px!important;background:var(--s1-panel)!important;border:1px solid var(--s1-line)!important;border-radius:6px!important;color:#fff!important;font-size:12px!important;font-weight:700}
+body #carryHint{bottom:110px!important;background:var(--s1-panel)!important;border:1px solid var(--s1-line)!important;border-radius:6px!important;color:#fff!important;font-size:12px!important;letter-spacing:0!important}
+
+/* Phone and menu buttons only on touch and narrow screens (Tab / Esc otherwise). */
+body .controls{display:none;position:absolute;top:auto;left:auto}
+body .controls button{all:unset;box-sizing:border-box;display:grid;place-items:center;width:46px;height:46px;border-radius:8px;background:var(--s1-panel);border:1px solid var(--s1-line);cursor:pointer}
+body .controls button svg{width:28px;height:28px}
+
+/* ---------- Compass: only while a waypoint exists ---------- */
+#compass[hidden]{display:none!important}
+body #compass{top:12px;width:min(360px,40vw);height:40px}
+body .compass-window{background:linear-gradient(rgba(16,20,24,.55),rgba(16,20,24,0));border-bottom:0}
+body .compass-window>strong{font-size:10px;font-weight:900;color:#fff;bottom:1px}
+body .compass-tick{width:2px;height:9px;background:#fff}
+body .compass-mark{top:2px;color:#fff;text-shadow:var(--s1-shadow)}
+body .compass-mark b{font-size:11px;color:#ffe066}body .compass-mark em{font-size:10px;font-weight:700}body .compass-mark small{color:#dfe6ea;font-size:9px}
+
+/* ---------- Notifications: top right, slide in, stack of three ---------- */
+#notifs{position:absolute;top:50px;right:18px;z-index:7;display:flex;flex-direction:column;gap:6px;width:min(310px,calc(100vw - 24px));pointer-events:none}
+.notice{display:flex;gap:10px;align-items:center;padding:8px 12px 8px 8px;background:var(--s1-panel-solid);border:1px solid var(--s1-line);border-radius:7px;box-shadow:0 6px 18px rgba(0,0,0,.3);animation:s1Notice 4s ease forwards}
+.notice-ico{flex:none;width:30px;height:30px;display:grid;place-items:center;border-radius:7px;background:rgba(255,255,255,.08)}
+.notice-ico svg{width:22px;height:22px}
+.notice b{display:block;font-size:11px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;color:var(--s1-dim)}
+.notice p{margin:1px 0 0;font-size:12.5px;line-height:1.35;color:#fff;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.notice[data-app="police"]{border-left:3px solid var(--s1-red)}.notice[data-app="cash"] b{color:var(--s1-money)}.notice[data-app="message"] b{color:#7fdc84}
+@keyframes s1Notice{0%{opacity:0;transform:translateX(24px)}6%{opacity:1;transform:none}88%{opacity:1;transform:none}100%{opacity:0;transform:translateX(12px)}}
+#placeToast{position:absolute;left:50%;top:22%;transform:translateX(-50%);font-size:24px;font-weight:900;letter-spacing:1px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.7);opacity:0;pointer-events:none;z-index:3;white-space:nowrap}
+#placeToast.show{animation:s1Place 3s ease forwards}
+@keyframes s1Place{0%{opacity:0;transform:translate(-50%,6px)}12%{opacity:1;transform:translate(-50%,0)}75%{opacity:1}100%{opacity:0}}
+
+/* ---------- Police banner: top centre, thin progress bar, red/blue strobe ---------- */
+body #wantedBanner{top:62px;min-width:200px;padding:6px 18px 7px;background:var(--s1-panel-solid);border:0;border-radius:6px;color:#fff;font-size:13px;font-weight:900;letter-spacing:2px;box-shadow:0 4px 16px rgba(0,0,0,.35);overflow:hidden}
+body #wantedBanner::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--s1-red) 50%,var(--s1-blue) 50%);background-size:200% 100%;animation:s1Strobe .6s steps(2) infinite}
+body #wantedBanner[data-state="wanted"],body #wantedBanner[data-state="armed"]{background:rgba(60,14,16,.9)}
+body #wantedBanner[data-state="arrest"]{background:rgba(14,18,40,.9)}
+@keyframes s1Strobe{to{background-position:-200% 0}}
+body .search-countdown{height:3px;width:160px;margin:6px auto 0;background:rgba(255,255,255,.18);border-radius:2px}
+body .search-countdown i{background:#fff}
+body #policeHUD{top:102px;background:var(--s1-panel-solid);border:1px solid var(--s1-line);border-left:3px solid var(--s1-red);border-radius:7px;color:#fff;font-size:13px;padding:9px 14px;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+body #policeHUD button{margin:7px auto 0;padding:6px 14px;min-height:34px;border-radius:999px;border:0;background:#fff;color:#101418;font-weight:900}
+
+/* ---------- Work, station, placement and driving cards ---------- */
+body #work,body #stationHUD,body #placementHUD,body #drivingHUD,body #vehicleExit{background:var(--s1-panel-solid)!important;border:1px solid var(--s1-line)!important;border-radius:8px!important;box-shadow:0 8px 24px rgba(0,0,0,.35)!important;color:#fff!important}
+body #work{top:calc(50% + 60px);padding:8px 16px;min-width:200px;font-size:12px;font-weight:700}
+body #stationHUD{border-top:0!important}body #stationHUD h2{color:#fff!important;font-weight:900}body #stationHUD p{color:var(--s1-dim)!important}
+body .progress{height:4px;background:rgba(255,255,255,.14)!important;border-radius:2px}
+body .progress div,body #stationHUD .progress>div{background:#fff!important;border-radius:2px}
+body #placementHUD button,body #stationHUD button.primary{background:#fff!important;color:#101418!important;border-radius:999px!important}
+
+/* ---------- Menus and shops: dark translucent cards, white type ---------- */
+body:not(.titleMode) #overlay:not(.phone){background:rgba(8,10,12,.55)!important;backdrop-filter:blur(3px)!important}
+body .modal{background:var(--s1-panel-solid)!important;border:1px solid var(--s1-line)!important;border-radius:10px!important;box-shadow:0 24px 70px rgba(0,0,0,.55)!important;color:#fff;scrollbar-color:#59626b transparent}
+body .modal h1,body .modal h2{color:#fff!important;font-weight:900!important;letter-spacing:-.3px!important}
+body .modal h3{color:#fff!important;font-weight:800}
+body .modal p,body .item p{color:var(--s1-dim)!important}
+body .modal strong{color:#fff}
+body .overline,body .tag,body .relation-band{color:#8fa0ad!important;font-weight:800;letter-spacing:1.4px!important;font-family:var(--s1-font)!important}
+body .primary{background:#f2f4f6!important;color:#101418!important;border:0!important;border-radius:6px!important;font-weight:900!important;min-height:38px}
+body .primary:hover:not(:disabled){background:#fff!important}
+body .ghost,body .tabs button{background:rgba(255,255,255,.06)!important;color:#fff!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:6px!important}
+body .tabs button.on{background:#fff!important;color:#101418!important}
+body .close{color:#fff!important;opacity:.8}
+body input,body select,body textarea{background:rgba(0,0,0,.35)!important;border:1px solid rgba(255,255,255,.2)!important;color:#fff!important;border-radius:5px!important}
+body .item,body .row,body .ledger{border-color:var(--s1-line)!important}
+body .staffcard,body .contact-card,body .order-card,body .customerCard,body .shop-cart,body .workflow-status>div,body .crew-status,body .satisfaction-strip,body .machine-status{background:rgba(255,255,255,.04)!important;border:1px solid var(--s1-line)!important;border-radius:8px!important}
+body .choice{background:rgba(255,255,255,.05)!important;border:1px solid var(--s1-line)!important;border-radius:8px!important;color:#fff}
+body .choice:hover{border-color:#fff!important}
+body .shop-ico{background:rgba(255,255,255,.08)!important}
+body .shop-price,body .order-heading>b,body .ledger strong,body .cash{color:var(--s1-money)!important}
+body .bankcard{background:linear-gradient(135deg,#2f6fb5,#1b3f73)!important;border:0!important}
+body .bankcard b{color:#fff}
+body .comfort-option{color:#fff}
+
+/* In-person customer: a dark strip with numbered choices. */
+body[data-panel="customer"]:not(.titleMode) #overlay:not(.phone),body[data-panel="payphone"]:not(.titleMode) #overlay:not(.phone){background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 55%)!important;backdrop-filter:none!important;align-items:end!important;padding-bottom:86px!important}
+body[data-panel="customer"] #modal,body[data-panel="payphone"] #modal{counter-reset:choice;background:rgba(10,12,14,.82)!important;border:0!important;border-radius:6px!important;box-shadow:none!important}
+body[data-panel="customer"] #modal button:not(.close):not([disabled]),body[data-panel="payphone"] #modal button:not(.close):not([disabled]){counter-increment:choice}
+body[data-panel="customer"] #modal button:not(.close):not([disabled])::before,body[data-panel="payphone"] #modal button:not(.close):not([disabled])::before{content:"[" counter(choice) "] ";opacity:.6;font-weight:900}
+body .resident-line{color:#fff!important;border-left:2px solid #fff;font-style:normal;font-size:14px}
+
+/* ---------- The held phone ---------- */
+body #overlay.phone{display:block!important;padding:0!important;background:transparent!important;backdrop-filter:none!important;pointer-events:none}
+body #overlay.phone[hidden]{display:none!important}
+body #overlay.phone #modal,body #overlay.phone::after{position:absolute;left:0;right:0;margin:0 auto;bottom:max(8px,min(76px,calc(100dvh - 640px)));width:min(340px,calc(100vw - 16px))!important;height:min(620px,calc(100dvh - 92px))!important;max-width:none!important;max-height:none!important;border-radius:40px!important;transform-origin:50% 100%;animation:s1PhoneUp .22s cubic-bezier(.2,.8,.25,1) both}
+body #overlay.phone #modal{pointer-events:auto;padding:30px 16px 18px!important;background:#eceeef!important;color:#1b1f23;border:12px solid #261d18!important;border-top-width:40px!important;border-bottom-width:56px!important;box-shadow:0 0 0 2px #120c09,inset 0 0 0 1px rgba(0,0,0,.12),0 30px 70px rgba(0,0,0,.55)!important;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:none;font-size:13px}
+body #overlay.phone #modal::-webkit-scrollbar{display:none}
+/* Bezel details sit on a pseudo-element the same size as the handset. */
+body #overlay.phone::after{content:"";pointer-events:none;background:radial-gradient(circle at 50% calc(100% - 28px),#3a2d25 0 15px,#4a3a30 15px 17px,transparent 18px),linear-gradient(#0e0907,#0e0907) 50% 18px/58px 5px no-repeat,radial-gradient(circle at calc(50% + 44px) 20px,#1d2a33 0 3px,transparent 4px);border-radius:40px;z-index:2}
+@keyframes s1PhoneUp{from{transform:translateY(105%) rotate(3deg)}to{transform:none}}
+@media(prefers-reduced-motion:reduce){body #overlay.phone #modal,body #overlay.phone::after{animation:none}}
+/* Screen typography and controls (light screen, dark text). */
+body #overlay.phone #modal h1,body #overlay.phone #modal h2,body #overlay.phone #modal h3,body #overlay.phone #modal strong{color:#15191d!important}
+body #overlay.phone #modal h2{font-size:19px!important;margin:4px 0 10px!important}
+body #overlay.phone #modal h3{font-size:14px!important;margin:12px 0 6px!important}
+body #overlay.phone #modal p,body #overlay.phone #modal small,body #overlay.phone .item p,body #overlay.phone .note{color:#5b646c!important}
+body #overlay.phone .overline,body #overlay.phone .tag,body #overlay.phone .relation-band{color:#7a858e!important;font-size:9px}
+/* The handset has no close cross: Tab, Esc, the phone button or the home button put it away. */
+body #overlay.phone #modal>.close{display:none!important}
+body #overlay.phone .money,body #overlay.phone .order-heading>b,body #overlay.phone .shop-price,body #overlay.phone .ledger strong{color:#1f9d3a!important;font-weight:900}
+body #overlay.phone .primary,body #overlay.phone .ghost,body #overlay.phone .order-actions button,body #overlay.phone .tabs button{background:#cfe3f6!important;color:#16395a!important;border:0!important;border-radius:999px!important;font-weight:800!important;min-height:38px;padding:8px 16px!important;box-shadow:none!important}
+body #overlay.phone .ghost{background:#e2e6ea!important;color:#2b333a!important}
+body #overlay.phone .primary:hover:not(:disabled),body #overlay.phone .ghost:hover:not(:disabled){filter:brightness(.96)}
+body #overlay.phone button:disabled{opacity:.45}
+body #overlay.phone .tabs button.on{background:#16395a!important;color:#fff!important}
+body #overlay.phone input,body #overlay.phone select{background:#fff!important;color:#15191d!important;border:1px solid #c9cfd4!important}
+body #overlay.phone .item,body #overlay.phone .row,body #overlay.phone .ledger{border-color:#d6dade!important}
+body #overlay.phone .staffcard,body #overlay.phone .contact-card,body #overlay.phone .order-card,body #overlay.phone .customerCard,body #overlay.phone .satisfaction-strip,body #overlay.phone .phone-contact,body #overlay.phone .contact-detail,body #overlay.phone .deal-bubble,body #overlay.phone .counter-sheet,body #overlay.phone .product-row,body #overlay.phone .shop-cart{background:#fff!important;border:1px solid #dde1e5!important;border-radius:12px!important;color:#15191d;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+body #overlay.phone .relation-meter,body #overlay.phone .craving-bar{background:#e3e7ea!important;border-color:#d0d5d9!important}
+body #overlay.phone .relation-meter i,body #overlay.phone .craving-bar i{background:#3fae5a!important}
+body #overlay.phone .effect-chips em{background:#e8ecef;color:#36414a}
+body #overlay.phone .thread-chip{color:#1f9d3a}
+body #overlay.phone #modal .relation-band,body #overlay.phone #modal .contact-heading span,body #overlay.phone #modal .contact-heading small{color:#8a5a12!important}
+/* Status bar. */
+body #overlay.phone .device-status{position:sticky;top:-30px;z-index:2;display:flex!important;justify-content:space-between;margin:-30px -16px 10px!important;padding:8px 18px 6px!important;background:#eceeef!important;border:0!important;border-radius:0!important;color:#15191d!important;font-size:11px!important;font-weight:800;letter-spacing:0!important}
+body #overlay.phone .device-status>span:first-child,body #overlay.phone .device-screen,body #overlay.phone .device-clock small{display:none!important}
+body #overlay.phone .device-clock{order:-1}
+body #overlay.phone .device-signal i{background:#b9c0c6!important}body #overlay.phone .device-signal i.on{background:#15191d!important}
+/* App dock (MSG / PEOPLE / LIST / DEALS / CARD) and home indicator. */
+body #overlay.phone .device-keys{position:sticky;bottom:-18px;z-index:2;display:grid!important;grid-template-columns:repeat(5,1fr);gap:4px!important;margin:14px -16px -18px!important;padding:8px 8px 10px!important;background:rgba(236,238,239,.96)!important;border-top:1px solid #d6dade!important}
+body #overlay.phone .device-keys button{background:transparent!important;color:#5b646c!important;border:0!important;border-radius:8px!important;min-height:38px!important;font-size:9px!important;font-weight:900;letter-spacing:.4px!important}
+body #overlay.phone .device-keys button.on{background:#dfe8f1!important;color:#16395a!important}
+body #overlay.phone .phone-home-button{position:absolute;left:0;right:0;bottom:-48px;margin:0 auto!important;width:40px;height:40px;min-height:0;border-radius:50%;background:transparent!important;color:transparent!important;border:0;z-index:4;cursor:pointer}
+body #overlay.phone .phone-home-button:focus-visible{outline:2px solid #fff!important}
+/* Home screen: wallpaper, big clock, app grid. */
+body[data-phone="home"] #overlay.phone #modal{background:linear-gradient(165deg,#3e6f7c 0%,#284a5a 45%,#1b2c3a 100%)!important;color:#fff}
+body[data-phone="home"] #overlay.phone .device-status{background:transparent!important;color:#fff!important}
+body[data-phone="home"] #overlay.phone .device-signal i.on{background:#fff!important}
+body[data-phone="home"] #overlay.phone #modal .close{background:rgba(255,255,255,.14)!important;color:#fff!important}
+body #overlay.phone .phone-home-clock{font-size:54px!important;font-weight:300;letter-spacing:-2px;color:#fff!important;padding-top:24px;text-shadow:0 2px 10px rgba(0,0,0,.25)}
+body #overlay.phone .phone-home-clock small{font-size:18px;font-weight:700;letter-spacing:0;margin-left:2px}
+body #overlay.phone #modal .phone-home-day{color:#d8e6ec!important;font-size:12px!important;letter-spacing:.5px;font-weight:700;margin:2px 0 26px!important}
+body #overlay.phone .phone-app-grid{grid-template-columns:repeat(3,1fr);gap:18px 6px}
+body #overlay.phone .phone-app-grid button{min-height:86px;background:none!important;border:0!important;padding:0!important;border-radius:0!important;color:#fff!important}
+body #overlay.phone .phone-app-grid b{display:grid;place-items:center;position:relative;width:56px;height:56px;border-radius:14px;margin:0 auto 6px;font-size:26px;color:#fff;box-shadow:0 3px 8px rgba(0,0,0,.3)!important;background:#55c35a!important}
+body #overlay.phone .phone-app-grid button:nth-child(2) b{background:#f0a33c!important}
+body #overlay.phone .phone-app-grid button:nth-child(3) b{background:#9b6ad6!important}
+body #overlay.phone .phone-app-grid button:nth-child(4) b{background:#e2534b!important}
+body #overlay.phone .phone-app-grid button:nth-child(5) b{background:#2f86e0!important}
+body #overlay.phone .phone-app-grid button:nth-child(6) b{background:#d9cfaf!important;color:#6b5a35!important}
+body #overlay.phone #modal .phone-app-grid strong{color:#fff!important;font-size:12px;font-weight:800;text-shadow:0 1px 3px rgba(0,0,0,.45)}
+body #overlay.phone #modal .phone-app-grid small{color:#cfe0e8!important;font-size:9.5px}
+body #overlay.phone .phone-app-grid em{display:none}
+body #overlay.phone .app-badge{top:-5px;right:-5px;background:#ff3b30;color:#fff;font-weight:900}
+body #overlay.phone #modal .phone-keyhint{color:#bcd0da!important;font-size:10px!important;margin-top:14px}
+body #overlay.phone #modal .phone-home-summary{color:#fff!important;border-top:1px solid rgba(255,255,255,.18);font-weight:700}
+/* Messages: inbox rows and the conversation. */
+body #overlay.phone .message-inbox h2{font-size:22px!important}
+body #overlay.phone .thread-row{background:#fff!important;border:0!important;border-bottom:1px solid #e1e4e7!important;border-radius:0!important;margin:0!important;padding:10px 4px!important;color:#15191d!important}
+body #overlay.phone .thread-row:first-of-type{border-top:1px solid #e1e4e7!important}
+body #overlay.phone .thread-copy small{color:#6b747c!important}
+body #overlay.phone .unread-dot{background:#2f86e0}
+body #overlay.phone .mug,body #overlay.phone .avatar,body #overlay.phone .contact-initial{width:40px;height:40px;border-radius:50%;border:2px solid #fff!important;box-shadow:0 1px 3px rgba(0,0,0,.25)!important;color:#fff!important;font-weight:900;background:#7d8a95}
+body #overlay.phone .phoneheader{position:sticky;top:-2px;z-index:1;display:flex;align-items:center;gap:10px;margin:-10px -16px 12px;padding:8px 14px 10px;background:#f7f8f9;border-bottom:1px solid #dde1e5}
+body #overlay.phone .phoneheader .overline{display:none}
+body #overlay.phone .phoneheader h2{font-size:17px!important;margin:0!important}
+body #overlay.phone .s1-back{all:unset;cursor:pointer;font-size:30px;line-height:1;color:#2f86e0;padding:0 4px 4px 0;font-weight:300}
+body #overlay.phone .message{width:auto;max-width:82%;margin:6px 0;padding:9px 13px!important;background:#dfe2e5!important;color:#15191d!important;border-radius:16px 16px 16px 4px!important;font-size:13px;line-height:1.45!important}
+body #overlay.phone .message.mine{margin-left:auto;background:#cfe3f6!important;border-radius:16px 16px 4px 16px!important}
+body #overlay.phone .message small{display:none}
+body #overlay.phone .message .money{color:#1f9d3a}
+/* Landscape phone for Products, Contacts and the map. */
+@media(min-width:760px) and (min-height:470px){
+ body #overlay.phone.landscape #modal,body #overlay.phone.landscape::after{width:min(760px,calc(100vw - 40px))!important;height:min(430px,calc(100dvh - 40px))!important;bottom:max(14px,calc(50dvh - 215px))}
+ body #overlay.phone.landscape #modal{border-width:12px 56px 12px 40px!important;padding:30px 18px 18px!important}
+ body #overlay.phone.landscape::after{background:radial-gradient(circle at calc(100% - 28px) 50%,#3a2d25 0 15px,#4a3a30 15px 17px,transparent 18px),linear-gradient(#0e0907,#0e0907) 18px 50%/5px 58px no-repeat}
+ body #overlay.phone.landscape .phone-home-button{left:auto;right:-48px;top:calc(50% - 20px);bottom:auto;position:fixed}
+}
+body[data-panel="map"] #overlay.phone #townOverview{border-radius:10px;height:min(34dvh,230px)!important}
+body[data-panel="map"] #overlay.phone #modal{overflow:auto}
+
+/* ---------- End-of-day summary ---------- */
+#sleepCard{position:absolute;inset:0;z-index:40;display:grid;place-items:center;background:radial-gradient(ellipse at center,rgba(10,12,16,.55),rgba(5,6,8,.92))}
+#sleepCard[hidden]{display:none}
+.sleep-card{position:relative;width:min(380px,calc(100vw - 32px));padding:22px 24px 20px;background:var(--s1-panel-solid);border:1px solid var(--s1-line);border-radius:12px;color:#fff;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:s1Card .35s ease-out both}
+.sleep-card small{color:var(--s1-dim);font-weight:900;letter-spacing:2px;font-size:10px}
+.sleep-card h2{margin:4px 0 14px;font-size:26px;font-weight:900}
+.sleep-card dl{margin:0}.sleep-card dl div{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--s1-line);font-size:14px}
+.sleep-card dt{color:var(--s1-dim)}.sleep-card dd{margin:0;font-weight:900}.sleep-card dd.pos{color:var(--s1-money)}.sleep-card dd.neg{color:#ff7b6b}
+.sleep-card .rank{display:flex;align-items:center;gap:10px;margin:14px 0 16px;font-weight:900;font-size:13px}
+.sleep-card .xpbar{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden}.sleep-card .xpbar i{display:block;height:100%;background:var(--s1-money)}
+.sleep-card .rank-stamp{position:absolute;top:18px;right:18px;padding:5px 10px;border:3px solid #ffd34d;border-radius:6px;color:#ffd34d;font-weight:1000;letter-spacing:2px;transform:rotate(8deg);animation:s1Stamp .5s .3s cubic-bezier(.3,1.6,.5,1) both}
+.sleep-card .primary{width:100%}
+@keyframes s1Card{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes s1Stamp{from{opacity:0;transform:rotate(8deg) scale(2.2)}to{opacity:1;transform:rotate(8deg) scale(1)}}
+
+/* ---------- Title screen keeps the same font and palette ---------- */
+body .titleBrand{font-weight:1000!important;letter-spacing:-3px!important;color:#fff!important;text-shadow:0 4px 0 rgba(0,0,0,.35),0 14px 40px rgba(0,0,0,.4)!important}
+body .titleBrand .roman,body .titleSub{color:#ffd34d!important}
+body .titleNav{border-left:2px solid rgba(255,255,255,.25)!important}
+body .titleNav button{color:#e6eaee!important;font-weight:800!important}
+body .titleNav button:hover{color:#fff!important}
+body.titleMode #s1clock,body.titleMode #notifs,body.titleMode .controls,body.titleMode #compass,body.titleMode #wantedBanner{display:none!important}
+
+/* ---------- Touch and narrow screens (390×844 and similar) ---------- */
+@media(pointer:coarse),(max-width:600px){
+ body:not(.titleMode) .controls{display:flex;gap:8px;right:10px;bottom:76px;flex-direction:column}
+}
+@media(max-width:760px){
+ .hotbar .slots{gap:6px}.hotbar .slot{width:48px;height:48px}.hotbar .slot svg{width:28px;height:28px}
+ body .hotbar{gap:12px!important}
+ .hotbar .money-tile{min-width:70px;height:48px}.hotbar .money-tile svg{width:24px;height:24px}.hotbar .money-tile b{font-size:12px}
+}
+@media(max-width:600px){
+ body .hotbar{left:8px!important;right:8px!important;transform:none!important;bottom:max(8px,env(safe-area-inset-bottom))!important;flex-direction:column-reverse;align-items:stretch;gap:6px!important}
+ .hotbar .slots{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+ .hotbar .slot{width:auto;height:auto;aspect-ratio:1}
+ .hotbar .slot svg{width:26px;height:26px}.hotbar .slot i{font-size:9px;left:4px}.hotbar .slot em{font-size:11px;right:4px}
+ .hotbar .money{align-self:flex-end;gap:6px}
+ .hotbar .money-tile{min-width:0;height:36px;grid-template-rows:none;grid-auto-flow:column;gap:6px;padding:0 10px}
+ .hotbar .money-tile svg{width:22px;height:22px}.hotbar .money-tile b{font-size:13px}
+ body:not(.titleMode) .controls{right:auto;left:10px;bottom:max(64px,calc(env(safe-area-inset-bottom) + 56px));flex-direction:row}
+ body:not(.titleMode) .controls button{width:42px;height:36px}
+ body:not(.titleMode) .controls button svg{width:22px;height:22px}
+ body .touch{left:12px!important;bottom:118px!important;grid-template-columns:repeat(3,46px)!important;gap:4px!important}
+ body .touch button{min-height:46px;background:rgba(16,20,24,.5)!important;border:1px solid var(--s1-line)!important;border-radius:8px!important;color:#fff!important;font-size:16px}
+ body .stamina{bottom:112px!important;width:120px!important}
+ body .prompt{white-space:normal;text-align:left;min-height:40px;display:flex;align-items:center}
+ #s1clock{top:10px;right:10px}
+ body #objective{top:12px;left:12px;width:calc(100vw - 150px)}
+ #notifs{top:44px;right:10px;width:min(280px,calc(100vw - 20px))}
+ body #compass{top:58px;width:min(240px,62vw)}
+ body #wantedBanner{top:96px}
+ body #moneyReceipt{right:12px!important;bottom:100px!important}
+ body #cyclePack{bottom:112px!important}
+ body #carryHint{bottom:160px!important}
+ #placeToast{font-size:18px;top:18%}
+ body[data-panel="customer"] #overlay,body[data-panel="payphone"] #overlay{padding:10px 10px 112px!important}
+ body #overlay.phone #modal,body #overlay.phone::after{bottom:8px;border-radius:34px!important;height:min(620px,calc(100dvh - 16px))!important}
+}
+@media(max-height:500px) and (orientation:landscape){
+ body #overlay.phone #modal,body #overlay.phone::after{height:calc(100dvh - 12px)!important;bottom:6px}
+ body .hotbar{bottom:6px!important}.hotbar .slot{width:44px;height:44px}
+}
+body[data-panel="settings"] .modal label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0;color:#fff}
+body[data-panel="settings"] .modal label.comfort-option{justify-content:flex-start}
+body .modal input[type="range"]{accent-color:#fff;flex:1;max-width:260px;background:none!important;border:0!important}
+body .modal input[type="checkbox"]{accent-color:#5fd35f;width:18px;height:18px}
+/* Keep the dock on the bottom edge of short screens. */
+body #overlay.phone #modal{display:flex!important;flex-direction:column}
+body #overlay.phone #modal>*{flex-shrink:0}
+body #overlay.phone #modal>.device-keys{margin-top:auto!important}
+body #overlay.phone #modal>.phone-home-button{position:absolute}
+body #overlay.phone .bankcard{color:#fff;border-radius:14px!important;box-shadow:0 8px 18px rgba(20,50,90,.3)!important}
+body #overlay.phone .bankcard b,body #overlay.phone .bankcard .money{color:#fff!important}
+body #overlay.phone .bankcard small{color:#cfe0f5!important}
+body .modal .message:not(#overlay.phone .message){background:rgba(255,255,255,.07)!important;border:1px solid var(--s1-line)!important;color:#fff!important;border-radius:10px!important}
+/* The real home button sits over the drawn one in the bezel; fixed so scrolling the screen never moves it. */
+body #overlay.phone #modal>.phone-home-button{position:fixed!important;left:50%!important;right:auto!important;top:auto!important;bottom:calc(max(8px,min(76px,100dvh - 640px)) + 8px)!important;transform:translateX(-50%);margin:0!important}
+@media(min-width:760px) and (min-height:470px){
+ body #overlay.phone.landscape #modal>.phone-home-button{left:calc(50% + min(760px,100vw - 40px)/2 - 48px)!important;transform:none;bottom:calc(max(14px,50dvh - 215px) + min(430px,100dvh - 40px)/2 - 20px)!important}
+}
+@media(max-width:600px){body #overlay.phone #modal>.phone-home-button{bottom:16px!important}}
