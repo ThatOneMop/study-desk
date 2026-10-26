@@ -1,7 +1,7 @@
 // Original townsfolk for the bay streets. One instanced batch, with face detail
 // up close and a shorter silhouette past 40 m. Schedules are visual only.
 import * as THREE from './vendor/three.module.min.js';
-import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=126';
+import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=142';
 
 export const STREET_CROWD_COLLIDERS=Object.freeze([]);
 export const STREET_CROWD_FAR=40;
@@ -118,11 +118,24 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    let moving=false;
    const knocked=person.koUntil>clock;
    const calling=!knocked&&person.callUntil>clock;
-   if(dist>.15&&step>0&&!knocked&&!calling){
+   // P1-6 reactions: {kind,until,x,z,pose}. flee/backoff move away from x,z; the rest hold and face it.
+   const react=!knocked&&person.react&&person.react.until>clock?person.react:null;
+   const away=react&&(react.kind==='flee'||react.kind==='backoff');
+   let turn=0;
+   if(away&&step>0){
+    const ax=person.x-react.x,az=person.z-react.z,ad=Math.hypot(ax,az)||1,move=(react.kind==='flee'?3.4:1.3)*step;
+    const nx=person.x+ax/ad*move,nz=person.z+az/ad*move;
+    if(typeof wall!=='function'||!wall(nx,nz)){person.x=nx;person.z=nz;person.phase+=move*(react.kind==='flee'?2:2.6);moving=true;}
+    person.yaw=Math.atan2(ax,az);
+   }else if(react){
+    const want=Math.atan2(react.x-person.x,react.z-person.z),diff=Math.atan2(Math.sin(want-person.yaw),Math.cos(want-person.yaw));
+    if(react.kind==='look')turn=Math.max(-1,Math.min(1,diff));else person.yaw+=diff*Math.min(1,step*6);
+   }
+   if((!react||react.kind==='look')&&dist>.15&&step>0&&!knocked&&!calling){
     const speed=plan.pose==='walk'?1.35:.8,move=Math.min(dist,speed*step);
     person.x+=dx/dist*move;person.z+=dz/dist*move;person.phase+=move*2.6;person.yaw=Math.atan2(dx,dz);moving=true;
    }else person.yaw+=(Math.atan2(Math.sin(plan.yaw-person.yaw),Math.cos(plan.yaw-person.yaw)))*Math.min(1,step*4);
-   person.activity=knocked?'ko':calling?'phone':plan.activity;person.pose=knocked?'sit':calling?'use':plan.pose;
+   person.activity=knocked?'ko':calling?'phone':react?react.kind:plan.activity;person.pose=knocked?'sit':calling?'use':away?'walk':react&&react.kind!=='look'?'idle':plan.pose;
    const ground=typeof floor==='function'?finite(floor(person.x,person.z)):0;
    const sitting=person.pose==='sit',walking=!knocked&&(moving||person.pose==='walk');
    const cameraDistance=camera?.position?Math.hypot(camera.position.x-person.x,camera.position.z-person.z):0;
@@ -131,7 +144,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    const swing=walking?Math.sin(person.phase):0;
    const blink=Math.abs(Math.sin(clock*.9+person.id*1.7))>.97;
    pos.set(person.x,ground,person.z);quat.setFromAxisAngle(up,person.yaw);root.compose(pos,quat,unit);
-   proceduralJoints(joints,root,{swing,sit:sitting,bob:walking?Math.abs(Math.cos(person.phase))*.03:0,raise:person.pose==='use'?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0});
+   proceduralJoints(joints,root,{swing,sit:sitting,bob:walking?Math.abs(Math.cos(person.phase))*.03:0,raise:person.pose==='use'&&!calling?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0,turn,...(react&&!away?react.pose:null),...(calling?{armR:{x:-.45,z:.55,fore:-2.3}}:null)});
    writePerson(meshes,person.id,joints,person.look,{detail,face:blink?'blink':'open',active});
   }
   flushPeopleMeshes(meshes,active);
