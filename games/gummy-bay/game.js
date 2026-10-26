@@ -56,6 +56,9 @@ import {bindGameplayState,emitGameplay,subscribeGameplay} from './gameplay-feed.
 import {grantStarter,starterOfferDue,STARTER_TEXT,STARTER_NPC,STARTER_PRODUCT,STARTER_QTY,STARTER_PRICE} from './starter-sale.mjs?v=125';
 import {policeNotice} from './police-notice.mjs?v=125';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
+import {recipeName,effectById} from './mix-core.mjs';
+import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
+import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
 import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
@@ -102,7 +105,7 @@ import {OBJECT_SILHOUETTE_COLLIDERS,OBJECT_SILHOUETTE_PROFILES,objectSilhouetteP
 import {turnTowards,sweepWalk,stockSummary,workerPoseValid,createBalanceFeedback,TRAVEL_DISTRICTS,TRAVEL_LANDMARKS,nearestTravelPoint,travelReading,travelMapScale,formatTravelDistance,projectMapMarker,projectMapPoint,mapRectVisible,travelMapCaption,projectTrackedCustomer} from './town-experience.mjs?v=60';
 import {StockroomCrafter,validCargo,findRoute,createAccessAudit} from './workshop-logistics.mjs?v=29';
 import {stationStatus as workshopStageStatus} from './presentation.mjs?v=25';
-import {productionPlan,commitProduction,validateSave,backupSlot} from './business-core.mjs';
+import {productionPlan,commitProduction,validateSave,backupSlot} from './business-core.mjs?v=130';
 import {locationKeyForType,locationMemoryCopy,normalizeLocationVisits,recordLocationVisit} from './location-memory.mjs?v=61';
 import {journeyProgress,journeySummary} from './journey-progress.mjs?v=62';
 import {acceptCoopPing,coopPingStatus} from './coop-ping.mjs?v=63';
@@ -116,12 +119,16 @@ import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=122';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
-const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:47,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:68,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:92,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:127,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:170,level:6,time:50}];
+const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:42,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:56,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:72,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:92,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:118,level:6,time:50}];
 const BASE_COUNT=6;
-const INGREDIENTS=BENCH_INGREDIENTS();
+const INGREDIENTS=PANTRY.map(f=>({name:f.name,effect:f.adds,cost:f.price,color:f.color,mixId:f.id,unlockLevel:f.unlockLevel,tag:f.tag,blurb:f.blurb}));
 function BENCH_INGREDIENTS(){return [0,1,2,3].map(i=>{const f=benchIngredient(i);return {name:f.name,effect:f.effect,cost:f.cost,color:f.color,mixId:f.mixId};});}
 STRAINS.forEach((p,i)=>{if(i<BASE_COUNT)p.effects=BASE_EFFECTS[i].slice();});
-for(let base=0;base<BASE_COUNT;base++)for(let ingredient=0;ingredient<INGREDIENTS.length;ingredient++){let p=STRAINS[base],f=INGREDIENTS[ingredient],mixed=mixResult(base,ingredient,p.price);STRAINS.push({...p,name:mixed.recipe+' '+p.name,desc:p.name+' mixed with '+f.name.toLowerCase()+'. Effects: '+mixed.effects.join(', ')+'.',price:mixed.price,color:new THREE.Color(p.color).lerp(new THREE.Color(f.color),.5).getHex(),mixed:true,base,ingredient,effects:mixed.effects,recipe:mixed.recipe,recipeKey:mixed.key});}
+// Mixed strains keep a stable index per (base, ingredient); applyMixSeed rewrites their effects per save.
+let appliedMixSeed=null;
+function mixedStrainEntry(base,ingredient,seed){const p=STRAINS[base],f=INGREDIENTS[ingredient],item=PANTRY[ingredient],out=recipeOutcome(seed,p.effects,item),name=recipeName(out.effects)+' '+p.name;return {...p,name,desc:p.name+' mixed with '+f.name.toLowerCase()+'.',price:mixedPrice(p.price,p.effects,out.effects),color:new THREE.Color(p.color).lerp(new THREE.Color(f.color),.5).getHex(),mixed:true,base,ingredient,effects:out.effects,recipe:recipeName(out.effects),recipeKey:out.key,twist:out.twist,adds:out.adds,autoName:name};}
+for(const slot of mixedSlots(BASE_COUNT,INGREDIENTS.length))STRAINS[slot.index]=mixedStrainEntry(slot.base,slot.ingredient,0);
+function applyMixSeed(seed,names){for(const slot of mixedSlots(BASE_COUNT,INGREDIENTS.length)){const entry=mixedStrainEntry(slot.base,slot.ingredient,seed),custom=names?.[slot.index];if(typeof custom==='string'&&custom.trim())entry.name=custom.trim().slice(0,40);Object.assign(STRAINS[slot.index],entry);}appliedMixSeed=seed;}
 function normalize(v){for(let k of ['seeds','raw','gummies','packs'])while(v[k].length<STRAINS.length)v[k].push(0);v.layout??={};v.storedPacks??=STRAINS.map(()=>0);while(v.storedPacks.length<STRAINS.length)v.storedPacks.push(0);v.workerEnabled??={gardener:true,crafter:true,seller:true};v.vehicleOwned??=false;v.vehiclePark??={x:-180,z:-155,angle:0};v.npcs??=[];v.packStation??=!!v.room;v.trimmers??=!!v.harvested;v.relations??={};v.atmWeek??=0;v.atmUsed??=0;v.ingredients??=INGREDIENTS.map(()=>0);v.mixer??=false;v.mixed??=0;v.payment??='cash';v.trash??=0;v.trashEarned??=0;v.picked??={};v.ledger??=[];v.visits=normalizeLocationVisits(v.visits);return v;}
 const CONTACTS=[{name:'Jules',x:-7,z:21,color:0xc67562,skin:0xc68d6a,budget:1.12,line:'Working the late shift again. Could use something sweet.'},{name:'Benji',x:18,z:8,color:0x80a7a8,skin:0xd8b991,budget:.98,line:'I’m on a budget, but I’ll come back if it’s good.'},{name:'Nina',x:-22,z:-9,color:0xb9a567,skin:0xb27e5b,budget:1.2,line:'Good flavour, fair price. That’s all I ask.'},{name:'Oz',x:38,z:-17,color:0x9e87b4,skin:0xe1b28f,budget:1.3,line:'I’ll pay more for premium stuff. Don’t disappoint me.'},{name:'Frankie',x:12,z:40,color:0x7f9f63,skin:0xc49674,budget:1.08,line:'Got a long walk home. Meet me by the pier.'}];
 const fresh=mode=>({version:3,mode,cash:400,bank:0,x:-58,z:26.7,yaw:-Math.PI/2,pitch:0,day:1,time:540,xp:0,heat:0,called:0,chapter:0,room:false,layout:{},storedPacks:STRAINS.map(()=>0),workerEnabled:{gardener:true,crafter:true,seller:true},vehicleOwned:false,vehiclePark:{x:-180,z:-155,angle:0},npcs:[],props:null,packStation:false,trimmers:false,relations:{},visits:{},cravings:{},atmWeek:0,atmUsed:0,tents:0,soil:0,seeds:STRAINS.map(()=>0),raw:STRAINS.map(()=>0),gummies:STRAINS.map(()=>0),packs:STRAINS.map(()=>0),ingredients:INGREDIENTS.map(()=>0),mixer:false,mixed:0,payment:'cash',trash:0,trashEarned:0,picked:{},ledger:[],wrappers:0,can:false,water:0,plants:[],lights:0,irrigation:false,bench:0,house:0,helpers:{gardener:false,crafter:false,seller:false},staffConfig:{gardener:{strain:-1,tent:-1,stock:'carried',route:'walk'},crafter:{strain:-1,tent:-1,stock:'stored',route:'timer'},seller:{strain:-1,tent:-1,stock:'carried',route:'walk'}},hired:0,planted:0,watered:0,harvested:0,made:0,listed:0,texted:0,sold:0,earned:0,listing:null,threads:{},deals:[],laundry:null,laundered:0,front:false,job:null,savedAt:Date.now()});
@@ -566,7 +573,7 @@ const previousAction=doAction;doAction=function(k,a,b,c){
 if(k==='payment'){if(!['cash','card'].includes(a))return;s.payment=a;save();menu(panel,selected);return;}
 if(k==='ingredient'){if(!Number.isInteger(a)||!INGREDIENTS[a]||!spend(INGREDIENTS[a].cost))return;s.ingredients[a]++;toast(INGREDIENTS[a].name+' bought');save();menu('servo');return;}
 if(k==='buyMixer'){if(!s.room||s.mixer||level()<2||!spend(500))return;s.mixer=true;save();toast('Mixing station installed at your active property');menu('hardware');return;}
-if(k==='mix'){if(!s.mixer||!Number.isInteger(a)||a<0||a>=BASE_COUNT||!Number.isInteger(b)||!INGREDIENTS[b]||s.ingredients[b]<1)return;let available=s.gummies[a]+Math.max(0,s.packs[a]-reservedQty(a));if(!available)return;if(s.gummies[a])s.gummies[a]--;else s.packs[a]--;s.ingredients[b]--;const result=BASE_COUNT+a*INGREDIENTS.length+b;s.gummies[result]++;s.mixed++;s.xp+=2;startWork('Mixing '+STRAINS[result].name+'…',3);save();toast(STRAINS[result].name+' created · value '+cash(value(result))+'. Wrap it before listing.');return;}
+if(k==='mix'){if(!s.mixer||!Number.isInteger(a)||a<0||a>=BASE_COUNT||!Number.isInteger(b)||!INGREDIENTS[b]||s.ingredients[b]<1)return;let available=s.gummies[a]+Math.max(0,s.packs[a]-reservedQty(a));if(!available)return;if(s.gummies[a])s.gummies[a]--;else s.packs[a]--;s.ingredients[b]--;const result=mixedStrainIndex(a,b,BASE_COUNT);s.gummies[result]++;s.mixed++;s.xp+=2;startWork('Mixing '+STRAINS[result].name+'…',3);save();toast(STRAINS[result].name+' created · value '+cash(value(result))+'. Wrap it before listing.');return;}
 if(k==='atmDeposit'||k==='atmWithdraw'){if(!Number.isInteger(a)||a<1||a>1000000)return;let from=k==='atmDeposit'?'cash':'bank',to=from==='cash'?'bank':'cash';if(s[from]<a){toast('Not enough '+(from==='bank'?'card balance.':'cash.'));return}s[from]-=a;s[to]+=a;record(from==='cash'?'ATM cash deposit':'ATM cash withdrawal',from==='cash'?a:-a);save();toast(cash(a)+' transferred. No fee.');menu('atm');return;}
 if(k==='pickup'){let p=litter.find(p=>p.id===a);if(!p||s.picked[a]>=s.day||Math.hypot(player.x-p.g.position.x,player.z-p.g.position.z)>3)return;s.picked[a]=s.day;s.trash++;close();save();toast('Litter collected · '+s.trash+' in your bag');return;}
 if(k==='recycle'){if(!s.trash)return;let pay=Math.round(s.trash*25)/100;s.cash=Math.round((s.cash+pay)*100)/100;s.trashEarned+=pay;s.trash=0;record('Recycling payout (cash)',0);save();toast('Recycling paid '+cash(pay)+' cash');menu('recycler');return;}
@@ -578,8 +585,8 @@ const previousAct=act;act=function(){if(active&&!panel&&!work&&near?.type==='lit
 const previousMenu=menu;menu=function(which,data){previousMenu(which,data);if(processingRemote)return;document.body.classList.toggle('titleMode',which==='title');document.body.classList.toggle('hasMenu',!!panel);if(which==='title'){$('modal').innerHTML=`<div class="titleBrand"><span>GUMMY</span><span>BAY</span></div><div class="titleSub">GRAMPS’ LAST CALL</div><nav class="titleNav"><button onclick="slots('story')">STORY / CONTINUE</button><button onclick="slots('free')">FREE PLAY</button><button onclick="menu('join')">MULTIPLAYER</button><button onclick="menu('settings')">SETTINGS</button></nav><div class="titleFooter">A coastal business sandbox<br><span>Original town · fictional gummies · 2-player co-op</span></div>`;return;}
 if(['reception','hardware','dealer','store','servo','helpers'].includes(which)){$('modal').innerHTML=`<div class="paymentstrip"><span>PAYMENT</span><button class="${s.payment==='cash'?'on':''}" onclick="action('payment','cash')">CASH ${cash(s.cash)}</button><button class="${s.payment==='card'?'on':''}" onclick="action('payment','card')">CARD ${cash(s.bank)}</button></div>`+$('modal').innerHTML;}
 if(which==='hardware')$('modal').innerHTML+=row('Mixing station','Level 2 · one-time equipment purchase. Combine gummies with servo flavourings.',s.mixer?'OWNED':level()<2?'LEVEL 2':'$500',"action('buyMixer')",s.mixer||level()<2||!s.room||availableMoney()<500);
-if(which==='servo'){$('modal').innerHTML+='<div class="overline">COASTWAY SERVO / OPEN 24 HOURS</div><h2>Find your next flavour.</h2><p>Buy fictional food ingredients here, then combine one with a gummy at your mixing station. Each ingredient adds an effect and can rewrite one that is already there.</p>';INGREDIENTS.forEach((f,i)=>$('modal').innerHTML+=row(f.name,`${s.ingredients[i]} owned · adds ${f.effect}`,cash(f.cost),`action('ingredient',${i})`,availableMoney()<f.cost));}
-if(which==='mix'){$('modal').innerHTML+='<div class="overline">YOUR PROPERTY / MIXING STATION</div><h2>A better gummy starts here.</h2><p>Use one base gummy and one servo ingredient. Unwrapped gummies are used first. Using a packed gummy removes its wrapper. Reserved customer stock is protected.</p><div class="form"><select id="mixBase">'+STRAINS.slice(0,BASE_COUNT).map((p,i)=>`<option value="${i}">${p.name} · ${s.gummies[i]+Math.max(0,s.packs[i]-reservedQty(i))} available</option>`).join('')+'</select><select id="mixIngredient">'+INGREDIENTS.map((p,i)=>`<option value="${i}">${p.name} · ${s.ingredients[i]} owned · adds ${p.effect}</option>`).join('')+'</select></div><button class="primary" onclick="action(\'mix\',Number(document.getElementById(\'mixBase\').value),Number(document.getElementById(\'mixIngredient\').value))">Mix one gummy</button><h3>Your mixed strains</h3>';STRAINS.forEach((p,i)=>{if(p.mixed&&(s.gummies[i]||s.packs[i]))$('modal').innerHTML+=row(p.name,`${s.gummies[i]} need wrapping · ${s.packs[i]} packed · ${cash(value(i))} base value`,'List',`menu('listing',${i})`,!s.packs[i])});}
+if(which==='servo'){$('modal').innerHTML+=servoMenuHTML();}
+if(which==='mix'){$('modal').innerHTML+=mixMenuHTML();}
 if(which==='atm'){$('modal').innerHTML+='<div class="overline">COASTLINE BANK / ATM</div><h2>Cash ↔ online card</h2><div class="bankcard"><div>COASTLINE <small>GUMMY BAY BUSINESS</small></div><b>'+cash(s.bank)+'</b><span>▥ &nbsp; •••• &nbsp; •••• &nbsp; 0400</span><small>PREPAID ONLINE BALANCE · NO DEBT</small></div><p>Deposit cash to use your card in shops, or withdraw card funds as cash. Transfers are instant, with no fee. New saves still start with $400 cash and $0 card balance.</p><div class="form"><label>Amount $ <input id="atmAmount" type="number" min="1" max="1000000" value="50"></label><button class="primary" onclick="action(\'atmDeposit\',Number(document.getElementById(\'atmAmount\').value))">Deposit cash</button><button class="ghost" onclick="action(\'atmWithdraw\',Number(document.getElementById(\'atmAmount\').value))">Withdraw cash</button></div>';}
 if(which==='recycler')$('modal').innerHTML+='<div class="overline">TRASH FOR CASH / RETURN STATION</div><h2>Clean streets. Small change.</h2><p>Pick up cans, bottles and paper scattered around town with E. Each item earns just $0.25. Litter refreshes each in-game day.</p>'+row('Your recycling bag',s.trash+' pieces · '+cash(s.trash*.25)+' payout','Return all',"action('recycle')",!s.trash)+'<p class="note">Lifetime recycling income: '+cash(s.trashEarned)+'</p>';
 if(which==='phone')$('modal').innerHTML= '<div class="tabs"><button onclick="menu(\'phone\')">Messages</button><button onclick="menu(\'wallet\')">Online card</button><button onclick="menu(\'listing\')">Listings</button></div>'+$('modal').innerHTML;
@@ -2848,3 +2855,143 @@ addEventListener('wheel',e=>{
  if(next===null)equipTool(equippedTool);else equipTool(next);
  paintHotbarSelection();
 },{passive:true});
+// P1-1 · Mixing risk layer. Each save rolls its own recipe twists (seeded), unknown
+// combinations read ??? until mixed, bad effects cost money, a sloppy stir can fizz a
+// batch over, and every mix ends on a reveal card. Station handlers stay untouched.
+const MIX_STIR_BAND=[320,1150],MIX_STIR_MAX=1800;
+MANUAL.mix[1][2]=720;
+let lastStir=null,mixRevealTimer=0;
+function ensureMixSeed(v=s){
+ if(!v)return;
+ if(!Number.isSafeInteger(v.mixSeed)||v.mixSeed<=0)v.mixSeed=newMixSeed(String(v.savedAt||Date.now())+':'+(v.mode||'story'));
+ v.recipeNames=v.recipeNames&&typeof v.recipeNames==='object'?v.recipeNames:{};
+ if(Array.isArray(v.ingredients))while(v.ingredients.length<PANTRY.length)v.ingredients.push(0);
+ if(!v.mixBook||typeof v.mixBook!=='object'){v.mixBook={};for(let i=BASE_COUNT;i<STRAINS.length;i++)if(((v.gummies?.[i]||0)+(v.packs?.[i]||0)+(v.storedPacks?.[i]||0))>0)v.mixBook[i]={day:v.day||1};}
+ if(v===s&&(appliedMixSeed!==v.mixSeed||applyMixSeed.names!==JSON.stringify(v.recipeNames))){applyMixSeed(v.mixSeed,v.recipeNames);applyMixSeed.names=JSON.stringify(v.recipeNames);}
+}
+const mixNormalize=normalize;normalize=function(v){ensureMixSeed(v);return mixNormalize(v);};
+const mixUI=updateUI;updateUI=function(){ensureMixSeed();mixUI();};
+const effectName=id=>effectById(id)?.name||'???';
+const chip=(id,kind='')=>'<em class="mix-chip '+(kind||(isBad(id)?'bad':''))+'">'+esc(effectName(id))+'</em>';
+const ingredientSeen=i=>PANTRY[i]?.adds!=='?'&&Object.keys(s.mixBook||{}).some(k=>STRAINS[k]?.ingredient===i);
+function ingredientAddsLabel(i){const f=PANTRY[i];if(!f)return '???';if(f.adds==='?')return '???';return ingredientSeen(i)?effectName(f.adds):'???';}
+function servoMenuHTML(){
+ ensureMixSeed();
+ let html='<div class="overline">COASTWAY SERVO / OPEN 24 HOURS</div><h2>Find your next flavour.</h2><p>Fictional candy ingredients. Each one adds an effect and can rewrite one that is already there, but the price on the tin says nothing about what it is worth. A $2 jar can make a fortune or a mess. Effects stay <b>???</b> until you mix with them.</p>';
+ PANTRY.forEach((f,i)=>{const locked=level()<f.unlockLevel;html+=row(esc(f.name),'<span class="mix-tag '+(f.tag==='Steady'||f.tag==='Fixer'?'calm':'risky')+'">'+esc(f.tag)+'</span> '+s.ingredients[i]+' owned · adds '+esc(ingredientAddsLabel(i))+(f.blurb?' · '+esc(f.blurb):''),locked?'LEVEL '+f.unlockLevel:cash(f.price),`action('ingredient',${i})`,locked||availableMoney()<f.price);});
+ return html;
+}
+function mixPreviewHTML(a,b){
+ ensureMixSeed();
+ const base=STRAINS[a],f=PANTRY[b];if(!base||!f)return '';
+ const index=mixedStrainIndex(a,b,BASE_COUNT),strain=STRAINS[index],known=!!s.mixBook?.[index];
+ const risk=f.instability>=.3?'<p class="mix-warn">Risky: stir smoothly or the bowl can fizz over.</p>':'';
+ if(!known)return '<div class="mix-preview unknown"><small>RESULT</small><strong>??? '+esc(base.name)+'</strong><p>'+chip('still','mystery').replace('Still','???')+chip('still','mystery').replace('Still','???')+'</p><p class="mix-price">'+cash(value(a))+' → <b>???</b></p><p class="note">Nobody has mixed '+esc(base.name)+' with '+esc(f.name.toLowerCase())+' in this save. Mix one to find out.</p>'+risk+'</div>';
+ const delta=value(index)-value(a);
+ return '<div class="mix-preview"><small>KNOWN RECIPE</small><strong>'+esc(strain.name)+'</strong><p>'+strain.effects.map(id=>chip(id)).join('')+'</p><p class="mix-price">'+cash(value(a))+' → <b class="'+(delta>=0?'pos':'neg')+'">'+cash(value(index))+'</b> <span class="'+(delta>=0?'pos':'neg')+'">'+(delta>=0?'+':'−')+cash(Math.abs(delta))+'</span></p>'+risk+'</div>';
+}
+function previewMix(){const a=Number($('mixBase')?.value),b=Number($('mixIngredient')?.value),box=$('mixPreview');if(box)box.innerHTML=mixPreviewHTML(a,b);}
+function mixMenuHTML(){
+ ensureMixSeed();
+ const firstIngredient=Math.max(0,PANTRY.findIndex((f,i)=>level()>=f.unlockLevel&&s.ingredients[i]>0));
+ let html='<div class="overline">YOUR PROPERTY / MIXING STATION</div><h2>What happens if…?</h2><p>One base gummy plus one servo ingredient. Results stay <b>???</b> until you try them, and every save mixes a little differently. Some combos are gold, some are a sticky mistake. Unwrapped gummies are used first; reserved customer stock is protected.</p><div class="form"><select id="mixBase" onchange="previewMix()">'+STRAINS.slice(0,BASE_COUNT).map((p,i)=>`<option value="${i}">${esc(p.name)} · ${s.gummies[i]+Math.max(0,s.packs[i]-reservedQty(i))} available</option>`).join('')+'</select><select id="mixIngredient" onchange="previewMix()">'+PANTRY.map((f,i)=>`<option value="${i}" ${level()<f.unlockLevel?'disabled':''} ${i===firstIngredient?'selected':''}>${esc(f.name)} · ${level()<f.unlockLevel?'level '+f.unlockLevel:s.ingredients[i]+' owned'} · adds ${esc(ingredientAddsLabel(i))}</option>`).join('')+'</select></div><div id="mixPreview">'+mixPreviewHTML(0,firstIngredient)+'</div><button class="primary" onclick="action(\'mix\',Number(document.getElementById(\'mixBase\').value),Number(document.getElementById(\'mixIngredient\').value))">Mix one gummy</button>';
+ const book=Object.keys(s.mixBook||{}).map(Number).filter(i=>STRAINS[i]?.mixed).sort((x,y)=>value(y)-value(x));
+ html+='<h3>Recipe book · '+book.length+' found</h3>';
+ if(!book.length)html+='<p class="note">Your discovered recipes land here. Name the good ones and they show up under that name in the phone’s Products app.</p>';
+ for(const i of book){const p=STRAINS[i],delta=value(i)-value(p.base),owned=(s.gummies[i]||0)+(s.packs[i]||0);
+  html+='<div class="item recipe-row"><div><strong>'+esc(p.name)+'</strong><p>'+esc(STRAINS[p.base].name)+' + '+esc(PANTRY[p.ingredient].name.toLowerCase())+' · '+cash(value(i))+' <span class="'+(delta>=0?'pos':'neg')+'">('+(delta>=0?'+':'−')+cash(Math.abs(delta))+')</span> · '+owned+' in stock</p><p>'+p.effects.map(id=>chip(id)).join('')+'</p><div class="recipe-name"><input id="recipeName'+i+'" maxlength="32" placeholder="Name this recipe" value="'+esc(s.recipeNames?.[i]||'')+'"><button class="ghost" onclick="nameRecipe('+i+')">Save name</button></div></div><button class="primary" onclick="menu(\'listing\','+i+')" '+(s.packs[i]?'':'disabled')+'>List</button></div>';}
+ return html;
+}
+function nameRecipe(i){
+ if(!STRAINS[i]?.mixed||!s.mixBook?.[i])return;
+ const input=$('recipeName'+i),name=String(input?.value||'').replace(/[<>]/g,'').trim().slice(0,32);
+ s.recipeNames??={};if(name)s.recipeNames[i]=name;else delete s.recipeNames[i];
+ ensureMixSeed();save();toast(name?'Recipe saved as '+name+' · it shows in Products':'Recipe name reset');refresh('mix');
+}
+// Stir rhythm: smooth circles inside the green band make a careful stir.
+const stirState={speed:0,inBand:0,total:0,lastMove:0};
+function stirReset(){stirState.speed=0;stirState.inBand=0;stirState.total=0;}
+addEventListener('pointermove',e=>{
+ if(!stationTask||stationTask.k!=='mix'||stationTask.step!==1||!stationHeld||e.isPrimary===false)return;
+ const now=performance.now(),dt=Math.max(4,Math.min(80,now-(stirState.lastMove||now-16)));stirState.lastMove=now;
+ const d=Math.hypot(Number(e.movementX)||0,Number(e.movementY)||0);
+ stirState.speed+=(Math.min(MIX_STIR_MAX,d/dt*1000)-stirState.speed)*.18;
+});
+function stirQuality(){if(stirState.total<.25)return .7;return Math.max(0,Math.min(1,stirState.inBand/stirState.total));}
+function paintStirMeter(){
+ const needle=$('stirNeedle');if(!needle)return;
+ needle.style.left=Math.min(100,stirState.speed/MIX_STIR_MAX*100)+'%';
+ const read=$('stirRead');if(!read)return;
+ const sp=stirState.speed,q=stirQuality();
+ read.textContent=(stationHeld?(sp<MIX_STIR_BAND[0]?'Too slow · lumpy':sp>MIX_STIR_BAND[1]?'Too fast · splashing!':'Smooth · keep going'):'Hold and stir in circles')+' · '+stirLabel(q)+' '+Math.round(q*100)+'%';
+}
+const mixPaint=paintStation;paintStation=function(){
+ const task=stationTask;
+ if(task?.k==='mix'&&task.step===1&&!task.stirStarted){task.stirStarted=true;stirReset();}
+ if(task?.k==='mix'&&task.step>=2&&!task.stirDone){task.stirDone=true;task.stir=stirQuality();lastStir=task.stir;}
+ mixPaint();
+ if(task?.k==='mix'&&task.step===1&&stationTask===task){$('stationHUD').insertAdjacentHTML('beforeend','<div class="stir-meter" aria-label="Stir speed"><span class="stir-zone" style="left:'+(MIX_STIR_BAND[0]/MIX_STIR_MAX*100)+'%;width:'+((MIX_STIR_BAND[1]-MIX_STIR_BAND[0])/MIX_STIR_MAX*100)+'%"></span><i id="stirNeedle"></i></div><p id="stirRead" class="stir-read"></p>');paintStirMeter();}
+ if(task?.k==='mix'&&task.step===2&&stationTask===task)$('stationHUD').insertAdjacentHTML('beforeend','<p class="stir-read">Stir: <b>'+stirLabel(task.stir)+'</b> '+Math.round(task.stir*100)+'%</p>');
+};
+const mixUpdate=update;update=function(dt){
+ mixUpdate(dt);
+ const task=stationTask;
+ if(!task||task.k!=='mix'||task.step!==1)return;
+ const step=Math.min(.06,dt||0);
+ if(stationAssist){stirState.speed+=(700-stirState.speed)*.2;}
+ else if(!stationHeld||performance.now()-stirState.lastMove>90)stirState.speed*=Math.max(0,1-step*5);
+ if(stationHeld||stationAssist){stirState.total+=step;if(stirState.speed>=MIX_STIR_BAND[0]&&stirState.speed<=MIX_STIR_BAND[1])stirState.inBand+=step;}
+ paintStirMeter();
+};
+function showMixReveal(card){
+ if(processingRemote||typeof document.createElement!=='function')return;
+ let box=$('mixReveal');
+ if(!box){box=document.createElement('div');box.id='mixReveal';box.setAttribute('role','status');box.setAttribute('aria-live','polite');document.body.appendChild(box);}
+ const gained=card.gained.map(id=>'<li class="'+(isBad(id)?'bad':'gain')+'">+ '+esc(effectName(id))+'</li>').join(''),lost=card.lost.map(id=>'<li class="lost">'+esc(effectName(id))+'</li>').join(''),kept=card.kept.map(id=>'<li>'+esc(effectName(id))+'</li>').join('');
+ const pos=card.delta>=0;
+ box.innerHTML='<div class="mix-card'+(card.stir.kind==='fizz'?' fizz':card.stir.kind==='perfect'?' perfect':'')+'" onclick="dismissMixReveal()"><small>MIX RESULT · '+esc(card.stir.label.toUpperCase())+' STIR</small>'+(card.fresh?'<div class="mix-new">New recipe discovered! <b>+'+card.xp+' XP</b></div>':'')+'<h2>'+esc(card.name)+'</h2><p class="mix-sub">'+esc(card.baseName)+' + '+esc(card.ingredient)+(card.count>1?' · batch of '+card.count:'')+'</p><ul class="mix-effects">'+kept+gained+lost+'</ul><div class="mix-swing"><span>'+cash(card.basePrice)+'</span><i>→</i><strong class="'+(pos?'pos':'neg')+'">'+cash(card.price)+'</strong><em class="'+(pos?'pos':'neg')+'">'+(pos?'+':'−')+cash(Math.abs(card.delta))+'</em></div>'+(card.twist?'<p class="mix-twist">'+esc(card.twist)+'</p>':'')+(card.stir.kind==='fizz'?'<p class="mix-fizz">It fizzed over! '+card.stir.lost+' gumm'+(card.stir.lost===1?'y':'ies')+' lost to a sticky volcano.</p>':card.stir.kind==='perfect'?'<p class="mix-perfect">Perfect fold! One extra gummy from the bowl.</p>':'')+card.notes.map(n=>'<p class="mix-note">'+esc(n)+'</p>').join('')+'<p class="mix-hint">'+(card.fresh?'Name it in the recipe book at the mixing station. ':'')+'Click or press Enter</p></div>';
+ box.hidden=false;box.classList.remove('show');void box.offsetWidth;box.classList.add('show');
+ clearTimeout(mixRevealTimer);mixRevealTimer=setTimeout(dismissMixReveal,card.fresh?11000:7000);
+}
+function dismissMixReveal(){const box=$('mixReveal');if(box){box.hidden=true;box.classList.remove('show');}clearTimeout(mixRevealTimer);}
+addEventListener('keydown',e=>{const box=$('mixReveal');if(box&&box.hidden===false&&(e.key==='Enter'||e.key==='Escape')&&!stationTask){dismissMixReveal();}});
+function twistLine(strain){const t=strain.twist;if(!t)return '';if(t.kind==='lucky')return 'Lucky batch: this save’s recipe picked up '+effectName(t.effect)+' as a bonus.';if(t.kind==='side')return 'Side effect: '+effectName(t.effect)+' crept in. Every save mixes a little differently.';return 'Odd reaction: '+effectName(t.from)+' turned into '+effectName(t.effect)+'.';}
+const mixRiskAction=doAction;doAction=function(k,a,b,c){
+ ensureMixSeed();
+ if(k==='ingredient'&&PANTRY[a]&&level()<PANTRY[a].unlockLevel){toast(PANTRY[a].name+' unlocks at level '+PANTRY[a].unlockLevel+'.');return;}
+ const req=k==='mix'?{index:a,ingredient:b??0,count:1}:k==='batch'&&a?.kind==='mix'?{index:a.index,ingredient:a.ingredient??0,count:a.count||1}:null;
+ if(req&&PANTRY[req.ingredient]&&level()<PANTRY[req.ingredient].unlockLevel){toast(PANTRY[req.ingredient].name+' unlocks at level '+PANTRY[req.ingredient].unlockLevel+'.');return;}
+ const target=req?mixedStrainIndex(req.index,req.ingredient,BASE_COUNT):-1,mixedBefore=s.mixed,xpBefore=s.xp,fresh=target>=0&&!s.mixBook?.[target];
+ const deal=k==='deliver'?s.deals.find(d=>d.npc===a):null,soldBefore=s.sold,cashBefore=s.cash;
+ mixRiskAction(k,a,b,c);
+ if(req&&target>=0&&s.mixed>mixedBefore&&STRAINS[target]){
+  const made=s.mixed-mixedBefore,strain=STRAINS[target],item=PANTRY[req.ingredient],stir=Number.isFinite(lastStir)?lastStir:.6;lastStir=null;
+  const roll=stirOutcome({seed:s.mixSeed,key:strain.recipeKey,ingredient:item.id,stir,count:made,nonce:s.mixed,item,effects:strain.effects});
+  if(roll.lost)s.gummies[target]=Math.max(0,(s.gummies[target]||0)-roll.lost);
+  if(roll.bonus)s.gummies[target]=(s.gummies[target]||0)+roll.bonus;
+  s.mixBook[target]??={day:s.day,stir:Math.round(stir*100)};
+  const base=STRAINS[strain.base],sum=revealSummary(base.effects,strain.effects,base.price);
+  const notes=[];if(strain.effects.includes('pungent'))notes.push('Pungent: selling this adds heat. Cops can smell it.');if(strain.effects.includes('luminous'))notes.push('Luminous: glowing customers draw patrols after dark.');if(strain.effects.includes('volatile'))notes.push('Volatile: this recipe fizzes over more easily. Stir gently.');
+  save();
+  if(roll.kind==='fizz'){playTone(150,.35,.05);toast('Fizz-over! Lost '+roll.lost+' '+strain.name+'.');}else if(fresh)playTone(880,.18,.03);
+  showMixReveal({fresh,xp:Math.max(0,s.xp-xpBefore),name:strain.name,baseName:base.name,ingredient:item.name.toLowerCase(),count:made,kept:strain.effects.filter(id=>!sum.gained.includes(id)),gained:sum.gained,lost:sum.lost,basePrice:value(strain.base),price:value(target),delta:value(target)-value(strain.base),stir:roll,twist:fresh?twistLine(strain):'',notes});
+ }
+ if(deal&&s.sold>soldBefore&&STRAINS[deal.t]){
+  const night=s.time<360||s.time>=1200,effects=STRAINS[deal.t].effects||[],out=saleConsequences(effects,{night});
+  if(out.heat)s.heat=Math.min(100,s.heat+out.heat);
+  if(out.forgetPay&&Math.random()<out.forgetPay){const short=Math.round((s.cash-cashBefore)*.1);if(short>0){s.cash-=short;s.earned-=short;out.notes.push('Scattered: your customer wandered off '+cash(short)+' short.');}}
+  for(const n of out.notes)toast(n);
+  if(out.heat||out.notes.length)save();
+ }
+};
+const mixProductRows=phoneProductRows;phoneProductRows=function(){
+ ensureMixSeed();
+ const rows=mixProductRows(),seen=new Set(rows.map(r=>r.index));
+ for(const r of rows){const item=STRAINS[r.index];if(item?.mixed){r.effects=item.effects.map(effectName);r.recipe='Mix '+STRAINS[item.base].name+' with '+PANTRY[item.ingredient].name.toLowerCase()+'. '+item.effects.map(effectName).join(', ')+'.';}}
+ for(const k of Object.keys(s.mixBook||{})){const i=Number(k),item=STRAINS[i];if(!item?.mixed||seen.has(i)||!s.recipeNames?.[i])continue;
+  rows.push({index:i,name:item.name,swatch:phoneSwatch(item.color),effects:item.effects.map(effectName),market:value(i),price:value(i),qty:1,packed:0,listed:false,recipe:'Saved recipe: mix '+STRAINS[item.base].name+' with '+PANTRY[item.ingredient].name.toLowerCase()+'.'});}
+ return rows;
+};
+Object.assign(window,{previewMix,nameRecipe,dismissMixReveal});
+// Dev-only screenshot hook (?mixqa=1): stocks a save and runs a mix with a chosen stir, skipping the walk.
+if(typeof location!=="undefined"&&/[?&]mixqa=1\b/.test(location.search))window.__mixQa={setup(xp=200,cashAmount=2000){if(!s)return 'no save';s.room=s.room||true;s.xp=Math.max(s.xp,xp);s.cash=Math.max(s.cash,cashAmount);for(let i=0;i<BASE_COUNT;i++)s.gummies[i]=Math.max(s.gummies[i]||0,6);s.ingredients=PANTRY.map(()=>6);save();updateUI();return level();},mix(base,ing,stir=.95){s.mixer=s.mixer||true;lastStir=stir;const keep=physicalActionAccess;physicalActionAccess=()=>null;try{doAction('mix',base,ing);}finally{physicalActionAccess=keep;}return s.mixed;},station(base,ing){s.mixer=s.mixer||true;const at=points.find(p=>p.type==='mix'&&pointVisible(p));if(at){player.x=at.x+.6;player.z=at.z+.6;}const keep=physicalActionAccess;physicalActionAccess=()=>null;try{action('mix',base,ing);}finally{physicalActionAccess=keep;}if(stationTask){stationTask.step=1;stationTask.progress=.45;paintStation();}return !!stationTask;},state:()=>({level:level(),seed:s?.mixSeed,book:Object.keys(s?.mixBook||{}).length})};

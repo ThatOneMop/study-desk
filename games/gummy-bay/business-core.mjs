@@ -13,7 +13,8 @@ export function productionPlan(state,{kind,index,count=1,ingredient=0},baseCount
   if(!state.mixer||index>=baseCount||!integer(ingredient)||ingredient>=ingredientCount)return fail('Choose an available mixer recipe.');
   const reserved=state.deals.filter(d=>d.t===index).reduce((sum,d)=>sum+d.qty,0),loose=Math.min(count,state.gummies[index]),packed=count-loose;
   if(state.ingredients[ingredient]<count||state.packs[index]-reserved<packed)return fail('Not enough flavouring or unreserved gummies.');
-  result=baseCount+index*ingredientCount+ingredient;
+  // Stable layout: the first four ingredients keep the original 6 x 4 block; later ones append a block of baseCount each.
+  result=ingredient<4||ingredientCount<=4?baseCount+index*Math.min(4,ingredientCount)+ingredient:baseCount+baseCount*4+(ingredient-4)*baseCount+index;
   if(result>=state.gummies.length)return fail('Recipe unavailable.');
   deltas.push(['gummies',index,-loose],['packs',index,-packed],['ingredients',ingredient,-count],['gummies',result,count]);
  }

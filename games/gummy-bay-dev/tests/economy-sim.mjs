@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {STRAIN_LADDER,simulateEconomy} from '../dist/economy-sim.mjs';
+import {newMixSeed} from '../dist/mix-risk.mjs';
+const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
+const prices=[...game.matchAll(/name:'([^']+)',desc:[^}]*?price:(\d+)/g)].slice(0,6).map(m=>[m[1],+m[2]]);
+assert.deepEqual(prices,STRAIN_LADDER.map(s=>[s.name,s.price]),'the sim ladder mirrors game.js STRAINS');
+const runs=[1,2,3,4,5,6].map(n=>simulateEconomy({days:12,seed:newMixSeed(n)}));
+for(const log of runs)assert.equal(log[0].unitPrice,30,'day one sells at about $30');
+const day=d=>runs.map(log=>log[d-1]);
+const mean=(d,k)=>day(d).reduce((n,x)=>n+x[k],0)/runs.length;
+const d10=mean(10,'unitPrice'),top10=Math.max(...day(10).map(x=>x.topUnit));
+assert.ok(d10>=250&&d10<=380,`typical day-10 sale price ${d10}`);
+assert.ok(top10>d10,'top products sell above the typical price');
+assert.ok(mean(3,'unitPrice')<100,'no rocket start: day 3 stays under $100');
+for(const log of runs)for(let i=1;i<log.length;i++)assert.ok(log[i].cash>=0);
+console.log('PASS: economy curve per unit (mean of 6 saves): '+[1,2,3,4,5,6,7,8,9,10,11,12].map(d=>`D${d} $${Math.round(mean(d,'unitPrice'))}`).join(' · ')+` · day-10 top $${top10}.`);
