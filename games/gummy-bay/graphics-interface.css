@@ -1,6 +1,6 @@
 /* Stage 5: a coastal field notebook, brass HUD fittings and a distinct handset. */
 :root{--gb-ink:#142c30;--gb-panel:#162e32;--gb-paper:#f1e5c9;--gb-brass:#e6bd73;--gb-sea:#9fcac2;--gb-stroke:#b6c5b43d}
-body{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:var(--gb-paper)}
+body{font-family:var(--s1-font,system-ui,sans-serif);color:var(--gb-paper)}
 #objective{background:linear-gradient(115deg,#142c30f5,#1d3d3be8);border:1px solid var(--gb-stroke);border-left:3px solid var(--gb-brass);padding:17px 20px;box-shadow:0 6px 22px #071c2240;border-radius:3px 12px 12px 3px}
 #objective .overline{font:700 9px ui-monospace,monospace;letter-spacing:2px;color:var(--gb-brass)}
 #objective h2{font-weight:650;line-height:1.35;letter-spacing:-.3px;margin:9px 0;color:#fff2d5}
@@ -10,7 +10,7 @@ body{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:var(--gb-paper)}
 .hotbar button.selected{background:linear-gradient(#536a54,#344d44);border-color:#edc579;box-shadow:inset 0 -3px #e6bd73,0 0 12px #e6bd7312}
 .hotbar button i{color:#f0c983;font-style:normal}.hotbar button span{letter-spacing:.7px;color:#d3dac6}
 .statbox .value{font-variant-numeric:tabular-nums;text-shadow:0 2px 3px #071d28,0 0 14px #0a2025}.statbox .label{color:#d0c6a6;letter-spacing:1.6px}.statbox #cash{color:#e6cf8c}
-.mapbox{background:#142c30ed;border:1px solid #a9b9a15c;border-radius:12px;padding:9px;box-shadow:0 5px 25px #071c2255}.mapbox canvas{border-radius:6px}.mapbox span{color:var(--gb-brass);letter-spacing:1.5px;font-family:ui-monospace,monospace;font-size:8px}
+.mapbox{background:#142c30ed;border:1px solid #a9b9a15c;border-radius:12px;padding:9px;box-shadow:0 5px 25px #071c2255}.mapbox canvas{border-radius:6px}.mapbox span{color:var(--gb-brass);letter-spacing:1.5px;font-family:var(--s1-font,system-ui,sans-serif);font-variant-numeric:tabular-nums;font-size:8px}
 .prompt,#work,#drivingHUD,#placementHUD{background:linear-gradient(120deg,#142c30f5,#274441ef);border:1px solid #d6c9a15c;border-radius:7px;box-shadow:0 6px 30px #071c2240}
 .key{background:#eedcb6;color:#253b38;box-shadow:0 2px #a69777}.stamina{background:#10272b99;height:3px}.stamina div{background:#d9c896}
 #toast{background:#132f32f2;border:1px solid #cbca9a66;border-radius:7px;color:#f0e3c4}
@@ -91,7 +91,7 @@ body:not(.titleMode) .statbox>div:nth-child(5){display:none}
 .search-countdown i{display:block;height:100%;width:0;background:#e7b15a}
 #cashSlot{min-width:62px;background:#243328f2;border-color:#d7e2a8}
 #cashSlot b{color:#d7efb0;font-size:12px}
-.app-badge{position:absolute;top:-4px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#d7c56a;color:#243028;font:700 9px Arial,sans-serif;line-height:16px}
+.app-badge{position:absolute;top:-4px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#d7c56a;color:#243028;font:700 9px var(--s1-font,system-ui,sans-serif);line-height:16px}
 .phone-app-grid b{position:relative}
 #overlay.phone{align-items:end;justify-items:end;padding:16px 22px 20px;background:#0d141266}
 #overlay.phone .modal{width:360px;height:640px;max-width:calc(100vw - 24px);max-height:min(640px,calc(100dvh - 28px))}
