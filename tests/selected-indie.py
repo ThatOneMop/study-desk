@@ -8,9 +8,9 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 SELECTED = {
     "tidepost": {
-        "engine.js": "cbd7a71a0e4074374f5fc7759fc08cb852b8af379538aee9c096ae7725a4387e",
-        "game.js": "a3da9a7d4b7be57a69184e8afbd45010ba31b62b0f6ba4994304396e56cf24d0",
-        "style.css": "c3acf8deea0176f2270a6db8f9766c4475577319481ceba33a0450ab36065f93",
+        "engine.js": "389cb4a1aebb0177a87e2ecf9c3a07914c0bf25b6530edb841f86e00120cfe81",
+        "game.js": "d4513748b981f3ebcb628368c25f21ee8427f9cf03fb5d227451822a404b1b54",
+        "style.css": "3b4c03a6b170c48dc7340b3a69af235192e31f0dac3f998bedb2e5e19983c6b1",
     },
     "deep-pocket": {
         "engine.js": "ae71ea29c5e053228e48ce89dabbd4c1f85b5a2cc9c5c1639576c432c666777a",

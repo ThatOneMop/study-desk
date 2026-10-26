@@ -24,8 +24,8 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Game | Opening | Pause | Goals | Hints | Feedback | Curve | Saves | Best | Art | Keys | Touch | Copy |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Gummy Bay | pass | pass | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass |
-| Autumn Drift | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass | pass | pass |
-| Underleaf | pass | pass | pass | pass | pass | fail | pass | pass | pass | fail | pass | pass |
+| Autumn Drift | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Underleaf | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Little Lake | pass | pass | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass |
 | Lost & Found | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lost & Found on the Moon | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -33,7 +33,7 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Tiny Wilds | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lucky Company | pass | pass | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass |
 | Forge Arena | pass | fail | pass | pass | fail | pass | pass | pass | pass | pass | pass | pass |
-| Tidepost | pass | fail | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
+| Tidepost | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Deep Pocket | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Queen of Cinders | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Little Foundry | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
@@ -99,7 +99,11 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Tiny Wilds has a title screen, sound with a mute toggle, and a Stardew-style vertical reel. Hold to lift the bar, and fish dart, sink or float. A catch the fish never leaves pays ×1.5, and treasure chests appear once you know two species. The waters are redrawn as cached pixel art with a crisp bitmap font, and catches leap to the angler with particles, ripples and shake.
 - Lost & Found plays more like a metal detector. It has a target-ID and depth screen, a high or low tone by ID, junk targets with a filter (Q), a SPACE pinpointer, and digging one stroke at a time with a reveal card. It also gained a title screen, pause (P/Esc), sea ambience, and painted coasts. Later coasts bury finds deeper and add more junk.
 - Lost & Found on the Moon has a glowing tether with a winch hum, low-gravity hops and dust, and Earth in the sky. Hauls of several items earn up to ×2 credits, and work orders pay +50%. It shows a best-haul record, and the first sector is closer in and lighter.
+- Autumn Drift plays closer to Leaf Blower Revolution. Click to pick, or hold and drag to blow leaves off the lawn or into the leaf basket for double acorns. Quick sweeps build a combo of up to +50%, and heavier leaves need more strength to move. The garden is redrawn as top-down pixel art (mown lawn, pixel trees, fence, bench, basket). It adds a blower hum and pick pops with sound on by default, a How to play panel (?), and smaller first areas (36, 48 and 58 leaves).
+- Underleaf leans toward SimAnt and The Ant Game. It has pixel side-view soil in three layers (topsoil, red subsoil, clay) with roots, pebbles and glowing fungus, plus pixel ants. Brood shows egg, larva and pupa, new chambers dig out with dirt bursts, and jelly beans or apple slices fall from the oak for bonus food. The first broods hatch in 4 seconds. Shortcuts are 1–4, F, D, J, P and the arrows, scoped to the page and the colony so typing elsewhere is untouched.
+- Tidepost takes Dredge’s mood. It has a pixel-art chart with fog, dusk and night palettes on later charts and a lantern glow, a ferry sprite with a wake, and animated currents and squalls. A Dredge-style hold grid shows mail slots and hull plates that crack in squalls. It adds a title screen, pause (P), sound, shake and splashes, and a harbour guide with a looser par on the first chart.
+- Lost & Found, Lost & Found on the Moon, Autumn Drift, Underleaf, and Tidepost are covered by `tests/game-smoke-browser.cjs`: each boots without page errors, and its title screen leads to play.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 55, Goals 63, Hints 62, Feedback 34, Curve 30, Saves 63, Best 59, Art 63, Keys 61, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 56, Goals 63, Hints 63, Feedback 35, Curve 33, Saves 63, Best 59, Art 63, Keys 62, Touch 63, Copy 63.
 
