@@ -680,10 +680,12 @@
         "18 tests pass: 10 engine and 8 jsdom 26.1.0. Three complete button campaigns with exact save/reload after each action; seed 137 scores 66/64/57 against targets 36/40/44.",
         "Scoring and edge boundaries, deterministic packets, two-of-three drafting, forecasts including neighbour changes, invalid picks and journals, seed/trail locks, missed-target completion, undo/retry, records, opening gate, keyboard/native form guards, pause/dialog/trusted parent hiding, isolated reset, corrupt-save preservation/recovery and quota failure.",
         "Two-placement greedy helper reaches all three targets on seeds 1/42/137/2026/999999 (15 engine runs), not exhaustive or globally optimal. Forest-first low route scores 31; the initial assumed-failure meadow route actually scored 56, so the test route was corrected without changing rules/targets.",
-        "Both scripts pass syntax checks, CSS parses, 32 HTML IDs are unique and script/style paths resolve in new files/current branch tree. Static audit caught and corrected the initial bridge filename before commit. Partial workspace: no full repository build; no rendered browser, screenshot inspection or native touch/layout evidence."
+        "Both scripts pass syntax checks, CSS parses, 32 HTML IDs are unique and script/style paths resolve in new files/current branch tree. Static audit caught and corrected the initial bridge filename before commit. Partial workspace: no full repository build; no rendered browser, screenshot inspection or native touch/layout evidence.",
+        "Rearrangement refinement: 26 tests pass (14 engine, 12 jsdom), retaining all 18 original tests. Moves/swaps, one-use and invalid-action guards, full-page scoring/records, legacy journals, undo/retry, exact previews, pause/cancel/reload and missed-target recovery. A 31-point page becomes 39 via a final swap and unlocks trail two. Script syntax checks pass. No rendered/native touch evidence."
       ],
       "commits": [
-        "7f0a21f19bc2ae8acaed1169d23bfed61d8df92a"
+        "7f0a21f19bc2ae8acaed1169d23bfed61d8df92a",
+        "edeb533554ea7b7b96e7f2070e8c9c7162130f91"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -694,7 +696,14 @@
       "nextSteps": [
         "Naturally play all three trails on desktop and touch, inspect screenshots and evaluate drafting satisfaction, legibility and scoring clarity.",
         "Implement a substantial improvement based on observed rendered weakness; verify progression, missed-target recovery, undo/retry/reset, saves/reload and real Games navigation before catalogue selection."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "edeb533554ea7b7b96e7f2070e8c9c7162130f91",
+        "basis": "Source inspection: repairing an early placement required discarding later drafts through undo. No rendered observation.",
+        "before": "Finds stayed fixed unless the player undid their placement and all later actions.",
+        "after": "One rearrangement per album moves a find into an empty slot or swaps different finds. It preserves later drafts and works on completed pages, with exact total-score preview and updated records/unlocks. Undo restores the allowance; legacy journals and records are preserved.",
+        "remaining": "Natural rendered desktop/touch play, screenshot review, assessment of clarity and whether the one-use constraint creates satisfying choices. No improved/browser-tested credit."
+      }
     },
     {
       "slot": 56,
@@ -1332,8 +1341,8 @@
     "Render/play all fifteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
     "Implement remaining 35 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
-  "updated": "2026-10-26",
-  "latestObservedMain": "7ef5ed74bc047bff8ca64e45e2d1393683207518",
+  "updated": "2026-10-27",
+  "latestObservedMain": "0d99b2d31e19bb4e6b39b0ff1b0171f1e63c7c86",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1552,6 +1561,13 @@
       "result": "Built Field Album (slot 55), a survey-packet drafting and habitat arrangement prototype. 18 engine/DOM tests pass. Third totals: 15 built, 0 improved/browser-tested/integrated/live; second additional round stays 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried. No rendered/native touch credit.",
       "mainObserved": "7ef5ed74bc047bff8ca64e45e2d1393683207518"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "edeb533554ea7b7b96e7f2070e8c9c7162130f91",
+      "result": "Field Album one-use rearrangement implemented; 26 engine/DOM tests pass. Counts unchanged: 15 built, 0 improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
+      "mainObserved": "0d99b2d31e19bb4e6b39b0ff1b0171f1e63c7c86"
     }
   ]
 }
