@@ -44,6 +44,7 @@ import {FLYOVER_MINUTES,flyoverAt} from './loading-flyover.mjs?v=132';
 import {hintAt} from './hints.mjs?v=132';
 import {createSkyClouds} from './sky-clouds.mjs?v=132';
 import {ACT1_DURATION,act1At,act1PanelHtml,doorstepEyePose} from './story-act1.mjs?v=132';
+import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml} from './story-acts.mjs?v=141';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
@@ -3847,3 +3848,220 @@ try{
   grant:(tokens=0,tickets=0)=>{normalizeArcade(s);s.arcade.tokens=Math.min(60,s.arcade.tokens+tokens);s.arcade.tickets+=tickets;save();return {...s.arcade};},
   state:()=>({...s.arcade,open:arcadeUI.open,view:arcadeUI.view}),posters:()=>rvPosterGroup?.children.map(m=>m.name)||[]};
 }catch(error){console.warn('Lucky Pier arcade unavailable',error);}
+
+// ---- Story Acts 2-3: phone missions, letterboxed cutscenes, the Sugar Squad raid (story-acts.mjs) ----
+try{
+ const STORY_DOORS=[{x:-25,z:31.2,yaw:0},{x:-54,z:44.8,yaw:0},{x:54,z:39.8,yaw:0}];
+ const storyUI={el:null,view:null,cut:null,queue:[],timer:0,props:null,stash:null,choice:null,fov:null,cardId:'',stampText:''};
+ const storyOn=()=>mode==='story'&&active&&net.role!=='guest';
+ const ensureStory=()=>{if(!s.story||s.story.v!==STORY_VERSION)s.story=normalizeStory(s.story);return s.story;};
+ const storyLoad=load;load=function(...args){const r=storyLoad(...args);s.story=normalizeStory(s.story);storyUI.queue=[];return r;};
+ function storyFactsNow(){
+  const st=ensureStory(),h=HOMES[s.house],x=player.x,z=player.z;
+  return {sold:s.sold,called:s.called,mixed:s.mixed,boards:Array.isArray(s.boards)?s.boards.length:0,raids:st.raids,
+   movedSinceRaid:st.raidHome>=0&&(s.house>st.raidHome||st.raidHome>=2)?1:0,helpers:Object.values(s.helpers||{}).filter(Boolean).length,
+   tickets:s.arcade?.earned||0,time:s.time,day:s.day,heat:s.heat,atPier:Math.abs(x)<6&&z>72&&z<98,
+   atBase:!!(s.room&&h&&Math.abs(x-h.x)<h.w/2&&Math.abs(z-h.z)<h.d/2)};
+ }
+ function storyTone(kind){
+  if(typeof audioContext==='undefined'||!audioContext)return;
+  try{const ctx=audioContext,t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);
+   if(kind==='siren'){o.type='triangle';for(let i=0;i<6;i++){o.frequency.setValueAtTime(i%2?620:860,t+i*.42);}g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.05,t+.2);g.gain.linearRampToValueAtTime(.0001,t+2.6);o.start(t);o.stop(t+2.7);}
+   else if(kind==='stamp'){o.type='square';o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(60,t+.2);g.gain.setValueAtTime(.09,t);g.gain.exponentialRampToValueAtTime(.0001,t+.25);o.start(t);o.stop(t+.3);}
+   else if(kind==='bonk'){o.type='sine';o.frequency.setValueAtTime(320,t);o.frequency.exponentialRampToValueAtTime(90,t+.35);g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.0001,t+.4);o.start(t);o.stop(t+.45);}
+   else{o.type='sine';o.frequency.setValueAtTime(660,t);o.frequency.setValueAtTime(880,t+.12);g.gain.setValueAtTime(.05,t);g.gain.exponentialRampToValueAtTime(.0001,t+.4);o.start(t);o.stop(t+.45);}
+  }catch(e){}
+ }
+ function storyDom(){
+  if(storyUI.el)return storyUI.el;
+  const el=document.createElement('div');el.id='storyCut';el.className='cine scene story-cut';el.hidden=true;el.setAttribute('aria-live','polite');
+  el.innerHTML='<div class="cine-vignette"></div><div class="cine-fade"></div><div class="cine-bars"><i></i><i></i></div><div class="story-card-slot"></div><div class="story-stamp"></div><div class="cine-cap"><strong></strong><small></small></div><div class="cine-sub"><b></b><span></span></div><div class="cine-chyron"></div><div class="story-choice" hidden></div><button class="story-skip" type="button">Skip · Esc</button>';
+  document.body.appendChild(el);storyUI.el=el;storyUI.view=createCineOverlay(el);
+  el.addEventListener('click',event=>{if(event.target?.closest?.('.story-choice'))return;if(storyUI.cut)skipStoryCut();});
+  return el;
+ }
+ const storyQ=sel=>storyUI.el?.querySelector?.(sel)||null;
+ // Cutscene-only props: Sugar Squad vans and a cartoon door for the raid, the gummy float and fireworks for the finale.
+ function storyProps(id,anchors){
+  clearStoryProps();const g=new THREE.Group();g.name='story props '+id;const a=id==='raid'||id==='act3'?anchors.home:CUT_ANCHORS[CUTS[id].anchor];
+  const c=Math.cos(a.yaw||0),sn=Math.sin(a.yaw||0),at=(dx,y,dz)=>new THREE.Vector3(a.x+dx*c-dz*sn,y,a.z+dx*sn+dz*c);
+  const mat=(color,extra={})=>new THREE.MeshStandardMaterial({color,roughness:.6,...extra});
+  const add=(geo,m,pos,parent=g)=>{const mesh=new THREE.Mesh(geo,m);mesh.position.copy(pos);mesh.castShadow=true;parent.add(mesh);return mesh;};
+  const ground=p=>{try{return typeof terrainHeight==='function'?terrainHeight(p.x,p.z):0;}catch(e){return 0;}};
+  if(id==='raid'){
+   g.userData.lights=[];
+   for(const [dx,dz,turn] of [[-5.5,-9,.5],[5,-10.5,-.4]]){
+    const van=new THREE.Group(),p=at(dx,0,dz);van.position.set(p.x,ground(p),p.z);van.rotation.y=(a.yaw||0)+turn;
+    add(new THREE.BoxGeometry(2.3,1.9,4.6),mat(0xf3f1ea),new THREE.Vector3(0,1.25,0),van);
+    add(new THREE.BoxGeometry(2.34,.42,4.64),mat(0x2f62c9),new THREE.Vector3(0,1.05,0),van);
+    add(new THREE.BoxGeometry(2.1,.7,1.2),mat(0x9fc4dd,{roughness:.2}),new THREE.Vector3(0,1.75,-2.0),van);
+    for(const [x,col] of [[-.5,0xff2a3c],[.5,0x2a6bff]]){const l=add(new THREE.BoxGeometry(.85,.22,.42),new THREE.MeshBasicMaterial({color:col,toneMapped:false}),new THREE.Vector3(x,2.32,-.6),van);g.userData.lights.push(l);}
+    for(const [x,z] of [[-1.1,-1.5],[1.1,-1.5],[-1.1,1.5],[1.1,1.5]]){const w=add(new THREE.CylinderGeometry(.42,.42,.3,12),mat(0x22252b),new THREE.Vector3(x,.42,z),van);w.rotation.z=Math.PI/2;}
+    g.add(van);
+   }
+   const door=new THREE.Group(),dp=at(0,0,-.15);door.position.set(dp.x,ground(dp),dp.z);door.rotation.y=a.yaw||0;
+   add(new THREE.BoxGeometry(1.2,2.2,.12),mat(0x8a5a33),new THREE.Vector3(0,1.1,0),door);
+   add(new THREE.SphereGeometry(.07,8,6),mat(0xe8c14a,{metalness:.6}),new THREE.Vector3(.42,1.05,-.1),door);
+   door.userData.home=door.position.clone();g.userData.door=door;g.add(door);
+  }
+  if(id==='finale'){
+   const bear=new THREE.Group(),gum=mat(0xe8414f,{roughness:.25,transparent:true,opacity:.88,emissive:0x5a0a12,emissiveIntensity:.4});
+   add(new THREE.SphereGeometry(1.7,20,16),gum,new THREE.Vector3(0,2.2,0),bear);add(new THREE.SphereGeometry(1.25,20,16),gum,new THREE.Vector3(0,4.4,0),bear);
+   for(const x of [-.85,.85])add(new THREE.SphereGeometry(.45,12,10),gum,new THREE.Vector3(x,5.45,0),bear);
+   for(const x of [-.45,.45])add(new THREE.SphereGeometry(.13,8,6),mat(0x2a0a0e),new THREE.Vector3(x,4.6,-1.1),bear);
+   add(new THREE.BoxGeometry(4.6,.5,4.2),mat(0xd9b25a),new THREE.Vector3(0,.45,0),bear);
+   const p=at(0,0,16);bear.position.set(p.x,.3,p.z);bear.userData.from=16;bear.userData.to=1;g.userData.bear=bear;g.add(bear);
+   const burst=new THREE.InstancedMesh(new THREE.SphereGeometry(.22,6,4),new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false,fog:false}),180);
+   burst.instanceMatrix.setUsage(THREE.DynamicDrawUsage);const col=new THREE.Color(),cols=[0xff5a7a,0xffd24a,0x6ff0c8,0x8fb4ff,0xffa04a,0xd78bff];
+   for(let i=0;i<180;i++)burst.setColorAt(i,col.setHex(cols[Math.floor(i/30)%cols.length]));burst.frustumCulled=false;burst.userData.origin=at(0,0,24);g.userData.burst=burst;g.add(burst);
+  }
+  scene.add(g);storyUI.props=g;
+ }
+ function clearStoryProps(){const g=storyUI.props;if(!g)return;scene.remove(g);g.traverse(o=>{o.geometry?.dispose?.();if(o.material&&!Array.isArray(o.material))o.material.dispose?.();});storyUI.props=null;}
+ const tmpM=new THREE.Matrix4(),tmpQ=new THREE.Quaternion(),tmpS=new THREE.Vector3(),tmpP=new THREE.Vector3();
+ function animateStoryProps(t){
+  const g=storyUI.props;if(!g)return;const u=g.userData;
+  if(u.lights)u.lights.forEach((l,i)=>{l.visible=Math.floor(t*6+i)%2===0;});
+  if(u.door){const k=Math.max(0,t-3.95),d=u.door;d.position.copy(d.userData.home);if(k>0){const yw=storyUI.cut?.anchors?.home?.yaw||0;d.position.x+=Math.sin(yw)*k*6;d.position.z+=Math.cos(yw)*k*6;d.position.y+=Math.max(0,k*5-k*k*9);d.rotation.x=-Math.min(1.45,k*3);}else d.rotation.x=0;}
+  if(u.bear){const b=u.bear,f=Math.max(0,Math.min(1,(t-6)/12)),z=b.userData.from+(b.userData.to-b.userData.from)*f,a=CUT_ANCHORS.pier;b.position.z=a.z+z;b.position.y=.3+Math.abs(Math.sin(t*3))*.12;b.rotation.y=Math.sin(t*1.3)*.12;}
+  if(u.burst){const m=u.burst,o=m.userData.origin;for(let i=0;i<180;i++){const k=Math.floor(i/30),start=k*1.3+(k>2?14:.8),age=((t-start)%9+9)%9,life=2.2;const seed=i*12.9898,th=(seed%6.283),ph=((i*7.31)%3.14);
+    let r=age<life?Math.min(1,age/.5)*7:0,sc=age<life?Math.max(0,1-age/life)*1.3:0;const cx=o.x+((k*37)%3-1)*14,cy=20+(k%3)*5,cz=o.z+(k%2)*8;
+    tmpP.set(cx+Math.cos(th)*Math.sin(ph)*r,cy+Math.cos(ph)*r-age*age*.6,cz+Math.sin(th)*Math.sin(ph)*r);tmpS.setScalar(Math.max(.001,sc));tmpM.compose(tmpP,tmpQ,tmpS);m.setMatrixAt(i,tmpM);}
+   m.instanceMatrix.needsUpdate=true;}
+ }
+ function storyCardEl(id){const slot=storyQ('.story-card-slot');if(!slot||storyUI.cardId===id)return;storyUI.cardId=id;slot.innerHTML=id?storyCardHtml(id):'';slot.classList?.toggle?.('on',!!id);}
+ function storyStampEl(text){const el=storyQ('.story-stamp');if(!el||storyUI.stampText===text)return;storyUI.stampText=text;el.textContent=text||'';el.classList?.toggle?.('on',!!text);}
+ function paintStoryCut(){
+  const c=storyUI.cut;if(!c)return;const a=storyCutAt(c.id,c.tl,c.t);c.sample=a;const v=storyUI.view;
+  v.show(true);v.bars(true);v.fade(a.fade);v.subtitle(a.sub?.who||'',a.sub?.text||'');v.caption(a.cap?.title||'',a.cap?.line||'');
+  v.chyron(a.chyron?'<strong>'+a.chyron.head+'</strong><span>'+a.chyron.text+'</span>':'');storyCardEl(a.card?.card||'');storyStampEl(a.stamp?.text||'');
+  for(const k of a.sfx)if(!c.sfx.has(k)){c.sfx.add(k);storyTone(k);}
+  animateStoryProps(c.t);
+ }
+ function playStoryCut(id,{replay=false,onDone=null}={}){
+  if(!CUTS[id]||storyUI.cut||storyUI.stash||!active)return false;
+  if(typeof bustPlaying!=='undefined'&&bustPlaying)return false;
+  if(panel){panel='';conversationPoint=null;document.body.dataset.panel='';$('overlay').hidden=true;}
+  keys={};locomotion.x=locomotion.z=0;document.exitPointerLock?.();
+  const anchors={home:STORY_DOORS[s.house]||STORY_DOORS[0]};
+  storyDom();storyUI.view.reset();storyUI.cardId=storyUI.stampText=null;
+  storyUI.cut={id,tl:cutTimeline(id,anchors),t:0,replay,onDone,sfx:new Set(),anchors,sample:null};storyUI.fov=camera.fov;
+  storyUI.el.dataset.cut=id;storyProps(id,anchors);paintStoryCut();
+  if(!replay){s.story=markSeen(ensureStory(),id);save();}
+  return true;
+ }
+ function endStoryCut(){
+  const c=storyUI.cut;if(!c)return;storyUI.cut=null;clearStoryProps();
+  storyUI.view.show(false);storyUI.view.bars(false);storyCardEl('');storyStampEl('');
+  if(storyUI.fov){camera.fov=storyUI.fov;camera.updateProjectionMatrix();}
+  syncPlayerView();camera.rotation.set(pitch,yaw,0);
+  if(c.onDone)c.onDone();
+ }
+ function skipStoryCut(){if(storyUI.cut){storyUI.cut.t=storyUI.cut.tl.duration;endStoryCut();}}
+ function tickStoryCut(dt){const c=storyUI.cut;if(!c)return;c.t+=dt;if(c.t>=c.tl.duration){endStoryCut();return;}paintStoryCut();}
+
+ // ---- The raid: cutscene, then hide the stash (minigame) or flee out the back ----
+ function startRaid(kind){
+  const st=ensureStory();st.lastRaidDay=s.day;
+  return playStoryCut('raid',{onDone:()=>raidChoice(kind)});
+ }
+ function raidChoice(kind){
+  storyDom();const box=storyQ('.story-choice'),v=storyUI.view;v.show(true);v.bars(true);v.fade(.35);v.subtitle('INSPECTOR HARDTACK','Search the place! Every jar, every drawer!');
+  storyUI.choice={kind};storyUI.el.dataset.cut='raid-choice';
+  const stock=(s.packs||[]).reduce((a,b)=>a+b,0)+(s.storedPacks||[]).reduce((a,b)=>a+b,0);
+  if(box){box.hidden=false;box.innerHTML='<div class="overline">SUGAR SQUAD RAID</div><h2>They’re coming in. Quick!</h2><p>'+stock+' packs at risk. Cash and equipment are safe.</p><div class="story-choice-row"><button class="primary" onclick="__story.choose(\'hide\')"><b>1</b> Hide the stash<small>Drop the jars in the vent · lose up to 50%</small></button><button onclick="__story.choose(\'flee\')"><b>2</b> Flee out the back<small>Grab what you can · lose 30%</small></button></div>';}
+ }
+ function chooseRaid(choice){
+  if(!storyUI.choice)return false;const kind=storyUI.choice.kind;storyUI.choice=null;
+  if(choice==='flee'){resolveRaid(kind,'flee',0);return true;}
+  const game=createStashGame({seed:(s.day*97+ensureStory().raids*13+7)>>>0});storyUI.stash={game,t:0,kind};storyUI.el.dataset.cut='raid-stash';
+  const box=storyQ('.story-choice');if(box){box.hidden=false;box.innerHTML='<div class="overline">HIDE THE STASH · 6 SECONDS</div><h2>Drop the jars in the vent!</h2><div class="stash-lanes">'+[0,1,2,3].map(i=>'<button class="stash-lane" data-lane="'+i+'" onclick="__story.hit('+i+')"><span class="jar"></span><em>'+(i+1)+'</em></button>').join('')+'</div><div class="stash-meter"><i></i></div><p class="stash-count">0 / '+game.jars.length+' hidden</p>';}
+  storyUI.view.subtitle('','Tap a jar, or press 1–4, while it shows.');
+  return true;
+ }
+ function stashHit(lane){const st=storyUI.stash;if(!st)return -1;const r=st.game.hit(lane,st.t);paintStash();if(st.game.done(st.t))finishStash();return r;}
+ function paintStash(){const st=storyUI.stash;if(!st||!storyUI.el?.querySelectorAll)return;const live=st.game.live(st.t).map(j=>j.lane);
+  storyUI.el.querySelectorAll('.stash-lane').forEach(b=>b.classList.toggle('live',live.includes(Number(b.dataset.lane))));
+  const m=storyQ('.stash-meter i');if(m)m.style.width=Math.max(0,100-st.t/st.game.duration*100)+'%';const n=storyQ('.stash-count');if(n)n.textContent=st.game.saved+' / '+st.game.jars.length+' hidden';}
+ function tickStash(dt){const st=storyUI.stash;if(!st)return;st.t+=dt;paintStash();if(st.game.done(st.t))finishStash();}
+ function finishStash(){const st=storyUI.stash;if(!st)return;storyUI.stash=null;resolveRaid(st.kind,'hide',st.game.score());}
+ function resolveRaid(kind,choice,score){
+  const out=applyRaid({packs:s.packs,storedPacks:s.storedPacks,heat:s.heat},{choice,score});
+  s.packs=out.packs;s.storedPacks=out.storedPacks;s.heat=Math.min(s.heat,out.heat);
+  s.story=recordRaid(ensureStory(),{day:s.day,home:s.house});
+  const box=storyQ('.story-choice');if(box){box.hidden=true;box.innerHTML='';}
+  storyUI.view.show(false);storyUI.view.bars(false);storyUI.el.dataset.cut='';
+  const how=choice==='flee'?'You slipped out the back.':'Stash hidden: '+Math.round(score*100)+'%.';
+  toast('🚨 Raid over. '+how+' '+(out.lost?out.lost+' packs confiscated.':'Nothing found!')+' Hardtack leaves empty-handed… mostly.');
+  storyUI.lastRaid={kind,choice,score,lost:out.lost};save();if(active&&!panel)lock();
+ }
+
+ // ---- Progression: checked twice a second, outside menus and cutscenes ----
+ function storyTick(dt){
+  storyUI.timer+=dt;if(storyUI.timer<.5)return;storyUI.timer=0;
+  if(!storyOn()||panel||work||storyUI.cut||storyUI.stash||storyUI.choice)return;
+  if(typeof cine!=='undefined'&&cine.scene)return;if(typeof bustPlaying!=='undefined'&&bustPlaying)return;
+  if(storyUI.queue.length){playStoryCut(storyUI.queue.shift());return;}
+  const f=storyFactsNow(),due=raidDue(ensureStory(),f);
+  if(due&&(due==='story'||ensureStory().done.includes('a2-raid'))){startRaid(due);return;}
+  const r=stepStory(s.story,f);if(!r.events.length)return;s.story=r.story;
+  for(const e of r.events){
+   if(e.type==='complete'){const rw=e.reward;s.cash+=rw.cash||0;s.xp+=rw.xp||0;toast('★ '+e.title+' complete'+(rw.cash?' · +'+cash(rw.cash):'')+' · +'+rw.xp+' XP'+(rw.title?' · “'+rw.title+'”':''));}
+   else if(e.type==='open'){const act=ACTS.find(a=>a.id===e.act);if(act&&!r.events.some(x=>x.type==='cut'))toast('📖 '+act.title+' · new missions in your phone');}
+   else if(e.type==='cut')storyUI.queue.push(e.id);
+  }
+  save();
+ }
+ const storyUpdate=update;update=function(dt){
+  if(storyUI.cut||storyUI.stash||storyUI.choice){keys={};locomotion.x=locomotion.z=0;if(storyUI.cut)tickStoryCut(dt);else if(storyUI.stash)tickStash(dt);return;}
+  storyUpdate(dt);if(active)storyTick(dt);
+ };
+ const storyCam=()=>{const a=storyUI.cut?.sample;if(!a)return false;camera.position.set(a.pose.x,a.pose.y,a.pose.z);camera.lookAt(a.pose.lookX,a.pose.lookY,a.pose.lookZ);if(Math.abs(camera.fov-a.pose.fov)>.01){camera.fov=a.pose.fov;camera.updateProjectionMatrix();}return true;};
+ const storyRender=renderFrame;renderFrame=function(){
+  if(!storyUI.cut){storyRender();return;}
+  storyCam();storyRender();const a=storyUI.cut?.sample;
+  if(a&&(Math.abs(camera.position.x-a.pose.x)>.01||Math.abs(camera.position.z-a.pose.z)>.01)){storyCam();if(effects)effects.render();else renderer.render(scene,camera);}
+ };
+ addEventListener('keydown',event=>{
+  if(!storyUI.cut&&!storyUI.stash&&!storyUI.choice)return;
+  const key=String(event.key||'').toLowerCase();
+  if(storyUI.cut){if(key==='escape'||key==='enter'||key===' ')skipStoryCut();}
+  else if(storyUI.choice){if(key==='1'||key==='h')chooseRaid('hide');else if(key==='2'||key==='f')chooseRaid('flee');}
+  else if(storyUI.stash&&['1','2','3','4'].includes(key))stashHit(Number(key)-1);
+  event.preventDefault?.();event.stopImmediatePropagation?.();
+ },{capture:true});
+
+ // ---- Phone: Story missions, progress, rewards, replayable cutscenes ----
+ function storyTrack(where){
+  let p=null;if(where==='kickflip')p={x:KICKFLIP_POINT.x,z:KICKFLIP_POINT.z,label:'Kickflip Container'};
+  else if(where==='arcade'){const d=window.__arcade?.door?.();if(d)p={x:d.x,z:d.z,label:'Lucky Pier arcade'};}
+  else if(where==='home'){const d=STORY_DOORS[s.house];p={x:d.x,z:d.z-1.5,label:'Your base'};}
+  else {const q=points.find(q=>q.type===where);if(q)p={x:q.x,z:q.z,label:q.label};}
+  if(!p)return false;track=p;close();toast('Tracking '+p.label);return true;
+ }
+ function storyHTML(){
+  const st=ensureStory(),q=currentQuest(st),f=storyFactsNow(),act=currentAct(st);
+  let h='<div class="overline">STORY · MISSIONS</div>';
+  if(!st.open)return h+'<h2>Gramps’ notebook first.</h2><p>Make your first sale and call Gramps back. Then the town starts to notice you.</p>';
+  h+='<h2>'+(act?act.title:'Story')+'</h2><p class="story-act-line">'+(act?act.line:'')+'</p>';
+  if(q){const pr=questProgress(q,f);h+='<div class="story-quest"><small>'+q.giver.toUpperCase()+'</small><h3>'+q.title+'</h3><p>'+q.text+'</p><div class="story-progress"><i style="width:'+Math.round(pr.have/pr.need*100)+'%"></i></div><p class="story-meta"><b>'+pr.label+'</b> · Reward '+(q.reward.cash?cash(q.reward.cash)+' + ':'')+q.reward.xp+' XP'+(q.reward.title?' + a title':'')+'</p><button class="trackbtn" onclick="__story.track(\''+q.where+'\')">Show me the way →</button></div>';}
+  else h+='<div class="story-quest done"><small>STORY COMPLETE</small><h3>'+(st.title||'Candy Baron of Gummy Bay')+'</h3><p>Free play continues. The bay is yours, for now.</p></div>';
+  const done=QUESTS.filter(x=>st.done.includes(x.id));if(done.length)h+='<ol class="story-done">'+done.map(x=>'<li>✓ '+x.title+'</li>').join('')+'</ol>';
+  h+='<div class="story-replays"><small>CUTSCENES</small>'+CUT_IDS.map(id=>st.seen.includes(id)?'<button onclick="__story.play(\''+id+'\',true)">▶ '+CUTS[id].title+'</button>':'<button disabled>🔒 ???</button>').join('')+'</div>';
+  return h;
+ }
+ const storyMenu=menu;menu=function(which,data){storyMenu(which,data);if(which==='story'&&panel==='story')$('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="story-phone">'+storyHTML()+'</div><button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';};window.menu=menu;
+ const storyPhoneHome=phoneHome;phoneHome=function(){storyPhoneHome();if(mode!=='story'||panel!=='phone')return;const st=ensureStory(),q=currentQuest(st),pr=q&&questProgress(q,storyFactsNow());
+  $('modal').insertAdjacentHTML?.('beforeend','<button class="story-phone-card" onclick="menu(\'story\')"><b>📖 STORY</b><strong>'+(!st.open?'Gramps’ notebook first':q?q.title:'Story complete')+'</strong><small>'+(pr?pr.label+' · '+currentAct(st).title:st.open?'Replay the cutscenes':'Make a sale, call Gramps')+'</small></button>');};window.phoneHome=phoneHome;
+ const storyUI2=updateUI;updateUI=function(){storyUI2();if(mode!=='story'||!active)return;const st=s.story,q=st&&currentQuest(st);const el=$('objective');if(!el||!q)return;const pr=questProgress(q,storyFactsNow());
+  el.insertAdjacentHTML?.('beforeend','<div class="story-hud" onclick="menu(\'story\')"><b>'+currentAct(st).title.toUpperCase()+'</b> '+q.title+' · '+pr.label+'</div>');};
+
+ window.__story={
+  state:()=>({story:JSON.parse(JSON.stringify(ensureStory())),quest:currentQuest(ensureStory())?.id||null,facts:storyFactsNow(),cut:storyUI.cut?{id:storyUI.cut.id,t:storyUI.cut.t,duration:storyUI.cut.tl.duration}:null,choice:!!storyUI.choice,stash:storyUI.stash?{t:storyUI.stash.t,saved:storyUI.stash.game.saved}:null,lastRaid:storyUI.lastRaid||null,queue:[...storyUI.queue]}),
+  play:(id,replay=false)=>{if(replay&&panel){panel='';document.body.dataset.panel='';$('overlay').hidden=true;}return playStoryCut(id,{replay,onDone:id==='raid'&&!replay?()=>raidChoice('story'):null});},
+  seek:t=>{if(!storyUI.cut)return null;storyUI.cut.t=Math.max(0,Math.min(storyUI.cut.tl.duration-.01,t));paintStoryCut();renderFrame();return storyUI.cut.sample&&{sub:storyUI.cut.sample.sub?.text||'',card:storyUI.cut.sample.card?.card||'',stamp:storyUI.cut.sample.stamp?.text||''};},
+  skip:()=>{skipStoryCut();return !storyUI.cut;},
+  raid:()=>startRaid('story'),choose:chooseRaid,hit:stashHit,track:storyTrack,
+  step:()=>{storyUI.timer=1;storyTick(0);return currentQuest(ensureStory())?.id||null;}
+ };
+}catch(error){console.warn('Story acts unavailable',error);}
