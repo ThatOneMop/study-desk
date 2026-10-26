@@ -5,7 +5,7 @@ assert.equal(EFFECTS.length,34);
 assert.equal(INGREDIENTS.length,16);
 assert.equal(transformCount(),114);
 assert.equal(MAX_EFFECTS,8);
-assert.equal(NEW_RECIPE_XP,80);
+assert.equal(NEW_RECIPE_XP,60);
 assert.equal(MIX_STATION_TIER,2);
 assert.deepEqual(STATIONS.mk1,{batch:10,minutesPerUnit:6});
 assert.deepEqual(STATIONS.mk2,{batch:20,minutesPerUnit:3});
@@ -34,7 +34,7 @@ assert.notEqual(recipeName(['still']),recipeName(['sunny']));
 assert.equal(batchMinutes('mk1',10),60);
 assert.equal(batchMinutes('mk1',11),60);
 assert.equal(batchMinutes('mk2',20),60);
-assert.equal(recipeXp(false),80);
+assert.equal(recipeXp(false),60);
 assert.equal(recipeXp(true),0);
 assert.equal(INGREDIENTS.filter(item=>item.unlockTier===0).length,4);
 

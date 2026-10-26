@@ -1,7 +1,7 @@
 // Effect mixing for fictional gummies. Numbers follow the public 0.4.6 mix rules.
 // Names, colours and copy are original. This module does not draw or sell anything.
 export const MAX_EFFECTS=8;
-export const NEW_RECIPE_XP=80;
+export const NEW_RECIPE_XP=60;
 export const MAP_RADIUS=4;
 export const EFFECT_DISC=0.4;
 export const STATIONS=Object.freeze({

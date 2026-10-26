@@ -345,3 +345,6 @@ body .customerCard span{color:#ffd34d}
 #modal .item.skate-item button{min-width:84px}
 body.skating .crosshair,body.skating #crosshair{opacity:0}
 .hotbar .slot[data-slot="board"].selected em{color:#7ff0d9}
+/* Out-of-reach actions are greyed out until the player is close enough. */
+#modal .note.out-of-reach{color:#b5523b;font-weight:700}
+#modal button.out-of-reach{cursor:not-allowed;filter:grayscale(1)}

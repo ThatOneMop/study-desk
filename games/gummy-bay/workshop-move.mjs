@@ -1,10 +1,11 @@
+import {levelOf} from './xp-curve.mjs';
 import {validCargo,releaseCargo} from './workshop-logistics.mjs';
 export const WORKSHOP_NAMES=Object.freeze(['Room 04','Harbor workshop','Hillside house']);
 export function workshopMovePlan(s,to,strainCount){
  const fail=reason=>({ok:false,reason});
  if(![1,2].includes(to)||![0,1,2].includes(s.house)||to<=s.house)return fail('Choose a larger property you do not already own.');
  const cost=to===1?1200:3500,required=to===1?3:5;
- if(!Number.isFinite(s.xp)||s.xp<0||1+Math.floor(s.xp/30)<required)return fail('This deed needs level '+required+'.');
+ if(!Number.isFinite(s.xp)||s.xp<0||levelOf(s.xp)<required)return fail('This deed needs level '+required+'.');
  if(!Number.isFinite(s.bank)||!Number.isSafeInteger(Math.round(s.bank*100))||s.bank<cost)return fail('This deed needs $'+cost+' in valid bank funds.');
  if(s.police?.search)return fail('Finish the shared police search before moving.');
  if(!Number.isInteger(s.day)||s.day<1||!Number.isFinite(s.time)||s.time<0||s.time>=1440)return fail('The save clock needs to be valid before moving.');

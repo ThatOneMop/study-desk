@@ -1,3 +1,4 @@
+import {levelOf} from './xp-curve.mjs';
 import * as THREE from './vendor/three.module.min.js';
 export const FLEET=Object.freeze([
  Object.freeze({id:'van',name:'Delivery van',price:750,level:2,acceleration:8,top:16,reverse:5,steering:1.6,description:'The original dependable delivery fleet.'}),
@@ -12,7 +13,7 @@ export function fleetRequest(state,id,select=false){
  if(!state.vehicleOwned)return {ok:false,reason:'Buy the delivery van fleet first.'};
  if(select)return fleetOwned(state,id)?{ok:true,profile}:{ok:false,reason:'Buy this vehicle first.'};
  if(fleetOwned(state,id))return {ok:false,reason:'Already owned.'};
- if(1+Math.floor(state.xp/30)<profile.level)return {ok:false,reason:'Requires level '+profile.level+'.'};
+ if(levelOf(state.xp)<profile.level)return {ok:false,reason:'Requires level '+profile.level+'.'};
  const balance=state.payment==='card'?state.bank:state.cash;
  if(!Number.isFinite(balance)||balance<profile.price)return {ok:false,reason:'Not enough '+(state.payment==='card'?'card funds.':'cash.')};
  return {ok:true,profile};

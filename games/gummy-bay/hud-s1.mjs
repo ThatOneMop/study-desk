@@ -2,6 +2,7 @@
 // end-of-day summary. Presentation only. Nothing here reads or writes a save
 // field that does not already exist, so v3 saves load unchanged.
 
+import {levelOf as rankOf,levelProgress} from './xp-curve.mjs';
 const DAYS=Object.freeze(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);
 const SHORT=Object.freeze(['Mon','Tue','Wed','Thu','Fri','Sat','Sun']);
 
@@ -89,14 +90,14 @@ export function noticeKind(text){
 }
 
 // End-of-day card. Uses values already on the save; level formula is passed in.
-export function sleepSummary(before,after,levelOf=xp=>1+Math.floor(xp/30)){
+export function sleepSummary(before,after,levelOf=rankOf){
  const b=before&&typeof before==='object'?before:{},a=after&&typeof after==='object'?after:{};
  const num=v=>Number.isFinite(v)?v:0;
  const earned=Math.round((num(a.cash)+num(a.bank))-(num(b.cash)+num(b.bank)));
  const deals=Math.max(0,Math.round(num(a.sold)-num(b.sold)));
  const xp=Math.max(0,Math.round(num(a.xp)-num(b.xp)));
  const fromLevel=levelOf(num(b.xp)),toLevel=levelOf(num(a.xp));
- return Object.freeze({day:Math.max(1,Math.floor(num(b.day)||1)),earned,deals,xp,level:toLevel,rankUp:toLevel>fromLevel,progress:Math.max(0,Math.min(1,(num(a.xp)%30)/30))});
+ return Object.freeze({day:Math.max(1,Math.floor(num(b.day)||1)),earned,deals,xp,level:toLevel,rankUp:toLevel>fromLevel,progress:levelProgress(num(a.xp)).ratio});
 }
 
 export function sleepCardHTML(view,money=v=>'$'+v){
