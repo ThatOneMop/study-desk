@@ -37,7 +37,7 @@ function updateResidents(mesh,actors,active,scratch){
  for(const [actorIndex,actor] of current.entries()){
   actor.updateMatrixWorld(true);
   for(const [bandIndex,band] of bands.entries()){
-   const index=actorIndex*2+bandIndex;local.position.set(0,band.y,0);local.scale.set(active?band.r:0,active?band.h:0,active?band.r:0);local.updateMatrix();world.multiplyMatrices(actor.matrixWorld,local.matrix);mesh.setMatrixAt(index,world);
+   const index=actorIndex*2+bandIndex;const on=active&&!actor.userData?.hideBands;local.position.set(0,band.y,0);local.scale.set(on?band.r:0,on?band.h:0,on?band.r:0);local.updateMatrix();world.multiplyMatrices(actor.matrixWorld,local.matrix);mesh.setMatrixAt(index,world);
   }
  }
  mesh.instanceMatrix.needsUpdate=true;

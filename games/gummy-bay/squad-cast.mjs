@@ -1,6 +1,6 @@
 // Sugar Squad drawn with the shared person kit: navy uniform, yellow cap band,
 // grey vest. Original procedural props for cover, the stall and the dizzy stars.
-import {personLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,PERSON_SLOT,PERSON_MESH_PARTS} from './people-kit.mjs?v=126';
+import {personLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,PERSON_SLOT,PERSON_MESH_PARTS} from './people-kit.mjs?v=142';
 import {HIDE_SPOTS} from './hide-spots.mjs?v=132';
 import {VISION_YAW} from './police-vision.mjs?v=132';
 

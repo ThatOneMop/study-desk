@@ -209,24 +209,37 @@ function jointAt(out,parent,x,y,z,angleX=0,angleZ=0){
 }
 export function createJointSet(){return {hips:new THREE.Matrix4(),chest:new THREE.Matrix4(),head:new THREE.Matrix4(),armL:new THREE.Matrix4(),armR:new THREE.Matrix4(),foreL:new THREE.Matrix4(),foreR:new THREE.Matrix4(),thighL:new THREE.Matrix4(),thighR:new THREE.Matrix4(),shinL:new THREE.Matrix4(),shinR:new THREE.Matrix4()};}
 export function proceduralJoints(joints,root,pose={}){
- const swing=finite(pose.swing),sit=!!pose.sit,bob=finite(pose.bob),raise=finite(pose.raise),sway=finite(pose.sway);
- const hipY=sit?.50:.80+bob;
+ const swing=finite(pose.swing),sit=!!pose.sit,bob=finite(pose.bob),raise=finite(pose.raise),sway=finite(pose.sway),crouch=sit?0:finite(pose.crouch);
+ const hipY=sit?.50:.80+bob-crouch;
  jointAt(joints.hips,root,0,hipY,0,0,sway*.3);
- jointAt(joints.chest,joints.hips,0,.17,0,sit?-.05:0,sway);
+ jointAt(joints.chest,joints.hips,0,.17,0,sit?-.05:crouch*.9,sway);
  jointAt(joints.head,joints.chest,0,.41,0,finite(pose.nod),0);
+ if(pose.turn)joints.head.multiply(ry.makeRotationY(finite(pose.turn)));
  for(const [side,sign] of [['L',-1],['R',1]]){
   const arm=sit?-.35:swing*-sign*.42+(side==='R'?raise:0);
   jointAt(joints['arm'+side],joints.chest,sign*.235,.36,0,arm,sign*.07);
   jointAt(joints['fore'+side],joints['arm'+side],0,-.32,0,sit?-.5:(side==='R'&&raise?-.6:-.15-Math.max(0,swing*sign)*.2),0);
-  const thigh=sit?-1.5:swing*sign*.48;
+  const thigh=sit?-1.5:swing*sign*.48-crouch*3.2;
   jointAt(joints['thigh'+side],joints.hips,sign*.09,0,0,thigh,0);
-  jointAt(joints['shin'+side],joints['thigh'+side],0,-.36,0,sit?1.5:Math.max(0,-swing*sign)*.6,0);
+  jointAt(joints['shin'+side],joints['thigh'+side],0,-.36,0,sit?1.5:Math.max(0,-swing*sign)*.6+crouch*6,0);
+ }
+ poseArms(joints,pose);
+ return joints;
+}
+// Reaction arms (wave, point, cower, phone): {x,z,fore} radians at the shoulder and elbow.
+// Rebuilds the arm from the chest joint, so it also works on bone-driven people.
+export function poseArms(joints,pose={}){
+ for(const [side,sign] of [['L',-1],['R',1]]){
+  const arm=pose['arm'+side];if(!arm||!joints.chest)continue;
+  jointAt(joints['arm'+side],joints.chest,sign*.235,.36,0,finite(arm.x),sign*Math.abs(finite(arm.z))+sign*.07);
+  jointAt(joints['fore'+side],joints['arm'+side],0,-.32,0,finite(arm.fore),0);
  }
  return joints;
 }
+const ry=new THREE.Matrix4();
 const partMatrix=new THREE.Matrix4(),partLocal=new THREE.Matrix4(),ZERO=new THREE.Matrix4().makeScale(0,0,0);
 // Writes one person into three instanced meshes at slot `person`. Disabled parts collapse to zero.
-export function writePerson(meshes,person,joints,look,{detail=true,face='open',active=true}={}){
+export function writePerson(meshes,person,joints,look,{detail=true,face='open',active=true,tint=null}={}){
  for(const kind of ['box','round','face']){
   const mesh=meshes[kind];if(!mesh)continue;
   const list=PERSON_MESH_PARTS[kind],base=person*list.length;
@@ -235,11 +248,11 @@ export function writePerson(meshes,person,joints,look,{detail=true,face='open',a
    if(on){partLocal.makeTranslation(part.x,part.y,part.z);m2.makeScale(part.w,part.h,part.d);partLocal.multiply(m2);partMatrix.multiplyMatrices(joints[part.joint],partLocal);mesh.setMatrixAt(base+i,partMatrix);}
    else mesh.setMatrixAt(base+i,ZERO);
    if(kind==='face'){const attr=mesh.geometry.getAttribute('aFace');if(attr)attr.setX(base+i,faceCell(look,face));}
-   else mesh.setColorAt(base+i,scratchColor.setHex(look?personSlotColor(look,part.slot):0xffffff));
+   else{scratchColor.setHex(look?personSlotColor(look,part.slot):0xffffff);if(tint&&tint.amount>0)scratchColor.lerp(tintColor.setHex(tint.color),Math.min(1,tint.amount));mesh.setColorAt(base+i,scratchColor);}
   }
  }
 }
-const scratchColor=new THREE.Color();
+const scratchColor=new THREE.Color(),tintColor=new THREE.Color();
 export function createPeopleMeshes(three,scene,capacity,name){
  const material=createPeopleMaterial();
  const box=new three.InstancedMesh(PEOPLE_BOX_GEOMETRY,material,capacity*PERSON_MESH_PARTS.box.length);
