@@ -7,7 +7,7 @@
 //     town batches; additive light pools + glowing lamp heads are ONE night-only mesh.
 //     No real lights: ~0 extra draw calls by day, +1 after dark.
 import * as THREE from './vendor/three.module.min.js';
-import {BATCH_CELL} from './static-batch.mjs?v=133';
+import {BATCH_CELL} from './static-batch.mjs?v=139';
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
