@@ -57,12 +57,12 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Counterweight | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lanternwake | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Copper Cadence | pass | fail | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Hollow Keeper | pass | fail | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
+| Hollow Keeper | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Paper Odyssey | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Ratchet Run | pass | fail | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Wellward | pass | pass | pass | pass | fail | fail | pass | fail | pass | pass | pass | pass |
+| Ratchet Run | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Wellward | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Salt & Sail | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Pocket Palaeo | pass | fail | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
+| Pocket Palaeo | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Static Orchard | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Borrowed Gravity | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Tea for Ghosts | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -108,7 +108,12 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Forge Arena battles now have a pause button and P/Esc keys, and they pause automatically when Study Desk hides the game. The pause menu shows kills, damage and time left, with Resume and Leave battle. Hits show a marker at the crosshair and damage numbers; kills show a DESTROYED banner with a boom and screen shake; taking damage flashes a red vignette with a thud. This is modelled on War Robots and Mech Arena hit feedback.
 - Tea for Ghosts leans toward Coffee Talk. It opens on a title card (Open the tearoom, Enter) and visitors speak in a typewriter speech bubble that reacts to each cup, with a face that smiles, hesitates or shivers. Each visitor has their own tint and accessory. Brewing tilts in a teapot and pours the blend's own colour, and a restored memory gets sparkles, a glow and a banner. Synthesised sound covers scoops, pouring, a bell, chimes, and rain with a soft music box, with a Sound toggle. Rest (P/Esc) pauses, and it pauses itself when the tab is hidden. Keys: 1–6 add a scoop, Shift+number removes, T/S/W change the settings, B brews, O offers, Z undoes, R recalls, A pours another cup, N welcomes the next visitor. The first visitor's memory returns at 70 and the second at 75, then 80 as before.
 - Counterweight now plays like a polished Steam puzzle game. It opens on a Clock in title card, and P/Esc or the Pause button starts a Tea break that also kicks in when the tab is hidden. Every action has a synthesised sound over a soft harbour ambience (with a sound toggle). Lifts show HOOKED, SOFT LANDING, DAMAGED and OVERLOAD callouts, with dust, a shake and a red alarm flash, and a finished job throws confetti. The first job is coached by the Foreman, whose tip names the next move from a solver that can finish all five jobs under par; H or the Tip button asks for it on any job. Saves and records are unchanged.
+- Round 5 (Hollow Keeper, Ratchet Run, Wellward, Pocket Palaeo): each gains a title card, a P/Esc pause overlay with header Pause and Sound buttons and auto-pause when the tab hides, synthesised sound effects, callouts, particle bursts and screen shake, plus a coached first stage that reads live state.
+- Hollow Keeper moves toward Orcs Must Die!: squash counts, THORNS and NURSERY HIT calls, wave-held resin fanfare and a Rootkeeper who walks chapter one from first thorn to first march.
+- Ratchet Run moves toward Trials: clean and hard landing calls, parcel counts, a delivered medal fanfare and Dispatch coaching on Milk Run; pausing freezes the ride frame.
+- Wellward moves toward Dredge: relic, bump, ballast and banking calls that follow the bucket, plus a Personal bests panel (best haul, best brass, fastest time and a clean-run mark per well) saved separately from the main save.
+- Pocket Palaeo moves toward fossil-excavation sims such as Dinosaur Fossil Hunter: dust bursts, BONE! reveals, CRACK! alarms with shake, brace and resin calls, a specimen-and-condition fanfare on each lift and a Field mentor who coaches pick, brush, resin, brace and lift on Ochre Creek.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 59, Goals 63, Hints 63, Feedback 38, Curve 36, Saves 63, Best 61, Art 63, Keys 63, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 42, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
 
