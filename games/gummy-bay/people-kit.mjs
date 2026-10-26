@@ -383,9 +383,9 @@ function shapePart(part,look,detail,o=SHAPE){
   case 'hairTop':
    if(hood||hatted||hair==='bald'||hair==='mohawk'||hair==='combover')return false;
    if(hair==='buzz')return set(o,0,.30,-.006,.30,.075,.305);
-   if(hair==='afro')return set(o,0,.31,-.025,.42,.27,.42);
-   if(hair==='curly')return set(o,0,.32,-.015,.35,.15,.35,1.08,1.08);
-   if(hair==='bob')return set(o,0,.31,-.012,.32,.11,.33);
+   if(hair==='afro')return set(o,0,.35,-.05,.42,.22,.40);
+   if(hair==='curly')return set(o,0,.32,-.03,.35,.15,.34,1.08,1.08);
+   if(hair==='bob')return set(o,0,.31,-.02,.32,.11,.33);
    if(hair==='spiky')return set(o,0,.325,-.012,.30,.13,.31,1.1,1.1);
    return true;
   case 'hairBack':

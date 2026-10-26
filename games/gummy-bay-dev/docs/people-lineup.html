@@ -1,0 +1,26 @@
+<!doctype html><meta charset="utf-8"><title>Gummy Bay people lineup</title>
+<style>html,body{margin:0;background:#cfe6f2;font:14px system-ui}#l{position:fixed;left:0;right:0;bottom:6px;display:flex;justify-content:space-around;color:#24323c;font-weight:600}</style>
+<div id="l"></div>
+<script type="module">
+// Dev-only lineup of the shared people kit (no game logic): ?set=named|crowd|roles
+import * as THREE from '../../gummy-bay/vendor/three.module.min.js';
+import {NAMED_LOOKS,namedLook,personLook,createJointSet,proceduralJoints,writePerson,createPeopleMeshes,flushPeopleMeshes,breathe} from '../../gummy-bay/people-kit.mjs?v=145';
+const q=new URLSearchParams(location.search),set=q.get('set')||'named';
+const named=['gramps','marge','lemon larry','hank hardtack','mayor prudence','tilly','benny boardwalk','mo marmalade','cleo caramel','dex dimple','jules','benji','nina','oz','frankie'];
+const all=set==='named'?named.map((k,i)=>[k,namedLook(k,null,i)]):set==='roles'?['townsfolk','police','worker','seller','dealer','customer'].flatMap((r,i)=>[[r,personLook(i*7+1,r)],[r,personLook(i*7+4,r)]]):Array.from({length:16},(_,i)=>['#'+i,personLook(i*13+5,'townsfolk')]);
+const list=all.slice(+(q.get('from')||0),+(q.get('to')||all.length));
+const W=innerWidth,H=innerHeight,r=new THREE.WebGLRenderer({antialias:true});r.setSize(W,H);r.setPixelRatio(1);document.body.prepend(r.domElement);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xcfe6f2);
+scene.add(new THREE.HemisphereLight(0xffffff,0x8a7a66,1.6));const sun=new THREE.DirectionalLight(0xfff2dc,2.2);sun.position.set(3,6,8);scene.add(sun);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshLambertMaterial({color:0x9bb07a}));ground.rotation.x=-Math.PI/2;scene.add(ground);
+const n=list.length,gap=.95,cam=new THREE.PerspectiveCamera(24,W/H,.1,100);const dist=(n*gap+.4)/(2*Math.tan(THREE.MathUtils.degToRad(12))*W/H);cam.position.set(0,1.2,dist);cam.lookAt(0,.9,0);
+const m=createPeopleMeshes(THREE,scene,n,'Lineup'),j=createJointSet(),root=new THREE.Matrix4(),pos=new THREE.Vector3(),qt=new THREE.Quaternion(),sc=new THREE.Vector3();
+document.getElementById('l').innerHTML=list.map(([k])=>`<span>${k}</span>`).join('');
+const walk=q.get('walk');
+function frame(t){t/=1000;
+ list.forEach(([k,look],i)=>{pos.set((i-(n-1)/2)*gap,0,0);qt.setFromAxisAngle(new THREE.Vector3(0,1,0),walk?Math.PI/2:Math.sin(t*.3+i)*.25);root.compose(pos,qt,sc.setScalar(look.height||1));
+  const ph=t*7+i;proceduralJoints(j,root,walk?{swing:Math.sin(ph),bob:Math.abs(Math.sin(ph))*.04}:{breath:breathe(t,i)});
+  writePerson(m,i,j,look,{detail:true,face:Math.sin(t*1.3+i*2)>.97?'blink':'open',active:true});});
+ flushPeopleMeshes(m,true,n);r.render(scene,cam);window.__info={calls:r.info.render.calls,tris:r.info.render.triangles};requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+</script>
