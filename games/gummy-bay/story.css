@@ -14,7 +14,8 @@
 .story-card span{font:800 12px/1.2 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff5dc}
 .story-card em{font:italic 600 13px/1.3 system-ui,sans-serif;color:#fffbe9e6}
 .story-stamp{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) rotate(-9deg) scale(2.2);opacity:0;color:#e2182e;font:900 clamp(70px,12vw,150px)/1 Impact,'Arial Black',sans-serif;letter-spacing:.06em;padding:6px 30px;border:10px solid #e2182e;border-radius:14px;background:#fff6;text-shadow:0 4px 0 #5a0610}
-.story-stamp.on{opacity:1;transform:translate(-50%,-50%) rotate(-9deg) scale(1);transition:transform .16s cubic-bezier(.3,1.6,.5,1),opacity .1s}
+.story-stamp.on{opacity:1;transform:translate(-50%,-50%) rotate(-9deg) scale(1);animation:storyStamp .2s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes storyStamp{from{opacity:1;transform:translate(-50%,-50%) rotate(-9deg) scale(1.9)}to{opacity:1;transform:translate(-50%,-50%) rotate(-9deg) scale(1)}}
 .story-choice{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,90vw);padding:22px 24px;border-radius:18px;background:#16121af2;color:#fff4e2;text-align:center;box-shadow:0 24px 60px #000a;pointer-events:auto;z-index:5}
 .story-choice[hidden]{display:none}
 .story-choice h2{margin:6px 0;font:900 28px/1.1 system-ui,sans-serif}

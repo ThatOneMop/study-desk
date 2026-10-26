@@ -3924,7 +3924,7 @@ try{
  function animateStoryProps(t){
   const g=storyUI.props;if(!g)return;const u=g.userData;
   if(u.lights)u.lights.forEach((l,i)=>{l.visible=Math.floor(t*6+i)%2===0;});
-  if(u.door){const k=Math.max(0,t-3.95),d=u.door;d.position.copy(d.userData.home);if(k>0){const yw=storyUI.cut?.anchors?.home?.yaw||0;d.position.x+=Math.sin(yw)*k*6;d.position.z+=Math.cos(yw)*k*6;d.position.y+=Math.max(0,k*5-k*k*9);d.rotation.x=-Math.min(1.45,k*3);}else d.rotation.x=0;}
+  if(u.door){const k=Math.max(0,t-3.95),d=u.door;d.position.copy(d.userData.home);if(k>0){const yw=storyUI.cut?.anchors?.home?.yaw||0;d.position.x+=Math.sin(yw)*k*3.2;d.position.z+=Math.cos(yw)*k*3.2;d.position.y+=Math.max(0,k*6-k*k*5);d.rotation.x=-Math.min(1.45,k*2.2);d.rotation.z=k*1.4;}else d.rotation.x=0;}
   if(u.bear){const b=u.bear,f=Math.max(0,Math.min(1,(t-6)/12)),z=b.userData.from+(b.userData.to-b.userData.from)*f,a=CUT_ANCHORS.pier;b.position.z=a.z+z;b.position.y=.3+Math.abs(Math.sin(t*3))*.12;b.rotation.y=Math.sin(t*1.3)*.12;}
   if(u.burst){const m=u.burst,o=m.userData.origin;for(let i=0;i<180;i++){const k=Math.floor(i/30),start=k*1.3+(k>2?14:.8),age=((t-start)%9+9)%9,life=2.2;const seed=i*12.9898,th=(seed%6.283),ph=((i*7.31)%3.14);
     let r=age<life?Math.min(1,age/.5)*7:0,sc=age<life?Math.max(0,1-age/life)*1.3:0;const cx=o.x+((k*37)%3-1)*13,cy=13+(k%3)*4,cz=o.z+(k%2)*6;
