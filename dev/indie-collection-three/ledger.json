@@ -809,10 +809,12 @@
         "16 tests pass: 8 engine and 8 jsdom 26.1.0. Complete three-meadow campaigns reload after every move; independent breadth-first search verifies shortest routes of 11/9/17 steps under the current rules.",
         "Engine: pressure/whistle distance bands, immutability, simultaneous destination conflicts, occupied start-cell blocking, sheltered sheep, invalid/no-op actions, undo after arrival, retry/records, sequential unlocks, strict replay and a recoverable 512-action defensive journal cap.",
         "DOM: opening gate, read-only forecasts, campaign unlocks, keyboard/native-control guards, scaled SVG taps including border offsets, pause/dialog/trusted-parent hiding, retry/navigation/reset confirmation, isolated storage, corrupt-save recovery and quota failures.",
-        "Both gameplay scripts pass node --check. Unique IDs, accessible board descriptions, SVG structure, local script/style paths, reduced-motion/mobile CSS and CSS parsing checked. No Switch workspace control introduced. No full repository build from the partial workspace or rendered browser/screenshot/touch evidence."
+        "Both gameplay scripts pass node --check. Unique IDs, accessible board descriptions, SVG structure, local script/style paths, reduced-motion/mobile CSS and CSS parsing checked. No Switch workspace control introduced. No full repository build from the partial workspace or rendered browser/screenshot/touch evidence.",
+        "Quiet paws: 22 tests pass (11 engine, 11 jsdom), retaining all 16 prior tests. Quiet movement preserves sheep, costs a step, obeys obstacles, rejects malformed quiet actions and replays/undoes exactly. All three quiet-enabled campaign fixtures reload every action, preserve/improve records, and retain unrelated saves. UI tests cover prediction invalidation, default-off reload/retry/reset, button/keyboard/scaled tap input, pause guards and unchanged whistles. Both scripts pass syntax checks. No rendered evidence."
       ],
       "commits": [
-        "c83cf16c1cae29e2c1987273469ef11a91c91be2"
+        "c83cf16c1cae29e2c1987273469ef11a91c91be2",
+        "56f433122a9298ebf22af4686e2be4b0e62f4366"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -823,7 +825,14 @@
       "nextSteps": [
         "Play each meadow naturally on desktop and touch; inspect screenshots, sheep/dog contrast, preview clarity, native focus/dialog behavior and Games navigation.",
         "Identify the most important rendered weakness, implement a substantial game-specific improvement, and reverify saves/reload, arrivals, blocked choices, undo/retry, records and reset before any catalogue integration."
-      ]
+      ],
+      "pendingQuietRefinement": {
+        "commit": "56f433122a9298ebf22af4686e2be4b0e62f4366",
+        "basis": "Source inspection, not rendered play: repositioning the dog inevitably nudged nearby sheep.",
+        "before": "Every valid walk moved nearby sheep, even when the player only wanted a better approach angle.",
+        "after": "Quiet paws walks move only the dog, consuming one route step. Players can reposition safely then return to nudging or whistling. Exact previews, undo and v1 replay support the choice.",
+        "remaining": "Natural rendered play, screenshots and touch/focus/layout checks; evaluate whether free repositioning preserves satisfying challenge. No qualified improvement credit."
+      }
     },
     {
       "slot": 58,
@@ -1426,7 +1435,7 @@
     "Implement remaining 33 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "a4e735c9a1dd46e6f75af0370c181e36f76267ba",
+  "latestObservedMain": "7be343a4b7638a11b75c273c88c744c4de834099",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1708,6 +1717,13 @@
       "result": "Bellwether built in slot 57: original positional herding and whistle puzzle, three meadows, forecasts, undo and safe saves. 16 engine/DOM tests pass. Third batch now 17 built, 0 improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried. No browser-based improvement credit.",
       "mainObserved": "a4e735c9a1dd46e6f75af0370c181e36f76267ba"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "56f433122a9298ebf22af4686e2be4b0e62f4366",
+      "result": "Bellwether Quiet paws source refinement implemented; 22 engine/DOM tests pass. Counts unchanged: 17 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing security-policy rendering block not bypassed or retried.",
+      "mainObserved": "7be343a4b7638a11b75c273c88c744c4de834099"
     }
   ]
 }
