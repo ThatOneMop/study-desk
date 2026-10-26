@@ -52,7 +52,7 @@ export function doorwayRevealPathClear(profile,blocked){
 
 export function createDoorwayReveals({scene,sites=DOORWAY_REVEAL_SITES,quality='balanced'}={}){
  if(!scene||!Array.isArray(sites))throw new TypeError('Doorway reveals need a scene and site records.');
- const profiles=(sites===DOORWAY_REVEAL_SITES?DOORWAY_REVEAL_PROFILES:sites.map((site,index)=>doorwayRevealProfile(site,index))).filter(Boolean),parts=profiles.flatMap(profile=>profile.parts.map(part=>({...part,site:profile.id}))),geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:0,vertexColors:true,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,parts.length),object=new THREE.Object3D(),color=new THREE.Color();
+ const profiles=(sites===DOORWAY_REVEAL_SITES?DOORWAY_REVEAL_PROFILES:sites.map((site,index)=>doorwayRevealProfile(site,index))).filter(Boolean),parts=profiles.flatMap(profile=>profile.parts.map(part=>({...part,site:profile.id}))),geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,metalness:0,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,parts.length),object=new THREE.Object3D(),color=new THREE.Color();
  mesh.userData.items=parts;
  for(const [index,part] of parts.entries()){object.position.set(part.x,part.y,part.z);object.scale.set(part.w,part.h,part.d);object.updateMatrix();mesh.setMatrixAt(index,object.matrix);mesh.setColorAt(index,color.setHex(part.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.computeBoundingSphere();scene.add(mesh);

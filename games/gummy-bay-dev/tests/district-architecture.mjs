@@ -28,7 +28,7 @@ assert(architecture.counts.mass>150&&architecture.counts.detail>400&&architectur
 assert.equal(scene.children.length,3);
 for(const mesh of scene.children){
  assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite));
- assert(mesh.geometry.attributes.position.count>0&&mesh.material.vertexColors);
+ assert(mesh.geometry.attributes.position.count>0&&!mesh.material.vertexColors);
 }
 const savedResources=scene.children.map(m=>[m,m.geometry,m.material,m.instanceMatrix,m.instanceColor]);
 architecture.setQuality('performance');assert.equal(architecture.detailMesh.visible,false);assert.equal(architecture.massMesh.visible,true);

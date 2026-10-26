@@ -46,7 +46,7 @@ export const LOGICAL_WEAR_MARKS=logicalWearMarks();
 
 export function createLogicalWear({scene,marks=LOGICAL_WEAR_MARKS,quality='balanced'}={}){
  if(!scene||!Array.isArray(marks)||!marks.length||!marks.every(logicalWearMarkValid))throw new TypeError('Logical wear needs a scene and valid marks.');
- const geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.98,metalness:0,vertexColors:true}),mesh=new THREE.InstancedMesh(geometry,material,marks.length),object=new THREE.Object3D(),color=new THREE.Color();
+ const geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.98,metalness:0}),mesh=new THREE.InstancedMesh(geometry,material,marks.length),object=new THREE.Object3D(),color=new THREE.Color();
  for(let i=0;i<marks.length;i++){const mark=marks[i];object.position.set(mark.x,mark.y,mark.z);object.rotation.set(0,mark.ry,0);object.scale.set(mark.w,mark.h,mark.d);object.updateMatrix();mesh.setMatrixAt(i,object.matrix);mesh.setColorAt(i,color.setHex(mark.color));}
  mesh.name='Gummy Bay logical contact wear';mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=false;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);
  const setQuality=q=>{mesh.visible=true;mesh.castShadow=false;mesh.receiveShadow=q!=='performance';};setQuality(quality);

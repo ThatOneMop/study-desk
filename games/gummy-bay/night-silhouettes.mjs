@@ -1,6 +1,6 @@
 import * as THREE from './vendor/three.module.min.js';
 import {worldLighting} from './world-lighting.mjs?v=41';
-import {STREET_PROP_PROFILES} from './contextual-street-props.mjs?v=76';
+import {STREET_PROP_PROFILES} from './contextual-street-props.mjs?v=126';
 
 const freezeRecords=records=>Object.freeze(records.map(record=>Object.freeze(record)));
 const finite=n=>Number.isFinite(n);

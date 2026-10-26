@@ -1,5 +1,5 @@
 import * as THREE from './vendor/three.module.min.js';
-import {DISTRICT_BUILDING_SITES,districtArchitectureProfile} from './district-architecture.mjs?v=77';
+import {DISTRICT_BUILDING_SITES,districtArchitectureProfile} from './district-architecture.mjs?v=126';
 
 const freezeRecords=records=>Object.freeze(records.map(record=>Object.freeze(record)));
 export const OVERHEAD_INFRASTRUCTURE_SITES=freezeRecords([
@@ -39,7 +39,7 @@ function pushBox(list,x,y,z,sx,sy,sz,color,rz=0){list.push({x,y,z,sx,sy,sz,color
 function pushCylinder(list,x,y,z,sx,sy,sz,color){list.push({x,y,z,sx,sy,sz,color,rz:0});}
 function pushSegment(list,segment,color){const dx=segment.x2-segment.x1,dy=segment.y2-segment.y1;pushBox(list,(segment.x1+segment.x2)/2,(segment.y1+segment.y2)/2,segment.z,Math.hypot(dx,dy),.055,.055,color,Math.atan2(dy,dx));}
 function makeBatch(scene,geometry,items,{roughness=.88,metalness=.08}={}){
- const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness,metalness,vertexColors:true,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D(),color=new THREE.Color();
+ const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness,metalness,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D(),color=new THREE.Color();
  for(let i=0;i<items.length;i++){const item=items[i];dummy.position.set(item.x,item.y,item.z);dummy.rotation.set(0,0,item.rz||0);dummy.scale.set(item.sx,item.sy,item.sz);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);mesh.setColorAt(i,color.setHex(item.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=false;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;
 }

@@ -41,7 +41,7 @@ export function applyResidentProportionRig(rig){
 }
 
 function makeFootBatch(THREE,scene,capacity,name,roughness){
- const mesh=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0xffffff,roughness,metalness:0,vertexColors:true,flatShading:true}),capacity*2);
+ const mesh=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0xffffff,roughness,metalness:0,flatShading:true}),capacity*2);
  mesh.name=name;mesh.count=0;mesh.castShadow=false;mesh.receiveShadow=true;mesh.frustumCulled=false;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(mesh);return mesh;
 }
 

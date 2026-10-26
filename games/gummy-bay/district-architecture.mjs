@@ -56,7 +56,7 @@ function frontPart(profile,along,y,width,height,depth,color,list,offset=0){
  else pushBox(list,x+front.sign*(w/2+offset+depth/2),y,z+along,depth,height,width,color);
 }
 function makeBatch(scene,geometry,items,style){
- const material=new THREE.MeshStandardMaterial({color:0xffffff,...townMaterialOptions(style),vertexColors:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),object=new THREE.Object3D(),color=new THREE.Color();
+ const material=new THREE.MeshStandardMaterial({color:0xffffff,...townMaterialOptions(style)}),mesh=new THREE.InstancedMesh(geometry,material,items.length),object=new THREE.Object3D(),color=new THREE.Color();
  for(let i=0;i<items.length;i++){const p=items[i];object.position.set(p.x,p.y,p.z);object.rotation.set(p.rx,p.ry,p.rz);object.scale.set(p.w,p.h,p.d);object.updateMatrix();mesh.setMatrixAt(i,object.matrix);mesh.setColorAt(i,color.setHex(p.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;
 }

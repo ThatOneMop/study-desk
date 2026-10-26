@@ -18,7 +18,7 @@ export function verticalTownFloorHeight(x,z,layer=VERTICAL_TOWN_LAYER){
 
 function pushBox(list,x,y,z,w,h,d,color){list.push({x,y,z,w,h,d,color});}
 function makeBatch(scene,items,style){
- const geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,...townMaterialOptions(style),vertexColors:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),object=new THREE.Object3D(),color=new THREE.Color();
+ const geometry=new THREE.BoxGeometry(1,1,1),material=new THREE.MeshStandardMaterial({color:0xffffff,...townMaterialOptions(style)}),mesh=new THREE.InstancedMesh(geometry,material,items.length),object=new THREE.Object3D(),color=new THREE.Color();
  for(let i=0;i<items.length;i++){const item=items[i];object.position.set(item.x,item.y,item.z);object.scale.set(item.w,item.h,item.d);object.updateMatrix();mesh.setMatrixAt(i,object.matrix);mesh.setColorAt(i,color.setHex(item.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;
 }

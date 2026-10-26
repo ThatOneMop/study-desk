@@ -64,7 +64,7 @@ function buildParts(profile,boxes,cylinders){
 }
 
 function makeBatch(scene,geometry,items,style){
- const material=new THREE.MeshStandardMaterial({color:0xffffff,...townMaterialOptions(style),vertexColors:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),object=new THREE.Object3D(),color=new THREE.Color();
+ const material=new THREE.MeshStandardMaterial({color:0xffffff,...townMaterialOptions(style)}),mesh=new THREE.InstancedMesh(geometry,material,items.length),object=new THREE.Object3D(),color=new THREE.Color();
  for(let i=0;i<items.length;i++){const part=items[i];object.position.set(part.x,part.y,part.z);object.rotation.set(part.rx||0,part.ry||0,part.rz||0);object.scale.set(part.w??part.r*2,part.h,part.d??part.r*2);object.updateMatrix();mesh.setMatrixAt(i,object.matrix);mesh.setColorAt(i,color.setHex(part.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;
 }

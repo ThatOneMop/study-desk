@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../dist/vendor/three.module.min.js';
-import {DISTRICT_BUILDING_SITES} from '../dist/district-architecture.mjs?v=77';
+import {DISTRICT_BUILDING_SITES} from '../dist/district-architecture.mjs?v=126';
 import {TOWN_FENCE_SITES,TOWN_FENCE_PROFILES,TOWN_FENCE_COLLIDERS,townFenceProfile,fencePointBlocked,fenceGateClear,createTownFencing} from '../dist/town-fencing.mjs?v=81';
 
 assert.equal(TOWN_FENCE_SITES.length,4);assert.equal(TOWN_FENCE_PROFILES.length,4);assert.equal(TOWN_FENCE_COLLIDERS.length,16);

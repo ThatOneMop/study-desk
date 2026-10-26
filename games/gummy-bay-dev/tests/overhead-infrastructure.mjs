@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../dist/vendor/three.module.min.js';
-import {DISTRICT_BUILDING_SITES} from '../dist/district-architecture.mjs?v=77';
+import {DISTRICT_BUILDING_SITES} from '../dist/district-architecture.mjs?v=126';
 import {OVERHEAD_INFRASTRUCTURE_SITES,OVERHEAD_INFRASTRUCTURE_PROFILES,overheadInfrastructureProfile,roofSupportsContain,overheadCableSegments,createOverheadInfrastructure} from '../dist/overhead-infrastructure.mjs?v=80';
 
 assert.equal(OVERHEAD_INFRASTRUCTURE_SITES.length,4);assert.equal(OVERHEAD_INFRASTRUCTURE_PROFILES.length,4);
@@ -19,7 +19,7 @@ assert.equal(overheadInfrastructureProfile(null),null);assert.equal(overheadInfr
 
 const scene=new THREE.Scene(),infrastructure=createOverheadInfrastructure({scene,quality:'balanced'});
 assert.equal(infrastructure.profiles.length,4);assert.equal(infrastructure.drawCalls,3);assert.deepEqual(infrastructure.counts,{spans:4,supportParts:32,arms:8,cables:24});assert.equal(scene.children.length,3);
-for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&mesh.material.vertexColors&&mesh.material.map==null&&!mesh.castShadow);}
+for(const mesh of scene.children){assert(mesh.isInstancedMesh&&mesh.count>0&&mesh.instanceMatrix.array.every(Number.isFinite)&&mesh.instanceColor.array.every(Number.isFinite));assert(mesh.geometry.attributes.position.count>0&&!mesh.material.vertexColors&&mesh.material.map==null&&!mesh.castShadow);}
 const resources=scene.children.map(mesh=>[mesh,mesh.geometry,mesh.material,mesh.instanceMatrix,mesh.instanceColor]);
 infrastructure.setQuality('performance');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));
 infrastructure.setQuality('balanced');assert(scene.children.every(mesh=>mesh.visible&&!mesh.castShadow));

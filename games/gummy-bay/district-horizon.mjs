@@ -31,7 +31,7 @@ export function horizonViewGap(profile,corridors=HORIZON_VIEW_CORRIDORS){
 }
 
 function makeBatch(scene,geometry,items,roughness){
- const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness,metalness:0,vertexColors:true,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D(),color=new THREE.Color();
+ const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness,metalness:0,flatShading:true}),mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D(),color=new THREE.Color();
  for(let i=0;i<items.length;i++){const item=items[i];dummy.position.set(item.x,item.y,item.z);dummy.rotation.set(item.rx||0,item.ry||0,item.rz||0);dummy.scale.set(item.sx,item.sy,item.sz);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);mesh.setColorAt(i,color.setHex(item.color));}
  mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;mesh.castShadow=false;mesh.receiveShadow=true;mesh.computeBoundingSphere();scene.add(mesh);return mesh;
 }
