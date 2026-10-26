@@ -26,13 +26,13 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Gummy Bay | pass | pass | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass |
 | Autumn Drift | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Underleaf | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Little Lake | pass | pass | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass |
+| Little Lake | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lost & Found | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lost & Found on the Moon | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | After Hours | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Tiny Wilds | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Lucky Company | pass | pass | pass | pass | pass | fail | pass | fail | pass | pass | pass | pass |
-| Forge Arena | pass | fail | pass | pass | fail | pass | pass | pass | pass | pass | pass | pass |
+| Lucky Company | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Forge Arena | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Tidepost | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Deep Pocket | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Queen of Cinders | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
@@ -103,7 +103,10 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Underleaf leans toward SimAnt and The Ant Game. It has pixel side-view soil in three layers (topsoil, red subsoil, clay) with roots, pebbles and glowing fungus, plus pixel ants. Brood shows egg, larva and pupa, new chambers dig out with dirt bursts, and jelly beans or apple slices fall from the oak for bonus food. The first broods hatch in 4 seconds. Shortcuts are 1–4, F, D, J, P and the arrows, scoped to the page and the colony so typing elsewhere is untouched.
 - Tidepost takes Dredge’s mood. It has a pixel-art chart with fog, dusk and night palettes on later charts and a lantern glow, a ferry sprite with a wake, and animated currents and squalls. A Dredge-style hold grid shows mail slots and hull plates that crack in squalls. It adds a title screen, pause (P), sound, shake and splashes, and a harbour guide with a looser par on the first chart.
 - Lost & Found, Lost & Found on the Moon, Autumn Drift, Underleaf, and Tidepost are covered by `tests/game-smoke-browser.cjs`: each boots without page errors, and its title screen leads to play.
+- Little Lake now opens on a pixel title card and keeps records like Stardew Valley's fish collection: each species stores its heaviest catch, the save keeps your best catch by value, and the journal has a Records filter. A catch shows a pixel card with New species, New record, Best catch and Legendary stamps. A Perfect reel, where the marker never leaves the green after the first third, pays +25%.
+- Lucky Company's floor targets now climb like Balatro antes: 90, 135, 175, 220, 265, 315, 370, 430, 495 and 565, instead of a flat 140 + 35 per floor. The Lobby is gentler and Cloud Nine is harder. A Best run badge keeps your best floor, wins and peak chips on this device, and a chime and banner mark a new best floor.
+- Forge Arena battles now have a pause button and P/Esc keys, and they pause automatically when Study Desk hides the game. The pause menu shows kills, damage and time left, with Resume and Leave battle. Hits show a marker at the crosshair and damage numbers; kills show a DESTROYED banner with a boom and screen shake; taking damage flashes a red vignette with a thud. This is modelled on War Robots and Mech Arena hit feedback.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 56, Goals 63, Hints 63, Feedback 35, Curve 33, Saves 63, Best 59, Art 63, Keys 62, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 57, Goals 63, Hints 63, Feedback 36, Curve 34, Saves 63, Best 61, Art 63, Keys 62, Touch 63, Copy 63.
 
