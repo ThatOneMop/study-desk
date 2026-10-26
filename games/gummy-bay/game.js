@@ -155,7 +155,7 @@ import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
-import {OCEAN_VERTEX,OCEAN_FRAGMENT,SKY_FRAGMENT,applyCarPaint,tuftSpots,createGrassTufts,worldTuning} from './gfx-world.mjs?v=155';
+import {OCEAN_VERTEX,OCEAN_FRAGMENT,SKY_FRAGMENT,applyCarPaint,tuftSpots,createGrassTufts,createShoreFoam,worldTuning} from './gfx-world.mjs?v=155';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
 const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:42,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:56,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:72,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:92,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:118,level:7,time:50}];
@@ -720,7 +720,7 @@ function shopLogo(x,z,name,kind,color){let c=document.createElement('canvas');c.
 shopLogo(19.1,30.7,'MILO’S','plant','#70825c');shopLogo(-30.8,-14.3,'HARDWARE','tool','#7c8168');shopLogo(30.4,-15.8,'GUMMIES','gummy','#9b7b60');
 const smallDetails=[];scene.traverse(o=>{if(o.isMesh&&o.parent===scene&&o.geometry.type==='BoxGeometry'){const d=o.geometry.parameters;if(d.width<3&&d.height<.55&&d.depth<2){o.castShadow=false;smallDetails.push(o)}}});
 const artFrame=renderFrame;renderFrame=function(){
-skyDome.position.copy(camera.position);waterUniforms.uTime.value=now;skyUniforms.time.value=now;gfxTufts?.update(now,quality);
+skyDome.position.copy(camera.position);waterUniforms.uTime.value=now;skyUniforms.time.value=now;gfxTufts?.update(now,quality);gfxShoreFoam?.update(now,waterUniforms.uLight.value,quality);
 for(let o of smallDetails){if(o.__batchParent)continue;o.visible=camera.position.distanceToSquared(o.position)<6400;}
 for(let g of avatars){let id=g.userData.id;let phase=(now+id*.63)%5.3;g.userData.eyes.scale.y=phase>4.9&&phase<5.07?.1:1;g.userData.torso.scale.y=1+Math.sin(now*1.8+id)*.008;g.userData.left.rotation.z=.035+Math.sin(now*1.1+id)*.025;g.userData.right.rotation.z=-.035-Math.sin(now*1.1+id)*.025;if(g===patrol){g.userData.left.rotation.x=Math.sin(now*2.1)*.2;g.userData.right.rotation.x=-Math.sin(now*2.1)*.2;}}
 artFrame();};
@@ -2386,6 +2386,7 @@ const islandArchitecture=createDistrictArchitecture({scene,sites:islandSites,qua
 const islandDressing=createArchitectureOverhaul(scene,islandSites);
 colliders.push(...islandSites);districtBuildings.push(...islandSites);
 const islandShore=createIslandShore(scene,WORLD,grittyGround);
+var gfxShoreFoam=createShoreFoam(islandShore.outline);scene.add(gfxShoreFoam.mesh);
 ocean.geometry.dispose();ocean.geometry=new THREE.PlaneGeometry(2200,2200,160,160);
 ocean.position.set(0,-.375,(WORLD.minZ+WORLD.maxZ)/2);
 // Older saves may stand on a newly built lot. Move those positions to a clear street.

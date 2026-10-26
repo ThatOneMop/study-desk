@@ -5,26 +5,38 @@ import * as THREE from './vendor/three.module.min.js';
 export const isLowWorld=q=>q==='performance';
 const NOISE='float gwHash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float gwNoise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(gwHash(i),gwHash(i+vec2(1.,0.)),f.x),mix(gwHash(i+vec2(0.,1.)),gwHash(i+vec2(1.,1.)),f.x),f.y);}';
 
-// Ocean: four travelling sine swells (displaced in world space), analytic normals, ripple detail,
-// sky fresnel reflection and sun glint on Medium/High (uQ=1), crest and shoreline foam everywhere.
-export const OCEAN_VERTEX='varying vec2 vUv;varying vec3 world;varying vec3 vN;varying float vH;uniform float uTime;uniform float uQ;'+
-'void wave(vec2 xz,vec2 d,float k,float s,float a,inout float h,inout vec2 g){float ph=dot(d,xz)*k+uTime*s;h+=a*sin(ph);g+=a*k*cos(ph)*d;}'+
-'void main(){vUv=uv;vec4 w=modelMatrix*vec4(position,1.);float h=0.;vec2 g=vec2(0.);float A=.55+.45*uQ;'+
-'wave(w.xz,vec2(.8,.6),.35,.9,.05*A,h,g);wave(w.xz,vec2(-.5,.86),.55,1.1,.03*A,h,g);wave(w.xz,vec2(.95,-.31),1.3,1.6,.012*A,h,g);wave(w.xz,vec2(.2,.98),2.1,2.,.007*A,h,g);'+
-'w.y+=h;vH=h/A;vN=normalize(vec3(-g.x,1.,-g.y));world=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}';
-export const OCEAN_FRAGMENT='varying vec2 vUv;varying vec3 world;varying vec3 vN;varying float vH;uniform float uTime;uniform float uLight;uniform vec3 uFog;uniform float uFogNear;uniform float uFogFar;uniform float uQ;uniform vec3 uSkyTop;uniform vec3 uSkyBot;uniform float uSkyLevel;'+NOISE+
-'void main(){float t=uTime;vec2 q=world.xz;vec3 n=normalize(vN);'+
-'float r1=gwNoise(q*1.3+vec2(t*.35,t*.2)),r2=gwNoise(q*2.7-vec2(t*.25,-t*.4));n=normalize(n+vec3(r1-.5,0.,r2-.5)*.22*uQ);'+
-'vec3 V=normalize(cameraPosition-world);float depth=smoothstep(58.,115.,world.z);'+
-'vec3 c=mix(vec3(.2,.48,.49),vec3(.1,.29,.36),depth);c+=sin(world.z*3.5+t*.8+sin(world.x*.12))*.018;'+
+// Ocean: long swells displace the (coarse) sea mesh; per-pixel analytic wave normals and ripples give
+// the detail, with sky fresnel reflection and sun glint on Medium/High (uQ=1) and soft crest foam.
+const WAVES='void wave(vec2 xz,vec2 d,float k,float s,float a,inout float h,inout vec2 g){float ph=dot(d,xz)*k+uTime*s;h+=a*sin(ph);g+=a*k*cos(ph)*d;}';
+export const OCEAN_VERTEX='varying vec2 vUv;varying vec3 world;uniform float uTime;uniform float uQ;'+WAVES+
+'void main(){vUv=uv;vec4 w=modelMatrix*vec4(position,1.);float h=0.;vec2 g=vec2(0.);wave(w.xz,vec2(.8,.6),.11,.55,.06*uQ,h,g);wave(w.xz,vec2(-.45,.89),.17,.7,.035*uQ,h,g);'+
+'w.y+=h;world=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}';
+export const OCEAN_FRAGMENT='varying vec2 vUv;varying vec3 world;uniform float uTime;uniform float uLight;uniform vec3 uFog;uniform float uFogNear;uniform float uFogFar;uniform float uQ;uniform vec3 uSkyTop;uniform vec3 uSkyBot;uniform float uSkyLevel;'+NOISE+WAVES+
+'void main(){float t=uTime;vec2 q=world.xz;float h=0.;vec2 g=vec2(0.);'+
+'wave(q,vec2(.8,.6),.35,.9,.05,h,g);wave(q,vec2(-.5,.86),.55,1.1,.03,h,g);wave(q,vec2(.95,-.31),1.3,1.6,.012,h,g);wave(q,vec2(.2,.98),2.1,2.,.007,h,g);'+
+'vec3 n=normalize(vec3(-g.x*(.6+.6*uQ),1.,-g.y*(.6+.6*uQ)));float r1=gwNoise(q*1.3+vec2(t*.35,t*.2)),r2=gwNoise(q*2.7-vec2(t*.25,-t*.4));n=normalize(n+vec3(r1-.5,0.,r2-.5)*.2*uQ);'+
+'vec3 V=normalize(cameraPosition-world);float patch=gwNoise(q*.02+t*.004);vec3 c=mix(vec3(.2,.47,.48),vec3(.12,.32,.38),patch);c+=sin(world.z*3.5+t*.8+sin(world.x*.12))*.015;'+
 'float fres=pow(1.-max(dot(n,V),0.),4.);vec3 R=reflect(-V,n);vec3 sky=mix(uSkyBot,uSkyTop,pow(clamp(R.y,0.,1.),.55))*uSkyLevel;'+
-'c=mix(c,sky,clamp(fres*(.22+.5*uQ)+.08*uQ,0.,1.));'+
-'float day=smoothstep(.45,.9,uLight);float glint=pow(max(dot(R,normalize(vec3(.3,.42,.86))),0.),220.)*2.2*uQ*day;'+
-'float crest=smoothstep(.055,.09,vH)*(.45+.55*gwNoise(q*3.+t*.3));'+
-'float sd=world.z-58.;float band=1.-smoothstep(0.,4.+1.5*sin(world.x*.21+t*.6),sd);'+
-'float lines=.5+.5*sin(sd*2.4-t*1.7+gwNoise(q*.8)*3.);float shore=band*smoothstep(.35,.85,lines*(.55+.45*gwNoise(q*2.2+t*.2)));'+
-'c=mix(c,vec3(.92,.96,.95),clamp(crest*.55+shore*.8,0.,1.));c*=uLight;c+=glint;'+
+'c=mix(c,sky,clamp(fres*(.2+.5*uQ)+.06*uQ,0.,1.));float day=smoothstep(.45,.9,uLight);float glint=pow(max(dot(R,normalize(vec3(.3,.42,.86))),0.),220.)*2.*uQ*day;'+
+'float crest=smoothstep(.06,.09,h)*smoothstep(.45,.8,gwNoise(q*2.6+t*.3));c=mix(c,vec3(.9,.95,.94),crest*.5);c*=uLight;c+=glint;'+
 'float fog=smoothstep(uFogNear,uFogFar,distance(cameraPosition,world));gl_FragColor=vec4(mix(c,uFog,fog),1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}';
+
+// Shore foam: one transparent ribbon along the island coast where the shelf meets the water line,
+// with foam lines that roll in and fade. Medium/High only.
+export function createShoreFoam(outline=[],{y=-.355,from=.84,to=.97}={}){
+ const pos=[],uv=[],idx=[];let run=0;
+ outline.forEach((p,i)=>{const a={x:p.inner.x+(p.outer.x-p.inner.x)*from,z:p.inner.z+(p.outer.z-p.inner.z)*from},b={x:p.inner.x+(p.outer.x-p.inner.x)*to,z:p.inner.z+(p.outer.z-p.inner.z)*to};
+  if(i){const o=outline[i-1];run+=Math.hypot(p.inner.x-o.inner.x,p.inner.z-o.inner.z);}
+  pos.push(a.x,y,a.z,b.x,y,b.z);uv.push(run,0,run,1);});
+ const n=outline.length;for(let i=0;i<n;i++){const j=(i+1)%n,a=i*2,b=j*2;idx.push(a,a+1,b,b,a+1,b+1);}
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);
+ const u={uTime:{value:0},uLight:{value:1}};
+ const mat=new THREE.ShaderMaterial({uniforms:u,transparent:true,depthWrite:false,side:THREE.DoubleSide,
+  vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+  fragmentShader:'varying vec2 vUv;uniform float uTime;uniform float uLight;'+NOISE+'void main(){float a=vUv.y;float n=gwNoise(vec2(vUv.x*.35,uTime*.25));float lines=smoothstep(.55,.9,.5+.5*sin(a*14.-uTime*1.6+n*4.));float edge=smoothstep(0.,.12,a)*(1.-smoothstep(.55,1.,a));float speck=smoothstep(.35,.75,gwNoise(vec2(vUv.x*1.7,a*6.-uTime*.4)));float f=edge*(lines*.75+speck*.35)*(.75+.25*n);gl_FragColor=vec4(vec3(.93,.97,.96)*(.35+.65*uLight),clamp(f,0.,.85));\n#include <colorspace_fragment>\n}'});
+ const mesh=new THREE.Mesh(geo,mat);mesh.name='Gfx shore foam v155';mesh.renderOrder=2;mesh.frustumCulled=false;
+ return {mesh,update(t,light,quality){u.uTime.value=t;u.uLight.value=light;mesh.visible=!isLowWorld(quality);}};
+}
 
 // Sky: horizon haze, domain-warped drifting clouds with lit tops and soft bases, stars at night.
 export const SKY_FRAGMENT='varying vec3 direction;uniform vec3 top;uniform vec3 bottom;uniform float night;uniform float time;'+NOISE+
