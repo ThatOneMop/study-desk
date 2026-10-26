@@ -2,7 +2,7 @@
 // end-of-day summary. Presentation only. Nothing here reads or writes a save
 // field that does not already exist, so v3 saves load unchanged.
 
-import {levelOf as rankOf,levelProgress} from './xp-curve.mjs';
+import {levelOf as rankOf,levelProgress,rankTitle} from './xp-curve.mjs?v=156';
 const DAYS=Object.freeze(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);
 const SHORT=Object.freeze(['Mon','Tue','Wed','Thu','Fri','Sat','Sun']);
 
@@ -97,13 +97,15 @@ export function sleepSummary(before,after,levelOf=rankOf){
  const deals=Math.max(0,Math.round(num(a.sold)-num(b.sold)));
  const xp=Math.max(0,Math.round(num(a.xp)-num(b.xp)));
  const fromLevel=levelOf(num(b.xp)),toLevel=levelOf(num(a.xp));
- return Object.freeze({day:Math.max(1,Math.floor(num(b.day)||1)),earned,deals,xp,level:toLevel,rankUp:toLevel>fromLevel,progress:levelProgress(num(a.xp)).ratio});
+ // v156: the card leads with the street-rank title (e.g. Chew Peddler III); a new tier or level both count as a rank up.
+ const fromTitle=rankTitle(num(b.xp)),toTitle=rankTitle(num(a.xp));
+ return Object.freeze({day:Math.max(1,Math.floor(num(b.day)||1)),earned,deals,xp,level:toLevel,title:toTitle.label,titleUp:toTitle.index>fromTitle.index,rankUp:toLevel>fromLevel||toTitle.index>fromTitle.index,progress:toTitle.ratio});
 }
 
 export function sleepCardHTML(view,money=v=>'$'+v){
  if(!view)return '';
  const sign=view.earned>=0?'+':'−';
- return '<div class="sleep-card" role="dialog" aria-label="Day '+view.day+' summary"><small>END OF DAY '+view.day+'</small><h2>Summary</h2><dl><div><dt>Earnings</dt><dd class="'+(view.earned>=0?'pos':'neg')+'">'+sign+money(Math.abs(view.earned))+'</dd></div><div><dt>Deals completed</dt><dd>'+view.deals+'</dd></div><div><dt>Experience</dt><dd>+'+view.xp+' XP</dd></div></dl><div class="rank"><span>Rank '+view.level+'</span><div class="xpbar"><i style="width:'+Math.round(view.progress*100)+'%"></i></div></div>'+(view.rankUp?'<div class="rank-stamp">RANK UP</div>':'')+'<button type="button" class="primary" onclick="dismissSleepCard()">Continue</button></div>';
+ return '<div class="sleep-card" role="dialog" aria-label="Day '+view.day+' summary"><small>END OF DAY '+view.day+'</small><h2>Summary</h2><dl><div><dt>Earnings</dt><dd class="'+(view.earned>=0?'pos':'neg')+'">'+sign+money(Math.abs(view.earned))+'</dd></div><div><dt>Deals completed</dt><dd>'+view.deals+'</dd></div><div><dt>Experience</dt><dd>+'+view.xp+' XP</dd></div></dl><div class="rank"><span>'+(view.title?view.title+' · Lv '+view.level:'Rank '+view.level)+'</span><div class="xpbar"><i style="width:'+Math.round(view.progress*100)+'%"></i></div></div>'+(view.rankUp?'<div class="rank-stamp">RANK UP</div>':'')+'<button type="button" class="primary" onclick="dismissSleepCard()">Continue</button></div>';
 }
 
 // White line glyphs for the phone's home-screen app tiles (original drawings).

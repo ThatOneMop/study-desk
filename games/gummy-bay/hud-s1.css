@@ -348,3 +348,9 @@ body.skating .crosshair,body.skating #crosshair{opacity:0}
 /* Out-of-reach actions are greyed out until the player is close enough. */
 #modal .note.out-of-reach{color:#b5523b;font-weight:700}
 #modal button.out-of-reach{cursor:not-allowed;filter:grayscale(1)}
+/* v156 street rank chip under the clock */
+#s1rank{position:absolute;top:48px;right:18px;z-index:6;min-width:132px;padding:5px 10px 7px;border-radius:6px;background:var(--s1-panel);border:1px solid var(--s1-line);pointer-events:none;text-align:right;line-height:1}
+#s1rank[hidden]{display:none}
+#s1rank b{display:block;font-size:11px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:#ffe7a8}
+#s1rank i{display:block;height:3px;margin-top:5px;border-radius:2px;background:#ffffff22;overflow:hidden}
+#s1rank u{display:block;height:100%;background:linear-gradient(90deg,#f4c46b,#ffe7a8);text-decoration:none;transition:width .4s ease}
