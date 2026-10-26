@@ -48,7 +48,8 @@ import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,creat
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
 import {createFixedStepper} from './sim-clock.mjs?v=122';
-import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=135';
+import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=137';
+import {createWalkGrid} from './walk-grid.mjs?v=137';
 import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from './staff-status.mjs?v=123';
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=135';
 import {customerBrief,customerReply,readCustomerReceipt,sampleChoices,customerVoice} from './customer-context.mjs?v=30';
@@ -2805,9 +2806,15 @@ if(qaKey){
  const qaToast=toast;toast=function(msg){qaToasts.push(String(msg).slice(0,160));if(qaToasts.length>30)qaToasts.shift();qaToast(msg);};
  save=function(){if(!active||net.role==='guest'||processingRemote)return;s.x=player.x;s.z=player.z;s.yaw=yaw;s.pitch=pitch;s.savedAt=Date.now();try{localStorage.setItem(qaKey,JSON.stringify(s));}catch(e){}};
  let qaStep=0;
+ let qaGrid=null,qaGridKey='';
+ function qaRoute(x,z,tx,tz){
+  const key=[s.house,s.tents,(s.installed||[]).join('.'),JSON.stringify(s.layout||{})].join('|');
+  if(!qaGrid||qaGridKey!==key){qaGridKey=key;qaGrid=createWalkGrid({blocked:(px,pz)=>blocked(px,pz),minX:WORLD.minX,maxX:WORLD.maxX,minZ:WORLD.minZ,maxZ:WORLD.maxZ,res:.5});}
+  return qaGrid.route(x,z,tx,tz,{reach:1.5});
+ }
  function qaSnapshot(){
   const police=ensurePolice(),feedback=currentPoliceFeedback();
-  return {active,panel:panel==='station'?'':panel,station:!!stationTask,stationKind:stationTask?.k||'',work:!!work,search:!!police.search,policeReport:!!police.report,canComply:!!feedback.canComply,
+  return {route:qaRoute,active,panel:panel==='station'?'':panel,station:!!stationTask,stationKind:stationTask?.k||'',work:!!work,search:!!police.search,policeReport:!!police.report,canComply:!!feedback.canComply,
    x:player.x,z:player.z,yaw,time:s.time,day:s.day,curfew:curfewActive(s.time),cash:s.cash,xp:s.xp,level:level(),heat:s.heat,
    called:s.called,room:!!s.room,tents:s.tents,installed:!!s.installed?.includes(0),can:!!s.can,trimmers:!!s.trimmers,packStation:!!s.packStation,
    seeds:s.seeds[0]||0,soil:s.soil||0,wrappers:s.wrappers||0,water:s.water||0,plant:s.plants[0]?{phase:s.plants[0].phase,waterings:s.plants[0].waterings}:null,
