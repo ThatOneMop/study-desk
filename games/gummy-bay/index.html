@@ -14,4 +14,4 @@ function showBootFailure(message){
 }
 window.addEventListener('error',e=>showBootFailure(e.message||'A game file could not load.'));
 window.addEventListener('unhandledrejection',e=>{if(!String(e.reason).includes('pointer'))showBootFailure(String(e.reason));});
-</script><script type="module" src="game.js?v=122"></script><div id="policeHUD" hidden><strong id="policeStatus"></strong><button id="policeComply" onclick="complyPolice()">Comply [H]</button></div></body></html>
+</script><script type="module" src="game.js?v=123"></script><div id="policeHUD" hidden><strong id="policeStatus"></strong><button id="policeComply" onclick="complyPolice()">Comply [H]</button></div></body></html>

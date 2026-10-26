@@ -1,8 +1,10 @@
-# Gummy Bay v122
+# Gummy Bay v123
 
-The playable game in `games/gummy-bay/` is the v121 export plus the v122 simulation and workshop-staff pass. Study Desk still opens it at `games/gummy-bay/index.html`. Entry script is `game.js?v=122`. Save keys stay `gummybay-v3-{story|free}-{1|2|3}` and the save version stays 3.
+The playable game in `games/gummy-bay/` is the v122 build plus walking field staff. Study Desk still opens it at `games/gummy-bay/index.html`. Entry script is `game.js?v=123`. Save keys stay `gummybay-v3-{story|free}-{1|2|3}` and the save version stays 3.
 
-v122 runs the world in fixed 1/60 second steps. One real second matches at 30 FPS and 120 FPS. A hitch catches up at most a quarter second instead of freezing the clock, movement, police and workers at 60 ms. A new gummy maker walks the workshop. A save that already chose carried or stored stock keeps that choice. Gardening and selling stay on their timers. See `games/gummy-bay-dev/docs/overhaul-v122.md`.
+A new gardener walks between installed tents to harvest, water and plant. A new seller walks an agreed order to that customer and pays the agreed price once. The old instant loops remain on the roster as Background timer. A version-3 save that never stored a route keeps the timer, so existing businesses do not change crews by surprise. See `games/gummy-bay-dev/docs/overhaul-v123.md`.
+
+v122 runs the world in fixed 1/60 second steps. One real second matches at 30 FPS and 120 FPS. A hitch catches up at most a quarter second instead of freezing the clock, movement, police and workers at 60 ms. A new gummy maker walks the workshop. A save that already chose carried or stored stock keeps that choice. See `games/gummy-bay-dev/docs/overhaul-v122.md`.
 
 ## v121 import
 
