@@ -1,0 +1,46 @@
+/* v143 Sweet Network phone app: dark cards so text stays readable on the phone glass */
+.net-phone .net-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}
+.net-phone .net-sum span{display:flex;flex-direction:column;align-items:center;padding:7px 4px;border-radius:12px;background:#2b2330;color:#d8c2a6;font-size:11px}
+.net-phone .net-sum b{font-size:15px;color:#fff}
+.net-tabs{display:flex;gap:6px;margin:6px 0 10px}
+.net-tabs button{flex:1;padding:7px 4px;border-radius:999px;border:1px solid #ffffff2a;background:#241d29;color:#f4e6d2;font-weight:700;cursor:pointer}
+.net-tabs button.on{background:#ff9c6b;border-color:#ff9c6b;color:#2a160c}
+.net-card{margin:8px 0;padding:11px 12px;border-radius:14px;background:#2b2330;border:1px solid #ff9c6b44;color:#fff4e2}
+.net-card.locked{opacity:.85;border-style:dashed}
+.net-card.low{border-color:#ff5d73aa;background:#33202a}
+.net-card p{margin:4px 0;color:#efdcc4}
+.net-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.net-row b{color:#fff;font-size:15px}.net-row small{color:#ffb27a;font-weight:800;letter-spacing:.08em;font-size:11px;text-transform:uppercase}
+.net-status{font-weight:700;color:#fff!important}
+.net-meta{font-size:12px;color:#e3cfb5!important}.net-meta b{color:#ffe2bf}.net-meta .warn{color:#ffb0a0}
+.net-bar{position:relative;height:9px;border-radius:9px;background:#ffffff1f;overflow:visible;margin:7px 0}
+.net-bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#8be0a4,#ffd36b)}
+.net-bar em{position:absolute;top:-3px;width:2px;height:15px;background:#fff;opacity:.8}
+.net-bar.run i{background:linear-gradient(90deg,#6bd2ff,#3bb3a1)}
+.net-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.net-btns button,.net-card>button{padding:7px 10px;border-radius:999px;border:1px solid #ffb27a88;background:#3a2b3f;color:#fff;font-weight:700;font-size:12px;cursor:pointer}
+.net-btns button.go,.net-card>button:not(:disabled){background:#ff9c6b;border-color:#ff9c6b;color:#2a160c}
+.net-btns button:disabled,.net-card>button:disabled{opacity:.45;cursor:default;background:#3a2b3f;color:#fff}
+.net-btns.wide button{flex:1}
+.net-log{list-style:none;padding:0;margin:6px 0;font-size:12.5px}.net-log li{padding:6px 0;border-bottom:1px solid #ffffff14;color:#f4e6d2}
+.net-log li small{color:#d8c2a6;margin-right:4px}.net-log li.bust{color:#ffb0a0}.net-log li.short{color:#ffd36b}.net-log li.cash{color:#b9e8c4}
+.net-phone-card{background:linear-gradient(90deg,#3bb3a1,#8be0a4);color:#0d2a24}
+.net-inline{padding:0}.net-inline .net-card{margin-top:4px}
+#modal .net-inline,#modal .net-inline p{color:inherit}
+/* Dark ink on the mint card so every line clears contrast on the light end of the gradient. */
+.net-phone-card{background:linear-gradient(90deg,#2f9e8e,#7fd69a)}
+body #overlay.phone #modal .net-phone-card b,body #overlay.phone #modal .net-phone-card strong,body #overlay.phone #modal .net-phone-card b,.net-phone-card b,.net-phone-card strong{color:#06231d!important}
+body #overlay.phone #modal .net-phone-card small,.net-phone-card small{color:#0b3a30!important;opacity:1;font-weight:700}
+/* The phone is a light sheet: text outside cards uses dark ink, text inside the dark cards is forced light
+   (hud-s1 paints every #modal p/small grey with !important, so these need matching specificity). */
+body #overlay.phone #modal .net-phone>.net-meta,body #overlay.phone #modal .net-phone>p{color:#3b3540!important}
+body #overlay.phone #modal .net-phone>.net-meta b{color:#15191d!important}
+body #overlay.phone #modal .net-card p,body #overlay.phone #modal .net-card .net-meta{color:#eadbc8!important}
+body #overlay.phone #modal .net-card .net-meta b,body #overlay.phone #modal .net-card strong,body #overlay.phone #modal .net-row b{color:#fff!important}
+body #overlay.phone #modal .net-card .net-meta .warn{color:#ffb0a0!important}
+body #overlay.phone #modal .net-row small{color:#ffb27a!important}
+body #overlay.phone #modal .net-log li{color:#2a2230!important;border-bottom-color:#0000001a}
+body #overlay.phone #modal .net-log li small{color:#6b6470!important}
+body #overlay.phone #modal .net-log li.bust{color:#a3231a!important}
+body #overlay.phone #modal .net-log li.short{color:#865400!important}
+body #overlay.phone #modal .net-log li.cash{color:#1d6b35!important}
