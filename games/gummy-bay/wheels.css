@@ -1,0 +1,16 @@
+/* v144 Wheels & Weather: phone forecast card, forecast list, trunk buttons. Dark cards so text stays readable on the phone glass. */
+.phone-weather{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;width:100%;margin:6px 0 10px;padding:10px 12px;border-radius:16px;border:1px solid #8fd3ff55;background:linear-gradient(135deg,#1f2b3a,#2b2330);color:#f4f0ff;text-align:left;cursor:pointer}
+.phone-weather b{grid-row:1/3;font-size:26px;line-height:1}
+.phone-weather strong{font-size:14px}
+.phone-weather small{color:#bcd6ee;font-size:11px}
+.phone-weather[data-weather="storm"],.phone-weather[data-weather="rain"]{border-color:#8fb6ffaa}
+.wx-now{margin:6px 0 10px;padding:10px 12px;border-radius:14px;background:#22303f;color:#eef6ff}
+.wx-days{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.wx-days li{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:#2b2330;color:#fff4e2}
+.wx-days li b{font-size:20px;text-align:center}
+.wx-days li small{color:#d8c2a6}
+.wx-days li.wx-storm,.wx-days li.wx-rain{background:#24304a}
+.wx-days li.wx-showers{background:#2a3140}
+.trunk-buttons{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.trunk-buttons button{flex:1 1 40%;min-height:34px}
+@media (max-width:520px){.wx-days li{grid-template-columns:26px 1fr}.wx-days li small{grid-column:2}}
