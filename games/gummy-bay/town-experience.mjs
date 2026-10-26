@@ -4,11 +4,27 @@ export function turnTowards(current,target,dt,rate=8){
  return current+delta*(1-Math.exp(-Math.max(0,dt)*rate));
 }
 export function sweepWalk(position,dx,dz,blocked){
- const steps=Math.max(1,Math.ceil(Math.hypot(dx,dz)/.16));
+ const moveX=Number.isFinite(dx)?dx:0,moveZ=Number.isFinite(dz)?dz:0;
+ const steps=Math.max(1,Math.ceil(Math.hypot(moveX,moveZ)/.16));
  let x=position.x,z=position.z,hitX=false,hitZ=false;
+ const sx=moveX/steps,sz=moveZ/steps;
  for(let i=0;i<steps;i++){
-  if(!blocked(x+dx/steps,z))x+=dx/steps;else hitX=true;
-  if(!blocked(x,z+dz/steps))z+=dz/steps;else hitZ=true;
+  let blockedX=false,blockedZ=false;
+  if(!blocked(x+sx,z))x+=sx;else {hitX=true;blockedX=true;}
+  if(!blocked(x,z+sz))z+=sz;else {hitZ=true;blockedZ=true;}
+  // A corner that catches both axes gets one small slide so the body does not stick.
+  if(blockedX&&blockedZ&&sx&&sz){
+   const nudge=Math.min(.08,Math.hypot(sx,sz));
+   if(Math.abs(sx)>=Math.abs(sz)){
+    const dir=Math.sign(sz);
+    if(!blocked(x,z+dir*nudge))z+=dir*nudge;
+    else if(!blocked(x,z-dir*nudge))z-=dir*nudge;
+   }else{
+    const dir=Math.sign(sx);
+    if(!blocked(x+dir*nudge,z))x+=dir*nudge;
+    else if(!blocked(x-dir*nudge,z))x-=dir*nudge;
+   }
+  }
  }
  return {x,z,hitX,hitZ};
 }
