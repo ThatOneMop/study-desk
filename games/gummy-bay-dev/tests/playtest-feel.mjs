@@ -66,3 +66,8 @@ for(const rule of ['body #compass{top:94px!important}','body #policeHUD{top:140p
 // Sanity: the phone column stacks without overlap (objective ≤ 89 px tall at 12 px top on a 390 px screen).
 {const compass=[94,134],wanted=[94,134],police=[140,275],notifs=[282,282+140];assert.ok(compass[0]>=12+77&&police[0]>=wanted[1]&&notifs[0]>=police[1]);}
 console.log('playtest-feel ok');
+// Officers stop at arm's length instead of walking through the camera; the 2.6 m grab still reaches.
+assert.match(game,/const COP_PERSONAL_SPACE=1\.05;/);
+assert.match(game,/if\(active&&!driving&&\(px\*dx\+pz\*dz\)>0&&Math\.abs\(px\*dz-pz\*dx\)\/d<\.7\)amount=Math\.min\(amount,Math\.max\(0,pd-COP_PERSONAL_SPACE\)\);/);
+assert.match(game,/if\(distance<2\.6&&seen&&!driving/,'grab range stays outside the personal-space stop');
+console.log('playtest-feel cop spacing ok');

@@ -1088,8 +1088,12 @@ function copPath(a,b){const step=3,key=(x,z)=>x+','+z,sx=Math.round(a.x/step),sz
  for(let count=0;open.length&&count<500;count++){open.sort((a,b)=>b.f-a.f);let q=open.pop(),k=key(q.x,q.z);if(closed.has(k))continue;closed.add(k);if(Math.hypot(q.x-gx,q.z-gz)<1.5){end=q;break;}for(let [dx,dz] of [[1,0],[-1,0],[0,1],[0,-1]]){let x=q.x+dx,z=q.z+dz,k2=key(x,z),g=q.g+1;if(closed.has(k2)||!copGridFree(x,z)||!copSight({x:q.x*step,z:q.z*step},{x:x*step,z:z*step}))continue;let prev=seen.get(k2);if(prev&&prev.g<=g)continue;let v={x,z,g,f:g+Math.abs(x-gx)+Math.abs(z-gz),parent:q};seen.set(k2,v);open.push(v);}}
  let out=[];while(end?.parent){out.unshift({x:end.x*step,z:end.z*step});end=end.parent;}return out;
 }
+const COP_PERSONAL_SPACE=1.05;
 function moveCop(c,i,target,speed,dt){let aim=target;if(!copSight(c,target)){let cache=copPaths.get(i);if(!cache||cache.age<=0||Math.hypot(cache.tx-target.x,cache.tz-target.z)>5){if(copPathBudget<=0)return;copPathBudget--;cache={path:copPath(c,target),age:4,tx:target.x,tz:target.z};copPaths.set(i,cache);}cache.age-=dt;while(cache.path.length&&Math.hypot(c.x-cache.path[0].x,c.z-cache.path[0].z)<.7)cache.path.shift();if(!cache.path.length)return;aim=cache.path[0];}
- let dx=aim.x-c.x,dz=aim.z-c.z,d=Math.hypot(dx,dz);if(d<.05)return;c.angle=Math.atan2(dx,dz);let amount=Math.min(speed*dt,d),nx=c.x+dx/d*amount,nz=c.z+dz/d*amount;if(!blocked(nx,c.z))c.x=nx;if(!blocked(c.x,nz))c.z=nz;
+ let dx=aim.x-c.x,dz=aim.z-c.z,d=Math.hypot(dx,dz);if(d<.05)return;c.angle=Math.atan2(dx,dz);let amount=Math.min(speed*dt,d);
+ // v143 playtest: an officer used to run straight through the camera (navy/yellow wall filling the screen). Hold at arm's length; grabs still trigger inside 2.6 m.
+ {const px=player.x-c.x,pz=player.z-c.z,pd=Math.hypot(px,pz);if(active&&!driving&&(px*dx+pz*dz)>0&&Math.abs(px*dz-pz*dx)/d<.7)amount=Math.min(amount,Math.max(0,pd-COP_PERSONAL_SPACE));}
+ let nx=c.x+dx/d*amount,nz=c.z+dz/d*amount;if(!blocked(nx,c.z))c.x=nx;if(!blocked(c.x,nz))c.z=nz;
 }
 function interruptPoliceWork(){if(stationTask)cancelStation();cancelPlacement();work=null;stationHeld=stationAssist=false;$('work').style.display='none';watering.visible=false;}
 function beginPoliceSearch(role,fled=false){if(net.role==='guest'||!['host','guest'].includes(role))return;let p=ensurePolice();if(p.search||p.cooldown>0)return;p.search={role,remaining:4,fled};interruptPoliceWork();if(role===localPoliceRole()){close();keys={};locomotion.x=locomotion.z=0;driveSpeed=0;toast('Police body search — checking shared carried gummy stock.');}save();}
