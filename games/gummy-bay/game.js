@@ -4220,7 +4220,14 @@ try{
   // QA/debug: jump the network clock forward without touching your own day.
   advance:minutes=>{const e=ensureEmpire();e.clock=Math.max(0,e.clock-Math.max(0,minutes|0));return netRun();},
   spot:id=>NET.spots[id],track:id=>{const p=NET.spots[id];if(!p)return false;track={x:p.x,z:p.z,label:dealerOf(id).name};close();toast('Tracking '+dealerOf(id).name);return true;},
-  visuals:()=>({dealers:Object.fromEntries(DEALER_ROSTER.map(d=>[d.id,NET.actors[d.id].g.visible])),crew:NET.crew.filter(f=>f.g.visible).length,runner:!!NET.runner?.visible}),
-  html:()=>sweetNetHTML()};
+  visuals:()=>({dealers:Object.fromEntries(DEALER_ROSTER.map(d=>[d.id,NET.actors[d.id].g.visible])),crew:NET.crew.filter(f=>f.g.visible).length,runner:!!NET.runner?.visible,runnerAt:NET.runner?[NET.runner.position.x,NET.runner.position.z]:null}),
+  html:()=>sweetNetHTML(),
+  // QA/screenshot staging: a stocked late-game network, and a standing spot facing a dealer or the crew.
+  stage:()=>{s.room=true;s.xp=Math.max(s.xp,600);s.cash=Math.max(s.cash,30000);s.heat=Math.min(s.heat||0,20);const e=ensureEmpire();
+   for(const d of DEALER_ROSTER){if(!e.dealers[d.id])A.recruit(d.id);for(let k=0;k<d.cap;k++)if(!A.assign(d.id))break;for(let t=0;t<BASE_COUNT;t++)s.packs[t]=Math.max(s.packs[t],8);A.restock(d.id,true);}
+   for(const r of RUNNER_ROSTER)if(!e.runners[r.id])A.hireRunner(r.id);if(!e.crew.length)A.hireCrew('bench');for(let t=0;t<BASE_COUNT;t++)s.storedPacks[t]=Math.max(s.storedPacks[t],10);
+   const c=e.crew[0];if(c)c.strain=0;netRun();close();return {dealers:Object.keys(e.dealers).length,runners:Object.keys(e.runners).length,crew:e.crew.length};},
+  look:(x,z,from=6,side=0)=>{const p={x,z},d=Math.hypot(player.x-x,player.z-z)||1;player.x=x+from*Math.cos(side);player.z=z+from*Math.sin(side);yaw=Math.atan2(-(x-player.x),-(z-player.z));pitch=-.08;return {x:player.x,z:player.z,yaw};},
+  crewSpot:()=>{const h=HOMES[s.house]||HOMES[0],o=SLOT_OFFSETS[0];return {x:h.x+o[0],z:h.z+o[1]};}};
  window.loadGame=load;
 }catch(error){console.warn('Sweet Network unavailable',error);}
