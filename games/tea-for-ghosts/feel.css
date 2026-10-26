@@ -1,0 +1,40 @@
+.tf-head{display:flex;gap:8px;align-items:center}.tf-head button{min-height:40px;padding:8px 13px}
+kbd{font:600 11px/1 system-ui,sans-serif;border:1px solid #6d7d74;border-bottom-width:2px;border-radius:4px;padding:2px 5px;color:var(--ink);background:#26363a}
+.tf-keys{margin-top:12px;line-height:2}.tf-keys b{color:var(--gold);font-weight:600;margin-right:4px}
+.pass-note{color:var(--gold)}
+.tf-title,.tf-pause{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 35%,#3b5050f2,#141f23f7 70%);transition:opacity .3s}
+.tf-pause{background:#101b1fd9;backdrop-filter:blur(3px)}.tf-pause[hidden],.tf-title[hidden]{display:none}.tf-title.gone{opacity:0;pointer-events:none}
+.tf-title-card{text-align:center;max-width:560px;padding:34px 38px;border:1px solid #6b7b6f;border-radius:20px;background:linear-gradient(#2b3d41f2,#223236f2);box-shadow:0 30px 80px #0008}
+.tf-title-card h1{font:400 clamp(40px,6vw,64px)/1.05 Georgia,serif;margin:6px 0 10px}.tf-title-card h1 em{color:var(--gold)}.tf-title-card h2{font:400 34px/1.1 Georgia,serif;margin:6px 0}
+.tf-title-art{width:250px;max-width:70%;display:block;margin:0 auto 4px}.tf-title-ghost{animation:tfbob 3.4s ease-in-out infinite}.tf-title-steam{animation:steam 3s ease-in-out infinite}
+.tf-sub{color:var(--muted);margin:0 auto 10px;max-width:420px}.tf-night{color:var(--gold);font-size:13px;letter-spacing:.06em;min-height:1.4em}.tf-small{font-size:12px;color:var(--muted);margin:12px 0 0}
+.tf-title-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}.tf-title-actions .primary{font-weight:600;padding:12px 26px}
+.tf-ghost{transform-box:fill-box;transform-origin:50% 100%;animation:tfbob 3.6s ease-in-out infinite}
+.tf-ghost.tf-arrive{animation:tfarrive 1.1s ease-out,tfbob 3.6s ease-in-out 1.1s infinite}.tf-ghost.tf-shiver{animation:tfshiver .5s ease-in-out,tfbob 3.6s ease-in-out .5s infinite}
+.tf-ghost[data-mood="happy"]{filter:drop-shadow(0 0 14px #ffe7a6)}
+#smile{transition:d .3s}
+@keyframes tfbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes tfarrive{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes tfshiver{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+#tfPour{stroke-dasharray:90;stroke-dashoffset:90;opacity:0}
+.tf-pouring #tfPour{animation:tfpour 1.3s ease-in-out}
+.tf-pouring #tea-liquid{animation:tffill 1.3s ease-out}
+@keyframes tfpour{0%{opacity:.95;stroke-dashoffset:90}45%{opacity:.95;stroke-dashoffset:0}80%{opacity:.9;stroke-dashoffset:0}100%{opacity:0;stroke-dashoffset:-90}}
+@keyframes tffill{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:none}}
+.tf-bubble{position:absolute;left:52%;top:14px;max-width:44%;background:#f5ecd6;color:#2c3a3a;border-radius:14px 14px 14px 4px;padding:10px 14px;font:15px/1.45 Georgia,serif;box-shadow:0 8px 24px #0006;opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none}
+.tf-bubble.show{opacity:1;transform:none}.tf-bubble b{display:block;font:600 10px/1.4 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#7d6a4f}
+.tf-fx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.tf-spark{position:absolute;width:8px;height:8px;border-radius:50%;box-shadow:0 0 10px currentColor;opacity:0;animation:tfspark 1.4s ease-out forwards}
+@keyframes tfspark{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.2)}}
+.tf-banner{position:absolute;left:50%;bottom:44px;transform:translate(-50%,12px);background:#1d2b2ee6;border:1px solid var(--line);color:var(--ink);padding:8px 18px;border-radius:999px;font-weight:600;letter-spacing:.04em;opacity:0;transition:.3s;pointer-events:none;white-space:nowrap}
+.tf-banner.show{opacity:1;transform:translate(-50%,0)}.tf-banner.good{border-color:var(--gold);color:#ffe3a1;box-shadow:0 0 30px #e3ba7866}.tf-banner.gift{border-color:#94b39d;color:#cfe8d4}
+.window-art.tf-glow::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#ffe7a655,transparent 60%);animation:tfglow 1.8s ease-out forwards;pointer-events:none}
+@keyframes tfglow{from{opacity:1}to{opacity:0}}
+.jar.tf-pop{animation:tfjar .35s ease-out}@keyframes tfjar{40%{transform:translateY(-5px) rotate(-6deg) scale(1.08)}}
+@media (max-width:700px){.tf-head #soundBtn{display:none}.tf-bubble{left:6%;max-width:88%;font-size:13px}}
+@media (prefers-reduced-motion:reduce){.tf-ghost,.tf-title-ghost,.tf-title-steam{animation:none!important}.tf-spark{display:none}}
+body.lost #smile{transform:none}#tea-liquid{transform-origin:350px 323px}
+#tfPot{opacity:0;transform-box:fill-box;transform-origin:70% 60%}
+.tf-pouring #tfPot{animation:tfpot 1.6s ease-in-out}
+@keyframes tfpot{0%{opacity:0;transform:translate(30px,-10px) rotate(14deg)}18%{opacity:1;transform:none}82%{opacity:1;transform:none}100%{opacity:0;transform:translate(30px,-10px) rotate(14deg)}}
+.tf-pouring #tfPour{animation:tfpour 1.3s ease-in-out .2s both}
