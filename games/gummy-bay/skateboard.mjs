@@ -397,9 +397,11 @@ export function createKickflipContainer(scene,site=KICKFLIP_SITE){
  add(new THREE.BoxGeometry(W-1.4,.04,.08),lampMat,0,H-.22,-.2);
  const lamp=new THREE.PointLight(0xffc98a,6,7,1.6);lamp.position.set(0,H-.45,.2);g.add(lamp);
  // Lightbox sign on the roof.
- const st=signTex();const sign=new THREE.Mesh(new THREE.BoxGeometry(4.2,.78,.12),[frame,frame,frame,frame,new THREE.MeshStandardMaterial({color:0xffffff,map:st,emissive:0xffffff,emissiveMap:st,emissiveIntensity:.85,roughness:.5}),frame]);
- if(!st)sign.material[4].color.setHex(0xff5a7a);
- sign.position.set(0,H+.55,D/2-.2);g.add(sign);
+ // v146: frame box + lit face plane instead of one 6-material box (6 draw calls); the frame folds into the town batch.
+ const st=signTex(),signFace=new THREE.MeshStandardMaterial({color:0xffffff,map:st,emissive:0xffffff,emissiveMap:st,emissiveIntensity:.85,roughness:.5});
+ if(!st)signFace.color.setHex(0xff5a7a);
+ const sign=new THREE.Mesh(new THREE.BoxGeometry(4.2,.78,.12),frame);sign.position.set(0,H+.55,D/2-.2);g.add(sign);
+ const face=new THREE.Mesh(new THREE.PlaneGeometry(4.2,.78),signFace);face.name='Kickflip lightbox face';face.position.set(0,H+.55,D/2-.2+.0605);g.add(face);
  for(const sx of [-1.6,1.6])add(new THREE.BoxGeometry(.06,.5,.06),frame,sx,H+.12,D/2-.2);
  // Yard clutter: pallet, cones, a bin of old wheels.
  const pallet=new THREE.Group();pallet.position.set(W/2+.9,0,.4);g.add(pallet);

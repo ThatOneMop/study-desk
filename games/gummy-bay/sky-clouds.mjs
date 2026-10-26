@@ -62,28 +62,49 @@ function paintCloud(variant){
  const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;tex.needsUpdate=true;return tex;
 }
 
+// v146: all clouds draw as ONE mesh (was one Sprite per cloud, ~20 draw calls).
+// The four painted variants share a 2x2 atlas; each cloud is a camera-facing quad
+// rebuilt on the CPU every frame (30 quads), with tint and opacity in vertex
+// colours, sorted back to front like the sprites were.
 export function createSkyClouds(scene,{count=30,seed=11}={}){
  const group=new THREE.Group();group.name='Soft sky clouds';
  if(typeof document==='undefined'||!document.createElement)return {group,sprites:[],update(){}};
- const textures=[0,1,2,3].map(paintCloud);
- const layout=cloudLayout(count,seed);
- const sprites=layout.map((c,i)=>{
-  const m=new THREE.SpriteMaterial({map:textures[c.variant],transparent:true,depthWrite:false,fog:false,opacity:c.alpha,color:0xffffff});
-  const s=new THREE.Sprite(m);s.scale.set(c.w,c.h,1);s.renderOrder=-1;s.userData.cloud=c;s.frustumCulled=false;group.add(s);return s;
- });
+ const tiles=[0,1,2,3].map(paintCloud),tw=tiles[0].image.width,th=tiles[0].image.height;
+ const atlas=document.createElement('canvas');atlas.width=tw*2;atlas.height=th*2;const ag=atlas.getContext('2d');
+ tiles.forEach((t,v)=>{ag.drawImage(t.image,(v%2)*tw,(v>>1)*th);t.dispose();});
+ const map=new THREE.CanvasTexture(atlas);map.colorSpace=THREE.SRGBColorSpace;map.needsUpdate=true;
+ const layout=cloudLayout(count,seed),n=layout.length;
+ const pos=new Float32Array(n*12),uv=new Float32Array(n*8),col=new Float32Array(n*16),idx=new Uint16Array(n*6);
+ const geo=new THREE.BufferGeometry();
+ geo.setAttribute('position',new THREE.BufferAttribute(pos,3).setUsage(THREE.DynamicDrawUsage));
+ geo.setAttribute('uv',new THREE.BufferAttribute(uv,2).setUsage(THREE.DynamicDrawUsage));
+ geo.setAttribute('color',new THREE.BufferAttribute(col,4).setUsage(THREE.DynamicDrawUsage));
+ for(let i=0;i<n;i++)idx.set([i*4,i*4+1,i*4+2,i*4,i*4+2,i*4+3],i*6);geo.setIndex(new THREE.BufferAttribute(idx,1));
+ const material=new THREE.MeshBasicMaterial({map,transparent:true,depthWrite:false,fog:false,vertexColors:true,side:THREE.DoubleSide});
+ const mesh=new THREE.Mesh(geo,material);mesh.name='Soft sky clouds mesh';mesh.frustumCulled=false;mesh.renderOrder=-1;mesh.matrixAutoUpdate=false;group.add(mesh);
+ const sprites=layout.map(c=>({userData:{cloud:c},position:new THREE.Vector3(),visible:true,opacity:c.alpha,dist:0}));
  scene.add(group);
- const tint=new THREE.Color(),warm=new THREE.Color(),night=new THREE.Color(0x2c3644);
- return {group,sprites,
+ const tint=new THREE.Color(),warm=new THREE.Color(),night=new THREE.Color(0x2c3644),right=new THREE.Vector3(),up=new THREE.Vector3(),order=sprites.slice();
+ return {group,sprites,mesh,
   update(camera,{time=0,daylight=1,warmth=0,sunColor=0xffe2bb,cloud=0}={}){
    if(!camera)return;
    tint.setRGB(1,1,1).lerp(night,1-Math.min(1,daylight*2.4));
    warm.setHex(sunColor);tint.lerp(warm.multiplyScalar(1.05),Math.min(.55,warmth*.5));
-   const wind=time*1.4;
+   const wind=time*1.4,cp=camera.position;camera.updateMatrixWorld();const e=camera.matrixWorld.elements;right.set(e[0],e[1],e[2]).normalize();up.set(e[4],e[5],e[6]).normalize();
    for(const s of sprites){const c=s.userData.cloud;
-    const x=wrapAround(c.x+wind*c.drift,camera.position.x),z=wrapAround(c.z+wind*c.drift*.35,camera.position.z);
-    s.position.set(x,Math.max(c.y,camera.position.y+34),z);
-    const f=cloudFade(Math.hypot(x-camera.position.x,z-camera.position.z));
-    s.visible=f>.01;s.material.opacity=c.alpha*f*(.85+cloud*.15);s.material.color.copy(tint);
+    const x=wrapAround(c.x+wind*c.drift,cp.x),z=wrapAround(c.z+wind*c.drift*.35,cp.z);
+    s.position.set(x,Math.max(c.y,cp.y+34),z);
+    const f=cloudFade(Math.hypot(x-cp.x,z-cp.z));
+    s.visible=f>.01;s.opacity=c.alpha*f*(.85+cloud*.15);s.dist=s.position.distanceToSquared(cp);
    }
+   order.sort((a,b)=>b.dist-a.dist);
+   for(let i=0;i<n;i++){const s=order[i],c=s.userData.cloud,hw=c.w/2,hh=c.h/2,p=s.position,o=i*12,a=s.visible?s.opacity:0;
+    for(let k=0;k<4;k++){const sx=k===0||k===3?-hw:hw,sy=k<2?-hh:hh;
+     pos[o+k*3]=p.x+right.x*sx+up.x*sy;pos[o+k*3+1]=p.y+right.y*sx+up.y*sy;pos[o+k*3+2]=p.z+right.z*sx+up.z*sy;
+     col.set([tint.r,tint.g,tint.b,a],i*16+k*4);}
+    const u0=(c.variant%2)*.5,v0=(c.variant>>1)?0:.5;
+    uv.set([u0,v0,u0+.5,v0,u0+.5,v0+.5,u0,v0+.5],i*8);
+   }
+   geo.attributes.position.needsUpdate=true;geo.attributes.uv.needsUpdate=true;geo.attributes.color.needsUpdate=true;
   }};
 }

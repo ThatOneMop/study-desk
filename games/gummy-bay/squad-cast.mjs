@@ -19,7 +19,7 @@ export function createSquadCast({THREE,scene,capacity=10}={}){
  const root=new THREE.Matrix4(),pos=new THREE.Vector3(),quat=new THREE.Quaternion(),up=new THREE.Vector3(0,1,0),unit=new THREE.Vector3(1,1,1),heightScale=new THREE.Vector3(1,1,1);
  const scratch=new THREE.Color();
  const mat=color=>new THREE.MeshStandardMaterial({color,roughness:.84,metalness:0});
- const props=new THREE.Group();props.name='Sugar Squad props';scene.add(props);
+ const props=new THREE.Group();props.name='Sugar Squad props';props.userData.batchStatic=true;scene.add(props);
  const add=mesh=>{mesh.castShadow=true;mesh.receiveShadow=true;props.add(mesh);return mesh;};
  for(const spot of HIDE_SPOTS){
   if(spot.kind==='dumpster'){
