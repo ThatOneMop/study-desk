@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../dist/vendor/three.module.min.js';
-import {vertexColorKey,batchCandidate} from '../dist/static-batch.mjs';
+import {vertexColorKey,batchCandidate,groupCandidate,createStaticBatcher,BATCH_CELL} from '../dist/static-batch.mjs';
 import {worldLighting} from '../dist/world-lighting.mjs';
 import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from '../dist/light-grade.mjs';
 // Fill always present, stronger at night; pools only after dark; colours finite.
@@ -30,6 +30,11 @@ const scene=new THREE.Scene(),planters=[{x:4,z:4,hue:.2}];
 const sd=createStreetDressing({scene,lamps:spots,soffit:[{x:10,y:7.2,z:-94}],trees:ts,planters});
 assert.equal(scene.children.length,sd.meshes.length+1);assert(sd.meshes.length<=60);
 for(const o of sd.meshes){assert(!o.geometry.attributes.color&&!o.material.transparent&&!o.material.emissiveMap&&!Object.keys(o.userData).length,'batchable');assert(vertexColorKey(o.material)&&batchCandidate(o,scene));}
+// Real per-cell split: every dressing mesh stays inside one batch cell, so it frustum-culls.
+{const cells=new Set();for(const o of sd.meshes){o.geometry.computeBoundingBox();const bb=o.geometry.boundingBox.clone().translate(o.position);
+ const cx=Math.floor(o.position.x/BATCH_CELL),cz=Math.floor(o.position.z/BATCH_CELL);cells.add(cx+','+cz);
+ assert(bb.min.x>=cx*BATCH_CELL-4&&bb.max.x<=(cx+1)*BATCH_CELL+4&&bb.min.z>=cz*BATCH_CELL-4&&bb.max.z<=(cz+1)*BATCH_CELL+4,'dressing mesh confined to its cell');}
+ assert(cells.size>1,'dressing spans several cells');}
 assert.equal(sd.trees,ts.length);assert.equal(sd.lamps,spots.length);assert(sd.verts<120000);
 assert.equal(sd.pools.geometry.attributes.position.count,(spots.length+1)*(6+36));
 sd.update(readabilityGrade(worldLighting(13*60)));assert.equal(sd.pools.visible,false,'pools cost nothing by day');
@@ -41,4 +46,14 @@ const ds=dressingSpots({roadBands:[{axis:'z',at:0,half:11.5}],colliders:cols,poi
 assert(ds.length>5);
 for(const d of ds){assert(Math.abs(d.z)>=11.5);assert(!(Math.abs(d.x+30)<7.4&&Math.abs(d.z+25)<6.4));assert(Math.hypot(d.x-50,d.z-30)>=5);assert(Math.abs(d.z-20)>=2.2||Math.abs(d.x)>40);assert(Math.hypot(d.x-30,d.z+30)>=2.6);
  for(const e of ds)if(e!==d)assert(Math.hypot(e.x-d.x,e.z-d.z)>=5);}
+// Opted-in groups (Kickflip shell, parked cars) fold into batches; noBatch/LOD subtrees stay real.
+{const s=new THREE.Scene(),g=new THREE.Group();g.position.set(5,0,5);g.userData.batchStatic=true;s.add(g);
+ const mk=c=>new THREE.Mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:c,roughness:.84}));
+ const a=mk(0xff0000),b=mk(0x00ff00),keep=new THREE.Group();keep.userData.noBatch=true;const k=mk(0x0000ff);keep.add(k);
+ const lod=new THREE.LOD(),l=mk(0xffff00);lod.addLevel(l,0);b.position.x=2;g.add(a,b,keep,lod);
+ const loose=new THREE.Group();s.add(loose);const n=mk(0xff00ff);loose.add(n);
+ assert(groupCandidate(a,s)&&groupCandidate(b,s));assert(!groupCandidate(k,s)&&!groupCandidate(l,s)&&!groupCandidate(n,s));
+ const sb=createStaticBatcher(s);sb.build();sb.update();assert.equal(sb.stats().merged,2);assert(!a.parent&&!b.parent&&k.parent===keep&&l.parent===lod);
+ const bm=s.children.find(o=>o.name==='Static batch');bm.geometry.computeBoundingBox();assert(bm.geometry.boundingBox.min.x>4,'baked in world space');
+ b.visible=false;assert.equal(a.parent,g,'release returns pieces to their group');assert.equal(b.parent,g);}
 console.log('light-grade ok',spots.length,'lamps',ts.length,'trees',ds.length,'dressing',sd.verts,'verts');

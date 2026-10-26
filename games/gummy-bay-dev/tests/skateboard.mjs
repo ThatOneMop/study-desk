@@ -80,4 +80,11 @@ assert.ok(SKATE_SPOT.kerb.h>KERB_LIMIT);
 {const k=SKATE_SPOT.kicker;const low=skateSpotHeight(k.x+k.len/2-.01,k.z),mid=skateSpotHeight(k.x,k.z),high=skateSpotHeight(k.x-k.len/2+.01,k.z);assert.ok(low<.02&&mid>low&&high>mid&&Math.abs(high-k.h)<.02);}
 assert.equal(skateSpotHeight(KICKFLIP_SITE.x,KICKFLIP_SITE.z),0);
 assert.ok(KICKFLIP_COLLIDERS.length>=1);
+// Perf: the container shell opts into static batching; rack decks + stickers are real models behind a close-up LOD; no transmission (extra scene pass).
+{const THREE=await import('../dist/vendor/three.module.min.js');const {groupCandidate}=await import('../dist/static-batch.mjs');const {createKickflipContainer,createBoardModel}=await import('../dist/skateboard.mjs');
+ const s=new THREE.Scene();createKickflipContainer(s);const g=s.children.find(o=>o.name==='Kickflip Container');assert.ok(g.userData.batchStatic);
+ let n=0,c=0;g.traverse(o=>{if(o.isMesh){n++;if(groupCandidate(o,s))c++;}});assert.ok(c>=50&&n-c<=150,'most of the shell batches');
+ const lod=g.getObjectByName('Kickflip rack LOD');assert.ok(lod?.isLOD&&lod.userData.noBatch&&lod.levels.length===2&&lod.levels[1].distance<=20);
+ let decks=0;lod.levels[0].object.traverse(o=>{if(/^Skateboard /.test(o.name))decks++;});assert.equal(decks,BOARDS.length);
+ for(const b of BOARDS)createBoardModel(b).traverse(o=>{const m=o.material;if(m&&!Array.isArray(m))assert.ok(!m.transmission,'no transmission on '+b.id);});}
 console.log('PASS: six original boards ($75–$1,500) hit table top speeds within ±5%, push 1.6 m/s, carve slower at speed, ollie kerbs, bail on >0.12 m kerbs without an ollie, kick FOV, save additively and live in hotbar slot 9. Pure logic; no rendered feel claim.');
