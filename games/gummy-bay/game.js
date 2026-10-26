@@ -76,7 +76,7 @@ import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequenc
 import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
-import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=128';
+import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=133';
 import {residentPlan,residentDescription,citizenRouteSteps,segmentClear,curfewActive} from './resident-life.mjs?v=125';
 import {residentLocomotionClip,residentActionRate,applyResidentTransition} from './resident-animation.mjs?v=109';
 import {deliveryRound} from './delivery-round.mjs?v=1';
@@ -2775,6 +2775,8 @@ action=function(k,a,b,c){
 window.action=action;
 const renderBench=renderFrame;
 renderFrame=function(){if(benchSession?.active)benchSession.applyCamera();renderBench();};
+// Dev-only screenshot hook (?benchqa=1): poses the close-up bench without a station task.
+if(typeof location!=='undefined'&&/[?&]benchqa=1\b/.test(location.search))window.__benchQa={pose:(k='pour',at=.45)=>{if(!benchSession)return 'no bench';benchSession.holdPose(k,at);return benchSession.kind;},close:()=>{benchSession?.close(true);return 'closed';}};
 
 // Test-only day harness. Absent unless the URL is exactly ?qa=day. Saves go to
 // gummybay-qa-day so the six story/free slots stay untouched. Boot tests strip

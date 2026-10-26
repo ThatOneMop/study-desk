@@ -4,7 +4,7 @@ import {CAVITY_POINTS, nearestCavity, SEED_SNAP_M} from './mould.mjs';
 import {createPour, stepPour, assistPour, pourProgress, POUR_DONE} from './mg-pour.mjs';
 import {createSeed, stepSeed, assistSeed, trySeed, seedProgress} from './mg-seed.mjs';
 import {createDrizzle, stepDrizzle, assistDrizzle, drizzleTarget, onDrizzleTarget} from './mg-drizzle.mjs';
-import {createSeal, stepSeal, assistSeal, sealProgress, crimpInGreen, SEAL_GREEN_START, SEAL_GREEN_END} from './mg-seal.mjs';
+import {createSeal, stepSeal, assistSeal, sealProgress, crimpInGreen, SEAL_GREEN_START, SEAL_GREEN_END, SEAL_HOLD} from './mg-seal.mjs';
 import {SKIP_QUALITY} from './craft-quality.mjs';
 
 export const BENCH_KIND = Object.freeze({
@@ -31,7 +31,7 @@ function mesh(THREE, geometry, color, extras = {}) {
     roughness: extras.roughness ?? 0.72,
     metalness: extras.metalness ?? 0.02,
     emissive: color,
-    emissiveIntensity: extras.glow ?? 0.16,
+    emissiveIntensity: extras.glow ?? 0.3,
     transparent: !!extras.transparent,
     opacity: extras.opacity ?? 1,
   });
@@ -60,6 +60,164 @@ function labelTexture(THREE, draw) {
   }
 }
 
+
+// v133: the bench sits in a small, warmly lit shed instead of floating in front
+// of the street. Everything here is baked into canvas textures on unlit
+// materials, so it reads the same at noon and at 2 AM and adds no scene lights.
+function bakedTexture(THREE, width, height, draw) {
+  try {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const pen = canvas.getContext('2d');
+    if (!pen) return null;
+    draw(pen, width, height);
+    const texture = new THREE.CanvasTexture(canvas);
+    if ('colorSpace' in texture && THREE.SRGBColorSpace) texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 4;
+    texture.needsUpdate = true;
+    return texture;
+  } catch {
+    return null;
+  }
+}
+
+function glowPool(pen, x, y, radius, strength) {
+  const pool = pen.createRadialGradient(x, y, 0, x, y, radius);
+  pool.addColorStop(0, `rgba(255,226,170,${strength})`);
+  pool.addColorStop(1, 'rgba(255,226,170,0)');
+  pen.fillStyle = pool;
+  pen.fillRect(0, 0, pen.canvas.width, pen.canvas.height);
+}
+
+function shade(pen, w, h, edge) {
+  const dark = pen.createRadialGradient(w / 2, h * 0.35, Math.min(w, h) * 0.2, w / 2, h * 0.35, Math.max(w, h) * 0.75);
+  dark.addColorStop(0, 'rgba(20,14,10,0)');
+  dark.addColorStop(1, `rgba(20,14,10,${edge})`);
+  pen.fillStyle = dark;
+  pen.fillRect(0, 0, w, h);
+}
+
+function drawPegboard(pen, w, h) {
+  pen.fillStyle = '#b98f5e';
+  pen.fillRect(0, 0, w, h);
+  for (let y = 0; y < h; y += 4) { pen.fillStyle = y % 8 ? 'rgba(90,60,30,.05)' : 'rgba(255,240,210,.04)'; pen.fillRect(0, y, w, 2); }
+  pen.fillStyle = 'rgba(60,38,20,.55)';
+  for (let y = 14; y < h; y += 22) for (let x = 14; x < w; x += 22) { pen.beginPath(); pen.arc(x, y, 2.6, 0, Math.PI * 2); pen.fill(); }
+  // Original tool silhouettes: spatula, whisk, measuring jug, scoop, scissors.
+  const tool = (x, y, draw) => { pen.save(); pen.translate(x, y); pen.fillStyle = 'rgba(40,26,16,.28)'; pen.translate(5, 6); draw(); pen.restore(); pen.save(); pen.translate(x, y); draw(); pen.restore(); };
+  tool(90, 120, () => { pen.fillStyle = '#5b6770'; pen.fillRect(-5, 0, 10, 120); pen.fillStyle = '#e76f51'; pen.fillRect(-22, 120, 44, 60); });
+  tool(190, 110, () => { pen.strokeStyle = '#cfd6da'; pen.lineWidth = 5; for (let i = -2; i <= 2; i++) { pen.beginPath(); pen.ellipse(0, 150, 8 + Math.abs(i) * 7, 60, 0, 0, Math.PI * 2); pen.stroke(); } pen.fillStyle = '#2a9d8f'; pen.fillRect(-7, 20, 14, 80); });
+  tool(310, 150, () => { pen.fillStyle = 'rgba(200,236,240,.9)'; pen.fillRect(-36, 0, 72, 90); pen.fillStyle = '#2b6f7a'; for (let i = 1; i < 5; i++) pen.fillRect(-36, i * 18, 22, 3); pen.strokeStyle = '#c9e8ec'; pen.lineWidth = 8; pen.beginPath(); pen.arc(44, 40, 20, -1.4, 1.4); pen.stroke(); });
+  tool(w - 300, 120, () => { pen.fillStyle = '#f4a261'; pen.fillRect(-6, 0, 12, 90); pen.beginPath(); pen.arc(0, 120, 34, 0, Math.PI); pen.fill(); pen.fillRect(-34, 96, 68, 24); });
+  tool(w - 190, 130, () => { pen.strokeStyle = '#d9dee2'; pen.lineWidth = 6; pen.beginPath(); pen.moveTo(-20, 150); pen.lineTo(20, 0); pen.moveTo(20, 150); pen.lineTo(-20, 0); pen.stroke(); pen.fillStyle = '#e63946'; pen.beginPath(); pen.arc(-24, 160, 16, 0, Math.PI * 2); pen.arc(24, 160, 16, 0, Math.PI * 2); pen.fill(); });
+  // A hand-written recipe card and a doodled bear sticker.
+  pen.save(); pen.translate(w / 2 + 30, 200); pen.rotate(-0.05);
+  pen.fillStyle = '#fbf6e9'; pen.fillRect(-80, -50, 160, 110);
+  pen.fillStyle = '#c0392b'; pen.fillRect(-80, -50, 160, 8);
+  pen.fillStyle = '#4a3b2c'; pen.font = '700 20px system-ui, sans-serif'; pen.textAlign = 'center'; pen.fillText("GRAMPS' MIX", 0, -16);
+  pen.font = '15px system-ui, sans-serif'; pen.fillText('80% fill · 1 crystal', 0, 12); pen.fillText('stay on the ring!', 0, 34);
+  pen.restore();
+  pen.fillStyle = '#e25b8a'; pen.beginPath(); pen.arc(w / 2 - 150, 290, 26, 0, Math.PI * 2); pen.arc(w / 2 - 170, 266, 11, 0, Math.PI * 2); pen.arc(w / 2 - 130, 266, 11, 0, Math.PI * 2); pen.fill();
+  pen.fillStyle = '#fff'; pen.fillRect(w / 2 - 160, 286, 6, 6); pen.fillRect(w / 2 - 146, 286, 6, 6);
+  glowPool(pen, w / 2, 0, w * 0.5, 0.5);
+  shade(pen, w, h, 0.5);
+}
+
+function drawPlanks(pen, w, h) {
+  const tones = ['#8a6141', '#7d573a', '#93694a', '#845c3e'];
+  const plank = 64;
+  for (let x = 0, i = 0; x < w; x += plank, i++) {
+    pen.fillStyle = tones[i % tones.length];
+    pen.fillRect(x, 0, plank, h);
+    pen.fillStyle = 'rgba(40,24,12,.55)';
+    pen.fillRect(x, 0, 3, h);
+    const seam = (i * 157) % h;
+    pen.fillRect(x, seam, plank, 3);
+    pen.fillStyle = 'rgba(255,235,200,.05)';
+    for (let g = 0; g < 6; g++) pen.fillRect(x + 8 + g * 9, 0, 1, h);
+    pen.fillStyle = 'rgba(30,18,8,.35)';
+    pen.beginPath(); pen.arc(x + 12, seam + 12, 2, 0, Math.PI * 2); pen.arc(x + plank - 12, seam + 12, 2, 0, Math.PI * 2); pen.fill();
+  }
+  glowPool(pen, w / 2, h * 0.42, w * 0.42, 0.34);
+  shade(pen, w, h, 0.62);
+}
+
+function drawTin(pen, w, h) {
+  pen.fillStyle = '#6f8a86';
+  pen.fillRect(0, 0, w, h);
+  for (let x = 0; x < w; x += 24) {
+    const ridge = pen.createLinearGradient(x, 0, x + 24, 0);
+    ridge.addColorStop(0, 'rgba(255,255,255,.12)');
+    ridge.addColorStop(0.5, 'rgba(0,0,0,.16)');
+    ridge.addColorStop(1, 'rgba(255,255,255,.12)');
+    pen.fillStyle = ridge;
+    pen.fillRect(x, 0, 24, h);
+  }
+  pen.fillStyle = 'rgba(150,90,50,.22)';
+  for (let i = 0; i < 18; i++) pen.fillRect((i * 97) % w, h - 30 - ((i * 53) % 60), 6 + (i % 4) * 3, 30 + (i % 5) * 8);
+  glowPool(pen, w * 0.5, h * 0.65, w * 0.6, 0.3);
+  shade(pen, w, h, 0.66);
+}
+
+function flat(THREE, texture, fallback, extras = {}) {
+  const material = new THREE.MeshBasicMaterial({color: texture ? 0xffffff : fallback, map: texture || null, fog: false, toneMapped: false, side: extras.side ?? THREE.FrontSide, transparent: !!extras.transparent, opacity: extras.opacity ?? 1});
+  return material;
+}
+
+function roomPiece(THREE, geometry, material, at, turn = [0, 0, 0]) {
+  const piece = new THREE.Mesh(geometry, material);
+  piece.position.set(at[0], at[1], at[2]);
+  piece.rotation.set(turn[0], turn[1], turn[2]);
+  piece.frustumCulled = false;
+  piece.renderOrder = 38;
+  piece.castShadow = false;
+  piece.receiveShadow = false;
+  return piece;
+}
+
+export function createBenchRoom(THREE) {
+  const room = new THREE.Group();
+  room.name = 'gummy-bench-shed';
+  const FLOOR = -0.78;
+  const BACK = -0.6;
+  const SIDE = 1.25;
+  const pegboard = bakedTexture(THREE, 1024, 360, drawPegboard);
+  const planks = bakedTexture(THREE, 512, 512, drawPlanks);
+  const tin = bakedTexture(THREE, 512, 256, drawTin);
+  const PEG_LOW = FLOOR + 0.42, PEG_TOP = 0.36;
+  room.add(roomPiece(THREE, new THREE.PlaneGeometry(SIDE * 2, PEG_TOP - PEG_LOW), flat(THREE, pegboard, 0xb98f5e), [0, (PEG_LOW + PEG_TOP) / 2, BACK]));
+  room.add(roomPiece(THREE, new THREE.PlaneGeometry(SIDE * 2, 1.2), flat(THREE, tin, 0x6f8a86), [0, PEG_TOP + 0.6, BACK - 0.005]));
+  const skirting = flat(THREE, null, 0x4b3424);
+  room.add(roomPiece(THREE, new THREE.BoxGeometry(SIDE * 2, 0.42, 0.02), flat(THREE, tin, 0x6f8a86), [0, FLOOR + 0.21, BACK + 0.01]));
+  room.add(roomPiece(THREE, new THREE.BoxGeometry(SIDE * 2, 0.05, 0.04), skirting, [0, FLOOR + 0.42, BACK + 0.02]));
+  room.add(roomPiece(THREE, new THREE.PlaneGeometry(3, 2.6), flat(THREE, planks, 0x845c3e), [0, FLOOR, 0.3], [-Math.PI / 2, 0, 0]));
+  for (const side of [-1, 1]) {
+    room.add(roomPiece(THREE, new THREE.PlaneGeometry(2.6, 2.2), flat(THREE, tin, 0x6f8a86), [side * SIDE, FLOOR + 1.1, 0.3], [0, -side * Math.PI / 2, 0]));
+  }
+  room.add(roomPiece(THREE, new THREE.PlaneGeometry(SIDE * 2, 2.6), flat(THREE, null, 0x2e2620), [0, FLOOR + 2.2, 0.3], [Math.PI / 2, 0, 0]));
+  // Strip light over the pegboard, with a soft halo behind it.
+  room.add(roomPiece(THREE, new THREE.BoxGeometry(0.9, 0.035, 0.04), flat(THREE, null, 0xfff4d6), [0, 0.3, BACK + 0.05]));
+  room.add(roomPiece(THREE, new THREE.BoxGeometry(0.96, 0.02, 0.06), flat(THREE, null, 0x3b3f44), [0, 0.325, BACK + 0.05]));
+  const halo = bakedTexture(THREE, 256, 64, (pen, w, h) => { const g = pen.createRadialGradient(w / 2, h / 2, 2, w / 2, h / 2, w / 2); g.addColorStop(0, 'rgba(255,236,190,.75)'); g.addColorStop(1, 'rgba(255,236,190,0)'); pen.fillStyle = g; pen.fillRect(0, 0, w, h); });
+  room.add(roomPiece(THREE, new THREE.PlaneGeometry(1.6, 0.4), flat(THREE, halo, 0xfff0c8, {transparent: true, opacity: halo ? 1 : 0.3}), [0, 0.27, BACK + 0.015]));
+  // Table frame, legs and a low shelf of jars so the bench stands on something.
+  const wood = flat(THREE, null, 0x7a5435);
+  const woodDark = flat(THREE, null, 0x5c3d26);
+  room.add(roomPiece(THREE, new THREE.BoxGeometry(0.94, 0.07, 0.6), woodDark, [0, -0.09, 0]));
+  for (const [x, z] of [[-0.42, -0.25], [0.42, -0.25], [-0.42, 0.25], [0.42, 0.25]]) {
+    room.add(roomPiece(THREE, new THREE.BoxGeometry(0.06, Math.abs(FLOOR) - 0.12, 0.06), wood, [x, (FLOOR - 0.12) / 2, z]));
+  }
+  room.add(roomPiece(THREE, new THREE.BoxGeometry(0.84, 0.03, 0.5), wood, [0, FLOOR + 0.18, 0]));
+  const jarColours = [0xf2c14e, 0xe25b8a, 0x7d5cff, 0x3ddc7a, 0xf4a261];
+  jarColours.forEach((tint, index) => {
+    const jar = roomPiece(THREE, new THREE.CylinderGeometry(0.05, 0.05, 0.13, 10), flat(THREE, null, tint, {transparent: true, opacity: 0.85}), [-0.3 + index * 0.15, FLOOR + 0.26, -0.08 + (index % 2) * 0.1]);
+    room.add(jar);
+    room.add(roomPiece(THREE, new THREE.CylinderGeometry(0.052, 0.052, 0.025, 10), flat(THREE, null, 0xe9e2d0), [jar.position.x, FLOOR + 0.335, jar.position.z]));
+  });
+  return room;
+}
+
 export function createBenchSession({THREE, scene, camera, canvas, emit, attach = 'camera'} = {}) {
   if (!THREE || !scene || !camera) throw new Error('Bench needs a scene and a camera.');
   const root = new THREE.Group();
@@ -68,13 +226,16 @@ export function createBenchSession({THREE, scene, camera, canvas, emit, attach =
   root.frustumCulled = false;
   if (attach === 'camera') {
     root.position.set(0, -0.2, -1.08);
-    root.rotation.x = -0.98;
+    // Positive tilt shows the bench top. A negative tilt showed its underside.
+    root.rotation.x = 0.9;
     camera.add(root);
   } else {
     root.position.set(0, 0, 0);
     scene.add(root);
   }
 
+  const shed = attach === 'camera' ? createBenchRoom(THREE) : null;
+  if (shed) root.add(shed);
   const table = mesh(THREE, new THREE.BoxGeometry(0.92, 0.05, 0.58), 0xc4a574, {roughness: 0.86});
   table.position.y = -0.03;
   root.add(table);
