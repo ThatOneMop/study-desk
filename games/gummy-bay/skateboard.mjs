@@ -177,6 +177,7 @@ function canvasTexture(w,h,draw){
  draw(g,w,h);const t=new THREE.CanvasTexture(c);if(THREE.SRGBColorSpace)t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;return t;
 }
 const hex=n=>'#'+n.toString(16).padStart(6,'0');
+const tintGripTex=()=>canvasTexture(64,256,(g,w,h)=>{g.fillStyle='#e6e6e6';g.fillRect(0,0,w,h);for(let i=0;i<1600;i++){const v=150+Math.random()*90|0;g.fillStyle=`rgb(${v},${v},${v})`;g.fillRect(Math.random()*w,Math.random()*h,1,1);}g.fillStyle='rgba(255,255,255,.9)';for(let i=0;i<40;i++)g.fillRect(Math.random()*w,Math.random()*h,1,1);});
 const griptex=()=>canvasTexture(64,256,(g,w,h)=>{g.fillStyle='#1d1e21';g.fillRect(0,0,w,h);for(let i=0;i<1800;i++){const v=20+Math.random()*40|0;g.fillStyle=`rgb(${v},${v},${v+3})`;g.fillRect(Math.random()*w,Math.random()*h,1,1);}g.fillStyle='#2a2b2f';g.fillRect(0,h*.12,w,2);g.fillRect(0,h*.88,w,2);});
 function deckArt(board){
  return canvasTexture(64,256,(g,w,h)=>{
@@ -211,11 +212,11 @@ const stickerTex=(text,bg,fg)=>canvasTexture(128,64,(g,w,h)=>{g.fillStyle=bg;g.b
 
 // ---------- Board model ----------
 // Deck length 0.80 m, width 0.21 m, kicktails tipped 14°. Origin at ground under the deck centre.
-export function createBoardModel(board,{shadow=true}={}){
+export function createBoardModel(board,{shadow=true,grip:gripTint=null}={}){
  const g=new THREE.Group();g.name='Skateboard '+board.id;
  const deckMat=new THREE.MeshStandardMaterial({color:0xffffff,map:deckArt(board),roughness:board.id==='gold'?.32:.7,metalness:board.id==='gold'?.55:0});
  if(!deckMat.map)deckMat.color.setHex(board.deck);
- const grip=new THREE.MeshStandardMaterial({color:0xffffff,map:griptex(),roughness:.95});if(!grip.map)grip.color.setHex(0x1e1f22);
+ const grip=new THREE.MeshStandardMaterial({color:0xffffff,map:griptex(),roughness:.95});if(!grip.map)grip.color.setHex(0x1e1f22);if(Number.isFinite(gripTint)){const lit=tintGripTex();if(lit){grip.map?.dispose?.();grip.map=lit;}grip.color.setHex(gripTint);}
  const side=new THREE.MeshStandardMaterial({color:board.id==='gold'?0xc99a1d:0xd8c39a,roughness:.75});
  const mats=[side,side,grip,deckMat,side,side];
  const mid=new THREE.Mesh(new THREE.BoxGeometry(.21,.014,.52),mats);mid.position.y=DECK_HEIGHT;g.add(mid);
@@ -295,7 +296,8 @@ export function createRider(scene){
  return rider;
 }
 const qR=new THREE.Quaternion(),vP=new THREE.Vector3(),vS=new THREE.Vector3(1,1,1),eR=new THREE.Euler();
-export function updateRider(rider,ride,{visible=true,t=0}={}){
+export function riderLook(cap=null){return Number.isFinite(cap)?{...RIDER_LOOK,cap}:RIDER_LOOK;}
+export function updateRider(rider,ride,{visible=true,t=0,look=RIDER_LOOK}={}){
  if(!rider)return;
  if(!visible||!ride){if(rider.visible){flushPeopleMeshes(rider.meshes,false);rider.visible=false;}return;}
  const bail=ride.bail>0?1-ride.bail/BAIL_TIME:0;
@@ -304,7 +306,7 @@ export function updateRider(rider,ride,{visible=true,t=0}={}){
  vP.set(ride.x,ride.y-(ride.bail>0?Math.min(.35,bail*.6):0),ride.z);rider.root.compose(vP,qR,vS);
  const crouch=ride.charging?ride.charge:ride.air?.4:0;
  riderJoints(rider.joints,rider.root,{crouch,push:ride.pushAnim>0?1-ride.pushAnim/PUSH_INTERVAL:0,lean:ride.lean,bail,air:ride.air,t});
- writePerson(rider.meshes,0,rider.joints,RIDER_LOOK,{detail:true});
+ writePerson(rider.meshes,0,rider.joints,look||RIDER_LOOK,{detail:true});
  flushPeopleMeshes(rider.meshes,true);rider.visible=true;
 }
 

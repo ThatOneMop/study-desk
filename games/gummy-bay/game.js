@@ -72,7 +72,9 @@ import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=132';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
-import {createCityExpansion} from './city-expansion.mjs?v=133';
+import {createCityExpansion} from './city-expansion.mjs?v=135';
+import {normalizeArcade,gripColor,ownedPosters,prizeById} from './arcade-core.mjs?v=135';
+import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=135';
 import {CITY_SHELLS} from './city-shells.mjs?v=133';
 import {createStaticBatcher} from './static-batch.mjs?v=133';
 import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
@@ -87,7 +89,7 @@ import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
 import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=135';
-import {BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=134';
+import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=135';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
@@ -3562,12 +3564,12 @@ function skateBoard(){return boardById(s?.boardSel)||null;}
 function skateRough(x,z){if(x>-200&&x<200&&z>-120&&z<60)return false;const on=r=>Math.abs(x-r.x)<=r.w/2&&Math.abs(z-r.z)<=r.d/2;return !VEHICLE_ROADS.some(on)&&!PEDESTRIAN_WAYS.some(on);}
 function skateModel(){
  const b=skateBoard();if(!b)return null;
- if(skate.modelId!==b.id){if(skate.model)scene.remove(skate.model);skate.model=createBoardModel(b);skate.modelId=b.id;scene.add(skate.model);skate.model.visible=false;}
+ if(skate.modelId!==b.id+':'+gripColor(s)){if(skate.model)scene.remove(skate.model);skate.model=createBoardModel(b,{grip:gripColor(s)});skate.modelId=b.id+':'+gripColor(s);scene.add(skate.model);skate.model.visible=false;}
  return skate.model;
 }
 function skateHeld(){
  const b=skateBoard();if(!b)return null;
- if(skate.heldId!==b.id){if(skate.held)camera.remove(skate.held);skate.held=createBoardModel(b,{shadow:false});skate.heldId=b.id;skate.held.position.set(.42,-.62,-.78);skate.held.rotation.set(.15,.35,1.25);skate.held.scale.setScalar(.9);camera.add(skate.held);}
+ if(skate.heldId!==b.id+':'+gripColor(s)){if(skate.held)camera.remove(skate.held);skate.held=createBoardModel(b,{shadow:false,grip:gripColor(s)});skate.heldId=b.id+':'+gripColor(s);skate.held.position.set(.42,-.62,-.78);skate.held.rotation.set(.15,.35,1.25);skate.held.scale.setScalar(.9);camera.add(skate.held);}
  return skate.held;
 }
 function skateSparks(){
@@ -3703,7 +3705,7 @@ const skateRender=renderFrame;renderFrame=function(){
   spinBoardWheels(model,r.dist);
  }
  if(!skate.rider&&r)skate.rider=createRider(scene);
- updateRider(skate.rider,r,{visible:!!r&&!skate.firstPerson,t});
+ updateRider(skate.rider,r,{visible:!!r&&!skate.firstPerson,t,look:riderLook(s.arcade?.hat?0x7b3fb5:null)});
  skateSparkle(dt);
  if(skate.keeper&&Math.hypot(player.x-KICKFLIP_SITE.x,player.z-KICKFLIP_SITE.z)<45)updateKickflipKeeper(skate.keeper,t,{talk:panel==='kickflip'});
  if(r){skateCameraPose();hand.scale.setScalar(1e-4);}
@@ -3760,3 +3762,60 @@ if(typeof location!=='undefined'&&!/[?&]batch=0\b/.test(location.search))try{
   batchRender();
  };
 }catch(error){console.warn('Static batching unavailable',error);}
+
+// v135 Lucky Pier prize arcade: walk in through the purple storefront's door.
+// Tokens cost in-game cash at a fixed rate; the five cabinets pay tickets by skill
+// only; tickets buy saved keepsakes (grip tape, a cap, RV posters, a daily snack).
+const arcadeNormalize=normalize;normalize=function(v){const out=arcadeNormalize(v);normalizeArcade(out??v);return out;};
+normalizeArcade(s);
+var arcadeUI=null,arcadePoint=null,rvPosterGroup=null;
+function arcadeDoor(){const biz=cityExpansion?.businesses?.find(b=>b.key==='arcade');return biz?.door||null;}
+function rvPosterTexture(id){const art=POSTER_ART[id];if(!art||typeof document==='undefined')return null;const c=document.createElement('canvas');c.width=192;c.height=256;const g=c.getContext('2d');if(!g)return null;
+ g.fillStyle=art[0];g.fillRect(0,0,192,256);g.strokeStyle=art[1];g.lineWidth=8;g.strokeRect(10,10,172,236);g.fillStyle=art[1];g.font='900 26px "Trebuchet MS",sans-serif';g.textAlign='center';g.fillText(art[2],96,52);
+ if(id==='poster-pier'){for(let i=0;i<9;i++){g.fillStyle=i%2?'#ffd23f':'#fff3b0';g.beginPath();g.arc(28+i*17,82,5,0,Math.PI*2);g.fill();}g.fillStyle='#43e8ff';g.fillRect(40,120,112,70);g.fillStyle='#2a0f45';g.fillRect(52,132,88,46);g.fillStyle='#ff5fb8';g.beginPath();g.arc(96,155,16,0,Math.PI*2);g.fill();}
+ else if(id==='poster-bear'){g.fillStyle='#43e8ff';g.beginPath();g.moveTo(10,200);g.quadraticCurveTo(70,120,150,150);g.quadraticCurveTo(110,170,182,200);g.lineTo(182,246);g.lineTo(10,246);g.fill();g.fillStyle='#ff8a3d';g.beginPath();g.arc(96,112,22,0,Math.PI*2);g.arc(82,92,8,0,Math.PI*2);g.arc(110,92,8,0,Math.PI*2);g.fill();g.beginPath();g.ellipse(96,148,20,22,0,0,Math.PI*2);g.fill();g.fillStyle='#ffd23f';g.fillRect(56,170,80,8);}
+ else{g.fillStyle='#ffd23f';g.save();g.translate(96,140);g.rotate(-.35);g.fillRect(-60,-10,120,20);g.fillStyle='#1d1e21';g.fillRect(-56,-6,112,12);g.restore();g.fillStyle='#fff';for(const [x,y] of [[50,185],[140,165]]){g.beginPath();g.arc(x,y,8,0,Math.PI*2);g.fill();}}
+ g.font='700 14px sans-serif';g.fillStyle='rgba(255,255,255,.8)';g.fillText('GUMMY BAY',96,232);
+ const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;return tex;}
+function refreshRvPosters(){
+ if(!rvPosterGroup){rvPosterGroup=new THREE.Group();rvPosterGroup.name='RV arcade posters';scene.add(rvPosterGroup);}
+ const want=ownedPosters(s).join(',');if(rvPosterGroup.userData.key===want)return;rvPosterGroup.userData.key=want;
+ for(const m of [...rvPosterGroup.children]){rvPosterGroup.remove(m);m.material?.map?.dispose?.();m.material?.dispose?.();m.geometry?.dispose?.();}
+ ownedPosters(s).forEach((id,i)=>{const tex=rvPosterTexture(id);const m=new THREE.Mesh(new THREE.PlaneGeometry(.48,.64),new THREE.MeshStandardMaterial({map:tex,color:tex?0xffffff:0x7b3fb5,roughness:.8}));
+  m.position.set(-59.78,2.2,23.1+i*.7);m.rotation.y=Math.PI/2;m.name='RV poster '+id;rvPosterGroup.add(m);});
+}
+try{
+ const door=arcadeDoor();
+ if(door){arcadePoint=addPoint('arcade','Lucky Pier Arcade · Prize tickets',door.x,door.z);
+  // A self-lit door panel so the way in reads at night without adding scene lights.
+  const biz=cityExpansion.businesses.find(b=>b.key==='arcade'),c=document.createElement('canvas');c.width=256;c.height=320;const g=c.getContext('2d');
+  if(g&&biz){g.fillStyle='#14072a';g.fillRect(0,0,256,320);g.shadowColor='#ff5fb8';g.shadowBlur=18;g.strokeStyle='#ff5fb8';g.lineWidth=10;g.strokeRect(14,14,228,292);g.shadowColor='#43e8ff';g.strokeStyle='#43e8ff';g.lineWidth=5;g.strokeRect(34,90,188,200);
+   g.fillStyle='#ffe066';g.shadowColor='#ffd23f';g.font='900 44px "Trebuchet MS",sans-serif';g.textAlign='center';g.fillText('ARCADE',128,66);g.font='900 30px sans-serif';g.fillStyle='#fff';g.fillText('ENTER',128,180);g.font='800 20px sans-serif';g.fillStyle='#7dff6a';g.fillText('TICKETS · PRIZES',128,230);
+   const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;const fx=Math.sin(biz.rot),fz=Math.cos(biz.rot);
+   const sign=new THREE.Mesh(new THREE.PlaneGeometry(1.6,2),new THREE.MeshBasicMaterial({map:tex,toneMapped:false,fog:false}));sign.name='Lucky Pier door glow';sign.position.set(door.x-fx*1.72,1.15+terrainHeight(door.x,door.z),door.z-fz*1.72);sign.rotation.y=biz.rot;scene.add(sign);}
+ }
+ arcadeUI=createArcadeUI({
+  state:()=>s,spend:n=>spend(n),save:()=>{save();updateUI();},toast:m=>toast(m),day:()=>s.day||1,
+  audio:()=>({ctx:audioContext,enabled:soundEnabled}),emit:cue=>{if(window.townAudio?.emit)window.townAudio.emit(cue,{x:player.x,z:player.z});},
+  money:()=>'<span>PAY WITH</span> <button class="arcBtn'+(s.payment==='cash'?'':' ghost')+'" data-arc="pay:cash">CASH '+cash(s.cash)+'</button> <button class="arcBtn'+(s.payment==='card'?'':' ghost')+'" data-arc="pay:card">CARD '+cash(s.bank)+'</button>',
+  setPayment:m=>{if(m==='cash'||m==='card'){s.payment=m;save();}},
+  onPrize:prize=>{if(prize?.kind==='snack'){s.xp+=prize.xp;stamina=100;save();updateUI();}refreshRvPosters();},
+  onLeave:()=>{if(panel==='arcade')close();},
+ });
+ const arcadeMenu=menu;menu=function(which,data){
+  if(which==='arcade'&&!processingRemote&&active){
+   if(skate.ride){toast('Pop off the board before heading inside.');return;}
+   arcadeMenu('arcade',data);$('overlay').hidden=true;arcadeUI.enter();return;
+  }
+  arcadeMenu(which,data);
+ };window.menu=menu;
+ const arcadeClose=close;close=function(){if(arcadeUI?.open){arcadeUI.leave();return;}arcadeClose();};window.closeMenu=close;
+ const arcadeLoad=resetSystems;resetSystems=function(){arcadeLoad();normalizeArcade(s);refreshRvPosters();};
+ refreshRvPosters();
+ // The neon room covers the screen, so skip drawing the 3D town underneath it.
+ const arcadeRender=renderFrame;renderFrame=function(){if(arcadeUI?.open)return;arcadeRender();};
+ window.__arcade={ui:arcadeUI,door:arcadeDoor,point:()=>arcadePoint&&{x:arcadePoint.x,z:arcadePoint.z},
+  enter:()=>{if(arcadePoint){player.x=arcadePoint.x;player.z=arcadePoint.z;}menu('arcade');return arcadeUI.open;},
+  grant:(tokens=0,tickets=0)=>{normalizeArcade(s);s.arcade.tokens=Math.min(60,s.arcade.tokens+tokens);s.arcade.tickets+=tickets;save();return {...s.arcade};},
+  state:()=>({...s.arcade,open:arcadeUI.open,view:arcadeUI.view}),posters:()=>rvPosterGroup?.children.map(m=>m.name)||[]};
+}catch(error){console.warn('Lucky Pier arcade unavailable',error);}

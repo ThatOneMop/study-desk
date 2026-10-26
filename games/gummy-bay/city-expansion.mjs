@@ -168,7 +168,7 @@ export function createCityExpansion({scene,obstacles=[],points=[],routes=[],qual
     for(const lx of [-w*.35,w*.35]){const [px,,pz]=worldOf(lot,slot.x+lx,0,slot.z-.3);c.detail.place(px,0,pz,lot.rot).box(0,wy-h/2-1.1,0,.12,1.2,.12,TILE.PLAIN,null,0x3a3d3c);}
    }
   }
-  if(lot.key)businesses.push({key:lot.key,name:lot.name,x:lot.x,z:lot.z,type:lot.type});
+  if(lot.key){const [dx,,dz]=worldOf(lot,0,0,(lot.cd||lot.d)/2+1.8);businesses.push({key:lot.key,name:lot.name,x:lot.x,z:lot.z,type:lot.type,rot:lot.rot,door:{x:+dx.toFixed(2),z:+dz.toFixed(2)}});}
  }
  // Alleys: dumpsters, bins, crates and the odd tag.
  for(const alley of plan.alleys){
