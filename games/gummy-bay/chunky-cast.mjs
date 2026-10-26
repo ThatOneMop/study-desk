@@ -2,7 +2,7 @@
 // existing animated bones: oversized heads, flat faces, mitten hands, role colours.
 import * as THREE from './vendor/three.module.min.js';
 import {residentExpressionState} from './resident-expressions.mjs';
-import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,personPartEnabled,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=126';
+import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,personPartEnabled,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,poseArms} from './people-kit.mjs?v=142';
 
 export const CHUNKY_CAST_COLLIDERS=Object.freeze([]);
 const freeze=records=>Object.freeze(records.map(record=>Object.freeze(record)));
@@ -95,6 +95,15 @@ export function chunkyJointsFromBody(body,joints){
  if(extra>0)joints.head.multiply(drop.makeTranslation(0,-extra,0));
  return true;
 }
+// P1-6: gummy effects and reactions ride on top of the bone pose. fx = {scale:[x,y,z], headTurn, arms:{armL,armR}, tint, face}.
+const fxScale=new THREE.Matrix4(),fxTurn=new THREE.Matrix4();
+export function applyChunkyFx(joints,fx){
+ if(fx.arms)poseArms(joints,fx.arms);
+ if(fx.headTurn)joints.head.multiply(fxTurn.makeRotationY(fx.headTurn));
+ const sc=fx.scale;
+ if(sc&&(sc[0]!==1||sc[1]!==1||sc[2]!==1)){fxScale.makeScale(sc[0],sc[1],sc[2]);for(const key of Object.keys(joints))joints[key].multiply(fxScale);}
+ return joints;
+}
 export function createChunkyCast({THREE:three=THREE,scene,actors,points,quality='balanced',capacity=48}={}){
  if(!scene?.add||!Array.isArray(actors))throw new TypeError('A chunky cast needs a scene and the live actor list.');
  if(!Number.isSafeInteger(capacity)||capacity<1)throw new RangeError('Chunky cast capacity must be a positive integer.');
@@ -113,8 +122,10 @@ export function createChunkyCast({THREE:three=THREE,scene,actors,points,quality=
    const expression=residentExpressionState({now,id,talking:clip==='Talk',working:clip==='Work'||clip==='Search',moving:(actor?.speed||0)>.08,active:show,distance});
    const pose=chunkyCastPose({clip,blink:expression.blink,browLift:expression.browLift,now});
    if(show){hideSculpted(actor);body.updateWorldMatrix(true,true);show=chunkyJointsFromBody(body,joints);}
-   const face=expression.blink>.5?'blink':pose.talking&&pose.mouthH>.03?'talk':'open';
-   writePerson(meshes,count,joints,looks.get(key),{detail:distance<45,face,active:show});
+   const fx=actor?.fx;
+   if(show&&fx)applyChunkyFx(joints,fx);
+   const face=fx?.face||(expression.blink>.5?'blink':pose.talking&&pose.mouthH>.03?'talk':'open');
+   writePerson(meshes,count,joints,looks.get(key),{detail:distance<45,face,active:show,tint:fx?.tint||null});
    count++;
   }
   for(let slot=count;slot<capacity;slot++)writePerson(meshes,slot,joints,null,{active:false});

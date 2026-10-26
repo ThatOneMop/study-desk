@@ -51,6 +51,8 @@ import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PRO
 import {createFixedStepper} from './sim-clock.mjs?v=122';
 import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=140';
 import {createWalkGrid} from './walk-grid.mjs?v=140';
+import {startFx,fxFrame,fxLine,chooseReaction,reactionLine,reactionPose,crowdFriendly,idleBeat,customerFeedback,customerDislike,REACT_SECONDS,REACT_RANGE} from './npc-fx.mjs?v=142';
+import {createNpcFxLayer,NPC_BUBBLE_CSS} from './npc-fx-layer.mjs?v=142';
 import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from './staff-status.mjs?v=123';
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=135';
 import {customerBrief,customerReply,readCustomerReceipt,sampleChoices,customerVoice} from './customer-context.mjs?v=30';
@@ -70,7 +72,7 @@ import {applyBust,bustedTimeline,bustedSample,paintMugshot} from './busted.mjs?v
 import {searchPenalty,penaltyMessage,penaltyTier} from './police-penalty.mjs?v=135';
 import {levelOf,levelProgress} from './xp-curve.mjs?v=135';
 import {gateButtons} from './reach-gate.mjs?v=135';
-import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=132';
+import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=142';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
@@ -92,7 +94,7 @@ import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
 import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=135';
-import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=139';
+import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=142';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
@@ -113,14 +115,14 @@ import {ORDINARY_UNUSUAL_PROFILES,ORDINARY_UNUSUAL_COLLIDERS,ordinaryUnusualInsi
 import {PUBLIC_SERVICE_PROFILES,PUBLIC_SERVICE_COLLIDERS,publicServiceOpposed,publicServiceMounted,createPublicServiceFronts} from './public-service-fronts.mjs?v=126';
 import {NARROW_ALLEY_PROFILES,NARROW_ALLEY_COLLIDERS,narrowAlleyPathSamples,narrowAlleyPathClear,createNarrowAlleys} from './narrow-alleys.mjs?v=126';
 import {JUNCTION_REVEAL_PROFILES,JUNCTION_REVEAL_COLLIDERS,junctionRevealReading,nearestJunctionReveal,createJunctionReveals} from './junction-reveals.mjs?v=126';
-import {NIGHT_OBSTACLE_PROFILES,NIGHT_SILHOUETTE_COLLIDERS,nightSilhouettePlan,nightObstacleProfile,createNightSilhouettes} from './night-silhouettes.mjs?v=101';
+import {NIGHT_OBSTACLE_PROFILES,NIGHT_SILHOUETTE_COLLIDERS,nightSilhouettePlan,nightObstacleProfile,createNightSilhouettes} from './night-silhouettes.mjs?v=142';
 import {SHOP_APPROACH_PROFILES,SHOP_APPROACH_COLLIDERS,shopApproachPointBlocked,shopApproachSightlineClear,createShopApproaches} from './shop-approaches.mjs?v=126';
 import {PRODUCTION_CONTAINER_PROFILES,PRODUCTION_CONTAINER_COLLIDERS,productionContainersOnTable,createProductionContainers} from './production-containers.mjs?v=126';
 import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOutfitParts,selectOccupationalActors,createOccupationalOutfits} from './occupational-outfits.mjs?v=126';
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
-import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=126';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=132';
+import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=142';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=142';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -4082,3 +4084,129 @@ try{
  };
  window.loadGame=load;
 }catch(error){console.warn('Story acts unavailable',error);}
+// v141 NPC gummy effects and reactions (P1-6). Customers show a cartoon look for
+// 2–4 game hours after a sale (npc-fx.mjs maps every mix effect to one), rate the
+// batch with an emote and a text, and townsfolk look, wave, point at board
+// tricks, cower or back off from a scuffle, phone it in, and flee a chase.
+// Additive save field: npcFx {contactIndex:{effects,kinds,start,until}}.
+try{
+ try{const npcFxStyle=document.createElement('style');npcFxStyle.textContent=NPC_BUBBLE_CSS;(document.head||document.body)?.appendChild?.(npcFxStyle);}catch{}
+ const fxLayer=createNpcFxLayer({scene,camera,low:quality==='performance'});
+ const npcClock=()=>(s.day-1)*1440+s.time;
+ const reactUntil=new Map(),waved=new Set(),emoteFor=new Map();
+ let lastScuffle=null,lastTrick=null,skateWasAir=false,skateWasBail=false;
+ const contactActor=i=>visualActors.find(a=>a.g===people[i])||null;
+ const favouriteOf=i=>{const id=INGREDIENTS[i%INGREDIENTS.length]?.effect;return effectById(id)?id:null;};
+ const normalizeNpcFx=()=>{if(!s.npcFx||typeof s.npcFx!=='object'||Array.isArray(s.npcFx))s.npcFx={};for(const k of Object.keys(s.npcFx)){const e=s.npcFx[k];if(!e||!Array.isArray(e.kinds)||!Number.isFinite(e.until)||e.until<npcClock())delete s.npcFx[k];}};
+ function applyNpcFx(i,effects){normalizeNpcFx();const entry=startFx(effects,npcClock());if(entry)s.npcFx[i]=entry;else delete s.npcFx[i];return entry;}
+ const npcFxDeal=doAction;doAction=function(k,a,b,c){
+  const deal=k==='deliver'?s.deals.find(d=>d.npc===a):null,before=s.sold;
+  npcFxDeal(k,a,b,c);
+  if(!deal||s.sold<=before||!STRAINS[deal.t]||!CONTACTS[a])return;
+  npcAfterSale(a,STRAINS[deal.t].effects||[]);
+ };
+ // After a sale: the customer eats one (effects start), rates it with an emote and texts you.
+ function npcAfterSale(a,effects){
+  const fb=customerFeedback(effects,{favourite:favouriteOf(a),dislike:customerDislike(a),index:a+s.day});
+  applyNpcFx(a,effects);
+  s.relations[a]=Math.max(0,Math.min(100,relationship(a)+fb.relation));
+  s.threads[a]?.messages?.push({mine:false,text:fb.text,mood:fb.tier});
+  emoteFor.set(a,{text:fb.emote,until:now+5,tone:fb.tier==='grumpy'?'alarm':'fx'});
+  if(!processingRemote)toast(CONTACTS[a].name+' texted: “'+fb.text+'”');
+  save();return fb;
+ }
+ const npcFxReset=resetSystems;resetSystems=function(){npcFxReset();normalizeNpcFx();reactUntil.clear();waved.clear();emoteFor.clear();};
+ const npcFxDizzy=markDizzy;markDizzy=function(x,z,style,seconds){npcFxDizzy(x,z,style,seconds);lastScuffle={x,z,at:now};};
+ const npcFxSkate=update;update=function(dt){
+  npcFxSkate(dt);
+  const r=skate.ride;
+  if(r){if(skateWasAir&&!r.air&&!(r.bail>0))lastTrick={x:player.x,z:player.z,at:now,kind:'point'};if(r.bail>0&&!skateWasBail)lastTrick={x:player.x,z:player.z,at:now,kind:'bail'};skateWasAir=!!r.air;skateWasBail=r.bail>0;}
+  else skateWasAir=skateWasBail=false;
+ };
+ const chaseOn=()=>{const st=s.police?.chase?.stage;return st==='pursuit'||st==='all-units';};
+ const rep=()=>{const v=Object.values(s.relations||{});return v.length?v.reduce((x,y)=>x+y,0)/v.length:0;};
+ let fxBubbles=[],fxEmitters=[];
+ function stepCrowdReactions(){
+  const crowd=streetCrowd?.people;if(!crowd)return;
+  const chase=chaseOn(),friendlyRep=rep();
+  for(const person of crowd){
+   const d=Math.hypot(person.x-player.x,person.z-player.z);
+   if(d>10)waved.delete(person.id);
+   if(person.koUntil>now)continue;
+   if(person.callUntil>now){fxBubbles.push({x:person.x,y:2.25,z:person.z,text:reactionLine('call',person.id),tone:'alarm',p:0,d});continue;}
+   if(d>24){if(person.react&&person.react.until<=now)person.react=null;continue;}
+   const scuffle=lastScuffle&&{age:now-lastScuffle.at,distance:Math.hypot(person.x-lastScuffle.x,person.z-lastScuffle.z)};
+   const trick=lastTrick&&{age:now-lastTrick.at,distance:Math.hypot(person.x-lastTrick.x,person.z-lastTrick.z)};
+   let kind=chooseReaction({distance:d,friendly:crowdFriendly(person.id,friendlyRep),waved:waved.has(person.id),chase,scuffle,trick});
+   const cur=person.react&&person.react.until>now?person.react:null;
+   const source=(kind==='cower'||kind==='backoff')&&lastScuffle?lastScuffle:player;
+   if(kind==='idle'){
+    if(!cur||cur.kind==='look'){const beat=idleBeat(person.id,now);person.react=beat&&d<18?{kind:beat.kind,until:now+.2,x:person.x+Math.sin(person.yaw),z:person.z+Math.cos(person.yaw),pose:reactionPose(beat.kind,now),line:beat.line,tone:''}:null;}
+   }else if(kind==='look'){if(!cur||cur.kind==='look'||cur.kind==='idle')person.react={kind:'look',until:now+.25,x:player.x,z:player.z,pose:null,line:''};}
+   else{
+    if(!cur||cur.kind!==kind){const line=lastTrick?.kind==='bail'&&kind==='point'?reactionLine('bail',person.id,Math.floor(now)):reactionLine(kind,person.id,Math.floor(now));person.react={kind,until:now+REACT_SECONDS[kind],x:source.x,z:source.z,pose:null,line,tone:kind==='wave'||kind==='point'?'':'alarm'};if(kind==='wave')waved.add(person.id);}
+    else if(kind==='flee'){person.react.x=player.x;person.react.z=player.z;person.react.until=Math.max(person.react.until,now+1);}
+   }
+   const r=person.react;
+   if(r&&r.kind!=='look'&&r.kind!=='flee'&&r.kind!=='backoff')r.pose=reactionPose(r.kind,now);
+   // Idle chatter stays close so far-off (or indoor) townsfolk don't float captions over walls.
+   if(r?.line&&r.until>now&&(r.tone==='alarm'||r.kind==='wave'||r.kind==='point'||d<11))fxBubbles.push({x:person.x,y:2.25,z:person.z,text:r.line,tone:r.tone,p:r.tone==='alarm'?0:2,d});
+  }
+ }
+ function stepContacts(){
+  normalizeNpcFxLazy();
+  const clock=npcClock(),low=quality==='performance',chase=chaseOn();
+  for(let i=0;i<people.length;i++){
+   const a=contactActor(i);if(!a?.body)continue;
+   const body=a.body;a.fxBase??={scale:body.scale.clone(),pos:body.position.clone(),rot:body.rotation.clone()};
+   const entry=s.npcFx?.[i],f=fxFrame(entry,clock,now,i,{low});
+   const gp=a.g.position,d=Math.hypot(gp.x-player.x,gp.z-player.z);
+   body.scale.copy(a.fxBase.scale);body.position.copy(a.fxBase.pos);body.rotation.copy(a.fxBase.rot);
+   const fx={scale:f.scale,tint:f.tint,face:f.face,headTurn:f.headTurn,arms:null};
+   const addressed=panel&&conversationPoint?.actor===a.g;
+   if(f.on){
+    body.scale.set(a.fxBase.scale.x*f.scale[0],a.fxBase.scale.y*f.scale[1],a.fxBase.scale.z*f.scale[2]);
+    a.fxLift=f.lift;body.position.x+=f.jitterX;body.position.z+=f.jitterZ;body.rotation.z+=f.sway;
+    if(f.orbit&&!addressed){body.position.x+=Math.sin(f.orbit.angle)*f.orbit.radius;body.position.z+=Math.cos(f.orbit.angle)*f.orbit.radius-f.orbit.radius;body.rotation.y+=Math.atan2(Math.cos(f.orbit.angle),-Math.sin(f.orbit.angle));}
+    a.fxRate=f.animRate;a.fxRun=!!f.orbit&&!addressed;
+    if(d<40)fxEmitters.push({key:'c'+i,x:gp.x+body.position.x,y:gp.y+body.position.y,z:gp.z+body.position.z,height:1.6*f.scale[1],particles:f.particles,glow:f.glow,glowColor:0xbff7ff});
+    if(d<22&&(now%8)<3.5)fxBubbles.push({x:gp.x,y:gp.y+2.1*f.scale[1]+f.lift,z:gp.z,text:fxLine(entry,now,i),tone:'fx',p:3,d});
+   }else{a.fxRate=1;a.fxRun=false;a.fxLift=0;}
+   // Reflective bands are pinned to the root; hide them while a gummy look scales or moves the body.
+   a.g.userData.hideBands=!!f.on;
+   // Ambient: look at you nearby, wave if you're friends, cover up in a chase or a scuffle.
+   const scuffleNear=lastScuffle&&now-lastScuffle.at<6&&Math.hypot(gp.x-lastScuffle.x,gp.z-lastScuffle.z)<REACT_RANGE.backoff;
+   const friendly=relationship(i)>=25;
+   if(d>10)waved.delete('c'+i);
+   const kind=chooseReaction({distance:d,friendly,waved:waved.has('c'+i),chase,scuffle:scuffleNear?{age:0,distance:2}:null,trick:lastTrick&&{age:now-lastTrick.at,distance:Math.hypot(gp.x-lastTrick.x,gp.z-lastTrick.z)}});
+   let held=reactUntil.get(i);if(held&&held.until<=now){reactUntil.delete(i);held=null;}
+   if(!held&&['wave','point','cower','flee'].includes(kind)){held={kind:kind==='flee'?'cower':kind,until:now+REACT_SECONDS[kind==='flee'?'cower':kind],line:kind==='flee'?reactionLine('flee',i):lastTrick?.kind==='bail'&&kind==='point'?reactionLine('bail',i):reactionLine(kind,i,Math.floor(now))};reactUntil.set(i,held);if(kind==='wave')waved.add('c'+i);}
+   if(held){fx.arms=reactionPose(held.kind,now);fxBubbles.push({x:gp.x,y:gp.y+2.15,z:gp.z,text:held.line,tone:held.kind==='cower'?'alarm':'',p:held.kind==='cower'?0:2,d});}
+   if(d<REACT_RANGE.look&&!f.orbit&&!addressed){const want=Math.atan2(player.x-gp.x,player.z-gp.z)-a.g.rotation.y-body.rotation.y;fx.headTurn+=Math.max(-1.1,Math.min(1.1,Math.atan2(Math.sin(want),Math.cos(want))));}
+   const emote=emoteFor.get(i);if(emote){if(emote.until<=now)emoteFor.delete(i);else fxBubbles.push({x:gp.x,y:gp.y+2.2*f.scale[1]+f.lift+.15,z:gp.z,text:emote.text,tone:emote.tone,p:1,d});}
+   a.fx=(f.on||fx.arms||fx.headTurn)?fx:null;
+  }
+ }
+ let normalizedAt=-1;function normalizeNpcFxLazy(){if(now-normalizedAt>5||normalizedAt>now){normalizedAt=now;normalizeNpcFx();}}
+ const npcFxAnim=actorAnimation;actorAnimation=function(a,dt,distance){
+  // Zoomies lap a small circle on the body offset; feed the gait picker a run speed.
+  const step=dt*(a.fxRate||1);if(a.fxRun&&step>0)a.previous.set(a.g.position.x-3*step,a.g.position.y,a.g.position.z);
+  npcFxAnim(a,step,distance);
+  if(a.fxLift)a.body.position.y+=a.fxLift;
+ };
+ const npcFxRender=renderFrame;renderFrame=function(){
+  fxBubbles=[];fxEmitters=[];
+  if(active&&s){stepContacts();stepCrowdReactions();}
+  npcFxRender();
+  const dt=Math.max(0,Math.min(.1,now-(fxLayer.last??now)));fxLayer.last=now;
+  fxLayer.update(dt,active?fxEmitters:[]);
+  fxBubbles.sort((x,y)=>x.p-y.p||x.d-y.d);
+  fxLayer.bubbles(fxBubbles.filter(b=>b.text&&b.d<22),{hidden:!active||!!panel||driving});
+ };
+ window.__npcFx={layer:fxLayer,afterSale:(i,effects)=>npcAfterSale(i,effects),apply:(i,effects)=>{const e=applyNpcFx(i,effects);save();return e;},state:()=>({fx:{...(s.npcFx||{})},bubbles:fxBubbles.map(b=>b.text),emitters:fxEmitters.length,particles:fxLayer.live(),reactions:(streetCrowd?.people||[]).filter(p=>p.react&&p.react.until>now).map(p=>p.react.kind)}),
+  scuffle:(x=player.x,z=player.z)=>{lastScuffle={x,z,at:now};return lastScuffle;},trick:(kind='point')=>{lastTrick={x:player.x,z:player.z,at:now,kind};return lastTrick;},
+  deal:i=>{const effects=STRAINS[0].effects;return customerFeedback(effects,{favourite:favouriteOf(i),dislike:customerDislike(i),index:i});},
+  // Screenshot staging: stand `dist` m in front of contact i and face them.
+  view(i,dist=3.2,side=0){if(!active)load('story',1,true);const o=document.getElementById('overlay');if(o)o.hidden=true;if(document.body?.dataset)document.body.dataset.panel='';panel='';const g=people[i];if(!g)return null;const p=g.position,f=g.rotation.y+side;player.set(p.x+Math.sin(f)*dist,1.62,p.z+Math.cos(f)*dist);pitch=-.08;yaw=Math.atan2(player.x-p.x,player.z-p.z);syncPlayerView();return {x:p.x,z:p.z,name:CONTACTS[i].name};},
+  crowd(id,dist=4){const c=streetCrowd?.people?.[id];if(!c)return null;if(!active)load('story',1,true);panel='';player.set(c.x+Math.sin(c.yaw)*dist,1.62,c.z+Math.cos(c.yaw)*dist);pitch=-.05;yaw=Math.atan2(player.x-c.x,player.z-c.z);syncPlayerView();return {x:c.x,z:c.z};}};
+}catch(error){console.warn('NPC gummy effects unavailable',error);}
