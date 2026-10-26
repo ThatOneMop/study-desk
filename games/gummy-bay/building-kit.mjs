@@ -23,6 +23,23 @@ export function rng(seed){let s=(Math.imul(seed|0,2654435761)^0x9e3779b9)>>>0;re
 /* ---------- atlas painting ---------- */
 const PX=128;
 function noise(g,x,y,w,h,amount,r){for(let i=0;i<w*h/22;i++){const v=Math.floor(r()*amount);g.fillStyle=r()<.5?`rgba(0,0,0,${v/255})`:`rgba(255,255,255,${v/255})`;g.fillRect(x+Math.floor(r()*w),y+Math.floor(r()*h),1+Math.floor(r()*2),1+Math.floor(r()*2));}}
+// Fake shop interior inside the 116x92 glazing recess of one atlas tile. `glow` paints the emissive version.
+function shopInterior(g,x,y,glow,r){
+ const X0=x+6,Y0=y+8,W=116,H=92,bx0=X0+28,bx1=X0+W-28,by0=Y0+18,by1=Y0+62;
+ const poly=(c,pts)=>{g.fillStyle=c;g.beginPath();g.moveTo(pts[0],pts[1]);for(let i=2;i<pts.length;i+=2)g.lineTo(pts[i],pts[i+1]);g.closePath();g.fill();};
+ const P=glow?{ceil:'#3a2a18',floor:'#4a3622',left:'#6a4c2c',right:'#7a5a36',back:'#f2c98a',shelf:'#3a2a18',lamp:'#fff2c8',counter:'#2a1c10',tile:'#3e2c1a'}:{ceil:'#3b3f3c',floor:'#6c6656',left:'#56605a',right:'#646e66',back:'#9aa294',shelf:'#4a3a2c',lamp:'#e8e4c8',counter:'#6a4e36',tile:'#5a5548'};
+ poly(P.ceil,[X0,Y0,X0+W,Y0,bx1,by0,bx0,by0]);poly(P.floor,[X0,Y0+H,X0+W,Y0+H,bx1,by1,bx0,by1]);
+ poly(P.left,[X0,Y0,bx0,by0,bx0,by1,X0,Y0+H]);poly(P.right,[X0+W,Y0,bx1,by0,bx1,by1,X0+W,Y0+H]);
+ g.fillStyle=P.back;g.fillRect(bx0,by0,bx1-bx0,by1-by0);
+ g.strokeStyle=P.tile;g.lineWidth=1;for(let i=0;i<=6;i++){const fx=X0+i*W/6,bx=bx0+i*(bx1-bx0)/6;g.beginPath();g.moveTo(fx,Y0+H);g.lineTo(bx,by1);g.stroke();}
+ for(const f of [.25,.55]){const yy=by1+(Y0+H-by1)*f;g.beginPath();g.moveTo(bx0-(bx0-X0)*f,yy);g.lineTo(bx1+(X0+W-bx1)*f,yy);g.stroke();}
+ const goods=['#e2534b','#f0a33c','#5d9a46','#4b7dc4','#d7c35a','#b276d6','#e8e4d6'];
+ for(let row=0;row<3;row++){const sy=by0+12+row*14;g.fillStyle=P.shelf;g.fillRect(bx0+2,sy,bx1-bx0-4,2);
+  for(let gx=bx0+4;gx<bx1-6;gx+=5+Math.floor(r()*3)){const h=4+Math.floor(r()*6);const gc=goods[Math.floor(r()*goods.length)];g.fillStyle=glow?'#5a4026':gc;g.fillRect(gx,sy-h,3+Math.floor(r()*2),h);}}
+ for(const side of [0,1])for(let k=0;k<3;k++){const t0=.2+k*.28,ya=Y0+20+k*16;const xa=side?X0+W-6:X0+6,xb=side?bx1+2:bx0-2,yb=by0+12+k*14;g.strokeStyle=P.shelf;g.lineWidth=2;g.beginPath();g.moveTo(xa,ya+t0*10);g.lineTo(xb,yb);g.stroke();}
+ g.fillStyle=P.counter;g.fillRect(X0+W-50,Y0+H-24,40,24);g.fillStyle=glow?'#4a3420':'#8d6a49';g.fillRect(X0+W-52,Y0+H-27,44,4);g.fillStyle=glow?'#1a1008':'#2b2f33';g.fillRect(X0+W-40,Y0+H-35,12,8);
+ g.fillStyle=P.lamp;g.beginPath();g.ellipse(X0+W/2-18,by0+4,10,3,0,0,7);g.fill();g.beginPath();g.ellipse(X0+W/2+20,by0+4,10,3,0,0,7);g.fill();
+}
 function paintTiles(g,e){
  const r=rng(77),at=t=>[t[0]*PX,t[1]*PX];
  const fill=(t,c)=>{const [x,y]=at(t);g.fillStyle=c;g.fillRect(x,y,PX,PX);return [x,y];};
@@ -42,7 +59,9 @@ function paintTiles(g,e){
  // Windows: the map is the same glass lit or not; the emissive atlas lights only *_LIT.
  const windowTile=(t,blinds)=>{const [x,y]=fill(t,'#e9e5da');g.fillStyle='#3d4a4e';g.fillRect(x+12,y+10,104,108);const gr=g.createLinearGradient(x,y,x+PX,y+PX);gr.addColorStop(0,'#5d7680');gr.addColorStop(.5,'#2c3a40');gr.addColorStop(1,'#465c63');g.fillStyle=gr;g.fillRect(x+18,y+16,92,96);g.fillStyle='rgba(255,255,255,.16)';g.beginPath();g.moveTo(x+30,y+16);g.lineTo(x+60,y+16);g.lineTo(x+18,y+70);g.lineTo(x+18,y+40);g.fill();g.fillStyle='#e9e5da';g.fillRect(x+62,y+16,4,96);if(blinds){g.fillStyle='#cfc6ad';g.fillRect(x+18,y+16,92,40);g.fillStyle='rgba(0,0,0,.18)';for(let i=0;i<8;i++)g.fillRect(x+18,y+18+i*5,92,1);}g.fillStyle='#bdb6a5';g.fillRect(x+8,y+114,112,8);};
  windowTile(TILE.WINDOW,false);windowTile(TILE.WINDOW_LIT,false);windowTile(TILE.WINDOW_B,true);windowTile(TILE.WINDOW_B_LIT,true);
- const shopTile=t=>{const [x,y]=fill(t,'#2a2e2e');g.fillStyle='#1b2324';g.fillRect(x+6,y+8,116,92);for(let i=0;i<4;i++){g.fillStyle=['#7b5b3c','#5d6b47','#7a4a48','#4b5d73'][i];g.fillRect(x+12,y+30+i*16,104,6);}g.fillStyle='rgba(255,255,255,.12)';g.beginPath();g.moveTo(x+20,y+8);g.lineTo(x+50,y+8);g.lineTo(x+6,y+70);g.lineTo(x+6,y+40);g.fill();g.fillStyle='#3a3f3f';g.fillRect(x,y+100,PX,28);g.fillRect(x+62,y+8,4,92);};
+ // v155: shop windows paint a fake interior in perspective (ceiling, side walls, tiled floor,
+ // stocked back shelves, a counter and a hanging lamp) so glazing reads as a room, not a flat panel.
+ const shopTile=t=>{const [x,y]=fill(t,'#2a2e2e');shopInterior(g,x,y,false,rng(t[0]*7+t[1]*13+91));g.fillStyle='rgba(255,255,255,.1)';g.beginPath();g.moveTo(x+20,y+8);g.lineTo(x+46,y+8);g.lineTo(x+6,y+66);g.lineTo(x+6,y+40);g.fill();g.fillStyle='#3a3f3f';g.fillRect(x,y+100,PX,28);g.fillRect(x+62,y+8,4,92);};
  shopTile(TILE.SHOP);shopTile(TILE.SHOP_LIT);
  {const [x,y]=fill(TILE.ROLLER,'#a8aaa6');for(let i=0;i<16;i++){g.fillStyle='rgba(0,0,0,.28)';g.fillRect(x,y+i*8+6,PX,2);}noise(g,x,y,PX,PX,30,r);g.fillStyle='#6a6c68';g.fillRect(x,y+120,PX,8);}
  {const [x,y]=fill(TILE.DOOR,'#e9e5da');g.fillStyle='#6b4a37';g.fillRect(x+24,y+6,80,122);g.fillStyle='rgba(0,0,0,.22)';g.fillRect(x+34,y+20,24,40);g.fillRect(x+70,y+20,24,40);g.fillRect(x+34,y+72,24,44);g.fillRect(x+70,y+72,24,44);g.fillStyle='#d8c27a';g.fillRect(x+92,y+66,6,6);}
@@ -68,7 +87,7 @@ function paintTiles(g,e){
  // Emissive atlas: warm rooms, shop interiors and marquee bulbs.
  if(e){e.fillStyle='#000';e.fillRect(0,0,PX*ATLAS_GRID,PX*ATLAS_GRID);
   for(const [t,blinds] of [[TILE.WINDOW_LIT,false],[TILE.WINDOW_B_LIT,true]]){const [x,y]=at(t);const gr=e.createLinearGradient(x,y+16,x,y+112);gr.addColorStop(0,'#ffcf8a');gr.addColorStop(1,'#d9863c');e.fillStyle=gr;e.fillRect(x+18,y+16,92,96);e.fillStyle='#000';e.fillRect(x+62,y+16,4,96);if(blinds){e.fillStyle='#a8743c';e.fillRect(x+18,y+16,92,40);}}
-  {const [x,y]=at(TILE.SHOP_LIT);e.fillStyle='#f2c98a';e.fillRect(x+6,y+8,116,92);e.fillStyle='#000';e.fillRect(x+62,y+8,4,92);for(let i=0;i<4;i++){e.fillStyle='#4a3a28';e.fillRect(x+12,y+30+i*16,104,6);}}
+  {const [x,y]=at(TILE.SHOP_LIT);shopInterior(e,x,y,true,rng(3*7+1*13+91));e.fillStyle='#000';e.fillRect(x+62,y+8,4,92);}
   {const [x,y]=at(TILE.BULBS);for(let i=0;i<4;i++)for(let j=0;j<4;j++){e.fillStyle='#ffd77a';e.beginPath();e.arc(x+16+i*32,y+16+j*32,9,0,7);e.fill();}}
  }
 }

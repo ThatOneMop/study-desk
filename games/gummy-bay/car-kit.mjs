@@ -17,12 +17,14 @@ export function createMerger(){
   build(){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));g.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));g.computeBoundingSphere();g.computeBoundingBox();return g;},
   get vertices(){return pos.length/3;}};
 }
-const BOX=new THREE.BoxGeometry(1,1,1),WHEEL=new THREE.CylinderGeometry(.3,.3,.2,10),CONE=new THREE.ConeGeometry(1,1,8,1,true);
+const BOX=new THREE.BoxGeometry(1,1,1),WHEEL=new THREE.CylinderGeometry(.3,.3,.2,14),RIM=new THREE.CylinderGeometry(.2,.2,.206,12),HUB=new THREE.CylinderGeometry(.11,.13,.218,8),CONE=new THREE.ConeGeometry(1,1,8,1,true);
 const TYRE=0x1f2424,GLASS=0x3f5a63,LAMP=0xf6e3b0,TAIL=0xc0453c,CHROME=0xc9ccc4;
+// v155: exported so the car paint shader can tell paint, glass, chrome, tyres and lamps apart.
+export const CAR_PALETTE=Object.freeze({TYRE,GLASS,LAMP,TAIL,CHROME});const RIM_DARK=0x30373b;
 export const CAR_MATERIAL=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.55,metalness:.08});
 CAR_MATERIAL.name='Car body (vertex colours)';
 
-function wheels(k,xs,zs,r=1){for(const x of xs)for(const z of zs)k.add(WHEEL,{x,y:.3*r,z,rz:Math.PI/2,sx:r,sy:r,sz:r,color:TYRE});}
+function wheels(k,xs,zs,r=1){for(const x of xs)for(const z of zs){const o={x,y:.3*r,z,rz:Math.PI/2,sx:r,sy:r,sz:r};k.add(WHEEL,{...o,color:TYRE});k.add(RIM,{...o,color:RIM_DARK});k.add(HUB,{...o,color:CHROME});}}
 // Adds one car body into a merger, centred on (ox,oz) and rotated by `angle`. Forward is +z.
 export function addCarBody(k,kind,color,trim,{ox=0,oy=0,oz=0,angle=0}={}){
  const c=Math.cos(angle),s=Math.sin(angle);

@@ -1,7 +1,7 @@
 import {chooseParcel,parcelVelocity,PARCEL_NOTES} from './parcel-handling.mjs?v=120';
 import {createParcelFinish} from './parcel-finish.mjs?v=120';
 import {focusScore,chooseInteraction} from './interaction-focus.mjs?v=117';
-import {FLEET,activeFleet,fleetOwned,fleetRequest,createFleetModels} from './fleet.mjs?v=135';
+import {FLEET,activeFleet,fleetOwned,fleetRequest,createFleetModels} from './fleet.mjs?v=155';
 import {wakingPose,createWorkshopTerminals,createCampsiteFire,workshopPlan} from './arrival-workplace.mjs?v=115';
 import {neighborhoodPlan,createIslandShore,relocateFromInfill} from './island-neighborhoods.mjs?v=112';
 import {addStreetHat} from './street-hats.mjs?v=113';
@@ -10,9 +10,9 @@ import {gritMaterial,createStreetWear} from './gritty-streets.mjs?v=111';
 import {roundResidentAsset} from './resident-rounding.mjs?v=121';
 import {EXTRA_PATROL_ROUTES,expandPoliceRoster} from './patrol-expansion.mjs?v=111';
 import {dressPayphone} from './payphone-detail.mjs?v=111';
-import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=132';
+import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=155';
 import {LOT_CARS,LOT_SITE,lotCar,lotOwned,lotRequest,handlingFor,createCar,stepCar,resolveMove,setLong,chaseCamera,trunkCapacity,trunkCount,moveTrunk,seizeTrunk} from './car-physics.mjs?v=145';
-import {carGeometry,createLotModels,createLot,lotLayout,lotColliders,LOT_DOOR,createSkidMarks,createEngineAudio,CAR_MATERIAL} from './car-kit.mjs?v=145';
+import {carGeometry,createLotModels,createLot,lotLayout,lotColliders,LOT_DOOR,createSkidMarks,createEngineAudio,CAR_MATERIAL,CAR_PALETTE} from './car-kit.mjs?v=155';
 import {CRUISER_SPEC,cruiserSpawn,createCruiser,stepCruisers,cruisersWanted,cruiserCount} from './police-cruisers.mjs?v=145';
 import {rainAt,wetnessAt,weatherSky,forecast,dayWeather,weatherBudget,weatherClock} from './weather.mjs?v=145';
 import {createRainFX,createRainAudio} from './weather-fx.mjs?v=145';
@@ -88,7 +88,7 @@ import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=154';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
-import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=137';
+import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=155';
 import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=139';
 import {normalizeArcade,gripColor,ownedPosters,prizeById} from './arcade-core.mjs?v=137';
 import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=137';
@@ -155,6 +155,7 @@ import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
+import {OCEAN_VERTEX,OCEAN_FRAGMENT,SKY_FRAGMENT,applyCarPaint,tuftSpots,createGrassTufts,createShoreFoam,worldTuning} from './gfx-world.mjs?v=155';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
 const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:42,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:56,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:72,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:92,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:118,level:7,time:50}];
@@ -671,9 +672,11 @@ setQuality(quality);
 addEventListener('keydown',e=>{if(!active||panel||work||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;if(stationTask||placeMode)return;if(hotbarSlot(e.key)){e.preventDefault();useHotbarSlot(e.key);}});
 // Atmospheric sky and a stylized moving bay, built from local shaders.
 const skyUniforms={top:{value:new THREE.Color(0x6d9daf)},bottom:{value:new THREE.Color(0xc7c5ae)},night:{value:1}};
-const skyDome=new THREE.Mesh(new THREE.SphereGeometry(290,24,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:skyUniforms,vertexShader:'varying vec3 direction;void main(){direction=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'varying vec3 direction;uniform vec3 top;uniform vec3 bottom;uniform float night;float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}void main(){vec3 dir=normalize(direction);float h=clamp(dir.y,0.,1.);vec3 col=mix(bottom,top,pow(h,.55));vec2 p=dir.xz/max(.15,dir.y)*2.;float n=noise(p)*.6+noise(p*2.1)*.28+noise(p*4.3)*.12;float cloud=smoothstep(.53,.73,n)*smoothstep(.03,.22,h);col=mix(col,vec3(.9,.91,.88),cloud*.72);gl_FragColor=vec4(col*night,1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}'}));skyDome.renderOrder=-20;scene.add(skyDome);
-const waterUniforms={uTime:{value:0},uLight:{value:1},uFog:{value:new THREE.Color(0xa4bfc8)},uFogNear:{value:80},uFogFar:{value:266}};
-const ocean=new THREE.Mesh(new THREE.PlaneGeometry(660,140,100,40),new THREE.ShaderMaterial({uniforms:waterUniforms,vertexShader:'varying vec2 vUv;varying vec3 world;uniform float uTime;void main(){vUv=uv;vec3 p=position;p.z+=sin(p.x*.3+uTime*.8)*.035+sin(p.y*.5+uTime*.6)*.028;vec4 w=modelMatrix*vec4(p,1.);world=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',fragmentShader:'varying vec2 vUv;varying vec3 world;uniform float uTime;uniform float uLight;uniform vec3 uFog;uniform float uFogNear;uniform float uFogFar;void main(){float w=sin(world.x*.55+world.z*.9+uTime*.65)*.5+.5;float wave=smoothstep(.96,1.,w)*.17;float stripe=sin(world.z*3.5+uTime*.8+sin(world.x*.12))*.025;vec3 c=mix(vec3(.18,.39,.42),vec3(.33,.54,.55),vUv.y)+wave+stripe;c*=uLight;float fog=smoothstep(uFogNear,uFogFar,distance(cameraPosition,world));gl_FragColor=vec4(mix(c,uFog,fog),1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}'}));ocean.rotation.x=-Math.PI/2;ocean.position.set(0,-.375,128);ocean.receiveShadow=false;scene.add(ocean);
+const skyDome=new THREE.Mesh(new THREE.SphereGeometry(290,24,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:skyUniforms,vertexShader:'varying vec3 direction;void main(){direction=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:SKY_FRAGMENT}));skyDome.renderOrder=-20;scene.add(skyDome);
+// v155: glossy car paint, chrome hubs and night headlights on the shared car body material.
+const carPaint=applyCarPaint(CAR_MATERIAL,CAR_PALETTE,skyUniforms);
+const waterUniforms={uTime:{value:0},uLight:{value:1},uQ:{value:1},uSkyTop:skyUniforms.top,uSkyBot:skyUniforms.bottom,uSkyLevel:skyUniforms.night,uFog:{value:new THREE.Color(0xa4bfc8)},uFogNear:{value:80},uFogFar:{value:266}};
+const ocean=new THREE.Mesh(new THREE.PlaneGeometry(660,140,100,40),new THREE.ShaderMaterial({uniforms:waterUniforms,vertexShader:OCEAN_VERTEX,fragmentShader:OCEAN_FRAGMENT}));ocean.rotation.x=-Math.PI/2;ocean.position.set(0,-.375,128);ocean.receiveShadow=false;scene.add(ocean);
 // Narrow kerb faces join the existing road and pavements, leaving crossings open.
 for(const side of [-1,1])for(const direction of [-1,1]){
  box(direction*49,.045,side*6.35,74,.13,.18,0xa9afa5);
@@ -717,7 +720,7 @@ function shopLogo(x,z,name,kind,color){let c=document.createElement('canvas');c.
 shopLogo(19.1,30.7,'MILO’S','plant','#70825c');shopLogo(-30.8,-14.3,'HARDWARE','tool','#7c8168');shopLogo(30.4,-15.8,'GUMMIES','gummy','#9b7b60');
 const smallDetails=[];scene.traverse(o=>{if(o.isMesh&&o.parent===scene&&o.geometry.type==='BoxGeometry'){const d=o.geometry.parameters;if(d.width<3&&d.height<.55&&d.depth<2){o.castShadow=false;smallDetails.push(o)}}});
 const artFrame=renderFrame;renderFrame=function(){
-skyDome.position.copy(camera.position);waterUniforms.uTime.value=now;
+skyDome.position.copy(camera.position);waterUniforms.uTime.value=now;gfxTufts?.update(now,quality);gfxShoreFoam?.update(now,waterUniforms.uLight.value,quality);
 for(let o of smallDetails){if(o.__batchParent)continue;o.visible=camera.position.distanceToSquared(o.position)<6400;}
 for(let g of avatars){let id=g.userData.id;let phase=(now+id*.63)%5.3;g.userData.eyes.scale.y=phase>4.9&&phase<5.07?.1:1;g.userData.torso.scale.y=1+Math.sin(now*1.8+id)*.008;g.userData.left.rotation.z=.035+Math.sin(now*1.1+id)*.025;g.userData.right.rotation.z=-.035-Math.sin(now*1.1+id)*.025;if(g===patrol){g.userData.left.rotation.x=Math.sin(now*2.1)*.2;g.userData.right.rotation.x=-Math.sin(now*2.1)*.2;}}
 artFrame();};
@@ -2383,6 +2386,7 @@ const islandArchitecture=createDistrictArchitecture({scene,sites:islandSites,qua
 const islandDressing=createArchitectureOverhaul(scene,islandSites);
 colliders.push(...islandSites);districtBuildings.push(...islandSites);
 const islandShore=createIslandShore(scene,WORLD,grittyGround);
+var gfxShoreFoam=createShoreFoam(islandShore.outline);scene.add(gfxShoreFoam.mesh);
 ocean.geometry.dispose();ocean.geometry=new THREE.PlaneGeometry(2200,2200,160,160);
 ocean.position.set(0,-.375,(WORLD.minZ+WORLD.maxZ)/2);
 // Older saves may stand on a newly built lot. Move those positions to a clear street.
@@ -3860,7 +3864,7 @@ if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
 // v134 Lighting and visual polish: bounce/moon fill, lifted hemisphere colours,
 // instanced street lamps with fake light pools, overpass soffit lights and
 // stylised trees placed only on free ground (never in front of a shopfront).
-var streetLighting=null,gfxGlowSpots=null,gfxHalos=null;const fillLight=new THREE.AmbientLight(0xffffff,0);fillLight.name='Readability fill';scene.add(fillLight);
+var streetLighting=null,gfxGlowSpots=null,gfxHalos=null,gfxTreeSpots=[],gfxPlanterSpots=[],gfxTufts=null;const fillLight=new THREE.AmbientLight(0xffffff,0);fillLight.name='Readability fill';scene.add(fillLight);
 let lastGrade=readabilityGrade(sceneLighting(s?.time??540,active));
 const gradeBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gradeBaseRefresh();
  const plan=sceneLighting(s.time,active),g=readabilityGrade(plan);lastGrade=g;
@@ -3875,8 +3879,8 @@ try{
  // Old Town dressing: off the road bands, colliders, doors, police lanes and every crowd stop / walk line.
  const crowd=[];for(let i=0;i<STREET_CROWD_SIZE*2;i++){const c=crowdRoute(i);crowd.push({a:[c.home.x,c.home.z],b:[c.job.x,c.job.z]});for(const k of ['bench','vend','atm','street'])crowd.push({a:[c[k].x,c[k].z],b:[c.home.x,c.home.z]},{a:[c[k].x,c[k].z],b:[c.job.x,c.job.z]});}
  const dress=dressingSpots({roadBands:[{axis:'z',at:0,half:11.5},{axis:'x',at:0,half:11.5}],colliders,points,routes:policeRoutes,crowd,max:28});
- const oldTrees=dress.filter(d=>d.kind==='tree'),planterSpots=dress.filter(d=>d.kind==='planter');
- streetLighting=createStreetDressing({scene,lamps:spots,soffit,trees:treeSpots({free:freeTree,step:8,max:220,extra:oldTrees}),planters:planterSpots,height:terrainHeight});
+ const oldTrees=dress.filter(d=>d.kind==='tree'),planterSpots=dress.filter(d=>d.kind==='planter');gfxPlanterSpots=planterSpots;
+ streetLighting=createStreetDressing({scene,lamps:spots,soffit,trees:(gfxTreeSpots=treeSpots({free:freeTree,step:8,max:220,extra:oldTrees})),planters:planterSpots,height:terrainHeight});
  for(const d of oldTrees)colliders.push({x:d.x,z:d.z,w:.7,d:.7,cityProp:'tree'});for(const d of planterSpots)colliders.push({x:d.x,z:d.z,w:1.5,d:1.5,cityProp:'planter'});
  streetLighting.update(lastGrade);
  window.__gummyLight={stats:()=>({lamps:streetLighting.lamps,soffit:streetLighting.soffit,meshes:streetLighting.meshes.length,trees:streetLighting.trees,oldTownTrees:oldTrees.length,planters:streetLighting.planters,verts:streetLighting.verts,grade:lastGrade})};
@@ -3894,6 +3898,8 @@ const gfxBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gfxBas
  gfxOcclusion?.set(g.occlusion);
  // v153 post: night glow halos on every quality, High bloom/grade tuning, gentle fog layering off Low.
  const t=postTuning(quality,g.night);gfxHalos?.update(t,scene.fog);effects?.setPost?.(t);
+ // v155 world: water reflections/glint and grass tufts off Low, lighter car gloss on Low, headlights at night.
+ const wt=worldTuning(quality,g.night);waterUniforms.uQ.value=wt.waterQ;carPaint.uGloss.value=wt.gloss;carPaint.uNight.value=wt.headlights;
 };
 window.__gummyGfx={occlusion:()=>gfxOcclusion?{verts:gfxOcclusion.verts,opacity:gfxOcclusion.mesh.material.opacity}:null,grade:()=>gfxLightGrade(sceneLighting(s.time,active),quality)};
 // v151 graphics pass step 2: one procedural detail atlas shared by every static town material.
@@ -3916,7 +3922,8 @@ function gfxBuildDetail(){
  const walls=[];for(const b of buildings)for(let i=0;i<2;i++)walls.push({x:b.x+(i?b.w/2+.5:-b.w/2-.5),z:b.z+(b.d*.3)*(i?1:-1)});
  gfxDecals=createDecals(THREE,scene,decalSpots({roads:[{axis:'z',at:0,mid:0,len:150,width:10},{axis:'x',at:0,mid:0,len:150,width:10}],walls}),{height:(x,z)=>Math.max(terrainHeight(x,z),.0)});
  if(!gfxHalos&&gfxGlowSpots){gfxHalos=createGlowHalos(THREE,scene,glowSources({...gfxGlowSpots,extra:sceneGlowExtras(THREE,scene),height:terrainHeight}));refreshWorldLighting();}
- window.__gummyDetail={halos:gfxHalos?.count??0,buildings:buildings.length,parts:gfxDetail?.parts??0,decals:gfxDecals?.count??0};
+ if(!gfxTufts&&gfxTreeSpots.length){gfxTufts=createGrassTufts(tuftSpots(gfxTreeSpots,gfxPlanterSpots),{height:terrainHeight});scene.add(gfxTufts.mesh);gfxTufts.update(0,quality);}
+ window.__gummyDetail={tufts:gfxTufts?.count??0,halos:gfxHalos?.count??0,buildings:buildings.length,parts:gfxDetail?.parts??0,decals:gfxDecals?.count??0};
 }
 // v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).

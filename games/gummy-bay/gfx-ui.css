@@ -1,0 +1,14 @@
+/* v155 graphics step 6: crisper HUD icons and a sharper loading screen. Pure CSS, no new assets. */
+.slot svg,.money-tile svg{shape-rendering:geometricPrecision;filter:drop-shadow(0 1px 0 #ffffff4d) drop-shadow(0 -1px 0 #00000033) drop-shadow(0 2px 2px #0000006b);transition:transform .12s ease}
+.slot{background:linear-gradient(180deg,rgba(40,48,54,.62),rgba(16,20,24,.62));box-shadow:inset 0 1px 0 #ffffff1f,inset 0 -2px 0 #0000003d,0 3px 8px #0000002e}
+.slot:hover svg,.money-tile:hover svg{transform:translateY(-1px) scale(1.06)}
+.slot i{text-shadow:0 1px 0 #0009}
+/* Loading card: crisper art, glassier tip card, a live shimmer on the progress bar. */
+.cine-fallback img{filter:saturate(1.14) contrast(1.07) brightness(.86);image-rendering:auto;backface-visibility:hidden}
+.cine.loading .cine-vignette{background:radial-gradient(115% 85% at 50% 42%,transparent 52%,#0b0d14b8 100%),linear-gradient(0deg,#120c0aa6,transparent 30%),linear-gradient(180deg,#0b0d1459,transparent 18%)}
+.cine-logo b{text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased}
+.cine-hint{backdrop-filter:blur(8px) saturate(1.2);-webkit-backdrop-filter:blur(8px) saturate(1.2);border-color:#ffd59a4d}
+.cine-progress div{height:4px;background:#ffffff26;box-shadow:inset 0 1px 2px #0007,0 0 0 1px #ffffff12}
+.cine-progress i{background:linear-gradient(90deg,#ff8f5a,#ffd27a 40%,#fff3d0 50%,#ffd27a 60%,#ff8f5a);background-size:220% 100%;animation:gfxUiShine 1.6s linear infinite;box-shadow:0 0 10px #ffc46b80}
+@keyframes gfxUiShine{from{background-position:120% 0}to{background-position:-120% 0}}
+@media (prefers-reduced-motion:reduce){.cine-progress i{animation:none}.slot svg,.money-tile svg{transition:none}}
