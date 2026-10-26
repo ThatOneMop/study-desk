@@ -7,6 +7,7 @@
 //     town batches; additive light pools + glowing lamp heads are ONE night-only mesh.
 //     No real lights: ~0 extra draw calls by day, +1 after dark.
 import * as THREE from './vendor/three.module.min.js';
+import {BATCH_CELL} from './static-batch.mjs?v=133';
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -85,30 +86,33 @@ class Baker{
 }
 export function createStreetDressing({scene,lamps=[],soffit=[],trees=[],planters=[],height=()=>0,seed=11}={}){
  let r=seed>>>0;const rnd=()=>((r=(r*1664525+1013904223)>>>0)/4294967296);
- const parts=new Map(),bake=hex=>{if(!parts.has(hex))parts.set(hex,new Baker());return parts.get(hex);};
+ // One plain mesh per colour, anchored in the busy Old Town / strip batch cell (-1,-1) so it
+ // folds into the town batch already drawn there (same look key as game.js box(): roughness .84).
+ const parts=new Map();let at=[0,0];const bake=hex=>{const cx=-1,cz=-1,k=hex+'|'+cx+'|'+cz;if(!parts.has(k))parts.set(k,{hex,cx,cz,b:new Baker()});return parts.get(k).b;};
  const G=new Baker(),m=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),v=new THREE.Vector3(),sc=new THREE.Vector3();
  const pole=new THREE.CylinderGeometry(.08,.12,1,6),cube=new THREE.BoxGeometry(1,1,1),trunk=new THREE.CylinderGeometry(.16,.26,1,6),leaf=new THREE.IcosahedronGeometry(1,1),bush=new THREE.IcosahedronGeometry(.62,1),plane=new THREE.PlaneGeometry(1,1);plane.rotateX(-Math.PI/2);
  const pool=(x,y,z,w,d,hex)=>G.add(plane,m.compose(v.set(x,y+.07,z),q.identity(),sc.set(w,1,d)),hex,false);
  const glow=(matrix,hex)=>G.add(cube,matrix,hex,true);
- for(const s of lamps){const y=height(s.x,s.z),ax=s.axis==='z'?0:s.face,az=s.axis==='z'?s.face:0;
+ for(const s of lamps){at=[s.x,s.z];const y=height(s.x,s.z),ax=s.axis==='z'?0:s.face,az=s.axis==='z'?s.face:0;
   bake(0x4d5450).add(pole,m.compose(v.set(s.x,y+2.7,s.z),q.identity(),sc.set(1,5.4,1)),0xffffff);
   bake(0x4d5450).add(cube,m.compose(v.set(s.x+ax*.6,y+5.32,s.z+az*.6),q.identity(),sc.set(ax?1.3:.1,.1,az?1.3:.1)),0xffffff);
   bake(0xe8dcbc).add(cube,m.compose(v.set(s.x+ax*1.15,y+5.2,s.z+az*1.15),q.identity(),sc.set(ax?.9:.42,.18,az?.9:.42)),0xffffff);
   glow(m.compose(v.set(s.x+ax*1.15,y+5.19,s.z+az*1.15),q.identity(),sc.set(ax?.96:.48,.2,az?.96:.48)),0xffc98a);
   pool(s.x+ax*1.6,y,s.z+az*1.6,10,10,0xffb766);}
- for(const s of soffit){bake(0xe8dcbc).add(cube,m.compose(v.set(s.x,s.y,s.z),q.identity(),sc.set(2.2,.12,.5)),0xffffff);glow(m.compose(v.set(s.x,s.y-.01,s.z),q.identity(),sc.set(2.26,.14,.56)),0xffb060);pool(s.x,height(s.x,s.z),s.z,12,9,0xf0a050);}
+ for(const s of soffit){at=[s.x,s.z];bake(0xe8dcbc).add(cube,m.compose(v.set(s.x,s.y,s.z),q.identity(),sc.set(2.2,.12,.5)),0xffffff);glow(m.compose(v.set(s.x,s.y-.01,s.z),q.identity(),sc.set(2.26,.14,.56)),0xffb060);pool(s.x,height(s.x,s.z),s.z,12,9,0xf0a050);}
  const greens=[0x5f8a4e,0x6f9a52,0x7fa35a,0x587f53,0x8aa65e];
- for(const t of trees){const s=t.s??1,y=height(t.x,t.z),h=2.2*s;
+ for(const t of trees){at=[t.x,t.z];const s=t.s??1,y=height(t.x,t.z),h=2.2*s;
   bake(0x6b5640).add(trunk,m.compose(v.set(t.x,y+h/2,t.z),q.identity(),sc.set(s,h,s)),0xffffff);
   const g0=Math.floor((t.hue??rnd())*greens.length)%greens.length;
   for(let k=0;k<4;k++){const a=k/4*Math.PI*2+rnd(),rad=k?1.05*s:0,rr=(k?1.15:1.45)*s*(.9+rnd()*.2);
    q.setFromEuler(e.set(0,rnd()*6,0));const hex=greens[(g0+(k?1+(k%2):0))%greens.length];
    bake(hex).add(leaf,m.compose(v.set(t.x+Math.cos(a)*rad,y+h+(k?.35:1.05)*s,t.z+Math.sin(a)*rad),q,sc.set(rr,rr*.82,rr)),0xffffff);}}
- for(const p of planters){const y=height(p.x,p.z);bake(0x9a7d5c).add(cube,m.compose(v.set(p.x,y+.28,p.z),q.identity(),sc.set(1.4,.55,1.4)),0xffffff);
+ for(const p of planters){at=[p.x,p.z];const y=height(p.x,p.z);bake(0x9a7d5c).add(cube,m.compose(v.set(p.x,y+.28,p.z),q.identity(),sc.set(1.4,.55,1.4)),0xffffff);
   bake(0x6f9a52).add(bush,m.compose(v.set(p.x,y+.78,p.z),q.setFromEuler(e.set(0,(p.hue??0)*6,0)),sc.set(1,.8,1)),0xffffff);}
  // Plain single-colour meshes: the static batcher folds them into its town batches.
  const meshes=[];let verts=0;
- for(const [hex,b] of parts){const g=b.geometry({colour:false});const mesh=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:hex,roughness:.9,flatShading:true}));mesh.castShadow=mesh.receiveShadow=true;scene.add(mesh);meshes.push(mesh);verts+=b.verts;}
+ const looks=new Map(),look=hex=>{if(!looks.has(hex))looks.set(hex,new THREE.MeshStandardMaterial({color:hex,roughness:.84,flatShading:true}));return looks.get(hex);};
+ for(const {hex,cx,cz,b} of parts.values()){const ox=(cx+.5)*BATCH_CELL,oz=(cz+.5)*BATCH_CELL,g=b.geometry({colour:false});g.translate(-ox,0,-oz);g.computeBoundingSphere();const mesh=new THREE.Mesh(g,look(hex));mesh.position.set(ox,0,oz);mesh.castShadow=mesh.receiveShadow=true;scene.add(mesh);meshes.push(mesh);verts+=b.verts;}
  // Night-only: additive pools + glowing lamp heads, one mesh.
  const nightMat=new THREE.MeshBasicMaterial({color:0xffffff,vertexColors:true,map:poolTexture(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,fog:true,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
  const night=new THREE.Mesh(G.geometry(),nightMat);night.name='Street light pools v134';night.renderOrder=2;night.visible=false;night.userData.streetDressing=true;scene.add(night);

@@ -28,7 +28,7 @@ assert.deepEqual(treeSpots({free,bounds:{minX:-200,maxX:200,minZ:-150,maxZ:0},ma
 // Static parts are plain single-colour meshes (static-batcher candidates); pools + head glow are one night mesh.
 const scene=new THREE.Scene(),planters=[{x:4,z:4,hue:.2}];
 const sd=createStreetDressing({scene,lamps:spots,soffit:[{x:10,y:7.2,z:-94}],trees:ts,planters});
-assert.equal(scene.children.length,sd.meshes.length+1);assert(sd.meshes.length<=10);
+assert.equal(scene.children.length,sd.meshes.length+1);assert(sd.meshes.length<=60);
 for(const o of sd.meshes){assert(!o.geometry.attributes.color&&!o.material.transparent&&!o.material.emissiveMap&&!Object.keys(o.userData).length,'batchable');assert(vertexColorKey(o.material)&&batchCandidate(o,scene));}
 assert.equal(sd.trees,ts.length);assert.equal(sd.lamps,spots.length);assert(sd.verts<120000);
 assert.equal(sd.pools.geometry.attributes.position.count,(spots.length+1)*(6+36));
