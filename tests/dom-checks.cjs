@@ -3,7 +3,8 @@ const root=__dirname+'/../';
 const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id);w.confirm=()=>true;w.prompt=()=> 'New deck';w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
-assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);assert.equal($('study').hidden,false);
+assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);assert.equal($('study').hidden,true);
+w.location.hash='#study';w.dispatchEvent(new w.HashChangeEvent('hashchange'));assert.equal($('study').hidden,false);
 function key(target,k,extra={}){target.dispatchEvent(new w.KeyboardEvent('keydown',{key:k,bubbles:true,...extra}))}
 for(let i=0;i<3;i++)key(w,'p');assert.equal($('study').hidden,true);
 for(let i=0;i<3;i++)key(w,'p');assert.equal($('study').hidden,false);
@@ -14,7 +15,7 @@ d.querySelector('.fav').click();assert.equal(JSON.parse(w.localStorage.getItem('
 $('edit').click();$('newDeck').click();$('question').value='Test question';$('answer').value='Test answer';$('editorForm').dispatchEvent(new w.Event('submit',{cancelable:true}));assert.equal($('cardtext').textContent,'Test question');
 $('cardlist').querySelector('button').click();$('answer').value='Edited';$('editorForm').dispatchEvent(new w.Event('submit',{cancelable:true}));$('card').click();assert.equal($('cardtext').textContent,'Edited');$('know').click();assert.equal($('mastered').textContent,'1 mastered');
 $('deleteDeck').click();assert(!JSON.parse(w.localStorage.getItem('study-desk-v1')).some(c=>c.deck==='New deck'));
-console.log('PASS shell: '+w.GAME_CATALOG.length+' entries, study default, PPP both directions, typing exclusion, search, favourites, deck/card create/edit/delete, mastery');
+console.log('PASS shell: '+w.GAME_CATALOG.length+' entries, games default and explicit study route, PPP both directions, typing exclusion, search, favourites, deck/card create/edit/delete, mastery');
 const frame=$('frame'),f=frame.contentWindow;let toggles=0;w.addEventListener('message',e=>{if(e.data?.type==='study-toggle')toggles++});f.eval(fs.readFileSync(root+'bridge.js','utf8'));
 function visible(v){f.dispatchEvent(new f.MessageEvent('message',{source:w,origin:f.location.origin,data:{type:'study-visibility',visible:v}}))}
 // iframe about:blank reports null origin in jsdom; use its actual reported origin.
