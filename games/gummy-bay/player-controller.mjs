@@ -26,8 +26,10 @@ export function wishAxes(dx,dz){
 export function groundSpeed({crouching=false,sprinting=false}={}){
  return crouching?CROUCH_SPEED:sprinting?SPRINT_SPEED:WALK_SPEED;
 }
-export function moveResponse(moving,airborne){
- return airborne?AIR_RESPONSE:moving?ACCEL_RESPONSE:BRAKE_RESPONSE;
+// v143: sprint winds up over ~0.25 s (0.17 s felt like a teleport); walk and braking stay snappy.
+export const SPRINT_RESPONSE=9;
+export function moveResponse(moving,airborne,sprinting=false){
+ return airborne?AIR_RESPONSE:moving?(sprinting?SPRINT_RESPONSE:ACCEL_RESPONSE):BRAKE_RESPONSE;
 }
 export function capAirWish(tx,tz,airSpeed){
  if(!Number.isFinite(airSpeed)||airSpeed<0)return {tx,tz};
@@ -97,7 +99,8 @@ export function decayDip(dip,dt){
 export function headBob(phase,speed,{crouch=0,airborne=false,moving=false,amount=BOB_AMOUNT,sprinting=false}={}){
  if(!moving||airborne||!Number.isFinite(phase))return {y:0,lateral:0,roll:0};
  const stand=1-Math.max(0,Math.min(1,(Number.isFinite(crouch)?crouch:0)/.5));
- const pace=Math.max(0,Math.min(1.4,(Number.isFinite(speed)?speed:0)/WALK_SPEED));
+ // v143: sprint bob capped at 1.2x walk (was 1.4x, ~7 cm peak-to-peak read as seasick).
+ const pace=Math.max(0,Math.min(1.2,(Number.isFinite(speed)?speed:0)/WALK_SPEED));
  const scale=Math.max(0,Math.min(1,Number.isFinite(amount)?amount:0))*pace*stand;
  const wave=sprinting?phase*(2.6/1.8):phase;
  return {y:Math.sin(wave)*.035*scale,lateral:Math.cos(wave*.5)*.015*scale,roll:Math.sin(wave*.5)*(0.4*Math.PI/180)*scale};
@@ -131,4 +134,42 @@ export function slideMotion(position,dx,dz,blocked){
   if(step.hitZ)remZ=0;
  }
  return {x,z,hitX,hitZ};
+}
+
+// ---- v143 feel pass ---------------------------------------------------------
+// Kerbs and stairs lift the body in one frame; the camera follows over ~0.15 s
+// instead of popping. Only small grounded rises/drops inside the step allowance
+// are eased; jumps, ledges and teleports pass straight through.
+export const STEP_EASE=16,STEP_EASE_MIN=.02;
+export function stepEyeOffset(offset,rise,dt,{grounded=true,driving=false}={}){
+ let value=Number.isFinite(offset)?offset:0;
+ if(driving)return 0;
+ if(grounded&&Number.isFinite(rise)&&Math.abs(rise)>=STEP_EASE_MIN&&Math.abs(rise)<=STEP_UP+.001)value-=rise;
+ value=Math.max(-STEP_UP,Math.min(STEP_UP,value));
+ const slice=Number.isFinite(dt)?Math.max(0,Math.min(.1,dt)):0;
+ const next=value*Math.exp(-STEP_EASE*slice);
+ return Math.abs(next)<1e-4?0:next;
+}
+// Van steering: the wheel turns in over ~0.25 s (no instant snap) and the
+// yaw rate tapers at speed so a full lock at the top end is a wide arc, not a spin.
+export const STEER_RESPONSE=9,STEER_RETURN=12;
+export function steerStep(current,input,dt){
+ const target=Math.max(-1,Math.min(1,Number.isFinite(input)?input:0));
+ const value=Number.isFinite(current)?Math.max(-1,Math.min(1,current)):0;
+ const slice=Number.isFinite(dt)?Math.max(0,Math.min(.1,dt)):0;
+ const response=Math.abs(target)<Math.abs(value)||Math.sign(target)!==Math.sign(value)?STEER_RETURN:STEER_RESPONSE;
+ const next=target+(value-target)*Math.exp(-response*slice);
+ return Math.abs(next-target)<1e-4?target:next;
+}
+export function driveYawRate(steering,speed,top=16){
+ const v=Math.abs(Number.isFinite(speed)?speed:0),limit=Number.isFinite(steering)?Math.max(0,steering):0,ceiling=Math.max(1,Number.isFinite(top)?top:16);
+ const taper=1-.38*Math.max(0,Math.min(1,(v-ceiling*.5)/(ceiling*.5)));
+ return Math.min(limit,v*.15)*taper;
+}
+// A touch of speed in the van view, behind the same comfort toggle as sprint FOV.
+export function driveFov(base,speed,top=16,enabled=true){
+ const b=Number.isFinite(base)?base:FOV_BASE;
+ if(!enabled)return b;
+ const k=Math.max(0,Math.min(1,Math.abs(Number.isFinite(speed)?speed:0)/Math.max(1,top)));
+ return Math.min(100,b+4*k*k);
 }

@@ -227,3 +227,15 @@ export function storyCardHtml(id){
  const c=CARDS[id];if(!c)return '';
  return `<figure class="story-card ${esc(id)}" style="--card:${c.bg}"><svg viewBox="0 0 200 180" role="img" aria-label="${esc(c.name)}">${c.art}</svg><figcaption><strong>${esc(c.name)}</strong><span>${esc(c.role)}</span><em>${esc(c.quip)}</em></figcaption></figure>`;
 }
+
+// v143: a story beat never interrupts live play. Returns the reason to wait, or ''.
+export function storyHold({chase='clear',search=false,driving=false,skateSpeed=0,arcade=false,station=false,placing=false}={}){
+ if(chase&&chase!=='clear')return 'chase';
+ if(search)return 'search';
+ if(driving)return 'driving';
+ if(Number.isFinite(skateSpeed)&&skateSpeed>1)return 'skating';
+ if(arcade)return 'arcade';
+ if(station)return 'station';
+ if(placing)return 'placing';
+ return '';
+}
