@@ -1,0 +1,51 @@
+/* P1-1 · Mixing station, recipe book and the mix reveal card. Same tokens as hud-s1.css. */
+.mix-tag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;vertical-align:2px}
+.mix-tag.risky{background:rgba(255,122,76,.18);color:#ffb08f;border:1px solid rgba(255,122,76,.45)}
+.mix-tag.calm{background:rgba(95,211,95,.14);color:#a6efa6;border:1px solid rgba(95,211,95,.4)}
+.mix-chip{display:inline-block;margin:3px 5px 0 0;padding:2px 8px;border-radius:10px;font-style:normal;font-size:11px;font-weight:800;background:rgba(255,255,255,.1);color:#fff;border:1px solid var(--s1-line,rgba(255,255,255,.14))}
+.mix-chip.bad{background:rgba(255,77,77,.16);color:#ff9d93;border-color:rgba(255,77,77,.45)}
+.mix-chip.mystery{background:rgba(160,130,255,.16);color:#cdbcff;border-style:dashed}
+.mix-preview{margin:12px 0;padding:12px 14px;border-radius:10px;background:rgba(16,20,24,.6);border:1px solid var(--s1-line,rgba(255,255,255,.14));text-align:left}
+.mix-preview small{color:var(--s1-dim,#b9c0c6);font-weight:900;letter-spacing:2px;font-size:10px}
+.mix-preview strong{display:block;font-size:16px;margin:3px 0 2px}
+.mix-preview.unknown strong{color:#cdbcff}
+.mix-price{margin:8px 0 0;font-size:14px;font-weight:800}
+.pos{color:var(--s1-money,#5fd35f)!important}.neg{color:#ff7b6b!important}
+.mix-warn{margin:6px 0 0;color:#ffb08f;font-size:12px;font-weight:700}
+.recipe-row p{margin:3px 0}
+.recipe-name{display:flex;gap:6px;margin-top:6px}
+.recipe-name input{flex:1;min-width:0;padding:4px 8px;border-radius:6px;border:1px solid var(--s1-line,rgba(255,255,255,.14));background:rgba(0,0,0,.3);color:#fff;font-size:12px}
+.recipe-name button{padding:4px 10px!important;font-size:12px!important}
+.stir-meter{position:relative;height:14px;margin:12px 0 4px;border-radius:7px;background:rgba(255,255,255,.1);overflow:hidden}
+.stir-zone{position:absolute;top:0;bottom:0;background:rgba(95,211,95,.45);border-left:2px solid #5fd35f;border-right:2px solid #5fd35f}
+#stirNeedle{position:absolute;top:-3px;bottom:-3px;width:6px;margin-left:-3px;background:#ffe08a;border-radius:2px;box-shadow:0 0 6px #000;transition:left .06s linear}
+.stir-read{font-size:12px!important;font-weight:800;color:#fff!important}
+#mixReveal{position:fixed;left:50%;top:12%;transform:translateX(-50%);z-index:60;pointer-events:auto}
+#mixReveal[hidden]{display:none}
+.mix-card{width:min(360px,calc(100vw - 32px));padding:18px 22px 14px;background:var(--s1-panel-solid,rgba(16,20,24,.92));border:1px solid var(--s1-line,rgba(255,255,255,.14));border-radius:12px;color:#fff;box-shadow:0 30px 80px rgba(0,0,0,.6);cursor:pointer;font-family:var(--s1-font,system-ui)}
+#mixReveal.show .mix-card{animation:mixPop .45s cubic-bezier(.2,1.4,.4,1) both}
+.mix-card small{color:var(--s1-dim,#b9c0c6);font-weight:900;letter-spacing:2px;font-size:10px}
+.mix-card h2{margin:4px 0 2px;font-size:22px;font-weight:900;line-height:1.15}
+.mix-sub{margin:0 0 10px;color:var(--s1-dim,#b9c0c6);font-size:12px;font-weight:700}
+.mix-new{margin:8px 0 4px;padding:6px 10px;border-radius:8px;background:linear-gradient(90deg,rgba(255,214,90,.25),rgba(255,214,90,.05));color:#ffe08a;font-weight:900;font-size:13px;letter-spacing:.3px;animation:mixShine 1.4s ease-out both}
+.mix-new b{float:right;color:#fff}
+.mix-effects{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;gap:5px}
+.mix-effects li{padding:3px 9px;border-radius:10px;font-size:12px;font-weight:800;background:rgba(255,255,255,.1);border:1px solid var(--s1-line,rgba(255,255,255,.14))}
+.mix-effects li.gain{background:rgba(95,211,95,.16);color:#a6efa6;border-color:rgba(95,211,95,.45)}
+.mix-effects li.bad{background:rgba(255,77,77,.16);color:#ff9d93;border-color:rgba(255,77,77,.5)}
+.mix-effects li.lost{color:#8c949a;text-decoration:line-through;background:none}
+.mix-swing{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-top:1px solid var(--s1-line,rgba(255,255,255,.14));border-bottom:1px solid var(--s1-line,rgba(255,255,255,.14));font-weight:900}
+.mix-swing span{color:var(--s1-dim,#b9c0c6);font-size:14px}.mix-swing i{font-style:normal;color:var(--s1-dim,#b9c0c6)}
+.mix-swing strong{font-size:24px}.mix-swing em{margin-left:auto;font-style:normal;font-size:17px}
+.mix-twist{margin:8px 0 0;font-size:12px;color:#cdbcff;font-weight:700}
+.mix-fizz{margin:8px 0 0;padding:6px 10px;border-radius:8px;background:rgba(255,77,77,.16);color:#ffb3aa;font-weight:900;font-size:13px}
+.mix-perfect{margin:8px 0 0;padding:6px 10px;border-radius:8px;background:rgba(95,211,95,.14);color:#a6efa6;font-weight:900;font-size:13px}
+.mix-note{margin:6px 0 0;font-size:12px;color:#ffd39a;font-weight:700}
+.mix-hint{margin:10px 0 0;font-size:10px;color:var(--s1-dim,#b9c0c6);text-align:right;letter-spacing:.5px}
+.mix-card.fizz{border-color:rgba(255,77,77,.55);animation:mixShake .5s ease-in-out both}
+.mix-card.perfect{border-color:rgba(95,211,95,.55)}
+@keyframes mixPop{from{transform:translateY(-14px) scale(.92)}to{transform:none}}
+@keyframes mixShine{0%{filter:brightness(2.2)}100%{filter:none}}
+@keyframes mixShake{0%,100%{transform:none}20%{transform:translateX(-6px) rotate(-1deg)}40%{transform:translateX(6px) rotate(1deg)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){#mixReveal.show .mix-card,.mix-card.fizz,.mix-new{animation:none}}
+.item p .mix-tag{margin:0 5px 0 0;vertical-align:1px}
