@@ -145,6 +145,14 @@ try {
 
   if (status.town === 'object') {
     assert.equal(status.unlocked, false, 'audio must stay locked until a gesture');
+    // v129: the cinematic loading card sits over the title until any key or tap.
+    const card = await evaluate(send, `document.getElementById('cineLoad')?.classList.contains('loading') === true`);
+    if (card) {
+      await send('Input.dispatchKeyEvent', {type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32});
+      await send('Input.dispatchKeyEvent', {type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32});
+      const gone = await evaluate(send, `document.getElementById('cineLoad')?.classList.contains('loading') === false && !document.body.classList.contains('cineLoading')`);
+      assert.equal(gone, true, 'any key dismisses the loading card');
+    }
     const point = JSON.parse(await evaluate(send, `(() => {
       const button = [...document.querySelectorAll('button')].find(item => item.textContent.trim() === 'SETTINGS');
       if (!button) return 'null';
