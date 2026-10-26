@@ -1,7 +1,7 @@
 // Original townsfolk for the bay streets. One instanced batch, with face detail
 // up close and a shorter silhouette past 40 m. Schedules are visual only.
 import * as THREE from './vendor/three.module.min.js';
-import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,namedLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,breathe,personTriangles} from './people-kit.mjs?v=146';
+import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,namedLook,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,breathe,personTriangles} from './people-kit.mjs?v=154';
 
 export const STREET_CROWD_COLLIDERS=Object.freeze([]);
 export const STREET_CROWD_FAR=40;
@@ -168,10 +168,14 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    const cameraDistance=camera?.position?Math.hypot(camera.position.x-person.x,camera.position.z-person.z):0;
    const detail=cameraDistance<STREET_CROWD_FAR;
    if(detail)near++;
-   const swing=walking?Math.sin(person.phase):0;
+   // v154: ease in and out of the walk instead of snapping, and give idlers their own habits.
+   person.walkBlend=finite(person.walkBlend)+((walking?1:0)-finite(person.walkBlend))*Math.min(1,step*6);
+   const wb=sitting||knocked?0:person.walkBlend,swing=Math.sin(person.phase)*wb;
+   const habit=person.id%4,idling=!walking&&!sitting&&!knocked&&!react&&!calling&&person.pose!=='use';
+   const idlePose=idling?(habit===1?{turn:Math.sin(clock*.45+person.id)*.45}:habit===2?{armL:{x:.28,z:.12,fore:-.7},armR:{x:.28,z:.12,fore:-.7}}:habit===3?{sway:Math.sin(clock*.7+person.id)*.06}:null):null;
    const blink=Math.abs(Math.sin(clock*.9+person.id*1.7))>.97;
    pos.set(person.x,ground,person.z);quat.setFromAxisAngle(up,person.yaw);root.compose(pos,quat,scale.setScalar(person.look.height||1));
-   proceduralJoints(joints,root,{swing,sit:sitting,breath:walking||knocked?0:breathe(clock,person.id),bob:walking?Math.abs(Math.cos(person.phase))*.04:0,raise:person.pose==='use'&&!calling?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0,turn,...(react&&!away?react.pose:null),...(calling?{armR:{x:-.45,z:.55,fore:-2.3}}:null)});
+   proceduralJoints(joints,root,{swing,sit:sitting,breath:knocked?0:breathe(clock,person.id)*(1-wb),bob:Math.abs(Math.cos(person.phase))*.04*wb,raise:person.pose==='use'&&!calling?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0,turn,...(react&&!away?react.pose:null),...(calling?{armR:{x:-.45,z:.55,fore:-2.3}}:null),...idlePose});
    writePerson(meshes,person.id,joints,person.look,{detail,face:blink?'blink':'open',active});
   }
   for(const star of stars){

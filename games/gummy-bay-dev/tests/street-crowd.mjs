@@ -33,7 +33,7 @@ assert.equal(crowd.mesh.material.vertexColors,false,'instance colour alone; vert
 assert.ok(crowd.mesh.instanceColor&&crowd.headMesh.instanceColor);
 assert.equal(crowd.counts.colliders,0);
 assert.equal(crowd.counts.people,32);
-assert.ok(crowd.counts.trianglesNear<=1500,'v146 soft bodies stay under 1.5k triangles a person');assert.equal(crowd.bodyMesh.material.vertexColors,false);
+assert.ok(crowd.counts.trianglesNear<=4000,'v154 smoother bodies stay under 4k triangles a person (draw calls unchanged)');assert.equal(crowd.bodyMesh.material.vertexColors,false);
 assert.ok(crowd.counts.trianglesFar<crowd.counts.trianglesNear);
 assert.equal(crowd.mesh.geometry,crowd.propMesh.geometry);
 crowd.sync(540);

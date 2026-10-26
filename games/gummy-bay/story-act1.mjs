@@ -1,5 +1,5 @@
 import {createTimeline} from './cinematics.mjs?v=129';
-import {NAMED_LOOKS} from './people-kit.mjs?v=146';
+import {NAMED_LOOKS} from './people-kit.mjs?v=154';
 // Act 1 "Last Call": the backstory cutscene that opens a new story save.
 // v149: fully in-engine. The people-kit cast acts every beat (Gramps Gus at his candy
 // stall, Mayor Plum at the parade podium as the giant gummy bear melts, the Sugar Squad

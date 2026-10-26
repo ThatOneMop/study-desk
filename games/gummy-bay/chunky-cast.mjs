@@ -2,7 +2,7 @@
 // existing animated bones: oversized heads, flat faces, mitten hands, role colours.
 import * as THREE from './vendor/three.module.min.js';
 import {residentExpressionState} from './resident-expressions.mjs';
-import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,namedLook,namedLookKey,personPartEnabled,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,poseArms,breathe,breatheJoints,scaleJointsAbout,personTriangles} from './people-kit.mjs?v=146';
+import {PEOPLE_ROUND_GEOMETRY,PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,namedLook,namedLookKey,personPartEnabled,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,poseArms,breathe,breatheJoints,scaleJointsAbout,personTriangles} from './people-kit.mjs?v=154';
 
 export const CHUNKY_CAST_COLLIDERS=Object.freeze([]);
 const freeze=records=>Object.freeze(records.map(record=>Object.freeze(record)));
@@ -29,7 +29,7 @@ export const CHUNKY_JOINT_BONES=Object.freeze({hips:'Hips',chest:'Chest',head:'H
 const LIMB_JOINTS=new Set(['armL','armR','foreL','foreR','thighL','thighR','shinL','shinR']);
 const HAND_MATERIALS=new Map();
 function handMaterial(color){
- if(!HAND_MATERIALS.has(color))HAND_MATERIALS.set(color,new THREE.MeshStandardMaterial({color,roughness:.88,metalness:0,flatShading:true}));
+ if(!HAND_MATERIALS.has(color))HAND_MATERIALS.set(color,new THREE.MeshStandardMaterial({color,roughness:.8,metalness:0,flatShading:false}));
  return HAND_MATERIALS.get(color);
 }
 
@@ -158,7 +158,7 @@ export function createChunkyCast({THREE:three=THREE,scene,actors,points,quality=
 
 export function createChunkyPlayerHand(group){
  if(!group||typeof group.add!=='function')throw new TypeError('A player hand needs a camera-space group.');
- const add=(name,color,x,y,z,w,h,d)=>{const mesh=new THREE.Mesh(CHUNKY_BOX_GEOMETRY,handMaterial(color));mesh.name=name;mesh.position.set(x,y,z);mesh.scale.set(w,h,d);mesh.castShadow=false;mesh.receiveShadow=false;group.add(mesh);return mesh;};
+ const add=(name,color,x,y,z,w,h,d)=>{const mesh=new THREE.Mesh(PEOPLE_ROUND_GEOMETRY,handMaterial(color));mesh.name=name;mesh.position.set(x,y,z);mesh.scale.set(w,h,d);mesh.castShadow=false;mesh.receiveShadow=false;group.add(mesh);return mesh;};
  const sleeve=add('PlayerCuff',0x91a486,.36,-.56,-.5,.18,.16,.14);
  const palm=add('PlayerPalm',0xd8b58e,.36,-.42,-.56,.16,.2,.11);
  const thumb=add('PlayerThumb',0xd8b58e,.26,-.4,-.52,.06,.1,.055);
