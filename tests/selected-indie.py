@@ -14,17 +14,17 @@ SELECTED = {
     },
     "deep-pocket": {
         "engine.js": "ae71ea29c5e053228e48ce89dabbd4c1f85b5a2cc9c5c1639576c432c666777a",
-        "game.js": "ca250ca5986e52479506ce13f95f72de1949d8ef2b72d4a02d25d7f27ff02e11",
+        "game.js": "9b4b4968362c8c22639a5787b2d3d321598520084e8bab21fd964f956483c8cc",
         "style.css": "4fb6b6231060d97e0e6e0e49d8e969a9b5d5a2021669c074a5af80cd43e15e77",
     },
     "queen-of-cinders": {
         "engine.js": "1d6e7988bc4507e6a36cef118d485554d069952e512139bc5e6ecd6bd6b33460",
-        "game.js": "1708f6d787c4e24fbd979f187b5ea8f2795ac70e281f62b3fb19f5cac9677ffd",
+        "game.js": "2b1959bfb5205ff8e66470137173c1d20698162d0ac3d632c154f594c1f26b77",
         "style.css": "7a033aa107ad524ef3db9046cd5d05e34b28da0dfa485d0578a78d0e658e8161",
     },
     "little-foundry": {
         "engine.js": "ed3aa11e11ba04d1d39adf00a1065c9c9d3ff4335a1dc6623be0cf599573f5cd",
-        "game.js": "07eaaff5bb7f71b89b222127e56fcdc79a28bd0904e9ad20349c01ee1b7cdaf0",
+        "game.js": "318bf65d33eea87cc7838b63eee7e5b81fad7d614a816dd4d14dd920974a444f",
         "style.css": "bd75ca442b6ed5d6ea72382ab80854ae615b7fb4753eb085825b33bb6638aee8",
     },
     "scrap-orbit": {
@@ -34,22 +34,22 @@ SELECTED = {
     },
     "inkline": {
         "engine.js": "35fc31f45d7db8cbc66228629af6ccf6bb88b69029526f1ff65cb36d6496caef",
-        "game.js": "ca4ce988abe87a843e1582216899845e63327d6dcbbb3e1292a4f737c13a11a4",
+        "game.js": "a9ff00b50ce531e0644f10ef9ef2bd8f41946d17834d3b1bf1974751dea37319",
         "style.css": "8b10b3b8d0932ff4270b9c3c6652935be8de57dde4e09344625f908df688f820",
     },
     "pocket-expedition": {
         "engine.js": "4148d6cb3f262bdddca8929387c24a3d56a481280a20d55301f25e89886a3f04",
-        "game.js": "ec8455984d072d15908a652a4ce4e8243180834e7f84cf9cdc93c6bc192722f2",
+        "game.js": "7ae152a76bc846e682bc1b22aa3a438e38c7e4c1d337a74fb5ab8298c1f22bcd",
         "style.css": "a5c0e49eeca3714d42bbbfba1b7c4f4c482558b7c1ef486d9a58aadc91426c30",
     },
     "echo-vault": {
         "engine.js": "df0f6935eabf7ef728520380d4a3aeb5ffeacb342a398ee80c9d9a84124ad611",
-        "game.js": "7dfc28698604aec3628e5becadf5d30ee7fe20e81817d1630c85378bc519270e",
+        "game.js": "01529b7fd61eac71cec3ac54d68363df9e0a27ed2294ecaffdb8858df6d1e744",
         "style.css": "f0b2ebebdc62bf83c653b16a0844cfcc3009403cc52c44786c654114a73629da",
     },
     "glasshouse": {
         "engine.js": "2c287e376d9cf5eef86a46e7b91f2dc92550f3d84f233377560bc210f430acb0",
-        "game.js": "4958eb0ab44137dec44975ea3975d3ebc5cdb544ff1d541652e98007538abe1e",
+        "game.js": "a77a9f756730609e7b1dc36de92f2c26632c28fb2ecbc1ccb7484e4fc4c75bdc",
         "style.css": "634935f2152bd8dc58e5847f0b448d302b4fb02bdd67d3cbbcc57bce5e57c000",
     },
 }
