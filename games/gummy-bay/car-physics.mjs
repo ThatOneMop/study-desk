@@ -46,7 +46,7 @@ export function moveTrunk(packs,trunk,{type,qty=1,toTrunk=true,capacity=0}={}){
  const from=toTrunk?bag:boot,to=toTrunk?boot:bag,have=Math.max(0,Math.floor(finite(from[type])));
  let n=Math.min(have,Math.max(0,Math.floor(finite(qty))));
  if(toTrunk)n=Math.min(n,Math.max(0,capacity-trunkCount(boot)));
- if(!type||n<=0)return {packs:bag,trunk:boot,moved:0};
+ if(type==null||type===''||n<=0)return {packs:bag,trunk:boot,moved:0};
  from[type]=have-n;if(!from[type]&&from===boot)delete from[type];to[type]=Math.floor(finite(to[type]))+n;
  return {packs:bag,trunk:boot,moved:n};
 }
@@ -85,11 +85,11 @@ export function stepCar(car,input,spec,dt){
  long=car.vx*nfx+car.vz*nfz;lat=car.vx*nrx+car.vz*nrz;
  // Lateral grip: exponential decay of the sideways slide. The handbrake and drifting cut it.
  const slipRatio=Math.abs(lat)/(pace+1.5);
- if(!car.drifting&&(slipRatio>.3||(hand&&pace>6)))car.drifting=true;else if(car.drifting&&slipRatio<.1&&!hand)car.drifting=false;
+ if(!car.drifting&&(slipRatio>.3||(hand&&pace>6)))car.drifting=true;else if(car.drifting&&!hand&&(slipRatio<.1||Math.hypot(long,lat)<3))car.drifting=false;
  const grip=h.grip*(hand?.1:car.drifting?.3/h.drift:1)/Math.sqrt(mass);
  const kept=lat*Math.exp(-grip*dt);
  // Grip that bites converts some of the slide back into forward speed, minus scrub.
- long+=Math.sign(long||1)*Math.abs(lat-kept)*.35;lat=kept;
+ if(throttle>0&&long>2)long+=Math.abs(lat-kept)*.35;lat=kept;
  long=clamp(long,-h.reverse,h.top);
  car.vx=nfx*long+nrx*lat;car.vz=nfz*long+nrz*lat;
  const l2=car.vx*nfx+car.vz*nfz,t2=car.vx*nrx+car.vz*nrz;

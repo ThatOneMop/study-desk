@@ -4473,6 +4473,8 @@ try{
   const c=CAR.sim||{vx:0,vz:0};
   const res=stepCruisers(CAR.cruisers,{player:{x:player.x,z:player.z,vx:c.vx,vz:c.vz},dt,clear:(x,z,a)=>vehicleClear(x,z,a),sight:(a,b)=>copSight(a,b),playerSpeed:driveSpeed,state:CAR});
   CAR.cruiserSeen=res.seen;CAR.nearest=res.nearest;
+  // No foot officer ticked the ladder this frame (a pure car chase): the cruisers drive it, so breaking their line of sight runs the clock out.
+  if(!p._squadStepped&&p.chase&&p.chase.stage!=='clear'){p._squadStepped=true;const was=p.chase;p.chase={...stepChase(was,dt,res.seen&&!((was.distracted||0)>0)),distracted:Math.max(0,(was.distracted||0)-dt),backup:was.backup===true};if(p.chase.stage==='clear'){clearSquad(p,'They lost you.');clearCruisers();return;}}
   for(const rid of res.respawn){const i=CAR.cruisers.findIndex(x=>x.id===rid),fresh=spawnCruiser(rid);if(i>=0){if(fresh)CAR.cruisers[i]=fresh;else CAR.cruisers.splice(i,1);}}
   CAR.sirenClock-=dt;if(CAR.sirenClock<=0&&res.nearest<70){CAR.sirenClock=.42;CAR.sirenHigh=!CAR.sirenHigh;playTone(CAR.sirenHigh?880:660,.3,Math.max(.004,.018*(1-res.nearest/70)));}
   if(res.pulled)pulledOver();
