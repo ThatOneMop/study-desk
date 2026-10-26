@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 11,
+    "built": 12,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -496,21 +496,35 @@
     },
     {
       "slot": 52,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "moss-commons",
+      "title": "Moss Commons",
+      "coreLoop": "Plan connected houses, gardens, wells and paths under a finite timber budget; balance population demand, fertile plots and well adjacency to sustain a small settlement.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/moss-commons",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "6 engine tests pass: three-site campaign and every-build save/reload; exact yields and population demand; connectivity/invalid plots/input ownership; budget exhaustion/undo/retry; malformed saves; alternate fertile/path completion route.",
+        "3 jsdom 26.1.0 tests pass: complete campaign with forecasts/reload/unlocks, navigation markup, invalid-placement feedback, undo/retry/pause/parent guards, loss/recovery, isolated reset, corrupt recovery and quota failure. Dialogs simulated.",
+        "Both scripts pass syntax checks. No rendered play, screenshot inspection, native keyboard/touch, mobile layout, full repository build or enjoyment claim."
+      ],
+      "commits": [
+        "c9ebfeb6b75d6e7f698a29e6e63e88c760295823"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three compact sites with tested 17-timber completion routes and one 18-timber alternate. Optimal strategies not established. Colony simulation is capacity planning, not real-time residents or idle production. Depth, readability and replay enjoyment need natural play."
+      },
+      "nextSteps": [
+        "Naturally play all three sites on desktop/touch and inspect screenshots, focusing on connectivity, demand and preview clarity.",
+        "Implement a substantive playtest-led improvement, then verify saves/reload, exhaustion/undo/retry, restart and catalogue navigation before selection."
+      ]
     },
     {
       "slot": 53,
@@ -1199,8 +1213,8 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all eleven third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 39 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all twelve third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 38 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
   "latestObservedMain": "dc88f09cfb30cae92e3f0e9afe65cd2f7ddaf4f7",
@@ -1342,6 +1356,12 @@
       "date": "2026-10-26",
       "commit": "95bc2808de3dce9257d98bd32eef0fb5c40c6f94",
       "result": "Soundings optional 2-fuel directional survey and combined notebook implemented. Sixteen engine/DOM tests pass; old saves remain compatible. Counts unchanged: 11 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering blocker unchanged; not retried or bypassed. No rendered credit or live release."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "c9ebfeb6b75d6e7f698a29e6e63e88c760295823",
+      "result": "Built Moss Commons slot 52: connected settlement planning with timber, food/water/population demand, fertile gardens, forecasts, three sites, undo and safe saves. Nine engine/DOM tests pass. Third batch: 12 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering blocker unchanged; not retried or bypassed. No rendered credit or live release."
     }
   ]
