@@ -14,7 +14,7 @@ assert(!d.querySelector('#playerStudy, #studyBtn'));
 assert(!/switch workspace/i.test(d.body.textContent));
 assert(catalog.some(g=>g.group==='Indie collection'));
 assert.equal(new Set(catalog.map(g=>g.id)).size,catalog.length);
-assert.equal($('openGames').textContent,'Games · '+catalog.length+' →');
+assert.equal($('openGames'),null,'study area has no swap-to-games button');assert.equal($('switch'),null,'study area has no Browse games entry');assert(!/Browse \d+ games|Games · \d+/.test($('study').textContent),'study area never advertises the game count');
 assert.equal($('includedCount').textContent,catalog.filter(g=>g.type==='bundled').length+' games included here');
 assert(!d.body.textContent.includes('100 games'));
 assert(!d.body.textContent.includes('Community classics'));

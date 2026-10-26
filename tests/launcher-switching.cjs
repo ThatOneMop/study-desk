@@ -1,11 +1,12 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict');
+function openGamesHub(win){win.history.replaceState(null,'','#games');win.dispatchEvent(new win.HashChangeEvent('hashchange'))}
 const root=__dirname+'/../';
 const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id);
 let approved=false,prompts=[];w.confirm=message=>{prompts.push(message);return approved};
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
 const launch=id=>[...d.querySelectorAll('button[data-action="play"]')].find(b=>b.dataset.game===id);
-$('openGames').click();launch('after-hours').click();assert.equal(prompts.length,0,'first launch needs no confirmation');
+openGamesHub(w);launch('after-hours').click();assert.equal(prompts.length,0,'first launch needs no confirmation');
 const session=$('frame').contentWindow,src=$('frame').src;
 session.document.open();session.document.write('<body><p id="session-marker">unsaved session</p></body>');session.document.close();
 const saves={'after-hours-save-v1':'existing game save','study-desk-v1':'existing study data'};

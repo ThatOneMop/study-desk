@@ -1,4 +1,5 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict');
+function openGamesHub(win){win.history.replaceState(null,'','#games');win.dispatchEvent(new win.HashChangeEvent('hashchange'))}
 const root=__dirname+'/../';
 const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id);
@@ -9,7 +10,7 @@ function checkFocus(element){assert.equal(d.activeElement,element)}
 function search(term){$('search').value=term;$('search').dispatchEvent(new w.Event('input'))}
 function ppp(){for(let i=0;i<3;i++)w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'p',bubbles:true}))}
 assert.equal($('sessionReturn').hidden,true);
-$('switch').click();assert.equal($('arcade').hidden,false);checkFocus($('search'));
+openGamesHub(w);assert.equal($('arcade').hidden,false);checkFocus($('search'));
 const favourite=d.querySelector('.fav');favourite.focus();favourite.click();checkFocus(d.querySelector('.fav'));
 filter('Favourites').focus();filter('Favourites').click();checkFocus(filter('Favourites'));
 assert.equal(d.querySelectorAll('.game').length,1);
@@ -28,7 +29,7 @@ $('resumeGame').click();assert.equal($('frame').inert,false);assert.equal($('fra
 ppp();checkFocus($('card'));
 // Browse always goes to the library, but PPP deliberately resumes the player.
 ppp();assert.equal($('player').hidden,false);assert.equal($('frame').contentWindow,frameWindow);
-ppp();$('switch').click();assert.equal($('player').hidden,true);assert.equal($('arcade').hidden,false);checkFocus($('search'));
+ppp();openGamesHub(w);assert.equal($('player').hidden,true);assert.equal($('arcade').hidden,false);checkFocus($('search'));
 $('sessionReturn').querySelector('button').click();assert.equal($('frame').contentWindow,frameWindow);
 $('libraryBtn').click();checkFocus($('search'));
 d.querySelector('.empty button').click();assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
