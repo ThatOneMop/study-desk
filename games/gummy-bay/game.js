@@ -61,6 +61,7 @@ import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=123';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
+import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
 import {HORIZON_TREE_SITES,horizonSiteOutsideBounds,horizonViewGap,createDistrictHorizon} from './district-horizon.mjs?v=77';
 import {SKYLINE_LANDMARK_SITES,SKYLINE_APPROACHES,skylineFootprintOnSupport,createTownSkyline} from './town-skyline.mjs?v=78';
@@ -2405,4 +2406,69 @@ const counterMenu=menu;menu=function(which,data){
  const armed=armShopMarkup($('modal').innerHTML);
  shopOffers=armed.offers;
  $('modal').innerHTML=armed.html+(shopRefund&&shopRefund.panel===which&&!armed.html.includes('id="shopRefund"')?shopRefundHTML(shopRefund,net.role==='guest'):'');
+};window.menu=menu;
+
+// Messages, the contact graph and marketplace rows read the save. They do not
+// decline a live offer, reschedule a meetup, or unlist a product.
+let contactFocus=0,counterFor=null,counterArmed=false;
+function phoneSwatch(color){const hex=(Number(color)>>>0).toString(16).padStart(6,'0').slice(-6);return '#'+hex;}
+function phoneDistrict(person){return (person.x<0?'West':'East')+' side · '+(person.z<0?'north':'south')+' of Main Street';}
+function phoneEffects(index){
+ const known=!!s.threads?.[index]?.lastSale||(Array.isArray(s.deals)&&s.deals.some(deal=>deal&&deal.npc===index));
+ return known?[INGREDIENTS[index%INGREDIENTS.length].effect]:null;
+}
+function insertAfterClose(fragment){
+ const html=$('modal').innerHTML,token='aria-label="Close">×</button>';
+ const at=html.indexOf(token);
+ if(at<0){insertBeforePhoneNav(fragment);return;}
+ const cut=at+token.length;
+ $('modal').innerHTML=html.slice(0,cut)+fragment+html.slice(cut);
+}
+function showContactCard(index){if(!Number.isInteger(index)||!CONTACTS[index])return;contactFocus=index;menu('contacts');}
+function openCounterSheet(index){if(!Number.isInteger(index))return;counterFor=index;counterArmed=true;menu('thread',index);}
+function closeCounterSheet(){counterFor=null;counterArmed=false;if(panel==='thread')menu('thread',selected);}
+function previewCounterChance(){
+ const input=document.getElementById('counterPrice'),node=document.getElementById('counterChance');
+ if(!input||!node)return;
+ node.textContent=acceptChance(Number(input.value),Number(input.dataset.fair))+'%';
+}
+function phoneProductRows(){
+ const rows=[];
+ for(let i=0;i<STRAINS.length;i++){
+  const item=STRAINS[i],owned=(s.packs[i]||0)+(s.gummies[i]||0)+(s.raw[i]||0)+(s.seeds[i]||0)>0||s.listing?.t===i;
+  if(item.mixed&&!owned)continue;
+  const effect=item.mixed?INGREDIENTS[item.ingredient].effect:'Plain';
+  const recipe=item.mixed?'Mix '+STRAINS[item.base].name+' with '+INGREDIENTS[item.ingredient].name+'.':item.name+' grows from its seed. Harvest, shape, then wrap. No flavour mix.';
+  rows.push({index:i,name:item.name,swatch:phoneSwatch(item.color),effects:[effect],market:value(i),price:s.listing?.t===i?s.listing.price:value(i),qty:s.listing?.t===i?s.listing.qty:1,packed:s.packs[i]||0,listed:s.listing?.t===i,recipe});
+ }
+ return rows;
+}
+Object.assign(window,{showContactCard,openCounterSheet,closeCounterSheet,previewCounterChance});
+const appsMenu=menu;menu=function(which,data){
+ appsMenu(which,data);
+ if(!active)return;
+ if(which==='phone'){
+  const inbox=buildInbox({contacts:CONTACTS.map(person=>({name:person.name,swatch:phoneSwatch(person.color),line:person.line})),threads:s.threads,deals:s.deals,strainNames:STRAINS.map(item=>item.name)});
+  insertAfterClose(inboxHTML(inbox,esc));
+  return;
+ }
+ if(which==='thread'){
+  const index=Number.isInteger(data)?data:selected;
+  const thread=s.threads?.[index];
+  const view=negotiationView(thread,STRAINS[thread?.t]?.name,s.time);
+  const showSheet=counterArmed&&counterFor===index;
+  counterArmed=false;
+  if(!view)return;
+  insertAfterClose(dealBubbleHTML(index,view,esc)+(showSheet?counterSheetHTML(index,view,esc):''));
+  return;
+ }
+ if(which==='contacts'){
+  const people=CONTACTS.map((person,index)=>{
+   const craving=cravingState(s.cravings?.[index],s.day);
+   return {index,name:person.name,swatch:phoneSwatch(person.color),score:relationship(index),district:phoneDistrict(person),standards:'',effects:phoneEffects(index),craving:craving&&STRAINS[craving.product]?{name:STRAINS[craving.product].name,level:craving.level}:null};
+  });
+  insertAfterClose(contactGraphHTML(contactGraphModel({people,selected:contactFocus}),esc));
+  return;
+ }
+ if(which==='listing')insertAfterClose(productRowsHTML(phoneProductRows(),esc));
 };window.menu=menu;

@@ -148,3 +148,42 @@ body[data-panel="map"] .town-places{flex:1 1 200px;min-height:180px;overflow:aut
  #toast{top:72px}
  #carryHint{bottom:124px}
 }
+
+/* Phone apps: message list, offer bubble, contact graph, product rows. */
+body[data-panel="phone"]:has(.message-inbox) .tabs,
+body[data-panel="phone"]:has(.message-inbox) .contact-card{display:none}
+body[data-panel="thread"]:has(.deal-bubble) .form:has(#offerPrice),
+body[data-panel="thread"]:has(.deal-bubble) .form:has(#offerPrice)+button.ghost{display:none}
+.message-inbox,.contact-graph,.product-catalog,.deal-bubble,.counter-sheet{margin:8px 0 12px}
+.thread-row{display:flex;gap:8px;width:100%;text-align:left;align-items:center;background:#1c2a28;border:1px solid #9aaf9a33;border-radius:8px;padding:8px;margin:6px 0;color:inherit;min-height:52px}
+.thread-row.is-locked{opacity:.55}
+.mug,.product-ico{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#1b241c;font-weight:700;flex:none}
+.product-ico{border-radius:8px}
+.unread-dot{width:8px;height:8px;border-radius:50%;background:#e7c56a;flex:none}
+.thread-copy,.product-copy{display:flex;flex-direction:column;min-width:0;flex:1;gap:2px}
+.thread-copy small,.product-copy small{opacity:.8}
+.thread-chip,.effect-chips em{font-style:normal;font-size:10px;color:#e7d7a4}
+.effect-chips em{display:inline-block;margin:2px 4px 0 0;padding:1px 6px;border-radius:8px;background:#2a3a32}
+.deal-bubble,.counter-sheet{padding:10px;border:1px solid #c7ad7344;border-radius:8px;background:#14201c}
+.deal-windows{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.window-pick{min-height:32px;padding:4px 8px}
+.window-pick.on{border-color:#e7d7a4}
+.graph-board{position:relative;height:210px;margin:6px 0}
+.graph-board svg{width:100%;height:100%}
+.graph-board line{stroke:#d7c48a88;stroke-width:.6}
+.graph-board circle{fill:#e7d7a4}
+.graph-you{position:absolute;left:50%;top:50%;transform:translate(-50%,-60%);font-size:10px;color:#e7d7a4}
+.graph-node{position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;padding:0;display:grid;place-items:center;font-size:12px;color:#1b241c}
+.graph-node small{display:none}
+.graph-node.on{outline:2px solid #e7d7a4}
+.graph-node.is-locked{background:#3a403c;color:#c8c2b4}
+.contact-detail{margin-top:8px;padding:8px;border-radius:8px;background:#1c2a28}
+.contact-detail header{display:flex;gap:8px;align-items:center}
+.loyalty{letter-spacing:2px;color:#e7b15a;margin:6px 0}
+.craving-bar{height:18px;background:#243028;border-radius:9px;position:relative;overflow:hidden}
+.craving-bar i{display:block;height:100%;background:#c7ad73}
+.craving-bar span{position:absolute;inset:0;display:grid;place-items:center;font-size:10px}
+.product-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0;padding:8px;background:#1c2a28;border-radius:8px}
+.product-row label{font-size:11px}
+.product-row input{width:64px}
+.product-copy details{font-size:12px}

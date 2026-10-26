@@ -55,5 +55,6 @@ These UI readings are projections. They do not write saves.
 | Existing police sentence | `#policeStatus` still shows the simulation's own stop, pursuit and search lines so comply rules stay visible. | — |
 | Phone badges | Unread = last thread message is from them. Deals and an active listing get counts. | A real unread flag. |
 | Curfew / sleep toasts | Once per day at 20:30 and, after day 1, at 04:00. | Sleep summary, rank and rank-up are not simulated. |
-| Contacts | Relationship 0–100 bands, sales-assistant status, optional read-only `state.dealers`. | Loyalty hearts, craving, preferred effects, standards, district and the contact graph. |
-| Deal windows, runners, handover drag, Grandpa Gus texts | Not simulated. | Need events before the UI can do more than a shell. |
+| Messages | Thread list with mugshots and an unread dot when their last text is newest. Accept calls `offer` at their counter. Counter sends `offer` at the typed price. Chance is 100% at or under `thread.max` and 0% above. | Reject does not exist, so the button stays disabled. Deal windows follow the clock and do not reschedule. Product and quantity stay on the text already sent. |
+| Contacts | Graph of the five customers, loyalty hearts from the relationship score, craving bar from `cravingState`, district from their street position. One preferred effect after a deal or a receipt. | Locked contacts, standards, and the other two preferred effects are not simulated. |
+| Products | Marketplace rows call the existing `list` action with that row’s price and quantity. The recipe is the strain’s mix. | There is no unlist. Runners, paid deliveries, handover and Grandpa Gus are still not simulated. |
