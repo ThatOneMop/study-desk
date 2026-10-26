@@ -25,7 +25,7 @@ function tileValues(kind){
   else if(kind===TILE.plaster)o=gr*.5+(r()-.5)*.05;
   else if(kind===TILE.asphalt){const u=x/N;const lane=Math.exp(-((u-.3)**2)/.004)+Math.exp(-((u-.7)**2)/.004);
    o=(r()-.5)*.28+gr*.4-lane*.1+(big(x+40,y+90)>.72?.12:0);}
-  else if(kind===TILE.pavement){const joint=(x&63)<2||(y&63)<2,slab=((x>>6)*5+(y>>6)*3)%4/4-.4;o=joint?-.45:slab*.12+gr*.35+(r()-.5)*.1;}
+  else if(kind===TILE.pavement){const joint=(x&63)<2||(y&63)<2,slab=((x>>6)*5+(y>>6)*3)%4/4-.4;o=joint?-.28:slab*.14+gr*.35+(r()-.5)*.1;}
   else if(kind===TILE.wood){const plank=y>>5,joint=(y&31)<2||((x+plank*83)&255)<2;const streak=Math.sin((y+mid(x,y)*14)*1.7)*.5;o=joint?-.5:streak*.16+gr*.25+(plank%3-1)*.06;}
   else if(kind===TILE.roof){const row=Math.floor(y/21),tab=((x+(row%2)*16)&31)<2,inRow=(y%21)/21;o=tab?-.35:(inRow-.5)*.3+gr*.3+((row*7+(x>>5))%5/5-.5)*.12;}
   else if(kind===TILE.grime){const streak=streaks(x,0),drip=Math.pow(1-y/N,1.5);o=-Math.max(0,streak-.45)*drip*1.3+gr*.15;}
@@ -60,7 +60,7 @@ const FRAG_BODY=`
   bool green=bc.g>bc.r*1.12&&bc.g>bc.b*1.04;float k=1.;
   if(!green){
    if(gn.y>.7){
-    if(gfxWorld.y<1.4){float t=lum<.16?2.:(lum<.75?3.:7.);k=mix(1.,gfxSample(t,gfxWorld.xz*(t==2.?.22:.5))*2.,gfxStrength*(t==2.?1.:.8));}
+    if(gfxWorld.y<1.4){float t=lum<.16?2.:(lum<.75?3.:7.);k=mix(1.,gfxSample(t,gfxWorld.xz*(t==2.?.22:.27))*2.,gfxStrength*(t==2.?1.:.8));}
     else k=mix(1.,gfxSample(5.,gfxWorld.xz*.55)*2.,gfxStrength*.85);
    }else if(abs(gn.y)<.35){
     vec2 wv=abs(gn.x)>abs(gn.z)?gfxWorld.zy:gfxWorld.xy;
@@ -94,10 +94,12 @@ export function applyGfxMaterial(material,uniforms){
  material.customProgramCacheKey=()=>(prevKey?prevKey():'')+'|gfx151';material.needsUpdate=true;return true;
 }
 
-const MOVING=/car|vehicle|truck|bus|bike|board|skate|player|npc|gummy|cop|police|van|crowd|traffic|rider|resident|character|avatar|boat|ferry|door|wheel|cine|cast|kid|crew|squad/i;
+const MOVING=/car|vehicle|truck|bus|bike|board|skate|player|npc|cop|police|van|crowd|traffic|rider|resident|character|avatar|boat|ferry|door|wheel|cine|cast|kid|crew|squad|fleet|hair|beard|moustache|sideburn|face|eye|limb|arm|leg|torso|head|hand|body|\brv\b/i;
 export function worldMaterialEligible(o,scene){
  if(!o?.isMesh||o.isSkinnedMesh)return false;
  for(let a=o;a&&a!==scene;a=a.parent){if(a.userData?.noBatch||a.isLOD&&a!==o||MOVING.test(a.name||''))return false;}
+ // a rig part sits beside named limbs/hair: skip the whole rig, never swim a texture on a mover
+ if(o.parent&&o.parent!==scene&&o.parent.children.length<40&&o.parent.children.some(c=>c!==o&&MOVING.test(c.name||'')))return false;
  const m=o.material;if(!m||Array.isArray(m)||!m.isMeshStandardMaterial||m.transparent||m.opacity<1||m.envMap)return false;
  if((m.roughness??1)<.45)return false;
  if(m.emissive&&m.emissiveIntensity>0&&(m.emissive.r+m.emissive.g+m.emissive.b)>.02)return false;

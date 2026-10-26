@@ -3893,7 +3893,7 @@ const gfxBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gfxBas
 };
 window.__gummyGfx={occlusion:()=>gfxOcclusion?{verts:gfxOcclusion.verts,opacity:gfxOcclusion.mesh.material.opacity}:null,grade:()=>gfxLightGrade(sceneLighting(s.time,active),quality)};
 // v151 graphics pass step 2: one procedural detail atlas shared by every static town material.
-const gfxMaterialUniforms={gfxAtlas:{value:null},gfxStrength:{value:1}};let gfxPatched=0;
+const gfxMaterialUniforms={gfxAtlas:{value:null},gfxStrength:{value:1}};let gfxPatched=0,gfxPatchTimes=[];
 function gfxPatchWorld(){if(!gfxMaterialUniforms.gfxAtlas.value)gfxMaterialUniforms.gfxAtlas.value=createMaterialAtlas(THREE);gfxMaterialUniforms.gfxStrength.value=quality==='performance'?.75:1;gfxPatched+=patchWorldMaterials(scene,gfxMaterialUniforms);return gfxPatched;}
 window.__gummyMaterials={patched:()=>gfxPatched,patch:gfxPatchWorld};
 // v133 static batching: once the Blender town has settled, merge loose static meshes
@@ -3933,8 +3933,8 @@ if(typeof location!=='undefined'&&!/[?&]batch=0\b/.test(location.search))try{
  window.__signAtlas={stats:()=>({atlases:signAtlases.filter(r=>!r.split).length,signs:signAtlases.filter(r=>!r.split).reduce((n,r)=>n+r.signs.length,0),split:signAtlases.filter(r=>r.split).length}),splitAll:()=>signAtlases.forEach(splitSignAtlas)};
 staticBatcher=createStaticBatcher(scene);window.__gummyBatcher=staticBatcher;let batchState='waiting';
  const batchRender=renderFrame;renderFrame=function(){
-  if(batchState==='waiting'&&townAssetStatus!=='loading'){batchState='built';try{buildSignAtlases();}catch(error){console.warn('Sign atlas skipped',error);}try{for(const o of smallDetails)o.visible=true;window.__gummyBatch=staticBatcher.build();}catch(error){console.warn('Static batching skipped',error);}try{gfxPatchWorld();for(const ms of [3000,10000,30000])setTimeout(gfxPatchWorld,ms);}catch(error){console.warn('Gfx materials skipped',error);}}
-  else if(batchState==='built'){staticBatcher.update(camera);checkSignAtlases();}
+  if(batchState==='waiting'&&townAssetStatus!=='loading'){batchState='built';try{buildSignAtlases();}catch(error){console.warn('Sign atlas skipped',error);}try{for(const o of smallDetails)o.visible=true;window.__gummyBatch=staticBatcher.build();}catch(error){console.warn('Static batching skipped',error);}gfxPatchTimes=[1500,6000,15000,30000].map(ms=>performance.now()+ms);}
+  else if(batchState==='built'){staticBatcher.update(camera);checkSignAtlases();if(gfxPatchTimes.length&&performance.now()>gfxPatchTimes[0]&&!staticBatcher.stats().pending){gfxPatchTimes.shift();try{gfxPatchWorld();}catch(error){gfxPatchTimes.length=0;console.warn('Gfx materials skipped',error);}}}
   batchRender();
  };
 }catch(error){console.warn('Static batching unavailable',error);}
