@@ -64,21 +64,69 @@ function routeNodes(from,to){
  path.reverse();
  return path;
 }
+// Solid shop shells. A start node is legal only when the straight walk to it
+// stays outside, or both ends sit in that shop's door corridor.
+const SHELLS=[
+ {minX:-34.3,maxX:-15.7,minZ:31.6,maxZ:48.6,door:{minX:-28.5,maxX:-21.5,minZ:43.5,maxZ:54},nodes:['roomIn','roomMid','tent','sink','craft'],plaza:[-25,52]},
+ {minX:-34.3,maxX:-15.7,minZ:12.2,maxZ:25.8,door:{minX:-28.5,maxX:-21.5,minZ:24.8,maxZ:32},nodes:['courtIn'],plaza:[-25,28]},
+ {minX:-34.2,maxX:-13.8,minZ:-31.6,maxZ:-14.3,door:{minX:-27.8,maxX:-20.2,minZ:-16.2,maxZ:-10},nodes:['hwIn'],plaza:[-24,-12.2]},
+ {minX:15.8,maxX:34.2,minZ:13.2,maxZ:30.8,door:{minX:21.5,maxX:28.5,minZ:29.6,maxZ:36},nodes:['miloIn'],plaza:[25,33.5]},
+ {minX:13.8,maxX:34.2,minZ:-34.2,maxZ:-15.8,door:{minX:20.2,maxX:27.8,minZ:-17.2,maxZ:-10},nodes:['storeIn'],plaza:[24,-13.2]},
+ {minX:-62.2,maxX:-43.8,minZ:-34.2,maxZ:-15.8,door:{minX:-57,maxX:-49,minZ:-17.2,maxZ:-10},nodes:['helpIn'],plaza:[-53,-12.2]}
+];
+function inBox(x,z,box){return x>box.minX&&x<box.maxX&&z>box.minZ&&z<box.maxZ;}
+function segmentHits(x,z,tx,tz,box){
+ let t0=0,t1=1;const dx=tx-x,dz=tz-z;
+ const p=[-dx,dx,-dz,dz],q=[x-box.minX,box.maxX-x,z-box.minZ,box.maxZ-z];
+ for(let i=0;i<4;i++){
+  if(Math.abs(p[i])<1e-9){if(q[i]<0)return false;continue;}
+  const r=q[i]/p[i];
+  if(p[i]<0){if(r>t1)return false;if(r>t0)t0=r;}
+  else{if(r<t0)return false;if(r<t1)t1=r;}
+ }
+ return t0<=t1&&t1>=0&&t0<=1;
+}
+function approachBlocked(x,z,id){
+ const [tx,tz]=NODES[id];
+ for(const shell of SHELLS){
+  if(inBox(x,z,shell))continue;
+  if(!segmentHits(x,z,tx,tz,shell))continue;
+  if(shell.door&&inBox(x,z,shell.door)&&inBox(tx,tz,shell.door))continue;
+  return true;
+ }
+ return false;
+}
 function routePoints(x,z,place){
  const goal=PLACE_NODE[place];
  if(!goal)return [];
- let best=null,bestScore=Infinity;
+ let best=null,bestScore=Infinity,fallback=null,fallbackScore=Infinity;
  for(const start of Object.keys(NODES)){
+  if(approachBlocked(x,z,start))continue;
+  const approach=Math.hypot(x-NODES[start][0],z-NODES[start][1]);
   const ids=routeNodes(start,goal);
-  let score=Math.hypot(x-NODES[start][0],z-NODES[start][1]);
+  let score=approach;
   for(let i=1;i<ids.length;i++)score+=Math.hypot(NODES[ids[i]][0]-NODES[ids[i-1]][0],NODES[ids[i]][1]-NODES[ids[i-1]][1]);
+  if(score<fallbackScore){fallbackScore=score;fallback=ids;}
+  if(approach>18)continue;
   if(score<bestScore){bestScore=score;best=ids;}
  }
- const path=(best||[goal]).map(id=>NODES[id]);
+ best=best||fallback;
+ if(!best){const shell=SHELLS.find(item=>item.nodes.includes(goal));return shell?[shell.plaza]:[];}
+ const path=best.map(id=>NODES[id]);
  let i=0;
  while(i<path.length-1&&Math.hypot(x-path[i][0],z-path[i][1])<2.2)i++;
  if(i<path.length-1&&Math.hypot(x-path[i+1][0],z-path[i+1][1])+1<Math.hypot(x-path[i][0],z-path[i][1]))i++;
  return path.slice(i);
+}
+// Shop shells are solid except the front door. Leave through that door.
+function buildingExit(x,z,place){
+ if(x>-35&&x<-15&&z>12&&z<27&&place!=='reception')return [-25,28.4];
+ if(x>-35&&x<-15&&z>31&&z<50&&!['tent','sink','craft'].includes(place))return [-25,52];
+ if(x>-35&&x<-13&&z<-13.5&&z>-33&&place!=='hardware')return [-24,-11.6];
+ if(x>15&&x<35&&z>13&&z<32&&place!=='dealer')return [25,34.2];
+ if(x>13&&x<35&&z<-15.5&&z>-35&&place!=='store')return [24,-12.4];
+ if(x>-63&&x<-43&&z<-15.5&&z>-35&&place!=='helpers')return [-53,-11.6];
+ return null;
 }
 // The payphone booth blocks the straight line east of the camper door.
 function campsiteDetour(x,z){
@@ -166,7 +214,7 @@ export function createDayDirector(){
  }
  function walk(goalNow,snap){
   let points;
-  const detour=goalNow.id==='exit'?null:campsiteDetour(snap.x,snap.z);
+  const detour=goalNow.id==='exit'?null:buildingExit(snap.x,snap.z,goalNow.place)||campsiteDetour(snap.x,snap.z);
   if(detour)points=[detour];
   else if(goalNow.id==='police'){
    const cop=(snap.officers||[]).reduce((best,c)=>!c?best:!best||Math.hypot(snap.x-c.x,snap.z-c.z)<Math.hypot(snap.x-best.x,snap.z-best.z)?c:best,null);

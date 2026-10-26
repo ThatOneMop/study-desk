@@ -41,6 +41,14 @@ assert.equal(first.awaitCurfew,false);
 assert.ok(first.fast>0&&first.fast<4);
 assert.ok(second.aim.x>spawn.x,'a 1 FPS step keeps aiming out the camper door');
 
+const eastWall=createDayDirector();
+const besideRoom=eastWall.intent(world({x:-15.5,z:37.9,installed:false}));
+assert.equal(besideRoom.phase,'install');
+assert.ok(besideRoom.aim&&(besideRoom.aim.x>-14||besideRoom.aim.z>49),'Room 04 tent install from the east wall uses the south door');
+const indoors=createDayDirector();
+const atBench=indoors.intent(world({x:-24,z:40,installed:false}));
+assert.ok(atBench.aim&&atBench.aim.x<-24,'inside Room 04 the install walk continues to the tent');
+
 const rich=createDayDirector();
 const hireSnap=world({level:3,cash:700,xp:60,sold:12,harvested:12,policeReport:true,reach:true});
 const hire=rich.intent(hireSnap);
