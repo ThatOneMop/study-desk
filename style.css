@@ -27,3 +27,122 @@
 #arcade .save-vault .filebutton{border-color:#bccab7;color:#30463e}
 #arcade .vault-note{color:#5d6f60}
 @media(max-width:750px){.monday-pick{align-items:stretch}.monday-pick button,.save-vault button,.save-vault .filebutton{width:100%}.arcade-vault{align-items:stretch}}
+
+/* Console storefront. The study section stays on the quiet paper above. */
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:0;transform:translateY(-130%);z-index:30;background:#fffef8;color:#243d36;padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:650}
+.skip:focus{transform:none}
+.logo{width:32px;height:32px;display:block;flex:none}
+#arcade main{min-width:0}
+.store-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:22px 0 4px}
+.store-toolbar p{margin:0 0 0 auto;font-size:13px;color:#5d6f60}
+.store-toolbar button,.hero-controls button,.chip-row button{min-height:44px}
+.hero-carousel{margin-top:8px;max-width:100%}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.hero-top h2{margin:0}
+.hero-controls{display:flex;gap:8px}
+.hero-controls button{min-width:44px}
+.hero-viewport{overflow:hidden;border-radius:22px;margin-top:12px;max-width:100%;background:#10211c}
+.hero-track{display:flex;width:100%;transition:transform .55s cubic-bezier(.22,.7,.25,1)}
+.hero-slide{flex:0 0 100%;width:100%;max-width:100%;min-width:0;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(220px,.85fr);min-height:320px;background:#10211c;color:#f4f1e6}
+.hero-art{position:relative;min-width:0;min-height:220px;background:radial-gradient(ellipse at 50% 100%,color-mix(in srgb,var(--shade) 70%,#10211c),transparent 70%),#10211c}
+.hero-art svg{display:block;width:100%;height:100%;max-width:100%}
+.hero-icon{position:absolute;left:18px;bottom:14px;font-size:40px;line-height:1;filter:drop-shadow(0 8px 12px #0008)}
+.hero-copy{min-width:0;padding:28px 26px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;background:linear-gradient(180deg,#18332c,#10211c)}
+.hero-copy h3{margin:0;font-size:clamp(28px,4vw,46px);font-weight:520;letter-spacing:-1.2px;line-height:1.05}
+.hero-copy p{margin:0;color:#d5e0d2;line-height:1.55;overflow-wrap:anywhere}
+.hero-copy .eyebrow{color:#e3c56b}
+#arcade .hero-copy .primary{margin-top:8px;background:#e3c56b;color:#1c3a30;border-color:#e3c56b;font-weight:700}
+#arcade .hero-copy .primary:hover{background:#f0d48a}
+.hero-dots{display:flex;justify-content:center;gap:4px;margin-top:4px}
+.hero-dots button{position:relative;min-width:44px;padding:18px 6px;border:0;background:transparent}
+.hero-dots button:after{content:'';display:block;width:22px;height:4px;border-radius:4px;background:#c5d0c2}
+.hero-dots button[aria-selected=true]:after{width:34px;background:#345943}
+.store-row{margin-top:26px;max-width:100%;min-width:0}
+.store-row h2{margin:0}
+.store-row .row span{font-size:13px;color:#657568}
+.shelf{display:flex;gap:12px;width:100%;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:12px 2px 16px}
+#arcade button.capsule{flex:0 0 168px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;text-align:left;background:#fffef9;border-color:#dce1d7;border-radius:16px;min-height:44px}
+#arcade button.capsule:hover{transform:translateY(-4px);background:#fffef9;box-shadow:0 14px 28px #1c332414}
+.capsule-art{height:96px;display:flex;align-items:center;justify-content:center;font-size:34px;background:linear-gradient(160deg,#ffffff88,transparent 60%),var(--shade,#345943)}
+.capsule-title,.capsule-genre{display:block;padding:0 12px;overflow-wrap:anywhere}
+.capsule-title{margin-top:10px;font-weight:680}
+.capsule-genre{margin:4px 0 12px;font-size:12px;color:#657568}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;max-width:100%}
+.chip-row button{border-radius:999px}
+#arcade .chip-row button[aria-pressed=true]{background:#345943;color:#fff;border-color:#345943}
+#arcade .game{transition:transform .18s ease,box-shadow .18s ease}
+#arcade .game:hover{transform:translateY(-4px);box-shadow:0 16px 32px #1c332414}
+.float{animation:desk-float 7s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes desk-float{50%{transform:translateY(-10px)}}
+.pick-file{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;min-height:48px}
+.pick-file input[type=file]{position:absolute;inset:0;width:100%;height:100%;max-width:none;margin:0;opacity:0;font-size:16px;cursor:pointer}
+#saveImportList{margin:8px 0 0;padding-left:1.2em;max-height:min(42vh,320px);overflow:auto}
+#saveImportList li{margin:8px 0;line-height:1.45}
+#saveImportList code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.import-actions{justify-content:flex-end;margin-top:8px}
+@media(max-width:750px){
+.store-toolbar p{margin-left:0;flex-basis:100%}
+.hero-slide{grid-template-columns:1fr;min-height:0}
+.hero-art{min-height:150px;max-height:190px}
+.hero-copy{padding:18px 16px}
+.hero-copy h3{font-size:32px}
+}
+@media(max-width:600px){
+#saveImportDialog{width:100vw;max-width:100vw;height:100%;max-height:100%;margin:0;border-radius:0}
+#import-actions,#saveImportDialog .import-actions{flex-direction:column;align-items:stretch}
+#saveImportDialog .import-actions button{width:100%;min-height:48px}
+}
+@media(prefers-reduced-motion:reduce){.float{animation:none!important}.hero-track{transition:none!important}}
+
+html[data-theme=dark]{background:#0c1210;color-scheme:dark}
+html[data-theme=dark] body{background:#0c1210;color:#e7eee4}
+html[data-theme=dark] #study{background:#121a17;color:#e7eee4}
+html[data-theme=dark] #study header{border-color:#2c4036;background:#121a17}
+html[data-theme=dark] #study h1 em{color:#c5d4a4}
+html[data-theme=dark] #study .intro,html[data-theme=dark] #study .eyebrow,html[data-theme=dark] #study .hint,html[data-theme=dark] #study .flip,html[data-theme=dark] #study .progress,html[data-theme=dark] #study .vault-note,html[data-theme=dark] #study .tip{color:#a9bbaa}
+html[data-theme=dark] #study button,html[data-theme=dark] #study .filebutton{border-color:#3d5648;color:#e7eee4}
+html[data-theme=dark] #study button:hover,html[data-theme=dark] #study .filebutton:hover{background:#24362d}
+html[data-theme=dark] #study .primary{background:#d7e2b6;color:#1c3a30;border-color:#d7e2b6}
+html[data-theme=dark] #study .primary:hover{background:#e7f0cc}
+html[data-theme=dark] #study .flashcard{background:#1b2823;border-color:#31483c;box-shadow:none;color:#e7eee4}
+html[data-theme=dark] #study .flashcard.answer{background:#24382e}
+html[data-theme=dark] #study .monday-pick{background:#1b2823;border-color:#31483c;color:#e7eee4}
+html[data-theme=dark] #study .monday-pick p{color:#c5d4c6}
+html[data-theme=dark] #study footer{border-color:#2c4036;color:#a9bbaa}
+html[data-theme=dark] #study #decks button.selected{background:#31483c;color:#e7f0dc}
+html[data-theme=dark] #study .track{background:#2a3d34}
+html[data-theme=dark] dialog{background:#17241f;color:#e7eee4;border-color:#31483c}
+html[data-theme=dark] dialog input,html[data-theme=dark] dialog textarea{background:#101815;color:#e7eee4;border-color:#31483c}
+html[data-theme=dark] #arcade{background:#0e1613;color:#e7eee4}
+html[data-theme=dark] #arcade header{border-color:#24362e;background:#0e1613}
+html[data-theme=dark] #arcade h1 em{color:#e3c56b}
+html[data-theme=dark] #arcade .intro,html[data-theme=dark] #arcade .eyebrow{color:#a9bba8}
+html[data-theme=dark] #arcade button{border-color:#3c5648;color:#e7eee4}
+html[data-theme=dark] #arcade button:hover{background:#24362d}
+html[data-theme=dark] #arcade .collection-summary,html[data-theme=dark] #arcade .session-return{background:#17241f;border-color:#31483c;color:#c5d4c6}
+html[data-theme=dark] #arcade .collection-summary strong{color:#f4f1e6}
+html[data-theme=dark] #arcade a{color:#d7e2b6}
+html[data-theme=dark] #arcade .filterbar button.active,html[data-theme=dark] #arcade .chip-row button[aria-pressed=true]{background:#e3c56b!important;color:#1c3a30;border-color:#e3c56b!important}
+html[data-theme=dark] #arcade .game-search input,html[data-theme=dark] #arcade select{background:#101815;color:#e7eee4;border-color:#3c5648}
+html[data-theme=dark] #arcade .browse-options label,html[data-theme=dark] #resultsCount,html[data-theme=dark] #arcade .hint,html[data-theme=dark] #arcade .hint a,html[data-theme=dark] .media-note,html[data-theme=dark] #mediaCount{color:#a9bba8}
+html[data-theme=dark] .game-section>h2{border-color:#2c4036}
+html[data-theme=dark] #arcade .game{background:#17241f;border-color:#2c4036}
+html[data-theme=dark] #arcade .game p,html[data-theme=dark] #arcade .game details{color:#c5d4c6}
+html[data-theme=dark] #arcade .game button:not(.fav){background:#d7e2b6;color:#1c3a30}
+html[data-theme=dark] #arcade .game button:not(.fav):hover{background:#e7f0cc}
+html[data-theme=dark] #arcade .game .fav{background:#17241fee!important;color:#d7e2b6}
+html[data-theme=dark] #arcade .game .fav[aria-pressed=true]{color:#e3c56b}
+html[data-theme=dark] #arcade .badges{color:#c5d4c6}
+html[data-theme=dark] #arcade .badges span{background:#ffffff10;border-color:#ffffff1f}
+html[data-theme=dark] #arcade .monday-pick{background:#17241f;border-color:#6d5a32;color:#f4f1e6}
+html[data-theme=dark] #arcade .monday-pick p{color:#d5e0d2}
+html[data-theme=dark] #arcade button.capsule{background:#17241f;border-color:#2c4036;color:#f4f1e6}
+html[data-theme=dark] #arcade button.capsule:hover{background:#1d2e27}
+html[data-theme=dark] .capsule-genre,html[data-theme=dark] .store-row .row span,html[data-theme=dark] .store-toolbar p{color:#a9bba8}
+html[data-theme=dark] .hero-dots button:after{background:#3c5648}
+html[data-theme=dark] .hero-dots button[aria-selected=true]:after{background:#e3c56b}
+html[data-theme=dark] .media-card,html[data-theme=dark] .media-body{background:#17241f;border-color:#2c4036;color:#e7eee4}
+html[data-theme=dark] .media-body p{color:#c5d4c6}
+html[data-theme=dark] .entertainment-tabs a{border-color:#3c5648;color:#e7eee4}
+html[data-theme=dark] .skip{background:#17241f;color:#f4f1e6}
