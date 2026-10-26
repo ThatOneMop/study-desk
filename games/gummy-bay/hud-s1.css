@@ -316,3 +316,6 @@ body #overlay.phone #modal>.phone-home-button{position:fixed!important;left:50%!
  body #overlay.phone.landscape #modal>.phone-home-button{left:calc(50% + min(760px,100vw - 40px)/2 - 48px)!important;transform:none;bottom:calc(max(14px,50dvh - 215px) + min(430px,100dvh - 40px)/2 - 20px)!important}
 }
 @media(max-width:600px){body #overlay.phone #modal>.phone-home-button{bottom:16px!important}}
+body #overlay.phone .customerCard span{color:#8a5a12!important}
+body .customerCard span{color:#ffd34d}
+@media(max-width:600px){#notifs{top:140px}}
