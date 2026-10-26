@@ -1,0 +1,19 @@
+# Canopy Weave
+
+Third collection slot 53. Original authored graph-untangling prototype: move lettered leaf knots on a nine-by-nine trellis so straight vines neither cross nor overlap. Vines may meet at shared leaves, but cannot pass through unrelated leaves. Moving a knot changes all incident vines; a temporarily worse tangle can make room for a solution. Unlike the existing stitching and bead-sliding games, players directly rearrange a graph embedding, without consuming thread, following a stitch path or sliding pieces into fixed sockets.
+
+Three compact graphs progress from a four-leaf loop to a five-leaf wheel and a six-leaf nested triangular structure. Demonstrated routes use 3/5/6 committed moves; these are test routes, not optimality or long-play claims. Multiple rotated/reflected arrangements solve each graph. Unlimited undo and retry encourage experimentation; records track fewest committed moves per trellis. No timer, lives or artificial production counts. There is no loss state; tangled layouts remain editable.
+
+Original SVG/CSS art, dashed problematic vines, letter labels independent of colour, conflict previews, native selection/direction buttons, keyboard arrows and pointer dragging are implemented. Drag previews remain temporary until release; cancellation, pause, dialogs and parent hiding discard the preview. Alternate tap placement avoids requiring dragging. Actual rendering and native pointer/keyboard/touch behavior remain unverified.
+
+Only `study-desk-canopy-weave-v1` is used. The save contains level, bounded move journal and records. Decoder replays valid placements, rejects occupied dots/no-ops/out-of-bounds and moves after completion, and checks unlock/win-record consistency. Unreadable data is preserved until confirmed recovery/reset. Storage failure permits a temporary session. Saves/records are local, not authenticated scores. The 300-move journal limit is a storage bound; undo/retry remain available.
+
+## Checks
+
+`node --test tests/canopy-weave-engine.cjs`
+
+`NODE_PATH=/path/to/node_modules node --test tests/canopy-weave-dom.cjs` with jsdom 26.1.0.
+
+Nine tests pass: five engine, four DOM. Coverage: all three campaign wins/unlocks with exact reload after every move, geometry crossings/touches/overlaps/opposite rays, 24 rotated/reflected solved embeddings, invalid moves/journals, input ownership, undo/records, retry, storage bound, drag preview/release/cancel/occupied/pause, keyboard/form guards, parent visibility, navigation markup, corrupt recovery, reset isolation and quota failure. Dialogs, pointer events/capture and SVG bounds are simulated. Both gameplay scripts pass syntax checks.
+
+No rendered browser, screenshot inspection, mobile layout/native input, human enjoyment, full repository build or completed improvement-pass claim. Next: naturally play all three graphs on desktop/touch; assess whether knots and dashed tangles are readable, how dragging feels, and whether progression needs more meaningful spatial constraints. Implement a substantive playtest-led improvement before catalogue selection. This candidate stays on the development branch and off the public catalogue.
