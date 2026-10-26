@@ -3529,7 +3529,7 @@ syncSquadCast();
 var cityExpansion=null;
 if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
  const cityBase=colliders.length;
- cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS),points,quality,height:terrainHeight});
+ cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS),points,routes:policeRoutes,quality,height:terrainHeight});
  colliders.push(...cityExpansion.colliders);
  window.__gummyCity={stats:()=>cityExpansion.stats(),businesses:()=>cityExpansion.businesses,shells:()=>colliders.slice(cityBase+cityExpansion.colliders.length).map(c=>[+c.x.toFixed(2),+c.z.toFixed(2),+c.w.toFixed(2),+c.d.toFixed(2)])};
  const cityReset=resetSystems;resetSystems=function(){cityReset();

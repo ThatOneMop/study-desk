@@ -72,7 +72,7 @@ function weighted(r,list){const total=list.reduce((n,[,w])=>n+w,0);let t=r()*tot
 const between=(r,[a,b])=>a+(b-a)*r();
 
 // Pure layout. obstacles: collider boxes; points: gameplay points.
-export function planCity({obstacles=[],points=[],reserved=CITY_RESERVED,seed=131}={}){
+export function planCity({obstacles=[],points=[],routes=[],reserved=CITY_RESERVED,seed=131}={}){
  const grid=new Grid(),r=rng(seed);
  // roads and pavements
  for(const z of ROAD_Z)grid.mark(-400,400,z-10.7,z+10.7);
@@ -82,6 +82,8 @@ export function planCity({obstacles=[],points=[],reserved=CITY_RESERVED,seed=131
  for(const o of obstacles){if(!(o?.w>0&&o?.d>0))continue;const big=o.w*o.d>=30,m=big?2:1.1;grid.mark(o.x-o.w/2-m,o.x+o.w/2+m,o.z-o.d/2-m,o.z+o.d/2+m);
   if(o.w*o.d>=100){for(const s of [-1,1]){const road=ROAD_Z.reduce((a,b)=>Math.abs(o.z+s*o.d/2-b)<Math.abs(o.z+s*o.d/2-a)?b:a);if(Math.sign(road-o.z)===s&&Math.abs(road-o.z)<o.d/2+34)grid.mark(o.x-2.6,o.x+2.6,Math.min(o.z,road),Math.max(o.z,road));}}}
  for(const p of points){if(!Number.isFinite(p?.x)||!Number.isFinite(p?.z))continue;const minor=p.type==='litter'||p.type==='prop',rad=minor?1.5:5.5;grid.mark(p.x-rad,p.x+rad,p.z-rad,p.z+rad);if(!minor)corridor(grid,p.x,p.z,5);}
+ // patrol and walk routes keep a 2.4 m clear lane either side
+ for(const r of routes)for(let k=0;k<r.length;k++){const a=r[k],b=r[(k+1)%r.length];grid.mark(Math.min(a[0],b[0])-2.4,Math.max(a[0],b[0])+2.4,Math.min(a[1],b[1])-2.4,Math.max(a[1],b[1])+2.4);}
  // overpass pillars keep their pavement edge
  const lots=[],named=[...NAMED_MAIN],alleys=[];
  const runs=frontageRuns().sort((a,b)=>runScore(a)-runScore(b));
@@ -140,9 +142,9 @@ const CHUNK=140;
 const chunkKey=(x,z)=>Math.floor((x+300)/CHUNK)+','+Math.floor((z+460)/CHUNK);
 function worldOf(lot,lx,ly,lz){const c=Math.cos(lot.rot),s=Math.sin(lot.rot);return [lot.x+lx*c+lz*s,ly,lot.z-lx*s+lz*c];}
 
-export function createCityExpansion({scene,obstacles=[],points=[],quality='balanced',height=()=>0}={}){
+export function createCityExpansion({scene,obstacles=[],points=[],routes=[],quality='balanced',height=()=>0}={}){
  if(!scene)throw new TypeError('City expansion needs a scene.');
- const plan=planCity({obstacles,points});
+ const plan=planCity({obstacles,points,routes});
  const materials=createCityMaterials(),signMaterial=createSignMaterial();
  const chunks=new Map(),colliders=[],root=new THREE.Group();root.name='City expansion v131';scene.add(root);
  const chunk=(x,z)=>{const k=chunkKey(x,z);if(!chunks.has(k))chunks.set(k,{key:k,solid:new CityBatch(),detail:new CityBatch(),cutout:new CityBatch(),signs:new SignBatch(),min:[x,z],max:[x,z],meshes:{}});const c=chunks.get(k);c.min=[Math.min(c.min[0],x),Math.min(c.min[1],z)];c.max=[Math.max(c.max[0],x),Math.max(c.max[1],z)];return c;};
