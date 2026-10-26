@@ -348,11 +348,13 @@
       "tests": [
         "9 engine tests pass: all original routes and saves, three hook-assisted routes with exact forecasts/reloads, hook energy/retreat constraints, other-beetle retaliation, loss/retry, records and malformed saves.",
         "6 jsdom 26.1.0 tests pass: original and hook campaigns, button/H-key selection, previews, reload, pause/confirmation/bridge guards, reset isolation, unreadable recovery and quota failures. Dialogs simulated.",
-        "Both gameplay scripts pass syntax checks. No rendered/browser, screenshot, actual touch/native keyboard activation or human-enjoyment evidence. Full repository checks not run from partial checkout."
+        "Both gameplay scripts pass syntax checks. No rendered/browser, screenshot, actual touch/native keyboard activation or human-enjoyment evidence. Full repository checks not run from partial checkout.",
+        "Directional brace: 20 passing tests (12 engine, 8 jsdom), retaining prior fifteen. Directional blocking/rear exposure, counter splashes, blocked counter tiles, distant approach, energy guards, three brace routes, forecast and per-action reload, UI progression/shortcut/pause/retry. Syntax checks pass; no rendered evidence."
       ],
       "commits": [
         "cfd3d84885b77c5ea8968e8adf636d571dc64b3d",
-        "8bca0da32edd592e13e4a498b2e33a9ab1594eda"
+        "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
+        "4632be8e78fc82c9aba25a05580c3119a55032c6"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -370,6 +372,13 @@
         "before": "Only walking and forward dash shoves were possible. Players could not directly draw beetles away from an obstacle.",
         "after": "Hook costs one energy to pull an adjacent beetle into the ranger's old square while retreating one square onto free land. Only the hooked beetle skips its response. The choice competes with saving two energy for dashing; whole-turn forecasts include all responses.",
         "remaining": "Rendered desktop/touch play, screenshot inspection, balance/clarity assessment and substantive playtest-led improvement remain required."
+      },
+      "pendingBraceRefinement": {
+        "commit": "4632be8e78fc82c9aba25a05580c3119a55032c6",
+        "basis": "Source review: all successful actions moved the ranger, limiting defensive lures and hold-position tactics. Not rendered observation.",
+        "before": "Only walk, dash and hook could advance the turn.",
+        "after": "Brace holds position for one energy, blocks only a faced adjacent attacker and counter-shoves it; side/rear attacks still hurt. Distant beetles approach normally. Existing forecasts, journals and retries support it.",
+        "remaining": "Rendered desktop/touch play and screenshot inspection; facing/forecast clarity, counter feedback, energy balance and meaningful playtest-led improvement before selection."
       }
     },
     {
@@ -1300,7 +1309,7 @@
     "Implement remaining 36 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
-  "latestObservedMain": "eefaf658169313cbf5b0c334e6f32d98d3a68191",
+  "latestObservedMain": "37e79d805957cad5d28451890a001eb2ad3bb004",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1498,6 +1507,13 @@
       "result": "Moss Commons relocation implemented with one-timber cost, full connectivity, resource recalculation and backwards-compatible saves. 19 engine/DOM tests pass. Counts unchanged: 14 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering security-policy blocker not retried or bypassed. No rendered completion or live-release claim.",
       "mainObserved": "eefaf658169313cbf5b0c334e6f32d98d3a68191"
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "4632be8e78fc82c9aba25a05580c3119a55032c6",
+      "result": "Reedbreaker directional brace/counter-shove implemented. 20 engine/DOM tests pass; three assisted routes. Counts unchanged: 14 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering security-policy blocker not retried or bypassed; no rendered or live credit.",
+      "mainObserved": "37e79d805957cad5d28451890a001eb2ad3bb004"
     }
   ]
 }
