@@ -25,8 +25,8 @@ function mix3(a,b,t){return [mix(a[0],b[0],t),mix(a[1],b[1],t),mix(a[2],b[2],t)]
 // pushes the highlights, night lifts the blacks toward blue-cyan.
 export function lookGrade(night=0,warmth=0){
  const n=clamp01(night),w=clamp01(warmth)*(1-n);
- const day={saturation:.9,contrast:1.06,lift:[.02,.02,.035],gain:[1.03,1,.96],vignette:.35};
- const gold={saturation:.94,contrast:1.05,lift:[.035,.02,.012],gain:[1.07,1,.9],vignette:.32};
+ const day={saturation:1.0,contrast:1.09,lift:[.02,.02,.035],gain:[1.03,1,.96],vignette:.35};
+ const gold={saturation:1.04,contrast:1.07,lift:[.035,.02,.012],gain:[1.07,1,.9],vignette:.32};
  const dusk={saturation:.82,contrast:1.02,lift:[.045,.05,.07],gain:[.9,.98,1.08],vignette:.42};
  const warm=mix(0,1,w);
  return Object.freeze({
@@ -41,7 +41,10 @@ export function lookGrade(night=0,warmth=0){
 const quadVertex=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.0,1.0);}`;
 const thresholdFragment=`uniform sampler2D tDiffuse;uniform float threshold;varying vec2 vUv;void main(){vec3 c=texture2D(tDiffuse,vUv).rgb;gl_FragColor=vec4(max(c-vec3(threshold),0.0),1.0);}`;
 const blurFragment=`uniform sampler2D tDiffuse;uniform vec2 direction;varying vec2 vUv;void main(){vec3 c=texture2D(tDiffuse,vUv).rgb*.227+texture2D(tDiffuse,vUv+direction).rgb*.316+texture2D(tDiffuse,vUv-direction).rgb*.316+texture2D(tDiffuse,vUv+direction*2.0).rgb*.070+texture2D(tDiffuse,vUv-direction*2.0).rgb*.070;gl_FragColor=vec4(c,1.0);}`;
-const compositeFragment=`uniform sampler2D tDiffuse;uniform sampler2D tBloom;uniform float bloomStrength;uniform float saturation;uniform float contrast;uniform vec3 lift;uniform vec3 gain;uniform float vignette;varying vec2 vUv;void main(){vec3 c=texture2D(tDiffuse,vUv).rgb+texture2D(tBloom,vUv).rgb*bloomStrength;float l=dot(c,vec3(.2126,.7152,.0722));c=mix(vec3(l),c,saturation);c=(c-.5)*contrast+.5;c=c*gain+lift;vec2 q=vUv-.5;c*=1.0-vignette*smoothstep(.25,.92,dot(q,q)*2.2);gl_FragColor=vec4(clamp(c,0.0,1.0),1.0);}`;
+const compositeFragment=`uniform sampler2D tDiffuse;uniform sampler2D tBloom;uniform float bloomStrength;uniform float saturation;uniform float contrast;uniform vec3 lift;uniform vec3 gain;uniform float vignette;varying vec2 vUv;void main(){vec3 c=texture2D(tDiffuse,vUv).rgb+texture2D(tBloom,vUv).rgb*bloomStrength;gl_FragColor=vec4(c,1.0);
+#include <tonemapping_fragment>
+#include <colorspace_fragment>
+c=clamp(gl_FragColor.rgb,0.0,1.0);float l=dot(c,vec3(.2126,.7152,.0722));c=mix(vec3(l),c,saturation);c=(c-.5)*contrast+.5;c=c*gain+lift;vec2 q=vUv-.5;c*=1.0-vignette*smoothstep(.25,.92,dot(q,q)*2.2);gl_FragColor=vec4(clamp(c,0.0,1.0),1.0);}`;
 
 function makePass(fragment,uniforms){
  const material=new THREE.ShaderMaterial({uniforms,vertexShader:quadVertex,fragmentShader:fragment,depthTest:false,depthWrite:false});
