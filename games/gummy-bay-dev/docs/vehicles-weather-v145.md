@@ -3,7 +3,7 @@
 Built on top of v144 (#43 feel pass): gradual steering lock (`steerStep`), speed-based FOV (`driveFov`), docked driving HUD, hidden phone action buttons while driving and story events held while driving or in a chase are all kept. The v144 van path remains as the fallback when no car is active.
 
 ## Vehicles
-- **Honest Al's Pre-Loved Motors** (dodgy used-car lot, Old Town west): buyable cars with distinct weight/grip/top speed/trunk size. Walk up, open the lot menu, buy; the bought car becomes your active vehicle.
+- **Lucky Lou's Pre-Loved Motors** (dodgy used-car lot, Old Town west; unlocks after the Harbor Motors van): buyable cars with distinct weight/grip/top speed/trunk size. Walk up, open the lot menu, buy; the bought car becomes your active vehicle.
 - **Get in / out**: walk to the driver door and press F; F again to exit beside the car (exit point is collision-checked).
 - **Arcade handling** (`car-physics.mjs`): mass and weight transfer, grip-limited lateral slip, drift latch on Space (handbrake) with a low-speed release, braking and reverse, wall slide/bounce.
 - **Feel**: chase camera that leans into turns and shakes on impacts, engine tone pitched by RPM (Web Audio, gears), tyre skid marks (pooled decals, smaller pool on Low).
@@ -14,10 +14,10 @@ Built on top of v144 (#43 feel pass): gradual steering lock (`steerStep`), speed
 
 ## Weather
 - Deterministic daily schedule (seeded by day): dry, showers, rain, storm. Rain arrives and eases in windows during the day.
-- **Phone**: a weather card on the phone home screen ("Raining now / Tomorrow: …"), with a 3-day forecast menu.
+- **Phone**: a weather card on the phone home screen ("Raining now / Tomorrow: …"), with a 5-day forecast menu.
 - **Visuals**: instanced rain streaks, a pooled splash budget, puddle decals, wet road sheen (roughness/metalness lerp on road materials) and an overcast lighting/fog grade.
 - **Audio**: a filtered-noise rain bed scaled by intensity.
-- **NPCs**: a share of walkers open candy-coloured umbrellas; the rest hurry (run for cover).
+- **NPCs**: a share of walkers open umbrellas; the rest hurry (run for cover).
 - **Low quality**: about half the drops, a smaller splash budget, no puddle reflections, and the ~20 cloud sprites skipped in steady rain (the overcast grade already fills the sky). Saved with the game.
 
 ## Draw calls (Low, shot mode, renderer.info.render.calls)
