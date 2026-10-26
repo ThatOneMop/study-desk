@@ -45,7 +45,7 @@ const NODES={
 const LINKS=[
  ['rv','around'],['around','phone'],['phone','courtOut'],['lane','courtOut'],['courtOut','courtIn'],
  ['lane','roadW'],['lane','roomE'],['lane','jules'],['roomE','roomOut'],['roomOut','roomIn'],
- ['roomIn','roomMid'],['roomIn','craft'],['roomMid','tent'],['roomMid','sink'],['sink','craft'],
+ ['roomIn','roomMid'],['roomIn','craft'],['roomMid','tent'],['roomMid','sink'],
  ['roadW','roadM'],['roadM','roadE'],['roadW','hwOut'],['hwOut','hwIn'],['roadW','helpOut'],
  ['helpOut','helpIn'],['roadM','southRun'],['southRun','miloOut'],['miloOut','miloIn'],
  ['roadE','storeOut'],['storeOut','storeIn'],['roadM','cop']
@@ -134,6 +134,11 @@ function buildingExit(x,z,place){
  if(inBox(x,z,SHELLS[5])&&place!=='helpers')return SHELLS[5].plaza;
  return null;
 }
+// The worktable fills the gap between the sink and the craft point.
+function furnitureDetour(x,z,place){
+ if(place==='craft'&&x>-22.5&&x<-14&&z>34&&z<43.5)return [-25,44.2];
+ return null;
+}
 // The payphone booth blocks the straight line east of the camper door.
 function campsiteDetour(x,z){
  if(x<-46&&z>20&&z<30.6)return [-51.5,32.2];
@@ -220,7 +225,7 @@ export function createDayDirector(){
  }
  function walk(goalNow,snap){
   let points;
-  const detour=goalNow.id==='exit'?null:buildingExit(snap.x,snap.z,goalNow.place)||campsiteDetour(snap.x,snap.z);
+  const detour=goalNow.id==='exit'?null:buildingExit(snap.x,snap.z,goalNow.place)||furnitureDetour(snap.x,snap.z,goalNow.place)||campsiteDetour(snap.x,snap.z);
   if(detour)points=[detour];
   else if(goalNow.id==='police'){
    const cop=(snap.officers||[]).reduce((best,c)=>!c?best:!best||Math.hypot(snap.x-c.x,snap.z-c.z)<Math.hypot(snap.x-best.x,snap.z-best.z)?c:best,null);

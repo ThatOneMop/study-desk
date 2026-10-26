@@ -55,6 +55,10 @@ assert.ok(pastLane.aim&&pastLane.aim.z<10,'east of Palm Court the hardware walk 
 const corner=createDayDirector();
 const outsideWall=corner.intent(world({x:-15.6,z:26.6,tents:0}));
 assert.ok(outsideWall.aim&&outsideWall.aim.x>-16,'the Palm Court corner does not aim back through the wall');
+const bench=createDayDirector();
+const northOfTable=bench.intent(world({x:-18,z:42,raw:1}));
+assert.equal(northOfTable.phase,'make');
+assert.ok(northOfTable.aim&&northOfTable.aim.x<-22,'the worktable is approached from its south side');
 
 const rich=createDayDirector();
 const hireSnap=world({level:3,cash:700,xp:60,sold:12,harvested:12,policeReport:true,reach:true});
