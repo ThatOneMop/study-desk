@@ -10,9 +10,9 @@ const legs=[['spawn to payphone',spawn,P('payphone'),1.4,12],['payphone to recep
 for(const c of CONTACTS)legs.push(['room to '+c.name,room,[c.x,c.z],2,45]);
 const rows=[];
 for(const [name,a,b,ratio,secs] of legs){const r=grid.route(a[0],a[1],b[0],b[1],{reach:2});check(r,name+' has a walking route');const walk=grid.length(a[0],a[1],r),straight=Math.max(1,Math.hypot(b[0]-a[0],b[1]-a[1])),t=walk/WALK_SPEED;rows.push(name+' '+straight.toFixed(0)+'m/'+walk.toFixed(0)+'m');check(walk/straight<=ratio||walk-straight<8,name+' detour '+(walk/straight).toFixed(2)+' > '+ratio);check(t<=secs,name+' takes '+t.toFixed(0)+'s > '+secs+'s');}
-const front=grid.route(room[0],room[1],arcade.x,arcade.z,{reach:14});check(front,'arcade frontage reachable');const arcadeWalk=grid.length(room[0],room[1],front);check(arcadeWalk/WALK_SPEED<=60,'arcade walk '+arcadeWalk.toFixed(0)+'m');
+const door=points.find(p=>p.type==='arcade');check(door,'arcade door point placed');const front=grid.route(room[0],room[1],door.x,door.z,{reach:2});check(front,'arcade door reachable on foot');check(grid.length(room[0],room[1],front)/Math.hypot(door.x-room[0],door.z-room[1])<=1.7,'arcade detour');const arcadeWalk=grid.length(room[0],room[1],front);check(arcadeWalk/WALK_SPEED<=60,'arcade walk '+arcadeWalk.toFixed(0)+'m');
 const far=points.filter(p=>p.type==='bus').map(p=>[p.label,grid.route(room[0],room[1],p.x,p.z,{reach:2})&&grid.length(room[0],room[1],grid.route(room[0],room[1],p.x,p.z,{reach:2}))]);
 for(const [label,walk] of far){check(walk,label+' bus reachable on foot');check(walk/WALK_SPEED<=150,label+' bus is '+(walk/WALK_SPEED).toFixed(0)+'s on foot, cross-town walks should stay near 1-2 minutes');}
-console.log('PASS: key walking routes stay within budget',rows.join('; '),'; arcade '+arcadeWalk.toFixed(0)+'m; buses '+far.map(f=>f[0]+' '+(f[1]/WALK_SPEED).toFixed(0)+'s').join(', '));
+console.log('PASS: key walking routes stay within budget',rows.join('; '),'; arcade door '+Math.hypot(door.x-room[0],door.z-room[1]).toFixed(0)+'m/'+arcadeWalk.toFixed(0)+'m; buses '+far.map(f=>f[0]+' '+(f[1]/WALK_SPEED).toFixed(0)+'s').join(', '));
 }
 `,env);})().catch(e=>{console.error(e);process.exitCode=1;});
