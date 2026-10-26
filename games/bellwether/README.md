@@ -22,6 +22,14 @@ Unreadable data is preserved until explicit recovery. Quota/storage failures lea
 
 ## Validation and pending work
 
-`node --test tests/bellwether-engine.cjs tests/bellwether-dom.cjs` (jsdom 26.1.0 required for the latter). The fixture routes were generated with breadth-first search and replayed via engine and DOM controls, with reload after each action. Shortest routes under these exact rules are 11/9/17 steps. This is an automated graph result, not human play or an enjoyment score.
+`node --test tests/bellwether-engine.cjs tests/bellwether-dom.cjs` (jsdom 26.1.0 required for the latter). The fixture routes were generated with breadth-first search and replayed via engine and DOM controls, with reload after each action. Shortest routes using the original walk/whistle action set are 11/9/17 steps. Quiet-enabled fixture routes also complete in 11/9/17 steps; no additional content hours are claimed. This is an automated graph result, not human play or an enjoyment score.
 
 Rendered browser access remains blocked in this work context. No screenshot inspection, real mobile touch, native focus/dialog behavior or rendered layout assessment is claimed. Keep the game unlisted until natural rendered play, a substantive observed-weakness improvement pass, and follow-up verification. In particular assess the compass tie-breaking, whether the forecast makes decisions satisfying, the easier second meadow, mobile board size and dog/sheep readability.
+
+## Quiet paws source refinement
+
+The Quiet paws toggle lets the dog walk one square without moving any sheep. It costs one step in the route record, just like a normal move. Use it to reposition around a settled flock, then switch it off to apply pressure again. Whistles are unaffected. Walls, rocks, sheep and the gate still block the dog.
+
+The toggle clears any pending forecast; selecting a new direction shows the exact quiet result. Buttons, keyboard and adjacent-square taps share the mode. It defaults off on reload, retry, meadow change and reset, and is disabled while paused or in a dialog. This preference is not part of the saved game; committed quiet actions are stored as `quiet-north/east/south/west` in the existing v1 journal. Old journals, records and save keys remain unchanged.
+
+This upgrade addresses a source-observed lack of controlled repositioning. It is not yet a rendered-play improvement pass. Check whether quiet movement improves planning without making herding too easy, plus native touch, focus and layout, before integration.

@@ -11,9 +11,11 @@ function distance(a,b){return Math.abs(a%SIZE-b%SIZE)+Math.abs(Math.floor(a/SIZE
 function initial(level){const l=LEVELS[level];return{dog:l.dog,sheep:l.sheep.slice()}}
 function won(b){return b.sheep.every(p=>p===-1)}
 function step(level,b,action){
- if(won(b)||!DIRS.includes(action)&&action!=='whistle')return null;
+ const quiet=typeof action==='string'&&action.startsWith('quiet-'),direction=quiet?action.slice(6):action;
+ if(won(b)||quiet&&!DIRS.includes(direction)||!quiet&&!DIRS.includes(action)&&action!=='whistle')return null;
  const l=LEVELS[level],n=copy(b),whistle=action==='whistle';
- if(!whistle){const p=near(b.dog,DIRS.indexOf(action));if(p<0||p===l.pen||l.rocks.includes(p)||b.sheep.includes(p))return null;n.dog=p}
+ if(!whistle){const p=near(b.dog,DIRS.indexOf(direction));if(p<0||p===l.pen||l.rocks.includes(p)||b.sheep.includes(p))return null;n.dog=p}
+ if(quiet)return n;
  const proposals=b.sheep.map((p,i)=>{
   if(p<0)return -1;const dist=distance(p,n.dog),active=whistle?dist>=3&&dist<=4:dist<=2;if(!active)return p;
   // Each sheep has a fixed compass preference. Occupied starting cells never become available mid-turn.
