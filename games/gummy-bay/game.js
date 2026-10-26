@@ -49,8 +49,10 @@ import {createCineOverlay,playWhoosh,playPhoneRing,blendPose} from './cinematics
 import {FLYOVER_MINUTES,flyoverAt} from './loading-flyover.mjs?v=132';
 import {hintAt} from './hints.mjs?v=132';
 import {createSkyClouds} from './sky-clouds.mjs?v=147';
-import {ACT1_DURATION,ACT1_SKIP_HOLD,act1At,act1PanelHtml,act1ChyronHtml,doorstepEyePose} from './story-act1.mjs?v=148';
-import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml,storyHold} from './story-acts.mjs?v=144';
+import {ACT1_DURATION,ACT1_SKIP_HOLD,ACT1_CAST,act1At,act1PanelHtml,act1ChyronHtml,doorstepEyePose} from './story-act1.mjs?v=149';
+import {castAt,propsAt,resolveCast,blipsFor,voiceFor,createCineAudio,cameraDrift} from './cine-cast.mjs?v=149';
+import {createCineStage} from './cine-stage.mjs?v=149';
+import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml,storyHold} from './story-acts.mjs?v=149';
 import {DEALER_ROSTER,RUNNER_ROSTER,CREW,freshEmpire,normalizeEmpire,advanceEmpire,recruitDealer,assignCustomer,unassignCustomer,restockDealer,collectDealer,districtCustomers,dealerOf,runnerOf,stockTotal,hireCrew,crewSlots,slotUpgradeCost,buySlot,fireCrew,hireRunner,dispatchRunner,dealerLow,dealerForecast} from './dealer-network.mjs?v=143';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
@@ -2221,6 +2223,38 @@ if(cine.flyover){
 }
 if(typeof window!=='undefined')window.__cine={seek:t=>{cine.seek=t==null?null:Number(t);},pose:p=>{cine.pose=p?{fov:50,...p}:null;},state:()=>({t:cine.t,loading:cine.loading,lit:cine.lit,progress:cine.progress,town:townAssetStatus,items:cine.items,shot:cine.shot,hint:cine.hint,camera:camera.position.toArray().map(v=>Math.round(v*10)/10)}),dismiss:cineDismiss,clouds:skyClouds.group};
 
+// v149 cinematic stage: people-kit actors + instanced props for every cutscene (6 draw
+// calls), synthesised score/ambience/blip voices, and a "quiet" flag that hides today's
+// crowds and traffic during the 1996 flashback. Shared by Act 1 and the story cuts.
+let cineStage=null,cineQuiet=false,cineNamedOff=false;
+function cineStageGet(){
+ if(!cineStage){try{cineStage=createCineStage({THREE,scene,capacity:14,propCapacity:320});}catch(e){console.warn('cutscene stage skipped',e);cineStage={update(){},hide(){}};}}
+ return cineStage;
+}
+function cineFxStart(){
+ let audio=null;try{if(audioContext&&soundEnabled&&cine.seek==null)audio=createCineAudio(audioContext,audioContext.destination);}catch(e){audio=null;}
+ cineNamedOff=true;return {audio,music:new Set(),voiced:new Set()};
+}
+function cineFxBeats(fx,{music=[],amb='',sub=null,t=0}){
+ if(!fx||!fx.audio||cine.seek!=null)return;
+ for(const m of music)if(!fx.music.has(m)){fx.music.add(m);fx.audio.stinger(m);}
+ if(amb)fx.audio.ambience(amb);
+ if(sub&&sub.who&&!fx.voiced.has(sub)){fx.voiced.add(sub);const key=voiceFor(sub.who);if(key&&key!=='note'&&t-sub.at<.5)fx.audio.voice(blipsFor(sub.text,sub.who,sub.until-sub.at),key,{phone:!!sub.phone||/PHONE/.test(sub.who)});}
+}
+function cineFxCast(cast,t,sub){
+ if(!cast)return;const st=cineStageGet();
+ try{st.update({actors:castAt(cast,t,sub),props:propsAt(cast,t),floor:(x,z)=>{try{return floorHeight(x,z);}catch(e){return terrainHeight(x,z);}}});}catch(e){console.warn('cutscene stage frame skipped',e);}
+}
+function cineFxEnd(fx){try{fx?.audio?.stop();}catch(e){}cineStage?.hide?.();cineQuiet=false;cineNamedOff=false;}
+const CINE_QUIET=/^(Street crowd|Chunky cast|Sugar Squad|Traffic|Town traffic|Ambient traffic|Resident|Kickflip|Skate)/i;
+{const cineQuietRender=renderFrame;renderFrame=function(){
+ if(!cineQuiet){cineQuietRender();return;}
+ const hidden=[];for(const o of scene.children)if(o.visible&&CINE_QUIET.test(o.name||'')){o.visible=false;hidden.push(o);}
+ try{cineQuietRender();}finally{for(const o of hidden)o.visible=true;}
+};}
+// Draw calls for one cutscene frame (perf checks): renders once and reads renderer.info.
+function cineDrawCalls(){const info=renderer.info,auto=info.autoReset;info.autoReset=false;info.reset();try{renderFrame();return {calls:info.render.calls,triangles:info.render.triangles};}finally{info.autoReset=auto;}}
+
 // v133 Act 1 intro, "Last Call". A new story save opens on a short (v148: 28.5 s)
 // cutscene: the radio explains the Great Jelly Incident and the Sugar-Free Bay
 // Act, then the camera settles into the player's eyes beside the ringing
@@ -2232,7 +2266,11 @@ const introPanelEl=cine.flyover&&typeof cineLoadEl?.insertBefore==='function'?do
 if(introPanelEl){introPanelEl.className='cine-panel';cineLoadEl.insertBefore(introPanelEl,cineLoadEl.querySelector('.cine-fade'));}
 const introSkipEl=cine.flyover&&cineLoadEl?.querySelector?.('.cine-skip')||null;
 if(introSkipEl){introSkipEl.innerHTML='<button type="button">Skip intro <kbd>Esc</kbd></button>';introSkipEl.querySelector('button')?.addEventListener('click',e=>{e.stopPropagation();if(cine.scene)finishArrival();});}
-const intro={t:0,last:0,panel:'',sfx:new Set(),props:null,from:null,handPose:null,hold:0,down:false};
+const intro={t:0,last:0,panel:'',sfx:new Set(),props:null,from:null,handPose:null,hold:0,down:false,fx:null,cast:null,title:-1};
+const introFxEl=cine.flyover&&typeof cineLoadEl?.insertBefore==='function'?document.createElement('div'):null;
+if(introFxEl){introFxEl.className='cine-fx';introFxEl.setAttribute('aria-hidden','true');introFxEl.innerHTML='<div class="cine-grade"></div><div class="cine-dof"></div><div class="cine-wipe"></div><div class="cine-title"><b></b><small></small></div>';cineLoadEl.insertBefore(introFxEl,cineLoadEl.querySelector('.cine-fade'));}
+const introFxQ=sel=>introFxEl?.querySelector?.(sel)||null;
+function cineTitleEl(el,beat,k){if(!el)return;if(el.dataset.t!==(beat?.title||'')){el.dataset.t=beat?.title||'';const b=el.querySelector('b'),sm=el.querySelector('small');if(b)b.textContent=beat?.title||'';if(sm)sm.textContent=beat?.line||'';}el.style.opacity=String(beat?Math.max(0,k):0);el.style.transform='translate(-50%,-50%) scale('+(1.06-.06*Math.min(1,Math.max(0,k)))+')';}
 const introHintEl=cine.flyover&&typeof cineLoadEl?.insertBefore==='function'?document.createElement('div'):null;
 if(introHintEl){introHintEl.className='cine-skiphint';introHintEl.setAttribute('aria-hidden','true');introHintEl.innerHTML='<span>Hold <kbd>Esc</kbd> / tap to skip</span><i></i>';cineLoadEl.appendChild(introHintEl);}
 function introProps(){
@@ -2258,9 +2296,10 @@ function startIntro(){
  menu('arrival');arrivalStarted=now;$('modal').innerHTML='';
  document.body.classList.add('cineScene');cineLoadEl.hidden=false;cineLoadEl.classList.add('scene');cineLoadEl.classList.remove('loading','live','ready');
  cineView.reset();cineView.show(true);cineView.bars(true);cineView.caption('','');cineView.subtitle('','');cineView.chyron('');cineView.fade(1);
- introProps();return true;
+ introProps();intro.fx=cineFxStart();intro.cast=resolveCast(ACT1_CAST);introFxEl?.classList?.toggle?.('dof',quality!=='performance'&&quality!=='low');return true;
 }
 function endIntro(){
+ cineFxEnd(intro.fx);intro.fx=null;if(introFxEl){introFxQ('.cine-grade')?.classList?.remove('sepia');cineTitleEl(introFxQ('.cine-title'),null,0);const w=introFxQ('.cine-wipe');if(w)w.style.opacity='0';}
  cine.scene=false;cine.lit=false;cine.grade=false;cine.shot=-1;
  document.body.classList.remove('cineScene');cineLoadEl?.classList?.remove('scene');
  if(introPanelEl){introPanelEl.className='cine-panel';introPanelEl.innerHTML='';}intro.panel='';intro.hold=0;introHintEl?.classList?.remove('on');
@@ -2272,8 +2311,11 @@ function endIntro(){
 }
 function introSfx(name){
  if(!audioContext||!soundEnabled)return;
- if(name==='ring')playPhoneRing(audioContext,audioContext.destination,{rings:2,volume:.12});
- else if(name==='whoosh')playWhoosh(audioContext,audioContext.destination,{volume:.06});
+ const bus=intro.fx?.audio?.bus||audioContext.destination;
+ if(name==='ring')playPhoneRing(audioContext,bus,{rings:2,volume:.12});
+ else if(name==='whoosh')playWhoosh(audioContext,bus,{volume:.06});
+ else if(name==='stamp')intro.fx?.audio?.stinger('sting');
+ else if(name==='siren')intro.fx?.audio?.stinger('siren');
 }
 function introTick(){
  const t=performance.now()/1000,dt=intro.last?Math.min(.1,Math.max(0,t-intro.last)):0;intro.last=t;
@@ -2293,14 +2335,18 @@ function introTick(){
  if(introPanelEl&&panel!==intro.panel){intro.panel=panel;introPanelEl.className='cine-panel'+(panel?' on '+panel:'');introPanelEl.innerHTML=panel?act1PanelHtml(panel):'';}
  if(intro.props)intro.props.visible=at.props;
  for(const name of at.sfx)if(!intro.sfx.has(name)){intro.sfx.add(name);if(cine.seek==null)introSfx(name);}
+ cineQuiet=at.quiet;cineFxBeats(intro.fx,{music:at.music,amb:at.amb,sub:at.sub,t:intro.t});cineFxCast(intro.cast,intro.t,at.sub);
+ if(introFxEl){introFxQ('.cine-grade')?.classList?.toggle('sepia',at.grade==='sepia');cineTitleEl(introFxQ('.cine-title'),at.title,at.titleIn);
+  const w=introFxQ('.cine-wipe');if(w){const p=at.wipe?Math.max(0,Math.min(1,at.wipe.p)):0;w.style.opacity=at.wipe?String(Math.sin(Math.PI*p)):'0';w.style.transform='translateX('+(at.wipe?(p*240-120):-120)+'%) skewX(-14deg)';}}
 }
 function introCameraPose(){
  const at=act1At(intro.t);let p=cine.pose||at.pose;
  if(at.handoff>0&&!cine.pose)p=blendPose(at.pose,doorstepEyePose(openingDoorstep(),fovBase),at.handoff);
- camera.position.set(p.x,p.y,p.z);camera.lookAt(p.lookX,p.lookY,p.lookZ);
+ const d=!cine.pose&&at.shot?.drift?cameraDrift(intro.t,at.shot.drift*(1-at.handoff)):null;
+ camera.position.set(p.x+(d?d.x:0),p.y+(d?d.y:0),p.z+(d?d.z:0));camera.lookAt(p.lookX,p.lookY,p.lookZ);
  if(Math.abs(camera.fov-p.fov)>.01){camera.fov=p.fov;camera.updateProjectionMatrix();}
 }
-if(typeof window!=='undefined')window.__intro={start:()=>{if(active&&mode==='story')return startIntro();return false;},seek:t=>{cine.seek=t==null?null:Number(t);},state:()=>({scene:cine.scene,t:intro.t,panel:intro.panel,minutes:cine.minutes,duration:ACT1_DURATION,arrivalSeen:!!s.arrivalSeen})};
+if(typeof window!=='undefined')window.__intro={start:()=>{if(active&&mode==='story')return startIntro();return false;},seek:t=>{cine.seek=t==null?null:Number(t);},state:()=>({scene:cine.scene,t:intro.t,panel:intro.panel,minutes:cine.minutes,duration:ACT1_DURATION,arrivalSeen:!!s.arrivalSeen,quiet:cineQuiet,audio:!!intro.fx?.audio}),calls:cineDrawCalls};
 
 // Five graphics overhaul stages. Read-only presentation; no save schema changes.
 const graphicsAtmosphere=createAtmosphereOverhaul({sky:skyDome,water:ocean});
@@ -3958,7 +4004,7 @@ try{
  function storyDom(){
   if(storyUI.el)return storyUI.el;
   const el=document.createElement('div');el.id='storyCut';el.className='cine scene story-cut';el.hidden=true;el.setAttribute('aria-live','polite');
-  el.innerHTML='<div class="cine-vignette"></div><div class="cine-fade"></div><div class="cine-bars"><i></i><i></i></div><div class="story-card-slot"></div><div class="story-stamp"></div><div class="cine-cap"><strong></strong><small></small></div><div class="cine-sub"><b></b><span></span></div><div class="cine-chyron"></div><div class="story-choice" hidden></div><button class="story-skip" type="button">Skip · Esc</button>';
+  el.innerHTML='<div class="cine-vignette"></div><div class="cine-fade"></div><div class="cine-bars"><i></i><i></i></div><div class="cine-fx"><div class="cine-dof"></div><div class="cine-title"><b></b><small></small></div></div><div class="story-card-slot"></div><div class="story-stamp"></div><div class="cine-cap"><strong></strong><small></small></div><div class="cine-sub"><b></b><span></span></div><div class="cine-chyron"></div><div class="story-choice" hidden></div><button class="story-skip" type="button">Skip · Esc</button>';
   document.body.appendChild(el);storyUI.el=el;storyUI.view=createCineOverlay(el);
   el.addEventListener('click',event=>{if(event.target?.closest?.('.story-choice'))return;if(storyUI.cut)skipStoryCut();});
   return el;
@@ -3972,16 +4018,7 @@ try{
   const add=(geo,m,pos,parent=g)=>{const mesh=new THREE.Mesh(geo,m);mesh.position.copy(pos);mesh.castShadow=true;parent.add(mesh);return mesh;};
   const ground=p=>{try{return typeof terrainHeight==='function'?terrainHeight(p.x,p.z):0;}catch(e){return 0;}};
   if(id==='raid'){
-   g.userData.lights=[];
-   for(const [dx,dz,turn] of [[-4.8,-6.6,.55],[4.9,-8.2,-.45]]){
-    const van=new THREE.Group(),p=at(dx,0,dz);van.position.set(p.x,ground(p),p.z);van.rotation.y=(a.yaw||0)+turn;
-    add(new THREE.BoxGeometry(2.3,1.9,4.6),mat(0xf3f1ea),new THREE.Vector3(0,1.25,0),van);
-    add(new THREE.BoxGeometry(2.34,.42,4.64),mat(0x2f62c9),new THREE.Vector3(0,1.05,0),van);
-    add(new THREE.BoxGeometry(2.1,.7,1.2),mat(0x9fc4dd,{roughness:.2}),new THREE.Vector3(0,1.75,-2.0),van);
-    for(const [x,col] of [[-.5,0xff2a3c],[.5,0x2a6bff]]){const l=add(new THREE.BoxGeometry(.85,.22,.42),new THREE.MeshBasicMaterial({color:col,toneMapped:false}),new THREE.Vector3(x,2.32,-.6),van);g.userData.lights.push(l);}
-    for(const [x,z] of [[-1.1,-1.5],[1.1,-1.5],[-1.1,1.5],[1.1,1.5]]){const w=add(new THREE.CylinderGeometry(.42,.42,.3,12),mat(0x22252b),new THREE.Vector3(x,.42,z),van);w.rotation.z=Math.PI/2;}
-    g.add(van);
-   }
+   // v149: the Sugar Squad vans are instanced stage props now (see CUTS.raid.cast).
    const door=new THREE.Group(),dp=at(0,0,-.15);door.position.set(dp.x,ground(dp),dp.z);door.rotation.y=a.yaw||0;
    add(new THREE.BoxGeometry(2.4,2.5,.14),mat(0x8a5a33),new THREE.Vector3(0,1.25,0),door);
    add(new THREE.BoxGeometry(2.1,.18,.18),mat(0x6d4526),new THREE.Vector3(0,1.9,-.08),door);add(new THREE.BoxGeometry(2.1,.18,.18),mat(0x6d4526),new THREE.Vector3(0,.6,-.08),door);
@@ -4005,7 +4042,6 @@ try{
  const tmpM=new THREE.Matrix4(),tmpQ=new THREE.Quaternion(),tmpS=new THREE.Vector3(),tmpP=new THREE.Vector3();
  function animateStoryProps(t){
   const g=storyUI.props;if(!g)return;const u=g.userData;
-  if(u.lights)u.lights.forEach((l,i)=>{l.visible=Math.floor(t*6+i)%2===0;});
   if(u.door){const k=Math.max(0,t-3.95),d=u.door;d.position.copy(d.userData.home);if(k>0){const yw=storyUI.cut?.anchors?.home?.yaw||0;d.position.x+=Math.sin(yw)*k*3.2;d.position.z+=Math.cos(yw)*k*3.2;d.position.y+=Math.max(0,k*6-k*k*5);d.rotation.x=-Math.min(1.45,k*2.2);d.rotation.z=k*1.4;}else d.rotation.x=0;}
   if(u.bear){const b=u.bear,f=Math.max(0,Math.min(1,(t-6)/12)),z=b.userData.from+(b.userData.to-b.userData.from)*f,a=CUT_ANCHORS.pier;b.position.z=a.z+z;b.position.y=.3+Math.abs(Math.sin(t*3))*.12;b.rotation.y=Math.sin(t*1.3)*.12;}
   if(u.burst){const m=u.burst,o=m.userData.origin;for(let i=0;i<180;i++){const k=Math.floor(i/30),start=k*1.3+(k>2?14:.8),age=((t-start)%9+9)%9,life=2.2;const seed=i*12.9898,th=(seed%6.283),ph=((i*7.31)%3.14);
@@ -4020,6 +4056,7 @@ try{
   v.show(true);v.bars(true);v.fade(a.fade);v.subtitle(a.sub?.who||'',a.sub?.text||'');v.caption(a.cap?.title||'',a.cap?.line||'');
   v.chyron(a.chyron?'<strong>'+a.chyron.head+'</strong><span>'+a.chyron.text+'</span>':'');storyCardEl(a.card?.card||'');storyStampEl(a.stamp?.text||'');
   for(const k of a.sfx)if(!c.sfx.has(k)){c.sfx.add(k);storyTone(k);}
+  cineTitleEl(storyQ('.cine-title'),a.title,a.titleIn);cineFxBeats(c.fx,{music:a.music,amb:a.amb,sub:a.sub,t:c.t});cineFxCast(c.cast,c.t,a.sub);
   animateStoryProps(c.t);
  }
  function playStoryCut(id,{replay=false,onDone=null}={}){
@@ -4029,13 +4066,13 @@ try{
   keys={};locomotion.x=locomotion.z=0;document.exitPointerLock?.();
   const anchors={home:STORY_DOORS[s.house]||STORY_DOORS[0]};
   storyDom();storyUI.view.reset();storyUI.cardId=storyUI.stampText=null;
-  storyUI.cut={id,tl:cutTimeline(id,anchors),t:0,replay,onDone,sfx:new Set(),anchors,sample:null};storyUI.fov=camera.fov;
+  storyUI.cut={id,tl:cutTimeline(id,anchors),t:0,replay,onDone,sfx:new Set(),anchors,sample:null,fx:cineFxStart(),cast:resolveCast(CUTS[id].cast,{...CUT_ANCHORS,...anchors})};storyQ('.cine-fx')?.classList?.toggle?.('dof',quality!=='performance'&&quality!=='low');storyUI.fov=camera.fov;
   storyUI.el.dataset.cut=id;storyProps(id,anchors);paintStoryCut();
   if(!replay){s.story=markSeen(ensureStory(),id);save();}
   return true;
  }
  function endStoryCut(){
-  const c=storyUI.cut;if(!c)return;storyUI.cut=null;clearStoryProps();
+  const c=storyUI.cut;if(!c)return;storyUI.cut=null;clearStoryProps();cineFxEnd(c.fx);cineTitleEl(storyQ('.cine-title'),null,0);
   storyUI.view.show(false);storyUI.view.bars(false);storyCardEl('');storyStampEl('');
   if(storyUI.fov){camera.fov=storyUI.fov;camera.updateProjectionMatrix();}
   syncPlayerView();camera.rotation.set(pitch,yaw,0);
@@ -4127,7 +4164,7 @@ try{
   if(!p)return false;track=p;close();toast('Tracking '+p.label);return true;
  }
  // v146: Gramps Gus stands on the pier once the story is complete.
- storyCastVisible=key=>{if(key!=='gramps')return true;try{const st=ensureStory();return !!st.open&&!currentQuest(st);}catch{return false;}};
+ storyCastVisible=key=>{if(cineNamedOff)return false;if(key!=='gramps')return true;try{const st=ensureStory();return !!st.open&&!currentQuest(st);}catch{return false;}};
  function storyHTML(){
   const st=ensureStory(),q=currentQuest(st),f=storyFactsNow(),act=currentAct(st);
   let h='<div class="overline">STORY · MISSIONS</div>';

@@ -1,21 +1,29 @@
 import {createTimeline} from './cinematics.mjs?v=129';
 import {NAMED_LOOKS} from './people-kit.mjs?v=146';
 // Act 1 "Last Call": the backstory cutscene that opens a new story save.
-// It explains, in under thirty seconds, why gummies are against the law in Gummy Bay,
-// then gives the player the doorstep beside the ringing payphone.
-// Everything is original: the script, the people and the art. The two "archive" beats
-// are procedural SVG strings, so no image is downloaded. This file is DOM-free and testable.
+// v149: fully in-engine. The people-kit cast acts every beat (Gramps Gus at his candy
+// stall, Mayor Plum at the parade podium as the giant gummy bear melts, the Sugar Squad
+// arresting Gramps, you walking up to the camper) with authored camera moves, a sepia
+// flashback grade, a title card, wipes, score stingers, ambience and blip voices.
+// Everything is original: script, people, props and sound. DOM-free and testable.
 
 export const ACT1_TITLE='Act 1 · Last Call';
+const H=Math.PI/2;
 
 // 3D camera shots. `minutes` is the time of day the world is lit for during the shot.
-// Shot 2 sits behind the archive panels and is barely seen; it only keeps the frame alive.
 export const ACT1_SHOTS=Object.freeze([
- {id:'evening',duration:4,minutes:17*60+20,cam:[[-62,24,98],[-47,20.5,80],[-33,18,64]],look:[[6,2,-30],[8,2,-38],[10,2,-46]],fov:[54,50],ease:'inOutSine',fadeIn:.6,fadeOut:.35},
- {id:'archive',duration:11,minutes:8*60,cam:[[6,4.5,62],[5,5,52],[4,5.5,44]],look:[[-2,4,-10],[-3,4.5,-18],[-4,5,-26]],fov:50,ease:'linear',fadeIn:.3,fadeOut:.3},
- {id:'news',duration:6,minutes:17*60+40,cam:[[8,4.2,58],[6,4.6,44],[4,5,32]],look:[[-2,4,-10],[-3,4.4,-20],[-4,4.8,-30]],fov:[50,47],ease:'inOutSine',fadeIn:.35,fadeOut:.35},
- {id:'table',duration:4.5,minutes:9*60+20,cam:[[-52.4,3.4,41.6],[-55,2.5,38.2],[-56.75,1.95,36.45]],look:[[-58.4,1,34],[-58.1,.9,34.5],[-57.8,.82,34.8]],fov:[46,38],ease:'inOutSine',fadeIn:.35,fadeOut:.3},
- {id:'payphone',duration:3,minutes:9*60+20,cam:[[-50.8,2.3,34.6],[-51.9,1.95,31.6],[-52.6,1.8,29.4]],look:[[-46.6,1.5,31.4],[-46.8,1.45,30.9],[-47,1.4,30.5]],fov:[46,50],ease:'inOutSine',fadeIn:.3}
+ {id:'evening',duration:5.2,minutes:17*60+20,cam:[[-62,24,98],[-47,20.5,80],[-33,18,64]],look:[[6,2,-30],[8,2,-38],[10,2,-46]],fov:[54,50],ease:'inOutSine',fadeIn:.6},
+ {id:'stall-wide',duration:3.4,minutes:10*60+30,cam:[[4.5,2.8,27],[2.8,2.5,24],[1.5,2.3,21.5]],look:[[-9.5,1.4,17.5],[-9.6,1.35,17.2],[-9.6,1.3,17]],fov:[46,42],ease:'inOutSine',drift:.03},
+ {id:'stall-close',duration:3.2,minutes:10*60+30,cam:[[-6.0,1.5,19.0],[-6.5,1.48,18.5]],look:[[-10.4,1.4,16.9],[-10.4,1.42,16.95]],fov:[38,33],ease:'inOutSine',drift:.02},
+ {id:'parade-wide',duration:3.6,minutes:13*60+30,cam:[[-2.6,1.35,25],[-1.8,1.55,22.5]],look:[[0,3.7,9],[0,3.4,9.5]],fov:[50,45],ease:'inOutSine',drift:.03},
+ {id:'parade-melt',duration:4.6,minutes:14*60+30,cam:[[3.4,2.15,17.6],[2.2,1.95,15.9]],look:[[-.3,2.5,10.5],[-.2,2.2,11.2]],fov:[44,37],ease:'inOutSine',drift:.035},
+ {id:'paper',duration:1.8,minutes:14*60+30,cam:[[2,4,20],[2,9,30]],look:[[0,3,8],[0,3,8]],fov:50,ease:'outCubic'},
+ {id:'squad-walk',duration:2.8,minutes:17*60+50,cam:[[-3.2,2.0,2.4],[-4.4,1.9,8.4]],look:[[-7.6,1.5,14],[-9.6,1.4,16.8]],fov:[46,42],ease:'linear',drift:.05},
+ {id:'arrest-close',duration:2.4,minutes:17*60+50,cam:[[-6.9,1.5,19.7],[-7.3,1.52,19.1]],look:[[-10.4,1.6,16.8],[-10.4,1.65,16.9]],fov:[40,34],ease:'inOutSine',drift:.03},
+ {id:'arrest-wide',duration:2.6,minutes:17*60+50,cam:[[3.2,3.2,22.5],[2.6,3.0,20.5]],look:[[-6.8,1.3,14.2],[-5.2,1.3,12.6]],fov:[48,46],ease:'inOutSine',fadeOut:.25},
+ {id:'camp',duration:3.8,minutes:9*60+20,cam:[[-34,5.5,35],[-40.5,3.0,33.5]],look:[[-40,1.3,26.8],[-49,1.3,28.4]],fov:[48,44],ease:'inOutSine',fadeIn:.35},
+ {id:'table',duration:2.6,minutes:9*60+20,cam:[[-55,2.5,38.2],[-56.75,1.95,36.45]],look:[[-58.1,.9,34.5],[-57.8,.82,34.8]],fov:[42,38],ease:'inOutSine'},
+ {id:'payphone',duration:2.6,minutes:9*60+20,cam:[[-50.8,2.3,34.6],[-52.1,1.95,30.6],[-52.6,1.76,28.5]],look:[[-46.6,1.5,31.4],[-46.8,1.45,30.9],[-47,1.4,30.5]],fov:[46,50],ease:'inOutSine'}
 ]);
 export const ACT1=createTimeline(ACT1_SHOTS);
 export const ACT1_DURATION=ACT1.duration;
@@ -24,37 +32,90 @@ export const ACT1_HANDOFF=.9;
 // v148: the skip hint shows for the first few seconds; Esc must be held this long.
 export const ACT1_SKIP_HINT=3;
 export const ACT1_SKIP_HOLD=.6;
+const FLASH=[5.2,29.6];
 
-// Timed beats. kind: sub (speaker + line), cap (title card), panel (2D archive art),
-// chyron (news strap, optionally with a people-kit portrait), sfx (one-shot sound
-// cue), props (show the campsite table set). v148 cut the dead air: ~51 s -> 28.5 s.
+// Timed beats. kind: sub (speaker + line), cap (location card), title (big title card),
+// panel (2D insert), chyron (news strap with a portrait), sfx (one-shot sound), music
+// (score stinger), amb (ambience bed), grade (sepia flashback look), wipe (transition),
+// quiet (hide today's crowds and traffic during the flashback), props (camp table set).
 export const ACT1_BEATS=Object.freeze([
- {at:.3,until:3.8,kind:'cap',title:'GUMMY BAY',line:'Act 1 · Last Call'},
- {at:.5,until:3.9,kind:'sub',who:'BAY BUGLE RADIO',text:'Good evening, Gummy Bay! Warm, breezy and, as always, sugar-free.'},
- {at:4,until:7.6,kind:'panel',panel:'float'},
- {at:7.6,until:11.2,kind:'panel',panel:'melt'},
- {at:4.1,until:7.5,kind:'sub',who:'BAY BUGLE RADIO',text:'Thirty years ago, a local candy maker built the biggest gummy bear ever.'},
- {at:7.7,until:11.1,kind:'sub',who:'BAY BUGLE RADIO',text:'Then came the heatwave. Mayor Prudence Plum was glued to her podium.'},
- {at:4,until:11.2,kind:'sfx',sfx:'film'},
- {at:11.2,until:15,kind:'panel',panel:'paper'},
- {at:11.2,until:11.8,kind:'sfx',sfx:'whoosh'},
- {at:11.3,until:14.9,kind:'sub',who:'BAY BUGLE RADIO',text:'The Sugar-Free Bay Act made unlicensed sweets contraband. Enter the Sugar Squad.'},
- {at:15.2,until:21,kind:'chyron',head:'BREAKING',text:'Local candy maker “Gramps Gus” nabbed with 3,000 gummies',portrait:'gramps'},
- {at:15.3,until:18.1,kind:'sub',who:'BAY BUGLE RADIO',text:'Breaking: Gramps Gus was caught with three thousand gummy bears.'},
- {at:18.2,until:21,kind:'sub',who:'BAY BUGLE RADIO',text:'He says they were “for personal morale”. Nobody has seen him since.'},
- {at:21,until:26,kind:'props'},
- {at:21.2,until:24,kind:'cap',title:'DRIFTWOOD CAMPSITE',line:'The next morning · 9:00 AM'},
- {at:21.2,until:24,kind:'sub',who:'',text:'He left you his camper, a recipe tin and four hundred dollars.'},
- {at:24.1,until:25.6,kind:'sub',who:'THE NOTE',text:'“Keep the lights on, kid. —G”'},
- {at:24.6,until:28.5,kind:'sfx',sfx:'ring'},
- {at:25.7,until:28.2,kind:'sub',who:'',text:'Somewhere close by, a payphone starts to ring.'}
+ {at:.3,until:4.9,kind:'title',title:'GUMMY BAY',line:'Act 1 · Last Call'},
+ {at:.6,until:5,kind:'sub',who:'BAY BUGLE RADIO',text:'Good evening, Gummy Bay! Warm, breezy and, as always, sugar-free.'},
+ {at:.2,until:.8,kind:'music',music:'title'},
+ {at:0,until:5.2,kind:'amb',amb:'town'},
+ {at:4.95,until:5.45,kind:'wipe',wipe:'in'},
+ {at:FLASH[0],until:FLASH[1],kind:'grade',grade:'sepia'},
+ {at:FLASH[0],until:FLASH[1],kind:'quiet'},
+ {at:5.2,until:5.8,kind:'music',music:'flashback'},
+ {at:5.2,until:11.8,kind:'amb',amb:'morning'},
+ {at:5.4,until:8.4,kind:'cap',title:'THIRTY YEARS AGO',line:'Main Street · Summer 1996'},
+ {at:5.4,until:8.5,kind:'sub',who:'BAY BUGLE RADIO',text:'Thirty years ago, Gramps Gus ran the sweetest candy stall in the bay.'},
+ {at:8.7,until:11.7,kind:'sub',who:'GRAMPS GUS',text:'One for you, one for you… and one for the road!'},
+ {at:11.8,until:12.4,kind:'music',music:'parade'},
+ {at:11.8,until:20,kind:'amb',amb:'crowd'},
+ {at:11.9,until:15.3,kind:'sub',who:'MAYOR PRUDENCE PLUM',text:'Welcome, one and all, to the Sweet Summer Parade!'},
+ {at:15.4,until:16,kind:'music',music:'uhoh'},
+ {at:15.5,until:18,kind:'sub',who:'BAY BUGLE RADIO',text:'Then the heatwave hit: the Great Jelly Incident.'},
+ {at:18.1,until:19.9,kind:'sub',who:'MAYOR PRUDENCE PLUM',text:'I’m stuck! This town is going SUGAR-FREE!'},
+ {at:18.2,until:18.6,kind:'sfx',sfx:'stamp'},
+ {at:20,until:21.8,kind:'panel',panel:'paper'},
+ {at:20,until:20.6,kind:'sfx',sfx:'whoosh'},
+ {at:20,until:21.8,kind:'sub',who:'BAY BUGLE RADIO',text:'Sugar-Free Bay Act: candy is contraband.'},
+ {at:21.8,until:22.4,kind:'music',music:'squad'},
+ {at:20,until:29.6,kind:'amb',amb:'town'},
+ {at:21.9,until:24.5,kind:'sub',who:'INSPECTOR HARDTACK',text:'Sugar Squad! Step away from the gummies, Gus!'},
+ {at:24.7,until:26.9,kind:'sub',who:'GRAMPS GUS',text:'They’re for personal morale!'},
+ {at:27,until:29.6,kind:'chyron',head:'BREAKING',text:'Local candy maker “Gramps Gus” nabbed with 3,000 gummies',portrait:'gramps'},
+ {at:27.1,until:29.5,kind:'sub',who:'BAY BUGLE RADIO',text:'Gramps Gus was caught with three thousand gummies.'},
+ {at:27,until:28,kind:'sfx',sfx:'siren'},
+ {at:29.35,until:29.85,kind:'wipe',wipe:'out'},
+ {at:29.6,until:38.6,kind:'props'},
+ {at:29.6,until:30.2,kind:'music',music:'tender'},
+ {at:29.6,until:38.6,kind:'amb',amb:'morning'},
+ {at:29.8,until:33.2,kind:'cap',title:'DRIFTWOOD CAMPSITE',line:'The next morning · 9:00 AM'},
+ {at:29.8,until:33.3,kind:'sub',who:'',text:'He left you his camper, a recipe tin and four hundred dollars.'},
+ {at:33.6,until:35.9,kind:'sub',who:'THE NOTE',text:'“Keep the lights on, kid. —G”'},
+ {at:35.6,until:38.6,kind:'sfx',sfx:'ring'},
+ {at:36.1,until:38.4,kind:'sub',who:'',text:'Somewhere close by, a payphone starts to ring.'}
 ]);
+
+// The cast. Paths are [t, x, z, yaw?] in world metres; yaw faces +z at 0 (people-kit).
+// acts: [from, to, gesture]; moods: [from, mood]; who: subtitle speakers they lip-sync.
+export const ACT1_CAST=Object.freeze({
+ props:[
+  {kind:'stall',x:-9.5,z:17,yaw:H,show:FLASH},
+  {kind:'podium',x:0,z:12,yaw:0,show:[11.8,20]},
+  {kind:'bear',x:0,z:7.6,yaw:0,scale:1.15,show:[11.8,20],melt:[15.6,19.2]},
+  {kind:'van',x:-3.2,z:11.2,yaw:0,show:[21.8,29.6]}
+ ],
+ actors:[
+  {id:'gramps',look:'gramps',who:['GRAMPS'],show:[[5.2,11.8],[21.8,29.6]],
+   path:[[5.2,-10.4,17,H],[27.2,-10.4,17,H],[27.9,-10.4,15.0],[28.6,-8.0,13.7],[29.6,-5.2,12.6]],
+   acts:[[5.5,8.3,'wave'],[9.1,11.4,'give'],[24.3,27.2,'handsUp'],[27.2,29.6,'cuffed']],moods:[[5.2,'cheery'],[22,'wide'],[24.3,'worried']]},
+  {id:'kid1',look:'kid:12',show:[5.2,11.8],path:[[5.2,-7.6,9.5],[7.6,-8.1,16.1,-H]],acts:[[10.1,11.8,'cheer']],mood:'cheery',moods:[[5.2,'friendly'],[9.8,'cheery']]},
+  {id:'kid2',look:'kid:31',who:['KID'],show:[5.2,11.8],path:[[5.2,-6.0,24.5],[7.9,-8.0,17.9,-H]],acts:[[10.5,11.8,'cheer']],mood:'cheery'},
+  {id:'passer',look:'folk:44',show:[5.2,11.8],path:[[5.2,-6.4,27.5],[11.8,-6.6,4]]},
+  {id:'mayor',look:'mayor prudence',who:['MAYOR','PLUM'],show:[11.8,20],y:.4,path:[[11.8,0,11.9,0]],
+   acts:[[12.1,14.9,'wave'],[16.3,18.0,'stuck'],[18.1,19.9,'bang']],moods:[[11.8,'cheery'],[15.7,'worried'],[16.6,'wide'],[18.1,'stern']]},
+  ...[[-2.8,18.2,3],[-1.1,19.1,8],[.9,18.5,15],[2.7,19.4,22],[-.2,20.4,27]].map(([x,z,n],i)=>({id:'crowd'+i,look:(i===2?'kid:':'folk:')+n,show:[11.8,20],path:[[11.8,x,z,Math.PI+x*.05]],
+   acts:[[12+i*.15,15+i*.1,i%2?'clap':'cheer'],[16.6+i*.2,19.8,i%2?'handsUp':'shrug']],moods:[[11.8,'cheery'],[16.4,'wide']]})),
+  {id:'hank',look:'hank hardtack',who:['HARDTACK'],show:[21.8,29.6],path:[[21.8,-5.0,4.6],[24.0,-7.5,14.4],[24.5,-7.7,15.3,-1.04],[27.3,-7.7,15.3],[29.6,-4.3,11.4]],
+   acts:[[22.2,24.5,'point'],[24.5,27.0,'hold']],mood:'stern'},
+  {id:'officer1',look:'police:5',show:[21.8,29.6],path:[[21.8,-3.6,3.6],[24.3,-8.4,14.0],[24.8,-8.6,14.3,-.6],[27.3,-8.6,14.3],[29.6,-5.9,11.6]],mood:'stern',acts:[[25,27,'fold']]},
+  {id:'officer2',look:'police:9',show:[21.8,29.6],path:[[21.8,-6.4,5.2],[24.6,-8.2,20.4],[25.1,-8.4,20.6,-2.1],[27.6,-8.4,20.6],[29.6,-7.0,15.0]],mood:'grumpy'},
+  {id:'onlooker',look:'folk:23',show:[22.5,29.6],path:[[22.5,-6.2,24.5,-2.6]],acts:[[25,29.4,'handsUp']],mood:'wide'},
+  {id:'player',look:'player',show:[29.6,33.4],path:[[29.6,-41,26.2],[33.4,-50.2,28.4]],mood:'friendly'}
+ ]
+});
 
 export function act1At(seconds){
  const t=Math.max(0,Math.min(ACT1_DURATION,Number.isFinite(seconds)?seconds:0));
  const at=ACT1.at(t),beats=ACT1_BEATS.filter(b=>t>=b.at&&t<b.until),pick=k=>beats.filter(b=>b.kind===k).pop()||null;
+ const wipe=pick('wipe'),title=pick('title');
  return {...at,time:t,done:Number.isFinite(seconds)&&seconds>=ACT1_DURATION,minutes:at.shot.minutes,
-  sub:pick('sub'),cap:pick('cap'),skipHint:t<ACT1_SKIP_HINT,panel:pick('panel'),chyron:pick('chyron'),props:!!pick('props'),sfx:beats.filter(b=>b.kind==='sfx').map(b=>b.sfx),
+  sub:pick('sub'),cap:pick('cap'),title,titleIn:title?Math.min(1,(t-title.at)/.6,(title.until-t)/.5):0,skipHint:t<ACT1_SKIP_HINT,panel:pick('panel'),chyron:pick('chyron'),props:!!pick('props'),
+  sfx:beats.filter(b=>b.kind==='sfx').map(b=>b.sfx),music:beats.filter(b=>b.kind==='music').map(b=>b.music),amb:pick('amb')?.amb||'',
+  grade:pick('grade')?.grade||'',quiet:!!pick('quiet'),wipe:wipe?{dir:wipe.wipe,p:(t-wipe.at)/(wipe.until-wipe.at)}:null,
   handoff:Math.max(0,Math.min(1,(t-(ACT1_DURATION-ACT1_HANDOFF))/ACT1_HANDOFF))};
 }
 
