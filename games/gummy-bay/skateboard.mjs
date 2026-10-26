@@ -360,6 +360,10 @@ export function createSkateAudio(ctx,dest){
 // ---------- Kickflip Container shop model ----------
 export function createKickflipContainer(scene,site=KICKFLIP_SITE){
  const g=new THREE.Group();g.name='Kickflip Container';g.position.set(site.x,0,site.z);scene.add(g);
+ // Static shell/yard/skate spot fold into the town batches (userData.batchStatic); the
+ // deck rack and stickers are small detail kept as real models, shown only up close.
+ g.userData.batchStatic=true;
+ const near=new THREE.Group();near.name='Kickflip rack detail';const lod=new THREE.LOD();lod.name='Kickflip rack LOD';lod.userData.noBatch=true;lod.addLevel(near,0);lod.addLevel(new THREE.Object3D(),32);g.add(lod);
  const W=site.w,D=site.d,H=site.h;
  const paint=new THREE.MeshStandardMaterial({color:0xffffff,map:corrugated('#2f7a74'),roughness:.72,metalness:.25});if(!paint.map)paint.color.setHex(0x2f7a74);
  const paintEnd=new THREE.MeshStandardMaterial({color:0xffffff,map:corrugated('#2a6e68'),roughness:.75,metalness:.25});if(!paintEnd.map)paintEnd.color.setHex(0x2a6e68);
@@ -383,9 +387,9 @@ export function createKickflipContainer(scene,site=KICKFLIP_SITE){
  const counter=add(new THREE.BoxGeometry(3.2,.95,.55),ply,0,.62,D/2+.3);
  add(new THREE.BoxGeometry(3.3,.05,.65),new THREE.MeshStandardMaterial({color:0x3b3f44,roughness:.4,metalness:.5}),0,1.12,D/2+.3);
  const stickers=[['SKATE','#f3c241','#141619'],['GUMMY','#ff5a7a','#fff'],['KICK PUSH','#7ff0d9','#141619'],['OLLIE!','#ffffff','#2f5f9a'],['BAY 4 LIFE','#e2534b','#fff']];
- stickers.forEach(([t,bg,fg],i)=>{const tex=stickerTex(t,bg,fg);const m=new THREE.Mesh(new THREE.PlaneGeometry(.34,.17),new THREE.MeshStandardMaterial({color:0xffffff,map:tex,roughness:.6,transparent:true}));if(!tex)m.material.color.set(bg);m.position.set(-1.25+i*.62,.42+(i%2)*.28,D/2+.577);m.rotation.z=(i%2?.12:-.1);g.add(m);});
+ stickers.forEach(([t,bg,fg],i)=>{const tex=stickerTex(t,bg,fg);const m=new THREE.Mesh(new THREE.PlaneGeometry(.34,.17),new THREE.MeshStandardMaterial({color:0xffffff,map:tex,roughness:.6,transparent:true}));if(!tex)m.material.color.set(bg);m.position.set(-1.25+i*.62,.42+(i%2)*.28,D/2+.577);m.rotation.z=(i%2?.12:-.1);near.add(m);});
  // Back wall rack with every deck for sale, and a lamp strip.
- BOARDS.forEach((b,i)=>{const deck=createBoardModel(b,{shadow:false});deck.rotation.set(-Math.PI/2+.1,0,0);deck.position.set(-1.75+i*.7,1.15,-D/2+.16);g.add(deck);
+ BOARDS.forEach((b,i)=>{const deck=createBoardModel(b,{shadow:false});deck.rotation.set(-Math.PI/2+.1,0,0);deck.position.set(-1.75+i*.7,1.15,-D/2+.16);near.add(deck);
   const hook=add(new THREE.BoxGeometry(.04,.04,.12),frame,-1.75+i*.7,1.98,-D/2+.1);void hook;});
  const lampMat=new THREE.MeshStandardMaterial({color:0xfff2cf,emissive:0xffd890,emissiveIntensity:1.6});
  add(new THREE.BoxGeometry(W-1.4,.04,.08),lampMat,0,H-.22,-.2);
