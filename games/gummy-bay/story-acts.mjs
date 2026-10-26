@@ -141,7 +141,7 @@ const HP=Math.PI/2;
 export const CUTS=Object.freeze({
  act2:{title:'Act 2 · Sweet Heat',anchor:'pier',shots:[
    {duration:7,cam:[[-26,9,-16],[-18,6,-10],[-11,4,-6]],look:[[0,1.5,6],[1,1.5,6],[2,1.4,6]],fov:[52,46],ease:'inOutSine',fadeIn:1,fadeOut:.3},
-   {duration:8,cam:[[-1.6,1.8,2.2],[-1.3,1.74,2.9]],look:[[.8,1.5,6.2],[.8,1.52,6.2]],fov:[40,34],ease:'inOutSine',fadeIn:.3,fadeOut:.3,drift:.025},
+   {duration:8,cam:[[-3.6,1.95,3.0],[-3.1,1.88,3.6]],look:[[.6,1.45,6.2],[.6,1.48,6.2]],fov:[40,35],ease:'inOutSine',fadeIn:.3,fadeOut:.3,drift:.025},
    {duration:4.5,anchor:'kickflip',cam:[[6.8,2.4,11],[4.4,2.0,9.2]],look:[[.6,1.4,5],[.7,1.45,5.2]],fov:[46,42],ease:'inOutSine',fadeIn:.3,drift:.03},
    {duration:4.5,anchor:'kickflip',cam:[[2.7,1.62,7.6],[2.3,1.6,7.1]],look:[[.8,1.55,5.0],[.8,1.56,5.1]],fov:[36,31],ease:'inOutSine',fadeOut:.3,drift:.02},
    {duration:6,anchor:'strip',cam:[[-7.5,2.2,.4],[1,2,1]],look:[[-5,1.4,6],[3.5,1.4,6]],fov:[46,44],ease:'linear',fadeIn:.3,fadeOut:.8,drift:.04}],
@@ -177,7 +177,7 @@ export const CUTS=Object.freeze({
     {id:'officer1',look:'police:4',anchor:'strip',show:[24,30],path:[[24,-11,5.5,HP],[30,1,5.5,HP]],mood:'stern'},
     {id:'officer2',look:'police:11',anchor:'strip',show:[24,30],path:[[24,-11.6,6.9,HP],[30,.4,6.9,HP]],mood:'grumpy'}]}},
  raid:{title:'Raid!',anchor:'home',shots:[
-   {duration:3.2,cam:[[-15,4.6,-20],[-12,3.8,-17],[-10,3.2,-14]],look:[[-2,1.3,-7],[0,1.3,-4],[0,1.3,-1]],fov:[50,44],ease:'outCubic',fadeIn:.3},
+   {duration:3.2,cam:[[-1.6,1.5,-15.5],[-1.2,1.7,-13.2],[-.8,1.9,-11]],look:[[-5.5,1.2,-8],[-3,1.3,-5],[-.6,1.4,-2]],fov:[50,46],ease:'outCubic',fadeIn:.3,drift:.05},
    {duration:2.6,cam:[[2.5,1.7,-.9],[2.1,1.65,-1.1]],look:[[-.3,1.5,-2.8],[-.3,1.5,-2.2]],fov:[46,40],ease:'inOutSine',door:true,drift:.04},
    {duration:2.4,cam:[[0,6.4,-15],[0,6,-14],[0,5.6,-13]],look:[[0,1.3,0],[0,1.3,0],[0,1.3,0]],fov:[46,42],ease:'linear',fadeOut:.3,door:true}],
   beats:[

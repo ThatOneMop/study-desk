@@ -2246,7 +2246,7 @@ function cineFxCast(cast,t,sub){
  try{st.update({actors:castAt(cast,t,sub),props:propsAt(cast,t),floor:(x,z)=>{try{return floorHeight(x,z);}catch(e){return terrainHeight(x,z);}}});}catch(e){console.warn('cutscene stage frame skipped',e);}
 }
 function cineFxEnd(fx){try{fx?.audio?.stop();}catch(e){}cineStage?.hide?.();cineQuiet=false;cineNamedOff=false;}
-const CINE_QUIET=/^(Street crowd|Chunky cast|Sugar Squad|Traffic|Town traffic|Ambient traffic|Resident|Kickflip|Skate)/i;
+const CINE_QUIET=/^(Street crowd|Chunky cast|Sugar Squad|Kickflip Container keeper|Traffic|Town traffic|Ambient traffic|Skate rider|NPC gummy effects)/i;
 {const cineQuietRender=renderFrame;renderFrame=function(){
  if(!cineQuiet){cineQuietRender();return;}
  const hidden=[];for(const o of scene.children)if(o.visible&&CINE_QUIET.test(o.name||'')){o.visible=false;hidden.push(o);}
@@ -2255,7 +2255,7 @@ const CINE_QUIET=/^(Street crowd|Chunky cast|Sugar Squad|Traffic|Town traffic|Am
 // Draw calls for one cutscene frame (perf checks): renders once and reads renderer.info.
 function cineDrawCalls(){const info=renderer.info,auto=info.autoReset;info.autoReset=false;info.reset();try{renderFrame();return {calls:info.render.calls,triangles:info.render.triangles};}finally{info.autoReset=auto;}}
 
-// v133 Act 1 intro, "Last Call". A new story save opens on a short (v148: 28.5 s)
+// v133 Act 1 intro, "Last Call". A new story save opens on a short (v149: 38.6 s, acted in-engine)
 // cutscene: the radio explains the Great Jelly Incident and the Sugar-Free Bay
 // Act, then the camera settles into the player's eyes beside the ringing
 // payphone. It uses the same finishArrival() path as the old cards, so saves

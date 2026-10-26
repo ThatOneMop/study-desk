@@ -208,7 +208,7 @@ function stall(){
  for(let i=0;i<7;i++)parts.push(B([-1.29+i*.43,2.12,.12],[.43,.06,1.45],i%2?0xf6efe0:0xe8555d,'s',{rx:-.32}));
  parts.push(B([0,2.32,-.45],[2.2,.42,.06],0xf6efe0),B([0,2.32,-.42],[2.0,.3,.04],0xe8555d));
  const jar=[0xff5a7a,0xffd24a,0x6ff0c8,0x8fb4ff,0xffa04a,0xd78bff];
- jar.forEach((c,i)=>{parts.push(B([-1.0+i*.4,1.17,.16],[.24,.26,.24],c,'r'));});
+ jar.forEach((c,i)=>{parts.push(B([-1.0+i*.4,1.13,.3],[.2,.18,.2],c,'r'));});
  parts.push(B([.95,1.1,-.25],[.36,.1,.28],0xe8414f,'r'),B([-.9,1.1,-.25],[.3,.12,.3],0x6ff0c8,'r'));
  return parts;
 }
