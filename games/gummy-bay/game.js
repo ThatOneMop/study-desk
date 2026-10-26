@@ -43,7 +43,7 @@ import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,creat
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=76';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
 import {createFixedStepper} from './sim-clock.mjs?v=122';
-import {readQaFlag,qaStorageKey,createDayDirector} from './qa-harness.mjs?v=124';
+import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=124';
 import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from './staff-status.mjs?v=123';
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=123';
 import {customerBrief,customerReply,readCustomerReceipt,sampleChoices,customerVoice} from './customer-context.mjs?v=30';
@@ -2506,10 +2506,12 @@ if(qaKey){
   if(intent.skipWork&&work)work.start=performance.now()-work.seconds*1000-30;
   if(intent.action)action(...intent.action);
   if(intent.press==='h')complyPolice();
-  if(!ensurePolice().search){const hold=intent.hold||{};keys.w=!!hold.w;keys.a=!!hold.a;keys.s=!!hold.s;keys.d=!!hold.d;keys.shift=!!hold.shift;keys.arrowleft=!!hold.arrowleft;keys.arrowright=!!hold.arrowright;}
+  const applyHold=hold=>{if(ensurePolice().search)return;keys.w=!!hold.w;keys.a=!!hold.a;keys.s=!!hold.s;keys.d=!!hold.d;keys.shift=!!hold.shift;keys.arrowleft=!!hold.arrowleft;keys.arrowright=!!hold.arrowright;};
+  applyHold(intent.hold||{});
   let left=Math.max(0,Math.min(8,intent.fast||0));
   while(left>1e-6){
    const dt=Math.min(1/60,left);left-=dt;now+=dt;
+   if(intent.aim&&!stationTask&&!work&&!panel){const steered=steerHold({yaw,x:player.x,z:player.z,tx:intent.aim.x,tz:intent.aim.z,stuck:intent.aim.stuck,arrive:intent.aim.arrive});if(steered.arrived){applyHold({});break;}applyHold(steered.hold);}
    if(stationTask){const step=MANUAL[stationTask.k]?.[stationTask.step];if(step?.[1]==='tap')stationControl(true);else stationAssist=true;updateStationInput(dt);}
    else if(!work)update(dt);
   }

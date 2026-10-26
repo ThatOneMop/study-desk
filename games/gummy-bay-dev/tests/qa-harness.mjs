@@ -35,11 +35,11 @@ const spawn={...world({x:-58,z:26.7,yaw:-Math.PI/2,called:0,room:false,tents:0,i
 const first=camper.intent(spawn);
 const second=camper.intent(spawn);
 assert.equal(first.phase,'exit');
-assert.equal(first.hold.w,true);
+assert.ok(first.aim.x>spawn.x);
 assert.equal(first.press,null);
 assert.equal(first.awaitCurfew,false);
 assert.ok(first.fast>0&&first.fast<4);
-assert.equal(second.hold.w,true,'a 1 FPS step keeps the exit key held');
+assert.ok(second.aim.x>spawn.x,'a 1 FPS step keeps aiming out the camper door');
 
 const rich=createDayDirector();
 const hireSnap=world({level:3,cash:700,xp:60,sold:12,harvested:12,policeReport:true,reach:true});

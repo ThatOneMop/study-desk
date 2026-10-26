@@ -35,7 +35,7 @@ export function steerHold({yaw,x,z,tx,tz,stuck=0,arrive=1.15}){
 }
 
 const NODES={
- rv:[-50,27],phone:[-47,30.2],lane:[-8,28],courtOut:[-25,28],courtIn:[-25,22.5],
+ rv:[-50,27],around:[-51.5,32.2],phone:[-44,32],lane:[-8,28],courtOut:[-25,28],courtIn:[-25,22.5],
  roadW:[-8,0],roadM:[10,0],roadE:[30,0],roomE:[-8,52],roomOut:[-25,52],roomIn:[-25,44],
  roomMid:[-22,40],tent:[-31,36.8],sink:[-18,37.2],craft:[-18,45],
  hwOut:[-24,-12.2],hwIn:[-24,-17.6],southRun:[10,36],miloOut:[25,33.5],miloIn:[25,27],
@@ -43,7 +43,7 @@ const NODES={
  cop:[6,4],jules:[-7,22]
 };
 const LINKS=[
- ['rv','phone'],['rv','lane'],['phone','lane'],['lane','courtOut'],['courtOut','courtIn'],
+ ['rv','around'],['around','phone'],['phone','courtOut'],['lane','courtOut'],['courtOut','courtIn'],
  ['lane','roadW'],['lane','roomE'],['lane','jules'],['roomE','roomOut'],['roomOut','roomIn'],
  ['roomIn','roomMid'],['roomIn','craft'],['roomMid','tent'],['roomMid','sink'],['sink','craft'],
  ['roadW','roadM'],['roadM','roadE'],['roadW','hwOut'],['hwOut','hwIn'],['roadW','helpOut'],
@@ -52,11 +52,6 @@ const LINKS=[
 ];
 const PLACE_NODE={payphone:'phone',reception:'courtIn',hardware:'hwIn',dealer:'miloIn',store:'storeIn',helpers:'helpIn',tent:'tent',sink:'sink',craft:'craft',cop:'cop',jules:'jules'};
 
-function nearestNode(x,z){
- let best='rv',score=Infinity;
- for(const [id,p] of Object.entries(NODES)){const d=Math.hypot(x-p[0],z-p[1]);if(d<score){score=d;best=id;}}
- return best;
-}
 function routeNodes(from,to){
  if(from===to)return [to];
  const next=new Map(LINKS.flatMap(([a,b])=>[[a,[]],[b,[]]]));
@@ -72,10 +67,24 @@ function routeNodes(from,to){
 function routePoints(x,z,place){
  const goal=PLACE_NODE[place];
  if(!goal)return [];
- const path=routeNodes(nearestNode(x,z),goal).map(id=>NODES[id]);
+ let best=null,bestScore=Infinity;
+ for(const start of Object.keys(NODES)){
+  const ids=routeNodes(start,goal);
+  let score=Math.hypot(x-NODES[start][0],z-NODES[start][1]);
+  for(let i=1;i<ids.length;i++)score+=Math.hypot(NODES[ids[i]][0]-NODES[ids[i-1]][0],NODES[ids[i]][1]-NODES[ids[i-1]][1]);
+  if(score<bestScore){bestScore=score;best=ids;}
+ }
+ const path=(best||[goal]).map(id=>NODES[id]);
  let i=0;
  while(i<path.length-1&&Math.hypot(x-path[i][0],z-path[i][1])<2.2)i++;
+ if(i<path.length-1&&Math.hypot(x-path[i+1][0],z-path[i+1][1])+1<Math.hypot(x-path[i][0],z-path[i][1]))i++;
  return path.slice(i);
+}
+// The payphone booth blocks the straight line east of the camper door.
+function campsiteDetour(x,z){
+ if(x<-46&&z>20&&z<30.6)return [-51.5,32.2];
+ if(x<-46&&z>=30.6&&z<33.4)return [-44,32];
+ return null;
 }
 
 const round=n=>Number.isFinite(n)?Math.round(n*10)/10:n;
@@ -157,7 +166,9 @@ export function createDayDirector(){
  }
  function walk(goalNow,snap){
   let points;
-  if(goalNow.id==='police'){
+  const detour=goalNow.id==='exit'?null:campsiteDetour(snap.x,snap.z);
+  if(detour)points=[detour];
+  else if(goalNow.id==='police'){
    const cop=(snap.officers||[]).reduce((best,c)=>!c?best:!best||Math.hypot(snap.x-c.x,snap.z-c.z)<Math.hypot(snap.x-best.x,snap.z-best.z)?c:best,null);
    points=cop&&Math.hypot(snap.x-cop.x,snap.z-cop.z)<28?[[cop.x,cop.z]]:routePoints(snap.x,snap.z,'cop');
   }else if(goalNow.place==='customer'){
@@ -171,13 +182,13 @@ export function createDayDirector(){
   const arrive=goalNow.id==='police'&&last?3.2:1.15;
   let aimX=tx,aimZ=tz;
   if(stuck>2.4){const side=(Math.floor(stuck)%2?1:-1)*2.4;aimX+=side;aimZ+=side*.35;}
-  const steered=steerHold({yaw:snap.yaw,x:snap.x,z:snap.z,tx:aimX,tz:aimZ,stuck,arrive});
-  if(steered.arrived&&last)return {hold:{},fast:goalNow.id==='police'?2:.35,note:goalNow.id+' waiting'};
-  return {hold:steered.hold,fast:1,note:goalNow.id};
+  if(Math.hypot(snap.x-aimX,snap.z-aimZ)<=arrive&&last)return {hold:{},fast:goalNow.id==='police'?2:.35,note:goalNow.id};
+  return {aim:{x:aimX,z:aimZ,arrive,stuck},fast:.7,note:goalNow.id};
  }
  function intent(snap){
   const goalNow=goal(snap);
   phase=goalNow.id;
+  note(snap,goalNow.id);
   if(goalNow.id==='curfew'&&snap.curfew)flags.curfewHold+=snap.step||0;
   const base={hold:{},press:null,action:null,close:false,ripe:false,skipWork:false,fast:0,awaitCurfew:false,done:false,phase:goalNow.id};
   if(goalNow.id==='boot')return {...base,note:'boot'};
@@ -186,7 +197,7 @@ export function createDayDirector(){
   if(goalNow.id==='station')return {...base,fast:2.5,note:'station '+ (snap.stationKind||'')};
   if(goalNow.id==='work')return {...base,skipWork:true,fast:.05,note:'work'};
   if(goalNow.id==='grow')return {...base,ripe:true,fast:.35,note:'grow'};
-  if(goalNow.id==='exit'){trackStuck('exit',snap);return {...base,hold:camperExitHold(snap.yaw),fast:.8,note:'exit camper'};}
+  if(goalNow.id==='exit'){trackStuck('exit',snap);const z=Math.min(27.7,Math.max(26.1,snap.z));return {...base,aim:{x:-50,z,arrive:.35,stuck:0},fast:.5,note:'exit camper'};}
   if(goalNow.id==='curfew'){
    if(!snap.curfew||flags.curfewHold<36)return {...base,fast:snap.curfew?4:6,awaitCurfew:true,note:snap.curfew?'curfew holding':'wait for 22:00'};
    note(snap,'day complete',{residents:snap.residents||[]});
