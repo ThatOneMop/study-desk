@@ -4,7 +4,7 @@ import concurrent.futures, json, subprocess, time, sys
 ROOT=Path(__file__).resolve().parent.parent
 FILES=sorted(f for f in (ROOT/'tests').iterdir() if f.suffix in ('.mjs','.cjs') and f.name!='scene-resources.mjs')
 def check(f):
-    command=['node']+(['--experimental-vm-modules'] if f.name=='module-link.cjs' else [])+[str(f.relative_to(ROOT))]
+    command=['node']+(['--experimental-vm-modules'] if f.name=='module-link.cjs' else [])+(['--experimental-websocket'] if f.name.startswith('audio-boot') else [])+[str(f.relative_to(ROOT))]
     start=time.monotonic()
     try:
         p=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=180)
