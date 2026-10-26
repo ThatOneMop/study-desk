@@ -1,0 +1,24 @@
+/* v143 playtest pass: readability and HUD placement fixes found in the 2-day playtest. */
+/* Story line stays readable over bright sky. */
+body #objective{text-shadow:0 1px 2px rgba(0,0,0,.85),0 0 10px rgba(0,0,0,.45)!important}
+/* The driving readout sat in the middle of the windscreen; dock it bottom-left, compact. */
+body #drivingHUD{left:18px!important;right:auto!important;bottom:96px!important;top:auto!important;transform:none!important;width:auto!important;max-width:min(360px,calc(100vw - 36px))!important;text-align:left!important;padding:8px 12px!important;font-size:11px!important;line-height:1.5!important;opacity:.94}
+/* Touch: jump + run buttons so phones can do what a keyboard can. */
+.touchAct{display:none;position:absolute;right:14px;bottom:128px;gap:8px;z-index:4}
+.touchAct button{width:58px;height:58px;border-radius:50%;background:rgba(16,20,24,.5);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:11px;font-weight:800;touch-action:none;letter-spacing:.5px}
+.touchAct button.on{background:rgba(244,196,107,.55)}
+@media(pointer:coarse){.touchAct{display:flex}}
+body.titleMode .touchAct,body[data-panel]:not([data-panel=""]) .touchAct{display:none!important}
+@media(max-width:800px){body #drivingHUD{left:12px!important;bottom:auto!important;top:150px!important;max-width:calc(100vw - 24px)!important;font-size:10px!important}}
+/* Phone layout (390-wide): one column, nothing stacked on anything else. */
+@media(max-width:800px){
+ body #compass{top:94px!important}
+ body #wantedBanner{top:94px!important}
+ body #policeHUD{top:140px!important;bottom:auto!important}
+ body:has(#policeHUD:not([hidden])) #notifs{top:282px!important}
+ body #notifs>:nth-child(n+3){display:none!important}
+ body .controls{bottom:96px!important}
+ body .touch{bottom:160px!important}
+ body #drivingHUD{left:auto!important;right:12px!important;top:auto!important;bottom:96px!important;max-width:calc(100vw - 184px)!important}
+ body:has(#drivingHUD:not([hidden])) .touchAct{display:none!important}
+}
