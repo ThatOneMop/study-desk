@@ -11,11 +11,13 @@ const int=(n,a,b)=>Number.isInteger(n)&&n>=a&&n<=b;
 const create=()=>({v:1,level:0,moves:[],records:[null,null,null]});
 const initial=level=>({heat:0,fuel:LOADS[level].fuel,pots:LOADS[level].pots.map(()=>({temp:0,soak:0,drawn:false})),phase:'firing',reason:''});
 function actionOK(a,n){return a==='stoke'||a==='bank'||a==='vent'||(typeof a==='string'&&/^draw[0-2]$/.test(a)&&Number(a[4])<n)}
-function step(level,b,a){
- const l=LOADS[level];if(!l||b.phase!=='firing'||!actionOK(a,l.pots.length)||a==='stoke'&&b.fuel===0)return null;
- const n=clone(b);if(a.startsWith('draw')){const i=Number(a[4]);if(n.pots[i].drawn||n.pots[i].soak<l.pots[i].need)return null;n.pots[i].drawn=true}
+function step(level,b,input){
+ let a=input,shield=null;const l=LOADS[level];
+ if(input&&typeof input==='object'){if(Object.keys(input).sort().join(',')!=='action,shield'||!int(input.shield,0,(l?.pots.length??0)-1)||b.shieldUsed||b.pots[input.shield].drawn||input.action==='draw'+input.shield)return null;a=input.action;shield=input.shield}
+ if(!l||b.phase!=='firing'||!actionOK(a,l.pots.length)||a==='stoke'&&b.fuel===0)return null;
+ const n=clone(b);if(shield!==null)n.shieldUsed=true;if(a.startsWith('draw')){const i=Number(a[4]);if(n.pots[i].drawn||n.pots[i].soak<l.pots[i].need)return null;n.pots[i].drawn=true}
  n.heat=Math.max(0,Math.min(12,n.heat+(a==='stoke'?3:a==='vent'?-3:-1)));if(a==='stoke')n.fuel--;
- n.pots.forEach((p,i)=>{if(p.drawn)return;const d=l.pots[i];p.temp+=Math.sign(n.heat-p.temp)*Math.min(d.rate,Math.abs(n.heat-p.temp));if(p.temp>d.high){n.phase='lost';n.reason=d.name+' overheated at '+p.temp+' (limit '+d.high+').'}else if(p.temp>=d.low)p.soak=Math.min(d.need,p.soak+1)});
+ n.pots.forEach((p,i)=>{if(p.drawn)return;const d=l.pots[i];if(i!==shield)p.temp+=Math.sign(n.heat-p.temp)*Math.min(d.rate,Math.abs(n.heat-p.temp));if(p.temp>d.high){n.phase='lost';n.reason=d.name+' overheated at '+p.temp+' (limit '+d.high+').'}else if(p.temp>=d.low)p.soak=Math.min(d.need,p.soak+1)});
  if(n.phase==='firing'&&n.pots.every(p=>p.drawn)){n.phase='won';n.reason='Every piece drawn safely.'}
  if(n.phase==='firing'&&n.fuel===0&&n.heat===0&&n.pots.every(p=>p.drawn||p.temp===0)&&n.pots.some((p,i)=>!p.drawn&&p.soak<l.pots[i].need)){n.phase='lost';n.reason='The fire is cold and no fuel remains for the unfinished clay.'}
  return JSON.stringify(n)===JSON.stringify(b)?null:n;
