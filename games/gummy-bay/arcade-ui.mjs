@@ -20,7 +20,7 @@ const CSS=`#arcadeRoot{position:fixed;inset:0;z-index:2000;background:#0b0418;co
 #arcadePanel[hidden],#arcadeRoot[hidden]{display:none!important}
 #arcadePanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;background:rgba(8,2,18,.55)}
 .arcCard{background:linear-gradient(#24104a,#160a2c);border:3px solid #ff5fb8;border-radius:20px;padding:20px 24px;max-width:min(560px,92vw);max-height:84vh;overflow:auto;box-shadow:0 0 30px rgba(255,95,184,.45);text-align:center}
-.arcCard.wide{max-width:min(900px,94vw)}.arcCard h2{margin:0 0 6px;font-size:26px;color:#ff9be0;text-shadow:0 0 12px #ff5fb8}.arcCard p{margin:6px 0 12px}.arcCard .dim{opacity:.7}
+.arcCard.wide{max-width:none;width:min(900px,94vw);box-sizing:border-box}.arcCard h2{margin:0 0 6px;font-size:26px;color:#ff9be0;text-shadow:0 0 12px #ff5fb8}.arcCard p{margin:6px 0 12px}.arcCard .dim{opacity:.7}
 .arcRow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}.arcPay{margin:6px 0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .arcGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px;margin:10px 0 14px;text-align:left}
 .arcPrize{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:8px}
@@ -28,9 +28,6 @@ const CSS=`#arcadeRoot{position:fixed;inset:0;z-index:2000;background:#0b0418;co
 .arcSw{display:flex;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;font-style:normal;font-size:24px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.25)}.arcSw.snack{background:#43e8ff}
 .arcPo{display:flex;width:40px;height:52px;border-radius:4px;align-items:center;justify-content:center;font:900 8px system-ui;font-style:normal;text-align:center;border:2px solid currentColor}
 .arcOwned{color:#7dff6a;font-weight:800;font-size:13px}.arcBig{font:900 56px system-ui;color:#ffe066;text-shadow:0 0 20px #ffd23f}.arcRec{color:#7dff6a;font-weight:800}
-#arcadeSpew{position:absolute;left:50%;bottom:0;width:0;height:0;z-index:4;pointer-events:none}
-.arcTicket{position:absolute;left:-36px;bottom:-30px;width:72px;height:28px;background:repeating-linear-gradient(90deg,#ff9f43 0 66px,#e07a1f 66px 72px);border-radius:3px;color:#5a2a00;font:900 11px system-ui;font-style:normal;display:flex;align-items:center;justify-content:center;letter-spacing:1px;box-shadow:0 2px 6px rgba(0,0,0,.4);animation:arcSpew 1.4s cubic-bezier(.2,.7,.3,1) forwards}
-@keyframes arcSpew{0%{transform:translate(0,0) rotate(0)}45%{transform:translate(calc(var(--dx)*.6),-62vh) rotate(var(--rot))}100%{transform:translate(var(--dx),-30vh) rotate(calc(var(--rot)*3));opacity:0}}
 #arcadeTouch{position:absolute;bottom:14px;left:0;right:0;display:none;justify-content:center;gap:24px;z-index:2}
 #arcadeTouch button{width:68px;height:68px;border-radius:50%;border:3px solid #43e8ff;background:rgba(20,8,40,.75);color:#fff;font-size:24px;box-shadow:0 0 14px rgba(67,232,255,.5)}
 @media (pointer:coarse){#arcadeRoot.playing #arcadeTouch{display:flex}}`;
@@ -52,14 +49,14 @@ function rrect(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,
 function neonRect(g,x,y,w,h,r,color,width=3){g.save();g.shadowColor=color;g.shadowBlur=16;g.strokeStyle=color;g.lineWidth=width;rrect(g,x,y,w,h,r);g.stroke();g.restore();}
 
 export function createArcadeUI(host){
- let root=null,canvas=null,g=null,hud=null,panel=null,spewLayer=null,open=false,raf=0,lastT=0,clock=0;
+ let root=null,canvas=null,g=null,hud=null,panel=null,open=false,raf=0,lastT=0,clock=0;
  let view='lobby',sel=1,game=null,session=null,result=null,shake=0,particles=[],floaters=[],input=null,keysDown={},pointer={x:null,y:null,down:false},vp={x:0,y:0,w:1,h:1},spewing=0,hint=0;
  const st=()=>{const s=host.state();normalizeArcade(s);return s;};
  const sound=k=>{try{const a=host.audio?.();playArcadeCue(a?.ctx,k,a?.enabled!==false);}catch{}};
  function build(){injectCSS();
   root=document.createElement('div');root.id='arcadeRoot';root.hidden=true;root.setAttribute('role','application');root.setAttribute('aria-label','Lucky Pier Arcade');
-  root.innerHTML='<canvas id="arcadeCanvas"></canvas><div id="arcadeHUD"></div><div id="arcadeSpew" aria-hidden="true"></div><div id="arcadePanel" hidden></div><div id="arcadeTouch"><button data-a="left" aria-label="Left">◀</button><button data-a="act" aria-label="Action">●</button><button data-a="right" aria-label="Right">▶</button></div>';
-  document.body.appendChild(root);canvas=root.querySelector('canvas');g=canvas.getContext('2d');hud=root.querySelector('#arcadeHUD');panel=root.querySelector('#arcadePanel');spewLayer=root.querySelector('#arcadeSpew');
+  root.innerHTML='<canvas id="arcadeCanvas"></canvas><div id="arcadeHUD"></div><div id="arcadePanel" hidden></div><div id="arcadeTouch"><button data-a="left" aria-label="Left">◀</button><button data-a="act" aria-label="Action">●</button><button data-a="right" aria-label="Right">▶</button></div>';
+  document.body.appendChild(root);canvas=root.querySelector('canvas');g=canvas.getContext('2d');hud=root.querySelector('#arcadeHUD');panel=root.querySelector('#arcadePanel');
   canvas.addEventListener('pointerdown',onDown);canvas.addEventListener('pointermove',onMove);addEventListener('pointerup',onUp);addEventListener('pointercancel',onUp);
   root.querySelectorAll('#arcadeTouch button').forEach(b=>{const a=b.dataset.a;b.onpointerdown=e=>{e.preventDefault();e.stopPropagation();if(a==='act'){keysDown.act=true;press();}else keysDown[a]=true;pointer.x=null;};b.onpointerup=b.onpointercancel=b.onpointerleave=e=>{if(a==='act'){if(keysDown.act)release();keysDown.act=false;}else keysDown[a]=false;};});
   root.addEventListener('click',onClick);addEventListener('keydown',onKey,true);addEventListener('keyup',onKeyUp,true);addEventListener('resize',resize);
@@ -155,7 +152,12 @@ export function createArcadeUI(host){
   spew(r.tickets);sound(r.tickets>=15?'jackpot':'end');shake=Math.max(shake,r.tickets>=15?.8:.3);
   const g0=gameById(id);showPanel('<div class="arcCard result"><h2>'+esc(g0.name)+'</h2><div class="arcBig">+'+r.tickets+' 🎟</div>'+(r.record?'<p class="arcRec">New personal best!</p>':'')+'<p>Total tickets: <b>'+st().arcade.tickets+'</b></p><div class="arcRow"><button class="arcBtn" data-arc="again">Play again · '+g0.cost+' 🪙</button><button class="arcBtn" data-arc="lobby">Lobby</button></div></div>');
   host.emit?.(r.tickets>0?'xp':'ui');return r;}
- function spew(n){spewing=0;const count=Math.min(40,n);for(let i=0;i<count;i++){setTimeout(()=>{if(!open)return;const el=document.createElement('i');el.className='arcTicket';const dx=(Math.random()-.5)*260,rot=(Math.random()-.5)*80;el.style.setProperty('--dx',dx+'px');el.style.setProperty('--rot',rot+'deg');el.textContent='TICKET';spewLayer.appendChild(el);setTimeout(()=>el.remove(),1500);sound('ticket');},i*45);}}
+ // Ticket spew: strips fly out of the cabinet slot, drawn on the canvas so it stays in step with the shake.
+ let tickets=[];
+ function spew(n){const count=Math.min(40,n),W=innerWidth,H=innerHeight;for(let i=0;i<count;i++)tickets.push({x:W/2+(Math.random()-.5)*40,y:H+20,vx:(Math.random()-.5)*420,vy:-(520+Math.random()*420),rot:(Math.random()-.5)*.6,vr:(Math.random()-.5)*7,delay:i*.045,life:1.8,born:false});}
+ function drawTickets(dt){for(const k of tickets){k.delay-=dt;if(k.delay>0)continue;if(!k.born){k.born=true;sound('ticket');}k.life-=dt;k.vy+=900*dt;k.x+=k.vx*dt;k.y+=k.vy*dt;k.rot+=k.vr*dt;
+  g.save();g.globalAlpha=Math.max(0,Math.min(1,k.life*1.5));g.translate(k.x,k.y);g.rotate(k.rot);g.fillStyle='#ff9f43';g.fillRect(-34,-13,68,26);g.fillStyle='#e07a1f';g.fillRect(28,-13,6,26);g.fillRect(-34,-13,6,26);g.fillStyle='#5a2a00';g.font='900 11px system-ui';g.textAlign='center';g.textBaseline='middle';g.fillText('TICKET',0,1);g.restore();}
+  tickets=tickets.filter(k=>k.delay>0||(k.life>0&&k.y<innerHeight+60));}
  function burst(x,y,color,n=12){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=80+Math.random()*220;particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-60,life:.7+Math.random()*.4,color,size:2+Math.random()*3});}}
  function float(text,x,y,color='#ffe066'){floaters.push({text,x,y,t:0,color});}
  function gameEvents(f){for(const e of game.events){sound(e.kind==='prize'?'prize':e.kind);if(SHAKE[e.kind])shake=Math.max(shake,SHAKE[e.kind]);
@@ -193,7 +195,7 @@ export function createArcadeUI(host){
    g.fillStyle='#173a55';g.beginPath();g.moveTo(X(.1),Y(1));g.lineTo(X(.9),Y(1));g.lineTo(X(.82),Y(.05));g.lineTo(X(.18),Y(.05));g.closePath();g.fill();
    for(let i=0;i<12;i++){g.fillStyle='rgba(67,232,255,.06)';g.fillRect(f.x,Y(i/12),f.w,2);}
    const cols={10:'#43e8ff',20:'#7dff6a',30:'#ffd23f',40:'#ff8a3d',50:'#ff5fb8',100:'#ffffff'};
-   for(const h of [...SKEE_HOLES.slice(0,5)].reverse()){g.fillStyle='rgba(0,0,0,.35)';g.beginPath();g.ellipse(X(h.x),Y(h.y),h.r*f.w,h.r*f.w/0.8*f.h/f.w*.9,0,0,Math.PI*2);g.fill();g.save();g.shadowColor=cols[h.pts];g.shadowBlur=12;g.strokeStyle=cols[h.pts];g.lineWidth=3;g.stroke();g.restore();g.font='800 '+f.h*.03+'px system-ui';g.fillStyle=cols[h.pts];g.textAlign='center';g.fillText(h.pts,X(h.x),Y(h.y-h.r/0.8*.9*f.w/f.h)+f.h*.02);}
+   for(const h of [...SKEE_HOLES.slice(0,5)].reverse()){g.fillStyle='rgba(0,0,0,.35)';g.beginPath();g.ellipse(X(h.x),Y(h.y),h.r*f.w,h.r/.8*f.h,0,0,Math.PI*2);g.fill();g.save();g.shadowColor=cols[h.pts];g.shadowBlur=12;g.strokeStyle=cols[h.pts];g.lineWidth=3;g.stroke();g.restore();g.font='800 '+f.h*.03+'px system-ui';g.fillStyle=cols[h.pts];g.textAlign='center';g.fillText(h.pts,X(h.x),Y(h.y)-h.r/.8*f.h+f.h*.035);}
    for(const h of SKEE_HOLES.slice(5)){g.fillStyle='#05020a';g.beginPath();g.arc(X(h.x),Y(h.y),h.r*f.w,0,Math.PI*2);g.fill();g.save();g.shadowColor='#fff';g.shadowBlur=14;g.strokeStyle='#fff';g.lineWidth=3;g.stroke();g.restore();glowText(g,'100',X(h.x),Y(h.y)-h.r*f.w-12,f.h*.035,'#fff',{blur:8});}
    if(st.phase==='aim'){const land=skeeLanding(st.aim,st.charging?st.power:.5);g.strokeStyle='rgba(255,255,255,.35)';g.setLineDash([6,8]);g.beginPath();g.moveTo(X(st.aim),Y(.97));g.lineTo(X(land.x),Y(st.charging?land.y:.5));g.stroke();g.setLineDash([]);g.fillStyle='#fff';g.beginPath();g.arc(X(st.aim),Y(.95),f.h*.028,0,Math.PI*2);g.fill();}
    if(st.ball){const b=st.ball,r=f.h*.028*(1-.35*Math.min(1,b.t));g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(X(b.x),Y(b.y)+r*.6,r,r*.4,0,0,Math.PI*2);g.fill();g.fillStyle='#f4f1ea';g.beginPath();g.arc(X(b.x),Y(b.y-(b.hop||0)),r,0,Math.PI*2);g.fill();}
@@ -233,13 +235,14 @@ export function createArcadeUI(host){
   g.save();const sk=shake*shake*14;if(sk>.2)g.translate((Math.random()-.5)*sk,(Math.random()-.5)*sk);shake=Math.max(0,shake-dt*2.2);
   if(view==='game'||view==='result')drawGameFrame(clock);else drawLobby(clock);
   for(const p of particles){p.life-=dt;p.vy+=380*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;g.globalAlpha=Math.max(0,Math.min(1,p.life*2));g.fillStyle=p.color;g.fillRect(p.x,p.y,p.size,p.size);}particles=particles.filter(p=>p.life>0);
+  drawTickets(dt);
   for(const fl of floaters){fl.t+=dt;g.globalAlpha=Math.max(0,1-fl.t);glowText(g,fl.text,fl.x,fl.y-fl.t*50,22,fl.color,{blur:10});}floaters=floaters.filter(f=>f.t<1);g.globalAlpha=1;g.restore();
   root.style.setProperty('--shake',(shake*shake*10).toFixed(1)+'px');}
  function enter(){if(!root)build();open=true;root.hidden=false;view='lobby';sel=Math.max(0,Math.min(SLOTS.length-1,sel));hidePanel();resize();refreshHUD();lastT=0;cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);sound('start');}
  function leave(){if(view==='game')endGame(true);open=false;if(root){root.hidden=true;root.classList.remove('playing');}cancelAnimationFrame(raf);hidePanel?.();host.onLeave?.();}
  return {enter,leave,get open(){return open},get view(){return view},get game(){return game},
   // QA hooks: deterministic stepping for screenshots and tests.
-  qa:{select(i){sel=i;},play:playGame,step(n=1,dt=1/60,inp={}){if(inp.px!=null){pointer.x=inp.px;pointer.y=inp.py??.5;}for(let i=0;i<n&&game&&!game.done;i++){input={...inputFresh(),...inp,held:!!inp.down};stepGameFrame(dt);}tick(0);return game&&{id:game.id,t:game.t,score:game.score,done:game.done};},
+  qa:{select(i){sel=i;},advance(n=1,dt=1/60){for(let i=0;i<n;i++)tick(dt);return tickets.length;},play:playGame,step(n=1,dt=1/60,inp={}){if(inp.px!=null){pointer.x=inp.px;pointer.y=inp.py??.5;}for(let i=0;i<n&&game&&!game.done;i++){input={...inputFresh(),...inp,held:!!inp.down};stepGameFrame(dt);}tick(0);return game&&{id:game.id,t:game.t,score:game.score,done:game.done};},
    end:()=>endGame(false),tokens:showTokens,prizes:showPrizes,lobby:toLobby,render:()=>tick(0),buy,redeem,state:()=>({view,sel,game:game&&{id:game.id,t:game.t,score:game.score,done:game.done},result,arcade:st().arcade})}};
 }
 export {POSTER_ART};

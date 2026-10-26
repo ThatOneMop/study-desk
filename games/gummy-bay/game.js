@@ -3764,7 +3764,7 @@ function refreshRvPosters(){
  const want=ownedPosters(s).join(',');if(rvPosterGroup.userData.key===want)return;rvPosterGroup.userData.key=want;
  for(const m of [...rvPosterGroup.children]){rvPosterGroup.remove(m);m.material?.map?.dispose?.();m.material?.dispose?.();m.geometry?.dispose?.();}
  ownedPosters(s).forEach((id,i)=>{const tex=rvPosterTexture(id);const m=new THREE.Mesh(new THREE.PlaneGeometry(.48,.64),new THREE.MeshStandardMaterial({map:tex,color:tex?0xffffff:0x7b3fb5,roughness:.8}));
-  m.position.set(-59.78,2.05,23.1+i*.7);m.rotation.y=Math.PI/2;m.name='RV poster '+id;rvPosterGroup.add(m);});
+  m.position.set(-59.78,2.2,23.1+i*.7);m.rotation.y=Math.PI/2;m.name='RV poster '+id;rvPosterGroup.add(m);});
 }
 try{
  const door=arcadeDoor();
