@@ -70,7 +70,7 @@ import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
 import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=134';
-import {readabilityGrade,streetLampSpots,createStreetLighting,treeSpots,createStylisedTrees} from './light-grade.mjs?v=134';
+import {readabilityGrade,streetLampSpots,createStreetLighting,treeSpots,createStylisedTrees,dressingSpots,createPlanters} from './light-grade.mjs?v=134';
 import {CITY_SHELLS} from './city-shells.mjs?v=133';
 import {createStaticBatcher} from './static-batch.mjs?v=133';
 import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
@@ -112,7 +112,7 @@ import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOut
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
 import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=126';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,createStreetCrowd} from './street-crowd.mjs?v=132';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=132';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -3557,8 +3557,15 @@ try{
  const spots=streetLampSpots({roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),skipZ:[0,opZ],obstacles:colliders,points});
  streetLighting=createStreetLighting({scene,spots,soffit,height:terrainHeight});
  const freeTree=(x,z)=>grid?grid.free(x-3.2,x+3.2,z-3.2,z+3.2):false;
- stylisedTrees=createStylisedTrees({scene,spots:treeSpots({free:freeTree,max:170}),height:terrainHeight});
- window.__gummyLight={stats:()=>({lamps:streetLighting.count,soffit:streetLighting.soffit,trees:stylisedTrees.count,grade:lastGrade})};
+ // Old Town dressing: off the road bands, colliders, doors, police lanes and every crowd stop / walk line.
+ const crowd=[];for(let i=0;i<STREET_CROWD_SIZE*2;i++){const c=crowdRoute(i);crowd.push({a:[c.home.x,c.home.z],b:[c.job.x,c.job.z]});for(const k of ['bench','vend','atm','street'])crowd.push({a:[c[k].x,c[k].z],b:[c.home.x,c.home.z]},{a:[c[k].x,c[k].z],b:[c.job.x,c.job.z]});}
+ const dress=dressingSpots({roadBands:[{axis:'z',at:0,half:11.5},{axis:'x',at:0,half:11.5}],colliders,points,routes:policeRoutes,crowd,max:28});
+ const oldTrees=dress.filter(d=>d.kind==='tree'),planterSpots=dress.filter(d=>d.kind==='planter');
+ stylisedTrees=createStylisedTrees({scene,spots:treeSpots({free:freeTree,max:170,extra:oldTrees}),height:terrainHeight});
+ const planters=createPlanters({scene,spots:planterSpots,height:terrainHeight});
+ for(const d of oldTrees)colliders.push({x:d.x,z:d.z,w:.7,d:.7,cityProp:'tree'});for(const d of planterSpots)colliders.push({x:d.x,z:d.z,w:1.5,d:1.5,cityProp:'planter'});
+ stylisedTrees.oldTown=oldTrees.length;stylisedTrees.planters=planters.count;
+ window.__gummyLight={stats:()=>({lamps:streetLighting.count,soffit:streetLighting.soffit,trees:stylisedTrees.count,oldTownTrees:stylisedTrees.oldTown,planters:stylisedTrees.planters,grade:lastGrade})};
 }catch(error){console.warn('Street lighting skipped',error);}
 // v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).

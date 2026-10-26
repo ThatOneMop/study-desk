@@ -102,3 +102,31 @@ export function createStylisedTrees({scene,spots=[],height=()=>0,seed=11}={}){
  for(const o of [trunks,leaves]){o.castShadow=true;o.receiveShadow=true;o.instanceMatrix.needsUpdate=true;if(o.instanceColor)o.instanceColor.needsUpdate=true;o.computeBoundingSphere?.();o.name='Stylised trees';scene.add(o);}
  return {trunks,leaves,count:spots.length};
 }
+
+// Pure: street-dressing spots inside a block (Old Town) that never sit on a road band,
+// a collider, a door/contact point, a police lane or any crowd stop or walk line.
+const segDist=(x,z,[ax,az],[bx,bz])=>{const dx=bx-ax,dz=bz-az,l=dx*dx+dz*dz,t=l?clamp(((x-ax)*dx+(z-az)*dz)/l):0;return Math.hypot(x-ax-dx*t,z-az-dz*t);};
+export function dressingSpots({bounds={x0:-78,x1:78,z0:-38,z1:50},roadBands=[],colliders=[],points=[],routes=[],crowd=[],step=6,max=40,seed=3}={}){
+ let r=seed>>>0;const rnd=()=>((r=(r*1664525+1013904223)>>>0)/4294967296);const out=[];
+ for(let z=bounds.z0;z<=bounds.z1;z+=step)for(let x=bounds.x0;x<=bounds.x1;x+=step){
+  const px=x+(rnd()-.5)*2,pz=z+(rnd()-.5)*2,kind=rnd();
+  if(roadBands.some(b=>b.axis==='z'?Math.abs(pz-b.at)<b.half:Math.abs(px-b.at)<b.half))continue;
+  if(colliders.some(o=>Math.abs(px-o.x)<(o.w||0)/2+2.4&&Math.abs(pz-o.z)<(o.d||0)/2+2.4))continue;
+  if(points.some(p=>Math.hypot(p.x-px,p.z-pz)<5))continue;
+  if(routes.some(rt=>rt.some((a,i)=>segDist(px,pz,a,rt[(i+1)%rt.length])<3)))continue;
+  if(crowd.some(c=>c.b?segDist(px,pz,c.a,c.b)<2.2:Math.hypot(c.a[0]-px,c.a[1]-pz)<2.6))continue;
+  if(out.some(o=>Math.hypot(o.x-px,o.z-pz)<5))continue;
+  out.push({x:px,z:pz,kind:kind<.55?'tree':'planter',s:.75+rnd()*.4,hue:rnd()});if(out.length>=max)return out;
+ }
+ return out;
+}
+
+export function createPlanters({scene,spots=[],height=()=>0}){
+ const box=new THREE.BoxGeometry(1.4,.55,1.4);box.translate(0,.275,0);const bush=new THREE.IcosahedronGeometry(.62,1);
+ const boxes=new THREE.InstancedMesh(box,new THREE.MeshStandardMaterial({color:0x9a7d5c,roughness:.9}),Math.max(1,spots.length));
+ const bushes=new THREE.InstancedMesh(bush,new THREE.MeshStandardMaterial({color:0x6f9a52,roughness:.9,flatShading:true}),Math.max(1,spots.length));
+ const m=new THREE.Matrix4(),q=new THREE.Quaternion(),v=new THREE.Vector3(),sc=new THREE.Vector3();
+ spots.forEach((p,i)=>{const y=height(p.x,p.z);m.compose(v.set(p.x,y,p.z),q.identity(),sc.set(1,1,1));boxes.setMatrixAt(i,m);m.compose(v.set(p.x,y+.75,p.z),q.setFromAxisAngle(v.set(0,1,0).clone(),p.hue*6),sc.set(1,.8,1));m.setPosition(p.x,y+.75,p.z);bushes.setMatrixAt(i,m);});
+ boxes.count=bushes.count=spots.length;for(const o of [boxes,bushes]){o.castShadow=o.receiveShadow=true;o.instanceMatrix.needsUpdate=true;o.computeBoundingSphere?.();scene.add(o);}
+ return {boxes,bushes,count:spots.length};
+}
