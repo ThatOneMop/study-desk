@@ -2475,7 +2475,9 @@ const appsMenu=menu;menu=function(which,data){
 };window.menu=menu;
 
 // Test-only day harness. Absent unless the URL is exactly ?qa=day. Saves go to
-// gummybay-qa-day so the six story/free slots stay untouched.
+// gummybay-qa-day so the six story/free slots stay untouched. Boot tests strip
+// the import, so the hook stays out of those runs.
+if(typeof readQaFlag==='function'&&typeof qaStorageKey==='function'&&typeof createDayDirector==='function'&&typeof steerHold==='function'){
 const qaKey=qaStorageKey(readQaFlag(location.search));
 if(qaKey){
  const qaDirector=createDayDirector();
@@ -2527,5 +2529,6 @@ if(qaKey){
   const report=qaDirector.report();
   window.__qaDay={...report,toasts:qaToasts.slice(),x:player.x,z:player.z,time:s.time,day:s.day,cash:s.cash,xp:s.xp,sold:s.sold,made:s.made,hired:!!s.helpers.gardener,curfew:curfewActive(s.time),level:level()};
  };
+}
 }
 function round1(n){return Math.round(n*10)/10;}
