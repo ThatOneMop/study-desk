@@ -749,10 +749,12 @@
         "17 tests pass: 9 engine and 8 jsdom 26.1.0. Three complete pointer-event campaigns reload exact saves after each haul; hand-authored routes use 1430/2108/1600 rope. Not optimal solutions or human playtests.",
         "Geometry: clockwise/reversed and subdivided outlines, concave coral exclusion, crossing/touching/doubled-back rope, degenerate/oversized bounds, fish clearance, coral/rays, exact species, wrong-catch release, three-fray loss and five-action recovery journal. Undo/retry and minimum records preserve progression.",
         "DOM: opening gate, keyboard rectangle, native form shortcuts, scaled 300×200 simulated SVG coordinates, extra-pointer rejection/cancel, read-only previews, pause/dialog/trusted parent hiding, reef switching, isolated reset, corrupt-save recovery and quota failure.",
-        "Both scripts pass syntax checks. 34 HTML IDs unique; 44 CSS rules parse. Script/style paths resolve in the new files/current branch tree. No Switch workspace control introduced. No full repository build from the partial workspace; no rendered browser/screenshot/native touch evidence."
+        "Both scripts pass syntax checks. 34 HTML IDs unique; 44 CSS rules parse. Script/style paths resolve in the new files/current branch tree. No Switch workspace control introduced. No full repository build from the partial workspace; no rendered browser/screenshot/native touch evidence.",
+        "Corner editing refinement: all 22 tests pass (9 engine, 13 jsdom), retaining the original 17. New tests repair invalid fish-touching geometry to the 470-rope opening net, save/reload the edited haul, scale pointer dragging, restore cancelled/lost capture edits, remove corners with a triangle floor, preserve native form keys, ignore extra pointers, and clear edits on pause/dialog. Script syntax passes; 39 unique IDs and 49 CSS rules parse. No rendered evidence."
       ],
       "commits": [
-        "d2ad53aa94c282774ef03cb6fdc01eb448b1cf02"
+        "d2ad53aa94c282774ef03cb6fdc01eb448b1cf02",
+        "1aa2b5566a423156d1a33166fb112fab33c74735"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -763,7 +765,14 @@
       "nextSteps": [
         "Naturally play all three reefs on desktop and touch and inspect screenshots; test native pointer capture, scrolling, keyboard focus and actual Games navigation.",
         "Implement a substantive improvement based on observed rendered weakness, then verify progression, loss/undo/retry, records, saves/reload and reset before selection."
-      ]
+      ],
+      "pendingCornerRefinement": {
+        "commit": "1aa2b5566a423156d1a33166fb112fab33c74735",
+        "basis": "Source inspection, not rendered play: a misplaced corner required retracing the entire net.",
+        "before": "Closed net geometry could only be cleared and drawn again.",
+        "after": "Adjust corners exposes handles and a numbered selector. Drag or keyboard-nudge one corner, or remove it down to a triangle. Preview revalidates geometry/catch immediately. Cancelled drag restores that corner; no save/turn until haul.",
+        "remaining": "Natural rendered desktop and touch play, screenshot review, handle overlap/occlusion, focus and layout assessment. No improvement/browser credit yet."
+      }
     },
     {
       "slot": 57,
@@ -1384,7 +1393,7 @@
     "Implement remaining 34 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "48184d01c5f0e9e1313fa58cdac2e17c114404f0",
+  "latestObservedMain": "d77f5490e7bf4f20723e9440d7e57c02c48e72c1",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1638,6 +1647,13 @@
       "result": "Built Ribbon Reef, candidate 56: geometric net drawing with protected wildlife/coral, finite shoal choices, rope records, undo and safe saves. 17 engine/DOM tests pass. Third batch 16 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried. No rendered or deployment credit.",
       "mainObserved": "48184d01c5f0e9e1313fa58cdac2e17c114404f0"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "1aa2b5566a423156d1a33166fb112fab33c74735",
+      "result": "Ribbon Reef corner editing implemented and tested: 22 engine/DOM tests pass. Counts unchanged: 16 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing security-policy rendering blocker not bypassed or retried.",
+      "mainObserved": "d77f5490e7bf4f20723e9440d7e57c02c48e72c1"
     }
   ]
 }
