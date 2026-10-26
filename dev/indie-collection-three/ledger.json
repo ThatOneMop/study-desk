@@ -278,12 +278,14 @@
         "8 engine tests pass: 25 seeded wins across five equipment focuses, exact saves/replay, reroll constraints, forecasts, loss/retry/records, malformed saves, conditional bonus rules and pre-upgrade journal compatibility.",
         "5 jsdom tests pass: equipment routes, reload, setup/focus/native keys, loss/retry/pause/help/reset, unreadable-save preservation and new equipment/forecast persistence. Dialog methods simulated.",
         "Script syntax passed. No rendered browser, screenshots, touch or human-enjoyment evidence. Full repository build not run from partial checkout.",
-        "Opposite-face refinement: 19 passing tests (11 engine, 8 jsdom), retaining original 13 and old exact-save fixtures. Shared reroll budget, RNG/other-die/setup preservation, invalid actions, mixed reroll/flip exhaustion, turn reset, phase guards, per-action replay, native input ownership, pause/guide, full flipped seed-42 route and retry/record preservation. Script syntax checks pass; no rendered evidence."
+        "Opposite-face refinement: 19 passing tests (11 engine, 8 jsdom), retaining original 13 and old exact-save fixtures. Shared reroll budget, RNG/other-die/setup preservation, invalid actions, mixed reroll/flip exhaustion, turn reset, phase guards, per-action replay, native input ownership, pause/guide, full flipped seed-42 route and retry/record preservation. Script syntax checks pass; no rendered evidence.",
+        "Reserve refinement: 27 tests pass (15 engine, 12 jsdom), retaining prior 19 and old exact-save fixtures. Current output/gear exclusion, next-turn same-slot face, unchanged RNG/other dice, reward carry/reload, retry reset, multiple-reserve rejection, saved setup, focused-card shortcut/native keys, pause, and full reserved-opening engine/DOM wins. Both scripts pass syntax; no rendered/native touch evidence."
       ],
       "commits": [
         "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
         "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
-        "8e7d63d094d7f7431ba5790d00ab0d6463e0b016"
+        "8e7d63d094d7f7431ba5790d00ab0d6463e0b016",
+        "5582c22c4eef24ba2c3b4169dcb4ead54bdeaa1e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -308,6 +310,13 @@
         "before": "Players could keep, reroll or allocate dice; no deterministic face adjustment.",
         "after": "Turn one die to 7 minus its value for one shared reroll. Other dice, RNG, jobs and keeps stay unchanged; per-die buttons and focused-card F shortcut expose the result and cost. Existing journals and records remain compatible.",
         "remaining": "Rendered natural gameplay, native controls and mobile layout, screenshot inspection, usefulness with low-die gear and balance assessment. No completed improvement credit."
+      },
+      "pendingReserveRefinement": {
+        "commit": "5582c22c4eef24ba2c3b4169dcb4ead54bdeaa1e",
+        "basis": "Source inspection: all allocations only affected the current turn; no way to trade present output for a known next-turn die. Not a rendered observation.",
+        "before": "Every die had to attack, guard or repair, then all four faces were replaced next turn.",
+        "after": "One die can take Reserve: no current contribution, exact same-slot face on the next turn or after the reward clearing. Normal RNG draws still occur; the carried die remains rerollable/flippable. Keyboard/select controls and exact preview explain the cost. Existing journals remain compatible.",
+        "remaining": "Rendered desktop/touch play and screenshots; assess usefulness across intent cycles, balance, distinction from Keep and mobile readability. No completed improvement credit."
       }
     },
     {
@@ -1402,7 +1411,7 @@
     "Implement remaining 34 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "903663c90ff32c3a6665b5f494e43975545b2a45",
+  "latestObservedMain": "e41ce7c5904b9bbe5fb3031c018dd57405ece275",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1670,6 +1679,13 @@
       "result": "Kiln Chorus Soak fire implemented; 25 engine/DOM tests pass. Counts unchanged: third 16 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
       "mainObserved": "903663c90ff32c3a6665b5f494e43975545b2a45"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "5582c22c4eef24ba2c3b4169dcb4ead54bdeaa1e",
+      "result": "Bramble Dice Reserve job implemented; 27 engine/DOM tests pass. Counts unchanged: third 16 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
+      "mainObserved": "e41ce7c5904b9bbe5fb3031c018dd57405ece275"
     }
   ]
 }
