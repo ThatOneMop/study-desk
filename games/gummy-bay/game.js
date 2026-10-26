@@ -23,7 +23,7 @@ import {rvFloorHeight,rvCeilingHeight,rvPropBands} from './rv-support.mjs?v=53';
 import {townPropFloorHeight} from './town-surfaces.mjs?v=54';
 import {crouchStep,dampedTravel,jumpStep,bufferedJump,playerViewHeights,firstPersonVisibility,limitPlayerJump,playerHeadFits,riseTooSteep} from './player-view.mjs?v=119';
 import {readExchangeReceipt,exchangeRequest,matchExchangeReceipt,exchangeGesturePose,EXCHANGE_GESTURE_MS} from './exchange-gesture.mjs?v=43';
-import {worldLighting,selectPracticalLights} from './world-lighting.mjs?v=41';
+import {worldLighting,sunOffset,selectPracticalLights} from './world-lighting.mjs?v=122';
 import {atmosphericDistancePlan} from './atmospheric-distance.mjs?v=103';
 import {SCRUFFY_WELCOME_SITES,SCRUFFY_WELCOME_COLLIDERS,scruffyWelcomeProfile,scruffyWelcomeMounted,createScruffyWelcome} from './scruffy-welcome.mjs?v=104';
 import {workshopEquipment,assemblyWording} from './equipment-guide.mjs?v=39';
@@ -37,6 +37,8 @@ import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine} from './road-zone
 import {PARKING_BAYS,parkingGuide,parkingSnapPose,parkingGuideLine} from './parking-guide.mjs?v=69';
 import {DISTRICT_BUILDING_SITES,DISTRICT_CONTRAST_COLLIDERS,districtArchitectureProfile,districtGeometricContrast,createDistrictArchitecture} from './district-architecture.mjs?v=121';
 import {createStreetConstruction} from './street-construction.mjs?v=76';
+import {createStarterStreet} from './starter-street.mjs?v=122';
+import {openingCamera,openingDoorstep,insideRvShell} from './opening-shot.mjs?v=122';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=76';
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=76';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
@@ -97,7 +99,7 @@ import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
-import {createEffects} from './vendor/effects.js?v=40';
+import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=122';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
 const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:47,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:68,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:92,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:127,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:170,level:6,time:50}];
@@ -110,7 +112,7 @@ const fresh=mode=>({version:3,mode,cash:400,bank:0,x:-58,z:26.7,yaw:-Math.PI/2,p
 let s=fresh('story'),mode='story',slot=1,active=false,panel='title',keys={},yaw=0,pitch=0,near=null,conversationPoint=null,track=null,stamina=100,now=0,last=0,uiTimer=0,saveTimer=0,walkPhase=0,walk=false,toastTimer=0,selected=0,phoneTab='messages',processingRemote=false,work=null,pendingReset=null;
 bindGameplayState(()=>({day:s.day,time:s.time,heat:s.heat,curfew:curfewActive(s.time),cravings:CONTACTS.map((_,i)=>cravingState(s.cravings?.[i],s.day))}));
 const player=new THREE.Vector3(s.x,1.72,s.z),camera=new THREE.PerspectiveCamera(FOV_BASE,innerWidth/innerHeight,.08,330);camera.rotation.order='YXZ';
-let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'})}catch(e){$('modal').innerHTML='<h2>3D graphics are unavailable</h2><p>Enable hardware acceleration in your desktop browser, then reload.</p>';throw e}renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.93;
+let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'})}catch(e){$('modal').innerHTML='<h2>3D graphics are unavailable</h2><p>Enable hardware acceleration in your desktop browser, then reload.</p>';throw e}renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.AgXToneMapping;renderer.toneMappingExposure=.93;
 const scene=new THREE.Scene();scene.background=new THREE.Color(0xb2d7df);scene.fog=new THREE.Fog(0xb2d7df,105,280);const hemi=new THREE.HemisphereLight(0xc6d5e2,0x71664d,1.15);scene.add(hemi);const sun=new THREE.DirectionalLight(0xffe2bb,3.1);sun.position.set(-38,65,45);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-37,right:37,top:37,bottom:-37,near:1,far:180});sun.shadow.normalBias=.025;sun.shadow.bias=-.0001;sun.shadow.radius=2;scene.add(sun);
 const furnishings=[],colliders=[],points=[],people=[],plantVisuals=[],tents=[],lights=[],materials=new Map(),geometry=new Map();
 function addFurnishing(kind,x,z,width,depth,home){const b=furnitureFootprint(kind,x,z,width,depth,home);furnishings.push(b);colliders.push(b);}
@@ -445,22 +447,33 @@ if(net.role!=='guest'){const wasCurfew=curfewActive(s.time);s.time+=dt*1.2;if(s.
 people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z)<5){const desired=Math.atan2(player.x-g.position.x,player.z-g.position.z),delta=Math.atan2(Math.sin(desired-g.rotation.y),Math.cos(desired-g.rotation.y));g.rotation.y+=delta*(1-Math.exp(-dt*5));}g.userData.head.rotation.z=Math.sin(now*1.7+i)*.015});if(track&&!Number.isInteger(track.npc)&&Math.hypot(player.x-track.x,player.z-track.z)<2.3)track=null;
 // Environmental state is projected once before rendering, including paused menus.
 }
-const simStepper=createFixedStepper({maxFrame:1});function frame(t){const real=last?Math.max(0,(t-last)/1000):0;last=t;const steps=simStepper.consume(real);const sim=steps.reduce((sum,step)=>sum+step,0);now+=sim;for(const step of steps)updateStationInput(step);if(work){let f=(performance.now()-work.start)/(work.seconds*1000);$('workProgress').style.width=Math.min(100,f*100)+'%';if(f>=1){work=null;$('work').style.display='none';watering.visible=false;save()}}for(const step of steps)update(step);if(!active){camera.position.set(-43+Math.sin(now*.04),4.3,39);camera.lookAt(-57,1.5,25.5);}uiTimer+=sim;if(uiTimer>.14){uiTimer=0;if(active)updateUI()}saveTimer+=sim;if(saveTimer>5){saveTimer=0;save()}networkTick(sim);arrow.position.y=3.1+Math.sin(now*2.5)*.2;renderFrame();requestAnimationFrame(frame)}
+let streetShot=false,shotHour=null,shotKind='starter';const streetShotFrames=[];
+const simStepper=createFixedStepper({maxFrame:1});function frame(t){const real=last?Math.max(0,(t-last)/1000):0;last=t;const steps=simStepper.consume(real);const sim=steps.reduce((sum,step)=>sum+step,0);now+=sim;const streetShotStart=streetShot?performance.now():0;for(const step of steps)updateStationInput(step);if(work){let f=(performance.now()-work.start)/(work.seconds*1000);$('workProgress').style.width=Math.min(100,f*100)+'%';if(f>=1){work=null;$('work').style.display='none';watering.visible=false;save()}}for(const step of steps)update(step);if(streetShot){if(shotHour!=null)s.time=shotHour*60;if(shotKind==='opening'){const pose=openingCamera(.25);camera.position.set(pose.x,pose.y,pose.z);camera.lookAt(pose.lookX,pose.lookY,pose.lookZ);}else{camera.position.set(16,11.5,46);camera.lookAt(-36,2.2,18);}}else if(!active){camera.position.set(-43+Math.sin(now*.04),4.3,39);camera.lookAt(-57,1.5,25.5);}uiTimer+=sim;if(uiTimer>.14){uiTimer=0;if(active)updateUI()}saveTimer+=sim;if(saveTimer>5){saveTimer=0;save()}networkTick(sim);arrow.position.y=3.1+Math.sin(now*2.5)*.2;renderFrame();if(streetShot){streetShotFrames.push(performance.now()-streetShotStart);if(streetShotFrames.length>180)streetShotFrames.shift();}requestAnimationFrame(frame)}
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);resizeEffects()});let drag=false,touchLast=null;canvas.addEventListener('mouseenter',()=>mouseInside=true);canvas.addEventListener('mouseleave',()=>mouseInside=false);canvas.addEventListener('pointerdown',e=>{if(active&&!panel&&e.pointerType!=='touch'&&e.button===0){drag=true;canvas.setPointerCapture?.(e.pointerId)}});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);addEventListener('mousemove',e=>{if(active&&!panel&&(document.pointerLockElement===canvas||(drag&&e.target===canvas))){mouseInside=true;mouseX=e.clientX;mouseY=e.clientY;let dx=Math.max(-80,Math.min(80,e.movementX||0)),dy=Math.max(-80,Math.min(80,e.movementY||0));yaw-=dx*lookSensitivity;pitch=Math.max(-PITCH_LIMIT,Math.min(PITCH_LIMIT,pitch-dy*lookSensitivity))}});canvas.addEventListener('touchstart',e=>{if(e.touches[0])touchLast={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});canvas.addEventListener('touchmove',e=>{if(panel||!touchLast)return;let t=e.touches[0];yaw-=(t.clientX-touchLast.x)*.004;pitch=Math.max(-PITCH_LIMIT,Math.min(PITCH_LIMIT,pitch-(t.clientY-touchLast.y)*.004));touchLast={x:t.clientX,y:t.clientY};e.preventDefault()},{passive:false});canvas.addEventListener('touchend',()=>touchLast=null);
 addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&e.key!=='Escape')return;let k=e.key.toLowerCase();if(['tab','arrowup','arrowdown','arrowleft','arrowright',' '].includes(k))e.preventDefault();if(!active)return;if(k==='escape'){panel?close():menu('pause');return}if(['e','t','tab','j','m'].includes(k)&&e.repeat)return;if(k==='e'){act();return}if(['t','tab','j','m'].includes(k)){if(work)return;panel?close():menu({t:'phone',tab:'bag',j:'journal',m:'map'}[k]);return}if(!panel)keys[k]=true});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);addEventListener('blur',()=>{keys={};drag=false;save()});document.addEventListener('visibilitychange',()=>{keys={};save();last=0});window.addEventListener('pagehide',save);document.querySelectorAll('[data-key]').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();b.setPointerCapture(e.pointerId);keys[b.dataset.key]=true};b.onpointerup=b.onpointercancel=()=>keys[b.dataset.key]=false});
 Object.assign(window,{menu,slots,loadGame:load,closeMenu:close,action,act,trackPlace,trackCustomer,trackObjective,title,manualSave:()=>{save();toast(net.role==='guest'?'The host saves this shared world.':'Saved '+mode+' slot '+slot)},exportSave,importSave,confirmImport,modeName:()=>mode,slotNumber:()=>slot,hostCoop,joinCoop,acceptReply,copyCode,leaveCoop:()=>disconnect(true)});
 // Gummy Bay 4: small-town street dressing, physical mixing, ATMs, and recycling.
 const camperGlow=new THREE.PointLight(0xe7ad7c,5,9,2);camperGlow.position.set(-58,2.6,26);scene.add(camperGlow);
 let mouseInside=false,mouseX=innerWidth/2,mouseY=innerHeight/2,lookSensitivity=LOOK_SENSITIVITY,fovBase=FOV_BASE,bobAmount=BOB_AMOUNT;
-let effects=null,quality='balanced',appliedQuality=null,appliedPixelRatio=null,districtArchitecture=null,streetConstruction=null,verticalTown=null,contextualStreetProps=null,districtHorizon=null,townSkyline=null,junctionReveals=null,townUtilities=null,overheadInfrastructure=null,townFencing=null,foregroundDepth=null,domesticWorkplace=null,doorwayReveals=null,windowConnections=null,ordinaryUnusualWork=null,publicServiceFronts=null,narrowAlleys=null,shopApproaches=null,logicalWear=null,productionContainers=null,occupationalOutfits=null,residentAccessories=null,residentFootSilhouettes=null,nightSilhouettes=null,scruffyWelcome=null,chunkyCast=null,streetCrowd=null;
-try{quality=localStorage.getItem('gummybay-quality')||'balanced';lookSensitivity=Number(localStorage.getItem('gummybay-sensitivity'))||LOOK_SENSITIVITY;const storedFov=localStorage.getItem('gummybay-fov');if(storedFov!=null){const n=Number(storedFov);if(n>=60&&n<=100)fovBase=n;}const storedBob=localStorage.getItem('gummybay-bob');if(storedBob!=null){const n=Number(storedBob);if(n>=0&&n<=1)bobAmount=n;}camera.fov=fovBase;}catch(e){}
+let effects=null,quality='balanced',appliedQuality=null,appliedPixelRatio=null,districtArchitecture=null,streetConstruction=null,verticalTown=null,contextualStreetProps=null,districtHorizon=null,townSkyline=null,junctionReveals=null,townUtilities=null,overheadInfrastructure=null,townFencing=null,foregroundDepth=null,domesticWorkplace=null,doorwayReveals=null,windowConnections=null,ordinaryUnusualWork=null,publicServiceFronts=null,narrowAlleys=null,shopApproaches=null,logicalWear=null,productionContainers=null,occupationalOutfits=null,residentAccessories=null,residentFootSilhouettes=null,nightSilhouettes=null,scruffyWelcome=null,chunkyCast=null,streetCrowd=null,starterStreet=null;
+try{lookSensitivity=Number(localStorage.getItem('gummybay-sensitivity'))||LOOK_SENSITIVITY;const storedFov=localStorage.getItem('gummybay-fov');if(storedFov!=null){const n=Number(storedFov);if(n>=60&&n<=100)fovBase=n;}const storedBob=localStorage.getItem('gummybay-bob');if(storedBob!=null){const n=Number(storedBob);if(n>=0&&n<=1)bobAmount=n;}camera.fov=fovBase;}catch(e){}
+try{
+ let saved=null,cores,saveData=false,coarse=false,software=false;
+ try{saved=localStorage.getItem('gummybay-quality')}catch(e){}
+ try{cores=navigator.hardwareConcurrency}catch(e){}
+ try{saveData=!!navigator.connection?.saveData}catch(e){}
+ try{coarse=!!matchMedia('(pointer:coarse)').matches}catch(e){}
+ try{const gl=renderer.getContext(),info=gl.getExtension('WEBGL_debug_renderer_info');software=/swiftshader|llvmpipe|softpipe/i.test(info?gl.getParameter(info.UNMASKED_RENDERER_WEBGL):'')}catch(e){}
+ quality=detectLookQuality({saved,cores,saveData,coarse,software});
+}catch(e){quality='balanced'}
 function resizeEffects(){if(effects)effects.resize(Math.min(innerWidth,1600),Math.min(innerHeight,1000))}
 function setQuality(q){
- q=['performance','balanced','high'].includes(q)?q:'balanced';const ratio=Math.min(devicePixelRatio,q==='high'?1.85:q==='performance'?1:1.5);
+ const preset=lookPreset(q);q=preset.quality;const ratio=Math.min(devicePixelRatio,preset.pixelRatio);
  if(appliedQuality===q&&appliedPixelRatio===ratio&&(q!=='high'||effects))return;
  quality=q;effects?.dispose();effects=null;renderer.shadowMap.enabled=q!=='performance';renderer.setPixelRatio(ratio);renderer.setSize(innerWidth,innerHeight);
  districtArchitecture?.setQuality(q);
  streetConstruction?.setQuality(q);
+ starterStreet?.setQuality(q);
  verticalTown?.setQuality(q);
  contextualStreetProps?.setQuality(q);
  districtHorizon?.setQuality(q);
@@ -487,10 +500,12 @@ function setQuality(q){
  streetCrowd?.setQuality(q);
  nightSilhouettes?.setQuality(q);
  scruffyWelcome?.setQuality(q);
- if(q==='high')try{effects=createEffects(renderer,scene,camera,Math.min(innerWidth,1600),Math.min(innerHeight,1000))}catch(e){toast('Ambient occlusion unavailable; standard shadows remain active.')}
+ if(q==='high')try{effects=createEffects(renderer,scene,camera,Math.min(innerWidth,1600),Math.min(innerHeight,1000))}catch(e){toast('Colour grade unavailable; the scene still draws directly.')}
+ if(lookVignette)lookVignette.style.display=preset.vignette==='css'?'block':'none';
  appliedQuality=q;appliedPixelRatio=ratio;try{localStorage.setItem('gummybay-quality',q)}catch(e){}if(panel==='settings')menu('settings');
 }
-function renderFrame(){if(typeof visualPolish!=='undefined'){visualPolish.update({active,state:s,task:stationTask,held:stationHeld||stationAssist,now,near,quality,productColor:STRAINS[stationTask?.a]?.color});if(stationTask&&['mix','make','pack','prepare','water','fill'].includes(stationTask.k)){stationTool.visible=false;syrupStream.visible=false;stationPiece.visible=!['mix','make','pack'].includes(stationTask.k);stationWrapper.visible=false;}else{stationPiece.visible=true;stationWrapper.visible=true;}}if(panel==='arrival'){const pose=wakingPose(now-arrivalStarted);camera.position.set(player.x,floorHeight(player.x,player.z)+pose.height,player.z);camera.rotation.set(pose.pitch,yaw,pose.roll);}if(effects)effects.render();else renderer.render(scene,camera)}
+const lookVignette=document.createElement('div');lookVignette.id='lookVignette';lookVignette.style.cssText='pointer-events:none;position:fixed;inset:0;background:radial-gradient(ellipse at center, transparent 52%, rgba(8,12,18,.55) 100%);display:none;z-index:4';document.body.appendChild(lookVignette);
+function renderFrame(){if(typeof visualPolish!=='undefined'){visualPolish.update({active,state:s,task:stationTask,held:stationHeld||stationAssist,now,near,quality,productColor:STRAINS[stationTask?.a]?.color});if(stationTask&&['mix','make','pack','prepare','water','fill'].includes(stationTask.k)){stationTool.visible=false;syrupStream.visible=false;stationPiece.visible=!['mix','make','pack'].includes(stationTask.k);stationWrapper.visible=false;}else{stationPiece.visible=true;stationWrapper.visible=true;}}if(panel==='arrival'){const pose=openingCamera(now-arrivalStarted);camera.position.set(pose.x,pose.y,pose.z);camera.lookAt(pose.lookX,pose.lookY,pose.lookZ);}if(effects)effects.render();else renderer.render(scene,camera)}
 function record(label,amount){s.ledger??=[];s.ledger.unshift({label,amount,balance:s.bank,day:s.day});s.ledger=s.ledger.slice(0,16)}
 function textured(kind){let c=document.createElement('canvas');c.width=c.height=256;let t=c.getContext('2d'),seed=31;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};let bases={brick:'#a48872',plaster:'#beb8a6',asphalt:'#59605d',concrete:'#aaa99a',gravel:'#a79e85',roof:'#696f66',wood:'#9a8061'};t.fillStyle=bases[kind];t.fillRect(0,0,256,256);
 if(kind==='iron'){t.fillStyle='#858b85';t.fillRect(0,0,256,256);for(let x=0;x<256;x+=16){t.fillStyle='#535e5b';t.fillRect(x,0,3,256);t.fillStyle='#a0a69a';t.fillRect(x+3,0,2,256);}for(let i=0;i<22;i++){t.fillStyle='#79563d44';t.fillRect(rand()*256,rand()*256,2+rand()*7,12+rand()*60);}}
@@ -553,7 +568,7 @@ if(which==='bag')$('modal').innerHTML+=row('Ingredients & recycling',INGREDIENTS
 if(which==='map')for(let type of ['servo','mix','atm','recycler']){let p=points.find(p=>p.type===type&&pointVisible(p))||points.find(p=>p.type===type);$('modal').innerHTML+=row(p.label,type==='mix'&&!s.mixer?'Buy the station at Hank’s.':(p.x<0?'West':'East')+' side of town','Track',`trackPlace('${type}')`);}
 if(which==='journal')$('modal').innerHTML+='<h3>Mixing & money</h3><p>Level 2 unlocks the $500 mixing station at Hank’s. Servo ingredients create 24 more valuable variants from your six base gummy strains. Mix, wrap, list, text, bargain, deliver.<br>ATMs transfer cash to your online card and back. Select cash or card at each shop. Pick up litter and return it for $0.25 each.</p>';
 if(which==='pause')$('modal').innerHTML+=row('Graphics & mouse','Quality, sensitivity and optional full mouse capture.','Settings',"menu('settings')");
-if(which==='settings'){$('modal').innerHTML+='<div class="overline">SETTINGS / GRAPHICS & INPUT</div><h2>Make yourself comfortable.</h2><p>Hold and drag the world to look, or enable full mouse capture below. The camera stays still when you release the drag. Escape opens the menu. Touch: swipe to look.</p><div class="form"><label>Graphics <select onchange="setQuality(this.value)"><option value="performance" '+(quality==='performance'?'selected':'')+'>Performance · no shadows</option><option value="balanced" '+(quality==='balanced'?'selected':'')+'>Balanced · soft shadows</option><option value="high" '+(quality==='high'?'selected':'')+'>High · ambient occlusion</option></select></label></div><div class="form"><label>Sensitivity <input type="range" min="0.0005" max="0.008" step="0.0001" value="'+lookSensitivity+'" oninput="setSensitivity(Number(this.value))"></label></div><button class="ghost" onclick="fullMouseCapture()">Optional full mouse capture</button><p class="note">High adds screen-space ambient occlusion for stronger contact shading. Balanced is more suitable for integrated laptop graphics.</p>';}
+if(which==='settings'){$('modal').innerHTML+='<div class="overline">SETTINGS / GRAPHICS & INPUT</div><h2>Make yourself comfortable.</h2><p>Hold and drag the world to look, or enable full mouse capture below. The camera stays still when you release the drag. Escape opens the menu. Touch: swipe to look.</p><div class="form"><label>Graphics <select onchange="setQuality(this.value)"><option value="performance" '+(quality==='performance'?'selected':'')+'>Low · phones and software</option><option value="balanced" '+(quality==='balanced'?'selected':'')+'>Medium · soft shadows</option><option value="high" '+(quality==='high'?'selected':'')+'>High · bloom and grade</option></select></label></div><div class="form"><label>Sensitivity <input type="range" min="0.0005" max="0.008" step="0.0001" value="'+lookSensitivity+'" oninput="setSensitivity(Number(this.value))"></label></div><button class="ghost" onclick="fullMouseCapture()">Optional full mouse capture</button><p class="note">Low skips shadows and the colour pass so phones and software renderers stay responsive. High adds bloom, a grade and a vignette. Phones and SwiftShader start on Low.</p>';}
 };
 function setSensitivity(v){lookSensitivity=v;try{localStorage.setItem('gummybay-sensitivity',String(v))}catch(e){}}
 function setFov(v){fovBase=Math.max(60,Math.min(100,Number(v)||FOV_BASE));if(!comfort.sprintFov){camera.fov=fovBase;camera.updateProjectionMatrix();}try{localStorage.setItem('gummybay-fov',String(fovBase))}catch(e){}}
@@ -564,6 +579,8 @@ const previousClose=close;close=function(){previousClose();document.body.classLi
 Object.assign(window,{menu,action,act,closeMenu:close,setQuality,setSensitivity,fullMouseCapture});
 // Main-menu settings are allowed without loading a save.
 const settingsMenu=menu;menu=function(which,data){if(!active&&which==='settings'){let was=active;active=true;settingsMenu(which,data);active=was;}else settingsMenu(which,data)};window.menu=menu;
+if(typeof location!=='undefined'&&typeof location.search==='string'){const shotParams=new URLSearchParams(location.search);shotKind=shotParams.get('shot')||'starter';streetShot=shotKind==='starter'||shotKind==='opening';if(streetShot){const hour=Number(shotParams.get('hour'));if(Number.isFinite(hour))shotHour=((hour%24)+24)%24;else if(shotKind==='opening')shotHour=9;}}
+if(!(streetShot&&new URLSearchParams(location.search).get('streetBudget')==='off'))starterStreet=createStarterStreet({scene,quality});
 setQuality(quality);
 
 addEventListener('keydown',e=>{if(!active||panel||work||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;const screens={1:'phone',2:'bag',3:'journal',4:'wallet',6:'map'};if(screens[e.key])menu(screens[e.key]);if(e.key==='5')trackPlace('mix')});
@@ -685,7 +702,8 @@ const depthFrame=renderFrame;
 renderFrame=function(){
  // Snap shadow centre to texels to suppress shimmering as the player walks.
  let centerX=Math.round(camera.position.x*16)/16,centerZ=Math.round(camera.position.z*16)/16;
- sun.target.position.set(centerX,0,centerZ);sun.position.set(centerX-36,57,centerZ+33);sun.target.updateMatrixWorld();
+ const sunPlace=sunOffset(worldLighting(s.time,active));
+ sun.target.position.set(centerX,0,centerZ);sun.position.set(centerX+sunPlace.x,sunPlace.y,centerZ+sunPlace.z);sun.target.updateMatrixWorld();
  // Colour, intensity and practical-light assignment have one render owner.
  depthFrame();
 };
@@ -1147,7 +1165,7 @@ renderFrame=function(){
  residentFootSilhouettes.update({active});
  chunkyCast?.update({now,camera});
  streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked});
- if(visualTown)for(const chunk of visualTown.children){const c=chunk.userData.center;if(c)chunk.visible=camera.position.distanceTo(c)<(quality==='performance'?145:quality==='high'?280:210)+chunk.userData.radius;}
+ if(visualTown)for(const chunk of visualTown.children){const c=chunk.userData.center;if(c)chunk.visible=camera.position.distanceTo(c)<lookPreset(quality).townDistance+chunk.userData.radius;}
  visualRender();
 };
 // Environmental palette is synchronized by refreshWorldLighting before every draw.
@@ -1859,12 +1877,13 @@ const coastalMistColor=new THREE.Color(0x9aaba9),coastalCloudColor=new THREE.Col
 function refreshWorldLighting(){
  const plan=worldLighting(s.time,active);
  const atmosphere=atmosphericDistancePlan({daylight:plan.daylight,active,quality});scene.fog.near=atmosphere.near;scene.fog.far=atmosphere.far;waterUniforms.uFogNear.value=atmosphere.waterNear;waterUniforms.uFogFar.value=atmosphere.waterFar;
- sun.intensity=plan.sunIntensity;sun.color.copy(lightingColors.sunDay).lerp(lightingColors.sunDusk,plan.warmth);
- hemi.intensity=plan.hemisphereIntensity;hemi.color.set(0xb0c5d5);hemi.groundColor.set(0x5e6348);renderer.toneMappingExposure=plan.exposure;
- if(active){scene.background.copy(lightingColors.night).lerp(lightingColors.day,plan.fogMix);scene.fog.color.copy(scene.background);}
+ sun.intensity=plan.sunIntensity;sun.color.setHex(plan.sunColor);
+ hemi.intensity=plan.hemisphereIntensity;hemi.color.setHex(plan.hemiSky);hemi.groundColor.setHex(plan.hemiGround);renderer.toneMappingExposure=plan.exposure;
+ if(active){scene.background.setHex(plan.fogColor);scene.fog.color.copy(scene.background);}
  else{scene.background.set(0x172523);scene.fog.color.set(0x26352f);}
- lights.forEach(l=>l.intensity=plan.streetIntensity);porchBulbs.forEach(b=>b.material.emissiveIntensity=plan.porchEmission);
- skyUniforms.night.value=plan.skyBrightness;skyUniforms.bottom.value.copy(scene.fog.color);skyUniforms.top.value.copy(lightingColors.skyNight).lerp(lightingColors.skyDay,plan.skyMix);
+ lights.forEach(l=>{l.intensity=plan.streetIntensity;l.color.setHex(0xffb35a);});porchBulbs.forEach(b=>{b.material.emissiveIntensity=plan.porchEmission;if(plan.night>.2)b.material.emissive.setHex(0xffb35a);});
+ skyUniforms.night.value=plan.skyBrightness;skyUniforms.bottom.value.copy(scene.fog.color);skyUniforms.top.value.setHex(plan.hemiSky);
+ effects?.setGrade?.(plan.night,plan.warmth,plan.bloom);
  waterUniforms.uLight.value=plan.waterBrightness;waterUniforms.uFog.value.copy(scene.fog.color);
  refreshWindowLighting(plan.night);
  const weather=coastalWeather(s.day,s.time);
@@ -2001,6 +2020,17 @@ function phoneDeviceHTML(which){
 const phoneDeviceMenu=menu;menu=function(which,data){phoneDeviceMenu(which,data);if(!Object.hasOwn(PHONE_SCREENS,which))return;$('overlay').classList.toggle('phone',true);const shell=phoneDeviceHTML(which),cut=shell.indexOf('<nav');$('modal').innerHTML=shell.slice(0,cut)+$('modal').innerHTML+shell.slice(cut);};window.menu=menu;
 
 menu('title');requestAnimationFrame(frame);
+if(streetShot){
+ if(shotHour!=null){active=true;s.time=shotHour*60;}
+ const hide=node=>{if(node)node.style.display='none';};
+ hide($('overlay'));hide($('objective'));hide($('cross'));hide($('hint'));hide($('prompt'));hide($('work'));hide($('toast'));
+ hide(document.querySelector('header'));hide(document.querySelector('.mapbox'));hide(document.querySelector('.hotbar'));hide(document.querySelector('.controls'));hide(document.querySelector('.stamina'));hide(document.querySelector('.location'));
+ const requested=new URLSearchParams(location.search).get('quality');if(requested)setQuality(requested);
+ window.__gummyShot={
+  status:()=>townAssetStatus,
+  read:()=>{const recent=streetShotFrames.slice(-90);return {status:townAssetStatus,calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,markings:starterStreet?.markingMesh.count??0,curbs:starterStreet?.hardscapeMesh.count??0,quality,budget:starterStreet?.activeBudget??'off',frames:streetShotFrames.length,frameMs:recent.length?recent.reduce((sum,ms)=>sum+ms,0)/recent.length:0};}
+ };
+}
 
 // Five graphics overhaul stages. Read-only presentation; no save schema changes.
 const graphicsAtmosphere=createAtmosphereOverhaul({sky:skyDome,water:ocean});
@@ -2069,9 +2099,10 @@ function showArrival(index=0){
  const [label,title,text]=ARRIVAL_LINES[arrivalPage];
  $('modal').innerHTML='<div class="arrival-scene"><div class="overline">'+label+'</div><h2>'+title+'</h2><p>'+text+'</p><div class="arrival-actions"><button class="primary" onclick="advanceArrival()">'+(arrivalPage===2?'Step outside':'Continue')+'</button><button class="ghost" onclick="finishArrival()">Skip introduction</button></div><small>'+(arrivalPage+1)+' / 3</small></div>';
 }
-function finishArrival(){if(!active)return;s.arrivalSeen=true;close();syncPlayerView();camera.rotation.set(pitch,yaw,0);trackPlace('payphone');save();}
+function stepOutsideRv(){if(!insideRvShell(player.x,player.z))return false;const step=openingDoorstep();player.x=step.x;player.z=step.z;yaw=step.yaw;pitch=0;s.x=step.x;s.z=step.z;s.yaw=step.yaw;s.pitch=0;return true;}
+function finishArrival(){if(!active)return;s.arrivalSeen=true;stepOutsideRv();close();syncPlayerView();camera.rotation.set(pitch,yaw,0);trackPlace('payphone');save();}
 function advanceArrival(){if(arrivalPage<2)showArrival(arrivalPage+1);else finishArrival();}
-function startRun(modeIn,slotIn){load(modeIn,slotIn);if(active&&mode===modeIn&&slot===slotIn&&mode==='story'&&!s.called&&!s.arrivalSeen)showArrival();}
+function startRun(modeIn,slotIn){load(modeIn,slotIn);if(active&&mode===modeIn&&slot===slotIn&&mode==='story'&&!s.called&&!s.arrivalSeen)showArrival();else if(active){stepOutsideRv();syncPlayerView();camera.rotation.set(pitch,yaw,0);save();}}
 const FIRST_CALL=[
  ['“Kid? It’s Gramps.”','They caught me selling gummy clusters out of the camper. My retirement plan has hit a small legal snag.'],
  ['“You need a roof.”','There’s four hundred in your wallet. Palm Court rents Room 04 for seventy-five. Find reception first.'],

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {worldLighting,selectPracticalLights} from '../dist/world-lighting.mjs';
+import {worldLighting,sunOffset,clockDaylight,selectPracticalLights} from '../dist/world-lighting.mjs';
 for(let t=-1440;t<=2880;t+=.5){
  const a=worldLighting(t),b=worldLighting(t+1440);assert(Math.abs(a.daylight-b.daylight)<1e-10);
  for(const v of Object.values(a))assert(Number.isFinite(v));
@@ -18,4 +18,16 @@ assert.equal(selectPracticalLights({x:NaN,z:0},anchors,{room:true}).length,0);
 assert.equal(selectPracticalLights(camera,[{x:0,y:NaN,z:0}],{}).length,0);
 assert.equal(selectPracticalLights(camera,Array.from({length:10000},()=>({x:0,y:2,z:0}))).length,2);
 assert.equal(JSON.stringify([anchors,camera]),before);
+const noon=worldLighting(13*60),midnight=worldLighting(0),dawn=worldLighting(6.5*60);
+assert.equal(noon.sunColor,0xfff1dc);assert.equal(noon.fogColor,0xc7dae2);assert.equal(noon.elevation,60);assert.equal(noon.bloom,.3);assert.equal(noon.exposure,.92);
+assert.equal(midnight.sunColor,0x7b8fc4);assert.equal(midnight.fogColor,0x1b2433);assert.equal(midnight.hemiSky,0x22304d);assert.equal(midnight.bloom,.6);
+assert.equal(dawn.sunColor,0xffb27a);assert.equal(dawn.elevation,6);
+const golden=worldLighting(18*60+45);
+assert(golden.daylight>0.2&&golden.daylight<0.5,'golden hour keeps a low sun');
+assert(clockDaylight(12*60)===1&&clockDaylight(0)===0&&clockDaylight(20*60)===0);
+assert((golden.sunColor>>16)>(golden.sunColor&255),'golden sun stays warm');
+assert((noon.sunColor>>16)>(noon.sunColor&255),'noon sun is warm');assert((midnight.sunColor&255)>(midnight.sunColor>>16),'night sun is blue');
+assert.equal(worldLighting(6*60).azimuth,0);assert(Math.abs(worldLighting(19*60+30).azimuth-Math.PI)<1e-9);
+assert(sunOffset(midnight).y>0,'shadow light stays above the horizon');
+const inactive=worldLighting(900,false);assert.equal(inactive.exposure,.83);assert.equal(inactive.fogColor,0x26352f);assert.equal(inactive.sunColor,worldLighting(0,false).sunColor);
 console.log('PASS: periodic finite clock/sky/water/light projection, smooth dawn/dusk, title fallback, owned-workshop selection, strict two-light/18-intensity budget, quality/range/invalid limits and immutable input. Not rendered lighting acceptance.');
