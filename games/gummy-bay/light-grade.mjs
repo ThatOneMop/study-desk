@@ -7,7 +7,7 @@
 //     town batches; additive light pools + glowing lamp heads are ONE night-only mesh.
 //     No real lights: ~0 extra draw calls by day, +1 after dark.
 import * as THREE from './vendor/three.module.min.js';
-import {BATCH_CELL} from './static-batch.mjs?v=133';
+import {BATCH_CELL} from './static-batch.mjs?v=139';
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -86,9 +86,9 @@ class Baker{
 }
 export function createStreetDressing({scene,lamps=[],soffit=[],trees=[],planters=[],height=()=>0,seed=11}={}){
  let r=seed>>>0;const rnd=()=>((r=(r*1664525+1013904223)>>>0)/4294967296);
- // One plain mesh per colour, anchored in the busy Old Town / strip batch cell (-1,-1) so it
- // folds into the town batch already drawn there (same look key as game.js box(): roughness .84).
- const parts=new Map();let at=[0,0];const bake=hex=>{const cx=-1,cz=-1,k=hex+'|'+cx+'|'+cz;if(!parts.has(k))parts.set(k,{hex,cx,cz,b:new Baker()});return parts.get(k).b;};
+ // One plain mesh per colour per batch cell (BATCH_CELL), anchored at the cell centre, so each
+ // folds into that cell's town batch (same look key as game.js box(): roughness .84) and frustum-culls.
+ const parts=new Map();let at=[0,0];const bake=hex=>{const cx=Math.floor(at[0]/BATCH_CELL),cz=Math.floor(at[1]/BATCH_CELL),k=hex+'|'+cx+'|'+cz;if(!parts.has(k))parts.set(k,{hex,cx,cz,b:new Baker()});return parts.get(k).b;};
  const G=new Baker(),m=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),v=new THREE.Vector3(),sc=new THREE.Vector3();
  const pole=new THREE.CylinderGeometry(.08,.12,1,6),cube=new THREE.BoxGeometry(1,1,1),trunk=new THREE.CylinderGeometry(.16,.26,1,6),leaf=new THREE.IcosahedronGeometry(1,1),bush=new THREE.IcosahedronGeometry(.62,1),plane=new THREE.PlaneGeometry(1,1);plane.rotateX(-Math.PI/2);
  const pool=(x,y,z,w,d,hex)=>G.add(plane,m.compose(v.set(x,y+.07,z),q.identity(),sc.set(w,1,d)),hex,false);
