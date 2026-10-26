@@ -60,3 +60,25 @@ assert.equal(run(seller,s,sellerCtx(),40),0);assert.equal(s.cash,10);assert.equa
 assert.equal(approachPoint({x:0,z:0},()=>true),null);
 console.log('PASS: walking gardener harvests, waters with one charge and plants; walking seller pays an agreed deal once.');
 console.log('PASS: timer routes, pause and a blocked path leave stock unchanged.');
+// Play-test bug: the assistant stalled at the customer's home. It now routes round a wall,
+// hands over from arm's length, and waits at the meeting spot when it arrives first.
+{
+ const {citizenRoute}=await import('../dist/resident-life.mjs');
+ const wall=(x,z)=>x>2.5&&x<3.5&&z>-3&&z<3;
+ let st=sellerState(),sl=new StreetSeller();sl.home=0;sl.position={x:8,z:0};
+ const ctx={contacts:[{name:'Jules',x:0,z:0}],blocked:wall,route:citizenRoute,approach:6};
+ assert.equal(run(sl,st,ctx,900),1,'routes round a wall instead of stalling');assert.equal(st.cash,70);
+ st=sellerState();sl=new StreetSeller();sl.home=0;sl.position={x:8,z:0};
+ assert.equal(run(sl,st,{...ctx,route:null},200),0);assert.equal(sl.status,'Delivery route blocked','no route fallback stays honest');
+ // Customer stands on a spot the seller cannot occupy (a bench collider): hand over from beside it.
+ const bench=(x,z)=>Math.abs(x)<.5&&Math.abs(z)<.5;
+ st=sellerState();sl=new StreetSeller();
+ assert.equal(run(sl,st,{contacts:[{name:'Jules',x:0,z:0}],blocked:bench,approach:6},600),1,'hands over without standing inside the customer');
+ // Customer still walking: wait at the meeting spot, then sell when they arrive.
+ const walker={name:'Jules',x:30,z:30};st=sellerState();sl=new StreetSeller();
+ const wctx={contacts:[walker],meeting:()=>({x:0,z:0}),blocked:()=>false,approach:6};
+ assert.equal(run(sl,st,wctx,300),0);assert.equal(sl.status,'Waiting for Jules at the meeting spot');
+ assert.ok(Math.hypot(sl.position.x,sl.position.z)<.1,'waits on the spot');
+ walker.x=.8;walker.z=.2;assert.equal(run(sl,st,wctx,60),1,'completes the deal once the customer arrives');assert.equal(st.threads[0].status,'sold');
+}
+console.log('PASS: seller routes round walls, hands over from arm\'s length and waits at the meeting spot.');

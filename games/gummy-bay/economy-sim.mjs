@@ -2,6 +2,8 @@
 // recipe twists, stir losses and equipment prices so tests can prove the money curve.
 import {PANTRY} from './mix-pantry.mjs';
 import {recipeOutcome,mixedPrice,stirOutcome,newMixSeed} from './mix-risk.mjs';
+import {levelOf as rankOf} from './xp-curve.mjs';
+import {NEW_RECIPE_XP} from './mix-core.mjs';
 
 // Mirrors the STRAINS table in game.js (tests check the two stay in sync).
 export const STRAIN_LADDER=Object.freeze([
@@ -16,7 +18,7 @@ export const EQUIPMENT=Object.freeze({mixer:500,mixerLevel:2,tent:100,maxTents:6
 export const CUSTOMERS=5;
 // Order size grows as regulars trust you: 1 gummy on day 1, up to 4 by day 10.
 export const orderSize=day=>Math.min(4,1+Math.floor(day/3));
-export const levelOf=xp=>Math.min(8,1+Math.floor(xp/30));
+export const levelOf=rankOf;
 export const unitValue=(price,bench)=>Math.round(price*(1+bench*EQUIPMENT.benchStep));
 
 export function bestRecipe(seed,base,known,level,L=STRAIN_LADDER){
@@ -54,7 +56,7 @@ export function simulateEconomy({days=12,seed=newMixSeed(7),stir=.75,tries=2,lad
   const demand=day===1?2:CUSTOMERS*orderSize(day),sales=stock.splice(0,demand);stock.splice(CUSTOMERS*8);
   const deals=[];for(let i=0;i<sales.length;i+=orderSize(day))deals.push(sales.slice(i,i+orderSize(day)).reduce((a,b)=>a+b,0));
   const revenue=sales.reduce((a,b)=>a+b,0);top=Math.max(0,...sales);
-  cash+=revenue;xp+=5*sales.length+80*newRecipes+2*mixes;
+  cash+=revenue;xp+=5*sales.length+NEW_RECIPE_XP*newRecipes+2*mixes;
   log.push({day,level,tents,bench,mixer,strain:L[base].name,units:sales.length,unitPrice:sales.length?Math.round(revenue/sales.length):0,avgSale:deals.length?Math.round(revenue/deals.length):0,topSale:Math.max(0,...deals),topUnit:top,revenue,cash});
   // Upgrades after the day's sales, keeping a seed reserve for tomorrow.
   const reserve=()=>L[Math.min(5,Math.max(0,levelOf(xp)-1))].seed*tents;

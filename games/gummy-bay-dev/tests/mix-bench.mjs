@@ -12,6 +12,6 @@ assert.equal(pine.recipe,recipeName(pine.effects));
 assert.equal(pine.key,recipeKey(pine.effects));
 assert.equal(mixResult(0,0,30).recipe,pine.recipe);
 assert.deepEqual(mixResult(1,1,47).effects,applyMix(['sunny'],'fizz'));
-assert.equal(mixExperience(false),80);assert.equal(mixExperience(true),0);
+assert.equal(mixExperience(false),60);assert.equal(mixExperience(true),0);
 assert.equal(mixStationSeconds(1),6);assert.equal(mixStationSeconds(10),60);assert.equal(mixStationSeconds(11),60);
-console.log('PASS: bench mixes keep four slots, effect value, a stable recipe name and 80 XP once.');
+console.log('PASS: bench mixes keep four slots, effect value, a stable recipe name and 60 XP once.');

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {insideRvShell,openingCamera,openingDoorstep} from '../dist/opening-shot.mjs';
-assert(insideRvShell(-58,26.7),'fresh spawn sits inside the RV shell');
+assert(insideRvShell(-58,26.7),'the old interior spawn point is inside the RV shell');
 assert(!insideRvShell(openingDoorstep().x,openingDoorstep().z),'doorstep is outside the shell');
 for(let t=0;t<=5;t+=.25){const pose=openingCamera(t);assert(pose.outside&&pose.y>3&&[pose.x,pose.y,pose.z,pose.lookX,pose.lookY,pose.lookZ].every(Number.isFinite));}
 assert(openingCamera(0).y>openingCamera(4.5).y,'the shot descends toward the door');

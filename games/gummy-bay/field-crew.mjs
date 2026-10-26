@@ -106,38 +106,69 @@ export function applyWorkerSale(s,deal){
  if(thread){thread.status='sold';thread.lastSale={t:current.t,qty:current.qty,total:pay,day:s.day,time:s.time};(thread.messages??=[]).push({mine:false,text:'Thanks. I’ll look for you again.'});}
  return {pay,npc:current.npc,t:current.t,qty:current.qty};
 }
+// The sales assistant walks to the agreed meeting spot (where the customer waits),
+// routes around buildings when the straight line is blocked, and hands over once the
+// customer is within arm's reach. It never needs to stand inside the customer.
+export const SELLER_HANDOFF=1.6;
+// Line of reach to a customer, ignoring the last .6 m (the customer's own bench or doorway).
+function clearReach(from,to,dist,blocked){if(dist<=.6)return true;const k=(dist-.6)/dist;return clearSegment(from,{x:from.x+(to.x-from.x)*k,z:from.z+(to.z-from.z)*k},blocked);}
 export class StreetSeller{
- constructor(){this.home=-1;this.position=null;this.work=0;this.retry=0;this.targetNpc=-1;this.status='Not hired';}
+ constructor(){this.home=-1;this.position=null;this.work=0;this.retry=0;this.targetNpc=-1;this.path=null;this.goal=null;this.status='Not hired';}
+ standPoint(spot,blocked){
+  if(!blocked(spot.x,spot.z))return {x:spot.x,z:spot.z};
+  for(const r of [.8,1.2])for(let i=0;i<16;i++){const a=i*Math.PI/8,p={x:spot.x+Math.cos(a)*r,z:spot.z+Math.sin(a)*r};if(!blocked(p.x,p.z)&&clearReach(p,spot,r,blocked))return p;}
+  return null;
+ }
  tick(s,dt,ctx){
   dt=Math.max(0,Math.min(.06,dt||0));
   const cfg=s.staffConfig?.seller;
   if(!s.helpers?.seller){this.status='Not hired';return false;}
   if(cfg?.route!=='walk'){this.status='Background timer';return false;}
-  if(this.home!==s.house){this.home=s.house;this.position=null;this.work=0;this.retry=0;this.targetNpc=-1;}
+  if(this.home!==s.house){this.home=s.house;this.position=null;this.work=0;this.retry=0;this.targetNpc=-1;this.path=null;this.goal=null;}
   if(!s.workerEnabled?.seller){this.status='Assignment paused';return false;}
   const deal=chooseDelivery(s);
   if(!deal){
    const waiting=(s.deals||[]).some(d=>d&&(cfg.strain<0||cfg.strain===d.t));
    this.status=waiting?'Waiting: unreserved carried packs':'Waiting for an agreed deal';
-   this.work=0;this.targetNpc=-1;return false;
+   this.work=0;this.targetNpc=-1;this.path=null;this.goal=null;return false;
   }
   const contact=ctx.contacts?.[deal.npc];
   if(!contact){this.status='Waiting for an agreed deal';return false;}
-  if(this.targetNpc!==deal.npc){this.targetNpc=deal.npc;this.work=0;}
+  const blocked=ctx.blocked||(()=>false);
+  if(this.targetNpc!==deal.npc){this.targetNpc=deal.npc;this.work=0;this.path=null;this.goal=null;this.retry=0;}
+  const meet=ctx.meeting?.(deal.npc)||contact;
   if(!this.position){
-   this.position=approachPoint(contact,ctx.blocked,ctx.approach||APPROACH);
+   const stand=this.standPoint(meet,blocked);
+   this.position=approachPoint(meet,blocked,ctx.approach||APPROACH)||(stand&&approachPoint(stand,blocked,ctx.approach||APPROACH));
    if(!this.position){this.status='Delivery route blocked';return false;}
   }
-  const dx=contact.x-this.position.x,dz=contact.z-this.position.z,dist=Math.hypot(dx,dz);
-  if(dist>MEET){
-   if(this.retry>0){this.retry-=dt;this.status='Delivery route blocked';return false;}
-   const step=Math.min(dist,dt*SPEED),next={x:this.position.x+(dx/dist)*step,z:this.position.z+(dz/dist)*step};
-   if(!clearSegment(this.position,next,ctx.blocked)){this.retry=1;this.status='Delivery route blocked';return false;}
-   this.position=next;this.status='Walking to '+contact.name;return false;
+  const reach=Math.hypot(contact.x-this.position.x,contact.z-this.position.z);
+  if(reach<=Math.max(MEET,ctx.handoff||SELLER_HANDOFF)&&clearReach(this.position,contact,reach,blocked)){
+   this.path=null;this.work+=dt;this.status='Handing over the order';
+   if(this.work<JOB_SECONDS)return false;
+   this.work=0;this.goal=null;
+   return applyWorkerSale(s,deal)||false;
   }
-  this.work+=dt;this.status='Handing over the order';
-  if(this.work<JOB_SECONDS)return false;
   this.work=0;
-  return applyWorkerSale(s,deal)||false;
+  // Head for the customer once they are at (or near) the meeting spot, otherwise for the spot itself.
+  const atSpot=Math.hypot(contact.x-meet.x,contact.z-meet.z)<=3;
+  const target=atSpot?contact:meet;
+  if(this.retry>0)this.retry-=dt;
+  if(!this.goal||Math.hypot(this.goal.x-target.x,this.goal.z-target.z)>1.2){
+   if(this.retry>0&&this.goal){/* keep last plan until the retry window passes */}
+   else{this.goal={x:target.x,z:target.z};this.path=null;}
+  }
+  if(!this.path){
+   if(this.retry>0){this.status='Delivery route blocked';return false;}
+   const stand=this.standPoint(this.goal,blocked);
+   if(stand&&clearSegment(this.position,stand,blocked))this.path=[stand];
+   else if(stand&&ctx.route){const route=ctx.route(this.position,stand,blocked);this.path=Array.isArray(route)&&route.length?route.map(p=>({x:p.x,z:p.z})):null;}
+   if(!this.path){this.retry=1;this.status='Delivery route blocked';return false;}
+  }
+  const next=this.path[0],dx=next.x-this.position.x,dz=next.z-this.position.z,dist=Math.hypot(dx,dz);
+  if(dist<.05){this.path.shift();if(!this.path.length){this.path=null;if(!atSpot){this.status='Waiting for '+contact.name+' at the meeting spot';return false;}}this.status='Walking to '+contact.name;return false;}
+  const step=Math.min(dist,dt*SPEED),to={x:this.position.x+(dx/dist)*step,z:this.position.z+(dz/dist)*step};
+  if(!clearSegment(this.position,to,blocked)){this.path=null;this.retry=1;this.status='Delivery route blocked';return false;}
+  this.position=to;this.status='Walking to '+contact.name;return false;
  }
 }

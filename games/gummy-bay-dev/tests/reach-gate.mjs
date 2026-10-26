@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {reachArgs,gateButtons} from '../dist/reach-gate.mjs';
+assert.deepEqual(reachArgs("action('buyCan')",3),{k:'buyCan',a:3});
+assert.deepEqual(reachArgs("action('house',1)",0),{k:'house',a:1});
+assert.deepEqual(reachArgs("action('hire','gardener')",0),{k:'hire',a:'gardener'});
+assert.equal(reachArgs("menu('phone')"),null);assert.equal(reachArgs(null),null);
+const btn=(onclick,disabled=false)=>{const cls=new Set();return {disabled,dataset:{},title:'',getAttribute:()=>onclick,classList:{add:c=>cls.add(c),remove:c=>cls.delete(c),has:c=>cls.has(c)}};};
+const buy=btn("action('buyCan')"),hire=btn("action('hire','gardener')"),broke=btn("action('wrappers')",true),nav=btn("menu('bag')"),free=btn("action('list',0,1,30)");
+let near=false;const access=(k)=>k==='list'?null:{ok:near,reason:'Walk to a clear spot at the counter.'};
+assert.equal(gateButtons([buy,hire,broke,nav,free],access,0),2,'out of reach greys the two enabled counter actions');
+assert.ok(buy.disabled&&hire.disabled&&buy.classList.has('out-of-reach')&&buy.title.includes('Walk to'));
+assert.ok(broke.disabled&&!broke.dataset.reachOff,'a button disabled for another reason is not taken over');
+assert.ok(!nav.disabled&&!free.disabled,'navigation and unguarded actions stay usable');
+near=true;assert.equal(gateButtons([buy,hire,broke,nav,free],access,0),0);
+assert.ok(!buy.disabled&&!hire.disabled&&!buy.classList.has('out-of-reach'),'back in reach re-enables');
+assert.ok(broke.disabled,'unrelated disabled button stays disabled');
+console.log('PASS: out-of-reach panel actions are greyed out and restored when back in reach; other disabled buttons untouched.');
