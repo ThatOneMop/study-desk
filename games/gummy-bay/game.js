@@ -43,7 +43,7 @@ import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,creat
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=76';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
 import {createFixedStepper} from './sim-clock.mjs?v=122';
-import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=124';
+import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=125';
 import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from './staff-status.mjs?v=123';
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=123';
 import {customerBrief,customerReply,readCustomerReceipt,sampleChoices,customerVoice} from './customer-context.mjs?v=30';
