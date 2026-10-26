@@ -30,6 +30,7 @@ export const HUD_ICONS=Object.freeze({
  menu:svg('<path d="M8 10h16M8 16h16M8 22h16" stroke="#e9eef0" stroke-width="2.6" stroke-linecap="round"/>'),
  message:svg('<rect x="3" y="5" width="26" height="18" rx="6" fill="#55c35a"/><path d="M9 22l-2 6 8-5z" fill="#55c35a"/>'),
  police:svg('<path d="M16 3l11 4v8c0 7-5 12-11 14C10 27 5 22 5 15V7z" fill="#3c63d6"/><path d="M16 9l2 4.3 4.6.5-3.4 3.1 1 4.6L16 19.2l-4.2 2.3 1-4.6-3.4-3.1 4.6-.5z" fill="#ffd34d"/>'),
+ board:svg('<g transform="rotate(-32 16 16)"><rect x="3" y="12.5" width="26" height="7" rx="3.5" fill="#2a2a2e"/><rect class="deck" x="4" y="12" width="24" height="6.4" rx="3.2" fill="#e8743b"/><path d="M8 15.2h16" stroke="#fff3" stroke-width="1.2" stroke-dasharray="2 2"/><circle cx="9" cy="21" r="2.2" fill="#f4e6c4"/><circle cx="23" cy="21" r="2.2" fill="#f4e6c4"/></g>'),
  star:svg('<path d="M16 3l3.8 8.1 8.7 1-6.4 6 1.7 8.6L16 22.4l-7.8 4.3 1.7-8.6-6.4-6 8.7-1z" fill="#ffd34d"/>')
 });
 
@@ -41,7 +42,8 @@ export const HOTBAR_SLOTS=Object.freeze([
  Object.freeze({key:'5',id:'mix',label:'Find the mixing bench',act:'track',target:'mix'}),
  Object.freeze({key:'6',id:'map',label:'Town map',act:'menu',target:'map'}),
  Object.freeze({key:'7',id:'supplies',label:'Gummy supplies',act:'menu',target:'bag'}),
- Object.freeze({key:'8',id:'loose',label:'Loose gummies',act:'menu',target:'bag'})
+ Object.freeze({key:'8',id:'loose',label:'Loose gummies',act:'menu',target:'bag'}),
+ Object.freeze({key:'9',id:'board',label:'Skateboard',act:'equip',target:'board',elementId:'equipBoard'})
 ]);
 
 export function hotbarSlot(key){return HOTBAR_SLOTS.find(slot=>slot.key===String(key))||null;}
@@ -57,7 +59,8 @@ export function hotbarCounts(state={},stock={}){
   grow:Array.isArray(state.plants)?state.plants.filter(p=>p&&p.phase).length:0,
   mix:0,map:0,
   supplies:count(stock.raw),
-  loose:count(stock.loose)
+  loose:count(stock.loose),
+  board:Array.isArray(state.boards)?state.boards.length:0
  });
 }
 
