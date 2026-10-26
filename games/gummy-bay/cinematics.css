@@ -99,3 +99,15 @@ body.cineScene>:not(#view):not(#cineLoad):not(script):not(style):not(link){visib
 .cine-chyron .cine-mug svg{width:100%;height:auto;display:block}
 .cine-chyron:has(.cine-mug) span{overflow:hidden}
 @media (max-width:640px){.cine-skiphint{top:calc(10.5vh + 62px);font-size:11px;padding:7px 12px 9px}}
+/* v149 cinematic layer: sepia flashback grade, lens edge blur (not on Low), wipe transition, title card. */
+.cine-fx{position:absolute;inset:0;pointer-events:none}
+.cine-grade{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;background:#b98a4f;mix-blend-mode:color}
+.cine-grade.sepia{opacity:.5}
+.cine-grade.sepia::after{content:"";position:absolute;inset:0;background:radial-gradient(110% 80% at 50% 45%,transparent 50%,#2a1a0c99 100%);mix-blend-mode:multiply}
+.cine-dof{position:absolute;inset:0;display:none;-webkit-backdrop-filter:blur(2.4px);backdrop-filter:blur(2.4px);-webkit-mask-image:radial-gradient(ellipse 62% 56% at 50% 47%,transparent 62%,#000 100%);mask-image:radial-gradient(ellipse 62% 56% at 50% 47%,transparent 62%,#000 100%)}
+.cine-fx.dof .cine-dof{display:block}
+.cine-wipe{position:absolute;top:-10%;bottom:-10%;left:0;width:120%;opacity:0;background:linear-gradient(90deg,transparent,#fff2d6 30%,#ffd28a 50%,#fff2d6 70%,transparent);transform:translateX(-120%) skewX(-14deg)}
+.cine-title{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);text-align:center;opacity:0;text-shadow:0 4px 28px #000a}
+.cine-title b{display:block;font-size:clamp(38px,7.4vw,96px);font-weight:900;letter-spacing:.14em;color:#ffe9b8;-webkit-text-stroke:2px #5a2a14;paint-order:stroke fill;font-family:'Trebuchet MS',system-ui,sans-serif}
+.cine-title small{display:block;margin-top:10px;font-size:clamp(14px,1.6vw,21px);letter-spacing:.42em;text-transform:uppercase;color:#ffd28acc;font-weight:700}
+.cine-title small::before,.cine-title small::after{content:"";display:inline-block;width:42px;height:2px;margin:0 14px;vertical-align:middle;background:#ffc46b}

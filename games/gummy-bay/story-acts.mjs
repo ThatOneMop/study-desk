@@ -134,62 +134,119 @@ export function createStashGame({jars=8,duration=6,seed=7}={}){
 const off=(a,pts)=>{const c=Math.cos(a.yaw||0),s=Math.sin(a.yaw||0);return pts.map(p=>[a.x+p[0]*c-p[2]*s,p[1],a.z+p[0]*s+p[2]*c]);};
 const shot=(a,d)=>({...d,cam:off(a,d.cam),look:off(a,d.look)});
 export const CUT_ANCHORS=Object.freeze({pier:{x:0,z:80},kickflip:{x:-92,z:-24},strip:{x:-30,z:-90},townhall:{x:0,z:0}});
+const HP=Math.PI/2;
+// v149: every cut is staged in-engine. `cast` holds people-kit actors and instanced props
+// (anchor-local coordinates; see cine-cast.mjs resolveCast) that act each line, with
+// lip-flap, gestures and moods; music/amb beats drive the synthesised score and ambience.
 export const CUTS=Object.freeze({
  act2:{title:'Act 2 · Sweet Heat',anchor:'pier',shots:[
-   {duration:7,cam:[[-26,9,-16],[-18,6,-10],[-11,4,-6]],look:[[0,1.5,6],[1,1.5,6],[2,1.4,6]],fov:[52,46],ease:'inOutSine',fadeIn:1,fadeOut:.4},
-   {duration:8,cam:[[6,2.2,-8],[4,2,-6],[3,1.9,-5]],look:[[0,1.6,2],[0,1.6,2],[0,1.5,2]],fov:[44,38],ease:'inOutSine',fadeIn:.4,fadeOut:.4},
-   {duration:9,anchor:'kickflip',cam:[[18,3,22],[14,2.6,16],[11,2.4,12]],look:[[0,1.4,0],[0,1.4,0],[0,1.4,0]],fov:[46,40],ease:'inOutSine',fadeIn:.4,fadeOut:.4},
-   {duration:6,anchor:'strip',cam:[[-20,14,30],[-6,12,26],[8,11,22]],look:[[0,2,0],[6,2,-4],[12,2,-8]],fov:[54,50],ease:'inOutSine',fadeIn:.4,fadeOut:.8}],
+   {duration:7,cam:[[-26,9,-16],[-18,6,-10],[-11,4,-6]],look:[[0,1.5,6],[1,1.5,6],[2,1.4,6]],fov:[52,46],ease:'inOutSine',fadeIn:1,fadeOut:.3},
+   {duration:8,cam:[[-3.6,1.95,3.0],[-3.1,1.88,3.6]],look:[[.6,1.45,6.2],[.6,1.48,6.2]],fov:[40,35],ease:'inOutSine',fadeIn:.3,fadeOut:.3,drift:.025},
+   {duration:4.5,anchor:'kickflip',cam:[[6.8,2.4,11],[4.4,2.0,9.2]],look:[[.6,1.4,5],[.7,1.45,5.2]],fov:[46,42],ease:'inOutSine',fadeIn:.3,drift:.03},
+   {duration:4.5,anchor:'kickflip',cam:[[2.7,1.62,7.6],[2.3,1.6,7.1]],look:[[.8,1.55,5.0],[.8,1.56,5.1]],fov:[36,31],ease:'inOutSine',fadeOut:.3,drift:.02},
+   {duration:6,anchor:'strip',cam:[[-7.5,2.2,.4],[1,2,1]],look:[[-5,1.4,6],[3.5,1.4,6]],fov:[46,44],ease:'linear',fadeIn:.3,fadeOut:.8,drift:.04}],
   beats:[
-   {at:.6,until:6.4,kind:'cap',title:'GUMMY BAY',line:'Act 2 · Sweet Heat'},
+   {at:.5,until:6.4,kind:'title',title:'GUMMY BAY',line:'Act 2 · Sweet Heat'},
+   {at:.3,until:1,kind:'music',music:'reveal'},
+   {at:0,until:15,kind:'amb',amb:'sea'},
    {at:1.2,until:6.6,kind:'sub',who:'',text:'Word gets around a small town. Especially word about gummies.'},
-   {at:7.2,until:14.6,kind:'card',card:'marge'},
+   {at:7.2,until:10.8,kind:'card',card:'marge'},
    {at:7.6,until:11,kind:'sub',who:'MARGE',text:'Bait and tackle, love. Worms, hooks, and gelatin. Strictly for fishing.'},
    {at:11.1,until:14.6,kind:'sub',who:'MARGE',text:'Sell six packs and I’ll keep you stocked. Fish do love a gummy.'},
-   {at:15,until:23.6,kind:'card',card:'larry'},
+   {at:15,until:18.6,kind:'card',card:'larry'},
    {at:15,until:15.6,kind:'sfx',sfx:'stamp'},
+   {at:15,until:15.8,kind:'music',music:'rival'},
+   {at:15,until:30,kind:'amb',amb:'town'},
    {at:15.8,until:19.4,kind:'sub',who:'LEMON LARRY',text:'New kid? Cute. This is Sour Crew turf. Our gummies make people pucker.'},
    {at:19.5,until:23.4,kind:'sub',who:'LEMON LARRY',text:'Yours make people smile. Disgusting. Stay off the strip.'},
+   {at:24,until:24.8,kind:'music',music:'squad'},
    {at:24,until:29.6,kind:'sub',who:'BAY BUGLE RADIO',text:'And Inspector Hank Hardtack promises a “crackdown on suspicious sweetness” this week.'},
-   {at:24,until:29.6,kind:'chyron',head:'SUGAR SQUAD',text:'Inspector Hardtack: “Every lollipop leaves a trail”'}]},
+   {at:24,until:29.6,kind:'chyron',head:'SUGAR SQUAD',text:'Inspector Hardtack: “Every lollipop leaves a trail”'}],
+  cast:{props:[
+    {kind:'baitcart',anchor:'pier',x:2.3,z:7,yaw:-2.3,show:[0,15]},
+    {kind:'crates',anchor:'pier',x:3.2,z:5.2,yaw:.3,show:[0,15]},
+    {kind:'clipboard',anchor:'strip',show:[24,30],y:1.05,path:[[24,-8.7,6.5,HP],[30,3.3,6.5,HP]]}],
+   actors:[
+    {id:'player',look:'player',anchor:'pier',show:[0,15],path:[[0,-1.2,-8],[6.2,-.6,4.0,.57]],mood:'friendly',moods:[[0,'friendly'],[11.2,'cheery']]},
+    {id:'marge',look:'marge',anchor:'pier',who:['MARGE'],show:[0,15],path:[[0,.8,6.2,-2.57]],acts:[[3,6.4,'wave'],[7.6,9.5,'offer'],[9.5,11,'shrug'],[11.1,14.6,'point']],moods:[[0,'friendly'],[9.4,'smirk'],[11.1,'cheery']]},
+    {id:'tilly',look:'tilly',anchor:'pier',show:[0,15],path:[[0,1.6,14.2,0]],acts:[[0,15,'hold']],mood:'sleepy'},
+    {id:'larry',look:'lemon larry',anchor:'kickflip',who:['LARRY'],show:[15,24],path:[[15,.6,4.4,.62],[16.2,.6,4.4],[17.1,1.1,5.2,.62]],acts:[[15,15.8,'fold'],[15.8,17.8,'point'],[19.6,21.6,'shrug'],[21.6,24,'fold']],moods:[[15,'smirk'],[19.5,'grumpy']]},
+    {id:'crew1',look:'crew:3',anchor:'kickflip',show:[15,24],path:[[15,-.9,4.6,.5]],acts:[[15,24,'fold']],mood:'smirk'},
+    {id:'crew2',look:'crew:8',anchor:'kickflip',show:[15,24],path:[[15,2.5,4.0,.85]],acts:[[15,20,'fold'],[20,24,'shrug']],moods:[[15,'grumpy'],[20,'smirk']]},
+    {id:'hank',look:'hank hardtack',anchor:'strip',show:[24,30],path:[[24,-9,6.2,HP],[30,3,6.2,HP]],acts:[[24,30,'hold']],mood:'stern'},
+    {id:'officer1',look:'police:4',anchor:'strip',show:[24,30],path:[[24,-11,5.5,HP],[30,1,5.5,HP]],mood:'stern'},
+    {id:'officer2',look:'police:11',anchor:'strip',show:[24,30],path:[[24,-11.6,6.9,HP],[30,.4,6.9,HP]],mood:'grumpy'}]}},
  raid:{title:'Raid!',anchor:'home',shots:[
-   {duration:3.2,cam:[[-15,4.6,-20],[-12,3.8,-17],[-10,3.2,-14]],look:[[0,1.3,-4],[0,1.3,-2],[0,1.3,0]],fov:[50,44],ease:'outCubic',fadeIn:.3,vans:true},
-   {duration:2.6,cam:[[2.6,1.8,-5.2],[2,1.7,-4.4],[1.6,1.65,-3.8]],look:[[0,1.3,0],[0,1.3,0],[0,1.3,0]],fov:[44,36],ease:'inOutSine',vans:true,door:true},
-   {duration:2.4,cam:[[0,6.4,-15],[0,6,-14],[0,5.6,-13]],look:[[0,1.3,0],[0,1.3,0],[0,1.3,0]],fov:[46,42],ease:'linear',fadeOut:.3,vans:true,door:true}],
+   {duration:3.2,cam:[[-1.6,1.5,-15.5],[-1.2,1.7,-13.2],[-.8,1.9,-11]],look:[[-5.5,1.2,-8],[-3,1.3,-5],[-.6,1.4,-2]],fov:[50,46],ease:'outCubic',fadeIn:.3,drift:.05},
+   {duration:2.6,cam:[[2.5,1.7,-.9],[2.1,1.65,-1.1]],look:[[-.3,1.5,-2.8],[-.3,1.5,-2.2]],fov:[46,40],ease:'inOutSine',door:true,drift:.04},
+   {duration:2.4,cam:[[0,6.4,-15],[0,6,-14],[0,5.6,-13]],look:[[0,1.3,0],[0,1.3,0],[0,1.3,0]],fov:[46,42],ease:'linear',fadeOut:.3,door:true}],
   beats:[
+   {at:0,until:.8,kind:'music',music:'squad'},
+   {at:0,until:8.2,kind:'amb',amb:'town'},
    {at:.2,until:3.2,kind:'sub',who:'',text:'Sirens. Two Sugar Squad vans skid up outside.'},
    {at:.1,until:8,kind:'sfx',sfx:'siren'},
    {at:3.2,until:5.8,kind:'sub',who:'INSPECTOR HARDTACK',text:'SUGAR SQUAD! Nobody move a single sprinkle!'},
    {at:3.9,until:4.3,kind:'sfx',sfx:'bonk'},
    {at:4,until:8.2,kind:'card',card:'hank'},
    {at:5.9,until:8.2,kind:'stamp',text:'RAID!'},
-   {at:5.9,until:6.4,kind:'sfx',sfx:'stamp'}]},
+   {at:5.9,until:6.4,kind:'sfx',sfx:'stamp'}],
+  cast:{props:[
+    {kind:'van',anchor:'home',show:[0,8.2],bounce:1,path:[[0,-8.1,-11.7,.57],[1.1,-4.8,-6.6,.57]]},
+    {kind:'van',anchor:'home',show:[0,8.2],bounce:1,path:[[0,7.6,-13.6,-.45],[1.2,4.9,-8.2,-.45]]}],
+   actors:[
+    {id:'hank',look:'hank hardtack',anchor:'home',who:['HARDTACK'],show:[1.1,8.2],path:[[1.1,-3.3,-6.0],[3.1,-.3,-1.7,0],[5.9,-.3,-1.7,0],[8.2,-.1,-.4]],acts:[[3.1,3.9,'bang'],[3.95,5.8,'megaphone'],[5.8,8.2,'point']],mood:'stern',moods:[[1.1,'stern'],[3.95,'wide'],[4.5,'stern']]},
+    {id:'officer1',look:'police:6',anchor:'home',show:[1.2,8.2],path:[[1.2,3.3,-7.4],[3.5,1.5,-2.5,-.3],[5.9,1.5,-2.5],[8.2,.7,.6]],acts:[[3.5,5.9,'fold']],mood:'stern'},
+    {id:'officer2',look:'police:12',anchor:'home',show:[1.3,8.2],path:[[1.3,-5.7,-5.4],[3.6,-1.9,-2.7,.45],[6.2,-1.9,-2.7],[8.2,-1.0,.2]],acts:[[3.6,6.2,'hold']],mood:'grumpy'}]}},
  act3:{title:'Act 3 · Going Big',anchor:'home',shots:[
-   {duration:6,cam:[[-26,18,-30],[-16,14,-24],[-8,10,-18]],look:[[0,1,0],[0,1,0],[0,1,0]],fov:[54,48],ease:'inOutSine',fadeIn:1,fadeOut:.4},
-   {duration:7,cam:[[10,2.4,-10],[6,2.1,-8],[3,1.9,-7]],look:[[0,1.4,0],[0,1.4,0],[0,1.4,0]],fov:[46,40],ease:'inOutSine',fadeIn:.4,fadeOut:.8}],
+   {duration:6,cam:[[-26,18,-30],[-16,14,-24],[-8,10,-18]],look:[[0,1,0],[0,1,0],[0,1,0]],fov:[54,48],ease:'inOutSine',fadeIn:1,fadeOut:.3},
+   {duration:6.8,cam:[[4.4,1.8,-7.6],[3.1,1.72,-6.5]],look:[[1.2,1.55,-3.2],[1.2,1.55,-3.2]],fov:[40,34],ease:'inOutSine',fadeIn:.3,fadeOut:.8,drift:.025}],
   beats:[
-   {at:.6,until:5.8,kind:'cap',title:'GUMMY BAY',line:'Act 3 · Going Big'},
+   {at:.6,until:5.8,kind:'title',title:'GUMMY BAY',line:'Act 3 · Going Big'},
+   {at:.3,until:1,kind:'music',music:'tender'},
+   {at:0,until:12.8,kind:'amb',amb:'town'},
    {at:1,until:5.8,kind:'sub',who:'',text:'New keys. More room. Space for tents, a crew, and a lot more gummies.'},
-   {at:6.2,until:9.6,kind:'sub',who:'GRAMPS (ON THE PHONE)',text:'A real base! I’m proud of you, kid. Now don’t let it go to your head.'},
-   {at:9.7,until:12.8,kind:'sub',who:'GRAMPS (ON THE PHONE)',text:'Founders’ Day is coming. Hire some help. And say hi to Tilly at the pier for me.'}]},
+   {at:6.2,until:9.6,kind:'sub',who:'GRAMPS (ON THE PHONE)',text:'A real base! I’m proud of you, kid. Now don’t let it go to your head.',phone:true},
+   {at:9.7,until:12.8,kind:'sub',who:'GRAMPS (ON THE PHONE)',text:'Founders’ Day is coming. Hire some help. And say hi to Tilly at the pier for me.',phone:true}],
+  cast:{props:[
+    {kind:'crates',anchor:'home',x:-2.6,z:-3.4,yaw:.4,show:[0,12.8]},
+    {kind:'crates',anchor:'home',x:3.4,z:-4.6,yaw:-.7,show:[0,12.8]}],
+   actors:[
+    {id:'helper1',look:'crew:14',anchor:'home',show:[0,6],path:[[0,-6,-13],[6,-1.6,-1.4]],acts:[[0,6,'carry']],mood:'cheery'},
+    {id:'helper2',look:'folk:61',anchor:'home',show:[0,6],path:[[.6,-8.6,-11],[6,1.2,-1.6]],acts:[[0,6,'carry']],mood:'friendly'},
+    {id:'player',look:'player',anchor:'home',show:[0,12.8],path:[[0,1.2,-3.2,2.57]],acts:[[.5,5.8,'wave'],[5.8,12.8,'phone']],moods:[[0,'friendly'],[6.4,'cheery'],[9.8,'smirk'],[11,'cheery']]}]}},
  finale:{title:'Founders’ Day',anchor:'pier',shots:[
-   {duration:7,cam:[[-30,8,-30],[-20,7,-22],[-12,6,-16]],look:[[0,4,10],[0,5,10],[0,6,10]],fov:[52,48],ease:'inOutSine',fadeIn:1,fadeOut:.4,fireworks:true},
-   {duration:9,cam:[[0,2,-6],[0,2,-6],[0,2,-6]],look:[[0,2,10],[0,2,10],[0,2,10]],fov:46,ease:'linear',fadeIn:.4,fadeOut:.4},
-   {duration:8,cam:[[8,3,-14],[4,3.4,-12],[0,4,-10]],look:[[0,7,14],[0,9,14],[0,11,14]],fov:[46,56],ease:'inOutSine',fadeIn:.4,fadeOut:.4,fireworks:true},
-   {duration:7,cam:[[-6,2,-8],[-4,2.2,-7],[-2,2.4,-6]],look:[[0,2,2],[0,2.2,2],[0,2.6,2]],fov:[44,40],ease:'inOutSine',fadeIn:.4,fadeOut:1.2,fireworks:true}],
+   {duration:7,cam:[[-30,8,-30],[-20,7,-22],[-12,6,-16]],look:[[0,4,10],[0,5,10],[0,6,10]],fov:[52,48],ease:'inOutSine',fadeIn:1,fadeOut:.3,fireworks:true},
+   {duration:4.6,cam:[[.9,1.2,-4.4],[.6,1.3,-3]],look:[[0,3.2,12],[0,3.3,10]],fov:[50,46],ease:'inOutSine',fadeIn:.3,drift:.03},
+   {duration:4.4,cam:[[.3,1.8,1.6],[-.3,1.75,2.3]],look:[[-2.6,1.65,3.4],[-2.6,1.65,3.4]],fov:[38,33],ease:'inOutSine',drift:.02},
+   {duration:4.2,cam:[[8,3,-14],[5,3.3,-12.5]],look:[[0,7,14],[0,9,14]],fov:[46,54],ease:'inOutSine',fireworks:true},
+   {duration:3.8,cam:[[.7,1.7,6.6],[1.05,1.68,7.2]],look:[[3.2,1.62,8.5],[3.2,1.62,8.5]],fov:[38,34],ease:'inOutSine',fadeOut:.3,drift:.02},
+   {duration:7,cam:[[-6,2,-8],[-4,2.2,-7],[-2,2.4,-6]],look:[[0,1.8,2],[0,2,2],[0,2.4,2]],fov:[44,40],ease:'inOutSine',fadeIn:.3,fadeOut:1.2,fireworks:true}],
   beats:[
-   {at:.6,until:6.6,kind:'cap',title:'FOUNDERS’ DAY',line:'Lucky Pier · 8:00 PM'},
+   {at:.6,until:6.6,kind:'title',title:'FOUNDERS’ DAY',line:'Lucky Pier · 8:00 PM'},
+   {at:.3,until:1,kind:'music',music:'parade'},
+   {at:0,until:31,kind:'amb',amb:'crowd'},
    {at:1,until:6.6,kind:'sub',who:'BAY BUGLE RADIO',text:'Live from the pier, where the Founders’ Day parade has a… surprise float?'},
-   {at:7,until:16,kind:'card',card:'float'},
+   {at:7,until:10.6,kind:'card',card:'float'},
    {at:7.4,until:11.6,kind:'sub',who:'',text:'A giant gummy bear rolls down the pier. In the cool sea breeze, it does not melt.'},
    {at:11.7,until:15.8,kind:'sub',who:'MAYOR PRUDENCE PLUM',text:'Is that… raspberry? Oh, that is delicious. Oh no. Oh, that is VERY delicious.'},
+   {at:16,until:16.8,kind:'music',music:'parade'},
    {at:16.2,until:20,kind:'sub',who:'BAY BUGLE RADIO',text:'Breaking: the mayor calls a vote on the Sugar-Free Bay Act. The crowd is chanting “Gramps!”'},
    {at:16.2,until:24,kind:'chyron',head:'BREAKING',text:'Mayor Plum: “We may have been a little hasty”'},
    {at:20.2,until:24,kind:'sub',who:'',text:'Inspector Hardtack eats a gummy. He has never looked so confused, or so happy.'},
-   {at:24.4,until:31,kind:'card',card:'gramps'},
+   {at:24,until:24.8,kind:'music',music:'reveal'},
+   {at:24.4,until:28,kind:'card',card:'gramps'},
    {at:24.6,until:27.8,kind:'sub',who:'GRAMPS GUS',text:'Out on good behaviour, kid. You kept the lights on.'},
    {at:27.9,until:31,kind:'sub',who:'GRAMPS GUS',text:'Now, about Lemon Larry and that big house on the hill… Another time.'},
-   {at:25,until:31,kind:'cap',title:'THE END?',line:'Candy Baron of Gummy Bay · free play continues'}]}
+   {at:28.2,until:28.9,kind:'music',music:'tender'},
+   {at:25,until:31,kind:'cap',title:'THE END?',line:'Candy Baron of Gummy Bay · free play continues'}],
+  cast:{props:[{kind:'lectern',anchor:'pier',x:-2.0,z:3.4,yaw:HP,show:[0,31]}],
+   actors:[
+    {id:'mayor',look:'mayor prudence',anchor:'pier',who:['MAYOR','PLUM'],show:[0,31],path:[[0,-2.7,3.4,HP]],acts:[[1,6.6,'wave'],[11.7,14.2,'eat'],[14.2,16,'cheer'],[16.2,20,'wave']],moods:[[0,'cheery'],[11.7,'wide'],[13.4,'cheery']]},
+    {id:'hank',look:'hank hardtack',anchor:'pier',show:[0,31],path:[[0,3.4,8.5,-HP]],acts:[[0,20.2,'fold'],[20.4,22.6,'eat'],[22.6,24,'cheer']],moods:[[0,'stern'],[20.4,'wide'],[22.4,'cheery']]},
+    {id:'tilly',look:'tilly',anchor:'pier',show:[0,31],path:[[0,2.6,11.2,-2.4]],acts:[[0,31,'cheer']],mood:'cheery'},
+    ...[[-3.7,-.5,6],[-3.6,1.6,17],[-3.8,6.8,29],[3.7,.5,33],[3.6,3.2,41],[3.8,5.6,52]].map(([x,z,n],i)=>({id:'crowd'+i,look:(i%3===1?'kid:':'folk:')+n,anchor:'pier',show:[0,31],path:[[0,x,z,x<0?HP:-HP]],
+     acts:[[.4+i*.2,7,i%2?'clap':'cheer'],[16+i*.15,24,'cheer'],[24.2,31,i%2?'wave':'clap']],mood:'cheery'})),
+    {id:'gramps',look:'gramps',anchor:'pier',who:['GRAMPS'],show:[24,31],path:[[24,.2,8.2],[27.6,-.9,-1.2,-2.7]],acts:[[25,29.6,'wave'],[29.6,31,'cheer']],mood:'cheery'}]}}
 });
 // Resolve the shots of a cutscene against real anchors (home = the player's base door).
 export function cutTimeline(id,anchors={}){
@@ -205,7 +262,8 @@ export function storyCutAt(id,timeline,seconds){
  const at=timeline.at(t),beats=cut.beats.filter(b=>t>=b.at&&t<b.until),pick=k=>beats.filter(b=>b.kind===k).pop()||null;
  return {...at,time:t,done:Number.isFinite(seconds)&&seconds>=timeline.duration,
   sub:pick('sub'),cap:pick('cap'),card:pick('card'),chyron:pick('chyron'),stamp:pick('stamp'),sfx:beats.filter(b=>b.kind==='sfx').map(b=>b.sfx),
-  fireworks:!!at.shot.fireworks,letterbox:true};
+  title:pick('title'),music:beats.filter(b=>b.kind==='music').map(b=>b.music),amb:pick('amb')?.amb||'',
+  fireworks:!!at.shot.fireworks,letterbox:true,get titleIn(){const b=this.title;return b?Math.max(0,Math.min(1,(t-b.at)/.6,(b.until-t)/.5)):0;}};
 }
 
 // ---- Name cards (original procedural SVG, comedy freeze-frame style) ----

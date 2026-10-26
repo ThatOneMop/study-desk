@@ -56,3 +56,8 @@
 /* v143 contrast: the act line on the orange phone card was pale-on-orange; force dark ink at full opacity. */
 body #overlay.phone #modal .story-phone-card b,body #overlay.phone #modal .story-phone-card strong,body #overlay.phone #modal .story-phone-card b,.story-phone-card b,.story-phone-card strong{color:#2a1206!important}
 body #overlay.phone #modal .story-phone-card small,.story-phone-card small{color:#3d1a06!important;opacity:1;font-weight:700}
+/* v149: name cards are compact lower-third straps now that the cast acts in-engine. */
+.story-card-slot{top:auto;bottom:calc(10.5vh + 92px);right:4vw;transform:translateX(30px)}
+.story-card-slot .story-card{transform:none;padding:7px 14px 7px 7px;gap:10px;border-radius:10px;max-width:min(360px,70vw);box-shadow:0 8px 24px #0007,inset 0 0 0 3px #fff3}
+.story-card-slot .story-card svg{width:58px;height:58px}
+.story-card-slot .story-card em{font-size:12px}
