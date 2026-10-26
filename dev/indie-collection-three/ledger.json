@@ -349,12 +349,14 @@
         "9 engine tests pass: all original routes and saves, three hook-assisted routes with exact forecasts/reloads, hook energy/retreat constraints, other-beetle retaliation, loss/retry, records and malformed saves.",
         "6 jsdom 26.1.0 tests pass: original and hook campaigns, button/H-key selection, previews, reload, pause/confirmation/bridge guards, reset isolation, unreadable recovery and quota failures. Dialogs simulated.",
         "Both gameplay scripts pass syntax checks. No rendered/browser, screenshot, actual touch/native keyboard activation or human-enjoyment evidence. Full repository checks not run from partial checkout.",
-        "Directional brace: 20 passing tests (12 engine, 8 jsdom), retaining prior fifteen. Directional blocking/rear exposure, counter splashes, blocked counter tiles, distant approach, energy guards, three brace routes, forecast and per-action reload, UI progression/shortcut/pause/retry. Syntax checks pass; no rendered evidence."
+        "Directional brace: 20 passing tests (12 engine, 8 jsdom), retaining prior fifteen. Directional blocking/rear exposure, counter splashes, blocked counter tiles, distant approach, energy guards, three brace routes, forecast and per-action reload, UI progression/shortcut/pause/retry. Syntax checks pass; no rendered evidence.",
+        "Optional turn planning: 24 passing tests (13 engine, 11 jsdom). Detached forecast positions across three route families, three-bank preview/confirm UI campaign, exact future boards, no preview save mutation, cancellation on mode/pause/dialog/reload/parent hide, keyboard/form guards and immediate-control compatibility. Both scripts pass syntax checks. No native touch/rendered evidence."
       ],
       "commits": [
         "cfd3d84885b77c5ea8968e8adf636d571dc64b3d",
         "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
-        "4632be8e78fc82c9aba25a05580c3119a55032c6"
+        "4632be8e78fc82c9aba25a05580c3119a55032c6",
+        "dff682c8c642d8f09727eb3e1aa2479ab6c63754"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -379,6 +381,13 @@
         "before": "Only walk, dash and hook could advance the turn.",
         "after": "Brace holds position for one energy, blocks only a faced adjacent attacker and counter-shoves it; side/rear attacks still hurt. Distant beetles approach normally. Existing forecasts, journals and retries support it.",
         "remaining": "Rendered desktop/touch play and screenshot inspection; facing/forecast clarity, counter feedback, energy balance and meaningful playtest-led improvement before selection."
+      },
+      "pendingPlanningRefinement": {
+        "commit": "dff682c8c642d8f09727eb3e1aa2479ab6c63754",
+        "basis": "Source inspection: hover/focus-only forecasts offered no explicit touch planning interaction. Not rendered play.",
+        "before": "Direction activation committed immediately; forecasts described totals but not the whole resulting board.",
+        "after": "Optional planning selects a read-only turn, shows exact post-response ranger/beetle positions and totals, then requires confirmation. Cancel/stale-context guards preserve committed saves. Immediate controls remain available.",
+        "remaining": "Rendered desktop/touch review and screenshots, preview-board layout/clarity, natural usability assessment and completed playtest-led improvement before selection."
       }
     },
     {
@@ -1309,7 +1318,7 @@
     "Implement remaining 36 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
-  "latestObservedMain": "37e79d805957cad5d28451890a001eb2ad3bb004",
+  "latestObservedMain": "d118390699e681eb5260275453bddf5b1b84686d",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1514,6 +1523,13 @@
       "result": "Reedbreaker directional brace/counter-shove implemented. 20 engine/DOM tests pass; three assisted routes. Counts unchanged: 14 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering security-policy blocker not retried or bypassed; no rendered or live credit.",
       "mainObserved": "37e79d805957cad5d28451890a001eb2ad3bb004"
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "dff682c8c642d8f09727eb3e1aa2479ab6c63754",
+      "result": "Reedbreaker optional explicit turn planning and future-board preview implemented; 24 engine/DOM tests pass. Counts unchanged: 14 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering security-policy blocker not bypassed or retried. No rendered/native touch credit.",
+      "mainObserved": "d118390699e681eb5260275453bddf5b1b84686d"
     }
   ]
 }
