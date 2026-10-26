@@ -30,4 +30,4 @@
  window.addEventListener('blur',()=>pause(true));document.addEventListener('visibilitychange',()=>{if(document.hidden)pause(true)});window.addEventListener('message',e=>{if(e.source!==window.parent||e.source===window||e.origin!==location.origin||e.data?.type!=='study-visibility')return;background=!e.data.visible;if(background)pause(true)});
  function frame(now){if(!paused&&!background&&!document.hidden&&$('confirm').hidden){if(!last)last=now;acc+=Math.min(.1,(now-last)/1000);last=now;let changed=false;while(acc>=1/60){const event=[o.run.checkpoint,o.run.falls,...o.run.blooms].join(',');const controls={};for(const k of Object.keys(input))controls[k]=input[k]||queue[k]>0;changed=E.step(o,controls)||changed;for(const k of Object.keys(queue)){queue[k]=Math.max(0,queue[k]-1);if(input[k])pending[k]=false}acc-=1/60;if(event!==[o.run.checkpoint,o.run.falls,...o.run.blooms].join(','))save()}if(changed&&++since>=45){save();since=0}render()}else last=0;requestAnimationFrame(frame)}
  window.addEventListener('pagehide',save);save();render();requestAnimationFrame(frame);
-})();
+window.TBGame={get o(){return o}};})();
