@@ -59,6 +59,10 @@ const bench=createDayDirector();
 const northOfTable=bench.intent(world({x:-18,z:42,raw:1}));
 assert.equal(northOfTable.phase,'make');
 assert.ok(northOfTable.aim&&northOfTable.aim.x<-22,'the worktable is approached from its south side');
+const meeting=createDayDirector();
+const follow=meeting.intent(world({x:-7,z:22,packs:4,deal:0,customers:[{x:12,z:65}]}));
+assert.equal(follow.phase,'deliver');
+assert.ok(follow.aim&&follow.aim.z>30,'delivery follows the customer after the home node');
 
 const rich=createDayDirector();
 const hireSnap=world({level:3,cash:700,xp:60,sold:12,harvested:12,policeReport:true,reach:true});

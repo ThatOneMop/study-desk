@@ -235,6 +235,7 @@ export function createDayDirector(){
    points=routePoints(snap.x,snap.z,'jules').concat([[c.x,c.z]]);
   }else points=routePoints(snap.x,snap.z,goalNow.place);
   if(!points.length)return {hold:{},fast:.2,note:goalNow.id};
+  while(points.length>1&&Math.hypot(snap.x-points[0][0],snap.z-points[0][1])<2.2)points.shift();
   const [tx,tz]=points[0];
   const stuck=trackStuck(goalNow.id,snap);
   const last=points.length===1;
