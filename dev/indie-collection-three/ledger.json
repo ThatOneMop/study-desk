@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 16,
+    "built": 17,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -794,21 +794,36 @@
     },
     {
       "slot": 57,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "bellwether",
+      "title": "Bellwether",
+      "coreLoop": "Position a dog to nudge nearby sheep away, whistle distant sheep closer, and steer a simultaneous flock around rocks into a shelter gate with exact pre-move forecasts.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/bellwether",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "16 tests pass: 8 engine and 8 jsdom 26.1.0. Complete three-meadow campaigns reload after every move; independent breadth-first search verifies shortest routes of 11/9/17 steps under the current rules.",
+        "Engine: pressure/whistle distance bands, immutability, simultaneous destination conflicts, occupied start-cell blocking, sheltered sheep, invalid/no-op actions, undo after arrival, retry/records, sequential unlocks, strict replay and a recoverable 512-action defensive journal cap.",
+        "DOM: opening gate, read-only forecasts, campaign unlocks, keyboard/native-control guards, scaled SVG taps including border offsets, pause/dialog/trusted-parent hiding, retry/navigation/reset confirmation, isolated storage, corrupt-save recovery and quota failures.",
+        "Both gameplay scripts pass node --check. Unique IDs, accessible board descriptions, SVG structure, local script/style paths, reduced-motion/mobile CSS and CSS parsing checked. No Switch workspace control introduced. No full repository build from the partial workspace or rendered browser/screenshot/touch evidence."
+      ],
+      "commits": [
+        "c83cf16c1cae29e2c1987273469ef11a91c91be2"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three compact authored meadows; no damage or timed/irreversible loss, and undo is always available. Exact forecasts make flock movement predictable but may reduce discovery. Compass tie-breaks, an easier second meadow, mobile readability and long-route replay need natural play. Search results are mechanical feasibility/optimality, not human enjoyment."
+      },
+      "nextSteps": [
+        "Play each meadow naturally on desktop and touch; inspect screenshots, sheep/dog contrast, preview clarity, native focus/dialog behavior and Games navigation.",
+        "Identify the most important rendered weakness, implement a substantial game-specific improvement, and reverify saves/reload, arrivals, blocked choices, undo/retry, records and reset before any catalogue integration."
+      ]
     },
     {
       "slot": 58,
@@ -1407,11 +1422,11 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all sixteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 34 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all seventeen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 33 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "e41ce7c5904b9bbe5fb3031c018dd57405ece275",
+  "latestObservedMain": "a4e735c9a1dd46e6f75af0370c181e36f76267ba",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1686,6 +1701,13 @@
       "result": "Bramble Dice Reserve job implemented; 27 engine/DOM tests pass. Counts unchanged: third 16 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
       "mainObserved": "e41ce7c5904b9bbe5fb3031c018dd57405ece275"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "c83cf16c1cae29e2c1987273469ef11a91c91be2",
+      "result": "Bellwether built in slot 57: original positional herding and whistle puzzle, three meadows, forecasts, undo and safe saves. 16 engine/DOM tests pass. Third batch now 17 built, 0 improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "browserStatus": "Existing rendering security-policy blocker not bypassed or retried. No browser-based improvement credit.",
+      "mainObserved": "a4e735c9a1dd46e6f75af0370c181e36f76267ba"
     }
   ]
 }
