@@ -1,5 +1,24 @@
 # Study Desk improvement ledger
 
+## 2026-10-27 — Mobile and accessibility pass
+
+Shell only (style.css, app.js, index.html). Catalogue entries, game folders, study tools, save keys, and owner-only access stayed as they were.
+
+### Checked
+- 390x844 phone and 768x1024 tablet, study desk, collection, player and back navigation: no horizontal scroll and no page errors in any view.
+- Flashcards turn, mark mastery, change deck and persist across reload; the editor opens and Escape returns focus to Edit.
+- Landmarks (header, nav, main, footer), one h1 per view, a logical Tab order with a visible focus ring, alt text on every image, and the carousel held still under reduced motion.
+
+### Implemented
+- Touch targets of at least 44px on phones, tablets and touch screens: the brand link, subject chips, flashcard controls, carousel controls and dots, filter chips, selects, Reset, the community link, favourite stars, Controls & details summaries, credits links and player controls. Before the fix there were 8 small targets in study and 278 in the collection at 390px.
+- Light-theme muted text darkened to #5a6b5f, at least 4.8:1 against every background. This covers the eyebrows, intro, tip, progress, flip hint, keyboard hint, footer, game counts, genres and notes, which previously ranged from 2.47:1 to 4.39:1. Dark-theme footer and count text are pinned to #a9bbaa.
+- The editor's close button is named "Close flashcard editor". Decorative emoji art on cards and capsules is hidden from screen readers; the card buttons already carry full names.
+- A global reduced-motion rule shortens every animation and transition.
+- `tests/hub-mobile-a11y-browser.cjs` (BASE env, default 8765) guards the above.
+
+### Pending
+- Physical screen-reader output and a real phone file picker remain unverified.
+
 ## 2026-10-26 — Console storefront
 
 Shell only. Catalogue entries, game folders, study tools, save keys, and owner-only access stayed as they were.
