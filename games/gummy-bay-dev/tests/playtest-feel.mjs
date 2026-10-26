@@ -59,7 +59,7 @@ assert.match(game,/gl_FrontFacing \? vMapUv : vec2\( 1\.0 - vMapUv\.x, vMapUv\.y
 
 // Touch parity and HUD layout.
 assert.match(html,/<link rel="stylesheet" href="feel\.css\?v=\d+">/);
-assert.match(html,/<div class="touchAct"><button data-key="shift"[^>]*>RUN<\/button><button data-key=" "[^>]*>JUMP<\/button><\/div>/,'phones can run and jump');
+assert.match(html,/<div class="touchAct"><button data-tap="e"[^>]*>USE<\/button><button data-key="shift"[^>]*>RUN<\/button><button data-key=" "[^>]*>JUMP<\/button><\/div>/,'phones can run and jump');
 assert.match(css,/@media\(pointer:coarse\)\{\.touchAct\{display:flex\}\}/);
 assert.match(css,/body #drivingHUD\{left:18px!important;right:auto!important;bottom:96px!important;top:auto!important;transform:none!important/,'driving readout is docked, not on the windscreen');
 for(const rule of ['body #compass{top:94px!important}','body #policeHUD{top:140px!important;bottom:auto!important}','body:has(#policeHUD:not([hidden])) #notifs{top:282px!important}','body .controls{bottom:96px!important}','body .touch{bottom:160px!important}'])assert.ok(css.includes(rule),'phone layout keeps '+rule);
@@ -71,3 +71,11 @@ assert.match(game,/const COP_PERSONAL_SPACE=1\.05;/);
 assert.match(game,/if\(active&&!driving&&\(px\*dx\+pz\*dz\)>0&&Math\.abs\(px\*dz-pz\*dx\)\/d<\.7\)amount=Math\.min\(amount,Math\.max\(0,pd-COP_PERSONAL_SPACE\)\);/);
 assert.match(game,/if\(distance<2\.6&&seen&&!driving/,'grab range stays outside the personal-space stop');
 console.log('playtest-feel cop spacing ok');
+// Phones get a USE button that replays E (sticky net, interact), and the place toast/notification stack stay apart.
+{
+ assert.match(html,/<div class="touchAct"><button data-tap="e" aria-label="Use or interact \(E\)">USE<\/button>/);
+ assert.match(game,/document\.querySelectorAll\('\[data-tap\]'\)\.forEach\(b=>\{b\.onpointerdown=e=>\{e\.preventDefault\(\);dispatchEvent\(new KeyboardEvent\('keydown',\{key:b\.dataset\.tap/);
+ assert.match(css,/body #placeToast\{top:38%!important\}/);
+ assert.match(css,/body:has\(#policeHUD:not\(\[hidden\]\)\) #notifs>:nth-child\(n\+2\)\{display:none!important\}/);
+ console.log('playtest-feel touch use ok');
+}

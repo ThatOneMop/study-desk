@@ -21,4 +21,6 @@ body.titleMode .touchAct,body[data-panel]:not([data-panel=""]) .touchAct{display
  body .touch{bottom:160px!important}
  body #drivingHUD{left:auto!important;right:12px!important;top:auto!important;bottom:96px!important;max-width:calc(100vw - 184px)!important}
  body:has(#drivingHUD:not([hidden])) .touchAct{display:none!important}
+ body #placeToast{top:38%!important}
+ body:has(#policeHUD:not([hidden])) #notifs>:nth-child(n+2){display:none!important}
 }
