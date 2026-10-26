@@ -79,3 +79,25 @@ body.titleMode .touch,body.titleMode .hotbar,body.titleMode .mapbox,body.titleMo
 #placementHUD{width:min(560px,calc(100vw - 32px));box-sizing:border-box}#placementStatus{margin:4px 0;font-size:13px;line-height:1.5}#placementConfirm:disabled{opacity:.5;cursor:not-allowed}
 .customerCard small{display:block;margin-top:5px;color:#bac9b9;font-size:10px}.customer-memory{font-size:10px!important;color:#d7c590!important;line-height:1.5}.customer-commitment{font-size:11px;color:#cee0b6}.sample-choice{margin-top:10px}.sample-choice label{font-size:11px;color:#c5d0bc}.sample-choice select{min-width:0;max-width:100%;flex:1}.sample-choice .form{flex-wrap:wrap}
 .crew-status{padding:9px 11px;background:#101f1a66;border-left:2px solid #b7c491;margin:8px 0}.crew-status strong{font-size:12px;color:#e1d8b2}.crew-status p{font-size:11px;margin:5px 0}.crew-assignment{font-size:11px;color:#c4d4be}.crew-cargo{color:#e5ca97!important}.staffcard label{display:block;margin-top:9px}.staffcard select{max-width:100%}
+
+/* Phone contacts, relationship meters and in-person satisfaction. */
+.device-keys{grid-template-columns:repeat(5,minmax(0,1fr))}
+.device-keys button{letter-spacing:0;font-size:8px;padding:8px 1px;min-height:44px;touch-action:manipulation}
+.phone-app-grid button{touch-action:manipulation}
+.phone-app-grid em{display:block;margin-top:3px;font-style:normal;font-size:8px;letter-spacing:1px;color:#9aab96}
+.phone-keyhint{margin:8px 0 0;text-align:center;font-size:10px;letter-spacing:.3px;color:#9aab96}
+.phone-contacts-lead{margin-top:0}
+.phone-contact{border:1px solid #b5c6b533;border-radius:9px;background:#14241f99;padding:12px;margin:10px 0}
+.phone-contact .contact-heading{justify-content:space-between;align-items:flex-start}
+.phone-contact .contact-heading b{margin-left:auto;color:#e1c56a;font-size:16px}
+.phone-contact .contact-heading small{display:block}
+.relation-meter{height:8px;margin:8px 0;background:#101916;border:1px solid #c3b98255;border-radius:9px;overflow:hidden}
+.relation-meter i{display:block;height:100%;width:0;background:#b7c48a}
+.phone-contact[data-band="trusted"] .relation-meter i,.phone-contact[data-band="loyal"] .relation-meter i,.satisfaction-strip[data-band="trusted"] .relation-meter i,.satisfaction-strip[data-band="loyal"] .relation-meter i{background:#e1c56a}
+.relation-band{margin:0 0 6px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#d7c56a}
+.phone-deal-chip{margin:6px 0;color:#cee1ab;font-size:11px}
+.phone-contact .order-actions button{flex:1;min-height:44px;touch-action:manipulation}
+.satisfaction-strip{margin:12px 0;padding:10px 12px;border-left:3px solid #c3b982;background:#10191688}
+.satisfaction-strip strong{display:block;font-size:12px;margin-bottom:2px}
+.satisfaction-strip p{margin:6px 0 0;font-size:12px;line-height:1.45}
+@media(max-width:600px){.device-keys button{font-size:7px;min-height:44px}.phone-contact{padding:10px}.satisfaction-strip{padding:8px 10px}}

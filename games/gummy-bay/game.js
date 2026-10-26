@@ -45,7 +45,7 @@ import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PRO
 import {createFixedStepper} from './sim-clock.mjs?v=122';
 import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from './staff-status.mjs?v=123';
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=123';
-import {customerBrief,customerReply,readCustomerReceipt,sampleChoices} from './customer-context.mjs?v=30';
+import {customerBrief,customerReply,readCustomerReceipt,sampleChoices,customerVoice} from './customer-context.mjs?v=30';
 import {normalizeCravings,noteSale,cravingBudgetBonus,cravingAsk,markAsked,cravingState} from './customer-craving.mjs?v=124';
 import {bindGameplayState,emitGameplay,subscribeGameplay} from './gameplay-feed.mjs?v=125';
 import {grantStarter,starterOfferDue,STARTER_TEXT,STARTER_NPC,STARTER_PRODUCT,STARTER_QTY,STARTER_PRICE} from './starter-sale.mjs?v=125';
@@ -58,6 +58,10 @@ import {residentPlan,residentDescription,citizenRouteSteps,segmentClear,curfewAc
 import {residentLocomotionClip,residentActionRate,applyResidentTransition} from './resident-animation.mjs?v=109';
 import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
+import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
+import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=123';
+import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
+import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
 import {HORIZON_TREE_SITES,horizonSiteOutsideBounds,horizonViewGap,createDistrictHorizon} from './district-horizon.mjs?v=77';
 import {SKYLINE_LANDMARK_SITES,SKYLINE_APPROACHES,skylineFootprintOnSupport,createTownSkyline} from './town-skyline.mjs?v=78';
@@ -584,7 +588,7 @@ const previousClose=close;close=function(){previousClose();document.body.classLi
 Object.assign(window,{menu,action,act,closeMenu:close,setQuality,setSensitivity,fullMouseCapture});
 // Main-menu settings are allowed without loading a save.
 const settingsMenu=menu;menu=function(which,data){if(!active&&which==='settings'){let was=active;active=true;settingsMenu(which,data);active=was;}else settingsMenu(which,data)};window.menu=menu;
-if(typeof location!=='undefined'&&typeof location.search==='string'){const shotParams=new URLSearchParams(location.search);shotKind=shotParams.get('shot')||'starter';streetShot=shotKind==='starter'||shotKind==='opening';if(streetShot){const hour=Number(shotParams.get('hour'));if(Number.isFinite(hour))shotHour=((hour%24)+24)%24;else if(shotKind==='opening')shotHour=9;}}
+if(typeof location!=='undefined'&&typeof location.search==='string'){const shotParams=new URLSearchParams(location.search);shotKind=shotParams.get('shot')||'';streetShot=shotKind==='starter'||shotKind==='opening';if(streetShot){const hour=Number(shotParams.get('hour'));if(Number.isFinite(hour))shotHour=((hour%24)+24)%24;else if(shotKind==='opening')shotHour=9;}}
 if(!(streetShot&&new URLSearchParams(location.search).get('streetBudget')==='off'))starterStreet=createStarterStreet({scene,quality});
 setQuality(quality);
 
@@ -801,7 +805,7 @@ function paintTownMap(ctx,w,h,local=false){
 }
 drawMap=function(){const mapState=paintTownMap(mc,334,288,true),caption=$('mapCaption');if(caption)caption.textContent=travelMapCaption({x:player.x,z:player.z,heading:driveAngle},{driving,districts:DISTRICTS,landmarks:TRAVEL_LANDMARKS,targetOffscreen:mapState.trackOffscreen});};
 const districtMenu=menu;menu=function(which,data){districtMenu(which,data);if(which==='bus'){$('modal').innerHTML='<div class="overline">GUMMY BAY / FREE TOWN SHUTTLE</div>'+'<h2>Where are you heading?</h2><p>Seven stops connect the expanded town. The shuttle is free.</p>'+DISTRICTS.map((d,i)=>row(d.name,Math.round(Math.hypot(player.x-d.x,player.z-d.z))+' metres away','Travel',`travelDistrict(${i})`)).join('');}
- if(which==='map'){$('modal').innerHTML='<div class="overline">GUMMY BAY / COMPLETE TOWN MAP</div><h2>Explore the boroughs.</h2><canvas id="townOverview" width="560" height="520" style="width:100%;border-radius:6px"></canvas><p>10× the original playable area. Use a bus stop for free travel.</p>'+DISTRICTS.map((d,i)=>row(d.name,'Bus stop · connected streets','Track',`trackDistrict(${i})`)).join('');paintTownMap($('townOverview').getContext('2d'),560,520);}
+ if(which==='map'){$('modal').innerHTML='<div class="overline">GUMMY BAY / COMPLETE TOWN MAP</div><h2>Explore the boroughs.</h2><canvas id="townOverview" width="560" height="260" style="width:100%;height:min(32vh,240px);border-radius:6px"></canvas><p>10× the original playable area. Use a bus stop for free travel.</p>'+DISTRICTS.map((d,i)=>row(d.name,'Bus stop · connected streets','Track',`trackDistrict(${i})`)).join('');paintTownMap($('townOverview').getContext('2d'),560,260);}
 };window.menu=menu;
 const districtUI=updateUI;updateUI=function(){districtUI();let d=DISTRICTS.reduce((a,b)=>Math.hypot(player.x-a.x,player.z-a.z)<Math.hypot(player.x-b.x,player.z-b.z)?a:b);$('district').textContent=d.name;};
 // Research-led economy and customer behaviour; all products remain fictional gummies.
@@ -1640,6 +1644,7 @@ function cycleCarriedPack(){if(equippedTool!=='packs')return;for(let n=1;n<=s.pa
 window.cycleCarriedPack=cycleCarriedPack;
 const toolbar=document.querySelector('.hotbar');
 if(toolbar)toolbar.insertAdjacentHTML('beforeend','<button id="equipCan" onclick="equipTool(\'can\')"><i>7</i><b>♧</b><span>Can</span></button><button id="equipPacks" onclick="equipTool(\'packs\')"><i>8</i><b>▣</b><span>Packs</span></button>');
+const cashSlot=$('cashSlot');if(cashSlot&&toolbar)toolbar.appendChild(cashSlot);
 addEventListener('keydown',e=>{
  if(!active||e.repeat||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)||stationTask||placeMode)return;
  if(e.key==='7'||e.key==='8'){e.preventDefault();equipTool(e.key==='7'?'can':'packs');}
@@ -2031,7 +2036,7 @@ const portraitMenu=menu;menu=function(which,data){portraitMenu(which,data);if(ac
 function phoneDeviceHTML(which){
  const status=phoneDeviceStatus(s,net,which);if(!status)return '';
  const signal=Array.from({length:4},(_,i)=>'<i class="'+(i<status.signal?'on':'')+'"></i>').join('');
- const nav=[['phone','MSG'],['listing','LIST'],['deals','DEALS'],['wallet','CARD']].map(([screen,label])=>'<button '+(screen===which?'class="on" aria-current="page"':'')+' onclick="menu(\''+screen+'\')">'+label+'</button>').join('');
+ const nav=[['phone','MSG'],['contacts','PEOPLE'],['listing','LIST'],['deals','DEALS'],['wallet','CARD']].map(([screen,label])=>'<button '+(screen===which?'class="on" aria-current="page"':'')+' onclick="menu(\''+screen+'\')">'+label+'</button>').join('');
  return '<div class="device-status" aria-label="'+status.model+' phone status"><span><b>'+status.model+'</b><small>'+status.carrier+'</small></span><span class="device-screen">'+status.screen+'</span><span class="device-clock">D'+status.day+' · '+status.clock+'<small>'+status.link+'</small></span><span class="device-signal" aria-label="Signal '+status.signal+' of 4">'+signal+'</span></div><nav class="device-keys" aria-label="Phone functions">'+nav+'</nav>';
 }
 const phoneDeviceMenu=menu;menu=function(which,data){phoneDeviceMenu(which,data);if(!Object.hasOwn(PHONE_SCREENS,which))return;$('overlay').classList.toggle('phone',true);const shell=phoneDeviceHTML(which),cut=shell.indexOf('<nav');$('modal').innerHTML=shell.slice(0,cut)+$('modal').innerHTML+shell.slice(cut);};window.menu=menu;
@@ -2096,9 +2101,8 @@ const grittyRender=renderFrame;renderFrame=function(){
 function phoneHome(){
  menu('phone');
  const status=phoneDeviceStatus(s,net,'phone'),orders=s.deals.length,packCount=s.packs.reduce((a,b)=>a+b,0);
- $('modal').innerHTML=phoneDeviceHTML('phone').split('<nav')[0]+'<button class="close" onclick="closeMenu()" aria-label="Put phone away">×</button><div class="phone-home-clock">'+status.clock+'</div><p class="phone-home-day">DAY '+s.day+' · GUMMY BAY</p><div class="phone-app-grid">'+[
- ['phone','Messages','Your contacts','✉'],['listing','Marketplace',s.listing?'Listing active':'Create a listing','▤'],['deals','Deliveries',orders+' agreed orders','↗'],['wallet','Banking',cash(s.bank)+' on card','▣'],['map','Town map','Find your way','⌖'],['journal','Notebook','Your next step','≡']
- ].map(([screen,name,detail,icon])=>'<button onclick="menu(\''+screen+'\')"><b aria-hidden="true">'+icon+'</b><strong>'+name+'</strong><small>'+detail+'</small></button>').join('')+'</div><div class="phone-home-summary">'+packCount+' packs carried · '+cash(s.cash)+' cash</div>';
+ const homeDetail={phone:'Texts and offers',contacts:'Relationships',listing:s.listing?'Listing active':'Set a price',deals:orders+' agreed orders',wallet:cash(s.bank)+' on card',map:'Find your way'},badges=phoneBadges(s);
+ $('modal').innerHTML=phoneDeviceHTML('phone').split('<nav')[0]+'<button class="close" onclick="closeMenu()" aria-label="Put phone away">×</button><div class="phone-home-clock">'+status.clock+'</div><p class="phone-home-day">DAY '+s.day+' · GUMMY BAY</p><div class="phone-app-grid">'+PHONE_HOME_APPS.map(app=>{const count=badges[app.screen]||0;return '<button onclick="menu(\''+app.screen+'\')" data-phone-key="'+app.key+'"><b aria-hidden="true">'+app.icon+(count?'<i class="app-badge">'+count+'</i>':'')+'</b><strong>'+app.name+'</strong><small>'+homeDetail[app.screen]+'</small><em>'+app.key+'</em></button>';}).join('')+'</div><p class="phone-keyhint">Tab phone · T messages · M map · J journal · 1–6 apps</p><div class="phone-home-summary">'+packCount+' packs carried · '+cash(s.cash)+' cash</div>';
 }
 window.phoneHome=phoneHome;
 const grittyPhoneMenu=menu;menu=function(which,data){grittyPhoneMenu(which,data);if(Object.hasOwn(PHONE_SCREENS,which))$('modal').innerHTML+='<button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';};window.menu=menu;
@@ -2293,3 +2297,178 @@ if(typeof createTownAudio==='function')try{
  let townHeard=performance.now();
  const townFrame=renderFrame;renderFrame=function(){townFrame();try{const t=performance.now(),dt=Math.min(.05,Math.max(0,(t-townHeard)/1000));townHeard=t;const home=HOMES[s.house];const indoors=!!(s.room&&home&&Math.abs(player.x-home.x)<home.w/2&&Math.abs(player.z-home.z)<home.d/2);let police='clear',officers=null;if(active&&s.police){police=currentPoliceFeedback().stage;officers=s.police.officers;}townAudio.setEnabled(soundEnabled);townAudio.update({time:s.time,active,enabled:soundEnabled,indoors,driving,speed:driveSpeed,panel,station:stationTask?.k||'',x:player.x,y:player.y,z:player.z,yaw,dialogue:dialogueScreens.has(panel),police,officers,npcs:CONTACTS.map((c,id)=>({id,x:c.x,z:c.z})),now:t/1000,dt,rain:0});}catch(e){console.warn('Town audio update skipped',e);}};
 }catch(e){console.warn('Town audio unavailable',e);}
+
+// Contacts and deal satisfaction read the existing relationship score. Street
+// dealers stay absent unless the simulation supplies state.dealers.
+function contactSource(){
+ return buildContactBook({state:s,strainNames:STRAINS.map(item=>item.name),contacts:CONTACTS.map((contact,index)=>({name:contact.name,line:contact.line,role:customerVoice(index).role,favourite:INGREDIENTS[index%INGREDIENTS.length].effect}))});
+}
+function insertBeforePhoneNav(fragment){
+ const html=$('modal').innerHTML,at=html.indexOf('<nav class="device-keys"');
+ $('modal').innerHTML=at<0?html+fragment:html.slice(0,at)+fragment+html.slice(at);
+}
+const contactsMenu=menu;menu=function(which,data){
+ contactsMenu(which,data);
+ if(!active)return;
+ if(which==='contacts'){insertBeforePhoneNav(contactBookHTML(contactSource(),esc));return;}
+ if(which!=='customer'&&which!=='thread')return;
+ const index=Number.isInteger(data)?data:selected;
+ if(!CONTACTS[index])return;
+ const thread=s.threads?.[index];
+ const view=satisfactionView(relationship(index),satisfactionContext({surface:which,negotiating:thread?.status==='negotiating',hasDeal:Array.isArray(s.deals)&&s.deals.some(item=>item&&item.npc===index),hasReceipt:!!thread?.lastSale}));
+ insertBeforePhoneNav(satisfactionHTML(view,esc));
+};
+window.menu=menu;
+addEventListener('keydown',e=>{
+ if(!active||e.repeat||e.metaKey||e.ctrlKey||e.altKey)return;
+ const tag=document.activeElement?.tagName;
+ if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;
+ if(!panel||$('overlay').hidden||(panel!=='map'&&!Object.hasOwn(PHONE_SCREENS,panel)))return;
+ if(e.key==='Backspace'){e.preventDefault();phoneHome();return;}
+ const next=PHONE_APP_KEYS[e.key];
+ if(!next)return;
+ e.preventDefault();menu(next);
+});
+let curfewSeen='';
+function paintHudReadout(){
+ if(!$('clock'))return;
+ const clock=weekdayClock(s.day,s.time);
+ $('clock').textContent=clock.label;
+ const slot=$('cashSlotValue');if(slot)slot.textContent=cash(s.cash);
+ const police=s.police||{},role=typeof localPoliceRole==='function'?localPoliceRole():'host';
+ const officers=Array.isArray(police.officers)?police.officers.filter(officer=>officer&&officer.target===role):[];
+ const stage=police.search?'search':officers.some(officer=>officer.mode==='pursuit')?'pursuit':officers.some(officer=>officer.mode==='stop'||officer.suspicion>10)?'watching':'clear';
+ const banner=policeBanner({heat:s.heat,stage,searchRemaining:police.search?.remaining,armed:police.armed===true,duration:4});
+ const plate=$('wantedBanner');
+ if(plate){plate.hidden=!active||!banner.visible;plate.dataset.state=banner.id;}
+ if($('wantedLabel'))$('wantedLabel').textContent=banner.label;
+ const bar=$('searchCountdown'),fill=$('searchFill');
+ if(bar)bar.hidden=banner.countdown===null;
+ if(fill&&banner.countdown!==null)fill.style.width=Math.round(banner.countdown*100)+'%';
+ const view=compassView({yaw,x:player.x,z:player.z,markers:hudMarkers()});
+ const compass=$('compass');
+ if(compass)compass.innerHTML='<div class="compass-window" aria-label="Facing '+view.cardinal+'"><i class="compass-tick"></i><div class="compass-marks">'+view.markers.map(marker=>'<span class="compass-mark" style="left:calc(50% + '+Math.max(-180,Math.min(180,marker.offset))+'px)"><b>'+esc(marker.icon)+'</b><em>'+esc(marker.label)+'</em><small>'+marker.metres+' m</small></span>').join('')+'</div><strong>'+view.cardinal+'</strong></div>';
+}
+function hudMarkers(){
+ const markers=[];
+ if(track&&Number.isFinite(track.x)&&Number.isFinite(track.z))markers.push({id:'track',label:track.label||'Objective',icon:'◆',x:track.x,z:track.z});
+ for(const deal of Array.isArray(s.deals)?s.deals.slice(0,3):[]){const person=CONTACTS[deal.npc];if(!person)continue;const live=s.npcs?.[deal.npc];markers.push({id:'deal'+deal.npc,label:person.name,icon:'●',x:Number.isFinite(live?.x)?live.x:person.x,z:Number.isFinite(live?.z)?live.z:person.z});}
+ return markers;
+}
+const hudReadoutUI=updateUI;updateUI=function(){hudReadoutUI();paintHudReadout();};
+const curfewStep=update;update=function(dt){curfewStep(dt);if(!active||net.role==='guest')return;const cue=curfewCue(s.day,s.time);if(!cue)return;const key=cue.day+':'+cue.id;if(curfewSeen===key)return;curfewSeen=key;toast(cue.text);};
+
+// Town map and shop counter are presentation. Purchases still go through action().
+let shopOffers=[],pendingShop=null,shopRefund=null;
+function copyShopList(value){return Array.isArray(value)?value.map(item=>item&&typeof item==='object'?{...item}:item):[];}
+function captureShopState(){
+ return {cash:s.cash,bank:s.bank,tents:s.tents,plants:copyShopList(s.plants),can:s.can,lights:s.lights,irrigation:s.irrigation,bench:s.bench,mixer:s.mixer,packStation:s.packStation,trimmers:s.trimmers,seeds:copyShopList(s.seeds),soil:s.soil,wrappers:s.wrappers,ingredients:copyShopList(s.ingredients),ledger:copyShopList(s.ledger)};
+}
+function restoreShopState(before){
+ if(!before)return;
+ s.cash=before.cash;s.bank=before.bank;s.tents=before.tents;s.plants=copyShopList(before.plants);
+ s.can=before.can;s.lights=before.lights;s.irrigation=before.irrigation;s.bench=before.bench;s.mixer=before.mixer;s.packStation=before.packStation;s.trimmers=before.trimmers;
+ s.seeds=copyShopList(before.seeds);s.soil=before.soil;s.wrappers=before.wrappers;s.ingredients=copyShopList(before.ingredients);s.ledger=copyShopList(before.ledger);
+}
+function openShopConfirm(index){
+ const offer=shopOffers[index];
+ if(!offer||!SHOP_PANELS.includes(panel))return;
+ pendingShop={...offer,panel};
+ const caution=offer.action==='buyTent'?(s.tents>0?`You already own ${s.tents} tent${s.tents===1?'':'s'}. The first-day list needs only one. Another tent is $100, and the starter list is about $350 from a $400 start.`:'One tent is enough to start. The notebook list is about $350: room $75, tent $100, can $15, trimmers $10, packaging $100, seed $30, soil $10 and wrappers $10.'):'';
+ $('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button>'+shopConfirmHTML({...offer,caution},{cash:s.cash,bank:s.bank,payment:s.payment});
+}
+function closeShopConfirm(){pendingShop=null;if(SHOP_PANELS.includes(panel))menu(panel);else close();}
+function acceptShopConfirm(){
+ const offer=pendingShop;if(!offer)return;
+ const before=captureShopState(),which=offer.panel;
+ shopRefund=null;
+ action(offer.action,offer.args[0],offer.args[1],offer.args[2]);
+ if(JSON.stringify(captureShopState())===JSON.stringify(before))return;
+ shopRefund={before,name:offer.name,price:offer.price,panel:which};
+ pendingShop=null;
+ if(panel!==which)return;
+ const html=$('modal').innerHTML.replace(/<div id="shopRefund"[\s\S]*?<\/div>/,'');
+ $('modal').innerHTML=html+shopRefundHTML(shopRefund,net.role==='guest');
+}
+function refundShopPurchase(){
+ if(!shopRefund||net.role==='guest')return;
+ const refund=shopRefund;shopRefund=null;pendingShop=null;
+ restoreShopState(refund.before);save();toast('Refunded '+refund.price+' for '+refund.name+'.');
+ if(SHOP_PANELS.includes(refund.panel))menu(refund.panel);
+}
+function dismissShopRefund(){shopRefund=null;pendingShop=null;if(SHOP_PANELS.includes(panel))menu(panel);}
+Object.assign(window,{openShopConfirm,acceptShopConfirm,closeShopConfirm,refundShopPurchase,dismissShopRefund});
+const counterMenu=menu;menu=function(which,data){
+ counterMenu(which,data);
+ if(!active)return;
+ if(which==='map'){$('modal').innerHTML=revealTownPlaces($('modal').innerHTML);return;}
+ if(!SHOP_PANELS.includes(which))return;
+ const armed=armShopMarkup($('modal').innerHTML);
+ shopOffers=armed.offers;
+ $('modal').innerHTML=armed.html+(shopRefund&&shopRefund.panel===which&&!armed.html.includes('id="shopRefund"')?shopRefundHTML(shopRefund,net.role==='guest'):'');
+};window.menu=menu;
+
+// Messages, the contact graph and marketplace rows read the save. They do not
+// decline a live offer, reschedule a meetup, or unlist a product.
+let contactFocus=0,counterFor=null,counterArmed=false;
+function phoneSwatch(color){const hex=(Number(color)>>>0).toString(16).padStart(6,'0').slice(-6);return '#'+hex;}
+function phoneDistrict(person){return (person.x<0?'West':'East')+' side · '+(person.z<0?'north':'south')+' of Main Street';}
+function phoneEffects(index){
+ const known=!!s.threads?.[index]?.lastSale||(Array.isArray(s.deals)&&s.deals.some(deal=>deal&&deal.npc===index));
+ return known?[INGREDIENTS[index%INGREDIENTS.length].effect]:null;
+}
+function insertAfterClose(fragment){
+ const html=$('modal').innerHTML,token='aria-label="Close">×</button>';
+ const at=html.indexOf(token);
+ if(at<0){insertBeforePhoneNav(fragment);return;}
+ const cut=at+token.length;
+ $('modal').innerHTML=html.slice(0,cut)+fragment+html.slice(cut);
+}
+function showContactCard(index){if(!Number.isInteger(index)||!CONTACTS[index])return;contactFocus=index;menu('contacts');}
+function openCounterSheet(index){if(!Number.isInteger(index))return;counterFor=index;counterArmed=true;menu('thread',index);}
+function closeCounterSheet(){counterFor=null;counterArmed=false;if(panel==='thread')menu('thread',selected);}
+function previewCounterChance(){
+ const input=document.getElementById('counterPrice'),node=document.getElementById('counterChance');
+ if(!input||!node)return;
+ node.textContent=acceptChance(Number(input.value),Number(input.dataset.fair))+'%';
+}
+function phoneProductRows(){
+ const rows=[];
+ for(let i=0;i<STRAINS.length;i++){
+  const item=STRAINS[i],owned=(s.packs[i]||0)+(s.gummies[i]||0)+(s.raw[i]||0)+(s.seeds[i]||0)>0||s.listing?.t===i;
+  if(item.mixed&&!owned)continue;
+  const effect=item.mixed?INGREDIENTS[item.ingredient].effect:'Plain';
+  const recipe=item.mixed?'Mix '+STRAINS[item.base].name+' with '+INGREDIENTS[item.ingredient].name+'.':item.name+' grows from its seed. Harvest, shape, then wrap. No flavour mix.';
+  rows.push({index:i,name:item.name,swatch:phoneSwatch(item.color),effects:[effect],market:value(i),price:s.listing?.t===i?s.listing.price:value(i),qty:s.listing?.t===i?s.listing.qty:1,packed:s.packs[i]||0,listed:s.listing?.t===i,recipe});
+ }
+ return rows;
+}
+Object.assign(window,{showContactCard,openCounterSheet,closeCounterSheet,previewCounterChance});
+const appsMenu=menu;menu=function(which,data){
+ appsMenu(which,data);
+ if(!active)return;
+ if(which==='phone'){
+  const inbox=buildInbox({contacts:CONTACTS.map(person=>({name:person.name,swatch:phoneSwatch(person.color),line:person.line})),threads:s.threads,deals:s.deals,strainNames:STRAINS.map(item=>item.name)});
+  insertAfterClose(inboxHTML(inbox,esc));
+  return;
+ }
+ if(which==='thread'){
+  const index=Number.isInteger(data)?data:selected;
+  const thread=s.threads?.[index];
+  const view=negotiationView(thread,STRAINS[thread?.t]?.name,s.time);
+  const showSheet=counterArmed&&counterFor===index;
+  counterArmed=false;
+  if(!view)return;
+  insertAfterClose(dealBubbleHTML(index,view,esc)+(showSheet?counterSheetHTML(index,view,esc):''));
+  return;
+ }
+ if(which==='contacts'){
+  const people=CONTACTS.map((person,index)=>{
+   const craving=cravingState(s.cravings?.[index],s.day);
+   return {index,name:person.name,swatch:phoneSwatch(person.color),score:relationship(index),district:phoneDistrict(person),standards:'',effects:phoneEffects(index),craving:craving&&STRAINS[craving.product]?{name:STRAINS[craving.product].name,level:craving.level}:null};
+  });
+  insertAfterClose(contactGraphHTML(contactGraphModel({people,selected:contactFocus}),esc));
+  return;
+ }
+ if(which==='listing')insertAfterClose(productRowsHTML(phoneProductRows(),esc));
+};window.menu=menu;

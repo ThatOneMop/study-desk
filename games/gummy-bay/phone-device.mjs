@@ -1,4 +1,4 @@
-export const PHONE_SCREENS=Object.freeze({phone:'MESSAGES',thread:'CONVERSATION',listing:'MARKET LISTING',deals:'DELIVERY ROUND',wallet:'ONLINE CARD'});
+export const PHONE_SCREENS=Object.freeze({phone:'MESSAGES',thread:'CONVERSATION',listing:'MARKET LISTING',deals:'DELIVERY ROUND',wallet:'ONLINE CARD',contacts:'CONTACTS'});
 
 const freeze=o=>Object.freeze(o);
 export function phoneDeviceStatus(state={},network={},screen='phone'){
