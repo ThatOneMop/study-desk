@@ -508,23 +508,31 @@
       "live": false,
       "improvementPasses": [],
       "tests": [
-        "6 engine tests pass: three-site campaign and every-build save/reload; exact yields and population demand; connectivity/invalid plots/input ownership; budget exhaustion/undo/retry; malformed saves; alternate fertile/path completion route.",
-        "3 jsdom 26.1.0 tests pass: complete campaign with forecasts/reload/unlocks, navigation markup, invalid-placement feedback, undo/retry/pause/parent guards, loss/recovery, isolated reset, corrupt recovery and quota failure. Dialogs simulated.",
-        "Both scripts pass syntax checks. No rendered play, screenshot inspection, native keyboard/touch, mobile layout, full repository build or enjoyment claim."
+        "14 tests pass (9 engine, 5 jsdom): original garden and new orchard campaigns complete all three sites; exact saves/reload, crowding previews before spending timber, open-space/rock/edge rules, yield restoration on undo, progression, loss/retry, legacy records and storage isolation.",
+        "Both gameplay scripts pass node --check. No rendered browser, screenshots, native keyboard/touch, full repository build or human enjoyment evidence."
       ],
       "commits": [
-        "c9ebfeb6b75d6e7f698a29e6e63e88c760295823"
+        "c9ebfeb6b75d6e7f698a29e6e63e88c760295823",
+        "b77478fc32b11971cb95ca2c3c4e490101a76d8e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
         "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact sites with tested 17-timber completion routes and one 18-timber alternate. Optimal strategies not established. Colony simulation is capacity planning, not real-time residents or idle production. Depth, readability and replay enjoyment need natural play."
+        "knownLimits": "Three compact sites. Orchard efficiency and open-space constraints need rendered balance review; no gameplay duration or enjoyment claim."
       },
       "nextSteps": [
-        "Naturally play all three sites on desktop/touch and inspect screenshots, focusing on connectivity, demand and preview clarity.",
-        "Implement a substantive playtest-led improvement, then verify saves/reload, exhaustion/undo/retry, restart and catalogue navigation before selection."
-      ]
+        "Naturally play both irrigation and orchard strategies on desktop/touch; inspect crowding preview readability and whether orchard placement offers sufficiently varied choices.",
+        "Implement and verify a substantial rendered-play-led improvement, saves/reload, undo/loss/retry, restart/navigation before selection."
+      ],
+      "pendingSourceRefinement": {
+        "commit": "b77478fc32b11971cb95ca2c3c4e490101a76d8e",
+        "basis": "Source and engine/DOM analysis: food production relied on well-adjacent gardens, with little reason to preserve unbuilt meadow. Not rendered playtesting.",
+        "before": "Only gardens produced food; filling an empty adjacent plot could not lower existing food production.",
+        "after": "A 3-timber orchard produces 6 food with at least two empty buildable edge-neighbours, otherwise 1. Buildings and paths can crowd it; previews warn of each affected orchard and current labels expose yield/open-space counts. Undo restores space and yield. Orchard-only food routes spend 16 timber versus demonstrated 17-timber irrigation routes.",
+        "verification": "14 engine/DOM tests pass. Legacy saves and original routes retain results; new records improve without erasing prior progress.",
+        "remaining": "Rendered natural play, balance and readability assessment, desktop/touch and screenshot review required. No improvement-pass credit."
+      }
     },
     {
       "slot": 53,
@@ -1363,6 +1371,12 @@
       "commit": "c9ebfeb6b75d6e7f698a29e6e63e88c760295823",
       "result": "Built Moss Commons slot 52: connected settlement planning with timber, food/water/population demand, fertile gardens, forecasts, three sites, undo and safe saves. Nine engine/DOM tests pass. Third batch: 12 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering blocker unchanged; not retried or bypassed. No rendered credit or live release."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "b77478fc32b11971cb95ca2c3c4e490101a76d8e",
+      "result": "Moss Commons orchard strategy and per-orchard crowding forecast implemented. 14 engine/DOM tests pass; legacy campaigns unchanged and orchard routes complete all three sites. Counts remain 12 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering blocker not retried or bypassed. No rendered completion credit or live release."
     }
   ]
 }
