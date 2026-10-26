@@ -21,3 +21,9 @@ No rendered-browser, screenshot, native keyboard, physical touch, full-repositor
 ## Pending source refinement — 26 October
 
 Before: distance readings were the only surveying choice, with ambiguity about which beacon each buoy heard. After: optional bearings cost twice as much, supplying both directions; the notebook combines both evidence types. Selected-square readings can be revisited free. This is a source/engine/DOM-based upgrade and does not count as the required rendered-playtest-led improvement. Natural play must assess whether bearings are worth their cost and whether compass feedback is clear on touch and desktop.
+
+## Pending area-sweep refinement — 27 October
+
+Area sweep spends one fuel to count both beacons within Manhattan distance two of the selected square (including the centre). The optional striped footprint is read-only: thirteen squares at the centre, six at a corner. It clears on reload, while recorded counts persist in the journal/notebook. Counts supplement nearest distance and bearings, retaining recovered transponders. Repeat sweeps at the same square reject free; overspending can still lose. Existing saves and old derived board shapes remain unchanged when no sweep is used.
+
+24 engine/DOM tests (15 engine, 9 jsdom) cover the expanded rules, including all 300 pairs solved by a centre-sweep-first visible-evidence policy followed by the existing distance/recovery policy. This establishes solvability for that policy, not superiority or human enjoyment. Native keyboard/touch/layout and footprint readability still await rendered play.
