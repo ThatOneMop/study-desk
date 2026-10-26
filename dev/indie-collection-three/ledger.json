@@ -528,11 +528,13 @@
       "improvementPasses": [],
       "tests": [
         "14 tests pass (9 engine, 5 jsdom): original garden and new orchard campaigns complete all three sites; exact saves/reload, crowding previews before spending timber, open-space/rock/edge rules, yield restoration on undo, progression, loss/retry, legacy records and storage isolation.",
-        "Both gameplay scripts pass node --check. No rendered browser, screenshots, native keyboard/touch, full repository build or human enjoyment evidence."
+        "Both gameplay scripts pass node --check. No rendered browser, screenshots, native keyboard/touch, full repository build or human enjoyment evidence.",
+        "Relocation: 19 passing tests (12 engine, 7 jsdom 26.1.0), retaining original fourteen. Full connectivity, crowded-orchard recovery, cost/refund, strict journals/targets, three relocation campaigns with reload, unchanged legacy saves, UI preview/commit, pause, undo/retry, records and isolation. Both scripts pass syntax checks; no rendered evidence."
       ],
       "commits": [
         "c9ebfeb6b75d6e7f698a29e6e63e88c760295823",
-        "b77478fc32b11971cb95ca2c3c4e490101a76d8e"
+        "b77478fc32b11971cb95ca2c3c4e490101a76d8e",
+        "040436f94bdc1f060afe42d642dac532a6dec39c"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -551,6 +553,13 @@
         "after": "A 3-timber orchard produces 6 food with at least two empty buildable edge-neighbours, otherwise 1. Buildings and paths can crowd it; previews warn of each affected orchard and current labels expose yield/open-space counts. Undo restores space and yield. Orchard-only food routes spend 16 timber versus demonstrated 17-timber irrigation routes.",
         "verification": "14 engine/DOM tests pass. Legacy saves and original routes retain results; new records improve without erasing prior progress.",
         "remaining": "Rendered natural play, balance and readability assessment, desktop/touch and screenshot review required. No improvement-pass credit."
+      },
+      "pendingRelocationRefinement": {
+        "commit": "040436f94bdc1f060afe42d642dac532a6dec39c",
+        "basis": "Source analysis: changing an early placement required undoing all later construction. Not rendered playtesting.",
+        "before": "Buildings could only be added or removed in reverse journal order.",
+        "after": "Move a building/path to empty buildable ground for one timber while preserving full hall connectivity. Final-layout resource forecasts, explicit source selection and undo/refund support redesign without discarding later buildings.",
+        "remaining": "Rendered desktop/touch play, screenshots, targeting/readability, balance and substantial playtest-led improvement before selection."
       }
     },
     {
@@ -1291,7 +1300,7 @@
     "Implement remaining 36 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
-  "latestObservedMain": "fd970c88537da9f93601a443fde1c77f984be604",
+  "latestObservedMain": "eefaf658169313cbf5b0c334e6f32d98d3a68191",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1482,6 +1491,13 @@
       "result": "Kiln Chorus optional one-use heat baffle implemented with selective thermal isolation, exact forecasts and backwards-compatible journal replay. 18 engine/DOM tests pass. Counts unchanged: 14 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried. Source-led refinement awaits rendered play.",
       "mainObserved": "fd970c88537da9f93601a443fde1c77f984be604"
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "040436f94bdc1f060afe42d642dac532a6dec39c",
+      "result": "Moss Commons relocation implemented with one-timber cost, full connectivity, resource recalculation and backwards-compatible saves. 19 engine/DOM tests pass. Counts unchanged: 14 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering security-policy blocker not retried or bypassed. No rendered completion or live-release claim.",
+      "mainObserved": "eefaf658169313cbf5b0c334e6f32d98d3a68191"
     }
   ]
 }
