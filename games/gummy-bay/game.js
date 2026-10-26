@@ -72,7 +72,8 @@ import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=132';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
-import {createCityExpansion} from './city-expansion.mjs?v=133';
+import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=136';
+import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=136';
 import {CITY_SHELLS} from './city-shells.mjs?v=133';
 import {createStaticBatcher} from './static-batch.mjs?v=133';
 import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
@@ -115,7 +116,7 @@ import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOut
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
 import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=126';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,createStreetCrowd} from './street-crowd.mjs?v=132';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=132';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -673,7 +674,7 @@ box(-58,.8,34.6,2.3,.08,1.2,0xa79978);for(let side of [-1,1])box(-58+side*.8,.4,
 // Grass clumps use one instanced draw call rather than hundreds of independent meshes.
 const grassGeo=new THREE.BufferGeometry();grassGeo.setAttribute('position',new THREE.Float32BufferAttribute([-.12,0,0,0,.35,0,.12,0,0,0,0,-.12,0,.26,0,0,0,.12],3));grassGeo.computeVertexNormals();const grass=new THREE.InstancedMesh(grassGeo,new THREE.MeshStandardMaterial({color:0x7d9861,side:THREE.DoubleSide,roughness:1}),190);let grassCount=0;let seed=555;const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};const transform=new THREE.Object3D();for(let i=0;i<1000&&grassCount<190;i++){let x=random()*170-85,z=random()*140-70;if(Math.abs(x)<14||Math.abs(z)<14||blocked(x,z)||buildings.some(b=>Math.abs(x-b.x)<b.w*.6&&Math.abs(z-b.z)<b.d*.65)||x< -35&&z>10&&z<43)continue;transform.position.set(x,-.03,z);transform.rotation.y=random()*6.28;transform.scale.setScalar(.5+random()*.8);transform.updateMatrix();grass.setMatrixAt(grassCount,transform.matrix);grass.setColorAt(grassCount,new THREE.Color([0x90a77b,0xb0ad7b,0x79916e][grassCount%3]));grassCount++;}grass.count=grassCount;grass.receiveShadow=true;scene.add(grass);
 // Pine silhouettes on the ridge, with sparse cones rather than more round spheres.
-for(let i=0;i<13;i++){let x=-85+i*14,z=-77-(i%3)*3,h=5+i%4;for(let j=0;j<3;j++){let cone=new THREE.Mesh(new THREE.ConeGeometry((2.3-j*.45)*(h/6),h*.55,7),mat([0x5d7e66,0x6d8a6c,0x7b9673][j]));cone.position.set(x,h*.36+j*h*.2,z);cone.castShadow=true;scene.add(cone)}cyl(x,1,z,.16,2,0x8e7b61);}
+// v134: the old cone-tree row in front of the -77 shopfronts is replaced by instanced stylised trees placed off frontages (light-grade.mjs).
 // Exterior illustrations are original canvas signs, rather than generic blank panels.
 function shopLogo(x,z,name,kind,color){let c=document.createElement('canvas');c.width=512;c.height=512;let t=c.getContext('2d');t.fillStyle='#ded6b6';t.fillRect(0,0,512,512);t.fillStyle=color;t.fillRect(15,15,482,482);t.fillStyle='#eee7ca';t.textAlign='center';drawSignText(t,name,{x:32,y:375,width:448,height:100},{maxFont:42,minFont:28});t.lineWidth=14;t.strokeStyle='#eee7ca';if(kind==='plant'){t.beginPath();t.moveTo(256,325);t.lineTo(256,140);t.stroke();t.beginPath();t.ellipse(207,195,63,30,-.5,0,6.3);t.fill();t.beginPath();t.ellipse(304,250,63,30,.5,0,6.3);t.fill();}else if(kind==='tool'){t.save();t.translate(256,230);t.rotate(-.6);t.fillRect(-18,-110,36,220);t.fillRect(-75,-110,150,50);t.restore();}else{t.beginPath();t.roundRect(180,150,150,160,20);t.fill();t.beginPath();t.arc(220,125,40,0,7);t.arc(300,125,40,0,7);t.fill();t.fillRect(175,295,60,55);t.fillRect(275,295,60,55);}let tx=new THREE.CanvasTexture(c);tx.colorSpace=THREE.SRGBColorSpace;let m=new THREE.Mesh(new THREE.PlaneGeometry(1.15,1.15),new THREE.MeshBasicMaterial({map:tx,side:THREE.DoubleSide}));m.position.set(x,1.7,z);scene.add(m);}
 shopLogo(19.1,30.7,'MILO’S','plant','#70825c');shopLogo(-30.8,-14.3,'HARDWARE','tool','#7c8168');shopLogo(30.4,-15.8,'GUMMIES','gummy','#9b7b60');
@@ -3749,6 +3750,31 @@ if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
  };
  const cityRender=renderFrame;renderFrame=function(){cityExpansion.update({night:sceneLighting(s.time,active).night,quality,camera});cityRender();};
 }catch(error){console.warn('City expansion skipped',error);}
+
+// v134 Lighting and visual polish: bounce/moon fill, lifted hemisphere colours,
+// instanced street lamps with fake light pools, overpass soffit lights and
+// stylised trees placed only on free ground (never in front of a shopfront).
+var streetLighting=null;const fillLight=new THREE.AmbientLight(0xffffff,0);fillLight.name='Readability fill';scene.add(fillLight);
+let lastGrade=readabilityGrade(sceneLighting(s?.time??540,active));
+const gradeBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gradeBaseRefresh();
+ const plan=sceneLighting(s.time,active),g=readabilityGrade(plan);lastGrade=g;
+ fillLight.intensity=g.fill;fillLight.color.setHex(g.fillColor);hemi.intensity*=g.hemiScale;hemi.color.setHex(g.hemiSky);hemi.groundColor.setHex(g.hemiGround);
+ streetLighting?.update(g);
+};
+try{
+ const grid=cityExpansion?.plan?.grid;
+ const opZ=OVERPASS.z,soffit=[];for(let x=-262;x<262;x+=30){if(CITY_ROADS.x.concat([0]).some(rx=>Math.abs(x-rx)<10))continue;for(const dz of [-4.2,4.2])soffit.push({x,y:OVERPASS.y-.35,z:opZ+dz});}
+ const spots=streetLampSpots({roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),skipZ:[0,opZ],obstacles:colliders,points});
+ const grid0=grid;const freeTree=(x,z)=>grid0?grid0.free(x-2.6,x+2.6,z-2.6,z+2.6):false;
+ // Old Town dressing: off the road bands, colliders, doors, police lanes and every crowd stop / walk line.
+ const crowd=[];for(let i=0;i<STREET_CROWD_SIZE*2;i++){const c=crowdRoute(i);crowd.push({a:[c.home.x,c.home.z],b:[c.job.x,c.job.z]});for(const k of ['bench','vend','atm','street'])crowd.push({a:[c[k].x,c[k].z],b:[c.home.x,c.home.z]},{a:[c[k].x,c[k].z],b:[c.job.x,c.job.z]});}
+ const dress=dressingSpots({roadBands:[{axis:'z',at:0,half:11.5},{axis:'x',at:0,half:11.5}],colliders,points,routes:policeRoutes,crowd,max:28});
+ const oldTrees=dress.filter(d=>d.kind==='tree'),planterSpots=dress.filter(d=>d.kind==='planter');
+ streetLighting=createStreetDressing({scene,lamps:spots,soffit,trees:treeSpots({free:freeTree,step:8,max:220,extra:oldTrees}),planters:planterSpots,height:terrainHeight});
+ for(const d of oldTrees)colliders.push({x:d.x,z:d.z,w:.7,d:.7,cityProp:'tree'});for(const d of planterSpots)colliders.push({x:d.x,z:d.z,w:1.5,d:1.5,cityProp:'planter'});
+ streetLighting.update(lastGrade);
+ window.__gummyLight={stats:()=>({lamps:streetLighting.lamps,soffit:streetLighting.soffit,meshes:streetLighting.meshes.length,trees:streetLighting.trees,oldTownTrees:oldTrees.length,planters:streetLighting.planters,verts:streetLighting.verts,grade:lastGrade})};
+}catch(error){console.warn('Street lighting skipped',error);}
 // v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).
 var staticBatcher=null;

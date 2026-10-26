@@ -11,6 +11,7 @@ import {NAMED_BUSINESSES,GENERIC_SIGNS,HIGHWAY_SIGNS,SIGN_SPECS,SignBatch,create
 
 export const CITY_BOUNDS=Object.freeze({minX:-284,maxX:284,minZ:-449,maxZ:92});
 const ROAD_Z=[0,-90,-160,-230,-300,-370,-435],ROAD_X=[-270,-105,105,270];
+export const CITY_ROADS=Object.freeze({z:ROAD_Z,x:ROAD_X});
 export const FRONT_OFFSET=12;
 export const OVERPASS=Object.freeze({z:-90,y:7.6,halfWidth:8.6,pillarOffset:10.55,x0:-430,x1:430,spacing:22});
 // Areas that stay open: Old Town's crowd, campsite and pier; the loading flyover's
@@ -193,7 +194,7 @@ export function createCityExpansion({scene,obstacles=[],points=[],routes=[],qual
  // deck slab, underside and edges
  for(let x=op.x0;x<op.x1;x+=40){const x1=Math.min(op.x1,x+40);
   deck.roof(x,x1,z0,z1,y+1.1,TILE.ROOF,4,0x8a8d88);
-  deck.quad([x,y,z0],[x1,y,z0],[x1,y,z1],[x,y,z1],[0,-1,0],TILE.CONCRETE,(x1-x)/3,(z1-z0)/3,0x8f8c84);
+  deck.quad([x,y,z0],[x1,y,z0],[x1,y,z1],[x,y,z1],[0,-1,0],TILE.CONCRETE,(x1-x)/3,(z1-z0)/3,0xb6b0a2);
   deck.wallZ(x,x1,y,y+1.1,z1,1,TILE.CONCRETE,[3,1.1],0xb8b4a8);deck.wallZ(x,x1,y,y+1.1,z0,-1,TILE.CONCRETE,[3,1.1],0xb8b4a8);
   for(const zz of [z0+.3,z1-.3])deck.box((x+x1)/2,y+1.1,zz,x1-x,.95,.45,TILE.CONCRETE,TILE.CONCRETE,0xcfcbbf,[3,.95]);
   for(let m=x;m<x1;m+=9)deck.roof(m,m+4,op.z-.06,op.z+.06,y+1.115,TILE.PLAIN,1,0xe9e1b8);
