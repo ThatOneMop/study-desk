@@ -3,7 +3,7 @@ import {worldLighting} from '../dist/world-lighting.mjs';
 import {
   AUDIO_STORAGE_KEY, AUDIO_LEVEL_KEYS, DEFAULT_AUDIO_LEVELS, MUSIC_BPM, MUSIC_DUCK, LOUDNESS_TARGET_DB,
   readAudioLevels, writeAudioLevels, footstepSurface, ambienceMix, musicVariant, musicPlan,
-  policeIsArrested, cueForAction, stationCue, isManualAction, audioMixerHTML, replaceAudioMixer,
+  policeIsArrested, cueForAction, cueForGameplay, stationCue, isManualAction, audioMixerHTML, replaceAudioMixer,
   loudnessDb, renderMusic, highFrequencyEnergy, renderBed, createTownAudio,
 } from '../dist/audio.mjs';
 
@@ -170,6 +170,10 @@ assert.equal(policeIsArrested('under_arrest'), true);
 assert.equal(policeIsArrested('busted'), true);
 assert.equal(policeIsArrested('pursuit'), false);
 assert.equal(cueForAction('deliver'), 'sale');
+assert.equal(cueForGameplay({type: 'craving-ask', npc: 1}), 'message');
+assert.equal(cueForGameplay({type: 'craving-changed'}), 'sale');
+assert.equal(cueForGameplay({type: 'curfew'}), null);
+assert.equal(cueForGameplay(null), null);
 assert.equal(cueForAction('text'), 'message');
 assert.equal(cueForAction('prepare'), null);
 assert.equal(isManualAction('mix'), true);

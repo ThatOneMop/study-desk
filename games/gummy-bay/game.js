@@ -45,7 +45,7 @@ import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=123';
 import {customerBrief,customerReply,readCustomerReceipt,sampleChoices} from './customer-context.mjs?v=30';
 import {normalizeCravings,noteSale,cravingBudgetBonus,cravingAsk,markAsked,cravingState} from './customer-craving.mjs?v=124';
-import {bindGameplayState,emitGameplay} from './gameplay-feed.mjs?v=124';
+import {bindGameplayState,emitGameplay,subscribeGameplay} from './gameplay-feed.mjs?v=124';
 import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
@@ -87,7 +87,7 @@ import {acceptCoopPing,coopPingStatus} from './coop-ping.mjs?v=63';
 import {acceptCoopActivity,activitySnapshot,appendCoopActivity,coopActivityLine,deriveCoopActivity} from './coop-activity.mjs?v=64';
 import {businessPortrait,progressionSummary} from './progression-portrait.mjs?v=65';
 import {createVisualPolish} from './visual-polish.mjs?v=113';
-import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_STORAGE_KEY,cueForAction,stationCue,isManualAction} from './audio.mjs?v=123';
+import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_STORAGE_KEY,cueForAction,cueForGameplay,stationCue,isManualAction} from './audio.mjs?v=124';
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
@@ -2185,6 +2185,9 @@ if(typeof createTownAudio==='function')try{
  try{audioLevels.music=readAudioLevels(localStorage.getItem(AUDIO_STORAGE_KEY)).music;}catch{}
  const townAudio=createTownAudio({levels:audioLevels,storage:localStorage,onPersistError(){toast('Audio setting applies for this session.');}});
  window.townAudio=townAudio;
+ let saleCue=false;
+ function playCue(name,detail){if(!name)return;if(name==='sale'){if(saleCue)return;saleCue=true;queueMicrotask(()=>{saleCue=false;});}townAudio.emit(name,detail);}
+ if(typeof subscribeGameplay==='function')subscribeGameplay(event=>{const cue=cueForGameplay(event);if(cue)playCue(cue,{voice:event.npc,x:player.x,z:player.z});});
  setVolume=function(key,value){townAudio.setVolume(key,value);};
  window.setVolume=setVolume;
  ambientGain=ambientGain||{gain:{value:0,setTargetAtTime(){}}};
@@ -2196,8 +2199,8 @@ if(typeof createTownAudio==='function')try{
  addEventListener('keydown',unlockTownAudio);
  document.addEventListener('click',event=>{if(event.target?.closest?.('button'))townAudio.emit('ui');},true);
  playFootstep=function(){if(!soundEnabled||driving)return;const raised=rvFloorHeight(player.x,player.z)>0.2||tentSupportHeight(player.x,player.z)>0.2||verticalTownFloorHeight(player.x,player.z)>0.2;townAudio.emit('footstep',{surface:footstepSurface(player.x,player.z,raised?1:0),crouch:!!keys.control,sprint:!!keys.shift,x:player.x,z:player.z});};
- const townAction=doAction;doAction=function(k,a,b,c){const xp=s.xp,cashBefore=s.cash,bankBefore=s.bank;townAction(k,a,b,c);if(!isManualAction(k)){const cue=cueForAction(k);if(cue)townAudio.emit(cue,{x:player.x,z:player.z});}if(s.xp>xp)townAudio.emit('xp');if((s.cash!==cashBefore||s.bank!==bankBefore)&&k!=='deliver')townAudio.emit('cash');if(k==='mix'&&b===1)townAudio.emit('warble');};
- const townGuest=action;action=function(k,a,b,c){const guest=net.role==='guest'&&active;const result=townGuest(k,a,b,c);if(guest&&!isManualAction(k)){const cue=cueForAction(k);if(cue)townAudio.emit(cue,{x:player.x,z:player.z});}if(guest&&k==='mix'&&b===1)townAudio.emit('warble');return result;};window.action=action;
+ const townAction=doAction;doAction=function(k,a,b,c){const xp=s.xp,cashBefore=s.cash,bankBefore=s.bank;townAction(k,a,b,c);if(!isManualAction(k))playCue(cueForAction(k),{x:player.x,z:player.z});if(s.xp>xp)townAudio.emit('xp');if((s.cash!==cashBefore||s.bank!==bankBefore)&&k!=='deliver')townAudio.emit('cash');if(k==='mix'&&b===1)townAudio.emit('warble');};
+ const townGuest=action;action=function(k,a,b,c){const guest=net.role==='guest'&&active;const result=townGuest(k,a,b,c);if(guest&&!isManualAction(k))playCue(cueForAction(k),{x:player.x,z:player.z});if(guest&&k==='mix'&&b===1)townAudio.emit('warble');return result;};window.action=action;
  const townStation=advanceStation;advanceStation=function(amount){const before=stationTask?{k:stationTask.k,step:stationTask.step}:null;townStation(amount);if(!before)return;const changed=!stationTask||stationTask.step!==before.step||stationTask.k!==before.k;if(!changed)return;const cue=stationCue(before.k,before.step);if(cue)townAudio.emit(cue,{x:player.x,z:player.z});};
  const townEnter=enterVehicle;enterVehicle=function(){const was=driving;townEnter();if(!was&&driving)townAudio.emit('door',{kind:'metal',x:player.x,z:player.z});};
  const townExit=exitVehicle;exitVehicle=function(){const was=driving;townExit();if(was&&!driving)townAudio.emit('door',{kind:'metal',x:player.x,z:player.z});};

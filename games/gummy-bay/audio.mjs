@@ -143,6 +143,13 @@ export function cueForAction(name) {
   return ACTION_CUES[name] || null;
 }
 
+export function cueForGameplay(event) {
+  if (!event || typeof event.type !== 'string') return null;
+  if (event.type === 'craving-ask') return 'message';
+  if (event.type === 'craving-changed') return 'sale';
+  return null;
+}
+
 export function stationCue(kind, step = 0) {
   if (kind === 'prepare' || kind === 'plant') return 'soil';
   if (kind === 'water' || kind === 'fill') return 'water';

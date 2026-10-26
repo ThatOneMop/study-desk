@@ -138,7 +138,7 @@ try {
     await new Promise(resolve => setTimeout(resolve, 250));
   }
 
-  const audioModule = await evaluate(send, `import('/games/gummy-bay/audio.mjs?v=123').then(module => typeof module.createTownAudio).catch(error => 'error:' + error.message)`);
+  const audioModule = await evaluate(send, `import('/games/gummy-bay/audio.mjs?v=124').then(module => typeof module.createTownAudio).catch(error => 'error:' + error.message)`);
   assert.equal(audioModule, 'function', `audio module did not load: ${audioModule}`);
   const complaint = `${status.boot}\n${status.modal}`;
   assert.equal(/audio\.mjs/i.test(complaint), false, complaint);
