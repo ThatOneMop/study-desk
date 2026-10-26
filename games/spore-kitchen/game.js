@@ -35,4 +35,4 @@ document.addEventListener('keydown',event=>{if(event.repeat||event.ctrlKey||even
  $('next').onclick=()=>{if(E.next(o)){undo=null;items=[];order=0;persist();render();$('serviceName').setAttribute('tabindex','-1');$('serviceName').focus()}};
  $('continueFresh').onclick=()=>{try{if(localStorage.getItem(KEY)!==badRaw)throw Error('Save changed');localStorage.setItem(KEY+'-recovery',badRaw);blocked=false;undo=null;o=E.create();persist();$('recovery').hidden=true;text('saveStatus',blocked?'Unreadable save backed up locally, but saving fresh progress is unavailable. Keep this tab open.':'Unreadable save backed up locally; a fresh kitchen has started.');render()}catch{text('saveStatus','Could not keep the old backup. The original save has not been replaced.')}};
  render();if(lastRaw===null&&!blocked)persist();
-})();
+window.SKGame={get o(){return o}};})();

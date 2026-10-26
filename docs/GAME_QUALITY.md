@@ -34,17 +34,17 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Lucky Company | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Forge Arena | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Tidepost | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Deep Pocket | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Queen of Cinders | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Little Foundry | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
+| Deep Pocket | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Queen of Cinders | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Little Foundry | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Scrap Orbit | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Inkline | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Pocket Expedition | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Echo Vault | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Glasshouse | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Spore Kitchen | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Bolt & Bristle | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Roof Runner | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass | pass |
+| Inkline | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Pocket Expedition | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Echo Vault | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Glasshouse | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Spore Kitchen | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Bolt & Bristle | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Roof Runner | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Stone Song | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Last Match | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Burrow Express | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
@@ -113,7 +113,11 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Ratchet Run moves toward Trials: clean and hard landing calls, parcel counts, a delivered medal fanfare and Dispatch coaching on Milk Run; pausing freezes the ride frame.
 - Wellward moves toward Dredge: relic, bump, ballast and banking calls that follow the bucket, plus a Personal bests panel (best haul, best brass, fastest time and a clean-run mark per well) saved separately from the main save.
 - Pocket Palaeo moves toward fossil-excavation sims such as Dinosaur Fossil Hunter: dust bursts, BONE! reveals, CRACK! alarms with shake, brace and resin calls, a specimen-and-condition fanfare on each lift and a Field mentor who coaches pick, brush, resin, brace and lift on Ochre Creek.
+- Feedback pass (Deep Pocket, Queen of Cinders, Little Foundry, Inkline, Pocket Expedition, Echo Vault, Glasshouse, Spore Kitchen, Bolt & Bristle, Roof Runner): each loads a shared feedback-only `juice-kit.js` plus its own `juice.js`. They watch the game's own state each frame and add synthesised sound effects (with a saved header Sound toggle), particle bursts, short callouts and screen shake for that game's real events. They never block input or replace the existing title and pause screens. Curve is unchanged, so the Curve fails stay.
+- Deep Pocket moves toward Dredge's catch loop: CAST, BITE, LINE STRAIN, LANDED!, IT GOT AWAY, kept and released calls, coin counts and brief fanfares. Queen of Cinders moves toward Empires of the Undergrowth: dig dust, DAMPENED, shift harvest counts, HATCHED, FIRE SPREADS and QUEEN SCORCHED. Little Foundry moves toward Forge Industry smithing: CLANK, MELT READY, MOLTEN, pour sparks, COLD SHUT and COMMISSION CAST.
+- Inkline moves toward Slay the Spire: PAGE RECOVERED, INK BLOT, DRAFT A NEW CARD and CARD BOUND calls. Echo Vault moves toward Hitman GO: footstep dust, IN SHADOW, RELIC TAKEN, HEARD YOU!, EXPOSED, CLEAN ESCAPE and CAUGHT. Glasshouse moves toward Botany Manor: SOWN with soil bursts, watering splashes, DAY calls, NEW CROSS!, ORDER DELIVERED and wilt warnings. Pocket Expedition moves toward The Long Dark: LEAVING CAMP, NEW SITE, FOUND!, HURT ON THE TRAIL, RATIONS LOW and HOME SAFE.
+- Spore Kitchen moves toward Potion Craft: PLANTED, HARVESTED, SERVED stars and SERVICE COMPLETE. Bolt & Bristle moves toward PowerWash Simulator: dust, rust and spark bursts per plate, NO CURRENT YET on a failed test and an IT HUMS! fanfare. Roof Runner moves toward Celeste: jump and dash sounds, dash trails, hard-landing shake, parcel and checkpoint calls, FELL and DELIVERED.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 42, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 52, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
 
