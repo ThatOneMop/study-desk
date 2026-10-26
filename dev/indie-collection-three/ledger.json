@@ -388,17 +388,19 @@
       "tests": [
         "8 engine tests pass: original sequential three-garden wins and save/reload, all 5,460 legacy programs per garden unchanged (minima 3/2/5), new Scout branches/routes, all 19,530 extended programs per garden (minima 3/1/3), backward inspection at every cursor with records preserved, and malformed/legacy save validation.",
         "7 jsdom 26.1.0 tests pass: original UI campaign, Scout UI routes through every garden, backward inspection/reload, Run/Stop/pause/dialog/parent guards, crash/loop retry, Space/form controls, reset isolation, corrupt-save recovery and quota failure. Dialogs and intervals simulated.",
-        "Both gameplay scripts pass syntax checks. No rendered play, screenshots, native keyboard activation, touch/mobile layout or human-enjoyment evidence. Full repository checks not run from partial checkout."
+        "Both gameplay scripts pass syntax checks. No rendered play, screenshots, native keyboard activation, touch/mobile layout or human-enjoyment evidence. Full repository checks not run from partial checkout.",
+        "Delivery refinement: 18 total tests pass (10 engine, 8 jsdom); normal program enumeration remains unchanged, three delivery routes use 5/2/4 commands, overload/loop/save/record/UI regressions pass. Script syntax passes."
       ],
       "commits": [
         "4271c69152ec426d0c3df7452c252b0c90bb1706",
-        "882241479028fb664a192b21b05550312ba78e01"
+        "882241479028fb664a192b21b05550312ba78e01",
+        "a7f13d7c632d87b8bdcc63c913b25a0d58e0f834"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
         "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored gardens. Extended-program minima are 3/1/3; original command minima stay 3/2/5. Scout simplifies Hedge run to one command, requiring natural-play balance assessment. Enumeration is verification, not extra levels or content hours. Visual/debugging clarity and enjoyment remain unassessed."
+        "knownLimits": "Three compact authored gardens. Extended-program minima are 3/1/3; original command minima stay 3/2/5. Scout simplifies Hedge run to one command, requiring natural-play balance assessment. Enumeration is verification, not extra levels or content hours. Visual/debugging clarity and enjoyment remain unassessed. Optional delivery mode adds capacity-aware routing; its readability and enjoyment remain unverified."
       },
       "nextSteps": [
         "Play all three gardens naturally in a rendered browser on desktop/touch; inspect Scout branch feedback, backward inspection, glide highlighting, focus and loop explanations.",
@@ -410,6 +412,14 @@
         "before": "Flight programs had only fixed forward/glide/turn actions. Playback could only advance or restart, making failed routes harder to inspect.",
         "after": "Scout moves one square if clear or turns right at a hedge, deciding afresh on each execution. Back one step retraces any flight, including crash/loop/win endpoints, without removing earned records; it stops autoplay and respects pause/confirmation guards.",
         "remaining": "Render natural desktop/touch play, inspect screenshots and assess conditional-command clarity and puzzle balance (especially the now one-command Hedge run); a substantive playtest-led improvement remains required."
+      },
+      "pendingDeliveryRefinement": {
+        "commit": "a7f13d7c632d87b8bdcc63c913b25a0d58e0f834",
+        "basis": "Existing ledger/source weakness: shallow normal replay, particularly single-Scout Hedge Run. No rendered observation.",
+        "before": "All flowers could be collected without intermediate hive returns.",
+        "after": "Optional unlocked delivery mode carries two flowers; a third uncollected flower overloads the bag. Return through the hive to unload while preserving program counter. Independent records and mode-confirmed rewind preserve normal flights.",
+        "tests": "18 engine/DOM tests pass; three delivery routes, per-frame saves, overload/retry, old exhaustive outcomes, UI mode/cargo/reload and isolated records.",
+        "remaining": "Rendered natural play, screenshots, desktop/touch readability and balance assessment. No improvement credit."
       }
     },
     {
@@ -1377,6 +1387,12 @@
       "commit": "b77478fc32b11971cb95ca2c3c4e490101a76d8e",
       "result": "Moss Commons orchard strategy and per-orchard crowding forecast implemented. 14 engine/DOM tests pass; legacy campaigns unchanged and orchard routes complete all three sites. Counts remain 12 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering blocker not retried or bypassed. No rendered completion credit or live release."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "a7f13d7c632d87b8bdcc63c913b25a0d58e0f834",
+      "result": "Beepline optional pollen-delivery challenge implemented and 18 engine/DOM tests passed. Counts unchanged: 12 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering blocker not retried or bypassed; no rendered credit."
     }
   ]
 }
