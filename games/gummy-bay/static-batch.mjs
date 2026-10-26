@@ -20,6 +20,18 @@ export function batchCandidate(o,scene){
  if(o.onBeforeRender!==THREE.Object3D.prototype.onBeforeRender||o.renderOrder)return false;
  return plain(o);
 }
+// Opted-in groups (userData.batchStatic) contribute their static descendants;
+// anything under a userData.noBatch node (rideable/animated parts, LODs) is left alone.
+export function groupCandidate(o,scene){
+ if(!o?.isMesh||o.isInstancedMesh||o.isSkinnedMesh||o.children.length||!o.visible||o.parent===scene)return false;
+ let opted=false;for(let a=o.parent;a&&a!==scene;a=a.parent){if(!a.visible||a.userData.noBatch||a.isLOD)return false;if(a.userData.batchStatic)opted=true;}
+ if(!opted)return false;
+ const m=o.material;if(!m||Array.isArray(m)||m.transparent||m.isShaderMaterial||m.isRawShaderMaterial||m.opacity<1)return false;
+ const g=o.geometry;if(!g?.attributes?.position||!g.attributes.normal||g.morphAttributes&&Object.keys(g.morphAttributes).length)return false;
+ if(o.onBeforeRender!==THREE.Object3D.prototype.onBeforeRender||o.renderOrder)return false;
+ return plain(o);
+}
+export function groupPieces(scene){const out=[];for(const c of scene.children)if(c.userData?.batchStatic)c.traverse(o=>{if(groupCandidate(o,scene))out.push(o);});return out;}
 // Tiled surfaces (brick, render, iron...) are cloned per wall only to set a
 // texture repeat. Walls sharing the same image and look can share one material
 // once the repeat is baked into their UVs.
@@ -93,7 +105,7 @@ export function createStaticBatcher(scene,{minGroup=2,checkEvery=45}={}){
  function release(s){
   const w=watched.get(s);if(!w)return;watched.delete(s);
   const v=s.__batchVisible,m=s.__batchMaterial;delete s.visible;delete s.material;s.visible=v;s.material=m;delete s.__batchVisible;delete s.__batchMaterial;
-  if(!s.parent)scene.add(s);
+  const home=s.__batchParent||scene;delete s.__batchParent;if(!s.parent)home.add(s);
   for(const b of w.batches)split(b);
  }
  function split(b){
@@ -104,7 +116,7 @@ export function createStaticBatcher(scene,{minGroup=2,checkEvery=45}={}){
  function watch(s,b){
   let w=watched.get(s);
   if(!w){w={batches:[],snap:snapshot(s),look:look(s.material),inst:s.isInstancedMesh?instVersions(s):''};watched.set(s,w);
-   scene.remove(s);s.__batchVisible=s.visible;s.__batchMaterial=s.material;
+   s.__batchParent=s.parent||scene;s.parent?.remove(s);s.__batchVisible=s.visible;s.__batchMaterial=s.material;
    Object.defineProperty(s,'visible',{configurable:true,enumerable:true,get(){return this.__batchVisible;},set(v){if(v!==this.__batchVisible){this.__batchVisible=v;release(this);}}});
    Object.defineProperty(s,'material',{configurable:true,enumerable:true,get(){return this.__batchMaterial;},set(v){if(v!==this.__batchMaterial){this.__batchMaterial=v;release(this);}}});
   }
@@ -131,7 +143,8 @@ export function createStaticBatcher(scene,{minGroup=2,checkEvery=45}={}){
   }
  }
  function build(){
-  mergeGroups([...scene.children].filter(o=>batchCandidate(o,scene)));
+  scene.updateMatrixWorld(true);
+  mergeGroups([...scene.children].filter(o=>batchCandidate(o,scene)).concat(groupPieces(scene)));
   // Instanced meshes are only merged once they have stayed still for a while.
   pendingInstanced=new Map([...scene.children].filter(o=>instancedCandidate(o,scene)).map(o=>[o,instVersions(o)]));
   frame=0;builtAt=performance.now();return api.stats();
