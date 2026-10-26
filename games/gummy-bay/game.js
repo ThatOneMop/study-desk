@@ -588,7 +588,7 @@ const previousClose=close;close=function(){previousClose();document.body.classLi
 Object.assign(window,{menu,action,act,closeMenu:close,setQuality,setSensitivity,fullMouseCapture});
 // Main-menu settings are allowed without loading a save.
 const settingsMenu=menu;menu=function(which,data){if(!active&&which==='settings'){let was=active;active=true;settingsMenu(which,data);active=was;}else settingsMenu(which,data)};window.menu=menu;
-if(typeof location!=='undefined'&&typeof location.search==='string'){const shotParams=new URLSearchParams(location.search);shotKind=shotParams.get('shot')||'starter';streetShot=shotKind==='starter'||shotKind==='opening';if(streetShot){const hour=Number(shotParams.get('hour'));if(Number.isFinite(hour))shotHour=((hour%24)+24)%24;else if(shotKind==='opening')shotHour=9;}}
+if(typeof location!=='undefined'&&typeof location.search==='string'){const shotParams=new URLSearchParams(location.search);shotKind=shotParams.get('shot')||'';streetShot=shotKind==='starter'||shotKind==='opening';if(streetShot){const hour=Number(shotParams.get('hour'));if(Number.isFinite(hour))shotHour=((hour%24)+24)%24;else if(shotKind==='opening')shotHour=9;}}
 if(!(streetShot&&new URLSearchParams(location.search).get('streetBudget')==='off'))starterStreet=createStarterStreet({scene,quality});
 setQuality(quality);
 
