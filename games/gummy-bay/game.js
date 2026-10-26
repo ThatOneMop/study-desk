@@ -43,6 +43,7 @@ import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,creat
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=76';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
 import {createFixedStepper} from './sim-clock.mjs?v=122';
+import {readQaFlag,qaStorageKey,createDayDirector,steerHold} from './qa-harness.mjs?v=125';
 import {normalizeStaffRole,remoteWorkerStatus,staffAssignment,workerAdvice} from './staff-status.mjs?v=123';
 import {TentGardener,StreetSeller} from './field-crew.mjs?v=123';
 import {customerBrief,customerReply,readCustomerReceipt,sampleChoices,customerVoice} from './customer-context.mjs?v=30';
@@ -2472,3 +2473,62 @@ const appsMenu=menu;menu=function(which,data){
  }
  if(which==='listing')insertAfterClose(productRowsHTML(phoneProductRows(),esc));
 };window.menu=menu;
+
+// Test-only day harness. Absent unless the URL is exactly ?qa=day. Saves go to
+// gummybay-qa-day so the six story/free slots stay untouched. Boot tests strip
+// the import, so the hook stays out of those runs.
+if(typeof readQaFlag==='function'&&typeof qaStorageKey==='function'&&typeof createDayDirector==='function'&&typeof steerHold==='function'){
+const qaKey=qaStorageKey(readQaFlag(location.search));
+if(qaKey){
+ const qaDirector=createDayDirector();
+ const qaToasts=[];
+ const qaToast=toast;toast=function(msg){qaToasts.push(String(msg).slice(0,160));if(qaToasts.length>30)qaToasts.shift();qaToast(msg);};
+ save=function(){if(!active||net.role==='guest'||processingRemote)return;s.x=player.x;s.z=player.z;s.yaw=yaw;s.pitch=pitch;s.savedAt=Date.now();try{localStorage.setItem(qaKey,JSON.stringify(s));}catch(e){}};
+ let qaStep=0;
+ function qaSnapshot(){
+  const police=ensurePolice(),feedback=currentPoliceFeedback();
+  return {active,panel:panel==='station'?'':panel,station:!!stationTask,stationKind:stationTask?.k||'',work:!!work,search:!!police.search,policeReport:!!police.report,canComply:!!feedback.canComply,
+   x:player.x,z:player.z,yaw,time:s.time,day:s.day,curfew:curfewActive(s.time),cash:s.cash,xp:s.xp,level:level(),heat:s.heat,
+   called:s.called,room:!!s.room,tents:s.tents,installed:!!s.installed?.includes(0),can:!!s.can,trimmers:!!s.trimmers,packStation:!!s.packStation,
+   seeds:s.seeds[0]||0,soil:s.soil||0,wrappers:s.wrappers||0,water:s.water||0,plant:s.plants[0]?{phase:s.plants[0].phase,waterings:s.plants[0].waterings}:null,
+   raw:s.raw[0]||0,gummies:s.gummies[0]||0,packs:s.packs[0]||0,made:s.made||0,sold:s.sold||0,harvested:s.harvested||0,listing:!!s.listing,deal:s.deals[0]?s.deals[0].npc:-1,
+   thread:s.threads[0]?{status:s.threads[0].status,counter:s.threads[0].counter}:null,hired:!!s.helpers.gardener,step:qaStep,
+   officers:police.officers.map(c=>({x:c.x,z:c.z,mode:c.mode})),customers:CONTACTS.map(c=>({x:c.x,z:c.z})),
+   residents:CONTACTS.map((c,i)=>({name:c.name,status:residentStatus(i),x:round1(c.x),z:round1(c.z)}))};
+ }
+ function qaReach(goal){
+  if(!goal?.action)return false;
+  if(goal.action[0]==='deliver')return customerExchangeStatus(goal.action[1]).ok;
+  const status=physicalActionAccess(goal.action[0],goal.action[1]);
+  return status?!!status.ok:true;
+ }
+ function qaApply(intent){
+  if(intent.close&&panel&&panel!=='station')close();
+  if(intent.ripe)for(const plant of s.plants)if(plant?.phase==='growing')plant.end=Date.now()-1;
+  if(intent.skipWork&&work)work.start=performance.now()-work.seconds*1000-30;
+  if(intent.action)action(...intent.action);
+  if(intent.press==='h')complyPolice();
+  const applyHold=hold=>{if(ensurePolice().search)return;keys.w=!!hold.w;keys.a=!!hold.a;keys.s=!!hold.s;keys.d=!!hold.d;keys.shift=!!hold.shift;keys.arrowleft=!!hold.arrowleft;keys.arrowright=!!hold.arrowright;};
+  applyHold(intent.hold||{});
+  let left=Math.max(0,Math.min(8,intent.fast||0));
+  while(left>1e-6){
+   const dt=Math.min(1/60,left);left-=dt;now+=dt;
+   if(intent.aim&&!stationTask&&!work&&!panel){const steered=steerHold({yaw,x:player.x,z:player.z,tx:intent.aim.x,tz:intent.aim.z,stuck:intent.aim.stuck,arrive:intent.aim.arrive});if(steered.arrived){applyHold({});break;}applyHold(steered.hold);}
+   if(stationTask){const step=MANUAL[stationTask.k]?.[stationTask.step];if(step?.[1]==='tap')stationControl(true);else stationAssist=true;updateStationInput(dt);}
+   else if(!work)update(dt);
+  }
+  qaStep=.25+Math.max(0,Math.min(8,intent.fast||0));
+ }
+ const qaPlayback=frame;
+ frame=function(t){
+  if(!active)load('story',1,true);
+  const snap=qaSnapshot();
+  snap.reach=qaReach(qaDirector.preview(snap));
+  qaApply(qaDirector.intent(snap));
+  qaPlayback(t);
+  const report=qaDirector.report();
+  window.__qaDay={...report,toasts:qaToasts.slice(),x:player.x,z:player.z,time:s.time,day:s.day,cash:s.cash,xp:s.xp,sold:s.sold,made:s.made,hired:!!s.helpers.gardener,curfew:curfewActive(s.time),level:level()};
+ };
+}
+}
+function round1(n){return Math.round(n*10)/10;}
