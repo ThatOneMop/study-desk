@@ -79,7 +79,7 @@ import {applyBust,bustedTimeline,bustedSample,paintMugshot} from './busted.mjs?v
 import {searchPenalty,penaltyMessage,penaltyTier} from './police-penalty.mjs?v=135';
 import {levelOf,levelProgress} from './xp-curve.mjs?v=135';
 import {gateButtons} from './reach-gate.mjs?v=135';
-import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=142';
+import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=146';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
@@ -101,7 +101,7 @@ import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
 import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=135';
-import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=142';
+import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=146';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
@@ -128,8 +128,8 @@ import {PRODUCTION_CONTAINER_PROFILES,PRODUCTION_CONTAINER_COLLIDERS,productionC
 import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOutfitParts,selectOccupationalActors,createOccupationalOutfits} from './occupational-outfits.mjs?v=126';
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
-import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=142';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=145';
+import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=146';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=146';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -521,7 +521,7 @@ Object.assign(window,{menu,slots,loadGame:load,closeMenu:close,action,act,trackP
 // Gummy Bay 4: small-town street dressing, physical mixing, ATMs, and recycling.
 const camperGlow=new THREE.PointLight(0xe7ad7c,5,9,2);camperGlow.position.set(-58,2.6,26);scene.add(camperGlow);
 let mouseInside=false,mouseX=innerWidth/2,mouseY=innerHeight/2,lookSensitivity=LOOK_SENSITIVITY,fovBase=FOV_BASE,bobAmount=BOB_AMOUNT;
-let effects=null,quality='balanced',appliedQuality=null,appliedPixelRatio=null,districtArchitecture=null,streetConstruction=null,verticalTown=null,contextualStreetProps=null,districtHorizon=null,townSkyline=null,junctionReveals=null,townUtilities=null,overheadInfrastructure=null,townFencing=null,foregroundDepth=null,domesticWorkplace=null,doorwayReveals=null,windowConnections=null,ordinaryUnusualWork=null,publicServiceFronts=null,narrowAlleys=null,shopApproaches=null,logicalWear=null,productionContainers=null,occupationalOutfits=null,residentAccessories=null,residentFootSilhouettes=null,nightSilhouettes=null,scruffyWelcome=null,chunkyCast=null,streetCrowd=null,starterStreet=null;
+let storyCastVisible=()=>false;let effects=null,quality='balanced',appliedQuality=null,appliedPixelRatio=null,districtArchitecture=null,streetConstruction=null,verticalTown=null,contextualStreetProps=null,districtHorizon=null,townSkyline=null,junctionReveals=null,townUtilities=null,overheadInfrastructure=null,townFencing=null,foregroundDepth=null,domesticWorkplace=null,doorwayReveals=null,windowConnections=null,ordinaryUnusualWork=null,publicServiceFronts=null,narrowAlleys=null,shopApproaches=null,logicalWear=null,productionContainers=null,occupationalOutfits=null,residentAccessories=null,residentFootSilhouettes=null,nightSilhouettes=null,scruffyWelcome=null,chunkyCast=null,streetCrowd=null,starterStreet=null;
 try{lookSensitivity=Number(localStorage.getItem('gummybay-sensitivity'))||LOOK_SENSITIVITY;const storedFov=localStorage.getItem('gummybay-fov');if(storedFov!=null){const n=Number(storedFov);if(n>=60&&n<=100)fovBase=n;}const storedBob=localStorage.getItem('gummybay-bob');if(storedBob!=null){const n=Number(storedBob);if(n>=0&&n<=1)bobAmount=n;}camera.fov=fovBase;}catch(e){}
 try{
  let saved=null,cores,saveData=false,coarse=false,software=false;
@@ -1254,7 +1254,7 @@ renderFrame=function(){
  for(const a of visualActors){const distance=a.g.position.distanceTo(camera.position);const nearRig=distance<(quality==='performance'?75:125);a.body.visible=nearRig&&!a.isCop;if(nearRig)actorAnimation(a,dt,distance);else a.previous.copy(a.g.position);}
  residentFootSilhouettes.update({active});
  chunkyCast?.update({now,camera});
- streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked,rain:active?rainAt(s.day,s.time):0});
+ streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked,namedVisible:storyCastVisible,rain:active?rainAt(s.day,s.time):0});
  if(visualTown)for(const chunk of visualTown.children){const c=chunk.userData.center;if(c)chunk.visible=camera.position.distanceTo(c)<lookPreset(quality).townDistance+chunk.userData.radius;}
  visualRender();
 };
@@ -4073,6 +4073,8 @@ try{
   else {const q=points.find(q=>q.type===where);if(q)p={x:q.x,z:q.z,label:q.label};}
   if(!p)return false;track=p;close();toast('Tracking '+p.label);return true;
  }
+ // v146: Gramps Gus stands on the pier once the story is complete.
+ storyCastVisible=key=>{if(key!=='gramps')return true;try{const st=ensureStory();return !!st.open&&!currentQuest(st);}catch{return false;}};
  function storyHTML(){
   const st=ensureStory(),q=currentQuest(st),f=storyFactsNow(),act=currentAct(st);
   let h='<div class="overline">STORY · MISSIONS</div>';
@@ -4257,7 +4259,9 @@ try{
  // ---- Where the dealers stand: their district, nudged onto open pavement ----
  function freeSpot(x,z){const clear=(x,z)=>!blocked(x,z)&&!blocked(x+.9,z)&&!points.some(q=>Math.hypot(q.x-x,q.z-z)<6);if(clear(x,z))return {x,z};for(let r=1;r<=18;r+=1)for(let i=0;i<16;i++){const a=i*Math.PI/8,p={x:x+Math.cos(a)*r,z:z+Math.sin(a)*r};if(clear(p.x,p.z))return p;}return {x,z};}
  DEALER_ROSTER.forEach((d,i)=>{const p=freeSpot(d.x,d.z);NET.spots[d.id]=p;
-  const g=figure(p.x,p.z,d.color,0xd8b48f,0x3d2b22,1);g.rotation.y=Math.atan2(-p.x,-p.z);g.visible=false;
+  const g=figure(p.x,p.z,d.color,0xd8b48f,0x3d2b22,1);g.userData.name=d.name;g.rotation.y=Math.atan2(-p.x,-p.z);g.visible=false;
+  // v146: the dealer is drawn by the shared people kit; the bobble group stays as the visibility/position anchor.
+  if(streetCrowd?.follow?.(d.name,g))g.traverse(o=>{if(o.isMesh)o.visible=false;});
   const stall=new THREE.Group();stall.position.set(p.x+.9,0,p.z);scene.add(stall);
   box(0,.45,0,.9,.9,.6,0x8a5a3a,false,stall);box(0,1.05,0,.98,.08,.68,d.color,false,stall);
   for(let k=0;k<3;k++)box(-.28+k*.28,.95,.1,.16,.1,.16,[0xff6f8a,0xffd36b,0x8be0a4][k],false,stall);stall.visible=false;

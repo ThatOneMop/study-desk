@@ -2,7 +2,7 @@
 // existing animated bones: oversized heads, flat faces, mitten hands, role colours.
 import * as THREE from './vendor/three.module.min.js';
 import {residentExpressionState} from './resident-expressions.mjs';
-import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,personPartEnabled,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,poseArms} from './people-kit.mjs?v=142';
+import {PERSON_PARTS,PERSON_SLOT,PEOPLE_BOX_GEOMETRY,personLook,namedLook,namedLookKey,personPartEnabled,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,poseArms,breathe,breatheJoints,scaleJointsAbout,personTriangles} from './people-kit.mjs?v=146';
 
 export const CHUNKY_CAST_COLLIDERS=Object.freeze([]);
 const freeze=records=>Object.freeze(records.map(record=>Object.freeze(record)));
@@ -49,12 +49,22 @@ export function chunkyCastRole(actor,points){
  if(type==='dealer')return 'dealer';
  return 'townsfolk';
 }
-export function chunkyCastLook(actor,role,id){
+// v146: story contacts and dealers resolve to hand-authored looks by name.
+export function chunkyCastName(actor,points){
+ const root=actor?.g||actor;
+ const own=root?.userData?.name;if(own)return String(own);
+ const label=Array.isArray(points)?points.find(point=>point?.actor===root)?.label:'';
+ return label||'';
+}
+export function chunkyCastLook(actor,role,id,name=''){
  const palette=actor?.g?.userData?.palette||actor?.userData?.palette||{},profile=chunkyCastProfile(id);
  const base=personLook(id,role,palette);
- if(role==='police'||role==='worker')return base;
+ if(name&&namedLookKey(name))return namedLook(name,base,id);
+ if(role==='police'||role==='worker'||role==='seller'||role==='dealer')return base;
  const topStyle=profile.hood?'hoodie':base.topStyle==='hoodie'?'jacket':base.topStyle;
- return Object.freeze({...base,topStyle,glasses:profile.glasses,sleeve:topStyle==='tee'?base.skin:base.top,hood:base.top,hoodUp:topStyle==='hoodie'&&base.hoodUp});
+ const eyewear=profile.id==='shades'?2:profile.glasses?1:0;
+ const bare=topStyle==='tee'||topStyle==='polo'||topStyle==='overalls';
+ return Object.freeze({...base,topStyle,glasses:eyewear>0,eyewear,sleeve:bare?base.skin:base.top,arm:topStyle==='overalls'?base.inner:base.top,hood:base.top,hoodUp:topStyle==='hoodie'&&base.hoodUp});
 }
 export function chunkyPartEnabled(part,role,profile,id=0){
  return personPartEnabled(part,chunkyCastLook({userData:{}},role,Number.isFinite(profile?.index)?profile.index:id));
@@ -116,26 +126,34 @@ export function createChunkyCast({THREE:three=THREE,scene,actors,points,quality=
    let show=!!body&&body.visible!==false&&root?.visible!==false&&typeof body.getObjectByName==='function';
    const id=Number.isFinite(root?.userData?.id)?root.userData.id:count;
    const role=chunkyCastRole(root,points);
-   const key=id+':'+role;if(!looks.has(key))looks.set(key,chunkyCastLook(actor,role,Math.abs(Math.trunc(id))));
+   const key=id+':'+role;if(!looks.has(key))looks.set(key,chunkyCastLook(actor,role,Math.abs(Math.trunc(id)),chunkyCastName(actor,points)));
+   const look=looks.get(key);
    const clip=typeof actor?.current==='string'?actor.current:'Idle';
    const distance=camera?.position&&root?.position?.distanceTo?root.position.distanceTo(camera.position):0;
    const expression=residentExpressionState({now,id,talking:clip==='Talk',working:clip==='Work'||clip==='Search',moving:(actor?.speed||0)>.08,active:show,distance});
    const pose=chunkyCastPose({clip,blink:expression.blink,browLift:expression.browLift,now});
    if(show){hideSculpted(actor);body.updateWorldMatrix(true,true);show=chunkyJointsFromBody(body,joints);}
    const fx=actor?.fx;
+   if(show){
+    // Idle breathing on top of the clip, and per-person height about the feet.
+    if(clip==='Idle'&&(actor?.speed||0)<.08)breatheJoints(joints,breathe(now,id));
+    if(look.height!==1&&root?.matrixWorld){bonePos.setFromMatrixPosition(root.matrixWorld);scaleJointsAbout(joints,bonePos.x,bonePos.y,bonePos.z,look.height);}
+   }
    if(show&&fx)applyChunkyFx(joints,fx);
    const face=fx?.face||(expression.blink>.5?'blink':pose.talking&&pose.mouthH>.03?'talk':'open');
-   writePerson(meshes,count,joints,looks.get(key),{detail:distance<45,face,active:show,tint:fx?.tint||null});
+   // Hidden actors give up their slot, so the draw only covers people on screen.
+   if(!show)continue;
+   writePerson(meshes,count,joints,look,{detail:distance<45,face,active:true,tint:fx?.tint||null});
    count++;
   }
   for(let slot=count;slot<capacity;slot++)writePerson(meshes,slot,joints,null,{active:false});
-  flushPeopleMeshes(meshes,count>0);
+  flushPeopleMeshes(meshes,count>0,count);
   return count;
  };
  const setQuality=q=>{for(const m of [meshes.box,meshes.round]){m.castShadow=q==='high';m.receiveShadow=q!=='performance';}};
  setQuality(quality);update();
- const triangles=PERSON_PARTS.filter(p=>p.mesh==='box').length*12+PERSON_PARTS.filter(p=>p.mesh==='round').length*48+2;
- return Object.freeze({mesh,headMesh:meshes.round,faceMesh:meshes.face,update,setQuality,drawCalls:3,capacity,counts:Object.freeze({parts:PERSON_PARTS.length,trianglesPerActor:triangles,colliders:0,materials:2})});
+ const triangles=personTriangles(false);
+ return Object.freeze({mesh,headMesh:meshes.round,bodyMesh:meshes.round,faceMesh:meshes.face,update,setQuality,drawCalls:3,capacity,counts:Object.freeze({parts:PERSON_PARTS.length,trianglesPerActor:triangles,colliders:0,materials:2})});
 }
 
 export function createChunkyPlayerHand(group){
