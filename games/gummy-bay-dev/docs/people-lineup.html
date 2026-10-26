@@ -4,7 +4,7 @@
 <script type="module">
 // Dev-only lineup of the shared people kit (no game logic): ?set=named|crowd|roles
 import * as THREE from '../../gummy-bay/vendor/three.module.min.js';
-import {NAMED_LOOKS,namedLook,personLook,createJointSet,proceduralJoints,writePerson,createPeopleMeshes,flushPeopleMeshes,breathe} from '../../gummy-bay/people-kit.mjs?v=145';
+import {NAMED_LOOKS,namedLook,personLook,createJointSet,proceduralJoints,writePerson,createPeopleMeshes,flushPeopleMeshes,breathe} from '../../gummy-bay/people-kit.mjs?v=146';
 const q=new URLSearchParams(location.search),set=q.get('set')||'named';
 const named=['gramps','marge','lemon larry','hank hardtack','mayor prudence','tilly','benny boardwalk','mo marmalade','cleo caramel','dex dimple','jules','benji','nina','oz','frankie'];
 const all=set==='named'?named.map((k,i)=>[k,namedLook(k,null,i)]):set==='roles'?['townsfolk','police','worker','seller','dealer','customer'].flatMap((r,i)=>[[r,personLook(i*7+1,r)],[r,personLook(i*7+4,r)]]):Array.from({length:16},(_,i)=>['#'+i,personLook(i*13+5,'townsfolk')]);
