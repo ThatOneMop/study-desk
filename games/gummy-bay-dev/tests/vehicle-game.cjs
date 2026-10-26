@@ -13,7 +13,7 @@ check(C.CAR.lot.mesh.geometry.attributes.position.count<verts,'sold car leaves t
 action('buyLot','rustwagon');check(s.cash===cash0-1200,'no double purchase');
 s.cash=50;action('buyLot','sprinter');check(!st().lotCars.includes('sprinter'),'cannot afford the Sprinter');s.cash=30000;
 player.set(0,1.72,0);action('buyLot','tuktuk');check(!st().lotCars.includes('tuktuk'),'must be at the lot');C.stage();
-close();renderFrame();check(C.CAR.lotModels.models.get('rustwagon').visible,'the Rustwagon body replaces the van model');
+close();renderFrame();const shown=o=>{for(let x=o;x;x=x.parent){if(x===playerVan)return true;if(!x.visible)return false;}return false;};check(shown(C.CAR.lotModels.models.get('rustwagon')),'the Rustwagon body (and its parents) replace the van model');
 // Enter, drive, drift, brake, exit.
 check(C.toDoor(),'a clear door next to the delivered car');enterVehicle();check(driving,'enter the lot car');
 const p0={x:player.x,z:player.z};let r=C.drive({w:true},3);check(r.speed>8&&r.rpm>900&&Math.hypot(player.x-p0.x,player.z-p0.z)>10,'accelerates and moves: '+JSON.stringify(r));
@@ -44,7 +44,7 @@ bustPlaying=null;
 // Rain on Low: budgets, crowd umbrellas, phone forecast.
 setQuality('performance');C.rain(1);update(.05);renderFrame();const w=C.weather(),b=w.budget;
 check(w.rain===1&&w.stats.drops>0&&w.stats.drops<=b.drops&&w.stats.splashes<=b.splashes&&w.stats.puddles<=b.puddles&&w.stats.umbrellas<=b.umbrellas&&b.drops<=600,'rain respects the Low budget: '+JSON.stringify(w.stats));
-check(w.wetMats>0,'wet sheen finds the road materials');
+check(w.wetMats>0,'wet sheen finds the road materials');check(skyClouds.group.visible===false,'Low + steady rain skips the cloud sprites');setQuality('balanced');renderFrame();check(skyClouds.group.visible===true,'clouds stay on Medium in rain');setQuality('performance');
 C.rain(null);let rainyDay=0;for(let d=3;d<40&&!rainyDay;d++)if(dayWeather(d).rain)rainyDay=d;s.day=rainyDay;s.time=dayWeather(rainyDay).start+60;check(C.weather().rain>0,'the schedule rains on a rainy day');
 s.time=dayWeather(rainyDay).start-120;check(C.weather().rain===0,'and not before the shower');
 s.day=rainyDay-1;close();phoneHome();m=$('modal').innerHTML;check(m.includes('phone-weather')&&m.includes('Tomorrow: '+forecast(rainyDay,1)[0].label),'phone home forecasts tomorrow’s rain');

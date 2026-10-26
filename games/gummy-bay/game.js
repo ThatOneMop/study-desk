@@ -4454,7 +4454,7 @@ try{
  };window.menu=menu;
 
  // Vehicle bodies: lot cars replace the van model on the same parked slot.
- const wheelsSync=syncFleetModel;syncFleetModel=function(root,model){wheelsSync(root,model);if(root!==playerVan)return;const lot=s.carSel&&lotOwned(s,s.carSel);CAR.lotModels.select(lot?s.carSel:'');if(lot)for(const child of root.children)if(child!==CAR.lotModels.group)child.visible=false;};
+ const wheelsSync=syncFleetModel;syncFleetModel=function(root,model){wheelsSync(root,model);if(root!==playerVan)return;if(CAR.lotModels.group.parent!==playerVan)playerVan.add(CAR.lotModels.group);const lot=s.carSel&&lotOwned(s,s.carSel);CAR.lotModels.select(lot?s.carSel:'');if(lot)for(const child of root.children)if(child!==CAR.lotModels.group)child.visible=false;};
 
  // Entering seeds the physics body; exiting drops the engine.
  const wheelsEnter=enterVehicle;enterVehicle=function(){wheelsEnter();if(driving){CAR.sim=createCar(player.x,player.z,driveAngle);CAR.lastLong=0;CAR.cam=null;CAR.pull=0;toast('W/S drive · A/D steer · Space handbrake · V camera · T trunk · F exit');}};
@@ -4527,8 +4527,10 @@ try{
 
  // Render: chase camera with turn lean and impact shake, the car body while driving, the lot cull, rain.
  // The chase pose is applied at the last moment, inside renderer.render, so later render wrappers that re-sync the seat view cannot undo it.
- function applyChasePose(cam){const q=CAR.chasePose;if(!q||cam!==camera)return;cam.position.set(q.x,q.y,q.z);cam.lookAt(q.lx,q.ly,q.lz);cam.rotateZ(q.roll);cam.updateMatrixWorld();}
- if(renderer&&typeof renderer.render==='function'&&!renderer.__chaseHooked){const baseRender=renderer.render.bind(renderer);renderer.render=function(sc,cam){try{applyChasePose(cam);}catch{}return baseRender(sc,cam);};renderer.__chaseHooked=true;}
+ // Low quality in steady rain: the overcast grade already fills the sky, so the ~20 cloud sprites are skipped; rain nets fewer draw calls than a dry day.
+ function overcastClouds(){if(typeof skyClouds==='undefined'||!skyClouds?.group)return;skyClouds.group.visible=!(quality==='performance'&&CAR.lastRain>.6);}
+ function applyChasePose(cam){const q=CAR.chasePose;if(!q||cam!==camera)return;if(driving&&CAR.sim){if(CAR.lotModels&&CAR.lotModels.group.parent!==playerVan)syncFleetModel(playerVan,localFleetModels);playerVan.visible=true;playerVan.position.set(CAR.sim.x,floorHeight(CAR.sim.x,CAR.sim.z),CAR.sim.z);playerVan.rotation.set(0,CAR.sim.angle,CAR.sim.lean*.6);playerVan.updateMatrixWorld(true);}cam.position.set(q.x,q.y,q.z);cam.lookAt(q.lx,q.ly,q.lz);cam.rotateZ(q.roll);cam.updateMatrixWorld();}
+ if(renderer&&typeof renderer.render==='function'&&!renderer.__chaseHooked){const baseRender=renderer.render.bind(renderer);renderer.render=function(sc,cam){try{applyChasePose(cam);overcastClouds();}catch{}return baseRender(sc,cam);};renderer.__chaseHooked=true;}
  const wheelsRender=renderFrame;renderFrame=function(){
   const dt=Math.min(.1,Math.max(0,(now-(CAR.lastFrame??now))));CAR.lastFrame=now;
   try{
