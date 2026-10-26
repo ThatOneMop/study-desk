@@ -10,7 +10,7 @@ import {gritMaterial,createStreetWear} from './gritty-streets.mjs?v=111';
 import {roundResidentAsset} from './resident-rounding.mjs?v=121';
 import {EXTRA_PATROL_ROUTES,expandPoliceRoster} from './patrol-expansion.mjs?v=111';
 import {dressPayphone} from './payphone-detail.mjs?v=111';
-import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=132';
+import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=155';
 import {LOT_CARS,LOT_SITE,lotCar,lotOwned,lotRequest,handlingFor,createCar,stepCar,resolveMove,setLong,chaseCamera,trunkCapacity,trunkCount,moveTrunk,seizeTrunk} from './car-physics.mjs?v=145';
 import {carGeometry,createLotModels,createLot,lotLayout,lotColliders,LOT_DOOR,createSkidMarks,createEngineAudio,CAR_MATERIAL,CAR_PALETTE} from './car-kit.mjs?v=155';
 import {CRUISER_SPEC,cruiserSpawn,createCruiser,stepCruisers,cruisersWanted,cruiserCount} from './police-cruisers.mjs?v=145';
@@ -671,7 +671,7 @@ setQuality(quality);
 
 addEventListener('keydown',e=>{if(!active||panel||work||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;if(stationTask||placeMode)return;if(hotbarSlot(e.key)){e.preventDefault();useHotbarSlot(e.key);}});
 // Atmospheric sky and a stylized moving bay, built from local shaders.
-const skyUniforms={top:{value:new THREE.Color(0x6d9daf)},bottom:{value:new THREE.Color(0xc7c5ae)},night:{value:1},time:{value:0}};
+const skyUniforms={top:{value:new THREE.Color(0x6d9daf)},bottom:{value:new THREE.Color(0xc7c5ae)},night:{value:1}};
 const skyDome=new THREE.Mesh(new THREE.SphereGeometry(290,24,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:skyUniforms,vertexShader:'varying vec3 direction;void main(){direction=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:SKY_FRAGMENT}));skyDome.renderOrder=-20;scene.add(skyDome);
 // v155: glossy car paint, chrome hubs and night headlights on the shared car body material.
 const carPaint=applyCarPaint(CAR_MATERIAL,CAR_PALETTE,skyUniforms);
@@ -720,7 +720,7 @@ function shopLogo(x,z,name,kind,color){let c=document.createElement('canvas');c.
 shopLogo(19.1,30.7,'MILO’S','plant','#70825c');shopLogo(-30.8,-14.3,'HARDWARE','tool','#7c8168');shopLogo(30.4,-15.8,'GUMMIES','gummy','#9b7b60');
 const smallDetails=[];scene.traverse(o=>{if(o.isMesh&&o.parent===scene&&o.geometry.type==='BoxGeometry'){const d=o.geometry.parameters;if(d.width<3&&d.height<.55&&d.depth<2){o.castShadow=false;smallDetails.push(o)}}});
 const artFrame=renderFrame;renderFrame=function(){
-skyDome.position.copy(camera.position);waterUniforms.uTime.value=now;skyUniforms.time.value=now;gfxTufts?.update(now,quality);gfxShoreFoam?.update(now,waterUniforms.uLight.value,quality);
+skyDome.position.copy(camera.position);waterUniforms.uTime.value=now;gfxTufts?.update(now,quality);gfxShoreFoam?.update(now,waterUniforms.uLight.value,quality);
 for(let o of smallDetails){if(o.__batchParent)continue;o.visible=camera.position.distanceToSquared(o.position)<6400;}
 for(let g of avatars){let id=g.userData.id;let phase=(now+id*.63)%5.3;g.userData.eyes.scale.y=phase>4.9&&phase<5.07?.1:1;g.userData.torso.scale.y=1+Math.sin(now*1.8+id)*.008;g.userData.left.rotation.z=.035+Math.sin(now*1.1+id)*.025;g.userData.right.rotation.z=-.035-Math.sin(now*1.1+id)*.025;if(g===patrol){g.userData.left.rotation.x=Math.sin(now*2.1)*.2;g.userData.right.rotation.x=-Math.sin(now*2.1)*.2;}}
 artFrame();};

@@ -11,15 +11,19 @@ const WAVES='void wave(vec2 xz,vec2 d,float k,float s,float a,inout float h,inou
 export const OCEAN_VERTEX='varying vec2 vUv;varying vec3 world;uniform float uTime;uniform float uQ;'+WAVES+
 'void main(){vUv=uv;vec4 w=modelMatrix*vec4(position,1.);float h=0.;vec2 g=vec2(0.);wave(w.xz,vec2(.8,.6),.11,.55,.06*uQ,h,g);wave(w.xz,vec2(-.45,.89),.17,.7,.035*uQ,h,g);'+
 'w.y+=h;world=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}';
-export const OCEAN_FRAGMENT='varying vec2 vUv;varying vec3 world;uniform float uTime;uniform float uLight;uniform vec3 uFog;uniform float uFogNear;uniform float uFogFar;uniform float uQ;uniform vec3 uSkyTop;uniform vec3 uSkyBot;uniform float uSkyLevel;'+NOISE+WAVES+
-'void main(){float t=uTime;vec2 q=world.xz;float h=0.;vec2 g=vec2(0.);'+
+// Replaces the v132 coastal water fragment (graphics-atmosphere.mjs applies it): same deep/shallow
+// palette, weather dimming and offshore shelf, plus per-pixel waves, fresnel sky reflection and glint.
+export const OCEAN_FRAGMENT='varying vec2 vUv;varying vec3 world;uniform float uTime;uniform float uLight;uniform vec3 uFog;uniform float uFogNear;uniform float uFogFar;uniform float uCloud;uniform float uQ;uniform vec3 uSkyTop;uniform vec3 uSkyBot;uniform float uSkyLevel;'+NOISE+WAVES+
+'void main(){float t=uTime;vec2 q=world.xz;float d=distance(cameraPosition,world);float detail=1.-smoothstep(40.,170.,d);float h=0.;vec2 g=vec2(0.);'+
 'wave(q,vec2(.8,.6),.35,.9,.05,h,g);wave(q,vec2(-.5,.86),.55,1.1,.03,h,g);wave(q,vec2(.95,-.31),1.3,1.6,.012,h,g);wave(q,vec2(.2,.98),2.1,2.,.007,h,g);'+
-'vec3 n=normalize(vec3(-g.x*(.6+.6*uQ),1.,-g.y*(.6+.6*uQ)));float r1=gwNoise(q*1.3+vec2(t*.35,t*.2)),r2=gwNoise(q*2.7-vec2(t*.25,-t*.4));n=normalize(n+vec3(r1-.5,0.,r2-.5)*.2*uQ);'+
-'vec3 V=normalize(cameraPosition-world);float patch=gwNoise(q*.02+t*.004);vec3 c=mix(vec3(.2,.47,.48),vec3(.12,.32,.38),patch);c+=sin(world.z*3.5+t*.8+sin(world.x*.12))*.015;'+
-'float fres=pow(1.-max(dot(n,V),0.),4.);vec3 R=reflect(-V,n);vec3 sky=mix(uSkyBot,uSkyTop,pow(clamp(R.y,0.,1.),.55))*uSkyLevel;'+
-'c=mix(c,sky,clamp(fres*(.2+.5*uQ)+.06*uQ,0.,1.));float day=smoothstep(.45,.9,uLight);float glint=pow(max(dot(R,normalize(vec3(.3,.42,.86))),0.),220.)*2.*uQ*day;'+
-'float crest=smoothstep(.06,.09,h)*smoothstep(.45,.8,gwNoise(q*2.6+t*.3));c=mix(c,vec3(.9,.95,.94),crest*.5);c*=uLight;c+=glint;'+
-'float fog=smoothstep(uFogNear,uFogFar,distance(cameraPosition,world));gl_FragColor=vec4(mix(c,uFog,fog),1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}';
+'float k=(.5+.7*uQ)*(.35+.65*detail);vec3 n=normalize(vec3(-g.x*k,1.,-g.y*k));float r1=gwNoise(q*1.3+vec2(t*.35,t*.2)),r2=gwNoise(q*2.7-vec2(t*.25,-t*.4));n=normalize(n+vec3(r1-.5,0.,r2-.5)*.2*uQ*detail);'+
+'vec3 deep=vec3(.075,.22,.26),shallows=vec3(.24,.47,.43);vec3 c=mix(deep,shallows,clamp(1.-abs(max(abs(world.x)-310.,abs(world.z+177.)-292.))/55.,0.,1.));c+=(sin(world.z*.08+world.x*.025)*.5+.5)*.035;'+
+'vec3 V=normalize(cameraPosition-world);float fres=pow(1.-max(dot(n,V),0.),4.);vec3 R=reflect(-V,n);vec3 sky=mix(uSkyBot,uSkyTop,pow(clamp(R.y,0.,1.),.55))*uSkyLevel;'+
+'c=mix(c,sky,clamp(fres*(.25+.5*uQ)+.05*uQ,0.,1.));'+
+'float crest=sin(world.x*.19+world.z*.52-t*.9)+.46*sin(world.x*.49-world.z*.27+t*.56);float foam=smoothstep(1.05,1.42,crest)*detail*(.6+.4*gwNoise(q*2.2+t*.3))+smoothstep(.065,.095,h)*detail*.5;'+
+'float shore=exp(-abs(max(abs(world.x)-325.,abs(world.z+177.)-305.)-sin(world.x*.075+world.z*.06)*1.2)*.38);c=mix(c,vec3(.8,.87,.8),foam*.3+shore*(.18+.22*sin(t*.6+world.x*.1)));'+
+'c*=uLight*(1.-uCloud*.18);float day=smoothstep(.45,.9,uLight)*(1.-uCloud*.85);c+=vec3(1.,.93,.78)*pow(max(dot(R,normalize(vec3(-.55,.64,.5))),0.),160.)*1.6*uQ*day*detail;'+
+'gl_FragColor=vec4(mix(c,uFog,smoothstep(uFogNear,uFogFar,d)),1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}';
 
 // Shore foam: one transparent ribbon along the island coast where the shelf meets the water line,
 // with foam lines that roll in and fade. Medium/High only.
@@ -38,15 +42,18 @@ export function createShoreFoam(outline=[],{y=-.355,from=.84,to=.97}={}){
  return {mesh,update(t,light,quality){u.uTime.value=t;u.uLight.value=light;mesh.visible=!isLowWorld(quality);}};
 }
 
-// Sky: horizon haze, domain-warped drifting clouds with lit tops and soft bases, stars at night.
-export const SKY_FRAGMENT='varying vec3 direction;uniform vec3 top;uniform vec3 bottom;uniform float night;uniform float time;'+NOISE+
+// Replaces the v132 coastal sky fragment: same gradient, sun halo and stars, but horizon haze and
+// domain-warped drifting clouds with lit tops, shaded bases and silver edges (uCloud thickens them).
+export const SKY_FRAGMENT='varying vec3 direction;uniform vec3 top;uniform vec3 bottom;uniform float night;uniform float uTime;uniform float uCloud;'+NOISE+
 'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*gwNoise(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}'+
-'void main(){vec3 dir=normalize(direction);float h=clamp(dir.y,0.,1.);vec3 col=mix(bottom,top,pow(h,.55));col=mix(col,bottom*1.05,exp(-h*10.)*.35);'+
-'vec2 p=dir.xz/max(.15,dir.y)*1.6+vec2(time*.006,time*.0025);vec2 wv=vec2(fbm(p*.6+time*.002),fbm(p*.6+3.1));float n=fbm(p+wv*.8);'+
-'float cloud=smoothstep(.48,.68,n)*smoothstep(.03,.22,h);float lit=smoothstep(.0,.12,n-fbm(p+wv*.8+vec2(.07,.05)));'+
-'vec3 cc=mix(vec3(.7,.73,.78),vec3(.98,.97,.93),.45+.55*lit);col=mix(col,cc,cloud*.8);col*=night;'+
-'vec3 sc=floor(dir*170.);float star=step(.9965,gwHash(sc.xy+sc.z*17.13))*(1.-smoothstep(.22,.55,night))*(1.-cloud)*smoothstep(.06,.3,h);col+=vec3(star*.85);'+
-'gl_FragColor=vec4(col,1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}';
+'void main(){vec3 dir=normalize(direction);float h=max(0.,dir.y);vec3 col=mix(bottom,top,pow(h,.45));col=mix(col,bottom*1.04,exp(-h*9.)*.3);'+
+'vec2 p=dir.xz/(dir.y+.24)*1.15+vec2(uTime*.0025,uTime*.0007);vec2 wv=vec2(fbm(p*.55+uTime*.0012),fbm(p*.55+4.3));float n=fbm(p+wv*.75);'+
+'float cloud=smoothstep(.47-uCloud*.16,.66-uCloud*.18,n)*smoothstep(.05,.32,h);float lit=smoothstep(-.02,.1,n-fbm(p+wv*.75+vec2(.06,.04)));'+
+'vec3 sunD=normalize(vec3(-.55,.64,.5));float toward=max(0.,dot(dir,sunD));vec3 base=mix(vec3(.5,.58,.64),vec3(.62,.62,.66),uCloud);vec3 litCloud=mix(base,vec3(1.,.95,.84),.35+.65*lit);'+
+'litCloud+=vec3(1.,.8,.55)*pow(toward,6.)*(1.-smoothstep(.5,.7,n))*.35;col=mix(col,litCloud,cloud*(.8+uCloud*.18));'+
+'col+=vec3(1.,.64,.31)*pow(toward,24.)*.19*(1.-uCloud*.8)*(1.-cloud*.6);'+
+'float star=step(.9975,gwHash(floor(dir.xz/max(.1,dir.y)*420.)))*smoothstep(.12,.4,h)*(1.-smoothstep(.42,.65,night))*(1.-cloud);col+=vec3(.55,.67,.8)*star;'+
+'gl_FragColor=vec4(col*night,1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}';
 
 // Car paint: classify the merged vertex-coloured bodies by palette colour and give paint a gloss,
 // glass a sharp sky reflection, chrome hubs metal, tyres matte, and headlights/tail lights glow at night.

@@ -1,4 +1,5 @@
 import * as THREE from './vendor/three.module.min.js';
+import {SKY_FRAGMENT,OCEAN_FRAGMENT} from './gfx-world.mjs?v=155';
 // Art-direction stage 1. Sky and sea are world-space, never screen overlays.
 export const COAST_SKY_FRAGMENT=`
 varying vec3 direction;
@@ -43,9 +44,10 @@ void main(){
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
 }`;
+// v155 graphics step 6: the sky and sea now use the richer gfx-world.mjs shaders (COAST_* kept for reference).
 export function createAtmosphereOverhaul({sky,water}){
- sky.material.uniforms.uTime={value:0};sky.material.uniforms.uCloud={value:0};water.material.uniforms.uCloud={value:0};sky.material.fragmentShader=COAST_SKY_FRAGMENT;sky.material.needsUpdate=true;
- water.material.fragmentShader=COAST_WATER_FRAGMENT;water.material.needsUpdate=true;
+ sky.material.uniforms.uTime={value:0};sky.material.uniforms.uCloud={value:0};water.material.uniforms.uCloud={value:0};sky.material.fragmentShader=SKY_FRAGMENT;sky.material.needsUpdate=true;
+ water.material.fragmentShader=OCEAN_FRAGMENT;water.material.needsUpdate=true;
  return {update(time,weather={cloud:0}){sky.material.uniforms.uTime.value=Number.isFinite(time)?time:0;const cloud=Math.max(0,Math.min(1,Number(weather.cloud)||0));sky.material.uniforms.uCloud.value=cloud;water.material.uniforms.uCloud.value=cloud;}};
 }
 // Stable, subtle contact shading. Uses one reusable gradient, no extra lights.
