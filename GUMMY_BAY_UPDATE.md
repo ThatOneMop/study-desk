@@ -4,6 +4,8 @@ The playable game in `games/gummy-bay/` is the v124 build plus a Day 1 starter s
 
 A new game, and an untouched version-3 save, starts with four packed Pine Pops. After about 20 seconds of play Jules texts an agreed deal: two at $30, at the usual spot. The notebook leads with that handoff, then growing and crafting. Making a gummy by hand still waits on `made`, so the starter packs do not skip that step. From 21:00 to 05:00 residents stay in, heat does not cool off, and patrols run even before the first gummy is made. Notice range is 45 m during curfew. `gameplaySnapshot().police` is `{range, suspicion}`.
 
+The mixing bench uses the four starter ingredients from the effect table. A mix rewrites the effect list in order, prices the gummy with half-even rounding, keeps a stable recipe name, and grants 80 XP the first time that set is made. Existing mixed slots keep their save index. The hands-on station steps are the same. A `mix` event carries the effect list for the phone and HUD.
+
 # Gummy Bay v124
 
 The playable game in `games/gummy-bay/` is the v123 build plus customer cravings and a 22:00–06:00 curfew. Study Desk still opens it at `games/gummy-bay/index.html`. Entry script is `game.js?v=124`. Save keys stay `gummybay-v3-{story|free}-{1|2|3}` and the save version stays 3.

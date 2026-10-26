@@ -1,6 +1,6 @@
 # Gummy Bay parity checklist
 
-Original gummy shop. The numbers in `docs/gummy-bay/briefs/systems.md` are the roadmap. `[x]` is in the playable v124 loop. `[~]` is tested in a formula module and not wired. `[ ]` is still open.
+Original gummy shop. The numbers in `docs/gummy-bay/briefs/systems.md` are the roadmap. `[x]` is in the playable v125 loop. `[~]` is tested in a formula module and not wired. `[ ]` is still open.
 
 ## Playable now
 
@@ -16,7 +16,7 @@ Original gummy shop. The numbers in `docs/gummy-bay/briefs/systems.md` are the r
 
 ## Ranked gaps
 
-1. [~] Effect mixing. `mix-core.mjs` has 34 effects, 16 ingredients, 114 rewrites, half-even value, a deterministic name, 80 XP and the two bench speeds. The live mixer is still the flat four-ingredient bonus.
+1. [x] Effect mixing on the bench. The four starter ingredients apply the effect list, half-even value, a stable recipe name and 80 XP for a new set. Old mixed slots keep their index. The hands-on station steps stay; Mk1's 6 minutes per unit is recorded in `mix-bench.mjs`. The other twelve ingredients stay locked.
 2. [~] Customer simulation. Appeal, order count, budget, counters, samples, delivery loyalty and craving decay are tested in `sim-formulas.mjs`. Wharf Row does not yet have 14 profiled customers, and loyalty is not the live 0–5 relationship.
 3. [ ] Phone and HUD. Owned by the UI pass. Gameplay exposes snapshot and events. The messages list already shows a craving text because it is ordinary thread data.
 4. [ ] Police as a law system: daily pressure, four pursuit levels, checkpoints, bystander calls, and hiding. Curfew is 21:00–05:00 with a 45 m notice range. The body search and the heat meter are already live.
@@ -32,4 +32,4 @@ Live saves stay `gummybay-v3-{story|free}-{1|2|3}`, version 3. A missing `cravin
 
 ## Next build
 
-Wire `mix-core.mjs` into the mixing bench, then the 14 Wharf Row profiles and the deal walk. Leave screens, character models and the law-system presentation to the passes that own them.
+Next: the 14 Wharf Row profiles and the deal walk, then the rank bar data on the sleep summary, then the rest of the law system beyond curfew notice. Leave screens, character models and presentation to the passes that own them.

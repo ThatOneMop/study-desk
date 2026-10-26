@@ -1,6 +1,6 @@
 # Gummy Bay systems brief
 
-Roadmap after v124. Mechanics and numbers come from the public 0.4.6 write-up. Names, products and copy are original gummy-shop material. Nothing here is wired into the live loop yet. `mix-core.mjs` and `sim-formulas.mjs` hold the formulas, and the tests lock every number below.
+Roadmap after v124. Mechanics and numbers come from the public 0.4.6 write-up. Names, products and copy are original gummy-shop material. `mix-core.mjs` and `sim-formulas.mjs` hold the formulas, and the tests lock every number below. v125 wires the four starter ingredients into the bench; the other twelve ingredients and the rest of these systems stay unwired.
 
 v125 stores one craving per customer, writes a price request into the existing message thread, and holds heat from 21:00 to 05:00. During that window patrols are out and notice range is 45 m. The phone and HUD read `gameplaySnapshot()` and `subscribeGameplay`.
 
@@ -68,4 +68,4 @@ The law system is more than the heat meter. Daily pressure, four pursuit levels,
 
 ## What the other passes can read
 
-`subscribeGameplay` already emits `craving-ask`, `craving-changed` and `curfew`. `gameplaySnapshot()` returns day, time, heat, the curfew flag and one craving record per customer. The next wiring step should add effects, loyalty, rank and police status to that same snapshot rather than new screens in this module.
+`subscribeGameplay` already emits `craving-ask`, `craving-changed`, `curfew` and `starter-offer`. `gameplaySnapshot()` returns day, time, heat, the curfew flag, police notice `{range, suspicion}` and one craving record per customer. The next wiring step should add effects, loyalty and rank to that same snapshot rather than new screens in this module.

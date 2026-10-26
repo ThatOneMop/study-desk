@@ -28,7 +28,7 @@ Lucky Company's optional original online-site link opens separately. Return to t
 
 ## Recovered versions and implemented features
 
-- Gummy Bay: playable build is v125 in games/gummy-bay/ (v124 plus a Day 1 starter sale and a 21:00–05:00 curfew). Blender sources, tests and version notes are in games/gummy-bay-dev/ and are excluded from the Pages upload. SOURCE_VERSIONS.json index 5 still records the older recovered commit 8463637b06e8a5796696998219a7684a5e69e2a0. Original gummybay-v3 mode/slot save keys are retained.
+- Gummy Bay: playable build is v125 in games/gummy-bay/ (a Day 1 starter sale, a 21:00–05:00 curfew, and effect mixing on the bench). Blender sources, tests and version notes are in games/gummy-bay-dev/ and are excluded from the Pages upload. SOURCE_VERSIONS.json index 5 still records the older recovered commit 8463637b06e8a5796696998219a7684a5e69e2a0. Original gummybay-v3 mode/slot save keys are retained.
 - Little Lake: Sites v2, source 76a7e268536bc28b2598c54c04a5521dd638604b. Code actually implements 7,000 generated species and 8,000,000 generated area indices. These are procedural combinations, not millions of hand-built scenes. littleLakeV1 saves retained.
 - Autumn Drift: recovered v2 implements individual leaf collection, 5,000 generated areas and 20,000 upgrade ranks.
 - Underleaf: recovered Sites v2 colony game.
