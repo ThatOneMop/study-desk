@@ -69,9 +69,9 @@ import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=132';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
-import {createCityExpansion} from './city-expansion.mjs?v=131';
-import {CITY_SHELLS} from './city-shells.mjs?v=131';
-import {createStaticBatcher} from './static-batch.mjs?v=131';
+import {createCityExpansion} from './city-expansion.mjs?v=133';
+import {CITY_SHELLS} from './city-shells.mjs?v=133';
+import {createStaticBatcher} from './static-batch.mjs?v=133';
 import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
 import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
@@ -2106,7 +2106,7 @@ if(streetShot){
   cam:(...c)=>{shotCam=c;return c;},hour:h=>{shotHour=((h%24)+24)%24;return shotHour;},colliders:()=>({colliders:colliders.map(c=>[+c.x.toFixed(1),+c.z.toFixed(1),+(c.w??0).toFixed(1),+(c.d??0).toFixed(1)]),points:points.map(p=>[p.type,+p.x.toFixed(1),+p.z.toFixed(1)]),player:[player.x,player.z]}),quality:q=>{setQuality(q);return quality;},drawBreakdown:()=>{camera.updateMatrixWorld();const fr=new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse)),groups={};
   const walk=(o,top,vis)=>{if(!o.visible)return;if((o.isMesh||o.isLine||o.isPoints||o.isSprite)&&(!o.frustumCulled||(o.isSprite?true:(o.geometry.boundingSphere||o.geometry.computeBoundingSphere(),fr.intersectsObject(o))))){const k=top;groups[k]=(groups[k]||0)+(Array.isArray(o.material)?o.material.length:1);}for(const c of o.children)walk(c,top,vis);};
   for(const c of scene.children)walk(c,(c.name||c.type)+(c.isMesh?':'+(c.geometry?.type||''):''),true);return Object.entries(groups).sort((a,b)=>b[1]-a[1]).slice(0,40);},
- batchDebug:async()=>{const m=await import('./static-batch.mjs?v=131');const r={};const mats=new Map();for(const o of scene.children){const k=m.batchReject(o,scene)||'ok';const t=k+' '+(o.geometry?.type||o.type);r[t]=(r[t]||0)+1;if(k==='ok'){mats.set(o.material.uuid,(mats.get(o.material.uuid)||0)+1);}}const gn={};for(const o of scene.children)if(o.type==='Group'){const k=(o.name||'?')+' kids'+o.children.length;gn[k]=(gn[k]||0)+1;}const sm={};for(const o of scene.children){if(m.batchReject(o,scene)!=='')continue;if(mats.get(o.material.uuid)!==1)continue;const mm=o.material;const k=mm.type+' '+(o.name||'-')+' #'+mm.color?.getHexString()+' e'+mm.emissive?.getHexString()+' map'+!!mm.map;sm[k]=(sm[k]||0)+1;}const bs=scene.children.filter(o=>o.userData.staticBatch).map(o=>o.userData.staticBatch);const bm=new Set(scene.children.filter(o=>o.userData.staticBatch).map(o=>o.material.uuid)).size;camera.updateMatrixWorld();const fr=new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));const vis={};for(const o of scene.children){if(!o.isMesh||!o.visible||o.userData.staticBatch)continue;if(o.frustumCulled&&!fr.intersectsObject(o))continue;const k=(m.batchReject(o,scene)||'ok')+' '+o.geometry.type+' '+(o.name||'');vis[k]=(vis[k]||0)+1;}const bk={};for(const o of scene.children)if(o.userData.batchKey){const k=o.userData.batchKey.split('|').slice(0,5).join('|');bk[k]=(bk[k]||0)+1;}return {bk,vis,bsizes:bs.sort((a,b)=>a-b).join(','),bmats:bm,gn,sm,singleMats:[...mats.values()].filter(v=>v===1).length,mats:mats.size,stats:window.__gummyBatcher?.stats()};},
+ batchDebug:async()=>{const m=await import('./static-batch.mjs?v=133');const r={};const mats=new Map();for(const o of scene.children){const k=m.batchReject(o,scene)||'ok';const t=k+' '+(o.geometry?.type||o.type);r[t]=(r[t]||0)+1;if(k==='ok'){mats.set(o.material.uuid,(mats.get(o.material.uuid)||0)+1);}}const gn={};for(const o of scene.children)if(o.type==='Group'){const k=(o.name||'?')+' kids'+o.children.length;gn[k]=(gn[k]||0)+1;}const sm={};for(const o of scene.children){if(m.batchReject(o,scene)!=='')continue;if(mats.get(o.material.uuid)!==1)continue;const mm=o.material;const k=mm.type+' '+(o.name||'-')+' #'+mm.color?.getHexString()+' e'+mm.emissive?.getHexString()+' map'+!!mm.map;sm[k]=(sm[k]||0)+1;}const bs=scene.children.filter(o=>o.userData.staticBatch).map(o=>o.userData.staticBatch);const bm=new Set(scene.children.filter(o=>o.userData.staticBatch).map(o=>o.material.uuid)).size;camera.updateMatrixWorld();const fr=new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));const vis={};for(const o of scene.children){if(!o.isMesh||!o.visible||o.userData.staticBatch)continue;if(o.frustumCulled&&!fr.intersectsObject(o))continue;const k=(m.batchReject(o,scene)||'ok')+' '+o.geometry.type+' '+(o.name||'');vis[k]=(vis[k]||0)+1;}const bk={};for(const o of scene.children)if(o.userData.batchKey){const k=o.userData.batchKey.split('|').slice(0,5).join('|');bk[k]=(bk[k]||0)+1;}return {bk,vis,bsizes:bs.sort((a,b)=>a-b).join(','),bmats:bm,gn,sm,singleMats:[...mats.values()].filter(v=>v===1).length,mats:mats.size,stats:window.__gummyBatcher?.stats()};},
  frameCalls:()=>{const info=renderer.info;info.autoReset=false;info.reset();try{renderFrame();return {calls:info.render.calls,triangles:info.render.triangles};}finally{info.autoReset=true;}},
  read:()=>{const recent=streetShotFrames.slice(-90);return {status:townAssetStatus,calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,markings:starterStreet?.markingMesh.count??0,curbs:starterStreet?.hardscapeMesh.count??0,quality,budget:starterStreet?.activeBudget??'off',frames:streetShotFrames.length,frameMs:recent.length?recent.reduce((sum,ms)=>sum+ms,0)/recent.length:0};}
  };
@@ -2167,7 +2167,7 @@ if(cine.flyover){
 }
 if(typeof window!=='undefined')window.__cine={seek:t=>{cine.seek=t==null?null:Number(t);},pose:p=>{cine.pose=p?{fov:50,...p}:null;},state:()=>({t:cine.t,loading:cine.loading,lit:cine.lit,progress:cine.progress,town:townAssetStatus,items:cine.items,shot:cine.shot,hint:cine.hint,camera:camera.position.toArray().map(v=>Math.round(v*10)/10)}),dismiss:cineDismiss,clouds:skyClouds.group};
 
-// v131 Act 1 intro, "Last Call". A new story save opens on a fifty-second
+// v133 Act 1 intro, "Last Call". A new story save opens on a fifty-second
 // cutscene: the radio explains the Great Jelly Incident and the Sugar-Free Bay
 // Act, then the camera settles into the player's eyes beside the ringing
 // payphone. It uses the same finishArrival() path as the old cards, so saves
@@ -3523,7 +3523,7 @@ window.gummySquadChaseFrame=gummySquadChaseFrame;
 syncSquadCast();
 
 
-// v131 City expansion (P1-3): compact filler blocks, named businesses, alleys and the expressway.
+// v133 City expansion (P1-3): compact filler blocks, named businesses, alleys and the expressway.
 // Planned last, against every collider and gameplay point that exists by now, plus the
 // Blender town's gap shells (baked, because the GLB loads after this runs).
 var cityExpansion=null;
@@ -3539,7 +3539,7 @@ if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
  };
  const cityRender=renderFrame;renderFrame=function(){cityExpansion.update({night:sceneLighting(s.time,active).night,quality,camera});cityRender();};
 }catch(error){console.warn('City expansion skipped',error);}
-// v131 static batching: once the Blender town has settled, merge loose static meshes
+// v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).
 var staticBatcher=null;
 if(typeof location!=='undefined'&&!/[?&]batch=0\b/.test(location.search))try{

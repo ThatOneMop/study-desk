@@ -1,4 +1,4 @@
-// v131 town signage. Every business sign is painted into one shared atlas at
+// v133 town signage. Every business sign is painted into one shared atlas at
 // boot (no font or image downloads). Boards glow softly like light boxes at
 // night; neon signs and rooftop letters glow hard. Rooftop letters are cut out
 // and doubled to read as extruded, Hyland-style roof signs.

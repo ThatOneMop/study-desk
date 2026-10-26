@@ -1,4 +1,4 @@
-// v131 City expansion, phase 1 (P1-3). Fills the empty frontages of Gummy Bay
+// v133 City expansion, phase 1 (P1-3). Fills the empty frontages of Gummy Bay
 // with compact, Hyland Point-style filler: terraced brick shops, stucco corner
 // stores, weatherboard houses, tin warehouses, flats with fire escapes, a motel,
 // a car wash and the Lucky Pier prize arcade, plus the elevated expressway,
@@ -6,8 +6,8 @@
 // deterministically around every existing collider, gameplay point and access
 // corridor, so shops, homes and stations stay reachable.
 import * as THREE from './vendor/three.module.min.js';
-import {CityBatch,TILE,TAGS,ARCHETYPES,buildLot,createCityMaterials,rng} from './building-kit.mjs?v=131';
-import {NAMED_BUSINESSES,GENERIC_SIGNS,HIGHWAY_SIGNS,SIGN_SPECS,SignBatch,createSignMaterial} from './town-signs.mjs?v=131';
+import {CityBatch,TILE,TAGS,ARCHETYPES,buildLot,createCityMaterials,rng} from './building-kit.mjs?v=133';
+import {NAMED_BUSINESSES,GENERIC_SIGNS,HIGHWAY_SIGNS,SIGN_SPECS,SignBatch,createSignMaterial} from './town-signs.mjs?v=133';
 
 export const CITY_BOUNDS=Object.freeze({minX:-284,maxX:284,minZ:-449,maxZ:92});
 const ROAD_Z=[0,-90,-160,-230,-300,-370,-435],ROAD_X=[-270,-105,105,270];
@@ -146,7 +146,7 @@ export function createCityExpansion({scene,obstacles=[],points=[],routes=[],qual
  if(!scene)throw new TypeError('City expansion needs a scene.');
  const plan=planCity({obstacles,points,routes});
  const materials=createCityMaterials(),signMaterial=createSignMaterial();
- const chunks=new Map(),colliders=[],root=new THREE.Group();root.name='City expansion v131';scene.add(root);
+ const chunks=new Map(),colliders=[],root=new THREE.Group();root.name='City expansion v133';scene.add(root);
  const chunk=(x,z)=>{const k=chunkKey(x,z);if(!chunks.has(k))chunks.set(k,{key:k,solid:new CityBatch(),detail:new CityBatch(),cutout:new CityBatch(),signs:new SignBatch(),min:[x,z],max:[x,z],meshes:{}});const c=chunks.get(k);c.min=[Math.min(c.min[0],x),Math.min(c.min[1],z)];c.max=[Math.max(c.max[0],x),Math.max(c.max[1],z)];return c;};
  const r=rng(4242),genericCells=GENERIC_SIGNS.map((_,i)=>NAMED_BUSINESSES.length+i);
  const businesses=[];
