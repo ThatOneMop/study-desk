@@ -123,7 +123,7 @@ export function simulateNetwork({days=15,seed=newMixSeed(7),stir=.75,tries=2,lad
   if(bench<3&&lv>=EQUIPMENT.benchLevel&&s.cash-EQUIPMENT.bench[bench]>=reserve()){s.cash-=EQUIPMENT.bench[bench];bench++;}
   for(const h of [1,2])if(s.house<h&&lv>=HOUSES[h].level&&s.cash-HOUSES[h].cost>=reserve()+300){s.cash-=HOUSES[h].cost;s.house=h;}
   for(const d of DEALER_ROSTER)if(!s.empire.dealers[d.id]&&s.cash-d.fee>=reserve()+200){const r=recruitDealer(s.empire,d.id,{level:lv,cash:s.cash});if(r.ok){s.cash-=r.cost;const x=s.empire.dealers[d.id];for(const c of ['3','4','5','6','7','8','9','10'].slice(0,d.cap-3))x.customers.push(d.id+'-'+c);}}
-  for(const r of RUNNER_ROSTER)if(!s.empire.runners[r.id]&&Object.keys(s.empire.dealers).length>(r.id==='pip'?0:1)&&lv>=r.unlock&&s.cash-r.fee>=reserve()+200){s.cash-=r.fee;s.empire.runners[r.id]={hired:true,auto:true,state:'idle',target:null,cargo:{},cash:0,leg:0,legTotal:1,trips:0};}
+  for(const r of RUNNER_ROSTER)if(!s.empire.runners[r.id]&&Object.keys(s.empire.dealers).length>(r.id==='pip'?0:1)&&lv>=r.unlock&&s.cash-r.fee>=reserve()+200){s.cash-=r.fee;s.empire.runners[r.id]={hired:true,auto:true,state:"idle",target:null,cargo:{},cash:0,leg:0,legTotal:1,trips:0};}
   for(let hires=0;hires<1&&s.cash>=reserve()+600;){const growers=s.empire.crew.filter(c=>c.role==='grower').length,benches=s.empire.crew.length-growers,role=benches<growers?'bench':'grower';
    if(s.empire.crew.length>=crewSlots(s.empire,s.house)){const c=slotUpgradeCost(s.empire);if(c==null||s.house<2||s.cash-c<reserve()+600)break;s.cash-=c;s.empire.slotsBought++;continue;}
    const r=hireCrew(s.empire,{role,level:lv,cash:s.cash,house:s.house});if(!r.ok)break;s.cash-=r.cost;hires++;}

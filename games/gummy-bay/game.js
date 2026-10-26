@@ -45,6 +45,7 @@ import {hintAt} from './hints.mjs?v=132';
 import {createSkyClouds} from './sky-clouds.mjs?v=132';
 import {ACT1_DURATION,act1At,act1PanelHtml,doorstepEyePose} from './story-act1.mjs?v=132';
 import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml} from './story-acts.mjs?v=141';
+import {DEALER_ROSTER,RUNNER_ROSTER,CREW,freshEmpire,normalizeEmpire,advanceEmpire,recruitDealer,assignCustomer,unassignCustomer,restockDealer,collectDealer,districtCustomers,dealerOf,runnerOf,stockTotal,hireCrew,crewSlots,slotUpgradeCost,buySlot,fireCrew,hireRunner,dispatchRunner,dealerLow,dealerForecast} from './dealer-network.mjs?v=142';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
@@ -4080,5 +4081,146 @@ try{
   hold:(on=true)=>{storyUI.hold=!!on;return storyUI.hold;},hour:h=>{s.time=Math.max(0,Math.min(23.9,+h||0))*60;return s.time;},
   grant:n=>{const st=ensureStory();s.story=normalizeStory({...st,open:true,done:QUESTS.slice(0,Math.max(0,Math.min(QUESTS.length,n|0))).map(q=>q.id)});save();return currentQuest(s.story)?.id||null;}
  };
+ window.__storyBusy=()=>!!(storyUI.cut||storyUI.stash||storyUI.choice);
  window.loadGame=load;
 }catch(error){console.warn('Story acts unavailable',error);}
+
+// ---- v142 Sweet Network: recruit dealers, send runners, staff the benches ----
+// Rules live in dealer-network.mjs (shared with the economy sim); this block is the
+// save state, the half-second tick, the phone app and some cheap in-world figures.
+try{
+ const NET={timer:0,tab:'dealers',spots:{},actors:{},crew:[],runner:null,lastToast:0,flash:''};
+ // Figures are not town residents: keep them out of the resident/silhouette avatar list.
+ const figure=(...a)=>{const g=bobble(...a);const k=avatars.indexOf(g);if(k>=0)avatars.splice(k,1);return g;};
+ const absNow=()=>(s.day|0)*1440+Math.floor(s.time||0);
+ const ensureEmpire=()=>{if(!s.empire)s.empire=freshEmpire(absNow(),(Math.floor(Math.random()*1e9)|1)>>>0);if(s.empire.v!==1||!s.empire._ok){s.empire=normalizeEmpire(s.empire,{clock:absNow(),strainCount:STRAINS.length});Object.defineProperty(s.empire,'_ok',{value:true,enumerable:false});}if(s.empire.clock>absNow())s.empire.clock=absNow();return s.empire;};
+ const lvl=()=>level();
+ const bestBase=()=>{let b=0;for(let i=0;i<BASE_COUNT;i++)if(STRAINS[i].level<=lvl())b=i;return b;};
+ const netCtx=()=>({to:absNow(),price:t=>STRAINS[t]?value(t):0,baseCount:BASE_COUNT,bestBase,seedCost:b=>STRAINS[b].seed,name:t=>STRAINS[t]?.name||'gummies',
+  storageLeft:()=>storageCapacity()-storedUsed(),
+  benchPlan:strain=>{
+   if(strain>=BASE_COUNT){const p=STRAINS[strain];return p?.mixed&&s.mixer&&s.raw[p.base]>0&&(s.ingredients[p.ingredient]||0)>0?{out:strain,base:p.base,ing:p.ingredient}:null;}
+   if(strain>=0)return s.raw[strain]>0?{out:strain,base:strain}:null;
+   let b=-1;for(let i=0;i<BASE_COUNT;i++)if(s.raw[i]>0&&(b<0||value(i)>value(b)))b=i;return b<0?null:{out:b,base:b};},
+  benchUse:plan=>{if(!(s.raw[plan.base]>0))return false;if(plan.ing!=null){if(!(s.ingredients[plan.ing]>0))return false;s.ingredients[plan.ing]--;}s.raw[plan.base]--;s.made=(s.made||0)+1;return true;}});
+ const netOn=()=>active&&net.role!=='guest';
+ function netRun(){if(!netOn())return [];ensureEmpire();const ev=advanceEmpire(s,netCtx());
+  const loud=ev.filter(e=>e.kind==='bust'||e.kind==='short');const pick=loud[loud.length-1]||ev.filter(e=>e.kind==='cash').pop();
+  if(pick&&performance.now()-NET.lastToast>2500){NET.lastToast=performance.now();toast(pick.text);}
+  if(ev.length&&panel==='sweetnet')menu('sweetnet');return ev;}
+ // ---- Where the dealers stand: their district, nudged onto open pavement ----
+ function freeSpot(x,z){if(!blocked(x,z))return {x,z};for(let r=1;r<=14;r+=1)for(let i=0;i<16;i++){const a=i*Math.PI/8,p={x:x+Math.cos(a)*r,z:z+Math.sin(a)*r};if(!blocked(p.x,p.z))return p;}return {x,z};}
+ DEALER_ROSTER.forEach((d,i)=>{const p=freeSpot(d.x,d.z);NET.spots[d.id]=p;
+  const g=figure(p.x,p.z,d.color,0xd8b48f,0x3d2b22,1);g.rotation.y=Math.atan2(-p.x,-p.z);g.visible=false;
+  const stall=new THREE.Group();stall.position.set(p.x+.9,0,p.z);scene.add(stall);
+  box(0,.45,0,.9,.9,.6,0x8a5a3a,false,stall);box(0,1.05,0,.98,.08,.68,d.color,false,stall);
+  for(let k=0;k<3;k++)box(-.28+k*.28,.95,.1,.16,.1,.16,[0xff6f8a,0xffd36b,0x8be0a4][k],false,stall);stall.visible=false;
+  NET.actors[d.id]={g,stall};
+  addPoint('netdealer',d.name+' · '+d.district+' dealer',p.x,p.z,{i});});
+ const netVisible=pointVisible;pointVisible=function(p){if(p.type==='netdealer'){const d=DEALER_ROSTER[p.i];return !!d&&!dealerLow(ensureEmpire(),d.id,absNow());}return netVisible(p);};
+ // ---- Cheap production visual: a worker per slot with a rack or bench prop ----
+ const SLOT_OFFSETS=[[-3.2,-2.4],[3.2,-2.4],[-3.2,2.6],[3.2,2.6],[0,-4.2],[0,4.4]];
+ function crewFigure(i){if(NET.crew[i])return NET.crew[i];const g=figure(0,0,[0x6a8f45,0x547f80,0x9b6aa8,0xc47b45,0x4f8fbf,0xb0572f][i%6],0xd2a27c,0x3e3428,.95);
+  const rack=new THREE.Group();scene.add(rack);box(0,.5,0,.9,1,.45,0x5d4b3a,false,rack);for(let k=0;k<3;k++)box(-.28+k*.28,1.08,0,.2,.18,.2,0x7cc35b,false,rack);
+  const benchP=new THREE.Group();scene.add(benchP);box(0,.45,0,1.1,.9,.55,0xb9a17e,false,benchP);for(let k=0;k<4;k++)box(-.38+k*.25,.94,0,.12,.08,.12,[0xff6f8a,0xffd36b,0x8be0a4,0x9bb8ff][k],false,benchP);
+  return NET.crew[i]={g,rack,bench:benchP};}
+ function netVisuals(t){
+  const e=s.empire;if(!e)return;const now=absNow(),inGame=active&&net.role!=='guest'&&!window.__storyBusy?.();
+  for(const d of DEALER_ROSTER){const a=NET.actors[d.id],p=NET.spots[d.id],near=Math.hypot(player.x-p.x,player.z-p.z)<90;
+   const on=inGame&&near&&!dealerLow(e,d.id,now)&&(!!e.dealers[d.id]||lvl()>=d.unlock-1);a.g.visible=on;a.stall.visible=on;
+   if(on){a.g.position.y=Math.abs(Math.sin(t*1.6+d.leg))*.03;if(a.g.userData.right)a.g.userData.right.rotation.x=e.dealers[d.id]&&stockTotal(e.dealers[d.id].stock)?-.5+Math.sin(t*2)*.25:0;}}
+  const h=HOMES[s.house]||HOMES[0],home=(s.house||s.room)&&inGame;
+  for(let i=0;i<Math.max(NET.crew.length,e.crew.length);i++){const c=e.crew[i],f=c?crewFigure(i):NET.crew[i];if(!f)continue;
+   const o=SLOT_OFFSETS[i%SLOT_OFFSETS.length],x=h.x+o[0],z=h.z+o[1],show=!!c&&home&&Math.hypot(player.x-x,player.z-z)<45;
+   f.g.visible=show;f.rack.visible=show&&c.role==='grower';f.bench.visible=show&&c.role==='bench';if(!show)continue;
+   const prop=c.role==='grower'?f.rack:f.bench,busy=/Growing|Packing/.test(c.status);prop.position.set(x,0,z+.75);f.g.position.set(x,busy?Math.abs(Math.sin(t*3+i))*.05:0,z);f.g.rotation.y=0;
+   const u=f.g.userData;if(u.left&&u.right){u.left.rotation.x=busy?-.9+Math.sin(t*5+i)*.35:0;u.right.rotation.x=busy?-.9-Math.sin(t*5+i)*.35:0;}}
+  // Runners show up at the hand-off ends of a trip: leaving home, and at the dealer's stall.
+  const run=Object.entries(e.runners).find(([,x])=>x.state!=='idle')||Object.entries(e.runners)[0];
+  if(run&&!NET.runner)NET.runner=figure(0,0,0x3bb3a1,0xc68d6a,0x2a2a2a,.9);
+  if(NET.runner){let pos=null;if(run&&inGame){const [,x]=run,f=x.legTotal?x.leg/x.legTotal:0,dp=x.target&&NET.spots[x.target],door=STORY_HOME();
+    if(x.state==='out'&&dp&&f<.25)pos={x:dp.x+1.6+f*12,z:dp.z+1.2};else if(x.state==='back'&&dp&&f>.8)pos={x:dp.x+1.6+(1-f)*12,z:dp.z+1.2};
+    else if(x.state==='out'&&f>.85)pos={x:door.x+1.5,z:door.z+1+(1-f)*14};else if(x.state==='back'&&f<.15)pos={x:door.x+1.5,z:door.z+1+f*14};
+    else if(x.state==='idle')pos={x:door.x+1.6,z:door.z+1.4};}
+   NET.runner.visible=!!pos&&Math.hypot(player.x-pos.x,player.z-pos.z)<70;if(pos){NET.runner.position.set(pos.x,0,pos.z);NET.runner.position.y=x2bob(t);}}
+ }
+ const x2bob=t=>Math.abs(Math.sin(t*6))*.05;
+ const STORY_HOME=()=>{const h=HOMES[s.house]||HOMES[0];return {x:h.x,z:h.z+h.d/2+1};};
+ // ---- Actions (phone + in person) ----
+ const money=n=>cash(Math.round(n));
+ const avail=t=>Math.max(0,(s.packs[t]||0)-reservedQty(t));
+ const nearDealer=id=>{const p=NET.spots[id];return p&&Math.hypot(player.x-p.x,player.z-p.z)<=4;};
+ function pay(cost,label){if(!spend(cost))return false;record?.(label,-cost);return true;}
+ const A={
+  recruit(id){const e=ensureEmpire(),d=dealerOf(id),r=recruitDealer(e,id,{level:lvl(),cash:availableMoney()});if(!r.ok){toast(r.reason);return false;}if(!pay(r.cost,'Dealer signing · '+d.name)){delete e.dealers[id];return false;}toast('🤝 '+d.name+' joins the Sweet Network. Stock them up and they sell while you’re away.');save();return true;},
+  assign(id){const e=ensureEmpire(),x=e.dealers[id];if(!x)return false;const c=districtCustomers(id).find(c=>!x.customers.includes(c.id));if(!c||!assignCustomer(e,id,c.id)){toast('Customer list is full for '+dealerOf(id).name);return false;}toast(c.name+' now buys from '+dealerOf(id).name.split(' ')[0]+'.');save();return true;},
+  unassign(id){const e=ensureEmpire(),x=e.dealers[id];if(!x||x.customers.length<=1)return false;unassignCustomer(e,id,x.customers[x.customers.length-1]);save();return true;},
+  focus(id){const x=ensureEmpire().dealers[id];if(!x)return -1;const opts=[-1,...STRAINS.map((p,t)=>t).filter(t=>t<BASE_COUNT?STRAINS[t].level<=lvl():(s.knownRecipes||{})[STRAINS[t].recipeKey])];x.strain=opts[(opts.indexOf(x.strain)+1)%opts.length];save();return x.strain;},
+  target(id,delta){const x=ensureEmpire().dealers[id],d=dealerOf(id);if(!x)return 0;x.target=Math.max(2,Math.min(d.stockCap,x.target+delta));save();return x.target;},
+  restock(id,force=false){const e=ensureEmpire(),d=dealerOf(id);if(!e.dealers[id])return 0;if(!force&&!nearDealer(id)){toast('Visit '+d.name+' in '+d.district+' or send a runner.');return 0;}
+   const order=s.packs.map((n,t)=>t).sort((a,b)=>value(b)-value(a));let n=0;for(const t of order){const tmp=[];tmp[t]=avail(t);const got=restockDealer(e,id,tmp,t,tmp[t]);s.packs[t]-=got;n+=got;}
+   toast(n?'Handed '+n+' packs to '+d.name.split(' ')[0]+'.':'No free packs in your bag (agreed deals are kept back).');save();return n;},
+  collect(id,force=false){const e=ensureEmpire(),d=dealerOf(id);if(!force&&!nearDealer(id)){toast('Collect in person or send a runner.');return 0;}const c=collectDealer(e,id);if(c){s.cash+=c;s.earned+=c;}toast(c?'Collected '+money(c)+' from '+d.name.split(' ')[0]+'.':'Nothing to collect yet.');save();return c;},
+  hireRunner(id){const e=ensureEmpire(),r=hireRunner(e,id,{level:lvl(),cash:availableMoney()});if(!r.ok){toast(r.reason);return false;}if(!pay(r.cost,'Runner signing · '+runnerOf(id).name)){delete e.runners[id];return false;}toast('🚲 '+runnerOf(id).name+' will carry stockroom packs out and bring the takings home.');save();return true;},
+  auto(id){const x=ensureEmpire().runners[id];if(!x)return false;x.auto=!x.auto;save();return x.auto;},
+  send(id,dealer){const e=ensureEmpire();dealer=dealer||Object.keys(e.dealers).find(k=>!dealerLow(e,k,absNow()));if(!dealer)return false;const ok=dispatchRunner(s,id,dealer,t=>value(t));toast(ok?runnerOf(id).name.split(' ')[0]+' is off to '+dealerOf(dealer).name.split(' ')[0]+'.':'That runner is already out.');save();return ok;},
+  hireCrew(role){const e=ensureEmpire(),r=hireCrew(e,{role,level:lvl(),cash:availableMoney(),house:s.house});if(!r.ok){toast(r.reason);return false;}if(!pay(r.cost,'Crew signing · '+role)){e.crew.pop();return false;}toast(role==='grower'?'🌱 A grower takes a slot. Seeds come out of your wallet.':'🧑‍🍳 A bench hand takes a slot. Keep wrappers and raw stock handy.');save();return true;},
+  crewStrain(i){const c=ensureEmpire().crew[i];if(!c)return -1;const opts=c.role==='grower'?[-1,...STRAINS.slice(0,BASE_COUNT).map((p,t)=>t).filter(t=>STRAINS[t].level<=lvl())]:[-1,...STRAINS.map((p,t)=>t).filter(t=>t<BASE_COUNT||(s.knownRecipes||{})[STRAINS[t].recipeKey])];c.strain=opts[(opts.indexOf(c.strain)+1)%opts.length];save();return c.strain;},
+  crewToggle(i){const c=ensureEmpire().crew[i];if(!c)return false;c.on=!c.on;save();return c.on;},
+  fire(i){const ok=fireCrew(ensureEmpire(),i);if(ok){toast('Crew member let go. No hard feelings, just gummies.');save();}return ok;},
+  buySlot(){const e=ensureEmpire(),r=buySlot(e,{house:s.house,cash:availableMoney()});if(!r.ok){toast(r.reason);return false;}if(!pay(r.cost,'Workshop slot')){e.slotsBought--;return false;}toast('🔧 New work slot fitted.');save();return true;},
+  tab(t){NET.tab=t;menu('sweetnet');}
+ };
+ window.netAct=(k,...a)=>{const r=A[k]?.(...a);if(['sweetnet','netdealer'].includes(panel))menu(panel,panel==='netdealer'?NET.open:undefined);return r;};
+ // ---- Phone app ----
+ const pct=(a,b)=>Math.round(Math.max(0,Math.min(1,b?a/b:0))*100);
+ const strainName=t=>t<0?'Best in stock':STRAINS[t]?.name||'?';
+ function dealerCard(d,detail=false){const e=ensureEmpire(),x=e.dealers[d.id],now=absNow();
+  if(!x){const can=lvl()>=d.unlock;return '<div class="net-card locked"><div class="net-row"><b>'+d.name+'</b><small>'+d.district+'</small></div><p>“'+d.line+'”</p><p class="net-meta">Cut '+Math.round(d.cut*100)+'% · up to '+d.cap+' customers · shelf '+d.stockCap+'</p><button '+(can?'':'disabled ')+'onclick="netAct(\'recruit\',\''+d.id+'\')">'+(can?'Recruit · '+money(d.fee):'🔒 Level '+d.unlock)+'</button></div>';}
+  const low=dealerLow(e,d.id,now),st=stockTotal(x.stock),here=nearDealer(d.id),fc=dealerForecast(e,d.id,t=>value(t));
+  const status=low?'🚨 Laying low until Day '+Math.floor(x.lowUntil/1440)+' '+String(Math.floor(x.lowUntil%1440/60)).padStart(2,'0')+':00':st?'Selling · '+st+' packs on the shelf':'⚠ Out of stock';
+  let h='<div class="net-card'+(low?' low':'')+'"><div class="net-row"><b>'+d.name+'</b><small>'+d.district+'</small></div><p class="net-status">'+status+'</p>'+
+   '<div class="net-bar"><i style="width:'+pct(st,d.stockCap)+'%"></i><em style="left:'+pct(x.target,d.stockCap)+'%"></em></div>'+
+   '<p class="net-meta">Owed <b>'+money(x.owed)+'</b> · cut '+Math.round(d.cut*100)+'% · sold '+x.sold+' · ≈'+money(fc)+'/day</p>'+
+   '<p class="net-meta">Customers '+x.customers.length+'/'+d.cap+' · focus '+strainName(x.strain)+' · restock to '+x.target+(x.shorted?' · <span class="warn">shortchanged '+money(x.shorted)+'</span>':'')+'</p>'+
+   '<div class="net-btns"><button onclick="netAct(\'assign\',\''+d.id+'\')"'+(x.customers.length>=d.cap?' disabled':'')+'>+ Customer</button><button onclick="netAct(\'unassign\',\''+d.id+'\')">− Customer</button><button onclick="netAct(\'focus\',\''+d.id+'\')">Focus ↻</button><button onclick="netAct(\'target\',\''+d.id+'\',-2)">−</button><button onclick="netAct(\'target\',\''+d.id+'\',2)">+</button>'+
+   (here?'<button class="go" onclick="netAct(\'restock\',\''+d.id+'\')">Restock from bag</button><button class="go" onclick="netAct(\'collect\',\''+d.id+'\')">Collect '+money(x.owed)+'</button>':'<button onclick="__net.track(\''+d.id+'\')">Show me the way →</button>')+'</div></div>';
+  return h;}
+ function runnerCard(r){const e=ensureEmpire(),x=e.runners[r.id];
+  if(!x){const can=lvl()>=r.unlock;return '<div class="net-card locked"><div class="net-row"><b>'+r.name+'</b><small>carries '+r.capacity+'</small></div><p class="net-meta">'+money(r.trip)+' per round trip, taken from the takings</p><button '+(can?'':'disabled ')+'onclick="netAct(\'hireRunner\',\''+r.id+'\')">'+(can?'Hire · '+money(r.fee):'🔒 Level '+r.unlock)+'</button></div>';}
+  const where=x.state==='idle'?'Waiting at your base':x.state==='out'?'Heading to '+dealerOf(x.target).name.split(' ')[0]+' with '+stockTotal(x.cargo)+' packs':'Coming home with '+money(x.cash);
+  return '<div class="net-card"><div class="net-row"><b>'+r.name+'</b><small>'+x.trips+' trips</small></div><p class="net-status">'+where+'</p>'+(x.state!=='idle'?'<div class="net-bar run"><i style="width:'+(100-pct(x.leg,x.legTotal))+'%"></i></div>':'')+
+   '<div class="net-btns"><button onclick="netAct(\'auto\',\''+r.id+'\')">'+(x.auto?'Auto restock: ON':'Auto restock: OFF')+'</button>'+(x.state==='idle'?'<button class="go" onclick="netAct(\'send\',\''+r.id+'\')">Send now</button>':'')+'</div></div>';}
+ function crewHTML(){const e=ensureEmpire(),slots=crewSlots(e,s.house),up=slotUpgradeCost(e);
+  let h='<p class="net-meta">'+(WORKSHOP_NAMES?.[s.house]||'Your base')+' · <b>'+e.crew.length+'/'+slots+'</b> work slots · shift 8 AM–8 PM · wages at midnight (grower '+money(CREW.wage.grower)+', bench '+money(CREW.wage.bench)+')</p>';
+  e.crew.forEach((c,i)=>{h+='<div class="net-card"><div class="net-row"><b>'+(c.role==='grower'?'🌱 Grower':'🧑‍🍳 Bench hand')+' #'+(i+1)+'</b><small>'+strainName(c.strain)+'</small></div><p class="net-status">'+(c.status||'Starting shift')+'</p><div class="net-btns"><button onclick="netAct(\'crewStrain\','+i+')">Product ↻</button><button onclick="netAct(\'crewToggle\','+i+')">'+(c.on?'Pause':'Resume')+'</button><button onclick="netAct(\'fire\','+i+')">Let go</button></div></div>';});
+  if(lvl()<CREW.unlock)h+='<div class="net-card locked"><p>🔒 Production crew unlocks at level '+CREW.unlock+'.</p></div>';
+  else if(e.crew.length<slots)h+='<div class="net-btns wide"><button class="go" onclick="netAct(\'hireCrew\',\'grower\')">Hire grower · '+money(CREW.hire)+'</button><button class="go" onclick="netAct(\'hireCrew\',\'bench\')">Hire bench hand · '+money(CREW.hire)+'</button></div>';
+  h+=up!=null?'<div class="net-btns wide"><button onclick="netAct(\'buySlot\')"'+(s.house<1?' disabled':'')+'>'+(s.house<1?'🔒 Extra slots need a bigger place':'Add a work slot · '+money(up))+'</button></div>':'<p class="net-meta">All extra slots built.</p>';
+  return h+'<p class="net-meta">Stockroom '+storedUsed()+'/'+storageCapacity()+' packs · wrappers '+(s.wrappers||0)+'</p>';}
+ function networkHTML(){const e=ensureEmpire(),owed=Object.values(e.dealers).reduce((a,x)=>a+x.owed,0),st=e.stats;
+  let h='<div class="overline">SWEET NETWORK</div><h2>Your candy empire</h2><p class="net-sum"><span><b>'+money(owed)+'</b>owed</span><span><b>'+Object.keys(e.dealers).length+'</b>dealers</span><span><b>'+e.crew.length+'</b>crew</span><span><b>'+storedUsed()+'</b>in stock</span></p>';
+  h+='<div class="net-tabs">'+[['dealers','Dealers'],['runners','Runners'],['crew','Crew'],['log','Log']].map(([k,l])=>'<button class="'+(NET.tab===k?'on':'')+'" onclick="netAct(\'tab\',\''+k+'\')">'+l+'</button>').join('')+'</div>';
+  if(NET.tab==='dealers')h+=DEALER_ROSTER.map(d=>dealerCard(d)).join('');
+  else if(NET.tab==='runners')h+='<p class="net-meta">Runners load packs from your stockroom, restock dealers below their target and bring the takings home.</p>'+RUNNER_ROSTER.map(runnerCard).join('');
+  else if(NET.tab==='crew')h+=crewHTML();
+  else h+='<ol class="net-log">'+(e.log.slice(-10).reverse().map(l=>'<li class="'+l.kind+'"><small>Day '+Math.floor(l.at/1440)+' '+String(Math.floor(l.at%1440/60)).padStart(2,'0')+':'+String(l.at%60).padStart(2,'0')+'</small> '+l.text+'</li>').join('')||'<li>Nothing yet. Recruit a dealer to get started.</li>')+'</ol><p class="net-meta">Lifetime: '+st.dealerSales+' packs via dealers · '+money(st.dealerNet)+' to you · cuts '+money(st.cuts)+' · wages '+money(st.wages)+' · confiscated '+st.seized+'</p>';
+  return h;}
+ const netMenu=menu;menu=function(which,data){netMenu(which,data);
+  if(which==='sweetnet'&&panel==='sweetnet'){netRun();$('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="story-phone net-phone">'+networkHTML()+'</div><button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';$('overlay').classList.toggle('phone',true);}
+  if(which==='netdealer'&&panel==='netdealer'){NET.open=data;const d=DEALER_ROSTER[data];if(!d)return;netRun();const x=ensureEmpire().dealers[d.id];
+   $('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="overline">SWEET NETWORK / '+d.district.toUpperCase()+'</div><h2>'+d.name+'</h2>'+(x?'':'<div class="message">“'+d.line+'”</div>')+'<div class="net-phone story-phone net-inline">'+dealerCard(d)+'</div>';}
+ };window.menu=menu;
+ const netPhoneHome=phoneHome;phoneHome=function(){netPhoneHome();if(panel!=='phone')return;const e=ensureEmpire(),owed=Object.values(e.dealers).reduce((a,x)=>a+x.owed,0),n=Object.keys(e.dealers).length;
+  const card='<button class="story-phone-card net-phone-card" onclick="menu(\'sweetnet\')"><b>🍬 SWEET NETWORK</b><strong>'+(n?n+' dealer'+(n>1?'s':'')+' · '+money(owed)+' owed':lvl()>=DEALER_ROSTER[0].unlock?'Recruit your first dealer':'Dealers unlock at level '+DEALER_ROSTER[0].unlock)+'</strong><small>'+(e.crew.length?e.crew.length+' crew working · ':'')+storedUsed()+' packs in the stockroom</small></button>';
+  const after=$('modal').querySelector?.('.story-phone-card')||$('modal').querySelector?.('.phone-app-grid');if(after)after.insertAdjacentHTML('afterend',card);else $('modal').insertAdjacentHTML?.('beforeend',card);};window.phoneHome=phoneHome;
+ const netUpdate=update;update=function(dt){netUpdate(dt);NET.timer+=dt;if(NET.timer>=.5){NET.timer=0;if(!window.__storyBusy?.())netRun();}netVisuals(performance.now()/1000);};
+ const netLoad=load;load=function(...args){netLoad(...args);if(s.empire){s.empire=normalizeEmpire(s.empire,{clock:absNow(),strainCount:STRAINS.length});Object.defineProperty(s.empire,'_ok',{value:true,enumerable:false});}};window.loadGame=load;
+ window.__net={state:()=>JSON.parse(JSON.stringify(ensureEmpire())),act:(k,...a)=>A[k]?.(...a),tick:()=>netRun(),
+  // QA/debug: jump the network clock forward without touching your own day.
+  advance:minutes=>{const e=ensureEmpire();e.clock=Math.max(0,e.clock-Math.max(0,minutes|0));return netRun();},
+  spot:id=>NET.spots[id],track:id=>{const p=NET.spots[id];if(!p)return false;track={x:p.x,z:p.z,label:dealerOf(id).name};close();toast('Tracking '+dealerOf(id).name);return true;},
+  visuals:()=>({dealers:Object.fromEntries(DEALER_ROSTER.map(d=>[d.id,NET.actors[d.id].g.visible])),crew:NET.crew.filter(f=>f.g.visible).length,runner:!!NET.runner?.visible}),
+  html:()=>networkHTML()};
+ window.loadGame=load;
+}catch(error){console.warn('Sweet Network unavailable',error);}

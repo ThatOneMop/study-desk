@@ -55,6 +55,12 @@ export function hireCrew(e,{role,level,cash,house}){
  e.crew.push({role,strain:-1,work:0,on:true,status:'Starting shift'});return {ok:true,cost:CREW.hire};
 }
 export function slotUpgradeCost(e){return CREW.upgrade[e.slotsBought|0]??null;}
+// Extra work slots need a real property (not the starter room).
+export function buySlot(e,{house,cash}){const c=slotUpgradeCost(e);if(c==null)return {ok:false,reason:'Every slot is already built'};if((house|0)<1)return {ok:false,reason:'Move out of the starter room to add work slots'};if(cash<c)return {ok:false,reason:'A new slot costs $'+c};e.slotsBought++;return {ok:true,cost:c};}
+export function fireCrew(e,i){if(!e.crew[i])return false;e.crew.splice(i,1);return true;}
+export function hireRunner(e,id,{level,cash}){const r=runnerOf(id);if(!r)return {ok:false,reason:'Unknown runner'};if(e.runners[id])return {ok:false,reason:r.name+' already runs for you'};if(level<r.unlock)return {ok:false,reason:'Reach level '+r.unlock+' first'};if(!Object.keys(e.dealers).length)return {ok:false,reason:'Recruit a dealer first'};if(cash<r.fee)return {ok:false,reason:'Signing fee is $'+r.fee};e.runners[id]={hired:true,auto:true,state:'idle',target:null,cargo:{},cash:0,leg:0,legTotal:1,trips:0};return {ok:true,cost:r.fee};}
+// Send a runner now: to restock (if the stockroom has packs) and pick up the takings.
+export function dispatchRunner(s,id,dealer,price){const e=s.empire,r=runnerOf(id),x=e.runners[id],d=e.dealers[dealer];if(!r||!x||!d||x.state!=='idle')return false;x.target=dealer;x.cargo=s.storedPacks?loadCargo(s.storedPacks,d,restockNeed(e,dealer),r.capacity,price):{};x.legTotal=x.leg=Math.max(15,Math.round(dealerOf(dealer).leg/r.speed));x.state='out';x.trips++;return true;}
 // ---- Dealers ----
 export function recruitDealer(e,id,{level,cash}){
  const d=dealerOf(id);if(!d)return {ok:false,reason:'Unknown dealer'};
