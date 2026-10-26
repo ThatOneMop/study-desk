@@ -569,21 +569,30 @@
       "tests": [
         "9 tests pass (5 engine, 4 jsdom 26.1.0): all three trellis wins/unlocks and per-move reloads; crossings/touches/overlaps/opposite rays; 24 rotated/reflected solved embeddings; invalid placements/journals, undo/retry, records and storage bound.",
         "DOM checks cover tap placement, drag preview/release/cancellation/occupied targets/pause, keyboard/button and parent guards, navigation markup, corruption recovery, isolated reset and quota failures. Dialogs, SVG bounds and pointer events/capture are simulated.",
-        "Both scripts pass syntax checks. No rendered browser, screenshot, native keyboard/touch, mobile layout, human-enjoyment or full repository build evidence."
+        "Both scripts pass syntax checks. No rendered browser, screenshot, native keyboard/touch, mobile layout, human-enjoyment or full repository build evidence.",
+        "Compact refinement: 13 total tests pass (7 engine, 6 jsdom). Three compact solutions, length boundary/diagonals, wide planar-but-unfinished layouts, exact old saves, independent records, per-move reloads, mode/unlock validation, reach feedback, confirmation/pause and temporary drag previews. Syntax checks pass."
       ],
       "commits": [
-        "d55722bdaafe719b17c003f5cc9365b02ecac95d"
+        "d55722bdaafe719b17c003f5cc9365b02ecac95d",
+        "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
         "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored graphs with demonstrated 3/5/6-move solutions; no optimality or content-hours claim. No loss state. Drag feel, visual clarity, spatial depth and touch usability remain unassessed."
+        "knownLimits": "Three compact authored graphs with demonstrated 3/5/6-move solutions; no optimality or content-hours claim. No loss state. Drag feel, visual clarity, spatial depth and touch usability remain unassessed. Compact-mode solutions use 4/5/6 moves; reach/packing clarity and balance are not rendered-verified."
       },
       "nextSteps": [
         "Play all three trellises naturally on desktop/touch and inspect screenshots; assess knot targeting, crossing feedback and progression depth.",
         "Implement a meaningful rendered-play-led improvement, then verify saves/reload, undo/retry/restart and real navigation before selection."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
+        "basis": "Source/engine/DOM inspection: initial free layouts allow unbounded spreading within the board and provide little replay constraint. Not rendered playtesting.",
+        "before": "Every untangled arrangement completed the trellis regardless of vine lengths.",
+        "after": "Optional compact mode unlocks per completed trellis and requires each vine to fit a four-grid-step straight-line reach. Overstretched vines remain movable but prevent completion. Reach-circle and endpoint-list feedback explain packing choices; records and mode saves preserve free gardens.",
+        "remaining": "Natural rendered desktop/touch play, screenshot inspection, challenge balance and readability review. No improvement-pass credit."
+      }
     },
     {
       "slot": 54,
@@ -1428,6 +1437,12 @@
       "commit": "d55722bdaafe719b17c003f5cc9365b02ecac95d",
       "result": "Built Canopy Weave slot 53: direct graph untangling, three distinct trellises, pointer previews/tap/keyboard controls, undo, progression and safe journal saves. Nine engine/DOM tests pass. Third batch: 13 built; 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering blocker not retried or bypassed. No rendered completion credit or live release."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
+      "result": "Canopy Weave optional compact-garden challenge implemented with geometric vine reach, previews and independent records. 13 engine/DOM tests pass. Counts remain 13 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering blocker not retried or bypassed; no rendered credit or live release."
     }
   ]
 }
