@@ -8,7 +8,7 @@ Shell only. Catalogue entries, game folders, study tools, save keys, and owner-o
 - Favicon files for the home page, and a Study Desk mark in both headers.
 - Save import names each key that will change. Identical keys are skipped. The file control stays tappable on a phone.
 - The game collection is a storefront: Gummy Bay leads the carousel, then continue playing, the Monday pick, locally counted sessions, newer additions, genres, favourites, search, and the existing filters. Sound, theme, and a random bundled game stay on this device.
-- Headless Chromium now opens every bundled catalogue page and fails on a page error. The README counts 64 games.
+- Headless Chromium now opens every bundled catalogue page and fails on a page error. The README counts the live catalogue, 65 games after Ashwake.
 
 ### Still ahead
 - A daily challenge with a local streak.

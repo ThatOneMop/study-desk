@@ -1,6 +1,6 @@
-# Study Desk — 64 games
+# Study Desk — 65 games
 
-The catalogue has 64 games. 63 run on this site, and Nightshift — Town Empire opens on its original site. Those 64 include the 10 recovered games, the indie selections, Nightshift, and Afterlight. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
+The catalogue has 65 games. 64 run on this site, and Nightshift — Town Empire opens on its original site. Those 65 include the 10 recovered games, the indie selections, Nightshift, Afterlight, and Ashwake. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
 
 ## Upload to GitHub Pages
 
@@ -24,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 63 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 64 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 

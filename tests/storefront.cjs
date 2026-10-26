@@ -26,7 +26,7 @@ assert.match($('continueRow').querySelector('button').getAttribute('aria-label')
 assert.equal($('trendingRow').hidden,false);
 assert.match($('trendingCards').textContent,/Tidepost/);
 assert.equal($('newRow').hidden,false);
-assert.match($('newCards').querySelector('.capsule-title').textContent,/Lumen Grove/);
+assert.match($('newCards').querySelector('.capsule-title').textContent,/Ashwake/);
 assert.equal($('favouriteShelf').hidden,false);
 assert.match($('favouriteRow').textContent,/Autumn Drift/);
 assert.equal($('favouriteRow').querySelector('.game'),null);
