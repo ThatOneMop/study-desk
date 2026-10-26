@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {BASE_EFFECTS,BENCH_SLOTS,benchIngredient,mixResult,mixExperience,recipeKey,mixStationSeconds} from '../dist/mix-bench.mjs';
+import {applyMix,productValue,recipeName} from '../dist/mix-core.mjs';
+assert.equal(BASE_EFFECTS.length,6);assert.equal(BENCH_SLOTS.length,4);
+assert.equal(benchIngredient(0).mixId,'peel');assert.equal(benchIngredient(0).cost,2);
+assert.equal(benchIngredient(3).mixId,'dust');assert.equal(benchIngredient(4),null);
+const pine=mixResult(0,0,30);
+assert.deepEqual(pine.effects,applyMix(['still'],'peel'));
+assert.equal(pine.price,productValue(30,pine.effects));
+assert.equal(pine.price,43);
+assert.equal(pine.recipe,recipeName(pine.effects));
+assert.equal(pine.key,recipeKey(pine.effects));
+assert.equal(mixResult(0,0,30).recipe,pine.recipe);
+assert.deepEqual(mixResult(1,1,47).effects,applyMix(['sunny'],'fizz'));
+assert.equal(mixExperience(false),80);assert.equal(mixExperience(true),0);
+assert.equal(mixStationSeconds(1),6);assert.equal(mixStationSeconds(10),60);assert.equal(mixStationSeconds(11),60);
+console.log('PASS: bench mixes keep four slots, effect value, a stable recipe name and 80 XP once.');

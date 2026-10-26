@@ -1,8 +1,8 @@
 # Gummy Bay systems brief
 
-Roadmap after v124. Mechanics and numbers come from the public 0.4.6 write-up. Names, products and copy are original gummy-shop material. Nothing here is wired into the live loop yet. `mix-core.mjs` and `sim-formulas.mjs` hold the formulas, and the tests lock every number below.
+Roadmap after v124. Mechanics and numbers come from the public 0.4.6 write-up. Names, products and copy are original gummy-shop material. `mix-core.mjs` and `sim-formulas.mjs` hold the formulas, and the tests lock every number below. v125 wires the four starter ingredients into the bench; the other twelve ingredients and the rest of these systems stay unwired.
 
-v124 already stores one craving per customer, writes a price request into the existing message thread, and holds heat from 22:00 to 06:00. The phone and HUD read `gameplaySnapshot()` and `subscribeGameplay`.
+v125 stores one craving per customer, writes a price request into the existing message thread, and holds heat from 21:00 to 05:00. During that window patrols are out and notice range is 45 m. The phone and HUD read `gameplaySnapshot()` and `subscribeGameplay`.
 
 ## 1. Effect mixing
 
@@ -64,8 +64,8 @@ One runner per district, a 20% cut, at most 10 assigned customers, walking at 1.
 
 Each district has a candy-crew influence from 0 to 1. Unlocking a customer subtracts 0.075. Graffiti subtracts 0.05. The next district opens at 0.3 or below. A rival runner can take an order from a customer whose loyalty is under 1.25. Below that line the player keeps it with probability `clamp(4 × loyalty / 5, 0, 1)`.
 
-The law system is not the v124 heat meter. The target is daily pressure, a 45 m vision cone with a notice meter, four pursuit levels, a 21:00–05:00 curfew, checkpoints, a body search, bystander calls, and hiding in dumpsters and bushes. v124's curfew remains 22:00–06:00 until that system replaces it.
+The law system is more than the heat meter. Daily pressure, four pursuit levels, checkpoints, bystander calls, and hiding in dumpsters and bushes are still open. The live curfew is 21:00–05:00, notice range is 45 m, and the body search is already in the game.
 
 ## What the other passes can read
 
-`subscribeGameplay` already emits `craving-ask`, `craving-changed` and `curfew`. `gameplaySnapshot()` returns day, time, heat, the curfew flag and one craving record per customer. The next wiring step should add effects, loyalty, rank and police status to that same snapshot rather than new screens in this module.
+`subscribeGameplay` already emits `craving-ask`, `craving-changed`, `curfew` and `starter-offer`. `gameplaySnapshot()` returns day, time, heat, the curfew flag, police notice `{range, suspicion}` and one craving record per customer. The next wiring step should add effects, loyalty and rank to that same snapshot rather than new screens in this module.
