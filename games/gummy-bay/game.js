@@ -73,6 +73,8 @@ import {PRODUCTION_CONTAINER_PROFILES,PRODUCTION_CONTAINER_COLLIDERS,productionC
 import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOutfitParts,selectOccupationalActors,createOccupationalOutfits} from './occupational-outfits.mjs?v=86';
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=117';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
+import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=123';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,createStreetCrowd} from './street-crowd.mjs?v=123';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=118';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=91';
@@ -234,7 +236,7 @@ const beacon=new THREE.Group();scene.add(beacon);let beam=new THREE.Mesh(new THR
 for(let i=0;i<7;i++){let x=-100+i*33,z=-65-(i%3)*16;for(let j=0;j<3;j++)sphere(x+j*4,29+(i%3)*5,z,4.5,0xf4f3df,scene,1.5,.65,1);}
 for(let i=0;i<14;i++){let x=40+i*2;box(x,.6,66,.12,1.2,.12,0xe4dac0);if(i<13){box(x+1,.9,66,2,.08,.07,0xe4dac0);box(x+1,.35,66,2,.08,.07,0xe4dac0)}}
 for(let i=0;i<10;i++){let x=-36+i*.7;let z=49.4;cyl(x,.2,z,.025,.4,0x87a267);sphere(x,.46,z,.15,[0xe3b4b8,0xe7cf83,0xc7b5d7][i%3]);}
-const hand=new THREE.Group();camera.add(hand);rounded(.37,-.48,-.53,.18,.36,.18,0xd8b58e,hand);rounded(.37,-.65,-.53,.2,.2,.2,0x91a486,hand);const watering=new THREE.Group();camera.add(watering);watering.visible=false;rounded(.36,-.3,-.7,.35,.4,.3,0x82b9b6,watering);let spout=cyl(.15,-.2,-.85,.045,.4,0x82b9b6,watering);spout.rotation.z=-.6;scene.add(camera);
+const hand=new THREE.Group();camera.add(hand);const playerHand=createChunkyPlayerHand(hand);const watering=new THREE.Group();camera.add(watering);watering.visible=false;rounded(.36,-.3,-.7,.35,.4,.3,0x82b9b6,watering);let spout=cyl(.15,-.2,-.85,.045,.4,0x82b9b6,watering);spout.rotation.z=-.6;scene.add(camera);
 const level=()=>Math.min(8,1+Math.floor(s.xp/30));const cash=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:2});const unlocked=t=>level()>=STRAINS[t].level;const value=t=>Math.round(STRAINS[t].price*(1+s.bench*.15));const availableMoney=()=>s.payment==='card'?s.bank:s.cash;
 function spend(n,bank=false){let useCard=bank||s.payment==='card',key=useCard?'bank':'cash';if(s[key]<n){toast('Not enough '+(useCard?'card funds. Deposit cash at an ATM.':'cash. Switch payment to card or visit an ATM.'));return false}s[key]=Math.round((s[key]-n)*100)/100;if(useCard)record('Card payment',-n);return true}
 function toast(msg){if(processingRemote){netSend({type:'toast',msg});return}$('toast').textContent=msg;$('toast').style.opacity=1;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.opacity=0,4200)}
@@ -432,7 +434,7 @@ const step=sweepWalk(player,travelX.distance,travelZ.distance,(x,z)=>blocked(x,z
 const jumpInput=bufferedJump(locomotion.jumpQueued,!!keys[' ']&&!locomotion.space,locomotion.jump===0,!crouched&&!work,dt);locomotion.jumpQueued=jumpInput.queued;if(jumpInput.launch)locomotion.vertical=4.6;locomotion.space=!!keys[' '];const airborne=jumpStep(locomotion.jump,locomotion.vertical,dt);locomotion.jump=airborne.height;locomotion.vertical=airborne.velocity;
 locomotion.crouch=crouchStep(locomotion.crouch,!!keys.control,floorHeight(player.x,player.z),ceilingHeight(player.x,player.z),dt);const travelled=Math.hypot(player.x-beforeX,player.z-beforeZ);walk=travelled>.0001;if(running&&walk)stamina=Math.max(0,stamina-dt*15);else stamina=Math.min(100,stamina+dt*12);walkPhase+=travelled*(running?1.65:1.86);
 syncPlayerView();
-camera.fov+=( (running&&walk&&comfort.sprintFov?75:70)-camera.fov)*(1-Math.exp(-dt*5));camera.updateProjectionMatrix();camera.rotation.set(pitch,yaw,0);hand.position.y=comfort.bob&&walk?Math.sin(walkPhase)*.012:0;watering.rotation.z=work?Math.sin(now*4)*.15:0;
+camera.fov+=( (running&&walk&&comfort.sprintFov?75:70)-camera.fov)*(1-Math.exp(-dt*5));camera.updateProjectionMatrix();camera.rotation.set(pitch,yaw,0);hand.position.y=comfort.bob&&walk?Math.sin(walkPhase)*.012:0;updateChunkyPlayerHand(playerHand,{walking:walk,phase:walkPhase,now,offering:panel==='customer'});watering.rotation.z=work?Math.sin(now*4)*.15:0;
 if(net.role!=='guest'){const wasCurfew=curfewActive(s.time);s.time+=dt*1.2;if(s.time>=1440){s.time-=1440;s.day++}const nowCurfew=curfewActive(s.time);if(nowCurfew!==wasCurfew)emitGameplay({type:'curfew',active:nowCurfew,day:s.day,time:s.time});if(!nowCurfew)s.heat=Math.max(0,s.heat-dt*.9);catchCooldown=Math.max(0,catchCooldown-dt);}
 people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z)<5){const desired=Math.atan2(player.x-g.position.x,player.z-g.position.z),delta=Math.atan2(Math.sin(desired-g.rotation.y),Math.cos(desired-g.rotation.y));g.rotation.y+=delta*(1-Math.exp(-dt*5));}g.userData.head.rotation.z=Math.sin(now*1.7+i)*.015});if(track&&!Number.isInteger(track.npc)&&Math.hypot(player.x-track.x,player.z-track.z)<2.3)track=null;
 // Environmental state is projected once before rendering, including paused menus.
@@ -444,7 +446,7 @@ Object.assign(window,{menu,slots,loadGame:load,closeMenu:close,action,act,trackP
 // Gummy Bay 4: small-town street dressing, physical mixing, ATMs, and recycling.
 const camperGlow=new THREE.PointLight(0xe7ad7c,5,9,2);camperGlow.position.set(-58,2.6,26);scene.add(camperGlow);
 let mouseInside=false,mouseX=innerWidth/2,mouseY=innerHeight/2,lookSensitivity=.003;
-let effects=null,quality='balanced',appliedQuality=null,appliedPixelRatio=null,districtArchitecture=null,streetConstruction=null,verticalTown=null,contextualStreetProps=null,districtHorizon=null,townSkyline=null,junctionReveals=null,townUtilities=null,overheadInfrastructure=null,townFencing=null,foregroundDepth=null,domesticWorkplace=null,doorwayReveals=null,windowConnections=null,ordinaryUnusualWork=null,publicServiceFronts=null,narrowAlleys=null,shopApproaches=null,logicalWear=null,productionContainers=null,occupationalOutfits=null,residentAccessories=null,residentFootSilhouettes=null,nightSilhouettes=null,scruffyWelcome=null;
+let effects=null,quality='balanced',appliedQuality=null,appliedPixelRatio=null,districtArchitecture=null,streetConstruction=null,verticalTown=null,contextualStreetProps=null,districtHorizon=null,townSkyline=null,junctionReveals=null,townUtilities=null,overheadInfrastructure=null,townFencing=null,foregroundDepth=null,domesticWorkplace=null,doorwayReveals=null,windowConnections=null,ordinaryUnusualWork=null,publicServiceFronts=null,narrowAlleys=null,shopApproaches=null,logicalWear=null,productionContainers=null,occupationalOutfits=null,residentAccessories=null,residentFootSilhouettes=null,nightSilhouettes=null,scruffyWelcome=null,chunkyCast=null,streetCrowd=null;
 try{quality=localStorage.getItem('gummybay-quality')||'balanced';lookSensitivity=Number(localStorage.getItem('gummybay-sensitivity'))||.003}catch(e){}
 function resizeEffects(){if(effects)effects.resize(Math.min(innerWidth,1600),Math.min(innerHeight,1000))}
 function setQuality(q){
@@ -475,6 +477,8 @@ function setQuality(q){
  occupationalOutfits?.setQuality(q);
  residentAccessories?.setQuality(q);
  residentFootSilhouettes?.setQuality(q);
+ chunkyCast?.setQuality(q);
+ streetCrowd?.setQuality(q);
  nightSilhouettes?.setQuality(q);
  scruffyWelcome?.setQuality(q);
  if(q==='high')try{effects=createEffects(renderer,scene,camera,Math.min(innerWidth,1600),Math.min(innerHeight,1000))}catch(e){toast('Ambient occlusion unavailable; standard shadows remain active.')}
@@ -1025,6 +1029,23 @@ const policeMenu=menu;menu=function(which,data){policeMenu(which,data);if(which=
 // V11 visual layer. Save data, world extents, collider arrays and gameplay are unchanged.
 const visualActors=[];
 residentFootSilhouettes=createResidentFootSilhouettes({THREE,scene,actors:visualActors,quality,capacity:48});
+chunkyCast=createChunkyCast({THREE,scene,actors:visualActors,points,quality,capacity:48});
+streetCrowd=createStreetCrowd({THREE,scene,blocked,floorHeight,capacity:32,time:s.time});
+function gummyCrowdPreview(mode='street'){
+ load('story',1,true);
+ const overlay=document.getElementById('overlay');if(overlay)overlay.hidden=true;
+ if(document.body?.dataset)document.body.dataset.panel='';panel='';
+ streetCrowd.sync(s.time);streetCrowd.update({dt:0,now,time:s.time,camera,active:true,floorHeight,blocked});
+ const focus=streetCrowd.focus(mode==='sit'?'sit':'close');
+ const ahead={x:Math.sin(focus.yaw),z:Math.cos(focus.yaw)};
+ if(mode==='street'){player.set(-24,1.62,16);pitch=.22;yaw=Math.atan2(-24-player.x,4-player.z);}
+ else{player.set(focus.x+ahead.x*1.45,1.58,focus.z+ahead.z*1.45);pitch=mode==='close'?0.04:0.12;yaw=Math.atan2(-(focus.x-player.x),-(focus.z-player.z));}
+ syncPlayerView();camera.lookAt(mode==='street'?0:focus.x,mode==='close'?1.55:1.15,mode==='street'?4:focus.z);
+ renderFrame();camera.lookAt(mode==='street'?0:focus.x,mode==='close'?1.55:1.15,mode==='street'?4:focus.z);
+ const visible=streetCrowd.people.filter(person=>Math.hypot(person.x-player.x,person.z-player.z)<STREET_CROWD_FAR).length;
+ return {count:streetCrowd.count,near:visible,far:STREET_CROWD_FAR,colliders:STREET_CROWD_COLLIDERS.length,activity:focus.activity,x:+focus.x.toFixed(2),z:+focus.z.toFixed(2)};
+}
+window.gummyCrowdPreview=gummyCrowdPreview;
 let citizenAssetStatus='loading';
 function cloneRig(source){
  const copy=source.clone(true),map=new Map();
@@ -1047,6 +1068,7 @@ function installCitizen(gltf,variant=0){
     v.roughness=Math.max(v.roughness,.65);variants.set(m,v);return v;};
    o.material=Array.isArray(o.material)?o.material.map(tint):tint(o.material);
   });
+  concealSculptedResident(body);
   const clothing=createResidentClothing({body,id:g.userData.id,baseColor:palette.color,isCop});
   // Hide fallback only after a complete, valid asset is ready.
   originalChildren.forEach(o=>o.visible=false);g.add(body);
@@ -1112,6 +1134,8 @@ renderFrame=function(){
  const t=performance.now(),dt=Math.max(0,Math.min(.08,(t-visualPrevious)/1000));visualPrevious=t;
  for(const a of visualActors){const distance=a.g.position.distanceTo(camera.position);a.body.visible=distance<(quality==='performance'?75:125);if(a.body.visible)actorAnimation(a,dt,distance);else a.previous.copy(a.g.position);}
  residentFootSilhouettes.update({active});
+ chunkyCast?.update({now,camera});
+ streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked});
  if(visualTown)for(const chunk of visualTown.children){const c=chunk.userData.center;if(c)chunk.visible=camera.position.distanceTo(c)<(quality==='performance'?145:quality==='high'?280:210)+chunk.userData.radius;}
  visualRender();
 };
@@ -1289,7 +1313,7 @@ const menu12=menu;menu=function(which,data){menu12(which,data);if(which==='pause
 // Optional low-detail rigs keep the same skeleton and animation clips.
 const citizenLow=[];
 if(typeof GLTFLoader!=='undefined')for(let i=0;i<3;i++)new GLTFLoader().load('./assets/citizen-lod-v12-'+i+'.glb',g=>{if(g.animations.some(c=>c.name==='Walk')&&g.scene.getObjectByProperty('isSkinnedMesh',true)){roundResidentAsset(g);citizenLow[i]=g;}},undefined,()=>{});
-function prepareActorLOD(a){if(a.high||!citizenLow[a.g.userData.id%3])return;const source=citizenLow[a.g.userData.id%3],body=cloneRig(source.scene),materials=new Map();body.scale.copy(a.body.scale);a.body.traverse(o=>{if(o.isMesh)for(const m of Array.isArray(o.material)?o.material:[o.material])materials.set(m.name,m);});body.traverse(o=>{if(!o.isMesh)return;o.material=Array.isArray(o.material)?o.material.map(m=>materials.get(m.name)||m):materials.get(o.material.name)||o.material;o.castShadow=quality==='high';o.receiveShadow=true;o.frustumCulled=false;});const clothing=createResidentClothing({body,id:a.g.userData.id,baseColor:a.clothingBase,isCop:a.isCop}),head=body.getObjectByName('Head'),oldHead=a.body.getObjectByName('Head');let expression=null,hairstyle=null;if(head&&oldHead){for(const c of oldHead.children)if(c.isMesh&&c!==a.hairstyle?.mesh&&!c.name.startsWith('ResidentFacialHair-'))head.add(c.clone());expression=createResidentExpressionRig({head,hairColor:a.expressionHair,skinColor:a.expressionSkin});hairstyle=createResidentHairstyleRig({head,id:a.g.userData.id,hairColor:a.expressionHair});if(head.children.some(c=>c.name==='Street hat'))hairstyle.mesh.visible=false;}const proportions=createResidentProportionRig({body,id:a.g.userData.id});applyResidentProportionRig(proportions);const mixer=new THREE.AnimationMixer(body),actions={};for(const clip of source.animations)actions[clip.name]=mixer.clipAction(clip);a.high={body:a.body,mixer:a.mixer,actions:a.actions,expression:a.expression,hairstyle:a.hairstyle,proportions:a.proportions,clothing:a.clothing};a.low={body,mixer,actions,expression,hairstyle,proportions,clothing};body.visible=false;a.g.add(body);}
+function prepareActorLOD(a){if(a.high||!citizenLow[a.g.userData.id%3])return;const source=citizenLow[a.g.userData.id%3],body=cloneRig(source.scene),materials=new Map();body.scale.copy(a.body.scale);a.body.traverse(o=>{if(o.isMesh)for(const m of Array.isArray(o.material)?o.material:[o.material])materials.set(m.name,m);});body.traverse(o=>{if(!o.isMesh)return;o.material=Array.isArray(o.material)?o.material.map(m=>materials.get(m.name)||m):materials.get(o.material.name)||o.material;o.castShadow=quality==='high';o.receiveShadow=true;o.frustumCulled=false;});concealSculptedResident(body);const clothing=createResidentClothing({body,id:a.g.userData.id,baseColor:a.clothingBase,isCop:a.isCop}),head=body.getObjectByName('Head'),oldHead=a.body.getObjectByName('Head');let expression=null,hairstyle=null;if(head&&oldHead){for(const c of oldHead.children)if(c.isMesh&&c!==a.hairstyle?.mesh&&!c.name.startsWith('ResidentFacialHair-'))head.add(c.clone());expression=createResidentExpressionRig({head,hairColor:a.expressionHair,skinColor:a.expressionSkin});hairstyle=createResidentHairstyleRig({head,id:a.g.userData.id,hairColor:a.expressionHair});if(head.children.some(c=>c.name==='Street hat'))hairstyle.mesh.visible=false;}const proportions=createResidentProportionRig({body,id:a.g.userData.id});applyResidentProportionRig(proportions);const mixer=new THREE.AnimationMixer(body),actions={};for(const clip of source.animations)actions[clip.name]=mixer.clipAction(clip);a.high={body:a.body,mixer:a.mixer,actions:a.actions,expression:a.expression,hairstyle:a.hairstyle,proportions:a.proportions,clothing:a.clothing};a.low={body,mixer,actions,expression,hairstyle,proportions,clothing};body.visible=false;a.g.add(body);}
 function selectActorLOD(a){prepareActorLOD(a);if(!a.high)return;const distance=a.g.position.distanceTo(camera.position),threshold=quality==='performance'?14:quality==='high'?45:25;const chosen=distance>threshold+(a.body===a.low.body?-2:2)?a.low:a.high;if(chosen.body===a.body)return;const current=a.current,time=a.actions[current]?.time||0;a.body.visible=false;a.mixer.stopAllAction();Object.assign(a,chosen);if(a.actions[current]){a.actions[current].reset().play();a.actions[current].time=time;}else a.current=null;}
 let audioLevels={master:.8,effects:.8,ambience:.4},ambientGain=null;
 try{const levels=JSON.parse(localStorage.getItem('gummybay-audio')||'{}');for(const k of Object.keys(audioLevels))if(Number.isFinite(levels[k]))audioLevels[k]=Math.max(0,Math.min(1,levels[k]));}catch{}
@@ -1481,9 +1505,9 @@ sign('GRAMPS → PAYPHONE',-53,1.1,30.6,2.6,'#385b60');
 box(-53,.45,30.55,.08,.9,.08,0x76634e);box(-53,1.1,30.56,2.65,.7,.06,0x76634e);
 
 const crafterActor=bobble(-25,44,0x547f80,0xc68d6a,0x554638);
-crafterActor.visible=false;
-const gardenerActor=bobble(-25,42,0x6a8f45,0xc68d6a,0x3e4a32);gardenerActor.visible=false;
-const sellerActor=bobble(-7,27,0xc47b45,0xd8b991,0x4a3424);sellerActor.visible=false;
+crafterActor.visible=false;crafterActor.userData.crew='worker';
+const gardenerActor=bobble(-25,42,0x6a8f45,0xc68d6a,0x3e4a32);gardenerActor.visible=false;gardenerActor.userData.crew='worker';
+const sellerActor=bobble(-7,27,0xc47b45,0xd8b991,0x4a3424);sellerActor.visible=false;sellerActor.userData.crew='seller';
 const cargoBox=box(0,.92,.34,.42,.3,.3,0xb89968,false,crafterActor);cargoBox.userData.gameplayAttachment=true;
 for(let variant=0;variant<citizenTemplates.length;variant++)if(citizenTemplates[variant])installCitizen(citizenTemplates[variant],variant);
 function workerContext(){const h=HOMES[s.house];return {
