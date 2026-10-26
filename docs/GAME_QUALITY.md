@@ -61,10 +61,10 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Paper Odyssey | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Ratchet Run | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Wellward | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Salt & Sail | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
+| Salt & Sail | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Pocket Palaeo | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Static Orchard | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Borrowed Gravity | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
+| Static Orchard | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Borrowed Gravity | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Tea for Ghosts | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Garden Gone Rogue | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Rent Is Due | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -119,7 +119,8 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Spore Kitchen moves toward Potion Craft: PLANTED, HARVESTED, SERVED stars and SERVICE COMPLETE. Bolt & Bristle moves toward PowerWash Simulator: dust, rust and spark bursts per plate, NO CURRENT YET on a failed test and an IT HUMS! fanfare. Roof Runner moves toward Celeste: jump and dash sounds, dash trails, hard-landing shake, parcel and checkpoint calls, FELL and DELIVERED.
 - Feedback pass 2 (Scrap Orbit, Last Match, Burrow Express, Storm Signal) uses the same feedback-only `juice-kit.js` plus a per-game `juice.js` and saved header Sound toggle. Scrap Orbit moves toward Hardspace: Shipbreaker: UNDOCKED, COUPLED, CABLE RELEASED, HULL KNOCK shake, CARGO DOCKED counts and JOB DONE. Last Match moves toward Don't Starve's lantern nights (kept family-friendly): flash bursts, STUNNED, SHADOW FADES, EMBER, OIL TOPPED UP, KNOCKED BACK and DAWN REACHED. Burrow Express moves toward Mini Metro and Railbound: track clicks, ALL ABOARD, wheel ticks, HELD AT SIGNAL, ALL PARCELS IN and SIGNAL FAILURE. Storm Signal moves toward Return of the Obra Dinn's deduction desk: RESCAN, SIGNAL LOGGED, MISREAD, BOAT AWAY, CREW HOME SAFE and WATCH ENDS.
 - Feedback pass 3 (Circuit Garden, Moss Market, Threadbound, Rain Catcher) uses the same feedback-only kit and saved Sound toggle. Circuit Garden moves toward Dorfromantik's cosy building: module clicks, GRID LIVE, BEDS GROW, BROWNOUT shake, SEASON IN BLOOM and GRID TRIPPED. Moss Market moves toward Moonlighter's shopkeeping: TRADE MADE, CRAFTED, ORDER FILLED n/3, OFFER DECLINED, MARKET DAY DONE and STALL CLOSED EARLY. Threadbound moves toward a Worms-style rope swing: hook and release sounds, hard-landing shake, SILVER SEED counts, KNOT TIED, FELL and LANTERN KINDLED. Rain Catcher moves toward Timberborn's water shaping: dig bursts, CISTERN OPEN/SHUT, RAIN CAUGHT, GARDENS DRINK, DOORSTEP WET, GARDENS RESTORED, FLOODED and SEASON CLOSED.
+- Feedback pass 4 (Salt & Sail, Static Orchard, Borrowed Gravity) uses the same feedback-only kit and saved Sound toggle. Salt & Sail moves toward Dredge's small-boat trading: STOWED, CAST OFF, HULL KNOCK with hull count and shake, CARGO SHIFTED, LINES ASHORE and VOYAGE LOST. Static Orchard moves toward Plants vs. Zombies (kept gentle): zap bursts, SHOOED, CHAIN ×n, HARVEST, SWARM n / 3, TREE NIBBLED, ONE SLIPPED PAST, ORCHARD SAFE and ORCHARD OVERRUN. Borrowed Gravity moves toward Superliminal's puzzle rooms: GALLERY OPEN, BORROWED/RETURNED, landing shake, SHARD n/3, ROOM SOLVED and BARRIER RETURNED.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 60, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 63, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
 

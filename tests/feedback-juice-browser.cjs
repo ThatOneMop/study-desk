@@ -22,7 +22,10 @@ const games=[
  {id:'circuit-garden',p:'cg',hook:'CGGame',act:`(async()=>{${w}const r=CGGame.o.run;r.faults++;await w(150);r.faults--})()`},
  {id:'moss-market',p:'mm',hook:'MMGame',act:`(async()=>{${w}const r=MMGame.o.run;r.rejections++;await w(150);r.rejections--})()`},
  {id:'threadbound',p:'tb',hook:'TBGame'},
- {id:'rain-catcher',p:'rc',hook:'RCGame',act:`(async()=>{${w}const r=RCGame.o.run;r.received++;await w(150);r.received--})()`}
+ {id:'rain-catcher',p:'rc',hook:'RCGame',act:`(async()=>{${w}const r=RCGame.o.run;r.received++;await w(150);r.received--})()`},
+ {id:'salt-and-sail',p:'sa',hook:'SAGame',act:`(async()=>{${w}const s=SAGame.o,p=s.phase;s.phase='sailing';await w(150);s.phase=p})()`},
+ {id:'static-orchard',p:'st',hook:'STGame',act:`(async()=>{${w}const r=STGame.o.run;r.harvest++;await w(150);r.harvest--})()`},
+ {id:'borrowed-gravity',p:'bg',hook:'BGGame',act:`(async()=>{${w}const r=BGGame.o.run,c=r.collected[0];r.collected[0]=true;await w(150);r.collected[0]=c})()`}
 ];
 (async()=>{
  const launch={headless:true,args:['--no-sandbox']};if(process.env.CHROME_PATH)launch.executablePath=process.env.CHROME_PATH;
