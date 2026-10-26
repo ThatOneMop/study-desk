@@ -1,7 +1,8 @@
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 (async()=>{
- const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ const launch={headless:true,args:['--no-sandbox']};if(process.env.CHROME_PATH)launch.executablePath=process.env.CHROME_PATH;
+ const browser=await chromium.launch(launch);
  const page=await browser.newPage({viewport:{width:1280,height:900}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:8765/#games');
@@ -17,7 +18,8 @@ const assert=require('node:assert/strict');
  assert.equal(await page.locator('.empty').count(),1);
  await page.locator('.empty button').click();
  await page.locator('#groupBy').selectOption('collection');
- assert.equal(await page.locator('.game-section').count(),2);
+ const groups=await page.evaluate(()=>new Set(GAME_CATALOG.map(g=>g.group)).size);
+ assert.equal(await page.locator('.game-section').count(),groups);
  await page.locator('#groupBy').selectOption('none');
  await page.locator('#sortGames').selectOption('az');
  const titles=await page.locator('.game h3').allTextContents();

@@ -1,4 +1,6 @@
 name: Build and publish Study Desk
+# This job publishes an existing GitHub Pages site. It does not create one.
+# Settings → Pages → Source must be GitHub Actions before a run can deploy.
 on:
   push:
     branches: [main]
@@ -24,8 +26,6 @@ jobs:
           python tests/selected-indie.py
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Prepare static website
         run: |
           mkdir -p "$RUNNER_TEMP/study-desk"

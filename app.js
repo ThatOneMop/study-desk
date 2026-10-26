@@ -12,7 +12,8 @@ function checkStorage(keys){
  if(changed)refreshStorageNotices();
  return keys.every(key=>!storageState.get(key)?.blocked);
 }
-function storeJson(key,value){if(!checkStorage(key===HUB_KEY?[HUB_KEY]:[KEY,DECK_KEY]))return false;try{const raw=JSON.stringify(value);localStorage.setItem(key,raw);storageState.get(key).raw=raw;return true}catch{const state=storageState.get(key);state.blocked=true;state.reason='unavailable';refreshStorageNotices();toast(key===HUB_KEY?'Game preferences are temporary on this device.':'Saving is unavailable. Export your cards before closing this tab.');return false}}
+let vaultReloading=false;
+function storeJson(key,value){if(vaultReloading)return false;if(!checkStorage(key===HUB_KEY?[HUB_KEY]:[KEY,DECK_KEY]))return false;try{const raw=JSON.stringify(value);localStorage.setItem(key,raw);storageState.get(key).raw=raw;return true}catch{const state=storageState.get(key);state.blocked=true;state.reason='unavailable';refreshStorageNotices();toast(key===HUB_KEY?'Game preferences are temporary on this device.':'Saving is unavailable. Export your cards before closing this tab.');return false}}
 function downloadPreserved(key,name){try{const raw=storageState.get(key)?.raw;if(raw===null||raw===undefined)return;const url=URL.createObjectURL(new Blob([raw],{type:'application/json'})),a=el('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}catch{toast('The preserved data could not be downloaded. Keep this tab open and try again.')}}
 function refreshStorageNotices(){
  const hint=document.querySelector('#study .hint');
@@ -139,4 +140,76 @@ $('libraryBtn').onclick=()=>openCollection(true);$('switch').onclick=()=>openCol
 $('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;$('groupBy').onchange=drawGames;$('sortGames').onchange=drawGames;$('clearFilters').onclick=()=>{$('search').value='';$('genre').value='all';$('groupBy').value='genre';$('sortGames').value='collection';filter='All';drawGames();$('search').focus()};
 window.addEventListener('message',e=>{if(e.source===$('frame').contentWindow&&e.origin===location.origin&&e.data?.type==='study-toggle')toggle()});
 window.addEventListener('keydown',e=>{if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
-reset();drawGames();openHash();refreshStorageNotices();
+function weekMonday(date=new Date()){const monday=new Date(date.getFullYear(),date.getMonth(),date.getDate());const day=monday.getDay()||7;monday.setDate(monday.getDate()-(day-1));monday.setHours(0,0,0,0);return monday}
+function mondayPick(date=new Date()){
+ const bundled=games.filter(g=>g.type!=='external').sort((a,b)=>a.id.localeCompare(b.id));
+ if(!bundled.length)return null;
+ const days=Math.round((weekMonday(date).getTime()-new Date(2024,0,1).getTime())/86400000);
+ return bundled[((Math.floor(days/7)%bundled.length)+bundled.length)%bundled.length];
+}
+window.studyMondayPick=mondayPick;
+function renderMondayPick(sectionId,textId,buttonId){
+ const section=$(sectionId),text=$(textId),button=$(buttonId),game=mondayPick();
+ if(!section||!text||!button)return;
+ section.hidden=!game;if(!game)return;
+ const when=weekMonday().toLocaleDateString('en-GB',{day:'numeric',month:'long'});
+ text.textContent='Week of '+when+'. '+game.title+'. '+game.description+' A new bundled game is chosen each Monday.';
+ button.textContent='Play Monday pick: '+game.title;
+ button.setAttribute('aria-describedby',textId);
+ button.onclick=()=>play(game);
+}
+function renderMondayPicks(){renderMondayPick('studyMonday','studyMondayText','studyMondayPlay');renderMondayPick('arcadeMonday','arcadeMondayText','arcadeMondayPlay')}
+const SAVE_VAULT_LIMIT=12000000;
+function storageEntries(){
+ const entries=[];
+ for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(typeof key!=='string'||!key)continue;let value;try{value=localStorage.getItem(key)}catch{throw Error('unreadable')}if(typeof value!=='string')continue;entries.push({key,value})}
+ entries.sort((a,b)=>a.key<b.key?-1:a.key>b.key?1:0);return entries;
+}
+function hasStoredKey(key){for(let i=0;i<localStorage.length;i++)if(localStorage.key(i)===key)return true;return false}
+function validVault(payload){
+ if(!payload||typeof payload!=='object'||Array.isArray(payload)||payload.format!=='study-desk-saves'||payload.version!==1)return false;
+ if(!Array.isArray(payload.entries)||payload.entries.length>4000)return false;
+ const seen=new Set();
+ for(const entry of payload.entries){
+  if(!entry||typeof entry!=='object'||Array.isArray(entry)||typeof entry.key!=='string'||typeof entry.value!=='string')return false;
+  if(!entry.key||entry.key.length>512||entry.value.length>SAVE_VAULT_LIMIT||seen.has(entry.key))return false;
+  seen.add(entry.key);
+ }
+ return true;
+}
+window.studySaveVault={validVault};
+function setVaultStatus(message){for(const id of ['saveVaultStatus','saveVaultStatusArcade']){const node=$(id);if(node)node.textContent=message}}
+function exportAllSaves(){
+ try{
+  const entries=storageEntries();
+  download('study-desk-saves.json',{format:'study-desk-saves',version:1,exportedAt:new Date().toISOString(),entries});
+  const message='Exported '+entries.length+' saved item'+(entries.length===1?'':'s')+'.';
+  setVaultStatus(message);toast(message+' The file stays on this device.');
+ }catch{setVaultStatus('Saves could not be exported.');toast('Saves could not be exported. Keep this tab open and try again.')}
+}
+async function importAllSaves(file){
+ if(!file)return;
+ if(file.size>SAVE_VAULT_LIMIT){setVaultStatus('That file is over 12 MB and was not imported.');toast('Choose a Study Desk save file under 12 MB.');return}
+ const text=await file.text();
+ if(text.length>SAVE_VAULT_LIMIT){setVaultStatus('That file is over 12 MB and was not imported.');toast('Choose a Study Desk save file under 12 MB.');return}
+ const payload=JSON.parse(text);
+ if(!validVault(payload)){setVaultStatus('That file is not a Study Desk save backup.');toast('That file is not a Study Desk save backup.');return}
+ const count=payload.entries.length,label=count+' saved item'+(count===1?'':'s');
+ if(!confirm('Replace '+label+' on this device with this backup? Other saved items stay. The page reloads, and unsaved play is not kept.')){setVaultStatus('Import cancelled. Current saves were kept.');return}
+ const touched=[];
+ try{
+  for(const entry of payload.entries){
+   const had=hasStoredKey(entry.key),old=had?localStorage.getItem(entry.key):null;
+   localStorage.setItem(entry.key,entry.value);touched.push({key:entry.key,had,old});
+  }
+ }catch{
+  for(const item of touched.reverse()){try{if(item.had)localStorage.setItem(item.key,item.old);else localStorage.removeItem(item.key)}catch{}}
+  setVaultStatus('Import stopped and previous saves were kept.');toast('Import stopped and previous saves were kept.');return;
+ }
+ vaultReloading=true;setVaultStatus('Saves restored. Reloading.');toast('Saves restored. Reloading.');
+ try{window.studyReloadAfterImport()}catch{setVaultStatus('Saves restored. Reload this page to use them.')}
+}
+window.studyReloadAfterImport=()=>location.reload();
+for(const id of ['exportSaves','exportSavesArcade'])$(id).onclick=exportAllSaves;
+for(const id of ['importSaves','importSavesArcade'])$(id).onchange=async e=>{try{await importAllSaves(e.target.files?.[0])}catch{setVaultStatus('That file is not a Study Desk save backup.');toast('That file is not a Study Desk save backup.')}finally{e.target.value=''}};
+reset();drawGames();renderMondayPicks();openHash();refreshStorageNotices();
