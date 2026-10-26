@@ -10,8 +10,9 @@ change('search','no matching game','input');assert(d.querySelector('.empty'));d.
 change('groupBy','collection');assert.equal(d.querySelectorAll('.game-section').length,new Set(w.GAME_CATALOG.map(g=>g.group)).size);
 change('groupBy','none');change('sortGames','az');const titles=[...d.querySelectorAll('.game h3')].map(e=>e.textContent);assert.deepEqual(titles,[...titles].sort((a,b)=>a.localeCompare(b)));
 d.querySelector('.fav').click();[...$('filters').children].find(e=>e.textContent==='Favourites').click();assert.equal(count(),1);
-$('clearFilters').click();assert.equal($('groupBy').value,'genre');assert.equal(count(),w.GAME_CATALOG.length);
+$('clearFilters').click();assert.equal($('groupBy').value,'none');assert.equal(count(),w.GAME_CATALOG.length);
 d.querySelector('[data-game="autumn-drift"][data-action="play"]').click();assert.equal($('player').hidden,false);$('libraryBtn').click();assert.equal($('sessionReturn').hidden,false);
 change('groupBy','none');change('sortGames','recent');assert.equal(d.querySelector('.game h3').textContent,'Autumn Drift');
 assert.equal($('frame').getAttribute('src'),'games/autumn-drift/index.html');
 console.log('PASS relaxed collection: keyword search, genre, grouping, sorting, favourites, reset, removed workspace controls, game launch and preserved session.');w.close();
+

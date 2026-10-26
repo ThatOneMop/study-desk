@@ -1,0 +1,40 @@
+const {JSDOM}=require('jsdom');
+const fs=require('node:fs'),assert=require('node:assert/strict'),path=require('node:path');
+const root=path.join(__dirname,'..');
+function boot(saved){
+ const dom=new JSDOM(fs.readFileSync(path.join(root,'index.html'),'utf8'),{url:'https://example.test/',runScripts:'outside-only',pretendToBeVisual:true});
+ const w=dom.window;w.confirm=()=>true;
+ w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
+ if(saved!==undefined)w.localStorage.setItem('after-class-hub-v1',saved);
+ for(const file of ['catalog.js','media-catalog.js','app.js','media.js'])w.eval(fs.readFileSync(path.join(root,file),'utf8'));
+ return {dom,w,d:w.document,$:id=>w.document.getElementById(id)};
+}
+let {dom,w,d,$}=boot();
+assert.equal($('arcade').hidden,false);assert.equal($('study').hidden,true);assert.equal($('featuredGames').children.length,3);
+assert.equal($('recentShelf').hidden,true);assert.equal($('groupBy').value,'none');
+const click=(selector,text)=>[...d.querySelectorAll(selector)].find(e=>e.textContent===text).click();
+click('#playStyles button','Unwind');
+assert.equal($('resultsCount').textContent,'13 shown');
+$('search').value='Autumn Drift';$('search').dispatchEvent(new w.Event('input'));
+assert.equal($('resultsCount').textContent,'1 shown');
+$('surpriseMe').click();assert.equal($('pickerTitle').textContent,'Autumn Drift');assert.equal($('pickerAgain').disabled,true);
+assert.equal(w.localStorage.getItem('after-class-hub-v1'),null,'Suggestions must not change saved preferences');
+$('gamePicker').close();$('search').value='no-such-game-xyz';$('search').dispatchEvent(new w.Event('input'));
+assert.equal($('surpriseMe').disabled,true);assert.equal(d.querySelectorAll('#games .game').length,0);
+$('games').querySelector('button').click();assert.equal(d.querySelectorAll('#games .game').length,64);
+$('clearFilters').click();
+for(let i=0;i<30;i++){$('surpriseMe').click();const g=w.GAME_CATALOG.find(g=>g.title===$('pickerTitle').textContent);assert.notEqual(g.type,'external');const previous=g.id;$('pickerAgain').click();assert.notEqual($('pickerTitle').textContent,g.title);$('gamePicker').close()}
+w.location.hash='#movies';w.dispatchEvent(new w.HashChangeEvent('hashchange'));assert.equal($('gameCollection').hidden,true);assert.equal(d.querySelectorAll('.media-card').length,50);
+w.location.hash='#tv';w.dispatchEvent(new w.HashChangeEvent('hashchange'));assert.equal(d.querySelectorAll('.media-card').length,20);
+w.location.hash='#study';w.dispatchEvent(new w.HashChangeEvent('hashchange'));assert.equal($('study').hidden,false);
+$('openGames').click();assert.equal(w.location.hash,'#games');assert.equal($('study').hidden,true);
+w.location.hash='#study';w.dispatchEvent(new w.HashChangeEvent('hashchange'));assert.equal($('study').hidden,false);
+w.close();
+({dom,w,d,$}=boot(JSON.stringify({recent:['removed-game','autumn-drift','after-hours'],favourites:['little-lake']})));
+assert.equal($('recentShelf').hidden,false);assert.equal($('recentGames').children.length,2);assert($('recentGames').textContent.includes('Autumn Drift'));
+click('#filters button','Favourites');assert.equal(d.querySelectorAll('#games .game').length,1);
+assert.equal(d.querySelector('#games h3').textContent,'Little Lake');
+w.close();
+({dom,w,d,$}=boot('{unreadable'));
+assert.equal($('gameStorageNotice').hidden,false);$('surpriseMe').click();assert.equal(w.localStorage.getItem('after-class-hub-v1'),'{unreadable');w.close();
+console.log('PASS discovery: games default, featured picks, play-style + search, empty/reset, suggestions and rerolls, external exclusion, movie/TV/study routes, recent/favourite persistence, damaged preference preservation');

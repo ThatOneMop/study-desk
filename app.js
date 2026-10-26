@@ -42,7 +42,7 @@ function validDecks(v){return Array.isArray(v)&&v.length<=10000&&v.every(x=>type
 const starter=[['Science','What is a force?','A push or pull that can change an object’s motion or shape.'],['Science','What is the difference between a mixture and a pure substance?','A mixture contains two or more substances. A pure substance contains only one substance.'],['Science','What does the independent variable mean?','The factor you deliberately change in an experiment.'],['Science','What force pulls objects towards Earth?','Gravity.'],['Science','How can you separate an insoluble solid from a liquid?','By filtration. The solid stays in the filter and the liquid passes through.'],['Maths','What is 15% of 80?','12. Calculate 0.15 × 80.'],['Maths','Solve: 3x + 5 = 20','x = 5. Subtract 5, then divide by 3.'],['Maths','What is the area of a triangle?','½ × base × perpendicular height.'],['Maths','What is −4 + 9?','5'],['English','What is a simile?','A comparison using “like” or “as”.'],['English','What is a metaphor?','A comparison that describes one thing as another.'],['English','What is personification?','Giving human qualities to something non-human.']].map((a,i)=>({id:'starter-'+i,deck:a[0],q:a[1],a:a[2],known:false}));
 let cards=loadJson(KEY,starter,valid);
 let deckNames=loadJson(DECK_KEY,[],validDecks);deckNames=[...new Set([...deckNames,...cards.map(c=>c.deck)])];
-let deck=deckNames[0]||'My deck',index=0,flipped=false,order=[],arcade=false,playing=null,inPlayer=false,paused=false,hits=[],filter='All';
+let deck=deckNames[0]||'My deck',index=0,flipped=false,order=[],arcade=true,playing=null,inPlayer=false,paused=false,hits=[],filter='All';
 const games=window.GAME_CATALOG;
 let hub=loadJson(HUB_KEY,{},v=>v&&typeof v==='object'&&!Array.isArray(v)&&['favourites','recent'].every(key=>v[key]===undefined||(Array.isArray(v[key])&&v[key].every(id=>typeof id==='string'&&id.length<=100))));
 // Keep retired IDs so preferences survive reversible catalogue changes.
@@ -84,15 +84,46 @@ $('import').onchange=async e=>{
 };
 for(const genre of [...new Set(games.map(g=>g.genre))].sort()){$('genre').append(new Option(genre,genre))}
 const sessionReturn=el('div',undefined,'session-return');sessionReturn.id='sessionReturn';sessionReturn.hidden=true;$('filters').before(sessionReturn);
+const playStyleIds={
+ 'Unwind':['autumn-drift','little-lake','deep-pocket','tiny-wilds','glasshouse','bolt-and-bristle','nightshift-wash','nightshift-leaves','nightshift-moths','kiln-kind','tidal-glass','orchard-atelier','the-quiet-cut'],
+ 'Think it through':['after-hours','inkline','tidepost','stone-song','storm-signal','circuit-garden','rain-catcher','reefwright','counterweight','paper-odyssey','copper-cadence','copper-steam','moonwell','lumen-grove'],
+ 'Build & grow':['gummy-bay','underleaf','queen-of-cinders','little-foundry','glasshouse','spore-kitchen','burrow-express','moss-market','hollow-keeper','salt-and-sail','pocket-palaeo','nightshift-rent','nightshift-mine','nightshift-empire'],
+ 'A little action':['forge-arena','scrap-orbit','pocket-expedition','echo-vault','roof-runner','last-match','threadbound','lanternwake','ratchet-run','wellward','static-orchard','borrowed-gravity','nightshift-garden','nightshift-parcel','nightshift-crusher','nightshift-slime','harbourlight','velvet-circuit','cloud-courier']
+};
+let playStyle='Everything',visibleGames=[],pickerGame=null;
+function drawPlayStyles(){
+ const focus=document.activeElement?.dataset.style;$('playStyles').replaceChildren();
+ for(const name of ['Everything',...Object.keys(playStyleIds)]){const b=button(name,()=>{playStyle=name;drawGames()});b.dataset.style=name;b.setAttribute('aria-pressed',String(name===playStyle));$('playStyles').append(b);if(focus===name)b.focus()}
+}
+function drawDiscovery(){
+ const featured=$('featuredGames');featured.replaceChildren();
+ for(const [id,label,copy,theme] of [['autumn-drift','TAKE IT EASY','A leaf at a time. A world to unwind in.','leaves'],['after-hours','ONE MORE HAND','Find the combo. Push your luck.','cards'],['little-lake','GO SOMEWHERE QUIET','Cast a line. See what finds you.','lake']]){
+  const g=games.find(item=>item.id===id);if(!g)continue;
+  const tile=el('article',undefined,'feature feature-'+theme),art=el('div',undefined,'feature-art');art.setAttribute('aria-hidden','true');
+  if(theme==='cards'){for(const [i,s] of ['♠','♦','♣'].entries()){const card=el('span',s,'drawn-card');card.style.setProperty('--i',i);art.append(card)}}
+  if(theme==='leaves'){for(let i=0;i<7;i++){const leaf=el('i',undefined,'drawn-leaf');leaf.style.setProperty('--i',i);art.append(leaf)}}
+  if(theme==='lake'){art.append(el('i',undefined,'drawn-sun'),el('i',undefined,'drawn-hill'),el('i',undefined,'drawn-water'),el('i',undefined,'drawn-boat'))}
+  const body=el('div',undefined,'feature-body');body.append(el('span',label,'eyebrow'),el('h3',g.title),el('p',copy),button('Play '+g.title+' →',()=>play(g)));tile.append(art,body);featured.append(tile);
+ }
+ const recent=hub.recent.map(id=>games.find(g=>g.id===id)).filter(Boolean).slice(0,5);$('recentShelf').hidden=!recent.length;$('recentGames').replaceChildren();
+ for(const g of recent){const b=button('',()=>play(g),'recent-game');b.append(el('span',g.icon||'✦'),el('strong',g.title),el('small',playing===g.id?'Return to session →':g.type==='external'?'Open official site ↗':'Play again →'));$('recentGames').append(b)}
+}
+function suggestGame(){
+ const available=visibleGames.filter(g=>g.type!=='external');if(!available.length){toast('No games available here match these filters. Try Reset.');return}
+ const other=available.filter(g=>g.id!==pickerGame?.id),pool=other.length?other:available;pickerGame=pool[Math.floor(Math.random()*pool.length)];
+ $('pickerTitle').textContent=pickerGame.title;$('pickerDescription').textContent=pickerGame.description;$('pickerControls').textContent=pickerGame.controls+' · '+pickerGame.multiplayer;$('pickerAgain').disabled=available.length<2;
+ if(!$('gamePicker').open)$('gamePicker').showModal();
+}
+$('surpriseMe').onclick=suggestGame;$('pickerAgain').onclick=suggestGame;$('pickerPlay').onclick=()=>{const g=pickerGame;$('gamePicker').close();if(g)play(g)};
 function drawFilters(){const focused=$('filters').contains(document.activeElement)?document.activeElement.textContent:null,groups=[...new Set(games.map(g=>g.group))];$('filters').replaceChildren();for(const name of ['All',...(groups.length>1?groups:[]),'Favourites','Recently played']){const b=button(name,()=>{filter=name;drawGames()},name===filter?'active':'');b.setAttribute('aria-pressed',String(name===filter));$('filters').append(b);if(name===focused)b.focus()}}
 function focusGame(id,action='play'){const target=[...$('games').querySelectorAll('button[data-game]')].find(b=>b.dataset.game===id&&b.dataset.action===action);(target||$('search')).focus()}
 function drawGames(){
  const sessionFocused=sessionReturn.contains(document.activeElement),active=games.find(g=>g.id===playing);sessionReturn.replaceChildren();sessionReturn.hidden=!active;if(active){const back=button('Return to '+active.title+' →',()=>play(active));sessionReturn.append(el('span','Your current session stays open while you browse.'),back);if(sessionFocused)back.focus()}
- drawFilters();$('gameCount').textContent=games.length+' games';$('openGames').textContent='Games · '+games.length+' →';$('switch').textContent='Browse '+games.length+' games →';$('includedCount').textContent=games.filter(g=>g.type!=='external').length+' games included here';const grid=$('games');grid.replaceChildren();const term=$('search').value.trim().toLowerCase(),genre=$('genre').value;
- let list=games.filter(g=>term.split(/\s+/).every(word=>(g.title+' '+g.description+' '+g.genre+' '+g.group+' '+(g.aliases||[]).join(' ')).toLowerCase().includes(word))&&(genre==='all'||g.genre===genre)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
+ drawPlayStyles();drawDiscovery();drawFilters();$('gameCount').textContent=games.length+' games';$('openGames').textContent='Games · '+games.length+' →';$('switch').textContent='Browse '+games.length+' games →';$('includedCount').textContent=games.filter(g=>g.type!=='external').length+' games included here';const grid=$('games');grid.replaceChildren();const term=$('search').value.trim().toLowerCase(),genre=$('genre').value;
+ let list=games.filter(g=>(playStyle==='Everything'||playStyleIds[playStyle]?.includes(g.id))&&term.split(/\s+/).every(word=>(g.title+' '+g.description+' '+g.genre+' '+g.group+' '+(g.aliases||[]).join(' ')).toLowerCase().includes(word))&&(genre==='all'||g.genre===genre)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
  if($('sortGames').value==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
- if(filter==='Recently played'||$('sortGames').value==='recent')list.sort((a,b)=>(hub.recent.includes(a.id)?hub.recent.indexOf(a.id):Infinity)-(hub.recent.includes(b.id)?hub.recent.indexOf(b.id):Infinity));$('resultsCount').textContent=list.length+' shown';
- if(!list.length){const empty=el('div',undefined,'empty');empty.append(el('p',filter==='Favourites'?'No favourites match these filters. Use a star on a game to save it here.':filter==='Recently played'?'No recently played games match these filters.':'No games match these filters.'),button('Clear filters',()=>{$('search').value='';$('genre').value='all';filter='All';drawGames();$('search').focus()}));grid.append(empty);return}
+ if(filter==='Recently played'||$('sortGames').value==='recent')list.sort((a,b)=>(hub.recent.includes(a.id)?hub.recent.indexOf(a.id):Infinity)-(hub.recent.includes(b.id)?hub.recent.indexOf(b.id):Infinity));$('resultsCount').textContent=list.length+' shown';visibleGames=list;$('surpriseMe').disabled=!list.some(g=>g.type!=='external');
+ if(!list.length){const empty=el('div',undefined,'empty');empty.append(el('p',filter==='Favourites'?'No favourites match these filters. Use a star on a game to save it here.':filter==='Recently played'?'No recently played games match these filters.':'No games match these filters.'),button('Clear filters',()=>{$('search').value='';$('genre').value='all';filter='All';playStyle='Everything';drawGames();$('search').focus()}));grid.append(empty);return}
  const sections=new Map(),groupMode=$('groupBy').value;
  for(const g of list){
   const groupName=groupMode==='genre'?g.genre:groupMode==='collection'?g.group:'All games';
@@ -108,9 +139,9 @@ function drawGames(){
 function visibility(visible){$('frame').contentWindow?.postMessage({type:'study-visibility',visible:visible&&!document.hidden},location.origin)}
 document.addEventListener('visibilitychange',()=>{visibility(arcade&&inPlayer&&!paused);if(document.hidden)releaseFullscreen()});
 function releaseFullscreen(){try{$('frame').contentDocument?.exitPointerLock?.();if($('frame').contentDocument?.fullscreenElement)$('frame').contentDocument.exitFullscreen?.().catch(()=>{})}catch{}document.exitPointerLock?.();if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{})}
-function show(){if($('editor').open)$('editor').close();$('study').hidden=arcade;$('arcade').hidden=!arcade||inPlayer;$('player').hidden=!arcade||!inPlayer;document.body.classList.toggle('playing',arcade&&inPlayer);document.title='Study Desk';visibility(arcade&&inPlayer&&!paused);$('pauseCover').hidden=!paused;$('pauseGame').textContent=paused?'Resume':'Pause';$('frame').inert=paused;$('frame').tabIndex=paused?-1:0;if(!arcade||!inPlayer||paused)releaseFullscreen();if(!arcade)$('card').focus();else if(inPlayer)$(paused?'resumeGame':'frame').focus();else $('search').focus()}
+function show(){if($('gamePicker').open)$('gamePicker').close();if($('editor').open)$('editor').close();$('study').hidden=arcade;$('arcade').hidden=!arcade||inPlayer;$('player').hidden=!arcade||!inPlayer;document.body.classList.toggle('playing',arcade&&inPlayer);document.title='Study Desk';visibility(arcade&&inPlayer&&!paused);$('pauseCover').hidden=!paused;$('pauseGame').textContent=paused?'Resume':'Pause';$('frame').inert=paused;$('frame').tabIndex=paused?-1:0;if(!arcade||!inPlayer||paused)releaseFullscreen();if(!arcade)$('card').focus();else if(inPlayer)$(paused?'resumeGame':'frame').focus();else $('search').focus({preventScroll:true})}
 function toggle(){arcade=!arcade;show();if(arcade&&!inPlayer)drawGames()}
-function openCollection(returnToGame=false){window.selectEntertainment?.('games',false);arcade=true;inPlayer=false;show();drawGames();if(returnToGame&&playing)focusGame(playing)}
+function openCollection(returnToGame=false){if(location.hash==='#study')history.replaceState(null,'','#games');window.selectEntertainment?.('games',false);arcade=true;inPlayer=false;show();drawGames();if(returnToGame&&playing)focusGame(playing)}
 function record(g){hub.recent=[g.id,...hub.recent.filter(x=>x!==g.id)].slice(0,20);storeJson(HUB_KEY,hub)}
 let loadingTimer,loadAttempt=0,currentLoad=null;
 const loadMessage=el('span'),loadActions=el('div',undefined,'load-actions'),retryLoad=button('Retry game',()=>restartCurrent()),loadCollection=button('Back to collection',()=>openCollection(true));
@@ -133,10 +164,11 @@ $('frame').onload=()=>{
 };
 $('restartGame').onclick=restartCurrent;
 $('openGames').onclick=()=>openCollection();
-function openHash(){if(['#games','#movies','#tv'].includes(location.hash)){openCollection();window.selectEntertainment?.(location.hash.slice(1),false)}}
+function openHash(){if(location.hash==='#study'){arcade=false;show();return}if(['','#games','#movies','#tv'].includes(location.hash)){openCollection();window.selectEntertainment?.(location.hash.slice(1),false)}}
 window.addEventListener('hashchange',openHash);
+document.querySelector('a[href="#study"]').addEventListener('click',event=>{if(location.hash==='#study'){event.preventDefault();openHash()}});
 $('libraryBtn').onclick=()=>openCollection(true);$('switch').onclick=()=>openCollection();
-$('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;$('groupBy').onchange=drawGames;$('sortGames').onchange=drawGames;$('clearFilters').onclick=()=>{$('search').value='';$('genre').value='all';$('groupBy').value='genre';$('sortGames').value='collection';filter='All';drawGames();$('search').focus()};
+$('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;$('groupBy').onchange=drawGames;$('sortGames').onchange=drawGames;$('clearFilters').onclick=()=>{$('search').value='';$('genre').value='all';$('groupBy').value='none';$('sortGames').value='collection';filter='All';playStyle='Everything';drawGames();$('search').focus()};
 window.addEventListener('message',e=>{if(e.source===$('frame').contentWindow&&e.origin===location.origin&&e.data?.type==='study-toggle')toggle()});
 window.addEventListener('keydown',e=>{if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
 reset();drawGames();openHash();refreshStorageNotices();
