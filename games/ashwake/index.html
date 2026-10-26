@@ -15,7 +15,7 @@
     <div class="bar hp"><i id="hpFill"></i><span id="hpText">Health</span></div>
     <div class="bar xp"><i id="xpFill"></i><span id="xpText">Cinders</span></div>
   </div>
-  <p id="readout"><span id="clock">0:00</span><span id="kills">0 moths</span><span id="runEmbers">0 embers</span><span id="rank">Light 1</span></p>
+  <p id="readout"><span id="night">Night 1</span><span id="clock">0:00</span><span id="kills">0 moths</span><span id="runEmbers">0 embers</span><span id="rank">Light 1</span></p>
   <p id="relics"></p>
   <p id="coach" hidden></p>
   <p id="banner" hidden></p>
@@ -25,10 +25,11 @@
   <div class="hero">
     <p class="eyebrow">A watch until dawn</p>
     <h1>Ashwake</h1>
-    <p class="deck">The orchard floods at night. Walk, and the lantern keeps the moths off your wick — until the Bell Warden comes looking.</p>
+    <p class="deck">The orchard floods for two nights. Walk, and the lantern keeps the moths off your wick — first the Bell Warden, then the Hollow Bell.</p>
     <div class="actions">
-      <button id="begin" class="primary" type="button">Begin the watch</button>
-      <button id="beginWick" type="button" hidden>Walk as the Wickling</button>
+      <button id="begin" class="primary" type="button">Walk as the Warden</button>
+      <button id="beginWick" type="button">Walk as the Wickling</button>
+      <p id="keeperNote"></p>
       <button id="openTutorial" type="button">How a watch works</button>
       <button id="soundTitle" type="button">Sound on</button>
     </div>

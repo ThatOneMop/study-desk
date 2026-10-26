@@ -20,6 +20,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-acti
 .bar span{position:absolute;inset:0;font:10px/14px ui-sans-serif,system-ui,sans-serif;letter-spacing:.08em;text-align:center;color:#fff}
 #readout,#relics,#coach,#banner{margin:8px 0 0;font:13px/1.4 ui-sans-serif,system-ui,sans-serif}
 #readout{display:flex;gap:14px;flex-wrap:wrap;letter-spacing:.04em}
+#night{color:#ffd7a8}
 #relics{color:#ffd7a8}
 #coach,#banner{max-width:460px;background:rgba(12,8,14,.72);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
 #banner{font-size:18px;color:var(--gold)}
@@ -31,6 +32,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-acti
 h1{font:500 clamp(68px,10vw,124px)/.84 Georgia,serif;margin:0 0 12px;letter-spacing:-4px;text-shadow:0 12px 40px #000}
 .deck{max-width:34rem;font-size:clamp(18px,2vw,22px);line-height:1.45;color:#f7efe4;text-shadow:0 4px 18px #000}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+#keeperNote{flex-basis:100%;margin:0;max-width:36rem}
 aside{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px 18px 12px;backdrop-filter:blur(8px);align-self:start}
 aside section{margin-bottom:16px}
 #shop button,#achievements{width:100%}
