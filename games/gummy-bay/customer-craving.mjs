@@ -44,6 +44,12 @@ export function noteSale(cravings,npc,strain,qty,day,time){
  return next;
 }
 
+export function cravingState(craving,day){
+ if(!craving)return null;
+ const level=effectiveLevel(craving,day);
+ return {product:craving.t,level,active:level>0,lastDay:craving.lastDay,lastTime:craving.lastTime,askedDay:craving.askedDay,askedTime:craving.askedTime};
+}
+
 export function cravingBudgetBonus(craving,strain,day){
  if(!craving||craving.t!==strain)return 0;
  const level=effectiveLevel(craving,day);

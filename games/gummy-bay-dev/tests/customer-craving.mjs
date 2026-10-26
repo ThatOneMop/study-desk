@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {normalizeCravings,noteSale,effectiveLevel,cravingBudgetBonus,cravingAsk,markAsked} from '../dist/customer-craving.mjs';
+import {normalizeCravings,noteSale,effectiveLevel,cravingBudgetBonus,cravingAsk,markAsked,cravingState} from '../dist/customer-craving.mjs';
 
 assert.deepEqual(normalizeCravings(undefined,5,30),{});
 assert.deepEqual(normalizeCravings([1,2],5,30),{});
@@ -30,6 +30,8 @@ assert.equal(switched[0].level,Math.floor(38*.4)+18);
 assert.equal(switched[0].askedDay,3);
 assert.equal(switched[0].askedTime,40);
 
+assert.equal(cravingState(null,1),null);
+assert.deepEqual(cravingState(loyal[0],2),{product:2,level:38,active:true,lastDay:1,lastTime:0,askedDay:3,askedTime:40});
 assert.equal(cravingBudgetBonus(loyal[0],1,1),0);
 assert.equal(cravingBudgetBonus(loyal[0],2,1),50*.0015);
 assert.equal(cravingBudgetBonus({t:2,level:12,lastDay:1},2,2),0);

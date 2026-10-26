@@ -2,7 +2,7 @@
 
 The playable game in `games/gummy-bay/` is the v123 build plus customer cravings and a 22:00–06:00 curfew. Study Desk still opens it at `games/gummy-bay/index.html`. Entry script is `game.js?v=124`. Save keys stay `gummybay-v3-{story|free}-{1|2|3}` and the save version stays 3.
 
-A repeat sale raises a customer’s craving for that gummy. The effective level eases off after a missed day, a matching craving pays a little more on the next offer, and a strong craving texts for a price without reserving packs. During curfew customers stay at their usual spot, the clock says CURFEW, and heat does not cool off. See `games/gummy-bay-dev/docs/overhaul-v124.md` and `games/gummy-bay-dev/docs/schedule-i-parity.md`.
+A repeat sale raises a customer’s craving for that gummy. The effective level eases off after a missed day, a matching craving pays a little more on the next offer, and a strong craving writes a price request into the existing message thread without reserving packs. During curfew customers stay at their usual spot and heat does not cool off. `gameplaySnapshot()` and `subscribeGameplay` are there for the phone and HUD. This pass does not add a screen. See `games/gummy-bay-dev/docs/overhaul-v124.md` and `games/gummy-bay-dev/docs/schedule-i-parity.md`.
 
 # Gummy Bay v123
 

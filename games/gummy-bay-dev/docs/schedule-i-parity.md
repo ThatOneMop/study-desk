@@ -23,7 +23,7 @@ Status is the playable v124 build. `[x]` is in the game. `[~]` is present with a
 ## Town, heat, and crew
 
 - [x] Five customers with a daily route through town
-- [x] Curfew from 22:00 to 06:00. Customers stay at their usual spot, the clock says CURFEW, and heat does not cool off overnight. Police sight range is unchanged
+- [x] Curfew from 22:00 to 06:00. Customers stay at their usual spot and heat does not cool off overnight. `gameplaySnapshot().curfew` and a `curfew` event expose it. Police sight range is unchanged. The clock label is left for the UI pass
 - [x] Police patrol, suspicion, pursuit, search, and heat from a witnessed sale
 - [~] Hired help is one gardener, one maker, and one sales assistant. There is no district dealer who takes a cut
 - [~] Parcels can be carried and throw notes. They are not a customer dead-drop channel

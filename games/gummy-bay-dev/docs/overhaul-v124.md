@@ -10,11 +10,11 @@ While a text offer is priced, a matching craving with any effective level adds `
 
 At effective level 40 or more, with no open deal and no negotiation in progress, the customer texts asking for a price. Level 80 asks for two. They will not text again for 120 game minutes. The text does not create a deal and does not reserve packs. The check runs about every 15 simulation seconds on the host, and not during a police search.
 
-A player delivery and a walking seller both record the sale. The customer card and the phone list show `Craving <product> · N/100`.
+A player delivery and a walking seller both record the sale. The phone, HUD and contact cards are not changed here. `subscribeGameplay` receives `craving-ask`, `craving-changed` and `curfew`. `gameplaySnapshot()` returns the day, time, heat, curfew flag and one craving record per customer. An ask is also written into the existing message thread, so the current messages list can show it without a new screen.
 
 ## Curfew
 
-From 22:00 through 06:00 the clock gains `· CURFEW`. Each customer’s routine adds a 22:00 stop at their usual meeting spot. Earlier stops are unchanged, including the 20:00 phone stop. Heat stops decaying during curfew. It does not rise just for being outside, and police sight stays on the existing heat bands. Sleep still clears heat and sets the clock to 08:00.
+From 22:00 through 06:00 `gameplaySnapshot().curfew` is true, and a `curfew` event fires when that flag changes. Each customer’s routine adds a 22:00 stop at their usual meeting spot. Earlier stops are unchanged, including the 20:00 phone stop. Heat stops decaying during curfew. It does not rise just for being outside, and police sight stays on the existing heat bands. Sleep still clears heat and sets the clock to 08:00.
 
 ## Saves
 
