@@ -18,7 +18,11 @@ const games=[
  {id:'scrap-orbit',p:'so',hook:'SOGame'},
  {id:'last-match',p:'lm',hook:'LMGame'},
  {id:'burrow-express',p:'be',hook:'BEGame',act:`(async()=>{${w}const r=BEGame.o.run,s=r.status;r.status='running';await w(150);r.status=s})()`},
- {id:'storm-signal',p:'ss',hook:'SSGame',act:`(async()=>{${w}const r=SSGame.o.run;r.scans++;await w(150);r.scans--})()`}
+ {id:'storm-signal',p:'ss',hook:'SSGame',act:`(async()=>{${w}const r=SSGame.o.run;r.scans++;await w(150);r.scans--})()`},
+ {id:'circuit-garden',p:'cg',hook:'CGGame',act:`(async()=>{${w}const r=CGGame.o.run;r.faults++;await w(150);r.faults--})()`},
+ {id:'moss-market',p:'mm',hook:'MMGame',act:`(async()=>{${w}const r=MMGame.o.run;r.rejections++;await w(150);r.rejections--})()`},
+ {id:'threadbound',p:'tb',hook:'TBGame'},
+ {id:'rain-catcher',p:'rc',hook:'RCGame',act:`(async()=>{${w}const r=RCGame.o.run;r.received++;await w(150);r.received--})()`}
 ];
 (async()=>{
  const launch={headless:true,args:['--no-sandbox']};if(process.env.CHROME_PATH)launch.executablePath=process.env.CHROME_PATH;

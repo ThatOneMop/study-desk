@@ -49,10 +49,10 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Last Match | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Burrow Express | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Storm Signal | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Circuit Garden | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Moss Market | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Threadbound | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Rain Catcher | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
+| Circuit Garden | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Moss Market | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Threadbound | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Rain Catcher | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Reefwright | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Counterweight | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lanternwake | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -118,7 +118,8 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Inkline moves toward Slay the Spire: PAGE RECOVERED, INK BLOT, DRAFT A NEW CARD and CARD BOUND calls. Echo Vault moves toward Hitman GO: footstep dust, IN SHADOW, RELIC TAKEN, HEARD YOU!, EXPOSED, CLEAN ESCAPE and CAUGHT. Glasshouse moves toward Botany Manor: SOWN with soil bursts, watering splashes, DAY calls, NEW CROSS!, ORDER DELIVERED and wilt warnings. Pocket Expedition moves toward The Long Dark: LEAVING CAMP, NEW SITE, FOUND!, HURT ON THE TRAIL, RATIONS LOW and HOME SAFE.
 - Spore Kitchen moves toward Potion Craft: PLANTED, HARVESTED, SERVED stars and SERVICE COMPLETE. Bolt & Bristle moves toward PowerWash Simulator: dust, rust and spark bursts per plate, NO CURRENT YET on a failed test and an IT HUMS! fanfare. Roof Runner moves toward Celeste: jump and dash sounds, dash trails, hard-landing shake, parcel and checkpoint calls, FELL and DELIVERED.
 - Feedback pass 2 (Scrap Orbit, Last Match, Burrow Express, Storm Signal) uses the same feedback-only `juice-kit.js` plus a per-game `juice.js` and saved header Sound toggle. Scrap Orbit moves toward Hardspace: Shipbreaker: UNDOCKED, COUPLED, CABLE RELEASED, HULL KNOCK shake, CARGO DOCKED counts and JOB DONE. Last Match moves toward Don't Starve's lantern nights (kept family-friendly): flash bursts, STUNNED, SHADOW FADES, EMBER, OIL TOPPED UP, KNOCKED BACK and DAWN REACHED. Burrow Express moves toward Mini Metro and Railbound: track clicks, ALL ABOARD, wheel ticks, HELD AT SIGNAL, ALL PARCELS IN and SIGNAL FAILURE. Storm Signal moves toward Return of the Obra Dinn's deduction desk: RESCAN, SIGNAL LOGGED, MISREAD, BOAT AWAY, CREW HOME SAFE and WATCH ENDS.
+- Feedback pass 3 (Circuit Garden, Moss Market, Threadbound, Rain Catcher) uses the same feedback-only kit and saved Sound toggle. Circuit Garden moves toward Dorfromantik's cosy building: module clicks, GRID LIVE, BEDS GROW, BROWNOUT shake, SEASON IN BLOOM and GRID TRIPPED. Moss Market moves toward Moonlighter's shopkeeping: TRADE MADE, CRAFTED, ORDER FILLED n/3, OFFER DECLINED, MARKET DAY DONE and STALL CLOSED EARLY. Threadbound moves toward a Worms-style rope swing: hook and release sounds, hard-landing shake, SILVER SEED counts, KNOT TIED, FELL and LANTERN KINDLED. Rain Catcher moves toward Timberborn's water shaping: dig bursts, CISTERN OPEN/SHUT, RAIN CAUGHT, GARDENS DRINK, DOORSTEP WET, GARDENS RESTORED, FLOODED and SEASON CLOSED.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 56, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 60, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
 
