@@ -44,8 +44,9 @@ async function assertCataloguePagesClean(){
  const context={window:{}};
  vm.runInNewContext(fs.readFileSync(path.join(root,'catalog.js'),'utf8'),context);
  const games=context.window.GAME_CATALOG;
- assert.deepEqual(games.filter(game=>game.type==='external').map(game=>game.id),['nightshift-empire']);
- const local=games.filter(game=>game.type!=='external');
+ const external=Array.from(games,game=>game.type==='external'?String(game.id):'').filter(Boolean);
+ assert.deepEqual(external,['nightshift-empire']);
+ const local=Array.from(games).filter(game=>game.type!=='external');
  const launch={headless:true,args:['--no-sandbox','--disable-dev-shm-usage']};
  if(process.env.CHROME_PATH)launch.executablePath=process.env.CHROME_PATH;
  const browser=await chromium.launch(launch);
