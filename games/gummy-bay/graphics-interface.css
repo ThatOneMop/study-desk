@@ -68,3 +68,83 @@ body.mouseCaptured #view{cursor:none}
 @media(max-width:800px){#carryHint{bottom:170px;font-size:9px}}
 
 .parcel-notes{margin-top:25px;border-top:1px solid #c7ad7338;padding-top:18px}.parcel-notes article{padding:3px 15px;border-left:2px solid #9f8654;margin-top:18px;background:#bfa77508}.parcel-notes article h3{font:600 13px ui-monospace,monospace}
+.device-keys{grid-template-columns:repeat(5,minmax(0,1fr))}
+.device-keys button{font-size:8px;letter-spacing:0;padding:8px 1px;min-height:44px}
+body:not(.titleMode) .statbox>div:nth-child(1),body:not(.titleMode) .statbox>div:nth-child(2),body:not(.titleMode) .statbox>div:nth-child(4){top:16px;bottom:auto;text-align:right}
+body:not(.titleMode) .statbox>div:nth-child(1){left:auto;right:250px}
+body:not(.titleMode) .statbox>div:nth-child(2){left:auto;right:150px}
+body:not(.titleMode) .statbox>div:nth-child(3){top:58px;right:18px}
+body:not(.titleMode) .statbox>div:nth-child(4){right:18px}
+body:not(.titleMode) .statbox>div:nth-child(5){display:none}
+#compass{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:min(440px,48vw);height:58px;z-index:4;pointer-events:none}
+.compass-window{position:relative;height:100%;overflow:hidden;border-bottom:1px solid #d7c56a66;background:linear-gradient(#141c1ae0,transparent)}
+.compass-window>strong{position:absolute;left:50%;bottom:0;transform:translateX(-50%);font-size:11px;letter-spacing:1px;color:#f0e2b4}
+.compass-tick{position:absolute;left:50%;top:0;width:2px;height:16px;background:#f0e2b4}
+.compass-mark{position:absolute;top:4px;transform:translateX(-50%);text-align:center;color:#efe7cf;min-width:48px}
+.compass-mark b{display:block;font-size:13px}.compass-mark em{display:block;font-style:normal;font-size:9px;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.compass-mark small{display:block;color:#d7c56a;font-size:10px}
+#wantedBanner{position:absolute;top:76px;left:50%;transform:translateX(-50%);z-index:6;min-width:220px;padding:8px 14px 9px;text-align:center;background:#3a2218ee;border:1px solid #e0a070;color:#ffe7d2;letter-spacing:1.4px;font-size:13px;font-weight:700}
+#wantedBanner[hidden]{display:none}
+#wantedBanner[data-state="wanted"],#wantedBanner[data-state="armed"]{background:#5a1e18ee;border-color:#ffb0a0}
+#wantedBanner[data-state="arrest"]{background:#241018ee}
+.search-countdown{height:6px;margin-top:6px;background:#140c0a;border-radius:4px;overflow:hidden}
+.search-countdown[hidden]{display:none}
+.search-countdown i{display:block;height:100%;width:0;background:#e7b15a}
+#cashSlot{min-width:62px;background:#243328f2;border-color:#d7e2a8}
+#cashSlot b{color:#d7efb0;font-size:12px}
+.app-badge{position:absolute;top:-4px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#d7c56a;color:#243028;font:700 9px Arial,sans-serif;line-height:16px}
+.phone-app-grid b{position:relative}
+#overlay.phone{align-items:end;justify-items:end;padding:16px 22px 20px;background:#0d141266}
+#overlay.phone .modal{width:360px;height:640px;max-width:calc(100vw - 24px);max-height:min(640px,calc(100dvh - 28px))}
+@media(max-width:700px){body:not(.titleMode) .statbox>div:nth-child(1){right:auto;left:12px;top:12px}body:not(.titleMode) .statbox>div:nth-child(2){right:auto;left:108px;top:12px}body:not(.titleMode) .statbox>div:nth-child(4){top:12px;right:12px}#compass{width:min(240px,54vw);top:48px}#wantedBanner{top:108px;max-width:calc(100vw - 24px)}#overlay.phone{justify-items:center;padding:8px}#overlay.phone .modal{width:min(360px,100%);height:min(640px,calc(100dvh - 16px))}}
+
+/* Town map: the drawing stays short so the place list is on screen. */
+body[data-panel="map"] #modal{width:min(920px,calc(100vw - 24px));max-height:calc(100dvh - 20px);display:flex;flex-direction:column;overflow:hidden}
+body[data-panel="map"] #modal>*{min-height:0}
+body[data-panel="map"] #townOverview{width:100%;height:min(32vh,240px);max-height:34vh;flex:0 1 240px;object-fit:contain;background:#243832;display:block}
+body[data-panel="map"] .town-places{flex:1 1 200px;min-height:180px;overflow:auto;padding-right:4px}
+.shop-buy{display:flex;align-items:center;gap:8px;white-space:normal;text-align:left;min-width:min(240px,100%);max-width:100%;min-height:48px}
+.item .shop-buy{flex:1 1 220px}
+.shop-ico{width:28px;height:28px;display:grid;place-items:center;flex:none;border-radius:6px;background:#243028;color:#f3e4bc;font-size:15px}
+.shop-name{flex:1;font-weight:700;line-height:1.25}
+.shop-price{font-variant-numeric:tabular-nums}
+.shop-cart{margin-top:8px;padding:14px;border:1px solid #c7ad7344;border-radius:8px;background:#14201c}
+.shop-cart h2{display:flex;align-items:center;gap:10px}
+.shop-cart .order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.shop-refund{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px;padding:10px 12px;background:#3a2a18;border:1px solid #e0b56a;border-radius:6px}
+
+/* Hotbar and minimap keep separate lanes at desktop, 960 and phone widths. */
+.hotbar{left:50%;right:auto;bottom:14px;transform:translateX(-50%);width:min(640px,calc(100vw - 220px));max-width:calc(100vw - 24px);gap:4px;padding:5px;z-index:4}
+.hotbar button{width:auto;min-width:0;flex:1 1 0;height:56px;padding:6px 2px}
+#cashSlot{min-width:0;flex:1.2 1 0}
+.mapbox{right:14px;bottom:14px;z-index:4;width:max-content;max-width:168px}
+.mapbox canvas{width:142px;height:122px}
+.mapbox span{display:block;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stamina{bottom:82px;width:min(220px,36vw);z-index:4}
+#toast{top:118px;bottom:auto;z-index:7;max-width:min(420px,calc(100vw - 32px))}
+#carryHint{bottom:148px}
+@media(max-width:1100px) and (min-width:601px){
+ .mapbox{right:10px;bottom:100px;max-width:132px}
+ .mapbox canvas{width:112px;height:96px}
+ .mapbox span{max-width:120px}
+ .controls{right:10px;bottom:236px}
+ .hotbar{width:min(760px,calc(100vw - 24px));bottom:10px}
+ .hotbar button{height:52px}
+ .stamina{bottom:74px}
+ #carryHint{bottom:156px}
+}
+@media(min-width:1280px){
+ .hotbar{width:min(680px,calc(100vw - 240px));bottom:16px}
+ .mapbox{right:16px;bottom:16px;max-width:168px}
+ .mapbox canvas{width:142px;height:122px}
+ .controls{right:16px;bottom:196px}
+}
+@media(max-width:600px){
+ .hotbar{left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));transform:none;max-width:none;width:auto;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:3px}
+ .hotbar button{width:100%;min-width:0;height:50px;padding:3px 0;flex:none}
+ .hotbar button span{font-size:6px;letter-spacing:0}
+ .mapbox{display:none}
+ .stamina{bottom:70px;width:88px}
+ .controls{right:8px;bottom:74px}
+ #toast{top:72px}
+ #carryHint{bottom:124px}
+}
