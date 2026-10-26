@@ -4,13 +4,13 @@ export const PLACES={
  hardware:{x:-24,z:-11,label:'Hank’s Hardware'},store:{x:24,z:-13,label:'the Corner Store'},
  laundry:{x:53,z:34,label:'Suds & Sunshine'},waterfront:{x:12,z:65,label:'the waterfront'}
 };
-export const CURFEW_START=1320,CURFEW_END=360;
+export const CURFEW_START=1260,CURFEW_END=300;
 export function curfewActive(time){const minute=((Number.isFinite(time)?time:0)%1440+1440)%1440;return minute>=CURFEW_START||minute<CURFEW_END;}
 const routine=(morning,lunch,afternoon)=>[
  {at:0,place:'meeting',activity:'rest',line:'Taking it easy before the shops open.'},
  {at:480,...morning},{at:720,...lunch},{at:960,...afternoon},
  {at:1200,place:'meeting',activity:'phone',line:'Winding down. Send me a message if you have something good.'},
- {at:1320,place:'meeting',activity:'curfew',line:'Curfew. I’m staying at my usual spot until morning.'}
+ {at:1260,place:'meeting',activity:'curfew',line:'Curfew. I’m staying at my usual spot until morning.'}
 ];
 export const ROUTINES=[
  routine({place:'motel',activity:'phone',line:'Checking the late-shift roster. A sweet break would help.'},{place:'waterfront',activity:'drink',line:'A little sea air before another shift.'},{place:'laundry',activity:'browse',line:'Picking up my clean work shirt. Again.'}),
