@@ -2215,7 +2215,7 @@ if(cine.flyover){
  cineLoadEl.addEventListener('pointerdown',()=>cineDismiss());
  // v148: hold Esc (ACT1_SKIP_HOLD s) or tap the cutscene to skip it. A tap only counts when the
  // press started during the scene, so the click that starts the game cannot skip the intro.
- addEventListener('keyup',e=>{if(e.key==='Escape')intro.hold=0;},true);
+ addEventListener('keyup',e=>{if(e.key!=='Escape')return;const held=intro.hold?(performance.now()-intro.hold)/1000:0;intro.hold=0;if(held>=ACT1_SKIP_HOLD&&cine.scene&&active)finishArrival();},true);
  cineLoadEl.addEventListener('pointerdown',e=>{intro.down=!!cine.scene&&!e.target?.closest?.('.cine-skip');});
  cineLoadEl.addEventListener('pointerup',()=>{const tap=intro.down;intro.down=false;if(tap&&cine.scene&&active)finishArrival();});
 }

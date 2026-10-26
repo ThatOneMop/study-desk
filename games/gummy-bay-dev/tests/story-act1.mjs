@@ -44,7 +44,7 @@ assert.equal(ACT1_SKIP_HINT,3);assert.equal(act1At(.1).skipHint,true);assert.equ
 assert.ok(ACT1_SKIP_HOLD>=.3&&ACT1_SKIP_HOLD<=1,'a short hold, so a stray Esc does not skip');
 assert.ok(game.includes('Hold <kbd>Esc</kbd> / tap to skip'),'skip hint copy');
 assert.ok(game.includes("if(e.key==='Escape'&&!e.repeat&&!intro.hold)intro.hold=performance.now()")&&game.includes('if(held>=ACT1_SKIP_HOLD){intro.hold=0;finishArrival();return;}'),'holding Esc skips');
-assert.ok(game.includes("addEventListener('keyup',e=>{if(e.key==='Escape')intro.hold=0;},true)"),'releasing Esc early cancels');
+assert.ok(game.includes("addEventListener('keyup',e=>{if(e.key!=='Escape')return;const held=intro.hold?(performance.now()-intro.hold)/1000:0;intro.hold=0;if(held>=ACT1_SKIP_HOLD&&cine.scene&&active)finishArrival();},true)"),'releasing Esc early cancels; releasing after a full hold skips even between slow frames');
 assert.ok(game.includes("if(tap&&cine.scene&&active)finishArrival()"),'a tap that began in the scene skips');
 // People-kit looks: the Gramps mugshot and the mayor's photo use the 3D cast's colours.
 const chy=act1ChyronHtml(act1At(17).chyron);assert.ok(chy.includes('cine-mug')&&chy.includes('#b84a3a')&&chy.includes('#f4f1ea'),'Gramps mugshot: red flannel, white combover and beard');
