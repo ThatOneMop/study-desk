@@ -101,7 +101,7 @@ function drawGames(){
  for(const g of list){
   const groupName=groupMode==='genre'?g.genre:groupMode==='collection'?g.group:'All games';
   if(!sections.has(groupName)){const section=el('section',undefined,'game-section'),heading=el('h2',groupName),items=el('div',undefined,'grid');heading.append(el('small',String(list.filter(item=>(groupMode==='genre'?item.genre:groupMode==='collection'?item.group:'All games')===groupName).length)));section.append(heading,items);grid.append(section);sections.set(groupName,items)}
-  const tile=el('article',undefined,'game'),art=el('div',undefined,'art');art.style.setProperty('--shade',g.color);if(g.thumbnail){const img=el('img');img.src=g.thumbnail;img.alt=g.title+' gameplay';img.loading='lazy';img.width=320;img.height=160;art.append(img)}else art.textContent=g.icon;
+  const tile=el('article',undefined,'game'),art=el('div',undefined,'art');art.style.setProperty('--shade',g.color);if(g.thumbnail){const img=el('img');img.src=g.thumbnail;img.alt=g.title+' gameplay';img.loading='lazy';img.width=320;img.height=160;art.append(img)}else{art.textContent=g.icon;art.setAttribute('aria-hidden','true')}
   const fav=button(hub.favourites.includes(g.id)?'★':'☆',()=>{hub.favourites=hub.favourites.includes(g.id)?hub.favourites.filter(x=>x!==g.id):[...hub.favourites,g.id];storeJson(HUB_KEY,hub);drawGames();focusGame(g.id,'favourite')},'fav');fav.dataset.game=g.id;fav.dataset.action='favourite';fav.setAttribute('aria-label','Favourite '+g.title);fav.setAttribute('aria-pressed',String(hub.favourites.includes(g.id)));
   const body=el('div',undefined,'game-content');body.append(el('div',g.genre+' · '+g.group,'eyebrow'),el('h3',g.title),el('p',g.description));const badges=el('div',undefined,'badges');for(const label of [g.type==='external'?'Official-site link':'Bundled',g.internet?'Internet required':'Local assets',g.id==='lucky-company'?'Solo download':g.id==='doom-web'?'Freedoom data':''])if(label)badges.append(el('span',label));
   const details=el('details');details.append(el('summary','Controls & details'),el('p',g.controls+' · '+g.multiplayer));details.append(badges);const launch=button(g.type==='external'?'Open official site ↗':playing===g.id?'Return to game →':'Play game →',()=>play(g));launch.dataset.game=g.id;launch.dataset.action='play';launch.setAttribute('aria-label',(playing===g.id?'Return to ':'Play ')+g.title);body.append(details,launch);
@@ -303,7 +303,7 @@ function fillShelf(section,row,items,label){
  for(const g of items){
   const card=button('',()=>play(g),'capsule');
   card.setAttribute('aria-label',label+' '+g.title);
-  const art=el('span',g.icon,'capsule-art');art.style.setProperty('--shade',g.color||'#345943');
+  const art=el('span',g.icon,'capsule-art');art.setAttribute('aria-hidden','true');art.style.setProperty('--shade',g.color||'#345943');
   card.append(art,el('span',g.title,'capsule-title'),el('span',g.genre,'capsule-genre'));
   row.append(card);
  }
