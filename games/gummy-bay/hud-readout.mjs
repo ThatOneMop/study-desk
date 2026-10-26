@@ -29,8 +29,11 @@ export function compassView({yaw=0,x=0,z=0,markers=[]}={}){
 export function policeBanner({heat=0,stage='clear',searchRemaining=null,armed=false,duration=4}={}){
  const remaining=Number.isFinite(searchRemaining)?Math.max(0,searchRemaining):null;
  const total=Number.isFinite(duration)&&duration>0?duration:4;
- if(stage==='search'||stage==='arrest')return Object.freeze({visible:true,id:'arrest',label:'UNDER ARREST',countdown:remaining===null?1:Math.max(0,Math.min(1,remaining/total))});
- if(stage==='pursuit')return Object.freeze({visible:true,id:armed===true?'armed':'wanted',label:armed===true?'WANTED - ARMED':'WANTED',countdown:null});
+ if(stage==='search'||stage==='arrest'||stage==='busted')return Object.freeze({visible:true,id:'arrest',label:stage==='busted'?'BUSTED':'UNDER ARREST',countdown:remaining===null?1:Math.max(0,Math.min(1,remaining/total))});
+ if(stage==='all-units')return Object.freeze({visible:true,id:'wanted',label:'ALL UNITS',countdown:remaining===null?null:Math.max(0,Math.min(1,remaining/total))});
+ if(stage==='pursuit')return Object.freeze({visible:true,id:armed===true?'armed':'wanted',label:armed===true?'WANTED - ARMED':'WANTED',countdown:remaining===null?null:Math.max(0,Math.min(1,remaining/total))});
+ if(stage==='suspicious')return Object.freeze({visible:true,id:'called',label:'SUSPICIOUS',countdown:remaining===null?null:Math.max(0,Math.min(1,remaining/total))});
+ if(stage==='investigating')return Object.freeze({visible:true,id:'called',label:'INVESTIGATING',countdown:remaining===null?null:Math.max(0,Math.min(1,remaining/total))});
  if(stage==='stop'||stage==='watching'||(Number.isFinite(heat)&&heat>=40))return Object.freeze({visible:true,id:'called',label:'POLICE CALLED',countdown:null});
  return Object.freeze({visible:false,id:'clear',label:'',countdown:null});
 }

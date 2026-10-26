@@ -10,7 +10,7 @@ import {gritMaterial,createStreetWear} from './gritty-streets.mjs?v=111';
 import {roundResidentAsset} from './resident-rounding.mjs?v=121';
 import {EXTRA_PATROL_ROUTES,expandPoliceRoster} from './patrol-expansion.mjs?v=111';
 import {dressPayphone} from './payphone-detail.mjs?v=111';
-import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=129';
+import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=132';
 import {createArchitectureOverhaul} from './graphics-architecture.mjs?v=110';
 import {createLandscapeOverhaul} from './graphics-landscape.mjs?v=110';
 import {createLifeOverhaul} from './graphics-life.mjs?v=113';
@@ -39,11 +39,11 @@ import {DISTRICT_BUILDING_SITES,DISTRICT_CONTRAST_COLLIDERS,districtArchitecture
 import {createStreetConstruction} from './street-construction.mjs?v=126';
 import {createStarterStreet} from './starter-street.mjs?v=126';
 import {openingCamera,openingDoorstep,insideRvShell} from './opening-shot.mjs?v=122';
-import {createCineOverlay,playWhoosh,playPhoneRing,blendPose} from './cinematics.mjs?v=129';
-import {FLYOVER_MINUTES,flyoverAt} from './loading-flyover.mjs?v=129';
-import {hintAt} from './hints.mjs?v=129';
-import {createSkyClouds} from './sky-clouds.mjs?v=129';
-import {ACT1_DURATION,act1At,act1PanelHtml,doorstepEyePose} from './story-act1.mjs?v=131';
+import {createCineOverlay,playWhoosh,playPhoneRing,blendPose} from './cinematics.mjs?v=132';
+import {FLYOVER_MINUTES,flyoverAt} from './loading-flyover.mjs?v=132';
+import {hintAt} from './hints.mjs?v=132';
+import {createSkyClouds} from './sky-clouds.mjs?v=132';
+import {ACT1_DURATION,act1At,act1PanelHtml,doorstepEyePose} from './story-act1.mjs?v=132';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
@@ -56,6 +56,16 @@ import {normalizeCravings,noteSale,cravingBudgetBonus,cravingAsk,markAsked,cravi
 import {bindGameplayState,emitGameplay,subscribeGameplay} from './gameplay-feed.mjs?v=125';
 import {grantStarter,starterOfferDue,STARTER_TEXT,STARTER_NPC,STARTER_PRODUCT,STARTER_QTY,STARTER_PRICE} from './starter-sale.mjs?v=125';
 import {policeNotice} from './police-notice.mjs?v=125';
+import {firstSaleProtected,normalizeSquadSave} from './sale-shield.mjs?v=132';
+import {inVision} from './police-vision.mjs?v=132';
+import {freshChase,spotChase,stepChase,escalateChase,stageSeconds} from './police-ladder.mjs?v=132';
+import {hideSpotAt,hidingClears} from './hide-spots.mjs?v=132';
+import {stepWitness} from './witness-call.mjs?v=132';
+import {trySlip,spareStack,slipZoneOpen,SLIP_ZONES} from './pocket-slip.mjs?v=132';
+import {bonk,scuffleWeapon,shopWeapons,freshTarget,COP_HEAT} from './scuffle.mjs?v=132';
+import {donutBribe,cashBribe,DONUT_PRICE} from './sugar-bribe.mjs?v=132';
+import {applyBust,bustedTimeline,bustedSample,paintMugshot} from './busted.mjs?v=132';
+import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=132';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
@@ -69,7 +79,7 @@ import {residentLocomotionClip,residentActionRate,applyResidentTransition} from 
 import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
-import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=123';
+import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
 import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=1';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
@@ -98,7 +108,7 @@ import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOut
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
 import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=126';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,createStreetCrowd} from './street-crowd.mjs?v=126';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,createStreetCrowd} from './street-crowd.mjs?v=132';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -583,7 +593,7 @@ previousAction(k,a,b,c);
 };
 ACTION_NAMES.push('payment','ingredient','buyMixer','mix','atmDeposit','atmWithdraw','pickup','recycle');
 const previousAct=act;act=function(){if(active&&!panel&&!work&&near?.type==='litter')action('pickup',near.id);else previousAct()};
-const previousMenu=menu;menu=function(which,data){previousMenu(which,data);if(processingRemote)return;document.body.classList.toggle('titleMode',which==='title');document.body.classList.toggle('hasMenu',!!panel);if(which==='title'){$('modal').innerHTML=`<div class="titleBrand"><span>GUMMY</span><span>BAY</span></div><div class="titleSub">GRAMPS’ LAST CALL</div><nav class="titleNav"><button onclick="slots('story')">STORY / CONTINUE</button><button onclick="slots('free')">FREE PLAY</button><button onclick="menu('join')">MULTIPLAYER</button><button onclick="menu('settings')">SETTINGS</button></nav><div class="titleFooter">A coastal business sandbox<br><span>Original town · fictional gummies · 2-player co-op</span></div>`;return;}
+const previousMenu=menu;menu=function(which,data){previousMenu(which,data);if(processingRemote)return;document.body.classList.toggle('titleMode',which==='title');document.body.classList.toggle('hasMenu',!!panel);if(which==='title'){$('modal').innerHTML=`<div class="titleBrand"><span>GUMMY</span><span>BAY</span></div><div class="titleSub">GRAMPS’ LAST CALL · v131</div><nav class="titleNav"><button onclick="slots('story')">STORY / CONTINUE</button><button onclick="slots('free')">FREE PLAY</button><button onclick="menu('join')">MULTIPLAYER</button><button onclick="menu('settings')">SETTINGS</button></nav><div class="titleFooter">A coastal business sandbox<br><span>Original town · fictional gummies · 2-player co-op</span></div>`;return;}
 if(['reception','hardware','dealer','store','servo','helpers'].includes(which)){$('modal').innerHTML=`<div class="paymentstrip"><span>PAYMENT</span><button class="${s.payment==='cash'?'on':''}" onclick="action('payment','cash')">CASH ${cash(s.cash)}</button><button class="${s.payment==='card'?'on':''}" onclick="action('payment','card')">CARD ${cash(s.bank)}</button></div>`+$('modal').innerHTML;}
 if(which==='hardware')$('modal').innerHTML+=row('Mixing station','Level 2 · one-time equipment purchase. Combine gummies with servo flavourings.',s.mixer?'OWNED':level()<2?'LEVEL 2':'$500',"action('buyMixer')",s.mixer||level()<2||!s.room||availableMoney()<500);
 if(which==='servo'){$('modal').innerHTML+=servoMenuHTML();}
@@ -1063,14 +1073,16 @@ function moveCop(c,i,target,speed,dt){let aim=target;if(!copSight(c,target)){let
 }
 function interruptPoliceWork(){if(stationTask)cancelStation();cancelPlacement();work=null;stationHeld=stationAssist=false;$('work').style.display='none';watering.visible=false;}
 function beginPoliceSearch(role,fled=false){if(net.role==='guest'||!['host','guest'].includes(role))return;let p=ensurePolice();if(p.search||p.cooldown>0)return;p.search={role,remaining:4,fled};interruptPoliceWork();if(role===localPoliceRole()){close();keys={};locomotion.x=locomotion.z=0;driveSpeed=0;toast('Police body search — checking shared carried gummy stock.');}save();}
-function finishPoliceSearch(){const p=ensurePolice(),q=p.search;if(net.role==='guest'||!q)return;let seized=0;for(let key of ['raw','gummies','packs']){seized+=s[key].reduce((a,b)=>a+b,0);s[key]=s[key].map(()=>0);}let fine=seized?Math.min(s.cash,60+seized*8+(q.fled?80:0)):q.fled?Math.min(s.cash,80):0;s.cash-=fine;if(seized){for(let deal of s.deals){if(s.threads[deal.npc]){s.threads[deal.npc].status='cancelled';s.threads[deal.npc].messages.push({mine:false,text:'Your delivery was cancelled after the police seized the stock.'});}}s.deals=[];s.listing=null;p.arrests++;}p.report={seized,fine,role:q.role,day:s.day,time:s.time,fled:!!q.fled};p.search=null;p.cooldown=50;s.heat=seized?25:0;for(let c of p.officers){c.mode='patrol';c.target=null;c.suspicion=0;c.lost=0;}save();toast(seized?'Police seized '+seized+' gummy products · '+cash(fine)+' fine. Stored stock is safe.':fine?'Released · '+cash(fine)+' fine for fleeing.':'Search clear. No illegal gummies found.');}
-function tickPolice(dt){if(net.role==='guest')return;dt=Number.isFinite(dt)?Math.max(0,Math.min(.06,dt)):0;copPathBudget=1;let p=ensurePolice();p.cooldown=Math.max(0,p.cooldown-dt);if(p.search){p.search.remaining-=dt;if(p.search.remaining<=0)finishPoliceSearch();return;}if(!s.made&&!s.sold&&!curfewActive(s.time))return;
+function finishPoliceSearch(){const p=ensurePolice(),q=p.search;if(net.role==='guest'||!q)return;let seized=0;const spared=q.spared;for(const key of ['raw','gummies','packs']){s[key]=s[key].map((qty,index)=>{const have=Number.isFinite(qty)?qty:0;const keep=spared&&spared.key===key&&spared.index===index?Math.min(have,Number(spared.qty)||0):0;seized+=have-keep;return keep;});}let fine=seized?Math.min(s.cash,60+seized*8+(q.fled?80:0)):q.fled?Math.min(s.cash,80):0;s.cash-=fine;if(seized){for(let deal of s.deals){if(s.threads[deal.npc]){s.threads[deal.npc].status='cancelled';s.threads[deal.npc].messages.push({mine:false,text:'Your delivery was cancelled after the police seized the stock.'});}}s.deals=[];s.listing=null;p.arrests++;}p.report={seized,fine,role:q.role,day:s.day,time:s.time,fled:!!q.fled};p.search=null;p.cooldown=50;s.heat=seized?25:0;for(let c of p.officers){c.mode='patrol';c.target=null;c.suspicion=0;c.lost=0;c.squad='';c.grab=0;}if(p.chase)p.chase=freshChase();save();toast(seized?'Police seized '+seized+' gummy products · '+cash(fine)+' fine. Stored stock is safe.':fine?'Released · '+cash(fine)+' fine for fleeing.':'Search clear. No illegal gummies found.');}
+function tickPolice(dt){if(net.role==='guest')return;dt=Number.isFinite(dt)?Math.max(0,Math.min(.06,dt)):0;copPathBudget=1;let p=ensurePolice();p._squadStepped=false;p.cooldown=Math.max(0,p.cooldown-dt);if(p.search){p.search.remaining-=dt;if(p.search.remaining<=0)finishPoliceSearch();return;}if(!s.made&&!s.sold&&!curfewActive(s.time))return;
  const targets=[['host',copTarget('host')],['guest',copTarget('guest')]].filter(a=>a[1]);
- p.officers.forEach((c,i)=>{if(c.mode==='patrol'){const route=policeRoutes[i],t={x:route[c.waypoint][0],z:route[c.waypoint][1]};moveCop(c,i,t,2.2,dt);if(Math.hypot(c.x-t.x,c.z-t.z)<1)c.waypoint=(c.waypoint+1)%route.length;if(p.cooldown)return;let found=null;const notice=policeNotice(s.heat,curfewActive(s.time));for(let [role,t] of targets){let dx=t.x-c.x,dz=t.z-c.z,d=Math.hypot(dx,dz),cone=(Math.sin(c.angle)*dx+Math.cos(c.angle)*dz)/Math.max(.01,d);if(d<notice.range&&(cone>.15||d<4)&&copSight(c,t)){found=[role,t,d];break;}}if(found){c.suspicion=Math.min(100,c.suspicion+dt*notice.suspicion);c.target=found[0];if(c.suspicion>=100){c.mode='stop';c.lost=0;c.lastX=found[1].x;c.lastZ=found[1].z;}}else c.suspicion=Math.max(0,c.suspicion-dt*15);
+ const shielded=firstSaleProtected(s);
+ p.officers.forEach((c,i)=>{if(c.squad){stepSquadOfficer(c,i,dt,p);return;}if(c.mode==='patrol'){const route=policeRoutes[i],t={x:route[c.waypoint][0],z:route[c.waypoint][1]};moveCop(c,i,t,curfewActive(s.time)&&!shielded?3.3:2.2,dt);if(Math.hypot(c.x-t.x,c.z-t.z)<1)c.waypoint=(c.waypoint+1)%route.length;if(p.cooldown)return;let found=null;const notice=policeNotice(s.heat,curfewActive(s.time));for(let [role,t] of targets){let dx=t.x-c.x,dz=t.z-c.z,d=Math.hypot(dx,dz),cone=(Math.sin(c.angle)*dx+Math.cos(c.angle)*dz)/Math.max(.01,d);if(d<notice.range&&(cone>.15||d<4)&&copSight(c,t)){found=[role,t,d];break;}}if(found&&!shielded){c.suspicion=Math.min(100,c.suspicion+dt*notice.suspicion);c.target=found[0];if(c.suspicion>=100){c.mode='stop';c.lost=0;c.lastX=found[1].x;c.lastZ=found[1].z;}}else if(!shielded)c.suspicion=Math.max(0,c.suspicion-dt*15);
  }else{let t=copTarget(c.target);if(!t){c.mode='patrol';return;}let d=Math.hypot(c.x-t.x,c.z-t.z),visible=d<36&&copSight(c,t);if(visible){c.lastX=t.x;c.lastZ=t.z;if(c.mode==='pursuit')c.lost=0;}else if(c.mode==='pursuit')c.lost+=dt;
- if(c.mode==='stop'){c.lost+=dt;if(c.lost>4){c.mode='pursuit';c.lost=0;s.heat=Math.max(70,s.heat);for(let j=0;j<p.officers.length;j++){let backup=p.officers[j];if(j!==i&&Math.hypot(backup.x-c.x,backup.z-c.z)<85){backup.mode='pursuit';backup.target=c.target;backup.lastX=t.x;backup.lastZ=t.z;backup.lost=0;}}}}
- if(c.lost>18&&c.mode==='pursuit'){c.mode='patrol';c.suspicion=0;c.target=null;return;}moveCop(c,i,{x:c.lastX,z:c.lastZ},c.mode==='pursuit'?8.2:4.7,dt);if(d<1.8&&visible&&!t.vehicle)beginPoliceSearch(c.target,c.mode==='pursuit');}
+ if(c.mode==='stop'){c.lost+=dt;if(c.lost>4){c.mode='pursuit';c.lost=0;s.heat=Math.max(70,s.heat);for(let j=0;j<p.officers.length;j++){let backup=p.officers[j];if(j!==i&&Math.hypot(backup.x-c.x,backup.z-c.z)<85&&!backup.squad){backup.mode='pursuit';backup.target=c.target;backup.lastX=t.x;backup.lastZ=t.z;backup.lost=0;}}}}
+ if(c.lost>18&&c.mode==='pursuit'){c.mode='patrol';c.suspicion=0;c.target=null;return;}moveCop(c,i,{x:c.lastX,z:c.lastZ},c.mode==='pursuit'?8.2:4.7,dt);if(d<1.8&&visible&&!t.vehicle&&!shielded)beginPoliceSearch(c.target,c.mode==='pursuit');}
  });
+ if(!shielded)maybeEngageSquad(p);
 }
 const policeAction=doAction;doAction=function(k,a,b,c){let p=ensurePolice(),role=processingRemote?'guest':localPoliceRole();if(p.search)return;if(k==='complyPolice'){let cop=p.officers.find(o=>o.target===role&&o.mode!=='patrol'&&Math.hypot(o.x-player.x,o.z-player.z)<18&&copSight(o,player));if(cop)beginPoliceSearch(role,cop.mode==='pursuit');else if(!processingRemote)toast('Move within 18 m of a visible officer who is stopping you, then press H.');return;}let sold=s.sold;policeAction(k,a,b,c);if(k==='deliver'&&s.sold>sold)for(let officer of p.officers)if(Math.hypot(officer.x-player.x,officer.z-player.z)<26&&copSight(officer,player)){officer.mode='pursuit';officer.target=role;officer.lastX=player.x;officer.lastZ=player.z;officer.lost=0;s.heat=Math.max(85,s.heat);save();}};ACTION_NAMES.push('complyPolice');
 function complyPolice(){if(!active)return;const feedback=currentPoliceFeedback();if(!feedback.canComply){toast(feedback.message||'No visible officer is stopping you within 18 m.');return;}interruptPoliceWork();close();action('complyPolice');}window.complyPolice=complyPolice;
@@ -1078,6 +1090,7 @@ addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h'&&active&&!e.repeat&&
 let policeStage='';
 const policeUpdate=update;update=function(dt){let p=ensurePolice(),searching=p.search?.role===localPoliceRole();if(active&&p.search)interruptPoliceWork();if(searching){keys={};locomotion.x=locomotion.z=0;driveSpeed=0;if(panel)close();}policeUpdate(dt);if(active&&(!panel||p.search)&&net.role!=='guest')tickPolice(dt);
  p.officers.forEach((c,i)=>{let g=officers[i];g.position.set(c.x,terrainHeight(c.x,c.z),c.z);g.rotation.y=c.angle;g.userData.legs?.forEach((leg,j)=>leg.rotation.x=Math.sin(now*(c.mode==='pursuit'?13:7)+j*Math.PI)*.35);});
+ syncSquadCast();
  const feedback=currentPoliceFeedback();
  $('policeHUD').hidden=!active||!feedback.message;$('policeStatus').textContent=feedback.message;$('policeComply').hidden=!['stop','pursuit'].includes(feedback.stage);$('policeComply').disabled=!feedback.canComply;
  if(feedback.stage==='pursuit'&&policeStage!=='pursuit'){playTone(430,.25,.035);toast('Police pursuit. Nearby patrols are responding.');}policeStage=feedback.stage;
@@ -1206,7 +1219,7 @@ let visualPrevious=performance.now();
 const visualRender=renderFrame;
 renderFrame=function(){
  const t=performance.now(),dt=Math.max(0,Math.min(.08,(t-visualPrevious)/1000));visualPrevious=t;
- for(const a of visualActors){const distance=a.g.position.distanceTo(camera.position);a.body.visible=distance<(quality==='performance'?75:125);if(a.body.visible)actorAnimation(a,dt,distance);else a.previous.copy(a.g.position);}
+ for(const a of visualActors){const distance=a.g.position.distanceTo(camera.position);const nearRig=distance<(quality==='performance'?75:125);a.body.visible=nearRig&&!a.isCop;if(nearRig)actorAnimation(a,dt,distance);else a.previous.copy(a.g.position);}
  residentFootSilhouettes.update({active});
  chunkyCast?.update({now,camera});
  streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked});
@@ -1229,7 +1242,7 @@ if(typeof GLTFLoader!=='undefined')new GLTFLoader().load('./assets/equipment-v11
 
 // V12: progression, explicit worker assignments and transactional batches.
 const normalize11=normalize;
-normalize=function(v){normalize11(v);v.tutorialHidden??=false;v.staffConfig??={};for(const role of ['gardener','crafter','seller'])v.staffConfig[role]=normalizeStaffRole(role,v.staffConfig[role],BASE_COUNT);v.cravings=normalizeCravings(v.cravings,CONTACTS.length,STRAINS.length);grantStarter(v);v.knownRecipes=v.knownRecipes&&typeof v.knownRecipes==='object'&&!Array.isArray(v.knownRecipes)?v.knownRecipes:{};for(let i=BASE_COUNT;i<STRAINS.length;i++)if(((v.gummies?.[i]||0)+(v.packs?.[i]||0)+(v.storedPacks?.[i]||0))>0&&STRAINS[i].recipeKey)v.knownRecipes[STRAINS[i].recipeKey]=true;return v;};normalize(s);
+normalize=function(v){normalize11(v);v.tutorialHidden??=false;v.staffConfig??={};for(const role of ['gardener','crafter','seller'])v.staffConfig[role]=normalizeStaffRole(role,v.staffConfig[role],BASE_COUNT);v.cravings=normalizeCravings(v.cravings,CONTACTS.length,STRAINS.length);grantStarter(v);normalizeSquadSave(v);v.knownRecipes=v.knownRecipes&&typeof v.knownRecipes==='object'&&!Array.isArray(v.knownRecipes)?v.knownRecipes:{};for(let i=BASE_COUNT;i<STRAINS.length;i++)if(((v.gummies?.[i]||0)+(v.packs?.[i]||0)+(v.storedPacks?.[i]||0))>0&&STRAINS[i].recipeKey)v.knownRecipes[STRAINS[i].recipeKey]=true;return v;};normalize(s);
 STORY[3].text='At Hank’s buy one tent ($100), a watering can ($15), trimmers ($10) and a packaging station ($100). These are reusable.';
 STORY[3].done=()=>s.tents>0&&s.can&&s.trimmers&&s.packStation;
 STORY[4].done=()=>s.planted>0||(s.seeds.some(n=>n>0)&&s.soil>0);
@@ -1383,7 +1396,7 @@ const wire11=wireChannel;wireChannel=function(ch){wire11(ch);const oldMessage=ch
  ch.onclose=()=>{if(net.ch!==ch)return;oldClose?.();net.peerPoseSeenAt=null;pendingCommands.clear();keys={};if(net.role==='guest'){if(stationTask)cancelStation();menu('network');toast('Host disconnected. Shared actions are paused; your personal saves are safe.');}};
 };
 // Loud running or a moving van draws attention only nearby and through an unobstructed path.
-const police12=tickPolice;tickPolice=function(dt){dt=Number.isFinite(dt)?Math.max(0,Math.min(.06,dt)):0;police12(dt);if(net.role==='guest')return;if(!s.made&&!s.sold&&!curfewActive(s.time))return;const p=ensurePolice();if(p.cooldown||p.search)return;const loud=driving?Math.abs(driveSpeed)>5:!!(walk&&keys.shift);if(loud)for(const cop of p.officers)if(cop.mode==='patrol'&&Math.hypot(cop.x-player.x,cop.z-player.z)<(driving?14:7)&&copSight(cop,player)){cop.target='host';cop.angle=Math.atan2(player.x-cop.x,player.z-cop.z);cop.suspicion=Math.min(100,cop.suspicion+dt*12);}};
+const police12=tickPolice;tickPolice=function(dt){dt=Number.isFinite(dt)?Math.max(0,Math.min(.06,dt)):0;police12(dt);if(net.role==='guest')return;if(firstSaleProtected(s))return;if(!s.made&&!s.sold&&!curfewActive(s.time))return;const p=ensurePolice();if(p.cooldown||p.search)return;const loud=driving?Math.abs(driveSpeed)>5:!!(walk&&keys.shift);if(loud)for(const cop of p.officers)if(cop.mode==='patrol'&&!cop.squad&&Math.hypot(cop.x-player.x,cop.z-player.z)<(driving?14:7)&&copSight(cop,player)){cop.target='host';cop.angle=Math.atan2(player.x-cop.x,player.z-cop.z);cop.suspicion=Math.min(100,cop.suspicion+dt*12);}};
 const menu12=menu;menu=function(which,data){menu12(which,data);if(which==='pause')$('modal').innerHTML+=row('Position recovery','Use only if you are inside blocked geometry. Unavailable during police encounters.','Recover position','recoverPosition()',!blocked(player.x,player.z));if(which==='network')$('modal').innerHTML+='<p class="note">Commands use receipts and duplicate protection. A guest must be at the relevant shop or station. If disconnected, rejoin with a new invite; the host’s save is authoritative.</p>';};window.menu=menu;
 
 // Optional low-detail rigs keep the same skeleton and animation clips.
@@ -3073,3 +3086,429 @@ const mixProductRows=phoneProductRows;phoneProductRows=function(){
 Object.assign(window,{previewMix,nameRecipe,dismissMixReveal});
 // Dev-only screenshot hook (?mixqa=1): stocks a save and runs a mix with a chosen stir, skipping the walk.
 if(typeof location!=="undefined"&&/[?&]mixqa=1\b/.test(location.search))window.__mixQa={setup(xp=200,cashAmount=2000){if(!s)return 'no save';s.room=s.room||true;s.xp=Math.max(s.xp,xp);s.cash=Math.max(s.cash,cashAmount);for(let i=0;i<BASE_COUNT;i++)s.gummies[i]=Math.max(s.gummies[i]||0,6);s.ingredients=PANTRY.map(()=>6);save();updateUI();return level();},mix(base,ing,stir=.95){s.mixer=s.mixer||true;lastStir=stir;const keep=physicalActionAccess;physicalActionAccess=()=>null;try{doAction('mix',base,ing);}finally{physicalActionAccess=keep;}return s.mixed;},station(base,ing){s.mixer=s.mixer||true;const at=points.find(p=>p.type==='mix'&&pointVisible(p));if(at){player.x=at.x+.6;player.z=at.z+.6;}const keep=physicalActionAccess;physicalActionAccess=()=>null;try{action('mix',base,ing);}finally{physicalActionAccess=keep;}if(stationTask){stationTask.step=1;stationTask.progress=.45;paintStation();}return !!stationTask;},state:()=>({level:level(),seed:s?.mixSeed,book:Object.keys(s?.mixBook||{}).length})};
+// Sugar Squad. The old 4s stop / 18s pursuit loop still runs for officers who
+// are not on a chase, so the day harness and the search tests keep their timing.
+let squadCast=null,squadDizzy=null,squadAwake=false,squadPressure=0,hideWas='',bustPlaying=null,netSlowUntil=0,netMash=0;
+const squadHits=new Map(),squadWitnesses=[];
+function squadQaDay(){try{return new URLSearchParams(location.search).get('qa')==='day';}catch{return false;}}
+function squadLive(){return active&&!squadQaDay()&&!firstSaleProtected(s);}
+function ensureChase(p){if(!p.chase||typeof p.chase.stage!=='string')p.chase=freshChase();return p.chase;}
+function clearSquad(p,note){
+ const police=p||ensurePolice();
+ police.chase=freshChase();
+ squadPressure=0;
+ for(const cop of police.officers){if(!cop.squad)continue;cop.mode='patrol';cop.target=null;cop.suspicion=0;cop.lost=0;cop.grab=0;cop.squad='';}
+ if(note)toast(note);
+}
+function copSeesPlayer(cop){return inVision({x:cop.x,y:1.55,z:cop.z,angle:cop.angle},{x:player.x,y:player.y||1.2,z:player.z},{sight:(a,b)=>copSight(a,b)}).seen;}
+function squadWakeFrom(event){
+ if(!squadLive())return;
+ const key=event?.key?.toLowerCase?.()||'';
+ if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].includes(key)||event?.target?.dataset?.key)squadAwake=true;
+}
+function maybeEngageSquad(p){
+ if(!squadLive()||!squadAwake||p.search||p.cooldown>0)return;
+ const chase=p.chase;
+ if(chase&&chase.stage&&chase.stage!=='clear')return;
+ let best=null,bestD=Infinity;
+ p.officers.forEach((cop,index)=>{
+  if(cop.squad||cop.mode!=='patrol'||(cop.ko||0)>0)return;
+  const seen=inVision({x:cop.x,y:1.55,z:cop.z,angle:cop.angle},{x:player.x,y:1.2,z:player.z},{sight:(a,b)=>copSight(a,b)});
+  if(!seen.seen||seen.distance>=bestD)return;
+  best=index;bestD=seen.distance;
+ });
+ if(best==null)return;
+ const cop=p.officers[best];
+ const stage=curfewActive(s.time)?'investigating':'suspicious';
+ p.chase=spotChase(freshChase(),stage);
+ cop.squad=p.chase.stage;cop.target=localPoliceRole();cop.grab=0;cop.lost=0;cop.suspicion=70;cop.mode='patrol';
+ toast(stage==='investigating'?'Curfew. A Sugar Squad officer is looking into you.':'A Sugar Squad officer is suspicious.');
+}
+function joinBackup(p,lead){
+ const stage=p.chase?.stage;
+ if(stage!=='pursuit'&&stage!=='all-units'||p.chase.backup)return;
+ p.chase.backup=true;
+ for(const other of p.officers){
+  if(other===lead||other.squad||other.mode!=='patrol')continue;
+  if(Math.hypot(other.x-lead.x,other.z-lead.z)>85)continue;
+  other.squad=stage;other.target=localPoliceRole();other.grab=0;other.lost=0;other.mode='pursuit';
+ }
+}
+function stepSquadOfficer(cop,i,dt,p){
+ const chase=ensureChase(p);
+ if(chase.stage==='clear'){cop.squad='';cop.mode='patrol';cop.target=null;cop.suspicion=0;cop.grab=0;return;}
+ if((cop.ko||0)>0){cop.ko=Math.max(0,cop.ko-dt);cop.mode='patrol';return;}
+ const seen=copSeesPlayer(cop);
+ if(!p._squadStepped){
+  p._squadStepped=true;
+  const wasDistracted=(chase.distracted||0)>0;
+  const distracted=Math.max(0,(chase.distracted||0)-dt);
+  const stepped=stepChase(chase,dt,seen&&!wasDistracted);
+  p.chase={...stepped,distracted,backup:chase.backup===true};
+  if(seen&&!wasDistracted&&keys.shift&&(keys.w||keys.arrowup)){
+   squadPressure+=dt;
+   if(squadPressure>3&&p.chase.stage!=='clear'){p.chase=escalateChase(p.chase);p.chase.backup=false;squadPressure=0;toast('You bolted. The squad steps it up.');}
+  }else if(!seen)squadPressure=Math.max(0,squadPressure-dt);
+  if(p.chase.stage==='clear'){clearSquad(p,'They lost you.');return;}
+ }
+ if(p.chase.stage==='clear'||!cop.squad)return;
+ const stage=p.chase.stage;
+ cop.squad=stage;
+ if(stage==='pursuit'||stage==='all-units')cop.mode='pursuit';
+ else{cop.mode='patrol';cop.suspicion=70;cop.lost=0;}
+ joinBackup(p,cop);
+ if((p.chase.distracted||0)>0)return;
+ const speed=(cop.slowUntil>now?0.45:1)*({suspicious:3.4,investigating:5.4,pursuit:8.2,'all-units':8.6}[stage]||4);
+ moveCop(cop,i,{x:player.x,z:player.z},speed,dt);
+ const distance=Math.hypot(cop.x-player.x,cop.z-player.z);
+ if((stage==='pursuit'||stage==='all-units')&&distance<5.5&&netSlowUntil<=now&&Math.random()<dt*0.35){netSlowUntil=now+3;netMash=0;toast('Sticky net. Mash E to tear it off.');}
+ if(distance<2.6&&seen&&!driving&&(cop.slowUntil||0)<=now){
+  cop.grab=(cop.grab||0)+dt;
+  if(cop.grab>1.75){
+   cop.grab=0;
+   if(stage==='pursuit'||stage==='all-units')performBust();
+   else beginPoliceSearch(localPoliceRole(),false);
+  }
+ }else cop.grab=0;
+}
+function squadWakeSpot(){
+ const origin={x:6,z:4};
+ if(!blocked(origin.x,origin.z))return origin;
+ for(let ring=1;ring<=8;ring++)for(let step=0;step<8;step++){
+  const x=origin.x+Math.cos(step*Math.PI/4)*ring*1.6,z=origin.z+Math.sin(step*Math.PI/4)*ring*1.6;
+  if(!blocked(x,z))return {x,z};
+ }
+ return {x:player.x,z:player.z};
+}
+function showBustDom(sample){
+ let root=document.getElementById('bustedCut');
+ if(!root&&document.createElement){
+  root=document.createElement('div');
+  root.id='bustedCut';
+  if(typeof root.innerHTML==='string')root.innerHTML='<div class="bust-bar top"></div><div class="bust-bar bottom"></div><div class="bust-flash"></div><canvas class="bust-mug" width="160" height="200"></canvas><strong class="bust-stamp"></strong><p class="bust-note"></p>';
+  document.body?.appendChild?.(root);
+  try{paintMugshot(root.querySelector?.('canvas'),(s.day||1)*17+Math.round(s.cash||0));}catch{}
+ }
+ if(!root)return;
+ root.hidden=false;
+ root.style?.setProperty?.('--bust-bar',Math.round((sample?.letterbox||0)*100)+'%');
+ const flash=root.querySelector?.('.bust-flash');if(flash)flash.style.opacity=String(Math.max(0,Math.min(1,sample?.flash||0)));
+ const stamp=root.querySelector?.('.bust-stamp');if(stamp)stamp.textContent=sample?.text||'';
+ const note=root.querySelector?.('.bust-note');
+ if(note&&bustPlaying)note.textContent=(bustPlaying.fine?cash(bustPlaying.fine)+' fine · carried gummies confiscated · ':'')+'wake 07:00';
+}
+function hideBustDom(){const root=document.getElementById('bustedCut');if(root)root.hidden=true;}
+function tickBust(dt){
+ if(!bustPlaying)return;
+ bustPlaying.t+=dt;
+ const sample=bustedSample(bustPlaying.scene,bustPlaying.t);
+ showBustDom(sample);
+ if(bustPlaying.t>=bustPlaying.scene.duration){bustPlaying=null;hideBustDom();}
+}
+function performBust(){
+ if(bustPlaying||net.role==='guest')return;
+ const result=applyBust({cash:s.cash,bank:s.bank,day:s.day,time:s.time,heat:s.heat,raw:s.raw,gummies:s.gummies,packs:s.packs,storedPacks:s.storedPacks});
+ s.cash=result.state.cash;s.day=result.state.day;s.time=result.state.time;s.heat=result.state.heat;
+ s.raw=result.state.raw;s.gummies=result.state.gummies;s.packs=result.state.packs;
+ const p=ensurePolice();
+ if(result.seized){for(const deal of s.deals){if(s.threads[deal.npc]){s.threads[deal.npc].status='cancelled';s.threads[deal.npc].messages.push({mine:false,text:'Your delivery was cancelled after the police seized the stock.'});}}s.deals=[];s.listing=null;}
+ p.arrests=(p.arrests||0)+1;p.cooldown=50;p.search=null;
+ p.report={seized:result.seized,fine:result.fine,role:localPoliceRole(),day:s.day,time:s.time,fled:true};
+ clearSquad(p);
+ const spot=squadWakeSpot();player.x=spot.x;player.z=spot.z;
+ try{syncPlayerView();}catch{}
+ bustPlaying={scene:bustedTimeline(),t:0,fine:result.fine,seized:result.seized};
+ showBustDom(bustedSample(bustPlaying.scene,0));
+ save();
+}
+function squadSeen(){return ensurePolice().officers.some(cop=>cop.squad&&(cop.ko||0)<=0&&copSeesPlayer(cop));}
+function tickHide(){
+ const spot=hideSpotAt(player.x,player.z);
+ const id=spot?.id||'';
+ if(id&&id!==hideWas){
+  const p=ensurePolice();
+  const result=hidingClears(p.chase||freshChase(),{inside:true,seen:squadSeen()});
+  if(result.cleared)clearSquad(p,'You slip into the '+spot.label.toLowerCase()+'. They walk on.');
+  else if(p.chase&&p.chase.stage!=='clear'&&squadSeen())toast('They saw you duck into the '+spot.label.toLowerCase()+'.');
+ }
+ hideWas=id;
+}
+function tickWitnesses(dt){
+ if(!squadWitnesses.length)return;
+ const p=ensurePolice();
+ for(let i=squadWitnesses.length-1;i>=0;i--){
+  const next=stepWitness(squadWitnesses[i],dt,{crime:true});
+  if(!next.called){squadWitnesses[i]=next;continue;}
+  squadWitnesses.splice(i,1);
+  if(!squadLive()&&!(p.chase&&p.chase.stage!=='clear'))continue;
+  if(!p.chase||p.chase.stage==='clear')p.chase=spotChase(freshChase(),curfewActive(s.time)?'investigating':'suspicious');
+  p.chase=escalateChase(p.chase);
+  const lead=p.officers.find(cop=>cop.squad)||p.officers.find(cop=>cop.mode==='patrol');
+  if(lead){lead.squad=p.chase.stage;lead.target=localPoliceRole();if(p.chase.stage==='pursuit'||p.chase.stage==='all-units')lead.mode='pursuit';}
+  toast('Someone phoned the Sugar Squad.');
+ }
+}
+function nearestWitness(){
+ const crowd=streetCrowd?.people||[];
+ let best=null,bestD=12;
+ crowd.forEach((person,index)=>{const distance=Math.hypot(person.x-player.x,person.z-player.z);if(distance<bestD){best=index;bestD=distance;}});
+ return best;
+}
+function noteWitness(){
+ if(!streetCrowd?.people)return;
+ if(squadWitnesses.some(item=>item.state==='calling'))return;
+ const who=nearestWitness();
+ if(who==null)return;
+ streetCrowd.people[who].callUntil=now+4;
+ squadWitnesses.push({state:'calling',left:4,called:false});
+}
+function markDizzy(x,z,style,seconds){squadDizzy={x,y:terrainHeight(x,z)+1.2,z,style:style||'stars',until:now+Math.max(0.45,seconds||0.6)};}
+function squadTool(){const id=s.squadTool&&s.gear?.includes(s.squadTool)?s.squadTool:'shove';return scuffleWeapon(id);}
+function faceDot(x,z){const dx=x-player.x,dz=z-player.z,distance=Math.hypot(dx,dz)||1;return (Math.sin(yaw)*dx+Math.cos(yaw)*dz)/distance;}
+function bonkTarget(){
+ const weapon=squadTool(),range=weapon.range||1.2;
+ let best=null,bestD=range;
+ const consider=(kind,index,x,z,extra)=>{
+  const distance=Math.hypot(x-player.x,z-player.z);
+  if(distance>range||faceDot(x,z)<0.2||distance>=bestD)return;
+  best={kind,index,x,z,distance,...extra};bestD=distance;
+ };
+ (streetCrowd?.people||[]).forEach((person,index)=>consider('crowd',index,person.x,person.z));
+ ensurePolice().officers.forEach((cop,index)=>consider('cop',index,cop.x,cop.z,{cop}));
+ CONTACTS.forEach((person,index)=>consider('npc',index,person.x,person.z));
+ return best;
+}
+function doBonk(){
+ if(!active||panel||work||driving||bustPlaying)return;
+ if(ensurePolice().search)return;
+ const weapon=squadTool();
+ if(weapon.id!=='shove'&&!(s.gear||[]).includes(weapon.id)){toast('That is not in your bag.');return;}
+ const target=bonkTarget();
+ if(!target){toast('Nobody close enough.');return;}
+ const key=target.kind+':'+target.index;
+ const hit=bonk(squadHits.get(key)||freshTarget(),weapon,Math.random());
+ squadHits.set(key,hit.target);
+ playTone(weapon.id==='pan'?140:220,.12,.04);
+ if(hit.kind==='net'){
+  if(target.cop){target.cop.slowUntil=now+(weapon.slowFor||3);toast('The net sticks. They slow down.');}
+  else toast('The net sticks.');
+  return;
+ }
+ if(hit.ko)markDizzy(target.x,target.z,hit.style,hit.down);
+ else markDizzy(target.x,target.z,'stars',0.55);
+ if(target.kind==='crowd'){
+  if(hit.ko){streetCrowd.knock(target.index,hit.down,now);streetCrowd.people[target.index].koStyle=hit.style;}
+  noteWitness();
+  if(hit.ko)toast('They sit down dizzy for a few seconds.');
+ }
+ if(target.kind==='npc'&&hit.ko)toast(CONTACTS[target.index].name+' sits down seeing '+(hit.style==='birdies'?'birdies':'stars')+'.');
+ if(target.kind==='cop'&&target.cop){
+  s.heat=Math.min(100,(s.heat||0)+COP_HEAT);
+  target.cop.ko=hit.ko?hit.down:0.8;
+  const p=ensurePolice();
+  if(squadLive()||(p.chase&&p.chase.stage&&p.chase.stage!=='clear')){
+   if(!p.chase||p.chase.stage==='clear')p.chase=spotChase(freshChase(),'suspicious');
+   p.chase=escalateChase(p.chase);p.chase.backup=false;
+   target.cop.squad=p.chase.stage;target.cop.target=localPoliceRole();
+   target.cop.mode=p.chase.stage==='pursuit'||p.chase.stage==='all-units'?'pursuit':'patrol';
+  }
+  markDizzy(target.cop.x,target.cop.z,hit.ko?hit.style:'stars',target.cop.ko);
+  toast(hit.ko?'The officer sits down dizzy. Heat is up.':'The officer felt that. Heat is up.');
+ }
+}
+function cycleSquadTool(){
+ const gear=(s.gear&&s.gear.length)?s.gear:['shove'];
+ const at=Math.max(0,gear.indexOf(s.squadTool));
+ s.squadTool=gear[(at+1)%gear.length];
+ toast(scuffleWeapon(s.squadTool).name);
+}
+function tryDonut(){
+ const p=ensurePolice();
+ const result=donutBribe(p.chase||freshChase(),s.donuts||0);
+ if(!result.ok){toast(result.reason==='stage'?'A donut only works while they are merely suspicious.':'You have no donuts. Buy one at Shady Seconds.');return;}
+ s.donuts=result.donuts;p.chase={...result.chase,backup:p.chase?.backup===true};save();
+ toast('They take the donut. Ten seconds to slip away.');
+}
+function tryCashBribe(){
+ const p=ensurePolice();
+ const result=cashBribe(p.chase||freshChase(),s.cash,Math.random());
+ if(!result.ok){toast(result.reason==='short'?'Not enough cash in hand.':result.reason==='stage'?'Nobody is close enough to offer.':'They wave the cash off.');return;}
+ s.cash=result.cash;clearSquad(p,'They look the other way.');save();
+}
+function buyGear(id){
+ const item=scuffleWeapon(id);
+ if(!item||!item.shop)return;
+ if(s.gear.includes(item.id)){toast('You already have the '+item.name.toLowerCase()+'.');return;}
+ if(!spend(item.price))return;
+ s.gear.push(item.id);s.squadTool=item.id;save();toast(item.name+' is yours. Z cycles what you are holding.');menu('shady');
+}
+function buyDonut(){
+ if((s.donuts||0)>=99){toast('Your bag is full of donuts.');return;}
+ if(!spend(DONUT_PRICE))return;
+ s.donuts=(s.donuts||0)+1;save();toast('A donut. Press N when an officer is only suspicious.');menu('shady');
+}
+function takePan(){
+ if(s.foundPan||s.gear.includes('pan')){toast('The pan is already in your bag.');close();return;}
+ if(Math.hypot(player.x-SQUAD_PAN.x,player.z-SQUAD_PAN.z)>3.2){toast('Walk up to the pan.');return;}
+ s.foundPan=true;if(!s.gear.includes('pan'))s.gear.push('pan');s.squadTool='pan';save();
+ toast('A dented frying pan. Three bonks and they sit down dizzy.');close();
+}
+function tryPocketSlip(){
+ const q=ensurePolice().search;
+ if(!q||q.role!==localPoliceRole()||q.spared)return;
+ const time=4-(q.remaining||0);
+ let zone=-1;
+ for(let i=0;i<SLIP_ZONES;i++)if(slipZoneOpen(time,i))zone=i;
+ const result=trySlip({time,zone,skill:Math.min(1,(s.sold||0)/8),roll:Math.random()});
+ if(!result.ok){toast(result.reason==='window'?'Wrong moment. Watch the pocket bar.':'They felt that pocket.');return;}
+ const spare=spareStack(s,zone<0?0:zone);
+ if(!spare){toast('Your pockets are empty.');return;}
+ q.spared=spare;
+ toast('One stack stays in the pocket.');
+}
+function paintSlip(){
+ let bar=document.getElementById('slipBar');
+ const q=s.police?.search;
+ const show=!!(q&&q.role===localPoliceRole()&&active);
+ if(!show){if(bar)bar.hidden=true;return;}
+ if(!bar){bar=document.createElement('div');bar.id='slipBar';bar.innerHTML='<span></span><span></span><span></span><span></span><em>SPACE slips one stack</em>';document.body.appendChild(bar);}
+ bar.hidden=false;
+ const time=4-(q.remaining||0);
+ if(typeof bar.querySelectorAll!=='function')return;
+ [...bar.querySelectorAll('span')].forEach((node,index)=>node.classList?.toggle('open',slipZoneOpen(time,index)));
+}
+function syncSquadCast(){
+ if(!squadCast){try{squadCast=createSquadCast({THREE,scene,capacity:Math.max(10,officers.length)});}catch(error){console.warn('Sugar Squad cast skipped',error);squadCast={update(){}};return;}}
+ const chase=s.police?.chase;
+ const dizzy=squadDizzy&&squadDizzy.until>now?{...squadDizzy,panTaken:!!s.foundPan}:{panTaken:!!s.foundPan};
+ squadCast.update({officers:s.police?.officers||[],now,floor:(x,z)=>terrainHeight(x,z),showCone:!!(chase&&(chase.stage==='suspicious'||chase.stage==='investigating')),dizzy,legacy:[]});
+}
+const squadMenu=menu;menu=function(which,data){
+ squadMenu(which,data);
+ if(which==='journal'&&$('modal'))$('modal').innerHTML+='<p>The Sugar Squad can lose you. Break their line of sight and the search timer runs out, or step into a dumpster, a porta-loo or a hedge while they cannot see you. A donut (N) buys ten seconds when they are only suspicious. A cash offer (U) is a coin toss and never touches the bank. They will not stop you before your first sale. Curfew stays 21:00 to 05:00. Q bonks with whatever you are holding (Z to cycle): a shove, a foam baton, a frying pan, a slingshot or a sticky net. Shady Seconds sells them. A pan is also lying around town.</p>';
+ if(which==='shady'&&$('modal')){
+  const rows=shopWeapons().map(item=>'<div class="item"><div><strong>'+esc(item.name)+'</strong><p>'+(s.gear.includes(item.id)?'In your bag.':'Cartoon bonk · '+cash(item.price))+'</p></div><button class="primary" '+(s.gear.includes(item.id)?'disabled':'')+' onclick="buyGear(\''+item.id+'\')">'+(s.gear.includes(item.id)?'OWNED':cash(item.price))+'</button></div>').join('');
+  $('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="overline">SHADY SECONDS</div><h2>Nothing sharp.</h2><p>Foam, a pan, a slingshot, a sticky net. Three bonks and they sit down seeing stars. Donuts distract a suspicious officer.</p>'+rows+'<div class="item"><div><strong>Donut</strong><p>You are holding '+(s.donuts||0)+'.</p></div><button class="primary" onclick="buyDonut()">'+cash(DONUT_PRICE)+'</button></div>';
+ }
+ if(which==='pan')takePan();
+};window.menu=menu;
+Object.assign(window,{buyGear,buyDonut,takePan});
+addPoint('shady',SQUAD_SHOP.label,SQUAD_SHOP.x,SQUAD_SHOP.z+1.2);
+addPoint('pan',SQUAD_PAN.label,SQUAD_PAN.x,SQUAD_PAN.z);
+addEventListener('keydown',event=>{squadWakeFrom(event);},{capture:true});
+addEventListener('pointerdown',event=>{squadWakeFrom(event);},{capture:true});
+addEventListener('keydown',event=>{
+ if(!active||event.repeat||event.metaKey||event.ctrlKey||event.altKey)return;
+ const tag=document.activeElement?.tagName;
+ if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;
+ const key=event.key.toLowerCase();
+ if(netSlowUntil>now&&key==='e'){netMash++;if(netMash>=4){netSlowUntil=0;netMash=0;toast('You tear the net off.');}event.preventDefault();event.stopImmediatePropagation();return;}
+ if(bustPlaying&&(key===' '||key==='enter'||key==='escape')){bustPlaying.t=bustPlaying.scene.duration;tickBust(0);event.preventDefault();event.stopImmediatePropagation();return;}
+ if(key===' '&&ensurePolice().search){tryPocketSlip();event.preventDefault();return;}
+ if(panel||work)return;
+ if(key==='q'){event.preventDefault();doBonk();}
+ else if(key==='z')cycleSquadTool();
+ else if(key==='n')tryDonut();
+ else if(key==='u')tryCashBribe();
+},true);
+const squadPaint=paintHudReadout;paintHudReadout=function(){
+ squadPaint();
+ const chase=s.police?.chase;
+ if(!chase||chase.stage==='clear'||bustPlaying||!$('wantedBanner'))return;
+ const banner=policeBanner({stage:chase.stage,searchRemaining:chase.searching?chase.left:null,duration:stageSeconds(chase.stage)||4,heat:s.heat,armed:false});
+ const plate=$('wantedBanner');
+ plate.hidden=!active||!banner.visible;plate.dataset.state=banner.id;
+ if($('wantedLabel'))$('wantedLabel').textContent=banner.label;
+ const bar=$('searchCountdown'),fill=$('searchFill');
+ if(bar)bar.hidden=banner.countdown===null;
+ if(fill&&banner.countdown!==null)fill.style.width=Math.round(banner.countdown*100)+'%';
+};
+const squadUpdate=update;update=function(dt){
+ if(bustPlaying){keys={};locomotion.x=locomotion.z=0;}
+ const x0=player.x,z0=player.z;
+ squadUpdate(dt);
+ if(!active)return;
+ paintSlip();
+ if(bustPlaying)tickBust(dt);
+ if(net.role==='guest')return;
+ tickHide();
+ tickWitnesses(dt);
+ if(squadDizzy&&squadDizzy.until<=now)squadDizzy=null;
+ if(netSlowUntil>now){player.x=x0+(player.x-x0)*0.4;player.z=z0+(player.z-z0)*0.4;locomotion.x*=0.4;locomotion.z*=0.4;}
+};
+const squadRender=renderFrame;renderFrame=function(){
+ squadRender();
+ if(!bustPlaying)return;
+ const sample=bustedSample(bustPlaying.scene,bustPlaying.t);
+ const ox=player.x,oy=(player.y||1.6)-1.45,oz=player.z;
+ camera.fov=sample.pose.fov;camera.updateProjectionMatrix();
+ camera.position.set(ox+sample.pose.x,oy+sample.pose.y,oz+sample.pose.z);
+ camera.lookAt(ox+sample.pose.lookX,oy+sample.pose.lookY,oz+sample.pose.lookZ);
+ if(effects)effects.render();else renderer.render(scene,camera);
+};
+function gummySquadPreview(mode='spotted'){
+ if(!active)load('story',1,true);
+ const overlay=document.getElementById('overlay');if(overlay)overlay.hidden=true;
+ if(document.body?.dataset)document.body.dataset.panel='';panel='';
+ bustPlaying=null;hideBustDom();
+ s.sold=Math.max(1,s.sold||0);
+ const p=ensurePolice(),cop=p.officers[0];
+ cop.ko=0;cop.grab=0;cop.target='host';
+ if(mode==='spotted'){
+  player.set(8,1.62,14);cop.x=8;cop.z=2;cop.angle=0;s.time=600;
+  p.chase=spotChase(freshChase(),'suspicious');cop.squad='suspicious';cop.mode='patrol';cop.suspicion=80;
+ }else if(mode==='chase'){
+  player.set(6,1.62,12);cop.x=6;cop.z=4;cop.angle=0;s.time=1140;
+  p.chase={stage:'pursuit',left:35,searching:true};cop.squad='pursuit';cop.mode='pursuit';
+ }else if(mode==='hiding'){
+  player.set(8,1.62,6.6);cop.x=13.5;cop.z=12.5;cop.angle=Math.atan2(8-13.5,6.6-12.5);s.time=700;
+  p.chase={stage:'investigating',left:12,searching:true};cop.squad='investigating';cop.mode='patrol';cop.suspicion=80;
+ }else if(mode==='bonk'){
+  const person=streetCrowd?.people?.[0];
+  player.set(person?person.x+1.4:-4,1.62,person?person.z+0.2:8);s.time=640;yaw=Math.atan2((person?.x||0)-player.x,(person?.z||0)-player.z);
+  if(person){streetCrowd.knock(0,5.2,now);person.koStyle='stars';markDizzy(person.x,person.z,'stars',5.2);}
+  p.chase=freshChase();cop.squad='';cop.mode='patrol';
+ }else{
+  player.set(6,1.62,8);s.time=900;s.cash=Math.max(s.cash||0,200);
+  bustPlaying={scene:bustedTimeline(),t:2,fine:60,seized:4};
+  showBustDom(bustedSample(bustPlaying.scene,2));
+  cop.x=6;cop.z=5;cop.angle=Math.PI;cop.squad='all-units';cop.mode='pursuit';
+  p.chase={stage:'all-units',left:45,searching:false};
+ }
+ if(mode!=='bonk'){yaw=0;pitch=.12;}
+ syncPlayerView();
+ syncSquadCast();
+ if(streetCrowd)streetCrowd.update({dt:0,now:now+1,time:s.time,camera,active:true,floorHeight,blocked});
+ renderFrame();
+ if(mode!=='busted'){
+  const person=streetCrowd?.people?.[0];
+  const look=mode==='hiding'?{x:9.2,y:1.05,z:7.4}:mode==='bonk'?{x:person?.x||player.x,y:1.35,z:person?.z||player.z}:mode==='chase'?{x:6,y:1.2,z:8}:{x:8,y:.7,z:8};
+  const back=mode==='bonk'?{x:-2.1,z:-1.5}:mode==='hiding'?{x:-3.4,z:-2.6}:mode==='chase'?{x:-4.2,z:-1.2}:{x:-6.5,z:-7.2};
+  const up=mode==='bonk'?1.15:mode==='spotted'?5.4:2.6;
+  camera.fov=mode==='spotted'?52:46;camera.updateProjectionMatrix();
+  camera.position.set(look.x+back.x,look.y+up,look.z+back.z);
+  camera.lookAt(look.x,look.y,look.z);
+  if(effects)effects.render();else renderer.render(scene,camera);
+ }
+ if(active)paintHudReadout();
+ const pivot=squadCast?.cone;
+ return {mode,stage:p.chase?.stage||'clear',x:+player.x.toFixed(2),z:+player.z.toFixed(2),cone:pivot?{vis:!!pivot.visible,x:+pivot.position.x.toFixed(2),y:+pivot.position.y.toFixed(2),z:+pivot.position.z.toFixed(2)}:null,banner:document.getElementById('wantedLabel')?.textContent||'',bust:document.querySelector('.bust-stamp')?.textContent||''};
+}
+window.gummySquadPreview=gummySquadPreview;
+function gummySquadChaseFrame(step=0){
+ const info=gummySquadPreview('chase');
+ const cop=ensurePolice().officers[0];
+ const z=2+Number(step)*0.42;
+ cop.z=z;cop.angle=0;cop.mode='pursuit';cop.squad='pursuit';cop.target='host';
+ player.set(6,1.62,12);now+=0.12;s.time=1140;
+ syncSquadCast();
+ const look={x:6,y:1.15,z:(z+12)/2};
+ camera.fov=46;camera.updateProjectionMatrix();
+ camera.position.set(look.x-4.2,look.y+2.6,look.z-1.2);
+ camera.lookAt(look.x,look.y,look.z);
+ if(effects)effects.render();else renderer.render(scene,camera);
+ if(active)paintHudReadout();
+ return {step,z:+z.toFixed(2),banner:info.banner};
+}
+window.gummySquadChaseFrame=gummySquadChaseFrame;
+syncSquadCast();
