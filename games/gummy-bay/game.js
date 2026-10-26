@@ -32,6 +32,7 @@ import {readExchangeReceipt,exchangeRequest,matchExchangeReceipt,exchangeGesture
 import {worldLighting,sunOffset,selectPracticalLights} from './world-lighting.mjs?v=122';
 import {gfxLightGrade,createGroundOcclusion,gfxLerpHex} from './gfx-lighting.mjs?v=150';
 import {createMaterialAtlas,patchWorldMaterials} from './gfx-materials.mjs?v=151';
+import {detailParts,createDetailMesh,decalSpots,createDecals,createLowCull} from './gfx-detail.mjs?v=152';
 import {atmosphericDistancePlan} from './atmospheric-distance.mjs?v=103';
 import {SCRUFFY_WELCOME_SITES,SCRUFFY_WELCOME_COLLIDERS,scruffyWelcomeProfile,scruffyWelcomeMounted,createScruffyWelcome} from './scruffy-welcome.mjs?v=126';
 import {workshopEquipment,assemblyWording} from './equipment-guide.mjs?v=39';
@@ -3896,6 +3897,23 @@ window.__gummyGfx={occlusion:()=>gfxOcclusion?{verts:gfxOcclusion.verts,opacity:
 const gfxMaterialUniforms={gfxAtlas:{value:null},gfxStrength:{value:1}};let gfxPatched=0,gfxPatchTimes=[];
 function gfxPatchWorld(){if(!gfxMaterialUniforms.gfxAtlas.value)gfxMaterialUniforms.gfxAtlas.value=createMaterialAtlas(THREE);gfxMaterialUniforms.gfxStrength.value=quality==='performance'?.75:1;gfxPatched+=patchWorldMaterials(scene,gfxMaterialUniforms);return gfxPatched;}
 window.__gummyMaterials={patched:()=>gfxPatched,patch:gfxPatchWorld};
+// v152 graphics pass step 3: gutters, pipes, AC units, vents, sills, wires, alley clutter (one mesh),
+// wear decals (one mesh) and a Low-only far-prop cull that pays for them.
+let gfxDetail=null,gfxDecals=null;const gfxLowCull=createLowCull(THREE,scene);
+function gfxBuildDetail(){
+ if(gfxDetail)return;const ray=new THREE.Raycaster(),down=new THREE.Vector3(0,-1,0),from=new THREE.Vector3(),targets=scene.children.filter(o=>/^(Static batch|Blender environment|City expansion|Coastal architecture)/.test(o.name||'')||o.isMesh&&!o.name&&o.geometry?.type==='BoxGeometry');
+ const buildings=[];
+ for(const c of colliders){if(c.cityProp||!(c.w>=4&&c.d>=4&&c.w<60&&c.d<60))continue;from.set(c.x,60,c.z);ray.set(from,down);ray.far=62;
+  const hit=ray.intersectObjects(targets,true).find(h=>!h.object.material?.transparent&&h.object.material?.side!==THREE.BackSide);if(!hit)continue;
+  const g=terrainHeight(c.x,c.z),h=hit.point.y-g;if(h>=2.8&&h<=30)buildings.push({x:c.x,z:c.z,w:c.w,d:c.d,h,ground:g});}
+ const wires=[];for(let z=-66;z<=66;z+=22){if(Math.abs(z)<14)continue;wires.push({a:[-11.5,6.3,z],b:[11.5,6.1,z+1.5],sag:.7});}
+ for(const a of NARROW_ALLEY_PROFILES.filter(Boolean))wires.push({a:[a.x-a.w/2+.6,5.6,a.z],b:[a.x+a.w/2-.6,5.4,a.z+.8],sag:.5});
+ buildings.sort((p,q)=>Math.hypot(p.x,p.z-10)-Math.hypot(q.x,q.z-10));for(let i=buildings.length-1;i>0;i--)if(buildings.slice(0,i).some(o=>Math.abs(o.x-buildings[i].x)<1.5&&Math.abs(o.z-buildings[i].z)<1.5))buildings.splice(i,1);
+ gfxDetail=createDetailMesh(THREE,scene,detailParts(buildings,{alleys:NARROW_ALLEY_PROFILES.filter(Boolean),wires}));
+ const walls=[];for(const b of buildings)for(let i=0;i<2;i++)walls.push({x:b.x+(i?b.w/2+.5:-b.w/2-.5),z:b.z+(b.d*.3)*(i?1:-1)});
+ gfxDecals=createDecals(THREE,scene,decalSpots({roads:[{axis:'z',at:0,mid:0,len:150,width:10},{axis:'x',at:0,mid:0,len:150,width:10}],walls}),{height:(x,z)=>Math.max(terrainHeight(x,z),.0)});
+ window.__gummyDetail={buildings:buildings.length,parts:gfxDetail?.parts??0,decals:gfxDecals?.count??0};
+}
 // v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).
 var staticBatcher=null;
@@ -3934,7 +3952,7 @@ if(typeof location!=='undefined'&&!/[?&]batch=0\b/.test(location.search))try{
 staticBatcher=createStaticBatcher(scene);window.__gummyBatcher=staticBatcher;let batchState='waiting';
  const batchRender=renderFrame;renderFrame=function(){
   if(batchState==='waiting'&&townAssetStatus!=='loading'){batchState='built';try{buildSignAtlases();}catch(error){console.warn('Sign atlas skipped',error);}try{for(const o of smallDetails)o.visible=true;window.__gummyBatch=staticBatcher.build();}catch(error){console.warn('Static batching skipped',error);}gfxPatchTimes=[1500,6000,15000,30000].map(ms=>performance.now()+ms);}
-  else if(batchState==='built'){staticBatcher.update(camera);checkSignAtlases();if(gfxPatchTimes.length&&performance.now()>gfxPatchTimes[0]&&!staticBatcher.stats().pending){gfxPatchTimes.shift();try{gfxPatchWorld();}catch(error){gfxPatchTimes.length=0;console.warn('Gfx materials skipped',error);}}}
+  else if(batchState==='built'){staticBatcher.update(camera);checkSignAtlases();gfxLowCull.update(camera,quality);if(gfxPatchTimes.length&&performance.now()>gfxPatchTimes[0]&&!staticBatcher.stats().pending){gfxPatchTimes.shift();try{gfxPatchWorld();}catch(error){console.warn('Gfx materials skipped',error);}try{gfxBuildDetail();}catch(error){gfxPatchTimes.length=0;console.warn('Gfx materials skipped',error);}}}
   batchRender();
  };
 }catch(error){console.warn('Static batching unavailable',error);}
