@@ -3768,7 +3768,14 @@ function refreshRvPosters(){
 }
 try{
  const door=arcadeDoor();
- if(door){arcadePoint=addPoint('arcade','Lucky Pier Arcade · Prize tickets',door.x,door.z);}
+ if(door){arcadePoint=addPoint('arcade','Lucky Pier Arcade · Prize tickets',door.x,door.z);
+  // A self-lit door panel so the way in reads at night without adding scene lights.
+  const biz=cityExpansion.businesses.find(b=>b.key==='arcade'),c=document.createElement('canvas');c.width=256;c.height=320;const g=c.getContext('2d');
+  if(g&&biz){g.fillStyle='#14072a';g.fillRect(0,0,256,320);g.shadowColor='#ff5fb8';g.shadowBlur=18;g.strokeStyle='#ff5fb8';g.lineWidth=10;g.strokeRect(14,14,228,292);g.shadowColor='#43e8ff';g.strokeStyle='#43e8ff';g.lineWidth=5;g.strokeRect(34,90,188,200);
+   g.fillStyle='#ffe066';g.shadowColor='#ffd23f';g.font='900 44px "Trebuchet MS",sans-serif';g.textAlign='center';g.fillText('ARCADE',128,66);g.font='900 30px sans-serif';g.fillStyle='#fff';g.fillText('ENTER',128,180);g.font='800 20px sans-serif';g.fillStyle='#7dff6a';g.fillText('TICKETS · PRIZES',128,230);
+   const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;const fx=Math.sin(biz.rot),fz=Math.cos(biz.rot);
+   const sign=new THREE.Mesh(new THREE.PlaneGeometry(1.6,2),new THREE.MeshBasicMaterial({map:tex,toneMapped:false,fog:false}));sign.name='Lucky Pier door glow';sign.position.set(door.x-fx*1.72,1.15+terrainHeight(door.x,door.z),door.z-fz*1.72);sign.rotation.y=biz.rot;scene.add(sign);}
+ }
  arcadeUI=createArcadeUI({
   state:()=>s,spend:n=>spend(n),save:()=>{save();updateUI();},toast:m=>toast(m),day:()=>s.day||1,
   audio:()=>({ctx:audioContext,enabled:soundEnabled}),emit:cue=>{if(window.townAudio?.emit)window.townAudio.emit(cue,{x:player.x,z:player.z});},
@@ -3787,6 +3794,8 @@ try{
  const arcadeClose=close;close=function(){if(arcadeUI?.open){arcadeUI.leave();return;}arcadeClose();};window.closeMenu=close;
  const arcadeLoad=resetSystems;resetSystems=function(){arcadeLoad();normalizeArcade(s);refreshRvPosters();};
  refreshRvPosters();
+ // The neon room covers the screen, so skip drawing the 3D town underneath it.
+ const arcadeRender=renderFrame;renderFrame=function(){if(arcadeUI?.open)return;arcadeRender();};
  window.__arcade={ui:arcadeUI,door:arcadeDoor,point:()=>arcadePoint&&{x:arcadePoint.x,z:arcadePoint.z},
   enter:()=>{if(arcadePoint){player.x=arcadePoint.x;player.z=arcadePoint.z;}menu('arcade');return arcadeUI.open;},
   grant:(tokens=0,tickets=0)=>{normalizeArcade(s);s.arcade.tokens=Math.min(60,s.arcade.tokens+tokens);s.arcade.tickets+=tickets;save();return {...s.arcade};},

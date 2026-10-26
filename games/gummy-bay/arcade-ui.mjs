@@ -10,20 +10,21 @@ const POSTER_ART={'poster-pier':['#2a0f45','#ff5fb8','LUCKY PIER'],'poster-bear'
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hex=n=>'#'+(n>>>0).toString(16).padStart(6,'0');
 
-const CSS=`#arcadeRoot{position:fixed;inset:0;z-index:80;background:#0b0418;color:#f4ecff;font-family:system-ui,sans-serif;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
+const CSS=`#arcadeRoot{position:fixed;inset:0;z-index:2000;background:#0b0418;color:#f4ecff;font-family:system-ui,sans-serif;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
 #arcadeRoot canvas{position:absolute;inset:0;display:block}
 #arcadeHUD{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:10px;align-items:center;z-index:2;pointer-events:none}
 #arcadeHUD>*{pointer-events:auto}#arcadeHUD .arcStat{background:rgba(20,8,40,.8);border:2px solid #ffd23f;border-radius:999px;padding:6px 14px;font-weight:800;box-shadow:0 0 12px rgba(255,210,63,.35)}
 #arcadeHUD .tix{border-color:#ff5fb8;box-shadow:0 0 12px rgba(255,95,184,.4)}
 .arcBtn{font:800 15px system-ui;color:#160a26;background:linear-gradient(#ffe680,#ffc23d);border:0;border-radius:12px;padding:10px 16px;min-height:44px;cursor:pointer;box-shadow:0 0 14px rgba(255,210,63,.45);display:inline-flex;flex-direction:column;align-items:center;justify-content:center}
 .arcBtn small{font-weight:700;opacity:.75}.arcBtn:disabled{filter:grayscale(1);opacity:.45;cursor:default}.arcBtn.ghost{background:rgba(40,18,70,.9);color:#f4ecff;border:2px solid #9b6bff;box-shadow:0 0 10px rgba(155,107,255,.4)}
+#arcadePanel[hidden],#arcadeRoot[hidden]{display:none!important}
 #arcadePanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;background:rgba(8,2,18,.55)}
 .arcCard{background:linear-gradient(#24104a,#160a2c);border:3px solid #ff5fb8;border-radius:20px;padding:20px 24px;max-width:min(560px,92vw);max-height:84vh;overflow:auto;box-shadow:0 0 30px rgba(255,95,184,.45);text-align:center}
 .arcCard.wide{max-width:min(900px,94vw)}.arcCard h2{margin:0 0 6px;font-size:26px;color:#ff9be0;text-shadow:0 0 12px #ff5fb8}.arcCard p{margin:6px 0 12px}.arcCard .dim{opacity:.7}
 .arcRow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}.arcPay{margin:6px 0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.arcGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:10px 0 14px;text-align:left}
+.arcGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px;margin:10px 0 14px;text-align:left}
 .arcPrize{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:8px}
-.arcPrize.owned{border-color:#7dff6a}.arcPrize small{display:block;opacity:.7;font-size:12px}.arcPrize .arcBtn{padding:8px 10px;font-size:13px}
+.arcPrize.owned{border-color:#7dff6a}.arcPrize small{display:block;opacity:.7;font-size:12px}.arcPrize .arcBtn{padding:8px 10px;font-size:13px;max-width:116px}
 .arcSw{display:flex;width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;font-style:normal;font-size:24px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.25)}.arcSw.snack{background:#43e8ff}
 .arcPo{display:flex;width:40px;height:52px;border-radius:4px;align-items:center;justify-content:center;font:900 8px system-ui;font-style:normal;text-align:center;border:2px solid currentColor}
 .arcOwned{color:#7dff6a;font-weight:800;font-size:13px}.arcBig{font:900 56px system-ui;color:#ffe066;text-shadow:0 0 20px #ffd23f}.arcRec{color:#7dff6a;font-weight:800}
@@ -171,7 +172,7 @@ export function createArcadeUI(host){
   const left=Math.max(0,Math.ceil(game.time-game.t));g.font='800 '+Math.round(vp.h*.04)+'px system-ui';g.textAlign='left';g.fillStyle=left<=5?'#ff5f7a':'#f4ecff';g.fillText('⏱ '+left+'s',vp.x+vp.w*.03,vp.y+vp.h*.065);
   g.textAlign='right';g.fillStyle='#ffe066';g.fillText('🎟 '+Math.min(gm.cap,game.score)+(game.score>gm.cap?' (max)':''),vp.x+vp.w*.97,vp.y+vp.h*.065);
   g.save();g.beginPath();rrect(g,f.x,f.y,f.w,f.h,10);g.clip();RENDER[game.id](g,game,f,t);g.restore();neonRect(g,f.x,f.y,f.w,f.h,10,'rgba(255,255,255,.35)',1.5);
-  if(game.message){g.font='800 '+Math.round(vp.h*.035)+'px system-ui';g.textAlign='center';g.fillStyle='rgba(10,4,20,.6)';const mw=g.measureText(game.message).width+30;rrect(g,vp.x+vp.w/2-mw/2,f.y+f.h-vp.h*.07,mw,vp.h*.055,10);g.fill();g.fillStyle='#fff';g.fillText(game.message,vp.x+vp.w/2,f.y+f.h-vp.h*.042);}
+  if(game.message&&hint<=0){g.font='800 '+Math.round(vp.h*.035)+'px system-ui';g.textAlign='center';g.fillStyle='rgba(10,4,20,.7)';const mw=g.measureText(game.message).width+30;rrect(g,vp.x+vp.w/2-mw/2,f.y+vp.h*.02,mw,vp.h*.055,10);g.fill();g.fillStyle='#fff';g.fillText(game.message,vp.x+vp.w/2,f.y+vp.h*.048);}
   if(hint>0){g.globalAlpha=Math.min(1,hint);g.font='700 '+Math.round(vp.h*.03)+'px system-ui';g.fillStyle='#43e8ff';g.textAlign='center';g.fillText(HINTS[game.id],vp.x+vp.w/2,f.y+vp.h*.05);g.globalAlpha=1;}
  }
  const HINTS={claw:'Move: mouse / drag / ◀ ▶ · Drop: click, tap or Space',skee:'Aim: mouse / ◀ ▶ · Hold and release to roll',drop:'Tap, click or Space to drop a gummy',whack:'Tap the bears, or keys Q W E / A S D / Z X C',hoop:'Aim: mouse / ◀ ▶ · Hold and release to shoot'};
@@ -203,7 +204,7 @@ export function createArcadeUI(host){
    g.fillStyle='#2d1a4a';g.fillRect(X(.12),Y(.18),X(.88)-X(.12),Y(DROP_EDGE)-Y(.18));for(let i=0;i<7;i++){g.fillStyle='rgba(255,210,63,.05)';g.fillRect(X(laneX(i))-f.w*.045,Y(.18),f.w*.09,Y(DROP_EDGE)-Y(.18));}
    g.save();g.shadowColor='#ff5fb8';g.shadowBlur=18;g.fillStyle='#ff5fb8';g.fillRect(X(.12),Y(DROP_EDGE)-2,X(.88)-X(.12),4);g.restore();
    const pg=g.createLinearGradient(0,Y(.1),0,Y(st.pusher));pg.addColorStop(0,'#5b3d8f');pg.addColorStop(1,'#a07be0');g.fillStyle=pg;g.fillRect(X(.12),Y(.1),X(.88)-X(.12),Y(st.pusher)-Y(.1));g.fillStyle='#e6d7ff';g.fillRect(X(.12),Y(st.pusher)-4,X(.88)-X(.12),4);
-   const R=DROP_R*f.w*.9;const coin=(c,a=1)=>{const x=X(c.x),y=Y(c.y);g.globalAlpha=a;g.fillStyle=c.gold?'#ffd23f':'#ff8fc8';g.beginPath();g.arc(x,y,R,0,Math.PI*2);g.fill();g.strokeStyle=c.gold?'#a4741a':'#c4487f';g.lineWidth=2;g.stroke();drawBear(g,x,y-R*.15,R*.42,c.gold?'#fff2a8':'#ffd0e4',{face:false});if(c.fresh){g.strokeStyle='#fff';g.globalAlpha=c.fresh*3;g.beginPath();g.arc(x,y,R+4,0,Math.PI*2);g.stroke();}g.globalAlpha=1;};
+   const R=DROP_R*f.h*.95;const coin=(c,a=1)=>{const x=X(c.x),y=Y(c.y);g.globalAlpha=a;g.fillStyle=c.gold?'#ffd23f':'#ff8fc8';g.beginPath();g.arc(x,y,R,0,Math.PI*2);g.fill();g.strokeStyle=c.gold?'#a4741a':'#c4487f';g.lineWidth=2;g.stroke();drawBear(g,x,y-R*.15,R*.42,c.gold?'#fff2a8':'#ffd0e4',{face:false});if(c.fresh){g.strokeStyle='#fff';g.globalAlpha=c.fresh*3;g.beginPath();g.arc(x,y,R+4,0,Math.PI*2);g.stroke();}g.globalAlpha=1;};
    for(const lane of st.lanes)for(const c of lane)coin(c);for(const c of st.falling)coin({...c},Math.max(0,1-c.fall));
    const dx=X(st.dropX);g.fillStyle='#ffd23f';g.beginPath();g.moveTo(dx-22,Y(.02));g.lineTo(dx+22,Y(.02));g.lineTo(dx+10,Y(.09));g.lineTo(dx-10,Y(.09));g.fill();g.fillStyle=st.cooldown>0?'rgba(255,255,255,.2)':'rgba(255,255,255,.6)';g.fillRect(dx-2,Y(.09),4,Y(st.pusher)-Y(.09));
    g.font='800 '+f.h*.045+'px system-ui';g.textAlign='left';g.fillStyle='#fff';g.fillText('GUMMIES '+st.drops,X(.01),Y(.06));},
@@ -222,7 +223,6 @@ export function createArcadeUI(host){
    const ball=(x,y)=>{const r=.03*s;g.fillStyle='#ff8a3d';g.beginPath();g.arc(X(x),Y(y),r,0,Math.PI*2);g.fill();g.strokeStyle='#5a2a0a';g.lineWidth=1.5;g.beginPath();g.moveTo(X(x)-r,Y(y));g.lineTo(X(x)+r,Y(y));g.moveTo(X(x),Y(y)-r);g.lineTo(X(x),Y(y)+r);g.stroke();};
    if(st.phase==='aim'){g.strokeStyle='rgba(255,255,255,.5)';g.lineWidth=3;g.setLineDash([6,7]);g.beginPath();g.moveTo(X(.18),Y(.28));g.lineTo(X(.18+Math.cos(st.angle)*.22),Y(.28+Math.sin(st.angle)*.22));g.stroke();g.setLineDash([]);ball(.18,.28);}
    if(st.ball)ball(st.ball.x,st.ball.y);
-   g.fillStyle='#7a5cff';g.beginPath();g.arc(X(.12),Y(.18),s*.05,0,Math.PI*2);g.fill();
    meterBar(g,f.x+f.w*.02,f.y+f.h*.2,f.w*.025,f.h*.6,st.charging?st.power:0);
    g.font='800 '+f.h*.045+'px system-ui';g.textAlign='left';g.fillStyle='#fff';g.fillText('POINTS '+st.makes+(st.streak>=2?'  🔥'+st.streak:''),f.x+f.w*.06,f.y+f.h*.08);},
  };
@@ -239,7 +239,7 @@ export function createArcadeUI(host){
  function leave(){if(view==='game')endGame(true);open=false;if(root){root.hidden=true;root.classList.remove('playing');}cancelAnimationFrame(raf);hidePanel?.();host.onLeave?.();}
  return {enter,leave,get open(){return open},get view(){return view},get game(){return game},
   // QA hooks: deterministic stepping for screenshots and tests.
-  qa:{select(i){sel=i;},play:playGame,step(n=1,dt=1/60,inp={}){for(let i=0;i<n&&game&&!game.done;i++){input={...inputFresh(),...inp};stepGameFrame(dt);}tick(0);return game;},
+  qa:{select(i){sel=i;},play:playGame,step(n=1,dt=1/60,inp={}){if(inp.px!=null){pointer.x=inp.px;pointer.y=inp.py??.5;}for(let i=0;i<n&&game&&!game.done;i++){input={...inputFresh(),...inp,held:!!inp.down};stepGameFrame(dt);}tick(0);return game&&{id:game.id,t:game.t,score:game.score,done:game.done};},
    end:()=>endGame(false),tokens:showTokens,prizes:showPrizes,lobby:toLobby,render:()=>tick(0),buy,redeem,state:()=>({view,sel,game:game&&{id:game.id,t:game.t,score:game.score,done:game.done},result,arcade:st().arcade})}};
 }
 export {POSTER_ART};

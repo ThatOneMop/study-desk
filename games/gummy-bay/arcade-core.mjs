@@ -18,7 +18,7 @@ export const PRIZES=Object.freeze([
  {id:'grip-mint',name:'Mint grip tape',kind:'grip',cost:60,color:0x7fe6c4,blurb:'Cool mint grip for every board.'},
  {id:'grip-grape',name:'Neon Grape grip tape',kind:'grip',cost:100,color:0x9b6bff,blurb:'Glowy purple grip.'},
  {id:'grip-gold',name:'Glitter Gold grip tape',kind:'grip',cost:220,color:0xf3c241,blurb:'The flex. Sparkly gold grip.'},
- {id:'hat-pier',name:'Lucky Pier cap',kind:'hat',cost:160,color:0x7b3fb5,blurb:'Purple cap with the pier bulb logo. Worn while skating.'},
+ {id:'hat-pier',name:'Lucky Pier cap',kind:'hat',cost:160,color:0x7b3fb5,blurb:'Purple pier cap, worn while skating.'},
  {id:'poster-pier',name:'Lucky Pier neon poster',kind:'poster',cost:120,blurb:'Hangs in the RV.'},
  {id:'poster-bear',name:'Surf Bear poster',kind:'poster',cost:150,blurb:'A gummy bear on a wave. Hangs in the RV.'},
  {id:'poster-kick',name:'Kickflip Container poster',kind:'poster',cost:180,blurb:'Skate spot tribute. Hangs in the RV.'},
