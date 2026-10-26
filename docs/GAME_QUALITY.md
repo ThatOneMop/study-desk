@@ -65,7 +65,7 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Pocket Palaeo | pass | fail | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Static Orchard | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
 | Borrowed Gravity | pass | pass | pass | pass | fail | fail | pass | pass | pass | pass | pass | pass |
-| Tea for Ghosts | pass | fail | pass | pass | fail | fail | pass | pass | pass | fail | pass | pass |
+| Tea for Ghosts | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Garden Gone Rogue | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Rent Is Due | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Grime Time | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -106,7 +106,8 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Little Lake now opens on a pixel title card and keeps records like Stardew Valley's fish collection: each species stores its heaviest catch, the save keeps your best catch by value, and the journal has a Records filter. A catch shows a pixel card with New species, New record, Best catch and Legendary stamps. A Perfect reel, where the marker never leaves the green after the first third, pays +25%.
 - Lucky Company's floor targets now climb like Balatro antes: 90, 135, 175, 220, 265, 315, 370, 430, 495 and 565, instead of a flat 140 + 35 per floor. The Lobby is gentler and Cloud Nine is harder. A Best run badge keeps your best floor, wins and peak chips on this device, and a chime and banner mark a new best floor.
 - Forge Arena battles now have a pause button and P/Esc keys, and they pause automatically when Study Desk hides the game. The pause menu shows kills, damage and time left, with Resume and Leave battle. Hits show a marker at the crosshair and damage numbers; kills show a DESTROYED banner with a boom and screen shake; taking damage flashes a red vignette with a thud. This is modelled on War Robots and Mech Arena hit feedback.
+- Tea for Ghosts leans toward Coffee Talk. It opens on a title card (Open the tearoom, Enter) and visitors speak in a typewriter speech bubble that reacts to each cup, with a face that smiles, hesitates or shivers. Each visitor has their own tint and accessory. Brewing tilts in a teapot and pours the blend's own colour, and a restored memory gets sparkles, a glow and a banner. Synthesised sound covers scoops, pouring, a bell, chimes, and rain with a soft music box, with a Sound toggle. Rest (P/Esc) pauses, and it pauses itself when the tab is hidden. Keys: 1–6 add a scoop, Shift+number removes, T/S/W change the settings, B brews, O offers, Z undoes, R recalls, A pours another cup, N welcomes the next visitor. The first visitor's memory returns at 70 and the second at 75, then 80 as before.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 57, Goals 63, Hints 63, Feedback 36, Curve 34, Saves 63, Best 61, Art 63, Keys 62, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 58, Goals 63, Hints 63, Feedback 37, Curve 35, Saves 63, Best 61, Art 63, Keys 63, Touch 63, Copy 63.
 
