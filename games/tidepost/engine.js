@@ -2,7 +2,7 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.Tidepost=factory()})(globalThis,()=>{
 'use strict';
 const charts=[
- {name:'Milkglass Bay',note:'A sheltered first route. Bring all three mailbags home; dock whenever fuel runs low.',par:27,rows:['#########','#D......#','#..#..A.#','#..#....#','#B...#..#','#.....C.#','#########']},
+ {name:'Milkglass Bay',note:'A sheltered first route with a harbour guide. Follow the gold corners to each mailbag, then home to the dock.',par:30,rows:['#########','#D......#','#..#..A.#','#..#....#','#B...#..#','#.....C.#','#########']},
  {name:'The Sand Letters',note:'Gold shallows open at HIGH tide. Wait at their edge or take the longer route.',par:29,rows:['#########','#D..=..A#','#.##=##.#','#...=...#','#B##.##.#','#.....C.#','#########']},
  {name:'Ribbon Channel',note:'Arrows push you one extra square. Read the destination preview before moving.',par:26,rows:['#########','#D.>>>.A#','#.##.#..#','#..v....#','#B.#.##.#','#..<..C.#','#########']},
  {name:'Bellweather',note:'Squalls cost one hull. Plan repair stops at the dock, or fit a stronger hull before taking a longer crossing.',par:29,rows:['#########','#D..!..A#','#.##.#..#','#..!...!#','#B.#.#..#','#...!.C.#','#########']},
