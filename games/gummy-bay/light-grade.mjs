@@ -2,9 +2,10 @@
 //  1. readabilityGrade(): a bounce fill (one AmbientLight) and lifted hemisphere
 //     colours so undersides, alleys and the overpass soffit are never near-black,
 //     plus a cool moon fill at night. Sun, exposure and the light budget are untouched.
-//  2. createStreetLighting(): instanced lamp posts with emissive heads and additive
-//     fake light pools on the ground (no real lights; ≤3 draw calls, 0 by day).
-//  3. createStylisedTrees(): trunk + clumped canopy trees, two instanced meshes.
+//  2. createStreetDressing(): lamp posts, stylised trees (trunk + clumped canopy) and
+//     planters as plain per-colour merged meshes the static batcher folds into its
+//     town batches; additive light pools + glowing lamp heads are ONE night-only mesh.
+//     No real lights: ~0 extra draw calls by day, +1 after dark.
 import * as THREE from './vendor/three.module.min.js';
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
@@ -41,35 +42,6 @@ function poolTexture(){
  const t=new THREE.DataTexture(data,n,n,THREE.RGBAFormat);t.needsUpdate=true;t.magFilter=THREE.LinearFilter;t.minFilter=THREE.LinearFilter;return t;
 }
 
-export function createStreetLighting({scene,spots=[],soffit=[],height=()=>0}={}){
- const group=new THREE.Group();group.name='Street lighting v134';scene.add(group);
- const n=spots.length,m=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),v=new THREE.Vector3(),sc=new THREE.Vector3();
- const poleMat=new THREE.MeshStandardMaterial({color:0x4d5450,roughness:.7,metalness:.3});
- const headMat=new THREE.MeshStandardMaterial({color:0xf2e2b8,emissive:0xffc27a,emissiveIntensity:.15,roughness:.5});
- const poolMat=new THREE.MeshBasicMaterial({color:0xffb766,map:poolTexture(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,fog:true,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
- const poles=new THREE.InstancedMesh(new THREE.CylinderGeometry(.08,.12,5.4,6),poleMat,Math.max(1,n*2));
- const heads=new THREE.InstancedMesh(new THREE.BoxGeometry(.9,.18,.42),headMat,Math.max(1,n+soffit.length));
- const pools=new THREE.InstancedMesh(new THREE.PlaneGeometry(1,1),poolMat,Math.max(1,n+soffit.length));
- let pi=0,hi=0,li=0;
- for(const s of spots){const y=height(s.x,s.z);
-  // pole, arm reaching over the road, head
-  const ax=s.axis==='z'?0:s.face*.7,az=s.axis==='z'?s.face*.7:0;
-  m.compose(v.set(s.x,y+2.7,s.z),q.identity(),sc.set(1,1,1));poles.setMatrixAt(pi++,m);
-  e.set(s.axis==='z'?Math.PI/2:0,0,s.axis==='z'?0:Math.PI/2);q.setFromEuler(e);m.compose(v.set(s.x+ax*.5,y+5.3,s.z+az*.5),q,sc.set(.7,.26,.7));poles.setMatrixAt(pi++,m);
-  q.setFromEuler(e.set(0,s.axis==='z'?Math.PI/2:0,0));m.compose(v.set(s.x+ax*1.15,y+5.22,s.z+az*1.15),q,sc.set(1,1,1));heads.setMatrixAt(hi++,m);
-  q.setFromEuler(e.set(-Math.PI/2,0,0));m.compose(v.set(s.x+ax*1.6,y+.06,s.z+az*1.6),q,sc.set(10,10,1));pools.setMatrixAt(li++,m);
- }
- for(const s of soffit){ // sodium bars under the overpass deck
-  m.compose(v.set(s.x,s.y,s.z),q.setFromEuler(e.set(0,0,0)),sc.set(2.2,.5,.5));heads.setMatrixAt(hi++,m);
-  q.setFromEuler(e.set(-Math.PI/2,0,0));m.compose(v.set(s.x,height(s.x,s.z)+.07,s.z),q,sc.set(12,9,1));pools.setMatrixAt(li++,m);
- }
- poles.count=pi;heads.count=hi;pools.count=li;
- for(const o of [poles,heads,pools]){o.instanceMatrix.needsUpdate=true;o.computeBoundingSphere?.();o.userData.streetLighting=true;group.add(o);}
- poles.castShadow=true;heads.castShadow=false;pools.castShadow=pools.receiveShadow=false;pools.renderOrder=2;pools.visible=false;
- return {group,poles,heads,pools,count:n,soffit:soffit.length,
-  update(grade){const p=grade?.pools??0;pools.visible=p>0;poolMat.opacity=.5*p;headMat.emissiveIntensity=grade?.heads??.15;}};
-}
-
 // Pure: tree spots from a free-cell predicate, on a jittered lattice.
 export function treeSpots({free,bounds={minX:-280,maxX:280,minZ:-445,maxZ:66},step=9,max=170,seed=7,extra=[]}={}){
  let r=seed>>>0;const rnd=()=>((r=(r*1664525+1013904223)>>>0)/4294967296);
@@ -79,28 +51,6 @@ export function treeSpots({free,bounds={minX:-280,maxX:280,minZ:-445,maxZ:66},st
   if(free(tx,tz))out.push({x:tx,z:tz,s:.8+rnd()*.55,hue:rnd()});
  }
  return out;
-}
-
-export function createStylisedTrees({scene,spots=[],height=()=>0,seed=11}={}){
- let r=seed>>>0;const rnd=()=>((r=(r*1664525+1013904223)>>>0)/4294967296);
- const trunkGeo=new THREE.CylinderGeometry(.16,.26,1,6);trunkGeo.translate(0,.5,0);
- const leafGeo=new THREE.IcosahedronGeometry(1,1);
- const trunkMat=new THREE.MeshStandardMaterial({color:0x6b5640,roughness:.95});
- const leafMat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,flatShading:true});
- const CLUMPS=4,trunks=new THREE.InstancedMesh(trunkGeo,trunkMat,Math.max(1,spots.length)),leaves=new THREE.InstancedMesh(leafGeo,leafMat,Math.max(1,spots.length*CLUMPS));
- const m=new THREE.Matrix4(),q=new THREE.Quaternion(),v=new THREE.Vector3(),sc=new THREE.Vector3(),c=new THREE.Color();
- const greens=[0x5f8a4e,0x6f9a52,0x7fa35a,0x587f53,0x8aa65e];
- let li=0;
- spots.forEach((t,i)=>{const s=t.s??1,y=height(t.x,t.z),h=2.2*s;
-  m.compose(v.set(t.x,y,t.z),q.identity(),sc.set(s,h,s));trunks.setMatrixAt(i,m);
-  const base=greens[Math.floor((t.hue??rnd())*greens.length)%greens.length];
-  for(let k=0;k<CLUMPS;k++){const a=k/CLUMPS*Math.PI*2+rnd(),rad=k?1.05*s:0,cy=y+h+(k?.35:1.05)*s,rr=(k?1.15:1.45)*s*(.9+rnd()*.2);
-   q.setFromAxisAngle(v.set(0,1,0),rnd()*6);m.compose(v.set(t.x+Math.cos(a)*rad,cy,t.z+Math.sin(a)*rad),q,sc.set(rr,rr*.82,rr));leaves.setMatrixAt(li,m);
-   c.setHex(base).offsetHSL((rnd()-.5)*.03,0,(k?-.03:.04)+(rnd()-.5)*.04);leaves.setColorAt(li,c);li++;}
- });
- trunks.count=spots.length;leaves.count=li;
- for(const o of [trunks,leaves]){o.castShadow=true;o.receiveShadow=true;o.instanceMatrix.needsUpdate=true;if(o.instanceColor)o.instanceColor.needsUpdate=true;o.computeBoundingSphere?.();o.name='Stylised trees';scene.add(o);}
- return {trunks,leaves,count:spots.length};
 }
 
 // Pure: street-dressing spots inside a block (Old Town) that never sit on a road band,
@@ -121,12 +71,48 @@ export function dressingSpots({bounds={x0:-78,x1:78,z0:-38,z1:50},roadBands=[],c
  return out;
 }
 
-export function createPlanters({scene,spots=[],height=()=>0}){
- const box=new THREE.BoxGeometry(1.4,.55,1.4);box.translate(0,.275,0);const bush=new THREE.IcosahedronGeometry(.62,1);
- const boxes=new THREE.InstancedMesh(box,new THREE.MeshStandardMaterial({color:0x9a7d5c,roughness:.9}),Math.max(1,spots.length));
- const bushes=new THREE.InstancedMesh(bush,new THREE.MeshStandardMaterial({color:0x6f9a52,roughness:.9,flatShading:true}),Math.max(1,spots.length));
- const m=new THREE.Matrix4(),q=new THREE.Quaternion(),v=new THREE.Vector3(),sc=new THREE.Vector3();
- spots.forEach((p,i)=>{const y=height(p.x,p.z);m.compose(v.set(p.x,y,p.z),q.identity(),sc.set(1,1,1));boxes.setMatrixAt(i,m);m.compose(v.set(p.x,y+.75,p.z),q.setFromAxisAngle(v.set(0,1,0).clone(),p.hue*6),sc.set(1,.8,1));m.setPosition(p.x,y+.75,p.z);bushes.setMatrixAt(i,m);});
- boxes.count=bushes.count=spots.length;for(const o of [boxes,bushes]){o.castShadow=o.receiveShadow=true;o.instanceMatrix.needsUpdate=true;o.computeBoundingSphere?.();scene.add(o);}
- return {boxes,bushes,count:spots.length};
+
+// Merged static dressing. Every part is baked (position, normal, colour, glow uv).
+class Baker{
+ constructor(){this.p=[];this.n=[];this.c=[];this.u=[];this.m=new THREE.Matrix4();this.nm=new THREE.Matrix3();this.col=new THREE.Color();this.v=new THREE.Vector3();}
+ add(geo,matrix,hex,glow=false){const g=geo.index?geo.toNonIndexed():geo;const pos=g.attributes.position,nor=g.attributes.normal;this.nm.getNormalMatrix(matrix);this.col.setHex(hex);
+  const uvs=g.attributes.uv;
+  for(let i=0;i<pos.count;i++){this.v.fromBufferAttribute(pos,i).applyMatrix4(matrix);this.p.push(this.v.x,this.v.y,this.v.z);this.v.fromBufferAttribute(nor,i).applyMatrix3(this.nm).normalize();this.n.push(this.v.x,this.v.y,this.v.z);
+   this.c.push(this.col.r,this.col.g,this.col.b);if(glow||!uvs)this.u.push(.5,.5);else this.u.push(uvs.getX(i),uvs.getY(i));}
+  if(g!==geo)g.dispose();}
+ geometry({colour=true}={}){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(this.p,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(this.n,3));if(colour)g.setAttribute('color',new THREE.Float32BufferAttribute(this.c,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(this.u,2));g.computeBoundingSphere();g.computeBoundingBox();return g;}
+ get verts(){return this.p.length/3;}
+}
+export function createStreetDressing({scene,lamps=[],soffit=[],trees=[],planters=[],height=()=>0,seed=11}={}){
+ let r=seed>>>0;const rnd=()=>((r=(r*1664525+1013904223)>>>0)/4294967296);
+ const parts=new Map(),bake=hex=>{if(!parts.has(hex))parts.set(hex,new Baker());return parts.get(hex);};
+ const G=new Baker(),m=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),v=new THREE.Vector3(),sc=new THREE.Vector3();
+ const pole=new THREE.CylinderGeometry(.08,.12,1,6),cube=new THREE.BoxGeometry(1,1,1),trunk=new THREE.CylinderGeometry(.16,.26,1,6),leaf=new THREE.IcosahedronGeometry(1,1),bush=new THREE.IcosahedronGeometry(.62,1),plane=new THREE.PlaneGeometry(1,1);plane.rotateX(-Math.PI/2);
+ const pool=(x,y,z,w,d,hex)=>G.add(plane,m.compose(v.set(x,y+.07,z),q.identity(),sc.set(w,1,d)),hex,false);
+ const glow=(matrix,hex)=>G.add(cube,matrix,hex,true);
+ for(const s of lamps){const y=height(s.x,s.z),ax=s.axis==='z'?0:s.face,az=s.axis==='z'?s.face:0;
+  bake(0x4d5450).add(pole,m.compose(v.set(s.x,y+2.7,s.z),q.identity(),sc.set(1,5.4,1)),0xffffff);
+  bake(0x4d5450).add(cube,m.compose(v.set(s.x+ax*.6,y+5.32,s.z+az*.6),q.identity(),sc.set(ax?1.3:.1,.1,az?1.3:.1)),0xffffff);
+  bake(0xe8dcbc).add(cube,m.compose(v.set(s.x+ax*1.15,y+5.2,s.z+az*1.15),q.identity(),sc.set(ax?.9:.42,.18,az?.9:.42)),0xffffff);
+  glow(m.compose(v.set(s.x+ax*1.15,y+5.19,s.z+az*1.15),q.identity(),sc.set(ax?.96:.48,.2,az?.96:.48)),0xffc98a);
+  pool(s.x+ax*1.6,y,s.z+az*1.6,10,10,0xffb766);}
+ for(const s of soffit){bake(0xe8dcbc).add(cube,m.compose(v.set(s.x,s.y,s.z),q.identity(),sc.set(2.2,.12,.5)),0xffffff);glow(m.compose(v.set(s.x,s.y-.01,s.z),q.identity(),sc.set(2.26,.14,.56)),0xffb060);pool(s.x,height(s.x,s.z),s.z,12,9,0xf0a050);}
+ const greens=[0x5f8a4e,0x6f9a52,0x7fa35a,0x587f53,0x8aa65e];
+ for(const t of trees){const s=t.s??1,y=height(t.x,t.z),h=2.2*s;
+  bake(0x6b5640).add(trunk,m.compose(v.set(t.x,y+h/2,t.z),q.identity(),sc.set(s,h,s)),0xffffff);
+  const g0=Math.floor((t.hue??rnd())*greens.length)%greens.length;
+  for(let k=0;k<4;k++){const a=k/4*Math.PI*2+rnd(),rad=k?1.05*s:0,rr=(k?1.15:1.45)*s*(.9+rnd()*.2);
+   q.setFromEuler(e.set(0,rnd()*6,0));const hex=greens[(g0+(k?1+(k%2):0))%greens.length];
+   bake(hex).add(leaf,m.compose(v.set(t.x+Math.cos(a)*rad,y+h+(k?.35:1.05)*s,t.z+Math.sin(a)*rad),q,sc.set(rr,rr*.82,rr)),0xffffff);}}
+ for(const p of planters){const y=height(p.x,p.z);bake(0x9a7d5c).add(cube,m.compose(v.set(p.x,y+.28,p.z),q.identity(),sc.set(1.4,.55,1.4)),0xffffff);
+  bake(0x6f9a52).add(bush,m.compose(v.set(p.x,y+.78,p.z),q.setFromEuler(e.set(0,(p.hue??0)*6,0)),sc.set(1,.8,1)),0xffffff);}
+ // Plain single-colour meshes: the static batcher folds them into its town batches.
+ const meshes=[];let verts=0;
+ for(const [hex,b] of parts){const g=b.geometry({colour:false});const mesh=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:hex,roughness:.9,flatShading:true}));mesh.castShadow=mesh.receiveShadow=true;scene.add(mesh);meshes.push(mesh);verts+=b.verts;}
+ // Night-only: additive pools + glowing lamp heads, one mesh.
+ const nightMat=new THREE.MeshBasicMaterial({color:0xffffff,vertexColors:true,map:poolTexture(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,fog:true,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
+ const night=new THREE.Mesh(G.geometry(),nightMat);night.name='Street light pools v134';night.renderOrder=2;night.visible=false;night.userData.streetDressing=true;scene.add(night);
+ [pole,cube,trunk,leaf,bush,plane].forEach(g=>g.dispose());
+ return {meshes,pools:night,lamps:lamps.length,soffit:soffit.length,trees:trees.length,planters:planters.length,verts,
+  update(grade){const p=grade?.pools??0;night.visible=p>0;nightMat.opacity=Math.min(1,.8*p);}};
 }

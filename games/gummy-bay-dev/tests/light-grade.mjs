@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../dist/vendor/three.module.min.js';
+import {vertexColorKey,batchCandidate} from '../dist/static-batch.mjs';
 import {worldLighting} from '../dist/world-lighting.mjs';
-import {readabilityGrade,streetLampSpots,createStreetLighting,treeSpots,createStylisedTrees} from '../dist/light-grade.mjs';
+import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from '../dist/light-grade.mjs';
 // Fill always present, stronger at night; pools only after dark; colours finite.
 let dayFill=0,nightFill=0;
 for(let t=0;t<1440;t+=15){const p=worldLighting(t),g=readabilityGrade(p);
@@ -19,15 +20,25 @@ const spots=streetLampSpots({roadsZ:[0,-90,-160],roadsX:[105],skipZ:[0,-90],obst
 assert(spots.length>10);
 for(const s of spots){assert(!obstacles.some(o=>Math.abs(s.x-o.x)<o.w/2+1.2&&Math.abs(s.z-o.z)<o.d/2+1.2));assert(!points.some(p=>Math.hypot(p.x-s.x,p.z-s.z)<2.5));
  if(s.axis==='z'){assert(Math.abs(Math.abs(s.z+160)-9.6)<1e-9);assert(Math.abs(s.x-105)>=13);}}
-const scene=new THREE.Scene(),sl=createStreetLighting({scene,spots,soffit:[{x:10,y:7.2,z:-94}]});
-assert.equal(sl.poles.count,spots.length*2);assert.equal(sl.heads.count,spots.length+1);assert.equal(sl.pools.count,spots.length+1);
-sl.update(readabilityGrade(worldLighting(13*60)));assert.equal(sl.pools.visible,false,'pools cost nothing by day');
-sl.update(readabilityGrade(worldLighting(22*60)));assert.equal(sl.pools.visible,true);assert(sl.heads.material.emissiveIntensity>2);
-assert(sl.pools.material.blending===THREE.AdditiveBlending&&sl.pools.material.depthWrite===false);
 // Trees only on free cells; never in a blocked frontage band.
 const free=(x,z)=>Math.abs(z+78)>14&&Math.abs(x)<200;
 const ts=treeSpots({free,bounds:{minX:-200,maxX:200,minZ:-150,maxZ:0},max:60});
 assert(ts.length>20&&ts.length<=60);for(const t of ts)assert(free(t.x,t.z));
 assert.deepEqual(treeSpots({free,bounds:{minX:-200,maxX:200,minZ:-150,maxZ:0},max:60}),ts,'deterministic');
-const tr=createStylisedTrees({scene,spots:ts});assert.equal(tr.trunks.count,ts.length);assert.equal(tr.leaves.count,ts.length*4);assert(tr.leaves.instanceColor);
-console.log('light-grade ok',spots.length,'lamps',ts.length,'trees');
+// Static parts are plain single-colour meshes (static-batcher candidates); pools + head glow are one night mesh.
+const scene=new THREE.Scene(),planters=[{x:4,z:4,hue:.2}];
+const sd=createStreetDressing({scene,lamps:spots,soffit:[{x:10,y:7.2,z:-94}],trees:ts,planters});
+assert.equal(scene.children.length,sd.meshes.length+1);assert(sd.meshes.length<=10);
+for(const o of sd.meshes){assert(!o.geometry.attributes.color&&!o.material.transparent&&!o.material.emissiveMap&&!Object.keys(o.userData).length,'batchable');assert(vertexColorKey(o.material)&&batchCandidate(o,scene));}
+assert.equal(sd.trees,ts.length);assert.equal(sd.lamps,spots.length);assert(sd.verts<120000);
+assert.equal(sd.pools.geometry.attributes.position.count,(spots.length+1)*(6+36));
+sd.update(readabilityGrade(worldLighting(13*60)));assert.equal(sd.pools.visible,false,'pools cost nothing by day');
+sd.update(readabilityGrade(worldLighting(22*60)));assert.equal(sd.pools.visible,true);assert(sd.pools.material.opacity>.7);
+assert(sd.pools.material.blending===THREE.AdditiveBlending&&sd.pools.material.depthWrite===false);
+// Dressing never lands on a road band, collider, door point, police lane or crowd line.
+const routes=[[[6,-30],[6,4],[-11,4]]],crowd=[{a:[-40,20],b:[40,20]},{a:[30,-30]}],cols=[{x:-30,z:-25,w:10,d:8}],pts=[{x:50,z:30}];
+const ds=dressingSpots({roadBands:[{axis:'z',at:0,half:11.5}],colliders:cols,points:pts,routes,crowd});
+assert(ds.length>5);
+for(const d of ds){assert(Math.abs(d.z)>=11.5);assert(!(Math.abs(d.x+30)<7.4&&Math.abs(d.z+25)<6.4));assert(Math.hypot(d.x-50,d.z-30)>=5);assert(Math.abs(d.z-20)>=2.2||Math.abs(d.x)>40);assert(Math.hypot(d.x-30,d.z+30)>=2.6);
+ for(const e of ds)if(e!==d)assert(Math.hypot(e.x-d.x,e.z-d.z)>=5);}
+console.log('light-grade ok',spots.length,'lamps',ts.length,'trees',ds.length,'dressing',sd.verts,'verts');

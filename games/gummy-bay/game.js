@@ -70,7 +70,7 @@ import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
 import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=134';
-import {readabilityGrade,streetLampSpots,createStreetLighting,treeSpots,createStylisedTrees,dressingSpots,createPlanters} from './light-grade.mjs?v=134';
+import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=134';
 import {CITY_SHELLS} from './city-shells.mjs?v=133';
 import {createStaticBatcher} from './static-batch.mjs?v=133';
 import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
@@ -3544,7 +3544,7 @@ if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
 // v134 Lighting and visual polish: bounce/moon fill, lifted hemisphere colours,
 // instanced street lamps with fake light pools, overpass soffit lights and
 // stylised trees placed only on free ground (never in front of a shopfront).
-var streetLighting=null,stylisedTrees=null;const fillLight=new THREE.AmbientLight(0xffffff,0);fillLight.name='Readability fill';scene.add(fillLight);
+var streetLighting=null;const fillLight=new THREE.AmbientLight(0xffffff,0);fillLight.name='Readability fill';scene.add(fillLight);
 let lastGrade=readabilityGrade(sceneLighting(s?.time??540,active));
 const gradeBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gradeBaseRefresh();
  const plan=sceneLighting(s.time,active),g=readabilityGrade(plan);lastGrade=g;
@@ -3555,17 +3555,15 @@ try{
  const grid=cityExpansion?.plan?.grid;
  const opZ=OVERPASS.z,soffit=[];for(let x=-262;x<262;x+=30){if(CITY_ROADS.x.concat([0]).some(rx=>Math.abs(x-rx)<10))continue;for(const dz of [-4.2,4.2])soffit.push({x,y:OVERPASS.y-.35,z:opZ+dz});}
  const spots=streetLampSpots({roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),skipZ:[0,opZ],obstacles:colliders,points});
- streetLighting=createStreetLighting({scene,spots,soffit,height:terrainHeight});
- const freeTree=(x,z)=>grid?grid.free(x-3.2,x+3.2,z-3.2,z+3.2):false;
+ const grid0=grid;const freeTree=(x,z)=>grid0?grid0.free(x-2.6,x+2.6,z-2.6,z+2.6):false;
  // Old Town dressing: off the road bands, colliders, doors, police lanes and every crowd stop / walk line.
  const crowd=[];for(let i=0;i<STREET_CROWD_SIZE*2;i++){const c=crowdRoute(i);crowd.push({a:[c.home.x,c.home.z],b:[c.job.x,c.job.z]});for(const k of ['bench','vend','atm','street'])crowd.push({a:[c[k].x,c[k].z],b:[c.home.x,c.home.z]},{a:[c[k].x,c[k].z],b:[c.job.x,c.job.z]});}
  const dress=dressingSpots({roadBands:[{axis:'z',at:0,half:11.5},{axis:'x',at:0,half:11.5}],colliders,points,routes:policeRoutes,crowd,max:28});
  const oldTrees=dress.filter(d=>d.kind==='tree'),planterSpots=dress.filter(d=>d.kind==='planter');
- stylisedTrees=createStylisedTrees({scene,spots:treeSpots({free:freeTree,max:170,extra:oldTrees}),height:terrainHeight});
- const planters=createPlanters({scene,spots:planterSpots,height:terrainHeight});
+ streetLighting=createStreetDressing({scene,lamps:spots,soffit,trees:treeSpots({free:freeTree,step:8,max:220,extra:oldTrees}),planters:planterSpots,height:terrainHeight});
  for(const d of oldTrees)colliders.push({x:d.x,z:d.z,w:.7,d:.7,cityProp:'tree'});for(const d of planterSpots)colliders.push({x:d.x,z:d.z,w:1.5,d:1.5,cityProp:'planter'});
- stylisedTrees.oldTown=oldTrees.length;stylisedTrees.planters=planters.count;
- window.__gummyLight={stats:()=>({lamps:streetLighting.count,soffit:streetLighting.soffit,trees:stylisedTrees.count,oldTownTrees:stylisedTrees.oldTown,planters:stylisedTrees.planters,grade:lastGrade})};
+ streetLighting.update(lastGrade);
+ window.__gummyLight={stats:()=>({lamps:streetLighting.lamps,soffit:streetLighting.soffit,meshes:streetLighting.meshes.length,trees:streetLighting.trees,oldTownTrees:oldTrees.length,planters:streetLighting.planters,verts:streetLighting.verts,grade:lastGrade})};
 }catch(error){console.warn('Street lighting skipped',error);}
 // v133 static batching: once the Blender town has settled, merge loose static meshes
 // into per-material cells (browser only; a moved or hidden source splits its batch back).
