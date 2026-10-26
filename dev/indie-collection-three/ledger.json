@@ -469,10 +469,12 @@
       "tests": [
         "6 engine tests pass: all 300 beacon pairs solved within fuel using only visible-evidence policy; 100 seeded three-sector campaigns; nearest readings and true-pair retention; loss/retry/new voyage; duplicates and invalid inputs; owned journals; decode/unlock/record validation.",
         "4 jsdom 26.1.0 tests pass: UI campaigns using known targets, certainty labels, saves/reload, navigation markup, loss/retry/new voyage, pause/dialog/parent guards, isolated reset, corrupt recovery and quota failure. Dialog APIs simulated.",
-        "Both scripts pass syntax checks. No rendered play, screenshots, native keyboard/touch, mobile-layout or enjoyment claim. Full repository checks not run from partial checkout."
+        "Both scripts pass syntax checks. No rendered play, screenshots, native keyboard/touch, mobile-layout or enjoyment claim. Full repository checks not run from partial checkout.",
+        "Bearing refinement: 16 total tests pass (10 engine, 6 jsdom). Both distance-only and bearing-first visible-evidence policies solve all 300 pairs. Mirrored-clue filtering, duplicate/Here directions, combined evidence, expensive-survey loss, legacy saves, journal validation, free rereading/reload and pause/dialog guards covered. Both scripts pass syntax checks."
       ],
       "commits": [
-        "53b115faa06a46e8b7512a6f1cae13caa5e964b8"
+        "53b115faa06a46e8b7512a6f1cae13caa5e964b8",
+        "95bc2808de3dce9257d98bd32eef0fb5c40c6f94"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -483,7 +485,14 @@
       "nextSteps": [
         "Naturally play on desktop/touch and inspect screenshots, especially nearest-beacon ambiguity and notebook certainty feedback.",
         "Implement a substantive playtest-led improvement; verify loss/retry, saves/reload, restart and launch/navigation before catalogue selection."
-      ]
+      ],
+      "pendingSourceRefinement": {
+        "commit": "95bc2808de3dce9257d98bd32eef0fb5c40c6f94",
+        "basis": "Source/engine/DOM inspection, not rendered play.",
+        "before": "Only nearest-distance soundings were available; readings could ambiguously refer to different beacons, with no alternative surveying action.",
+        "after": "Optional bearing surveys cost 2 fuel and report both compass directions without distances or identities. The notebook combines bearings with distance/recovery evidence. Recorded readings can be inspected free by selecting the square, including after reload. Repeated directions and Here are preserved.",
+        "remaining": "Natural rendered desktop/touch play, screenshot inspection, cost/clarity assessment and a substantive playtest-led improvement are still required."
+      }
     },
     {
       "slot": 52,
@@ -1328,6 +1337,12 @@
       "commit": "53b115faa06a46e8b7512a6f1cae13caa5e964b8",
       "result": "Built Soundings slot 51: nearest-beacon sonar deduction, candidate notebook, fuel-limited salvage, loss/retry, changing charts and safe saves. Ten engine/DOM tests pass, including all 300 target pairs. Third batch: 11 built, 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering blocker unchanged; not retried or bypassed. No rendered credit or public release."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "95bc2808de3dce9257d98bd32eef0fb5c40c6f94",
+      "result": "Soundings optional 2-fuel directional survey and combined notebook implemented. Sixteen engine/DOM tests pass; old saves remain compatible. Counts unchanged: 11 built, 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering blocker unchanged; not retried or bypassed. No rendered credit or live release."
     }
   ]
 }
