@@ -25,3 +25,7 @@ On that same pre-v125 main, all ten Nightshift pages and all ten Afterlight page
 - **Shop buttons.** On the played build the $650 hire control stayed enabled away from Helping Hand, then the approach check refused it and consumed nothing. PR #18 added named cart confirms. Whether those controls are disabled out of range was not rechecked. Leave button states to the HUD builder.
 - **Police timing.** On the played build, patrols did not walk until `made` or `sold` was set. After packs existed, standing on the patrol line produced an automatic search inside 1.8 m and the seizure above. v125 still holds daytime patrols until the first product, and curfew notice is 45 m. Not replayed, and not retuned here.
 - **`LAW_TARGET` in `sim-formulas.mjs` is 21:00–05:00**, which now matches resident curfew. The played 22:00 window is the old build. Nothing here retunes it.
+
+## Checks
+
+`python3 tests/run-all.py` from `games/gummy-bay-dev` passed 126 of 126, including `qa-harness.mjs`. Boot tests strip the harness import, and the hook stays out of those runs.
