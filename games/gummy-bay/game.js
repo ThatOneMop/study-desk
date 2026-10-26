@@ -82,7 +82,7 @@ import {bonk,scuffleWeapon,shopWeapons,freshTarget,COP_HEAT} from './scuffle.mjs
 import {donutBribe,cashBribe,DONUT_PRICE} from './sugar-bribe.mjs?v=132';
 import {applyBust,bustedTimeline,bustedSample,paintMugshot} from './busted.mjs?v=132';
 import {searchPenalty,penaltyMessage,penaltyTier} from './police-penalty.mjs?v=135';
-import {levelOf,levelProgress} from './xp-curve.mjs?v=135';
+import {levelOf,levelProgress,rankTitle} from './xp-curve.mjs?v=156';
 import {gateButtons} from './reach-gate.mjs?v=135';
 import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=154';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
@@ -105,7 +105,7 @@ import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
-import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=135';
+import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=156';
 import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=154';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
 import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
@@ -264,7 +264,10 @@ function shelves(x,z,kind='garden'){
  }
 }
 // Coastal terrain: bright grass, warm sidewalks, a blue bay, and rounded hills.
-box(0,-.35,0,220,.6,185,0xa1b879);box(0,-.45,128,700,.1,140,0x80bcc8);box(0,-.22,81,220,.1,24,0xdccca0);for(let i=0;i<9;i++)box(0,-.38,86+i*6,240,.02,.12,0xb6d9d8);
+// v156: the legacy flat bay slab (top y=-.40) and its wet-sand stripes (y=-.37) sat within 3 cm of the
+// v155 ocean surface (y=-.375 with up to ±.095 m swells), so wave troughs and depth precision let them show
+// through as dark floating patches. The opaque ocean mesh fully replaces them, so they are gone.
+box(0,-.35,0,220,.6,185,0xa1b879);box(0,-.22,81,220,.1,24,0xdccca0);
 box(0,-.015,0,180,.04,12,0x7d857e);box(0,-.015,0,12,.04,145,0x7d857e);for(let z of [-9,9])box(0,.03,z,180,.15,5,0xd3c9ae);for(let x of [-9,9])box(x,.03,0,5,.15,145,0xd3c9ae);for(let x=-86;x<90;x+=7)box(x,.01,0,3,.015,.12,0xece3bb);for(let z=-68;z<70;z+=7)box(0,.01,z,.12,.015,3,0xece3bb);for(let x=-5;x<6;x+=1.5)box(x,.02,7.5,.7,.02,2.5,0xf0e8ce);for(let z=-5;z<6;z+=1.5)box(-7.5,.02,z,2.5,.02,.7,0xf0e8ce);box(-53,-.02,26,38,.08,27,0xc5b899);box(-32,-.01,26,32,.04,4,0xc5b899);
 room(-25,19,18,13,'PALM COURT MOTEL',0xe0c89f,0xbc8667);counter(-25,19);addPoint('reception','Palm Court · Rent a room',-25,22,{actor:bobble(-25,17,0x89a3a3,0xd8af89)});
 room(-25,40,18,17,'ROOM 04 · WORKSHOP',0xe4d6b3,0xbf8b70);box(-31,.5,44,2,1,3.1,0xb79d76,true);rounded(-31,1.06,44,2,.22,3.1,0xe8d7ad);rounded(-31,1.25,43.1,1.7,.22,.7,0xf9efd7);addPoint('bed','Rest until morning',-29,44);box(-18,.65,35,3.3,1.3,1.1,0xabc0b4,true);rounded(-18,1.35,35,2.4,.15,.8,0xf0ede0);cyl(-18,1.6,35,.04,.4,0x8b9d97);box(-17.8,1.78,35,.4,.06,.06,0x8b9d97);addPoint('sink','Sink · Fill watering can',-18,37);box(-18,.6,43,4,1.2,1.25,0xb59b71,true);box(-18,1.25,43,4.2,.12,1.4,0xe6cfa1);rounded(-19,1.48,43,.8,.3,.7,0xa8b98b);cyl(-17,1.47,43,.35,.35,0xe1c291);addPoint('craft','Gummy-making table',-18,45);sign('MAKE IT SWEET',-18,2.35,43.5,3,'#9c7759','#fff1c6');
@@ -2989,6 +2992,16 @@ function paintNotices(){
  const box=$('notifs');if(!box)return;
  box.innerHTML=s1Notices.map(n=>'<div class="notice" data-app="'+n.app+'"><span class="notice-ico">'+(HUD_ICONS[n.app]||HUD_ICONS.message)+'</span><div><b>'+esc(n.title)+'</b><p>'+esc(n.text)+'</p></div></div>').join('');
 }
+// v156 street rank chip under the clock (Sugar Rat I ... Gummy Kingpin), with a Progress notice on every new tier.
+var s1RankSeen={save:null,index:-1,key:''};
+function s1PaintRank(){
+ const r=rankTitle(s.xp),el=$('s1rank');
+ if(s1RankSeen.save!==s){s1RankSeen={save:s,index:r.index,key:''};}
+ else if(r.index>s1RankSeen.index){s1RankSeen.index=r.index;if(active)toast('⭐ Rank up · '+r.label+(r.tier===1?' · new title!':''));}
+ if(!el)return;el.hidden=!active;
+ const key=r.label+'|'+Math.round(r.ratio*40);if(key===s1RankSeen.key)return;s1RankSeen.key=key;
+ el.innerHTML='<b>'+esc(r.label)+'</b><i><u style="width:'+Math.round(r.ratio*100)+'%"></u></i>';el.title=r.into+' / '+r.need+' XP to the next tier';
+}
 function s1Snapshot(){return {day:s.day,cash:s.cash,bank:s.bank,sold:s.sold||0,xp:s.xp};}
 function showSleepCard(view){const el=$('sleepCard');if(!el)return;el.innerHTML=sleepCardHTML(view,cash);el.hidden=false;clearTimeout(s1SleepTimer);s1SleepTimer=setTimeout(dismissSleepCard,12000);}
 function dismissSleepCard(){const el=$('sleepCard');if(el)el.hidden=true;clearTimeout(s1SleepTimer);}
@@ -3020,6 +3033,7 @@ function paintS1Hud(){
  const time=$('clockTime');if(time)time.textContent=c.clock;
  const day=$('clockDay');if(day)day.textContent=c.short;
  const clock=$('s1clock');if(clock){clock.hidden=!active;clock.dataset.night=String(c.night);}
+  s1PaintRank();
  const card=$('cardSlotValue');if(card)card.textContent=cash(s.bank);
  $('cardSlot')?.classList?.toggle('paying',s.payment==='card');$('cashSlot')?.classList?.toggle('paying',s.payment!=='card');
  const counts=hotbarCounts(s,stockSummary(s));
@@ -4115,12 +4129,14 @@ try{
   const anchors={home:STORY_DOORS[s.house]||STORY_DOORS[0]};
   storyDom();storyUI.view.reset();storyUI.cardId=storyUI.stampText=null;
   storyUI.cut={id,tl:cutTimeline(id,anchors),t:0,replay,onDone,sfx:new Set(),anchors,sample:null,fx:cineFxStart(),cast:resolveCast(CUTS[id].cast,{...CUT_ANCHORS,...anchors})};storyQ('.cine-fx')?.classList?.toggle?.('dof',quality!=='performance'&&quality!=='low');storyUI.fov=camera.fov;
-  storyUI.el.dataset.cut=id;storyProps(id,anchors);paintStoryCut();
+  storyUI.el.dataset.cut=id;storyHud(false);storyProps(id,anchors);paintStoryCut();
   if(!replay){s.story=markSeen(ensureStory(),id);save();}
   return true;
  }
+ // v156: story cuts (Act 2, Raid, Act 3, Finale) hide every HUD layer, the phone and prompts; restored when the cut (and raid choice) ends.
+ function storyHud(show){document.body.classList.toggle('storyCutOn',!show);}
  function endStoryCut(){
-  const c=storyUI.cut;if(!c)return;storyUI.cut=null;clearStoryProps();cineFxEnd(c.fx);cineTitleEl(storyQ('.cine-title'),null,0);
+  const c=storyUI.cut;if(!c)return;storyUI.cut=null;storyHud(true);clearStoryProps();cineFxEnd(c.fx);cineTitleEl(storyQ('.cine-title'),null,0);
   storyUI.view.show(false);storyUI.view.bars(false);storyCardEl('');storyStampEl('');
   if(storyUI.fov){camera.fov=storyUI.fov;camera.updateProjectionMatrix();}
   syncPlayerView();camera.rotation.set(pitch,yaw,0);
@@ -4136,7 +4152,7 @@ try{
  }
  function raidChoice(kind){
   storyDom();const box=storyQ('.story-choice'),v=storyUI.view;v.show(true);v.bars(true);v.fade(.35);v.subtitle('INSPECTOR HARDTACK','Search the place! Every jar, every drawer!');
-  storyUI.choice={kind};storyUI.el.dataset.cut='raid-choice';
+  storyUI.choice={kind};storyUI.el.dataset.cut='raid-choice';storyHud(false);
   const stock=(s.packs||[]).reduce((a,b)=>a+b,0)+(s.storedPacks||[]).reduce((a,b)=>a+b,0);
   if(box){box.hidden=false;box.innerHTML='<div class="overline">SUGAR SQUAD RAID</div><h2>They’re coming in. Quick!</h2><p>'+stock+' packs at risk. Cash and equipment are safe.</p><div class="story-choice-row"><button class="primary" onclick="__story.choose(\'hide\')"><b>1</b> Hide the stash<small>Drop the jars in the vent · lose up to 50%</small></button><button onclick="__story.choose(\'flee\')"><b>2</b> Flee out the back<small>Grab what you can · lose 30%</small></button></div>';}
  }
@@ -4159,7 +4175,7 @@ try{
   s.packs=out.packs;s.storedPacks=out.storedPacks;s.heat=Math.min(s.heat,out.heat);
   s.story=recordRaid(ensureStory(),{day:s.day,home:s.house});
   const box=storyQ('.story-choice');if(box){box.hidden=true;box.innerHTML='';}
-  storyUI.view.show(false);storyUI.view.bars(false);storyUI.el.dataset.cut='';
+  storyUI.view.show(false);storyUI.view.bars(false);storyUI.el.dataset.cut='';storyHud(true);
   const how=choice==='flee'?'You slipped out the back.':'Stash hidden: '+Math.round(score*100)+'%.';
   toast('🚨 Raid over. '+how+' '+(out.lost?out.lost+' packs confiscated.':'Nothing found!')+' Hardtack leaves empty-handed… mostly.');
   storyUI.lastRaid={kind,choice,score,lost:out.lost};save();if(active&&!panel)lock();

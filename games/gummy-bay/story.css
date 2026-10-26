@@ -61,3 +61,6 @@ body #overlay.phone #modal .story-phone-card small,.story-phone-card small{color
 .story-card-slot .story-card{transform:none;padding:7px 14px 7px 7px;gap:10px;border-radius:10px;max-width:min(360px,70vw);box-shadow:0 8px 24px #0007,inset 0 0 0 3px #fff3}
 .story-card-slot .story-card svg{width:58px;height:58px}
 .story-card-slot .story-card em{font-size:12px}
+
+/* v156: story cutscenes and the raid choice hide the whole HUD, phone, prompts and toasts. */
+body.storyCutOn>:not(#view):not(#storyCut):not(#overlay):not(script):not(style):not(link){visibility:hidden!important}

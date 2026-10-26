@@ -15,3 +15,23 @@ export function levelProgress(xp){
  const from=LEVEL_XP[level-1],to=LEVEL_XP[level];
  return Object.freeze({level,into:Math.floor(n-from),need:to-from,ratio:Math.max(0,Math.min(1,(n-from)/(to-from)))});
 }
+
+// v156 street ranks: eleven original candy titles, five tiers each (I-V), like a crime-sim
+// rank ladder. Cosmetic and motivational only: unlocks still follow levelOf() above.
+// Tier costs grow per title; past Gummy Kingpin V the tiers keep counting (Gummy Kingpin 6, 7, ...).
+export const RANK_TITLES=Object.freeze(['Sugar Rat','Chew Peddler','Wrapper Runner','Gum Hustler','Jar Boss','Sweet Talker','Candy Shot-Caller','Block Bonbon','Taffy Tycoon','Bay Baron','Gummy Kingpin']);
+export const TIER_XP=Object.freeze([10,20,31,41,51,62,72,84,94,104,115]);
+const ROMAN=['I','II','III','IV','V'];
+export function rankTitle(xp){
+ let left=Number.isFinite(xp)?Math.max(0,xp):0,index=0;
+ const last=RANK_TITLES.length*5-1;
+ while(true){
+  const title=Math.min(RANK_TITLES.length-1,Math.floor(index/5)),need=TIER_XP[title];
+  if(left<need){
+   const tier=index>last?5+(index-last):index%5+1;
+   const name=RANK_TITLES[title];
+   return Object.freeze({index,title:name,tier,label:name+' '+(tier<=5?ROMAN[tier-1]:tier),into:Math.floor(left),need,ratio:Math.max(0,Math.min(1,left/need))});
+  }
+  left-=need;index++;
+ }
+}
