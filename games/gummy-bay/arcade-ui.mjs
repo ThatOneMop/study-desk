@@ -1,8 +1,8 @@
 // Lucky Pier prize arcade interior: a neon 2D room drawn on its own canvas,
 // laid over the 3D world while the player is inside. Mouse, keyboard and touch.
-import {ARCADE_GAMES,PRIZES,TOKEN_PRICE,TOKEN_PACKS,gameById,prizeById,buyTokens,startPlay,finishPlay,redeemPrize,equipGrip,toggleHat,normalizeArcade} from './arcade-core.mjs?v=135';
-import {createGame,stepGame,SKEE_HOLES,skeeLanding,HOOP,hoopX,WHACK_HOLES,laneX,DROP_R,DROP_EDGE} from './arcade-games.mjs?v=135';
-import {playArcadeCue} from './arcade-audio.mjs?v=135';
+import {ARCADE_GAMES,PRIZES,TOKEN_PRICE,TOKEN_PACKS,gameById,prizeById,buyTokens,startPlay,finishPlay,redeemPrize,equipGrip,toggleHat,normalizeArcade} from './arcade-core.mjs?v=136';
+import {createGame,stepGame,SKEE_HOLES,skeeLanding,HOOP,hoopX,WHACK_HOLES,laneX,DROP_R,DROP_EDGE} from './arcade-games.mjs?v=136';
+import {playArcadeCue} from './arcade-audio.mjs?v=136';
 
 const SLOTS=[{kind:'tokens',name:'Token machine',color:'#ffe066'},...ARCADE_GAMES.map(g=>({kind:'game',id:g.id,name:g.name,color:g.color})),{kind:'prizes',name:'Prize counter',color:'#ff7ad9'}];
 const SHAKE={jackpot:.9,prize:.7,whack:.35,slip:.45,buzz:.5,thud:.3,rim:.25,board:.3,hit:.35,swish:.3,coin:.2,end:.4};
