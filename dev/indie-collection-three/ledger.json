@@ -268,11 +268,13 @@
       "tests": [
         "8 engine tests pass: 25 seeded wins across five equipment focuses, exact saves/replay, reroll constraints, forecasts, loss/retry/records, malformed saves, conditional bonus rules and pre-upgrade journal compatibility.",
         "5 jsdom tests pass: equipment routes, reload, setup/focus/native keys, loss/retry/pause/help/reset, unreadable-save preservation and new equipment/forecast persistence. Dialog methods simulated.",
-        "Script syntax passed. No rendered browser, screenshots, touch or human-enjoyment evidence. Full repository build not run from partial checkout."
+        "Script syntax passed. No rendered browser, screenshots, touch or human-enjoyment evidence. Full repository build not run from partial checkout.",
+        "Opposite-face refinement: 19 passing tests (11 engine, 8 jsdom), retaining original 13 and old exact-save fixtures. Shared reroll budget, RNG/other-die/setup preservation, invalid actions, mixed reroll/flip exhaustion, turn reset, phase guards, per-action replay, native input ownership, pause/guide, full flipped seed-42 route and retry/record preservation. Script syntax checks pass; no rendered evidence."
       ],
       "commits": [
         "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
-        "d78751b7aeca9bc882c294126ce8dbbd55b826f1"
+        "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
+        "8e7d63d094d7f7431ba5790d00ab0d6463e0b016"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -290,6 +292,13 @@
         "before": "All three equipment options only increased an existing job's yield; small dice had no special role and mixed allocations offered no gear synergy.",
         "after": "Acorn Sling grants +3 attack per attack die showing 1 or 2; Three-leaf Clasp grants +4 attack when attack, guard and repair all receive dice. Both stack and compete with existing equipment at the same two clearings. Exact preview exposes the conditional bonus.",
         "remaining": "Rendered play, balance/readability review, meaningful playtest-led improvement and all public integration gates remain outstanding. No completed improvement credit."
+      },
+      "pendingFlipRefinement": {
+        "commit": "8e7d63d094d7f7431ba5790d00ab0d6463e0b016",
+        "basis": "Source inspection: dice manipulation only offered random rerolls of unkept dice. No rendered observation.",
+        "before": "Players could keep, reroll or allocate dice; no deterministic face adjustment.",
+        "after": "Turn one die to 7 minus its value for one shared reroll. Other dice, RNG, jobs and keeps stay unchanged; per-die buttons and focused-card F shortcut expose the result and cost. Existing journals and records remain compatible.",
+        "remaining": "Rendered natural gameplay, native controls and mobile layout, screenshot inspection, usefulness with low-die gear and balance assessment. No completed improvement credit."
       }
     },
     {
@@ -1351,7 +1360,7 @@
     "Implement remaining 35 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "c2aaf633c9821a2b0c6d3399089d9813f695780b",
+  "latestObservedMain": "eefdcbcd98a59a1d0970a4f133bd88f0660b0612",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1584,6 +1593,13 @@
       "result": "Soundings area sweeps and footprint preview implemented; 24 engine/DOM tests pass. Counts unchanged: third 15 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
       "mainObserved": "c2aaf633c9821a2b0c6d3399089d9813f695780b"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "8e7d63d094d7f7431ba5790d00ab0d6463e0b016",
+      "result": "Bramble Dice opposite-face action implemented; 19 engine/DOM tests pass. Counts unchanged: third 15 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
+      "mainObserved": "eefdcbcd98a59a1d0970a4f133bd88f0660b0612"
     }
   ]
 }
