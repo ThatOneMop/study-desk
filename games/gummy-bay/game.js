@@ -3958,7 +3958,7 @@ try{
   if(c.onDone)c.onDone();
  }
  function skipStoryCut(){if(storyUI.cut){storyUI.cut.t=storyUI.cut.tl.duration;endStoryCut();}}
- function tickStoryCut(dt){const c=storyUI.cut;if(!c)return;c.t+=dt;if(c.t>=c.tl.duration){endStoryCut();return;}paintStoryCut();}
+ function tickStoryCut(dt){const c=storyUI.cut;if(!c)return;if(!storyUI.hold)c.t+=dt;if(c.t>=c.tl.duration){endStoryCut();return;}paintStoryCut();}
 
  // ---- The raid: cutscene, then hide the stash (minigame) or flee out the back ----
  function startRaid(kind){
@@ -4062,6 +4062,10 @@ try{
   seek:t=>{if(!storyUI.cut)return null;storyUI.cut.t=Math.max(0,Math.min(storyUI.cut.tl.duration-.01,t));paintStoryCut();renderFrame();return storyUI.cut.sample&&{sub:storyUI.cut.sample.sub?.text||'',card:storyUI.cut.sample.card?.card||'',stamp:storyUI.cut.sample.stamp?.text||''};},
   skip:()=>{skipStoryCut();return !storyUI.cut;},
   raid:()=>startRaid('story'),choose:chooseRaid,hit:stashHit,track:storyTrack,
-  step:()=>{storyUI.timer=1;storyTick(0);return currentQuest(ensureStory())?.id||null;}
+  step:()=>{storyUI.timer=1;storyTick(0);return currentQuest(ensureStory())?.id||null;},
+  // Debug/QA only: hold the cut clock for stills, set the hour, mark the first n missions done.
+  hold:(on=true)=>{storyUI.hold=!!on;return storyUI.hold;},hour:h=>{s.time=Math.max(0,Math.min(23.9,+h||0))*60;return s.time;},
+  grant:n=>{const st=ensureStory();s.story=normalizeStory({...st,open:true,done:QUESTS.slice(0,Math.max(0,Math.min(QUESTS.length,n|0))).map(q=>q.id)});save();return currentQuest(s.story)?.id||null;}
  };
+ window.loadGame=load;
 }catch(error){console.warn('Story acts unavailable',error);}
