@@ -7,9 +7,11 @@ float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}
 void main(){
  vec3 dir=normalize(direction);float h=max(0.,dir.y);vec3 col=mix(bottom,top,pow(h,.45));
- vec2 p=dir.xz/max(.19,dir.y)*1.8+vec2(uTime*.0025,uTime*.0007);
+ // v129: a smooth perspective divide. The old max(.19,dir.y) clamp froze the noise
+ // below 11 degrees, which drew vertical rain-like streaks down to the horizon.
+ vec2 p=dir.xz/(dir.y+.24)*1.25+vec2(uTime*.0025,uTime*.0007);
  float n=noise(p)*.52+noise(p*2.03)*.28+noise(p*4.11)*.14+noise(p*8.13)*.06;
- float cloud=smoothstep(.46-uCloud*.16,.7-uCloud*.18,n)*smoothstep(.02,.23,h);
+ float cloud=smoothstep(.46-uCloud*.16,.7-uCloud*.18,n)*smoothstep(.05,.32,h);
  vec3 litCloud=mix(vec3(.51,.60,.64),vec3(1.,.93,.79),smoothstep(.46,.7,n));
  col=mix(col,litCloud,cloud*(.78+uCloud*.2)*night);
  float halo=pow(max(0.,dot(dir,normalize(vec3(-.55,.64,.5)))),24.);
