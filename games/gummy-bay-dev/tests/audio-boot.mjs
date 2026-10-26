@@ -182,8 +182,15 @@ try {
   failure = error;
 } finally {
   chrome.kill('SIGKILL');
+  await new Promise(resolve => {
+    if (chrome.exitCode !== null || chrome.signalCode !== null) resolve();
+    else {
+      chrome.once('exit', resolve);
+      setTimeout(resolve, 1000);
+    }
+  });
   await new Promise(resolve => server.close(resolve));
-  fs.rmSync(profile, {recursive: true, force: true});
+  try { fs.rmSync(profile, {recursive: true, force: true, maxRetries: 5, retryDelay: 40}); } catch { /* Chrome can still hold the profile after exit. */ }
 }
 
 if (failure) throw failure;
