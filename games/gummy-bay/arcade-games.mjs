@@ -25,7 +25,7 @@ export function stepClaw(st,dt,inp){
  // Pendulum sway driven by carriage acceleration; settles in about 1.5 s.
  st.swayV+=(-st.sway*38-st.swayV*4.2-(st.phase==='aim'?st.vx*.9:0))*dt;st.sway=clamp(st.sway+st.swayV*dt,-.06,.06);
  const tipX=st.clawX+st.sway;
- if(st.phase==='aim'){if(inp.pressed&&st.grabs>0){st.phase='drop';st.phaseT=0;st.grabs--;ev(st,'drop');}}
+ if(st.phase==='aim'){if(inp.released&&st.grabs>0){st.phase='drop';st.phaseT=0;st.grabs--;ev(st,'drop');}}
  else if(st.phase==='drop'){st.clawY=Math.min(.78,st.clawY+dt*.5);if(st.clawY>=.78){
    let best=null,bd=1;for(const p of st.plush)if(p.state==='pile'){const d=Math.abs(p.x-tipX);if(d<bd){bd=d;best=p;}}
    st.phase='lift';st.phaseT=0;
