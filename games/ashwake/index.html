@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#140c16">
+<title>Ashwake — Study Desk</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-phase="boot">
+<canvas id="view" tabindex="0" aria-label="Ashwake orchard. Walk with W A S D or the arrow keys. Hold on the orchard or use the move stick. The lantern fires by itself. Escape pauses. Keys 1, 2 and 3 choose a relic."></canvas>
+<button id="pauseBtn" type="button" hidden>Pause</button>
+<div id="hud" hidden>
+  <div id="meters">
+    <div class="bar hp"><i id="hpFill"></i><span id="hpText">Health</span></div>
+    <div class="bar xp"><i id="xpFill"></i><span id="xpText">Cinders</span></div>
+  </div>
+  <p id="readout"><span id="clock">0:00</span><span id="kills">0 moths</span><span id="runEmbers">0 embers</span><span id="rank">Light 1</span></p>
+  <p id="relics"></p>
+  <p id="coach" hidden></p>
+  <p id="banner" hidden></p>
+</div>
+<div id="stick" hidden><div id="nub"></div><span>Move</span></div>
+<section id="title">
+  <div class="hero">
+    <p class="eyebrow">A watch until dawn</p>
+    <h1>Ashwake</h1>
+    <p class="deck">The orchard floods at night. Walk, and the lantern keeps the moths off your wick — until the Bell Warden comes looking.</p>
+    <div class="actions">
+      <button id="begin" class="primary" type="button">Begin the watch</button>
+      <button id="beginWick" type="button" hidden>Walk as the Wickling</button>
+      <button id="openTutorial" type="button">How a watch works</button>
+      <button id="soundTitle" type="button">Sound on</button>
+    </div>
+    <p id="record"></p>
+    <p id="playtime"></p>
+    <a href="../../index.html#games">← Study Desk</a>
+  </div>
+  <aside>
+    <section>
+      <p class="eyebrow">Relics that stay</p>
+      <p id="purse"></p>
+      <div id="shop"></div>
+    </section>
+    <section>
+      <p class="eyebrow">Marks on the wick</p>
+      <ul id="achievements"></ul>
+    </section>
+    <button id="reset" type="button">New archive</button>
+    <button id="recover" type="button" hidden>Replace unreadable save</button>
+    <p id="saveStatus" role="status"></p>
+  </aside>
+</section>
+<section id="level" hidden role="dialog" aria-modal="true" aria-labelledby="levelTitle">
+  <div class="panel">
+    <p class="eyebrow">The orchard offers</p>
+    <h2 id="levelTitle">Choose one relic</h2>
+    <p>The other two fade. Press 1, 2 or 3, or tap a card.</p>
+    <div id="cards"></div>
+  </div>
+</section>
+<section id="pause" hidden role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+  <div class="panel">
+    <p class="eyebrow">The wick can wait</p>
+    <h2 id="pauseTitle">Paused</h2>
+    <p id="pauseCopy">Your place on the path is saved on this device.</p>
+    <div class="actions">
+      <button id="resume" class="primary" type="button">Resume</button>
+      <button id="tutorialPause" type="button">How a watch works</button>
+      <button id="soundPause" type="button">Sound on</button>
+      <button id="abandon" type="button">Abandon this watch</button>
+      <a class="textlink" href="../../index.html#games">← Study Desk</a>
+    </div>
+  </div>
+</section>
+<section id="result" hidden role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+  <div class="panel">
+    <p class="eyebrow" id="resultEyebrow"></p>
+    <h2 id="resultTitle"></h2>
+    <p id="resultCopy"></p>
+    <p id="resultStats"></p>
+    <div class="actions">
+      <button id="again" class="primary" type="button">Walk again</button>
+      <button id="toTitle" type="button">Return to the archive</button>
+    </div>
+  </div>
+</section>
+<dialog id="tutorial">
+  <p class="eyebrow">Before the wick is lit</p>
+  <h2 id="tutorialTitle"></h2>
+  <p id="tutorialCopy"></p>
+  <p id="tutorialKeys"></p>
+  <p id="tutorialStep"></p>
+  <div class="actions">
+    <button id="tutorialBack" type="button">Back</button>
+    <button id="tutorialNext" class="primary" type="button">Next</button>
+    <button id="tutorialClose" type="button">Close</button>
+  </div>
+</dialog>
+<dialog id="confirm">
+  <h2 id="confirmTitle"></h2>
+  <p id="confirmCopy"></p>
+  <div class="actions">
+    <button id="confirmNo" type="button">Keep this</button>
+    <button id="confirmYes" type="button">Confirm</button>
+  </div>
+</dialog>
+<p id="toast" role="status" hidden></p>
+<script src="../../bridge.js"></script>
+<script src="engine.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
