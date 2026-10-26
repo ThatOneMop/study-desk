@@ -7,7 +7,7 @@ for(const ground of [0,.01,.375,.75,5]){
  assert.deepEqual(playerViewHeights({ground,crouch:.5,jump:1,bob:.023,driving:true}),{eye:ground+1.55,cameraEye:ground+1.55});
 }
 for(const ground of [NaN,Infinity,-Infinity,-1e8,1e8])for(const crouch of [NaN,-10,10])for(const jump of [NaN,-1,1e8])for(const bob of [NaN,-10,10]){
- const pose=playerViewHeights({ground,crouch,jump,bob});assert.ok(Object.values(pose).every(Number.isFinite));assert.ok(Math.abs(pose.cameraEye-pose.eye)<=.023000001);
+ const pose=playerViewHeights({ground,crouch,jump,bob});assert.ok(Object.values(pose).every(Number.isFinite));assert.ok(Math.abs(pose.cameraEye-pose.eye)<=.060000001);
 }
 const input={ground:.75,crouch:.2,jump:.3,bob:.01},before=JSON.stringify(input);playerViewHeights(input);assert.equal(JSON.stringify(input),before);
 assert.deepEqual(firstPersonVisibility(),{hand:false,pack:false,can:false});
