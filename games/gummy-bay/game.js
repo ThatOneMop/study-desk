@@ -4073,7 +4073,7 @@ try{
   else {const q=points.find(q=>q.type===where);if(q)p={x:q.x,z:q.z,label:q.label};}
   if(!p)return false;track=p;close();toast('Tracking '+p.label);return true;
  }
- // v145: Gramps Gus stands on the pier once the story is complete.
+ // v146: Gramps Gus stands on the pier once the story is complete.
  storyCastVisible=key=>{if(key!=='gramps')return true;try{const st=ensureStory();return !!st.open&&!currentQuest(st);}catch{return false;}};
  function storyHTML(){
   const st=ensureStory(),q=currentQuest(st),f=storyFactsNow(),act=currentAct(st);
@@ -4260,7 +4260,7 @@ try{
  function freeSpot(x,z){const clear=(x,z)=>!blocked(x,z)&&!blocked(x+.9,z)&&!points.some(q=>Math.hypot(q.x-x,q.z-z)<6);if(clear(x,z))return {x,z};for(let r=1;r<=18;r+=1)for(let i=0;i<16;i++){const a=i*Math.PI/8,p={x:x+Math.cos(a)*r,z:z+Math.sin(a)*r};if(clear(p.x,p.z))return p;}return {x,z};}
  DEALER_ROSTER.forEach((d,i)=>{const p=freeSpot(d.x,d.z);NET.spots[d.id]=p;
   const g=figure(p.x,p.z,d.color,0xd8b48f,0x3d2b22,1);g.userData.name=d.name;g.rotation.y=Math.atan2(-p.x,-p.z);g.visible=false;
-  // v145: the dealer is drawn by the shared people kit; the bobble group stays as the visibility/position anchor.
+  // v146: the dealer is drawn by the shared people kit; the bobble group stays as the visibility/position anchor.
   if(streetCrowd?.follow?.(d.name,g))g.traverse(o=>{if(o.isMesh)o.visible=false;});
   const stall=new THREE.Group();stall.position.set(p.x+.9,0,p.z);scene.add(stall);
   box(0,.45,0,.9,.9,.6,0x8a5a3a,false,stall);box(0,1.05,0,.98,.08,.68,d.color,false,stall);
