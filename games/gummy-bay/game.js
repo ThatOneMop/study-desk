@@ -2854,8 +2854,7 @@ if(qaKey){
   snap.reach=qaReach(qaDirector.preview(snap));
   qaApply(qaDirector.intent(snap));
   // Slow headless frames used to replay up to a second of held keys with no
-  // steering, so the bot spun and drifted. Release the keys and cap the replay.
-  for(const k of ['w','a','s','d','shift','arrowleft','arrowright'])keys[k]=false;
+  // steering, so the bot spun and drifted. Cap the replayed time per frame.
   qaClock+=Math.min(50,Math.max(0,t-(qaWall??t)));qaWall=t;
   qaPlayback(qaClock);
   const report=qaDirector.report();
