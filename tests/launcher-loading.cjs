@@ -1,4 +1,5 @@
 const fs=require('fs'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
+function openGamesHub(win){win.history.replaceState(null,'','#games');win.dispatchEvent(new win.HashChangeEvent('hashchange'))}
 const root=__dirname+'/../',dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id),timeouts=[],cleared=[];
 const nativeTimeout=w.setTimeout.bind(w),nativeClear=w.clearTimeout.bind(w);
@@ -7,7 +8,7 @@ w.clearTimeout=id=>{cleared.push(id);nativeClear(id)};
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
 const frame=$('frame'),launch=id=>d.querySelector(`[data-action="play"][data-game="${id}"]`).click();
 frame.onload();assert.equal($('loadStatus').hidden,true);
-$('openGames').click();launch('after-hours');assert.equal(frame.getAttribute('aria-busy'),'true');
+openGamesHub(w);launch('after-hours');assert.equal(frame.getAttribute('aria-busy'),'true');
 // An error/fallback page fires load too; a missing bridge must stay visible.
 frame.onload();assert.equal($('loadStatus').hidden,false);assert.equal($('loadActions').hidden,false);assert($('loadMessage').textContent.includes('did not load'));assert.equal(d.activeElement,$('retryLoad'));
 const firstWindow=frame.contentWindow;w.confirm=()=>false;$('retryLoad').click();assert.equal(frame.contentWindow,firstWindow);
