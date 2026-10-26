@@ -726,11 +726,13 @@
         "Scoring and edge boundaries, deterministic packets, two-of-three drafting, forecasts including neighbour changes, invalid picks and journals, seed/trail locks, missed-target completion, undo/retry, records, opening gate, keyboard/native form guards, pause/dialog/trusted parent hiding, isolated reset, corrupt-save preservation/recovery and quota failure.",
         "Two-placement greedy helper reaches all three targets on seeds 1/42/137/2026/999999 (15 engine runs), not exhaustive or globally optimal. Forest-first low route scores 31; the initial assumed-failure meadow route actually scored 56, so the test route was corrected without changing rules/targets.",
         "Both scripts pass syntax checks, CSS parses, 32 HTML IDs are unique and script/style paths resolve in new files/current branch tree. Static audit caught and corrected the initial bridge filename before commit. Partial workspace: no full repository build; no rendered browser, screenshot inspection or native touch/layout evidence.",
-        "Rearrangement refinement: 26 tests pass (14 engine, 12 jsdom), retaining all 18 original tests. Moves/swaps, one-use and invalid-action guards, full-page scoring/records, legacy journals, undo/retry, exact previews, pause/cancel/reload and missed-target recovery. A 31-point page becomes 39 via a final swap and unlocks trail two. Script syntax checks pass. No rendered/native touch evidence."
+        "Rearrangement refinement: 26 tests pass (14 engine, 12 jsdom), retaining all 18 original tests. Moves/swaps, one-use and invalid-action guards, full-page scoring/records, legacy journals, undo/retry, exact previews, pause/cancel/reload and missed-target recovery. A 31-point page becomes 39 via a final swap and unlocks trail two. Script syntax checks pass. No rendered/native touch evidence.",
+        "Field pocket: 33 tests pass (18 engine, 15 jsdom), including all 26 prior tests. Exact species carry across packets, consumed draft choice, later replacement, one-use and taken/late/identical-action guards, legacy board compatibility, full 21-action journals combining pocket and rearrangement on all trails, unused pockets, undo/retry, UI selection, pause/native keyboard guards, reload/completion and isolated reset. Both scripts pass syntax checks. No rendered evidence."
       ],
       "commits": [
         "7f0a21f19bc2ae8acaed1169d23bfed61d8df92a",
-        "edeb533554ea7b7b96e7f2070e8c9c7162130f91"
+        "edeb533554ea7b7b96e7f2070e8c9c7162130f91",
+        "283fa96a252613fb9de44e5eea88d22da16886ac"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -748,6 +750,13 @@
         "before": "Finds stayed fixed unless the player undid their placement and all later actions.",
         "after": "One rearrangement per album moves a find into an empty slot or swaps different finds. It preserves later drafts and works on completed pages, with exact total-score preview and updated records/unlocks. Undo restores the allowance; legacy journals and records are preserved.",
         "remaining": "Natural rendered desktop/touch play, screenshot review, assessment of clarity and whether the one-use constraint creates satisfying choices. No improved/browser-tested credit."
+      },
+      "pendingPocketRefinement": {
+        "commit": "283fa96a252613fb9de44e5eea88d22da16886ac",
+        "basis": "Source inspection, not rendered play: each unchosen find was discarded at a packet boundary, preventing planning across drafts.",
+        "before": "Only the current three finds were available; an unchosen species could not be carried forward.",
+        "after": "Once per album, pocket an unplaced find and place the other two. In a later survey replace a different unplaced find with the saved species. The album still has twelve placements; rearrangement remains independent and undo restores both.",
+        "remaining": "Rendered desktop/touch play and screenshot review, balance assessment and clarity of replacement controls. No improved/browser-tested credit."
       }
     },
     {
@@ -1435,7 +1444,7 @@
     "Implement remaining 33 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "7be343a4b7638a11b75c273c88c744c4de834099",
+  "latestObservedMain": "f81a5ff53c44f3e6c1ee995537e19e1da304e52e",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1724,6 +1733,13 @@
       "result": "Bellwether Quiet paws source refinement implemented; 22 engine/DOM tests pass. Counts unchanged: 17 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing security-policy rendering block not bypassed or retried.",
       "mainObserved": "7be343a4b7638a11b75c273c88c744c4de834099"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "283fa96a252613fb9de44e5eea88d22da16886ac",
+      "result": "Field Album pocket implemented; 33 engine/DOM tests pass. Counts unchanged: third 17 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
+      "mainObserved": "f81a5ff53c44f3e6c1ee995537e19e1da304e52e"
     }
   ]
 }
