@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gummy Bay bench preview</title>
+<link rel="stylesheet" href="bench.css?v=128">
+<style>
+html,body{margin:0;height:100%;background:#1b2824;overflow:hidden}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+</style>
+</head>
+<body>
+<pre id="err" style="position:absolute;left:8px;top:8px;z-index:50;color:#fff;white-space:pre-wrap"></pre>
+<script>
+addEventListener('error', event => { document.getElementById('err').textContent += (event.message || event.error) + '\n'; });
+addEventListener('unhandledrejection', event => { document.getElementById('err').textContent += String(event.reason) + '\n'; });
+</script>
+<script type="module">
+import * as THREE from './vendor/three.module.min.js?v=128';
+import {createBenchSession} from './bench-mode.mjs?v=128';
+
+const params = new URLSearchParams(location.search);
+const kind = ['pour', 'seed', 'drizzle', 'seal'].includes(params.get('kind')) ? params.get('kind') : 'pour';
+const demo = params.get('demo') === '1';
+const renderer = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+renderer.setSize(innerWidth, innerHeight);
+renderer.setClearColor(0x1b2824, 1);
+renderer.domElement.style.position = 'fixed';
+renderer.domElement.style.inset = '0';
+document.body.appendChild(renderer.domElement);
+const shot = document.createElement('canvas');
+shot.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none';
+document.body.appendChild(shot);
+const shotPen = shot.getContext('2d');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.05, 20);
+camera.position.set(0, 0.74, 0.86);
+camera.lookAt(0, 0.04, 0);
+scene.add(new THREE.HemisphereLight(0xfff6e4, 0x31443c, 1.15));
+const key = new THREE.DirectionalLight(0xfff8ee, 1.35);
+key.position.set(0.8, 1.6, 0.7);
+scene.add(key);
+let bench;
+try {
+  bench = createBenchSession({THREE, scene, camera, canvas: renderer.domElement, attach: 'world'});
+} catch (error) {
+  document.getElementById('err').textContent += String(error && error.stack || error);
+  throw error;
+}
+const order = ['pour', 'seed', 'drizzle', 'seal'];
+const task = {pour: 'prepare', seed: 'plant', drizzle: 'water', seal: 'pack'};
+let current = kind;
+let wait = 0;
+function show(next, hold) {
+  current = next;
+  if (hold) bench.holdPose(next);
+  else bench.open({k: task[next]}, {color: 0xf2c14e});
+}
+show(kind, !demo);
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+function frame() {
+  if (demo) {
+    if (bench.state?.done) {
+      wait += 1 / 60;
+      if (wait > 0.7) {
+        const next = order[(order.indexOf(current) + 1) % order.length];
+        wait = 0;
+        show(next, false);
+      }
+    } else bench.tick(1 / 60, {assist: true});
+  }
+  renderer.render(scene, camera);
+  if (shot.width !== renderer.domElement.width || shot.height !== renderer.domElement.height) {
+    shot.width = renderer.domElement.width;
+    shot.height = renderer.domElement.height;
+  }
+  shotPen.drawImage(renderer.domElement, 0, 0);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+addEventListener('load', () => {});
+requestAnimationFrame(() => {
+  const buttons = [...document.querySelectorAll('#benchHUD button')];
+  const report = buttons.map(button => {
+    const box = button.getBoundingClientRect();
+    return button.className + ':' + Math.round(box.width) + 'x' + Math.round(box.height) + '@' + Math.round(box.left) + ',' + Math.round(box.top);
+  }).join(' ');
+  const info = renderer.info.render;
+  const link = document.querySelector('link[rel="stylesheet"]');
+  const skip = document.querySelector('.bench-skip');
+  document.documentElement.dataset.bench = current + ' ' + report + ' draws:' + info.calls + ' tris:' + info.triangles + ' css:' + (link ? link.href : 'none') + ' min:' + (skip ? getComputedStyle(skip).minHeight : '');
+});
+</script>
+</body>
+</html>

@@ -55,6 +55,7 @@ import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.
 import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
+import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=128';
 import {residentPlan,residentDescription,citizenRouteSteps,segmentClear,curfewActive} from './resident-life.mjs?v=125';
 import {residentLocomotionClip,residentActionRate,applyResidentTransition} from './resident-animation.mjs?v=109';
 import {deliveryRound} from './delivery-round.mjs?v=1';
@@ -254,7 +255,7 @@ for(let i=0;i<7;i++){let x=-100+i*33,z=-65-(i%3)*16;for(let j=0;j<3;j++)sphere(x
 for(let i=0;i<14;i++){let x=40+i*2;box(x,.6,66,.12,1.2,.12,0xe4dac0);if(i<13){box(x+1,.9,66,2,.08,.07,0xe4dac0);box(x+1,.35,66,2,.08,.07,0xe4dac0)}}
 for(let i=0;i<10;i++){let x=-36+i*.7;let z=49.4;cyl(x,.2,z,.025,.4,0x87a267);sphere(x,.46,z,.15,[0xe3b4b8,0xe7cf83,0xc7b5d7][i%3]);}
 const hand=new THREE.Group();camera.add(hand);const playerHand=createChunkyPlayerHand(hand);const watering=new THREE.Group();camera.add(watering);watering.visible=false;rounded(.36,-.3,-.7,.35,.4,.3,0x82b9b6,watering);let spout=cyl(.15,-.2,-.85,.045,.4,0x82b9b6,watering);spout.rotation.z=-.6;scene.add(camera);
-const level=()=>Math.min(8,1+Math.floor(s.xp/30));const cash=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:2});const unlocked=t=>level()>=STRAINS[t].level;const value=t=>Math.round(STRAINS[t].price*(1+s.bench*.15));const availableMoney=()=>s.payment==='card'?s.bank:s.cash;
+const level=()=>Math.min(8,1+Math.floor(s.xp/30));const cash=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:2});const unlocked=t=>level()>=STRAINS[t].level;const value=t=>Math.round(STRAINS[t].price*(1+s.bench*.15)*listedQuality(s,t));const availableMoney=()=>s.payment==='card'?s.bank:s.cash;
 function spend(n,bank=false){let useCard=bank||s.payment==='card',key=useCard?'bank':'cash';if(s[key]<n){toast('Not enough '+(useCard?'card funds. Deposit cash at an ATM.':'cash. Switch payment to card or visit an ATM.'));return false}s[key]=Math.round((s[key]-n)*100)/100;if(useCard)record('Card payment',-n);return true}
 function toast(msg){if(processingRemote){netSend({type:'toast',msg});return}$('toast').textContent=msg;$('toast').style.opacity=1;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.opacity=0,4200)}
 function save(){if(!active||net.role==='guest'||processingRemote)return;s.x=player.x;s.z=player.z;s.yaw=yaw;s.pitch=pitch;s.savedAt=Date.now();try{localStorage.setItem('gummybay-v3-'+mode+'-'+slot,JSON.stringify(s))}catch(e){toast('Browser saving is unavailable. Export a backup from Menu.')}}
@@ -2486,6 +2487,118 @@ const appsMenu=menu;menu=function(which,data){
  }
  if(which==='listing')insertAfterClose(productRowsHTML(phoneProductRows(),esc));
 };window.menu=menu;
+
+// v128: close-up pour, seed, drizzle and seal. Supplies still commit only when the station finishes.
+let benchSession=null,pendingCraft=null,benchCommit=false;
+try{
+ benchSession=createBenchSession({THREE,scene,camera,canvas,emit(kind){
+  const cue={pour:'water',spill:'trash',pop:'pickup',snap:'gummy',drizzle:'water',crimp:'wrapper',drop:'pickup',done:'xp',skip:'ui'}[kind];
+  if(cue&&window.townAudio?.emit)window.townAudio.emit(cue,{x:player.x,z:player.z});
+  playBenchCue(audioContext,kind,soundEnabled);
+ }});
+}catch(error){console.warn('Bench minigames unavailable',error);benchSession=null;}
+const normalizeCraft=normalize;
+normalize=function(v){const next=normalizeCraft(v);ensureCraftQuality(next);return next;};
+ensureCraftQuality(s);
+function commitBench(score){
+ if(!stationTask)return;
+ pendingCraft={actionK:stationTask.batch?'batch':stationTask.k,kind:stationTask.k,index:stationTask.batch?stationTask.batch.index:stationTask.a,quality:score.quality,complaint:score.complaint||0,skipped:!!score.skipped};
+ const task=stationTask;
+ task.benchLive=false;
+ benchCommit=true;
+ try{
+  let guard=0;
+  while(stationTask&&stationTask.k===task.k&&guard++<8){
+   const step=MANUAL[stationTask.k]?.[stationTask.step];
+   if(!step)break;
+   advanceStation((step[2]||1)*Math.sqrt(stationTask.batch?.count||1)+1);
+  }
+ }finally{
+  benchCommit=false;
+  if(pendingCraft&&!stationTask)pendingCraft=null;
+ }
+}
+if(benchSession){benchSession.onComplete=commitBench;benchSession.onCancel=()=>{if(stationTask)cancelStation();};}
+const advanceBench=advanceStation;
+advanceStation=function(amount){if(stationTask?.benchLive&&!benchCommit)return;advanceBench(amount);};
+const stationInputBench=updateStationInput;
+updateStationInput=function(dt){
+ if(stationTask?.benchLive&&benchSession){
+  if(!active||document.hidden)return;
+  stationTask.elapsed+=Math.min(.06,dt);
+  benchSession.tick(dt,{assist:!!stationAssist});
+  return;
+ }
+ stationInputBench(dt);
+};
+const paintBench=paintStation;
+paintStation=function(){
+ if(stationTask?.benchLive&&benchSession){benchSession.syncHud();const hud=$('stationHUD');if(hud)hud.hidden=true;return;}
+ paintBench();
+};
+const cancelForBench=cancelStation;
+cancelStation=function(){
+ const finishing=benchCommit;
+ if(benchSession?.active)benchSession.close(true);
+ cancelForBench();
+ if(!finishing)pendingCraft=null;
+};
+window.cancelStation=cancelStation;
+const stationControlBench=stationControl;
+stationControl=function(down){if(stationTask?.benchLive){stationAssist=!!down;return;}stationControlBench(down);};
+window.stationControl=stationControl;
+const craftAction=doAction;
+doAction=function(k,a,b,c){
+ const note=pendingCraft&&pendingCraft.actionK===k?pendingCraft:null;
+ const plant=(k==='harvest'||k==='plant'||k==='prepare'||k==='water')?s.plants?.[a]:null;
+ const keptPour=k==='plant'&&Number.isFinite(plant?.pour)?plant.pour:undefined;
+ const strain=k==='harvest'?plant?.t:(k==='batch'?a?.index:a);
+ const rawBefore=Number.isInteger(strain)?(s.raw?.[strain]||0):0;
+ const gummyBefore=Number.isInteger(strain)?(s.gummies?.[strain]||0):0;
+ const packsBefore=Number.isInteger(strain)?(s.packs?.[strain]||0):0;
+ const soldBefore=s.sold;
+ const deal=k==='deliver'?s.deals?.find(d=>d.npc===a):null;
+ craftAction(k,a,b,c);
+ if(k==='prepare'&&note&&s.plants?.[a]?.phase==='soil')s.plants[a].pour=note.quality;
+ if(k==='plant'&&note&&s.plants?.[a]){if(Number.isFinite(keptPour))s.plants[a].pour=keptPour;s.plants[a].seed=note.quality;}
+ if(k==='water'&&note&&s.plants?.[a]){const prev=s.plants[a].drizzle;s.plants[a].drizzle=Number.isFinite(prev)?(prev+note.quality)/2:note.quality;}
+ if(k==='harvest'&&plant&&hasGrowScore(plant)&&(s.raw?.[plant.t]||0)>rawBefore){
+  const added=(s.raw[plant.t]||0)-rawBefore;
+  ensureCraftQuality(s);
+  s.rawQuality[plant.t]=blendQuality(s.rawQuality?.[plant.t],rawBefore,growQuality(plant),added);
+ }
+ const kind=k==='batch'?a?.kind:k,idx=k==='batch'?a?.index:a;
+ if(kind==='make'&&Number.isFinite(s.rawQuality?.[idx])&&(s.gummies?.[idx]||0)>gummyBefore){
+  const added=s.gummies[idx]-gummyBefore;
+  ensureCraftQuality(s);
+  s.gummyQuality[idx]=blendQuality(s.gummyQuality?.[idx],gummyBefore,s.rawQuality[idx],added);
+ }
+ if(kind==='pack'&&(s.packs?.[idx]||0)>packsBefore&&(note||Number.isFinite(s.gummyQuality?.[idx]))){
+  const added=s.packs[idx]-packsBefore;
+  ensureCraftQuality(s);
+  s.packQuality[idx]=blendQuality(s.packQuality?.[idx],packsBefore,packScore(s.gummyQuality?.[idx],note?.quality),added);
+  if(note?.complaint>0){const prev=s.packComplaint?.[idx];s.packComplaint[idx]=blendQuality(Number.isFinite(prev)?prev:0,packsBefore,note.complaint,added);}
+ }
+ if(k==='deliver'&&deal&&s.sold>soldBefore&&complaintHits(s.packComplaint?.[deal.t]||0,s.day*1000+Math.floor(s.time)+a)){
+  s.relations[a]=Math.max(0,(s.relations[a]||0)-8);
+  toast((CONTACTS[a]?.name||'The customer')+' found a loose seal. They still paid, and will remember it.');
+ }
+ if(note&&note.actionK===k)pendingCraft=null;
+};
+const actionOpenBench=action;
+action=function(k,a,b,c){
+ actionOpenBench(k,a,b,c);
+ if(!benchSession||!stationTask||!BENCH_KIND[k]||stationTask.k!==k||stationTask.benchLive)return;
+ if(typeof canvas?.getBoundingClientRect!=='function')return;
+ stationTask.benchLive=true;
+ stationView.visible=false;
+ const tint=STRAINS[k==='plant'?b:(s.plants?.[a]?.t??a)]?.color||0xf2c14e;
+ benchSession.open(stationTask,{color:tint});
+ const hud=$('stationHUD');if(hud)hud.hidden=true;
+};
+window.action=action;
+const renderBench=renderFrame;
+renderFrame=function(){if(benchSession?.active)benchSession.applyCamera();renderBench();};
 
 // Test-only day harness. Absent unless the URL is exactly ?qa=day. Saves go to
 // gummybay-qa-day so the six story/free slots stay untouched. Boot tests strip
