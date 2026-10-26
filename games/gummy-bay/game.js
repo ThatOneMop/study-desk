@@ -87,6 +87,7 @@ import {acceptCoopPing,coopPingStatus} from './coop-ping.mjs?v=63';
 import {acceptCoopActivity,activitySnapshot,appendCoopActivity,coopActivityLine,deriveCoopActivity} from './coop-activity.mjs?v=64';
 import {businessPortrait,progressionSummary} from './progression-portrait.mjs?v=65';
 import {createVisualPolish} from './visual-polish.mjs?v=113';
+import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_STORAGE_KEY,cueForAction,stationCue,isManualAction} from './audio.mjs?v=123';
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
@@ -2177,3 +2178,31 @@ for(const [i,b] of buildings.entries()){
 
 // Soft contact darkening inside existing service lanes; no change to walkable paths.
 for(const lane of NARROW_ALLEY_PROFILES)contact(lane.x,lane.laneZ,lane.screenLength+1,lane.clearWidth+1);
+
+// Procedural score, foley and mixer. The install is skipped when an older harness strips the import.
+if(typeof createTownAudio==='function')try{
+ if(!Object.hasOwn(audioLevels,'music'))audioLevels.music=.55;
+ try{audioLevels.music=readAudioLevels(localStorage.getItem(AUDIO_STORAGE_KEY)).music;}catch{}
+ const townAudio=createTownAudio({levels:audioLevels,storage:localStorage,onPersistError(){toast('Audio setting applies for this session.');}});
+ window.townAudio=townAudio;
+ setVolume=function(key,value){townAudio.setVolume(key,value);};
+ window.setVolume=setVolume;
+ ambientGain=ambientGain||{gain:{value:0,setTargetAtTime(){}}};
+ const phoneScreens=new Set(['phone','thread','listing','deals','wallet']);
+ const dialogueScreens=new Set(['thread','customer','payphone']);
+ function unlockTownAudio(){const AC=window.AudioContext||window.webkitAudioContext;if(AC&&!audioContext){try{audioContext=new AC();}catch{audioContext=null;}}if(audioContext)townAudio.unlock(audioContext);}
+ addEventListener('pointerdown',unlockTownAudio);
+ addEventListener('mousedown',unlockTownAudio);
+ addEventListener('keydown',unlockTownAudio);
+ document.addEventListener('click',event=>{if(event.target?.closest?.('button'))townAudio.emit('ui');},true);
+ playFootstep=function(){if(!soundEnabled||driving)return;const raised=rvFloorHeight(player.x,player.z)>0.2||tentSupportHeight(player.x,player.z)>0.2||verticalTownFloorHeight(player.x,player.z)>0.2;townAudio.emit('footstep',{surface:footstepSurface(player.x,player.z,raised?1:0),crouch:!!keys.control,sprint:!!keys.shift,x:player.x,z:player.z});};
+ const townAction=doAction;doAction=function(k,a,b,c){const xp=s.xp,cashBefore=s.cash,bankBefore=s.bank;townAction(k,a,b,c);if(!isManualAction(k)){const cue=cueForAction(k);if(cue)townAudio.emit(cue,{x:player.x,z:player.z});}if(s.xp>xp)townAudio.emit('xp');if((s.cash!==cashBefore||s.bank!==bankBefore)&&k!=='deliver')townAudio.emit('cash');if(k==='mix'&&b===1)townAudio.emit('warble');};
+ const townGuest=action;action=function(k,a,b,c){const guest=net.role==='guest'&&active;const result=townGuest(k,a,b,c);if(guest&&!isManualAction(k)){const cue=cueForAction(k);if(cue)townAudio.emit(cue,{x:player.x,z:player.z});}if(guest&&k==='mix'&&b===1)townAudio.emit('warble');return result;};window.action=action;
+ const townStation=advanceStation;advanceStation=function(amount){const before=stationTask?{k:stationTask.k,step:stationTask.step}:null;townStation(amount);if(!before)return;const changed=!stationTask||stationTask.step!==before.step||stationTask.k!==before.k;if(!changed)return;const cue=stationCue(before.k,before.step);if(cue)townAudio.emit(cue,{x:player.x,z:player.z});};
+ const townEnter=enterVehicle;enterVehicle=function(){const was=driving;townEnter();if(!was&&driving)townAudio.emit('door',{kind:'metal',x:player.x,z:player.z});};
+ const townExit=exitVehicle;exitVehicle=function(){const was=driving;townExit();if(was&&!driving)townAudio.emit('door',{kind:'metal',x:player.x,z:player.z});};
+ Object.assign(window,{enterVehicle,exitVehicle});
+ const townMenu=menu;menu=function(which,data){const prev=panel;townMenu(which,data);if(which==='settings'&&$('modal'))$('modal').innerHTML=replaceAudioMixer($('modal').innerHTML,audioLevels);if(phoneScreens.has(which)&&!phoneScreens.has(prev))townAudio.emit('message');if((which==='customer'||which==='thread')&&Number.isInteger(data)&&which!==prev)townAudio.emit('bark',{voice:data,force:true,x:player.x,z:player.z});};window.menu=menu;
+ let townHeard=performance.now();
+ const townFrame=renderFrame;renderFrame=function(){townFrame();try{const t=performance.now(),dt=Math.min(.05,Math.max(0,(t-townHeard)/1000));townHeard=t;const home=HOMES[s.house];const indoors=!!(s.room&&home&&Math.abs(player.x-home.x)<home.w/2&&Math.abs(player.z-home.z)<home.d/2);let police='clear',officers=null;if(active&&s.police){police=currentPoliceFeedback().stage;officers=s.police.officers;}townAudio.setEnabled(soundEnabled);townAudio.update({time:s.time,active,enabled:soundEnabled,indoors,driving,speed:driveSpeed,panel,station:stationTask?.k||'',x:player.x,y:player.y,z:player.z,yaw,dialogue:dialogueScreens.has(panel),police,officers,npcs:CONTACTS.map((c,id)=>({id,x:c.x,z:c.z})),now:t/1000,dt,rain:0});}catch(e){console.warn('Town audio update skipped',e);}};
+}catch(e){console.warn('Town audio unavailable',e);}
