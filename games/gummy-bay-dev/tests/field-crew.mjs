@@ -32,7 +32,7 @@ s.workerEnabled.gardener=false;const held=g.work;g.tick(s,.06,gardenCtx());
 assert.equal(g.status,'Assignment paused');assert.equal(g.work,held);assert.equal(s.raw[0],0);
 s.workerEnabled.gardener=true;assert.equal(run(g,s,gardenCtx()),1);assert.equal(s.raw[0],4);
 s=gardenState({plants:[{phase:'mature',t:0}]});g=new TentGardener();
-assert.equal(run(g,s,gardenCtx({blocked:()=>true})),0);assert.equal(s.raw[0],0);assert.equal(g.status,'Route blocked');
+assert.equal(run(g,s,gardenCtx({blocked:()=>true})),0);assert.equal(s.raw[0],0);assert.equal(g.status,'Garden route blocked');
 const sellerState=(extra={})=>({house:0,helpers:{seller:true},workerEnabled:{seller:true},staffConfig:{seller:{strain:-1,tent:-1,stock:'carried',route:'walk'}},
  packs:[2,0],cash:10,earned:0,sold:0,xp:0,heat:0,day:1,time:600,deals:[{npc:0,t:0,qty:2,price:30}],threads:{0:{status:'agreed',messages:[]}},...extra});
 const sellerCtx=(blocked=()=>false)=>({contacts:[{name:'Jules',x:0,z:0}],blocked,approach:6});
@@ -54,7 +54,7 @@ s.workerEnabled.seller=false;const mid=seller.work;seller.tick(s,.06,sellerCtx()
 assert.equal(seller.work,mid);assert.equal(seller.status,'Assignment paused');
 s.workerEnabled.seller=true;assert.equal(run(seller,s,sellerCtx(),30),1);assert.equal(s.cash,70);assert.equal(s.earned,60);
 s=sellerState();seller=new StreetSeller();seller.home=0;seller.position={x:10,z:0};
-assert.equal(run(seller,s,sellerCtx(x=>x>4),40),0);assert.equal(s.packs[0],2);assert.equal(seller.status,'Route blocked');
+assert.equal(run(seller,s,sellerCtx(x=>x>4),40),0);assert.equal(s.packs[0],2);assert.equal(seller.status,'Delivery route blocked');
 s=sellerState({staffConfig:{seller:{strain:-1,tent:-1,stock:'carried',route:'timer'}}});seller=new StreetSeller();seller.position={x:0,z:0};
 assert.equal(run(seller,s,sellerCtx(),40),0);assert.equal(s.cash,10);assert.equal(seller.status,'Background timer');
 assert.equal(approachPoint({x:0,z:0},()=>true),null);

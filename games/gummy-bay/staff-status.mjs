@@ -1,5 +1,5 @@
 // Shared presentation only. Commands and stock remain owned by the host.
-const REMOTE_STATES=new Set(['Not hired','Carried-stock automation','Assignment paused','Missing packaging station','Station occupied','Storage full','Route blocked','Carrying finished pack','Carrying supplies','Walking to supplies','Missing wrappers','Missing ingredients','Supplies collected','Shaping and packaging','Storage full · holding finished pack','Pack stored']);
+const REMOTE_STATES=new Set(['Not hired','Carried-stock automation','Assignment paused','Missing packaging station','Station occupied','Storage full','Route blocked','Garden route blocked','Delivery route blocked','Carrying finished pack','Carrying supplies','Walking to supplies','Missing wrappers','Missing ingredients','Supplies collected','Shaping and packaging','Storage full · holding finished pack','Pack stored']);
 export function remoteWorkerStatus(worker,connected,age){
  if(!connected)return 'Host unavailable';
  if(!Number.isFinite(age)||age<0||age>5000)return 'Host update stale';
@@ -27,7 +27,9 @@ export function workerAdvice(status){
  if(/packaging station/.test(status))return {text:'Buy a packaging station at Hank’s Hardware.',target:'hardware'};
  if(/wrappers/.test(status))return {text:'Buy wrappers at the Corner Store. Each finished pack uses one.',target:'store'};
  if(/Storage full|stockroom full/.test(status))return {text:'Collect or sell stored packs to make shelf space. A carried finished pack stays with the worker.',target:'stockroom'};
- if(/Route blocked/.test(status))return {text:'Clear the route between the supply trolley, worktable and stockroom. Moving tents preserves crops.',target:'craft'};
+ if(/^Garden route blocked/.test(status))return {text:'The gardener cannot reach that tent. Clear a path inside the property. The crop stays where it is.',target:'tent'};
+ if(/^Delivery route blocked/.test(status))return {text:'The seller walks a straight line and has stopped. Agreed packs stay in the bag until the way to that customer is clear.'};
+ if(/^Route blocked/.test(status))return {text:'Clear the route between the supply trolley, worktable and stockroom. Moving tents preserves crops.',target:'craft'};
  if(/Station occupied/.test(status))return {text:'Finish or cancel manual work or placement, then close this panel to resume.'};
  if(/soil|assigned seeds/.test(status))return {text:'Bring soil and unlocked seeds matching this assignment, or choose another product.',target:'dealer'};
  if(/fill the watering can/.test(status))return {text:'Fill the can at the room sink. A walking gardener spends one real charge and does not refill it.',target:'sink'};

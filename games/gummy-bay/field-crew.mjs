@@ -53,13 +53,13 @@ function applyGardenJob(s,job,ctx){
  s.soil--;s.seeds[job.strain]--;s.plants[job.tent]={phase:'dry',t:job.strain,waterings:0};s.planted=(s.planted||0)+1;return true;
 }
 function walkPath(worker,dt,destination,ctx){
- if(worker.retry>0){worker.retry-=dt;worker.status='Route blocked';return false;}
- if(!worker.path){worker.path=findRoute(worker.position,destination,ctx.bounds,ctx.blocked);if(!worker.path){worker.retry=1;worker.status='Route blocked';return false;}}
+ if(worker.retry>0){worker.retry-=dt;worker.status='Garden route blocked';return false;}
+ if(!worker.path){worker.path=findRoute(worker.position,destination,ctx.bounds,ctx.blocked);if(!worker.path){worker.retry=1;worker.status='Garden route blocked';return false;}}
  let remaining=dt*SPEED;
  while(worker.path.length&&remaining>0){
   const p=worker.path[0],dx=p.x-worker.position.x,dz=p.z-worker.position.z,d=Math.hypot(dx,dz),travel=Math.min(d,remaining);
   const q={x:worker.position.x+(d?dx/d*travel:0),z:worker.position.z+(d?dz/d*travel:0)};
-  if(ctx.blocked(q.x,q.z)){worker.path=null;worker.retry=1;worker.status='Route blocked';return false;}
+  if(ctx.blocked(q.x,q.z)){worker.path=null;worker.retry=1;worker.status='Garden route blocked';return false;}
   worker.position=q;remaining-=travel;if(d<=travel+.001)worker.path.shift();else break;
  }
  return true;
@@ -126,13 +126,13 @@ export class StreetSeller{
   if(this.targetNpc!==deal.npc){this.targetNpc=deal.npc;this.work=0;}
   if(!this.position){
    this.position=approachPoint(contact,ctx.blocked,ctx.approach||APPROACH);
-   if(!this.position){this.status='Route blocked';return false;}
+   if(!this.position){this.status='Delivery route blocked';return false;}
   }
   const dx=contact.x-this.position.x,dz=contact.z-this.position.z,dist=Math.hypot(dx,dz);
   if(dist>MEET){
-   if(this.retry>0){this.retry-=dt;this.status='Route blocked';return false;}
+   if(this.retry>0){this.retry-=dt;this.status='Delivery route blocked';return false;}
    const step=Math.min(dist,dt*SPEED),next={x:this.position.x+(dx/dist)*step,z:this.position.z+(dz/dist)*step};
-   if(!clearSegment(this.position,next,ctx.blocked)){this.retry=1;this.status='Route blocked';return false;}
+   if(!clearSegment(this.position,next,ctx.blocked)){this.retry=1;this.status='Delivery route blocked';return false;}
    this.position=next;this.status='Walking to '+contact.name;return false;
   }
   this.work+=dt;this.status='Handing over the order';
