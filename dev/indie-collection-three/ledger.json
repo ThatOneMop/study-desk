@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 13,
+    "built": 14,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -596,21 +596,36 @@
     },
     {
       "slot": 54,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "kiln-chorus",
+      "title": "Kiln Chorus",
+      "coreLoop": "Schedule a shared kiln: manage fuel and chamber heat while pieces respond at different speeds, accumulate glaze marks in distinct bands, and draw each before it overheats.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/kiln-chorus",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "13 tests pass: 7 engine and 6 jsdom 26.1.0. All three loads finish through button routes, with exact save/reload after every action and best fuel records 3/4/3.",
+        "Thermal lag, cumulative glaze, draw-before-update ordering, overheating/cold fuel exhaustion, undo/retry, records, invalid journals/unlocks, read-only full-kiln forecasts, keyboard ownership, pause/dialog/parent guards, corruption recovery, isolated reset and quota failures.",
+        "Exhaustive engine exploration checks 2,715 / 62,445 / 20,973 distinct successor states and confirms achievable fuel ceilings. This is simulation evidence, not content or human enjoyment.",
+        "Both scripts pass syntax checks; local HTML dependencies exist in the branch tree/new files. Partial workspace: no full repository build. Dialogs simulated; no rendered browser/screenshot/native touch or layout verification."
+      ],
+      "commits": [
+        "68dd28cf93bf79f10b8a48a0603e052b93c7c068"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Awaiting rendered assessment",
+        "knownLimits": "Three small authored loads with demonstrated 7/9/13-action routes. Exact forecasts support relaxed planning but may reduce discovery. Replay depth, firing satisfaction, visual hierarchy, native inputs and mobile layout need rendered review. No hours-of-content claim."
+      },
+      "nextSteps": [
+        "Play all three loads naturally on desktop/touch and inspect screenshots; assess thermal readability, draw-order choices and replay depth.",
+        "Implement a substantive improvement based on rendered play, then verify saves/reload, loss/undo/retry/reset and actual catalogue navigation before selection."
+      ]
     },
     {
       "slot": 55,
@@ -1263,11 +1278,11 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all thirteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 37 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all fourteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 36 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-26",
-  "latestObservedMain": "dc88f09cfb30cae92e3f0e9afe65cd2f7ddaf4f7",
+  "latestObservedMain": "6ab8e8028e98270b16b4d71e4ab0083d06a6d7ed",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1443,6 +1458,14 @@
       "commit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
       "result": "Canopy Weave optional compact-garden challenge implemented with geometric vine reach, previews and independent records. 13 engine/DOM tests pass. Counts remain 13 built; 0 improved/browser-tested/integrated/live.",
       "browserStatus": "Existing rendering blocker not retried or bypassed; no rendered credit or live release."
+    },
+    {
+      "date": "2026-10-26",
+      "commit": "68dd28cf93bf79f10b8a48a0603e052b93c7c068",
+      "result": "Built Kiln Chorus, slot 54: shared-kiln thermal scheduling, draw-order tradeoffs, full forecasts, undo, loss/retry and safe saves. 13 engine/DOM tests pass. Third batch now 14 built; 0 improved/browser-tested/integrated/live.",
+      "browserStatus": "Existing rendering security-policy blocker not retried or bypassed. No rendered credit or live release.",
+      "mainObserved": "6ab8e8028e98270b16b4d71e4ab0083d06a6d7ed",
+      "publication": "Current main run 40281522302 passed route/assets checks, failed Configure GitHub Pages, skipped preparation/upload/deploy. Main workflow now expects an already configured Pages site; no configuration mutation or rerun performed."
     }
   ]
 }
