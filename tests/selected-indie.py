@@ -29,7 +29,7 @@ SELECTED = {
     },
     "scrap-orbit": {
         "engine.js": "2fbcc5cd8a2c35ea0891e8cf91e455124748f0576f06c88f8155cbb96ab01e10",
-        "game.js": "74389f9f25abeb3afb3969b49b16827baf931b5415e3a350ea0c837a8db94e29",
+        "game.js": "ca361c40d571103add6ba74035599322568e95740460f9325d5d59a78eb1c316",
         "style.css": "ca27fed7ea5fad7314934da78fb0d7125e621330a42503381c33b18463b4e1af",
     },
     "inkline": {

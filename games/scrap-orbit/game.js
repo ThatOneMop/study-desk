@@ -282,4 +282,4 @@ for(const id of Object.keys(flash))if(--flash[id]<=0)delete flash[id];
 requestAnimationFrame(frame)}render();
 save();
 requestAnimationFrame(frame);
-})();
+window.SOGame={get o(){return state}};})();

@@ -14,7 +14,11 @@ const games=[
  {id:'glasshouse',p:'gh',hook:'GHGame',act:`(async()=>{${w}document.getElementById('pot5').click();await w(80);document.getElementById('plant').click();await w(150)})()`},
  {id:'spore-kitchen',p:'sk',hook:'SKGame',act:`(async()=>{${w}document.getElementById('seed0').click();await w(80);document.querySelector('#beds > :nth-child(1)').click();await w(150)})()`},
  {id:'bolt-and-bristle',p:'bb',hook:'BBGame',act:`(async()=>{${w}document.getElementById('test').click();await w(150)})()`},
- {id:'roof-runner',p:'rr',hook:'RRGame'}
+ {id:'roof-runner',p:'rr',hook:'RRGame'},
+ {id:'scrap-orbit',p:'so',hook:'SOGame'},
+ {id:'last-match',p:'lm',hook:'LMGame'},
+ {id:'burrow-express',p:'be',hook:'BEGame',act:`(async()=>{${w}const r=BEGame.o.run,s=r.status;r.status='running';await w(150);r.status=s})()`},
+ {id:'storm-signal',p:'ss',hook:'SSGame',act:`(async()=>{${w}const r=SSGame.o.run;r.scans++;await w(150);r.scans--})()`}
 ];
 (async()=>{
  const launch={headless:true,args:['--no-sandbox']};if(process.env.CHROME_PATH)launch.executablePath=process.env.CHROME_PATH;
