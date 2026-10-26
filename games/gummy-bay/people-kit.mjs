@@ -135,9 +135,10 @@ export function faceCell(look,state='open'){
 }
 
 // Rounded box: a subdivided cube pulled toward a sphere, with sphere-blended
-// normals. 48 triangles at 2 segments; per-instance taper shapes it into
+// normals. v154: 108 triangles at 3 segments and a rounder pull, so heads and
+// limbs read as soft pebbles instead of boxes; per-instance taper shapes it into
 // waists, jaws, calves and forearms in the vertex shader.
-export function createRoundedBoxGeometry(segments=2,round=.85){
+export function createRoundedBoxGeometry(segments=3,round=.95){
  const geometry=new THREE.BoxGeometry(1,1,1,segments,segments,segments),position=geometry.attributes.position,v=new THREE.Vector3(),s=new THREE.Vector3();
  for(let i=0;i<position.count;i++){
   v.fromBufferAttribute(position,i);s.copy(v).normalize().multiplyScalar(.5);
@@ -146,7 +147,7 @@ export function createRoundedBoxGeometry(segments=2,round=.85){
   position.setXYZ(i,v.x,v.y,v.z);
  }
  const normal=geometry.attributes.normal,n=new THREE.Vector3(),f=new THREE.Vector3();
- for(let i=0;i<position.count;i++){v.fromBufferAttribute(position,i).normalize();f.fromBufferAttribute(normal,i);n.copy(v).lerp(f,.2).normalize();normal.setXYZ(i,n.x,n.y,n.z);}
+ for(let i=0;i<position.count;i++){v.fromBufferAttribute(position,i).normalize();f.fromBufferAttribute(normal,i);n.copy(v).lerp(f,.08).normalize();normal.setXYZ(i,n.x,n.y,n.z);}
  normal.needsUpdate=true;
  return geometry;
 }
@@ -169,9 +170,11 @@ function eye(ctx,ex,ey,r,{lid=0,wide=false,lashes=false,look=0}){
  // Sclera, iris, pupil and a catch-light; the upper lid trims the top.
  ctx.save();ctx.beginPath();ctx.ellipse(ex,ey,r*1.05,r*1.3,0,0,Math.PI*2);ctx.clip();
  ctx.fillStyle='#fbf8f2';ctx.fillRect(ex-r*2,ey-r*2,r*4,r*4);
- ctx.fillStyle='#5a3b22';ctx.beginPath();ctx.arc(ex+look*r*.25,ey+r*.15,r*.72,0,Math.PI*2);ctx.fill();
- ctx.fillStyle='#120d0a';ctx.beginPath();ctx.arc(ex+look*r*.25,ey+r*.15,r*.38,0,Math.PI*2);ctx.fill();
- ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(ex+look*r*.25+r*.28,ey-r*.18,r*.2,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#3e2814';ctx.beginPath();ctx.arc(ex+look*r*.25,ey+r*.15,r*.76,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#6e4a2a';ctx.beginPath();ctx.arc(ex+look*r*.25,ey+r*.2,r*.6,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#120d0a';ctx.beginPath();ctx.arc(ex+look*r*.25,ey+r*.15,r*.36,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(ex+look*r*.25+r*.26,ey-r*.2,r*.24,0,Math.PI*2);ctx.fill();
+ ctx.beginPath();ctx.arc(ex+look*r*.25-r*.24,ey+r*.42,r*.11,0,Math.PI*2);ctx.fill();
  if(lid>0)ctx.clearRect(ex-r*2,ey-r*1.4,r*4,r*2.7*lid);
  ctx.restore();
  ctx.strokeStyle=INK;ctx.lineWidth=r*.32;ctx.beginPath();
@@ -182,11 +185,11 @@ function eye(ctx,ex,ey,r,{lid=0,wide=false,lashes=false,look=0}){
 }
 // Eight moods x three eyewear x open/blink/talk. Pixels are opaque or clear (alphaTest).
 function drawFace(ctx,x,y,size,style,eyewear,state){
- const cx=x+size/2,eyeY=y+size*.46,gap=size*.16,r=size*(style===1?.07:.06);
+ const cx=x+size/2,eyeY=y+size*.46,gap=size*.165,r=size*(style===1?.085:.074);
  ctx.lineCap='round';ctx.lineJoin='round';
  // Brows by mood: [outer y, inner y] offsets (negative is up).
  const B=[[-.02,-.02],[-.07,-.05],[-.05,.0],[-.03,.035],[.0,.0],[-.04,-.04],[.0,-.05],[.0,.015]][style];
- ctx.strokeStyle=BROW;ctx.lineWidth=size*(style===7||style===3?.05:.04);
+ ctx.strokeStyle=BROW;ctx.lineWidth=size*(style===7||style===3?.06:.05);
  for(const side of [-1,1]){
   const by=eyeY-size*.13,b=style===2&&side>0?[-.07,-.05]:B;
   ctx.beginPath();ctx.moveTo(cx+side*(gap+size*.075),by+b[0]*size);ctx.quadraticCurveTo(cx+side*gap,by+Math.min(b[0],b[1])*size-size*.015,cx+side*(gap-size*.07),by+b[1]*size);ctx.stroke();
@@ -207,7 +210,7 @@ function drawFace(ctx,x,y,size,style,eyewear,state){
  // Freckles for the cheery mood.
  if(style===5){ctx.fillStyle='#9a5a3a';for(const side of [-1,1])for(const [fx,fy] of [[.2,.1],[.25,.13],[.17,.14],[.23,.08]]){ctx.beginPath();ctx.arc(cx+side*size*fx,eyeY+size*fy,size*.009,0,Math.PI*2);ctx.fill();}}
  const mouthY=y+size*.74,w=size*.085;
- ctx.strokeStyle='#4a2420';ctx.fillStyle='#5a2226';ctx.lineWidth=size*.034;
+ ctx.strokeStyle='#4a2420';ctx.fillStyle='#5a2226';ctx.lineWidth=size*.04;
  if(state==='talk'){
   ctx.beginPath();ctx.ellipse(cx,mouthY,size*.07,size*.055,0,0,Math.PI*2);ctx.fill();
   ctx.fillStyle='#d9656a';ctx.beginPath();ctx.ellipse(cx,mouthY+size*.03,size*.045,size*.022,0,0,Math.PI*2);ctx.fill();
@@ -230,7 +233,7 @@ function drawFace(ctx,x,y,size,style,eyewear,state){
 export function peopleFaceTexture(){
  if(faceTexture)return faceTexture;
  if(typeof document==='undefined'||typeof document.createElement!=='function')return null;
- const cell=112,canvas=document.createElement('canvas');canvas.width=cell*PEOPLE_FACE_COLS;canvas.height=cell*PEOPLE_FACE_ROWS;
+ const cell=128,canvas=document.createElement('canvas');canvas.width=cell*PEOPLE_FACE_COLS;canvas.height=cell*PEOPLE_FACE_ROWS;
  const ctx=canvas.getContext?.('2d');if(!ctx)return null;
  const states=['open','blink','talk'];
  for(let row=0;row<PEOPLE_FACE_ROWS;row++)for(let col=0;col<PEOPLE_FACE_COLS;col++){
@@ -257,13 +260,26 @@ export function createFaceGeometry(capacity){
  return geometry;
 }
 export function createPeopleMaterial(flat=true){return new THREE.MeshStandardMaterial({color:0xffffff,roughness:.88,metalness:0,flatShading:flat});}
+// v154 soft shading for people: a two-tone light/shadow band (clothes read as
+// painted, not plastic), a soft AO toward the bottom of every part (under the chin,
+// armpits, cuffs) and a faint rim so silhouettes pop against the street.
+export const PEOPLE_SHADE_LIGHTS=`#include <lights_fragment_end>
+#if NUM_DIR_LIGHTS > 0
+ { float gBand=smoothstep(-.04,.2,dot(normal,directionalLights[0].direction)); reflectedLight.directDiffuse*=mix(.5,1.04,gBand); }
+#endif
+ { float gAo=mix(.7,1.0,smoothstep(-.5,.18,vPartY)); reflectedLight.indirectDiffuse*=gAo; reflectedLight.directDiffuse*=mix(.86,1.0,gAo); }`;
+export const PEOPLE_SHADE_RIM=`{ float gRim=pow(1.0-clamp(dot(normal,normalize(vViewPosition)),0.0,1.0),3.0); outgoingLight+=diffuseColor.rgb*gRim*.2+vec3(.035)*gRim; }
+#include <opaque_fragment>`;
 // Soft body material: aTaper narrows the bottom (<1) or flares it (>1) per instance.
 export function createBodyMaterial(){
  const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.82,metalness:0,flatShading:false});
  material.onBeforeCompile=shader=>{
-  shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec2 aTaper;').replace('#include <begin_vertex>','#include <begin_vertex>\n transformed.xz*=mix(aTaper,vec2(1.0),clamp(position.y+.5,0.0,1.0));');
+  shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec2 aTaper;\nvarying float vPartY;').replace('#include <begin_vertex>','#include <begin_vertex>\n vPartY=position.y;\n transformed.xz*=mix(aTaper,vec2(1.0),clamp(position.y+.5,0.0,1.0));');
+  shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float vPartY;')
+   .replace('#include <lights_fragment_end>',PEOPLE_SHADE_LIGHTS)
+   .replace('#include <opaque_fragment>',PEOPLE_SHADE_RIM);
  };
- material.customProgramCacheKey=()=>'gummy-people-body-v146';
+ material.customProgramCacheKey=()=>'gummy-people-body-v154';
  return material;
 }
 
@@ -304,14 +320,21 @@ export const PERSON_PARTS=Object.freeze([
  P('nose','round','head',0,.15,.148,.055,.07,.06,'nose'),
  P('earL','round','head',-.152,.18,0,.045,.085,.07,'skin','ears'),
  P('earR','round','head',.152,.18,0,.045,.085,.07,'skin','ears'),
- P('hairTop','round','head',0,.31,-.012,.31,.11,.32,'hair','hairTop',true),
+ P('hairTop','round','head',0,.31,-.012,.31,.11,.32,'hair','hairTop',true,1.05,1.05),
  P('hairBack','round','head',0,.23,-.10,.30,.16,.11,'hair','hairBack',true),
  P('hairExtra','round','head',0,.375,-.07,.13,.12,.12,'hair','hairExtra'),
  P('hat','round','head',0,.33,0,.31,.10,.32,'cap','hat',true),
  P('hoodUp','round','head',0,.2,-.035,.335,.37,.325,'hood','hoodUp',true),
  P('hoodDown','round','chest',0,.41,-.12,.30,.12,.12,'hood','hoodDown'),
- P('handL','round','foreL',0,-.3,0,.09,.11,.085,'skin'),
- P('handR','round','foreR',0,-.3,0,.09,.11,.085,'skin'),
+ P('handL','round','foreL',0,-.3,.005,.095,.12,.09,'skin'),
+ P('handR','round','foreR',0,-.3,.005,.095,.12,.09,'skin'),
+ P('thumbL','round','foreL',.04,-.285,.04,.035,.075,.04,'skin'),
+ P('thumbR','round','foreR',-.04,-.285,.04,.035,.075,.04,'skin'),
+ P('cuffL','round','foreL',0,-.245,0,.098,.04,.104,'cuff','cuff'),
+ P('cuffR','round','foreR',0,-.245,0,.098,.04,.104,'cuff','cuff'),
+ P('toeL','round','shinL',0,-.39,.135,.128,.075,.09,'sole','toe'),
+ P('toeR','round','shinR',0,-.39,.135,.128,.075,.09,'sole','toe'),
+ P('hem','round','chest',0,-.085,0,.335,.05,.25,'hem','hem'),
  P('beard','round','head',0,.045,.07,.28,.12,.22,'beard','beard',false,.75,.9),
  P('mustache','round','head',0,.137,.155,.15,.04,.04,'beard','mustache'),
  P('face','face','head',0,.175,.152,.25,.25,1,'face')
@@ -346,19 +369,24 @@ function shapePart(part,look,detail,o=SHAPE){
  const top=look?.topStyle,police=look?.role==='police',hood=!!look?.hoodUp,hat=hatOf(look),hair=hairOf(look);
  const build=Number.isFinite(look?.build)?look.build:1,bw=1+(build-1)*.85,bl=1+(build-1)*.5;
  const hatted=hat!=='none'&&!hood;
+ // v154: chest-front details ride on the (rounder, build-scaled) torso surface instead of sinking into it.
+ if(part.mesh==='box'&&part.joint==='chest'&&part.z>.1)o.z=part.z*(1+(build-1)*1.1)*(top==='puffer'?1.14:1)+.01;
  switch(part.when){
   case 'always':break;
   case 'open':return OPEN_TOPS.has(top)||police;
   case 'hoodie':return top==='hoodie';
   case 'police':return police;
   case 'belt':o.w*=bw;o.d*=1+(build-1)*.8;return police||top==='tee'||top==='polo'||top==='flannel';
-  case 'collar':if(Number.isFinite(look?.scarf))return set(o,0,.385,.005,.27,.075,.24);return police||top==='polo'||top==='flannel';
+  case 'collar':if(Number.isFinite(look?.scarf))return set(o,0,.385,.005,.27,.075,.24);return police||top==='polo'||top==='flannel'||top==='jacket'||top==='puffer';
   case 'bib':
    if(top==='overalls')return true;
    if(top==='apron'){if(part.name==='bib')return set(o,0,-.03,.136,.30,.42,.014);return true;}
    return false;
   case 'stripes':return top==='track'||look?.role==='worker';
   case 'sole':return look?.shoeStyle!=='loafer';
+  case 'toe':return (look?.shoeStyle||'sneaker')==='sneaker';
+  case 'cuff':return look?.topStyle!=='tee'&&look?.topStyle!=='polo'&&look?.topStyle!=='overalls'&&look?.sleeve!==look?.skin;
+  case 'hem':if(look?.topStyle==='overalls'||look?.topStyle==='apron')return false;o.w*=1+((Number.isFinite(look?.build)?look.build:1)-1)*.85*(look?.topStyle==='puffer'?1.1:1);o.d*=(1+((Number.isFinite(look?.build)?look.build:1)-1)*1.1)*(look?.topStyle==='puffer'?1.14:1);return true;
   case 'brim':
    if(!hatted)return false;o.ry=finite(look?.hatYaw);
    if(hat==='cap'||hat==='police')return true;
@@ -432,6 +460,8 @@ export function personSlotColor(look,slot){
  switch(slot){
   case 'band':return Number.isFinite(look.band)?look.band:0xe0bf3a;
   case 'sleeve':return look.sleeve;
+  case 'cuff':return shade(Number.isFinite(look.sleeve)?look.sleeve:look.top,-.14);
+  case 'hem':return shade(look.top,-.13);
   case 'arm':return Number.isFinite(look.arm)?look.arm:look.top;
   case 'nose':return shade(look.skin,-.035);
   case 'beard':return Number.isFinite(look.beardColor)?look.beardColor:look.hair;

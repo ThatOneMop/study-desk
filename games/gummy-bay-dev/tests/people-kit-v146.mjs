@@ -61,8 +61,8 @@ assert.ok(Math.abs(breathe(0,1)-breathe(0,2))>.1&&Math.abs(breathe(2,1))<=1);
 const c0=joints.chest.clone();breatheJoints(joints,1);assert.ok(!joints.chest.equals(c0));
 proceduralJoints(joints,root,{});p.setFromMatrixPosition(joints.head);scaleJointsAbout(joints,0,0,0,1.1);q.setFromMatrixPosition(joints.head);assert.ok(Math.abs(q.y/p.y-1.1)<1e-6);
 // Cost: shared geometry, triangle budget, trimmed draws, and the black-NPC guard.
-assert.equal(PEOPLE_ROUND_GEOMETRY.index.count/3,48);
-assert.ok(personTriangles(false)<=1500&&personTriangles(true)<personTriangles(false));
+assert.equal(PEOPLE_ROUND_GEOMETRY.index.count/3,108);
+assert.ok(personTriangles(false)<=4000&&personTriangles(true)<personTriangles(false));
 const scene=new THREE.Scene(),meshes=createPeopleMeshes(THREE,scene,6,'Kit test');
 assert.equal(meshes.round.geometry.index,PEOPLE_ROUND_GEOMETRY.index,'body batches share one index buffer');
 assert.equal(meshes.round.geometry.getAttribute('position'),PEOPLE_ROUND_GEOMETRY.getAttribute('position'));

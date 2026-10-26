@@ -5,7 +5,7 @@
 // over 12 cm need an ollie or you bail. Everything here is original code;
 // the models, textures and sounds are all generated at runtime.
 import * as THREE from './vendor/three.module.min.js';
-import {personLook,createJointSet,proceduralJoints,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=146';
+import {personLook,createJointSet,proceduralJoints,writePerson,createPeopleMeshes,flushPeopleMeshes} from './people-kit.mjs?v=154';
 
 // ---------- Boards (research §7 table, original names) ----------
 const B=(id,name,price,top,ollie,deck,wheel,blurb,extra={})=>Object.freeze({id,name,price,top,ollie,deck,wheel,blurb,...extra});

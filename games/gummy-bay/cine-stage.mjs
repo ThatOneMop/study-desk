@@ -2,7 +2,7 @@
 // cine-cast.mjs. Cost is fixed and small: three instanced draws for every actor (the
 // shared people kit) plus three for every prop (solid boxes, soft rounded boxes and
 // unlit glow boxes), whatever the scene. Hidden outside cutscenes.
-import {personLook,namedLook,NAMED_LOOKS,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,createRoundedBoxGeometry} from './people-kit.mjs?v=146';
+import {personLook,namedLook,NAMED_LOOKS,proceduralJoints,createJointSet,writePerson,createPeopleMeshes,flushPeopleMeshes,createRoundedBoxGeometry} from './people-kit.mjs?v=154';
 import {PROP_KINDS,CINE_MOODS} from './cine-cast.mjs?v=149';
 
 export function cineLook(spec,mood='friendly'){

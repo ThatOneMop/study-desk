@@ -55,7 +55,7 @@ assert.throws(()=>createChunkyCast({scene:null,actors}),TypeError);
 assert.throws(()=>createChunkyCast({scene,actors,capacity:0}),RangeError);
 const cast=createChunkyCast({THREE,scene,actors,points:[],quality:'balanced',capacity:4});
 assert.equal(cast.drawCalls,3);assert.equal(cast.counts.colliders,0);assert.equal(cast.counts.materials,2);
-assert.ok(cast.counts.trianglesPerActor<=1500,'v146 soft bodies stay under 1.5k triangles a person');assert.equal(cast.mesh.material.vertexColors,false);assert.equal(cast.mesh.geometry,CHUNKY_BOX_GEOMETRY);
+assert.ok(cast.counts.trianglesPerActor<=4000,'v154 smoother bodies stay under 4k triangles a person (draw calls unchanged)');assert.equal(cast.mesh.material.vertexColors,false);assert.equal(cast.mesh.geometry,CHUNKY_BOX_GEOMETRY);
 assert.equal(CHUNKY_BOX_GEOMETRY.index.count/3,12);
 cast.update({now:0});
 const matrix=new THREE.Matrix4(),position=new THREE.Vector3(),quaternion=new THREE.Quaternion(),scale=new THREE.Vector3();
@@ -79,7 +79,7 @@ root.visible=true;actors[0].current='Idle';cast.update({now:0});
 const before=cast.mesh.geometry;cast.setQuality('performance');assert.equal(cast.mesh.castShadow,false);assert.equal(cast.mesh.receiveShadow,false);cast.setQuality('high');assert.equal(cast.mesh.castShadow,true);cast.setQuality('balanced');assert.equal(cast.mesh.geometry,before);
 
 const group=new THREE.Group();const playerHand=createChunkyPlayerHand(group);
-assert.equal(playerHand.palm.geometry,playerHand.fingers.geometry);assert.equal(playerHand.palm.geometry,CHUNKY_BOX_GEOMETRY);
+assert.equal(playerHand.palm.geometry,playerHand.fingers.geometry);assert.equal(playerHand.palm.geometry.index.count/3,108,"v154 rounded player hand");
 assert.ok(['PlayerPalm','PlayerThumb','PlayerFingers','PlayerCuff'].every(name=>group.children.some(child=>child.name===name)));
 assert.equal(updateChunkyPlayerHand(playerHand,{walking:true,phase:1,now:1}),true);
 const walked=playerHand.fingers.rotation.x;updateChunkyPlayerHand(playerHand,{offering:true,now:1});
