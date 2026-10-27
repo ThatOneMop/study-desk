@@ -142,7 +142,7 @@ import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOut
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
 import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=160';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute,crowdPalette} from './street-crowd.mjs?v=166';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute,crowdPalette} from './street-crowd.mjs?v=176';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -170,6 +170,7 @@ import {strainBookModel,strainBookHTML} from './strain-book.mjs?v=170';
 import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars.mjs?v=172';
 import {stackLayout,landingOffset,queueLandings,createPackStack,LAND_TIME,PER_JAR} from './pack-feel.mjs?v=173';
 import {fanLevel,namedLine,areaLine,namedOptions,namedCardHTML,NAMED_KINDS,KEEPERS} from './named-talk.mjs?v=174';
+import {PICK_BEHIND,PICK_ROUNDS,PICK_COOLDOWN,PICK_COOLDOWN_FAIL,behindScore,sneakTarget,coolingTarget,freshAttempt,advanceAttempt,stopAttempt,needlePos,rollLoot,failOutcome,applyRelation,applyHeat,shoutLine,lootLine,pickBarHTML,pickPromptHTML,gameMinute,markCooldown} from './pickpocket.mjs?v=176';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -1079,7 +1080,7 @@ function residentStatus(i){return residentDescription(planForResident(i),CONTACT
 function updateCustomers(dt){for(let i=0;i<CONTACTS.length;i++){const c=CONTACTS[i],g=people[i],oldX=c.x,oldZ=c.z;
  if(net.role==='guest'){let p=s.npcs[i];if(p&&Number.isFinite(p.x)&&Number.isFinite(p.z)){c.x+=(p.x-c.x)*Math.min(1,dt*10);c.z+=(p.z-c.z)*Math.min(1,dt*10);}}
  else{const target=residentPlan(i,s.time,customerHomes[i],meetPlanFor(i));const status=moveCustomerTo(c,i,target,dt);s.npcs[i]={x:c.x,z:c.z,routeBlocked:status==='blocked'};}
- let moving=Math.hypot(c.x-oldX,c.z-oldZ)>.0001;g.position.set(c.x,0,c.z);if(moving)g.rotation.y=turnTowards(g.rotation.y,Math.atan2(c.x-oldX,c.z-oldZ),dt);else if(Math.hypot(player.x-c.x,player.z-c.z)<3.5)g.rotation.y=turnTowards(g.rotation.y,Math.atan2(player.x-c.x,player.z-c.z),dt,5);g.userData.walking=moving;let p=points.find(p=>p.type==='customer'&&p.i===i);p.x=c.x;p.z=c.z;for(let [j,leg]of (g.userData.legs||[]).entries())leg.rotation.x=moving?Math.sin(now*7+j*Math.PI)*.35:0;
+ let moving=Math.hypot(c.x-oldX,c.z-oldZ)>.0001;g.position.set(c.x,0,c.z);if(moving)g.rotation.y=turnTowards(g.rotation.y,Math.atan2(c.x-oldX,c.z-oldZ),dt);else if(Math.hypot(player.x-c.x,player.z-c.z)<3.5&&!(keys.control&&behindScore({x:c.x,z:c.z,yaw:g.rotation.y},player)<=PICK_BEHIND))g.rotation.y=turnTowards(g.rotation.y,Math.atan2(player.x-c.x,player.z-c.z),dt,5);g.userData.walking=moving;let p=points.find(p=>p.type==='customer'&&p.i===i);p.x=c.x;p.z=c.z;for(let [j,leg]of (g.userData.legs||[]).entries())leg.rotation.x=moving?Math.sin(now*7+j*Math.PI)*.35:0;
  if(track?.npc===i){track=projectTrackedCustomer(track,CONTACTS,{guest:net.role==='guest',connected:net.connected,moving,blocked:!!s.npcs[i]?.routeBlocked});if(track&&Math.hypot(player.x-c.x,player.z-c.z)<=2.8&&customerExchangeStatus(i).ok){toast('You found '+c.name+'.');track=null;}}}
 }
 const systemsUpdate=update;update=function(dt){const operating=active&&!panel;if(driving&&operating){let input=keys;keys={};locomotion.x=locomotion.z=0;systemsUpdate(dt);keys=input;
@@ -5461,3 +5462,68 @@ if(typeof location!=='undefined'&&/[?&]packqa=1\b/.test(location.search))window.
   pick:id=>{namedPick(id);return nt&&{stage:nt.stage,line:nt.line};},
   openAt:(type,i)=>{const pt=points.find(p=>p.type===type&&(!Number.isInteger(i)||p.i===i));if(!pt)return false;near=pt;namedVia={type,i:pt.i,point:pt};menu(type,pt.i);return !!nt;}};
 }
+// v176: pocket pinch (pickpocket.mjs). Crouch behind a townsperson and press E.
+// Standing E still opens the talk card. The needle minigame is three rounds.
+let pinchSession=null;
+function pinchCrouched(){return !!(keys.control||locomotion.crouch>0.55)&&!(locomotion.jump>0.05);}
+function pinchBook(){if(!s.pickpockets||typeof s.pickpockets!=='object'||Array.isArray(s.pickpockets))s.pickpockets={};return s.pickpockets;}
+function pinchPeople(){
+ const list=[];
+ (streetCrowd?.people||[]).forEach((p,i)=>{if(p.activity==='ko'||(p.callUntil||0)>now)return;list.push({id:'c'+p.id,name:personName(p.id),x:p.x,z:p.z,yaw:p.yaw,crowdIndex:i,crowdId:p.id});});
+ (streetCrowd?.named||[]).forEach(star=>{if(star.story&&!star.visible)return;list.push({id:'n:'+star.key,name:star.label||star.key,x:star.spotX,z:star.spotZ,yaw:star.yaw||0,named:star.key});});
+ CONTACTS.forEach((c,i)=>{const g=people[i];list.push({id:'p'+i,name:c.name,x:c.x,z:c.z,yaw:g?.rotation?.y||0,relation:i});});
+ return list;
+}
+function pinchCrowd(target){const p=target&&target.crowdIndex!=null?streetCrowd?.people?.[target.crowdIndex]:null;return p&&p.id===target.crowdId?p:null;}
+function pinchRoot(){let el=document.getElementById('pickpocket');if(!el){el=document.createElement('div');el.id='pickpocket';el.hidden=true;document.body.appendChild(el);}return el;}
+function paintPinch(){
+ const el=pinchRoot();if(!pinchSession){el.hidden=true;el.innerHTML='';return;}
+ const attempt=pinchSession.attempt,pos=needlePos(attempt.t,attempt.zone.speed);
+ el.hidden=false;el.innerHTML=pickBarHTML({name:pinchSession.target.name,round:attempt.round,rounds:PICK_ROUNDS,pos,zone:attempt.zone});
+}
+function grantPinch(loot){
+ if(loot.kind==='cash'){s.cash=Math.round((s.cash+loot.cash)*100)/100;return lootLine(loot)+' · '+cash(loot.cash);}
+ if(loot.kind==='item'){if(loot.item==='donut')s.donuts=(s.donuts||0)+1;else s.wrappers=(s.wrappers||0)+1;return lootLine(loot);}
+ const open=INGREDIENTS.map((f,i)=>({f,i})).filter(x=>level()>=(x.f.unlockLevel||1));
+ const rare=open.filter(x=>x.i>=4),pool=loot.rare&&rare.length?rare:open;
+ if(!pool.length){s.cash=Math.round((s.cash+12)*100)/100;return lootLine({kind:'cash',cash:12})+' · '+cash(12);}
+ const pick=pool[Math.abs(loot.index|0)%pool.length];s.ingredients[pick.i]=(s.ingredients[pick.i]||0)+1;return lootLine(loot,pick.f.name);
+}
+function endPinchLock(){const p=pinchCrowd(pinchSession?.target);if(p)p.pinchLock=false;}
+function tryPinch(){
+ if(!active||panel||work||driving||placeMode||bustPlaying)return false;
+ if(ensurePolice().search)return false;
+ if(pinchSession){
+  const next=stopAttempt(pinchSession.attempt,Math.random());pinchSession.attempt=next;if(!next.done){paintPinch();playTone(520,.05,.02);return true;}
+  const target=pinchSession.target,ok=next.ok;endPinchLock();pinchSession=null;paintPinch();
+  const minute=gameMinute(s.day,s.time);
+  if(ok){const line=grantPinch(rollLoot(Math.random(),INGREDIENTS.length));s.pickpockets=markCooldown(pinchBook(),target.id,minute,PICK_COOLDOWN);toast(line);playTone(880,.08,.03);}
+  else{const outcome=failOutcome(Math.random());s.heat=applyHeat(s.heat,outcome.heat);if(target.relation!=null)s.relations[target.relation]=applyRelation(relationship(target.relation),outcome.relation);s.pickMood=s.pickMood&&typeof s.pickMood==='object'&&!Array.isArray(s.pickMood)?s.pickMood:{};s.pickMood[target.id]=Math.max(-100,(Number(s.pickMood[target.id])||0)+outcome.relation);s.pickpockets=markCooldown(pinchBook(),target.id,minute,PICK_COOLDOWN_FAIL);const who=pinchCrowd(target);if(who){who.react={kind:'backoff',until:now+3.2,x:player.x,z:player.z};gesture(who,'recoil');if(outcome.call)who.callUntil=now+4;}if(target.relation!=null&&people[target.relation])people[target.relation].rotation.y=Math.atan2(player.x-CONTACTS[target.relation].x,player.z-CONTACTS[target.relation].z);if(outcome.call&&!squadWitnesses.some(w=>w.state==='calling'))squadWitnesses.push({state:'calling',left:4,called:false});toast(target.name+': '+shoutLine(Math.random())+(outcome.call?' They wave at the Sugar Squad.':outcome.heat?' Heat creeps up.':''));playTone(180,.14,.04);}
+  updateUI();save();return true;
+ }
+ if(!pinchCrouched())return false;
+ const folks=pinchPeople(),minute=gameMinute(s.day,s.time),book=s.pickpockets||{};
+ if(net.role==='guest'){if(!sneakTarget(folks,player,{crouched:true,minute,cooldowns:{}})&&!coolingTarget(folks,player,{crouched:true,minute,cooldowns:book}))return false;toast('Only the host can pinch a pocket.');return true;}
+ const target=sneakTarget(folks,player,{crouched:true,minute,cooldowns:book});
+ if(target){const who=pinchCrowd(target);if(who){who.pinchLock=true;who.react=null;}pinchSession={target,attempt:freshAttempt(target,Math.random())};const pr=$('prompt');if(pr)pr.style.display='none';paintPinch();playTone(660,.05,.02);return true;}
+ const cooling=coolingTarget(folks,player,{crouched:true,minute,cooldowns:book});
+ if(cooling){toast(cooling.name+' is watching that pocket.');return true;}
+ return false;
+}
+function cancelPinch(){if(!pinchSession)return;endPinchLock();pinchSession=null;paintPinch();toast('You leave the pocket alone.');}
+const pinchTalk=talkCandidate;talkCandidate=function(){const i=pinchTalk();if(i==null||!pinchCrouched()||!streetCrowd?.people?.[i])return i;const p=streetCrowd.people[i];if(Math.hypot(p.x-player.x,p.z-player.z)<=TALK_RANGE&&behindScore(p,player)<=PICK_BEHIND)return null;return i;};
+const pinchOpen=openTalk;openTalk=function(i){const ok=pinchOpen(i);if(ok&&talk){const sour=s.pickMood?.['c'+talk.id];if(sour<0){talk.line='I am still cross about my pocket.';talkRender();}}return ok;};
+const pinchUI=updateUI;updateUI=function(){pinchUI();if(pinchSession){const pr=$('prompt');if(pr)pr.style.display='none';paintPinch();return;}if(!pinchCrouched()||panel||!active)return;const target=sneakTarget(pinchPeople(),player,{crouched:true,minute:gameMinute(s.day,s.time),cooldowns:s.pickpockets||{}});if(!target)return;const pr=$('prompt');if(!pr)return;pr.style.display='block';pr.innerHTML=pickPromptHTML(target.name);};
+const pinchAct=act;act=function(){if(tryPinch())return;pinchAct();};window.act=act;
+const pinchUpdate=update;update=function(dt){if(pinchSession){pinchSession.attempt=advanceAttempt(pinchSession.attempt,dt);paintPinch();return;}pinchUpdate(dt);};
+const pinchMenu=menu;menu=function(which,data){pinchMenu(which,data);if(which==='journal'){$('modal')?.insertAdjacentHTML?.('beforeend','<p>Crouch behind a townsperson and press E to pinch their pocket. Stop the needle on the green, three times. A miss makes them shout. Each person needs a while before you can try again. Standing up, E still talks.</p>');}};window.menu=menu;
+addEventListener('keydown',event=>{if(!pinchSession)return;if(event.key==='Escape'){cancelPinch();event.preventDefault();event.stopImmediatePropagation();}},true);
+window.__pick={
+ place(){const p=streetCrowd?.people?.[0];if(!p||!active)return null;const fx=-Math.sin(yaw),fz=-Math.cos(yaw);p.x=player.x+fx*1.15;p.z=player.z+fz*1.15;p.yaw=yaw+Math.PI;p.activity='idle';p.callUntil=0;p.react=null;p.pinchLock=false;keys.control=true;locomotion.crouch=1;updateUI();const pr=$('prompt');return {id:p.id,x:p.x,z:p.z,prompt:pr&&pr.style.display==='block'?pr.textContent:''};},
+ start(){return tryPinch();},
+ align(){if(!pinchSession)return null;const z=pinchSession.attempt.zone;pinchSession.attempt={...pinchSession.attempt,t:(z.start+z.width/2)/z.speed};paintPinch();return needlePos(pinchSession.attempt.t,z.speed);},
+ stop(){return tryPinch();},
+ cancel:cancelPinch,
+ state(){if(!pinchSession)return null;const a=pinchSession.attempt;return {id:pinchSession.target.id,name:pinchSession.target.name,round:a.round,done:a.done,ok:a.ok,pos:needlePos(a.t,a.zone.speed),zone:a.zone};},
+ book:()=>s.pickpockets||{},mood:id=>s.pickMood?.[id]||0,cash:()=>s.cash,heat:()=>s.heat,wrappers:()=>s.wrappers||0,donuts:()=>s.donuts||0,ingredients:()=>[...(s.ingredients||[])]
+};

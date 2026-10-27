@@ -138,9 +138,10 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
   return people.length;
  };
  const update=({dt=0,now=0,time:timeValue=540,camera=null,active=true,floorHeight:floor=floorHeight,blocked:wall=blocked,rain=0,namedVisible=null}={})=>{
-  const step=Math.max(0,Math.min(.08,finite(dt))),clock=finite(now);
+  const pace=Math.max(0,Math.min(.08,finite(dt))),clock=finite(now);
   let near=0;
   for(const person of people){
+   const step=person.pinchLock?0:pace;
    const plan=crowdPlan(person.id,timeValue),spot=clearSpot(plan.x,plan.z,wall);
    const dx=spot.x-person.x,dz=spot.z-person.z,dist=Math.hypot(dx,dz);
    let moving=false;

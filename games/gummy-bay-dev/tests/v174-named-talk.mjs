@@ -15,5 +15,5 @@ const all=[...Object.values(KEEPERS).flatMap(k=>k.lines),...[0,1,2,3,4,5].flatMa
 assert.doesNotMatch(all,/addict|hooked|fix\b|high\b|stoned|drug/i,'family-friendly, addiction-free');
 const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
 assert.match(game,/named-talk\.mjs\?v=174/);assert.match(game,/const namedAct=act;act=function/);assert.match(game,/window\.__namedTalk=/);assert.match(game,/class(Name)?=.named-biz|biz\.className='named-biz'/);
-const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/people-talk\.css\?v=174/);assert.match(idx,/game\.js\?v=174/);
+const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/people-talk\.css\?v=174/);assert.match(idx,/game\.js\?v=(17[4-9]|1[8-9]\d)/);
 console.log('PASS v174 named talk: named customers, shopkeepers and dealers get a talk card with their own lines, a fan level and deal / sample / area options');

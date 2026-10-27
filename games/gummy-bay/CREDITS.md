@@ -3,6 +3,10 @@
 Only public-domain (CC0) or openly licensed third-party assets are used. No assets from Schedule I
 or any other commercial game are included.
 
+## Pocket pinch (added v176)
+Original code in `pickpocket.mjs` and `pickpocket.css`. No new third-party assets. The timing
+bar, shouts and loot lines are written for this game.
+
 ## Fonts
 - **Nunito** — SIL Open Font License 1.1. Licence: `assets/fonts/OFL.txt`.
 
