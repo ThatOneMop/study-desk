@@ -1,5 +1,5 @@
 import * as THREE from './vendor/three.module.min.js';
-import {VEHICLE_ROADS,PEDESTRIAN_WAYS} from './road-zones.mjs?v=68';
+import {VEHICLE_ROADS,PEDESTRIAN_WAYS} from './road-zones.mjs?v=164b';
 import {PARKING_BAYS} from './parking-guide.mjs?v=69';
 import {townMaterialOptions} from './town-materials.mjs?v=75';
 import {townRoleColor} from './town-palette.mjs?v=76';

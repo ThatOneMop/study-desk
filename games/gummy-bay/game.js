@@ -42,10 +42,10 @@ import {policeSight,policeFeedback,readPoliceReport} from './police-feedback.mjs
 import {physicalPointTypes,actionPointTypes,actionPointMatches,pointApproach} from './point-access.mjs?v=116-35';
 import {exchangeAccess,freshExchangePose} from './exchange-access.mjs?v=34';
 import {vehicleDoorAccess} from './vehicle-access.mjs?v=33';
-import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine,VEHICLE_ROADS,PEDESTRIAN_WAYS} from './road-zones.mjs?v=68';
+import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine,VEHICLE_ROADS,PEDESTRIAN_WAYS} from './road-zones.mjs?v=164b';
 import {PARKING_BAYS,parkingGuide,parkingSnapPose,parkingGuideLine} from './parking-guide.mjs?v=69';
 import {DISTRICT_BUILDING_SITES,DISTRICT_CONTRAST_COLLIDERS,districtArchitectureProfile,districtGeometricContrast,createDistrictArchitecture} from './district-architecture.mjs?v=126';
-import {createStreetConstruction} from './street-construction.mjs?v=126';
+import {createStreetConstruction} from './street-construction.mjs?v=164';
 import {createStarterStreet} from './starter-street.mjs?v=126';
 import {openingCamera,openingDoorstep,insideRvShell} from './opening-shot.mjs?v=122';
 import {createCineOverlay,playWhoosh,playPhoneRing,blendPose} from './cinematics.mjs?v=132';
@@ -88,9 +88,10 @@ import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=154';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
-import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=163';
-import {createKenneyCity} from './kenney-city.mjs?v=163';
-import {createDodgyDressing} from './dodgy-dressing.mjs?v=163';
+import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=164';
+import {createKenneyCity} from './kenney-city.mjs?v=164';
+import {createDodgyDressing} from './dodgy-dressing.mjs?v=164';
+import {createKerbBuildOuts} from './kerb-buildouts.mjs?v=164c';
 import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=139';
 import {normalizeArcade,gripColor,ownedPosters,prizeById} from './arcade-core.mjs?v=137';
 import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=137';
@@ -3934,6 +3935,14 @@ function installDodgyDressing(){
  const clear=c=>!points.some(p=>Math.hypot(p.x-c.x,p.z-c.z)<3)&&!policeRoutes.some(r=>r.some(q=>Math.hypot(q[0]-c.x,q[1]-c.z)<3));
  dodgyDressing.colliders=dodgyDressing.colliders.filter(clear);colliders.push(...dodgyDressing.colliders);
 }
+// v164: kerb build-outs narrow the spawn streets (asphalt 12 m -> 8.6 m) and add edge clutter.
+var kerbBuildOuts=null;
+if(!(typeof location!=='undefined'&&/[?&]kerb=0\b/.test(location.search)))try{
+ kerbBuildOuts=createKerbBuildOuts({scene,avoid:points});
+ const segDist=(c,a,b)=>{const vx=b[0]-a[0],vz=b[1]-a[1],l=vx*vx+vz*vz||1,t=Math.max(0,Math.min(1,((c.x-a[0])*vx+(c.z-a[1])*vz)/l));return Math.hypot(c.x-a[0]-vx*t,c.z-a[1]-vz*t);};
+ const clear=c=>!policeRoutes.some(r=>r.some((q,i)=>segDist(c,q,r[(i+1)%r.length])<1.4));
+ kerbBuildOuts.colliders=kerbBuildOuts.colliders.filter(clear);colliders.push(...kerbBuildOuts.colliders);
+}catch(e){console.warn('Kerb build-outs unavailable',e);}
 if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
  const cityBase=colliders.length;
  cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS),points,routes:policeRoutes,quality,height:terrainHeight,kenney:typeof createKenneyCity==='function'&&!(typeof location!=='undefined'&&/[?&]kenney=0\b/.test(location.search))});
