@@ -4,7 +4,7 @@
 // edge with dodgy street clutter: bollards, cracked planters, bins and leaning poles.
 // One instanced, untextured batch (one draw call, no shadow casting).
 import * as THREE from './vendor/three.module.min.js';
-import {KERB_INNER,KERB_OUTER,BUILD_OUT_SEGMENTS,buildOutRects} from './road-zones.mjs?v=164b';
+import {KERB_INNER,KERB_OUTER,BUILD_OUT_SEGMENTS,buildOutRects} from './road-zones.mjs?v=166';
 export {KERB_INNER,KERB_OUTER,BUILD_OUT_SEGMENTS,buildOutRects};
 
 const rng=seed=>{let a=seed>>>0||1;return()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};};

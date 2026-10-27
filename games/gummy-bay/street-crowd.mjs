@@ -17,7 +17,9 @@ const JOBS=Object.freeze([
 const BENCHES=Object.freeze([spot(-36,8,Math.PI),spot(-8,8,Math.PI),spot(22,8,Math.PI),spot(52,8,Math.PI)]);
 const VENDING=Object.freeze([spot(-12,5,0),spot(38,5,0),spot(-52,2,0)]);
 const ATMS=Object.freeze([spot(16,-9.2,Math.PI),spot(-17,30,0)]);
-const STREET=Object.freeze([-70,-52,-34,-16,2,20,38,56,72,-60,-28,8,44].map(x=>spot(x,4,x%2?Math.PI/2:-Math.PI/2)));
+const STREET=Object.freeze([...[-70,-52,-34,-16,2,20,38,56,72,-60,-28,8,44].map(x=>spot(x,4,x%2?Math.PI/2:-Math.PI/2)),
+ // v166: loiterers on the winding-lane footpaths (Gutter Lane, Drain Row)
+ spot(28.6,-61.65,1.9),spot(56.93,-58.65,-1.4),spot(90.74,-65.6,2.2),spot(-25.74,-62.91,.8),spot(-35.64,-73.06,-2.6)]);
 
 const SKINS=Object.freeze([0xf0c7a2,0xd7a574,0xc68658,0xa56b43,0x8d5524,0x6b442f,0x4e3424,0xe7b898]);
 const HAIR=Object.freeze([0x2a241f,0x4a3428,0x6b5034,0x8a6840,0x202428,0x5c4030,0x3a2a22,0xd8d2c6]);
