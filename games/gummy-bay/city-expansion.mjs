@@ -143,16 +143,20 @@ const CHUNK=140;
 const chunkKey=(x,z)=>Math.floor((x+300)/CHUNK)+','+Math.floor((z+460)/CHUNK);
 function worldOf(lot,lx,ly,lz){const c=Math.cos(lot.rot),s=Math.sin(lot.rot);return [lot.x+lx*c+lz*s,ly,lot.z-lx*s+lz*c];}
 
-export function createCityExpansion({scene,obstacles=[],points=[],routes=[],quality='balanced',height=()=>0}={}){
+// v162: generic terraces, shops and flats can be handed to the Kenney City Kit
+// (CC0) layer instead of the painted box kit. Named businesses keep their fronts.
+export const KENNEY_LOT_TYPES=Object.freeze(['terrace','shop','flats','house']);
+export function createCityExpansion({scene,obstacles=[],points=[],routes=[],quality='balanced',height=()=>0,kenney=false}={}){
  if(!scene)throw new TypeError('City expansion needs a scene.');
  const plan=planCity({obstacles,points,routes});
  const materials=createCityMaterials(),signMaterial=createSignMaterial();
  const chunks=new Map(),colliders=[],root=new THREE.Group();root.name='City expansion v133';scene.add(root);
  const chunk=(x,z)=>{const k=chunkKey(x,z);if(!chunks.has(k))chunks.set(k,{key:k,solid:new CityBatch(),detail:new CityBatch(),cutout:new CityBatch(),signs:new SignBatch(),min:[x,z],max:[x,z],meshes:{}});const c=chunks.get(k);c.min=[Math.min(c.min[0],x),Math.min(c.min[1],z)];c.max=[Math.max(c.max[0],x),Math.max(c.max[1],z)];return c;};
  const r=rng(4242),genericCells=GENERIC_SIGNS.map((_,i)=>NAMED_BUSINESSES.length+i);
- const businesses=[];
+ const businesses=[],kenneyLots=[];
  for(const lot of plan.lots){
   const c=chunk(lot.x,lot.z);lot.y=Math.min(0,height(lot.x,lot.z));
+  if(kenney&&!lot.key&&KENNEY_LOT_TYPES.includes(lot.type)){lot.kenney=true;lot.height=lot.floors*3.2;kenneyLots.push(lot);colliders.push(lotCollider(lot));continue;}
   const out=buildLot(lot,c);lot.height=out.height;
   colliders.push(lotCollider(lot));
   // signs
@@ -250,6 +254,6 @@ export function createCityExpansion({scene,obstacles=[],points=[],routes=[],qual
  }
  update({night:0,quality});
  const sites=plan.lots.map(l=>({id:l.id,x:l.x,z:l.z,w:l.cw,d:l.cd,cityLot:true,name:l.name||null,type:l.type}));
- return {root,plan,colliders,sites,businesses,chunks,materials,signMaterial,triangles,update,setQuality(v){q=v;},
+ return {root,plan,colliders,sites,businesses,kenneyLots,chunks,materials,signMaterial,triangles,update,setQuality(v){q=v;},
   stats:()=>({lots:plan.lots.length,named:businesses.length,alleys:plan.alleys.length,meshes:root.children.length,triangles,unplaced:plan.unplaced})};
 }

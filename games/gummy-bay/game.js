@@ -88,7 +88,8 @@ import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=154';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
-import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=155';
+import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=162';
+import {createKenneyCity} from './kenney-city.mjs?v=162';
 import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=139';
 import {normalizeArcade,gripColor,ownedPosters,prizeById} from './arcade-core.mjs?v=137';
 import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=137';
@@ -3894,17 +3895,20 @@ if(typeof window!=='undefined')window.__skate={
 // Planned last, against every collider and gameplay point that exists by now, plus the
 // Blender town's gap shells (baked, because the GLB loads after this runs).
 var cityExpansion=null;
+var kenneyCity=null;
 if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
  const cityBase=colliders.length;
- cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS),points,routes:policeRoutes,quality,height:terrainHeight});
+ cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS),points,routes:policeRoutes,quality,height:terrainHeight,kenney:typeof createKenneyCity==='function'&&!(typeof location!=='undefined'&&/[?&]kenney=0\b/.test(location.search))});
+ // v162: Kenney City Kit (CC0) buildings on the generic lots, a few merged draw calls.
+ if(cityExpansion.kenneyLots?.length&&typeof createKenneyCity==='function')kenneyCity=createKenneyCity({scene,lots:cityExpansion.kenneyLots,Loader:typeof GLTFLoader!=='undefined'?GLTFLoader:null});
  colliders.push(...cityExpansion.colliders);
- window.__gummyCity={atlas:()=>cityExpansion.signMaterial?.map?.image?.toDataURL?.(),stats:()=>cityExpansion.stats(),businesses:()=>cityExpansion.businesses,shells:()=>colliders.slice(cityBase+cityExpansion.colliders.length).map(c=>[+c.x.toFixed(2),+c.z.toFixed(2),+c.w.toFixed(2),+c.d.toFixed(2)])};
+ window.__gummyCity={kenney:()=>kenneyCity&&{ready:kenneyCity.ready,failed:kenneyCity.failed,lots:kenneyCity.placements.length,near:kenneyCity.placements.map(p=>[p.model,+p.x.toFixed(1),+p.z.toFixed(1),+p.rot.toFixed(2),+p.sx.toFixed(1),+p.height.toFixed(1)]).sort((a,b)=>Math.hypot(a[1],a[2]+20)-Math.hypot(b[1],b[2]+20)).filter((p,i,l)=>l.filter(q=>q[0].includes('type')===p[0].includes('type')).indexOf(p)<2),cells:kenneyCity.cells.length,triangles:kenneyCity.triangles,models:[...new Set(kenneyCity.placements.map(p=>p.model))]},atlas:()=>cityExpansion.signMaterial?.map?.image?.toDataURL?.(),stats:()=>cityExpansion.stats(),businesses:()=>cityExpansion.businesses,shells:()=>colliders.slice(cityBase+cityExpansion.colliders.length).map(c=>[+c.x.toFixed(2),+c.z.toFixed(2),+c.w.toFixed(2),+c.d.toFixed(2)])};
  const cityReset=resetSystems;resetSystems=function(){cityReset();
   const lots=cityExpansion.colliders;
   const p=relocateFromInfill(player,lots,(x,z)=>!blocked(x,z));player.x=p.x;player.z=p.z;s.x=p.x;s.z=p.z;
   const v=relocateFromInfill(vehiclePose,lots,(x,z)=>!blocked(x,z)&&!blocked(x-2,z-3)&&!blocked(x+2,z+3));vehiclePose.x=v.x;vehiclePose.z=v.z;s.vehiclePark={...vehiclePose};
  };
- const cityRender=renderFrame;renderFrame=function(){cityExpansion.update({night:sceneLighting(s.time,active).night,quality,camera});cityRender();};
+ const cityRender=renderFrame;renderFrame=function(){const night=sceneLighting(s.time,active).night;cityExpansion.update({night,quality,camera});kenneyCity?.update?.({night,quality,camera});cityRender();};
 }catch(error){console.warn('City expansion skipped',error);}
 
 // v134 Lighting and visual polish: bounce/moon fill, lifted hemisphere colours,
