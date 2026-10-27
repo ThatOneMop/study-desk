@@ -34,3 +34,14 @@ Source inspection showed that whole-pile sowing offered no way to retain a seed 
 27 tests now pass (16 engine, 11 jsdom), including all original 20. New fixtures complete the three gardens in 4, 6 and 8 handfuls with reserve use and per-action save/reload. These improve the first two recorded example routes by one handful, not a claim of optimality. Tests also cover strict repeat/type guards, long reverse laps, preview immutability, shortage explanation, legacy saves, keyboard ownership, pause/modals and retry.
 
 This is a substantive source-informed mechanic, not a rendered-play-led improvement. Qualification stays pending. Evaluate whether saving the reserve creates useful choices or simply makes one opening dominant when actual rendering is available.
+
+
+## Optional bloom deferral (pending rendered review)
+
+Previously every exact final landing consumed its seeds automatically, including excess flowers. **Keep landing seeds instead of a flower** now allows an explicit choice on any exact landing: retain the whole landing pile for later sowing, gain no flower now, and pay the normal handful and any reverse gust. This can combine with the once-per-garden leave-one reserve; it is not itself limited to once. The choice resets after a move or changing the selected bed, direction or reserve. The checkbox is disabled when no bloom is possible. Exact forecasts show the retained seeds, and the status explains why no flower was taken.
+
+The v1 action adds optional defer:true. Only strict true on an actual exact landing is accepted; meaningless or malformed deferrals reject without a move. Old journals still bloom automatically and retain their board shape. The optional deferred field only describes the most recent deferred landing; it disappears on the next ordinary move. Undo, reload, records and retry follow the existing rules.
+
+34 tests pass (20 engine, 14 jsdom), retaining the previous 27. Three deferral-inclusive campaigns finish in 5/7/8 handfuls through controls and per-action reload. These are coverage examples, not faster-route or optimality claims. Checks cover conservation, no flower award, combined reserve/reverse costs, retained-pile reuse, strict eligibility/type checks, final-turn loss when declining a needed flower, undo/replay, preview, selection reset and native/pause/modal guards. Original and reserve routes still pass.
+
+This is a source-informed strategic option, not a rendered-qualified improvement. Rendered review must establish whether it makes useful seed-conservation choices clearer without adding confusing controls. No additional completed, browser-tested, integrated or live game is claimed.
