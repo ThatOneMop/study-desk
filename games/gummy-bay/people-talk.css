@@ -23,3 +23,16 @@ body[data-panel="talk"] #modal{max-width:560px}
 /* v172 regulars tag on the talk card */
 .talk-body .talk-regular{display:inline-block;margin:2px 0 4px;padding:2px 8px;border-radius:10px;background:#2b3340;color:#cfd8e6;font-style:normal;font-size:11px;font-weight:700}
 .talk-body .talk-regular.is-regular{background:#2f6b44;color:#e6f5ea}
+/* v174 named talk: customers, shopkeepers and dealers you know get the talk card before their usual panel */
+#modal.named-open{max-width:560px}
+#namedTalk{margin:0 0 12px}
+#namedTalk .overline{margin-bottom:8px}
+.talk-body .talk-fan{display:inline-block;margin:0 0 8px 6px;padding:1px 8px;border-radius:9px;background:#5b2a3a;color:#ffd6e2;font-size:11px;font-weight:700;letter-spacing:.3px}
+.talk-body .talk-fan i{font-style:normal;opacity:.45}
+.named-biz{border-top:1px solid #ffffff1c;padding-top:10px}
+.sample-choice.named-focus{outline:2px solid #f2b84b;outline-offset:4px;border-radius:8px;animation:namedPulse 1.2s ease-out 2}
+@keyframes namedPulse{0%{outline-color:#f2b84bff}100%{outline-color:#f2b84b00}}
+body[data-panel] #modal.named-open{max-height:calc(100dvh - 150px)!important}
+#namedTalk button::before{content:none!important}
+@media (max-height:500px){body[data-panel] #modal.named-open{max-height:calc(100dvh - 24px)!important}}
+#namedTalk .named-line{margin:0;padding:6px 10px;border-left:3px solid #f2b84b;background:#ffffff0d;border-radius:4px}

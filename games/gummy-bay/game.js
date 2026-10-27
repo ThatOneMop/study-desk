@@ -169,6 +169,7 @@ import {SUPPLIER,DROP_WAIT,PICKUP_RANGE,pickDrop,seedPrice,orderTotal,dropState,
 import {strainBookModel,strainBookHTML} from './strain-book.mjs?v=170';
 import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars.mjs?v=172';
 import {stackLayout,landingOffset,queueLandings,createPackStack,LAND_TIME,PER_JAR} from './pack-feel.mjs?v=173';
+import {fanLevel,namedLine,areaLine,namedOptions,namedCardHTML,NAMED_KINDS,KEEPERS} from './named-talk.mjs?v=174';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -5390,3 +5391,73 @@ function packColor(){let best=0,bi=0;(s.packs||[]).forEach((n,i)=>{if(n>best){be
  }}catch(e){}packRender();};}
 if(typeof location!=='undefined'&&/[?&]packqa=1\b/.test(location.search))window.__packQa={total:packTotal,stack:()=>packStack&&{bags:packStack.bags.count,jars:packStack.jars.count,visible:packStack.bags.visible,queue:packQueue.length,origin:packOrigin()},
  add:(n=1,t=0)=>{if(net.role==='guest')return null;s.packs[t]=(s.packs[t]||0)+n;updateUI();return packTotal();}};
+
+// v174: talk to people you know (named-talk.mjs). E at a named customer, a shopkeeper or a Sweet Network dealer
+// opens a talk card first: their face, a fan level, their own line and options. "Talk business" / the shop
+// option (key 1) reveals the usual panel underneath, so the deal and shop screens are unchanged.
+{let namedVia=null,nt=null;const NAMED=new Set(NAMED_KINDS);
+ const namedKey=(type,i)=>type==='customer'||type==='netdealer'?type+':'+i:type;
+ const namedWho=(type,i)=>{
+  if(type==='customer'){const c=CONTACTS[i];return c?{name:c.name,role:(c.role||'Customer')+(isUnlocked(s,i)?'':' · not a customer yet'),own:c.line||'',palette:{skin:c.skin,outfit:c.color}}:null;}
+  if(type==='netdealer'){const d=DEALER_ROSTER[i];return d?{name:d.name,role:d.district+' dealer'+(ensureEmpire().dealers[d.id]?' · on your team':''),own:d.line||'',palette:{outfit:d.color}}:null;}
+  const k=KEEPERS[type];return k?{name:k.name,role:k.role,own:'',shop:k.shop,palette:{}}:null;};
+ const namedFan=(type,i)=>{const m=s.namedChats?.[namedKey(type,i)]||{};const rel=type==='customer'?relationship(i):type==='netdealer'&&ensureEmpire().dealers[DEALER_ROSTER[i]?.id]?40:0;return fanLevel({relation:rel,chats:m.n||0});};
+ const namedSpot=(type,i)=>{const pt=namedVia?.point||points.find(p=>p.type===type&&(p.i===i||!Number.isInteger(i)));const a=pt?.actor;return a?{x:a.position.x,z:a.position.z,actor:a}:pt?{x:pt.x,z:pt.z}:null;};
+ function namedArea(){
+  const at=namedSpot(nt.type,nt.i)||player;let district='';try{district=travelReading({x:at.x,z:at.z,heading:0},{districts:DISTRICTS,landmarks:TRAVEL_LANDMARKS,target:null}).district||'';}catch(e){}
+  let police=0;try{police=(ensurePolice().officers||[]).filter(o=>(o.ko||0)<=0&&Math.hypot(o.x-at.x,o.z-at.z)<60).length;}catch(e){}
+  const customers=CONTACTS.filter((c,j)=>!(nt.type==='customer'&&j===nt.i)&&Math.hypot(c.x-at.x,c.z-at.z)<60).length;
+  return areaLine({district,heat:s.heat||0,police,customers,seed:nt.seed++});
+ }
+ function namedOpts(){const i=nt.i;if(nt.type!=='customer')return namedOptions(nt.type,{shop:nt.who.shop});
+  const packs=(s.packs||[]).reduce((a,n)=>a+(n>0?n:0),0);let sample=false;try{sample=canSample(s,CONTACTS,i)&&sampleChoices(s,i).length>0&&customerExchangeStatus(i).ok;}catch(e){}
+  return namedOptions('customer',{deal:!!s.deals.find(d=>d.npc===i),canSample:sample&&net.role!=='guest',packs,locked:!isUnlocked(s,i)});}
+ function namedRender(){try{namedRenderNow();}catch(e){console.warn('Named talk skipped',e);}}
+ function namedRenderNow(){
+  const m=$('modal');if(!nt||!m||panel!==nt.type||!m.querySelector||!m.children||typeof document.createElement!=='function')return;let box=m.querySelector?.('#namedTalk');
+  const html=namedCardHTML({name:nt.who.name,role:nt.who.role,fan:namedFan(nt.type,nt.i),line:nt.line,options:nt.stage==='talk'?namedOpts():[],portrait:nt.portrait});
+  if(!box){const close=m.querySelector?.('.close');const rest=Array.from(m.children).filter(c=>c!==close);const biz=document.createElement('div');biz.className='named-biz';biz.hidden=nt.stage==='talk';rest.forEach(c=>biz.appendChild(c));m.appendChild(biz);
+   box=document.createElement('div');box.id='namedTalk';if(close)close.after(box);else m.prepend(box);}
+  box.innerHTML=nt.stage==='biz'?'<p class="named-line"><b>'+esc(nt.who.name)+':</b> '+esc(nt.line)+'</p>':'<div class="overline">'+(nt.type==='customer'?'GUMMY BAY / TALK':'TALK')+'</div>'+html;
+  const biz=m.querySelector('.named-biz');if(biz)biz.hidden=nt.stage==='talk';m.classList.toggle('named-open',nt.stage==='talk');
+  box.querySelectorAll('[data-named]').forEach(b=>b.onclick=()=>namedPick(b.dataset.named));
+ }
+ function namedPick(id){
+  if(!nt)return;const btn=$('modal')?.querySelector?.('[data-named="'+id+'"]');if(btn?.disabled)return;
+  const sp=namedSpot(nt.type,nt.i);try{if(sp?.actor)gestureNamed(sp.actor);}catch(e){}
+  if(id==='bye'){nt.line=pickBye();nt.stage='done';namedRender();const was=nt;setTimeout(()=>{if(nt===was)close();},700);return;}
+  if(id==='chat'){const k=namedKey(nt.type,nt.i);s.namedChats??={};const m=s.namedChats[k]??={n:0,day:-1};
+   if(net.role!=='guest'&&m.day!==s.day){m.day=s.day;m.n=Math.min(50,m.n+1);if(nt.type==='customer'&&isUnlocked(s,nt.i)&&relationship(nt.i)<60){s.relations[nt.i]=relationship(nt.i)+1;toast(nt.who.name+' enjoyed the chat · +1 relationship');}save();}
+   nt.line=namedLine(nt.type,{seed:nt.seed++,fan:namedFan(nt.type,nt.i),own:nt.who.own});playBenchCue(audioContext,'pop',soundEnabled);namedRender();return;}
+  if(id==='area'){nt.line=namedArea();namedRender();return;}
+  if(id==='biz'||id==='sample'){nt.stage='biz';nt.line=id==='sample'?'A free one? Go on then, which flavour?':nt.type==='customer'?'Alright, let’s talk.':'Sure, have a look.';namedRender();
+   if(id==='sample'){const el=$('modal').querySelector?.('.sample-choice');el?.scrollIntoView?.({block:'center'});el?.classList?.add('named-focus');$('modal').querySelector?.('#customerSample')?.focus?.();}}
+ }
+ const BYES=['Catch you later!','See ya!','Take care now.','Bye for now!'];const pickBye=()=>BYES[(nt?.seed||0)%BYES.length];
+ function gestureNamed(a){a.userData.namedNod=performance.now();}
+ const namedAct=act;act=function(){
+  namedVia=null;
+  if(active&&!panel&&!work&&near&&NAMED.has(near.type)&&!(near.type==='customer'&&!CONTACTS[near.i]))namedVia={type:near.type,i:near.i,point:near};
+  namedAct();
+  if(namedVia&&panel!==namedVia.type)namedVia=null;
+ };window.act=act;
+ const namedMenu=menu;menu=function(which,data){
+  const prev=panel,keep=nt&&nt.stage==='talk'&&which===nt.type&&prev===which;
+  namedMenu(which,data);
+  if(namedVia&&which===namedVia.type&&panel===which){
+   const i=Number.isInteger(data)?data:namedVia.i,who=namedWho(which,i);
+   if(who){nt={type:which,i,who,stage:'talk',seed:Math.floor(Math.random()*997),portrait:'',line:''};nt.line=namedLine(which,{seed:nt.seed++,fan:namedFan(which,i),own:who.own});
+    const sp=namedSpot(which,i);if(sp?.actor){const dx=player.x-sp.x,dz=player.z-sp.z;sp.actor.rotation.y=Math.atan2(dx,dz);}
+    const mine=nt;try{let c=document.createElement('canvas');c.width=c.height=128;const cx=c.getContext?.('2d');if(cx&&drawPortrait(cx,who.palette,128))nt.portrait=c.toDataURL();}catch(e){}
+    if(sp)requestAnimationFrame(()=>requestAnimationFrame(()=>{if(nt!==mine||nt.stage==='done')return;const ax=sp.actor?sp.actor.position.x:sp.x,az=sp.actor?sp.actor.position.z:sp.z,yw=Math.hypot(player.x-ax,player.z-az)>5&&sp.actor&&Number.isFinite(sp.actor.rotation.y)?sp.actor.rotation.y:Math.atan2(player.x-ax,player.z-az);const shot=talkPortrait({x:ax,z:az,yaw:yw,look:{height:1}});if(shot)mine.portrait=shot;namedRender();}));
+    if(which!=='customer')try{townAudio.emit('bark',{voice:7,force:true,x:player.x,z:player.z});}catch(e){}
+   }namedVia=null;namedRender();return;}
+  if(keep&&panel===which)namedRender();else if(nt&&which!==nt.type)nt=null;
+ };window.menu=menu;
+ const namedClose=close;close=function(){nt=null;namedVia=null;const m=$('modal');m?.classList?.remove('named-open');namedClose();};window.closeMenu=close;
+ addEventListener('keydown',e=>{if(!nt||nt.stage!=='talk'||panel!==nt.type||e.repeat||!/^[1-5]$/.test(e.key))return;const all=[...($('modal').querySelectorAll?.('[data-named]')||[])];const b=all[Number(e.key)-1];if(b&&!b.disabled){e.preventDefault();e.stopPropagation();namedPick(b.dataset.named);}},true);
+ window.__namedTalk={state:()=>nt&&{type:nt.type,i:nt.i,name:nt.who.name,stage:nt.stage,line:nt.line,fan:namedFan(nt.type,nt.i),portrait:!!nt.portrait,options:nt.stage==='talk'?namedOpts().map(o=>o.id+(o.disabled?'-':'')):[]},
+  where:(type,i)=>{const pt=points.find(p=>p.type===type&&(!Number.isInteger(i)||p.i===i));const a=pt?.actor;return pt&&{x:a?a.position.x:pt.x,z:a?a.position.z:pt.z};},
+  pick:id=>{namedPick(id);return nt&&{stage:nt.stage,line:nt.line};},
+  openAt:(type,i)=>{const pt=points.find(p=>p.type===type&&(!Number.isInteger(i)||p.i===i));if(!pt)return false;near=pt;namedVia={type,i:pt.i,point:pt};menu(type,pt.i);return !!nt;}};
+}

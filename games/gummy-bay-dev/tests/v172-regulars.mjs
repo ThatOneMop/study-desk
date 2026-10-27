@@ -9,5 +9,5 @@ for(let i=2;i<REGULAR_AT;i++)noteMeeting(b,7);assert.match(regularTag(b[7]),/^Re
 assert.equal(noteRegularSale(b,99),null);assert.ok(JSON.parse(JSON.stringify(b))[7].n>=REGULAR_AT,'saves as plain JSON');
 const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
 assert.match(game,/regulars\.mjs\?v=172/);assert.match(game,/const regOpen=openTalk;openTalk=function/);assert.match(game,/net\.role!=='guest'/);assert.match(game,/noteRegularSale\(s\.regulars,talk\.id\)/);
-const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/people-talk\.css\?v=172/);
+const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/people-talk\.css\?v=17\d/);
 console.log('PASS v172 regulars: people remember you by name, greet you as a regular, and the card shows chats and buys');
