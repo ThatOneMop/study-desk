@@ -994,10 +994,12 @@
       "tests": [
         "20 passing tests: 12 engine and eight jsdom 26.1.0. Three complete 5/7/8-handful fixture routes with control-driven per-action save/reload; exact bloom accounting, multi-lap sowing, reverse costs, passed-through beds, overshoot, excess flowers, final-turn win, turn/empty-seed loss, undo/retry/records/unlocks, strict saves, caller isolation, every legal route to depth three for each garden, native keyboard ownership, pause/modal/parent guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse; new local asset references and unique HTML IDs pass; bridge is first script; Games navigation resolves to root catalogue. No new Switch workspace controls.",
-        "No rendered browser, inspected screenshots, native touch/dialog/focus verification, enjoyment evidence, qualified improvement pass, full-repository build or live-release evidence."
+        "No rendered browser, inspected screenshots, native touch/dialog/focus verification, enjoyment evidence, qualified improvement pass, full-repository build or live-release evidence.",
+        "Leave-one reserve: 27 passing tests (16 engine, 11 jsdom), retaining original 20. Three new reserve-inclusive routes with per-action UI save/reload; strict eligibility/type/repeat guards, long reverse laps, undo/retry restoration, legacy save compatibility, preview immutability, shortage feedback, native keyboard/pause/modal guards. Scripts parse. No rendered evidence."
       ],
       "commits": [
-        "018d8c74baec589351be660fc3519352a1652ecc"
+        "018d8c74baec589351be660fc3519352a1652ecc",
+        "e6beab4bf5bedb9569efe379e5f65d85781e4673"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1008,7 +1010,14 @@
       "nextSteps": [
         "Play actual rendered loop on desktop and touch layouts; inspect screenshots and verify progression, loss/retry, undo, saves/reload, reset and Games navigation.",
         "Identify the most important observed weakness in choice depth, readability or replayability and implement a substantive playtest-led upgrade before qualification or integration."
-      ]
+      ],
+      "pendingReserveRefinement": {
+        "commit": "e6beab4bf5bedb9569efe379e5f65d85781e4673",
+        "basis": "Source inspection, not rendered observation: whole-pile sowing could not retain a seed or shorten a landing without rearranging other piles.",
+        "before": "Every sow emptied the origin before distributing its entire pile.",
+        "after": "Once per garden, retain one seed and sow the rest. Combines with reverse gusts, previews all resulting counts, rejects fewer than two seeds, and is restored by undo. Original save journals retain their shape and behavior.",
+        "remaining": "Render naturally on desktop/touch, inspect screenshots and assess whether reserve timing offers meaningful choices; perform required playtest-led improvement before qualification."
+      }
     },
     {
       "slot": 61,
@@ -1557,7 +1566,7 @@
     "Implement remaining 30 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "fec6f229630e04f272e585521c0685ad5491ba72",
+  "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1930,6 +1939,13 @@
       "result": "Built Seedwake (slot 60), a distinct circular sowing puzzle. 20 engine/DOM checks pass. Third now 20 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing security-policy rendering blocker not retried or bypassed.",
       "mainObserved": "fec6f229630e04f272e585521c0685ad5491ba72"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "e6beab4bf5bedb9569efe379e5f65d85781e4673",
+      "result": "Seedwake leave-one reserve implemented; 27 engine/DOM checks pass. Third remains 20 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
   ]
 }
