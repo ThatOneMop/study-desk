@@ -1004,11 +1004,13 @@
         "20 passing tests: 12 engine and eight jsdom 26.1.0. Three complete 5/7/8-handful fixture routes with control-driven per-action save/reload; exact bloom accounting, multi-lap sowing, reverse costs, passed-through beds, overshoot, excess flowers, final-turn win, turn/empty-seed loss, undo/retry/records/unlocks, strict saves, caller isolation, every legal route to depth three for each garden, native keyboard ownership, pause/modal/parent guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse; new local asset references and unique HTML IDs pass; bridge is first script; Games navigation resolves to root catalogue. No new Switch workspace controls.",
         "No rendered browser, inspected screenshots, native touch/dialog/focus verification, enjoyment evidence, qualified improvement pass, full-repository build or live-release evidence.",
-        "Leave-one reserve: 27 passing tests (16 engine, 11 jsdom), retaining original 20. Three new reserve-inclusive routes with per-action UI save/reload; strict eligibility/type/repeat guards, long reverse laps, undo/retry restoration, legacy save compatibility, preview immutability, shortage feedback, native keyboard/pause/modal guards. Scripts parse. No rendered evidence."
+        "Leave-one reserve: 27 passing tests (16 engine, 11 jsdom), retaining original 20. Three new reserve-inclusive routes with per-action UI save/reload; strict eligibility/type/repeat guards, long reverse laps, undo/retry restoration, legacy save compatibility, preview immutability, shortage feedback, native keyboard/pause/modal guards. Scripts parse. No rendered evidence.",
+        "Bloom deferral: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining previous 27. Three deferral-inclusive campaigns through controls and per-action save/reload; retained pile/no flower accounting, reserve/reverse cost combination, strict true/exact-landing guards, last-turn victory refusal, undo/replay, old route compatibility, exact previews, plan-change reset and native/pause/modal controls. Syntax, IDs, asset references and bridge-first checks pass. No rendered evidence."
       ],
       "commits": [
         "018d8c74baec589351be660fc3519352a1652ecc",
-        "e6beab4bf5bedb9569efe379e5f65d85781e4673"
+        "e6beab4bf5bedb9569efe379e5f65d85781e4673",
+        "701f44d42eeba3cf4b7387c9f70cc39de920ce68"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1026,6 +1028,13 @@
         "before": "Every sow emptied the origin before distributing its entire pile.",
         "after": "Once per garden, retain one seed and sow the rest. Combines with reverse gusts, previews all resulting counts, rejects fewer than two seeds, and is restored by undo. Original save journals retain their shape and behavior.",
         "remaining": "Render naturally on desktop/touch, inspect screenshots and assess whether reserve timing offers meaningful choices; perform required playtest-led improvement before qualification."
+      },
+      "pendingDeferralRefinement": {
+        "commit": "701f44d42eeba3cf4b7387c9f70cc39de920ce68",
+        "basis": "Source inspection, not rendered observation: exact landings always consumed seeds, including unwanted excess flowers.",
+        "before": "Exact final landings automatically spent their pile for a flower.",
+        "after": "Optionally keep an exact landing's seeds for later sowing, forgoing its flower but paying normal move/gust costs. Can combine with the reserve. Explicit preview and plan-change reset prevent silent carryover; old saves remain automatic.",
+        "remaining": "Rendered desktop/touch play and screenshot inspection; assess seed-conservation decisions and control complexity before required playtest-led qualification."
       }
     },
     {
@@ -1960,6 +1969,13 @@
       "date": "2026-10-27",
       "commit": "bcf3ccd43d098c567c250c4d48b3dd3d6723ede3",
       "result": "Fallow Table transplanting implemented; 34 engine/DOM checks pass. Third remains 20 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "701f44d42eeba3cf4b7387c9f70cc39de920ce68",
+      "result": "Seedwake optional bloom deferral implemented; 34 engine/DOM checks pass. Third remains 20 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
