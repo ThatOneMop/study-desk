@@ -167,6 +167,7 @@ import {contactPalette,restyleThread,portraitInbox} from './phone-texts.mjs?v=16
 import {buildGrowTent,updateGrowTent,TENT} from './grow-tent.mjs?v=168';
 import {SUPPLIER,DROP_WAIT,PICKUP_RANGE,pickDrop,seedPrice,orderTotal,dropState,supplierThread} from './seed-drops.mjs?v=169';
 import {strainBookModel,strainBookHTML} from './strain-book.mjs?v=170';
+import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars.mjs?v=172';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -5359,3 +5360,11 @@ if(typeof location!=='undefined'&&/[?&]strainqa=1\b/.test(location.search))windo
 // v171: the Messages restyle (v167) left .sms-screen on the modal, so the home screen went white with white
 // labels after any visit to Messages. Drop it whenever home is drawn.
 {const homeWall=phoneHome;phoneHome=function(){homeWall();const clear=()=>{if(document.body.dataset.phone==='home')$('modal')?.classList?.remove?.('sms-screen','sms-inbox','strain-screen');};clear();Promise.resolve().then(clear);};window.phoneHome=phoneHome;}
+// v172: street regulars (regulars.mjs). People remember you between chats (saved in s.regulars), greet you
+// as a regular, and the talk card shows how you know them.
+{const regOpen=openTalk;openTalk=function(i){const p=streetCrowd?.people?.[i];let e=null;
+  if(p&&net.role!=='guest'){s.regulars??={};e=noteMeeting(s.regulars,p.id,{name:personName(p.id),day:s.day});}
+  const ok=regOpen(i);if(ok&&talk&&e){const g=regularGreeting(e,talk.mood);if(g)talk.line=g;talk.regular=e;talkRender();}return ok;};
+ const regRender=talkRender;talkRender=function(){regRender();if(!talk||panel!=='talk')return;const e=talk.regular||s.regulars?.[String(talk.id)];const sm=$('modal')?.querySelector?.('.talk-body small');
+  if(sm&&e)sm.insertAdjacentHTML('afterend','<em class="talk-regular'+(e.n>=3?' is-regular':'')+'">'+esc(regularTag(e))+'</em>');};
+ const regSale=talkStreetSale;talkStreetSale=function(p){const pay=regSale(p);if(pay&&talk&&s.regulars)noteRegularSale(s.regulars,talk.id);return pay;};}
