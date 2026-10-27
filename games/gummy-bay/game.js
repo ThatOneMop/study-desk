@@ -88,8 +88,9 @@ import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=154';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
 import {recipeName,effectById} from './mix-core.mjs';
 import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
-import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=162';
-import {createKenneyCity} from './kenney-city.mjs?v=162';
+import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=163';
+import {createKenneyCity} from './kenney-city.mjs?v=163';
+import {createDodgyDressing} from './dodgy-dressing.mjs?v=163';
 import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=139';
 import {normalizeArcade,gripColor,ownedPosters,prizeById} from './arcade-core.mjs?v=137';
 import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=137';
@@ -816,6 +817,7 @@ function installTown(gltf){
  const town=gltf.scene;town.name='Blender environment v11';rv.visible=false;town.children.forEach(chunk=>{const bounds=new THREE.Box3().setFromObject(chunk);chunk.userData.center=bounds.getCenter(new THREE.Vector3());chunk.userData.radius=bounds.getSize(new THREE.Vector3()).length()/2;});town.traverse(o=>{if(!o.isMesh)return;o.castShadow=true;o.receiveShadow=true;if(o.material?.metalness>.1){o.material.envMap=reflectionMap;o.material.envMapIntensity=.4;o.material.needsUpdate=true;}});scene.add(town);visualTown=town;townAssetStatus='ready';
  const shells=townGapColliders(town,{covered:(x,z)=>staticBlocked(x,z),openFootprints:DOORWAY_REVEAL_SITES,preserve:DOORWAY_REVEAL_SITES.map(site=>({x:site.x,z:site.z+site.d/2,w:2,d:2.8})).concat([{x:-55.6,z:26.75,w:8,d:2.2}]),ignoreName:name=>name==='RV'});
  for(const shell of shells)colliders.push(shell);
+ if(typeof installKenneyTown==='function')installKenneyTown(town);
 }
 if(typeof GLTFLoader!=='undefined')new GLTFLoader().load('./assets/environment-v11-final.glb',installTown,e=>{if(e?.total>0)cine.townBytes=e.loaded/e.total;},error=>{townAssetStatus='failed';console.warn('Blender town could not load',error);toast('Town artwork did not load. Refresh to retry.');});
 // Restore open-land colour instead of the previous all-over brown gravel.
@@ -2068,7 +2070,9 @@ function refreshWorldLighting(){
 }
 var sunnyK=0;
 // v161 QA: window.__qaCam={x,y,z,h,p} pins the gameplay camera for same-angle screenshots (never saved); __qaPick(x,z) names the surface under a point.
-window.__qaRay=(dy)=>{const r=new THREE.Raycaster();r.camera=camera;r.setFromCamera(new THREE.Vector2(0,dy),camera);return r.intersectObjects(scene.children,true).slice(0,3).map(h=>({n:h.object.name,par:h.object.parent?.name,gp:h.object.parent?.parent?.name,t:h.object.geometry?.type,d:+h.distance.toFixed(2),pt:[h.point.x,h.point.y,h.point.z].map(v=>+v.toFixed(2)),c:h.object.material?.color?.getHexString?.(),map:!!h.object.material?.map,inst:!!h.object.isInstancedMesh}));};
+window.__qaRay=(dy,dx=0)=>{const q=window.__qaCam;if(q){camera.position.set(q.x,q.y,q.z);camera.rotation.set(q.p||0,q.h||0,0);camera.updateMatrixWorld(true);}const r=new THREE.Raycaster();r.camera=camera;r.setFromCamera(new THREE.Vector2(dx,dy),camera);return r.intersectObjects(scene.children.filter(o=>o!==camera),true).slice(0,3).map(h=>({n:h.object.name,par:h.object.parent?.name,gp:h.object.parent?.parent?.name,chain:(()=>{let a=[],o=h.object;while(o&&o!==scene){a.push(o.name||o.type);o=o.parent;}return a.join('<');})(),t:h.object.geometry?.type,d:+h.distance.toFixed(2),pt:[h.point.x,h.point.y,h.point.z].map(v=>+v.toFixed(2)),c:h.object.material?.color?.getHexString?.(),map:!!h.object.material?.map,inst:!!h.object.isInstancedMesh}));};
+window.__qaSetTime=m=>{s.time=m;};
+window.__qaScene=()=>scene;window.__qaDraws=()=>{const q=window.__qaCam;if(q){camera.position.set(q.x,q.y,q.z);camera.rotation.set(q.p||0,q.h||0,0);}camera.updateMatrixWorld(true);const f=new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));const g={};scene.traverseVisible(o=>{if(!(o.isMesh||o.isPoints||o.isLine||o.isSprite))return;if(o.frustumCulled&&o.geometry&&!o.isSprite){if(!o.geometry.boundingSphere)o.geometry.computeBoundingSphere();const sp=o.geometry.boundingSphere.clone().applyMatrix4(o.matrixWorld);if(!f.intersectsSphere(sp))return;}let a=o;while(a.parent&&a.parent!==scene)a=a.parent;const k=(a.name||a.type)+(a===o?'':'>'+(o.parent===a?'':'…'));g[k]=(g[k]||0)+(Array.isArray(o.material)?o.material.length:1);});return Object.entries(g).sort((x,y)=>y[1]-x[1]);};
 window.__qaPick=(x,z)=>{const r=new THREE.Raycaster(new THREE.Vector3(x,30,z),new THREE.Vector3(0,-1,0));r.camera=camera;return r.intersectObjects(scene.children,true).slice(0,4).map(h=>({name:h.object.name,type:h.object.geometry?.type,p:h.object.geometry?.parameters,y:+h.point.y.toFixed(3),mat:h.object.material?.name||'',map:!!h.object.material?.map,color:h.object.material?.color?.getHexString?.(),vc:!!h.object.material?.vertexColors,par:h.object.parent?.name}));};
 {const qaRender=renderer.render.bind(renderer);renderer.render=function(sc,cam){const q=typeof window!=='undefined'&&window.__qaCam;if(q&&cam===camera){camera.position.set(q.x,q.y,q.z);camera.rotation.set(q.p||0,q.h||0,0);camera.updateMatrixWorld(true);}return qaRender(sc,cam);};}
 const skyClouds=createSkyClouds(scene);
@@ -3896,19 +3900,54 @@ if(typeof window!=='undefined')window.__skate={
 // Blender town's gap shells (baked, because the GLB loads after this runs).
 var cityExpansion=null;
 var kenneyCity=null;
+// v163: the Blender town's blocks are swapped for Kenney City Kit pieces. The eight
+// walk-in shops keep their ground floor (walls, panes, door, sign, awning, counter)
+// and get Kenney upper storeys; every other block is replaced outright. The GLB
+// still loads for its gap colliders, its building meshes are just hidden.
+var kenneyTownDone=false;
+function installKenneyTown(town){
+ if(kenneyTownDone||!kenneyCity||!town||typeof kenneyCity.addSites!=='function')return;kenneyTownDone=true;
+ const ROADS=[0,-90,-160,-230,-300,-370,-435],sites=[];
+ for(const node of town.children){if(!/^Building_/.test(node.name))continue;
+  const b=new THREE.Box3().setFromObject(node),c=b.getCenter(new THREE.Vector3()),size=b.getSize(new THREE.Vector3());
+  const shop=buildings.find(q=>Math.abs(q.x-c.x)<3&&Math.abs(q.z-c.z)<3);
+  if(shop)sites.push({id:node.name,x:shop.x,z:shop.z,w:shop.w+.6,d:shop.d+.6,h:b.max.y,base:3.83,mode:'upper',front:1});
+  else{const road=ROADS.reduce((a,r)=>Math.abs(r-c.z)<Math.abs(a-c.z)?r:a);sites.push({id:node.name,x:c.x,z:c.z,w:size.x-.4,d:size.z-.4,h:b.max.y,mode:'full',front:road>c.z?1:-1});}
+  node.traverse(o=>{if(o.isMesh)o.visible=false;});
+ }
+ // rooftop shop signs back on the taller Kenney stacks (one merged glow mesh)
+ const SHOP_SIGNS=[['PALM COURT MOTEL','#7a3b2a','#ffe2b0'],null,['MILO’S GARDEN','#3f5a3a','#f3ecc8'],['HANK’S HARDWARE','#2f4a44','#f2e6c0'],['CORNER STORE','#8c2f2a','#fff1d6'],['SUDS LAUNDRY','#1f4e79','#e9f1f5'],['CEDAR BAY LETTINGS','#3b2a20','#f2e6cf'],['THE HELPING HAND','#4b3f63','#f4ecff']];
+ window.__kenneyRoofSigns=[];
+ for(const site of sites){if(site.mode!=='upper')continue;const i=buildings.findIndex(q=>q.x===site.x&&q.z===site.z),spec=SHOP_SIGNS[i];if(!spec)continue;
+  const w=Math.min(9,site.w*.55),h=w/16;window.__kenneyRoofSigns.push({text:spec[0],bg:spec[1],fg:spec[2],x:site.x,y:site.h+h+.62,z:site.z+site.d/2-1.1,w,yaw:0,site:site.id});}
+ kenneyCity.addSites(sites);window.__kenneyTownSites=sites.length;
+}
+// v163: dodgy dressing (AC units, shutters, fire escapes, stains, tags, alley bins
+// and lamps) over the Kenney blocks; rebuilt whenever Kenney adds buildings.
+var dodgyDressing=null;
+function installDodgyDressing(){
+ if(!kenneyCity?.ready||typeof createDodgyDressing!=='function'||typeof kenneyCity.facades!=='function')return;
+ if(dodgyDressing){scene.remove(dodgyDressing.root);dodgyDressing.root.traverse(o=>o.geometry?.dispose?.());for(const c of dodgyDressing.colliders){const i=colliders.indexOf(c);if(i>=0)colliders.splice(i,1);}}
+ const alleys=(cityExpansion?.plan?.alleys||[]).map(a=>{const run=a.run,depth=a.lot.d,mid=a.at+a.width/2,across=run.line+run.grow*depth/2;return run.axis==='x'?{x:mid,z:across,along:'z',width:a.width,len:depth}:{x:across,z:mid,along:'x',width:a.width,len:depth};});
+ const fronts=kenneyCity.facades(),roofSigns=(window.__kenneyRoofSigns||[]).map(sg=>{const top=Math.max(0,...fronts.filter(f=>f.site===sg.site).map(f=>f.height));return top?{...sg,y:top+sg.w/16+.75}:sg;});
+ dodgyDressing=createDodgyDressing({scene,fronts,alleys,roofSigns});
+ const clear=c=>!points.some(p=>Math.hypot(p.x-c.x,p.z-c.z)<3)&&!policeRoutes.some(r=>r.some(q=>Math.hypot(q[0]-c.x,q[1]-c.z)<3));
+ dodgyDressing.colliders=dodgyDressing.colliders.filter(clear);colliders.push(...dodgyDressing.colliders);
+}
 if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
  const cityBase=colliders.length;
  cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS),points,routes:policeRoutes,quality,height:terrainHeight,kenney:typeof createKenneyCity==='function'&&!(typeof location!=='undefined'&&/[?&]kenney=0\b/.test(location.search))});
  // v162: Kenney City Kit (CC0) buildings on the generic lots, a few merged draw calls.
  if(cityExpansion.kenneyLots?.length&&typeof createKenneyCity==='function')kenneyCity=createKenneyCity({scene,lots:cityExpansion.kenneyLots,Loader:typeof GLTFLoader!=='undefined'?GLTFLoader:null});
+ if(kenneyCity){kenneyCity.onChange=()=>installDodgyDressing();if(visualTown)installKenneyTown(visualTown);}
  colliders.push(...cityExpansion.colliders);
- window.__gummyCity={kenney:()=>kenneyCity&&{ready:kenneyCity.ready,failed:kenneyCity.failed,lots:kenneyCity.placements.length,near:kenneyCity.placements.map(p=>[p.model,+p.x.toFixed(1),+p.z.toFixed(1),+p.rot.toFixed(2),+p.sx.toFixed(1),+p.height.toFixed(1)]).sort((a,b)=>Math.hypot(a[1],a[2]+20)-Math.hypot(b[1],b[2]+20)).filter((p,i,l)=>l.filter(q=>q[0].includes('type')===p[0].includes('type')).indexOf(p)<2),cells:kenneyCity.cells.length,triangles:kenneyCity.triangles,models:[...new Set(kenneyCity.placements.map(p=>p.model))]},atlas:()=>cityExpansion.signMaterial?.map?.image?.toDataURL?.(),stats:()=>cityExpansion.stats(),businesses:()=>cityExpansion.businesses,shells:()=>colliders.slice(cityBase+cityExpansion.colliders.length).map(c=>[+c.x.toFixed(2),+c.z.toFixed(2),+c.w.toFixed(2),+c.d.toFixed(2)])};
+ window.__gummyCity={kenney:()=>kenneyCity&&{ready:kenneyCity.ready,failed:kenneyCity.failed,lots:kenneyCity.placements.length,near:kenneyCity.placements.map(p=>[p.model,+p.x.toFixed(1),+p.z.toFixed(1),+p.rot.toFixed(2),+p.sx.toFixed(1),+p.height.toFixed(1)]).sort((a,b)=>Math.hypot(a[1],a[2]+20)-Math.hypot(b[1],b[2]+20)).filter((p,i,l)=>l.filter(q=>q[0].includes('type')===p[0].includes('type')).indexOf(p)<2),cells:kenneyCity.cells.length,triangles:kenneyCity.triangles,models:[...new Set(kenneyCity.placements.map(p=>p.model))],mats:kenneyCity.materials.map(m=>({e:+m.emissiveIntensity.toFixed(2),lit:m.emissiveMap?.userData?.lit,img:m.map?.image?.width}))},atlas:()=>cityExpansion.signMaterial?.map?.image?.toDataURL?.(),stats:()=>cityExpansion.stats(),businesses:()=>cityExpansion.businesses,shells:()=>colliders.slice(cityBase+cityExpansion.colliders.length).map(c=>[+c.x.toFixed(2),+c.z.toFixed(2),+c.w.toFixed(2),+c.d.toFixed(2)])};
  const cityReset=resetSystems;resetSystems=function(){cityReset();
   const lots=cityExpansion.colliders;
   const p=relocateFromInfill(player,lots,(x,z)=>!blocked(x,z));player.x=p.x;player.z=p.z;s.x=p.x;s.z=p.z;
   const v=relocateFromInfill(vehiclePose,lots,(x,z)=>!blocked(x,z)&&!blocked(x-2,z-3)&&!blocked(x+2,z+3));vehiclePose.x=v.x;vehiclePose.z=v.z;s.vehiclePark={...vehiclePose};
  };
- const cityRender=renderFrame;renderFrame=function(){const night=sceneLighting(s.time,active).night;cityExpansion.update({night,quality,camera});kenneyCity?.update?.({night,quality,camera});cityRender();};
+ const cityRender=renderFrame;renderFrame=function(){const night=sceneLighting(s.time,active).night;cityExpansion.update({night,quality,camera});kenneyCity?.update?.({night,quality,camera});dodgyDressing?.update?.({night});cityRender();};
 }catch(error){console.warn('City expansion skipped',error);}
 
 // v134 Lighting and visual polish: bounce/moon fill, lifted hemisphere colours,

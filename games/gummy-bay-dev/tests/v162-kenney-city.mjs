@@ -29,5 +29,5 @@ let glb=0;for(const kit of ['commercial','suburban']){glb+=fs.statSync('dist/ass
 assert.ok(glb<2.2e6,'both kits under 2.2 MB');
 const cr=fs.readFileSync('dist/CREDITS.md','utf8');assert.ok(/Kenney City Kit \(Commercial\)/.test(cr)&&/Kenney City Kit \(Suburban\)/.test(cr));
 assert.ok(ce.kenneyLots.some(l=>l.type==='house'),'houses use the Suburban kit');
-const src=fs.readFileSync('dist/game.js','utf8');assert.ok(src.includes("from './kenney-city.mjs?v=162'")&&src.includes('kenney:typeof createKenneyCity'));
+const src=fs.readFileSync('dist/game.js','utf8');assert.ok(/from '.\/kenney-city.mjs\?v=16\d'/.test(src)&&src.includes('kenney:typeof createKenneyCity'));
 console.log('PASS: v162 Kenney City Kit (Commercial + Suburban) buildings fitted to generic lots, merged per 160 m cell, credited CC0, '+(glb/1e6).toFixed(2)+' MB');

@@ -12,7 +12,8 @@ import {NAMED_BUSINESSES,GENERIC_SIGNS,HIGHWAY_SIGNS,SIGN_SPECS,SignBatch,create
 export const CITY_BOUNDS=Object.freeze({minX:-284,maxX:284,minZ:-449,maxZ:92});
 const ROAD_Z=[0,-90,-160,-230,-300,-370,-435],ROAD_X=[-270,-105,105,270];
 export const CITY_ROADS=Object.freeze({z:ROAD_Z,x:ROAD_X});
-export const FRONT_OFFSET=12;
+// v163: fronts sit about a metre off the pavement edge (pavement ends 10.1 m from the road centre; the planner grid is 1 m).
+export const FRONT_OFFSET=11;
 export const OVERPASS=Object.freeze({z:-90,y:7.6,halfWidth:8.6,pillarOffset:10.55,x0:-430,x1:430,spacing:22});
 // Areas that stay open: Old Town's crowd, campsite and pier; the loading flyover's
 // campsite glide; Gumdrop Terrace ramps; hill tops.
@@ -76,9 +77,9 @@ const between=(r,[a,b])=>a+(b-a)*r();
 export function planCity({obstacles=[],points=[],routes=[],reserved=CITY_RESERVED,seed=131}={}){
  const grid=new Grid(),r=rng(seed);
  // roads and pavements
- for(const z of ROAD_Z)grid.mark(-400,400,z-10.7,z+10.7);
- for(const x of ROAD_X)grid.mark(x-10.7,x+10.7,-460,-7+10.7);
- grid.mark(-10.7,10.7,-460,-72);grid.mark(-12.9,11.4,-90,0);grid.mark(-10.7,10.7,0,100);
+ for(const z of ROAD_Z)grid.mark(-400,400,z-10.3,z+10.3);
+ for(const x of ROAD_X)grid.mark(x-10.3,x+10.3,-460,-7+10.3);
+ grid.mark(-10.3,10.3,-460,-72);grid.mark(-12.9,11.4,-90,0);grid.mark(-10.3,10.3,0,100);
  for(const q of reserved)grid.mark(q.x0,q.x1,q.z0,q.z1);
  for(const o of obstacles){if(!(o?.w>0&&o?.d>0))continue;const big=o.w*o.d>=30,m=big?2:1.1;grid.mark(o.x-o.w/2-m,o.x+o.w/2+m,o.z-o.d/2-m,o.z+o.d/2+m);
   if(o.w*o.d>=100){for(const s of [-1,1]){const road=ROAD_Z.reduce((a,b)=>Math.abs(o.z+s*o.d/2-b)<Math.abs(o.z+s*o.d/2-a)?b:a);if(Math.sign(road-o.z)===s&&Math.abs(road-o.z)<o.d/2+34)grid.mark(o.x-2.6,o.x+2.6,Math.min(o.z,road),Math.max(o.z,road));}}}
@@ -113,7 +114,7 @@ export function planCity({obstacles=[],points=[],routes=[],reserved=CITY_RESERVE
    lots.push(lot);grid.mark(choice.fp.x0,choice.fp.x1,choice.fp.z0,choice.fp.z1,2);
    pos+=choice.w;sinceAlley++;
    const alley=detached||sinceAlley>=2+Math.floor(r()*2)||r()<.22;
-   if(alley){const g=detached?1.8+r()*1.6:3.4+r()*.9;if(!detached&&pos+g<run.to)alleys.push({run,at:pos,width:g,lot});pos+=g;sinceAlley=0;}
+   if(alley){const g=detached?1.2+r()*1.0:2.6+r()*.8;/* v163: tight, cramped gaps */if(!detached&&pos+g<run.to)alleys.push({run,at:pos,width:g,lot});pos+=g;sinceAlley=0;}
   }
  }
  // Back-lot infill: fills the interior fields behind the frontage with detached
@@ -125,9 +126,9 @@ export function planCity({obstacles=[],points=[],routes=[],reserved=CITY_RESERVE
   for(const [w,d] of [[between(r,a.w),between(r,a.d)],[a.w[0],a.d[0]]]){
    const rot=road.axis==='z'?(z>road.at?Math.PI:0):(x>road.at?-Math.PI/2:Math.PI/2);
    const cw=road.axis==='z'?w:d,cd=road.axis==='z'?d:w,x0=x-3,z0=z-3,fp={x0,x1:x0+cw,z0,z1:z0+cd};
-   if(!grid.free(fp.x0-2.1,fp.x1+2.1,fp.z0-2.1,fp.z1+2.1))continue;
+   if(!grid.free(fp.x0-1.5,fp.x1+1.5,fp.z0-1.5,fp.z1+1.5))continue;
    const lot={id:'city-'+lots.length,x:(fp.x0+fp.x1)/2,z:(fp.z0+fp.z1)/2,w,d,rot,type,floors:Math.round(between(r,a.floors)),seed:Math.floor(r()*1e9),cw,cd,infill:true};
-   lots.push(lot);grid.mark(fp.x0-1.7,fp.x1+1.7,fp.z0-1.7,fp.z1+1.7,2);break;
+   lots.push(lot);grid.mark(fp.x0-1.2,fp.x1+1.2,fp.z0-1.2,fp.z1+1.2,2);break;
   }
  }
  return {lots,alleys,grid,unplaced:named};
@@ -178,7 +179,7 @@ export function createCityExpansion({scene,obstacles=[],points=[],routes=[],qual
  // Alleys: dumpsters, bins, crates and the odd tag.
  for(const alley of plan.alleys){
   const run=alley.run,mid=alley.at+alley.width/2,depth=alley.lot.d;
-  if(alley.width<3.2)continue;
+  if(alley.width<2.6)continue;
   const back=run.line+run.grow*(depth-2.2),front=run.line+run.grow*2.5;
   const at=(along,across)=>run.axis==='x'?[along,across]:[across,along];
   const [dx,dz]=at(mid,back);const c=chunk(dx,dz);
