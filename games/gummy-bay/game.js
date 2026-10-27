@@ -164,6 +164,7 @@ import {createCc0People,cc0Variant} from './cc0-people.mjs?v=165';
 import {applySunnyGrade,sunnyStrength} from './sunny-grade.mjs?v=161';
 import {applyDodgyGrade,dodgyStrength,signFlicker} from './dodgy-grade.mjs?v=166';
 import {contactPalette,restyleThread,portraitInbox} from './phone-texts.mjs?v=167';
+import {buildGrowTent,updateGrowTent,TENT} from './grow-tent.mjs?v=168';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
@@ -1324,7 +1325,7 @@ if(typeof GLTFLoader!=='undefined')new GLTFLoader().load('./assets/equipment-v11
  const tent=gltf.scene.getObjectByName('Tent'),mixer=gltf.scene.getObjectByName('Mixer'),phone=gltf.scene.getObjectByName('Payphone');
  if(!tent||!mixer||!phone){equipmentAssetStatus='failed';return;}
  gltf.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
- tents.forEach((g,i)=>{for(const child of [...g.children])if(child!==plantVisuals[i])g.remove(child);g.add(tent.clone(true));});
+ tents.forEach((g,i)=>{for(const child of [...g.children])if(child!==plantVisuals[i])g.remove(child);g.add(GROW_TENT_V168?buildGrowTent(THREE):tent.clone(true));});
  mixers.forEach(g=>{g.clear();g.add(mixer.clone(true));attachObjectSilhouette(g,'station',{quality});});
  for(const o of [...scene.children])if(o.isMesh&&Math.abs(o.position.x+47)<.7&&Math.abs(o.position.z-29)<.65&&o.position.y>0&&o.position.y<3.1)scene.remove(o);
  const model=phone.clone(true);dressPayphone(model);model.position.set(-47,0,29);model.userData.batchStatic=true;model.traverse(o=>{if(o.isMesh&&o.userData)delete o.userData.name;});scene.add(model);equipmentAssetStatus='ready';
@@ -5296,3 +5297,8 @@ function smsPortrait(i){if(smsPortraits.has(i))return smsPortraits.get(i);let ur
 function smsDecorate(which,data){try{const m=$('modal');if(!m)return;if(which==='thread'&&panel==='thread'){const i=Number.isInteger(data)?data:selected,c=CONTACTS[i];if(c)window.__sms=restyleThread(m,{name:c.name,sub:(isUnlocked(s,i)?(c.role||'Customer'):'Locked')+' · mobile',avatar:smsPortrait(i)},esc);}else if(which==='phone'&&panel==='phone'&&m.querySelector?.('.message-inbox'))window.__sms={inbox:portraitInbox(m,CONTACTS.map((c,i)=>smsPortrait(i)))};}catch(e){}}
 {const smsMenu=menu;menu=function(which,data){const r=smsMenu(which,data);if(which==='thread'||which==='phone'){smsDecorate(which,data);Promise.resolve().then(()=>{if(panel===which)smsDecorate(which,data);});}return r;};window.menu=menu;}
 window.__phoneQa={seed(i=0){s.threads=s.threads||{};s.threads[i]={status:'idle',messages:[{mine:false,text:'You still doing the sweet stuff? Gramps used to sort me out.'},{mine:true,text:'Yeah. Pine Pops, $30 each.'},{mine:false,text:'Bit steep. Two for $50 and I come to you?'},{mine:true,text:'Meet me behind the laundromat at 9.'},{mine:false,text:'Done. Don’t be late, the cops do a lap at 10.'}]};return true;},state:()=>window.__sms||null};
+// v168: Schedule-style grow tent (grow-tent.mjs): black canvas, mylar lining, LED panel, fabric pot whose soil
+// darkens when watered and dries out as the plant gets thirsty. ?oldtent=1 keeps the v11 GLB tent.
+var GROW_TENT_V168=!(typeof location!=='undefined'&&/[?&]oldtent=1\b/.test(location.search));
+{let tentSoilClock=0;const tentRender=renderFrame;renderFrame=function(){try{const t=performance.now();if(GROW_TENT_V168&&t-tentSoilClock>400){tentSoilClock=t;tents.forEach((g,i)=>{if(!g.visible)return;const tent=g.children.find(c=>c.name==='GrowTentV168');if(tent)updateGrowTent(THREE,tent,s.plants?.[i]);});}}catch(e){}return tentRender.apply(this,arguments);};}
+if(typeof location!=='undefined'&&/[?&]tentqa=1\b/.test(location.search))window.__tentQa={show(phase='growing'){s.room=s.room||true;s.tents=Math.max(s.tents||0,2);s.installed=[...new Set([...(s.installed||[]),0,1])];const n=Date.now();s.plants[0]={t:0,phase,start:n-60000,end:n+240000,waterings:1};s.plants[1]={t:1,phase:'thirsty',start:n-300000,end:n-1000,waterings:1};refreshBase();refreshEquipmentPresentation();const g=tents[0];return {x:g.position.x,z:g.position.z,r:g.rotation.y,visible:g.visible,v168:!!g.children.find(c=>c.name==='GrowTentV168'),house:s.house};}};
