@@ -49,6 +49,17 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 - The Blender town blocks are now dressed with the same Kenney City Kit pieces (CC0, credited above).
 - Grime, rust and rain streaks, spray tags, roller shutters, posters, puddles, litter, AC units, fire escapes, bins, crates, alley lamps and rooftop shop signs are all generated in code (`dodgy-dressing.mjs`, `kenney-city.mjs` grime shader). No new third-party assets.
 
+## World dressing (added v179)
+
+Kenney CC0 models replace the box trees, box cars and box shop clutter. Each kind is one instanced mesh, with a shared sign atlas and a distance LOD. Licence files are the ones shipped in each pack.
+
+- **Car Kit 3.1** — `assets/kenney/dressing-kit.glb` (hatchback, delivery van, tyre and plate litter). Author: **Kenney** (https://www.kenney.nl). Licence: **CC0**. See `assets/kenney/License-car-kit.txt`. Source: https://kenney.nl/assets/car-kit
+- **Survival Kit 2.0** — trees, grass, crates and barrels in the same GLB. Licence: **CC0**. See `assets/kenney/License-survival-kit.txt`. Source: https://kenney.nl/assets/survival-kit
+- **Fantasy Town Kit 2.0** — crooked trees and the market stall used as a shop awning. Licence: **CC0**. See `assets/kenney/License-fantasy-town-kit.txt`. Source: https://kenney.nl/assets/fantasy-town-kit
+- **Food Kit 2.0** — apples and cans in the window displays. Licence: **CC0**. See `assets/kenney/License-food-kit.txt`. Source: https://kenney.nl/assets/food-kit
+
+Modifications: meshes merged per prop, scaled to the street, vertex colours baked from each pack's colormap and shifted toward the town's tired, dark palette. Wheels stay part of the car. No Schedule I assets.
+
 ## Narrower streets and varied blocks (added v164)
 - Kerb build-outs, street clutter, asymmetric block columns and the window styles (blinds, curtains, boarded, dark) are generated in code. No new third-party assets.
 

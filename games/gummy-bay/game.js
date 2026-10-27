@@ -93,6 +93,7 @@ import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
 import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=164';
 import {createKenneyCity} from './kenney-city.mjs?v=164';
 import {createDodgyDressing} from './dodgy-dressing.mjs?v=164';
+import {createWorldDressing} from './world-dressing.mjs?v=179';
 import {createKerbBuildOuts} from './kerb-buildouts.mjs?v=164d';
 import {WINDING_LANES,LANE_HALF,LANE_EDGE,planLaneLots,laneLotColliders,laneLampSpots,laneBlocks,buildLaneMesh,laneSamples,laneDistance} from './winding-lanes.mjs?v=166';
 import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=139';
@@ -578,7 +579,7 @@ function setQuality(q){
  townSkyline?.setQuality(q);
  junctionReveals?.setQuality(q);
  townUtilities?.setQuality(q);
- cityExpansion?.setQuality(q);
+ cityExpansion?.setQuality(q);worldDressing?.setQuality(q);
  overheadInfrastructure?.setQuality(q);
  townFencing?.setQuality(q);
  foregroundDepth?.setQuality(q);
@@ -4019,11 +4020,18 @@ try{
  const crowd=[];for(let i=0;i<STREET_CROWD_SIZE*2;i++){const c=crowdRoute(i);crowd.push({a:[c.home.x,c.home.z],b:[c.job.x,c.job.z]});for(const k of ['bench','vend','atm','street'])crowd.push({a:[c[k].x,c[k].z],b:[c.home.x,c.home.z]},{a:[c[k].x,c[k].z],b:[c.job.x,c.job.z]});}
  const dress=dressingSpots({roadBands:[{axis:'z',at:0,half:11.5},{axis:'x',at:0,half:11.5}],colliders,points,routes:policeRoutes,crowd,max:28});
  const oldTrees=dress.filter(d=>d.kind==='tree'),planterSpots=dress.filter(d=>d.kind==='planter');gfxPlanterSpots=planterSpots;
- streetLighting=createStreetDressing({scene,lamps:spots,soffit,trees:(gfxTreeSpots=treeSpots({free:freeTree,step:8,max:220,extra:oldTrees})),planters:planterSpots,height:terrainHeight});
+ streetLighting=createStreetDressing({scene,lamps:spots,soffit,trees:[],planters:[],height:terrainHeight});gfxTreeSpots=treeSpots({free:freeTree,step:8,max:220,extra:oldTrees});
  for(const d of oldTrees)colliders.push({x:d.x,z:d.z,w:.7,d:.7,cityProp:'tree'});for(const d of planterSpots)colliders.push({x:d.x,z:d.z,w:1.5,d:1.5,cityProp:'planter'});
  streetLighting.update(lastGrade);
  window.__gummyLight={stats:()=>({lamps:streetLighting.lamps,soffit:streetLighting.soffit,meshes:streetLighting.meshes.length,trees:streetLighting.trees,oldTownTrees:oldTrees.length,planters:streetLighting.planters,verts:streetLighting.verts,grade:lastGrade})};
 }catch(error){console.warn('Street lighting skipped',error);}
+// v179: Kenney vans, hatchbacks, trees and shop props. One instanced mesh per kind.
+var worldDressing=null;
+if(!(typeof location!=='undefined'&&/[?&]dress=0\b/.test(location.search))&&typeof createWorldDressing==='function')try{
+ worldDressing=createWorldDressing({scene,Loader:typeof GLTFLoader!=='undefined'?GLTFLoader:null,quality,lots:cityExpansion?.plan?.lots||[],lanes:windingLanes?.lots||[],sites:districtArchitecture?.profiles||[],trees:gfxTreeSpots||[],planters:gfxPlanterSpots||[],roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),avoid:points,height:(x,z)=>Math.max(0,terrainHeight(x,z))});
+ window.__dressing=()=>worldDressing?.stats?.();
+ const dressRender=renderFrame;renderFrame=function(){worldDressing?.update?.({quality,camera,night:sceneLighting(s.time,active).night,dt:.016});dressRender();};
+}catch(error){console.warn('World dressing skipped',error);}
 // v150 graphics pass step 1: warmer golden hour, a moonlit night key, softer real shadows on
 // Medium/High and a one-draw-call ground occlusion skirt (the Low shadow fallback).
 let gfxOcclusion=null;try{const fp=colliders.filter(c=>!c.cityProp&&c.w>=3&&c.d>=3&&c.w<80&&c.d<80);gfxOcclusion=createGroundOcclusion(THREE,scene,fp,{height:terrainHeight});}catch(error){console.warn('Ground occlusion skipped',error);}
