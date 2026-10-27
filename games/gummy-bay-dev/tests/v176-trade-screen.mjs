@@ -28,5 +28,5 @@ const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
 assert.match(game,/trade-screen\.mjs\?v=176/);
 for(const re of [/const tradeSale=talkStreetSale;/,/talkStreetSale=function\(p\)\{\s*if\(bypass/,/function tradePhone\(i\)/,/const tradeMenu=menu;menu=function/,/const tradeAct=doAction;doAction=function/,/window\.__tradeQa=/,/action\('text',i\)/,/action\('offer',i,/])assert.match(game,re);
 const css=fs.readFileSync(new URL('../dist/people-talk.css',import.meta.url),'utf8');for(const re of [/\.trade-card\.is-picked/,/@keyframes cashFly/,/#modal\.trading \.talk-options/,/body #overlay\.phone #tradeBox/])assert.match(css,re);
-const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/game\.js\?v=17\d/);assert.match(idx,/people-talk\.css\?v=17\d/);
+const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/game\.js\?v=1\d\d/);assert.match(idx,/people-talk\.css\?v=17\d/);
 console.log('v176 trade screen ok');

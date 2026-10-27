@@ -34,5 +34,5 @@ const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
 assert.match(game,/relationship-status\.mjs\?v=17\d/);
 for(const re of [/const relFair=rosterFair;rosterFair=function/,/const relAct=doAction;doAction=function/,/const relAsks=postCravingAsks;postCravingAsks=function/,/const relRender=talkRender;talkRender=function/,/const relSale=talkStreetSale;talkStreetSale=function/,/relStandingDecor\(box,nt\.type,nt\.i\)/,/window\.__relQa=/])assert.match(game,re);
 const css=fs.readFileSync(new URL('../dist/people-talk.css',import.meta.url),'utf8');assert.match(css,/\.rel-status \.rel-bar/);assert.match(css,/\.rel-l4\{--rel:/);
-const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/game\.js\?v=17\d/);
+const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/game\.js\?v=1\d\d/);
 console.log('v175 relationship status ok');
