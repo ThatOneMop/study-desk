@@ -1162,10 +1162,12 @@
         "25 passing tests: 12 engine, 13 jsdom 26.1.0 using actual bridge source and a simulated parent. Six complete winning routes (three without an offer, three with an offer that actually discards harvest), three natural losing routes, per-action save/reload, sequential progression, best records, undo/retry, strict invalid-save/action checks, corrupt-data preservation, isolated reset and quota errors.",
         "Exhaustive legal-branch checks: 8,139 prefix visits and 3,381 complete journals, including different offer timings. Card conservation, follow-suit, bot policy, winner/harvest distinction and valid wins/losses verified. These are algorithmic paths, not separate content or human play sessions.",
         "DOM simulations verify pure exact previews, legal-card gating, keyboard/native-control/modifier/composition guards, pause/modal/parent/document visibility, bridge P reservation, Games navigation markup and unique IDs. Production and test scripts parse; local assets and bridge-first order pass.",
-        "No rendered browser, inspected screenshots, real touch/native dialogs, human enjoyment, qualified improvement pass, full-repository build, catalogue integration or live evidence."
+        "No rendered browser, inspected screenshots, real touch/native dialogs, human enjoyment, qualified improvement pass, full-repository build, catalogue integration or live evidence.",
+        "Invitation refinement: 31 passing tests (15 engine, 16 jsdom with real bridge simulated). Six added winning routes invite each neighbour in all three picnics; per-action UI reload, strict validity, card conservation, forecast purity/next leader, final-trick exclusion, offer cost, loss behaviour and undo checked. All 25 original tests retained. No rendered evidence."
       ],
       "commits": [
-        "815a82dc73d3b5f95b1743ab60d34fb49cc1fef6"
+        "815a82dc73d3b5f95b1743ab60d34fb49cc1fef6",
+        "35af85ed98c71bfb35616c97d50ff9e854db4eff"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1176,7 +1178,14 @@
       "nextSteps": [
         "Render all three picnics on desktop and touch, inspect screenshots, verify gameplay, navigation, wins/losses, retry/reload and dialogs.",
         "Implement a substantive upgrade based on the most important observed weakness before qualifying or integrating."
-      ]
+      ],
+      "pendingInvitationRefinement": {
+        "commit": "35af85ed98c71bfb35616c97d50ff9e854db4eff",
+        "basis": "Source inspection only: the woodland offer removed harvest but could not relinquish a won lead.",
+        "before": "Winning with an offer always kept the lead.",
+        "after": "Before the final trick, optionally invite Wren or Moss to lead after an offered win, changing next suit/order while spending the same offer and discarding harvest. Losing leaves the actual winner leading. Default and all prior journals unchanged.",
+        "remaining": "Rendered play and balance/readability assessment; no qualified improvement credit."
+      }
     },
     {
       "slot": 64,
@@ -2121,6 +2130,13 @@
       "result": "Built slot 63 Bramble Pact: three open-hand trick-taking harvest puzzles, exact forecasts, one woodland offer, sequential progression and safe saves. 25 engine/DOM tests pass. Third now 23 built, zero qualified improved/browser-tested/integrated/live; second additional round stays 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed. Real bridge simulated in jsdom; no rendered or touch evidence."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "35af85ed98c71bfb35616c97d50ff9e854db4eff",
+      "result": "Bramble Pact neighbour invitations implemented; 31 engine/DOM tests pass. Counts remain 23 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed; no rendered evidence."
     }
   ]
 }
