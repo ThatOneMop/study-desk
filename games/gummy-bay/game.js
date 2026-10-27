@@ -6,7 +6,7 @@ import {wakingPose,createWorkshopTerminals,createCampsiteFire,workshopPlan} from
 import {neighborhoodPlan,createIslandShore,relocateFromInfill} from './island-neighborhoods.mjs?v=112';
 import {addStreetHat} from './street-hats.mjs?v=113';
 import {terrainHeight,WALKABLE_HILLS,createGrittyTerrain} from './gritty-terrain.mjs?v=111';
-import {gritMaterial,createStreetWear} from './gritty-streets.mjs?v=111';
+import {gritMaterial,createStreetWear} from './gritty-streets.mjs?v=161';
 import {roundResidentAsset} from './resident-rounding.mjs?v=121';
 import {EXTRA_PATROL_ROUTES,expandPoliceRoster} from './patrol-expansion.mjs?v=111';
 import {dressPayphone} from './payphone-detail.mjs?v=111';
@@ -155,6 +155,7 @@ import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {createCc0People,cc0Variant} from './cc0-people.mjs?v=160';
+import {applySunnyGrade,sunnyStrength} from './sunny-grade.mjs?v=161';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
@@ -521,7 +522,7 @@ locomotion.vertical=cutJump(locomotion.vertical,releasing);const impact=locomoti
 locomotion.crouch=crouchStep(locomotion.crouch,!!keys.control,floorHeight(player.x,player.z),ceilingHeight(player.x,player.z),dt);const travelled=Math.hypot(player.x-beforeX,player.z-beforeZ);walk=travelled>.0001;const staminaNext=staminaStep(stamina,running&&walk,locomotion.regenWait,dt,{jumping:jumpInput.launch});stamina=staminaNext.stamina;locomotion.regenWait=staminaNext.wait;walkPhase+=dt*(running?2.6:1.8)*Math.PI*2;locomotion.dip=decayDip(locomotion.dip,dt);
 {const g=floorHeight(player.x,player.z);locomotion.stepEye=stepEyeOffset(locomotion.stepEye,locomotion.lastGround==null?0:g-locomotion.lastGround,dt,{grounded:locomotion.jump===0,driving});locomotion.lastGround=g;}
 syncPlayerView();
-camera.fov+=((running&&walk&&comfort.sprintFov?Math.min(100,fovBase+5):fovBase)-camera.fov)*(1-Math.exp(-dt*FOV_RESPONSE));camera.updateProjectionMatrix();camera.rotation.set(pitch,yaw,locomotion.roll||0);hand.position.y=comfort.bob&&walk?Math.sin(walkPhase)*.012:0;updateChunkyPlayerHand(playerHand,{walking:walk,phase:walkPhase,now,offering:panel==='customer'});watering.rotation.z=work?Math.sin(now*4)*.15:0;
+camera.fov+=((running&&walk&&comfort.sprintFov?Math.min(100,fovBase+5):fovBase)-camera.fov)*(1-Math.exp(-dt*FOV_RESPONSE));camera.updateProjectionMatrix();camera.rotation.set(pitch,yaw,locomotion.roll||0);hand.position.y=comfort.bob&&walk?Math.sin(walkPhase)*.012:0;updateChunkyPlayerHand(playerHand,{walking:walk,phase:walkPhase,now,offering:panel==='customer'});{const held=!!equippedTool||panel==='customer';for(const m of [playerHand.sleeve,playerHand.palm,playerHand.thumb,playerHand.fingers])if(m)m.visible=held;}watering.rotation.z=work?Math.sin(now*4)*.15:0;
 if(net.role!=='guest'){const wasCurfew=curfewActive(s.time);s.time+=dt*1.2;if(s.time>=1440){s.time-=1440;s.day++}const nowCurfew=curfewActive(s.time);if(nowCurfew!==wasCurfew)emitGameplay({type:'curfew',active:nowCurfew,day:s.day,time:s.time});if(!nowCurfew)s.heat=Math.max(0,s.heat-dt*.9);catchCooldown=Math.max(0,catchCooldown-dt);}
 people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z)<5){const desired=Math.atan2(player.x-g.position.x,player.z-g.position.z),delta=Math.atan2(Math.sin(desired-g.rotation.y),Math.cos(desired-g.rotation.y));g.rotation.y+=delta*(1-Math.exp(-dt*5));}g.userData.head.rotation.z=Math.sin(now*1.7+i)*.015});if(track&&!Number.isInteger(track.npc)&&Math.hypot(player.x-track.x,player.z-track.z)<2.3)track=null;
 // Environmental state is projected once before rendering, including paused menus.
@@ -2064,8 +2065,13 @@ function refreshWorldLighting(){
   if(target)l.position.set(target.x,target.y,target.z);
  });
 }
+var sunnyK=0;
+// v161 QA: window.__qaCam={x,y,z,h,p} pins the gameplay camera for same-angle screenshots (never saved); __qaPick(x,z) names the surface under a point.
+window.__qaRay=(dy)=>{const r=new THREE.Raycaster();r.camera=camera;r.setFromCamera(new THREE.Vector2(0,dy),camera);return r.intersectObjects(scene.children,true).slice(0,3).map(h=>({n:h.object.name,par:h.object.parent?.name,gp:h.object.parent?.parent?.name,t:h.object.geometry?.type,d:+h.distance.toFixed(2),pt:[h.point.x,h.point.y,h.point.z].map(v=>+v.toFixed(2)),c:h.object.material?.color?.getHexString?.(),map:!!h.object.material?.map,inst:!!h.object.isInstancedMesh}));};
+window.__qaPick=(x,z)=>{const r=new THREE.Raycaster(new THREE.Vector3(x,30,z),new THREE.Vector3(0,-1,0));r.camera=camera;return r.intersectObjects(scene.children,true).slice(0,4).map(h=>({name:h.object.name,type:h.object.geometry?.type,p:h.object.geometry?.parameters,y:+h.point.y.toFixed(3),mat:h.object.material?.name||'',map:!!h.object.material?.map,color:h.object.material?.color?.getHexString?.(),vc:!!h.object.material?.vertexColors,par:h.object.parent?.name}));};
+{const qaRender=renderer.render.bind(renderer);renderer.render=function(sc,cam){const q=typeof window!=='undefined'&&window.__qaCam;if(q&&cam===camera){camera.position.set(q.x,q.y,q.z);camera.rotation.set(q.p||0,q.h||0,0);camera.updateMatrixWorld(true);}return qaRender(sc,cam);};}
 const skyClouds=createSkyClouds(scene);
-const worldLightingRender=renderFrame;renderFrame=function(){refreshWorldLighting();const cloudLight=sceneLighting(s.time,active);skyClouds.update(camera,{time:now,daylight:cloudLight.daylight,warmth:cloudLight.warmth,sunColor:cloudLight.sunColor,cloud:active&&!cine.lit?gbSky().cloud:.15});worldLightingRender();};
+const worldLightingRender=renderFrame;renderFrame=function(){refreshWorldLighting();const cloudLight=sceneLighting(s.time,active);skyClouds.update(camera,{time:now,daylight:cloudLight.daylight,warmth:cloudLight.warmth,sunColor:cloudLight.sunColor,cloud:(active&&!cine.lit?gbSky().cloud:.15)*(1-.7*sunnyK)});worldLightingRender();};
 
 
  // Layout/installation changes may surround either player. Local-only unembedding
@@ -2406,7 +2412,7 @@ for(const mesh of scene.children){
  const d=mesh.geometry.parameters;
  if(d.width>=200&&d.depth>100&&d.height<1)mesh.material=grittyGround;
  else if(d.height<.3&&((d.width>150&&d.depth>=10&&d.depth<=12)||(d.depth>80&&d.width>=10&&d.width<=12)))mesh.material=grittyRoad;
- else if(d.height<.3&&((d.width>100&&d.depth<=4.5)||(d.depth>80&&d.width<=4.5)))mesh.material=grittyWalk;
+ else if(d.height<.3&&((d.width>100&&d.depth<=5.5)||(d.depth>80&&d.width<=5.5)))mesh.material=grittyWalk;// v161: 5 m promenades get paving too
 }
 const grittyTerrain=createGrittyTerrain(scene,WORLD,grittyGround);
 grittyTerrain.ridge.visible=false;
@@ -3941,6 +3947,9 @@ const gfxBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gfxBas
  // v155 world: water reflections/glint and grass tufts off Low, lighter car gloss on Low, headlights at night.
  const wt=worldTuning(quality,g.night);waterUniforms.uQ.value=wt.waterQ;carPaint.uGloss.value=wt.gloss;carPaint.uNight.value=wt.headlights;
 };
+// v161: sunny, saturated daytime grade on top of the clock lighting (sunny-grade.mjs).
+const clockWorldLighting=refreshWorldLighting;
+refreshWorldLighting=function(){clockWorldLighting();sunnyK=0;if(typeof applySunnyGrade!=='function'||!(active||cine.lit))return;const plan=sceneLighting(s.time,active),w=cine.lit?{cloud:.15,rain:0,mist:0}:gbSky();sunnyK=applySunnyGrade({THREE,k:sunnyStrength({daylight:plan.daylight,cloud:w.cloud,rain:w.rain,mist:w.mist}),sun,hemi,scene,skyUniforms,renderer,waterUniforms,cloud:w.cloud});};
 window.__gummyGfx={occlusion:()=>gfxOcclusion?{verts:gfxOcclusion.verts,opacity:gfxOcclusion.mesh.material.opacity}:null,grade:()=>gfxLightGrade(sceneLighting(s.time,active),quality)};
 // v151 graphics pass step 2: one procedural detail atlas shared by every static town material.
 const gfxMaterialUniforms={gfxAtlas:{value:null},gfxStrength:{value:1}};let gfxPatched=0,gfxPatchTimes=[];

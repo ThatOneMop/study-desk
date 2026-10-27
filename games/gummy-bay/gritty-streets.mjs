@@ -3,7 +3,8 @@ import {graphicBatch} from './graphics-architecture.mjs';
 // Deterministic, original texture pixels. No external images or screen-space grain.
 export function gritTexture(kind){
  const n=128,b=new Uint8Array(n*n*4);let seed=8147;const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
- const base=kind==='asphalt'?[57,61,59]:kind==='concrete'?[113,112,101]:[91,91,67];
+ // v161: lighter asphalt and greener verges for a brighter, sunnier town.
+ const base=kind==='asphalt'?[76,79,82]:kind==='concrete'?[124,122,112]:[86,106,60];
  for(let y=0;y<n;y++)for(let x=0;x<n;x++){
   const noise=(rand()-.5)*(kind==='earth'?37:28),broad=Math.sin(x*.09)*Math.cos(y*.07)*8;
   const crack=kind==='asphalt'&&Math.abs(x-(48+Math.sin(y*.12)*5+Math.sin(y*.035)*19))<.65;
