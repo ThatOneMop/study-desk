@@ -388,3 +388,26 @@ body.skating .crosshair,body.skating #crosshair{opacity:0}
 .meet-options button{min-height:36px;font-size:12px;text-align:left;padding:6px 8px;border-radius:8px}
 .meet-options button small{display:block;opacity:.7;font-size:10px}
 .meet-options button.on{outline:2px solid #e2a23b;background:#fff4dc}
+/* v159 Dealers app */
+.dealers-app h2{margin:2px 0 8px}
+.dl-money{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.dl-money span{background:rgba(0,0,0,.05);border-radius:8px;padding:6px 4px;text-align:center;font-size:11px;color:#55606a;line-height:1.2}
+.dl-money b{display:block;font-size:15px;color:#1b1f23}
+.dl-money.top span{background:#fff}.dl-money.top b{color:#2f8f57}
+.dl-card{background:#fff;border-radius:12px;padding:10px 12px;margin:10px 0;border-left:5px solid #3aa76d;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.dl-card[data-state="empty"],.dl-card[data-state="change"]{border-left-color:#e2a23b}.dl-card[data-state="rob"],.dl-card[data-state="low"]{border-left-color:#d9534f}
+.dl-head{display:flex;justify-content:space-between;align-items:center;gap:6px}.dl-head b{font-size:15px}
+.dl-chip{font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;background:#e3f4ea;color:#23784a;white-space:nowrap}
+.dl-chip.empty,.dl-chip.change{background:#fff1d9;color:#9a5d00}.dl-chip.rob,.dl-chip.low{background:#fde3e1;color:#a92f28}
+.dl-where{margin:2px 0;font-size:12px;color:#66707a}
+.dl-stock{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}.dl-stock span{font-size:11px;background:#f1eadf;border-radius:6px;padding:2px 6px}.dl-stock .none{color:#a0522d}
+.dl-label{margin:8px 0 4px;font-size:10px;letter-spacing:.08em;color:#7a838c;font-weight:700}
+.dl-regs{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.dl-regs button{font-size:12px;border-radius:999px;padding:3px 9px;border:0;background:#e8eefc;color:#2d4a8a;min-height:0}
+.dl-regs .dl-add{background:#2f8f57;color:#fff}.dl-reg i{font-style:normal;opacity:.6}
+.dl-locals{font-size:11px;color:#7a838c}
+.dl-risk{font-size:12px;margin:8px 0 4px}.dl-risk.low b{color:#2f8f57}.dl-risk.medium b{color:#c07a00}.dl-risk.high b{color:#c0392b}
+.dl-tip{font-size:11px;color:#6b737b;margin:10px 2px}
+.dealers-app .dl-head b,.dealers-app .dl-money b{color:#1b1f23}.dealers-app .dl-money.top b{color:#2f8f57}
+.dealers-app .dl-stock span{color:#4a3a22}.dealers-app .dl-stock .none{color:#a0522d}
+.dealers-app .dl-where,.dealers-app .dl-risk{color:#55606a}

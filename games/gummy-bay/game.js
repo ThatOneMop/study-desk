@@ -56,7 +56,7 @@ import {ACT1_DURATION,ACT1_SKIP_HOLD,ACT1_CAST,act1At,act1PanelHtml,act1ChyronHt
 import {castAt,propsAt,resolveCast,blipsFor,voiceFor,createCineAudio,cameraDrift} from './cine-cast.mjs?v=149';
 import {createCineStage} from './cine-stage.mjs?v=154';
 import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml,storyHold} from './story-acts.mjs?v=149';
-import {DEALER_ROSTER,RUNNER_ROSTER,CREW,freshEmpire,normalizeEmpire,advanceEmpire,recruitDealer,assignCustomer,unassignCustomer,restockDealer,collectDealer,districtCustomers,dealerOf,runnerOf,stockTotal,hireCrew,crewSlots,slotUpgradeCost,buySlot,fireCrew,hireRunner,dispatchRunner,dealerLow,dealerForecast} from './dealer-network.mjs?v=143';
+import {DEALER_ROSTER,RUNNER_ROSTER,CREW,freshEmpire,normalizeEmpire,advanceEmpire,recruitDealer,assignCustomer,unassignCustomer,restockDealer,collectDealer,districtCustomers,dealerOf,runnerOf,stockTotal,hireCrew,crewSlots,slotUpgradeCost,buySlot,fireCrew,hireRunner,dispatchRunner,dealerLow,dealerForecast,GUARDS,ROB,regularOwner,assignRegular,dropRegular,giveFloat,buyGuard,robberyRisk,riskLabel} from './dealer-network.mjs?v=159';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
 import {propReachable,stepProp,resolvePropPairs,propThrowSpin,propVisualLift,PROP_RADIUS,PROP_HALF_WIDTH,PROP_HALF_DEPTH} from './prop-motion.mjs?v=120';
@@ -1668,7 +1668,7 @@ function gardenContext(){const base=workerContext(),limit=maxTents(),cfg=s.staff
  for(let i=0;i<limit;i++){if(!(s.installed||[]).includes(i)||(cfg.tent>=0&&cfg.tent!==i))continue;const pose=activeTentPose(i);if(!pose)continue;tents.push({i,approach:{x:pose.x+Math.sin(pose.r)*1.6,z:pose.z+Math.cos(pose.r)*1.6}});}
  return {origin:base.source,bounds:base.bounds,blocked:base.blocked,tents,maxTents:limit,roomForHarvest:()=>stockUsed()+4<=stockCapacity(),unlocked,growMs:t=>STRAINS[t].time*(1-(s.lights||0)*.15)*500};
 }
-function sellerContext(){return {contacts:CONTACTS,meeting:i=>customerHomes[i],route:citizenRoute,blocked:(x,z)=>blocked(x,z),approach:6};}
+function sellerContext(){return {contacts:CONTACTS,meeting:i=>{const d=(s.deals||[]).find(d=>d.npc===i);if(d&&Number.isFinite(d.from)&&typeof meetSpots==='function'){const p=meetSpots()[d.spot];if(p)return {x:p.x,z:p.z};}return customerHomes[i];},route:citizenRoute,blocked:(x,z)=>blocked(x,z),approach:6};}
 function placeFieldActor(actor,position,dt){const dx=position.x-actor.position.x,dz=position.z-actor.position.z;if(Math.hypot(dx,dz)>.001)actor.rotation.y=turnTowards(actor.rotation.y,Math.atan2(dx,dz),dt);actor.position.set(position.x,0,position.z);}
 let cravingAskTimer=0;
 function recordCravingSale(npc,product,qty){
@@ -1679,6 +1679,7 @@ function postCravingAsks(){
  let posted=false;
  for(let i=0;i<CONTACTS.length;i++){
   if(!isUnlocked(s,i))continue;
+  if(s.empire&&regularOwner(s.empire,i))continue; // v159: their dealer covers them
   const rec=s.cravings?.[i],thread=s.threads[i];
   const ask=cravingAsk(rec,{day:s.day,time:s.time,hasDeal:s.deals.some(d=>d.npc===i),threadStatus:thread?.status});
   if(!ask||!STRAINS[ask.t])continue;
@@ -4403,7 +4404,7 @@ try{
  const ensureEmpire=()=>{if(!s.empire)s.empire=freshEmpire(absNow(),(Math.floor(Math.random()*1e9)|1)>>>0);if(s.empire.v!==1||!s.empire._ok){s.empire=normalizeEmpire(s.empire,{clock:absNow(),strainCount:STRAINS.length});Object.defineProperty(s.empire,'_ok',{value:true,enumerable:false});}if(s.empire.clock>absNow())s.empire.clock=absNow();return s.empire;};
  const lvl=()=>level();
  const bestBase=()=>{let b=0;for(let i=0;i<BASE_COUNT;i++)if(STRAINS[i].level<=lvl())b=i;return b;};
- const netCtx=()=>({to:absNow(),price:t=>STRAINS[t]?value(t):0,baseCount:BASE_COUNT,bestBase,seedCost:b=>STRAINS[b].seed,name:t=>STRAINS[t]?.name||'gummies',
+ const netCtx=()=>({to:absNow(),depth:true,regular:i=>{const c=CONTACTS[i];if(!c||!isUnlocked(s,i))return null;return {name:c.name,appetite:1+(i%2),budget:Math.round((c.budget||1)*(1+(s.relations?.[i]||0)/400)*100)/100,every:16+(i*7)%12};},price:t=>STRAINS[t]?value(t):0,baseCount:BASE_COUNT,bestBase,seedCost:b=>STRAINS[b].seed,name:t=>STRAINS[t]?.name||'gummies',
   storageLeft:()=>storageCapacity()-storedUsed(),
   benchPlan:strain=>{
    if(strain>=BASE_COUNT){const p=STRAINS[strain];return p?.mixed&&s.mixer&&s.raw[p.base]>0&&(s.ingredients[p.ingredient]||0)>0?{out:strain,base:p.base,ing:p.ingredient}:null;}
@@ -4412,7 +4413,8 @@ try{
   benchUse:plan=>{if(!(s.raw[plan.base]>0))return false;if(plan.ing!=null){if(!(s.ingredients[plan.ing]>0))return false;s.ingredients[plan.ing]--;}s.raw[plan.base]--;s.made=(s.made||0)+1;return true;}});
  const netOn=()=>active&&net.role!=='guest';
  function netRun(){if(!netOn())return [];ensureEmpire();const ev=advanceEmpire(s,netCtx());
-  const loud=ev.filter(e=>e.kind==='bust'||e.kind==='short');const pick=loud[loud.length-1]||ev.filter(e=>e.kind==='cash').pop();
+  for(const v of ev)if(v.kind==='regular'&&CONTACTS[v.npc]){s.relations[v.npc]=Math.min(100,(s.relations[v.npc]||0)+1);try{recordCravingSale(v.npc,v.t,v.qty);}catch(err){}}
+  const loud=ev.filter(e=>e.kind==='bust'||e.kind==='short'||e.kind==='rob');const pick=loud[loud.length-1]||ev.filter(e=>e.kind==='cash').pop();
   if(pick&&performance.now()-NET.lastToast>2500){NET.lastToast=performance.now();toast(pick.text);}
   if(ev.length&&panel==='sweetnet')menu('sweetnet');return ev;}
  // ---- Where the dealers stand: their district, nudged onto open pavement ----
@@ -4538,6 +4540,64 @@ try{
    const c=e.crew[0];if(c)c.strain=0;netRun();close();return {dealers:Object.keys(e.dealers).length,runners:Object.keys(e.runners).length,crew:e.crew.length};},
   look:(x,z,from=6,side=0)=>{const p={x,z},d=Math.hypot(player.x-x,player.z-z)||1;player.x=x+from*Math.cos(side);player.z=z+from*Math.sin(side);yaw=Math.atan2(-(x-player.x),-(z-player.z));pitch=-.08;return {x:player.x,z:player.z,yaw};},
   crewSpot:()=>{const h=HOMES[s.house]||HOMES[0],o=SLOT_OFFSETS[0];return {x:h.x+o[0],z:h.z+o[1]};}};
+ // ---- v159 Dealer depth: your own regulars, a change float, the Sticky Paws gang and a Dealers phone app ----
+ const DAYM=1440,firstName=n=>String(n||'').split(' ')[0];
+ const regularName=i=>CONTACTS[i]?.name||'?';
+ const freeRegulars=()=>CONTACTS.map((c,i)=>i).filter(i=>isUnlocked(s,i)&&!regularOwner(ensureEmpire(),i));
+ const collectBase=A.collect;
+ Object.assign(A,{
+  addRegular(id,i){const e=ensureEmpire(),d=dealerOf(id);if(!e.dealers[id])return false;if(!Number.isInteger(i))i=freeRegulars()[0];
+   if(!Number.isInteger(i)){toast('Every unlocked customer already has a dealer. Unlock more in the People app.');return false;}
+   const r=assignRegular(e,id,i);if(!r.ok){toast(r.reason);return false;}toast(regularName(i)+' now buys from '+firstName(d.name)+'. They stop texting you for orders.');save();return true;},
+  dropRegular(id,i){const ok=dropRegular(ensureEmpire(),id,i);if(ok){toast((Number.isInteger(i)?regularName(i):'Your regular')+' is back on your own phone list.');save();}return ok;},
+  float(id,amt=50,force=false){const e=ensureEmpire(),d=dealerOf(id);if(!e.dealers[id])return 0;if(!force&&!nearDealer(id)){toast('Hand over change in person at '+firstName(d.name)+'’s spot.');return 0;}
+   const n=giveFloat(e,id,amt,s.cash);if(!n){toast((e.dealers[id].float||0)>=ROB.floatMax?'Float is full ($'+ROB.floatMax+').':'No cash in your pocket for a float.');return 0;}
+   s.cash-=n;record?.('Dealer float · '+d.name,-n);toast('Gave '+firstName(d.name)+' '+money(n)+' in change.');save();return n;},
+  guard(id){const e=ensureEmpire(),r=buyGuard(e,id,availableMoney());if(!r.ok){toast(r.reason);return false;}
+   if(!pay(r.cost,r.name+' · '+dealerOf(id).name)){e.dealers[id].guard--;return false;}toast(GUARDS[e.dealers[id].guard].icon+' '+r.name+' for '+firstName(dealerOf(id).name)+'. Robbery risk down.');save();return true;},
+  collect(id,force=false){const c=collectBase(id,force);if(c)record?.('Dealer takings · '+dealerOf(id).name,c);return c;}
+ });
+ const netActBase=window.netAct;window.netAct=(k,...a)=>{const r=netActBase(k,...a);if(panel==='dealers')menu('dealers');return r;};
+ function dealerStatus(d,x,now){const st=stockTotal(x.stock);
+  if(dealerLow(ensureEmpire(),d.id,now))return ['low','🚨 Laying low'];
+  if(x.robbedAt&&now-x.robbedAt<DAYM)return ['rob','🦝 Robbed today'];
+  if(!st)return ['empty','⚠ Out of stock'];
+  if((x.float||0)<ROB.floatMin)return ['change','💵 Needs change'];
+  return ['ok','✅ Selling'];}
+ function dealerAppCard(d){const e=ensureEmpire(),x=e.dealers[d.id],now=absNow(),here=nearDealer(d.id),st=stockTotal(x.stock),p=robberyRisk(d,x),lab=riskLabel(p),[code,status]=dealerStatus(d,x,now);
+  const used=x.customers.length+(x.regulars||[]).length,room=used<d.cap,free=freeRegulars();
+  const lines=Object.entries(x.stock).filter(([,n])=>n>0).map(([t,n])=>'<span>'+n+'× '+esc(STRAINS[t]?.name||'?')+'</span>').join('')||'<span class="none">Empty shelf</span>';
+  const regs=(x.regulars||[]).map(i=>'<button class="dl-reg" onclick="netAct(\'dropRegular\',\''+d.id+'\','+i+')" title="Take back">'+esc(regularName(i))+' <i>×</i></button>').join('');
+  const next=GUARDS[(x.guard|0)+1],runner=Object.keys(e.runners).find(k=>e.runners[k].state==='idle');
+  return '<div class="dl-card" data-state="'+code+'"><div class="dl-head"><b>'+esc(d.name)+'</b><span class="dl-chip '+code+'">'+status+'</span></div>'+
+   '<p class="dl-where">'+esc(d.district)+' · cut '+Math.round(d.cut*100)+'% · sold '+x.sold+'</p>'+
+   '<div class="dl-money"><span><b>'+money(x.owed)+'</b>to collect</span><span><b>'+st+'/'+d.stockCap+'</b>packs</span><span><b>'+money(x.float||0)+'</b>float</span></div>'+
+   '<div class="net-bar"><i style="width:'+pct(st,d.stockCap)+'%"></i><em style="left:'+pct(x.target,d.stockCap)+'%"></em></div>'+
+   '<div class="dl-stock">'+lines+'</div>'+
+   '<p class="dl-label">CUSTOMERS · '+used+'/'+d.cap+'</p><div class="dl-regs">'+regs+'<span class="dl-locals">+'+x.customers.length+' locals</span>'+(room&&free.length?'<button class="dl-add" onclick="netAct(\'addRegular\',\''+d.id+'\')">+ '+esc(regularName(free[0]))+'</button>':'')+'</div>'+
+   '<p class="dl-risk '+lab.toLowerCase()+'">Robbery risk: <b>'+lab+'</b> · '+GUARDS[x.guard|0].icon+' '+GUARDS[x.guard|0].name+(x.robbed?' · robbed '+x.robbed+'×':'')+'</p>'+
+   '<div class="net-btns">'+(next?'<button onclick="netAct(\'guard\',\''+d.id+'\')">'+next.icon+' '+next.name+' · '+money(next.cost)+'</button>':'')+
+   (here?'<button class="go" onclick="netAct(\'restock\',\''+d.id+'\')">Restock</button><button class="go" onclick="netAct(\'collect\',\''+d.id+'\')">Collect '+money(x.owed)+'</button><button onclick="netAct(\'float\',\''+d.id+'\',50)">+$50 float</button>':'<button onclick="__net.track(\''+d.id+'\')">Track →</button>'+(runner?'<button onclick="netAct(\'send\',\''+runner+'\',\''+d.id+'\')">Send '+esc(firstName(runnerOf(runner).name))+'</button>':''))+'</div></div>';}
+ function dealersAppHTML(){const e=ensureEmpire(),hired=DEALER_ROSTER.filter(d=>e.dealers[d.id]);
+  const owed=hired.reduce((a,d)=>a+e.dealers[d.id].owed,0),packs=hired.reduce((a,d)=>a+stockTotal(e.dealers[d.id].stock),0),regs=hired.reduce((a,d)=>a+(e.dealers[d.id].regulars||[]).length,0);
+  let h='<div class="overline">DEALERS · '+s1Clock(s.day,s.time).clock+'</div><h2>'+(hired.length?hired.length+' on the street':'No dealers yet')+'</h2>'+
+   '<div class="dl-money top"><span><b>'+money(owed)+'</b>to collect</span><span><b>'+packs+'</b>packs out</span><span><b>'+regs+'</b>your regulars</span></div>';
+  h+=hired.map(dealerAppCard).join('');
+  const nextD=DEALER_ROSTER.find(d=>!e.dealers[d.id]);if(nextD)h+='<div class="net-phone">'+dealerCard(nextD)+'</div>';
+  h+='<p class="dl-tip">Regulars stop texting you and buy from their dealer instead, and stay happy. The Sticky Paws gang go after dealers holding lots of cash, so collect often and buy a lockbox. Without a change float, some customers walk off.</p>';
+  return h;}
+ const dlMenu=menu;menu=function(which,data){dlMenu(which,data);
+  if(which==='dealers'&&panel==='dealers'){netRun();$('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="story-phone net-phone dealers-app">'+dealersAppHTML()+'</div><button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';$('overlay').classList.toggle('phone',true);}};window.menu=menu;
+ const dlPhoneHome=phoneHome;phoneHome=function(){dlPhoneHome();if(panel!=='phone')return;const grid=$('modal').querySelector?.('.phone-app-grid');if(!grid)return;const e=ensureEmpire(),n=Object.keys(e.dealers).length,owed=Object.values(e.dealers).reduce((a,x)=>a+x.owed,0);
+  grid.insertAdjacentHTML('beforeend','<button onclick="menu(\'dealers\')" data-phone-key="dealers" class="dealers-app-icon"><b aria-hidden="true">🤝</b><strong>Dealers</strong><small>'+(n?money(owed)+' to collect':'Recruit one')+'</small></button>');};window.phoneHome=phoneHome;
+ window.__dealers={html:()=>dealersAppHTML(),act:(k,...a)=>A[k]?.(...a),
+  // QA/screenshot staging: two dealers with your regulars, stock, a float, a day of sales and one robbery.
+  stage:()=>{s.room=true;s.xp=Math.max(s.xp,800);s.cash=Math.max(s.cash,5000);s.heat=0;const e=ensureEmpire();
+   for(const id of ['benny','mo']){if(!e.dealers[id])A.recruit(id);for(let t=0;t<BASE_COUNT;t++)s.packs[t]=Math.max(s.packs[t],8);A.restock(id,true);}
+   A.addRegular('benny',2);A.addRegular('benny',0);A.addRegular('mo',3);A.float('benny',100,true);A.guard('mo');
+   const x=e.dealers.benny;x.owed=Math.max(x.owed,186);const m=e.dealers.mo;m.owed=Math.max(m.owed,94);m.robbed=1;m.robbedAt=absNow()-90;m.lostToRobbery=60;
+   e.log.push({at:absNow()-90,kind:'rob',text:'🦝 The Sticky Paws gang swiped $60 from Mo.'});save();return JSON.parse(JSON.stringify({benny:x,mo:m}));},
+  state:()=>JSON.parse(JSON.stringify(ensureEmpire().dealers)),run:()=>netRun()};
  window.loadGame=load;
 }catch(error){console.warn('Sweet Network unavailable',error);}
 // v143 playtest/feel QA hook. Read-only state plus test helpers; never used by gameplay.
@@ -4939,13 +4999,26 @@ const meetPaint=paintTownMap;paintTownMap=function(ctx,w,h,local=false){
  const r=meetPaint(ctx,w,h,local);
  try{
   const scale=local?travelMapScale(driving):Math.min(w/740,h/700),cx=local?player.x:0,cz=local?player.z:(WORLD.minZ+95)/2,center={x:cx,z:cz};
-  const live=new Map();for(const d of s.deals||[])if(Number.isFinite(d.from)&&CONTACTS[d.npc])live.set(d.spot,d);
+  const live=new Map();for(const d of s.deals||[])if(Number.isFinite(d.from)&&CONTACTS[d.npc])live.set(d.spot,d);const pending=[];
   meetSpots().forEach((p,j)=>{
    const q=local?projectMapPoint(p,center,scale,w,h,4):{x:w/2+(p.x-cx)*scale,y:h/2+(p.z-cz)*scale};if(!q)return;
    const d=live.get(j);ctx.lineWidth=2;ctx.strokeStyle=d?'#3b2a10':'#f6edd3';ctx.fillStyle=d?'#ffb547':'rgba(246,237,211,.35)';
    ctx.beginPath();ctx.arc(q.x,q.y-(d?6:0),d?5:3,0,7);ctx.fill();ctx.stroke();
-   if(d){ctx.beginPath();ctx.moveTo(q.x-4,q.y-4);ctx.lineTo(q.x,q.y+2);ctx.lineTo(q.x+4,q.y-4);ctx.fill();ctx.font='bold '+(local?9:10)+'px sans-serif';ctx.fillStyle='#fff3d1';ctx.textAlign='center';ctx.fillText(p.name+' · '+CONTACTS[d.npc].name,q.x,q.y-14);ctx.textAlign='start';}
+   if(d){ctx.beginPath();ctx.moveTo(q.x-4,q.y-4);ctx.lineTo(q.x,q.y+2);ctx.lineTo(q.x+4,q.y-4);ctx.fill();
+    if(local){ctx.font='bold 9px sans-serif';ctx.fillStyle='#fff3d1';ctx.textAlign='center';ctx.fillText(p.name+' · '+CONTACTS[d.npc].name,q.x,q.y-14);ctx.textAlign='start';}
+    else pending.push({q,text:p.name+' · '+CONTACTS[d.npc].name});}
   });
+  // v159: full-map callouts. Bigger text on a dark pill, placed clear of district names and each other.
+  if(!local&&pending.length){const taken=[];ctx.font='bold 11px sans-serif';
+   for(const dd of DISTRICTS){const x=w/2+(dd.x-cx)*scale,y=h/2+(dd.z-cz)*scale;taken.push({x:x+4,y:y-18,w:ctx.measureText(dd.name).width+6,h:16});}
+   const hit=r=>r.x<2||r.y<2||r.x+r.w>w-2||r.y+r.h>h-2||taken.some(t=>r.x<t.x+t.w&&r.x+r.w>t.x&&r.y<t.y+t.h&&r.y+r.h>t.y);
+   ctx.font='bold 13px sans-serif';
+   for(const it of pending){const tw=ctx.measureText(it.text).width+14,th=20;let best=null;
+    for(const [dx,dy] of [[0,-34],[0,22],[-tw/2-14,-12],[tw/2+14,-12],[0,-56],[0,44],[-tw/2-14,14],[tw/2+14,14],[-tw/2-14,-38],[tw/2+14,-38]]){const r={x:it.q.x+dx-tw/2,y:it.q.y+dy-th/2,w:tw,h:th};if(!hit(r)){best=r;break;}}
+    best??={x:it.q.x-tw/2,y:it.q.y-34-th/2,w:tw,h:th};taken.push(best);
+    ctx.strokeStyle='rgba(255,181,71,.9)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(it.q.x,it.q.y-6);ctx.lineTo(Math.max(best.x,Math.min(best.x+best.w,it.q.x)),Math.max(best.y,Math.min(best.y+best.h,it.q.y-6)));ctx.stroke();
+    ctx.fillStyle='rgba(30,22,12,.88)';ctx.beginPath();if(ctx.roundRect)ctx.roundRect(best.x,best.y,best.w,best.h,6);else ctx.rect(best.x,best.y,best.w,best.h);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#ffe2a8';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(it.text,best.x+best.w/2,best.y+best.h/2+.5);ctx.textAlign='start';ctx.textBaseline='alphabetic';}}
   r.meetSpots=live.size;
  }catch(e){}
  return r;

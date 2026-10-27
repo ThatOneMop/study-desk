@@ -17,7 +17,7 @@ const ranked=rankByAppeal([{index:0,appeal:appealOf(.2,30,30)},{index:1,appeal:a
 const game=fs.readFileSync('dist/game.js','utf8');
 assert.ok(game.includes("CONTACTS.push(...NEW_CUSTOMERS"));assert.ok(game.includes('const rosterAction=doAction;doAction=function'));assert.ok(game.includes('BEST BUYERS'));assert.ok(game.includes("import {STARTER_PROFILES,NEW_CUSTOMERS"));
 assert.ok(fs.readFileSync('dist/gfx-world.mjs','utf8').includes('w.y+=h+.01'),'shore foam rides the swell');
-assert.ok(fs.readFileSync('dist/index.html','utf8').match(/Gummy Bay v15[7-9]/));
+assert.ok(fs.readFileSync('dist/index.html','utf8').match(/Gummy Bay v1(5[7-9]|6[0-9])/));
 assert.ok(fs.readFileSync('dist/hud-s1.css','utf8').includes('#modal header{position:static'),'phone headers are not absolute');
 assert.ok(haggleChance({price:80,fair:33,qty:6,relation:20,craving:.5,spend:[60,160]})===0&&haggleChance({price:40,fair:33,qty:6,relation:20,craving:.5,spend:[60,160]})>0,'haggle judged per unit');
 console.log('PASS: v157 customer book (14 locals, samples unlock, appeal ranking, haggle odds, deal bonuses) + shore foam swell');

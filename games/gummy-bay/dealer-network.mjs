@@ -15,6 +15,13 @@ export const RUNNER_ROSTER=Object.freeze([
 export const CREW=Object.freeze({unlock:3,hire:250,wage:{grower:60,bench:80},growMinutes:180,growYield:4,benchMinutes:40,shiftStart:8*60,shiftEnd:20*60,
  slots:Object.freeze([1,2,4]),upgrade:Object.freeze([900,2200])});
 export const RISK=Object.freeze({bustBase:.004,bustHeat:.03,layLow:2*DAY,seize:.5,bustHeatGain:8,runnerHeat:40,runnerStop:.05,shortBase:.5,shortMin:.1,shortSpan:.2});
+// v159 dealer depth: your own phone regulars, a change float, and a cheeky robbery risk.
+// All of it only runs when the game passes ctx.depth, so the economy sim's numbers stay put.
+export const GUARDS=Object.freeze([
+ Object.freeze({name:'No protection',cost:0,mult:1,icon:'🔓'}),
+ Object.freeze({name:'Lockbox',cost:150,mult:.5,icon:'🔒'}),
+ Object.freeze({name:'Walkie buddy',cost:400,mult:.25,icon:'📻'})]);
+export const ROB=Object.freeze({base:.018,cashScale:300,takeCash:.6,takeFloat:.5,takeStock:.25,floatMin:20,noChange:.4,floatMax:300,gang:'Sticky Paws gang'});
 const NAMES=['Abe','Bea','Cass','Dot','Eli','Fern','Gus','Hattie','Ivo','Jo','Kit','Lou','Mabel','Ned','Opal','Quinn','Ruby','Sid','Tess','Ugo','Vi','Wes','Yara','Zed'];
 const SURNAMES=['Puddle','Crumb','Fudge','Waffle','Biscuit','Treacle','Pickle','Muffin','Sprout','Noodle','Button','Toffee','Crumpet','Jelly'];
 const hash=(...v)=>{let h=2166136261;for(const x of v.join('|')){h^=x.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;};
@@ -35,7 +42,7 @@ export function normalizeEmpire(e,{clock=0,strainCount=64}={}){
  const out={...f,clock:Number.isFinite(e.clock)?Math.min(e.clock,clock||e.clock):clock,rng:Number.isInteger(e.rng)?e.rng>>>0:f.rng,slotsBought:Math.max(0,Math.min(CREW.upgrade.length,e.slotsBought|0)),stats:{...f.stats}};
  for(const k of Object.keys(f.stats))out.stats[k]=num(e.stats?.[k]);
  for(const d of DEALER_ROSTER){const x=e.dealers?.[d.id];if(!x?.hired)continue;const pool=new Set(districtCustomers(d.id).map(c=>c.id));
-  out.dealers[d.id]={hired:true,stock:cleanStock(x.stock,strainCount),owed:Math.max(0,Math.round(num(x.owed))),customers:[...new Set((x.customers||[]).filter(c=>pool.has(c)))].slice(0,d.cap),strain:Number.isInteger(x.strain)&&x.strain>=-1&&x.strain<strainCount?x.strain:-1,target:Math.max(2,Math.min(d.stockCap,x.target|0||Math.round(d.stockCap*.75))),lowUntil:num(x.lowUntil),sold:num(x.sold),earned:num(x.earned),missed:num(x.missed),shorted:num(x.shorted),busts:num(x.busts)};}
+  out.dealers[d.id]={regulars:[...new Set((Array.isArray(x.regulars)?x.regulars:[]).filter(i=>Number.isInteger(i)&&i>=0&&i<1000))],float:Math.max(0,Math.min(ROB.floatMax,Math.round(num(x.float)))),guard:Math.max(0,Math.min(GUARDS.length-1,x.guard|0)),robbed:num(x.robbed),robbedAt:num(x.robbedAt),lostToRobbery:num(x.lostToRobbery),hired:true,stock:cleanStock(x.stock,strainCount),owed:Math.max(0,Math.round(num(x.owed))),customers:[...new Set((x.customers||[]).filter(c=>pool.has(c)))].slice(0,d.cap),strain:Number.isInteger(x.strain)&&x.strain>=-1&&x.strain<strainCount?x.strain:-1,target:Math.max(2,Math.min(d.stockCap,x.target|0||Math.round(d.stockCap*.75))),lowUntil:num(x.lowUntil),sold:num(x.sold),earned:num(x.earned),missed:num(x.missed),shorted:num(x.shorted),busts:num(x.busts)};}
  for(const r of RUNNER_ROSTER){const x=e.runners?.[r.id];if(!x?.hired)continue;
   out.runners[r.id]={hired:true,auto:x.auto!==false,state:['idle','out','back'].includes(x.state)?x.state:'idle',target:dealerOf(x.target)?x.target:null,cargo:cleanStock(x.cargo,strainCount),cash:Math.max(0,num(x.cash)),leg:Math.max(0,num(x.leg)),legTotal:Math.max(1,num(x.legTotal,1)),trips:num(x.trips)};
   if(out.runners[r.id].state!=='idle'&&!out.runners[r.id].target)Object.assign(out.runners[r.id],{state:'idle',leg:0});}
@@ -67,11 +74,23 @@ export function recruitDealer(e,id,{level,cash}){
  if(e.dealers[id])return {ok:false,reason:d.name+' already works with you'};
  if(level<d.unlock)return {ok:false,reason:'Reach level '+d.unlock+' first'};
  if(cash<d.fee)return {ok:false,reason:'Signing fee is $'+d.fee};
- e.dealers[id]={hired:true,stock:{},owed:0,customers:districtCustomers(id).slice(0,3).map(c=>c.id),strain:-1,target:Math.round(d.stockCap*.75),lowUntil:0,sold:0,earned:0,missed:0,shorted:0,busts:0};
+ e.dealers[id]={regulars:[],float:0,guard:0,robbed:0,robbedAt:0,lostToRobbery:0,hired:true,stock:{},owed:0,customers:districtCustomers(id).slice(0,3).map(c=>c.id),strain:-1,target:Math.round(d.stockCap*.75),lowUntil:0,sold:0,earned:0,missed:0,shorted:0,busts:0};
  return {ok:true,cost:d.fee};
 }
-export function assignCustomer(e,id,cid){const d=dealerOf(id),x=e.dealers[id];if(!d||!x)return false;if(x.customers.includes(cid)||x.customers.length>=d.cap)return false;if(!districtCustomers(id).some(c=>c.id===cid))return false;x.customers.push(cid);return true;}
+export function assignCustomer(e,id,cid){const d=dealerOf(id),x=e.dealers[id];if(!d||!x)return false;if(x.customers.includes(cid)||x.customers.length+(x.regulars?.length||0)>=d.cap)return false;if(!districtCustomers(id).some(c=>c.id===cid))return false;x.customers.push(cid);return true;}
 export function unassignCustomer(e,id,cid){const x=e.dealers[id];if(!x)return false;const n=x.customers.length;x.customers=x.customers.filter(c=>c!==cid);return x.customers.length<n;}
+// v159: hand one of your unlocked phone customers to a dealer. A customer belongs to one dealer at a time.
+export const regularOwner=(e,i)=>Object.keys(e.dealers||{}).find(id=>e.dealers[id].regulars?.includes(i))||null;
+export function assignRegular(e,id,i){const d=dealerOf(id),x=e.dealers[id];if(!d||!x||!Number.isInteger(i)||i<0)return {ok:false,reason:'Unknown customer'};x.regulars??=[];
+ if(regularOwner(e,i))return {ok:false,reason:'Already buys from '+dealerOf(regularOwner(e,i)).name.split(' ')[0]};
+ if(x.customers.length+x.regulars.length>=d.cap){if(x.customers.length>1)x.customers.pop();else return {ok:false,reason:d.name.split(' ')[0]+'’s list is full'};}
+ x.regulars.push(i);return {ok:true};}
+export function dropRegular(e,id,i){const x=e.dealers[id];if(!x?.regulars)return false;const n=x.regulars.length;x.regulars=x.regulars.filter(r=>r!==(i??x.regulars[n-1]));return x.regulars.length<n;}
+export function giveFloat(e,id,amount,cash){const x=e.dealers[id];if(!x)return 0;const n=Math.max(0,Math.min(amount|0,cash|0,ROB.floatMax-(x.float||0)));x.float=(x.float||0)+n;return n;}
+export function buyGuard(e,id,cash){const x=e.dealers[id];if(!x)return {ok:false,reason:'Recruit first'};const g=GUARDS[(x.guard|0)+1];if(!g)return {ok:false,reason:'Fully protected'};if(cash<g.cost)return {ok:false,reason:g.name+' costs $'+g.cost};x.guard=(x.guard|0)+1;return {ok:true,cost:g.cost,name:g.name};}
+// Chance per sale that the Sticky Paws gang swipes the takings. More cash held = juicier target.
+export function robberyRisk(d,x){if(!d||!x)return 0;const held=(x.owed||0)+(x.float||0);return ROB.base*(1+held/ROB.cashScale)*GUARDS[x.guard|0].mult*(1.25-d.caution);}
+export function riskLabel(p){return p<.012?'Low':p<.024?'Medium':'High';}
 // Hand packs over in person (from the player's carried array) or via a runner's cargo.
 export function restockDealer(e,id,packs,t,qty){
  const d=dealerOf(id),x=e.dealers[id];if(!d||!x||!Array.isArray(packs))return 0;
@@ -85,12 +104,17 @@ function pickStrain(x,price){let best=-1,bv=-1;for(const [k,v] of Object.entries
 function dealerSale(s,e,d,x,c,now,ctx,events){
  const t=pickStrain(x,ctx.price);
  if(t<0){x.missed++;if(x.missed%3===1)note(e,now,'empty',c.name+' wanted gummies but '+d.name.split(' ')[0]+' was out of stock.',events);return;}
+ if(ctx.depth&&(x.float||0)<ROB.floatMin&&nextRandom(e)<ROB.noChange){x.missed++;if(x.missed%3===1)note(e,now,'change',c.name+' only had a big note and '+d.name.split(' ')[0]+' had no change. Give them a float.',events);return;}
  const qty=Math.min(c.appetite,x.stock[t]);x.stock[t]-=qty;if(!x.stock[t])delete x.stock[t];
  const gross=Math.round(ctx.price(t)*c.budget)*qty,cut=Math.round(gross*d.cut);let skim=0;
  if(nextRandom(e)<(1-d.honesty)*RISK.shortBase){skim=Math.round(gross*(RISK.shortMin+nextRandom(e)*RISK.shortSpan));x.shorted+=skim;e.stats.shorted+=skim;note(e,now,'short',d.name.split(' ')[0]+'’s tally came up $'+skim+' short. “Must’ve been the seagulls.”',events);}
  const net=gross-cut-skim;x.owed+=net;x.sold+=qty;x.earned+=net;
  Object.assign(e.stats,{dealerSales:e.stats.dealerSales+qty,dealerGross:e.stats.dealerGross+gross,dealerNet:e.stats.dealerNet+net,cuts:e.stats.cuts+cut});
  s.sold=(s.sold||0)+qty;s.xp=(s.xp||0)+2*qty;
+ if(ctx.depth&&Number.isInteger(c.contact))events?.push({at:now,kind:'regular',npc:c.contact,t,qty,text:''});
+ if(ctx.depth&&nextRandom(e)<robberyRisk(d,x)){const cash=Math.round(x.owed*ROB.takeCash),fl=Math.round((x.float||0)*ROB.takeFloat);let packs=0;for(const k of Object.keys(x.stock)){const n=Math.floor(x.stock[k]*ROB.takeStock);x.stock[k]-=n;packs+=n;if(!x.stock[k])delete x.stock[k];}
+  x.owed-=cash;x.float-=fl;x.robbed=(x.robbed|0)+1;x.robbedAt=now;x.lostToRobbery=(x.lostToRobbery||0)+cash+fl;e.stats.robbed=(e.stats.robbed||0)+1;
+  note(e,now,'rob','🦝 The '+ROB.gang+' swiped $'+(cash+fl)+(packs?' and '+packs+' packs':'')+' from '+d.name.split(' ')[0]+'. Collect more often, or get a '+(GUARDS[(x.guard|0)+1]?.name||'bigger lockbox')+'.',events);return;}
  const risk=(RISK.bustBase+RISK.bustHeat*Math.max(0,Math.min(100,s.heat||0))/100)*(1.25-d.caution)*Math.sqrt(qty);
  if(nextRandom(e)<risk){const seized=stockTotal(x.stock);x.stock={};const lost=Math.round(x.owed*RISK.seize);x.owed-=lost;x.lowUntil=now+RISK.layLow;x.busts++;e.stats.busts++;e.stats.seized+=seized;
   s.heat=Math.min(100,(s.heat||0)+RISK.bustHeatGain);note(e,now,'bust','🚨 Sugar Squad caught '+d.name+' mid-deal! '+seized+' packs and $'+lost+' confiscated. Laying low for 2 days.',events);}
@@ -140,11 +164,12 @@ function crewStep(s,e,c,now,dt,ctx){
 export function advanceEmpire(s,ctx){
  const e=s.empire,events=[];const to=Math.max(e.clock,ctx.to),from=Math.max(e.clock,to-2*DAY);e.clock=from;const STEP=10;
  const customers={};for(const id of Object.keys(e.dealers))for(const c of districtCustomers(id))customers[c.id]=c;
+ if(ctx.depth&&ctx.regular)for(const x of Object.values(e.dealers))for(const i of x.regulars||[]){const c=ctx.regular(i);if(c)customers['r'+i]={...c,id:'r'+i,contact:i};}
  while(e.clock<to){const dt=Math.min(STEP,to-e.clock),now=e.clock+dt,before=e.clock;e.clock=now;
   if(Math.floor(before/DAY)!==Math.floor(now/DAY)){let w=0;for(const c of e.crew)if(c.on)w+=CREW.wage[c.role];if(w){s.cash=(s.cash||0)-w;e.stats.wages+=w;note(e,now,'wage','Paid crew wages: $'+w+'.',events);}}
   for(const [id,x] of Object.entries(e.dealers)){const d=dealerOf(id);if(x.lowUntil>now)continue;if(x.lowUntil&&x.lowUntil<=now){x.lowUntil=0;note(e,now,'info',d.name+' is back on the corner.',events);}
    if(!openHour(now))continue;
-   for(const cid of x.customers){const c=customers[cid];if(!c)continue;if(!(cid in e.orders))e.orders[cid]=now+(hash(cid,'first')%(6*60));
+   for(const cid of ctx.depth?[...x.customers,...(x.regulars||[]).map(i=>'r'+i)]:x.customers){const c=customers[cid];if(!c)continue;if(!(cid in e.orders))e.orders[cid]=now+(hash(cid,'first')%(6*60));
     if(e.orders[cid]<=now){dealerSale(s,e,d,x,c,now,ctx,events);e.orders[cid]=now+c.every*60+(hash(cid,Math.floor(now/DAY))%180);if(x.lowUntil>now)break;}}}
   for(const [id,x] of Object.entries(e.runners))runnerStep(s,e,runnerOf(id),x,now,dt,ctx,events);
   for(const c of e.crew)crewStep(s,e,c,now,dt,ctx);
