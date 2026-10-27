@@ -59,7 +59,21 @@
             if (!r || !best) return;
             var now = Math.floor(r.distanceRan || 0);
             var hi = Math.floor(r.highestScore || 0);
-            if (now >= 100) medal = true;
+            if (now >= 100) {
+                medal = true;
+                if (!refresh.cheered) {
+                    refresh.cheered = true;
+                    var banner = document.getElementById("desk-hundred");
+                    if (!banner) {
+                        banner = document.createElement("div");
+                        banner.id = "desk-hundred";
+                        banner.textContent = "100!";
+                        banner.style.cssText = "position:fixed;left:50%;top:22%;transform:translateX(-50%);z-index:30;padding:10px 22px;border-radius:12px;background:#ffe08a;color:#243027;font:700 28px system-ui,sans-serif;box-shadow:0 8px 24px #0006;pointer-events:none";
+                        document.body.appendChild(banner);
+                        setTimeout(function () { banner.remove(); }, 1600);
+                    }
+                }
+            }
             best.textContent = "Best " + (hi || "—") + (now ? " · now " + now : "") + (medal ? " · medal 100" : "");
             if (btn) btn.textContent = r.paused ? "Resume" : "Pause";
         }

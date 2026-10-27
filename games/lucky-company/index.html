@@ -3907,7 +3907,7 @@ const cleared=s.phase==='won'?10:s.phase==='shop'?floor+1:floor;let msg=null;
 if(cleared>best.floor){const first=best.floor===0;best.floor=cleared;msg=['New best floor!',(first?'First floor cleared · ':'')+(cleared>=10?'All ten floors':'Cleared '+(NAMES[cleared-1]||'floor '+cleared))]}
 if(s.phase==='won'&&lastPhase!=='won'){best.won++;msg=['The house is yours','Run won · '+best.won+' total']}
 if(Number.isFinite(s.chips)&&s.chips>best.chips&&s.phase!=='lobby')best.chips=Math.floor(s.chips);
-if(s.phase==='lost'&&lastPhase!=='lost')msg=msg||['Run over','Reached floor '+(floor+1)+' · best floor '+best.floor];
+if(s.phase==='playing'&&s.lastResult&&s.round!==lastRound&&lastRound>=0)msg=msg||[(s.lastResult.delta>0?'CHIPS UP':'HOUSE TAKES'),(s.lastResult.delta>=0?'+':'')+s.lastResult.delta+' chips'];if(s.phase==='lost'&&lastPhase!=='lost')msg=msg||['Run over','Reached floor '+(floor+1)+' · best floor '+best.floor];
 lastPhase=s.phase;lastRound=s.round;store();render();if(msg)flash(msg[0],msg[1])}
 const inner=window.fetch;window.fetch=async(...a)=>{const r=await inner(...a);try{const u=typeof a[0]==='string'?a[0]:a[0]?.url||'';if(u.startsWith('/api/room')&&r.ok)r.clone().json().then(seen).catch(()=>{})}catch{}return r};
 window.LuckyBest={get:()=>({...best}),seen};render()})();

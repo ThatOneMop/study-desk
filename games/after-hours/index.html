@@ -251,7 +251,7 @@ const api={art,color:index=>themes[index%themes.length]};if(typeof module!=='und
 const $=id=>document.getElementById(id),fmt=n=>Number(n).toLocaleString(undefined,{maximumFractionDigits:2}),rank=r=>({11:'J',12:'Q',13:'K',14:'A'}[r]||r),KEY='after-hours-save-v1';
 const reduced=typeof window!=='undefined'&&window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const saves=AfterHoursSaves.create(()=>localStorage,KEY,AH);
-let s=saves.state||AH.newRun(),muted=true,audio,lastResult=null,toastTimer,busy=false,speed=1,lastRendered=new Set(),lastPhase=null;
+let s=saves.state||AH.newRun(),muted=true,audio,lastResult=null,toastTimer,busy=false,speed=1,lastRendered=new Set(),lastPhase=null,hotHand=0;
 function save(){saves.save(s);$('saveStatus').textContent=saves.issue||'Saves automatically';$('saves').textContent=saves.issue?'Saves !':'Saves';}
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2400);}
 function delay(ms){return new Promise(resolve=>setTimeout(resolve,reduced?0:ms/speed));}
@@ -275,7 +275,7 @@ $('modal').addEventListener('close',()=>{
  if(!target?.isConnected&&previous.joker)target=s.phase==='shop'?$('next'):$('saves');
  if(target?.isConnected&&!target.disabled&&!target.closest('[hidden]'))target.focus({preventScroll:true});
 });
-function newGame(){if(busy)return;const next=AH.newRun();if(!saves.replace(next)){showSaves();return;}lastResult=null;lastRendered=new Set();s=next;render();}
+function newGame(){if(busy)return;const next=AH.newRun();if(!saves.replace(next)){showSaves();return;}lastResult=null;hotHand=0;lastRendered=new Set();s=next;render();}
 function askNew(){if(busy)return;showModal('<div class="eyebrow">A FRESH DECK</div><h2>Start a new night?</h2><p>This replaces your current run. You start with $8 and Spark Plug.</p><button class="primary" id="confirmNew">Start new run</button>');$('confirmNew').onclick=()=>{$('modal').close();newGame();};}
 function downloadSave(name,text){const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function showSaves(){
@@ -370,7 +370,7 @@ async function executePlay(){
    popCounter('animatedChips',event.chips);popCounter('animatedMult',event.mult);await delay(event.kind==='joker'?250:175);
   }
   $('result').innerHTML=`<b>${fmt(p.chips)} × ${fmt(p.mult)}</b>`;await delay(100);
-  $('scoreBurst').textContent='+'+fmt(p.points);$('scoreBurst').classList.add('show');
+  hotHand=p.points>0?hotHand+1:0;$('scoreBurst').textContent=hotHand>=2?'HOT HAND ×'+hotHand:'+'+fmt(p.points);$('scoreBurst').classList.add('show');
   if(p.points>=AH.target(s)*.4){confetti();document.querySelector('.table')?.classList.add('shake');}
   sound(780,.22);await countScore(oldScore,s.score);await delay(430);
   if(s.phase==='shop'||s.phase==='won'){$('result').classList.add('round-clear');$('result').textContent='ROUND CLEARED!';sound(988,.24);confetti();await delay(380);}

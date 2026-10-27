@@ -9,7 +9,7 @@ JuiceKit({id:'deep-pocket',prefix:'dp',global:'DPJuice',headerBefore:'header spa
   {test:(a,b)=>a.fight&&b.fight&&a.ten<80&&b.ten>=80,sfx:'bad',run:K=>{K.shake();K.flash('#ff8a5a');K.callout('LINE STRAIN','#tension','bad')}},
   {test:(a,b)=>a.phase!=='landed'&&b.phase==='landed',sfx:'great',run:K=>{K.callout('LANDED!','#fishArt','good big');K.burst('#fishArt',26)}},
   {test:(a,b)=>b.rec>a.rec&&b.last&&b.last.choice==='escape',sfx:'bad',run:K=>{K.shake();K.callout('IT GOT AWAY','#fishArt','bad')}},
-  {test:(a,b)=>b.rec>a.rec&&b.last&&b.last.choice==='keep',sfx:'coin',run:K=>K.callout('KEPT FOR THE JOURNAL','#fishArt','good')},
+  {test:(a,b)=>b.rec>a.rec&&b.last&&b.last.choice==='keep',sfx:'coin',run:(K,a,b)=>{K.callout(b.rec===1?'FIRST CATCH · IN THE NET':'IN THE NET','#fishArt','good big');K.burst('#fishArt',b.rec===1?28:16,['#f0d27a','#e8f3ee','#8fc1c9'])}},
   {test:(a,b)=>b.rec>a.rec&&b.last&&b.last.choice==='release',sfx:'good',run:K=>K.callout('RELEASED ✓','#fishArt','good')},
   {test:(a,b)=>b.coins>a.coins,sfx:'coin',run:(K,a,b)=>K.callout('+'+(b.coins-a.coins)+' COINS','#coins','good')},
   {test:(a,b)=>b.i===a.i&&a.status==='active'&&b.status==='complete',sfx:'win',run:(K,a,b)=>setTimeout(()=>{K.callout('BRIEF COMPLETE · '+'★'.repeat(b.stars||0),'#story','good big');K.burst('#story',30)},300)},

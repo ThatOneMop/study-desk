@@ -20,6 +20,7 @@
                 mazeMesh       = undefined,
                 mazeDimension  = 7,
                 levelNumber    = 1,
+                cheerUntil     = 0,
                 paused         = false,
                 planeMesh      = undefined,
                 ballMesh       = undefined,
@@ -135,7 +136,12 @@
                 planeMesh.frustumCulled = false;
                 planeMesh.position.set((mazeDimension-1)/2, (mazeDimension-1)/2, 0);
                 planeMesh.rotation.set(Math.PI/2, 0, 0);
-                scene.add(planeMesh);                
+                scene.add(planeMesh);
+
+                var gap = new THREE.Mesh(new THREE.CubeGeometry(0.45, 0.45, 1.1), new THREE.MeshBasicMaterial({color:0xffe7a2}));
+                gap.frustumCulled = false;
+                gap.position.set(mazeDimension - 0.15, mazeDimension - 2, 0.7);
+                scene.add(gap);
 
             }
 
@@ -221,7 +227,10 @@
                         // Check for victory.
                         var mazeX = Math.floor(ballMesh.position.x + 0.5);
                         var mazeY = Math.floor(ballMesh.position.y + 0.5);
-                        if (!paused && mazeX == mazeDimension && mazeY == mazeDimension - 2) { 
+                        if (!paused && mazeX == mazeDimension && mazeY == mazeDimension - 2) {
+                            if (!cheerUntil) { cheerUntil = Date.now() + 700; $('#level').html('You found the gap'); }
+                            if (Date.now() < cheerUntil) break;
+                            cheerUntil = 0;
                             mazeDimension += 2;
                             levelNumber += 1;
                             try{localStorage.setItem('study-desk-astray-best', String(Math.max(levelNumber, +(localStorage.getItem('study-desk-astray-best')||0))));}catch(e){}

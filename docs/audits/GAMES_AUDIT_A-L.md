@@ -467,3 +467,106 @@ Played again in the same headless Chrome. After frames for the games that change
 **Hextris, 7/6 → 7/7.** The Facebook and Twitter share row stays hidden, including on the game-over fade.
 
 Left as they were, with after scores equal to before: After Hours, Afterlight’s shelf, Ashwake, Autumn Drift, Borrowed Gravity, Burrow Express, Counterweight, Echo Vault, Forge Arena, Glasshouse, Hollow Keeper, Lanternwake, Last Match, Little Lake, Lost & Found, and Lucky Company. Glasshouse’s first order needs a cross that is not in the seed bag, so hiding Cross would make it unwinnable. Last Match’s first enemy list is part of the save check. Echo Vault’s forecast is the puzzle. The 7 and 8 games were already at the bar.
+
+## Fun pass
+
+A second pass, still 27 Oct 2026, on the games above except Doom. Doom is being removed in a separate change, so its files and catalogue entry were not edited and its scores stay 3/4. Frames from this pass are in `shots/round2/`. Fun below is the round-1 after score, then this pass. Saves still use the same fields: new streaks, banners, and the opening lantern moth live in the session, and Ashwake restores a saved enemy list over the fresh one.
+
+| Game | Fun before this pass | Fun after |
+| --- | --- | --- |
+| Little Foundry | 5 | 7 |
+| Glasshouse | 5 | 7 |
+| Last Match | 5 | 7 |
+| 2048 | 6 | 7 |
+| Afterlight (the shelf) | 6 | 7 |
+| Astray | 6 | 7 |
+| Bolt & Bristle | 6 | 7 |
+| Borrowed Gravity | 6 | 7 |
+| Burrow Express | 6 | 7 |
+| Circuit Garden | 6 | 7 |
+| Cloud Courier | 6 | 7 |
+| Copper & Steam | 6 | 7 |
+| Copper Cadence | 6 | 7 |
+| Deep Pocket | 6 | 7 |
+| Dino | 6 | 7 |
+| Echo Vault | 6 | 7 |
+| Harbourlight | 6 | 7 |
+| Inkline | 6 | 7 |
+| Kiln & Kind | 6 | 7 |
+| Lucky Company | 6 | 7 |
+| Lumen Grove | 6 | 7 |
+| Ashwake | 7 | 8 |
+| Autumn Drift | 7 | 8 |
+| Forge Arena | 7 | 8 |
+| Hextris | 7 | 8 |
+| Hollow Keeper | 7 | 8 |
+| Lanternwake | 7 | 8 |
+| Little Lake | 7 | 8 |
+| Lost & Found | 7 | 8 |
+| After Hours | 8 | 9 |
+| Counterweight | 8 | 9 |
+
+**Little Foundry, 5 → 7.** Three pours in a row without a new cold shut flash the mould and call “THE METAL SINGS”. A fault resets the streak. The mould shape is unchanged.
+
+**Glasshouse, 5 → 7.** When a pot’s age goes up, that pot bursts and says “IT GREW”, or “IN BLOOM” at maturity. Cross stays on the bench. The first exhibition still needs Low Amber, which is not in the opening seed bag.
+
+**Last Match, 5 → 7.** The lantern cone is a warmer gold even before a flash. Fading two shadows in a row without being hit calls “THE ORCHARD WARMS”. The first night’s enemy list is unchanged.
+
+![Last Match, warmer cone](shots/round2/last-match.jpg)
+
+**2048, 6 → 7.** Merging 128 or higher shakes the board and pops the new value. The save format and the Pause control are unchanged.
+
+**Harbourlight, Kiln & Kind, Cloud Courier, Copper & Steam, Lumen Grove, 6 → 7.** Still only the in-scope Afterlight toys. A boat that reaches its dock says “Boat home.” A cleared kiln patch says “The picture shows.” A storm that slips past the drone is a “Close call,” and a parcel says “Parcel aboard.” Connected copper shows a moving bead of steam, and a longer path says “Steam is in the pipes.” A Lumen bloom says “It blooms.” The harbour failure line, the chapter-1 pipe layout, and the five M–Z toys are unchanged.
+
+![Copper & Steam](shots/round2/copper-steam.jpg)
+![Lumen Grove bloom](shots/round2/lumen-grove.jpg)
+
+**Afterlight’s shelf, 6 → 7.** Those five toys now have a beat you can see. The other five worlds on the shelf were not edited.
+
+**Astray, 6 → 7.** The exit gap is a bright block, and reaching it holds on “You found the gap” before the next maze. The floor is still dark concrete.
+
+![Astray, marked gap](shots/round2/astray.jpg)
+
+**Bolt & Bristle, 6 → 7.** A plate with no dust and no rust shines and calls “COPPER SHOWING”.
+
+**Deep Pocket, 6 → 7.** The first fish kept on a trip is “FIRST CATCH · IN THE NET”. Later keeps are “IN THE NET”. No coins were added to the brief.
+
+**Circuit Garden, 6 → 7.** A bed that reaches its season goal calls that bed “IN BLOOM”. Other growth still says “BEDS GROW”.
+
+**Inkline, 6 → 7.** Four moves in a row without losing health call “QUIET WING”. An ink blot resets it. Chapter 1 still has no blots.
+
+**Copper Cadence, 6 → 7.** The current beat cell pulses, so the chart shows the beat you are chasing. The score array is unchanged, and sound still starts off.
+
+**Borrowed Gravity, 6 → 7.** Picking an object up shakes the room and calls “THE ROOM TURNS”. Putting it down still says “RETURNED”.
+
+**Burrow Express, 6 → 7.** A train that needs a signal pulses, so a waiting stop reads as unhappy.
+
+**Echo Vault, 6 → 7.** The tile a sentry would step to if you wait pulses gold, so the turn is visible before you spend it.
+
+**Lucky Company, 6 → 7.** A settled round flashes the chip change in the middle of the screen. The Lobby target stays 90.
+
+**Dino, 6 → 7.** Crossing 100 pops a “100!” banner from the Study Desk card. The Chrome sprites were not redrawn.
+
+**Hextris, 7 → 8.** A line clear swells the score in gold. Rotation is unchanged.
+
+**Ashwake, 7 → 8.** A new watch starts with one lantern moth close to the keeper, and a banner names it. A restored watch keeps the enemies that were saved.
+
+![Ashwake, opening watch](shots/round2/ashwake.jpg)
+
+**Autumn Drift, 7 → 8.** A fresh garden puts one leaf under the opening pointer. A restored garden keeps its saved leaves.
+
+**Forge Arena, 7 → 8.** A second scrap within a few seconds calls a streak on the existing hit flash. Pause, the quick test, and the battle state are unchanged.
+
+**Hollow Keeper, 7 → 8.** Three squashes without a nursery hit call a squash chain. The paused state the smoke test reads is unchanged.
+
+**Lanternwake, 7 → 8.** Picking up a firefly jar paints “Jar aboard” over the marsh. Voyage rows are unchanged.
+
+**Little Lake, 7 → 8.** The opening toast is “Cast into the shallows. Your first fish is close.” A bite draws splash rings. The 7,000 species and 8,000,000 horizons figures stay in the journal, because they are the real counters.
+
+**Lost & Found, 7 → 8.** A strong detector signal throws a “WARM” glint off the coil.
+
+**After Hours, 8 → 9.** Two scoring hands in a row replace the point burst with “HOT HAND”. That counter is not stored in the save.
+
+**Counterweight, 8 → 9.** Three soft landings in a row call “GENTLE HANDS”. A damaged landing resets it. Hook, pause, and the crane’s position are unchanged.
+
+**Doom.** Dropped from this pass. No file under `games/doom-web` and no catalogue or credits line was edited.
