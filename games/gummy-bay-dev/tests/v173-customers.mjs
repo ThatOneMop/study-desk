@@ -61,6 +61,6 @@ assert.match(game,/CONTACTS\.push\(\.\.\.TOWN_CUSTOMERS/);
 assert.match(game,/migrateXp\(v\?\.xp,v\?\.xpCurve\)/);
 assert.match(game,/createCustomerCrowd\(/);
 assert.match(game,/data-phone-key="town"/);
-assert.match(html,/Gummy Bay v178/);
-assert.match(html,/game\.js\?v=178/);
+assert.match(html,/Gummy Bay v1\d\d/);
+assert.match(html,/game\.js\?v=1\d\d/);
 console.log('PASS: v178 fifty locals, unique looks, sampling gates, district book, grind XP migration, 3-draw crowd');

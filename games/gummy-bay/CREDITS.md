@@ -61,3 +61,7 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 ## Staff ladder (added v178)
 
 Original code. Hire gates, tiers and dealer home routines. No new meshes.
+
+## Bay chronicle (added v179)
+
+Original story, cuts and property rules. Uses the existing letterbox player and, when present, window.GUMMY_DISTRICTS. No new meshes.

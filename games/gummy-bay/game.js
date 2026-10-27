@@ -56,6 +56,7 @@ import {ACT1_DURATION,ACT1_SKIP_HOLD,ACT1_CAST,act1At,act1PanelHtml,act1ChyronHt
 import {castAt,propsAt,resolveCast,blipsFor,voiceFor,createCineAudio,cameraDrift} from './cine-cast.mjs?v=149';
 import {createCineStage} from './cine-stage.mjs?v=154';
 import {STORY_VERSION,ACTS,QUESTS,CUT_IDS,CUTS,CUT_ANCHORS,normalizeStory,stepStory,markSeen,currentQuest,questProgress,currentAct,raidDue,applyRaid,recordRaid,createStashGame,cutTimeline,storyCutAt,storyCardHtml,storyHold} from './story-acts.mjs?v=149';
+import {stepChronicle,normalizeChronicle,markChronicleSeen,currentMission,chronicleHTML,chronicleCut,chronicleTimeline,chronicleAt,joinGang,buyProperty,frontTake,worksGrant,openDistricts,applyDistricts,ensureDistrictRegistry,unlockNames} from './bay-chronicle.mjs?v=179';
 import {DEALER_ROSTER,RUNNER_ROSTER,CREW,freshEmpire,normalizeEmpire,advanceEmpire,recruitDealer,assignCustomer,unassignCustomer,restockDealer,collectDealer,districtCustomers,dealerOf,runnerOf,stockTotal,hireCrew,crewSlots,slotUpgradeCost,buySlot,fireCrew,hireRunner,dispatchRunner,dealerLow,dealerForecast,GUARDS,ROB,regularOwner,assignRegular,dropRegular,giveFloat,buyGuard,robberyRisk,riskLabel} from './dealer-network.mjs?v=159';
 import {VERTICAL_TOWN_LAYER,VERTICAL_TOWN_BARRIERS,verticalTownFloorHeight,createVerticalTownLayer} from './vertical-town.mjs?v=126';
 import {STREET_PROP_PROFILES,STREET_PROP_COLLIDERS,createContextualStreetProps} from './contextual-street-props.mjs?v=126';
@@ -668,7 +669,7 @@ previousAction(k,a,b,c);
 };
 ACTION_NAMES.push('payment','ingredient','buyMixer','mix','atmDeposit','atmWithdraw','pickup','recycle');
 const previousAct=act;act=function(){if(active&&!panel&&!work&&near?.type==='litter')action('pickup',near.id);else previousAct()};
-const previousMenu=menu;menu=function(which,data){previousMenu(which,data);if(processingRemote)return;document.body.classList.toggle('titleMode',which==='title');document.body.classList.toggle('hasMenu',!!panel);if(which==='title'){$('modal').innerHTML=`<div class="titleBrand"><span>GUMMY</span><span>BAY</span></div><div class="titleSub">GRAMPS’ LAST CALL · v178</div><nav class="titleNav"><button onclick="slots('story')">STORY / CONTINUE</button><button onclick="slots('free')">FREE PLAY</button><button onclick="menu('join')">MULTIPLAYER</button><button onclick="menu('settings')">SETTINGS</button></nav><div class="titleFooter">A coastal business sandbox<br><span>Original town · fictional gummies · 2-player co-op</span></div>`;return;}
+const previousMenu=menu;menu=function(which,data){previousMenu(which,data);if(processingRemote)return;document.body.classList.toggle('titleMode',which==='title');document.body.classList.toggle('hasMenu',!!panel);if(which==='title'){$('modal').innerHTML=`<div class="titleBrand"><span>GUMMY</span><span>BAY</span></div><div class="titleSub">GRAMPS’ LAST CALL · v179</div><nav class="titleNav"><button onclick="slots('story')">STORY / CONTINUE</button><button onclick="slots('free')">FREE PLAY</button><button onclick="menu('join')">MULTIPLAYER</button><button onclick="menu('settings')">SETTINGS</button></nav><div class="titleFooter">A coastal business sandbox<br><span>Original town · fictional gummies · 2-player co-op</span></div>`;return;}
 if(['reception','hardware','dealer','store','servo','helpers'].includes(which)){$('modal').innerHTML=`<div class="paymentstrip"><span>PAYMENT</span><button class="${s.payment==='cash'?'on':''}" onclick="action('payment','cash')">CASH ${cash(s.cash)}</button><button class="${s.payment==='card'?'on':''}" onclick="action('payment','card')">CARD ${cash(s.bank)}</button></div>`+$('modal').innerHTML;}
 if(which==='hardware')$('modal').innerHTML+=row('Mixing station','Level 2 · one-time equipment purchase. Combine gummies with servo flavourings.',s.mixer?'OWNED':level()<2?'LEVEL 2':'$500',"action('buyMixer')",s.mixer||level()<2||!s.room||availableMoney()<500);
 if(which==='servo'){$('modal').innerHTML+=servoMenuHTML();}
@@ -1355,7 +1356,7 @@ STORY[8].text='Buy 10 wrappers ($10) at the corner store. At your worktable, mak
 STORY[8].done=()=>s.made>0;
 const stockUsed=()=>['raw','gummies','packs','storedPacks'].reduce((sum,key)=>sum+s[key].reduce((a,b)=>a+b,0),s.crafterCargo?1:0);
 const stockCapacity=()=>[64,256,640][s.house];
-const storageCapacity=()=>[40,160,400][s.house];
+const storageCapacity=()=>[40,160,400][s.house]+(s.chronicle?.owned?.warehouse?200:0);
 const storedUsed=()=>s.storedPacks.reduce((a,b)=>a+b,0);
 function taskReason(k,a,b){if(!s.room)return 'Rent Room 04 at Palm Court first.';if(k==='prepare'&&!s.soil)return 'You need one bag of soil from Milo.';if(k==='plant'&&!s.seeds[b])return 'Buy that seed from Milo first.';if(k==='water'&&!s.can)return 'Buy a watering can at Hank’s.';if(k==='water'&&!s.water)return 'Your can is empty. Refill it at the sink for free.';if(k==='harvest'&&!s.trimmers)return 'Buy the $10 trimmers at Hank’s.';if(k==='harvest'&&stockUsed()+4>stockCapacity())return 'Property stock capacity reached. Sell some stock before harvesting.';if(k==='make'&&!s.raw[a])return 'Harvest a mature plant first.';if(k==='pack'&&!s.packStation)return 'Buy the $100 packaging station at Hank’s.';if(k==='pack'&&!s.wrappers)return 'Buy wrappers at the corner store.';if(k==='mix'&&!s.ingredients[b])return 'Buy that ingredient at the servo.';return 'That task is not ready yet. Check the workstation supplies.';}
 const ready11=manualReady;manualReady=function(k,a,b){return ready11(k,a,b)&&(k!=='harvest'||stockUsed()+4<=stockCapacity());};
@@ -4208,7 +4209,8 @@ try{
  const storyQ=sel=>storyUI.el?.querySelector?.(sel)||null;
  // Cutscene-only props: Sugar Squad vans and a cartoon door for the raid, the gummy float and fireworks for the finale.
  function storyProps(id,anchors){
-  clearStoryProps();const g=new THREE.Group();g.name='story props '+id;const a=id==='raid'||id==='act3'?anchors.home:CUT_ANCHORS[CUTS[id].anchor];
+  const cutDef=CUTS[id]||(typeof chronicleCut==='function'?chronicleCut(id):null);if(!cutDef)return;
+  clearStoryProps();const g=new THREE.Group();g.name='story props '+id;const a=id==='raid'||id==='act3'?anchors.home:(CUT_ANCHORS[cutDef.anchor]||anchors.home);
   const c=Math.cos(a.yaw||0),sn=Math.sin(a.yaw||0),at=(dx,y,dz)=>new THREE.Vector3(a.x+dx*c-dz*sn,y,a.z+dx*sn+dz*c);
   const mat=(color,extra={})=>new THREE.MeshStandardMaterial({color,roughness:.6,...extra});
   const add=(geo,m,pos,parent=g)=>{const mesh=new THREE.Mesh(geo,m);mesh.position.copy(pos);mesh.castShadow=true;parent.add(mesh);return mesh;};
@@ -4248,7 +4250,7 @@ try{
  function storyCardEl(id){const slot=storyQ('.story-card-slot');if(!slot||storyUI.cardId===id)return;storyUI.cardId=id;slot.innerHTML=id?storyCardHtml(id):'';slot.classList?.toggle?.('on',!!id);}
  function storyStampEl(text){const el=storyQ('.story-stamp');if(!el||storyUI.stampText===text)return;storyUI.stampText=text;el.textContent=text||'';el.classList?.toggle?.('on',!!text);}
  function paintStoryCut(){
-  const c=storyUI.cut;if(!c)return;const a=storyCutAt(c.id,c.tl,c.t);c.sample=a;const v=storyUI.view;
+  const c=storyUI.cut;if(!c)return;const a=(CUTS[c.id]?storyCutAt(c.id,c.tl,c.t):chronicleAt(c.id,c.tl,c.t));c.sample=a;const v=storyUI.view;
   v.show(true);v.bars(true);v.fade(a.fade);v.subtitle(a.sub?.who||'',a.sub?.text||'');v.caption(a.cap?.title||'',a.cap?.line||'');
   v.chyron(a.chyron?'<strong>'+a.chyron.head+'</strong><span>'+a.chyron.text+'</span>':'');storyCardEl(a.card?.card||'');storyStampEl(a.stamp?.text||'');
   for(const k of a.sfx)if(!c.sfx.has(k)){c.sfx.add(k);storyTone(k);}
@@ -4256,15 +4258,16 @@ try{
   animateStoryProps(c.t);
  }
  function playStoryCut(id,{replay=false,onDone=null}={}){
-  if(!CUTS[id]||storyUI.cut||storyUI.stash||!active)return false;
+  const cutDef=CUTS[id]||(typeof chronicleCut==='function'?chronicleCut(id):null);
+  if(!cutDef||storyUI.cut||storyUI.stash||!active)return false;
   if(typeof bustPlaying!=='undefined'&&bustPlaying)return false;
   if(panel){panel='';conversationPoint=null;document.body.dataset.panel='';$('overlay').hidden=true;}
   keys={};locomotion.x=locomotion.z=0;document.exitPointerLock?.();
   const anchors={home:STORY_DOORS[s.house]||STORY_DOORS[0]};
   storyDom();storyUI.view.reset();storyUI.cardId=storyUI.stampText=null;
-  storyUI.cut={id,tl:cutTimeline(id,anchors),t:0,replay,onDone,sfx:new Set(),anchors,sample:null,fx:cineFxStart(),cast:resolveCast(CUTS[id].cast,{...CUT_ANCHORS,...anchors})};storyQ('.cine-fx')?.classList?.toggle?.('dof',quality!=='performance'&&quality!=='low');storyUI.fov=camera.fov;
+  storyUI.cut={id,tl:(CUTS[id]?cutTimeline(id,anchors):chronicleTimeline(id,anchors)),t:0,replay,onDone,sfx:new Set(),anchors,sample:null,fx:cineFxStart(),cast:resolveCast(cutDef.cast,{...CUT_ANCHORS,...anchors})};storyQ('.cine-fx')?.classList?.toggle?.('dof',quality!=='performance'&&quality!=='low');storyUI.fov=camera.fov;
   storyUI.el.dataset.cut=id;storyHud(false);storyProps(id,anchors);paintStoryCut();
-  if(!replay){s.story=markSeen(ensureStory(),id);save();}
+  if(!replay){if(CUTS[id])s.story=markSeen(ensureStory(),id);else s.chronicle=markChronicleSeen(s.chronicle,id);save();}
   return true;
  }
  // v156: story cuts (Act 2, Raid, Act 3, Finale) hide every HUD layer, the phone and prompts; restored when the cut (and raid choice) ends.
@@ -5684,3 +5687,38 @@ if(typeof location!=='undefined'&&/[?&]tradeqa=1\b/.test(location.search))window
  do:id=>{tradeDo(id);return window.__tradeQa.state();},price:v=>{if(trade){trade.price=v;tradeRender();}return window.__tradeQa.state();},
  phone:i=>{selected=i;menu('thread',i);return window.__tradeQa.state();},cash:v=>{tradeCash(v);return true;}};
 {const crewUpdate=update;let tidyClock=0;update=function(dt){const r=crewUpdate.apply(this,arguments);try{if(s?.helpers?.cleaner&&s.workerEnabled?.cleaner!==false&&s.trash>0){tidyClock+=dt||0;if(tidyClock>12/staffPace(s,'cleaner')){tidyClock=0;s.trash=Math.max(0,(s.trash||0)-1);}}}catch(e){}return r;};}
+
+// v179: bay chronicle. Story hour after Founders’ Day, then the long road.
+// Cuts play through the existing letterbox. Districts go through window.GUMMY_DISTRICTS.
+try{
+ const chronFacts=()=>{const h=HOMES[s.house],x=player.x,z=player.z;return {sold:s.sold,called:s.called,mixed:s.mixed,earned:s.earned,bank:s.bank,cash:s.cash,day:s.day,time:s.time,level:level(),heat:s.heat,tickets:s.arcade?.earned||0,atPier:Math.abs(x)<8&&z>70&&z<100,atBase:!!(s.room&&h&&Math.abs(x-h.x)<h.w/2&&Math.abs(z-h.z)<h.d/2),finale:!!(s.story?.done||[]).includes('a3-finale')};};
+ const ensureChron=()=>{s.chronicle=normalizeChronicle(s.chronicle);return s.chronicle;};
+ const chronNames=names=>{if(!names?.length)return;s.unlocked??={};CONTACTS.forEach((c,i)=>{if(names.includes(c.name)&&i>=5)s.unlocked[i]=true;});};
+ const chronDistricts=()=>{if(mode!=='story')return;const reg=ensureDistrictRegistry(typeof window!=='undefined'?window:null);applyDistricts(openDistricts(ensureChron(),chronFacts()),reg);};
+ const chronDo=doAction;doAction=function(k,a,b,c){
+  if(k==='buyProperty'||k==='joinGang'||k==='frontTill'){
+   if(net.role==='guest'){toast('The host handles deeds and crews.');return;}
+   const f=chronFacts();
+   if(k==='buyProperty'){const r=buyProperty(ensureChron(),a,f);if(!r.ok){toast(r.reason);return;}s.bank-=r.property.cost;s.chronicle=r.story;record('Deed · '+r.property.name,-r.property.cost);toast(r.property.name+' is yours. '+r.property.purpose+'.');save();return;}
+   if(k==='joinGang'){const r=joinGang(ensureChron(),a,f);if(!r.ok){toast(r.reason);return;}s.chronicle=r.story;toast('You ride with the '+r.gang.name+'.');save();return;}
+   const r=frontTake(ensureChron(),a,f);if(!r.ok){toast(r.reason);return;}s.cash-=r.spend;s.bank+=r.bank;s.chronicle=r.story;toast(r.line);save();return;
+  }
+  return chronDo(k,a,b,c);
+ };
+ const storyQueued=()=>{try{return (window.__story?.state?.().queue?.length||0)>0;}catch(e){return false;}};
+ const chronUpdate=update;update=function(dt){const r=chronUpdate.apply(this,arguments);try{
+  // Wait out a queued Founders’ Day cut so the tin call does not play first.
+  if(mode==='story'&&active&&net.role!=='guest'&&!window.__storyBusy?.()&&!storyQueued()){
+   const before=ensureChron(),step=stepChronicle(before,chronFacts());
+   if(step.events.length){s.chronicle=step.story;chronNames(unlockNames(step.events));
+    for(const e of step.events){if(e.type==='complete'){s.xp+=e.reward.xp||0;s.cash+=e.reward.cash||0;toast('★ '+e.title+(e.reward.cash?' · +'+cash(e.reward.cash):'')+' · +'+e.reward.xp+' XP');}else if(e.type==='open')toast('📖 Gramps has another hour. Open Story on your phone.');else if(e.type==='cut'&&window.__story?.play)window.__story.play(e.id);}
+    save();}
+   else s.chronicle=step.story;
+   const grant=worksGrant(s.chronicle,chronFacts());if(grant.ok){s.chronicle=grant.story;s.wrappers=(s.wrappers||0)+grant.wrappers;toast('Bottling works wrapped '+grant.wrappers+' gummies this morning.');save();}
+   chronDistricts();
+  }
+ }catch(e){}return r;};
+ const chronMenu=menu;menu=function(which,data){chronMenu(which,data);if(which==='story'&&panel==='story'){const box=$('modal');if(box)box.insertAdjacentHTML('beforeend','<div class="story-phone">'+chronicleHTML(ensureChron(),chronFacts(),esc)+'</div>');}};window.menu=menu;
+ const chronLoad=load;load=function(...args){const r=chronLoad(...args);s.chronicle=normalizeChronicle(s.chronicle);return r;};
+ window.__chronicle={facts:chronFacts,state:()=>JSON.parse(JSON.stringify(ensureChron())),step:()=>{const step=stepChronicle(ensureChron(),chronFacts());s.chronicle=step.story;chronNames(unlockNames(step.events));chronDistricts();return step.events.map(e=>e.type+':'+(e.id||''));},districts:()=>openDistricts(ensureChron(),chronFacts())};
+}catch(e){console.warn('Bay chronicle unavailable',e);}
