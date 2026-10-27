@@ -408,7 +408,7 @@ export function createWorldDressing({scene,Loader,quality='balanced',url=DRESS_U
  if(Loader){
   try{new Loader().load(url,gltf=>{
    const geos={};gltf.scene.updateMatrixWorld(true);
-   gltf.scene.traverse(o=>{if(!o.isMesh)return;const g=o.geometry.index?o.geometry:o.geometry;geos[o.name]=g;});
+   gltf.scene.traverse(o=>{if(!o.isMesh)return;const g=o.geometry.clone();const col=o.geometry.getAttribute('color');if(col)g.setAttribute('color',col.clone());else{const n=g.getAttribute('position').count,arr=new Float32Array(n*3);arr.fill(1);g.setAttribute('color',new THREE.BufferAttribute(arr,3));}geos[o.name]=g;});
    build(geos);
   },undefined,err=>{state.failed=String(err?.message||err);});}
   catch(err){state.failed=String(err?.message||err);}

@@ -58,7 +58,7 @@ Kenney CC0 models replace the box trees, box cars and box shop clutter. Each kin
 - **Fantasy Town Kit 2.0** — crooked trees and the market stall used as a shop awning. Licence: **CC0**. See `assets/kenney/License-fantasy-town-kit.txt`. Source: https://kenney.nl/assets/fantasy-town-kit
 - **Food Kit 2.0** — apples and cans in the window displays. Licence: **CC0**. See `assets/kenney/License-food-kit.txt`. Source: https://kenney.nl/assets/food-kit
 
-Modifications: meshes merged per prop, scaled to the street, vertex colours baked from each pack's colormap and shifted toward the town's tired, dark palette. Wheels stay part of the car. No Schedule I assets.
+Modifications: meshes merged per prop, scaled to the street, vertex colours baked from each pack's colormap and shifted toward the town's tired, dark palette. Wheels stay part of the car.
 
 ## Narrower streets and varied blocks (added v164)
 - Kerb build-outs, street clutter, asymmetric block columns and the window styles (blinds, curtains, boarded, dark) are generated in code. No new third-party assets.
