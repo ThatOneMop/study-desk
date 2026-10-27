@@ -65,7 +65,7 @@ assert.ok(DEALER_ROSTER.every((d,i)=>!i||d.cut<DEALER_ROSTER[i-1].cut&&d.fee>DEA
  assert.ok(!junk.dealers.zzz);assert.equal(junk.crew.length,1);assert.equal(junk.slotsBought,CREW.upgrade.length);assert.equal(junk.runners.pip.state,'idle','orphan trips reset');
  assert.deepEqual(normalizeEmpire(null).dealers,{});
  assert.ok(dealerForecast(s.empire,'benny',price)>=0);}
-// Sim curve bounds (mean of 6 saves) on the v174 grind: $30 start, no early runaway,
+// Sim curve bounds (mean of 6 saves) on the v177 grind: $30 start, no early runaway,
 // premium sales ($200–400) from day 11 once Sunset Gold is reachable. A mixer week
 // can step about 2.5×, so daily revenue may triple but not run away. Dealers unlock
 // later, so the network becomes a real second income by day 15.
