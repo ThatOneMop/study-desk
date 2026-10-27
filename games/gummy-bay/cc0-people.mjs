@@ -56,10 +56,10 @@ export function createCc0People({THREE,scene,GLTFLoader,quality='balanced',base=
   const t=templates.get(variant)||templates.get(CC0_PEOPLE_VARIANTS[0]);if(!t)return null;
   const obj=cloneSkinned(t.scene);const mixer=new THREE.AnimationMixer(obj);const actions={};
   for(const clip of t.clips)actions[clip.name]=mixer.clipAction(clip);
-  let head=null;obj.traverse(o=>{if(o.isBone&&o.name==='Head')head=o;});
+  let head=null;const shoulders=[];obj.traverse(o=>{if(!o.isBone)return;if(o.name==='Head')head=o;else if(/^Shoulder\.?[LR]$/.test(o.name))shoulders.push(o);});
   const s=CC0_PEOPLE_HEIGHT/t.height;obj.userData.baseScale=s;obj.userData.floor=t.floor*s;
   obj.visible=false;group.add(obj);
-  const entry={obj,mixer,actions,head,clip:null};slot.models.set(variant,entry);return entry;
+  const entry={obj,mixer,actions,head,shoulders,clip:null,applied:null};slot.models.set(variant,entry);return entry;
  }
  function play(entry,clip,speed){
   const next=entry.actions[clip]||entry.actions.Idle;if(!next)return;
@@ -68,7 +68,14 @@ export function createCc0People({THREE,scene,GLTFLoader,quality='balanced',base=
    if(!entry.clip)next.time=(entry.obj.id*.37)%Math.max(.1,next.getClip().duration);entry.clip=clip;}
   next.timeScale=cc0TimeScale(clip,speed);
  }
- // candidates: [{key,x,y,z,yaw,speed,clip,pose,variant,height,ref}] -> returns the refs that are now drawn as CC0 models.
+ // v165 reaction gestures: small offsets on top of the clip (head nods/shakes, shrugs, a lean or a bounce).
+ // Offsets are undone before the next mixer update, so bones the clip does not animate never drift.
+ function unGesture(entry){const a=entry.applied;if(!a)return;if(entry.head){entry.head.rotation.x-=a.headX;entry.head.rotation.y-=a.headY;entry.head.rotation.z-=a.headZ;}entry.shoulders.forEach((b,i)=>{b.rotation.z-=i%2?-a.shoulder:a.shoulder;});entry.applied=null;}
+ function applyGesture(entry,g){const a={headX:+g.headX||0,headY:+g.headY||0,headZ:+g.headZ||0,shoulder:+g.shoulder||0};
+  if(entry.head){entry.head.rotation.x+=a.headX;entry.head.rotation.y+=a.headY;entry.head.rotation.z+=a.headZ;}
+  entry.shoulders.forEach((b,i)=>{b.rotation.z+=i%2?-a.shoulder:a.shoulder;});
+  if(g.lean)entry.obj.rotation.x=g.lean;if(g.bob)entry.obj.position.y+=g.bob;entry.applied=a;}
+ // candidates: [{key,x,y,z,yaw,speed,clip,pose,variant,height,ref,gesture?}] -> returns the refs that are now drawn as CC0 models.
  function update({dt=0,camera=null,candidates=[]}={}){
   const shown=new Set();
   if(!ready){return shown;}
@@ -85,8 +92,11 @@ export function createCc0People({THREE,scene,GLTFLoader,quality='balanced',base=
    const h=Number.isFinite(c.height)?c.height:1,s=entry.obj.userData.baseScale*h;
    entry.obj.scale.set(s*CC0_GIRTH,s,s*CC0_GIRTH);
    entry.obj.position.set(c.x,(c.y||0)-entry.obj.userData.floor*h,c.z);entry.obj.rotation.set(0,c.yaw||0,0);
-   play(entry,cc0Clip(c.clip,c.speed,c.pose),c.speed||0);
+   const g=c.gesture||null;
+   play(entry,g?.clip&&entry.actions[g.clip]?g.clip:cc0Clip(c.clip,c.speed,c.pose),c.speed||0);
+   unGesture(entry);
    entry.mixer.update(Math.min(.1,Math.max(0,dt)));
+   if(g)applyGesture(entry,g);
    if(entry.head)entry.head.scale.setScalar(CC0_HEAD_SCALE);
    shown.add(c.ref??c.key);
   }
