@@ -170,6 +170,7 @@ import {strainBookModel,strainBookHTML} from './strain-book.mjs?v=170';
 import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars.mjs?v=172';
 import {stackLayout,landingOffset,queueLandings,createPackStack,LAND_TIME,PER_JAR} from './pack-feel.mjs?v=173';
 import {fanLevel,namedLine,areaLine,namedOptions,namedCardHTML,NAMED_KINDS,KEEPERS} from './named-talk.mjs?v=174';
+import {STANDINGS,standingScore,standingOf,standingEffects,dealVerdict,grudgeFor,grudgeTick,migrateStanding,streetStanding,skipsOrderToday,askSooner,standingBarHTML,standingChangeText} from './relationship-status.mjs?v=175';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -5420,6 +5421,7 @@ if(typeof location!=='undefined'&&/[?&]packqa=1\b/.test(location.search))window.
    box=document.createElement('div');box.id='namedTalk';if(close)close.after(box);else m.prepend(box);}
   box.innerHTML=nt.stage==='biz'?'<p class="named-line"><b>'+esc(nt.who.name)+':</b> '+esc(nt.line)+'</p>':'<div class="overline">'+(nt.type==='customer'?'GUMMY BAY / TALK':'TALK')+'</div>'+html;
   const biz=m.querySelector('.named-biz');if(biz)biz.hidden=nt.stage==='talk';m.classList.toggle('named-open',nt.stage==='talk');
+  try{relStandingDecor(box,nt.type,nt.i);}catch(e){}
   box.querySelectorAll('[data-named]').forEach(b=>b.onclick=()=>namedPick(b.dataset.named));
  }
  function namedPick(id){
@@ -5461,3 +5463,88 @@ if(typeof location!=='undefined'&&/[?&]packqa=1\b/.test(location.search))window.
   pick:id=>{namedPick(id);return nt&&{stage:nt.stage,line:nt.line};},
   openAt:(type,i)=>{const pt=points.find(p=>p.type===type&&(!Number.isInteger(i)||p.i===i));if(!pt)return false;near=pt;namedVia={type,i:pt.i,point:pt};menu(type,pt.i);return !!nt;}};
 }
+// v175: relationship status (relationship-status.mjs). Named locals and street regulars sit on a five-step
+// level (Hostile → Loyal) shown as a labelled bar on the talk card and in the customer screen. It sets the fair
+// price they pay, how often they text an order, and whether they refer friends.
+function relStanding(i){const c=CONTACTS[i];if(!c)return standingOf(45);return standingOf(standingScore(relationship(i),s.grudge?.[i]||0));}
+function relStreet(id){const e=s.regulars?.[String(id)];return standingOf(e?migrateStanding(e):45);}
+function relEffectsText(st){const f=standingEffects(st.level);const bits=[];
+ bits.push(f.price===1?'pays the usual price':(f.price>1?'pays +':'pays −')+Math.round(Math.abs(f.price-1)*100)+'%');
+ bits.push(f.orders>1.2?'orders more often':f.orders<.5?'barely orders':f.orders<1?'orders less often':'orders now and then');
+ if(f.referral>0)bits.push(f.referral>=.06?'refers friends':'might refer a friend');
+ return bits.join(' · ');}
+function relStandingDecor(box,type,i){
+ if(!box?.querySelector||type!=='customer'||!CONTACTS[i])return;const fan=box.querySelector('.talk-fan');if(!fan)return;
+ fan.insertAdjacentHTML?.('afterend',standingBarHTML(relStanding(i)));fan.remove?.();}
+function relGrudge(i,kind){if(!CONTACTS[i])return;const g=grudgeFor(kind);if(!g)return;s.grudge??={};s.grudge[i]=Math.min(70,(s.grudge[i]||0)+g);}
+function relBump(i,kind){if(!CONTACTS[i])return;if(grudgeFor(kind)){relGrudge(i,kind);return;}
+ const d=({goodDeal:4,fairDeal:2})[kind]||0;if(d&&s.grudge?.[i])s.grudge[i]=Math.max(0,s.grudge[i]-d);}
+function relPursuit(){try{const role=localPoliceRole();return (ensurePolice().officers||[]).some(o=>o.mode==='pursuit'&&o.target===role);}catch(e){return false;}}
+function relNote(name,before,after){const t=standingChangeText(name,before,after);if(t)toast(t);}
+{const relFair=rosterFair;rosterFair=function(i,t){const v=relFair(i,t);if(!CONTACTS[i])return v;return Math.max(1,Math.round(v*standingEffects(relStanding(i).level).price));};}
+{const relAct=doAction;doAction=function(k,a,b,c){
+  if(k==='text'&&CONTACTS[a]&&net.role!=='guest'){const who=CONTACTS[a],old=who.budget;who.budget=old*standingEffects(relStanding(a).level).price;try{return relAct(k,a,b,c);}finally{who.budget=old;}}
+  if(net.role==='guest'||!((k==='deliver'||k==='sample')&&CONTACTS[a]))return relAct(k,a,b,c);
+  const before=relStanding(a),sold=s.sold,chase=relPursuit(),deal=k==='deliver'?s.deals.find(d=>d.npc===a):null;
+  let fair=0,enjoy=.5;if(deal&&STRAINS[deal.t]){try{fair=rosterFair(a,deal.t);enjoy=rosterEnjoy(a,deal.t);}catch(e){}}
+  const out=relAct(k,a,b,c);
+  if(k==='deliver'&&deal&&s.sold>sold){
+   const kinds=dealVerdict({price:deal.price,fair,enjoyment:enjoy});if(!chase&&relPursuit())kinds.push('caught');
+   for(const kind of kinds)relBump(a,kind);
+   const said={ripoff:'That was steep. I’m not paying that again.',badProduct:'Honestly? That batch wasn’t great.',caught:'You brought the cops to me?! Not cool.'};
+   const gripe=kinds.find(x=>said[x]);if(gripe&&s.threads?.[a])(s.threads[a].messages??=[]).push({mine:false,text:said[gripe]});
+   save();}
+  relNote(CONTACTS[a].name,before,relStanding(a));return out;};}
+// Order frequency: unhappy locals skip asking some days; happy ones ask again sooner.
+{const relAsks=postCravingAsks;postCravingAsks=function(){
+  const held=[],was={};
+  for(let i=0;i<CONTACTS.length;i++){const r=s.cravings?.[i];if(!r)continue;was[i]=r.askedDay+':'+r.askedTime;const lv=relStanding(i).level;
+   if(skipsOrderToday(lv,s.day,i)){held.push([i,r.askedDay,r.askedTime]);s.cravings[i]={...r,askedDay:s.day,askedTime:s.time};}}
+  const out=relAsks();
+  for(const [i,d,t] of held){const r=s.cravings?.[i];if(r&&r.askedDay===s.day&&r.askedTime===s.time)s.cravings[i]={...r,askedDay:d,askedTime:t};}
+  for(let i=0;i<CONTACTS.length;i++){const r=s.cravings?.[i];if(!r||was[i]===r.askedDay+':'+r.askedTime||held.some(h=>h[0]===i))continue;const m=askSooner(relStanding(i).level);if(m)s.cravings[i]={...r,askedTime:r.askedTime-m};}
+  return out;};}
+// Once a day: grudges fade, and Friendly / Loyal locals may vouch for a friend.
+let relDay=null;
+function relDaily(){
+ if(net.role==='guest'||!s||!Number.isFinite(s.day))return;if(relDay===null){relDay=s.relDay??s.day;}if(s.day===relDay)return;
+ const days=Math.max(1,s.day-relDay);relDay=s.relDay=s.day;
+ if(s.grudge)for(const k of Object.keys(s.grudge))s.grudge[k]=grudgeTick(s.grudge[k],days);
+ s.referred??={};
+ for(let i=0;i<CONTACTS.length;i++){
+  if(!isUnlocked(s,i))continue;const f=standingEffects(relStanding(i).level);if(!f.referral)continue;
+  let h=(s.day*2654435761+i*40503)>>>0;h=((h^(h>>>15))*2246822519)>>>0;if((h%1000)/1000>=f.referral)continue;
+  const j=(CONTACTS[i].knows||[]).find(j=>CONTACTS[j]&&!isUnlocked(s,j)&&s.referred[j]==null);if(j==null)continue;
+  s.referred[j]=i;s.relations[j]=Math.max(relationship(j),15);
+  const text='My mate '+CONTACTS[j].name+' wants in. Bring them a sample, I told them you’re good.';
+  if(!s.threads[i])s.threads[i]={status:'idle',messages:[{mine:false,text}]};else (s.threads[i].messages??=[]).push({mine:false,text});
+  toast(CONTACTS[i].name+' referred '+CONTACTS[j].name+' · hand them a sample');
+ }
+ save();
+}
+{const relFrame=renderFrame;renderFrame=function(){try{relDaily();}catch(e){}return relFrame.apply(this,arguments);};}
+// Customer screen and phone thread: the bar under the heading.
+{const relMenu=menu;menu=function(which,data){relMenu(which,data);
+  try{if((which==='customer'||which==='thread')&&panel===which){const i=Number.isInteger(data)?data:selected,m=$('modal');
+   if(CONTACTS[i]&&m?.querySelector&&!m.querySelector('.rel-row')){const st=relStanding(i);const html='<div class="rel-row">'+standingBarHTML(st)+'<small>'+esc(relEffectsText(st))+'</small></div>';
+    const nb=m.querySelector('#namedTalk'),h=m.querySelector('h2');if(nb)nb.insertAdjacentHTML('afterend',html);else if(h)h.insertAdjacentHTML('afterend',html);else m.querySelector('.close')?.insertAdjacentHTML('afterend',html);}}}catch(e){}};window.menu=menu;}
+// Street: the bar replaces "First time / Met before / Regular". Hostile people won't buy; prices follow the level.
+{const relRender=talkRender;talkRender=function(){relRender();try{if(!talk||panel!=='talk')return;const m=$('modal');const tag=m?.querySelector?.('.talk-regular');const st=relStreet(talk.id);
+   const html=standingBarHTML(st,{compact:true});if(tag){tag.insertAdjacentHTML('afterend',html);tag.remove();}else m?.querySelector?.('.talk-body small')?.insertAdjacentHTML?.('afterend',html);}catch(e){}};
+ const relOpen=openTalk;openTalk=function(i){const p=streetCrowd?.people?.[i];const e0=p&&s.regulars?.[String(p.id)];const fresh=!e0||e0.last!==s.day;const ok=relOpen(i);
+  if(ok&&p&&fresh&&net.role!=='guest'){const e=s.regulars?.[String(p.id)];if(e){if(e.n>1)streetStanding(e,'chat');else migrateStanding(e);talkRender();}}return ok;};
+ const relSale=talkStreetSale;talkStreetSale=function(p){const e=talk&&s.regulars?.[String(talk.id)];const before=e?standingOf(migrateStanding(e)):null;const chase=relPursuit(),cash0=s.cash;
+  const pay=relSale(p);if(!pay||!e)return pay;const f=standingEffects(before.level).price,extra=Math.round(pay*(f-1));
+  if(extra){s.cash+=extra;s.earned=(s.earned||0)+extra;}
+  let after=streetStanding(e,'fairDeal');if(!chase&&relPursuit())after=streetStanding(e,'caught');
+  relNote(talk.name,before,after);save();return pay+extra;};
+ const relPick=talkPick;talkPick=function(id){
+  if(talk&&net.role!=='guest'){const e=s.regulars?.[String(talk.id)];
+   if(id==='pitch'&&e&&relStreet(talk.id).level===0){const p=streetCrowd?.people?.[talk.i];talk.line='From you? No chance. Get lost.';const mem=talkMemory.get(talk.id)||{};mem.pitched=true;talkMemory.set(talk.id,mem);if(p)gesture(p,'shake');talkRender();return;}
+   const calling=squadWitnesses.length;relPick(id);if(e&&squadWitnesses.length>calling){const b=standingOf(migrateStanding(e));relNote(talk?.name||'They',b,streetStanding(e,'snitched'));}save();return;}
+  relPick(id);};}
+if(typeof location!=='undefined'&&/[?&]relqa=1\b/.test(location.search))window.__relQa={
+ standing:i=>relStanding(i),street:id=>relStreet(id),
+ set:(i,rel,grudge=0)=>{s.relations[i]=rel;s.grudge??={};s.grudge[i]=grudge;return relStanding(i);},
+ fair:(i,t=0)=>rosterFair(i,t),daily:()=>{relDay=s.day-1;relDaily();return s.referred;},
+ open:i=>{selected=i;menu('customer',i);return !!$('modal').querySelector('.rel-row');}};

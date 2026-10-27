@@ -36,3 +36,14 @@ body[data-panel] #modal.named-open{max-height:calc(100dvh - 150px)!important}
 #namedTalk button::before{content:none!important}
 @media (max-height:500px){body[data-panel] #modal.named-open{max-height:calc(100dvh - 24px)!important}}
 #namedTalk .named-line{margin:0;padding:6px 10px;border-left:3px solid #f2b84b;background:#ffffff0d;border-radius:4px}
+/* v175: relationship status bar (relationship-status.mjs) */
+.rel-status{display:flex;align-items:center;gap:8px;margin:2px 0 8px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
+.rel-status .rel-label{min-width:74px;color:var(--rel,#cfd3d6)}
+.rel-status .rel-bar{position:relative;flex:1;max-width:190px;height:8px;border-radius:5px;background:rgba(255,255,255,.12);overflow:hidden}
+.rel-status .rel-bar b{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--rel,#cfd3d6);transition:width .4s}
+.rel-status .rel-bar i{position:absolute;top:0;bottom:0;width:1px;background:rgba(0,0,0,.45)}
+.rel-status.is-compact{margin:0 0 6px}
+.rel-l0{--rel:#e0524f}.rel-l1{--rel:#ec9a4a}.rel-l2{--rel:#c9ccd0}.rel-l3{--rel:#7fd27a}.rel-l4{--rel:#f2c84b}
+.rel-row{margin:4px 0 10px}.rel-row small{display:block;opacity:.75;font-size:11px;margin-top:-4px}
+.talk-body .rel-status{margin-top:4px}
+#modal.named-open > .rel-row{display:none}
