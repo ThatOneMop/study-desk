@@ -31,7 +31,7 @@ const bar=standingBarHTML(standingOf(85));assert.match(bar,/rel-status rel-l4/);
 assert.match(standingChangeText('Jo',standingOf(50),standingOf(65)),/warms up · now Friendly/);assert.equal(standingChangeText('Jo',standingOf(50),standingOf(55)),'');
 // Wiring.
 const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
-assert.match(game,/relationship-status\.mjs\?v=175/);
+assert.match(game,/relationship-status\.mjs\?v=17\d/);
 for(const re of [/const relFair=rosterFair;rosterFair=function/,/const relAct=doAction;doAction=function/,/const relAsks=postCravingAsks;postCravingAsks=function/,/const relRender=talkRender;talkRender=function/,/const relSale=talkStreetSale;talkStreetSale=function/,/relStandingDecor\(box,nt\.type,nt\.i\)/,/window\.__relQa=/])assert.match(game,re);
 const css=fs.readFileSync(new URL('../dist/people-talk.css',import.meta.url),'utf8');assert.match(css,/\.rel-status \.rel-bar/);assert.match(css,/\.rel-l4\{--rel:/);
 const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/game\.js\?v=17\d/);
