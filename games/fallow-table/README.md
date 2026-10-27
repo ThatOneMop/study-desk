@@ -17,7 +17,7 @@ This is a temporal farming/resource loop, separate from Field Album's wildlife d
 
 Select a bed and a seed packet, then use Sow, Pick, Water or Compost. Buttons are native and at least 44 CSS pixels high. The field shows crops, maturity, soil and water; the basket shows each separate request. A whole-season weather strip and optional exact overnight forecast support planning. Ending with unused work or closing the season requires confirmation.
 
-Native Tab/Enter/Space works throughout. On the page or bed controls, arrows select a bed, 1–3 select seeds, S sows, H harvests, W waters, C composts, G turns beans into soil and Z undoes. Shortcuts do not override other interactive elements. Pause, dialogs, document hiding and same-origin parent hide messages guard input. The Study Desk bridge loads first. Games navigation retains the catalogue destination; no workspace-switch control is added.
+Native Tab/Enter/Space works throughout. On the page or bed controls, arrows select a bed, 1–3 select seeds, S sows, H harvests, W waters, C composts, G turns beans into soil, T transplants to the selected destination and Z undoes. Shortcuts do not override other interactive elements. Pause, dialogs, document hiding and same-origin parent hide messages guard input. The Study Desk bridge loads first. Games navigation retains the catalogue destination; no workspace-switch control is added.
 
 All SVG illustrations and CSS are original source in this repository. No external assets, fonts, production dependencies or audio. The desktop two-column layout stacks below 720px; ripe-crop animation respects reduced motion. These are implemented layout rules, not evidence of inspected rendering or physical touch testing.
 
@@ -46,3 +46,16 @@ The action is `{type:'turn',p}` in the existing v1 journal. No new save fields, 
 Eight added engine/DOM checks cover the tradeoff, immature/ripe eligibility, rejection, resource caps, shade removal, undo, full campaigns with reload, native-input/pause/modal guards and retry. Instructions now start collapsed and the player-facing footer omits development terminology in line with main's current quality checklist; development status remains explicit here and in the ledger.
 
 This is a source-observed mechanics refinement, not a rendered-play improvement pass. Rendered feedback, balance, layout and natural play remain pending. Keep the game unlisted.
+
+
+## Transplanting source refinement
+
+An immature crop can move to any empty bed for one work point. Select its current bed, choose a destination in the labeled native selector, then use Move growing crop (or T on page/bed focus). The preview states the crop, growth, yield and cost. Ripe, occupied, same-bed and invalid destinations are rejected without spending work.
+
+The crop keeps its growth and planted yield. Soil, water and previous-harvest rotation history stay with each bed. Soil already spent at planting is neither refunded nor charged again. The destination's moisture and neighbouring beans govern subsequent growth. Moving a bean changes its companion shade immediately; moving a dry crop to wet ground can resume growth without watering a whole cross. Harvesting later updates the destination's rotation history normally.
+
+The v1 journal adds {type:'transplant',p,to}, with no new state fields or save-key changes. Undo restores the crop and work; retry preserves records. All original routes/saves remain supported.
+
+34 checks pass (20 engine, 14 jsdom), including the original 27. New coverage includes resource/history preservation, moisture and companion-shade consequences, strict eligibility, undo, three transplant-inclusive campaigns with per-action DOM save/reload, selection without mutation, keyboard/native/pause/modal guards and ripe rejection. Coverage routes finish with 10/8/5 points; these are not stronger-score or optimality claims. Scripts parse.
+
+Observed limitation came from source inspection: crop locations were permanent after planting, preventing adjustment to moisture or companion shade. This source-informed mechanic does not count as a rendered-play-led improvement. Before qualification, assess whether relocation adds useful choices or enables dominant planting patterns, inspect desktop/mobile layout, and verify natural progression and navigation.

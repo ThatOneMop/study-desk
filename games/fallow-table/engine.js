@@ -17,9 +17,10 @@ function step(level,b,a){
  if(b.ended||won(level,b))return null;
  if(a==='end'){if(b.day===DAYS){const n=copy(b);n.ended=true;return n}return grow(level,b)}
  if(!a||typeof a!=='object'||Array.isArray(a)||!int(a.p,0,8)||b.work===0)return null;
- const keys=Object.keys(a).sort().join(','),plant=a.type==='plant';if(keys!==(plant?'crop,p,type':'p,type'))return null;
+ const keys=Object.keys(a).sort().join(','),plant=a.type==='plant';if(keys!==(plant?'crop,p,type':a.type==='transplant'?'p,to,type':'p,type'))return null;
  const n=copy(b),bed=n.beds[a.p];
  if(plant){if(!int(a.crop,0,2)||bed.crop||bed.soil<CROPS[a.crop].soil)return null;bed.crop={kind:a.crop,age:0,yield:yieldFor(bed,a.crop)};bed.soil-=CROPS[a.crop].soil}
+ else if(a.type==='transplant'){const c=bed.crop;if(!c||c.age>=CROPS[c.kind].days||!int(a.to,0,8)||a.to===a.p||n.beds[a.to].crop)return null;n.beds[a.to].crop=c;bed.crop=null}
  else if(a.type==='water'){const cells=[a.p,...near(a.p)];if(cells.every(p=>n.beds[p].water===2))return null;cells.forEach(p=>n.beds[p].water=2)}
  else if(a.type==='compost'){if(!n.compost||bed.soil===2)return null;n.compost--;bed.soil++}
  else if(a.type==='turn'){const c=bed.crop;if(!c||c.kind!==0||c.age<1)return null;bed.crop=null;bed.last=0;bed.soil=Math.min(2,bed.soil+2);n.compost++}
