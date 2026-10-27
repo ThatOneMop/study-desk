@@ -171,6 +171,7 @@ import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars
 import {stackLayout,landingOffset,queueLandings,createPackStack,LAND_TIME,PER_JAR} from './pack-feel.mjs?v=173';
 import {fanLevel,namedLine,areaLine,namedOptions,namedCardHTML,NAMED_KINDS,KEEPERS} from './named-talk.mjs?v=174';
 import {STANDINGS,standingScore,standingOf,standingEffects,dealVerdict,grudgeFor,grudgeTick,migrateStanding,streetStanding,skipsOrderToday,askSooner,standingBarHTML,standingChangeText} from './relationship-status.mjs?v=175';
+import {TRADE_MOODS,tradeRange,tradeStart,tradeTotal,tradeChance,chanceWord,customerAnswer,answerLine,tradeHTML,handoffHTML,HANDOFF_TONES,meetHTML} from './trade-screen.mjs?v=176';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -5548,3 +5549,93 @@ if(typeof location!=='undefined'&&/[?&]relqa=1\b/.test(location.search))window._
  set:(i,rel,grudge=0)=>{s.relations[i]=rel;s.grudge??={};s.grudge[i]=grudge;return relStanding(i);},
  fair:(i,t=0)=>rosterFair(i,t),daily:()=>{relDay=s.day-1;relDaily();return s.referred;},
  open:i=>{selected=i;menu('customer',i);return !!$('modal').querySelector('.rel-row');}};
+// v176: trading screen (trade-screen.mjs). Street sales, phone deals and meetups share one deal card: product
+// cards, quantity +/-, a price slider against the customer's fair price, a live accept chance, their counter
+// (accept / counter / decline) and a cash handoff. Guests in co-op keep the old flow.
+let trade=null;
+function tradeOn(){return net.role!=='guest'&&typeof document!=='undefined'&&typeof document.createElement==='function';}
+function tradeProducts(fairOf,street){const out=[];(s.packs||[]).forEach((n,t)=>{const have=street?n:n-reservedQty(t);if(have>0&&STRAINS[t])out.push({t,name:STRAINS[t].name,have,fair:fairOf(t),color:STRAINS[t].color!=null?'#'+Number(STRAINS[t].color).toString(16).padStart(6,'0'):''});});return out;}
+function tradePicked(){return trade&&trade.products.find(p=>p.t===trade.pick);}
+function tradeCalc(){const p=tradePicked();if(!p)return 0;trade.chance=trade.answer?.kind==='counter'&&trade.kind==='phone'?tradeChance({price:trade.price,fair:p.fair,qty:trade.qty},()=>rosterHaggle(trade.i,trade.price)):tradeChance({price:trade.price,fair:p.fair,qty:trade.qty,penalty:trade.round*12},trade.chanceOf);return trade.chance;}
+function tradeHost(){const m=$('modal');if(!m?.querySelector)return null;let h=m.querySelector('#tradeBox');if(!h){h=document.createElement('div');h.id='tradeBox';const at=trade.kind==='street'?m.querySelector('.talk-card'):null,bub=m.querySelector('.deal-bubble'),comp=m.querySelector('.sms-compose');if(at)at.after(h);else if(bub)bub.before(h);else if(comp)comp.before(h);else m.appendChild(h);}return h;}
+function tradeRender(){try{if(!trade)return;tradeCalc();const h=tradeHost();if(!h)return;h.innerHTML=tradeHTML(trade,esc);$('modal').classList?.add('trading');
+  h.querySelectorAll('[data-trade-pick]').forEach(b=>b.onclick=()=>{trade.pick=Number(b.dataset.tradePick);const p=tradePicked();trade.qty=Math.min(trade.qty,tradeMaxQty());trade.price=tradeStart(p.fair);trade.answer=null;trade.round=0;tradeRender();});
+  h.querySelectorAll('[data-trade]').forEach(b=>b.onclick=()=>tradeDo(b.dataset.trade));
+  const r=h.querySelector('#tradePrice');if(r)r.oninput=()=>{trade.price=Number(r.value)||trade.price;tradeLive();};
+ }catch(e){console.warn('Trade screen skipped',e);}}
+function tradeLive(){const h=$('modal')?.querySelector?.('#tradeBox');if(!h)return;const c=tradeCalc(),tot=tradeTotal(trade.price,trade.qty);
+ const o=h.querySelector('.trade-price output');if(o)o.textContent=cash(trade.price);const m=h.querySelector('.trade-chance');if(m){m.className='trade-chance c'+(c>=70?'hi':c>=40?'mid':'lo');m.querySelector('b').style.width=c+'%';m.querySelector('strong').textContent=c+'%';m.querySelector('small').textContent=chanceWord(c);}
+ const t=h.querySelector('.trade-total b');if(t)t.textContent=cash(tot);const g=h.querySelector('[data-trade="offer"]');if(g)g.textContent=(trade.answer?.kind==='counter'?'Counter '+cash(trade.price):'Offer '+cash(tot));}
+function tradeMaxQty(){const p=tradePicked();return p?Math.max(1,Math.min(p.have,trade.capQty)):1;}
+function tradeDo(id){if(!trade)return;const p=tradePicked();if(!p&&id!=='walk')return;
+ if(id==='qty-'){trade.qty=Math.max(1,trade.qty-1);}
+ else if(id==='qty+'){trade.qty=Math.min(tradeMaxQty(),trade.qty+1);}
+ else if(id==='price-'){trade.price=Math.max(1,trade.price-1);}
+ else if(id==='price+'){trade.price=Math.min(tradeRange(p.fair).max,trade.price+1);}
+ else if(id==='walk'){const t=trade;trade=null;$('modal')?.classList?.remove('trading');t.onWalk?.();return;}
+ else if(id==='take'){const price=trade.answer?.price;if(price)trade.accept(price,true);return;}
+ else if(id==='offer'){trade.offer();return;}
+ trade.maxQty=tradeMaxQty();tradeRender();}
+function tradeCash(amount){
+ try{const m=document.body;m.querySelector?.('.cash-handoff')?.remove?.();m.insertAdjacentHTML?.('beforeend',handoffHTML(amount));const el=m.querySelector?.('.cash-handoff');setTimeout(()=>el?.remove?.(),1600);}catch(e){}
+ try{for(const [f,d,g,at] of HANDOFF_TONES)setTimeout(()=>playTone(f,d,g),at);}catch(e){}
+ try{const b=$('cash');b?.classList?.remove('cash-bump');void b?.offsetWidth;b?.classList?.add('cash-bump');}catch(e){}}
+// Street: a buyer who says yes opens the deal card instead of an instant sale.
+{const tradeSale=talkStreetSale;let bypass=false;
+ talkStreetSale=function(p){
+  if(bypass||!tradeOn()||!talk)return tradeSale(p);
+  const id=talk.id,mood=talk.mood,st=relStreet(id),f=standingEffects(st.level).price*(TRADE_MOODS[mood]||1);
+  const fairOf=t=>Math.max(1,Math.round((STRAINS[t]?.price||30)*.8*f));const products=tradeProducts(fairOf,true);if(!products.length)return tradeSale(p);
+  const who=talk.name;
+  trade={kind:'street',who,id,products,pick:products[0].t,qty:1,capQty:3,maxQty:Math.min(3,products[0].have),price:tradeStart(products[0].fair),round:0,answer:null,
+   chanceOf:(price,fair,qty)=>haggleChance({price,fair,qty,relation:st.score,craving:0,spend:[40,140]}),
+   offer(){const pr=tradePicked();const c=tradeCalc();const ans=customerAnswer({price:trade.price,fair:pr.fair,chance:c,round:trade.round,roll:Math.random()});ans.line=answerLine(ans,trade.round+id);
+    if(ans.kind==='accept'){trade.accept(trade.price);return;}trade.round++;trade.answer=ans;if(ans.kind==='counter')trade.price=Math.max(ans.price,Math.min(trade.price,tradeRange(pr.fair).max));
+    if(talk){talk.line=ans.line;}tradeRender();},
+   accept(price){const tr=trade,pr=tradePicked();if(!pr||!talk)return;const t0=(s.packs||[]).findIndex(n=>n>0);bypass=true;let paid=0;try{paid=tradeSale(p);}finally{bypass=false;}
+    if(!paid){trade=null;talkRender();return;}
+    if(t0!==pr.t){s.packs[t0]+=1;s.packs[pr.t]-=1;}const extraQty=Math.min(tr.qty-1,Math.max(0,s.packs[pr.t]));s.packs[pr.t]-=extraQty;s.sold=(s.sold||0)+extraQty;
+    const total=price*(1+extraQty),delta=total-paid;s.cash+=delta;s.earned=(s.earned||0)+delta;save();
+    trade=null;$('modal')?.classList?.remove('trading');talk.line=answerLine({kind:'accept',price},id)+' (paid '+cash(total)+')';tradeCash(total);talkRender();
+    const was=talk;setTimeout(()=>{if(talk===was&&panel==='talk')close();},1800);},
+   onWalk(){if(talk){talk.line='Suit yourself.';talkRender();const was=talk;setTimeout(()=>{if(talk===was&&panel==='talk')close();},1200);}}};
+  // talkPick may schedule a close after a buy; give this chat a fresh identity so the card stays open.
+  talk.line=(talk.line||'')+' What are you asking?';
+  return 0;};
+ const tradeTalkPick=talkPick;talkPick=function(id){if(trade?.kind==='street')return;const out=tradeTalkPick(id);if(trade?.kind==='street'&&talk)talk={...talk};return out;};
+ const tradeTalkRender=talkRender;talkRender=function(){tradeTalkRender();if(trade?.kind==='street'&&talk&&panel==='talk')tradeRender();else $('modal')?.classList?.remove?.('trading');};
+ const tradeTalkClose=close;close=function(){if(trade?.kind==='street'||trade?.kind==='phone')trade=null;$('modal')?.classList?.remove('trading');tradeTalkClose();};window.closeMenu=close;}
+// Phone: a "Make an offer" deal card under the thread. Sending it texts the customer with your price; their
+// reply (deal or counter) comes back into the same card.
+function tradePhone(i){
+ const c=CONTACTS[i];if(!c||!isUnlocked(s,i)||s.deals.some(d=>d.npc===i))return null;const th=s.threads?.[i];
+ const fairOf=t=>rosterFair(i,t);const products=tradeProducts(fairOf,false);if(!products.length)return null;
+ const neg=th&&th.status==='negotiating'&&STRAINS[th.t];const pick=neg?th.t:(th?.t!=null&&products.some(p=>p.t===th.t)?th.t:products[0].t);
+ const pr=products.find(p=>p.t===pick)||products[0];
+ const tr={kind:'phone',i,who:c.name,products,pick:pr.t,qty:neg?th.qty:1,capQty:5,maxQty:Math.min(5,pr.have),price:neg?Math.max(th.counter||pr.fair,1):tradeStart(pr.fair),round:0,answer:null,locked:neg?{product:true,qty:true}:null,
+  chanceOf:(price,fair,qty)=>haggleChance({price,fair,qty,relation:relationship(i),craving:rosterCraving(i),spend:c.spend||[100,250]}),
+  offer(){const t=trade;if(!t)return;const p=tradePicked();
+   if(s.threads?.[i]?.status==='negotiating'){action('offer',i,t.price);}
+   else{const keep=s.listing;s.listing={t:p.t,qty:t.qty,price:t.price};try{action('text',i);}finally{s.listing=keep;}}
+   tradeAfter();},
+  accept(price){action('offer',i,price);tradeAfter();},
+  onWalk(){const th=s.threads?.[i];if(th&&th.status==='negotiating'){th.status='closed';(th.messages??=[]).push({mine:true,text:'All good, maybe next time.'});save();}refresh('thread',i);}};
+ if(neg)tr.answer={kind:'counter',price:th.counter,line:'I can do $'+th.counter+' each.'};
+ return tr;}
+function tradeAfter(){const t=trade;if(!t||t.answer?.kind==='accept')return;const i=t.i,th=s.threads?.[i],d=s.deals.find(x=>x.npc===i);
+ if(d)return;
+ if(th?.status==='negotiating'){trade.round++;trade.answer={kind:'counter',price:th.counter,line:'I can do $'+th.counter+' each.'};trade.locked={product:true,qty:true};tradeRender();return;}
+ tradeRender();}
+{const tradeMenu=menu;menu=function(which,data){tradeMenu(which,data);
+  try{if(which==='thread'&&panel==='thread'&&tradeOn()){const i=Number.isInteger(data)?data:selected,prev=trade?.kind==='phone'&&trade.i===i?trade:null,d=s.deals.find(x=>x.npc===i);
+   if(d&&prev){trade={...prev,qty:d.qty,pick:d.t,answer:{kind:'accept',price:d.price,line:'Deal. '+d.qty+' × '+(STRAINS[d.t]?.name||'')+' at $'+d.price+' each. See you at the spot.'},locked:{product:true,qty:true}};if(!prev.answer||prev.answer.kind!=='accept')try{playBenchCue(audioContext,'done',soundEnabled);}catch(e){}}else trade=tradePhone(i);if(trade)tradeRender();else $('modal')?.classList?.remove?.('trading');}
+   else if(which!=='talk'){if(trade&&trade.kind!=='street')trade=null;if(!trade)$('modal')?.classList?.remove?.('trading');}
+   if(which==='customer'&&panel==='customer'&&tradeOn()){const i=Number.isInteger(data)?data:selected,d=s.deals.find(x=>x.npc===i),m=$('modal');
+    if(d&&STRAINS[d.t]&&m?.querySelector&&!m.querySelector('.trade-meet')){const st=customerExchangeStatus(i),col='#'+Number(STRAINS[d.t].color||0xf2b84b).toString(16).padStart(6,'0');const html=meetHTML({name:STRAINS[d.t].name,qty:d.qty,price:d.price,color:col,ready:!!st.ok&&s.packs[d.t]>=d.qty,reason:st.ok?'Not enough packs on you':st.reason});
+     const at=m.querySelector('.rel-row')||m.querySelector('#namedTalk')||m.querySelector('h2');if(at)at.insertAdjacentHTML('afterend',html);else m.insertAdjacentHTML('beforeend',html);const b=m.querySelector('[data-trade-meet]');if(b)b.onclick=()=>{const dl=$('customerDeliver');if(dl&&!dl.disabled)dl.click();else action('deliver',i);};}}}catch(e){console.warn('Trade screen skipped',e);}};window.menu=menu;}
+// Meetups: when the cash changes hands, show it.
+{const tradeAct=doAction;doAction=function(k,a,b,c){const cash0=s.cash,bank0=s.bank||0,sold=s.sold;const out=tradeAct(k,a,b,c);
+  if(k==='deliver'&&CONTACTS[a]&&s.sold>sold&&net.role!=='guest'){const got=(s.cash-cash0)+((s.bank||0)-bank0);if(got>0)tradeCash(got);}return out;};}
+if(typeof location!=='undefined'&&/[?&]tradeqa=1\b/.test(location.search))window.__tradeQa={state:()=>trade&&{kind:trade.kind,who:trade.who,pick:trade.pick,qty:trade.qty,price:trade.price,chance:trade.chance,answer:trade.answer,products:trade.products.length},
+ do:id=>{tradeDo(id);return window.__tradeQa.state();},price:v=>{if(trade){trade.price=v;tradeRender();}return window.__tradeQa.state();},
+ phone:i=>{selected=i;menu('thread',i);return window.__tradeQa.state();},cash:v=>{tradeCash(v);return true;}};
