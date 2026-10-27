@@ -31,3 +31,16 @@ body #overlay.phone #modal .supplier-row span{flex:1;display:flex;flex-direction
 body #overlay.phone #modal .supplier-row small{color:#777!important;font-size:10px}
 body #overlay.phone #modal .supplier-row .primary{min-height:30px;padding:4px 9px!important;border-radius:15px!important;background:#30c158!important;color:#fff!important;border:0!important;font-size:11px;font-weight:800}
 body #overlay.phone .supplier-app-icon b{background:#3b4a3a!important}
+/* v171 phone home: 9 apps + weather + Sweet Network must fit on an 800 px screen, and the
+   home screen keeps its wallpaper after visiting Messages (sms-screen no longer sticks). */
+@media (max-height:920px){
+ body[data-phone="home"] #overlay.phone .phone-home-clock{font-size:34px!important;padding-top:0!important;line-height:1.05}
+ body[data-phone="home"] #overlay.phone #modal .phone-home-day{margin:0 0 6px!important}
+ body[data-phone="home"] #overlay.phone .phone-weather{padding:6px 10px!important;margin-bottom:6px!important;min-height:0!important}
+ body[data-phone="home"] #overlay.phone .phone-app-grid{gap:4px 6px!important}
+ body[data-phone="home"] #overlay.phone .phone-app-grid button{min-height:60px!important}
+ body[data-phone="home"] #overlay.phone .phone-app-grid b{width:40px!important;height:40px!important;margin-bottom:3px!important;font-size:20px!important;border-radius:11px!important}
+ body[data-phone="home"] #overlay.phone .phone-app-grid small{display:none}
+}
+body[data-phone="home"] #overlay.phone #modal .net-phone-card{margin-top:8px!important}
+body[data-phone="home"] #overlay.phone #modal{scroll-padding-bottom:12px}
