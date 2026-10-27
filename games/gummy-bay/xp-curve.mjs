@@ -1,11 +1,19 @@
-// Rank curve. Each level costs a little more than the last, so the first two
-// ranks come in a day or two and the top rank (510 XP) lands around day eight instead of day seven.
+// Rank curve. The first level-up costs 100 XP (about five in-game days at the early
+// +5 XP per gummy). Each step after that grows a little, out to level 20.
 // Shared by the HUD, shops, deeds, fleet and the economy sim.
-export const LEVEL_XP=Object.freeze([0,30,60,110,180,270,380,510]);
+// XP_CURVE 2 replaces the v156 eight-rank table. migrateXp keeps an old save's level.
+export const LEGACY_LEVEL_XP=Object.freeze([0,30,60,110,180,270,380,510]);
+export const XP_CURVE=2;
+export const LEVEL_XP=Object.freeze([0,100,220,360,520,710,930,1180,1470,1800,2180,2620,3120,3690,4340,5080,5920,6870,7940,9140]);
 export const MAX_LEVEL=LEVEL_XP.length;
 export function levelOf(xp){
  const n=Number.isFinite(xp)?Math.max(0,xp):0;
  let level=1;for(let i=1;i<LEVEL_XP.length;i++)if(n>=LEVEL_XP[i])level=i+1;
+ return level;
+}
+function levelOn(table,xp){
+ const n=Number.isFinite(xp)?Math.max(0,xp):0;
+ let level=1;for(let i=1;i<table.length;i++)if(n>=table[i])level=i+1;
  return level;
 }
 // XP into the current level and the XP that level needs. At max rank the bar stays full.
@@ -14,6 +22,19 @@ export function levelProgress(xp){
  if(level>=MAX_LEVEL)return Object.freeze({level,into:0,need:0,ratio:1});
  const from=LEVEL_XP[level-1],to=LEVEL_XP[level];
  return Object.freeze({level,into:Math.floor(n-from),need:to-from,ratio:Math.max(0,Math.min(1,(n-from)/(to-from)))});
+}
+// Map a pre-curve save onto the new table, keeping the same level and the same
+// fraction of the way to the next one. A maxed old save (level 8) starts level 8
+// on the new table instead of jumping to the top or dropping to level 1.
+export function migrateXp(xp,curveId){
+ const n=Number.isFinite(xp)?Math.max(0,xp):0;
+ if(curveId===XP_CURVE)return Object.freeze({xp:n,curve:XP_CURVE});
+ const oldLevel=levelOn(LEGACY_LEVEL_XP,n);
+ if(oldLevel>=LEGACY_LEVEL_XP.length)return Object.freeze({xp:LEVEL_XP[Math.min(LEVEL_XP.length-1,LEGACY_LEVEL_XP.length-1)],curve:XP_CURVE});
+ const from=LEGACY_LEVEL_XP[oldLevel-1],to=LEGACY_LEVEL_XP[oldLevel];
+ const frac=to>from?Math.max(0,Math.min(1,(n-from)/(to-from))):0;
+ const next=LEVEL_XP[oldLevel-1]+frac*(LEVEL_XP[oldLevel]-LEVEL_XP[oldLevel-1]);
+ return Object.freeze({xp:Math.round(next),curve:XP_CURVE});
 }
 
 // v156 street ranks: eleven original candy titles, five tiers each (I-V), like a crime-sim

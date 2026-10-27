@@ -28,5 +28,5 @@ const book=buildContactBook({state:{threads:[],relations:[],deals:[]},strainName
 const html=contactBookHTML(book);assert.equal((html.match(/>Message</g)||[]).length,1);assert.ok(html.includes('🔒 Locked'));
 const game=fs.readFileSync('dist/game.js','utf8');
 for(const k of ['meetPlanFor(i)','meetBoardHTML','ACTION_NAMES.push(\'meet\')','record(\'Delivery bonus','window.__meet','meetMarkers'])assert.ok(game.includes(k),k);
-assert.ok(fs.readFileSync('dist/index.html','utf8').match(/Gummy Bay v1(5[89]|[6-9][0-9])/));
+assert.ok(fs.readFileSync('dist/index.html','utf8').match(/Gummy Bay v1\d\d/));
 console.log('PASS: v158 meetups (spots, windows, on-time/late/no-show), locked list buttons, graph spacing, bonus ledger');

@@ -2,7 +2,7 @@
 // end-of-day summary. Presentation only. Nothing here reads or writes a save
 // field that does not already exist, so v3 saves load unchanged.
 
-import {levelOf as rankOf,levelProgress,rankTitle} from './xp-curve.mjs?v=156';
+import {levelOf as rankOf,levelProgress,rankTitle} from './xp-curve.mjs?v=177';
 const DAYS=Object.freeze(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);
 const SHORT=Object.freeze(['Mon','Tue','Wed','Thu','Fri','Sat','Sun']);
 

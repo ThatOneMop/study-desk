@@ -85,7 +85,7 @@ import {bonk,scuffleWeapon,shopWeapons,freshTarget,COP_HEAT} from './scuffle.mjs
 import {donutBribe,cashBribe,DONUT_PRICE} from './sugar-bribe.mjs?v=132';
 import {applyBust,bustedTimeline,bustedSample,paintMugshot} from './busted.mjs?v=132';
 import {searchPenalty,penaltyMessage,penaltyTier} from './police-penalty.mjs?v=135';
-import {levelOf,levelProgress,rankTitle} from './xp-curve.mjs?v=156';
+import {levelOf,levelProgress,rankTitle,migrateXp} from './xp-curve.mjs?v=177';
 import {gateButtons} from './reach-gate.mjs?v=135';
 import {createSquadCast,SQUAD_SHOP,SQUAD_PAN} from './squad-cast.mjs?v=154';
 import {BASE_EFFECTS,benchIngredient,mixResult,mixExperience} from './mix-bench.mjs?v=125';
@@ -111,13 +111,13 @@ import {residentLocomotionClip,residentActionRate,applyResidentTransition} from 
 import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
 import {DEAL_SPOTS,WINDOW_MINUTES,GRACE_MINUTES,ON_TIME_BONUS,LATE_PENALTY,NO_SHOW_EXTRA,clockOf,windowOptions,fmtClock,windowLabel,nearestSpot,meetStatus,customerHeadsOut,meetOutcome,phaseText} from './deal-spots.mjs?v=158';
-import {STARTER_PROFILES,NEW_CUSTOMERS,STANDARD_LABEL,isUnlocked,vouchers,canSample,enjoymentOf,matchedEffects,fairPrice,appealOf,rankByAppeal,haggleChance,sampleChance,dealBonus} from './customer-roster.mjs?v=157';
-import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=158';
+import {STARTER_PROFILES,NEW_CUSTOMERS,TOWN_CUSTOMERS,CUSTOMER_LOOKS,STANDARD_LABEL,isUnlocked,vouchers,canSample,introductions,canApproach,sampleVerdict,enjoymentOf,matchedEffects,fairPrice,appealOf,rankByAppeal,haggleChance,sampleChance,dealBonus,createCustomerCrowd,AREA_GATES,areaById,areaOpen,bestBatchQuality,progressModel,progressHTML,gateText} from './customer-roster.mjs?v=177';
+import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=177';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
-import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=156';
+import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=177';
 import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=154';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
-import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=158';
+import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=177';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
 import {HORIZON_TREE_SITES,horizonSiteOutsideBounds,horizonViewGap,createDistrictHorizon} from './district-horizon.mjs?v=126';
 import {SKYLINE_LANDMARK_SITES,SKYLINE_APPROACHES,skylineFootprintOnSupport,createTownSkyline} from './town-skyline.mjs?v=126';
@@ -156,7 +156,7 @@ import {locationKeyForType,locationMemoryCopy,normalizeLocationVisits,recordLoca
 import {journeyProgress,journeySummary} from './journey-progress.mjs?v=62';
 import {acceptCoopPing,coopPingStatus} from './coop-ping.mjs?v=63';
 import {acceptCoopActivity,activitySnapshot,appendCoopActivity,coopActivityLine,deriveCoopActivity} from './coop-activity.mjs?v=64';
-import {businessPortrait,progressionSummary} from './progression-portrait.mjs?v=65';
+import {businessPortrait,progressionSummary} from './progression-portrait.mjs?v=177';
 import {createVisualPolish} from './visual-polish.mjs?v=113';
 import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_STORAGE_KEY,cueForAction,cueForGameplay,stationCue,isManualAction} from './audio.mjs?v=124';
 import * as THREE from './vendor/three.module.min.js';
@@ -172,6 +172,8 @@ import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars
 import {stackLayout,landingOffset,queueLandings,createPackStack,LAND_TIME,PER_JAR} from './pack-feel.mjs?v=173';
 import {fanLevel,namedLine,areaLine,namedOptions,namedCardHTML,NAMED_KINDS,KEEPERS} from './named-talk.mjs?v=174';
 import {STANDINGS,standingScore,standingOf,standingEffects,dealVerdict,grudgeFor,grudgeTick,migrateStanding,streetStanding,skipsOrderToday,askSooner,standingBarHTML,standingChangeText} from './relationship-status.mjs?v=175';
+import {TRADE_MOODS,tradeRange,tradeStart,tradeTotal,tradeChance,chanceWord,customerAnswer,answerLine,tradeHTML,handoffHTML,HANDOFF_TONES,meetHTML} from './trade-screen.mjs?v=176';
+import {nextStaffHire,staffLadderHTML,staffPostingHTML,staffPace,dealerIntro,dealerRoutine} from './staff-ladder.mjs?v=178';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -189,10 +191,11 @@ let appliedMixSeed=null;
 function mixedStrainEntry(base,ingredient,seed){const p=STRAINS[base],f=INGREDIENTS[ingredient],item=PANTRY[ingredient],out=recipeOutcome(seed,p.effects,item),name=recipeName(out.effects)+' '+p.name;return {...p,name,desc:p.name+' mixed with '+f.name.toLowerCase()+'.',price:mixedPrice(p.price,p.effects,out.effects),color:new THREE.Color(p.color).lerp(new THREE.Color(f.color),.5).getHex(),mixed:true,base,ingredient,effects:out.effects,recipe:recipeName(out.effects),recipeKey:out.key,twist:out.twist,adds:out.adds,autoName:name};}
 for(const slot of mixedSlots(BASE_COUNT,INGREDIENTS.length))STRAINS[slot.index]=mixedStrainEntry(slot.base,slot.ingredient,0);
 function applyMixSeed(seed,names){for(const slot of mixedSlots(BASE_COUNT,INGREDIENTS.length)){const entry=mixedStrainEntry(slot.base,slot.ingredient,seed),custom=names?.[slot.index];if(typeof custom==='string'&&custom.trim())entry.name=custom.trim().slice(0,40);Object.assign(STRAINS[slot.index],entry);}appliedMixSeed=seed;}
-function normalize(v){for(let k of ['seeds','raw','gummies','packs'])while(v[k].length<STRAINS.length)v[k].push(0);v.layout??={};v.storedPacks??=STRAINS.map(()=>0);while(v.storedPacks.length<STRAINS.length)v.storedPacks.push(0);v.workerEnabled??={gardener:true,crafter:true,seller:true};v.vehicleOwned??=false;v.vehiclePark??={x:-180,z:-155,angle:0};v.npcs??=[];v.packStation??=!!v.room;v.trimmers??=!!v.harvested;v.relations??={};v.atmWeek??=0;v.atmUsed??=0;v.ingredients??=INGREDIENTS.map(()=>0);v.mixer??=false;v.mixed??=0;v.payment??='cash';v.trash??=0;v.trashEarned??=0;v.picked??={};v.ledger??=[];v.visits=normalizeLocationVisits(v.visits);return v;}
+function normalize(v){const moved=migrateXp(v?.xp,v?.xpCurve);if(v){v.xp=moved.xp;v.xpCurve=moved.curve;}for(let k of ['seeds','raw','gummies','packs'])while(v[k].length<STRAINS.length)v[k].push(0);v.layout??={};v.storedPacks??=STRAINS.map(()=>0);while(v.storedPacks.length<STRAINS.length)v.storedPacks.push(0);v.workerEnabled??={gardener:true,crafter:true,seller:true};v.vehicleOwned??=false;v.vehiclePark??={x:-180,z:-155,angle:0};v.npcs??=[];v.packStation??=!!v.room;v.trimmers??=!!v.harvested;v.relations??={};v.atmWeek??=0;v.atmUsed??=0;v.ingredients??=INGREDIENTS.map(()=>0);v.mixer??=false;v.mixed??=0;v.payment??='cash';v.trash??=0;v.trashEarned??=0;v.picked??={};v.ledger??=[];v.visits=normalizeLocationVisits(v.visits);v.helpers??={};v.helpers.cleaner??=false;if(v.workerEnabled)v.workerEnabled.cleaner??=true;v.staffTier??={};for(const role of ['gardener','crafter','seller','cleaner'])if(v.helpers[role]&&!v.staffTier[role])v.staffTier[role]='trainee';return v;}
 const CONTACTS=[{name:'Jules',x:-7,z:21,color:0xc67562,skin:0xc68d6a,budget:1.12,line:'Working the late shift again. Could use something sweet.'},{name:'Benji',x:18,z:8,color:0x80a7a8,skin:0xd8b991,budget:.98,line:'I’m on a budget, but I’ll come back if it’s good.'},{name:'Nina',x:-22,z:-9,color:0xb9a567,skin:0xb27e5b,budget:1.2,line:'Good flavour, fair price. That’s all I ask.'},{name:'Oz',x:38,z:-17,color:0x9e87b4,skin:0xe1b28f,budget:1.3,line:'I’ll pay more for premium stuff. Don’t disappoint me.'},{name:'Frankie',x:12,z:40,color:0x7f9f63,skin:0xc49674,budget:1.08,line:'Got a long walk home. Meet me by the pier.'}];
 // v157: the five starters gain Schedule I-style profiles and nine more locals join the book (locked until sampled).
 if(typeof STARTER_PROFILES!=='undefined'&&typeof NEW_CUSTOMERS!=='undefined'){STARTER_PROFILES.forEach((p,i)=>{const fav=typeof INGREDIENTS!=='undefined'?INGREDIENTS[i%4]?.effect:p.effects[0];Object.assign(CONTACTS[i],p,{effects:Object.freeze([fav,...p.effects.filter(e=>e!==fav)].slice(0,3))});});CONTACTS.push(...NEW_CUSTOMERS.map(c=>({...c})));}
+if(typeof TOWN_CUSTOMERS!=='undefined')CONTACTS.push(...TOWN_CUSTOMERS.map(c=>({...c})));
 const fresh=mode=>({version:3,mode,cash:400,bank:0,x:-52.6,z:28.2,yaw:-Math.PI/2,pitch:0,day:1,time:540,xp:0,heat:0,called:0,chapter:0,room:false,layout:{},storedPacks:STRAINS.map(()=>0),workerEnabled:{gardener:true,crafter:true,seller:true},vehicleOwned:false,vehiclePark:{x:-180,z:-155,angle:0},npcs:[],props:null,packStation:false,trimmers:false,relations:{},visits:{},cravings:{},atmWeek:0,atmUsed:0,tents:0,soil:0,seeds:STRAINS.map(()=>0),raw:STRAINS.map(()=>0),gummies:STRAINS.map(()=>0),packs:STRAINS.map(()=>0),ingredients:INGREDIENTS.map(()=>0),mixer:false,mixed:0,payment:'cash',trash:0,trashEarned:0,picked:{},ledger:[],wrappers:0,can:false,water:0,plants:[],lights:0,irrigation:false,bench:0,house:0,helpers:{gardener:false,crafter:false,seller:false},staffConfig:{gardener:{strain:-1,tent:-1,stock:'carried',route:'walk'},crafter:{strain:-1,tent:-1,stock:'stored',route:'timer'},seller:{strain:-1,tent:-1,stock:'carried',route:'walk'}},hired:0,planted:0,watered:0,harvested:0,made:0,listed:0,texted:0,sold:0,earned:0,listing:null,threads:{},deals:[],laundry:null,laundered:0,front:false,job:null,savedAt:Date.now()});
 let s=fresh('story'),mode='story',slot=1,active=false,panel='title',keys={},yaw=0,pitch=0,near=null,conversationPoint=null,track=null,stamina=100,now=0,last=0,uiTimer=0,saveTimer=0,walkPhase=0,walk=false,toastTimer=0,selected=0,phoneTab='messages',processingRemote=false,work=null,pendingReset=null;
 bindGameplayState(()=>({day:s.day,time:s.time,heat:s.heat,curfew:curfewActive(s.time),police:policeNotice(s.heat,curfewActive(s.time)),cravings:CONTACTS.map((_,i)=>cravingState(s.cravings?.[i],s.day))}));
@@ -331,7 +334,7 @@ return g;
 }
 // Parked cars never move, so the static batcher may fold them into the town batches.
 for(const c of [car(-20,5,0xddb675,Math.PI/2),car(32,-5,0xb2c9bb,Math.PI/2),car(65,5,0xcb9380,Math.PI/2)])c.userData.batchStatic=true;
-CONTACTS.forEach((c,i)=>{let g=bobble(c.x,c.z,c.color,c.skin,[0x544833,0x725c42,0x4d4539,0x8b6d45,0x755944][i%5]);people.push(g);addPoint('customer',c.name,c.x,c.z+1,{i,actor:g})});let milo=bobble(30,31,0xa4b476,0xd2ac81);addPoint('dealer','Milo’s seed cart',30,32.3,{actor:milo});let patrol=bobble(6,-40,0x768fa0,0xd2b192,0x596052);patrol.userData.cop=true;
+CONTACTS.forEach((c,i)=>{let g;if(c.visual){g=new THREE.Group();g.position.set(c.x,0,c.z);g.userData={id:800+i,name:c.name,legs:[],palette:{color:c.color,skin:c.skin}};scene.add(g);}else g=bobble(c.x,c.z,c.color,c.skin,[0x544833,0x725c42,0x4d4539,0x8b6d45,0x755944][i%5]);people.push(g);addPoint('customer',c.name,c.x,c.z+1,{i,actor:g})});let milo=bobble(30,31,0xa4b476,0xd2ac81);addPoint('dealer','Milo’s seed cart',30,32.3,{actor:milo});let patrol=bobble(6,-40,0x768fa0,0xd2b192,0x596052);patrol.userData.cop=true;
 // One physical grow tent for every owned tent. Purchase once; keep using it.
 for(let i=0;i<8;i++){let x=-31+(i%4)*3.3,z=35+Math.floor(i/4)*5.8,g=new THREE.Group();g.position.set(x,0,z);scene.add(g);box(0,.04,0,2.4,.08,2.4,0xa3b29f,false,g);box(-1.15,1.15,0,.1,2.3,2.4,0x657f73,false,g);box(1.15,1.15,0,.1,2.3,2.4,0x657f73,false,g);box(0,1.15,-1.1,2.4,2.3,.1,0x7f9686,false,g);box(0,2.3,0,2.4,.1,2.4,0x596f62,false,g);box(0,2.13,0,1.7,.06,1.4,0xece6b1,false,g);cyl(0,.35,0,.6,.7,0xbba37d,g);cyl(0,.72,0,.54,.05,0x6b6048,g);const plant=new THREE.Group();plant.position.y=.7;g.add(plant);cyl(0,.45,0,.045,.9,0x7e9c50,plant);for(let j=0;j<6;j++){let a=j*Math.PI*.7;let leaf=sphere(Math.sin(a)*.23,.2+j*.11,Math.cos(a)*.23,.27,0x87b45a,plant,1.4,.4,.6);leaf.rotation.z=Math.sin(a)*.5}sphere(0,.95,0,.18,0x9cc864,plant,.8,1.3,.8);plantVisuals.push(plant);tents.push(g);addPoint('tent','Grow tent '+(i+1),x,z+1.6,{i})}
 const beacon=new THREE.Group();scene.add(beacon);let beam=new THREE.Mesh(new THREE.CylinderGeometry(.1,.1,12,6),new THREE.MeshBasicMaterial({color:0xffe4a2,transparent:true,opacity:.5,depthWrite:false}));beam.position.y=6;beacon.add(beam);let arrow=new THREE.Mesh(new THREE.ConeGeometry(.4,.7,4),mat(0xffdf89));arrow.position.y=3;arrow.rotation.z=Math.PI;beacon.add(arrow);
@@ -366,11 +369,11 @@ if(which==='listing'){let t=Number.isInteger(data)?data:s.listing?.t??s.packs.fi
 if(which==='thread'){selected=data??selected;const c=CONTACTS[selected],thread=s.threads[selected];h+=`<div class="phoneheader"><div class="avatar">${c.name[0]}</div><div><div class="overline">TEXT MESSAGES</div><h2 style="margin:3px 0">${c.name}</h2></div></div>`;if(thread)thread.messages.forEach(m=>h+=`<div class="message ${m.mine?'mine':''}"><small>${m.mine?'YOU':c.name.toUpperCase()}</small>${esc(m.text)}</div>`);else h+='<div class="message">'+c.line+'</div>';let deal=s.deals.find(d=>d.npc===selected);if(deal){h+=row('Deal agreed',deal.qty+' × '+STRAINS[deal.t].name+' · '+cash(deal.price)+' each','Track meeting',`trackCustomer(${selected})`)}else if(thread?.status==='negotiating'){h+='<div class="form"><label>Your counter $ / gummy <input id="offerPrice" type="number" min="1" max="9999" value="'+thread.counter+'"></label><button class="primary" onclick="action(\'offer\','+selected+',Number(document.getElementById(\'offerPrice\').value))">Text offer</button></div><button class="ghost" onclick="action(\'offer\','+selected+','+thread.counter+')">Accept '+cash(thread.counter)+' each</button>';}else h+=row('Send your current listing',s.listing?s.listing.qty+' × '+STRAINS[s.listing.t].name+' at '+cash(s.listing.price)+' each.':'Create a listing first.','Text listing',`action('text',${selected})`,!s.listing);}
 if(which==='deals'){h+=tag('PHONE / AGREED DEALS')+'<h2>A handshake comes later.</h2>';if(!s.deals.length)h+='<p>No deals yet. Set a listing, text a customer and agree on a price.</p>';s.deals.forEach(d=>h+=row(CONTACTS[d.npc].name,d.qty+' × '+STRAINS[d.t].name+' · '+cash(d.price*d.qty)+' total','Track',`trackCustomer(${d.npc})`));}
 if(which==='customer'){selected=data;let c=CONTACTS[data],d=s.deals.find(d=>d.npc===data);h+=tag('GUMMY BAY / '+c.name.toUpperCase())+'<h2>'+esc('“'+customerBrief(s,data,STRAINS.length).greeting+'”')+'</h2>';if(d)h+=row(d.qty+' × '+STRAINS[d.t].name,`Agreed price: ${cash(d.price)} each · total ${cash(d.price*d.qty)}<br>You have ${s.packs[d.t]} packs`,'Deliver',`action('deliver',${data})`,s.packs[d.t]<d.qty||!customerExchangeStatus(data).ok).replace('<button ','<button id="customerDeliver" ');else h+='<p>“Text me first. I’d rather agree on what I’m buying before we meet.”</p><button class="primary" onclick="menu(\'thread\','+data+')">Open texts</button>';}
-if(which==='helpers'){h+=tag('THE HELPING HAND / STAFF')+'<h2>More hands. More possibilities.</h2><p>Helpers work in the background while the game is running. They use your existing stock. No hidden daily wages: each hire is a one-time fee.</p>';[['gardener','Gardener',2,300,'Walks your tents to plant, water and harvest. Needs installed tents, soil, seeds and a filled can.'],['crafter','Gummy maker',4,900,'Makes and wraps harvested gummies. Keep wrappers in stock.'],['seller','Sales assistant',5,1300,'Walks an agreed order to the customer. The background timer still sells unreserved stock at 90% of market value.']].forEach(([k,title,l,cost,desc])=>h+=row(title,desc,s.helpers[k]?'HIRED':level()<l?'LEVEL '+l:cash(cost),`action('hire','${k}')`,s.helpers[k]||level()<l||availableMoney()<cost));}
+if(which==='helpers'){h+=staffLadderHTML({level:level(),cash:availableMoney(),helpers:s.helpers,staffTier:s.staffTier,relations:s.relations,unlocked:s.unlocked,contacts:CONTACTS,house:WORKSHOP_NAMES[s.house]||'Room 04',esc});}
 if(which==='property'||which==='house'||which==='workshop'){h+=tag('CEDAR BAY LETTINGS / PROPERTY LADDER')+'<h2>A bigger place to grow.</h2><p>Property purchases use clean bank funds. Your production relocates to your new property when you buy it. Follow the map to your new tents, sink and worktable.</p>'+row('Room 04','2 tent spaces · your starting rental.',s.room?'RENTED':'$75',"action('rent')",s.room||availableMoney()<75)+row('Harbor workshop','Level 3 · own a workshop deed · 4 active tent spaces.',s.house>=1?'OWNED':level()<3?'LEVEL 3':'$1,200 bank',"action('house',1)",s.house>=1||level()<3||s.bank<1200)+row('Hillside house','Level 5 · own a house deed · 8 active tent spaces.',s.house>=2?'OWNED':level()<5?'LEVEL 5':'$3,500 bank',"action('house',2)",s.house>=2||level()<5||s.bank<3500);}
 if(which==='laundry'){h+=tag('SUDS & SUNSHINE / BOOKKEEPING')+'<h2>Money for the next step.</h2><p>Abstract game banking: convert cash to bank funds with a fee. Property deeds require bank funds. Owning the business front reduces the fee.</p>';if(s.laundry){let ready=Date.now()>=s.laundry.end;h+=row('Pending deposit',ready?cash(s.laundry.pay)+' ready to collect':Math.ceil((s.laundry.end-Date.now())/1000)+'s remaining',ready?'Collect':'Pending',"action('withdraw')",!ready)}else [50,150,400,1000].forEach(n=>h+=row('Deposit '+cash(n),cash(Math.round(n*(s.front?.95:.9)))+' bank after 25 seconds.','Deposit',`action('deposit',${n})`,s.cash<n));h+=row('Buy Suds business front','Level 4 · lower conversion fee from 10% to 5%.',s.front?'OWNED':level()<4?'LEVEL 4':'$1,500 bank',"action('front')",s.front||level()<4||s.bank<1500);}
 if(which==='bed'){h+=tag('ROOM 04 / WIND DOWN')+'<h2>Call it a day?</h2><p>Sleep until 08:00 tomorrow. Rental charge: $15. Heat clears. Growing plants advance to their next watering or harvest stage; dry plants still need watering.</p>'+row('Sleep','$15 room charge each time you choose to rest.','Sleep',"action('sleep')",!s.room||availableMoney()<15);}
-if(which==='journal'){h+=tag('GRAMPS’ NOTEBOOK')+'<h2>'+(mode==='story'?STORY[Math.min(s.chapter,STORY.length-1)].title:'Your business, your pace.')+'</h2><p>'+(mode==='story'?STORY[Math.min(s.chapter,STORY.length-1)].text:'Start with the same $400 and work up from a rented room. Gramps’s tutorial calls remain available at the payphone.')+'</p><h3>Your production checklist</h3><p>Deliver the starter batch, then learn to grow.<br>1. Hand two Pine Pops to Jules when they text.<br>2. Rent Room 04 at Palm Court.<br>3. Buy a $100 tent, $15 can, $10 trimmers and $100 packaging station at Hank’s.<br>4. Buy a $30 Pine Pop seed and $10 soil from Milo.<br>5. Install the tent, add soil and plant a seed.<br>6. Fill your watering can at the sink. Water twice during the growth cycle.<br>7. Harvest 4 units. Make and wrap each gummy at the worktable.<br>8. Phone → Listing: set quantity and asking price, then text a customer.</p><h3>Level '+level()+' · '+s.xp+' XP</h3><p>+5 XP per gummy sold. Every 30 XP is a level. Higher levels unlock strains, equipment, houses and staff. Helpers automate only after you buy them.</p><button class="primary" onclick="trackObjective()">Track next step</button>';}
+if(which==='journal'){h+=tag('GRAMPS’ NOTEBOOK')+'<h2>'+(mode==='story'?STORY[Math.min(s.chapter,STORY.length-1)].title:'Your business, your pace.')+'</h2><p>'+(mode==='story'?STORY[Math.min(s.chapter,STORY.length-1)].text:'Start with the same $400 and work up from a rented room. Gramps’s tutorial calls remain available at the payphone.')+'</p><h3>Your production checklist</h3><p>Deliver the starter batch, then learn to grow.<br>1. Hand two Pine Pops to Jules when they text.<br>2. Rent Room 04 at Palm Court.<br>3. Buy a $100 tent, $15 can, $10 trimmers and $100 packaging station at Hank’s.<br>4. Buy a $30 Pine Pop seed and $10 soil from Milo.<br>5. Install the tent, add soil and plant a seed.<br>6. Fill your watering can at the sink. Water twice during the growth cycle.<br>7. Harvest 4 units. Make and wrap each gummy at the worktable.<br>8. Phone → Listing: set quantity and asking price, then text a customer.</p><h3>Level '+level()+' · '+s.xp+' XP</h3><p>+5 XP per gummy sold. Level 2 needs 100 XP, and each level after costs a little more. Higher levels unlock strains, equipment, houses and staff. Helpers automate only after you buy them.</p><button class="primary" onclick="trackObjective()">Track next step</button>';}
 if(which==='map'){h+=tag('GUMMY BAY / STREET GUIDE')+'<h2>Find your feet.</h2>';for(let t of ['payphone','reception','hardware','dealer','store','tent','sink','craft','helpers','property','laundry']){let p=points.find(p=>p.type===t);h+=row(p.label,(p.x<0?'West':'East')+' side · '+(p.z<0?'north':'south')+' of Main Street','Track',`trackPlace('${t}')`)}h+='<p>Map: R RV · P payphone · M motel · H hardware · S seeds · C corner store · $ banking · L lettings · A staff. Yellow dots are customers.</p>';}
 if(which==='pause'){save();h+=tag('PAUSED / '+mode.toUpperCase()+' SAVE '+slot)+'<h2>Your progress, your pace.</h2><p>Story and free mode each have three separate saves. Production pauses while this menu is open, except real-time crop timers. Browser saves stay on this device.</p>'+row('Back to the bay','Hold and drag the world to look.','Resume','closeMenu()')+row('Save current game','Save immediately to the current slot.','Save now','manualSave()')+row('Save backups','Export a file you can keep or transfer.','Export','exportSave()')+row('Import a backup','Choose a backup, then confirm the destination.','Import…','importSave()')+row('Optional multiplayer','2-player co-op · host your current save, or join a friend.','Multiplayer',"menu('network')")+row('Title & save selection','Keep your current save and choose another.','Title','title()')+row('Start this slot again','Resets only this mode and slot to the $400 RV start.','Reset…',"menu('reset')");}
 if(which==='reset')h+=tag('RESET SAVE '+slot)+'<h2>Start this slot over?</h2><p>You will lose this slot’s progress. Other slots stay intact.</p><button class="primary" onclick="loadGame(modeName(),slotNumber(),true)">Reset this slot</button>';
@@ -435,7 +438,7 @@ if(k==='deliver'){let d=s.deals.find(d=>d.npc===a),customer=CONTACTS[a];if(!d||!
 if(k==='lights'){if(level()<2||s.lights>=3||!spend(180+s.lights*170))return;s.lights++;refresh('hardware');toast('Better lights installed');}
 if(k==='bench'){if(level()<2||s.bench>=3||!spend(220+s.bench*200))return;s.bench++;refresh('hardware');toast('Gummy press upgraded');}
 if(k==='irrigation'){if(level()<3||s.irrigation||!s.can||!spend(450))return;s.irrigation=true;refresh('hardware');toast('Automatic watering installed');}
-if(k==='hire'){let cfg={gardener:[2,300],crafter:[4,900],seller:[5,1300]}[a];if(!cfg||level()<cfg[0]||s.helpers[a]||!spend(cfg[1]))return;s.helpers[a]=true;s.hired++;refresh('helpers');toast('Helper hired. Keep supplies in stock.');}
+if(k==='hire'){const gate=nextStaffHire(a,{level:level(),helpers:s.helpers,staffTier:s.staffTier,relations:s.relations,unlocked:s.unlocked,contacts:CONTACTS});if(!gate.ok){toast(gate.reason);return;}if(!spend(gate.cost))return;const fresh=!s.helpers[a];s.helpers[a]=true;s.staffTier??={};s.staffTier[a]=gate.tier.id;if(fresh)s.hired++;refresh('helpers');toast(gate.title+' is on the crew.');}
 if(k==='house'){const moved=commitWorkshopMove(s,a,STRAINS.length);if(!moved.ok){toast(moved.reason);return;}record('Property deed · '+WORKSHOP_NAMES[s.house],-moved.cost);handleWorkshopRelocation(moved.from);refresh('property');toast(WORKSHOP_NAMES[s.house]+' is ready. Crops and stock moved safely; use the workshop guide for your new stations.');}
 if(k==='deposit'){if(s.laundry||![50,150,400,1000].includes(a)||s.cash<a)return;s.cash-=a;s.laundry={pay:Math.round(a*(s.front?.95:.9)),end:Date.now()+25000};refresh('laundry');toast('Deposit pending');}
 if(k==='withdraw'){if(!s.laundry||Date.now()<s.laundry.end)return;s.bank+=s.laundry.pay;s.laundered+=s.laundry.pay;s.laundry=null;refresh('laundry');toast('Clean funds added to bank');}
@@ -541,7 +544,7 @@ locomotion.crouch=crouchStep(locomotion.crouch,!!keys.control,floorHeight(player
 syncPlayerView();
 camera.fov+=((running&&walk&&comfort.sprintFov?Math.min(100,fovBase+5):fovBase)-camera.fov)*(1-Math.exp(-dt*FOV_RESPONSE));camera.updateProjectionMatrix();camera.rotation.set(pitch,yaw,locomotion.roll||0);hand.position.y=comfort.bob&&walk?Math.sin(walkPhase)*.012:0;updateChunkyPlayerHand(playerHand,{walking:walk,phase:walkPhase,now,offering:panel==='customer'});{const held=!!equippedTool||panel==='customer';for(const m of [playerHand.sleeve,playerHand.palm,playerHand.thumb,playerHand.fingers])if(m)m.visible=held;}watering.rotation.z=work?Math.sin(now*4)*.15:0;
 if(net.role!=='guest'){const wasCurfew=curfewActive(s.time);s.time+=dt*1.2;if(s.time>=1440){s.time-=1440;s.day++}const nowCurfew=curfewActive(s.time);if(nowCurfew!==wasCurfew)emitGameplay({type:'curfew',active:nowCurfew,day:s.day,time:s.time});if(!nowCurfew)s.heat=Math.max(0,s.heat-dt*.9);catchCooldown=Math.max(0,catchCooldown-dt);}
-people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z)<5){const desired=Math.atan2(player.x-g.position.x,player.z-g.position.z),delta=Math.atan2(Math.sin(desired-g.rotation.y),Math.cos(desired-g.rotation.y));g.rotation.y+=delta*(1-Math.exp(-dt*5));}g.userData.head.rotation.z=Math.sin(now*1.7+i)*.015});if(track&&!Number.isInteger(track.npc)&&Math.hypot(player.x-track.x,player.z-track.z)<2.3)track=null;
+people.forEach((g,i)=>{if(Math.hypot(g.position.x-player.x,g.position.z-player.z)<5){const desired=Math.atan2(player.x-g.position.x,player.z-g.position.z),delta=Math.atan2(Math.sin(desired-g.rotation.y),Math.cos(desired-g.rotation.y));g.rotation.y+=delta*(1-Math.exp(-dt*5));}if(g.userData.head)g.userData.head.rotation.z=Math.sin(now*1.7+i)*.015});if(track&&!Number.isInteger(track.npc)&&Math.hypot(player.x-track.x,player.z-track.z)<2.3)track=null;
 // Environmental state is projected once before rendering, including paused menus.
 }
 let streetShot=false,shotHour=null,shotKind='starter',shotCam=null;const streetShotFrames=[];
@@ -1079,6 +1082,8 @@ const customerHomes=CONTACTS.map(c=>({x:c.x,z:c.z}));
 function planForResident(i){return residentPlan(i,s.time,customerHomes[i],meetPlanFor(i));}
 function residentStatus(i){return residentDescription(planForResident(i),CONTACTS[i],!!s.npcs[i]?.routeBlocked);}
 function updateCustomers(dt){for(let i=0;i<CONTACTS.length;i++){const c=CONTACTS[i],g=people[i],oldX=c.x,oldZ=c.z;
+ if(c.visual&&typeof customerOnStreet==='function'&&!customerOnStreet(i)){const home=customerHomes[i];if(home){c.x=home.x;c.z=home.z;}g.visible=false;g.position.set(c.x,0,c.z);const spot=points.find(p=>p.type==='customer'&&p.i===i);if(spot){spot.x=c.x;spot.z=c.z;}s.npcs[i]={x:c.x,z:c.z,routeBlocked:false};continue;}
+ if(c.visual)g.visible=true;
  if(net.role==='guest'){let p=s.npcs[i];if(p&&Number.isFinite(p.x)&&Number.isFinite(p.z)){c.x+=(p.x-c.x)*Math.min(1,dt*10);c.z+=(p.z-c.z)*Math.min(1,dt*10);}}
  else{const target=residentPlan(i,s.time,customerHomes[i],meetPlanFor(i));const status=moveCustomerTo(c,i,target,dt);s.npcs[i]={x:c.x,z:c.z,routeBlocked:status==='blocked'};}
  let moving=Math.hypot(c.x-oldX,c.z-oldZ)>.0001;g.position.set(c.x,0,c.z);if(moving)g.rotation.y=turnTowards(g.rotation.y,Math.atan2(c.x-oldX,c.z-oldZ),dt);else if(Math.hypot(player.x-c.x,player.z-c.z)<3.5)g.rotation.y=turnTowards(g.rotation.y,Math.atan2(player.x-c.x,player.z-c.z),dt,5);g.userData.walking=moving;let p=points.find(p=>p.type==='customer'&&p.i===i);p.x=c.x;p.z=c.z;for(let [j,leg]of (g.userData.legs||[]).entries())leg.rotation.x=moving?Math.sin(now*7+j*Math.PI)*.35:0;
@@ -1405,7 +1410,7 @@ function toggleTutorial(){s.tutorialHidden=!s.tutorialHidden;save();menu('journa
 const objective11=trackObjective;trackObjective=function(){if(s.chapter===7&&!s.wrappers&&!s.packs.some(n=>n)){trackPlace('store');return;}if(s.chapter===6&&!s.trimmers){trackPlace('hardware');return;}objective11();};window.trackObjective=trackObjective;
 const menu11=menu;menu=function(which,data){menu11(which,data);
  if(which==='journal'||which==='pause')$('modal').innerHTML+=row('Optional tutorial',s.tutorialHidden?'Notebook reminders hidden. Progress is retained.':'Gramps’s next step appears on your HUD.',s.tutorialHidden?'Resume guide':'Hide guide','toggleTutorial()')+row('Short on funds?','The motel offers repeatable shifts paying $35 to your card. Withdraw at an ATM; water is free.','Find paid shift',"trackPlace('reception')");
- if(which==='staffboard')$('modal').innerHTML+='<div class="overline">WORKSHOP / SUPPLY TROLLEY ROSTER</div><h2>Your crew, right here.</h2><p>Check assignments and stopping reasons beside the work. Hiring remains at the Helping Hand.</p>';
+ if(which==='staffboard')$('modal').innerHTML+='<div class="overline">WORKSHOP / SUPPLY TROLLEY ROSTER</div><h2>Your crew, right here.</h2><p>Check assignments and stopping reasons beside the work. Hiring remains at the Helping Hand.</p>'+staffPostingHTML({house:WORKSHOP_NAMES[s.house]||'Room 04',helpers:s.helpers,staffTier:s.staffTier,esc});
  if(['helpers','staffboard'].includes(which))for(const role of ['gardener','crafter','seller'])$('modal').innerHTML+=crewSectionHTML(role);
  if(['bag','stockroom','helpers','staffboard','property'].includes(which))$('modal').innerHTML+='<p class="note">Property goods: '+stockUsed()+' / '+stockCapacity()+' · stockroom packs: '+storedUsed()+' / '+storageCapacity()+'. Existing excess stock is kept; new harvests wait for space.</p>';
  if(which==='craft'&&s.bench>0)for(let i=0;i<STRAINS.length;i++){if(s.raw[i]>=4)$('modal').innerHTML+=row('Batch: '+STRAINS[i].name,'Shape four with one longer hands-on operation.','Make 4',`startBatch('make',${i},4)`);if(s.gummies[i]>=4&&s.wrappers>=4)$('modal').innerHTML+=row('Batch: '+STRAINS[i].name,'Use four wrappers; commit together.','Wrap 4',`startBatch('pack',${i},4)`);}
@@ -1608,7 +1613,7 @@ const menu14=menu;menu=function(which,data){menu14(which,data);
    $('modal').innerHTML+=row(STRAINS[i].name+' · '+reserved+' reserved',free+' available to store · '+take+' stored','Store '+store,`action('stash',${i},${store})`,!store)+row('Collect '+STRAINS[i].name,'Move the stored packs to your bag.','Collect '+take,`action('unstash',${i},${take})`,!take);
   }
  }
- if(which==='journal')$('modal').innerHTML+='<section class="staffcard"><h3>First batch budget: $350</h3><p>Room $75 · tent $100 · can $15 · trimmers $10 · packaging station $100 · Pine Pop seed $30 · soil $10 · 10 wrappers $10. You keep $50. Water is free at your sink.</p><p>Harvest four units, shape and wrap them, then list only unreserved packs. One four-pack sale earns 20 XP; level 2 needs 30 XP. The $220 press unlocks four-item batches after level 2. Grow and sell another crop to work towards it.</p><button class="primary" onclick="trackPlace(\'hardware\')">Find equipment</button></section>';
+ if(which==='journal')$('modal').innerHTML+='<section class="staffcard"><h3>First batch budget: $350</h3><p>Room $75 · tent $100 · can $15 · trimmers $10 · packaging station $100 · Pine Pop seed $30 · soil $10 · 10 wrappers $10. You keep $50. Water is free at your sink.</p><p>Harvest four units, shape and wrap them, then list only unreserved packs. One four-pack sale earns 20 XP; level 2 needs 100 XP. The $220 press unlocks four-item batches after level 2. Grow and sell another crop to work towards it.</p><button class="primary" onclick="trackPlace(\'hardware\')">Find equipment</button></section>';
  if(which==='helpers')$('modal').innerHTML+='<p class="note">Pause preserves carried worker stock. To recover it, switch the gummy maker to Background timer and resume ordinary play; unfinished supplies are returned, finished packs go into your bag.</p><p class="note">A new gummy maker walks supplies to the worktable and finished packs to storage. A new gardener walks between tents, and a new seller walks an agreed order to the customer. Switch any of them to Background timer for the old instant loop.</p>';
 };window.menu=menu;
 
@@ -4589,7 +4594,7 @@ try{
  const nearDealer=id=>{const p=NET.spots[id];return p&&Math.hypot(player.x-p.x,player.z-p.z)<=4;};
  function pay(cost,label){if(!spend(cost))return false;record?.(label,-cost);return true;}
  const A={
-  recruit(id){const e=ensureEmpire(),d=dealerOf(id),r=recruitDealer(e,id,{level:lvl(),cash:availableMoney()});if(!r.ok){toast(r.reason);return false;}if(!pay(r.cost,'Dealer signing · '+d.name)){delete e.dealers[id];return false;}toast('🤝 '+d.name+' joins the Sweet Network. Stock them up and they sell while you’re away.');save();return true;},
+  recruit(id){const e=ensureEmpire(),d=dealerOf(id),intro=dealerIntro(d,{contacts:CONTACTS,unlocked:s.unlocked,relations:s.relations});if(!intro.ok){toast(intro.reason);return false;}const r=recruitDealer(e,id,{level:lvl(),cash:availableMoney()});if(!r.ok){toast(r.reason);return false;}if(!pay(r.cost,'Dealer signing · '+d.name)){delete e.dealers[id];return false;}toast('🤝 '+d.name+' joins the Sweet Network. Stock them up and they sell while you’re away.');save();return true;},
   assign(id){const e=ensureEmpire(),x=e.dealers[id];if(!x)return false;const c=districtCustomers(id).find(c=>!x.customers.includes(c.id));if(!c||!assignCustomer(e,id,c.id)){toast('Customer list is full for '+dealerOf(id).name);return false;}toast(c.name+' now buys from '+dealerOf(id).name.split(' ')[0]+'.');save();return true;},
   unassign(id){const e=ensureEmpire(),x=e.dealers[id];if(!x||x.customers.length<=1)return false;unassignCustomer(e,id,x.customers[x.customers.length-1]);save();return true;},
   focus(id){const x=ensureEmpire().dealers[id];if(!x)return -1;const opts=[-1,...STRAINS.map((p,t)=>t).filter(t=>t<BASE_COUNT?STRAINS[t].level<=lvl():(s.knownRecipes||{})[STRAINS[t].recipeKey])];x.strain=opts[(opts.indexOf(x.strain)+1)%opts.length];save();return x.strain;},
@@ -4660,7 +4665,7 @@ try{
   visuals:()=>({dealers:Object.fromEntries(DEALER_ROSTER.map(d=>[d.id,NET.actors[d.id].g.visible])),crew:NET.crew.filter(f=>f.g.visible).length,runner:!!NET.runner?.visible,runnerAt:NET.runner?[NET.runner.position.x,NET.runner.position.z]:null}),
   html:()=>sweetNetHTML(),
   // QA/screenshot staging: a stocked late-game network, and a standing spot facing a dealer or the crew.
-  stage:()=>{s.room=true;s.xp=Math.max(s.xp,600);s.cash=Math.max(s.cash,30000);s.heat=Math.min(s.heat||0,20);const e=ensureEmpire();
+  stage:()=>{s.room=true;s.xp=Math.max(s.xp,1200);s.cash=Math.max(s.cash,30000);s.heat=Math.min(s.heat||0,20);const e=ensureEmpire();
    for(const d of DEALER_ROSTER){if(!e.dealers[d.id])A.recruit(d.id);for(let k=0;k<d.cap;k++)if(!A.assign(d.id))break;for(let t=0;t<BASE_COUNT;t++)s.packs[t]=Math.max(s.packs[t],8);A.restock(d.id,true);}
    for(const r of RUNNER_ROSTER)if(!e.runners[r.id])A.hireRunner(r.id);if(!e.crew.length)A.hireCrew('bench');for(let t=0;t<BASE_COUNT;t++)s.storedPacks[t]=Math.max(s.storedPacks[t],10);
    const c=e.crew[0];if(c)c.strain=0;netRun();close();return {dealers:Object.keys(e.dealers).length,runners:Object.keys(e.runners).length,crew:e.crew.length};},
@@ -4696,7 +4701,7 @@ try{
   const regs=(x.regulars||[]).map(i=>'<button class="dl-reg" onclick="netAct(\'dropRegular\',\''+d.id+'\','+i+')" title="Take back">'+esc(regularName(i))+' <i>×</i></button>').join('');
   const next=GUARDS[(x.guard|0)+1],runner=Object.keys(e.runners).find(k=>e.runners[k].state==='idle');
   return '<div class="dl-card" data-state="'+code+'"><div class="dl-head"><b>'+esc(d.name)+'</b><span class="dl-chip '+code+'">'+status+'</span></div>'+
-   '<p class="dl-where">'+esc(d.district)+' · cut '+Math.round(d.cut*100)+'% · sold '+x.sold+'</p>'+
+   '<p class="dl-where">'+esc(d.district)+' · cut '+Math.round(d.cut*100)+'% · sold '+x.sold+'</p>'+(dealerRoutine(d.id,s.time)?'<p class="dl-where">'+esc(dealerRoutine(d.id,s.time).place)+' · lives in '+esc(dealerRoutine(d.id,s.time).house)+'</p>':'')+
    '<div class="dl-money"><span><b>'+money(x.owed)+'</b>to collect</span><span><b>'+st+'/'+d.stockCap+'</b>packs</span><span><b>'+money(x.float||0)+'</b>float</span></div>'+
    '<div class="net-bar"><i style="width:'+pct(st,d.stockCap)+'%"></i><em style="left:'+pct(x.target,d.stockCap)+'%"></em></div>'+
    '<div class="dl-stock">'+lines+'</div>'+
@@ -4718,8 +4723,8 @@ try{
   grid.insertAdjacentHTML('beforeend','<button onclick="menu(\'dealers\')" data-phone-key="dealers" class="dealers-app-icon"><b aria-hidden="true">🤝</b><strong>Dealers</strong><small>'+(n?money(owed)+' to collect':'Recruit one')+'</small></button>');};window.phoneHome=phoneHome;
  window.__dealers={html:()=>dealersAppHTML(),act:(k,...a)=>A[k]?.(...a),
   // QA/screenshot staging: two dealers with your regulars, stock, a float, a day of sales and one robbery.
-  stage:()=>{s.room=true;s.xp=Math.max(s.xp,800);s.cash=Math.max(s.cash,5000);s.heat=0;const e=ensureEmpire();
-   for(const id of ['benny','mo']){if(!e.dealers[id])A.recruit(id);for(let t=0;t<BASE_COUNT;t++)s.packs[t]=Math.max(s.packs[t],8);A.restock(id,true);}
+  stage:()=>{s.room=true;s.xp=Math.max(s.xp,1200);s.cash=Math.max(s.cash,5000);s.heat=0;const e=ensureEmpire();
+   for(const id of ['benny','mo']){const who=dealerOf(id),ci=CONTACTS.findIndex(c=>c.name===who?.name);if(ci>=0){s.unlocked??={};s.unlocked[ci]=true;}if(!e.dealers[id])A.recruit(id);for(let t=0;t<BASE_COUNT;t++)s.packs[t]=Math.max(s.packs[t],8);A.restock(id,true);}
    A.addRegular('benny',2);A.addRegular('benny',0);A.addRegular('mo',3);A.float('benny',100,true);A.guard('mo');
    const x=e.dealers.benny;x.owed=Math.max(x.owed,186);const m=e.dealers.mo;m.owed=Math.max(m.owed,94);m.robbed=1;m.robbedAt=absNow()-90;m.lostToRobbery=60;
    e.log.push({at:absNow()-90,kind:'rob',text:'🦝 The Sticky Paws gang swiped $60 from Mo.'});save();return JSON.parse(JSON.stringify({benny:x,mo:m}));},
@@ -4919,7 +4924,7 @@ try{
   CAR,RAIN,
   spec:()=>activeHandling(),
   state:()=>{const c=CAR.sim;return {driving,car:activeCarSpec().id,speed:+(c?.speed||0).toFixed(2),long:+driveSpeed.toFixed(2),rpm:c?.rpm||0,gear:c?.gear||0,slip:+(c?.slip||0).toFixed(3),drifting:!!c?.drifting,skids:CAR.skids.live,view:CAR.view,trunk:{...s.trunk},trunkCount:trunkCount(s.trunk),cruisers:CAR.cruisers.length,cruiserSeen:CAR.cruiserSeen,pull:+(CAR.pull||0).toFixed(2),lotVisible:CAR.lot.mesh.visible,lotCars:[...(s.lotCars||[])],carSel:s.carSel,x:+player.x.toFixed(2),z:+player.z.toFixed(2),angle:+driveAngle.toFixed(3)};},
-  stage:()=>{carState();s.vehicleOwned=true;s.xp=Math.max(s.xp,600);s.cash=Math.max(s.cash,30000);close();player.set(LOT_DOOR.x,1.72+floorHeight(LOT_DOOR.x,LOT_DOOR.z),LOT_DOOR.z-1.2);yaw=0;pitch=-.05;syncPlayerView();return {x:player.x,z:player.z};},
+  stage:()=>{carState();s.vehicleOwned=true;s.xp=Math.max(s.xp,1200);s.cash=Math.max(s.cash,30000);close();player.set(LOT_DOOR.x,1.72+floorHeight(LOT_DOOR.x,LOT_DOOR.z),LOT_DOOR.z-1.2);yaw=0;pitch=-.05;syncPlayerView();return {x:player.x,z:player.z};},
   door:()=>vehicleDoorAccess(vehiclePose,null,blocked,floorHeight),
   toDoor:()=>{const d=vehicleDoorAccess(vehiclePose,null,blocked,floorHeight);if(d)player.set(d.x,1.72+floorHeight(d.x,d.z),d.z);return d;},
   drive:(input,seconds,step=1/30)=>{const old=keys;for(let t=0;t<seconds;t+=step){keys={...input};update(step);}keys=old;return window.__cars.state();},
@@ -4940,7 +4945,9 @@ function rosterCraving(i){const c=cravingState(s.cravings?.[i],s.day);return Num
 function rosterFair(i,t){return fairPrice(value(t),CONTACTS[i].budget,rosterEnjoy(i,t));}
 function rosterNames(list){return list.filter(j=>CONTACTS[j]).map(j=>CONTACTS[j].name).join(', ');}
 function rosterEffectNames(list){return (list||[]).map(id=>effectById(id)?.name||id);}
-function rosterLockNote(i){const v=vouchers(s,CONTACTS,i);return v.length?'Hand them a sample in person. '+rosterNames(v)+' can vouch for you.':'Nobody you know has met them yet. Unlock '+rosterNames(CONTACTS[i]?.knows||[])+' first.';}
+function rosterMeetCtx(){const q=bestBatchQuality(s),lv=level();return {level:lv,quality:q,areaOpen:id=>areaOpen(id,{level:lv,quality:q})};}
+function rosterCanMeet(i){const c=CONTACTS[i];if(!c)return false;if(canSample(s,CONTACTS,i))return true;const ctx=rosterMeetCtx();return canApproach(c,{...ctx,unlocked:false,vouched:vouchers(s,CONTACTS,i).length>0});}
+function rosterLockNote(i){const c=CONTACTS[i];if(c?.gate)return gateText(c.gate,rosterMeetCtx());const v=vouchers(s,CONTACTS,i);return v.length?'Hand them a sample in person. '+rosterNames(v)+' can vouch for you.':'Nobody you know has met them yet. Unlock '+rosterNames(c?.knows||[])+' first.';}
 function rosterStandards(i){const c=CONTACTS[i];if(!c?.spend)return '';const base=(c.role?c.role+' · ':'')+'Spends $'+c.spend[0]+'–$'+c.spend[1]+' a week · '+STANDARD_LABEL[c.standard]+' quality standard · Knows '+rosterNames(c.knows||[])+'.';return isUnlocked(s,i)?base:base+' Locked: '+rosterLockNote(i);}
 function rosterHaggle(i,price){const t=s.threads?.[i];if(!t||!CONTACTS[i]||!Number.isFinite(t.max))return 0;return haggleChance({price,fair:t.max,qty:t.qty,relation:relationship(i),craving:rosterCraving(i),spend:CONTACTS[i].spend||[100,250]});}
 function rosterSampleChance(i,t){let friend=0;for(const j of vouchers(s,CONTACTS,i))friend=Math.max(friend,relationship(j));return sampleChance({enjoyment:rosterEnjoy(i,t),relation:relationship(i),craving:rosterCraving(i),friendRelation:friend});}
@@ -5000,17 +5007,21 @@ const rosterAction=doAction;doAction=function(k,a,b,c){
   return;
  }
  if(k==='sample'&&who&&!isUnlocked(s,a)){
-  if(!canSample(s,CONTACTS,a)){toast(who.name+' does not know anyone you know. '+rosterLockNote(a));return;}
+  if(!rosterCanMeet(a)){toast(who.name+' is not ready to meet you. '+rosterLockNote(a));return;}
+  const product=rosterProduct(b),enjoy=product?enjoymentOf(who,product):.5,verdict=sampleVerdict(who,{enjoyment:enjoy});
   const chance=rosterSampleChance(a,b),packs=s.packs[b],rel=relationship(a);
   rosterAction(k,a,b,c);
   if(!(s.packs[b]<packs))return;
-  if(Math.random()*100<chance){
+  if(verdict.accept&&Math.random()*100<chance){
    if(!s.unlocked||typeof s.unlocked!=='object')s.unlocked={};
-   s.unlocked[a]=true;s.xp+=10;
-   toast(who.name+' loved it ('+chance+'% chance) and is now in your contacts. Text them your listing.');
+   s.unlocked[a]=true;
+   const met=[];
+   for(const j of introductions(who))if(CONTACTS[j]&&!isUnlocked(s,j)){s.unlocked[j]=true;met.push(CONTACTS[j].name);}
+   s.xp+=10;
+   toast(verdict.text+(met.length?' They introduce you to '+met.join(', ')+'.':''));
   }else{
    s.relations[a]=Math.min(100,rel+3);
-   toast(who.name+' was not won over ('+chance+'% chance). They like '+rosterEffectNames(who.effects).join(', ')+'.');
+   toast(verdict.accept?who.name+' was not won over ('+chance+'% chance). '+verdict.text:verdict.text);
   }
   save();if(panel==='customer')menu('customer',a);return;
  }
@@ -5036,8 +5047,8 @@ const rosterMenu=menu;menu=function(which,data){
    let h='<section class="appeal-board roster-card"><div class="overline">'+esc((c.role||'Local').toUpperCase())+(isUnlocked(s,i)?'':' · LOCKED 🔒')+'</div><p>Likes <b>'+esc(rosterEffectNames(c.effects).join(', '))+'</b> · '+esc(STANDARD_LABEL[c.standard]||'Moderate')+' standard · spends $'+(c.spend||[0,0])[0]+'–$'+(c.spend||[0,0])[1]+' a week.</p>';
    if(!isUnlocked(s,i)){
     const choices=sampleChoices(s,i);
-    h+='<p>'+esc(rosterLockNote(i))+'</p>';
-    if(canSample(s,CONTACTS,i))h+=choices.length?'<p class="sample-odds">Sample odds: '+choices.slice(0,4).map(q=>'<b>'+esc(STRAINS[q.t].name)+' '+rosterSampleChance(i,q.t)+'%</b>').join(' · ')+'</p>':'<p class="note">Pack a gummy to offer them a sample.</p>';
+    h+='<p>'+esc(c.personality||'')+'</p><p>'+esc(rosterLockNote(i))+'</p>';
+    if(rosterCanMeet(i))h+=choices.length?'<p class="sample-odds">Sample odds: '+choices.slice(0,4).map(q=>'<b>'+esc(STRAINS[q.t].name)+' '+rosterSampleChance(i,q.t)+'%</b>').join(' · ')+'</p>':'<p class="note">Pack a gummy to offer them a sample.</p>';
    }
    insertAfterClose(h+'</section>');
   }
@@ -5466,6 +5477,40 @@ if(typeof location!=='undefined'&&/[?&]packqa=1\b/.test(location.search))window.
   pick:id=>{namedPick(id);return nt&&{stage:nt.stage,line:nt.line};},
   openAt:(type,i)=>{const pt=points.find(p=>p.type===type&&(!Number.isInteger(i)||p.i===i));if(!pt)return false;near=pt;namedVia={type,i:pt.i,point:pt};menu(type,pt.i);return !!nt;}};
 }
+// v177: town book, instanced customer crowd, and street presence for gated locals.
+function customerOnStreet(i){
+ const c=CONTACTS[i];if(!c)return false;
+ if(!c.visual)return true;
+ if(isUnlocked(s,i)||vouchers(s,CONTACTS,i).length>0)return true;
+ return canApproach(c,{...rosterMeetCtx(),unlocked:false,vouched:false});
+}
+function customerCrowdShow(i){
+ if(!customerOnStreet(i))return false;
+ const c=CONTACTS[i];if(c.visual!=='anchor')return true;
+ const home=customerHomes[i];if(!home)return true;
+ return Math.hypot(c.x-home.x,c.z-home.z)>3;
+}
+function townBookPeople(){
+ const ctx=rosterMeetCtx();
+ return CONTACTS.map((c,i)=>{
+  const open=isUnlocked(s,i);
+  const area=c.area?(areaById(c.area)?.name||c.area):'Old Town';
+  const how=open?'In your book.':(c.gate?gateText(c.gate,ctx):(i<5?'Known from the start.':'A friend can vouch, then hand them a sample.'));
+  return {name:c.name,area,unlocked:open,how};
+ });
+}
+function openTownBook(){
+ menu('phone');if(panel!=='phone')return;const m=$('modal');if(!m)return;
+ const ctx=rosterMeetCtx();
+ m.innerHTML=phoneDeviceHTML('phone').split('<nav')[0]+'<button class="close" onclick="closeMenu()" aria-label="Put phone away">×</button><button class="sb-back" onclick="phoneHome()" aria-label="Back">‹ Home</button>'+progressHTML(progressModel({level:ctx.level,quality:ctx.quality,xp:s.xp,areaOpen:ctx.areaOpen},townBookPeople()),esc)+'<button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';
+ m.classList.add('town-screen');document.body.dataset.phone='town';
+}
+window.openTownBook=openTownBook;
+{const townHome=phoneHome;phoneHome=function(){$('modal')?.classList?.remove?.('town-screen');townHome();if(panel!=='phone')return;const grid=$('modal')?.querySelector?.('.phone-app-grid');if(!grid)return;const open=AREA_GATES.filter(a=>areaOpen(a.id,rosterMeetCtx())).length;
+ grid.insertAdjacentHTML('beforeend','<button onclick="openTownBook()" data-phone-key="town" class="town-app-icon"><b aria-hidden="true">🗺</b><strong>Town</strong><small>'+open+'/'+AREA_GATES.length+' areas</small></button>');};window.phoneHome=phoneHome;}
+let customerCrowd=null;
+try{customerCrowd=createCustomerCrowd({THREE,scene,contacts:CONTACTS,people,looks:CUSTOMER_LOOKS});for(let i=0;i<14&&i<people.length;i++)if(people[i])people[i].visible=false;}catch(e){console.warn('Customer crowd unavailable',e);customerCrowd=null;}
+{const crowdUpdate=update;update=function(dt){const r=crowdUpdate.apply(this,arguments);if(customerCrowd){try{customerCrowd.update({now,pose:i=>{const c=CONTACTS[i],g=people[i];return {show:customerCrowdShow(i),x:c.x,z:c.z,y:g?.position?.y||0,yaw:g?.rotation?.y||0,moving:!!g?.userData?.walking};}});}catch(e){}}return r;};}
 // v175: relationship status (relationship-status.mjs). Named locals and street regulars sit on a five-step
 // level (Hostile → Loyal) shown as a labelled bar on the talk card and in the customer screen. It sets the fair
 // price they pay, how often they text an order, and whether they refer friends.
@@ -5551,6 +5596,97 @@ if(typeof location!=='undefined'&&/[?&]relqa=1\b/.test(location.search))window._
  set:(i,rel,grudge=0)=>{s.relations[i]=rel;s.grudge??={};s.grudge[i]=grudge;return relStanding(i);},
  fair:(i,t=0)=>rosterFair(i,t),daily:()=>{relDay=s.day-1;relDaily();return s.referred;},
  open:i=>{selected=i;menu('customer',i);return !!$('modal').querySelector('.rel-row');}};
+// v176: trading screen (trade-screen.mjs). Street sales, phone deals and meetups share one deal card: product
+// cards, quantity +/-, a price slider against the customer's fair price, a live accept chance, their counter
+// (accept / counter / decline) and a cash handoff. Guests in co-op keep the old flow.
+let trade=null;
+function tradeOn(){return net.role!=='guest'&&typeof document!=='undefined'&&typeof document.createElement==='function';}
+function tradeProducts(fairOf,street){const out=[];(s.packs||[]).forEach((n,t)=>{const have=street?n:n-reservedQty(t);if(have>0&&STRAINS[t])out.push({t,name:STRAINS[t].name,have,fair:fairOf(t),color:STRAINS[t].color!=null?'#'+Number(STRAINS[t].color).toString(16).padStart(6,'0'):''});});return out;}
+function tradePicked(){return trade&&trade.products.find(p=>p.t===trade.pick);}
+function tradeCalc(){const p=tradePicked();if(!p)return 0;trade.chance=trade.answer?.kind==='counter'&&trade.kind==='phone'?tradeChance({price:trade.price,fair:p.fair,qty:trade.qty},()=>rosterHaggle(trade.i,trade.price)):tradeChance({price:trade.price,fair:p.fair,qty:trade.qty,penalty:trade.round*12},trade.chanceOf);return trade.chance;}
+function tradeHost(){const m=$('modal');if(!m?.querySelector)return null;let h=m.querySelector('#tradeBox');if(!h){h=document.createElement('div');h.id='tradeBox';const at=trade.kind==='street'?m.querySelector('.talk-card'):null,bub=m.querySelector('.deal-bubble'),comp=m.querySelector('.sms-compose');if(at)at.after(h);else if(bub)bub.before(h);else if(comp)comp.before(h);else m.appendChild(h);}return h;}
+function tradeRender(){try{if(!trade)return;tradeCalc();const h=tradeHost();if(!h)return;h.innerHTML=tradeHTML(trade,esc);$('modal').classList?.add('trading');
+  h.querySelectorAll('[data-trade-pick]').forEach(b=>b.onclick=()=>{trade.pick=Number(b.dataset.tradePick);const p=tradePicked();trade.qty=Math.min(trade.qty,tradeMaxQty());trade.price=tradeStart(p.fair);trade.answer=null;trade.round=0;tradeRender();});
+  h.querySelectorAll('[data-trade]').forEach(b=>b.onclick=()=>tradeDo(b.dataset.trade));
+  const r=h.querySelector('#tradePrice');if(r)r.oninput=()=>{trade.price=Number(r.value)||trade.price;tradeLive();};
+ }catch(e){console.warn('Trade screen skipped',e);}}
+function tradeLive(){const h=$('modal')?.querySelector?.('#tradeBox');if(!h)return;const c=tradeCalc(),tot=tradeTotal(trade.price,trade.qty);
+ const o=h.querySelector('.trade-price output');if(o)o.textContent=cash(trade.price);const m=h.querySelector('.trade-chance');if(m){m.className='trade-chance c'+(c>=70?'hi':c>=40?'mid':'lo');m.querySelector('b').style.width=c+'%';m.querySelector('strong').textContent=c+'%';m.querySelector('small').textContent=chanceWord(c);}
+ const t=h.querySelector('.trade-total b');if(t)t.textContent=cash(tot);const g=h.querySelector('[data-trade="offer"]');if(g)g.textContent=(trade.answer?.kind==='counter'?'Counter '+cash(trade.price):'Offer '+cash(tot));}
+function tradeMaxQty(){const p=tradePicked();return p?Math.max(1,Math.min(p.have,trade.capQty)):1;}
+function tradeDo(id){if(!trade)return;const p=tradePicked();if(!p&&id!=='walk')return;
+ if(id==='qty-'){trade.qty=Math.max(1,trade.qty-1);}
+ else if(id==='qty+'){trade.qty=Math.min(tradeMaxQty(),trade.qty+1);}
+ else if(id==='price-'){trade.price=Math.max(1,trade.price-1);}
+ else if(id==='price+'){trade.price=Math.min(tradeRange(p.fair).max,trade.price+1);}
+ else if(id==='walk'){const t=trade;trade=null;$('modal')?.classList?.remove('trading');t.onWalk?.();return;}
+ else if(id==='take'){const price=trade.answer?.price;if(price)trade.accept(price,true);return;}
+ else if(id==='offer'){trade.offer();return;}
+ trade.maxQty=tradeMaxQty();tradeRender();}
+function tradeCash(amount){
+ try{const m=document.body;m.querySelector?.('.cash-handoff')?.remove?.();m.insertAdjacentHTML?.('beforeend',handoffHTML(amount));const el=m.querySelector?.('.cash-handoff');setTimeout(()=>el?.remove?.(),1600);}catch(e){}
+ try{for(const [f,d,g,at] of HANDOFF_TONES)setTimeout(()=>playTone(f,d,g),at);}catch(e){}
+ try{const b=$('cash');b?.classList?.remove('cash-bump');void b?.offsetWidth;b?.classList?.add('cash-bump');}catch(e){}}
+// Street: a buyer who says yes opens the deal card instead of an instant sale.
+{const tradeSale=talkStreetSale;let bypass=false;
+ talkStreetSale=function(p){
+  if(bypass||!tradeOn()||!talk)return tradeSale(p);
+  const id=talk.id,mood=talk.mood,st=relStreet(id),f=standingEffects(st.level).price*(TRADE_MOODS[mood]||1);
+  const fairOf=t=>Math.max(1,Math.round((STRAINS[t]?.price||30)*.8*f));const products=tradeProducts(fairOf,true);if(!products.length)return tradeSale(p);
+  const who=talk.name;
+  trade={kind:'street',who,id,products,pick:products[0].t,qty:1,capQty:3,maxQty:Math.min(3,products[0].have),price:tradeStart(products[0].fair),round:0,answer:null,
+   chanceOf:(price,fair,qty)=>haggleChance({price,fair,qty,relation:st.score,craving:0,spend:[40,140]}),
+   offer(){const pr=tradePicked();const c=tradeCalc();const ans=customerAnswer({price:trade.price,fair:pr.fair,chance:c,round:trade.round,roll:Math.random()});ans.line=answerLine(ans,trade.round+id);
+    if(ans.kind==='accept'){trade.accept(trade.price);return;}trade.round++;trade.answer=ans;if(ans.kind==='counter')trade.price=Math.max(ans.price,Math.min(trade.price,tradeRange(pr.fair).max));
+    if(talk){talk.line=ans.line;}tradeRender();},
+   accept(price){const tr=trade,pr=tradePicked();if(!pr||!talk)return;const t0=(s.packs||[]).findIndex(n=>n>0);bypass=true;let paid=0;try{paid=tradeSale(p);}finally{bypass=false;}
+    if(!paid){trade=null;talkRender();return;}
+    if(t0!==pr.t){s.packs[t0]+=1;s.packs[pr.t]-=1;}const extraQty=Math.min(tr.qty-1,Math.max(0,s.packs[pr.t]));s.packs[pr.t]-=extraQty;s.sold=(s.sold||0)+extraQty;
+    const total=price*(1+extraQty),delta=total-paid;s.cash+=delta;s.earned=(s.earned||0)+delta;save();
+    trade=null;$('modal')?.classList?.remove('trading');talk.line=answerLine({kind:'accept',price},id)+' (paid '+cash(total)+')';tradeCash(total);talkRender();
+    const was=talk;setTimeout(()=>{if(talk===was&&panel==='talk')close();},1800);},
+   onWalk(){if(talk){talk.line='Suit yourself.';talkRender();const was=talk;setTimeout(()=>{if(talk===was&&panel==='talk')close();},1200);}}};
+  // talkPick may schedule a close after a buy; give this chat a fresh identity so the card stays open.
+  talk.line=(talk.line||'')+' What are you asking?';
+  return 0;};
+ const tradeTalkPick=talkPick;talkPick=function(id){if(trade?.kind==='street')return;const out=tradeTalkPick(id);if(trade?.kind==='street'&&talk)talk={...talk};return out;};
+ const tradeTalkRender=talkRender;talkRender=function(){tradeTalkRender();if(trade?.kind==='street'&&talk&&panel==='talk')tradeRender();else $('modal')?.classList?.remove?.('trading');};
+ const tradeTalkClose=close;close=function(){if(trade?.kind==='street'||trade?.kind==='phone')trade=null;$('modal')?.classList?.remove('trading');tradeTalkClose();};window.closeMenu=close;}
+// Phone: a "Make an offer" deal card under the thread. Sending it texts the customer with your price; their
+// reply (deal or counter) comes back into the same card.
+function tradePhone(i){
+ const c=CONTACTS[i];if(!c||!isUnlocked(s,i)||s.deals.some(d=>d.npc===i))return null;const th=s.threads?.[i];
+ const fairOf=t=>rosterFair(i,t);const products=tradeProducts(fairOf,false);if(!products.length)return null;
+ const neg=th&&th.status==='negotiating'&&STRAINS[th.t];const pick=neg?th.t:(th?.t!=null&&products.some(p=>p.t===th.t)?th.t:products[0].t);
+ const pr=products.find(p=>p.t===pick)||products[0];
+ const tr={kind:'phone',i,who:c.name,products,pick:pr.t,qty:neg?th.qty:1,capQty:5,maxQty:Math.min(5,pr.have),price:neg?Math.max(th.counter||pr.fair,1):tradeStart(pr.fair),round:0,answer:null,locked:neg?{product:true,qty:true}:null,
+  chanceOf:(price,fair,qty)=>haggleChance({price,fair,qty,relation:relationship(i),craving:rosterCraving(i),spend:c.spend||[100,250]}),
+  offer(){const t=trade;if(!t)return;const p=tradePicked();
+   if(s.threads?.[i]?.status==='negotiating'){action('offer',i,t.price);}
+   else{const keep=s.listing;s.listing={t:p.t,qty:t.qty,price:t.price};try{action('text',i);}finally{s.listing=keep;}}
+   tradeAfter();},
+  accept(price){action('offer',i,price);tradeAfter();},
+  onWalk(){const th=s.threads?.[i];if(th&&th.status==='negotiating'){th.status='closed';(th.messages??=[]).push({mine:true,text:'All good, maybe next time.'});save();}refresh('thread',i);}};
+ if(neg)tr.answer={kind:'counter',price:th.counter,line:'I can do $'+th.counter+' each.'};
+ return tr;}
+function tradeAfter(){const t=trade;if(!t||t.answer?.kind==='accept')return;const i=t.i,th=s.threads?.[i],d=s.deals.find(x=>x.npc===i);
+ if(d)return;
+ if(th?.status==='negotiating'){trade.round++;trade.answer={kind:'counter',price:th.counter,line:'I can do $'+th.counter+' each.'};trade.locked={product:true,qty:true};tradeRender();return;}
+ tradeRender();}
+{const tradeMenu=menu;menu=function(which,data){tradeMenu(which,data);
+  try{if(which==='thread'&&panel==='thread'&&tradeOn()){const i=Number.isInteger(data)?data:selected,prev=trade?.kind==='phone'&&trade.i===i?trade:null,d=s.deals.find(x=>x.npc===i);
+   if(d&&prev){trade={...prev,qty:d.qty,pick:d.t,answer:{kind:'accept',price:d.price,line:'Deal. '+d.qty+' × '+(STRAINS[d.t]?.name||'')+' at $'+d.price+' each. See you at the spot.'},locked:{product:true,qty:true}};if(!prev.answer||prev.answer.kind!=='accept')try{playBenchCue(audioContext,'done',soundEnabled);}catch(e){}}else trade=tradePhone(i);if(trade)tradeRender();else $('modal')?.classList?.remove?.('trading');}
+   else if(which!=='talk'){if(trade&&trade.kind!=='street')trade=null;if(!trade)$('modal')?.classList?.remove?.('trading');}
+   if(which==='customer'&&panel==='customer'&&tradeOn()){const i=Number.isInteger(data)?data:selected,d=s.deals.find(x=>x.npc===i),m=$('modal');
+    if(d&&STRAINS[d.t]&&m?.querySelector&&!m.querySelector('.trade-meet')){const st=customerExchangeStatus(i),col='#'+Number(STRAINS[d.t].color||0xf2b84b).toString(16).padStart(6,'0');const html=meetHTML({name:STRAINS[d.t].name,qty:d.qty,price:d.price,color:col,ready:!!st.ok&&s.packs[d.t]>=d.qty,reason:st.ok?'Not enough packs on you':st.reason});
+     const at=m.querySelector('.rel-row')||m.querySelector('#namedTalk')||m.querySelector('h2');if(at)at.insertAdjacentHTML('afterend',html);else m.insertAdjacentHTML('beforeend',html);const b=m.querySelector('[data-trade-meet]');if(b)b.onclick=()=>{const dl=$('customerDeliver');if(dl&&!dl.disabled)dl.click();else action('deliver',i);};}}}catch(e){console.warn('Trade screen skipped',e);}};window.menu=menu;}
+// Meetups: when the cash changes hands, show it.
+{const tradeAct=doAction;doAction=function(k,a,b,c){const cash0=s.cash,bank0=s.bank||0,sold=s.sold;const out=tradeAct(k,a,b,c);
+  if(k==='deliver'&&CONTACTS[a]&&s.sold>sold&&net.role!=='guest'){const got=(s.cash-cash0)+((s.bank||0)-bank0);if(got>0)tradeCash(got);}return out;};}
+if(typeof location!=='undefined'&&/[?&]tradeqa=1\b/.test(location.search))window.__tradeQa={state:()=>trade&&{kind:trade.kind,who:trade.who,pick:trade.pick,qty:trade.qty,price:trade.price,chance:trade.chance,answer:trade.answer,products:trade.products.length},
+ do:id=>{tradeDo(id);return window.__tradeQa.state();},price:v=>{if(trade){trade.price=v;tradeRender();}return window.__tradeQa.state();},
+ phone:i=>{selected=i;menu('thread',i);return window.__tradeQa.state();},cash:v=>{tradeCash(v);return true;}};
+{const crewUpdate=update;let tidyClock=0;update=function(dt){const r=crewUpdate.apply(this,arguments);try{if(s?.helpers?.cleaner&&s.workerEnabled?.cleaner!==false&&s.trash>0){tidyClock+=dt||0;if(tidyClock>12/staffPace(s,'cleaner')){tidyClock=0;s.trash=Math.max(0,(s.trash||0)-1);}}}catch(e){}return r;};}
 
 // v179: bay chronicle. Story hour after Founders’ Day, then the long road.
 // Cuts play through the existing letterbox. Districts go through window.GUMMY_DISTRICTS.
