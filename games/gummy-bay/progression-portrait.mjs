@@ -1,3 +1,4 @@
+import {levelOf} from './xp-curve.mjs';
 const STAGES=Object.freeze([
  Object.freeze({key:'rv',name:'Old RV start',spaces:0,stock:0,storage:0}),
  Object.freeze({key:'room',name:'Room 04 workshop',spaces:2,stock:64,storage:40}),
@@ -9,7 +10,7 @@ const helperCount=helpers=>helpers&&typeof helpers==='object'?['gardener','craft
 
 export function businessPortrait(state){
  const s=state&&typeof state==='object'?state:{},home=Math.min(2,finite(s.house));
- const stage=!s.room&&home===0?0:home+1,current=STAGES[stage],level=Math.min(8,1+Math.floor(finite(s.xp)/30));
+ const stage=!s.room&&home===0?0:home+1,current=STAGES[stage],level=levelOf(s.xp);
  const installed=new Set(Array.isArray(s.installed)?s.installed.filter(index=>Number.isInteger(index)&&index>=0&&index<current.spaces):[]).size;
  const crew=helperCount(s.helpers),equipment=[s.can,s.trimmers,s.packStation,s.mixer,s.vehicleOwned,s.irrigation].filter(Boolean).length;
  let next;

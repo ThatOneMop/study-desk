@@ -76,7 +76,7 @@ function readDealers(raw){
 export function buildContactBook({state={},contacts=[],strainNames=[]}={}){
  const relations=state&&typeof state.relations==='object'&&state.relations?state.relations:{};
  const threads=state&&typeof state.threads==='object'&&state.threads?state.threads:{};
- const list=Array.isArray(contacts)?contacts.slice(0,24):[];
+ const list=Array.isArray(contacts)?contacts.slice(0,64):[];
  const customers=list.map((contact,index)=>{
   const thread=threads[index];
   const messages=thread&&Array.isArray(thread.messages)?thread.messages:[];
