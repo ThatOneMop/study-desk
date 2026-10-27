@@ -176,7 +176,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    const blink=Math.abs(Math.sin(clock*.9+person.id*1.7))>.97;
    pos.set(person.x,ground,person.z);quat.setFromAxisAngle(up,person.yaw);root.compose(pos,quat,scale.setScalar(person.look.height||1));
    proceduralJoints(joints,root,{swing,sit:sitting,breath:knocked?0:breathe(clock,person.id)*(1-wb),bob:Math.abs(Math.cos(person.phase))*.04*wb,raise:person.pose==='use'&&!calling?-1.1:0,sway:person.pose==='idle'?Math.sin(clock*1.2+person.id)*.03:0,nod:person.pose==='use'?.12:0,turn,...(react&&!away?react.pose:null),...(calling?{armR:{x:-.45,z:.55,fore:-2.3}}:null),...idlePose});
-   writePerson(meshes,person.id,joints,person.look,{detail,face:blink?'blink':'open',active});
+   writePerson(meshes,person.id,joints,person.look,{detail,face:blink?'blink':'open',active:active&&!person.cc0});
   }
   for(const star of stars){
    star.visible=!star.story||(typeof namedVisible==='function'&&!!namedVisible(star.key));
@@ -188,7 +188,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    const chat=Math.sin(clock*.5+star.slot)>.55;
    proceduralJoints(joints,root,{sway:Math.sin(clock*1.1+star.slot)*.035,breath:breathe(clock,star.slot),nod:chat?Math.sin(clock*5)*.06:0,armR:chat?{x:-.5+Math.sin(clock*2.2)*.15,z:.25,fore:-1.1}:null});
    const blink=Math.abs(Math.sin(clock*.9+star.slot*1.7))>.97;
-   writePerson(meshes,star.slot,joints,star.look,{detail,face:blink?'blink':chat&&Math.sin(clock*9)>0?'talk':'open',active:true});
+   writePerson(meshes,star.slot,joints,star.look,{detail,face:blink?'blink':chat&&Math.sin(clock*9)>0?'talk':'open',active:!star.cc0});
   }
   for(const entry of followers){
    const o=entry.object;entry.visible=!!(active&&o.visible!==false&&o.parent);
@@ -198,7 +198,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
    pos.set(x,ground,z);quat.setFromAxisAngle(up,finite(o.rotation?.y));root.compose(pos,quat,scale.setScalar(entry.look.height||1));
    const pitch=Math.sin(clock*.7+entry.slot)>.4;
    proceduralJoints(joints,root,{sway:Math.sin(clock*1.3+entry.slot)*.03,breath:breathe(clock,entry.slot),bob:Math.abs(Math.sin(clock*1.6+entry.slot))*.012,armR:pitch?{x:-.7,z:.2,fore:-.9}:null,turn:Math.sin(clock*.4+entry.slot)*.35});
-   writePerson(meshes,entry.slot,joints,entry.look,{detail,face:Math.abs(Math.sin(clock*.9+entry.slot*1.7))>.97?'blink':pitch&&Math.sin(clock*8)>0?'talk':'open',active:true});
+   writePerson(meshes,entry.slot,joints,entry.look,{detail,face:Math.abs(Math.sin(clock*.9+entry.slot*1.7))>.97?'blink':pitch&&Math.sin(clock*8)>0?'talk':'open',active:!entry.cc0});
   }
   for(let slot=capacity+stars.length+followers.length;slot<capacity+stars.length+spare;slot++)writePerson(meshes,slot,joints,null,{active:false});
   flushPeopleMeshes(meshes,active,capacity+stars.length+followers.length);

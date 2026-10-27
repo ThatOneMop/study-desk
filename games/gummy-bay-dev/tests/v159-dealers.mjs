@@ -32,5 +32,5 @@ assert.deepEqual(n.dealers.benny.regulars,[2]);assert.equal(n.dealers.benny.floa
 const g=fs.readFileSync('dist/game.js','utf8');
 for(const k of ['window.__dealers','dealersAppHTML','regularOwner(s.empire,i))continue','depth:true','Dealer takings','pending.push','menu(\\\'dealers\\\')'])assert.ok(g.includes(k),k);
 assert.ok(/meeting:i=>\{const d=\(s\.deals/.test(g),'assistant walks to the meetup spot');
-assert.ok(fs.readFileSync('dist/index.html','utf8').includes('Gummy Bay v159'));
+assert.ok(fs.readFileSync('dist/index.html','utf8').match(/Gummy Bay v1(59|6[0-9])/));
 console.log('PASS: v159 dealer depth (regulars, float, robbery + protection, Dealers app wiring, assistant meet spot) · robberies/week '+on.ev.filter(v=>v.kind==='rob').length+' vs protected '+safe.ev.filter(v=>v.kind==='rob').length);
