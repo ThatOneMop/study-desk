@@ -1,7 +1,7 @@
 {
   "scope": "Automated CPU, asset, logic and mocked DOM/WebGL tests. Not rendered 3D, audio or live multiplayer acceptance.",
-  "total": 182,
-  "passed": 182,
+  "total": 183,
+  "passed": 183,
   "results": [
     {
       "test": "arcade.mjs",
@@ -10,7 +10,7 @@
         "tests/arcade.mjs"
       ],
       "exit": 0,
-      "seconds": 0.43,
+      "seconds": 0.31,
       "output": "PASS: arcade economy (fixed $5 tokens, capped one-shot payouts, no cash loop, daily snack), saves, and all five cabinets boot, run 20-60 s and pay by skill.\n"
     },
     {
@@ -20,7 +20,7 @@
         "tests/arrival-workplace.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.17,
       "output": "PASS: continuous waking pose, owned-property terminal visibility, stable fire resources and bounded nonflashing flame motion. CPU only.\nPASS: planner conserves inventory, keeps reserved/stored/transit packs separate, handles absent equipment and sorts saved-clock deadlines.\n"
     },
     {
@@ -30,7 +30,7 @@
         "tests/atmospheric-distance.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.14,
       "output": "PASS: four fixed town cameras retain crisp foregrounds, graded town depth and softened backdrops across day/night and all quality modes; CPU fog factors only, not rendered atmospheric acceptance.\n"
     },
     {
@@ -41,8 +41,8 @@
         "tests/audio-boot.mjs"
       ],
       "exit": 0,
-      "seconds": 30.46,
-      "output": "PASS: Gummy Bay boots in headless Chrome and the audio mixer is reachable without starting playback early (29.4 s, load 0.62).\n"
+      "seconds": 22.44,
+      "output": "PASS: Gummy Bay boots in headless Chrome and the audio mixer is reachable without starting playback early (21.5 s, load 0.35).\n"
     },
     {
       "test": "audio.mjs",
@@ -51,7 +51,7 @@
         "tests/audio.mjs"
       ],
       "exit": 0,
-      "seconds": 0.4,
+      "seconds": 0.25,
       "output": "PASS: procedural music stays near -18 dB, night is darker, mixer levels persist, and arrest tension ducks back out with a sting.\n"
     },
     {
@@ -61,8 +61,8 @@
         "tests/boot.cjs"
       ],
       "exit": 0,
-      "seconds": 47.97,
-      "output": "-op or FPS claim.\nPASS: three real production homes repeat exact four-slot rails; actual render state shows only the current workshop and owned can/trimmers/pack/mixer silhouettes in the existing two batches with no new collision. DOM/WebGL mocked; no rendered spacing, natural traversal, live co-op or FPS claim.\nPASS: ten actual walk-in buildings gain seven-part doorway depth; visible jambs coincide with existing wall collision and centre plus two body-width lanes pass real player-radius sweeps in one stable batch. DOM/WebGL mocked; no rendered interior-visibility or natural traversal claim.\nPASS: all 22 actual frontage panes now occupy real visual openings with transparent reflective glass, seven-part depth and four clear off-mullion aperture rays while retaining the original physical wall collision. DOM/WebGL mocked; no rendered inside/outside, live co-op or FPS claim.\nPASS: Room 04, Harbor and Hillside pair ordinary shelves/photos/mugs with distinct mould, pack and mix clues behind their real windows in two stable batches and zero collision. DOM/WebGL mocked; no rendered domestic/work identity, live co-op or FPS claim.\nPASS: eight real businesses pair six welcoming frontage cues with six distinct rear-service cues on opposite existing walls in two stable batches and zero collision. DOM/WebGL mocked; no rendered front/back identity, live co-op or FPS claim.\nPASS: four measured 3.165 m alleys keep the actual standing camera, resident line passage, player sweep and police pursuit mover clear between solid rear walls and service screens. DOM/WebGL mocked; no rendered or natural pursuit claim.\nPASS: four actual expanded-town shops have unique entrance signatures, exact side-post collision, at least 3.8 m clear centres and unobstructed interaction walks in three stable batches. DOM/WebGL mocked; no rendered recognition, natural traversal, live co-op or FPS claim.\nPASS: 34 low contact marks explain shop footfall, parking tyre paths and terrace tread edges in one stable batch while keeping interaction targets and collision clear. DOM/WebGL mocked; no rendered wear claim.\nPASS: the active real worktable uses distinct harvest basket, loose-gummy mould and finished-pack caddy silhouettes driven by real bounded stock; other homes collapse with no collision or business mutation. DOM/WebGL mocked; no rendered stage recognition, live co-op or FPS claim.\nPASS: 13 actual occupational vendors carry eight face-clear role outfits in two dynamic instanced batches; actor turns, title collapse and quality reuse preserve collision and business state. DOM/WebGL mocked; no rendered-distance or face-prominence claim.\nPASS: 13 actual occupational residents carry eight face-open head-accessory silhouettes in two dynamic instanced batches; actor turns, title collapse and quality reuse preserve collision and business state. DOM/WebGL mocked; no rendered-recognition claim.\nPASS: all 25 moving resident roots carry two face-clear reflective bands and all eight existing solid street obstacles carry paired low tabs; actual midnight/day/title/quality states reuse two batches with no new collision. DOM/WebGL mocked; no rendered unlit-route recognition claim.\nPASS: actual scene separates textured mineral masses/roofs/hardscape from clean trim/markings/props and leaves every original character material untouched; three shared deterministic maps. DOM/WebGL mocked; no rendered hierarchy or GPU claim.\nPASS: actual scene assigns all 60 buildings to named district palettes and keeps crossing, tactile, parking, service and emergency roles distinct on existing batches; DOM/WebGL mocked, no rendered palette claim.\nPASS: real physical first/return visit, anti-spam, v3 save/reload, legacy migration and host-authoritative replay-safe co-op place memory; DOM/WebGL/channels mocked.\nPASS: 65 authored boards retain full names with synthetic font metrics; 56 static signs share 44 maps and one plane; 9 stock boards stay isolated with no unchanged uploads over 300 refreshes. Not rendered readability or FPS.\nPASS: 43 actual GLTF residents use five original face-open pre-merged hairstyle silhouettes on both animated Head-bone LOD rigs with shared geometry, cached palette materials and zero collision. CPU geometry only; not rendered recognition.\nPASS: 43 actual GLTF residents use five bounded head/forearm/hand/foot profiles on both LOD rigs after animation; 100 shoe parts share two batches with unchanged leg scales, no textures and zero collision. CPU transforms only; not rendered proportions.\nPASS: 43 actual GLTF residents use six bounded everyday fabric treatments plus one shared original diagonal-loom roughness texture on the existing Shirt material across both LODs, with police navy retained and zero collision. Material checks only; not rendered clothing.\nPASS: 43 actual GLTF residents carry bounded blink/gaze/talk-work expression, shared skin-toned blink fallback and distance-aware cheek/nose focus on both head-bone LOD rigs across all eight role-accessory languages with zero collision. CPU transforms only; not rendered face alignment.\nPASS: real event handlers for locked/free drag, primary-button gating, exactly-once shaping, hidden-tab release and cancellation; DOM/WebGL mocked.\nPASS: upgraded batch hit/miss, exactly-once commit, steady-seal accessibility and cancellation.\nPASS: real stockroom actions, reservations, full/empty shelves, flavour previews, worker deposit, guest snapshot, legacy/mixed reload and property visibility; DOM/WebGL mocked.\nPASS: real fully-equipped property layouts, wall/other-tent entrance rejection, rotation recovery, no-loss cancel/invalid confirmation, crop-preserving relocation and save/reload; DOM/WebGL mocked.\nPASS: real sample/list/offer/cancel/delivery handlers, receipt persistence, distance/reservations, exact-once host replay and guest snapshot/local-save protection; DOM/WebGL mocked.\nPASS: real rosters across three properties, assignment/pause conservation, proximity/hiring guards, cargo save/reload/resume, host status, stale/legacy/disconnected guest presentation; DOM/WebGL mocked.\nPASS: real blocked/duplicate grabs, carry update, zero-spin set-down, tumbling throw, crate-pair separation/stacking/save, authoritative guest/replay/owner guards, disconnect release and guest save/simulation protection; DOM/WebGL mocked.\nPASS: real entry/exit/menu/F handlers, authored road/junction/pavement HUD and progressive limits, static and moving-customer travel HUD, driving/walking map context, stale-position/reconnect/current-arrival tracking, occluded and elevated entry, alternate/two-blocked exits, moving exit, v3 parking reload, legacy seat recovery and guest save/parking protection; DOM/WebGL mocked.\nPASS: real wall/elevation/van/invalid handoff guards, prompt and stale-menu state, sample-selection preservation, exact sales/receipts/reload, fresh/stale/malformed peer authority, command replay and guest local-save protection; DOM/WebGL/channels mocked.\nPASS: fresh, situated first-sale reload, stale older save, legacy import and guest host-snapshot journeys derive the first real gap across 14 milestones while preserving v3 and guest slots; DOM/WebGL/channels mocked.\nPASS: fresh RV, real first-sale Room 04, prepared Room/Harbor target and authoritative Hillside snapshot business portraits expose exact spatial capacity, equipment, crew, sales and next expansion without save mutation; DOM/WebGL/channels mocked.\nPASS: real guest send/pose ordering, host corroboration, replay/forgery/stale-channel rejection, edge-map marker, optional tracking, expiry, disconnect and guest personal-save protection for co-op pings; DOM/WebGL/channels mocked.\nPASS: host and partner shared-work derivation, failed-action and command-replay suppression, canonical guest receipt, hostile-key/stale-channel rejection, panel copy, disconnect and guest personal-save protection; DOM/WebGL/channels mocked.\nPASS: real point approaches across all shops/three properties, $400-to-first-sale/reload pipeline, stale/occluded/elevated/van/finite guards, workstation start and final-commit conservation, roster editing, stockroom access, shared freshness/replay and guest save protection. Growth stages/task credits simulated; DOM/WebGL/channels mocked.\nPASS: actual police HUD severity/stop timer/comply reach, H task interruption, search input/production lock, v3 in-progress and outcome reload, original seizure/fines/order cancellation, cargo/stored/bank protection, recovery restrictions, remote search through host menus/disconnect, replay and guest authority/save safety; DOM/WebGL/channels mocked.\nPASS: guarded workshop/Hillside deeds with both cargo phases, atomic save/worker relocation, crop/order/layout conservation, duplicate purchase/replay, real supply/work/storage cycles, current-home guide/markers, legacy reload and host/guest stale-work/placement/personal-save protection; DOM/WebGL/channels mocked, progression funds/XP are prepared fixtures.\nPASS: actual $400/call/rent/tool/tent/sealer purchases, no-cost/replayed installation, numbered assembly/saved rotated positions, fixed maps/300 read-only refreshes, all-property relocation, immediate title/fresh-slot/mixer ownership, reload and host/guest purchase/install/personal-save safety. DOM/WebGL/channels mocked; later XP/funds and direct positions are prepared fixtures.\nCPU RESOURCE INVENTORY (not GPU draws, memory or FPS): [{\"quality\":\"performance\",\"objects\":8977,\"meshes\":6655,\"skinned\":352,\"instanced\":131,\"geometries\":3921,\"materials\":1265,\"textures\":222,\"visibleMeshes\":1935,\"visiblePotentialTriangles\":649218},{\"quality\":\"balanced\",\"objects\":8977,\"meshes\":6655,\"skinned\":352,\"instanced\":131,\"geometries\":3921,\"materials\":1265,\"textures\":222,\"visibleMeshes\":1998,\"visiblePotentialTriangles\":1152314},{\"quality\":\"high\",\"objects\":8977,\"meshes\":6655,\"skinned\":352,\"instanced\":131,\"geometries\":3921,\"materials\":1265,\"textures\":222,\"visibleMeshes\":2011,\"visiblePotentialTriangles\":1155298}]\nPASS: stable real scene/geometry/texture identities and warmed material pool across all quality modes, near/far LOD, 24 property/stock/peer cycles, 12 host snapshots and six save slots; no redundant High rebuilds, density/resize recovery, exact-once effect-mock replacement and guest save safety. DOM/WebGL/channels mocked.\nPASS: original two-light budget reaches every active-home work/supply/stock point, no unowned/Performance point-light assignment, coherent clock/fog/sky/water/porch/street state during menus and host snapshots, title and night-save restoration, 300 stable/read-only refreshes and guest save safety. DOM/WebGL/channels mocked; property/camera states are prepared fixtures, not rendered day/night traversal.\nPASS: committed last-pack sale/sample handoff, timed release/return, failed/replayed exchanges, fixed-resource/read-only renders, interruption cleanup, typed host results, matching/replayed/bare/error/late/stale-channel acknowledgements, bounded pending metadata and guest personal-save protection. DOM/WebGL/channels mocked; not rendered hand contact or live co-op.\nPASS: immediate RV/ramp/crouch/jump physical-camera-network heights, sprint/bob switches while paused, vehicle entry/pause/exit hands, new/old save and validated-import resets, guest welcome/crouch authority, and 300 fixed-resource/read-only render updates. DOM/WebGL/channels mocked; fixture positions, not rendered scale or live co-op.\nPASS: original-collider RV exit/re-entry through two lanes (96 simulated movement steps), roof jump/airborne doorway guard and landing recovery, legacy save/import/player/crate support, carried/drop conservation, actual remote eye/host pose restoration, peer mesh floor placement, guest authority/save safety and 150 unchanged-resource presentation updates. DOM/WebGL/channels mocked; movement is simulated, not rendered travel or live co-op.\nPASS: bounded real PointLight response assignment, isolated existing-surface emission, night/day/quality/range/title/save/menu/host-snapshot/stale/disconnected paths and 300 read-only stable-resource refreshes. DOM/WebGL/channels mocked, not rendered illumination or live co-op.\nPASS: 22 existing frontage panes/eight fittings, all-home/quality occupancy, independent public shops, day/night/menu/title/v3 reload, unchanged 70 exported glass batches/PBR, 300 stable/read-only refreshes and current/stale/disconnected host snapshot/save protection. DOM/WebGL/channels mocked, not rendered windows/interior matching or live co-op.\nPASS: seven measured/static-or-owned furniture colliders, 30 fully-equipped home/bed/work/sink/stock/tent routes with swept clearance, actual movement/slide, seven embedded legacy-save recoveries without inventory loss/drift, stable resources and shared command/guest save safety. DOM/WebGL/channels mocked; no rendered furniture/capsule or live co-op acceptance.\nPASS: 15 actual home/rotation cases, bounded installed-only open-front canvas/pot collision, local walking/manual soil/seed/rotated move, 9 drift-free embedded save recoveries, install safety, rejected side/accepted-once front guest tasks, host camera restoration and snapshot-local recovery with stable resources. DOM/WebGL/channels mocked; not rendered contact, 3D headroom or live co-op.\nPASS: 15 home/rotation floor/roof/lamp cases with actual standing/crouch/jump, bounded front entry/exit and airborne/landed head clearance, legacy reload/import, crate carry/drop, immediate local/paused guest installation support, existing peer root and stable read-only resource/slot checks. DOM/WebGL/channels mocked, not rendered contact or live co-op.\nCPU original crate bounds: [[-0.33480000495910645,-0.3248000144958496,-0.2954999869107269],[0.33480000495910645,0.3248000144958496,0.2954999869107269]]\nPASS: original crate bounds, dedicated wall/world/tent clearance with local legacy recovery, 9 rotated corner recoveries, actual old-town/expanded pavement and pier settling, RV underside/main-roof/finite-vent top and side contacts with reload/occluded pickup, 15 owned-only tent roof/lamp contacts, fresh layout queries, shared replay-safe grab/throw and host-only/guest-slot safety with stable resources. Prepared fixtures and mocked DOM/WebGL/channels; not rendered/live co-op.\nPASS: actual delivery phone selects one ready next stop or packing task, follows current customer positions, preserves economy/commitments and leaves guest slots untouched. DOM/WebGL/channels mocked, not a rendered route or live co-op.\nPASS: actual six-screen GBM-04 shell keeps functional keys, bounded game clock and honest local/host/lost status without business or guest-slot mutation. DOM mocked, not rendered device legibility.\nPASS: hover/drag input, paced arrival and phone call, skip/continue path and save persistence; DOM/WebGL mocked.\nPASS: actual weather integration restores clear sky, does not accumulate fog, preserves saves and avoids duplicate LOD facial hair.\nPASS: three owned-property computers, read-only planner, fire collision and actual waking camera preserve player and save state.\nPASS: actual fleet purchases, duplicate and proximity rejection, card payment, driving/peer locks, save reload, disconnected guest protection and model selection.\nPASS: real host channel fleet purchase, duplicate sequence and stale-pose rejection. Channels mocked.\nPASS: actual aimed interaction/stale click rejection, buffered landing jump, held-key nonrepeat and height-scaled walking cadence.\nPASS: direct E handling, carry controls, aim-dependent throw, notebook discovery and save roundtrip.\nPASS: real GLTF assets load; both character LOD scales agree; cargo attachment survives; HUD/menu, $400 save reload, host packet and guest visibility paths execute. DOM/WebGL mocked; not a rendered playtest.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/boot.cjs:3:5203\n"
+      "seconds": 42.58,
+      "output": "-op or FPS claim.\nPASS: three real production homes repeat exact four-slot rails; actual render state shows only the current workshop and owned can/trimmers/pack/mixer silhouettes in the existing two batches with no new collision. DOM/WebGL mocked; no rendered spacing, natural traversal, live co-op or FPS claim.\nPASS: ten actual walk-in buildings gain seven-part doorway depth; visible jambs coincide with existing wall collision and centre plus two body-width lanes pass real player-radius sweeps in one stable batch. DOM/WebGL mocked; no rendered interior-visibility or natural traversal claim.\nPASS: all 22 actual frontage panes now occupy real visual openings with transparent reflective glass, seven-part depth and four clear off-mullion aperture rays while retaining the original physical wall collision. DOM/WebGL mocked; no rendered inside/outside, live co-op or FPS claim.\nPASS: Room 04, Harbor and Hillside pair ordinary shelves/photos/mugs with distinct mould, pack and mix clues behind their real windows in two stable batches and zero collision. DOM/WebGL mocked; no rendered domestic/work identity, live co-op or FPS claim.\nPASS: eight real businesses pair six welcoming frontage cues with six distinct rear-service cues on opposite existing walls in two stable batches and zero collision. DOM/WebGL mocked; no rendered front/back identity, live co-op or FPS claim.\nPASS: four measured 3.165 m alleys keep the actual standing camera, resident line passage, player sweep and police pursuit mover clear between solid rear walls and service screens. DOM/WebGL mocked; no rendered or natural pursuit claim.\nPASS: four actual expanded-town shops have unique entrance signatures, exact side-post collision, at least 3.8 m clear centres and unobstructed interaction walks in three stable batches. DOM/WebGL mocked; no rendered recognition, natural traversal, live co-op or FPS claim.\nPASS: 34 low contact marks explain shop footfall, parking tyre paths and terrace tread edges in one stable batch while keeping interaction targets and collision clear. DOM/WebGL mocked; no rendered wear claim.\nPASS: the active real worktable uses distinct harvest basket, loose-gummy mould and finished-pack caddy silhouettes driven by real bounded stock; other homes collapse with no collision or business mutation. DOM/WebGL mocked; no rendered stage recognition, live co-op or FPS claim.\nPASS: 13 actual occupational vendors carry eight face-clear role outfits in two dynamic instanced batches; actor turns, title collapse and quality reuse preserve collision and business state. DOM/WebGL mocked; no rendered-distance or face-prominence claim.\nPASS: 13 actual occupational residents carry eight face-open head-accessory silhouettes in two dynamic instanced batches; actor turns, title collapse and quality reuse preserve collision and business state. DOM/WebGL mocked; no rendered-recognition claim.\nPASS: all 25 moving resident roots carry two face-clear reflective bands and all eight existing solid street obstacles carry paired low tabs; actual midnight/day/title/quality states reuse two batches with no new collision. DOM/WebGL mocked; no rendered unlit-route recognition claim.\nPASS: actual scene separates textured mineral masses/roofs/hardscape from clean trim/markings/props and leaves every original character material untouched; three shared deterministic maps. DOM/WebGL mocked; no rendered hierarchy or GPU claim.\nPASS: actual scene assigns all 60 buildings to named district palettes and keeps crossing, tactile, parking, service and emergency roles distinct on existing batches; DOM/WebGL mocked, no rendered palette claim.\nPASS: real physical first/return visit, anti-spam, v3 save/reload, legacy migration and host-authoritative replay-safe co-op place memory; DOM/WebGL/channels mocked.\nPASS: 65 authored boards retain full names with synthetic font metrics; 56 static signs share 44 maps and one plane; 9 stock boards stay isolated with no unchanged uploads over 300 refreshes. Not rendered readability or FPS.\nPASS: 43 actual GLTF residents use five original face-open pre-merged hairstyle silhouettes on both animated Head-bone LOD rigs with shared geometry, cached palette materials and zero collision. CPU geometry only; not rendered recognition.\nPASS: 43 actual GLTF residents use five bounded head/forearm/hand/foot profiles on both LOD rigs after animation; 100 shoe parts share two batches with unchanged leg scales, no textures and zero collision. CPU transforms only; not rendered proportions.\nPASS: 43 actual GLTF residents use six bounded everyday fabric treatments plus one shared original diagonal-loom roughness texture on the existing Shirt material across both LODs, with police navy retained and zero collision. Material checks only; not rendered clothing.\nPASS: 43 actual GLTF residents carry bounded blink/gaze/talk-work expression, shared skin-toned blink fallback and distance-aware cheek/nose focus on both head-bone LOD rigs across all eight role-accessory languages with zero collision. CPU transforms only; not rendered face alignment.\nPASS: real event handlers for locked/free drag, primary-button gating, exactly-once shaping, hidden-tab release and cancellation; DOM/WebGL mocked.\nPASS: upgraded batch hit/miss, exactly-once commit, steady-seal accessibility and cancellation.\nPASS: real stockroom actions, reservations, full/empty shelves, flavour previews, worker deposit, guest snapshot, legacy/mixed reload and property visibility; DOM/WebGL mocked.\nPASS: real fully-equipped property layouts, wall/other-tent entrance rejection, rotation recovery, no-loss cancel/invalid confirmation, crop-preserving relocation and save/reload; DOM/WebGL mocked.\nPASS: real sample/list/offer/cancel/delivery handlers, receipt persistence, distance/reservations, exact-once host replay and guest snapshot/local-save protection; DOM/WebGL mocked.\nPASS: real rosters across three properties, assignment/pause conservation, proximity/hiring guards, cargo save/reload/resume, host status, stale/legacy/disconnected guest presentation; DOM/WebGL mocked.\nPASS: real blocked/duplicate grabs, carry update, zero-spin set-down, tumbling throw, crate-pair separation/stacking/save, authoritative guest/replay/owner guards, disconnect release and guest save/simulation protection; DOM/WebGL mocked.\nPASS: real entry/exit/menu/F handlers, authored road/junction/pavement HUD and progressive limits, static and moving-customer travel HUD, driving/walking map context, stale-position/reconnect/current-arrival tracking, occluded and elevated entry, alternate/two-blocked exits, moving exit, v3 parking reload, legacy seat recovery and guest save/parking protection; DOM/WebGL mocked.\nPASS: real wall/elevation/van/invalid handoff guards, prompt and stale-menu state, sample-selection preservation, exact sales/receipts/reload, fresh/stale/malformed peer authority, command replay and guest local-save protection; DOM/WebGL/channels mocked.\nPASS: fresh, situated first-sale reload, stale older save, legacy import and guest host-snapshot journeys derive the first real gap across 14 milestones while preserving v3 and guest slots; DOM/WebGL/channels mocked.\nPASS: fresh RV, real first-sale Room 04, prepared Room/Harbor target and authoritative Hillside snapshot business portraits expose exact spatial capacity, equipment, crew, sales and next expansion without save mutation; DOM/WebGL/channels mocked.\nPASS: real guest send/pose ordering, host corroboration, replay/forgery/stale-channel rejection, edge-map marker, optional tracking, expiry, disconnect and guest personal-save protection for co-op pings; DOM/WebGL/channels mocked.\nPASS: host and partner shared-work derivation, failed-action and command-replay suppression, canonical guest receipt, hostile-key/stale-channel rejection, panel copy, disconnect and guest personal-save protection; DOM/WebGL/channels mocked.\nPASS: real point approaches across all shops/three properties, $400-to-first-sale/reload pipeline, stale/occluded/elevated/van/finite guards, workstation start and final-commit conservation, roster editing, stockroom access, shared freshness/replay and guest save protection. Growth stages/task credits simulated; DOM/WebGL/channels mocked.\nPASS: actual police HUD severity/stop timer/comply reach, H task interruption, search input/production lock, v3 in-progress and outcome reload, original seizure/fines/order cancellation, cargo/stored/bank protection, recovery restrictions, remote search through host menus/disconnect, replay and guest authority/save safety; DOM/WebGL/channels mocked.\nPASS: guarded workshop/Hillside deeds with both cargo phases, atomic save/worker relocation, crop/order/layout conservation, duplicate purchase/replay, real supply/work/storage cycles, current-home guide/markers, legacy reload and host/guest stale-work/placement/personal-save protection; DOM/WebGL/channels mocked, progression funds/XP are prepared fixtures.\nPASS: actual $400/call/rent/tool/tent/sealer purchases, no-cost/replayed installation, numbered assembly/saved rotated positions, fixed maps/300 read-only refreshes, all-property relocation, immediate title/fresh-slot/mixer ownership, reload and host/guest purchase/install/personal-save safety. DOM/WebGL/channels mocked; later XP/funds and direct positions are prepared fixtures.\nCPU RESOURCE INVENTORY (not GPU draws, memory or FPS): [{\"quality\":\"performance\",\"objects\":8977,\"meshes\":6655,\"skinned\":352,\"instanced\":131,\"geometries\":3921,\"materials\":1265,\"textures\":222,\"visibleMeshes\":1935,\"visiblePotentialTriangles\":649218},{\"quality\":\"balanced\",\"objects\":8977,\"meshes\":6655,\"skinned\":352,\"instanced\":131,\"geometries\":3921,\"materials\":1265,\"textures\":222,\"visibleMeshes\":1998,\"visiblePotentialTriangles\":1152314},{\"quality\":\"high\",\"objects\":8977,\"meshes\":6655,\"skinned\":352,\"instanced\":131,\"geometries\":3921,\"materials\":1265,\"textures\":222,\"visibleMeshes\":2011,\"visiblePotentialTriangles\":1155298}]\nPASS: stable real scene/geometry/texture identities and warmed material pool across all quality modes, near/far LOD, 24 property/stock/peer cycles, 12 host snapshots and six save slots; no redundant High rebuilds, density/resize recovery, exact-once effect-mock replacement and guest save safety. DOM/WebGL/channels mocked.\nPASS: original two-light budget reaches every active-home work/supply/stock point, no unowned/Performance point-light assignment, coherent clock/fog/sky/water/porch/street state during menus and host snapshots, title and night-save restoration, 300 stable/read-only refreshes and guest save safety. DOM/WebGL/channels mocked; property/camera states are prepared fixtures, not rendered day/night traversal.\nPASS: committed last-pack sale/sample handoff, timed release/return, failed/replayed exchanges, fixed-resource/read-only renders, interruption cleanup, typed host results, matching/replayed/bare/error/late/stale-channel acknowledgements, bounded pending metadata and guest personal-save protection. DOM/WebGL/channels mocked; not rendered hand contact or live co-op.\nPASS: immediate RV/ramp/crouch/jump physical-camera-network heights, sprint/bob switches while paused, vehicle entry/pause/exit hands, new/old save and validated-import resets, guest welcome/crouch authority, and 300 fixed-resource/read-only render updates. DOM/WebGL/channels mocked; fixture positions, not rendered scale or live co-op.\nPASS: original-collider RV exit/re-entry through two lanes (96 simulated movement steps), roof jump/airborne doorway guard and landing recovery, legacy save/import/player/crate support, carried/drop conservation, actual remote eye/host pose restoration, peer mesh floor placement, guest authority/save safety and 150 unchanged-resource presentation updates. DOM/WebGL/channels mocked; movement is simulated, not rendered travel or live co-op.\nPASS: bounded real PointLight response assignment, isolated existing-surface emission, night/day/quality/range/title/save/menu/host-snapshot/stale/disconnected paths and 300 read-only stable-resource refreshes. DOM/WebGL/channels mocked, not rendered illumination or live co-op.\nPASS: 22 existing frontage panes/eight fittings, all-home/quality occupancy, independent public shops, day/night/menu/title/v3 reload, unchanged 70 exported glass batches/PBR, 300 stable/read-only refreshes and current/stale/disconnected host snapshot/save protection. DOM/WebGL/channels mocked, not rendered windows/interior matching or live co-op.\nPASS: seven measured/static-or-owned furniture colliders, 30 fully-equipped home/bed/work/sink/stock/tent routes with swept clearance, actual movement/slide, seven embedded legacy-save recoveries without inventory loss/drift, stable resources and shared command/guest save safety. DOM/WebGL/channels mocked; no rendered furniture/capsule or live co-op acceptance.\nPASS: 15 actual home/rotation cases, bounded installed-only open-front canvas/pot collision, local walking/manual soil/seed/rotated move, 9 drift-free embedded save recoveries, install safety, rejected side/accepted-once front guest tasks, host camera restoration and snapshot-local recovery with stable resources. DOM/WebGL/channels mocked; not rendered contact, 3D headroom or live co-op.\nPASS: 15 home/rotation floor/roof/lamp cases with actual standing/crouch/jump, bounded front entry/exit and airborne/landed head clearance, legacy reload/import, crate carry/drop, immediate local/paused guest installation support, existing peer root and stable read-only resource/slot checks. DOM/WebGL/channels mocked, not rendered contact or live co-op.\nCPU original crate bounds: [[-0.33480000495910645,-0.3248000144958496,-0.2954999869107269],[0.33480000495910645,0.3248000144958496,0.2954999869107269]]\nPASS: original crate bounds, dedicated wall/world/tent clearance with local legacy recovery, 9 rotated corner recoveries, actual old-town/expanded pavement and pier settling, RV underside/main-roof/finite-vent top and side contacts with reload/occluded pickup, 15 owned-only tent roof/lamp contacts, fresh layout queries, shared replay-safe grab/throw and host-only/guest-slot safety with stable resources. Prepared fixtures and mocked DOM/WebGL/channels; not rendered/live co-op.\nPASS: actual delivery phone selects one ready next stop or packing task, follows current customer positions, preserves economy/commitments and leaves guest slots untouched. DOM/WebGL/channels mocked, not a rendered route or live co-op.\nPASS: actual six-screen GBM-04 shell keeps functional keys, bounded game clock and honest local/host/lost status without business or guest-slot mutation. DOM mocked, not rendered device legibility.\nPASS: hover/drag input, paced arrival and phone call, skip/continue path and save persistence; DOM/WebGL mocked.\nPASS: actual weather integration restores clear sky, does not accumulate fog, preserves saves and avoids duplicate LOD facial hair.\nPASS: three owned-property computers, read-only planner, fire collision and actual waking camera preserve player and save state.\nPASS: actual fleet purchases, duplicate and proximity rejection, card payment, driving/peer locks, save reload, disconnected guest protection and model selection.\nPASS: real host channel fleet purchase, duplicate sequence and stale-pose rejection. Channels mocked.\nPASS: actual aimed interaction/stale click rejection, buffered landing jump, held-key nonrepeat and height-scaled walking cadence.\nPASS: direct E handling, carry controls, aim-dependent throw, notebook discovery and save roundtrip.\nPASS: real GLTF assets load; both character LOD scales agree; cargo attachment survives; HUD/menu, $400 save reload, host packet and guest visibility paths execute. DOM/WebGL mocked; not a rendered playtest.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/boot.cjs:3:5218\n"
     },
     {
       "test": "business-core.mjs",
@@ -71,7 +71,7 @@
         "tests/business-core.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.13,
       "output": "PASS: atomic batches, missing supplies, reservations, legacy arrays, invalid saves, duplicate orders, backup quota failure.\n"
     },
     {
@@ -81,7 +81,7 @@
         "tests/car-physics.mjs"
       ],
       "exit": 0,
-      "seconds": 0.76,
+      "seconds": 0.41,
       "output": "PASS: car physics sanity (top speed, reverse, weight, braking, standstill steering, handbrake drift and recovery, NaN safety, wall slide/bounce, leaning chase camera), lot gates, trunk maths, merged models, skid pool, cruiser spawn/pull-over/outrun/sight. CPU only.\n"
     },
     {
@@ -91,7 +91,7 @@
         "tests/chunky-cast.mjs"
       ],
       "exit": 0,
-      "seconds": 0.45,
+      "seconds": 0.27,
       "output": "PASS: chunky cast builds one shared box batch, varies eight outfits, distinguishes police/worker/seller/dealer/customer/townsfolk, and animates blink, talk and the player mitten without collision.\n"
     },
     {
@@ -101,7 +101,7 @@
         "tests/cine-cast.mjs"
       ],
       "exit": 0,
-      "seconds": 0.61,
+      "seconds": 0.34,
       "output": "PASS: cutscene acting kit: deterministic blip voices for 9 speakers, 18 gestures, 10 instanced prop kinds, seekable walk/turn/lip-sync/listen cast sampling, every cut cast within 14 people and 320 prop parts, and game wiring.\n"
     },
     {
@@ -111,7 +111,7 @@
         "tests/cinematics.mjs"
       ],
       "exit": 0,
-      "seconds": 0.3,
+      "seconds": 0.22,
       "output": "PASS: cinematic easing, arc-length Catmull-Rom paths, timeline fades/loops, 36 s golden-hour flyover inside the world, 30 rotating family-friendly hints and soft wrapping sky clouds. Rendering checked separately by screenshots.\n"
     },
     {
@@ -121,8 +121,8 @@
         "tests/city-access.cjs"
       ],
       "exit": 0,
-      "seconds": 10.22,
-      "output": "BIZ [[\"tackle\",-256,-76],[\"arcade\",-84,-71],[\"taco\",-67,-72],[\"coffee\",16,-74],[\"noodle\",254,-72],[\"burger\",-249,-106],[\"pawn\",-233,-106],[\"donut\",-205,-105],[\"chicken\",-196,-105],[\"laundry\",-182,-106],[\"pretzel\",-152,-106],[\"mart\",-131,-105],[\"open\",-121,-107],[\"carwash\",-86,-106],[\"flats\",-20,-106],[\"motel\",-271,19]]\nhide spots checked 3\nPASS: city expansion {\"lots\":333,\"named\":16,\"alleys\":45,\"meshes\":73,\"triangles\":50282,\"unplaced\":[]} routes/contacts/points clear and reachable\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/city-access.cjs:3:5173\n"
+      "seconds": 6.55,
+      "output": "BIZ [[\"tackle\",-256,-76],[\"arcade\",-84,-71],[\"taco\",-67,-72],[\"coffee\",16,-74],[\"noodle\",254,-72],[\"burger\",-249,-106],[\"pawn\",-233,-106],[\"donut\",-205,-105],[\"chicken\",-196,-105],[\"laundry\",-182,-106],[\"pretzel\",-152,-106],[\"mart\",-131,-105],[\"open\",-121,-107],[\"carwash\",-86,-106],[\"flats\",-20,-106],[\"motel\",-271,19]]\nhide spots checked 3\nPASS: city expansion {\"lots\":333,\"named\":16,\"alleys\":45,\"meshes\":73,\"triangles\":50282,\"unplaced\":[]} routes/contacts/points clear and reachable\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/city-access.cjs:3:5188\n"
     },
     {
       "test": "coastal-identity.mjs",
@@ -131,7 +131,7 @@
         "tests/coastal-identity.mjs"
       ],
       "exit": 0,
-      "seconds": 0.35,
+      "seconds": 0.2,
       "output": "PASS: deterministic continuous marine weather and five face styles, clear eye bounds, shared resources, head attachment and hat independence. CPU only.\n"
     },
     {
@@ -141,7 +141,7 @@
         "tests/contextual-street-props.mjs"
       ],
       "exit": 0,
-      "seconds": 0.3,
+      "seconds": 0.16,
       "output": "PASS: eight purpose-specific street installations occupy authored pavement edges, leave at least 1.8 m clear, avoid roads/buildings/parking and use two stable instanced draw calls. CPU construction only; no rendered clutter/readability claim.\n"
     },
     {
@@ -151,7 +151,7 @@
         "tests/coop-activity.mjs"
       ],
       "exit": 0,
-      "seconds": 0.12,
+      "seconds": 0.15,
       "output": "PASS: canonical co-op activity derivation, no-op/noise exclusion, replay and hostile-shape rejection, immutable bounded feed and safe copy.\n"
     },
     {
@@ -161,7 +161,7 @@
         "tests/coop-ping.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.14,
       "output": "PASS: bounded current-channel co-op ping validation, replay rejection, guest pose corroboration, expiry, finite status and immutable inputs.\n"
     },
     {
@@ -171,7 +171,7 @@
         "tests/crouch-clearance.mjs"
       ],
       "exit": 0,
-      "seconds": 0.17,
+      "seconds": 0.12,
       "output": "PASS: crouch clearance on raised floors, standing recovery and frame-rate-independent transition.\n"
     },
     {
@@ -181,7 +181,7 @@
         "tests/customer-context.mjs"
       ],
       "exit": 0,
-      "seconds": 0.31,
+      "seconds": 0.12,
       "output": "PASS: five distinct voices, receipt validation, returning/meeting greetings, commitments, preferred samples, reservations and read-only presentation.\n"
     },
     {
@@ -201,7 +201,7 @@
         "tests/customer-tracking.mjs"
       ],
       "exit": 0,
-      "seconds": 0.29,
+      "seconds": 0.13,
       "output": "PASS: moving, waiting, blocked and disconnected customer tracking projects immutable finite last-known positions without clearing or inventing routes.\n"
     },
     {
@@ -211,8 +211,8 @@
         "tests/dealer-game.cjs"
       ],
       "exit": 0,
-      "seconds": 4.65,
-      "output": "PASS: Sweet Network in game.js: gated recruiting, customer cap, restock cap, away sales, collect, runner cargo, crew slots, visuals, phone app and save/load.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/dealer-game.cjs:3:5214\n"
+      "seconds": 2.29,
+      "output": "PASS: Sweet Network in game.js: gated recruiting, customer cap, restock cap, away sales, collect, runner cargo, crew slots, visuals, phone app and save/load.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/dealer-game.cjs:3:5229\n"
     },
     {
       "test": "dealer-network.mjs",
@@ -221,7 +221,7 @@
         "tests/dealer-network.mjs"
       ],
       "exit": 0,
-      "seconds": 0.37,
+      "seconds": 0.22,
       "output": "PASS: dealer network: economics, restock, shortchange, bust risk, runners, crew slots, save/load and sim bounds \u00b7 D1 $30/unit $60/day \u00b7 D3 $30/unit $150/day \u00b7 D5 $30/unit $240/day \u00b7 D7 $51/unit $613/day \u00b7 D10 $149/unit $2911/day \u00b7 D12 $246/unit $4777/day \u00b7 D14 $275/unit $7195/day\n"
     },
     {
@@ -231,7 +231,7 @@
         "tests/delivery-round.mjs"
       ],
       "exit": 0,
-      "seconds": 0.24,
+      "seconds": 0.11,
       "output": "PASS: immutable delivery round prioritises ready deadline/distance, deadline-safe stock allocation, current customer positions, practical packing fallback and hostile-input rejection.\n"
     },
     {
@@ -241,7 +241,7 @@
         "tests/district-architecture.mjs"
       ],
       "exit": 0,
-      "seconds": 0.28,
+      "seconds": 0.22,
       "output": "PASS: 60 immutable sites become five deterministic architectural families, five roof treatments and three stable instanced draw calls. CPU construction only; no rendered acceptance or FPS claim.\n"
     },
     {
@@ -251,7 +251,7 @@
         "tests/district-facades.mjs"
       ],
       "exit": 0,
-      "seconds": 0.33,
+      "seconds": 0.27,
       "output": "PASS: 60 facades expose signed recess/projection layers, retain at least .18 m collider clearance and batch added depth into the existing three draw calls. CPU geometry only; no grazing-angle render acceptance claim.\n"
     },
     {
@@ -261,7 +261,7 @@
         "tests/district-horizon.mjs"
       ],
       "exit": 0,
-      "seconds": 0.33,
+      "seconds": 0.16,
       "output": "PASS: 22 off-route windbreak trees and 22 scrub transitions preserve at least 18 m of every authored skyline corridor in three stable instanced draw calls. CPU geometry only; no rendered horizon or FPS claim.\n"
     },
     {
@@ -271,7 +271,7 @@
         "tests/domestic-workplace.mjs"
       ],
       "exit": 0,
-      "seconds": 0.28,
+      "seconds": 0.15,
       "output": "PASS: all three production homes gain exact four-slot rails; only owned can, trimmers, pack and mixer silhouettes repeat in the active workshop, reusing two stable batches with zero collision. CPU matrices only; no rendered spacing or legibility claim.\n"
     },
     {
@@ -281,7 +281,7 @@
         "tests/doorway-reveals.mjs"
       ],
       "exit": 0,
-      "seconds": 0.33,
+      "seconds": 0.15,
       "output": "PASS: ten real walk-in buildings gain seven-part measured doorway reveals in one stable batch; visible jambs sit inside existing wall collision while centre and two body-width lanes stay clear. CPU geometry only; no rendered entry-visibility claim.\n"
     },
     {
@@ -291,7 +291,7 @@
         "tests/economy-sim.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.11,
       "output": "PASS: economy curve per unit (mean of 6 saves): D1 $30 \u00b7 D2 $30 \u00b7 D3 $30 \u00b7 D4 $30 \u00b7 D5 $42 \u00b7 D6 $42 \u00b7 D7 $68 \u00b7 D8 $117 \u00b7 D9 $140 \u00b7 D10 $246 \u00b7 D11 $246 \u00b7 D12 $246 \u00b7 day-10 top $249.\n"
     },
     {
@@ -301,7 +301,7 @@
         "tests/effects.mjs"
       ],
       "exit": 0,
-      "seconds": 0.42,
+      "seconds": 0.28,
       "output": "{\"beautyDraws\":1,\"normalDraws\":1,\"observedTargets\":5,\"observedMaterials\":6,\"allDisposedMaterials\":8,\"noiseTextures\":1,\"undisposedTargets\":0,\"undisposedMaterials\":0,\"undisposedNoise\":0}\nPASS: 20 real effect-chain lifecycles, beauty-before-AO ordering, five targets/eight materials/noise released once, idempotent teardown and original scene resources retained. Renderer is a probe, not GPU output or measured memory/FPS.\n"
     },
     {
@@ -311,7 +311,7 @@
         "tests/equipment-guide.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.1,
       "output": "PASS: all property capacities, purchased-versus-installed states, next pending assembly, duplicate/legacy indices, invalid bounds, full wording and immutable ownership projection. No rendering performed.\n"
     },
     {
@@ -321,7 +321,7 @@
         "tests/equipment-repetition.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.16,
       "output": "PASS: three production homes share exact four-slot rails and only the active home\u2019s owned can, trimmers, pack and mixer silhouettes expand from the same two instance batches. CPU matrices only; no rendered wall-spacing, day/night or live-co-op claim.\n"
     },
     {
@@ -331,7 +331,7 @@
         "tests/exchange-access.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.11,
       "output": "PASS: clear handoff range, wall/embedded/elevation rejection, crouch, finite/bounded immutable checks and fresh peer-pose time/displacement boundaries.\n"
     },
     {
@@ -341,7 +341,7 @@
         "tests/exchange-gesture.mjs"
       ],
       "exit": 0,
-      "seconds": 0.24,
+      "seconds": 0.11,
       "output": "PASS: bounded immutable exchange receipts, exact pending-command match and freshness, rejected malformed/mismatched outcomes, finite continuous reach/release/return and fixed 840ms lifetime. No rendering or inventory mutation.\n"
     },
     {
@@ -351,7 +351,7 @@
         "tests/experience.mjs"
       ],
       "exit": 0,
-      "seconds": 0.26,
+      "seconds": 0.16,
       "output": "PASS: swept walking, shortest-arc facing, read-only stock, balance reset, remote pose bounds, and backdrop placement. No browser rendering or live co-op tested.\n"
     },
     {
@@ -361,7 +361,7 @@
         "tests/face-prominence.mjs"
       ],
       "exit": 0,
-      "seconds": 0.25,
+      "seconds": 0.19,
       "output": "PASS: all eight role-accessory silhouettes leave the face window open while shared cheek/nose facets, glints and brows receive bounded distance emphasis across both LOD-ready head rigs. CPU geometry only; no rendered face-readability claim.\n"
     },
     {
@@ -371,7 +371,7 @@
         "tests/field-crew.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.13,
       "output": "PASS: walking gardener harvests, waters with one charge and plants; walking seller pays an agreed deal once.\nPASS: timer routes, pause and a blocked path leave stock unchanged.\nPASS: seller routes round walls, hands over from arm's length and waits at the meeting spot.\n"
     },
     {
@@ -381,7 +381,7 @@
         "tests/fleet.mjs"
       ],
       "exit": 0,
-      "seconds": 0.32,
+      "seconds": 0.15,
       "output": "PASS: legacy fleet fallback, ownership, level, payment and replay eligibility, bounded distinct models and stable shared resources. CPU only.\n"
     },
     {
@@ -391,7 +391,7 @@
         "tests/foreground-depth.mjs"
       ],
       "exit": 0,
-      "seconds": 0.22,
+      "seconds": 0.16,
       "output": "PASS: four shop approaches gain paired low planting beds at a 0.615 depth ratio, retaining exact 5.35 m clear centre routes and target sightlines in two stable batches. CPU geometry only; no rendered depth or occlusion claim.\n"
     },
     {
@@ -401,7 +401,7 @@
         "tests/furniture-access.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.18,
       "output": "CPU unchanged exported Mixer footprint: {\"min\":[-1.2000000476837158,0,-0.6499999761581421],\"max\":[1.2000000476837158,1.9600000381469727,0.6499999761581421],\"padded\":[3.05,1.9500000000000002]}\nPASS: frozen padded footprints, finite/boundary guards, nearest bounded legacy escape, protected-wall/no-route refusal, no move for clear positions and immutable inputs. Existing 2D collision convention, not rendered furniture or full 3D capsules.\n"
     },
     {
@@ -411,7 +411,7 @@
         "tests/gameplay-feed.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.11,
       "output": "PASS: gameplay snapshot binding and event subscription.\n"
     },
     {
@@ -421,7 +421,7 @@
         "tests/geometric-contrast.mjs"
       ],
       "exit": 0,
-      "seconds": 0.33,
+      "seconds": 0.21,
       "output": "PASS: 60 facades gain 120 full-height orthogonal ribs plus measured floor datums inside the existing clean box-detail batch, with zero rounded parts, collision, texture, draw-call or resource growth. CPU geometry only; no rendered character/architecture contrast claim.\n"
     },
     {
@@ -431,7 +431,7 @@
         "tests/gfx-detail.mjs"
       ],
       "exit": 0,
-      "seconds": 0.32,
+      "seconds": 0.2,
       "output": "gfx-detail ok\n"
     },
     {
@@ -441,7 +441,7 @@
         "tests/gfx-lighting.mjs"
       ],
       "exit": 0,
-      "seconds": 0.22,
+      "seconds": 0.17,
       "output": "gfx-lighting ok\n"
     },
     {
@@ -451,7 +451,7 @@
         "tests/gfx-materials.mjs"
       ],
       "exit": 0,
-      "seconds": 0.89,
+      "seconds": 0.66,
       "output": "gfx-materials ok\n"
     },
     {
@@ -461,7 +461,7 @@
         "tests/gfx-post.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.18,
       "output": "gfx-post ok\n"
     },
     {
@@ -471,7 +471,7 @@
         "tests/gfx-world.mjs"
       ],
       "exit": 0,
-      "seconds": 0.22,
+      "seconds": 0.18,
       "output": "PASS: v155 world graphics: water waves/fresnel/glint/foam and drifting sky clouds through the coastal stage, glossy car paint with chrome hubs and night lamps, instanced grass tufts and a shore foam ribbon, all off or lighter on Low. CPU only.\n"
     },
     {
@@ -481,7 +481,7 @@
         "tests/graphics-overhauls.mjs"
       ],
       "exit": 0,
-      "seconds": 0.33,
+      "seconds": 0.3,
       "output": "PASS: five graphics stages: 60 supported architectural sites, 9870 facade components, 1980 scenic parts, finite/immutable transforms, day/night/quality/ownership states and stable resources. Shader source checked; WebGL unavailable.\n"
     },
     {
@@ -491,7 +491,7 @@
         "tests/gritty-town.mjs"
       ],
       "exit": 0,
-      "seconds": 0.6,
+      "seconds": 0.42,
       "output": "PASS: hills/support, west river boundary, metre-scaled material shader source, dense litter, idempotent police migration/guest isolation, 6 rounded animated skin primitives, skin weights/morph alignment and hats/payphone. No WebGL rendering claim.\n"
     },
     {
@@ -501,7 +501,7 @@
         "tests/hud-readout.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.16,
       "output": "PASS: weekday clock, compass offsets, police banner, phone badges and town-map list.\n"
     },
     {
@@ -511,7 +511,7 @@
         "tests/hud-s1.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.14,
       "output": "PASS Schedule I-style HUD: clock, hotbar, notices, sleep card and theme tokens\n"
     },
     {
@@ -521,7 +521,7 @@
         "tests/instance-colour.mjs"
       ],
       "exit": 0,
-      "seconds": 0.2,
+      "seconds": 0.13,
       "output": "PASS: every vertex-coloured material in Gummy Bay has a colour attribute; instanced layers tint with instanceColor alone.\n"
     },
     {
@@ -531,7 +531,7 @@
         "tests/interaction-focus.mjs"
       ],
       "exit": 0,
-      "seconds": 0.27,
+      "seconds": 0.2,
       "output": "PASS: front-facing reachable selection, stable focus, deliberate retargeting, head-attached hat matrices and LOD/culling behavior. CPU only.\n"
     },
     {
@@ -541,7 +541,7 @@
         "tests/island-neighborhoods.mjs"
       ],
       "exit": 0,
-      "seconds": 0.39,
+      "seconds": 0.35,
       "output": "PASS: 121 potential infill lots, road clearance, deterministic collisions, coast topology, batched meshes and old-save rescue.\n"
     },
     {
@@ -551,7 +551,7 @@
         "tests/journey-progress.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.17,
       "output": "PASS: derived milestone totals, first-gap resume, stale/hostile chapter repair, out-of-order achievements, completion, immutable inputs and bounded summary copy.\n"
     },
     {
@@ -561,7 +561,7 @@
         "tests/junction-reveals.mjs"
       ],
       "exit": 0,
-      "seconds": 0.25,
+      "seconds": 0.19,
       "output": "PASS: eight physical junction sight pylons frame four real skyline landmarks across 32 m staged approaches; apparent height grows from glimpse to clear view in two stable batches. CPU geometry only; no rendered landmark-recognition claim.\n"
     },
     {
@@ -571,7 +571,7 @@
         "tests/layout-access.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.13,
       "output": "PASS: doorway-edge routes, rotated entrances, multi-target connectivity, bounded grids, sampled collision clearance and unchanged-preview cache.\n"
     },
     {
@@ -581,7 +581,7 @@
         "tests/light-grade.mjs"
       ],
       "exit": 0,
-      "seconds": 0.28,
+      "seconds": 0.33,
       "output": "light-grade ok 36 lamps 60 trees 40 dressing 67416 verts\n"
     },
     {
@@ -591,7 +591,7 @@
         "tests/location-memory.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.16,
       "output": "PASS: nine fictional place memories, type mapping, ten-minute repeat gating, day rollover, hostile-save cleanup, immutable authored copy and finite visit wording.\n"
     },
     {
@@ -601,7 +601,7 @@
         "tests/logical-wear.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.2,
       "output": "PASS: 34 bounded contact-only wear marks cover shop footfall, parked-van tyres and terrace tread edges in one stable untextured draw call with zero collision. CPU geometry only; no rendered-wear claim.\n"
     },
     {
@@ -611,7 +611,7 @@
         "tests/logistics.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.21,
       "output": "PASS physical worker: complete delivery, conservation each tick, duplicate pickup/process/deposit, save reload cargo, full output, pause, assignment/property recovery, routing and invalid cargo.\nPASS: manual/worker competition, idle pathfinding cost and mid-task pause/resume.\n"
     },
     {
@@ -621,7 +621,7 @@
         "tests/map-navigation.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.14,
       "output": "PASS: immutable local-map projection keeps inside targets exact, clamps four axes and diagonals, filters point/rectangle viewport edges, formats district/landmark context and reports deterministic district borders. No canvas rendering tested.\n"
     },
     {
@@ -631,7 +631,7 @@
         "tests/minigames.mjs"
       ],
       "exit": 0,
-      "seconds": 0.25,
+      "seconds": 0.12,
       "output": "minigames ok {\n  pour: 10.66666666666664,\n  seed: 5.666666666666656,\n  drizzle: 4.999999999999992,\n  seal: 5.033333333333325,\n  bag: 1\n}\n"
     },
     {
@@ -641,7 +641,7 @@
         "tests/mix-bench.mjs"
       ],
       "exit": 0,
-      "seconds": 0.2,
+      "seconds": 0.11,
       "output": "PASS: bench mixes keep four slots, effect value, a stable recipe name and 60 XP once.\n"
     },
     {
@@ -651,7 +651,7 @@
         "tests/mix-core.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.14,
       "output": "PASS: mix value, reactions, names, batches and recipe XP.\n"
     },
     {
@@ -661,7 +661,7 @@
         "tests/mix-pantry.mjs"
       ],
       "exit": 0,
-      "seconds": 0.17,
+      "seconds": 0.18,
       "output": "PASS: 12-item pantry (8 new), legacy strain indices 6..29 unchanged, 72 contiguous mixed slots, mix-core rule preserved.\n"
     },
     {
@@ -671,7 +671,7 @@
         "tests/mix-risk.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.2,
       "output": "PASS: mix risk layer is seeded per save, sloppy stirs fizz over (98/200 at Sloppy on Crackle), Pungent adds heat, 373 losing mixes across 30 saves.\n"
     },
     {
@@ -682,8 +682,8 @@
         "tests/module-link.cjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
-      "output": "PASS: 197 browser ES modules parse and link with imports intact. No DOM/WebGL execution.\n(node:1594703) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+      "seconds": 0.24,
+      "output": "PASS: 198 browser ES modules parse and link with imports intact. No DOM/WebGL execution.\n(node:1606855) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "narrow-alleys.mjs",
@@ -692,7 +692,7 @@
         "tests/narrow-alleys.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.22,
       "output": "PASS: four measured 3.165 m service alleys use four real screen colliders and two stable untextured batches; deterministic path samples remain open. CPU geometry only; no rendered camera or natural pursuit claim.\n"
     },
     {
@@ -702,7 +702,7 @@
         "tests/night-silhouettes.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.18,
       "output": "PASS: two low-profile reflective bands follow each unique resident root and paired tabs remain inside all eight existing solid street-prop footprints; emission rises only with the real night projection in two stable batches. CPU/material checks only; no rendered unlit-route recognition claim.\n"
     },
     {
@@ -712,7 +712,7 @@
         "tests/npc-fx.mjs"
       ],
       "exit": 0,
-      "seconds": 0.27,
+      "seconds": 0.3,
       "output": "PASS: NPC gummy effects map all 34 mix effects to cartoon looks with 2\u20134 h durations and fades; reactions (flee, cower, back off, call, point, wave, look, idle beats) trigger by priority; crowd flees and cowers; satisfaction tiers drive emote, text and relationship.\n"
     },
     {
@@ -722,7 +722,7 @@
         "tests/object-silhouettes.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.22,
       "output": "PASS: the existing RV, delivery vans and mixing stations receive three distinct shared-geometry outline signatures with zero collision; no police vehicle exists, and rendered recognition is not claimed.\n"
     },
     {
@@ -732,7 +732,7 @@
         "tests/occupational-outfits.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.16,
       "output": "PASS: eight original occupational outfit languages remain face-clear, select nine unique authored actors in the fixture, add two dynamic instanced batches with zero collision, follow actor turns and reuse resources across quality modes. CPU geometry only; no rendered-distance claim.\n"
     },
     {
@@ -752,7 +752,7 @@
         "tests/ordinary-unusual-work.mjs"
       ],
       "exit": 0,
-      "seconds": 0.23,
+      "seconds": 0.18,
       "output": "PASS: Room 04, Harbor and Hillside pair eight ordinary domestic details with ten distinct mould/pack/mix clues inside each real home in two stable batches and zero collision. CPU geometry only; no rendered identity claim.\n"
     },
     {
@@ -762,7 +762,7 @@
         "tests/overhaul-regressions.mjs"
       ],
       "exit": 0,
-      "seconds": 0.52,
+      "seconds": 0.61,
       "output": "PASS: frame-rate-independent acceleration/release/jump; all six actual GLBs retain nonblack skull colours and normalized weights, with face accents on the exported front eye plane. CPU checks, not a rendered playtest.\n"
     },
     {
@@ -772,7 +772,7 @@
         "tests/overhead-infrastructure.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.2,
       "output": "PASS: four roof-supported East Grid spans keep a measured 10.15 m cable clearance, use no ground collision and share three stable instanced draw calls. CPU geometry only; no rendered scale, shading or FPS claim.\n"
     },
     {
@@ -782,7 +782,7 @@
         "tests/parcel-handling.mjs"
       ],
       "exit": 0,
-      "seconds": 0.22,
+      "seconds": 0.18,
       "output": "PASS: aimed/occluded/owned parcel selection, pitched throws, gentle release, crouch carry, 30/120 FPS equivalence, fixed visual resources and notebook notes. CPU only.\n"
     },
     {
@@ -792,7 +792,7 @@
         "tests/parking-guide.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.13,
       "output": "PASS: five immutable storefront bays, setbacks, nearest guidance, parallel/opposite alignment, stopped-only snapping, hostile fallbacks and immutable inputs. No rendered parking acceptance.\n"
     },
     {
@@ -802,7 +802,7 @@
         "tests/people-kit-v146.mjs"
       ],
       "exit": 0,
-      "seconds": 0.26,
+      "seconds": 0.27,
       "output": "PASS: v146 people kit \u2014 13 hair styles, 5 hats, 3 beards, 3 eyewear, 10 skins, 12 outfits, uniforms, heights/builds, 8 face moods; named looks match the cards; fuller walk and breathing; 3842 tris a person, trimmed draws, shared buffers and the vertexColors guard.\n"
     },
     {
@@ -812,7 +812,7 @@
         "tests/phone-apps.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.14,
       "output": "PASS: messages, contact graph and product rows describe existing offers, cravings and listings without mutating them.\n"
     },
     {
@@ -832,7 +832,7 @@
         "tests/phone-device.mjs"
       ],
       "exit": 0,
-      "seconds": 0.13,
+      "seconds": 0.17,
       "output": "PASS: immutable fictional GBM-04 status covers six functional screens, bounded day/time and honest solo, linked and lost-network states.\n"
     },
     {
@@ -842,7 +842,7 @@
         "tests/player-controller.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.16,
       "output": "PASS: walk 3.6 / sprint 6.2 / crouch 1.8, 1 m jump, coyote, stamina, step, slope slide, bob and 60 Hz catch-up.\n"
     },
     {
@@ -852,7 +852,7 @@
         "tests/player-view.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.13,
       "output": "PASS: shared standing/crouch/jump/raised-floor/vehicle eye projection, bounded finite inputs, camera-only bob, immutable inputs and consistent hand/pack/can visibility across work, menus and vehicles. Not rendered world-scale acceptance.\n"
     },
     {
@@ -872,7 +872,7 @@
         "tests/point-access.mjs"
       ],
       "exit": 0,
-      "seconds": 0.13,
+      "seconds": 0.12,
       "output": "PASS: action-to-point rules, counter-side approach, wall/elevation/finite/range boundaries, tent indices, immutable inputs and bounded collision probes.\n"
     },
     {
@@ -882,7 +882,7 @@
         "tests/police-feedback.mjs"
       ],
       "exit": 0,
-      "seconds": 0.13,
+      "seconds": 0.12,
       "output": "PASS: police severity, stop countdown, real comply reach/occlusion, partner/stale/disconnected views, safe legacy reports and finite bounded sight.\n"
     },
     {
@@ -892,7 +892,7 @@
         "tests/police-lighting.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.24,
       "output": "PASS: bounded six-officer/one-response selector, continuous two-second cycle, nearest/tie/occlusion, valid role/mode/pose, quality/night/range/connection gates and 10000 finite read-only samples; no rendered illumination claim.\n"
     },
     {
@@ -902,7 +902,7 @@
         "tests/police-notice.mjs"
       ],
       "exit": 0,
-      "seconds": 0.12,
+      "seconds": 0.21,
       "output": "PASS: curfew notice is 45 m, and suspicion takes the higher of heat and curfew.\n"
     },
     {
@@ -912,7 +912,7 @@
         "tests/police-penalty.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.11,
       "output": "PASS: police penalties: day-1 warning, gentle half-seizure days 2-3, full seizure from day 4, 30%/$20 fine capped at cash\n"
     },
     {
@@ -922,7 +922,7 @@
         "tests/police-squad.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.18,
       "output": "PASS: vision cone, four-stage escape, dumpster hide, witness call, pocket slip, three-bonk KO, donut bribe, 30% bust at 07:00, and no firearms.\n"
     },
     {
@@ -932,7 +932,7 @@
         "tests/post-stack.mjs"
       ],
       "exit": 0,
-      "seconds": 0.12,
+      "seconds": 0.21,
       "output": "PASS: Low skips the composer, saved presets win, and the grade shifts from warm day to blue night.\n"
     },
     {
@@ -942,7 +942,7 @@
         "tests/presentation.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.12,
       "output": "PASS: truthful production status and read-only inventory projection.\n"
     },
     {
@@ -952,7 +952,7 @@
         "tests/production-containers.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.18,
       "output": "PASS: the active workshop table uses distinct harvest basket, loose-gummy mould and finished-pack caddy silhouettes driven by real bounded inventory previews; inactive homes collapse without collision or resource replacement. CPU geometry only; no rendered-recognition claim.\n"
     },
     {
@@ -962,7 +962,7 @@
         "tests/progression-portrait.mjs"
       ],
       "exit": 0,
-      "seconds": 0.09,
+      "seconds": 0.13,
       "output": "PASS: immutable RV/Room/Harbor/Hillside business portraits, exact capacity/crew/equipment transitions, next-expansion guidance and hostile legacy fallbacks.\n"
     },
     {
@@ -972,7 +972,7 @@
         "tests/prop-motion.mjs"
       ],
       "exit": 0,
-      "seconds": 0.25,
+      "seconds": 0.34,
       "output": "PASS: measured x/z/y crate bounds, bounded horizontal legacy recovery, 3D reach/roof occlusion, swept wall/carry/throw and roof/finite-RV-vent contacts, settled tops, union-safe recovery, finite immutable inputs, 128 rotated envelopes and original GLB roof/vent/lamp rays. No rendered physics or live co-op claim.\n"
     },
     {
@@ -982,7 +982,7 @@
         "tests/prop-pairs.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.17,
       "output": "PASS: measured crate-to-crate separation, stacking, carried anchors, safe world fallback, bounded rebound/spin and immutable save records.\n"
     },
     {
@@ -992,7 +992,7 @@
         "tests/prop-rotation.mjs"
       ],
       "exit": 0,
-      "seconds": 0.11,
+      "seconds": 0.16,
       "output": "PASS: deterministic bounded crate throw spin, airborne angular integration, legacy/invalid-save recovery, stable held pose and damped upright settling. Rotation is visual state; collision remains conservative axis-aligned.\n"
     },
     {
@@ -1002,7 +1002,7 @@
         "tests/public-service-fronts.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.18,
       "output": "PASS: eight real businesses pair six welcoming frontage cues with six distinct wall-mounted rear-service cues in two stable batches and zero collision. CPU geometry only; no rendered front/back identity claim.\n"
     },
     {
@@ -1012,7 +1012,7 @@
         "tests/qa-harness.mjs"
       ],
       "exit": 0,
-      "seconds": 0.11,
+      "seconds": 0.19,
       "output": "PASS: day harness stays off without ?qa=day, holds the camper exit, and fast-forwards only for the 22:00 watch.\n"
     },
     {
@@ -1022,7 +1022,7 @@
         "tests/qa-play.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.12,
       "output": "PASS: control hint stays visible, and a seller stock menu names packs rather than the workshop route.\n"
     },
     {
@@ -1032,7 +1032,7 @@
         "tests/reach-gate.mjs"
       ],
       "exit": 0,
-      "seconds": 0.09,
+      "seconds": 0.12,
       "output": "PASS: out-of-reach panel actions are greyed out and restored when back in reach; other disabled buttons untouched.\n"
     },
     {
@@ -1042,7 +1042,7 @@
         "tests/resident-accessories.mjs"
       ],
       "exit": 0,
-      "seconds": 0.22,
+      "seconds": 0.21,
       "output": "PASS: eight original head-accessory silhouettes keep the front face open, select unique authored residents, follow actor turns in two dynamic instanced batches and add zero collision. CPU geometry only; no rendered-recognition claim.\n"
     },
     {
@@ -1052,7 +1052,7 @@
         "tests/resident-animation-transitions.mjs"
       ],
       "exit": 0,
-      "seconds": 0.3,
+      "seconds": 0.26,
       "output": "PASS: bounded gait hysteresis, clip-speed rates and normalized Walk/Run phase-preserving blends execute on all six real high/low resident GLBs; gestures reset cleanly. CPU animation state only; no rendered foot-slide claim.\n"
     },
     {
@@ -1062,7 +1062,7 @@
         "tests/resident-blink-safety.mjs"
       ],
       "exit": 0,
-      "seconds": 0.3,
+      "seconds": 0.28,
       "output": "PASS: all six real high/low resident GLBs synchronize eye glints and shared skin-toned lid closure; high rigs retain their actual Blink morph while the three low rigs explicitly use the authored fallback because their source GLBs contain no Blink morph. CPU transforms only; no rendered clipping claim.\n"
     },
     {
@@ -1072,7 +1072,7 @@
         "tests/resident-clothing.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.17,
       "output": "PASS: six bounded deterministic everyday fabric profiles style only existing Shirt materials with one shared original non-colour diagonal-loom roughness texture, preserve police navy, ignore hostile inputs and add zero collision, geometry or draw objects. Material/texel checks only; no rendered-clothing claim.\n"
     },
     {
@@ -1082,7 +1082,7 @@
         "tests/resident-expressions.mjs"
       ],
       "exit": 0,
-      "seconds": 0.17,
+      "seconds": 0.19,
       "output": "PASS: bounded blink, gaze and talk/work expression plus distance-aware shared cheek/nose focus geometry keeps eye glints synchronized with closed lids and drives animated head bones with zero collision. CPU transforms only; no rendered-expression claim.\n"
     },
     {
@@ -1092,7 +1092,7 @@
         "tests/resident-fabric-assets.mjs"
       ],
       "exit": 0,
-      "seconds": 0.31,
+      "seconds": 0.29,
       "output": "PASS: all six real high/low resident GLBs provide complete 0-1 Shirt UVs and receive one shared code-authored diagonal-loom roughness texture without touching Skin, Hair or other materials. CPU asset/material checks only; no rendered fabric or deformation claim.\n"
     },
     {
@@ -1102,7 +1102,7 @@
         "tests/resident-hairstyles.mjs"
       ],
       "exit": 0,
-      "seconds": 0.34,
+      "seconds": 0.26,
       "output": "PASS: five original face-open hairstyle silhouettes use one pre-merged shared mesh per animated Head bone across all six real high/low resident GLBs, with cached palette materials and zero collision. CPU geometry only; no rendered recognition claim.\n"
     },
     {
@@ -1112,7 +1112,7 @@
         "tests/resident-life.mjs"
       ],
       "exit": 0,
-      "seconds": 0.12,
+      "seconds": 0.13,
       "output": "PASS: individual schedules, meeting priority, route detours/blockage, deadlines and nonduplicated read-only stock allocation.\n"
     },
     {
@@ -1122,7 +1122,7 @@
         "tests/resident-proportion-assets.mjs"
       ],
       "exit": 0,
-      "seconds": 0.3,
+      "seconds": 0.31,
       "output": "PASS: all six real high/low citizen GLBs place two bounded ground-level shoe silhouettes from their animated terminal shin bones through Idle, Walk, Run, Talk and Work when present. CPU matrices only; no rendered fit or foot-contact claim.\n"
     },
     {
@@ -1132,7 +1132,7 @@
         "tests/resident-proportions.mjs"
       ],
       "exit": 0,
-      "seconds": 0.26,
+      "seconds": 0.18,
       "output": "PASS: five bounded deterministic head, narrow-chest, forearm, hand and two-piece foot silhouettes preserve leg bone scales and collision. Shoes use two texture-free instanced batches and hide outside play; CPU transforms only, no rendered-proportion claim.\n"
     },
     {
@@ -1142,8 +1142,8 @@
         "tests/resident-world.cjs"
       ],
       "exit": 0,
-      "seconds": 3.15,
-      "output": "PASS: 200 scheduled routes cross actual starter-town colliders; planning checks took 321 ms in Node (not browser frame time).\nPASS: 13 actual authored vendor interactions, independent bystanders/phone props, work/talk priority, walk/run/search/carry precedence, high/low clip time, physical/guest guards and 200 read-only animation updates. DOM/WebGL/channels mocked; no rendered foot-sliding or live co-op claim.\nPASS: continuous collision-safe customer walking, deal priority, hand attachment/LOD, addressed conversation, phone and empty-order actions. Rendering remains unverified.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/resident-world.cjs:3:5011\n"
+      "seconds": 2.88,
+      "output": "PASS: 200 scheduled routes cross actual starter-town colliders; planning checks took 316 ms in Node (not browser frame time).\nPASS: 13 actual authored vendor interactions, independent bystanders/phone props, work/talk priority, walk/run/search/carry precedence, high/low clip time, physical/guest guards and 200 read-only animation updates. DOM/WebGL/channels mocked; no rendered foot-sliding or live co-op claim.\nPASS: continuous collision-safe customer walking, deal priority, hand attachment/LOD, addressed conversation, phone and empty-order actions. Rendering remains unverified.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/resident-world.cjs:3:5026\n"
     },
     {
       "test": "road-zones.mjs",
@@ -1162,8 +1162,8 @@
         "tests/route-budget.cjs"
       ],
       "exit": 0,
-      "seconds": 4.61,
-      "output": "PASS: key walking routes stay within budget spawn to payphone 6m/6m; payphone to reception 24m/24m; reception to hardware 40m/57m; hardware to room 55m/89m; room to sink 13m/13m; room to craft 15m/15m; room to Milo 57m/69m; room to corner store 79m/101m; room to helpers 61m/91m; room to kickflip 84m/111m; room to Old Town bus 46m/76m; room to pier 53m/55m; room to laundry 85m/95m; room to Jules 29m/51m; room to Benji 57m/75m; room to Nina 46m/81m; room to Oz 87m/107m; room to Frankie 43m/51m; room to Marlowe 47m/79m; room to Pip 76m/95m; room to Rosa 44m/47m; room to Theo 34m/34m; room to Ivy 55m/86m; room to Gus 89m/121m; room to Wren 104m/121m; room to Dot 91m/119m; room to Rocco 97m/117m; room to Milo 63m/81m; room to Leanne 64m/91m; room to Hank Harrow 42m/77m; room to Nia 69m/89m; room to Beryl 92m/111m; room to Clive 96m/114m; room to Pam 48m/80m; room to Sable 52m/78m; room to Juniper 111m/129m; room to Ned 34m/66m; room to Rae 56m/76m; room to Benny Boardwalk 33m/65m; room to Mo Marmalade 82m/100m; room to Cleo Caramel 46m/73m; room to Dex Dimple 35m/65m; room to Marge 70m/88m; room to Tilly 78m/95m; room to Lemon Larry 36m/66m; room to Mayor Prudence 85m/103m; room to Gramps Gus 100m/119m; room to Ada Pebble 58m/84m; room to Bo Crumb 58m/85m; room to Cass Wattle 53m/83m; room to Fern Pickle 108m/127m; room to Gio Noodle 118m/136m; room to Hattie Muffin 115m/135m; room to Ivo Treacle 45m/75m; room to Jo Biscuit 43m/75m; room to Kit Sprout 44m/76m; room to Lou Button 63m/85m; room to Mabel Toffee 41m/74m; room to Quinn Crumpet 103m/121m; room to Ruby Jelly 89m/107m; room to Sid Waffle 75m/94m; room to Tess Fudge 39m/67m; room to Uma Salt 57m/81m ; arcade door 129m/170m; buses Old Town \u00b7 Free town shuttle 21s, Westside \u00b7 Free town shuttle 69s, East Market \u00b7 Free town shuttle 75s, North Heights \u00b7 Free town shuttle 103s, East Coast \u00b7 Free town shuttle 65s, West Harbor \u00b7 Free town shuttle 51s, Northgate \u00b7 Free town shuttle 141s\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/route-budget.cjs:3:5090\nSweet Network unavailable ReferenceError: DEALER_ROSTER is not defined\n    at evalmachine.<anonymous>:4371:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/route-budget.cjs:3:5090\nWheels and weather unavailable ReferenceError: LOT_CARS is not defined\n    at evalmachine.<anonymous>:4582:26\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/route-budget.cjs:3:5090\n"
+      "seconds": 4.38,
+      "output": "PASS: key walking routes stay within budget spawn to payphone 6m/6m; payphone to reception 24m/24m; reception to hardware 40m/57m; hardware to room 55m/89m; room to sink 13m/13m; room to craft 15m/15m; room to Milo 57m/69m; room to corner store 79m/101m; room to helpers 61m/91m; room to kickflip 84m/111m; room to Old Town bus 46m/76m; room to pier 53m/55m; room to laundry 85m/95m; room to Jules 29m/51m; room to Benji 57m/75m; room to Nina 46m/81m; room to Oz 87m/107m; room to Frankie 43m/51m; room to Marlowe 47m/79m; room to Pip 76m/95m; room to Rosa 44m/47m; room to Theo 34m/34m; room to Ivy 55m/86m; room to Gus 89m/121m; room to Wren 104m/121m; room to Dot 91m/119m; room to Rocco 97m/117m; room to Milo 63m/81m; room to Leanne 64m/91m; room to Hank Harrow 42m/77m; room to Nia 69m/89m; room to Beryl 92m/111m; room to Clive 96m/114m; room to Pam 48m/80m; room to Sable 52m/78m; room to Juniper 111m/129m; room to Ned 34m/66m; room to Rae 56m/76m; room to Benny Boardwalk 33m/65m; room to Mo Marmalade 82m/100m; room to Cleo Caramel 46m/73m; room to Dex Dimple 35m/65m; room to Marge 70m/88m; room to Tilly 78m/95m; room to Lemon Larry 36m/66m; room to Mayor Prudence 85m/103m; room to Gramps Gus 100m/119m; room to Ada Pebble 58m/84m; room to Bo Crumb 58m/85m; room to Cass Wattle 53m/83m; room to Fern Pickle 108m/127m; room to Gio Noodle 118m/136m; room to Hattie Muffin 115m/135m; room to Ivo Treacle 45m/75m; room to Jo Biscuit 43m/75m; room to Kit Sprout 44m/76m; room to Lou Button 63m/85m; room to Mabel Toffee 41m/74m; room to Quinn Crumpet 103m/121m; room to Ruby Jelly 89m/107m; room to Sid Waffle 75m/94m; room to Tess Fudge 39m/67m; room to Uma Salt 57m/81m ; arcade door 129m/170m; buses Old Town \u00b7 Free town shuttle 21s, Westside \u00b7 Free town shuttle 69s, East Market \u00b7 Free town shuttle 75s, North Heights \u00b7 Free town shuttle 103s, East Coast \u00b7 Free town shuttle 65s, West Harbor \u00b7 Free town shuttle 51s, Northgate \u00b7 Free town shuttle 141s\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/route-budget.cjs:3:5105\nSweet Network unavailable ReferenceError: DEALER_ROSTER is not defined\n    at evalmachine.<anonymous>:4371:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/route-budget.cjs:3:5105\nWheels and weather unavailable ReferenceError: LOT_CARS is not defined\n    at evalmachine.<anonymous>:4582:26\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/route-budget.cjs:3:5105\n"
     },
     {
       "test": "route.mjs",
@@ -1172,7 +1172,7 @@
         "tests/route.mjs"
       ],
       "exit": 0,
-      "seconds": 0.12,
+      "seconds": 0.11,
       "output": "PASS: base-action economics, first sale, duplicate delivery, second-crop press upgrade. Growth transitions simulated; not a full game/browser test.\n"
     },
     {
@@ -1182,7 +1182,7 @@
         "tests/rv-support.mjs"
       ],
       "exit": 0,
-      "seconds": 0.13,
+      "seconds": 0.11,
       "output": "PASS: exported-height RV support, unchanged interior/ramp footprint, finite main-roof/rooftop-vent crate bands, smooth bounded doorway slope, finite/outside fallback and head-margin jump cap with upward-velocity release. No rendered entry/head-clearance claim.\n"
     },
     {
@@ -1192,7 +1192,7 @@
         "tests/scale-audit.mjs"
       ],
       "exit": 0,
-      "seconds": 0.4,
+      "seconds": 0.34,
       "output": "CPU SCALE AUDIT (not visual acceptance): {\"standingEye\":1.72,\"characterHeights\":[{\"variant\":0,\"idleHeight\":1.9135000173002508,\"width\":0.8049598813540116,\"depth\":0.6321000123023987},{\"variant\":1,\"idleHeight\":1.9135000173002508,\"width\":0.8049598813540116,\"depth\":0.6321000123023987},{\"variant\":2,\"idleHeight\":1.9135000173002508,\"width\":0.8049598813540116,\"depth\":0.6321000123023987}],\"rvFloorSamples\":[{\"x\":-58,\"z\":26.7,\"mesh\":\"RV_Matte\",\"meshY\":0.9399999976158142,\"supportY\":0.94,\"offset\":-2.38418573772492e-9,\"roofY\":3.0199999809265137,\"ceilingY\":3.02},{\"x\":-57.5,\"z\":26.7,\"mesh\":\"RV_Matte\",\"meshY\":0.9399999976158142,\"supportY\":0.94,\"offset\":-2.38418573772492e-9,\"roofY\":3.0199999809265137,\"ceilingY\":3.02}]}\nPASS: CPU RV floor support and roof limit agree with exported aisle triangles. This is not rendered doorway traversal, furniture-scale or head-contact acceptance.\n"
     },
     {
@@ -1202,7 +1202,7 @@
         "tests/scene-resources-test.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.14,
       "output": "PASS: scene inventory deduplicates shared resources, respects inherited visibility and instancing, and leaves scene data unchanged. Potential triangles are not rasterized triangles or draw calls.\n"
     },
     {
@@ -1212,7 +1212,7 @@
         "tests/scruffy-welcome.mjs"
       ],
       "exit": 0,
-      "seconds": 0.13,
+      "seconds": 0.14,
       "output": "PASS: campsite and four real shopfronts pair two deliberately weathered repairs with eight tidy welcome/care details in two stable untextured batches, zero collision and no gameplay state. CPU geometry only; no rendered daylight comparison claim.\n"
     },
     {
@@ -1222,7 +1222,7 @@
         "tests/shop-approaches.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.15,
       "output": "PASS: four real shop targets gain unique leaf, striped, braced-tool and droplet entrance silhouettes in three stable batches; exact side-post collision leaves 3.8 m or more clear and the complete 13 m interaction sightlines open. CPU geometry only; no rendered-recognition claim.\n"
     },
     {
@@ -1232,7 +1232,7 @@
         "tests/shop-counter.mjs"
       ],
       "exit": 0,
-      "seconds": 0.11,
+      "seconds": 0.12,
       "output": "PASS: shop buttons name the item, confirm before charging, and offer a refund.\n"
     },
     {
@@ -1252,7 +1252,7 @@
         "tests/sim-clock.mjs"
       ],
       "exit": 0,
-      "seconds": 0.11,
+      "seconds": 0.13,
       "output": "PASS: fixed steps match across 30/120 FPS, long frames catch up to 0.25 s, and short frames keep their remainder.\n"
     },
     {
@@ -1262,7 +1262,7 @@
         "tests/sim-formulas.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.11,
       "output": "PASS: appeal, counters, samples, deals, rank, crew and influence formulas.\n"
     },
     {
@@ -1272,7 +1272,7 @@
         "tests/skateboard.mjs"
       ],
       "exit": 0,
-      "seconds": 0.23,
+      "seconds": 0.34,
       "output": "PASS: six original boards ($75\u2013$1,500) hit table top speeds within \u00b15%, push 1.6 m/s, carve slower at speed, ollie kerbs, bail on >0.12 m kerbs without an ollie, kick FOV, save additively and live in hotbar slot 9. Pure logic; no rendered feel claim.\n"
     },
     {
@@ -1282,7 +1282,7 @@
         "tests/spawn-safety.mjs"
       ],
       "exit": 0,
-      "seconds": 0.11,
+      "seconds": 0.13,
       "output": "PASS: blocked spawns resolve to the nearest open cell, and the 8 m hash matches a linear scan.\n"
     },
     {
@@ -1292,7 +1292,7 @@
         "tests/staff-status.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.14,
       "output": "PASS: authoritative/stale/legacy worker status, safe fixed advice, current assignment summaries and full-stock/cargo guidance.\nPASS: new gummy makers walk the workshop; explicit carried or stored choices and other roles stay as saved.\n"
     },
     {
@@ -1312,7 +1312,7 @@
         "tests/starter-street.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.16,
       "output": "PASS: 62 loose old-town dashes and crossing bars collapse into one marking draw; eight curbs and the RV-to-Palm-Court approach share the second draw. Performance keeps the crossing, the approach and alternate dashes. No textures or colliders. CPU construction only.\n"
     },
     {
@@ -1322,7 +1322,7 @@
         "tests/station-readiness.mjs"
       ],
       "exit": 0,
-      "seconds": 0.09,
+      "seconds": 0.1,
       "output": "PASS: readiness respects real supplies, ownership, can capacity and inventory conservation.\n"
     },
     {
@@ -1332,7 +1332,7 @@
         "tests/stock-display.mjs"
       ],
       "exit": 0,
-      "seconds": 0.11,
+      "seconds": 0.14,
       "output": "PASS: representative stock previews conserve counts, expose flavour variety and remain bounded/read-only.\n"
     },
     {
@@ -1342,7 +1342,7 @@
         "tests/story-act1.mjs"
       ],
       "exit": 0,
-      "seconds": 0.2,
+      "seconds": 0.24,
       "output": "PASS: Act 1 \"Last Call\" intro: 38.6 s in-engine cinematic (12 shots, acted by the people-kit cast, title card, sepia flashback, score) with a hold-Esc/tap skip hint and people-kit portraits, non-overlapping readable subtitles, family-friendly backstory (Great Jelly Incident, Sugar-Free Bay Act), camera outside the RV with a doorstep hand-off, original self-contained archive art, and skip/save wiring. Rendering checked separately by screenshots.\n"
     },
     {
@@ -1352,7 +1352,7 @@
         "tests/story-acts.mjs"
       ],
       "exit": 0,
-      "seconds": 0.17,
+      "seconds": 0.21,
       "output": "story-acts: ok\n"
     },
     {
@@ -1362,8 +1362,8 @@
         "tests/story-game.cjs"
       ],
       "exit": 0,
-      "seconds": 4.07,
-      "output": "PASS: story acts 2-3 in game.js: 9 missions in order with rewards, raid cutscene + flee/hide outcomes, save/load round trip, frozen world, replays and all 4 cutscenes boot and skip.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/story-game.cjs:3:5214\n"
+      "seconds": 3.41,
+      "output": "PASS: story acts 2-3 in game.js: 9 missions in order with rewards, raid cutscene + flee/hide outcomes, save/load round trip, frozen world, replays and all 4 cutscenes boot and skip.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/story-game.cjs:3:5229\n"
     },
     {
       "test": "street-construction.mjs",
@@ -1372,7 +1372,7 @@
         "tests/street-construction.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.17,
       "output": "PASS: 30 real junctions receive 480 zebra bars, 120 curb ramps, 240 tactile strips and 26 continuous curb edges; all five guided bays receive world-space markings in two stable instanced draw calls. CPU construction only; no pedestrian-height render claim.\n"
     },
     {
@@ -1382,7 +1382,7 @@
         "tests/street-crowd.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.22,
       "output": "PASS: 32 scheduled townsfolk share one instanced batch, fill the daytime streets, sit at benches, use ATMs and vending machines, go home at night, and drop face detail past 40 m.\n"
     },
     {
@@ -1392,7 +1392,7 @@
         "tests/tactile-work.mjs"
       ],
       "exit": 0,
-      "seconds": 0.18,
+      "seconds": 0.12,
       "output": "PASS: directional packing/shaping, bounded circular stirring, finite input and forgiving seal window.\nPASS: locked relative motion, unlocked position deltas, lock transitions and malformed event inputs.\n"
     },
     {
@@ -1402,7 +1402,7 @@
         "tests/tent-access.mjs"
       ],
       "exit": 0,
-      "seconds": 0.22,
+      "seconds": 0.21,
       "output": "CPU original Tent rays (not rendered acceptance): {\"side\":[-1.190000057220459,1.15,0],\"back\":[0,1.15,-1.190000057220459],\"openFrontFirstHit\":[0,1.15,-1.1299999952316284],\"pot\":[0,0.35,0.5799999833106995],\"aisleFloor\":0.07999999821186066,\"aisleRoof\":2.255000114440918,\"centralLamp\":2.052500009536743}\nPASS: 128 rotations preserve player open-front collision while measured rectangular crate corners use a separate tent envelope; exact floor/conservative roof/lamp height fields, 9 aisle triangle pairs, lamp rays, finite probes and jump caps. No rendered contact or full 3D physics claim.\n"
     },
     {
@@ -1412,7 +1412,7 @@
         "tests/town-collision.mjs"
       ],
       "exit": 0,
-      "seconds": 0.63,
+      "seconds": 0.6,
       "output": "PASS: 390 Blender walk-height shells block the orphan wall and facade lips, leave door and RV lanes open, and walk distance matches at 30 and 120 FPS.\n"
     },
     {
@@ -1422,7 +1422,7 @@
         "tests/town-fencing.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.14,
       "output": "PASS: four sparse service yards use see-through two-rail fencing, exact padded collision and 2.15 m clear gates in two stable instanced draw calls. CPU geometry only; no rendered visibility or FPS claim.\n"
     },
     {
@@ -1432,7 +1432,7 @@
         "tests/town-materials.mjs"
       ],
       "exit": 0,
-      "seconds": 0.24,
+      "seconds": 0.19,
       "output": "PASS: deterministic 16px original microdetail establishes textured mass/roof/hardscape and clean trim/marking/prop tiers across nine batches with three shared textures. CPU material state only; no rendered hierarchy or GPU claim.\n"
     },
     {
@@ -1442,7 +1442,7 @@
         "tests/town-palette.mjs"
       ],
       "exit": 0,
-      "seconds": 0.34,
+      "seconds": 0.19,
       "output": "PASS: seven named coastal palettes coordinate 60 buildings and shared neutral/accent roles keep crossing, tactile, parking, service and emergency cues distinct across nine existing batches. CPU colour state only; no rendered palette claim.\n"
     },
     {
@@ -1452,7 +1452,7 @@
         "tests/town-skyline.mjs"
       ],
       "exit": 0,
-      "seconds": 0.27,
+      "seconds": 0.14,
       "output": "PASS: four roof-mounted original landmarks provide unique west/east/north/south silhouettes and four distinct total heights in three stable instanced draw calls. CPU geometry only; no rendered recognition or FPS claim.\n"
     },
     {
@@ -1462,7 +1462,7 @@
         "tests/town-surfaces.mjs"
       ],
       "exit": 0,
-      "seconds": 0.19,
+      "seconds": 0.11,
       "output": "PASS: 31 finite original-town pavement, expanded-district pavement and pier-deck crate supports with measured x/z footprint padding, exact boundaries and invalid-input fallback. Player support is not changed.\n"
     },
     {
@@ -1472,7 +1472,7 @@
         "tests/town-utilities.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.14,
       "output": "PASS: ten sparse rear-of-building utility sites cover four purposes inside existing blocked footprints in two stable instanced draw calls. CPU geometry only; no rendered clutter or FPS claim.\n"
     },
     {
@@ -1482,7 +1482,7 @@
         "tests/travel-reading.mjs"
       ],
       "exit": 0,
-      "seconds": 0.17,
+      "seconds": 0.1,
       "output": "PASS: immutable town geography, deterministic district/landmark and border lookup, eight-way headings, tracked bearings, arrival and broader driving-map scale. No browser rendering or routefinding tested.\n"
     },
     {
@@ -1492,7 +1492,7 @@
         "tests/v156-sea-hud-rank.mjs"
       ],
       "exit": 0,
-      "seconds": 0.13,
+      "seconds": 0.11,
       "output": "PASS: v156 sea slab gone, story cuts hide the HUD, street rank ladder\n"
     },
     {
@@ -1502,7 +1502,7 @@
         "tests/v157-customer-book.mjs"
       ],
       "exit": 0,
-      "seconds": 0.27,
+      "seconds": 0.14,
       "output": "PASS: v157 customer book (14 locals, samples unlock, appeal ranking, haggle odds, deal bonuses) + shore foam swell\n"
     },
     {
@@ -1512,7 +1512,7 @@
         "tests/v158-meetups.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.1,
       "output": "PASS: v158 meetups (spots, windows, on-time/late/no-show), locked list buttons, graph spacing, bonus ledger\n"
     },
     {
@@ -1522,7 +1522,7 @@
         "tests/v159-dealers.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.14,
       "output": "PASS: v159 dealer depth (regulars, float, robbery + protection, Dealers app wiring, assistant meet spot) \u00b7 robberies/week 0 vs protected 0\n"
     },
     {
@@ -1532,7 +1532,7 @@
         "tests/v160-cc0-people.mjs"
       ],
       "exit": 0,
-      "seconds": 0.15,
+      "seconds": 0.13,
       "output": "PASS: v160 CC0 rigged townsfolk \u00b7 8 models, 2.10 MB, one draw call each, Low budget 10\n"
     },
     {
@@ -1542,7 +1542,7 @@
         "tests/v161-sunny-grade.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.18,
       "output": "PASS: v161 sunny grade (blue zenith, warm sun, hemisphere fill, clearer air), lighter roads, green verges, empty hand hidden\n"
     },
     {
@@ -1552,7 +1552,7 @@
         "tests/v162-kenney-city.mjs"
       ],
       "exit": 0,
-      "seconds": 0.44,
+      "seconds": 0.47,
       "output": "PASS: v162 Kenney City Kit (Commercial + Suburban) buildings fitted to generic lots, merged per 160 m cell, credited CC0, 1.89 MB\n"
     },
     {
@@ -1562,7 +1562,7 @@
         "tests/v163-dodgy-town.mjs"
       ],
       "exit": 0,
-      "seconds": 0.23,
+      "seconds": 0.27,
       "output": "PASS: v163 Kenney town blocks (shop upper storeys + full swaps), lit glass, grime shader, compact streets (833 lots, 91 alleys), dodgy dressing in 2 draw calls\n"
     },
     {
@@ -1572,7 +1572,7 @@
         "tests/v164-narrow-varied.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.15,
       "output": "PASS: v164 narrower spawn streets (kerb build-outs 8.6 m asphalt, 66 clutter items, 1 draw), asymmetric mixed-height blocks (26/39), five window styles\n"
     },
     {
@@ -1592,7 +1592,7 @@
         "tests/v166-lanes-mood.mjs"
       ],
       "exit": 0,
-      "seconds": 0.11,
+      "seconds": 0.13,
       "output": "PASS v166 winding lanes, dodgy grade 24 lots\n"
     },
     {
@@ -1602,7 +1602,7 @@
         "tests/v167-phone-texts.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.09,
       "output": "PASS v167 Messages app: white texting screen, centred portrait/name header, green outgoing bubbles, compose bar\n"
     },
     {
@@ -1612,7 +1612,7 @@
         "tests/v168-grow-tent.mjs"
       ],
       "exit": 0,
-      "seconds": 0.09,
+      "seconds": 0.12,
       "output": "PASS v168 grow tent: canvas/mylar/LED tent, fabric pot, soil wetness follows watering\n"
     },
     {
@@ -1622,7 +1622,7 @@
         "tests/v169-seed-drops.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.12,
       "output": "PASS v169 seeds by text: Weasel, paid up front, dead drop on 15 lane spots, pick up in person\n"
     },
     {
@@ -1632,7 +1632,7 @@
         "tests/v170-strain-book.mjs"
       ],
       "exit": 0,
-      "seconds": 0.09,
+      "seconds": 0.1,
       "output": "PASS v170 strain book: 2/6 collection, silhouettes for undiscovered, try-next mixing ideas\n"
     },
     {
@@ -1662,8 +1662,8 @@
         "tests/v173-customers.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
-      "output": "PASS: v177 fifty locals, unique looks, sampling gates, district book, grind XP migration, 3-draw crowd\n"
+      "seconds": 0.16,
+      "output": "PASS: v178 fifty locals, unique looks, sampling gates, district book, grind XP migration, 3-draw crowd\n"
     },
     {
       "test": "v173-pack-feel.mjs",
@@ -1672,7 +1672,7 @@
         "tests/v173-pack-feel.mjs"
       ],
       "exit": 0,
-      "seconds": 0.09,
+      "seconds": 0.14,
       "output": "PASS v173 pack feel: packs land as a stack of baggies and jars of four, one by one, with sparkle and sound\n"
     },
     {
@@ -1682,7 +1682,7 @@
         "tests/v174-named-talk.mjs"
       ],
       "exit": 0,
-      "seconds": 0.09,
+      "seconds": 0.13,
       "output": "PASS v174 named talk: named customers, shopkeepers and dealers get a talk card with their own lines, a fan level and deal / sample / area options\n"
     },
     {
@@ -1702,8 +1702,18 @@
         "tests/v176-trade-screen.mjs"
       ],
       "exit": 0,
-      "seconds": 0.1,
+      "seconds": 0.11,
       "output": "v176 trade screen ok\n"
+    },
+    {
+      "test": "v178-staff.mjs",
+      "command": [
+        "node",
+        "tests/v178-staff.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.1,
+      "output": "PASS v178 staff ladder: harder hires, tiers, cleaner, dealer homes and routines\n"
     },
     {
       "test": "vehicle-access.mjs",
@@ -1712,7 +1722,7 @@
         "tests/vehicle-access.mjs"
       ],
       "exit": 0,
-      "seconds": 0.08,
+      "seconds": 0.09,
       "output": "PASS: rotated door reach, swept entry/exit occlusion, alternate exits, elevation, finite bounds, legacy seat recovery and immutable input. No rendered vehicle scale verified.\n"
     },
     {
@@ -1722,8 +1732,8 @@
         "tests/vehicle-game.cjs"
       ],
       "exit": 0,
-      "seconds": 4.9,
-      "output": "PASS: Wheels & Weather in game.js: lot gates and purchase, body swap, enter/drive/drift/brake/exit, trunk vs body search, cruisers spawn, refill, get lost, pull-over seizure, Low rain budget, weather schedule, phone forecast and save/load.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/vehicle-game.cjs:3:5214\n"
+      "seconds": 4.97,
+      "output": "PASS: Wheels & Weather in game.js: lot gates and purchase, body swap, enter/drive/drift/brake/exit, trunk vs body search, cruisers spawn, refill, get lost, pull-over seizure, Low rain budget, weather schedule, phone forecast and save/load.\nKerb build-outs unavailable ReferenceError: createKerbBuildOuts is not defined\n    at evalmachine.<anonymous>:3805:2\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at /workspace/merge-a/study-desk/games/gummy-bay-dev/tests/vehicle-game.cjs:3:5229\n"
     },
     {
       "test": "vertical-town.mjs",
@@ -1732,7 +1742,7 @@
         "tests/vertical-town.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.13,
       "output": "PASS: Gumdrop Terrace has two eight-step flights, a 1.44 m public platform, two safety rails and continuous finite support capped at 6.1 cm per 25 cm sample. CPU construction only; no rendered traversal claim.\n"
     },
     {
@@ -1742,7 +1752,7 @@
         "tests/visual.mjs"
       ],
       "exit": 0,
-      "seconds": 0.16,
+      "seconds": 0.15,
       "output": "PASS: 71 mesh objects construct with finite positions; workshop/task/quality visibility transitions. No WebGL rendering performed.\nPASS: pouring stream transforms and cancellation visibility.\nPASS: equipment ownership, stage-specific packaging/moulding, colour, cancellation and stable resource identities over 300 updates.\n"
     },
     {
@@ -1752,7 +1762,7 @@
         "tests/walk-grid.mjs"
       ],
       "exit": 0,
-      "seconds": 0.22,
+      "seconds": 0.14,
       "output": "PASS: walk grid finds string-pulled detours through gaps, never cuts walls, and reports sealed goals 20.2m\n"
     },
     {
@@ -1762,7 +1772,7 @@
         "tests/weather.mjs"
       ],
       "exit": 0,
-      "seconds": 0.24,
+      "seconds": 0.18,
       "output": "PASS: seeded rain schedule (dry days 1-2, ~30% rain days, ramps, drying), forecast agrees, overcast sky, low/high budgets with one draw call per layer, wet sheen, umbrellas and running pedestrians. CPU only.\n"
     },
     {
@@ -1772,7 +1782,7 @@
         "tests/window-connections.mjs"
       ],
       "exit": 0,
-      "seconds": 0.24,
+      "seconds": 0.14,
       "output": "PASS: all 22 real frontage windows gain seven-part recessed reveals in one stable batch, with four measured aperture samples per transparent pane and no collision. CPU geometry only; no rendered sightline claim.\n"
     },
     {
@@ -1782,7 +1792,7 @@
         "tests/window-lighting.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.14,
       "output": "PASS: all-home/public-shop occupancy, active/current-state gates, safe invalid inputs, bounded asymmetric emission, coherent dawn/dusk over 8641 samples and immutable state. No rendered glass/interior acceptance.\n"
     },
     {
@@ -1792,7 +1802,7 @@
         "tests/workshop-move.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.11,
       "output": "PASS: atomic deed cost/eligibility, input/output cargo recovery once, crop/order/layout/stock conservation, larger workspace access and safe optional relocation history.\n"
     },
     {
@@ -1802,7 +1812,7 @@
         "tests/workshop.mjs"
       ],
       "exit": 0,
-      "seconds": 0.14,
+      "seconds": 0.1,
       "output": "PASS: inventory projections, allocation bound, task progress, comfort fallback\n"
     },
     {
@@ -1812,7 +1822,7 @@
         "tests/world-lighting.mjs"
       ],
       "exit": 0,
-      "seconds": 0.21,
+      "seconds": 0.16,
       "output": "PASS: periodic finite clock/sky/water/light projection, smooth dawn/dusk, title fallback, owned-workshop selection, strict two-light/18-intensity budget, quality/range/invalid limits and immutable input. Not rendered lighting acceptance.\n"
     },
     {
