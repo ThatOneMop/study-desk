@@ -25,3 +25,9 @@ body #overlay.phone .sms-inbox .unread-dot{background:#30c158!important}
 body #overlay.phone #modal.sms-inbox .message-inbox h2{font-size:24px!important;font-weight:800;color:#111!important}
 body #overlay.phone #modal.sms-inbox .message-inbox .overline{display:none}
 body #overlay.phone .thread-row.is-unread strong{font-weight:900}
+/* v169 supplier order rows */
+body #overlay.phone #modal .supplier-row{display:flex;align-items:center;gap:6px;padding:7px 0;border-top:1px solid #e4e4e8}
+body #overlay.phone #modal .supplier-row span{flex:1;display:flex;flex-direction:column}
+body #overlay.phone #modal .supplier-row small{color:#777!important;font-size:10px}
+body #overlay.phone #modal .supplier-row .primary{min-height:30px;padding:4px 9px!important;border-radius:15px!important;background:#30c158!important;color:#fff!important;border:0!important;font-size:11px;font-weight:800}
+body #overlay.phone .supplier-app-icon b{background:#3b4a3a!important}
