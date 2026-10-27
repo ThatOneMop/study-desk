@@ -1,3 +1,4 @@
+import {laneSurface} from './winding-lanes.mjs?v=166';
 const PAVEMENT_OFFSET=8.1,PAVEMENT_HALF=2;
 const WORLD_MIN_Z=95-(178*171*10/560),ROAD_BOTTOM=WORLD_MIN_Z+4;
 
@@ -39,6 +40,7 @@ export const KERB_BUILD_OUTS=Object.freeze(buildOutRects().map(r=>Object.freeze(
 const finitePoint=point=>point&&Number.isFinite(point.x)&&Number.isFinite(point.z);
 const contains=(rect,point)=>Math.abs(point.x-rect.x)<=rect.w/2&&Math.abs(point.z-rect.z)<=rect.d/2;
 function pointSurface(point){
+ const lane=laneSurface(point.x,point.z);if(lane)return {kind:lane,junction:false}; // v166 winding lanes
  if(KERB_BUILD_OUTS.some(rect=>contains(rect,point)))return {kind:'pavement',junction:false};
  const roads=VEHICLE_ROADS.filter(rect=>contains(rect,point));
  if(roads.length)return {kind:'road',junction:roads.some(rect=>rect.axis==='horizontal')&&roads.some(rect=>rect.axis==='vertical')};

@@ -8,7 +8,7 @@ import {addStreetHat} from './street-hats.mjs?v=113';
 import {terrainHeight,WALKABLE_HILLS,createGrittyTerrain} from './gritty-terrain.mjs?v=111';
 import {gritMaterial,createStreetWear} from './gritty-streets.mjs?v=161';
 import {roundResidentAsset} from './resident-rounding.mjs?v=121';
-import {EXTRA_PATROL_ROUTES,expandPoliceRoster} from './patrol-expansion.mjs?v=111';
+import {EXTRA_PATROL_ROUTES,expandPoliceRoster} from './patrol-expansion.mjs?v=166';
 import {dressPayphone} from './payphone-detail.mjs?v=111';
 import {createAtmosphereOverhaul,coastalWeather} from './graphics-atmosphere.mjs?v=155';
 import {LOT_CARS,LOT_SITE,lotCar,lotOwned,lotRequest,handlingFor,createCar,stepCar,resolveMove,setLong,chaseCamera,trunkCapacity,trunkCount,moveTrunk,seizeTrunk} from './car-physics.mjs?v=145';
@@ -42,7 +42,7 @@ import {policeSight,policeFeedback,readPoliceReport} from './police-feedback.mjs
 import {physicalPointTypes,actionPointTypes,actionPointMatches,pointApproach} from './point-access.mjs?v=116-35';
 import {exchangeAccess,freshExchangePose} from './exchange-access.mjs?v=34';
 import {vehicleDoorAccess} from './vehicle-access.mjs?v=33';
-import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine,VEHICLE_ROADS,PEDESTRIAN_WAYS} from './road-zones.mjs?v=164b';
+import {drivingSurfaceZone,limitVehicleZoneSpeed,roadZoneLine,VEHICLE_ROADS,PEDESTRIAN_WAYS} from './road-zones.mjs?v=166';
 import {PARKING_BAYS,parkingGuide,parkingSnapPose,parkingGuideLine} from './parking-guide.mjs?v=69';
 import {DISTRICT_BUILDING_SITES,DISTRICT_CONTRAST_COLLIDERS,districtArchitectureProfile,districtGeometricContrast,createDistrictArchitecture} from './district-architecture.mjs?v=126';
 import {createStreetConstruction} from './street-construction.mjs?v=164';
@@ -93,7 +93,8 @@ import {PANTRY,mixedStrainIndex,mixedSlots} from './mix-pantry.mjs?v=130';
 import {createCityExpansion,CITY_ROADS,OVERPASS} from './city-expansion.mjs?v=164';
 import {createKenneyCity} from './kenney-city.mjs?v=164';
 import {createDodgyDressing} from './dodgy-dressing.mjs?v=164';
-import {createKerbBuildOuts} from './kerb-buildouts.mjs?v=164c';
+import {createKerbBuildOuts} from './kerb-buildouts.mjs?v=164d';
+import {WINDING_LANES,LANE_HALF,LANE_EDGE,planLaneLots,laneLotColliders,laneLampSpots,laneBlocks,buildLaneMesh,laneSamples,laneDistance} from './winding-lanes.mjs?v=166';
 import {readabilityGrade,streetLampSpots,treeSpots,dressingSpots,createStreetDressing} from './light-grade.mjs?v=139';
 import {normalizeArcade,gripColor,ownedPosters,prizeById} from './arcade-core.mjs?v=137';
 import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=137';
@@ -141,7 +142,7 @@ import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOut
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
 import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=160';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute,crowdPalette} from './street-crowd.mjs?v=165';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute,crowdPalette} from './street-crowd.mjs?v=166';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -161,6 +162,7 @@ import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
 import {createCc0People,cc0Variant} from './cc0-people.mjs?v=165';
 import {applySunnyGrade,sunnyStrength} from './sunny-grade.mjs?v=161';
+import {applyDodgyGrade,dodgyStrength,signFlicker} from './dodgy-grade.mjs?v=166';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
@@ -885,6 +887,7 @@ function paintTownMap(ctx,w,h,local=false){
  ctx.fillStyle='#747d61';const [lx,lz]=pos(-290,WORLD.minZ-2);ctx.fillRect(lx,lz,580*scale,(WORLD.maxZ-WORLD.minZ+4)*scale);
  const road=(x,z,rw,rd)=>{if(local&&!mapRectVisible({x,z,w:rw,d:rd},center,scale,w,h))return;let [a,b]=pos(x-rw/2,z-rd/2);ctx.fillStyle='#b7b5a4';ctx.fillRect(a,b,rw*scale,rd*scale);visibleRoads++};
  road(0,0,560,12);for(let z of roadZs)road(0,z,560,12);for(let x of roadXs)road(x,-218,12,445);
+ if(typeof WINDING_LANES!=='undefined'){ctx.strokeStyle='#b7b5a4';ctx.lineWidth=Math.max(2,LANE_HALF*2*scale);ctx.lineJoin='round';ctx.lineCap='round';for(const l of WINDING_LANES){const S=laneSamples(l.id);ctx.beginPath();S.forEach((p,i)=>{const [a,b]=pos(p.x,p.z);if(i)ctx.lineTo(a,b);else ctx.moveTo(a,b);});ctx.stroke();visibleRoads++;}}
  for(let b of [...buildings,...districtBuildings,...(cityExpansion?.sites||[])]){if(local&&!mapRectVisible(b,center,scale,w,h))continue;let [x,z]=pos(b.x-b.w/2,b.z-b.d/2);ctx.fillStyle='#506558';ctx.fillRect(x,z,b.w*scale,b.d*scale);visibleBuildings++;}
  for(let [i,d] of DISTRICTS.entries()){let p=local?projectMapPoint(d,center,scale,w,h,4):null;if(local&&!p)continue;let [x,z]=p?[p.x,p.y]:pos(d.x,d.z);ctx.fillStyle='#eed7a0';ctx.fillRect(x-3,z-3,6,6);visibleDistricts++;if(!local){ctx.font='bold 11px sans-serif';ctx.fillText(d.name,x+6,z-5)}else if(projectMapPoint(d,center,scale,w,h,42)){ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(d.name,x,z-7);ctx.textAlign='start';}}
  for(let c of CONTACTS){let p=local?projectMapPoint(c,center,scale,w,h,3):null;if(local&&!p)continue;let [x,z]=p?[p.x,p.y]:pos(c.x,c.z);ctx.fillStyle='#f0bd74';ctx.fillRect(x-2,z-2,4,4);visibleContacts++}
@@ -3937,6 +3940,30 @@ function installDodgyDressing(){
  const clear=c=>!points.some(p=>Math.hypot(p.x-c.x,p.z-c.z)<3)&&!policeRoutes.some(r=>r.some(q=>Math.hypot(q[0]-c.x,q[1]-c.z)<3));
  dodgyDressing.colliders=dodgyDressing.colliders.filter(clear);colliders.push(...dodgyDressing.colliders);
 }
+// v166: winding lanes. Lots along the curves are vetoed over colliders, gameplay points, police
+// routes, grid roads/pavements and the reserved open areas; small props on the asphalt are cleared.
+var windingLanes=null;
+function installWindingLanes(){
+ const solid=colliders.concat(CITY_SHELLS),major=points.filter(p=>p&&p.type!=='litter'&&p.type!=='prop'&&Number.isFinite(p.x));
+ const segBox=(bb,a,b,m)=>{for(let t=0;t<=1;t+=.1){const x=a[0]+(b[0]-a[0])*t,z=a[1]+(b[1]-a[1])*t;if(x>bb.x0-m&&x<bb.x1+m&&z>bb.z0-m&&z<bb.z1+m)return true;}return false;};
+ const reserved=[{x0:-61,x1:-45,z0:-82,z1:-42},{x0:-80,x1:80,z0:-36,z1:53}];
+ const clear=bb=>!solid.some(o=>o&&o.w>0&&o.w*o.d>=4&&o.x+o.w/2>bb.x0-.6&&o.x-o.w/2<bb.x1+.6&&o.z+o.d/2>bb.z0-.6&&o.z-o.d/2<bb.z1+.6)
+  &&!major.some(p=>p.x>bb.x0-4.5&&p.x<bb.x1+4.5&&p.z>bb.z0-4.5&&p.z<bb.z1+4.5)
+  &&!policeRoutes.some(r=>r.some((q,i)=>{const b=r[(i+1)%r.length];return laneDistance((q[0]+b[0])/2,(q[1]+b[1])/2).d>LANE_HALF&&segBox(bb,q,b,2.4);}))
+  &&!VEHICLE_ROADS.some(o=>o.x+o.w/2+4.3>bb.x0&&o.x-o.w/2-4.3<bb.x1&&o.z+o.d/2+4.3>bb.z0&&o.z-o.d/2-4.3<bb.z1)
+  &&!(bb.x0<10.3&&bb.x1>-13.6&&bb.z1>-92)
+  &&!reserved.some(q=>bb.x1>q.x0&&bb.x0<q.x1&&bb.z1>q.z0&&bb.z0<q.z1);
+ let vetoed=0;const plan=planLaneLots({clear:bb=>clear(bb)||(vetoed++,false)});
+ // clear small props and kerb clutter that would sit on the new asphalt
+ let cleared=0;for(let i=colliders.length-1;i>=0;i--){const o=colliders[i];if(o&&o.w*o.d<6&&laneDistance(o.x,o.z).d<LANE_HALF+.4){colliders.splice(i,1);cleared++;}}
+ const conflicts=solid.filter(o=>o&&o.w*o.d>=6&&laneDistance(o.x,o.z).d<LANE_HALF+Math.min(o.w,o.d)/2).map(o=>[+o.x.toFixed(1),+o.z.toFixed(1),+o.w.toFixed(1),+o.d.toFixed(1)]);
+ for(const lot of plan.lots){lot.y=Math.min(0,terrainHeight(lot.x,lot.z));lot.kenney=true;lot.height=lot.floors*3.2;}
+ const built=buildLaneMesh(THREE,{height:(x,z)=>Math.max(0,terrainHeight(x,z)),alleys:plan.alleys});scene.add(built.mesh);
+ const lotColliders=plan.lots.flatMap(laneLotColliders);colliders.push(...lotColliders,...built.bins);
+ const blocks=[...laneBlocks(),...plan.lots.map(l=>({x:(l.bb.x0+l.bb.x1)/2,z:(l.bb.z0+l.bb.z1)/2,w:l.bb.x1-l.bb.x0,d:l.bb.z1-l.bb.z0}))];
+ window.__lanes={vetoed,lanes:WINDING_LANES.map(l=>l.name),lots:plan.lots.length,alleys:plan.alleys.length,bins:built.bins.length,verts:built.verts,cleared,conflicts};
+ return {lots:plan.lots,alleys:plan.alleys,mesh:built.mesh,blocks,colliders:lotColliders};
+}
 // v164: kerb build-outs narrow the spawn streets (asphalt 12 m -> 8.6 m) and add edge clutter.
 var kerbBuildOuts=null;
 if(!(typeof location!=='undefined'&&/[?&]kerb=0\b/.test(location.search)))try{
@@ -3947,8 +3974,11 @@ if(!(typeof location!=='undefined'&&/[?&]kerb=0\b/.test(location.search)))try{
 }catch(e){console.warn('Kerb build-outs unavailable',e);}
 if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
  const cityBase=colliders.length;
- cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS),points,routes:policeRoutes,quality,height:terrainHeight,kenney:typeof createKenneyCity==='function'&&!(typeof location!=='undefined'&&/[?&]kenney=0\b/.test(location.search))});
+ // v166: winding lanes near spawn (winding-lanes.mjs). Planned before the grid city so its lots keep off them.
+ if(!(typeof location!=='undefined'&&/[?&]lanes=0\b/.test(location.search)))try{windingLanes=installWindingLanes();}catch(e){console.warn('Winding lanes unavailable',e);windingLanes=null;}
+ cityExpansion=createCityExpansion({scene,obstacles:colliders.concat(CITY_SHELLS,windingLanes?windingLanes.blocks:[]),points,routes:policeRoutes,quality,height:terrainHeight,kenney:typeof createKenneyCity==='function'&&!(typeof location!=='undefined'&&/[?&]kenney=0\b/.test(location.search))});
  // v162: Kenney City Kit (CC0) buildings on the generic lots, a few merged draw calls.
+ if(windingLanes&&cityExpansion.kenneyLots)cityExpansion.kenneyLots.push(...windingLanes.lots);
  if(cityExpansion.kenneyLots?.length&&typeof createKenneyCity==='function')kenneyCity=createKenneyCity({scene,lots:cityExpansion.kenneyLots,Loader:typeof GLTFLoader!=='undefined'?GLTFLoader:null});
  if(kenneyCity){kenneyCity.onChange=()=>installDodgyDressing();if(visualTown)installKenneyTown(visualTown);}
  colliders.push(...cityExpansion.colliders);
@@ -3974,7 +4004,7 @@ const gradeBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){grad
 try{
  const grid=cityExpansion?.plan?.grid;
  const opZ=OVERPASS.z,soffit=[];for(let x=-262;x<262;x+=30){if(CITY_ROADS.x.concat([0]).some(rx=>Math.abs(x-rx)<10))continue;for(const dz of [-4.2,4.2])soffit.push({x,y:OVERPASS.y-.35,z:opZ+dz});}
- const spots=streetLampSpots({roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),skipZ:[0,opZ],obstacles:colliders,points});gfxGlowSpots={lamps:spots,soffit};
+ const spots=streetLampSpots({roadsZ:CITY_ROADS.z,roadsX:CITY_ROADS.x.concat([0]),skipZ:[0,opZ],obstacles:colliders,points});if(windingLanes&&typeof laneLampSpots==='function')spots.push(...laneLampSpots());gfxGlowSpots={lamps:spots,soffit};
  const grid0=grid;const freeTree=(x,z)=>grid0?grid0.free(x-2.6,x+2.6,z-2.6,z+2.6):false;
  // Old Town dressing: off the road bands, colliders, doors, police lanes and every crowd stop / walk line.
  const crowd=[];for(let i=0;i<STREET_CROWD_SIZE*2;i++){const c=crowdRoute(i);crowd.push({a:[c.home.x,c.home.z],b:[c.job.x,c.job.z]});for(const k of ['bench','vend','atm','street'])crowd.push({a:[c[k].x,c[k].z],b:[c.home.x,c.home.z]},{a:[c[k].x,c[k].z],b:[c.job.x,c.job.z]});}
@@ -4003,7 +4033,8 @@ const gfxBaseRefresh=refreshWorldLighting;refreshWorldLighting=function(){gfxBas
 };
 // v161: sunny, saturated daytime grade on top of the clock lighting (sunny-grade.mjs).
 const clockWorldLighting=refreshWorldLighting;
-refreshWorldLighting=function(){clockWorldLighting();sunnyK=0;if(typeof applySunnyGrade!=='function'||!(active||cine.lit))return;const plan=sceneLighting(s.time,active),w=cine.lit?{cloud:.15,rain:0,mist:0}:gbSky();sunnyK=applySunnyGrade({THREE,k:sunnyStrength({daylight:plan.daylight,cloud:w.cloud,rain:w.rain,mist:w.mist}),sun,hemi,scene,skyUniforms,renderer,waterUniforms,cloud:w.cloud});};
+const SUNNY_ON=typeof location!=='undefined'&&/[?&]sunny=1\b/.test(location.search);
+refreshWorldLighting=function(){clockWorldLighting();sunnyK=0;if(!(active||cine.lit))return;if(!SUNNY_ON&&typeof applyDodgyGrade==='function'){const plan=sceneLighting(s.time,active);window.__dodgyK=applyDodgyGrade({THREE,k:dodgyStrength({daylight:plan.daylight}),daylight:plan.daylight,sun,hemi,scene,skyUniforms,renderer,waterUniforms});return;}if(typeof applySunnyGrade!=='function')return;const plan=sceneLighting(s.time,active),w=cine.lit?{cloud:.15,rain:0,mist:0}:gbSky();sunnyK=applySunnyGrade({THREE,k:sunnyStrength({daylight:plan.daylight,cloud:w.cloud,rain:w.rain,mist:w.mist}),sun,hemi,scene,skyUniforms,renderer,waterUniforms,cloud:w.cloud});};
 window.__gummyGfx={occlusion:()=>gfxOcclusion?{verts:gfxOcclusion.verts,opacity:gfxOcclusion.mesh.material.opacity}:null,grade:()=>gfxLightGrade(sceneLighting(s.time,active),quality)};
 // v151 graphics pass step 2: one procedural detail atlas shared by every static town material.
 const gfxMaterialUniforms={gfxAtlas:{value:null},gfxStrength:{value:1}};let gfxPatched=0,gfxPatchTimes=[];
@@ -5255,3 +5286,5 @@ window.__talk={
  state:()=>({target:talkTarget,open:!!talk,panel,name:talk?.name||null,line:talk?.line||null,portrait:!!talk?.portrait}),
  latch:()=>({latched:sprintLatch.latched,shift:!!keys.shift,crouch:!!keys.control})
 };
+// v166: faulty signs after dark (dodgy-grade.mjs signFlicker): about one shop sign in four buzzes or drops out.
+{const flickerRender=renderFrame;renderFrame=function(){try{if(typeof signFlicker==='function'){const night=sceneLighting(s.time,active).night||0,t=performance.now()/1000;let i=0;for(const r of signMaterials.values())r.material.color.setScalar(signFlicker(i++,t,night));}}catch(e){}return flickerRender.apply(this,arguments);};}
