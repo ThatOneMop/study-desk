@@ -166,6 +166,7 @@ import {applyDodgyGrade,dodgyStrength,signFlicker} from './dodgy-grade.mjs?v=166
 import {contactPalette,restyleThread,portraitInbox} from './phone-texts.mjs?v=167';
 import {buildGrowTent,updateGrowTent,TENT} from './grow-tent.mjs?v=168';
 import {SUPPLIER,DROP_WAIT,PICKUP_RANGE,pickDrop,seedPrice,orderTotal,dropState,supplierThread} from './seed-drops.mjs?v=169';
+import {strainBookModel,strainBookHTML} from './strain-book.mjs?v=170';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -5340,3 +5341,18 @@ function dropBagMesh(){const g=new THREE.Group();const paper=new THREE.MeshStand
  else if(dropBag)dropBag.visible=false;
  if(st==='here'&&net.role!=='guest'&&!driving){s.seeds[d.t]=(s.seeds[d.t]||0)+d.qty;const name=STRAINS[d.t].name;s.seedDrop=null;if(track&&Math.hypot(track.x-d.x,track.z-d.z)<1)track=null;toast('Picked up '+d.qty+' × '+name+' seeds. '+SUPPLIER.name+': '+SUPPLIER.collected);save();updateUI();}}}catch(e){}return dropRender.apply(this,arguments);};}
 window.__dropQa={order:(t=0,q=3)=>{s.cash=Math.max(s.cash,500);supplierOrder(t,q);return s.seedDrop;},ready:()=>{if(s.seedDrop)s.seedDrop.ready=dropMinute()-1;return s.seedDrop;},state:()=>({drop:s.seedDrop,state:dropState(s.seedDrop,dropMinute(),player),seeds:[...s.seeds],bag:!!dropBag?.visible})};
+
+// v170: Strains app (strain-book.mjs). The whole product line as a collection: base gummies plus every
+// base + ingredient mix, discovered in colour, undiscovered as dark silhouettes, with "try next" ideas.
+function strainBook(){ensureMixSeed?.();return strainBookModel({strains:STRAINS,baseCount:BASE_COUNT,pantry:PANTRY,book:s.mixBook||{},unlocked,names:s.recipeNames||{},value,
+ owned:i=>(s.gummies[i]||0)+(s.packs[i]||0),baseStock:i=>(s.gummies[i]||0)+(s.packs[i]||0),pantryStock:i=>s.ingredients?.[i]||0,pantryOpen:i=>level()>=(PANTRY[i]?.unlockLevel||0),mixedIndex:mixedStrainIndex});}
+function openStrains(){
+ menu('phone');if(panel!=='phone')return;const m=$('modal');if(!m)return;
+ m.innerHTML=phoneDeviceHTML('phone').split('<nav')[0]+'<button class="close" onclick="closeMenu()" aria-label="Put phone away">×</button><button class="sb-back" onclick="phoneHome()" aria-label="Back">‹ Home</button>'+strainBookHTML(strainBook(),{esc,chip,money:cash})+'<button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';
+ m.classList.add('strain-screen');document.body.dataset.phone='strains';
+}
+window.openStrains=openStrains;window.__strainBook=strainBook;
+{const sbMenu=menu;menu=function(which,...rest){$('modal')?.classList?.remove('strain-screen');return sbMenu(which,...rest);};window.menu=menu;}
+{const sbHome=phoneHome;phoneHome=function(){$('modal')?.classList?.remove('strain-screen');sbHome();if(panel!=='phone')return;const grid=$('modal')?.querySelector?.('.phone-app-grid');if(!grid)return;const b=strainBook();
+ grid.insertAdjacentHTML('beforeend','<button onclick="openStrains()" data-phone-key="strains" class="strains-app-icon"><b aria-hidden="true">🧪</b><strong>Strains</strong><small>'+b.found+'/'+b.total+' found</small></button>');};window.phoneHome=phoneHome;}
+if(typeof location!=='undefined'&&/[?&]strainqa=1\b/.test(location.search))window.__strainQa={seed(){s.mixBook??={};s.xp=Math.max(s.xp,900);for(const [b,k] of [[0,0],[0,2],[1,1],[2,3],[3,0]]){const i=mixedStrainIndex(b,k,BASE_COUNT);s.mixBook[i]??={day:s.day,stir:80};}s.gummies[0]=(s.gummies[0]||0)+3;s.gummies[1]=(s.gummies[1]||0)+2;PANTRY.forEach((f,i)=>{if(i<4)s.ingredients[i]=(s.ingredients[i]||0)+1;});ensureMixSeed?.();updateUI();const b=strainBook();return {found:b.found,total:b.total};}};

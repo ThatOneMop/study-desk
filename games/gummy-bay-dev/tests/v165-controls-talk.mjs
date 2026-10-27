@@ -34,5 +34,5 @@ const cc0=fs.readFileSync('dist/cc0-people.mjs','utf8');assert.ok(cc0.includes('
 const src=fs.readFileSync('dist/game.js','utf8');
 for(const s of ["people-talk.mjs?v=165","input-latch.mjs?v=165","cc0-people.mjs?v=165","gesture:p.gestureKind?gestureOffsets(",'sprintLatch.down(','keys.control=true','canvas.requestPointerLock','openTalk(talkTarget)','talkPortrait(p)','window.__talk=',"starter=s.day<=1&&!(Number(sold)>1)",'First sales get a warning'])assert.ok(src.includes(s),s);
 const css=fs.readFileSync('dist/people-talk.css','utf8');assert.ok(css.includes('.talk-card')&&css.includes('max-height:920px'));
-const idx=fs.readFileSync('dist/index.html','utf8');assert.ok(idx.includes('people-talk.css?v=165')&&/game\.js\?v=16[5-9]/.test(idx));
+const idx=fs.readFileSync('dist/index.html','utf8');assert.ok(idx.includes('people-talk.css?v=165')&&/game\.js\?v=(16[5-9]|1[7-9]\d)/.test(idx));
 console.log('PASS: v165 controls (double-tap W sprint latch, C crouch, first-click mouse capture) and street talk ('+opts.length+' options, '+Object.keys(GESTURE_TIME).length+' reactions, portraits), tutorial sale warning');

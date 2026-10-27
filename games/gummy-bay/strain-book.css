@@ -1,0 +1,34 @@
+/* v170 Strains app: a collectible grid inside the phone. */
+body #overlay.phone #modal.strain-screen{background:#14161a!important;color:#f3f3f5}
+#modal.strain-screen .sb-back{position:relative;z-index:2;background:none!important;border:0!important;color:#7fd99a!important;font-weight:800;font-size:12px;padding:4px 0!important;min-height:0}
+#modal .strain-book{padding:2px 2px 40px}
+#modal .strain-book h2{margin:0 0 6px;color:#fff}
+#modal .strain-book .overline{color:#7fd99a}
+#modal .sb-progress{height:8px;border-radius:4px;background:#2a2d33;overflow:hidden}
+#modal .sb-progress i{display:block;height:100%;background:linear-gradient(90deg,#30c158,#f2c84b);border-radius:4px;min-width:6px}
+#modal .sb-count{margin:4px 0 8px;font-size:11px;color:#b9bcc4}
+#modal .sb-try{display:flex;flex-direction:column;gap:3px;padding:8px 10px;margin-bottom:10px;border-radius:12px;background:#1f3326;border:1px solid #2f6b44;font-size:11px}
+#modal .sb-try b{color:#7fd99a;font-size:11px;letter-spacing:.02em}
+#modal .sb-try span::before{content:'🧪 '}
+#modal .sb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+#modal .sb-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:8px 4px;border-radius:12px;background:#22252b;border:1px solid #30343c;min-width:0}
+#modal .sb-card strong{font-size:10.5px;line-height:1.15;color:#fff;overflow-wrap:anywhere}
+#modal .sb-card small{font-size:9px;color:#9a9ea8;line-height:1.1}
+#modal .sb-card p{margin:2px 0 0;display:flex;flex-wrap:wrap;gap:2px;justify-content:center}
+#modal .sb-card .mix-chip{font-size:8px;padding:1px 4px}
+#modal .sb-card .sb-value{font-style:normal;font-size:10px;font-weight:800;color:#f2c84b}
+#modal .sb-card.mixed:not(.locked){border-color:#4b3d6b;background:#262236}
+#modal .sb-card.locked{background:#191b1f;border-style:dashed}
+#modal .sb-card.locked strong{color:#5c606a}
+.sb-gummy{display:block;width:30px;height:34px;border-radius:45% 45% 40% 40%/55% 55% 45% 45%;background:radial-gradient(circle at 35% 30%,#fff8 0 12%,transparent 13%),var(--g);box-shadow:inset 0 -5px 0 #0003,0 2px 6px #0006;position:relative}
+.sb-gummy::before,.sb-gummy::after{content:'';position:absolute;top:-6px;width:11px;height:11px;border-radius:50%;background:var(--g);box-shadow:inset 0 -2px 0 #0002}
+.sb-gummy::before{left:1px}.sb-gummy::after{right:1px}
+.sb-card.locked .sb-gummy,.sb-card.locked .sb-gummy::before,.sb-card.locked .sb-gummy::after{background:#0c0d0f;box-shadow:inset 0 0 0 1px #34373e}
+body #overlay.phone .strains-app-icon b{background:#4b3d6b!important}
+/* phone theme forces dark text; keep the collection readable on its dark page */
+body #overlay.phone #modal.strain-screen .strain-book h2{color:#fff!important}
+body #overlay.phone #modal.strain-screen .sb-card strong{color:#fff!important}
+body #overlay.phone #modal.strain-screen .sb-card.locked strong{color:#6a6e78!important}
+body #overlay.phone #modal.strain-screen .sb-card small,body #overlay.phone #modal.strain-screen .sb-count{color:#a9adb7!important}
+body #overlay.phone #modal.strain-screen .sb-try span{color:#e6f5ea!important}
+body #overlay.phone #modal.strain-screen .sb-try b{color:#7fd99a!important}
