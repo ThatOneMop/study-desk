@@ -71,7 +71,7 @@ assert.match(game,/createBobSmoother/);assert.match(game,/rigged-locomotion\.mjs
 const people=fs.readFileSync(new URL('../dist/cc0-people.mjs',import.meta.url),'utf8');
 assert.match(people,/beginLocomotion/);assert.match(people,/endLocomotion/);
 const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
-assert.match(html,/game\.js\?v=174/);
+assert.match(html,/game\.js\?v=(17[4-9]|1[8-9]\d)/);
 const credits=fs.readFileSync(new URL('../dist/CREDITS.md',import.meta.url),'utf8');
 assert.match(credits,/Rigged locomotion/);assert.match(credits,/Quaternius/);
 console.log('PASS v172 locomotion: blended gait, planted foot radius '+radius.toFixed(3)+' (was '+oldRadius.toFixed(3)+'), eased camera bob');

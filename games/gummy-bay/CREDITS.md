@@ -53,6 +53,9 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 - Kerb build-outs, street clutter, asymmetric block columns and the window styles (blinds, curtains, boarded, dark) are generated in code. No new third-party assets.
 
 ## Rigged locomotion (added v174)
+
+## Outer districts (added v175)
+- Salt Docks, Tin Terrace, Hillcrest and Neon Row, their winding lanes, shopfronts and streamed chunks are generated in code (`outer-districts.mjs`). No new third-party assets. Lock state is not written into the save.
 - Idle, walk and run on the existing Quaternius townsfolk are blended in code, with the cycle driven by distance so a planted foot stays put. Turn lean, gait variation and idle fidgets are original. No new third-party assets.
 
 ## Controls and street conversations (added v165)

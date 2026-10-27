@@ -1,4 +1,5 @@
 import {laneSurface} from './winding-lanes.mjs?v=166';
+import {outerRoadKind} from './outer-districts.mjs?v=175';
 const PAVEMENT_OFFSET=8.1,PAVEMENT_HALF=2;
 const WORLD_MIN_Z=95-(178*171*10/560),ROAD_BOTTOM=WORLD_MIN_Z+4;
 
@@ -44,7 +45,9 @@ function pointSurface(point){
  if(KERB_BUILD_OUTS.some(rect=>contains(rect,point)))return {kind:'pavement',junction:false};
  const roads=VEHICLE_ROADS.filter(rect=>contains(rect,point));
  if(roads.length)return {kind:'road',junction:roads.some(rect=>rect.axis==='horizontal')&&roads.some(rect=>rect.axis==='vertical')};
- return {kind:PEDESTRIAN_WAYS.some(rect=>contains(rect,point))?'pavement':'ground',junction:false};
+ if(PEDESTRIAN_WAYS.some(rect=>contains(rect,point)))return {kind:'pavement',junction:false};
+ const outer=outerRoadKind(point.x,point.z);if(outer)return {kind:outer,junction:false};
+ return {kind:'ground',junction:false};
 }
 const ZONES=Object.freeze({
  road:Object.freeze({key:'road',label:'ROAD',speedLimit:16,guidance:'Keep to the lane'}),
