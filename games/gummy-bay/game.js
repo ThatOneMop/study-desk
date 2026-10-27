@@ -163,6 +163,7 @@ import {GLTFLoader} from './vendor/gltf-loader.js';
 import {createCc0People,cc0Variant} from './cc0-people.mjs?v=165';
 import {applySunnyGrade,sunnyStrength} from './sunny-grade.mjs?v=161';
 import {applyDodgyGrade,dodgyStrength,signFlicker} from './dodgy-grade.mjs?v=166';
+import {contactPalette,restyleThread,portraitInbox} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
@@ -5288,3 +5289,10 @@ window.__talk={
 };
 // v166: faulty signs after dark (dodgy-grade.mjs signFlicker): about one shop sign in four buzzes or drops out.
 {const flickerRender=renderFrame;renderFrame=function(){try{if(typeof signFlicker==='function'){const night=sceneLighting(s.time,active).night||0,t=performance.now()/1000;let i=0;for(const r of signMaterials.values())r.material.color.setScalar(signFlicker(i++,t,night));}}catch(e){}return flickerRender.apply(this,arguments);};}
+// v167: Messages app restyle (phone-texts.mjs). White texting screen, centred portrait + name, green outgoing
+// bubbles, grey incoming, compose bar. Runs after every other menu wrapper has rendered the thread.
+const smsPortraits=new Map();
+function smsPortrait(i){if(smsPortraits.has(i))return smsPortraits.get(i);let url='';try{const c=CONTACTS[i],cv=document.createElement('canvas');cv.width=cv.height=96;const cx=cv.getContext?.('2d');if(cx&&c&&drawPortrait(cx,contactPalette(c),96))url=cv.toDataURL();}catch(e){}smsPortraits.set(i,url);return url;}
+function smsDecorate(which,data){try{const m=$('modal');if(!m)return;if(which==='thread'&&panel==='thread'){const i=Number.isInteger(data)?data:selected,c=CONTACTS[i];if(c)window.__sms=restyleThread(m,{name:c.name,sub:(isUnlocked(s,i)?(c.role||'Customer'):'Locked')+' · mobile',avatar:smsPortrait(i)},esc);}else if(which==='phone'&&panel==='phone'&&m.querySelector?.('.message-inbox'))window.__sms={inbox:portraitInbox(m,CONTACTS.map((c,i)=>smsPortrait(i)))};}catch(e){}}
+{const smsMenu=menu;menu=function(which,data){const r=smsMenu(which,data);if(which==='thread'||which==='phone'){smsDecorate(which,data);Promise.resolve().then(()=>{if(panel===which)smsDecorate(which,data);});}return r;};window.menu=menu;}
+window.__phoneQa={seed(i=0){s.threads=s.threads||{};s.threads[i]={status:'idle',messages:[{mine:false,text:'You still doing the sweet stuff? Gramps used to sort me out.'},{mine:true,text:'Yeah. Pine Pops, $30 each.'},{mine:false,text:'Bit steep. Two for $50 and I come to you?'},{mine:true,text:'Meet me behind the laundromat at 9.'},{mine:false,text:'Done. Don’t be late, the cops do a lap at 10.'}]};return true;},state:()=>window.__sms||null};

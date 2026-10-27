@@ -1,0 +1,27 @@
+/* v167 Messages app: a plain white texting screen. Original styling, no third-party assets. */
+body #overlay.phone #modal.sms-screen{background:#fff!important;color:#111!important}
+body #overlay.phone .sms-head{position:sticky;top:-10px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:1px;margin:-10px -16px 4px;padding:8px 44px 8px;background:rgba(247,247,249,.97);border-bottom:1px solid #d9d9de;text-align:center}
+body #overlay.phone .sms-back{position:absolute;left:10px;top:12px;width:30px;height:34px;padding:0;margin:0;border:0!important;background:none!important;box-shadow:none!important;color:#2a8f45!important;font-size:36px!important;line-height:28px!important;font-weight:400!important;transform:scale(1.7);transform-origin:left center;cursor:pointer}
+body #overlay.phone .sms-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;background:#8e959c;box-shadow:0 1px 3px rgba(0,0,0,.25);display:grid;place-items:center;color:#fff;font-weight:900;font-size:20px}
+body #overlay.phone #modal .sms-name{display:flex;align-items:center;gap:3px;color:#111!important;font-size:13px;font-weight:700;margin-top:3px}
+body #overlay.phone #modal .sms-name::after{content:'›';color:#9a9aa0;font-weight:400}
+body #overlay.phone #modal .sms-sub{color:#8a8a90!important;font-size:10px;letter-spacing:.2px}
+body #overlay.phone .sms-log{display:flex;flex-direction:column;gap:3px;padding:2px 0 10px}
+body #overlay.phone #modal .sms-stamp{align-self:center;margin:4px 0 6px!important;color:#8a8a90!important;font-size:10px!important;font-weight:600}
+body #overlay.phone .sms-log .message{max-width:76%;margin:1px 0!important;padding:8px 12px!important;background:#e9e9eb!important;color:#111!important;border:0!important;box-shadow:none!important;border-radius:18px 18px 18px 5px!important;font-size:13px;line-height:1.38!important}
+body #overlay.phone .sms-log .message.mine{align-self:flex-end;margin-left:auto!important;background:#30c158!important;color:#fff!important;border-radius:18px 18px 5px 18px!important}
+body #overlay.phone .sms-log .message.mine .money{color:#fff!important;text-decoration:underline}
+body #overlay.phone .sms-log .message:not(.mine)+.message.mine,body #overlay.phone .sms-log .message.mine+.message:not(.mine){margin-top:7px!important}
+body #overlay.phone .sms-compose{position:sticky;bottom:-2px;z-index:2;display:flex;align-items:center;gap:8px;margin:6px -6px 10px;padding:6px 6px;background:#fff;border-top:1px solid #ececf0}
+body #overlay.phone #modal .sms-field{flex:1;min-height:30px;display:flex;align-items:center;padding:4px 12px;border:1px solid #d4d4da;border-radius:16px;color:#8a8a90!important;font-size:11.5px;line-height:1.25;background:#fff}
+body #overlay.phone #modal .sms-send{flex:none;width:32px;min-width:32px;height:32px;min-height:32px;padding:0!important;border-radius:50%!important;border:0!important;background:#30c158!important;color:#fff!important;font-size:18px;font-weight:900;line-height:32px;box-shadow:none!important}
+body #overlay.phone #modal .sms-send:disabled{background:#c7c7cc!important}
+body #overlay.phone #modal .sms-about{margin:10px 0 4px!important;padding:10px 12px!important;background:#f4f4f6!important;border:0!important;border-radius:12px!important;color:#333!important;box-shadow:none!important}
+body #overlay.phone #modal .sms-about *{color:#333!important}
+body #overlay.phone #modal .sms-about b,body #overlay.phone #modal .sms-about strong{color:#111!important}
+body #overlay.phone #modal.sms-screen .deal-bubble{max-width:86%;background:#e9e9eb!important;border:0!important;border-radius:18px 18px 18px 5px!important;color:#111!important;padding:10px 12px!important}
+body #overlay.phone .mug.has-portrait{background-size:cover!important;background-position:center!important}
+body #overlay.phone .sms-inbox .unread-dot{background:#30c158!important}
+body #overlay.phone #modal.sms-inbox .message-inbox h2{font-size:24px!important;font-weight:800;color:#111!important}
+body #overlay.phone #modal.sms-inbox .message-inbox .overline{display:none}
+body #overlay.phone .thread-row.is-unread strong{font-weight:900}
