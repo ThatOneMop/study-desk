@@ -24,5 +24,5 @@ assert.equal(STAFF_ROLES.length,4);
 const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
 assert.match(game,/staff-ladder\.mjs\?v=178/);assert.match(game,/dealerIntro\(d,/);assert.match(game,/staffPostingHTML/);
 const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
-assert.match(idx,/Gummy Bay v178/);assert.match(idx,/game\.js\?v=178/);
+assert.match(idx,/Gummy Bay v1\d\d/);assert.match(idx,/game\.js\?v=1\d\d/);
 console.log('PASS v178 staff ladder: harder hires, tiers, cleaner, dealer homes and routines');

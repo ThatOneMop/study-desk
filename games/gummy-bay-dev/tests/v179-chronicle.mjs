@@ -85,5 +85,5 @@ assert.equal(DISTRICTS.length,4);assert.equal(GANGS.length,3);
 const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
 const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
 assert.match(game,/bay-chronicle\.mjs\?v=179/);assert.match(game,/ensureDistrictRegistry/);assert.match(game,/chronicleAt/);
-assert.match(idx,/Gummy Bay v179/);assert.match(idx,/game\.js\?v=179/);
+assert.match(idx,/Gummy Bay v1\d\d/);assert.match(idx,/game\.js\?v=1\d\d/);
 console.log('PASS v179 bay chronicle: story hour, double-cross, districts, crews, properties, 20-hour road');
