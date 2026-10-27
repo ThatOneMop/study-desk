@@ -914,11 +914,13 @@
       "tests": [
         "13 passing tests: seven engine, six jsdom 26.1.0. All three authored routes, progression and per-action reload; failed-pour recovery; soil/water conservation; lowest-neighbour, splitting, plateau and trapping rules; capacity, fixed plots and strict actions; preview/selection immutability; journal bound and records; keyboard focus/pause/modal/parent guards; corrupt saves/recovery/reset isolation/quota. Both scripts pass syntax checks; local JS/CSS references and Games navigation valid.",
         "No rendered browser, native keyboard/touch, screenshot, enjoyment, improvement-pass or live-release evidence.",
-        "Portable low weir: 21 passing checks (12 engine, 9 jsdom 26.1.0), retaining original 13. Edge diversion, relocation/removal, dynamic overtopping/undo, strict validation, all three campaigns with per-action reload, old save/board shapes, flow/soil conservation, read-only previews, edge markers, pause/native selector guards, retry/records/reset isolation. Scripts pass syntax checks. No rendered evidence."
+        "Portable low weir: 21 passing checks (12 engine, 9 jsdom 26.1.0), retaining original 13. Edge diversion, relocation/removal, dynamic overtopping/undo, strict validation, all three campaigns with per-action reload, old save/board shapes, flow/soil conservation, read-only previews, edge markers, pause/native selector guards, retry/records/reset isolation. Scripts pass syntax checks. No rendered evidence.",
+        "Treadle pump: 29 passing tests (17 engine, 12 jsdom 26.1.0), retaining original 21. Three pump-inclusive routes through controls with per-action reload; plateau and one-step rise, genuine loop trapping, over-height fallback, weir crossing, relocation/removal, undo/retry, strict validation, water/soil conservation across varied terrain, pure forecasts, markers, native selector/pause/modal guards. Both scripts parse; IDs/assets/bridge-first and no Switch workspace controls pass static checks. No rendered evidence."
       ],
       "commits": [
         "c0cb277acc2f032d5b654f2619ec760130261bba",
-        "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3"
+        "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
+        "b32fdd8d1d23e46028c3578860d78e64a729c4ec"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -936,6 +938,13 @@
         "before": "Only height edits could redirect water.",
         "after": "One portable low weir blocks a shallow ground edge, causing water to seek the next-lowest outlet. Moving/removing costs one action without soil. Height gaps above one overtop it; reshaping can reactivate it. Preview shows bed amounts; edge markers and text explain placement/overtopping. Original saves preserved.",
         "remaining": "Rendered desktop/touch play, inspected screenshots, native controls and balance assessment; required substantive playtest-led improvement and selection remain pending."
+      },
+      "pendingPumpRefinement": {
+        "commit": "b32fdd8d1d23e46028c3578860d78e64a729c4ec",
+        "basis": "Source inspection, not rendered observation: flat steps blocked flow, while low weirs could not override deep unwanted descents.",
+        "before": "Only terrain and low edge barriers could affect flow; equal-height steps blocked it.",
+        "after": "One portable treadle pump carries all inlet water to adjacent ground up to one step higher. Placement/relocation/removal cost an action, no soil. Exact basin preview, labelled endpoints, high-outlet fallback and cycle trapping preserve understandable conservation. Original journals remain unchanged.",
+        "remaining": "Rendered desktop/touch review, screenshots, loop/rise feedback and assessment of whether the first garden becomes too easy; qualified improvement still pending."
       }
     },
     {
@@ -2066,6 +2075,13 @@
       "date": "2026-10-28",
       "commit": "9af4c55b48f6f67f68683d7c5d8789278604d034",
       "result": "Foldlight whole-sheet turnover implemented; 27 engine/DOM checks pass. Third remains 22 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "b32fdd8d1d23e46028c3578860d78e64a729c4ec",
+      "result": "Rill & Root portable treadle pump implemented; 29 engine/DOM tests pass. Third remains 22 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
