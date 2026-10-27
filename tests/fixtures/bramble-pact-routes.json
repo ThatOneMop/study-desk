@@ -1,0 +1,355 @@
+[
+  {
+    "level": 0,
+    "nodes": 5441,
+    "leaves": 2240,
+    "wins": 312,
+    "plainWins": 52,
+    "giftWins": 104,
+    "plain": {
+      "moves": [
+        {
+          "card": 4
+        },
+        {
+          "card": 5
+        },
+        {
+          "card": 14
+        },
+        {
+          "card": 15
+        },
+        {
+          "card": 7
+        },
+        {
+          "card": 17
+        }
+      ],
+      "harvest": [
+        1,
+        1,
+        1
+      ],
+      "winners": [
+        0,
+        2,
+        1,
+        0,
+        2,
+        0
+      ],
+      "giftUsed": false
+    },
+    "gift": {
+      "moves": [
+        {
+          "card": 4
+        },
+        {
+          "card": 14
+        },
+        {
+          "card": 15
+        },
+        {
+          "card": 5,
+          "gift": true
+        },
+        {
+          "card": 7
+        },
+        {
+          "card": 17
+        }
+      ],
+      "harvest": [
+        1,
+        1,
+        1
+      ],
+      "winners": [
+        0,
+        1,
+        0,
+        0,
+        2,
+        0
+      ],
+      "giftUsed": true
+    },
+    "loss": {
+      "moves": [
+        {
+          "card": 4
+        },
+        {
+          "card": 5
+        },
+        {
+          "card": 14
+        },
+        {
+          "card": 15
+        },
+        {
+          "card": 7
+        },
+        {
+          "card": 17,
+          "gift": true
+        }
+      ],
+      "harvest": [
+        1,
+        0,
+        1
+      ],
+      "winners": [
+        0,
+        2,
+        1,
+        0,
+        2,
+        0
+      ],
+      "giftUsed": true
+    }
+  },
+  {
+    "level": 1,
+    "nodes": 1023,
+    "leaves": 427,
+    "wins": 21,
+    "plainWins": 6,
+    "giftWins": 3,
+    "plain": {
+      "moves": [
+        {
+          "card": 5
+        },
+        {
+          "card": 11
+        },
+        {
+          "card": 9
+        },
+        {
+          "card": 17
+        },
+        {
+          "card": 7
+        },
+        {
+          "card": 13
+        }
+      ],
+      "harvest": [
+        1,
+        2,
+        1
+      ],
+      "winners": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        1
+      ],
+      "giftUsed": false
+    },
+    "gift": {
+      "moves": [
+        {
+          "card": 5
+        },
+        {
+          "card": 11
+        },
+        {
+          "card": 9
+        },
+        {
+          "card": 7,
+          "gift": true
+        },
+        {
+          "card": 17
+        },
+        {
+          "card": 13
+        }
+      ],
+      "harvest": [
+        1,
+        2,
+        1
+      ],
+      "winners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "giftUsed": true
+    },
+    "loss": {
+      "moves": [
+        {
+          "card": 5
+        },
+        {
+          "card": 7
+        },
+        {
+          "card": 13
+        },
+        {
+          "card": 9
+        },
+        {
+          "card": 11
+        },
+        {
+          "card": 17
+        }
+      ],
+      "harvest": [
+        1,
+        1,
+        0
+      ],
+      "winners": [
+        0,
+        2,
+        1,
+        0,
+        2,
+        1
+      ],
+      "giftUsed": false
+    }
+  },
+  {
+    "level": 2,
+    "nodes": 1675,
+    "leaves": 714,
+    "wins": 90,
+    "plainWins": 24,
+    "giftWins": 18,
+    "plain": {
+      "moves": [
+        {
+          "card": 4
+        },
+        {
+          "card": 8
+        },
+        {
+          "card": 15
+        },
+        {
+          "card": 11
+        },
+        {
+          "card": 16
+        },
+        {
+          "card": 17
+        }
+      ],
+      "harvest": [
+        1,
+        1,
+        2
+      ],
+      "winners": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        2
+      ],
+      "giftUsed": false
+    },
+    "gift": {
+      "moves": [
+        {
+          "card": 4
+        },
+        {
+          "card": 15
+        },
+        {
+          "card": 16
+        },
+        {
+          "card": 11
+        },
+        {
+          "card": 17,
+          "gift": true
+        },
+        {
+          "card": 8
+        }
+      ],
+      "harvest": [
+        1,
+        1,
+        2
+      ],
+      "winners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "giftUsed": true
+    },
+    "loss": {
+      "moves": [
+        {
+          "card": 4
+        },
+        {
+          "card": 8
+        },
+        {
+          "card": 15
+        },
+        {
+          "card": 11
+        },
+        {
+          "card": 16,
+          "gift": true
+        },
+        {
+          "card": 17
+        }
+      ],
+      "harvest": [
+        1,
+        1,
+        1
+      ],
+      "winners": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        2
+      ],
+      "giftUsed": true
+    }
+  }
+]
