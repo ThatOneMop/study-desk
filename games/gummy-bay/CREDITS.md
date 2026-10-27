@@ -54,3 +54,7 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 
 ## Controls and street conversations (added v165)
 - Street talk (names, moods, replies), the conversation panel, reaction gestures and portraits are original code. Portraits are live snapshots of the existing CC0 townsfolk models (see the v160 entry); no new third-party assets.
+
+## Bay chronicle (added v179)
+
+Original story, cuts and property rules. Uses the existing letterbox player and, when present, window.GUMMY_DISTRICTS. No new meshes.
