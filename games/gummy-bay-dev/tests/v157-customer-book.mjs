@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';
+import {STARTER_PROFILES,NEW_CUSTOMERS,isUnlocked,vouchers,canSample,enjoymentOf,fairPrice,haggleChance,sampleChance,dealBonus,rankByAppeal,appealOf} from '../dist/customer-roster.mjs';
+import {effectById} from '../dist/mix-core.mjs';
+assert.equal(STARTER_PROFILES.length+NEW_CUSTOMERS.length,14);
+for(const c of [...STARTER_PROFILES,...NEW_CUSTOMERS]){assert.ok(c.effects.length>=2);for(const e of c.effects)assert.ok(effectById(e),e);assert.ok(c.spend[0]<c.spend[1]);}
+const contacts=[...STARTER_PROFILES.map((p,i)=>({name:'S'+i,...p})),...NEW_CUSTOMERS];
+assert.equal(isUnlocked({},0),true);assert.equal(isUnlocked({},5),false);assert.equal(isUnlocked({unlocked:{5:true}},5),true);
+assert.ok(canSample({},contacts,5),'Marlowe is vouched for by a starter');assert.ok(!canSample({},contacts,12),'Dot needs a friend first');
+assert.ok(canSample({unlocked:{11:true}},contacts,12));assert.deepEqual(vouchers({},contacts,5).sort(),[0]);
+const fan=enjoymentOf(NEW_CUSTOMERS[0],{effects:['sunny','smooth'],quality:1}),meh=enjoymentOf(NEW_CUSTOMERS[0],{effects:['bitter'],quality:.4});
+assert.ok(fan>meh);assert.ok(fairPrice(30,1.1,fan)>fairPrice(30,1.1,meh));
+assert.equal(haggleChance({price:30,fair:35}),100);const mid=haggleChance({price:45,fair:35});assert.ok(mid>0&&mid<100,'counter above fair rolls a real chance: '+mid);
+assert.ok(haggleChance({price:45,fair:35,relation:90,craving:80})>mid,'loyalty and craving help');assert.equal(haggleChance({price:200,fair:35}),0);
+assert.ok(sampleChance({enjoyment:.9})>sampleChance({enjoyment:.3}));
+const b=dealBonus({curfew:true,rain:true,agreedAt:100,now:130});assert.ok(Math.abs(b.mult-1.5)<1e-9);assert.equal(b.quickLeft,30);assert.equal(dealBonus({agreedAt:0,now:90}).quick,false);
+const ranked=rankByAppeal([{index:0,appeal:appealOf(.2,30,30)},{index:1,appeal:appealOf(.8,30,30)}]);assert.equal(ranked[0].index,1);
+const game=fs.readFileSync('dist/game.js','utf8');
+assert.ok(game.includes("CONTACTS.push(...NEW_CUSTOMERS"));assert.ok(game.includes('const rosterAction=doAction;doAction=function'));assert.ok(game.includes('BEST BUYERS'));assert.ok(game.includes("import {STARTER_PROFILES,NEW_CUSTOMERS"));
+assert.ok(fs.readFileSync('dist/gfx-world.mjs','utf8').includes('w.y+=h+.01'),'shore foam rides the swell');
+assert.ok(fs.readFileSync('dist/index.html','utf8').includes('Gummy Bay v157'));
+assert.ok(fs.readFileSync('dist/hud-s1.css','utf8').includes('#modal header{position:static'),'phone headers are not absolute');
+assert.ok(haggleChance({price:80,fair:33,qty:6,relation:20,craving:.5,spend:[60,160]})===0&&haggleChance({price:40,fair:33,qty:6,relation:20,craving:.5,spend:[60,160]})>0,'haggle judged per unit');
+console.log('PASS: v157 customer book (14 locals, samples unlock, appeal ranking, haggle odds, deal bonuses) + shore foam swell');

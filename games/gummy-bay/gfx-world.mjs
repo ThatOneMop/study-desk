@@ -36,7 +36,9 @@ export function createShoreFoam(outline=[],{y=-.355,from=.84,to=.97}={}){
  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);
  const u={uTime:{value:0},uLight:{value:1}};
  const mat=new THREE.ShaderMaterial({uniforms:u,transparent:true,depthWrite:false,side:THREE.DoubleSide,
-  vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+  // v157: ride the same swell as the ocean (shown only where waterQ=1) so crests no longer swallow
+  // the flat ribbon into broken segments. +.01 m covers the ocean mesh's coarse vertex interpolation.
+  vertexShader:'varying vec2 vUv;uniform float uTime;'+WAVES+'void main(){vUv=uv;vec4 w=modelMatrix*vec4(position,1.);float h=0.;vec2 g=vec2(0.);wave(w.xz,vec2(.8,.6),.11,.55,.06,h,g);wave(w.xz,vec2(-.45,.89),.17,.7,.035,h,g);w.y+=h+.01;gl_Position=projectionMatrix*viewMatrix*w;}',
   fragmentShader:'varying vec2 vUv;uniform float uTime;uniform float uLight;'+NOISE+'void main(){float a=vUv.y;float n=gwNoise(vec2(vUv.x*.35,uTime*.25));float lines=smoothstep(.55,.9,.5+.5*sin(a*14.-uTime*1.6+n*4.));float edge=smoothstep(0.,.12,a)*(1.-smoothstep(.55,1.,a));float speck=smoothstep(.35,.75,gwNoise(vec2(vUv.x*1.7,a*6.-uTime*.4)));float f=edge*(lines*.75+speck*.35)*(.75+.25*n);gl_FragColor=vec4(vec3(.93,.97,.96)*(.35+.65*uLight),clamp(f,0.,.85));\n#include <colorspace_fragment>\n}'});
  const mesh=new THREE.Mesh(geo,mat);mesh.name='Gfx shore foam v155';mesh.renderOrder=2;mesh.frustumCulled=false;
  return {mesh,update(t,light,quality){u.uTime.value=t;u.uLight.value=light;mesh.visible=!isLowWorld(quality);}};

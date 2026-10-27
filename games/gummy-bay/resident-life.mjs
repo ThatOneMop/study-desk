@@ -22,7 +22,7 @@ export const ROUTINES=[
 export function residentPlan(index,time,meeting,hasDeal=false){
  if(hasDeal)return {...meeting,label:'the agreed meeting spot',activity:'waiting',line:'I’ve kept time for your delivery. See you at our usual spot.',meeting:true};
  const minute=((Number.isFinite(time)?time:540)%1440+1440)%1440;
- const entries=ROUTINES[index]||ROUTINES[0];let chosen=entries[0];for(const entry of entries)if(entry.at<=minute)chosen=entry;
+ const entries=ROUTINES[index%ROUTINES.length]||ROUTINES[0];let chosen=entries[0];for(const entry of entries)if(entry.at<=minute)chosen=entry;
  const place=chosen.place==='meeting'?{...meeting,label:'the usual meeting spot'}:PLACES[chosen.place];
  return {...place,activity:chosen.activity,line:chosen.line,meeting:false};
 }
