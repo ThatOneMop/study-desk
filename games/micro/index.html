@@ -18,8 +18,18 @@
     <script src="vendor/lodash.clonedeep.js"></script>
     <script src="vendor/crisp-game-lib.js"></script>
     <script>
-      addGameScript();
-      window.addEventListener("load", onLoad);
+      var microName = location.search.substring(1).replace(/[^A-Za-z0-9_-]/g, "");
+      if (microName) {
+        addGameScript();
+        window.addEventListener("load", onLoad);
+      } else {
+        window.addEventListener("load", function () {
+          var names = "accelb,aerialbar,arcfire,balance,balloon,ballsbombs,balltour,bamboo,baroll,bblast,bcannon,bmath,boarding,bombup,bottop,breedc,bsfish,cardq,castn,catapult,chargebeam,circlew,cnodes,colorroll,counterb,count,crossline,ctower,cywall,darkcave,descents,dfight,digi10,divarr,dmissile,doshin,dpistols,earock,embattled,findastar,floater,floors5,foosan,forfour,froooog,geocent,graveler,grenadier,hitblowup,hyperlaser,intow,jujump,jumpon,ladderdrop,laserfortress,lightdark,makemaze,mirrorfloor,molen,mortar,mrider,notturn,numberline,pairsdrop,parking,portalj,pumppress,raid,rollnrope,scrambird,sighton,slalom,slanes,sumten,survivor,thanoi,tlaser,totoge,twolane,upshot,zartan,zoneb".split(",");
+          document.title = "Microgames";
+          document.body.style.cssText = "margin:0;background:#1c2430;color:#f6f1e6;font-family:system-ui,sans-serif";
+          document.body.innerHTML = '<main style="max-width:880px;margin:0 auto;padding:28px 20px 64px"><p style="letter-spacing:.18em;font-size:12px">STUDY DESK · RETIRED COLLECTION</p><h1 style="font-weight:500;font-size:40px;margin:8px 0">Eighty-two tiny games.</h1><p style="max-width:46em;line-height:1.5">Pick one. Each is a few seconds long, saved only as a score inside that game. They are the original ABA microgames, kept here to play, not rewritten.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:22px">' + names.map(function (n) { return '<a href="?' + n + '" style="color:#1c2430;background:#f3d48a;text-decoration:none;padding:8px 10px;border-radius:8px;font:14px ui-monospace,monospace">' + n + "</a>"; }).join("") + "</div></main>";
+        });
+      }
     </script>
   </head>
   <body style="background: #ddd"></body>

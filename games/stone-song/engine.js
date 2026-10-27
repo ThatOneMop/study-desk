@@ -2,7 +2,7 @@
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.StoneSong=api})(typeof window==='object'?window:globalThis,()=>{
  const notes=[{name:'Dawn',glyph:'Ⅰ',hz:293.66,color:'#f6cc87'},{name:'Copper',glyph:'Ⅱ',hz:349.23,color:'#f18e77'},{name:'Night',glyph:'Ⅲ',hz:440,color:'#9ab8e9'}];
  const chapters=[
-  {name:'The waking wall',story:'The quarry has forgotten its morning song. Slide two stone rhythms into the empty spaces.',target:[0,1,0,2,0,1,0,2],par:5,tune:false,mute:false,stones:[{name:'Sunstone',pulses:[0,4],note:0,shift:0,on:true},{name:'Red shale',pulses:[0,4],note:1,shift:0,on:true}]},
+  {name:'The waking wall',story:'Dawn is already sitting in its groove. Slide the red shale until its copper notes land on the engraved beats, then perform the phrase.',target:[0,1,0,2,0,1,0,2],par:5,tune:false,mute:false,stones:[{name:'Sunstone',pulses:[0,4],note:0,shift:1,on:true},{name:'Red shale',pulses:[0,4],note:1,shift:0,on:true}]},
   {name:'A gap in the rain',story:'Not every beat needs a voice. Uneven stones leave little pockets of quiet.',target:[2,0,1,0,2,1,0,0],par:6,tune:false,mute:false,stones:[{name:'Rain slate',pulses:[0,3],note:0,shift:0,on:true},{name:'Split flint',pulses:[0,4],note:1,shift:2,on:true}]},
   {name:'Blue mineral',story:'A third voice hums beneath the surface. Tune each stone, then find its place in the phrase.',target:[1,0,2,4,1,0,2,4],par:8,tune:true,mute:false,stones:[{name:'Mica',pulses:[0,4],note:0,shift:0,on:true},{name:'Ironstone',pulses:[0,4],note:0,shift:0,on:true},{name:'Azurite',pulses:[0,4],note:0,shift:0,on:true}]},
   {name:'The meeting seam',story:'Two voices can share a beat. Strike both, in either order, before carrying on.',target:[0,3,0,4,0,3,0,4],par:9,tune:true,mute:false,stones:[{name:'Twin amber',pulses:[0,4],note:2,shift:0,on:true},{name:'Twin jasper',pulses:[0,4],note:2,shift:0,on:true},{name:'Lapis',pulses:[0,4],note:2,shift:0,on:true}]},
@@ -10,7 +10,7 @@
   {name:'An open mountain',story:'The whole wall answers. Interlock unequal phrases and leave a final breath of silence.',target:[1,2,4,3,0,4,1,0],par:12,tune:true,mute:true,stones:[{name:'Long morning',pulses:[0,3,6],note:1,shift:2,on:true},{name:'Short dusk',pulses:[0,2],note:2,shift:0,on:true},{name:'Blue echo',pulses:[0,3],note:0,shift:0,on:true},{name:'Sleeping coal',pulses:[0,1,2,3],note:0,shift:0,on:true}]}
  ];
  const clone=x=>JSON.parse(JSON.stringify(x)),int=(x,a,b)=>Number.isInteger(x)&&x>=a&&x<=b;
- function fresh(index){return{index,status:'active',phase:'arrange',stones:chapters[index].stones.map(s=>({shift:s.shift,note:s.note,on:s.on})),moves:0,beat:0,played:0,faults:0,stars:0,message:'Read the engraved target above. Shift each stone until its notes line up.'}}
+ function fresh(index){return{index,status:'active',phase:'arrange',stones:chapters[index].stones.map(s=>({shift:s.shift,note:s.note,on:s.on})),moves:0,beat:0,played:0,faults:0,stars:0,message:index===0?'Sunstone already sings on the right beats. Shift red shale with the arrows, press Listen, then perform.':'Read the engraved target above. Shift each stone until its notes line up.'}}
  function create(){return{version:1,profile:{best:[0,0,0,0,0,0]},run:fresh(0)}}
  function row(o,i){const r=Array(8).fill(0),s=o.run.stones[i];if(s.on)for(const p of chapters[o.run.index].stones[i].pulses)r[(p+s.shift)%8]=1<<s.note;return r}
  function song(o){const r=Array(8).fill(0);o.run.stones.forEach((_,i)=>row(o,i).forEach((n,b)=>r[b]|=n));return r}

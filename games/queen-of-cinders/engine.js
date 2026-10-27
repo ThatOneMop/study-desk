@@ -9,7 +9,7 @@ const chapters=[
  {name:'A small green future',story:'Rescue six brood and defend the water trail from the last ember tide.',goal:6,limit:22,fire:7,axis:'west',rocks:[24,17,10,36],food:28,water:40,resin:32,defend:'water',color:'#b6c887'}
 ];
 const costs={boots:3,nursery:4,shell:3};
-function fresh(index,p,rules=2){return{index,rules,turn:0,status:'active',open:[Q,38],wet:[],burn:[],teams:{food:0,water:0,resin:0,nurse:0},carry:{food:0,water:0,resin:0},left:{food:60,water:40,resin:30},food:16,water:0,resin:0,workers:6,brood:0,growth:0,health:p.upgrades.shell?5:3,maxHealth:p.upgrades.shell?5:3,stars:0,message:'Dig connected soil to supplies. Assign carriers and nurses, then send a shift.'}}
+function fresh(index,p,rules=2){const colony={index,rules,turn:0,status:'active',open:[Q,38],wet:[],burn:[],teams:{food:0,water:0,resin:0,nurse:0},carry:{food:0,water:0,resin:0},left:{food:60,water:40,resin:30},food:16,water:0,resin:0,workers:6,brood:0,growth:0,health:p.upgrades.shell?5:3,maxHealth:p.upgrades.shell?5:3,stars:0,message:'Dig connected soil to supplies. Assign carriers and nurses, then send a shift.'};if(index===0){colony.open=[Q,38,31,30];colony.food=14;colony.message='The food trail is already open. Put two ants on food and send a shift. Dig east toward the water next. Planning does not advance the fire.'}return colony}
 function create(){const profile={best:[0,0,0,0,0],coins:0,upgrades:{boots:0,nursery:0,shell:0}};return{version:1,profile,colony:fresh(0,profile)}}
 const neighbours=i=>[i-W,i+W,i%W?i-1:-1,i%W<W-1?i+1:-1].filter(n=>n>=0&&n<W*H);
 function distances(s){const d={[Q]:0},queue=[Q];for(const i of queue)for(const n of neighbours(i))if(s.open.includes(n)&&!s.burn.includes(n)&&d[n]===undefined){d[n]=d[i]+1;queue.push(n)}return d}

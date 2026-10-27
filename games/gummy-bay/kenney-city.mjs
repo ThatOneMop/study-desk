@@ -40,7 +40,7 @@ export function placeLot(lot,models){
  const r=rngFor(lot.seed||1),list=(KENNEY_MODELS[lot.type]||KENNEY_MODELS.shop).filter(n=>models[n]);if(!list.length)return null;
  const want=lot.w/lot.d;let best=null,score=1e9;
  for(let k=0;k<3;k++){const n=list[Math.floor(r()*list.length)],m=models[n],s=Math.abs(Math.log((m.size[0]/m.size[2])/want))+r()*.15;if(s<score){score=s;best=n;}}
- const m=models[best],sx=lot.w*.96/m.size[0],sz=lot.d*.96/m.size[2],sy=Math.sqrt(sx*sz)*(lot.type==='flats'?1.08:1);
+ const m=models[best],sx=lot.w*.96/m.size[0],sz=lot.d*.96/m.size[2],sy=Math.sqrt(sx*sz)*(lot.type==='flats'?1.08:1)*(lot.type==='house'?.9+r()*.2:lot.type==='flats'?.88+r()*.6:.8+r()*.5);/* v164: mixed heights, stretched or squat windows */
  return {model:best,x:lot.x,y:lot.y||0,z:lot.z,rot:(lot.rot||0)+KENNEY_FRONT,sx,sy,sz,height:m.size[1]*sy,tint:KENNEY_TINTS[Math.floor(r()*KENNEY_TINTS.length)]};
 }
 
@@ -77,12 +77,17 @@ export function placeSite(site,models){
  let best=null,bestScore=1e9;
  for(const L of layouts){if(!L.list.length)continue;const n=L.list[Math.floor(r()*L.list.length)],m=models[n];
   const sx=site.w/L.cols/m.size[0],sz=site.d/L.rows/m.size[2],span=upper?Math.max(.4,m.size[1]-STOREY):m.size[1],sy=H/span;
-  const score=Math.abs(Math.log(sz/sx))*.7+Math.abs(Math.log(sy/sx))+r()*.12;if(score<bestScore){bestScore=score;best={...L,n,sx,sz,sy};}}
+  const score=Math.abs(Math.log(sz/sx))*.7+Math.abs(Math.log(sy/sx))+r()*.12-(L.cols>1?.3:0);if(score<bestScore){bestScore=score;best={...L,n,sx,sz,sy};}}
  if(!best)return out;
+ // v164: break the symmetry. Columns get uneven widths, mixed models from every list
+ // and their own heights, so one footprint reads as two or three different buildings.
+ const pool=[...SITE_MODELS.single,...SITE_MODELS.tall,...SITE_MODELS.wide].filter(have);
+ const weights=Array.from({length:best.cols},()=>.55+r()*.9),wsum=weights.reduce((a,b)=>a+b,0);
+ let edge=-site.w/2;const cols=weights.map(v=>{const cw=site.w*v/wsum,cx=edge+cw/2;edge+=cw;return {cw,cx,n:best.cols>1?pool[Math.floor(r()*pool.length)]:best.n,hy:best.cols>1?(upper?.8+r()*.45:.62+r()*.75):1};});
  for(let c=0;c<best.cols;c++)for(let w=0;w<best.rows;w++){
-  const n=best.cols>1?best.list[Math.floor(r()*best.list.length)]:best.n,m=models[n];
-  const sx=site.w/best.cols/m.size[0],sz=site.d/best.rows/m.size[2],span=upper?Math.max(.4,m.size[1]-STOREY):m.size[1],sy=H/span*(best.cols>1?.92+r()*.16:1);
-  const lx=-site.w/2+site.w/best.cols*(c+.5),lz=(best.rows>1?(w?-1:1)*site.d/4:0)*front,back=best.rows>1&&w===1;
+  const col=cols[c],n=col.n,m=models[n];
+  const sx=col.cw/m.size[0],sz=site.d/best.rows/m.size[2],span=upper?Math.max(.4,m.size[1]-STOREY):m.size[1],sy=H/span*col.hy;
+  const lx=col.cx,lz=(best.rows>1?(w?-1:1)*site.d/4:0)*front,back=best.rows>1&&w===1;
   out.push({model:n,x:site.x+lx,y:base,z:site.z+lz,rot:back?rot+Math.PI:rot,sx,sy,sz,cut:upper?STOREY:0,height:base+span*sy,tint:KENNEY_TINTS[Math.floor(r()*KENNEY_TINTS.length)],site:site.id||null});}
  return out;
 }
@@ -105,13 +110,26 @@ vec3 kGrime(vec3 c,vec3 w){float along=w.x+w.z;float blot=kN(w.xz*.31+vec2(w.y*.
  float streak=smoothstep(.62,.92,kN(vec2(along*2.6,floor(w.y/3.2)*5.3)))*(1.-storey)*.9;
  float g=1.-.30*base*(.55+.45*blot)-.20*streak-.16*smoothstep(.5,.85,blot);
  return mix(c,c*vec3(.88,.82,.72),.55*smoothstep(.35,.8,blot))*g;}`;
+// v164 window variety: the same kit window reads as blinds, curtains, boarded,
+// grimy-dark or dirty glass per window cell, so neighbouring buildings stop looking cloned.
+export const WINDOW_STYLES=Object.freeze(['blinds','curtains','boarded','dark','glass']);
+export const WINDOW_GLSL=`#ifdef USE_EMISSIVEMAP
+{float kgm=texture2D(emissiveMap,vEmissiveMapUv).r;
+ if(kgm>.5){vec3 kc=floor(vKWorld/vec3(2.7,3.1,2.7));float h=fract(sin(dot(kc,vec3(12.9898,78.233,37.719)))*43758.5453);float h2=fract(h*91.7);vec3 g=diffuseColor.rgb;
+  if(h<.2){g=mix(vec3(.80,.76,.64),vec3(.56,.53,.45),step(.5,fract(vKWorld.y*7.)));}
+  else if(h<.36){vec3 cc=h2<.33?vec3(.6,.22,.2):h2<.66?vec3(.74,.6,.3):vec3(.3,.42,.33);g=cc*(.78+.22*sin((vKWorld.x+vKWorld.z)*14.));}
+  else if(h<.44){g=mix(vec3(.55,.42,.28),vec3(.43,.32,.2),step(.5,fract(vKWorld.y*3.5)));}
+  else if(h<.56){g=vec3(.11,.13,.14);}
+  else{g=mix(g,vec3(.30,.38,.44),.5+.2*h2);}
+  diffuseColor.rgb=g;}}
+#endif`;
 export function nightWindowShader(shader){
  shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vKWorld;').replace('#include <project_vertex>','#include <project_vertex>\nvKWorld=(modelMatrix*vec4(transformed,1.0)).xyz;');
- shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vKWorld;\n'+GRIME_GLSL).replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb=kGrime(diffuseColor.rgb,vKWorld);').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\n{vec3 kc=floor(vKWorld/vec3(2.7,3.1,2.7));totalEmissiveRadiance*=step(.48,fract(sin(dot(kc,vec3(12.9898,78.233,37.719)))*43758.5453));}');
+ shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vKWorld;\n'+GRIME_GLSL).replace('#include <color_fragment>','#include <color_fragment>\n'+WINDOW_GLSL+'\ndiffuseColor.rgb=kGrime(diffuseColor.rgb,vKWorld);').replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\n{vec3 kc=floor(vKWorld/vec3(2.7,3.1,2.7));totalEmissiveRadiance*=step(.48,fract(sin(dot(kc,vec3(12.9898,78.233,37.719)))*43758.5453));}');
 }
 
 export function createKenneyCity({scene,lots=[],sites=[],Loader,urls=KENNEY_URLS}={}){
- const root=new THREE.Group();root.name='Kenney City Kit v163';if(scene)scene.add(root);
+ const root=new THREE.Group();root.name='Kenney City Kit v164';if(scene)scene.add(root);
  const state={root,ready:false,failed:false,cells:[],placements:[],materials:[],triangles:0,models:null,pendingSites:[...sites],update,build,addSites,onChange:null,facades};
  const mats=new Map();
  const matFor=map=>{if(!mats.has(map)){if(map){map.colorSpace=THREE.SRGBColorSpace;map.anisotropy=4;}

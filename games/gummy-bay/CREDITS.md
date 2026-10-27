@@ -48,3 +48,9 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 ## Dodgy town dressing (added v163)
 - The Blender town blocks are now dressed with the same Kenney City Kit pieces (CC0, credited above).
 - Grime, rust and rain streaks, spray tags, roller shutters, posters, puddles, litter, AC units, fire escapes, bins, crates, alley lamps and rooftop shop signs are all generated in code (`dodgy-dressing.mjs`, `kenney-city.mjs` grime shader). No new third-party assets.
+
+## Narrower streets and varied blocks (added v164)
+- Kerb build-outs, street clutter, asymmetric block columns and the window styles (blinds, curtains, boarded, dark) are generated in code. No new third-party assets.
+
+## Controls and street conversations (added v165)
+- Street talk (names, moods, replies), the conversation panel, reaction gestures and portraits are original code. Portraits are live snapshots of the existing CC0 townsfolk models (see the v160 entry); no new third-party assets.
