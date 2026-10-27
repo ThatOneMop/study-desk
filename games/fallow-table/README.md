@@ -17,7 +17,7 @@ This is a temporal farming/resource loop, separate from Field Album's wildlife d
 
 Select a bed and a seed packet, then use Sow, Pick, Water or Compost. Buttons are native and at least 44 CSS pixels high. The field shows crops, maturity, soil and water; the basket shows each separate request. A whole-season weather strip and optional exact overnight forecast support planning. Ending with unused work or closing the season requires confirmation.
 
-Native Tab/Enter/Space works throughout. On the page or bed controls, arrows select a bed, 1–3 select seeds, S sows, H harvests, W waters, C composts and Z undoes. Shortcuts do not override other interactive elements. Pause, dialogs, document hiding and same-origin parent hide messages guard input. The Study Desk bridge loads first. Games navigation retains the catalogue destination; no workspace-switch control is added.
+Native Tab/Enter/Space works throughout. On the page or bed controls, arrows select a bed, 1–3 select seeds, S sows, H harvests, W waters, C composts, G turns beans into soil and Z undoes. Shortcuts do not override other interactive elements. Pause, dialogs, document hiding and same-origin parent hide messages guard input. The Study Desk bridge loads first. Games navigation retains the catalogue destination; no workspace-switch control is added.
 
 All SVG illustrations and CSS are original source in this repository. No external assets, fonts, production dependencies or audio. The desktop two-column layout stacks below 720px; ripe-crop animation respects reduced motion. These are implemented layout rules, not evidence of inspected rendering or physical touch testing.
 
@@ -31,8 +31,18 @@ Unreadable data remains untouched until confirmed recovery. Storage failures sho
 
 `NODE_PATH=/path/to/jsdom/node_modules node --test tests/fallow-table-engine.cjs tests/fallow-table-dom.cjs`
 
-19 passing tests: 11 engine, eight jsdom 26.1.0. Fixture routes complete all three contracts with 13/11/8 work points left and save/reload after every action. Eight rotations/reflections per contract replay the same strategies successfully. Deterministic varied routes exercise resource bounds and replay. Tests cover moisture order, dry stalls, mature crops, companion shade and removal, rotation yield, soil/compost, bounded cross-watering, work limits, final-night closure, undo, retry, progression, native-control guards, pause/dialog/parent guards, forecasts, isolated reset, corrupt data and storage failures. Both scripts pass syntax checks; local asset references and Games navigation are checked.
+27 passing tests: 16 engine, eleven jsdom 26.1.0. Fixture routes complete all three contracts with 13/11/8 work points left and save/reload after every action. Eight rotations/reflections per contract replay the same strategies successfully. Deterministic varied routes exercise resource bounds and replay. Tests cover moisture order, dry stalls, mature crops, companion shade and removal, rotation yield, soil/compost, bounded cross-watering, work limits, final-night closure, undo, retry, progression, native-control guards, pause/dialog/parent guards, forecasts, isolated reset, corrupt data and storage failures. Both scripts pass syntax checks; local asset references and Games navigation are checked.
 
 The fixture scores are feasible, not proven optimal. These automated routes do not establish human enjoyment, rendered layout, physical touch, native dialog/focus behavior or a full repository build. Existing browser access remains blocked by a previously recorded security-policy rejection; it was not retried or bypassed.
 
 Keep this candidate unlisted pending natural rendered play, inspected desktop/mobile screenshots, a substantive improvement based on an observed weakness, follow-up verification and selection. Assess especially how often rotation matters within the short season, whether cross-watering makes central beds too dominant, whether bean shade is readable, and whether additional replay choices would improve depth. No qualified improvement pass or live release is claimed.
+
+## Green manure source refinement
+
+After one or more actual growth nights, a bean plant can be turned into its bed for one work point. It restores two soil (capped at two), gives one compost bag, clears the plant and sets the last crop to beans, but yields no food. A ripe bean can also be turned: picking gives two portions and one soil instead. Turning removes companion shade immediately; the forecast reflects that loss. This creates an early soil-renewal option at the cost of planted food and another job.
+
+The action is `{type:'turn',p}` in the existing v1 journal. No new save fields, key changes or extra work allowance. Old routes retain their 13/11/8 scores. New manure-inclusive routes finish all three contracts with 7/5/8 points; the first two are coverage routes, not claims that manure improves the score. The poor-soil third route uses early renewal instead of spending an initial compost bag. Undo restores the original plant, shade, soil and compost.
+
+Eight added engine/DOM checks cover the tradeoff, immature/ripe eligibility, rejection, resource caps, shade removal, undo, full campaigns with reload, native-input/pause/modal guards and retry. Instructions now start collapsed and the player-facing footer omits development terminology in line with main's current quality checklist; development status remains explicit here and in the ledger.
+
+This is a source-observed mechanics refinement, not a rendered-play improvement pass. Rendered feedback, balance, layout and natural play remain pending. Keep the game unlisted.

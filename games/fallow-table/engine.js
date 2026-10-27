@@ -22,6 +22,7 @@ function step(level,b,a){
  if(plant){if(!int(a.crop,0,2)||bed.crop||bed.soil<CROPS[a.crop].soil)return null;bed.crop={kind:a.crop,age:0,yield:yieldFor(bed,a.crop)};bed.soil-=CROPS[a.crop].soil}
  else if(a.type==='water'){const cells=[a.p,...near(a.p)];if(cells.every(p=>n.beds[p].water===2))return null;cells.forEach(p=>n.beds[p].water=2)}
  else if(a.type==='compost'){if(!n.compost||bed.soil===2)return null;n.compost--;bed.soil++}
+ else if(a.type==='turn'){const c=bed.crop;if(!c||c.kind!==0||c.age<1)return null;bed.crop=null;bed.last=0;bed.soil=Math.min(2,bed.soil+2);n.compost++}
  else if(a.type==='harvest'){const c=bed.crop;if(!c||c.age<CROPS[c.kind].days)return null;n.stock[c.kind]+=c.yield;bed.last=c.kind;bed.crop=null;if(c.kind===0){bed.soil=Math.min(2,bed.soil+1);n.compost++}}
  else return null;
  n.work--;return n;
