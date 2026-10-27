@@ -886,10 +886,12 @@
       "improvementPasses": [],
       "tests": [
         "13 passing tests: seven engine, six jsdom 26.1.0. All three authored routes, progression and per-action reload; failed-pour recovery; soil/water conservation; lowest-neighbour, splitting, plateau and trapping rules; capacity, fixed plots and strict actions; preview/selection immutability; journal bound and records; keyboard focus/pause/modal/parent guards; corrupt saves/recovery/reset isolation/quota. Both scripts pass syntax checks; local JS/CSS references and Games navigation valid.",
-        "No rendered browser, native keyboard/touch, screenshot, enjoyment, improvement-pass or live-release evidence."
+        "No rendered browser, native keyboard/touch, screenshot, enjoyment, improvement-pass or live-release evidence.",
+        "Portable low weir: 21 passing checks (12 engine, 9 jsdom 26.1.0), retaining original 13. Edge diversion, relocation/removal, dynamic overtopping/undo, strict validation, all three campaigns with per-action reload, old save/board shapes, flow/soil conservation, read-only previews, edge markers, pause/native selector guards, retry/records/reset isolation. Scripts pass syntax checks. No rendered evidence."
       ],
       "commits": [
-        "c0cb277acc2f032d5b654f2619ec760130261bba"
+        "c0cb277acc2f032d5b654f2619ec760130261bba",
+        "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -900,7 +902,14 @@
       "nextSteps": [
         "Naturally play desktop/touch and inspect screenshots, including height/flow arrows, soil bucket and stacked layout.",
         "Identify an observed weakness and implement a substantive improvement pass; verify progression, dry-bed recovery, saves/reload, undo/retry/reset and navigation before catalogue selection."
-      ]
+      ],
+      "pendingWeirRefinement": {
+        "commit": "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
+        "basis": "Source-level limitation: closing a shallow hollow previously required only repetitive cut/fill operations; no reversible edge-control option. Not a rendered observation.",
+        "before": "Only height edits could redirect water.",
+        "after": "One portable low weir blocks a shallow ground edge, causing water to seek the next-lowest outlet. Moving/removing costs one action without soil. Height gaps above one overtop it; reshaping can reactivate it. Preview shows bed amounts; edge markers and text explain placement/overtopping. Original saves preserved.",
+        "remaining": "Rendered desktop/touch play, inspected screenshots, native controls and balance assessment; required substantive playtest-led improvement and selection remain pending."
+      }
     },
     {
       "slot": 59,
@@ -1807,6 +1816,13 @@
       "date": "2026-10-27",
       "commit": "c0cb277acc2f032d5b654f2619ec760130261bba",
       "result": "Rill & Root slot 58 implemented and tested with 13 engine/DOM checks. Third batch now 18/50 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 rendered verified.",
+      "browserStatus": "Existing rendering security-policy blocker not retried or bypassed.",
+      "mainObserved": "d9e77a6bcbb7a8c4b43e976618efbecd2ff38527"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
+      "result": "Rill & Root low weir source refinement implemented; 21 tests pass. Third totals unchanged: 18 built, 0 qualified improved/browser-tested/integrated/live. Second additional round remains 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not retried or bypassed.",
       "mainObserved": "d9e77a6bcbb7a8c4b43e976618efbecd2ff38527"
     }
