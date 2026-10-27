@@ -113,7 +113,7 @@ export function contactGraphModel({people=[],selected=0}={}){
   return Object.freeze({
    index:person.index,name:clean(person.name,40)||'Customer',initial:(clean(person.name,40)||'?')[0],
    swatch:swatchOf(person.swatch),locked:person.locked===true,
-   x:50+Math.cos(turn)*36,y:50+Math.sin(turn)*36,
+   x:50+Math.cos(turn)*36,y:50+Math.sin(turn)*(list.length>10?41:36),
    loyalty,selected:person.index===focus,
    craving:person.craving&&Number.isFinite(person.craving.level)?Object.freeze({name:clean(person.craving.name,48)||'a gummy',level:Math.max(0,Math.min(100,Math.round(person.craving.level)))}):null,
    effects:Array.isArray(person.effects)?Object.freeze(person.effects.slice(0,3).map(item=>clean(item,24)).filter(Boolean)):null,
@@ -139,7 +139,7 @@ export function contactGraphHTML(model,esc=fallbackEsc){
   return '<article class="contact-detail"><header><span class="mug" style="background:'+detail.swatch+'" aria-hidden="true">'+esc(detail.initial)+'</span><div><h3>'+esc(detail.name)+(detail.locked?' 🔒':'')+'</h3><p>'+esc(detail.district)+'</p></div></header><p class="loyalty" aria-label="Loyalty '+detail.loyalty.filled+' of 5 hearts">'+detail.loyalty.glyph+'</p>'+craving+effects+'<p>'+esc(detail.standards)+'</p></article>';
  })():'';
  const lockedNote=nodes.some(node=>node.locked)?'':'<p class="note">Nobody in the book is locked.</p>';
- return '<section class="contact-graph" aria-label="Contact graph"><div class="overline">WHO KNOWS WHOM</div><div class="graph-board"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="4"></circle>'+lines+'</svg><span class="graph-you">You</span>'+marks+'</div>'+lockedNote+card+'</section>';
+ return '<section class="contact-graph" aria-label="Contact graph"><div class="overline">WHO KNOWS WHOM</div><div class="graph-board"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><circle cx="50" cy="50" r="4"></circle>'+lines+'</svg><span class="graph-you">You</span>'+marks+'</div>'+lockedNote+card+'</section>';
 }
 
 export function productRowsHTML(rows,esc=fallbackEsc){

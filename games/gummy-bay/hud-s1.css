@@ -371,3 +371,20 @@ body.skating .crosshair,body.skating #crosshair{opacity:0}
 
 /* v157: the global HUD header rule (absolute) was stacking contact rows and card headers inside the phone. */
 #modal header{position:static;top:auto;left:auto;right:auto;pointer-events:auto}
+/* v158: meetups (spot + time window) and a roomier contact graph for the full cast. */
+.graph-board:has(.graph-node:nth-of-type(11)){height:270px}
+.graph-board:has(.graph-node:nth-of-type(11)) .graph-node{width:38px;height:38px;font-size:11px}
+.meet-board{margin:8px 0 12px;flex-shrink:0}
+.appeal-board{flex-shrink:0}
+.meet-card{border:1px solid rgba(0,0,0,.08);border-left:4px solid #e2a23b;border-radius:10px;padding:10px 12px;margin:8px 0;background:rgba(255,255,255,.7)}
+.meet-card[data-phase="waiting"]{border-left-color:#3aa76d}.meet-card[data-phase="late"]{border-left-color:#d9534f}
+.meet-card header{display:flex;justify-content:space-between;align-items:center;gap:8px;position:static}
+.meet-card p{margin:4px 0}.meet-where b{color:#8a5a12}
+.meet-chip{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#fbe6c2;color:#7a4b06;white-space:nowrap}
+.meet-chip[data-phase="waiting"]{background:#d5f2df;color:#1f6b41}.meet-chip[data-phase="late"]{background:#f8d7d6;color:#8e2622}
+.meet-actions{display:flex;gap:8px;margin-top:6px}.meet-actions button{flex:1;min-height:36px}
+.meet-pick>small{display:block;margin:8px 0 4px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:10px;color:#6b6250}
+.meet-options{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.meet-options button{min-height:36px;font-size:12px;text-align:left;padding:6px 8px;border-radius:8px}
+.meet-options button small{display:block;opacity:.7;font-size:10px}
+.meet-options button.on{outline:2px solid #e2a23b;background:#fff4dc}
