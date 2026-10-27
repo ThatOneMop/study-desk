@@ -92,21 +92,6 @@
       "credits": "credits.html#pacman"
     },
     {
-      "id": "doom-web",
-      "title": "DOOM-compatible: Freedoom",
-      "description": "Chocolate Doom engine with Freedoom: Phase 1. Original DOOM levels are not included.",
-      "icon": "☄",
-      "genre": "Shooter",
-      "color": "#697d60",
-      "url": "games/doom-web/index.html",
-      "group": "Community classics",
-      "controls": "Arrows move/turn · Ctrl fire · Space doors · , / . strafe",
-      "type": "bundled",
-      "internet": false,
-      "multiplayer": "Single player",
-      "credits": "credits.html#doom-web"
-    },
-    {
       "id": "polytrack",
       "title": "PolyTrack",
       "description": "Kodub’s official low-poly racing game. Opens on its official site in a new tab.",

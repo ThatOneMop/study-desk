@@ -4,7 +4,7 @@ The catalogue has 65 games. 64 run on this site, and Nightshift — Town Empire 
 
 ## Upload to GitHub Pages
 
-Create a dedicated repository such as `study-desk`. Extract this archive and upload its contents with index.html at the repository root. Do not upload the ZIP as the website. The included `.github/workflows/pages.yml` publishes this static site with GitHub Actions. It does not create the Pages site: in Settings → Pages, set Source to GitHub Actions first. Until that setting is on, the workflow cannot deploy. After it is on, a push to main runs the asset checks and publishes. Paths support repository subfolders. No build or backend is needed for solo games. GitHub's web uploader has individual-file limits: freedoom1.wad is approximately 28 MB, so use GitHub Desktop or git to commit the complete folder if web upload rejects it. Do not omit the WAD or source archives.
+Create a dedicated repository such as `study-desk`. Extract this archive and upload its contents with index.html at the repository root. Do not upload the ZIP as the website. The included `.github/workflows/pages.yml` publishes this static site with GitHub Actions. It does not create the Pages site: in Settings → Pages, set Source to GitHub Actions first. Until that setting is on, the workflow cannot deploy. After it is on, a push to main runs the asset checks and publishes. Paths support repository subfolders. No build or backend is needed for solo games. GitHub's web uploader has individual-file limits, so use GitHub Desktop or git to commit the complete folder if web upload rejects a large file. Do not omit the source archives.
 
 This delivery was not published: the connected GitHub integration did not expose dedicated repository creation or Pages configuration. No unrelated existing repository was modified. Use the URL GitHub displays after deployment; no live URL has been verified.
 
@@ -46,9 +46,9 @@ Tidepost, Deep Pocket, Queen of Cinders, Little Foundry, Scrap Orbit, Inkline, P
 
 ## Archived community additions and licences
 
-The files and licence records for 2048, Hextris, Astray, Radius Raid, Chrome-style Dino, Pac-Man, the Freedoom-compatible browser engine and 82 ABA Games microgames remain preserved, but those entries are retired from the active catalogue. `docs/retired-catalog-2026-10-20.json` retains their metadata. Forge Arena remains active and requires its existing online dependencies.
+The files and licence records for 2048, Hextris, Astray, Radius Raid, Chrome-style Dino, Pac-Man and 82 ABA Games microgames remain preserved, but those entries are retired from the active catalogue. `docs/retired-catalog-2026-10-20.json` retains their metadata. Forge Arena remains active and requires its existing online dependencies.
 
-Read credits.html. Preserve copyright notices, licences and source files when publishing. Hextris GPL corresponding source is in hextris-source.zip. DOOM engine corresponding source and build scripts are in doom-engine-source.zip; Freedoom notices accompany the WAD. JavaScript games retain source directly. Microgame runtime package archives retain upstream dependency source and licence notices.
+Read credits.html. Preserve copyright notices, licences and source files when publishing. Hextris GPL corresponding source is in hextris-source.zip. JavaScript games retain source directly. Microgame runtime package archives retain upstream dependency source and licence notices.
 
 ## Saves and domain changes
 

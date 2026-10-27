@@ -25,7 +25,5 @@ print('Missing references:',errors)
 assert not errors
 for p in [r/'app.js',r/'bridge.js',r/'catalog.js']:
  assert subprocess.run(['node','--check',str(p)],capture_output=True).returncode==0
-wasm=(r/'games/doom-web/doom.wasm');print('DOOM files:',[p.name for p in (r/'games/doom-web').glob('*.wasm')])
-for p in (r/'games/doom-web').glob('*.wasm'):assert p.read_bytes()[:4]==b'\0asm'
-p=r/'games/doom-web/freedoom1.wad';data=p.read_bytes() if p.exists() else b''.join(q.read_bytes() for q in sorted(p.parent.glob('freedoom1.part*')));magic,n,off=struct.unpack('<4sii',data[:12]);assert magic in [b'IWAD',b'PWAD'] and off+16*n<=len(data)
-print('PASS source syntax and Freedoom WAD/WebAssembly structure')
+
+print('PASS source syntax')

@@ -9,7 +9,6 @@ Passed:
 - Shell syntax, catalogue equality, dynamic counts, group filters, search, favourites, study/card editing and PPP switching pass in jsdom.
 - All 19 catalogue cards launch the expected iframe route and pass pause/resume plus return-to-study navigation in jsdom. This checks launcher wiring, not rendered game engines.
 - Retired favourites, recent IDs and saved data remain preserved; the archived third-party catalogue is not silently restored.
-- Freedoom WAD and WebAssembly structure remain valid.
 
 ## Selected indie games
 
