@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 19,
+    "built": 20,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -980,21 +980,35 @@
     },
     {
       "slot": 60,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "seedwake",
+      "title": "Seedwake",
+      "coreLoop": "Lift and sow whole handfuls around an eight-bed ring; bloom exact final landings into a three-species bouquet while budgeting reverse-direction gusts and preserving seeds for later requests.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/seedwake",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "20 passing tests: 12 engine and eight jsdom 26.1.0. Three complete 5/7/8-handful fixture routes with control-driven per-action save/reload; exact bloom accounting, multi-lap sowing, reverse costs, passed-through beds, overshoot, excess flowers, final-turn win, turn/empty-seed loss, undo/retry/records/unlocks, strict saves, caller isolation, every legal route to depth three for each garden, native keyboard ownership, pause/modal/parent guards, corrupt recovery, isolated reset and quota failure.",
+        "Both scripts parse; new local asset references and unique HTML IDs pass; bridge is first script; Games navigation resolves to root catalogue. No new Switch workspace controls.",
+        "No rendered browser, inspected screenshots, native touch/dialog/focus verification, enjoyment evidence, qualified improvement pass, full-repository build or live-release evidence."
+      ],
+      "commits": [
+        "018d8c74baec589351be660fc3519352a1652ecc"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact fixed puzzles. Winning fixtures are feasible examples, not proven shortest routes. No procedural mode, audio or animated sowing trail. Numerical preview and ring order need visual evaluation, especially mobile."
+      },
+      "nextSteps": [
+        "Play actual rendered loop on desktop and touch layouts; inspect screenshots and verify progression, loss/retry, undo, saves/reload, reset and Games navigation.",
+        "Identify the most important observed weakness in choice depth, readability or replayability and implement a substantive playtest-led upgrade before qualification or integration."
+      ]
     },
     {
       "slot": 61,
@@ -1539,11 +1553,11 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all nineteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 31 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all twenty third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 30 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "9e15e3cd07f59f2eba83ea11c95f285cf259e314",
+  "latestObservedMain": "fec6f229630e04f272e585521c0685ad5491ba72",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1909,6 +1923,13 @@
       "result": "Bellwether adviser made cooperative and cancellable; 41 engine/DOM checks pass. Third remains 19 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing security-policy rendering blocker not retried or bypassed.",
       "mainObserved": "9e15e3cd07f59f2eba83ea11c95f285cf259e314"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "018d8c74baec589351be660fc3519352a1652ecc",
+      "result": "Built Seedwake (slot 60), a distinct circular sowing puzzle. 20 engine/DOM checks pass. Third now 20 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing security-policy rendering blocker not retried or bypassed.",
+      "mainObserved": "fec6f229630e04f272e585521c0685ad5491ba72"
     }
   ]
 }
