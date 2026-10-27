@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 17,
+    "built": 18,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -873,21 +873,34 @@
     },
     {
       "slot": 58,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "rill-root",
+      "title": "Rill & Root",
+      "coreLoop": "Cut and fill a height field with conserved soil to route a downhill stream, split its flow and water two root beds.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/rill-root",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "13 passing tests: seven engine, six jsdom 26.1.0. All three authored routes, progression and per-action reload; failed-pour recovery; soil/water conservation; lowest-neighbour, splitting, plateau and trapping rules; capacity, fixed plots and strict actions; preview/selection immutability; journal bound and records; keyboard focus/pause/modal/parent guards; corrupt saves/recovery/reset isolation/quota. Both scripts pass syntax checks; local JS/CSS references and Games navigation valid.",
+        "No rendered browser, native keyboard/touch, screenshot, enjoyment, improvement-pass or live-release evidence."
+      ],
+      "commits": [
+        "c0cb277acc2f032d5b654f2619ec760130261bba"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact authored gardens. Height-field earthwork, finite bucket and flow splitting implemented; free preview, depth, clarity and progression need rendered assessment."
+      },
+      "nextSteps": [
+        "Naturally play desktop/touch and inspect screenshots, including height/flow arrows, soil bucket and stacked layout.",
+        "Identify an observed weakness and implement a substantive improvement pass; verify progression, dry-bed recovery, saves/reload, undo/retry/reset and navigation before catalogue selection."
+      ]
     },
     {
       "slot": 59,
@@ -1468,11 +1481,11 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all seventeen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 33 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all eighteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 32 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "5250882e835cba4cb10e9c826a91691ed0a43886",
+  "latestObservedMain": "d9e77a6bcbb7a8c4b43e976618efbecd2ff38527",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1789,6 +1802,13 @@
       "result": "Tumbleglass bead lift and extended adviser implemented; 24 tests pass. Third totals remain 17 built and 0 improved/browser-tested/integrated/live; second additional round remains 6/20 rendered verified.",
       "browserStatus": "Existing security-policy rendering blocker not retried or bypassed.",
       "mainObserved": "5250882e835cba4cb10e9c826a91691ed0a43886"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "c0cb277acc2f032d5b654f2619ec760130261bba",
+      "result": "Rill & Root slot 58 implemented and tested with 13 engine/DOM checks. Third batch now 18/50 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 rendered verified.",
+      "browserStatus": "Existing rendering security-policy blocker not retried or bypassed.",
+      "mainObserved": "d9e77a6bcbb7a8c4b43e976618efbecd2ff38527"
     }
   ]
 }
