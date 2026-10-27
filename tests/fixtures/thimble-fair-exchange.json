@@ -1,0 +1,161 @@
+[
+  {
+    "seed": 1,
+    "moves": [
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 5
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 1
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 4
+      },
+      {
+        "type": "exchange",
+        "from": 0,
+        "to": 1
+      },
+      {
+        "type": "craft",
+        "order": 0
+      },
+      {
+        "type": "craft",
+        "order": 1
+      },
+      {
+        "type": "craft",
+        "order": 2
+      }
+    ],
+    "result": {
+      "round": 3,
+      "coins": 5,
+      "stock": [
+        0,
+        0,
+        0
+      ],
+      "done": [
+        true,
+        true,
+        true
+      ],
+      "last": "Berry blanket delivered. One coin returned for your next purchase.",
+      "exchanged": true
+    }
+  },
+  {
+    "seed": 42,
+    "moves": [
+      {
+        "type": "bid",
+        "lot": 1,
+        "bid": 4
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 4
+      },
+      {
+        "type": "bid",
+        "lot": 1,
+        "bid": 4
+      },
+      {
+        "type": "exchange",
+        "from": 1,
+        "to": 2
+      },
+      {
+        "type": "craft",
+        "order": 0
+      },
+      {
+        "type": "craft",
+        "order": 1
+      },
+      {
+        "type": "craft",
+        "order": 2
+      }
+    ],
+    "result": {
+      "round": 3,
+      "coins": 3,
+      "stock": [
+        1,
+        0,
+        0
+      ],
+      "done": [
+        true,
+        true,
+        true
+      ],
+      "last": "Berry blanket delivered. One coin returned for your next purchase.",
+      "exchanged": true
+    }
+  },
+  {
+    "seed": 314,
+    "moves": [
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 3
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 3
+      },
+      {
+        "type": "bid",
+        "lot": 2,
+        "bid": 3
+      },
+      {
+        "type": "exchange",
+        "from": 0,
+        "to": 2
+      },
+      {
+        "type": "craft",
+        "order": 0
+      },
+      {
+        "type": "craft",
+        "order": 1
+      },
+      {
+        "type": "craft",
+        "order": 2
+      }
+    ],
+    "result": {
+      "round": 3,
+      "coins": 6,
+      "stock": [
+        2,
+        0,
+        0
+      ],
+      "done": [
+        true,
+        true,
+        true
+      ],
+      "last": "Berry blanket delivered. One coin returned for your next purchase.",
+      "exchanged": true
+    }
+  }
+]
