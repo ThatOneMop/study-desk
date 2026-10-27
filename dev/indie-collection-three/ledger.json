@@ -849,13 +849,15 @@
         "Both gameplay scripts pass node --check. Unique IDs, accessible board descriptions, SVG structure, local script/style paths, reduced-motion/mobile CSS and CSS parsing checked. No Switch workspace control introduced. No full repository build from the partial workspace or rendered browser/screenshot/touch evidence.",
         "Quiet paws: 22 tests pass (11 engine, 11 jsdom), retaining all 16 prior tests. Quiet movement preserves sheep, costs a step, obeys obstacles, rejects malformed quiet actions and replays/undoes exactly. All three quiet-enabled campaign fixtures reload every action, preserve/improve records, and retain unrelated saves. UI tests cover prediction invalidation, default-off reload/retry/reset, button/keyboard/scaled tap input, pause guards and unchanged whistles. Both scripts pass syntax checks. No rendered evidence.",
         "Named calls: 29 passing tests (15 engine, 14 jsdom 26.1.0), retaining 22 previous checks. Shared-destination stalemate, one-sheep response, range/occupancy/shelter, strict action validation/copying, three named-call campaigns with per-action reload, legacy and quiet routes, forecast invalidation, native selector keys, opening/pause/modal/parent guards, undo/retry and records. Scripts parse. No rendered evidence.",
-        "Route adviser: 35 passing tests (18 engine, 17 jsdom 26.1.0), retaining previous 29. Read-only route replay; first two starting meadows and progressed final meadow; search-limit uncertainty versus exhaustive trapped-position proof; first-meadow UI advice/confirmation campaign; native/pause/modal/parent guards; stale advice clearing. Both scripts parse. No rendered evidence."
+        "Route adviser: 35 passing tests (18 engine, 17 jsdom 26.1.0), retaining previous 29. Read-only route replay; first two starting meadows and progressed final meadow; search-limit uncertainty versus exhaustive trapped-position proof; first-meadow UI advice/confirmation campaign; native/pause/modal/parent guards; stale advice clearing. Both scripts parse. No rendered evidence.",
+        "Cooperative adviser: 41 passing tests (21 engine, 20 jsdom 26.1.0), retaining prior 35 checks with async waits. Identical synchronous/cooperative results; timer progress; cancellation before/during search; immutable snapshots; movement while searching; stale result suppression for target/mode/pause/dialog/hide/cancel; competing searches and error recovery. JS syntax checks pass. No rendered performance evidence."
       ],
       "commits": [
         "c83cf16c1cae29e2c1987273469ef11a91c91be2",
         "56f433122a9298ebf22af4686e2be4b0e62f4366",
         "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09",
-        "ad5d1d4385b468fe81c681e704551339db07b977"
+        "ad5d1d4385b468fe81c681e704551339db07b977",
+        "db05228e86f03859234f3a15755d5df8f3db84ba"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -886,7 +888,14 @@
         "basis": "Source-observed onboarding/recovery gap: exact one-step previews existed but no help recovering a route from a difficult position. Not a rendered observation.",
         "before": "Players could inspect only their selected next move.",
         "after": "Optional bounded breadth-first search considers normal/quiet walking and flock/named calls. Found routes preview the first move without committing or saving. Controls reflect the suggestion. Limit exhaustion explicitly reports uncertainty; exhausted graphs alone report no route. Advice clears when state or input context changes.",
-        "remaining": "Rendered desktop/touch and screenshot review, including synchronous search latency and whether help improves learning. Initial third-meadow search reaches the bound; no universal solver promise. Required playtest-led improvement/selection pending."
+        "remaining": "Natural rendered desktop/touch and screenshot review, including batch latency and learning value. The synchronous UI limitation is addressed by pendingCooperativeAdviser; initial third-meadow search still reaches the bound. No universal solver promise; qualified improvement/selection pending."
+      },
+      "pendingCooperativeAdviser": {
+        "commit": "db05228e86f03859234f3a15755d5df8f3db84ba",
+        "basis": "Known source-level limitation recorded in the previous adviser report: a synchronous search could block input until completion. Not a rendered observation.",
+        "before": "The whole bounded search ran in one UI callback.",
+        "after": "Shared generator yields between 256-position batches. Controls remain available, explicit Cancel search is added, and generation tokens discard stale completions/errors after any state/context change. Search failures do not claim a dead end. Save shape/rules unchanged.",
+        "remaining": "Rendered desktop/touch frame-time, native interaction and screenshot assessment; natural play and required playtest-led improvement before selection."
       }
     },
     {
@@ -1534,7 +1543,7 @@
     "Implement remaining 31 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "82305ac8fee3931a4c3adf7ba1f54b76bd7f07de",
+  "latestObservedMain": "9e15e3cd07f59f2eba83ea11c95f285cf259e314",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1893,6 +1902,13 @@
       "result": "Bellwether optional adviser implemented; 35 engine/DOM tests pass. Third remains 19 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing security-policy rendering blocker not retried or bypassed.",
       "mainObserved": "82305ac8fee3931a4c3adf7ba1f54b76bd7f07de"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "db05228e86f03859234f3a15755d5df8f3db84ba",
+      "result": "Bellwether adviser made cooperative and cancellable; 41 engine/DOM checks pass. Third remains 19 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing security-policy rendering blocker not retried or bypassed.",
+      "mainObserved": "9e15e3cd07f59f2eba83ea11c95f285cf259e314"
     }
   ]
 }
