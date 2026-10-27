@@ -1,0 +1,193 @@
+{
+  "date": "2026-10-28",
+  "branch": "7de8b6cdf4d2389b93970480672d30438ae941a8",
+  "main": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+  "scope": "main index.html/app.js/bridge.js plus game.js/index.html of 22 built third candidates; source checks only",
+  "files": [
+    {
+      "path": "games/beepline/game.js",
+      "blob": "c6d37edf5249c42d2bdd056cfe634b5def97a535"
+    },
+    {
+      "path": "games/beepline/index.html",
+      "blob": "7adef895b55a471e9764240647f3563b1c25f3d0"
+    },
+    {
+      "path": "games/bellwether/game.js",
+      "blob": "969c2deb18bfc772e8a37d7f7f74691efbe335f3"
+    },
+    {
+      "path": "games/bellwether/index.html",
+      "blob": "af9c9af944d7f3d01b3af7d1239ae3422a7dcaf5"
+    },
+    {
+      "path": "games/bramble-dice/game.js",
+      "blob": "cf260bb6642011a8b664d62bad457801ec35f7bb"
+    },
+    {
+      "path": "games/bramble-dice/index.html",
+      "blob": "5282f2031b98535c24a50e1bc03ccd77528cef67"
+    },
+    {
+      "path": "games/canopy-weave/game.js",
+      "blob": "2e5f17f16063b4be71bfdd7fdfd9b473c2c1aff1"
+    },
+    {
+      "path": "games/canopy-weave/index.html",
+      "blob": "be30b203fb4d7cef9afce1ec297cbec8a9b43879"
+    },
+    {
+      "path": "games/crate-and-cushion/game.js",
+      "blob": "1c63a71fb285d207bdcd7b631bfb81beebaf8711"
+    },
+    {
+      "path": "games/crate-and-cushion/index.html",
+      "blob": "0aee6625f2e5a9f2e56b9e094c3b345b0fab2407"
+    },
+    {
+      "path": "games/fallow-table/game.js",
+      "blob": "1a832c12026f2125ea57c23d34f8ff50a07f9c9e"
+    },
+    {
+      "path": "games/fallow-table/index.html",
+      "blob": "18c74dba37cad4eea1b37d7ffb336acb1c37f513"
+    },
+    {
+      "path": "games/field-album/game.js",
+      "blob": "d097219f71f6b20541bd805ede45f9bbf78f15ff"
+    },
+    {
+      "path": "games/field-album/index.html",
+      "blob": "6920c731514bbe9266a214b01d163cb89091d2b4"
+    },
+    {
+      "path": "games/foldlight/game.js",
+      "blob": "d9e211eaa17e7728dd1f1fea7ffb4bf84eb49ca3"
+    },
+    {
+      "path": "games/foldlight/index.html",
+      "blob": "1f23cfb39d9462a68d8baaa90e370a9f632a2eca"
+    },
+    {
+      "path": "games/kiln-chorus/game.js",
+      "blob": "ed7536c654cba50cc346cb14e628fdfa7603bf99"
+    },
+    {
+      "path": "games/kiln-chorus/index.html",
+      "blob": "2d34336f273352097d74785a2c7da523d86bf573"
+    },
+    {
+      "path": "games/moon-dial/game.js",
+      "blob": "29c62378aaf21f8adbe8403e7510e0db43e9d411"
+    },
+    {
+      "path": "games/moon-dial/index.html",
+      "blob": "6a0a0675c9857901c60249019dbae651564f51f1"
+    },
+    {
+      "path": "games/moss-commons/game.js",
+      "blob": "e1cf237b241120415853dca617d10e34e09292ed"
+    },
+    {
+      "path": "games/moss-commons/index.html",
+      "blob": "73a7414c60976e1ea3edf1d00a1b277511fff93a"
+    },
+    {
+      "path": "games/needlepath/game.js",
+      "blob": "7cc128e32f60b7167c20770bf1fc86b6df0bf1f9"
+    },
+    {
+      "path": "games/needlepath/index.html",
+      "blob": "6c3b8675cef932e800976e5d127cb5317e5cc691"
+    },
+    {
+      "path": "games/pebble-rink/game.js",
+      "blob": "f225ebfc767ee66daa564ba89c3c696e36835126"
+    },
+    {
+      "path": "games/pebble-rink/index.html",
+      "blob": "98711c472e897b9d5cf169adc9369b80a30b14a8"
+    },
+    {
+      "path": "games/pocket-regatta/game.js",
+      "blob": "c76e9bd6681535a63b303e4b2f13e9c42ceba3bf"
+    },
+    {
+      "path": "games/pocket-regatta/index.html",
+      "blob": "6e89f5abe6a466ccc1ad4b967a390531076e99d9"
+    },
+    {
+      "path": "games/reedbreaker/game.js",
+      "blob": "ebf59f05e5a68781d4f81baef806221a10186073"
+    },
+    {
+      "path": "games/reedbreaker/index.html",
+      "blob": "159128dfcf40ef869c9067daae5cefcae4316a0f"
+    },
+    {
+      "path": "games/ribbon-reef/game.js",
+      "blob": "1a159bb18b9317fe65ad0835e2ba8b11f88cf5ad"
+    },
+    {
+      "path": "games/ribbon-reef/index.html",
+      "blob": "aef6bf4047d6a9e3e74fb3efcaf8de6e10b90d74"
+    },
+    {
+      "path": "games/rill-root/game.js",
+      "blob": "1aac977c834f8a01bab709fdfe03a3da749051a0"
+    },
+    {
+      "path": "games/rill-root/index.html",
+      "blob": "f46db9555484855edc2d7e86e8924727db85f3b4"
+    },
+    {
+      "path": "games/seedwake/game.js",
+      "blob": "85349e0ab3c6d71661cb97a949d447b1ecef6862"
+    },
+    {
+      "path": "games/seedwake/index.html",
+      "blob": "9f20245fc7caeb1c08cbb50e26a6d890db43e8ca"
+    },
+    {
+      "path": "games/soundings/game.js",
+      "blob": "79690be17ffc0f5854688231caf5c363d4dab1ef"
+    },
+    {
+      "path": "games/soundings/index.html",
+      "blob": "718bca6bff50ddc0ae9c6cb23f5cbb3e4407596f"
+    },
+    {
+      "path": "games/stencil-studio/game.js",
+      "blob": "4565d9bf2c24cda913993c56f45cbc845ac7c25d"
+    },
+    {
+      "path": "games/stencil-studio/index.html",
+      "blob": "c7658e319666a710d38275cf1c8d5042d3716860"
+    },
+    {
+      "path": "games/thimble-fair/game.js",
+      "blob": "e1bf730e436df65ad1f001b0c58d036ac96a9b65"
+    },
+    {
+      "path": "games/thimble-fair/index.html",
+      "blob": "3e07927e27b2c2d26bbddba8a00a19c297cc40ea"
+    },
+    {
+      "path": "games/tumbleglass/game.js",
+      "blob": "3b6068bfb4f978c12c7d5ae43404906b31cba4d4"
+    },
+    {
+      "path": "games/tumbleglass/index.html",
+      "blob": "ee47a8dfe9c294fc02f0d970c7f952efcaede898"
+    }
+  ],
+  "findings": {
+    "workspaceControls": [],
+    "explicitReservedPBinding": [
+      "games/rill-root/game.js"
+    ],
+    "bridgeSameOnMainAndThird": true
+  },
+  "fixCommit": "1cd076ff0db03a4d4aa87348db9ffcab271a8ffd",
+  "limits": "Not a rendered desktop/mobile audit; second/first batch shells not re-audited in this run. No repeated live publication check."
+}
