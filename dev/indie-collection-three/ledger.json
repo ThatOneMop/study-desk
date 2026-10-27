@@ -1054,11 +1054,13 @@
         "14 passing tests: seven engine, seven jsdom 26.1.0. All three patterns completed through controls with per-action save/reload; reflection, stack reversal and face flipping; unique-paper conservation across every legal depth-two fold; invalid/out-of-frame/empty-side guards; exact target semantics; loss/undo/retry, record/unlock retention, free previews and stack inspection, keyboard/native focus, pause/modal/parent guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse. Local asset references, unique IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
         "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence.",
-        "Under-folding: 21 passing tests (11 engine, 10 jsdom 26.1.0), retaining original 14. Three under-inclusive routes through controls and per-action reload; reversed/face-flipped bottom insertion, stationary top preservation, identical geometry/conservation, empty destinations, strict flags, undo/retry and old journals, mode previews and native/pause/modal guards. Both scripts parse. No rendered evidence."
+        "Under-folding: 21 passing tests (11 engine, 10 jsdom 26.1.0), retaining original 14. Three under-inclusive routes through controls and per-action reload; reversed/face-flipped bottom insertion, stationary top preservation, identical geometry/conservation, empty destinations, strict flags, undo/retry and old journals, mode previews and native/pause/modal guards. Both scripts parse. No rendered evidence.",
+        "Whole-sheet turnover: 27 passing tests (14 engine, 13 jsdom 26.1.0), retaining original 21. Three single-turnover routes with per-action control-driven reload; exact mirroring, stack reversal/face flipping, paper conservation, involution, allowance, strict actions, undo/retry, previews, disabled unrelated controls and native/keyboard/pause/modal guards. Scripts parse; IDs, bridge order and no workspace-switch control checks pass. No rendered evidence."
       ],
       "commits": [
         "f4672b82254e5e063573bf7cfa317f879d6b333a",
-        "bb255e048f6cbccea5d103460df6fe22d904c949"
+        "bb255e048f6cbccea5d103460df6fe22d904c949",
+        "9af4c55b48f6f67f68683d7c5d8789278604d034"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1076,6 +1078,13 @@
         "before": "Every moving stack landed above stationary paper.",
         "after": "Optional under-fold inserts the turned moving stack below stationary layers, preserving their visible colour and changing buried layers for future folds. Previews and inspection reflect mode; old saves remain over-folds.",
         "remaining": "Rendered desktop/touch play and screenshot inspection; assess sequence depth, mode clarity and preview usability before playtest-led qualification."
+      },
+      "pendingTurnoverRefinement": {
+        "commit": "9af4c55b48f6f67f68683d7c5d8789278604d034",
+        "basis": "Source inspection, not rendered observation: changing visible faces always required a crease fold.",
+        "before": "Only crease folds could expose another face, moving selected stacks onto other panes.",
+        "after": "Optional one-move whole-sheet turnover mirrors every pane left-to-right and reverses/flips every stack without merging panes. Exact preview and layer inspection use mode; original v1 journals remain valid.",
+        "remaining": "Render desktop/touch play, inspect screenshots and assess usefulness, mirror-direction clarity and mode readability before qualification."
       }
     },
     {
@@ -2050,6 +2059,13 @@
       "date": "2026-10-28",
       "commit": "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
       "result": "Thimble Fair one-use thread exchange implemented; 28 engine/DOM checks pass. Third remains 22 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "9af4c55b48f6f67f68683d7c5d8789278604d034",
+      "result": "Foldlight whole-sheet turnover implemented; 27 engine/DOM checks pass. Third remains 22 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
