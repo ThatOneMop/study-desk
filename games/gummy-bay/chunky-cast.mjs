@@ -132,7 +132,8 @@ export function createChunkyCast({THREE:three=THREE,scene,actors,points,quality=
    const distance=camera?.position&&root?.position?.distanceTo?root.position.distanceTo(camera.position):0;
    const expression=residentExpressionState({now,id,talking:clip==='Talk',working:clip==='Work'||clip==='Search',moving:(actor?.speed||0)>.08,active:show,distance});
    const pose=chunkyCastPose({clip,blink:expression.blink,browLift:expression.browLift,now});
-   if(show){hideSculpted(actor);body.updateWorldMatrix(true,true);show=chunkyJointsFromBody(body,joints);}
+   // v160: people drawn by a rigged CC0 model give up their chunky slot.
+   if(show){hideSculpted(actor);if(actor?.cc0)show=false;else{body.updateWorldMatrix(true,true);show=chunkyJointsFromBody(body,joints);}}
    const fx=actor?.fx;
    if(show){
     // Idle breathing on top of the clip, and per-person height about the feet.

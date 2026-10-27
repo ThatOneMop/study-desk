@@ -135,8 +135,8 @@ import {PRODUCTION_CONTAINER_PROFILES,PRODUCTION_CONTAINER_COLLIDERS,productionC
 import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOutfitParts,selectOccupationalActors,createOccupationalOutfits} from './occupational-outfits.mjs?v=126';
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
-import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=154';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=154';
+import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=160';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=160';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -154,6 +154,7 @@ import {createVisualPolish} from './visual-polish.mjs?v=113';
 import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_STORAGE_KEY,cueForAction,cueForGameplay,stationCue,isManualAction} from './audio.mjs?v=124';
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
+import {createCc0People,cc0Variant} from './cc0-people.mjs?v=160';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
@@ -578,7 +579,7 @@ function setQuality(q){
  residentAccessories?.setQuality(q);
  residentFootSilhouettes?.setQuality(q);
  chunkyCast?.setQuality(q);
- streetCrowd?.setQuality(q);
+ streetCrowd?.setQuality(q);if(typeof cc0People!=='undefined')cc0People?.setQuality(q);
  nightSilhouettes?.setQuality(q);
  scruffyWelcome?.setQuality(q);
  if(q==='high')try{effects=createEffects(renderer,scene,camera,Math.min(innerWidth,1600),Math.min(innerHeight,1000))}catch(e){toast('Colour grade unavailable; the scene still draws directly.')}
@@ -1165,6 +1166,22 @@ const retiredPeopleLayer=new THREE.Group();retiredPeopleLayer.name='Retired v125
 residentFootSilhouettes=createResidentFootSilhouettes({THREE,scene:retiredPeopleLayer,actors:visualActors,quality,capacity:48});
 chunkyCast=createChunkyCast({THREE,scene,actors:visualActors,points,quality,capacity:48});
 streetCrowd=createStreetCrowd({THREE,scene,blocked,floorHeight,capacity:32,time:s.time});
+// v160: the nearest townsfolk are drawn with rigged CC0 models (CREDITS.md); the chunky cast covers everyone else.
+var cc0People=null;
+try{if(typeof createCc0People==='function')cc0People=createCc0People({THREE,scene,GLTFLoader:typeof GLTFLoader!=='undefined'?GLTFLoader:null,quality,shadows:quality!=='performance'});}catch(e){cc0People=null;}
+const cc0Candidates=[];
+function cc0Speed(ref,x,z){const t=performance.now()/1000,m=ref._cc0m;if(!m||t-m.t>1){ref._cc0m={x,z,t,v:0};return 0;}const step=t-m.t;if(step<1e-3)return m.v;const v=Math.hypot(x-m.x,z-m.z)/step;m.v+=(Math.min(9,v)-m.v)*Math.min(1,step*5);m.x=x;m.z=z;m.t=t;return m.v;}
+function updateCc0People(dt){
+ cc0Candidates.length=0;
+ for(const a of visualActors){a.cc0=false;if(!a.body?.visible||a.g?.visible===false||!a.g?.parent)continue;const id=a.g.userData?.id??0;
+  cc0Candidates.push({key:'a'+id,ref:a,x:a.g.position.x,y:a.g.position.y,z:a.g.position.z,yaw:a.g.rotation.y,speed:cc0Speed(a,a.g.position.x,a.g.position.z),clip:a.current,variant:cc0Variant(id+7,!!(a.isCop||a.g.userData?.cop)),height:.95+((id*37)%11)/100});}
+ if(active&&streetCrowd?.people)for(const p of streetCrowd.people){p.cc0=false;if(p.activity==='ko')continue;
+  cc0Candidates.push({key:'c'+p.id,ref:p,x:p.x,y:floorHeight(p.x,p.z),z:p.z,yaw:p.yaw,speed:(p.walkBlend||0)>.5?Math.max(.9,Math.min(2,cc0Speed(p,p.x,p.z))):0,pose:p.pose,variant:cc0Variant(p.id*3+101),height:p.look?.height||1});}
+ if(active&&streetCrowd?.named)for(const st of streetCrowd.named){st.cc0=false;if(!st.visible)continue;cc0Candidates.push({key:'s'+st.slot,ref:st,x:st.spotX,y:floorHeight(st.spotX,st.spotZ),z:st.spotZ,yaw:st.yaw,speed:0,clip:'Idle',variant:cc0Variant(st.slot*5+3),height:st.look?.height||1});}
+ if(active&&streetCrowd?.followers)for(const fo of streetCrowd.followers){fo.cc0=false;const o=fo.object;if(!fo.visible||!o)continue;cc0Candidates.push({key:'f'+fo.slot,ref:fo,x:o.position.x,y:floorHeight(o.position.x,o.position.z),z:o.position.z,yaw:o.rotation?.y||0,speed:0,clip:'Idle',variant:cc0Variant(fo.slot*11+1),height:fo.look?.height||1});}
+ const shown=cc0People.update({dt,camera,candidates:cc0Candidates});
+ for(const ref of shown)ref.cc0=true;
+}
 function gummyCrowdPreview(mode='street'){
  load('story',1,true);
  const overlay=document.getElementById('overlay');if(overlay)overlay.hidden=true;
@@ -1281,8 +1298,11 @@ renderFrame=function(){
  const t=performance.now(),dt=Math.max(0,Math.min(.08,(t-visualPrevious)/1000));visualPrevious=t;
  for(const a of visualActors){const distance=a.g.position.distanceTo(camera.position);const nearRig=distance<(quality==='performance'?75:125);a.body.visible=nearRig&&!a.isCop;if(nearRig)actorAnimation(a,dt,distance);else a.previous.copy(a.g.position);}
  residentFootSilhouettes.update({active});
+ // v160: pick who is drawn rigged before the chunky layers draw, then re-seat crowd models after they move.
+ if(cc0People)updateCc0People(dt);
  chunkyCast?.update({now,camera});
  streetCrowd?.update({dt,now,time:s.time,camera,active,floorHeight,blocked,namedVisible:storyCastVisible,rain:active?rainAt(s.day,s.time):0});
+ if(cc0People)updateCc0People(0);
  if(visualTown)for(const chunk of visualTown.children){const c=chunk.userData.center;if(c)chunk.visible=camera.position.distanceTo(c)<lookPreset(quality).townDistance+chunk.userData.radius;}
  visualRender();
 };
