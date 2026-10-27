@@ -165,6 +165,8 @@ import {applySunnyGrade,sunnyStrength} from './sunny-grade.mjs?v=161';
 import {applyDodgyGrade,dodgyStrength,signFlicker} from './dodgy-grade.mjs?v=166';
 import {contactPalette,restyleThread,portraitInbox} from './phone-texts.mjs?v=167';
 import {buildGrowTent,updateGrowTent,TENT} from './grow-tent.mjs?v=168';
+import {SUPPLIER,DROP_WAIT,PICKUP_RANGE,pickDrop,seedPrice,orderTotal,dropState,supplierThread} from './seed-drops.mjs?v=169';
+import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
@@ -5302,3 +5304,39 @@ window.__phoneQa={seed(i=0){s.threads=s.threads||{};s.threads[i]={status:'idle',
 var GROW_TENT_V168=!(typeof location!=='undefined'&&/[?&]oldtent=1\b/.test(location.search));
 {let tentSoilClock=0;const tentRender=renderFrame;renderFrame=function(){try{const t=performance.now();if(GROW_TENT_V168&&t-tentSoilClock>400){tentSoilClock=t;tents.forEach((g,i)=>{if(!g.visible)return;const tent=g.children.find(c=>c.name==='GrowTentV168');if(tent)updateGrowTent(THREE,tent,s.plants?.[i]);});}}catch(e){}return tentRender.apply(this,arguments);};}
 if(typeof location!=='undefined'&&/[?&]tentqa=1\b/.test(location.search))window.__tentQa={show(phase='growing'){s.room=s.room||true;s.tents=Math.max(s.tents||0,2);s.installed=[...new Set([...(s.installed||[]),0,1])];const n=Date.now();s.plants[0]={t:0,phase,start:n-60000,end:n+240000,waterings:1};s.plants[1]={t:1,phase:'thirsty',start:n-300000,end:n-1000,waterings:1};refreshBase();refreshEquipmentPresentation();const g=tents[0];return {x:g.position.x,z:g.position.z,r:g.rotation.y,visible:g.visible,v168:!!g.children.find(c=>c.name==='GrowTentV168'),house:s.house};}};
+// v169: seeds from a dodgy supplier (seed-drops.mjs). Text Weasel, pay up front, then walk to the dead drop in the
+// back lanes and pick up the paper bag. Host/solo only; the saved order lives in s.seedDrop.
+const dropMinute=()=>(s.day-1)*1440+s.time;
+let supplierAvatar='';
+function supplierPortrait(){if(supplierAvatar)return supplierAvatar;try{const cv=document.createElement('canvas');cv.width=cv.height=96;const cx=cv.getContext?.('2d');if(cx&&drawPortrait(cx,{outfit:SUPPLIER.outfit,skin:SUPPLIER.skin,hair:SUPPLIER.hair},96))supplierAvatar=cv.toDataURL();}catch(e){}return supplierAvatar;}
+function openSupplier(){
+ if(net.role==='guest'){toast('Only the host can text the supplier.');return;}
+ menu('phone');if(panel!=='phone')return;const m=$('modal');if(!m)return;
+ const d=s.seedDrop,min=dropMinute(),st=dropState(d,min,player),strain=d?STRAINS[d.t]?.name||'':'';
+ const log=supplierThread(d,min,{strain,qty:d?.qty||0}).map(l=>'<div class="message'+(l.mine?' mine':'')+'">'+esc(l.text)+'</div>').join('');
+ let foot='';
+ if(!d){const rows=STRAINS.map((x,t)=>unlocked(t)?'<div class="supplier-row"><span><b>'+esc(x.name)+'</b><small>'+cash(seedPrice(x.seed))+' a seed</small></span>'+[1,3].map(q=>'<button class="primary" onclick="supplierOrder('+t+','+q+')">'+q+' · '+cash(orderTotal(x.seed,q))+'</button>').join('')+'</div>':'').join('');
+  foot='<section class="supplier-order sms-about"><p class="note">Pay now. Weasel stashes the seeds in a paper bag somewhere in the back lanes about '+Math.round(DROP_WAIT/60*10)/10+' game hours later.</p>'+rows+'</section>';}
+ else if(st==='waiting')foot='<div class="sms-compose"><span class="sms-field">Bag goes down in about '+Math.max(1,Math.ceil(d.ready-min))+' min…</span><button class="sms-send" disabled>↑</button></div>';
+ else foot='<div class="sms-compose"><span class="sms-field">'+esc(d.lane+', '+d.note)+'</span><button class="sms-send" onclick="trackSeedDrop()" aria-label="Track the drop">⌖</button></div>';
+ m.innerHTML=phoneDeviceHTML('phone').split('<nav')[0]+'<button class="close" onclick="closeMenu()" aria-label="Put phone away">×</button>'+smsHeadHTML({name:SUPPLIER.name,sub:SUPPLIER.sub,avatar:supplierPortrait(),back:'phoneHome()'},esc)+'<div class="sms-log" role="log"><p class="sms-stamp">Today</p>'+log+'</div>'+foot+'<button class="phone-home-button" onclick="phoneHome()" aria-label="Phone home">▰</button>';
+ m.classList.add('sms-screen');document.body.dataset.phone='supplier';
+}
+function supplierOrder(t,qty){
+ if(net.role==='guest'||!active)return;if(s.seedDrop){toast(SUPPLIER.name+': '+SUPPLIER.busy);return openSupplier();}
+ if(!Number.isInteger(t)||!STRAINS[t]||!unlocked(t))return;const total=orderTotal(STRAINS[t].seed,qty);if(!spend(total))return;
+ s.supplierOrders=(s.supplierOrders||0)+1;s.seedDrop={t,qty:Math.max(1,Math.min(10,qty|0)),paid:total,ready:dropMinute()+DROP_WAIT,...pickDrop(s.day,s.supplierOrders)};
+ toast('Paid '+cash(total)+'. '+SUPPLIER.name+' will text when the drop is in.');save();updateUI();openSupplier();
+}
+function trackSeedDrop(){const d=s.seedDrop;if(!d)return;track={x:d.x,z:d.z,label:'Dead drop · '+d.lane};closeMenu();toast('Tracking the dead drop');}
+window.openSupplier=openSupplier;window.supplierOrder=supplierOrder;window.trackSeedDrop=trackSeedDrop;
+{const supHome=phoneHome;phoneHome=function(){supHome();if(panel!=='phone')return;const grid=$('modal')?.querySelector?.('.phone-app-grid');if(!grid)return;const d=s.seedDrop,st=dropState(d,dropMinute(),player);
+ grid.insertAdjacentHTML('beforeend','<button onclick="openSupplier()" data-phone-key="supplier" class="supplier-app-icon"><b aria-hidden="true">🌱'+(st==='ready'?'<i class="app-badge">1</i>':'')+'</b><strong>Supplier</strong><small>'+(!d?'Order seeds':st==='waiting'?'Drop pending':'Drop ready')+'</small></button>');};window.phoneHome=phoneHome;}
+let dropBag=null,dropClock=0,dropAnnounced='';
+function dropBagMesh(){const g=new THREE.Group();const paper=new THREE.MeshStandardMaterial({color:0x9a7a52,roughness:1});const b=new THREE.Mesh(new THREE.BoxGeometry(.26,.32,.18),paper);b.position.y=.16;const top=new THREE.Mesh(new THREE.BoxGeometry(.27,.05,.1),paper);top.position.set(0,.34,.02);top.rotation.x=.4;g.add(b,top);g.name='SeedDropBag';return g;}
+{const dropRender=renderFrame;renderFrame=function(){try{const t=performance.now();if(active&&t-dropClock>300){dropClock=t;const d=s.seedDrop,st=d?dropState(d,dropMinute(),player):'none';
+ if(st==='ready'||st==='here'){if(!dropBag){dropBag=dropBagMesh();scene.add(dropBag);}dropBag.visible=true;dropBag.position.set(d.x,floorHeight(d.x,d.z),d.z);dropBag.rotation.y=(d.x*7)%3;
+  const key=d.ready+':'+d.x;if(dropAnnounced!==key){dropAnnounced=key;toast(SUPPLIER.name+': '+SUPPLIER.ready+'. '+d.lane+', '+d.note+'.');}}
+ else if(dropBag)dropBag.visible=false;
+ if(st==='here'&&net.role!=='guest'&&!driving){s.seeds[d.t]=(s.seeds[d.t]||0)+d.qty;const name=STRAINS[d.t].name;s.seedDrop=null;if(track&&Math.hypot(track.x-d.x,track.z-d.z)<1)track=null;toast('Picked up '+d.qty+' × '+name+' seeds. '+SUPPLIER.name+': '+SUPPLIER.collected);save();updateUI();}}}catch(e){}return dropRender.apply(this,arguments);};}
+window.__dropQa={order:(t=0,q=3)=>{s.cash=Math.max(s.cash,500);supplierOrder(t,q);return s.seedDrop;},ready:()=>{if(s.seedDrop)s.seedDrop.ready=dropMinute()-1;return s.seedDrop;},state:()=>({drop:s.seedDrop,state:dropState(s.seedDrop,dropMinute(),player),seeds:[...s.seeds],bag:!!dropBag?.visible})};

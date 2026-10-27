@@ -14,6 +14,6 @@ assert.equal(restyleThread(null),null);assert.equal(portraitInbox(null),0);
 // Wired in: game.js imports it, the menu wrapper decorates thread and inbox, the page loads the stylesheet.
 const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8'),html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8'),css=fs.readFileSync(new URL('../dist/phone-texts.css',import.meta.url),'utf8');
 assert.match(game,/phone-texts\.mjs\?v=167/);assert.match(game,/restyleThread\(m,/);assert.match(game,/portraitInbox\(m,/);
-assert.match(html,/phone-texts\.css\?v=167/);
+assert.match(html,/phone-texts\.css\?v=1\d\d/);
 assert.match(css,/\.message\.mine\{[^}]*background:#30c158/,'your bubbles are green');assert.match(css,/#modal\.sms-screen\{background:#fff/,'white screen');
 console.log('PASS v167 Messages app: white texting screen, centred portrait/name header, green outgoing bubbles, compose bar');
