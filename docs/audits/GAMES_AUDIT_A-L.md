@@ -2,42 +2,42 @@
 
 Played 27 Oct 2026 on this branch, before any gameplay edits. Headless Chrome (Playwright, SwiftShader) at 1400×816, served from the repo root. Each game loaded fresh, the title was dismissed when it had one, then a short real input sequence (keys, clicks, or a drag). Two frames were saved under `docs/audits/shots/`. No page threw. Scores are from that session plus the rules on screen, not from `docs/GAME_QUALITY.md`.
 
-Fun is “would the next five minutes pull you in on a family desk.” Quality is polish, clarity, juice, and whether the first screen is fair. 7 is the bar already set by Little Lake, After Hours, and Forge Arena’s hangar. After scores stay blank until the improvement pass.
+Fun is “would the next five minutes pull you in on a family desk.” Quality is polish, clarity, juice, and whether the first screen is fair. 7 is the bar already set by Little Lake, After Hours, and Forge Arena’s hangar. After scores are from a second headless pass on the same viewport, after the edits below. Unchanged games keep the before score.
 
 | Game | Fun before | Quality before | Fun after | Quality after |
 | --- | --- | --- | --- | --- |
-| Astray | 2 | 2 | — | — |
-| Doom (Freedoom) | 3 | 3 | — | — |
-| Dino | 5 | 3 | — | — |
-| Cloud Courier | 4 | 4 | — | — |
-| Copper & Steam | 4 | 4 | — | — |
-| Kiln & Kind | 4 | 4 | — | — |
-| Lumen Grove | 4 | 4 | — | — |
-| Bolt & Bristle | 5 | 4 | — | — |
-| 2048 | 6 | 4 | — | — |
-| Deep Pocket | 4 | 5 | — | — |
-| Little Foundry | 4 | 5 | — | — |
-| Circuit Garden | 5 | 5 | — | — |
-| Glasshouse | 5 | 5 | — | — |
-| Harbourlight | 5 | 5 | — | — |
-| Inkline | 5 | 5 | — | — |
-| Last Match | 5 | 5 | — | — |
-| Copper Cadence | 6 | 5 | — | — |
-| Afterlight (the shelf) | 6 | 6 | — | — |
-| Borrowed Gravity | 6 | 6 | — | — |
-| Burrow Express | 6 | 6 | — | — |
-| Echo Vault | 6 | 6 | — | — |
-| Hextris | 7 | 6 | — | — |
-| Lucky Company | 6 | 6 | — | — |
-| Ashwake | 7 | 7 | — | — |
-| Forge Arena | 7 | 7 | — | — |
-| Hollow Keeper | 7 | 7 | — | — |
-| Lanternwake | 7 | 7 | — | — |
-| Autumn Drift | 7 | 8 | — | — |
-| Little Lake | 7 | 8 | — | — |
-| Lost & Found | 7 | 8 | — | — |
-| After Hours | 8 | 8 | — | — |
-| Counterweight | 8 | 8 | — | — |
+| Astray | 2 | 2 | 6 | 6 |
+| Doom (Freedoom) | 3 | 3 | 3 | 4 |
+| Dino | 5 | 3 | 6 | 5 |
+| Cloud Courier | 4 | 4 | 6 | 6 |
+| Copper & Steam | 4 | 4 | 6 | 6 |
+| Kiln & Kind | 4 | 4 | 6 | 6 |
+| Lumen Grove | 4 | 4 | 6 | 6 |
+| Bolt & Bristle | 5 | 4 | 6 | 6 |
+| 2048 | 6 | 4 | 6 | 6 |
+| Deep Pocket | 4 | 5 | 6 | 6 |
+| Little Foundry | 4 | 5 | 5 | 6 |
+| Circuit Garden | 5 | 5 | 6 | 6 |
+| Glasshouse | 5 | 5 | 5 | 5 |
+| Harbourlight | 5 | 5 | 6 | 6 |
+| Inkline | 5 | 5 | 6 | 6 |
+| Last Match | 5 | 5 | 5 | 5 |
+| Copper Cadence | 6 | 5 | 6 | 6 |
+| Afterlight (the shelf) | 6 | 6 | 6 | 6 |
+| Borrowed Gravity | 6 | 6 | 6 | 6 |
+| Burrow Express | 6 | 6 | 6 | 6 |
+| Echo Vault | 6 | 6 | 6 | 6 |
+| Hextris | 7 | 6 | 7 | 7 |
+| Lucky Company | 6 | 6 | 6 | 6 |
+| Ashwake | 7 | 7 | 7 | 7 |
+| Forge Arena | 7 | 7 | 7 | 7 |
+| Hollow Keeper | 7 | 7 | 7 | 7 |
+| Lanternwake | 7 | 7 | 7 | 7 |
+| Autumn Drift | 7 | 8 | 7 | 8 |
+| Little Lake | 7 | 8 | 7 | 8 |
+| Lost & Found | 7 | 8 | 7 | 8 |
+| After Hours | 8 | 8 | 8 | 8 |
+| Counterweight | 8 | 8 | 8 | 8 |
 
 Steam comparisons are about the feel those games are known for. No assets or code were taken from them.
 
@@ -439,10 +439,49 @@ Missing versus a light puzzle such as Lux: you should see the chain, and the fir
 ![Lumen Grove](shots/lumen-grove-01-open.jpg)
 ![Lumen Grove grid](shots/lumen-grove-02-play.jpg)
 
-## What this pass will change, and what it will not
+## After the improvement pass
 
-Weakest first: Astray (black maze), then the five thin Afterlight toys in this letter range, then Bolt & Bristle, Deep Pocket, Little Foundry, and the diagram games whose first stage dumps every system (Glasshouse, Inkline, Last Match, Circuit Garden, Copper Cadence’s missing pause, Dino’s browser costume, Hextris share links, 2048’s header).
+Played again in the same headless Chrome. After frames for the games that changed are in `shots/after/`. Scores above are from that pass. Nothing here reaches the 7 bar except Hextris, which was already fun and only lost its dead share buttons.
 
-Leave alone: After Hours, Autumn Drift, Counterweight, Ashwake, Forge Arena, Hollow Keeper, Lanternwake, Little Lake, Lost & Found, Lucky Company’s scoring, and Doom’s combat.
+**Astray, 2/2 → 6/6.** The maze, ball, and floor draw. The merged wall mesh had been frustum-culled, so the old black frame was an empty clear plus a shader warning from the unused lens-flare program. Level 1 is a 7-wide maze, arrows and an on-screen pad move the ball, and Esc or Pause holds it. The floor is still a dark concrete sheet and the exit is only a gap, so it is not an 8.
 
-Shared `desk-feel.js`, the hub, and `tests/*.cjs` stay untouched unless a game cannot pause or boot without a tiny hook. Afterlight’s `app.js` is shared with five M–Z games; those branches of `make`, `update`, and `draw` will not change.
+![Astray after, maze visible](shots/after/astray-play.jpg)
+
+**Harbourlight, Kiln & Kind, Cloud Courier, Copper & Steam, Lumen Grove, 4–5 → 6/6.** Chapter 1 only, inside `games/afterlight/app.js`. Harbourlight asks for one boat and keeps the rocks off the straight line, with a wake while it sails. Kiln & Kind restores 16 patches and grows a flower as they clear. Cloud Courier asks for 3 parcels, spawns storms less often, and draws a shadow under the drone. Copper & Steam starts one turn from solved and paints the connected elbows gold before the outlet. Lumen Grove starts from a fixed chain and asks for 4 blooms. Later chapters, and the five M–Z toys in the same file, are unchanged. The keyboard test still passes.
+
+![Harbourlight chapter 1](shots/after/harbourlight.jpg)
+![Copper & Steam, one turn short](shots/after/copper-steam.jpg)
+
+**Bolt & Bristle, 5/4 → 6/6.** The header no longer says prototype. The first radio is dust only.
+
+![Bolt & Bristle, dust only](shots/after/bolt.jpg)
+
+**Deep Pocket, 4/5 → 6/6.** Trip 1 is the reed edge, shallow, one Lantern Dace worth 12 shells. The second brief, the other banks, the other depths, and the habitat chart stay hidden until trip 2. Old completed saves still satisfy the easier goal.
+
+![Deep Pocket trip 1](shots/after/deep-pocket.jpg)
+
+**Little Foundry, 4/5 → 5/6.** The first bell’s glow band is wider, so a rough seam is harder to hit by accident. The mould, the recipe, and the fuel are the same, which is why fun only moves one point.
+
+**Inkline, 5/5 → 6/6.** The first wing has no ink blots. Walls, pages, and the turn limit are unchanged.
+
+**Circuit Garden, 5/5 → 6/6.** Season 1 hides the energy ledger and the weather strip until three modules are on the roof. Later seasons still open with the full forecast.
+
+![Circuit Garden season 1](shots/after/circuit.jpg)
+
+**Copper Cadence, 6/5 → 6/6.** Pause and Esc hold the crank, the feeds, and the shortcuts. P still belongs to Study Desk. The first chart is still a one-lane commission, so the curve cell in `GAME_QUALITY.md` stays fail.
+
+![Copper Cadence paused](shots/after/copper-cadence.jpg)
+
+**2048, 6/4 → 6/6.** New Game sits under the board. How to play is closed. Esc or Pause ignores swipes and arrows; R still restarts.
+
+![2048 paused, New Game under the board](shots/after/2048.jpg)
+
+**Dino, 5/3 → 6/5.** A small Study Desk card names jump, pause, and a medal at 100. Esc pauses the existing runner. The Chrome sprites are unchanged, so the page still looks like the offline error underneath the card.
+
+![Dino with the Study Desk card](shots/after/dino.jpg)
+
+**Hextris, 7/6 → 7/7.** The Facebook and Twitter share row stays hidden, including on the game-over fade.
+
+**Doom, 3/3 → 3/4.** The boot line says Freedoom is a violent shooter and is not for children. Combat, the wad, and the wasm were not touched. It is still the wrong game for this desk, which is why fun stays 3.
+
+Left as they were, with after scores equal to before: After Hours, Afterlight’s shelf, Ashwake, Autumn Drift, Borrowed Gravity, Burrow Express, Counterweight, Echo Vault, Forge Arena, Glasshouse, Hollow Keeper, Lanternwake, Last Match, Little Lake, Lost & Found, and Lucky Company. Glasshouse’s first order needs a cross that is not in the seed bag, so hiding Cross would make it unwinnable. Last Match’s first enemy list is part of the save check. Echo Vault’s forecast is the puzzle. The 7 and 8 games were already at the bar.

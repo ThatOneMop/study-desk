@@ -34,29 +34,29 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Lucky Company | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Forge Arena | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Tidepost | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Deep Pocket | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Deep Pocket | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Queen of Cinders | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Little Foundry | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Little Foundry | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Scrap Orbit | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Inkline | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Inkline | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Pocket Expedition | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Echo Vault | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Glasshouse | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Spore Kitchen | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Bolt & Bristle | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Bolt & Bristle | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Roof Runner | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Stone Song | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Last Match | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Burrow Express | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Storm Signal | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Circuit Garden | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Circuit Garden | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Moss Market | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Threadbound | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Rain Catcher | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Reefwright | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Counterweight | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Lanternwake | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Copper Cadence | pass | fail | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Copper Cadence | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Hollow Keeper | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Paper Odyssey | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Ratchet Run | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -121,6 +121,7 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Feedback pass 3 (Circuit Garden, Moss Market, Threadbound, Rain Catcher) uses the same feedback-only kit and saved Sound toggle. Circuit Garden moves toward Dorfromantik's cosy building: module clicks, GRID LIVE, BEDS GROW, BROWNOUT shake, SEASON IN BLOOM and GRID TRIPPED. Moss Market moves toward Moonlighter's shopkeeping: TRADE MADE, CRAFTED, ORDER FILLED n/3, OFFER DECLINED, MARKET DAY DONE and STALL CLOSED EARLY. Threadbound moves toward a Worms-style rope swing: hook and release sounds, hard-landing shake, SILVER SEED counts, KNOT TIED, FELL and LANTERN KINDLED. Rain Catcher moves toward Timberborn's water shaping: dig bursts, CISTERN OPEN/SHUT, RAIN CAUGHT, GARDENS DRINK, DOORSTEP WET, GARDENS RESTORED, FLOODED and SEASON CLOSED.
 - Feedback pass 4 (Salt & Sail, Static Orchard, Borrowed Gravity) uses the same feedback-only kit and saved Sound toggle. Salt & Sail moves toward Dredge's small-boat trading: STOWED, CAST OFF, HULL KNOCK with hull count and shake, CARGO SHIFTED, LINES ASHORE and VOYAGE LOST. Static Orchard moves toward Plants vs. Zombies (kept gentle): zap bursts, SHOOED, CHAIN ×n, HARVEST, SWARM n / 3, TREE NIBBLED, ONE SLIPPED PAST, ORCHARD SAFE and ORCHARD OVERRUN. Borrowed Gravity moves toward Superliminal's puzzle rooms: GALLERY OPEN, BORROWED/RETURNED, landing shake, SHARD n/3, ROOM SOLVED and BARRIER RETURNED.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
+- A–L pass (27 Oct 2026), weakest games first, after the play audit in `docs/audits/GAMES_AUDIT_A-L.md`. Curve now passes for Deep Pocket (trip 1 is one shallow Lantern Dace), Little Foundry (the first bell accepts a wider glow band; the mould is unchanged), Inkline (the first wing has no ink blots), Bolt & Bristle (the first radio is dust only, and the prototype label is gone), and Circuit Garden (season 1 hides the energy ledger and the weather strip until three modules are down). Copper Cadence gains a Pause button and Esc; the commission chart is unchanged, so Curve stays fail. Harbourlight, Kiln & Kind, Cloud Courier, Copper & Steam, and Lumen Grove keep their existing Curve pass, with gentler chapter 1 goals inside Afterlight. Saves still use the same version checks.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 63, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 63, Goals 63, Hints 63, Feedback 63, Curve 45, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
 
