@@ -73,6 +73,8 @@ import {bindGameplayState,emitGameplay,subscribeGameplay} from './gameplay-feed.
 import {grantStarter,starterOfferDue,STARTER_TEXT,STARTER_NPC,STARTER_PRODUCT,STARTER_QTY,STARTER_PRICE} from './starter-sale.mjs?v=125';
 import {policeNotice} from './police-notice.mjs?v=125';
 import {firstSaleProtected,normalizeSquadSave} from './sale-shield.mjs?v=132';
+import {TALK_RANGE,TALK_FACING,personName,personMood,talkOptions,talkReply,gestureOffsets,GESTURE_TIME,talkPanelHTML,drawPortrait} from './people-talk.mjs?v=165';
+import {createSprintLatch,wantsPointerLock} from './input-latch.mjs?v=165';
 import {inVision} from './police-vision.mjs?v=132';
 import {freshChase,spotChase,stepChase,escalateChase,stageSeconds} from './police-ladder.mjs?v=132';
 import {hideSpotAt,hidingClears} from './hide-spots.mjs?v=132';
@@ -139,7 +141,7 @@ import {OCCUPATIONAL_OUTFIT_PROFILES,OCCUPATIONAL_OUTFIT_COLLIDERS,occupationOut
 import {RESIDENT_ACCESSORY_PROFILES,RESIDENT_ACCESSORY_COLLIDERS,RESIDENT_HAIRSTYLE_PROFILES,RESIDENT_HAIRSTYLE_COLLIDERS,residentAccessoryParts,selectResidentAccessories,createResidentAccessories,createResidentHairstyleRig,residentHairstyleResources} from './resident-accessories.mjs?v=126';
 import {RESIDENT_EXPRESSION_COLLIDERS,RESIDENT_FACE_FOCUS_BOUNDS,residentExpressionState,applyResidentBlinkMorph,createResidentExpressionRig,updateResidentExpressionRig,residentExpressionResources} from './resident-expressions.mjs?v=121';
 import {createChunkyCast,concealSculptedResident,createChunkyPlayerHand,updateChunkyPlayerHand} from './chunky-cast.mjs?v=160';
-import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute} from './street-crowd.mjs?v=160';
+import {STREET_CROWD_COLLIDERS,STREET_CROWD_FAR,STREET_CROWD_SIZE,createStreetCrowd,crowdRoute,crowdPalette} from './street-crowd.mjs?v=165';
 import {RESIDENT_PROPORTION_COLLIDERS,RESIDENT_PROPORTION_PROFILES,residentProportionProfile,createResidentProportionRig,applyResidentProportionRig,createResidentFootSilhouettes} from './resident-proportions.mjs?v=126';
 import {RESIDENT_CLOTHING_COLLIDERS,RESIDENT_CLOTHING_PROFILES,RESIDENT_FABRIC_PATTERN,residentClothingProfile,clothingTone,residentFabricTexture,createResidentClothing} from './resident-clothing.mjs?v=108';
 import {LOGICAL_WEAR_COLLIDERS,LOGICAL_WEAR_MARKS,logicalWearMarkValid,logicalWearCoversPoint,logicalWearMarks,createLogicalWear} from './logical-wear.mjs?v=126';
@@ -157,7 +159,7 @@ import {createVisualPolish} from './visual-polish.mjs?v=113';
 import {createTownAudio,footstepSurface,replaceAudioMixer,readAudioLevels,AUDIO_STORAGE_KEY,cueForAction,cueForGameplay,stationCue,isManualAction} from './audio.mjs?v=124';
 import * as THREE from './vendor/three.module.min.js';
 import {GLTFLoader} from './vendor/gltf-loader.js';
-import {createCc0People,cc0Variant} from './cc0-people.mjs?v=160';
+import {createCc0People,cc0Variant} from './cc0-people.mjs?v=165';
 import {applySunnyGrade,sunnyStrength} from './sunny-grade.mjs?v=161';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -1150,7 +1152,7 @@ function tickPolice(dt){if(net.role==='guest')return;dt=Number.isFinite(dt)?Math
  });
  if(!shielded)maybeEngageSquad(p);
 }
-const policeAction=doAction;doAction=function(k,a,b,c){let p=ensurePolice(),role=processingRemote?'guest':localPoliceRole();if(p.search)return;if(k==='complyPolice'){let cop=p.officers.find(o=>o.target===role&&o.mode!=='patrol'&&Math.hypot(o.x-player.x,o.z-player.z)<18&&copSight(o,player));if(cop)beginPoliceSearch(role,cop.mode==='pursuit');else if(!processingRemote)toast('Move within 18 m of a visible officer who is stopping you, then press H.');return;}let sold=s.sold;policeAction(k,a,b,c);if(k==='deliver'&&s.sold>sold)for(let officer of p.officers)if(Math.hypot(officer.x-player.x,officer.z-player.z)<26&&copSight(officer,player)){officer.mode='pursuit';officer.target=role;officer.lastX=player.x;officer.lastZ=player.z;officer.lost=0;s.heat=Math.max(85,s.heat);save();}};ACTION_NAMES.push('complyPolice');
+const policeAction=doAction;doAction=function(k,a,b,c){let p=ensurePolice(),role=processingRemote?'guest':localPoliceRole();if(p.search)return;if(k==='complyPolice'){let cop=p.officers.find(o=>o.target===role&&o.mode!=='patrol'&&Math.hypot(o.x-player.x,o.z-player.z)<18&&copSight(o,player));if(cop)beginPoliceSearch(role,cop.mode==='pursuit');else if(!processingRemote)toast('Move within 18 m of a visible officer who is stopping you, then press H.');return;}let sold=s.sold,starter=s.day<=1&&!(Number(sold)>1);policeAction(k,a,b,c);if(k==='deliver'&&s.sold>sold)for(let officer of p.officers)if(Math.hypot(officer.x-player.x,officer.z-player.z)<26&&copSight(officer,player)){if(starter){/* v165: the tutorial sales get a warning, not an instant chase */s.heat=Math.min(60,Math.max(s.heat,32));officer.angle=Math.atan2(player.x-officer.x,player.z-officer.z);officer.suspicion=Math.min(60,(officer.suspicion||0)+40);if(!processingRemote)toast('A Sugar Squad officer clocked that. First sales get a warning: keep it out of sight next time.');save();break;}officer.mode='pursuit';officer.target=role;officer.lastX=player.x;officer.lastZ=player.z;officer.lost=0;s.heat=Math.max(85,s.heat);save();}};ACTION_NAMES.push('complyPolice');
 function complyPolice(){if(!active)return;const feedback=currentPoliceFeedback();if(!feedback.canComply){toast(feedback.message||'No visible officer is stopping you within 18 m.');return;}interruptPoliceWork();close();action('complyPolice');}window.complyPolice=complyPolice;
 addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h'&&active&&!e.repeat&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))complyPolice();});
 let policeStage='';
@@ -1181,7 +1183,7 @@ function updateCc0People(dt){
  for(const a of visualActors){a.cc0=false;if(!a.body?.visible||a.g?.visible===false||!a.g?.parent)continue;const id=a.g.userData?.id??0;
   cc0Candidates.push({key:'a'+id,ref:a,x:a.g.position.x,y:a.g.position.y,z:a.g.position.z,yaw:a.g.rotation.y,speed:cc0Speed(a,a.g.position.x,a.g.position.z),clip:a.current,variant:cc0Variant(id+7,!!(a.isCop||a.g.userData?.cop)),height:.95+((id*37)%11)/100});}
  if(active&&streetCrowd?.people)for(const p of streetCrowd.people){p.cc0=false;if(p.activity==='ko')continue;
-  cc0Candidates.push({key:'c'+p.id,ref:p,x:p.x,y:floorHeight(p.x,p.z),z:p.z,yaw:p.yaw,speed:(p.walkBlend||0)>.5?Math.max(.9,Math.min(2,cc0Speed(p,p.x,p.z))):0,pose:p.pose,variant:cc0Variant(p.id*3+101),height:p.look?.height||1});}
+  cc0Candidates.push({key:'c'+p.id,ref:p,gesture:p.gestureKind?gestureOffsets(p.gestureKind,now-p.gestureAt):null,x:p.x,y:floorHeight(p.x,p.z),z:p.z,yaw:p.yaw,speed:(p.walkBlend||0)>.5?Math.max(.9,Math.min(2,cc0Speed(p,p.x,p.z))):0,pose:p.pose,variant:cc0Variant(p.id*3+101),height:p.look?.height||1});}
  if(active&&streetCrowd?.named)for(const st of streetCrowd.named){st.cc0=false;if(!st.visible)continue;cc0Candidates.push({key:'s'+st.slot,ref:st,x:st.spotX,y:floorHeight(st.spotX,st.spotZ),z:st.spotZ,yaw:st.yaw,speed:0,clip:'Idle',variant:cc0Variant(st.slot*5+3),height:st.look?.height||1});}
  if(active&&streetCrowd?.followers)for(const fo of streetCrowd.followers){fo.cc0=false;const o=fo.object;if(!fo.visible||!o)continue;cc0Candidates.push({key:'f'+fo.slot,ref:fo,x:o.position.x,y:floorHeight(o.position.x,o.position.z),z:o.position.z,yaw:o.rotation?.y||0,speed:0,clip:'Idle',variant:cc0Variant(fo.slot*11+1),height:fo.look?.height||1});}
  const shown=cc0People.update({dt,camera,candidates:cc0Candidates});
@@ -5132,3 +5134,124 @@ window.__meet={spots:()=>meetSpots().map(p=>({id:p.id,name:p.name,x:+p.x.toFixed
  calls:()=>renderer.info.render.calls,
  skip:min=>{s.time+=min;while(s.time>=1440){s.time-=1440;s.day++;}return rosterNow();},
  markers:()=>meetMarks?meetMarks.filter(g=>g.visible).length:0};
+// ---- v165 · controls (first-click mouse look, C crouch, double-tap W sprint) and talking to people ----
+const sprintLatch=createSprintLatch();let realShift=false,lockHintShown=false,lockOptOut=false;
+try{lockOptOut=localStorage.getItem('gummybay-autolock')==='off';}catch(e){}
+function setAutoLock(on){lockOptOut=!on;try{localStorage.setItem('gummybay-autolock',on?'on':'off');}catch(e){}toast(on?'Click the world to capture the mouse. Esc releases it.':'Mouse capture is off. Hold and drag the world to look.');}
+window.setAutoLock=setAutoLock;
+canvas.addEventListener('pointerdown',e=>{
+ if(stationTask||placeMode||cine?.scene)return;
+ if(!wantsPointerLock({active,panel,pointerType:e.pointerType,button:e.button,locked:document.pointerLockElement===canvas,optOut:lockOptOut}))return;
+ try{const r=canvas.requestPointerLock?.();r?.catch?.(()=>{});}catch(err){}
+});
+document.addEventListener('pointerlockchange',()=>{if(document.pointerLockElement===canvas&&!lockHintShown){lockHintShown=true;toast('Mouse captured · Esc releases it');}});
+addEventListener('keydown',e=>{
+ if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
+ const k=e.key.toLowerCase();if(k==='shift')realShift=true;
+ if(!active||panel)return;
+ if(k==='c'&&!e.ctrlKey&&!e.metaKey)keys.control=true;
+ if((k==='w'||k==='arrowup')&&!e.repeat&&sprintLatch.down(performance.now()/1000))keys.shift=true;
+ if(k==='shift'&&sprintLatch.latched)keys.shift=true;
+});
+addEventListener('keyup',e=>{
+ const k=e.key.toLowerCase();
+ if(k==='shift'){realShift=false;if(sprintLatch.latched)keys.shift=true;}
+ if(k==='c')keys.control=false;
+ if((k==='w'||k==='arrowup')&&sprintLatch.up(performance.now()/1000)&&!realShift)keys.shift=false;
+});
+addEventListener('blur',()=>{sprintLatch.reset();realShift=false;});
+const lockSettings=menu;menu=function(which,data){lockSettings(which,data);if(which==='settings'&&active){const m=$('modal');if(m&&typeof m.insertAdjacentHTML==='function')m.insertAdjacentHTML('beforeend','<div class="overline">MOUSE LOOK</div><p>'+(lockOptOut?'Hold and drag to look.':'Click the world to capture the mouse. Esc releases it.')+'</p><button onclick="setAutoLock('+(lockOptOut?'true':'false')+');menu(\'settings\')">'+(lockOptOut?'Turn on click-to-capture':'Use hold-and-drag instead')+'</button>');}};window.menu=menu;
+// People: look at someone close, press E, they stop and face you. A panel shows their face, mood and a few options.
+let talkTarget=null,talk=null,portraitRT=null,portraitCam=null;const talkMemory=new Map();
+const OPENERS={chatty:'G\'day! What\'s up?',wary:'...Yeah? Can I help you?',grumpy:'What.',keen:'Oh hey! Hi!'};
+function talkCandidate(){
+ if(!active||panel||work||driving||stationTask||placeMode||!streetCrowd?.people)return null;
+ const fx=-Math.sin(yaw),fz=-Math.cos(yaw);let best=null,score=-Infinity;
+ streetCrowd.people.forEach((p,i)=>{if(p.activity==='ko'||(p.callUntil||0)>now)return;const dx=p.x-player.x,dz=p.z-player.z,d=Math.hypot(dx,dz);if(d>TALK_RANGE||d<.25)return;const dot=(dx*fx+dz*fz)/d;if(dot<TALK_FACING)return;const sc=dot-d*.08;if(sc>score){score=sc;best=i;}});
+ return best;
+}
+function gesture(p,kind){if(!p)return;p.gestureKind=kind;p.gestureAt=now;}
+const talkUI=updateUI;updateUI=function(){
+ talkUI();talkTarget=null;const pr=$('prompt');
+ if(near||talk||!pr||pr.style.display==='block')return;
+ const i=talkCandidate();if(i==null)return;
+ const p=streetCrowd.people[i];talkTarget=i;
+ p.react={kind:'face',until:now+1.4,x:player.x,z:player.z};
+ pr.style.display='block';pr.innerHTML='<span class="key">E</span>Talk to '+personName(p.id)+'<small>Looks '+personMood(p.id,s.time)+'</small>';
+};
+function talkPortrait(p){
+ const W=160;
+ try{
+  if(!renderer?.readRenderTargetPixels||!THREE.WebGLRenderTarget)throw 0;
+  portraitRT??=new THREE.WebGLRenderTarget(W,W);portraitCam??=new THREE.PerspectiveCamera(28,1,.05,40);
+  const fy=floorHeight(p.x,p.z),h=(p.look?.height||1)*1.55,dx=player.x-p.x,dz=player.z-p.z,d=Math.hypot(dx,dz)||1;
+  const fx=Number.isFinite(p.yaw)?Math.sin(p.yaw):dx/d,fz=Number.isFinite(p.yaw)?Math.cos(p.yaw):dz/d;portraitCam.position.set(p.x+fx*1.1,fy+h+.06,p.z+fz*1.1);portraitCam.lookAt(p.x,fy+h-.04,p.z);
+  const prev=renderer.getRenderTarget();renderer.setRenderTarget(portraitRT);renderer.render(scene,portraitCam);
+  const px=new Uint8Array(W*W*4);renderer.readRenderTargetPixels(portraitRT,0,0,W,W,px);renderer.setRenderTarget(prev);
+  const c=document.createElement('canvas');c.width=c.height=W;const cx=c.getContext('2d'),img=cx.createImageData(W,W);
+  for(let y=0;y<W;y++)for(let x=0;x<W;x++){const a=((W-1-y)*W+x)*4,b=(y*W+x)*4;for(let k=0;k<3;k++)img.data[b+k]=Math.min(255,255*Math.pow(px[a+k]/255,1/2.2)*1.06);img.data[b+3]=255;}
+  cx.putImageData(img,0,0);return c.toDataURL('image/jpeg',.82);
+ }catch(e){
+  try{const c=document.createElement('canvas');c.width=c.height=128;const cx=c.getContext?.('2d');if(!cx)return '';let pal={};try{pal=crowdPalette(p.id);}catch(e){}drawPortrait(cx,pal,128);return c.toDataURL();}catch(e){return '';}
+ }
+}
+function talkCop(){
+ const cops=(ensurePolice().officers||[]).filter(o=>(o.ko||0)<=0);let best=null,bd=Infinity;
+ for(const o of cops){const d=Math.hypot(o.x-player.x,o.z-player.z);if(d<bd){bd=d;best=o;}}
+ if(!best)return null;const dx=best.x-player.x,dz=best.z-player.z,f=(-Math.sin(yaw)*dx-Math.cos(yaw)*dz)/(bd||1),r=(Math.cos(yaw)*dx-Math.sin(yaw)*dz)/(bd||1);
+ return {dist:bd,dir:f>.7?'up ahead':f<-.7?'behind you':r>0?'off to your right':'off to your left'};
+}
+function talkRender(){
+ if(!talk||panel!=='talk')return;const mem=talkMemory.get(talk.id)||{};
+ const packs=net.role==='guest'?0:(s.packs||[]).reduce((a,n)=>a+(n>0?n:0),0);
+ const options=talkOptions({packs}).map(o=>o.id==='pitch'&&mem.pitched?{...o,label:'(You already asked)',disabled:true}:o);
+ $('modal').innerHTML='<button class="close" onclick="closeMenu()" aria-label="Close">×</button><div class="overline">STREET / TALK</div>'+talkPanelHTML({name:talk.name,mood:talk.mood,line:talk.line,options,portrait:talk.portrait});
+ $('modal').querySelectorAll?.('[data-talk]').forEach(b=>b.onclick=()=>talkPick(b.dataset.talk));
+}
+function openTalk(i){
+ const p=streetCrowd?.people?.[i];if(!p)return false;
+ const mood=personMood(p.id,s.time);p.react={kind:'talk',until:now+600,x:player.x,z:player.z};
+ const dx=p.x-player.x,dz=p.z-player.z;yaw=Math.atan2(-dx,-dz);
+ p.yaw=Math.atan2(player.x-p.x,player.z-p.z);
+ talk={i,id:p.id,name:personName(p.id),mood,line:OPENERS[mood]||'Yeah?',portrait:''};const mine=talk;
+ // Snap the face once they have turned to you (two frames so the rigged model has caught up).
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{if(talk!==mine)return;mine.portrait=talkPortrait(p);talkRender();}));
+ gesture(p,mood==='grumpy'?'shake':mood==='wary'?'recoil':'wave');
+ menu('talk');talk&&(panel='talk');document.body.dataset.panel='talk';talkRender();return true;
+}
+function talkStreetSale(p){
+ const t=(s.packs||[]).findIndex(n=>n>0);if(t<0)return 0;
+ const pay=Math.max(1,Math.round((STRAINS[t]?.price||30)*.8));
+ s.packs[t]-=1;s.cash+=pay;s.earned=(s.earned||0)+pay;s.sold=(s.sold||0)+1;s.xp=(s.xp||0)+5;s.heat=Math.min(100,(s.heat||0)+8);save();
+ toast('Street sale · '+cash(pay)+' · +5 XP');
+ // Same rule as a delivered order: a cop who watches the swap gives chase, except for the first sales of a new save.
+ const starter=s.day<=1&&!(Number(s.sold)>2),pol=ensurePolice();
+ if(!pol.search)for(const officer of pol.officers)if((officer.ko||0)<=0&&Math.hypot(officer.x-player.x,officer.z-player.z)<22&&copSight(officer,player)){
+  officer.angle=Math.atan2(player.x-officer.x,player.z-officer.z);
+  if(starter){s.heat=Math.min(60,Math.max(s.heat,32));officer.suspicion=Math.min(60,(officer.suspicion||0)+40);toast('A Sugar Squad officer clocked that. First sales get a warning: keep it out of sight next time.');}
+  else{officer.mode='pursuit';officer.target=localPoliceRole();officer.lastX=player.x;officer.lastZ=player.z;officer.lost=0;s.heat=Math.max(85,s.heat);}
+  save();break;}
+ return pay;
+}
+function talkPick(id){
+ if(!talk)return;const p=streetCrowd?.people?.[talk.i];if(!p||p.id!==talk.id){close();return;}
+ const mem=talkMemory.get(talk.id)||{};
+ const packs=net.role==='guest'?0:(s.packs||[]).reduce((a,n)=>a+(n>0?n:0),0);
+ const r=talkReply(id,{mood:talk.mood,packs,heat:s.heat,tutorial:s.day<=1&&!(s.sold>1),cop:id==='cops'?talkCop():null,contact:CONTACTS[talk.id%CONTACTS.length]?.name||null});
+ if(id==='pitch'){mem.pitched=true;talkMemory.set(talk.id,mem);}
+ talk.line=r.line;gesture(p,r.reaction);
+ if(r.buy){const pay=talkStreetSale(p);if(pay)talk.line+=' (paid '+cash(pay)+')';}
+ if(r.snitch&&!squadWitnesses.some(w=>w.state==='calling')){p.callUntil=now+4;squadWitnesses.push({state:'calling',left:4,called:false});}
+ talkRender();
+ if(r.end){const was=talk;setTimeout(()=>{if(talk===was&&panel==='talk')close();},1500);}
+}
+const talkClose=close;close=function(){const t=talk;talk=null;talkClose();const p=t&&streetCrowd?.people?.[t.i];if(p&&p.id===t.id){p.react={kind:p.callUntil>now?'backoff':'look',until:now+2.5,x:player.x,z:player.z};}};window.closeMenu=close;
+const talkAct=act;act=function(){if(active&&!panel&&!work&&!driving&&!placeMode&&!near&&talkTarget!=null){openTalk(talkTarget);return;}talkAct();};window.act=act;
+addEventListener('keydown',e=>{if(panel!=='talk'||!talk||e.repeat||!/^[1-4]$/.test(e.key))return;const b=$('modal').querySelectorAll?.('[data-talk]:not([disabled])');const all=[...($('modal').querySelectorAll?.('[data-talk]')||[])];const pick=all[Number(e.key)-1];if(pick&&!pick.disabled){e.preventDefault();talkPick(pick.dataset.talk);}});
+window.__talk={
+ stage:(dist=1.8)=>{const p=streetCrowd?.people?.[0];if(!p||!active)return null;p.activity='idle';p.callUntil=0;const fx=-Math.sin(yaw),fz=-Math.cos(yaw);p.x=player.x+fx*dist;p.z=player.z+fz*dist;p.react={kind:'face',until:now+5,x:player.x,z:player.z};updateUI();return {target:talkTarget,prompt:$('prompt').style.display==='block'?$('prompt').innerText||$('prompt').innerHTML:''};},
+ open:()=>talkTarget!=null&&openTalk(talkTarget),
+ pick:id=>{talkPick(id);return talk?{line:talk.line}:null;},
+ state:()=>({target:talkTarget,open:!!talk,panel,name:talk?.name||null,line:talk?.line||null,portrait:!!talk?.portrait}),
+ latch:()=>({latched:sprintLatch.latched,shift:!!keys.shift,crouch:!!keys.control})
+};

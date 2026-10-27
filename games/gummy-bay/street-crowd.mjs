@@ -161,7 +161,7 @@ export function createStreetCrowd({THREE:three=THREE,scene,blocked=null,floorHei
     // In rain, pedestrians without an umbrella hurry for cover.
     const hurry=rain>.2&&!crowdUmbrella(person)?2.3:1,speed=(plan.pose==='walk'?1.35:.8)*hurry,move=Math.min(dist,speed*step);
     person.x+=dx/dist*move;person.z+=dz/dist*move;person.phase+=move*2.6;person.yaw=Math.atan2(dx,dz);moving=true;
-   }else person.yaw+=(Math.atan2(Math.sin(plan.yaw-person.yaw),Math.cos(plan.yaw-person.yaw)))*Math.min(1,step*4);
+   }else if(!react||react.kind==='look')person.yaw+=(Math.atan2(Math.sin(plan.yaw-person.yaw),Math.cos(plan.yaw-person.yaw)))*Math.min(1,step*4);
    person.activity=knocked?'ko':calling?'phone':react?react.kind:plan.activity;person.pose=knocked?'sit':calling?'use':away?'walk':react&&react.kind!=='look'?'idle':plan.pose;
    const ground=typeof floor==='function'?finite(floor(person.x,person.z)):0;
    const sitting=person.pose==='sit',walking=!knocked&&(moving||person.pose==='walk');
