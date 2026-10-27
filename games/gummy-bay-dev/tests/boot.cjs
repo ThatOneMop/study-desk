@@ -716,7 +716,7 @@ save();load('free',2,false);close();check(s.vehiclePark.x===parkingBay.x&&s.vehi
 const hostParking=JSON.stringify(s.vehiclePark),hostSlot=localStorage.getItem('gummybay-v3-free-2');
 net.role='guest';vehiclePose={x:210,z:80,angle:Math.PI/2};player.set(210,1.72,83);enterVehicle();check(driving,'guest can enter own fleet van');exitVehicle();
 check(!driving&&JSON.stringify(s.vehiclePark)===hostParking&&localStorage.getItem('gummybay-v3-free-2')===hostSlot,'guest exit does not overwrite host parking or local save');
-vehiclePose={x:-40,z:-151.9,angle:Math.PI/2};player.set(-40,1.72,-149);enterVehicle();driveSpeed=6;keys.w=true;update(.06);keys.w=false;save();
+/* v163: compact frontage lots now start 10.7 m from the road centre, so the pavement probe sits 1 m further out */vehiclePose={x:-40,z:-152.9,angle:Math.PI/2};player.set(-40,1.72,-150);enterVehicle();driveSpeed=6;keys.w=true;update(.06);keys.w=false;save();
 check(driving&&driveSpeed<6&&JSON.stringify(s.vehiclePark)===hostParking&&localStorage.getItem('gummybay-v3-free-2')===hostSlot,'guest pavement limit changes only local van motion, never host parking or a personal slot');driveSpeed=0;exitVehicle();
 net.connected=true;const oldCustomer={x:CONTACTS[0].x,z:CONTACTS[0].z};player.set(oldCustomer.x,1.72,oldCustomer.z);trackCustomer(0);s.npcs[0]={x:oldCustomer.x-42,z:oldCustomer.z-18,routeBlocked:false};update(.06);
 check(track?.npc===0&&Math.hypot(track.x-oldCustomer.x,track.z-oldCustomer.z)>1&&track.status==='on the move','moving customer replaces stale marker before old-position arrival can clear it');

@@ -44,3 +44,7 @@ Author: **Kenney** (https://www.kenney.nl). Licence: **CC0 1.0 Universal (public
 `assets/kenney/License-city-kit-suburban.txt`. Source: https://kenney.nl/assets/city-kit-suburban
 
 Models used: building-type-a to building-type-u (houses). Same modifications as above.
+
+## Dodgy town dressing (added v163)
+- The Blender town blocks are now dressed with the same Kenney City Kit pieces (CC0, credited above).
+- Grime, rust and rain streaks, spray tags, roller shutters, posters, puddles, litter, AC units, fire escapes, bins, crates, alley lamps and rooftop shop signs are all generated in code (`dodgy-dressing.mjs`, `kenney-city.mjs` grime shader). No new third-party assets.
