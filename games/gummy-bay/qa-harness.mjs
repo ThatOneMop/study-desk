@@ -209,9 +209,9 @@ export function createDayDirector(){
   const job=craft(snap);
   if(job)return job;
   if(snap.sold>0&&!flags.policeDone)return {id:'police'};
-  if(!snap.hired&&!flags.hireTried&&!busy(snap)&&snap.level>=2&&(snap.cash>=300||snap.harvested>=8))return {id:'hire',place:'helpers',action:['hire','gardener']};
+  if(!snap.hired&&!flags.hireTried&&!busy(snap)&&snap.level>=4&&(snap.cash>=450||snap.harvested>=8))return {id:'hire',place:'helpers',action:['hire','gardener']};
   if(!(flags.policeDone&&(snap.hired||flags.hireTried))){const more=restock(snap);if(more)return more;}
-  if(!snap.hired&&!flags.hireTried&&snap.level>=3&&!busy(snap))return {id:'hire',place:'helpers',action:['hire','gardener']};
+  if(!snap.hired&&!flags.hireTried&&snap.level>=5&&!busy(snap))return {id:'hire',place:'helpers',action:['hire','gardener']};
   if(!flags.curfewNoted||flags.curfewHold<36)return {id:'curfew'};
   return {id:'done'};
  }

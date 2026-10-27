@@ -57,3 +57,7 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 
 ## Controls and street conversations (added v165)
 - Street talk (names, moods, replies), the conversation panel, reaction gestures and portraits are original code. Portraits are live snapshots of the existing CC0 townsfolk models (see the v160 entry); no new third-party assets.
+
+## Staff ladder (added v178)
+
+Original code. Hire gates, tiers and dealer home routines. No new meshes.
