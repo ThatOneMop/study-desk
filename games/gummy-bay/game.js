@@ -5519,7 +5519,8 @@ const pinchUpdate=update;update=function(dt){if(pinchSession){pinchSession.attem
 const pinchMenu=menu;menu=function(which,data){pinchMenu(which,data);if(which==='journal'){$('modal')?.insertAdjacentHTML?.('beforeend','<p>Crouch behind a townsperson and press E to pinch their pocket. Stop the needle on the green, three times. A miss makes them shout. Each person needs a while before you can try again. Standing up, E still talks.</p>');}};window.menu=menu;
 addEventListener('keydown',event=>{if(!pinchSession)return;if(event.key==='Escape'){cancelPinch();event.preventDefault();event.stopImmediatePropagation();}},true);
 window.__pick={
- place(){const p=streetCrowd?.people?.[0];if(!p||!active)return null;const fx=-Math.sin(yaw),fz=-Math.cos(yaw);p.x=player.x+fx*1.15;p.z=player.z+fz*1.15;p.yaw=yaw+Math.PI;p.activity='idle';p.callUntil=0;p.react=null;p.pinchLock=false;keys.control=true;locomotion.crouch=1;updateUI();const pr=$('prompt');return {id:p.id,x:p.x,z:p.z,prompt:pr&&pr.style.display==='block'?pr.textContent:''};},
+ place(i=0){const p=streetCrowd?.people?.[i];if(!p||!active)return null;const fx=-Math.sin(yaw),fz=-Math.cos(yaw);p.x=player.x+fx*1.15;p.z=player.z+fz*1.15;p.yaw=yaw+Math.PI;p.activity='idle';p.callUntil=0;p.react=null;p.pinchLock=false;keys.control=true;locomotion.crouch=1;updateUI();const pr=$('prompt');return {id:p.id,x:p.x,z:p.z,prompt:pr&&pr.style.display==='block'?pr.textContent:''};},
+ crouch(on){keys.control=!!on;locomotion.crouch=on?1:0;updateUI();return pinchCrouched();},
  start(){return tryPinch();},
  align(){if(!pinchSession)return null;const z=pinchSession.attempt.zone;pinchSession.attempt={...pinchSession.attempt,t:(z.start+z.width/2)/z.speed};paintPinch();return needlePos(pinchSession.attempt.t,z.speed);},
  stop(){return tryPinch();},
