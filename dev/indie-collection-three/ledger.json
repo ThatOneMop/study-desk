@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 22,
+    "built": 23,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -12,7 +12,7 @@
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
-    "observedCommit": "3949e3d9f8e2e9846dc4c91c436d90b19bbbd341",
+    "observedCommit": "0fa986284b4e8bea2b0f2ac5ae393c70dc48a3a5",
     "implemented": 20,
     "initiallyImproved": 20,
     "additionalRoundVerified": 6,
@@ -1147,21 +1147,36 @@
     },
     {
       "slot": 63,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "bramble-pact",
+      "title": "Bramble Pact",
+      "coreLoop": "Open-hand trick-taking harvest puzzles: follow suit, plan around changing wind trumps, deliberately lose unwanted harvests, and spend one woodland offer to fulfil exact basket promises.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/bramble-pact",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "25 passing tests: 12 engine, 13 jsdom 26.1.0 using actual bridge source and a simulated parent. Six complete winning routes (three without an offer, three with an offer that actually discards harvest), three natural losing routes, per-action save/reload, sequential progression, best records, undo/retry, strict invalid-save/action checks, corrupt-data preservation, isolated reset and quota errors.",
+        "Exhaustive legal-branch checks: 8,139 prefix visits and 3,381 complete journals, including different offer timings. Card conservation, follow-suit, bot policy, winner/harvest distinction and valid wins/losses verified. These are algorithmic paths, not separate content or human play sessions.",
+        "DOM simulations verify pure exact previews, legal-card gating, keyboard/native-control/modifier/composition guards, pause/modal/parent/document visibility, bridge P reservation, Games navigation markup and unique IDs. Production and test scripts parse; local assets and bridge-first order pass.",
+        "No rendered browser, inspected screenshots, real touch/native dialogs, human enjoyment, qualified improvement pass, full-repository build, catalogue integration or live evidence."
+      ],
+      "commits": [
+        "815a82dc73d3b5f95b1743ab60d34fb49cc1fef6"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact fixed six-trick puzzles. Exact previews and deterministic neighbours may make individual tricks too easy; longer planning, offer usefulness, readability and mobile layout need rendered assessment. No audio. No duration claim."
+      },
+      "nextSteps": [
+        "Render all three picnics on desktop and touch, inspect screenshots, verify gameplay, navigation, wins/losses, retry/reload and dialogs.",
+        "Implement a substantive upgrade based on the most important observed weakness before qualifying or integrating."
+      ]
     },
     {
       "slot": 64,
@@ -1652,8 +1667,8 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all twenty-two third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 28 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all twenty-three third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 27 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-28",
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2099,6 +2114,13 @@
       "result": "Fixed Rill & Root P shortcut collision with Study Desk bridge; 34 checks pass. Audited main launcher and 44 shell/source files across 22 built third candidates: no Switch workspace controls found. Counts unchanged.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed; bridge integration simulated in jsdom."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "815a82dc73d3b5f95b1743ab60d34fb49cc1fef6",
+      "result": "Built slot 63 Bramble Pact: three open-hand trick-taking harvest puzzles, exact forecasts, one woodland offer, sequential progression and safe saves. 25 engine/DOM tests pass. Third now 23 built, zero qualified improved/browser-tested/integrated/live; second additional round stays 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed. Real bridge simulated in jsdom; no rendered or touch evidence."
     }
   ]
 }
