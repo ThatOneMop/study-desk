@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 21,
+    "built": 22,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -1080,21 +1080,35 @@
     },
     {
       "slot": 62,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "thimble-fair",
+      "title": "Thimble Fair",
+      "coreLoop": "Choose thread bundles against visible rival bids and alternating tie priority, fund three textile commissions through careful purchases and delivery coin refunds.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/thimble-fair",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "21 passing tests: 10 engine, 11 jsdom 26.1.0. Three premium fair routes completed through controls with per-action save/reload; 73 sampled conservative supply routes; deterministic offers, ties, overbids, losing bids, exact recipes/refunds, natural last-auction delivery, loss/undo/retry, bounded best records, malformed actions/saves, new fair confirmation, native/focus/pause/modal/parent/document guards, corrupt recovery, isolated reset and quota failure.",
+        "Both scripts parse. Local asset references, unique/used IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
+        "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence."
+      ],
+      "commits": [
+        "b53b3875b877c3722f4c031a383590b63b5d527f"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Short open-information fairs; tested premium routes finish in three auctions, conservative routes within six. Procedural fair numbers vary one small game, not separate campaigns. No audio or purchase animation. Open-bid engagement, budget pressure, missing-thread explanations and mobile layout require rendered assessment."
+      },
+      "nextSteps": [
+        "Naturally render/play conservative and premium routes on desktop and touch; inspect screenshots and verify win/loss, undo/retry, saves/reload, reset and navigation.",
+        "Identify and implement a substantive observed improvement before qualification or catalogue selection."
+      ]
     },
     {
       "slot": 63,
@@ -1603,8 +1617,8 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all twenty-one third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 29 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all twenty-two third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 28 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-28",
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2013,6 +2027,13 @@
       "date": "2026-10-28",
       "commit": "bb255e048f6cbccea5d103460df6fe22d904c949",
       "result": "Foldlight under-folding implemented; 21 engine/DOM checks pass. Third remains 21 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "b53b3875b877c3722f4c031a383590b63b5d527f",
+      "result": "Thimble Fair initial playable implemented; 21 engine/DOM checks pass. Third now 22 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
