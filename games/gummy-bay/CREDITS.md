@@ -27,3 +27,20 @@ Modifications (CC0 needs no attribution; credited anyway): material colours bake
 colours and recoloured, primitives merged into one mesh, normals smoothed, unused animation clips
 removed (kept: Idle, Walk, Run, Sit, Wave), clips renamed, geometry quantised
 (KHR_mesh_quantization). In game the head bone is scaled up slightly for a chunkier look.
+
+## City buildings (added v162)
+
+### Kenney City Kit (Commercial) 2.1 — `assets/kenney/city-commercial.glb`
+Author: **Kenney** (https://www.kenney.nl). Licence: **CC0 1.0 Universal (public domain)**,
+https://creativecommons.org/publicdomain/zero/1.0/ — see `assets/kenney/License-city-kit-commercial.txt`
+(the licence file shipped in the pack). Source: https://kenney.nl/assets/city-kit-commercial
+
+Models used: building-a to building-n. Modifications: merged into one GLB that shares the pack's single colour atlas,
+quantised (KHR_mesh_quantization). In game they are fitted to each city lot, tinted with soft
+pastel wall colours and baked into a few merged meshes.
+
+### Kenney City Kit (Suburban) 2.0 — `assets/kenney/city-suburban.glb`
+Author: **Kenney** (https://www.kenney.nl). Licence: **CC0 1.0 Universal (public domain)** — see
+`assets/kenney/License-city-kit-suburban.txt`. Source: https://kenney.nl/assets/city-kit-suburban
+
+Models used: building-type-a to building-type-u (houses). Same modifications as above.
