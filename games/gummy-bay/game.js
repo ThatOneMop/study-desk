@@ -168,6 +168,7 @@ import {buildGrowTent,updateGrowTent,TENT} from './grow-tent.mjs?v=168';
 import {SUPPLIER,DROP_WAIT,PICKUP_RANGE,pickDrop,seedPrice,orderTotal,dropState,supplierThread} from './seed-drops.mjs?v=169';
 import {strainBookModel,strainBookHTML} from './strain-book.mjs?v=170';
 import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars.mjs?v=172';
+import {stackLayout,landingOffset,queueLandings,createPackStack,LAND_TIME,PER_JAR} from './pack-feel.mjs?v=173';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
@@ -5368,3 +5369,24 @@ if(typeof location!=='undefined'&&/[?&]strainqa=1\b/.test(location.search))windo
  const regRender=talkRender;talkRender=function(){regRender();if(!talk||panel!=='talk')return;const e=talk.regular||s.regulars?.[String(talk.id)];const sm=$('modal')?.querySelector?.('.talk-body small');
   if(sm&&e)sm.insertAdjacentHTML('afterend','<em class="talk-regular'+(e.n>=3?' is-regular':'')+'">'+esc(regularTag(e))+'</em>');};
  const regSale=talkStreetSale;talkStreetSale=function(p){const pay=regSale(p);if(pay&&talk&&s.regulars)noteRegularSale(s.regulars,talk.id);return pay;};}
+// v173: packaging feel (pack-feel.mjs). Finished packs land on the packing table as a real stack (baggies,
+// then lidded jars of four) with a bounce, sparkles and a crinkle/thud; batches land one pack at a time.
+let packStack=null,packPrev=-1,packQueue=[],packClock=0,packFrame=performance.now(),packHome=-1;
+try{packStack=createPackStack(THREE,scene);}catch(e){console.warn('Pack stack unavailable',e);}
+function packTotal(){return (s.packs||[]).reduce((a,n)=>a+(n>0?n:0),0);}
+function packOrigin(){const p=PRODUCTION_CONTAINER_PROFILES?.[s.house];return p?{x:p.table.x+1.82,y:p.table.y+.02,z:p.table.z}:null;}
+function packColor(){let best=0,bi=0;(s.packs||[]).forEach((n,i)=>{if(n>best){best=n;bi=i;}});return STRAINS[bi]?.color??0x98bd64;}
+{const packRender=renderFrame;renderFrame=function(){try{if(packStack){const t=performance.now(),dt=Math.min(.25,(t-packFrame)/1000);packFrame=t;packClock+=dt;
+ const o=active&&s.room?packOrigin():null;packStack.setVisible(!!o);
+ if(o){const total=packTotal();if(packPrev<0||packHome!==s.house){packPrev=total;packHome=s.house;packQueue=[];}
+  if(total>packPrev)queueLandings(packPrev,total,packClock,packQueue);packPrev=total;
+  const pending=packQueue.filter(q=>!q.landed&&q.index<total),shown=Math.max(0,total-pending.filter(q=>packClock<q.at).length),layout=stackLayout(shown,o),drops={};
+  const fall=pending.find(q=>packClock>=q.at);
+  if(fall){const age=packClock-fall.at,off=landingOffset(age),key=layout.bags.length?'b'+(layout.bags.length-1):'j'+(layout.jars.length-1);drops[key]=off;
+   if(!fall.thud&&age>=LAND_TIME*.6){fall.thud=true;const top=layout.bags.length?layout.bags[layout.bags.length-1]:layout.jars[layout.jars.length-1];if(top)packStack.pop({x:top.x,y:top.y+.06,z:top.z},fall.index+1);playBenchCue(audioContext,(shown%PER_JAR===0)?'done':'drop',soundEnabled);}
+   if(age>=LAND_TIME)fall.landed=true;}
+  packQueue=packQueue.filter(q=>!q.landed&&q.index<total);
+  packStack.draw(layout,packColor(),drops);packStack.tick(dt);}
+ }}catch(e){}packRender();};}
+if(typeof location!=='undefined'&&/[?&]packqa=1\b/.test(location.search))window.__packQa={total:packTotal,stack:()=>packStack&&{bags:packStack.bags.count,jars:packStack.jars.count,visible:packStack.bags.visible,queue:packQueue.length,origin:packOrigin()},
+ add:(n=1,t=0)=>{if(net.role==='guest')return null;s.packs[t]=(s.packs[t]||0)+n;updateUI();return packTotal();}};
