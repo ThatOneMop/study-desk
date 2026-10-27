@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {workshopMovePlan,commitWorkshopMove,readWorkshopMove} from '../dist/workshop-move.mjs';
-const fresh=()=>({house:0,room:true,bank:5000,cash:400,xp:180,day:2,time:540,raw:[3],gummies:[2],packs:[4],storedPacks:[8],wrappers:5,plants:[{phase:'growing',t:0,end:1234}],deals:[{npc:0,t:0,qty:1,price:30}],layout:{'0:0':{x:1,z:2,r:0}},crafterCargo:null});
+const fresh=()=>({house:0,room:true,bank:5000,cash:400,xp:520,day:2,time:540,raw:[3],gummies:[2],packs:[4],storedPacks:[8],wrappers:5,plants:[{phase:'growing',t:0,end:1234}],deals:[{npc:0,t:0,qty:1,price:30}],layout:{'0:0':{x:1,z:2,r:0}},crafterCargo:null});
 for(const phase of ['input','output']){
  const s=fresh();s.crafterCargo={phase,source:'raw',index:0,home:0};const preserved=JSON.stringify([s.plants,s.deals,s.layout,s.storedPacks,s.cash]);
  const planBefore=JSON.stringify(s);assert(workshopMovePlan(s,1,1).ok);assert.equal(JSON.stringify(s),planBefore);

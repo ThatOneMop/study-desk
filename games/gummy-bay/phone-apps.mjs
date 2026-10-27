@@ -40,7 +40,7 @@ function lastMessage(thread){
 }
 
 export function buildInbox({contacts=[],threads={},deals=[],strainNames=[]}={}){
- const list=Array.isArray(contacts)?contacts.slice(0,24):[];
+ const list=Array.isArray(contacts)?contacts.slice(0,64):[];
  const agreed=Array.isArray(deals)?deals:[];
  return Object.freeze(list.map((contact,index)=>{
   const thread=threads&&typeof threads==='object'?threads[index]:null;
@@ -105,7 +105,7 @@ function hearts(score){
 }
 
 export function contactGraphModel({people=[],selected=0}={}){
- const list=Array.isArray(people)?people.slice(0,16):[];
+ const list=Array.isArray(people)?people.slice(0,64):[];
  const focus=list.some(person=>person.index===selected)?selected:(list[0]?.index??0);
  const nodes=list.map((person,slot)=>{
   const turn=list.length?(-Math.PI/2)+(slot/list.length)*Math.PI*2:0;

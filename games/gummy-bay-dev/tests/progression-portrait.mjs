@@ -3,7 +3,7 @@ import {BUSINESS_STAGES,businessPortrait,progressionSummary} from '../dist/progr
 
 const fresh={room:false,house:0,xp:0,bank:0,tents:0,installed:[],helpers:{gardener:false,crafter:false,seller:false},sold:0,earned:0};
 const rv=businessPortrait(fresh);assert.equal(rv.stage,0);assert.equal(rv.current.name,'Old RV start');assert.equal(rv.current.spaces,0);assert.match(rv.next,/Rent Room 04/);assert.equal(progressionSummary(rv),'Old RV start · 0/0 grow spaces installed · 0/3 crew · 0 sold');
-const roomState={...fresh,room:true,tents:3,installed:[0,0,1,7,-1],can:true,trimmers:true,packStation:true,xp:60,bank:1199,sold:4,earned:120},room=businessPortrait(roomState);
+const roomState={...fresh,room:true,tents:3,installed:[0,0,1,7,-1],can:true,trimmers:true,packStation:true,xp:220,bank:1199,sold:4,earned:120},room=businessPortrait(roomState);
 assert.equal(room.stage,1);assert.equal(room.level,3);assert.equal(room.installed,2);assert.equal(room.ownedTents,3);assert.equal(room.equipment,3);assert.match(room.next,/\$1,200/);assert.equal(room.current.stock,64);assert.equal(room.current.storage,40);
 assert.match(businessPortrait({...roomState,bank:1200}).next,/deed is ready/);
 const harborState={...fresh,room:true,house:1,xp:119,bank:3499,tents:5,installed:[0,1,2,3,4],helpers:{gardener:true,crafter:false,seller:false}},harbor=businessPortrait(harborState);
