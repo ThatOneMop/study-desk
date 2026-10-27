@@ -1094,10 +1094,12 @@
       "tests": [
         "21 passing tests: 10 engine, 11 jsdom 26.1.0. Three premium fair routes completed through controls with per-action save/reload; 73 sampled conservative supply routes; deterministic offers, ties, overbids, losing bids, exact recipes/refunds, natural last-auction delivery, loss/undo/retry, bounded best records, malformed actions/saves, new fair confirmation, native/focus/pause/modal/parent/document guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse. Local asset references, unique/used IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
-        "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence."
+        "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence.",
+        "Thread exchange: 28 passing tests (14 engine, 14 jsdom 26.1.0), retaining all original 21. Three exchange-inclusive routes through controls with per-action reload, exact two-for-one conservation, no coin/auction cost, strict single use, invalid actions, pure forecasts, pause/modal guards, undo restoration and natural twelve-action final-auction rescue. Both scripts parse; IDs/controls/bridge order pass. No rendered evidence."
       ],
       "commits": [
-        "b53b3875b877c3722f4c031a383590b63b5d527f"
+        "b53b3875b877c3722f4c031a383590b63b5d527f",
+        "ec1c3e57cc6f11858c639e166f86f1213036b8b5"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1108,7 +1110,14 @@
       "nextSteps": [
         "Naturally render/play conservative and premium routes on desktop and touch; inspect screenshots and verify win/loss, undo/retry, saves/reload, reset and navigation.",
         "Identify and implement a substantive observed improvement before qualification or catalogue selection."
-      ]
+      ],
+      "pendingExchangeRefinement": {
+        "commit": "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
+        "basis": "Source inspection, not rendered observation: surplus thread could not help a missing recipe colour.",
+        "before": "Only new auction purchases could supply a missing thread colour; surplus could not be converted.",
+        "after": "Once per fair, exchange two threads of one colour for one of another without an auction or coin cost. Native controls preview the basket. Available after final auction; undo restores allowance. Existing journals retain purchase/craft outcomes; old surplus baskets can gain this recovery option.",
+        "remaining": "Rendered desktop/touch play, screenshots and balance/onboarding assessment before qualification."
+      }
     },
     {
       "slot": 63,
@@ -2034,6 +2043,13 @@
       "date": "2026-10-28",
       "commit": "b53b3875b877c3722f4c031a383590b63b5d527f",
       "result": "Thimble Fair initial playable implemented; 21 engine/DOM checks pass. Third now 22 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
+      "result": "Thimble Fair one-use thread exchange implemented; 28 engine/DOM checks pass. Third remains 22 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
