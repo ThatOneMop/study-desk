@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 18,
+    "built": 19,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -913,21 +913,34 @@
     },
     {
       "slot": 59,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "fallow-table",
+      "title": "Fallow Table",
+      "coreLoop": "Schedule planting, cross-watering and harvests across a small growing season; rotate crops, replenish soil with beans and use companion shade to fill a supper basket.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/fallow-table",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "19 passing tests: 11 engine, eight jsdom 26.1.0. Three contracts with per-action save/reload, 24 transformed winning routes, varied legal resource-bound routes, soil/compost, crop rotation, rain/growth ordering, dry stalls, mature crops, companion shade/removal, cross-watering, work limits, season loss/undo/retry, progression, forecasts, input/pause/modal/parent guards, corrupt recovery/reset isolation/quota. Scripts parse; new assets exist; Games and bridge destinations validated against remote tree.",
+        "No rendered browser, screenshot inspection, native touch/focus/dialog behavior, enjoyment assessment, qualified improvement pass, full repository build or live-release evidence."
+      ],
+      "commits": [
+        "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact contracts and eight workdays each. Fixture scores 13/11/8 are feasible, not proven optimal. Needs rendered evaluation of crop rotation relevance, central cross-watering advantage, bean shade clarity and replay depth."
+      },
+      "nextSteps": [
+        "Naturally play desktop and touch layouts, inspect screenshots, verify all three contracts, missed-season recovery, saves/reload, undo/retry/reset and navigation.",
+        "Identify and fix a substantive observed weakness before counting an improvement pass or selecting this game for the catalogue."
+      ]
     },
     {
       "slot": 60,
@@ -1490,11 +1503,11 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all eighteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 32 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all nineteen third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 31 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "d9e77a6bcbb7a8c4b43e976618efbecd2ff38527",
+  "latestObservedMain": "b0b1255a9fce7757bbf2f7725ad51f01b3250f4e",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1825,6 +1838,13 @@
       "result": "Rill & Root low weir source refinement implemented; 21 tests pass. Third totals unchanged: 18 built, 0 qualified improved/browser-tested/integrated/live. Second additional round remains 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not retried or bypassed.",
       "mainObserved": "d9e77a6bcbb7a8c4b43e976618efbecd2ff38527"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393",
+      "result": "Fallow Table slot 59 implemented with 19 passing engine/DOM tests. Third totals: 19 built, 0 qualified improved/browser-tested/integrated/live. Second additional round remains 6/20 verified.",
+      "browserStatus": "Existing rendering security-policy blocker not retried or bypassed.",
+      "mainObserved": "b0b1255a9fce7757bbf2f7725ad51f01b3250f4e"
     }
   ]
 }
