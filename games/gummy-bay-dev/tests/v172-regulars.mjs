@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';
+import {REGULAR_AT,noteMeeting,noteRegularSale,regularTag,regularGreeting} from '../dist/regulars.mjs';
+const b={};let e=noteMeeting(b,7,{name:'Kev Ng',day:1});
+assert.equal(e.n,1);assert.equal(regularGreeting(e,'chatty'),null);assert.match(regularTag(e),/First time/);
+e=noteMeeting(b,7,{name:'Someone Else',day:2});assert.equal(e.name,'Kev Ng','keeps the first name');assert.equal(e.first,1);assert.equal(e.last,2);
+assert.ok(regularGreeting(e,'grumpy'));assert.match(regularTag(e),/Met before · 2 chats/);
+noteRegularSale(b,7);assert.match(regularTag(b[7]),/bought 1/);assert.match(regularGreeting(b[7],'wary'),/usual/);
+for(let i=2;i<REGULAR_AT;i++)noteMeeting(b,7);assert.match(regularTag(b[7]),/^Regular/);
+assert.equal(noteRegularSale(b,99),null);assert.ok(JSON.parse(JSON.stringify(b))[7].n>=REGULAR_AT,'saves as plain JSON');
+const game=fs.readFileSync(new URL('../dist/game.js',import.meta.url),'utf8');
+assert.match(game,/regulars\.mjs\?v=172/);assert.match(game,/const regOpen=openTalk;openTalk=function/);assert.match(game,/net\.role!=='guest'/);assert.match(game,/noteRegularSale\(s\.regulars,talk\.id\)/);
+const idx=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');assert.match(idx,/people-talk\.css\?v=172/);
+console.log('PASS v172 regulars: people remember you by name, greet you as a regular, and the card shows chats and buys');

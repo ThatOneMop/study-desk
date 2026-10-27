@@ -20,3 +20,6 @@ body[data-panel="talk"] #modal{max-width:560px}
  body[data-panel="phone"] .phone-app-grid button{min-height:68px!important}
  body[data-panel="phone"] .phone-app-grid b{width:44px!important;height:44px!important;margin-bottom:5px!important;font-size:22px!important}
 }
+/* v172 regulars tag on the talk card */
+.talk-body .talk-regular{display:inline-block;margin:2px 0 4px;padding:2px 8px;border-radius:10px;background:#2b3340;color:#cfd8e6;font-style:normal;font-size:11px;font-weight:700}
+.talk-body .talk-regular.is-regular{background:#2f6b44;color:#e6f5ea}
