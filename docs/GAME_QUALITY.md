@@ -35,23 +35,23 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Forge Arena | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Tidepost | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Deep Pocket | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Queen of Cinders | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Queen of Cinders | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Little Foundry | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Scrap Orbit | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Scrap Orbit | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Inkline | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Pocket Expedition | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Pocket Expedition | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Echo Vault | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Glasshouse | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Spore Kitchen | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Spore Kitchen | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Bolt & Bristle | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Roof Runner | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Stone Song | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Stone Song | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Last Match | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Burrow Express | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Storm Signal | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Storm Signal | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Circuit Garden | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Moss Market | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
-| Threadbound | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Moss Market | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Threadbound | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Rain Catcher | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Reefwright | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Counterweight | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -61,9 +61,9 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 | Paper Odyssey | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Ratchet Run | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Wellward | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Salt & Sail | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Salt & Sail | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Pocket Palaeo | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Static Orchard | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
+| Static Orchard | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Borrowed Gravity | pass | pass | pass | pass | pass | fail | pass | pass | pass | pass | pass | pass |
 | Tea for Ghosts | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
 | Garden Gone Rogue | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
@@ -122,5 +122,7 @@ The quality bar from playtesting is **Little Lake**, **After Hours**, **Forge Ar
 - Feedback pass 4 (Salt & Sail, Static Orchard, Borrowed Gravity) uses the same feedback-only kit and saved Sound toggle. Salt & Sail moves toward Dredge's small-boat trading: STOWED, CAST OFF, HULL KNOCK with hull count and shake, CARGO SHIFTED, LINES ASHORE and VOYAGE LOST. Static Orchard moves toward Plants vs. Zombies (kept gentle): zap bursts, SHOOED, CHAIN ×n, HARVEST, SWARM n / 3, TREE NIBBLED, ONE SLIPPED PAST, ORCHARD SAFE and ORCHARD OVERRUN. Borrowed Gravity moves toward Superliminal's puzzle rooms: GALLERY OPEN, BORROWED/RETURNED, landing shake, SHARD n/3, ROOM SOLVED and BARRIER RETURNED.
 - Nightshift Empire is an external site and was not rescored here. Gummy Bay was not edited.
 
-Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 63, Curve 40, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
+Bundled games scored: 63. Passes: Opening 63, Pause 62, Goals 63, Hints 63, Feedback 63, Curve 50, Saves 63, Best 62, Art 63, Keys 63, Touch 63, Copy 63.
+
+- M–Z curve pass (27 Oct 2026): Queen of Cinders opens with the food trail already dug. Moss Market’s first awning can be filled by crafting and a berry delivery, and the lamp order waits. Storm Signal logs the first flare for you. Pocket Expedition packs a rope and 9 rations on the moss stair. Spore Kitchen’s first service is three dishes you can reach from the starting basket plus one grown mushroom. Stone Song starts with the sunstone in place and the sound on. Scrap Orbit parks the lunchbox beside the dock and rebuilds an unstarted job if an older ready-save is loaded. Threadbound’s first branch reaches under the first pin. Salt & Sail’s first quay needs only the salt sacks. Static Orchard’s first mites move at less than half speed. Rain Catcher still opens on a full village puzzle, so its Curve fail stays. Nightshift contract 1 is shorter on every screen, the first invoice is 45 coins, and sound starts on. Saves from finished runs still decode.
 

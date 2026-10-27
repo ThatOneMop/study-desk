@@ -2,7 +2,7 @@
 
 Played 27 Oct 2026 in headless Chrome at 1400×816, served from this repo. Each folder under `games/` whose name starts with M–Z was opened, screenshotted, and given a short real input (a start button, a click or drag on the playfield, and a keyboard action where the game has one). Scores are from that session plus the rules in each `engine.js`. They are not the checklist in `docs/GAME_QUALITY.md`.
 
-**Fun** is whether another round feels worth it. **Quality** is whether the screen, the goal, and the feedback feel finished. **7** is the house bar already set by Roof Runner, Tidepost, Underleaf, Tiny Wilds and Tea for Ghosts. **After** stays blank until the improvement pass.
+**Fun** is whether another round feels worth it. **Quality** is whether the screen, the goal, and the feedback feel finished. **7** is the house bar already set by Roof Runner, Tidepost, Underleaf, Tiny Wilds and Tea for Ghosts. **After** is the same session’s score once the curve pass landed. Unchanged games keep the before numbers.
 
 Nightshift — Town Empire is a catalogue link to another site. It has no folder here and was not played.
 
@@ -20,47 +20,47 @@ Weakest originals, in the order to improve them:
 
 | Game | Folder | Fun | Quality | After fun | After quality |
 | --- | --- | --- | --- | --- | --- |
-| crisp-game-lib hub | micro | 3 | 3 | | |
-| The Quiet Cut | the-quiet-cut | 4 | 5 | | |
-| Queen of Cinders | queen-of-cinders | 4 | 5 | | |
-| Moss Market | moss-market | 4 | 5 | | |
-| Storm Signal | storm-signal | 4 | 5 | | |
-| Pocket Expedition | pocket-expedition | 4 | 5 | | |
-| Spore Kitchen | spore-kitchen | 4 | 5 | | |
-| Grime Time | nightshift-wash | 4 | 6 | | |
-| Rent Is Due | nightshift-rent | 5 | 6 | | |
-| Garden Gone Rogue | nightshift-garden | 5 | 6 | | |
-| The Last Leaf | nightshift-leaves | 5 | 6 | | |
-| Parcel Panic | nightshift-parcel | 5 | 6 | | |
-| Magnet After Midnight | nightshift-magnet | 5 | 6 | | |
-| Lunchbreak Slime | nightshift-slime | 5 | 6 | | |
-| Tidal Glass | tidal-glass | 5 | 5 | | |
-| Orchard Atelier | orchard-atelier | 5 | 5 | | |
-| Velvet Circuit | velvet-circuit | 5 | 5 | | |
-| Stone Song | stone-song | 5 | 5 | | |
-| Rain Catcher | rain-catcher | 5 | 6 | | |
-| Salt & Sail | salt-and-sail | 5 | 6 | | |
-| Static Orchard | static-orchard | 5 | 6 | | |
-| Scrap Sandwich | nightshift-crusher | 6 | 6 | | |
-| One More Metre | nightshift-mine | 6 | 6 | | |
-| Mothlight | nightshift-moths | 6 | 6 | | |
-| Nightshift lobby | nightshift | 6 | 6 | | |
-| Moonwell | moonwell | 6 | 6 | | |
-| Scrap Orbit | scrap-orbit | 6 | 6 | | |
-| Threadbound | threadbound | 6 | 6 | | |
-| Pac-Man | pacman | 6 | 5 | | |
-| Radius Raid | radius-raid | 6 | 5 | | |
-| Pocket Palaeo | pocket-palaeo | 6 | 7 | | |
-| Ratchet Run | ratchet-run | 6 | 7 | | |
-| Paper Odyssey | paper-odyssey | 6 | 7 | | |
-| Reefwright | reefwright | 6 | 7 | | |
-| Wellward | wellward | 6 | 7 | | |
-| Roof Runner | roof-runner | 7 | 7 | | |
-| Tidepost | tidepost | 7 | 7 | | |
-| Underleaf | underleaf | 7 | 7 | | |
-| Tiny Wilds | tiny-wilds | 7 | 7 | | |
-| Tea for Ghosts | tea-for-ghosts | 7 | 7 | | |
-| Lost & Found on the Moon | moon-salvage | 7 | 7 | | |
+| crisp-game-lib hub | micro | 3 | 3 | 4 | 4 |
+| The Quiet Cut | the-quiet-cut | 4 | 5 | 4 | 5 |
+| Queen of Cinders | queen-of-cinders | 4 | 5 | 6 | 6 |
+| Moss Market | moss-market | 4 | 5 | 6 | 6 |
+| Storm Signal | storm-signal | 4 | 5 | 5 | 6 |
+| Pocket Expedition | pocket-expedition | 4 | 5 | 5 | 6 |
+| Spore Kitchen | spore-kitchen | 4 | 5 | 6 | 6 |
+| Grime Time | nightshift-wash | 4 | 6 | 6 | 6 |
+| Rent Is Due | nightshift-rent | 5 | 6 | 6 | 6 |
+| Garden Gone Rogue | nightshift-garden | 5 | 6 | 6 | 6 |
+| The Last Leaf | nightshift-leaves | 5 | 6 | 6 | 6 |
+| Parcel Panic | nightshift-parcel | 5 | 6 | 6 | 6 |
+| Magnet After Midnight | nightshift-magnet | 5 | 6 | 6 | 6 |
+| Lunchbreak Slime | nightshift-slime | 5 | 6 | 6 | 6 |
+| Tidal Glass | tidal-glass | 5 | 5 | 5 | 5 |
+| Orchard Atelier | orchard-atelier | 5 | 5 | 5 | 5 |
+| Velvet Circuit | velvet-circuit | 5 | 5 | 5 | 5 |
+| Stone Song | stone-song | 5 | 5 | 6 | 6 |
+| Rain Catcher | rain-catcher | 5 | 6 | 5 | 6 |
+| Salt & Sail | salt-and-sail | 5 | 6 | 6 | 6 |
+| Static Orchard | static-orchard | 5 | 6 | 6 | 6 |
+| Scrap Sandwich | nightshift-crusher | 6 | 6 | 7 | 6 |
+| One More Metre | nightshift-mine | 6 | 6 | 7 | 6 |
+| Mothlight | nightshift-moths | 6 | 6 | 7 | 6 |
+| Nightshift lobby | nightshift | 6 | 6 | 6 | 7 |
+| Moonwell | moonwell | 6 | 6 | 6 | 6 |
+| Scrap Orbit | scrap-orbit | 6 | 6 | 7 | 7 |
+| Threadbound | threadbound | 6 | 6 | 7 | 7 |
+| Pac-Man | pacman | 6 | 5 | 6 | 5 |
+| Radius Raid | radius-raid | 6 | 5 | 6 | 5 |
+| Pocket Palaeo | pocket-palaeo | 6 | 7 | 6 | 7 |
+| Ratchet Run | ratchet-run | 6 | 7 | 6 | 7 |
+| Paper Odyssey | paper-odyssey | 6 | 7 | 6 | 7 |
+| Reefwright | reefwright | 6 | 7 | 6 | 7 |
+| Wellward | wellward | 6 | 7 | 6 | 7 |
+| Roof Runner | roof-runner | 7 | 7 | 7 | 7 |
+| Tidepost | tidepost | 7 | 7 | 7 | 7 |
+| Underleaf | underleaf | 7 | 7 | 7 | 7 |
+| Tiny Wilds | tiny-wilds | 7 | 7 | 7 | 7 |
+| Tea for Ghosts | tea-for-ghosts | 7 | 7 | 7 | 7 |
+| Lost & Found on the Moon | moon-salvage | 7 | 7 | 7 | 7 |
 
 ## micro
 
@@ -434,8 +434,42 @@ Fun 7, quality 7. Clock in, a work order (single sock, +50%), a rover, and junk 
 
 ![Lost & Found on the Moon](shots/moon-salvage-play.jpg)
 
-## What this pass will not claim
+## After this pass
 
-- Afterlight games (Moonwell, Orchard Atelier, The Quiet Cut, Tidal Glass, Velvet Circuit) cannot be improved here without editing `games/afterlight`, which belongs to the A–L pass.
-- Pac-Man, Radius Raid and the ABA microgames stay third-party. The micro hub can gain an original menu. The games themselves stay as they are.
-- Saves stay on version 1. Curve changes have to keep `decode()` accepting finished profiles.
+Same scoring rules as the open. A game moves only when the first minute actually changed. Art, goals and save version stayed. The house 7s, the near-bar digs (Pocket Palaeo, Ratchet Run, Paper Odyssey, Reefwright, Wellward) and the retired third-party games were left as played.
+
+| Game | Before | After | What changed |
+| --- | --- | --- | --- |
+| crisp-game-lib hub | 3 / 3 | 4 / 4 | Original menu of the 82 names. No query no longer calls `onLoad`. The ABA `main.js` files are untouched, so a single toy is still a few seconds. |
+| Queen of Cinders | 4 / 5 | 6 / 6 | Chapter 1 opens with the food trail already dug (tiles 31 and 30) and food at 14, so the old stock formula still holds. The coach says two ants on food, then dig east. The board is still a grid. |
+| Moss Market | 4 / 5 | 6 / 6 | First awning starts with enough berries to brew. Orders are balm, tea and a berry basket. The lamp waits for the ferry. A failed in-progress day keeps the medal profile and starts that market fresh. |
+| Storm Signal | 4 / 5 | 5 / 6 | Watch 1 logs Bell Reef (food crates) and tells you to send the Wren. The other two flares are still yours. The harbour is still a panel. |
+| Pocket Expedition | 4 / 5 | 5 / 6 | A new moss stair packs a rope and 9 rations. A save that already chose its own gear is not rewritten. The map is still eight nodes. |
+| Spore Kitchen | 4 / 5 | 6 / 6 | First service is ember toast, moss toast and moon soup, budget 36. The basket can serve the ember toast before you grow anything. |
+| Grime Time | 4 / 6 | 6 / 6 | Contract 1 pre-clears about half the courtyard on every screen, not only a phone. |
+| Rent, Garden, Leaves, Parcel, Magnet, Slime | 5 / 6 | 6 / 6 | Contract 1 quota is about half (at least 6). Slime has one bot. Garden gnomes walk slower. First invoice is 45 coins. Each job opens with a one-line hint. Sound starts on. |
+| Scrap Sandwich, One More Metre, Mothlight | 6 / 6 | 7 / 6 | Same contract-1 cut. The mine shaft keeps about 72 closed blocks instead of 160. The toys were already the fun. |
+| Nightshift lobby | 6 / 6 | 6 / 7 | The cards are the same. Sound defaults to on, which is what the other desk games do. |
+| Stone Song | 5 / 5 | 6 / 6 | Sunstone already sits on the dawn beats. Sound starts on. Red shale is the one shift. |
+| Salt & Sail | 5 / 6 | 6 / 6 | Lemon Quay needs the salt sacks only. Rocks, length and the replay tape are unchanged, so old voyages still decode. |
+| Static Orchard | 5 / 6 | 6 / 6 | Apricot Dawn’s first mites move at speed 11 instead of 25. The swarm is still six, so the `wave * 6` tally holds. |
+| Scrap Orbit | 6 / 6 | 7 / 7 | The lunchbox starts beside the dock. An unstarted job in an old save is rebuilt from the current chart. A job you already flew is left alone. |
+| Threadbound | 6 / 6 | 7 / 7 | The first branch is wide enough to stand under the first pin. Anchor positions and ready-save coordinates are unchanged. |
+| Rain Catcher | 5 / 6 | 5 / 6 | Dry Bell’s opening line now names the path, the bank and the cistern. The map and the rain tape were not touched, because a record must replay the same rain. Curve in `docs/GAME_QUALITY.md` stays fail. |
+
+Left at the before scores, on purpose:
+
+- Moonwell, Orchard Atelier, The Quiet Cut, Tidal Glass and Velvet Circuit are one-line wrappers into `games/afterlight`. That folder belongs to the A–L pass.
+- Pac-Man and Radius Raid stay retired third-party. Pac-Man is someone else’s maze. Radius Raid is Jack Rugile’s 2013 js13k game, and it already plays.
+- Roof Runner, Tidepost, Underleaf, Tiny Wilds, Tea for Ghosts and Lost & Found on the Moon were already at the house bar.
+- Pocket Palaeo, Ratchet Run, Paper Odyssey, Reefwright and Wellward already clear the quality bar. Their first stages teach the verb. Rewriting them would spend the pass on games that do not need it.
+
+![Micro hub after the menu](shots/micro-after.jpg)
+
+![Queen of Cinders, food trail already open](shots/queen-of-cinders-after.jpg)
+
+![Moss Market, balm, tea and a berry basket](shots/moss-market-after.jpg)
+
+![Scrap Orbit, lunchbox beside the dock](shots/scrap-orbit-after.jpg)
+
+![Grime Time, contract 1 already half clear](shots/nightshift-wash-after.jpg)
