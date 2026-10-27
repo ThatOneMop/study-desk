@@ -45,7 +45,7 @@ SELECTED = {
     "echo-vault": {
         "engine.js": "df0f6935eabf7ef728520380d4a3aeb5ffeacb342a398ee80c9d9a84124ad611",
         "game.js": "01529b7fd61eac71cec3ac54d68363df9e0a27ed2294ecaffdb8858df6d1e744",
-        "style.css": "f0b2ebebdc62bf83c653b16a0844cfcc3009403cc52c44786c654114a73629da",
+        "style.css": "b457c221f272bc258e691782f2ae3551b2524e530b1f2af6084c9d08903a9c8f",
     },
     "glasshouse": {
         "engine.js": "2c287e376d9cf5eef86a46e7b91f2dc92550f3d84f233377560bc210f430acb0",
