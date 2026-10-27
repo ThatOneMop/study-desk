@@ -32,9 +32,10 @@ const tip=document.createElement('p');tip.id='cwTip';tip.className='cw-tip';tip.
 function showTip(force){document.querySelectorAll('[data-action].cw-suggest').forEach(b=>b.classList.remove('cw-suggest'));const s=G.s;const on=force||F.coach&&s.job===0;if(!on||s.status!=='playing'){tip.hidden=true;return}const a=solve(s);if(!a){tip.hidden=false;tip.textContent='Foreman’s tip: undo the last move. This route cannot finish cleanly.';return}tip.hidden=false;tip.innerHTML='<b>Foreman’s tip</b> '+LABEL[a]+(s.job===0?' · tips stay on for the first job':'');const b=document.querySelector(`[data-action="${a}"]`);if(b)b.classList.add('cw-suggest')}
 F.solve=solve;F.showTip=showTip;
 // ---------- reactions ----------
+let gentle=0;
 window.addEventListener('cw:act',ev=>{const {a,ok,before:b,after:s}=ev.detail;if(!ok){SFX.deny();scene.classList.remove('cw-nudge');void scene.offsetWidth;scene.classList.add('cw-nudge');return}
  if(a==='left'||a==='right')SFX.trolley();else if(a==='up')SFX.up();else if(a==='down')SFX.down();else if(a==='ballastLeft'||a==='ballastRight'){SFX.ballast();dust(240+s.ballast*30,49,6,'#9aa7a0')}else if(a==='settle')SFX.settle();
- else if(a==='hook'){if(s.held!==null){SFX.hook();callout('HOOKED',0,1,'')}else{const x=b.x,lvl=s.stacks[x].length-1;if(s.damage>b.damage){SFX.rough();shake(2);dust(px(x),py(lvl),18,'#e8a07a');callout('DAMAGED',x,lvl+1.6,'bad')}else{SFX.soft();shake(1);dust(px(x),py(lvl),14);callout('SOFT LANDING',x,lvl+1.6,'good')}}}
+ else if(a==='hook'){if(s.held!==null){SFX.hook();callout('HOOKED',0,1,'')}else{const x=b.x,lvl=s.stacks[x].length-1;if(s.damage>b.damage){gentle=0;SFX.rough();shake(2);dust(px(x),py(lvl),18,'#e8a07a');callout('DAMAGED',x,lvl+1.6,'bad')}else{SFX.soft();shake(1);dust(px(x),py(lvl),14);gentle++;callout(gentle>=3?'GENTLE HANDS ×'+gentle:'SOFT LANDING',x,lvl+1.6,'good')}}}
  if(s.strain>b.strain){setTimeout(SFX.alarm,60);redFlash();shake(2);callout('OVERLOAD '+s.strain+'/3',s.x,Math.min(4,s.y+2),'bad')}
  if(s.status==='won'&&b.status!=='won'){setTimeout(()=>{SFX.win();confetti();callout('★'.repeat(E.medal(s))+' JOB COMPLETE',0,3.2,'good')},250)}
  if(s.status==='lost'&&b.status!=='lost')setTimeout(SFX.lost,300);

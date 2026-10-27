@@ -10,6 +10,11 @@
     .desk-actions .restart-button,.pause-2048{float:none;display:inline-block;width:auto;margin:0}
     .pause-2048{background:#bbada0;border-radius:3px;padding:0 20px;text-decoration:none;color:#f9f6f2;height:40px;line-height:42px;text-align:center}
     body.paused-2048 .game-container{opacity:.45}
+    .game-container.big-tile{animation:tile-cheer .45s ease}
+    @keyframes tile-cheer{40%{transform:scale(1.03)}100%{transform:scale(1)}}
+    #tile-cheer{position:absolute;left:50%;top:18px;transform:translateX(-50%);z-index:20;padding:8px 16px;border-radius:6px;background:#f6e27a;color:#776e65;font:700 22px Arial,sans-serif;opacity:0;pointer-events:none}
+    #tile-cheer.show{animation:tile-pop 1.1s ease forwards}
+    @keyframes tile-pop{15%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-16px)}}
     .game-explanation{margin-top:18px}
   </style>
   <link rel="shortcut icon" href="favicon.ico">

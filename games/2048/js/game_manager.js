@@ -168,6 +168,20 @@ GameManager.prototype.move = function (direction) {
 
           // The mighty 2048 tile
           if (merged.value === 2048) self.won = true;
+          if (merged.value >= 128 && typeof document !== "undefined") {
+            var box = document.querySelector(".game-container");
+            if (box) {
+              box.classList.remove("big-tile");
+              void box.offsetWidth;
+              box.classList.add("big-tile");
+              var toast = document.getElementById("tile-cheer");
+              if (!toast) { toast = document.createElement("div"); toast.id = "tile-cheer"; box.appendChild(toast); }
+              toast.textContent = merged.value + "!";
+              toast.classList.remove("show");
+              void toast.offsetWidth;
+              toast.classList.add("show");
+            }
+          }
         } else {
           self.moveTile(tile, positions.farthest);
         }
