@@ -7,7 +7,6 @@ Fun is “would the next five minutes pull you in on a family desk.” Quality i
 | Game | Fun before | Quality before | Fun after | Quality after |
 | --- | --- | --- | --- | --- |
 | Astray | 2 | 2 | 6 | 6 |
-| Doom (Freedoom) | 3 | 3 | 3 | 4 |
 | Dino | 5 | 3 | 6 | 5 |
 | Cloud Courier | 4 | 4 | 6 | 6 |
 | Copper & Steam | 4 | 4 | 6 | 6 |
@@ -265,21 +264,6 @@ Missing versus a tiny endless runner (Dino is already that game): a reason to co
 ![Dino start overlay](shots/dino-01-open.jpg)
 ![Dino running](shots/dino-02-play.jpg)
 
-## Doom (Freedoom)
-
-Fun 3. Quality 3. As a port it boots: the wad loads, the menu accepts Enter, and the touch pad (move, strafe, FIRE, USE) is on screen. As a Study Desk game it does not belong. It is a violent shooter. The boot screen is a debug log. This pass will not add weapons, damage, or levels.
-
-Broken: the boot button sat on “STARTING…” while the engine log ran, which looks like a hang even though the menu then appeared.
-
-Missing versus a family desk game: it is the wrong fantasy. A content line on the boot screen is the only change worth making, and even that is optional.
-
-1. Do not tune combat.
-2. Optional: one sentence on the boot screen that this is Freedoom and not a children’s game.
-3. Leave the wad and the wasm alone.
-
-![Doom boot log](shots/doom-web-01-open.jpg)
-![Doom menu](shots/doom-web-02-play.jpg)
-
 ## Echo Vault
 
 Fun 6. Quality 6. The Hush Gallery is a real stealth puzzle: one watcher, curtains, a relic, an exit. Later vaults add listeners and a third sentry, so the curve exists. The screen spends more pixels on “IF WAIT” essays than on the floor.
@@ -481,7 +465,5 @@ Played again in the same headless Chrome. After frames for the games that change
 ![Dino with the Study Desk card](shots/after/dino.jpg)
 
 **Hextris, 7/6 → 7/7.** The Facebook and Twitter share row stays hidden, including on the game-over fade.
-
-**Doom, 3/3 → 3/4.** The boot line says Freedoom is a violent shooter and is not for children. Combat, the wad, and the wasm were not touched. It is still the wrong game for this desk, which is why fun stays 3.
 
 Left as they were, with after scores equal to before: After Hours, Afterlight’s shelf, Ashwake, Autumn Drift, Borrowed Gravity, Burrow Express, Counterweight, Echo Vault, Forge Arena, Glasshouse, Hollow Keeper, Lanternwake, Last Match, Little Lake, Lost & Found, and Lucky Company. Glasshouse’s first order needs a cross that is not in the seed bag, so hiding Cross would make it unwinnable. Last Match’s first enemy list is part of the save check. Echo Vault’s forecast is the puzzle. The 7 and 8 games were already at the bar.
