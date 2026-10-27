@@ -163,6 +163,7 @@ import {GLTFLoader} from './vendor/gltf-loader.js';
 import {createCc0People,cc0Variant} from './cc0-people.mjs?v=172';
 import {createBobSmoother} from './rigged-locomotion.mjs?v=172';
 import {districtRegistry,setDistrictLocked,districtAt,outerPlayable,outerBlocked,outerGround,outerMapRoads,createOuterDistricts} from './outer-districts.mjs?v=175';
+import {districtGroundHeight} from './district-terrain.mjs?v=176';
 import {applySunnyGrade,sunnyStrength} from './sunny-grade.mjs?v=161';
 import {applyDodgyGrade,dodgyStrength,signFlicker} from './dodgy-grade.mjs?v=166';
 import {contactPalette,restyleThread,portraitInbox} from './phone-texts.mjs?v=167';
@@ -4003,7 +4004,7 @@ if(!(typeof location!=='undefined'&&/[?&]city=0\b/.test(location.search)))try{
 }catch(error){console.warn('City expansion skipped',error);}
 // v175: districts past the old city (outer-districts.mjs). Winding lanes, lockable bounds, streamed chunks.
 if(!(typeof location!=='undefined'&&/[?&]outer=0\b/.test(location.search))&&typeof createOuterDistricts==='function')try{
- outerDistricts=createOuterDistricts({scene,quality});
+ outerDistricts=createOuterDistricts({scene,quality,height:typeof districtGroundHeight==='function'?districtGroundHeight:undefined});
  colliders.push(...outerDistricts.colliders.filter(c=>!points.some(p=>p&&Math.hypot((p.x||0)-c.x,(p.z||0)-c.z)<3)));
  window.GUMMY_DISTRICTS={list:districtRegistry,setLocked:setDistrictLocked,at:districtAt,playable:outerPlayable,blocked:outerBlocked};
  window.__gummyOuter={lots:()=>outerDistricts.lots.length,calls:()=>outerDistricts.drawCalls(),triangles:outerDistricts.triangles,districts:districtRegistry};

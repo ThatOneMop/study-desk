@@ -55,6 +55,9 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 ## Rigged locomotion (added v174)
 
 ## Outer districts (added v175)
+
+## District slopes (added v176)
+- Hillcrest and the roll under Tin Terrace are generated in code (`district-terrain.mjs`). No new third-party assets. The beach on the near city edge is unchanged.
 - Salt Docks, Tin Terrace, Hillcrest and Neon Row, their winding lanes, shopfronts and streamed chunks are generated in code (`outer-districts.mjs`). No new third-party assets. Lock state is not written into the save.
 - Idle, walk and run on the existing Quaternius townsfolk are blended in code, with the cycle driven by distance so a planted foot stays put. Turn lean, gait variation and idle fidgets are original. No new third-party assets.
 

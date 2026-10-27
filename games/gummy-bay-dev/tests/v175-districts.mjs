@@ -58,7 +58,7 @@ assert.match(game,/window\.GUMMY_DISTRICTS=/);
 assert.match(game,/outerPlayable/);
 assert.doesNotMatch(game,/s\.districts\s*=/);
 const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
-assert.match(html,/game\.js\?v=175/);
+assert.match(html,/game\.js\?v=(17[5-9]|1[8-9]\d)/);
 const world=game.match(/const WORLD=\{minX:(-?\d+),maxX:(-?\d+)/);
 assert.equal(world[1],'-280');assert.equal(world[2],'280');
 assert.equal(DISTRICT_DEFS.length,4);

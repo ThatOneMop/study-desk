@@ -210,19 +210,20 @@ export function createOuterDistricts({scene,quality='balanced',height=outerHeigh
   }
  }
  const colliders=[];
- for(const lot of lots){const L=LOOK[lot.mood],r=rng(lot.seed),wall=L.wall[Math.floor(r()*L.wall.length)],roof=L.roof[Math.floor(r()*L.roof.length)],h=2.6+lot.floors*1.15+r()*0.4;
-  const y=groundFn(lot.x,lot.z),key=chunkKey(lot.x,lot.z);
+ for(const lot of lots){const L=LOOK[lot.mood],r=rng(lot.seed),wall=L.wall[Math.floor(r()*L.wall.length)],roof=L.roof[Math.floor(r()*L.roof.length)],wallH=2.6+lot.floors*1.15+r()*0.4;
+  let y=groundFn(lot.x,lot.z);for(const [a,b] of [[lot.w/2,0],[-lot.w/2,0],[0,lot.d/2],[0,-lot.d/2]])y=Math.min(y,groundFn(lot.x+a,lot.z+b));
+  const crown=groundFn(lot.x,lot.z),h=wallH+(crown-y),key=chunkKey(lot.x,lot.z);
   box(lot.x,y,lot.z,lot.w,h,lot.d,lot.rot,wall,key);
   box(lot.x,y+h,lot.z,lot.w+.3,.28,lot.d+.2,lot.rot,roof,key);
   // Uneven roof cap and a lean-to so the block is not a plain box.
   if(r()>.4)box(lot.x+Math.cos(lot.rot)*(lot.w*.2),y+h+.28,lot.z-Math.sin(lot.rot)*(lot.w*.2),lot.w*.45,.5+r()*.8,lot.d*.4,lot.rot,roof,key);
   if(r()>.55){const ox=Math.cos(lot.rot+1.2)*lot.w*.35,oz=-Math.sin(lot.rot+1.2)*lot.w*.35;box(lot.x+ox,y,lot.z+oz,lot.w*.35,h*.55,lot.d*.4,lot.rot+r()*.2,L.trim,key);}
   const near=outerRoadDistance(lot.x,lot.z).p;const dx=near?near.x-lot.x:Math.sin(lot.rot),dz=near?near.z-lot.z:Math.cos(lot.rot),len=Math.hypot(dx,dz)||1,ux=dx/len,uz=dz/len;
-  const px=lot.x+ux*(lot.d/2+.15),pz=lot.z+uz*(lot.d/2+.15),face=Math.atan2(ux,uz),rx=-uz,rz=ux;
+  const px=lot.x+ux*(lot.d/2+.15),pz=lot.z+uz*(lot.d/2+.15),face=Math.atan2(ux,uz),rx=-uz,rz=ux,fy=groundFn(px,pz);
   const show=DISPLAY[lot.trade]||DISPLAY.corner;
-  box(px,y+2.15,pz,Math.min(lot.w*.8,3.2),.12,.9,face,L.trim,key);
-  box(px,y+2.45,pz,Math.min(lot.w*.7,2.6),.55,.12,face,L.sign,key);
-  for(const [lx,ly,lz,w,hh,dd,col] of show)box(px+rx*lx+ux*lz,y+ly,pz+rz*lx+uz*lz,w,hh,dd,face,col,key);
+  box(px,fy+2.15,pz,Math.min(lot.w*.8,3.2),.12,.9,face,L.trim,key);
+  box(px,fy+2.45,pz,Math.min(lot.w*.7,2.6),.55,.12,face,L.sign,key);
+  for(const [lx,ly,lz,w,hh,dd,col] of show)box(px+rx*lx+ux*lz,fy+ly,pz+rz*lx+uz*lz,w,hh,dd,face,col,key);
   if(r()>.5){const sx=px-uz*1.3,sz=pz+ux*1.3;box(sx,y,sz,.55,.9,.5,face,r()>.5?0x2e4a38:0x3a3e44,key);if(r()>.6)box(sx+ux*.8,y,sz+uz*.8,.7,.35,.6,face,0x5a5044,key);}
   const bw=Math.max(1.4,(lot.bb.x1-lot.bb.x0)-.4),bd=Math.max(1.4,(lot.bb.z1-lot.bb.z0)-.4);
   colliders.push({x:(lot.bb.x0+lot.bb.x1)/2,z:(lot.bb.z0+lot.bb.z1)/2,w:bw,d:bd,outerLot:lot.id});
