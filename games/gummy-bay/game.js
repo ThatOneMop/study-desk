@@ -170,6 +170,8 @@ import {strainBookModel,strainBookHTML} from './strain-book.mjs?v=170';
 import {noteMeeting,noteRegularSale,regularTag,regularGreeting} from './regulars.mjs?v=172';
 import {stackLayout,landingOffset,queueLandings,createPackStack,LAND_TIME,PER_JAR} from './pack-feel.mjs?v=173';
 import {fanLevel,namedLine,areaLine,namedOptions,namedCardHTML,NAMED_KINDS,KEEPERS} from './named-talk.mjs?v=174';
+import {STANDINGS,standingScore,standingOf,standingEffects,dealVerdict,grudgeFor,grudgeTick,migrateStanding,streetStanding,skipsOrderToday,askSooner,standingBarHTML,standingChangeText} from './relationship-status.mjs?v=175';
+import {TRADE_MOODS,tradeRange,tradeStart,tradeTotal,tradeChance,chanceWord,customerAnswer,answerLine,tradeHTML,handoffHTML,HANDOFF_TONES,meetHTML} from './trade-screen.mjs?v=176';
 import {nextStaffHire,staffLadderHTML,staffPostingHTML,staffPace,dealerIntro,dealerRoutine} from './staff-ladder.mjs?v=178';
 import {smsHeadHTML} from './phone-texts.mjs?v=167';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
@@ -5430,6 +5432,7 @@ if(typeof location!=='undefined'&&/[?&]packqa=1\b/.test(location.search))window.
    box=document.createElement('div');box.id='namedTalk';if(close)close.after(box);else m.prepend(box);}
   box.innerHTML=nt.stage==='biz'?'<p class="named-line"><b>'+esc(nt.who.name)+':</b> '+esc(nt.line)+'</p>':'<div class="overline">'+(nt.type==='customer'?'GUMMY BAY / TALK':'TALK')+'</div>'+html;
   const biz=m.querySelector('.named-biz');if(biz)biz.hidden=nt.stage==='talk';m.classList.toggle('named-open',nt.stage==='talk');
+  try{relStandingDecor(box,nt.type,nt.i);}catch(e){}
   box.querySelectorAll('[data-named]').forEach(b=>b.onclick=()=>namedPick(b.dataset.named));
  }
  function namedPick(id){
@@ -5505,4 +5508,179 @@ window.openTownBook=openTownBook;
 let customerCrowd=null;
 try{customerCrowd=createCustomerCrowd({THREE,scene,contacts:CONTACTS,people,looks:CUSTOMER_LOOKS});for(let i=0;i<14&&i<people.length;i++)if(people[i])people[i].visible=false;}catch(e){console.warn('Customer crowd unavailable',e);customerCrowd=null;}
 {const crowdUpdate=update;update=function(dt){const r=crowdUpdate.apply(this,arguments);if(customerCrowd){try{customerCrowd.update({now,pose:i=>{const c=CONTACTS[i],g=people[i];return {show:customerCrowdShow(i),x:c.x,z:c.z,y:g?.position?.y||0,yaw:g?.rotation?.y||0,moving:!!g?.userData?.walking};}});}catch(e){}}return r;};}
+// v175: relationship status (relationship-status.mjs). Named locals and street regulars sit on a five-step
+// level (Hostile → Loyal) shown as a labelled bar on the talk card and in the customer screen. It sets the fair
+// price they pay, how often they text an order, and whether they refer friends.
+function relStanding(i){const c=CONTACTS[i];if(!c)return standingOf(45);return standingOf(standingScore(relationship(i),s.grudge?.[i]||0));}
+function relStreet(id){const e=s.regulars?.[String(id)];return standingOf(e?migrateStanding(e):45);}
+function relEffectsText(st){const f=standingEffects(st.level);const bits=[];
+ bits.push(f.price===1?'pays the usual price':(f.price>1?'pays +':'pays −')+Math.round(Math.abs(f.price-1)*100)+'%');
+ bits.push(f.orders>1.2?'orders more often':f.orders<.5?'barely orders':f.orders<1?'orders less often':'orders now and then');
+ if(f.referral>0)bits.push(f.referral>=.06?'refers friends':'might refer a friend');
+ return bits.join(' · ');}
+function relStandingDecor(box,type,i){
+ if(!box?.querySelector||type!=='customer'||!CONTACTS[i])return;const fan=box.querySelector('.talk-fan');if(!fan)return;
+ fan.insertAdjacentHTML?.('afterend',standingBarHTML(relStanding(i)));fan.remove?.();}
+function relGrudge(i,kind){if(!CONTACTS[i])return;const g=grudgeFor(kind);if(!g)return;s.grudge??={};s.grudge[i]=Math.min(70,(s.grudge[i]||0)+g);}
+function relBump(i,kind){if(!CONTACTS[i])return;if(grudgeFor(kind)){relGrudge(i,kind);return;}
+ const d=({goodDeal:4,fairDeal:2})[kind]||0;if(d&&s.grudge?.[i])s.grudge[i]=Math.max(0,s.grudge[i]-d);}
+function relPursuit(){try{const role=localPoliceRole();return (ensurePolice().officers||[]).some(o=>o.mode==='pursuit'&&o.target===role);}catch(e){return false;}}
+function relNote(name,before,after){const t=standingChangeText(name,before,after);if(t)toast(t);}
+{const relFair=rosterFair;rosterFair=function(i,t){const v=relFair(i,t);if(!CONTACTS[i])return v;return Math.max(1,Math.round(v*standingEffects(relStanding(i).level).price));};}
+{const relAct=doAction;doAction=function(k,a,b,c){
+  if(k==='text'&&CONTACTS[a]&&net.role!=='guest'){const who=CONTACTS[a],old=who.budget;who.budget=old*standingEffects(relStanding(a).level).price;try{return relAct(k,a,b,c);}finally{who.budget=old;}}
+  if(net.role==='guest'||!((k==='deliver'||k==='sample')&&CONTACTS[a]))return relAct(k,a,b,c);
+  const before=relStanding(a),sold=s.sold,chase=relPursuit(),deal=k==='deliver'?s.deals.find(d=>d.npc===a):null;
+  let fair=0,enjoy=.5;if(deal&&STRAINS[deal.t]){try{fair=rosterFair(a,deal.t);enjoy=rosterEnjoy(a,deal.t);}catch(e){}}
+  const out=relAct(k,a,b,c);
+  if(k==='deliver'&&deal&&s.sold>sold){
+   const kinds=dealVerdict({price:deal.price,fair,enjoyment:enjoy});if(!chase&&relPursuit())kinds.push('caught');
+   for(const kind of kinds)relBump(a,kind);
+   const said={ripoff:'That was steep. I’m not paying that again.',badProduct:'Honestly? That batch wasn’t great.',caught:'You brought the cops to me?! Not cool.'};
+   const gripe=kinds.find(x=>said[x]);if(gripe&&s.threads?.[a])(s.threads[a].messages??=[]).push({mine:false,text:said[gripe]});
+   save();}
+  relNote(CONTACTS[a].name,before,relStanding(a));return out;};}
+// Order frequency: unhappy locals skip asking some days; happy ones ask again sooner.
+{const relAsks=postCravingAsks;postCravingAsks=function(){
+  const held=[],was={};
+  for(let i=0;i<CONTACTS.length;i++){const r=s.cravings?.[i];if(!r)continue;was[i]=r.askedDay+':'+r.askedTime;const lv=relStanding(i).level;
+   if(skipsOrderToday(lv,s.day,i)){held.push([i,r.askedDay,r.askedTime]);s.cravings[i]={...r,askedDay:s.day,askedTime:s.time};}}
+  const out=relAsks();
+  for(const [i,d,t] of held){const r=s.cravings?.[i];if(r&&r.askedDay===s.day&&r.askedTime===s.time)s.cravings[i]={...r,askedDay:d,askedTime:t};}
+  for(let i=0;i<CONTACTS.length;i++){const r=s.cravings?.[i];if(!r||was[i]===r.askedDay+':'+r.askedTime||held.some(h=>h[0]===i))continue;const m=askSooner(relStanding(i).level);if(m)s.cravings[i]={...r,askedTime:r.askedTime-m};}
+  return out;};}
+// Once a day: grudges fade, and Friendly / Loyal locals may vouch for a friend.
+let relDay=null;
+function relDaily(){
+ if(net.role==='guest'||!s||!Number.isFinite(s.day))return;if(relDay===null){relDay=s.relDay??s.day;}if(s.day===relDay)return;
+ const days=Math.max(1,s.day-relDay);relDay=s.relDay=s.day;
+ if(s.grudge)for(const k of Object.keys(s.grudge))s.grudge[k]=grudgeTick(s.grudge[k],days);
+ s.referred??={};
+ for(let i=0;i<CONTACTS.length;i++){
+  if(!isUnlocked(s,i))continue;const f=standingEffects(relStanding(i).level);if(!f.referral)continue;
+  let h=(s.day*2654435761+i*40503)>>>0;h=((h^(h>>>15))*2246822519)>>>0;if((h%1000)/1000>=f.referral)continue;
+  const j=(CONTACTS[i].knows||[]).find(j=>CONTACTS[j]&&!isUnlocked(s,j)&&s.referred[j]==null);if(j==null)continue;
+  s.referred[j]=i;s.relations[j]=Math.max(relationship(j),15);
+  const text='My mate '+CONTACTS[j].name+' wants in. Bring them a sample, I told them you’re good.';
+  if(!s.threads[i])s.threads[i]={status:'idle',messages:[{mine:false,text}]};else (s.threads[i].messages??=[]).push({mine:false,text});
+  toast(CONTACTS[i].name+' referred '+CONTACTS[j].name+' · hand them a sample');
+ }
+ save();
+}
+{const relFrame=renderFrame;renderFrame=function(){try{relDaily();}catch(e){}return relFrame.apply(this,arguments);};}
+// Customer screen and phone thread: the bar under the heading.
+{const relMenu=menu;menu=function(which,data){relMenu(which,data);
+  try{if((which==='customer'||which==='thread')&&panel===which){const i=Number.isInteger(data)?data:selected,m=$('modal');
+   if(CONTACTS[i]&&m?.querySelector&&!m.querySelector('.rel-row')){const st=relStanding(i);const html='<div class="rel-row">'+standingBarHTML(st)+'<small>'+esc(relEffectsText(st))+'</small></div>';
+    const nb=m.querySelector('#namedTalk'),h=m.querySelector('h2');if(nb)nb.insertAdjacentHTML('afterend',html);else if(h)h.insertAdjacentHTML('afterend',html);else m.querySelector('.close')?.insertAdjacentHTML('afterend',html);}}}catch(e){}};window.menu=menu;}
+// Street: the bar replaces "First time / Met before / Regular". Hostile people won't buy; prices follow the level.
+{const relRender=talkRender;talkRender=function(){relRender();try{if(!talk||panel!=='talk')return;const m=$('modal');const tag=m?.querySelector?.('.talk-regular');const st=relStreet(talk.id);
+   const html=standingBarHTML(st,{compact:true});if(tag){tag.insertAdjacentHTML('afterend',html);tag.remove();}else m?.querySelector?.('.talk-body small')?.insertAdjacentHTML?.('afterend',html);}catch(e){}};
+ const relOpen=openTalk;openTalk=function(i){const p=streetCrowd?.people?.[i];const e0=p&&s.regulars?.[String(p.id)];const fresh=!e0||e0.last!==s.day;const ok=relOpen(i);
+  if(ok&&p&&fresh&&net.role!=='guest'){const e=s.regulars?.[String(p.id)];if(e){if(e.n>1)streetStanding(e,'chat');else migrateStanding(e);talkRender();}}return ok;};
+ const relSale=talkStreetSale;talkStreetSale=function(p){const e=talk&&s.regulars?.[String(talk.id)];const before=e?standingOf(migrateStanding(e)):null;const chase=relPursuit(),cash0=s.cash;
+  const pay=relSale(p);if(!pay||!e)return pay;const f=standingEffects(before.level).price,extra=Math.round(pay*(f-1));
+  if(extra){s.cash+=extra;s.earned=(s.earned||0)+extra;}
+  let after=streetStanding(e,'fairDeal');if(!chase&&relPursuit())after=streetStanding(e,'caught');
+  relNote(talk.name,before,after);save();return pay+extra;};
+ const relPick=talkPick;talkPick=function(id){
+  if(talk&&net.role!=='guest'){const e=s.regulars?.[String(talk.id)];
+   if(id==='pitch'&&e&&relStreet(talk.id).level===0){const p=streetCrowd?.people?.[talk.i];talk.line='From you? No chance. Get lost.';const mem=talkMemory.get(talk.id)||{};mem.pitched=true;talkMemory.set(talk.id,mem);if(p)gesture(p,'shake');talkRender();return;}
+   const calling=squadWitnesses.length;relPick(id);if(e&&squadWitnesses.length>calling){const b=standingOf(migrateStanding(e));relNote(talk?.name||'They',b,streetStanding(e,'snitched'));}save();return;}
+  relPick(id);};}
+if(typeof location!=='undefined'&&/[?&]relqa=1\b/.test(location.search))window.__relQa={
+ standing:i=>relStanding(i),street:id=>relStreet(id),
+ set:(i,rel,grudge=0)=>{s.relations[i]=rel;s.grudge??={};s.grudge[i]=grudge;return relStanding(i);},
+ fair:(i,t=0)=>rosterFair(i,t),daily:()=>{relDay=s.day-1;relDaily();return s.referred;},
+ open:i=>{selected=i;menu('customer',i);return !!$('modal').querySelector('.rel-row');}};
+// v176: trading screen (trade-screen.mjs). Street sales, phone deals and meetups share one deal card: product
+// cards, quantity +/-, a price slider against the customer's fair price, a live accept chance, their counter
+// (accept / counter / decline) and a cash handoff. Guests in co-op keep the old flow.
+let trade=null;
+function tradeOn(){return net.role!=='guest'&&typeof document!=='undefined'&&typeof document.createElement==='function';}
+function tradeProducts(fairOf,street){const out=[];(s.packs||[]).forEach((n,t)=>{const have=street?n:n-reservedQty(t);if(have>0&&STRAINS[t])out.push({t,name:STRAINS[t].name,have,fair:fairOf(t),color:STRAINS[t].color!=null?'#'+Number(STRAINS[t].color).toString(16).padStart(6,'0'):''});});return out;}
+function tradePicked(){return trade&&trade.products.find(p=>p.t===trade.pick);}
+function tradeCalc(){const p=tradePicked();if(!p)return 0;trade.chance=trade.answer?.kind==='counter'&&trade.kind==='phone'?tradeChance({price:trade.price,fair:p.fair,qty:trade.qty},()=>rosterHaggle(trade.i,trade.price)):tradeChance({price:trade.price,fair:p.fair,qty:trade.qty,penalty:trade.round*12},trade.chanceOf);return trade.chance;}
+function tradeHost(){const m=$('modal');if(!m?.querySelector)return null;let h=m.querySelector('#tradeBox');if(!h){h=document.createElement('div');h.id='tradeBox';const at=trade.kind==='street'?m.querySelector('.talk-card'):null,bub=m.querySelector('.deal-bubble'),comp=m.querySelector('.sms-compose');if(at)at.after(h);else if(bub)bub.before(h);else if(comp)comp.before(h);else m.appendChild(h);}return h;}
+function tradeRender(){try{if(!trade)return;tradeCalc();const h=tradeHost();if(!h)return;h.innerHTML=tradeHTML(trade,esc);$('modal').classList?.add('trading');
+  h.querySelectorAll('[data-trade-pick]').forEach(b=>b.onclick=()=>{trade.pick=Number(b.dataset.tradePick);const p=tradePicked();trade.qty=Math.min(trade.qty,tradeMaxQty());trade.price=tradeStart(p.fair);trade.answer=null;trade.round=0;tradeRender();});
+  h.querySelectorAll('[data-trade]').forEach(b=>b.onclick=()=>tradeDo(b.dataset.trade));
+  const r=h.querySelector('#tradePrice');if(r)r.oninput=()=>{trade.price=Number(r.value)||trade.price;tradeLive();};
+ }catch(e){console.warn('Trade screen skipped',e);}}
+function tradeLive(){const h=$('modal')?.querySelector?.('#tradeBox');if(!h)return;const c=tradeCalc(),tot=tradeTotal(trade.price,trade.qty);
+ const o=h.querySelector('.trade-price output');if(o)o.textContent=cash(trade.price);const m=h.querySelector('.trade-chance');if(m){m.className='trade-chance c'+(c>=70?'hi':c>=40?'mid':'lo');m.querySelector('b').style.width=c+'%';m.querySelector('strong').textContent=c+'%';m.querySelector('small').textContent=chanceWord(c);}
+ const t=h.querySelector('.trade-total b');if(t)t.textContent=cash(tot);const g=h.querySelector('[data-trade="offer"]');if(g)g.textContent=(trade.answer?.kind==='counter'?'Counter '+cash(trade.price):'Offer '+cash(tot));}
+function tradeMaxQty(){const p=tradePicked();return p?Math.max(1,Math.min(p.have,trade.capQty)):1;}
+function tradeDo(id){if(!trade)return;const p=tradePicked();if(!p&&id!=='walk')return;
+ if(id==='qty-'){trade.qty=Math.max(1,trade.qty-1);}
+ else if(id==='qty+'){trade.qty=Math.min(tradeMaxQty(),trade.qty+1);}
+ else if(id==='price-'){trade.price=Math.max(1,trade.price-1);}
+ else if(id==='price+'){trade.price=Math.min(tradeRange(p.fair).max,trade.price+1);}
+ else if(id==='walk'){const t=trade;trade=null;$('modal')?.classList?.remove('trading');t.onWalk?.();return;}
+ else if(id==='take'){const price=trade.answer?.price;if(price)trade.accept(price,true);return;}
+ else if(id==='offer'){trade.offer();return;}
+ trade.maxQty=tradeMaxQty();tradeRender();}
+function tradeCash(amount){
+ try{const m=document.body;m.querySelector?.('.cash-handoff')?.remove?.();m.insertAdjacentHTML?.('beforeend',handoffHTML(amount));const el=m.querySelector?.('.cash-handoff');setTimeout(()=>el?.remove?.(),1600);}catch(e){}
+ try{for(const [f,d,g,at] of HANDOFF_TONES)setTimeout(()=>playTone(f,d,g),at);}catch(e){}
+ try{const b=$('cash');b?.classList?.remove('cash-bump');void b?.offsetWidth;b?.classList?.add('cash-bump');}catch(e){}}
+// Street: a buyer who says yes opens the deal card instead of an instant sale.
+{const tradeSale=talkStreetSale;let bypass=false;
+ talkStreetSale=function(p){
+  if(bypass||!tradeOn()||!talk)return tradeSale(p);
+  const id=talk.id,mood=talk.mood,st=relStreet(id),f=standingEffects(st.level).price*(TRADE_MOODS[mood]||1);
+  const fairOf=t=>Math.max(1,Math.round((STRAINS[t]?.price||30)*.8*f));const products=tradeProducts(fairOf,true);if(!products.length)return tradeSale(p);
+  const who=talk.name;
+  trade={kind:'street',who,id,products,pick:products[0].t,qty:1,capQty:3,maxQty:Math.min(3,products[0].have),price:tradeStart(products[0].fair),round:0,answer:null,
+   chanceOf:(price,fair,qty)=>haggleChance({price,fair,qty,relation:st.score,craving:0,spend:[40,140]}),
+   offer(){const pr=tradePicked();const c=tradeCalc();const ans=customerAnswer({price:trade.price,fair:pr.fair,chance:c,round:trade.round,roll:Math.random()});ans.line=answerLine(ans,trade.round+id);
+    if(ans.kind==='accept'){trade.accept(trade.price);return;}trade.round++;trade.answer=ans;if(ans.kind==='counter')trade.price=Math.max(ans.price,Math.min(trade.price,tradeRange(pr.fair).max));
+    if(talk){talk.line=ans.line;}tradeRender();},
+   accept(price){const tr=trade,pr=tradePicked();if(!pr||!talk)return;const t0=(s.packs||[]).findIndex(n=>n>0);bypass=true;let paid=0;try{paid=tradeSale(p);}finally{bypass=false;}
+    if(!paid){trade=null;talkRender();return;}
+    if(t0!==pr.t){s.packs[t0]+=1;s.packs[pr.t]-=1;}const extraQty=Math.min(tr.qty-1,Math.max(0,s.packs[pr.t]));s.packs[pr.t]-=extraQty;s.sold=(s.sold||0)+extraQty;
+    const total=price*(1+extraQty),delta=total-paid;s.cash+=delta;s.earned=(s.earned||0)+delta;save();
+    trade=null;$('modal')?.classList?.remove('trading');talk.line=answerLine({kind:'accept',price},id)+' (paid '+cash(total)+')';tradeCash(total);talkRender();
+    const was=talk;setTimeout(()=>{if(talk===was&&panel==='talk')close();},1800);},
+   onWalk(){if(talk){talk.line='Suit yourself.';talkRender();const was=talk;setTimeout(()=>{if(talk===was&&panel==='talk')close();},1200);}}};
+  // talkPick may schedule a close after a buy; give this chat a fresh identity so the card stays open.
+  talk.line=(talk.line||'')+' What are you asking?';
+  return 0;};
+ const tradeTalkPick=talkPick;talkPick=function(id){if(trade?.kind==='street')return;const out=tradeTalkPick(id);if(trade?.kind==='street'&&talk)talk={...talk};return out;};
+ const tradeTalkRender=talkRender;talkRender=function(){tradeTalkRender();if(trade?.kind==='street'&&talk&&panel==='talk')tradeRender();else $('modal')?.classList?.remove?.('trading');};
+ const tradeTalkClose=close;close=function(){if(trade?.kind==='street'||trade?.kind==='phone')trade=null;$('modal')?.classList?.remove('trading');tradeTalkClose();};window.closeMenu=close;}
+// Phone: a "Make an offer" deal card under the thread. Sending it texts the customer with your price; their
+// reply (deal or counter) comes back into the same card.
+function tradePhone(i){
+ const c=CONTACTS[i];if(!c||!isUnlocked(s,i)||s.deals.some(d=>d.npc===i))return null;const th=s.threads?.[i];
+ const fairOf=t=>rosterFair(i,t);const products=tradeProducts(fairOf,false);if(!products.length)return null;
+ const neg=th&&th.status==='negotiating'&&STRAINS[th.t];const pick=neg?th.t:(th?.t!=null&&products.some(p=>p.t===th.t)?th.t:products[0].t);
+ const pr=products.find(p=>p.t===pick)||products[0];
+ const tr={kind:'phone',i,who:c.name,products,pick:pr.t,qty:neg?th.qty:1,capQty:5,maxQty:Math.min(5,pr.have),price:neg?Math.max(th.counter||pr.fair,1):tradeStart(pr.fair),round:0,answer:null,locked:neg?{product:true,qty:true}:null,
+  chanceOf:(price,fair,qty)=>haggleChance({price,fair,qty,relation:relationship(i),craving:rosterCraving(i),spend:c.spend||[100,250]}),
+  offer(){const t=trade;if(!t)return;const p=tradePicked();
+   if(s.threads?.[i]?.status==='negotiating'){action('offer',i,t.price);}
+   else{const keep=s.listing;s.listing={t:p.t,qty:t.qty,price:t.price};try{action('text',i);}finally{s.listing=keep;}}
+   tradeAfter();},
+  accept(price){action('offer',i,price);tradeAfter();},
+  onWalk(){const th=s.threads?.[i];if(th&&th.status==='negotiating'){th.status='closed';(th.messages??=[]).push({mine:true,text:'All good, maybe next time.'});save();}refresh('thread',i);}};
+ if(neg)tr.answer={kind:'counter',price:th.counter,line:'I can do $'+th.counter+' each.'};
+ return tr;}
+function tradeAfter(){const t=trade;if(!t||t.answer?.kind==='accept')return;const i=t.i,th=s.threads?.[i],d=s.deals.find(x=>x.npc===i);
+ if(d)return;
+ if(th?.status==='negotiating'){trade.round++;trade.answer={kind:'counter',price:th.counter,line:'I can do $'+th.counter+' each.'};trade.locked={product:true,qty:true};tradeRender();return;}
+ tradeRender();}
+{const tradeMenu=menu;menu=function(which,data){tradeMenu(which,data);
+  try{if(which==='thread'&&panel==='thread'&&tradeOn()){const i=Number.isInteger(data)?data:selected,prev=trade?.kind==='phone'&&trade.i===i?trade:null,d=s.deals.find(x=>x.npc===i);
+   if(d&&prev){trade={...prev,qty:d.qty,pick:d.t,answer:{kind:'accept',price:d.price,line:'Deal. '+d.qty+' × '+(STRAINS[d.t]?.name||'')+' at $'+d.price+' each. See you at the spot.'},locked:{product:true,qty:true}};if(!prev.answer||prev.answer.kind!=='accept')try{playBenchCue(audioContext,'done',soundEnabled);}catch(e){}}else trade=tradePhone(i);if(trade)tradeRender();else $('modal')?.classList?.remove?.('trading');}
+   else if(which!=='talk'){if(trade&&trade.kind!=='street')trade=null;if(!trade)$('modal')?.classList?.remove?.('trading');}
+   if(which==='customer'&&panel==='customer'&&tradeOn()){const i=Number.isInteger(data)?data:selected,d=s.deals.find(x=>x.npc===i),m=$('modal');
+    if(d&&STRAINS[d.t]&&m?.querySelector&&!m.querySelector('.trade-meet')){const st=customerExchangeStatus(i),col='#'+Number(STRAINS[d.t].color||0xf2b84b).toString(16).padStart(6,'0');const html=meetHTML({name:STRAINS[d.t].name,qty:d.qty,price:d.price,color:col,ready:!!st.ok&&s.packs[d.t]>=d.qty,reason:st.ok?'Not enough packs on you':st.reason});
+     const at=m.querySelector('.rel-row')||m.querySelector('#namedTalk')||m.querySelector('h2');if(at)at.insertAdjacentHTML('afterend',html);else m.insertAdjacentHTML('beforeend',html);const b=m.querySelector('[data-trade-meet]');if(b)b.onclick=()=>{const dl=$('customerDeliver');if(dl&&!dl.disabled)dl.click();else action('deliver',i);};}}}catch(e){console.warn('Trade screen skipped',e);}};window.menu=menu;}
+// Meetups: when the cash changes hands, show it.
+{const tradeAct=doAction;doAction=function(k,a,b,c){const cash0=s.cash,bank0=s.bank||0,sold=s.sold;const out=tradeAct(k,a,b,c);
+  if(k==='deliver'&&CONTACTS[a]&&s.sold>sold&&net.role!=='guest'){const got=(s.cash-cash0)+((s.bank||0)-bank0);if(got>0)tradeCash(got);}return out;};}
+if(typeof location!=='undefined'&&/[?&]tradeqa=1\b/.test(location.search))window.__tradeQa={state:()=>trade&&{kind:trade.kind,who:trade.who,pick:trade.pick,qty:trade.qty,price:trade.price,chance:trade.chance,answer:trade.answer,products:trade.products.length},
+ do:id=>{tradeDo(id);return window.__tradeQa.state();},price:v=>{if(trade){trade.price=v;tradeRender();}return window.__tradeQa.state();},
+ phone:i=>{selected=i;menu('thread',i);return window.__tradeQa.state();},cash:v=>{tradeCash(v);return true;}};
 {const crewUpdate=update;let tidyClock=0;update=function(dt){const r=crewUpdate.apply(this,arguments);try{if(s?.helpers?.cleaner&&s.workerEnabled?.cleaner!==false&&s.trash>0){tidyClock+=dt||0;if(tidyClock>12/staffPace(s,'cleaner')){tidyClock=0;s.trash=Math.max(0,(s.trash||0)-1);}}}catch(e){}return r;};}

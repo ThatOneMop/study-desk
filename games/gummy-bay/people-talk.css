@@ -36,3 +36,70 @@ body[data-panel] #modal.named-open{max-height:calc(100dvh - 150px)!important}
 #namedTalk button::before{content:none!important}
 @media (max-height:500px){body[data-panel] #modal.named-open{max-height:calc(100dvh - 24px)!important}}
 #namedTalk .named-line{margin:0;padding:6px 10px;border-left:3px solid #f2b84b;background:#ffffff0d;border-radius:4px}
+/* v175: relationship status bar (relationship-status.mjs) */
+.rel-status{display:flex;align-items:center;gap:8px;margin:2px 0 8px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
+.rel-status .rel-label{min-width:74px;color:var(--rel,#cfd3d6)}
+.rel-status .rel-bar{position:relative;flex:1;max-width:190px;height:8px;border-radius:5px;background:rgba(255,255,255,.12);overflow:hidden}
+.rel-status .rel-bar b{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--rel,#cfd3d6);transition:width .4s}
+.rel-status .rel-bar i{position:absolute;top:0;bottom:0;width:1px;background:rgba(0,0,0,.45)}
+.rel-status.is-compact{margin:0 0 6px}
+.rel-l0{--rel:#e0524f}.rel-l1{--rel:#ec9a4a}.rel-l2{--rel:#c9ccd0}.rel-l3{--rel:#7fd27a}.rel-l4{--rel:#f2c84b}
+.rel-row{margin:4px 0 10px}.rel-row small{display:block;opacity:.75;font-size:11px;margin-top:-4px}
+.talk-body .rel-status{margin-top:4px}
+#modal.named-open > .rel-row{display:none}
+/* v176: trading screen (trade-screen.mjs) */
+.trade{margin:6px 0 4px;display:grid;gap:9px}
+.trade-head{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.6px;opacity:.85}
+.trade-head span{font-weight:800;color:#f2b84b}
+.trade-cards{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.trade-card{flex:0 0 112px;display:grid;justify-items:start;gap:2px;padding:8px 9px;border-radius:9px;border:2px solid #ffffff1f;background:#ffffff0d;color:inherit;text-align:left;cursor:pointer}
+.trade-card.is-picked{border-color:var(--swatch,#f2b84b);background:#ffffff1a;box-shadow:0 0 0 3px #f2b84b22}
+.trade-card[disabled]{opacity:.35;cursor:default}
+.trade-card .trade-jar{width:22px;height:26px;border-radius:5px 5px 7px 7px;background:linear-gradient(#ffffff55 0 22%,var(--swatch,#f2b84b) 22%);box-shadow:inset 0 -4px #0003}
+.trade-card b{font-size:13px}.trade-card small{opacity:.7;font-size:11px}.trade-card em{font-style:normal;font-size:11px;color:#9fe39a}
+.trade-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.trade-row label{font-size:12px;opacity:.8}
+.trade-step{display:flex;align-items:center;gap:6px}
+.trade-step button{width:30px;height:30px;border-radius:8px;border:0;background:#ffffff22;color:inherit;font-size:18px;font-weight:800;cursor:pointer;padding:0}
+.trade-step button[disabled]{opacity:.3}
+.trade-step output{min-width:54px;text-align:center;font-weight:800;font-size:16px}
+.trade-slide{position:relative;flex-basis:100%;padding-top:16px}
+.trade-slide input{width:100%;accent-color:#f2b84b}
+.trade-fair{position:absolute;top:0;width:2px;height:34px;background:#9fe39a;transform:translateX(-1px);pointer-events:none}
+.trade-fair b{position:absolute;top:-2px;left:4px;white-space:nowrap;font-size:10px;color:#9fe39a}
+.trade-chance{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:12px}
+.trade-chance small{grid-column:1/-1;margin-top:-6px;opacity:.75}
+.trade-meter{height:10px;border-radius:6px;background:#ffffff1f;overflow:hidden}
+.trade-meter b{display:block;height:100%;border-radius:6px;transition:width .25s,background .25s}
+.trade-chance.chi .trade-meter b{background:#7fd27a}.trade-chance.cmid .trade-meter b{background:#f2c84b}.trade-chance.clo .trade-meter b{background:#e0524f}
+.trade-chance strong{font-size:16px}
+.trade-total{font-size:13px;text-align:right}.trade-total b{font-size:18px;color:#9fe39a}
+.trade-actions{display:flex;gap:8px;flex-wrap:wrap}
+.trade-actions button{flex:1;min-height:36px;border-radius:9px;border:0;background:#ffffff22;color:inherit;font-weight:700;cursor:pointer}
+.trade-actions .trade-go{background:#f2b84b;color:#1d1a12}
+.trade-say{margin:0;padding:7px 10px;border-left:3px solid #f2b84b;background:#ffffff0d;border-radius:4px}
+.trade-say.is-no{border-color:#e0524f}.trade-say.is-yes{border-color:#7fd27a}
+.trade button::before{content:none!important}
+.cash-handoff{position:fixed;left:50%;bottom:28%;transform:translateX(-50%);pointer-events:none;z-index:60;display:grid;justify-items:center}
+.cash-handoff b{font:900 34px/1 system-ui,sans-serif;color:#9fe39a;text-shadow:0 3px 0 #1a3a17,0 0 18px #7fd27a88;animation:cashPop 1.3s ease-out forwards}
+.cash-notes{position:relative;width:1px;height:1px}
+.cash-notes i{position:absolute;left:-22px;top:0;width:44px;height:22px;border-radius:3px;background:linear-gradient(90deg,#3f8f4a,#62b86b 50%,#3f8f4a);border:2px solid #2b6033;box-shadow:inset 0 0 0 3px #ffffff22;opacity:0;animation:cashFly 1.1s cubic-bezier(.2,.8,.3,1) var(--d) forwards}
+@keyframes cashFly{0%{opacity:0;transform:translate(0,-30px) rotate(0)}15%{opacity:1;transform:translate(var(--x),-60px) rotate(var(--r))}75%{opacity:1;transform:translate(calc(var(--x) + 15vw),22vh) rotate(var(--r)) scale(.55)}100%{opacity:0;transform:translate(calc(var(--x) + 16vw),25vh) scale(.35)}}
+@keyframes cashPop{0%{opacity:0;transform:scale(.4) translateY(10px)}18%{opacity:1;transform:scale(1.15)}30%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:translateY(-40px)}}
+@media (max-height:820px){.trade{gap:6px}.trade-card{flex-basis:96px;padding:6px 7px}.trade-step button{width:26px;height:26px}}
+.cash.cash-bump{animation:cashBump .5s ease-out}@keyframes cashBump{30%{transform:scale(1.25);color:#9fe39a}}
+body #overlay.phone #tradeBox{margin:8px 0 4px;padding:10px;border-radius:14px;background:#f3f3f6;color:#1d1d22;border:1px solid #e2e2e8}
+body #overlay.phone .trade-head{opacity:1}body #overlay.phone .trade-head span{color:#b7791f}
+body #overlay.phone .trade-card{background:#fff;border-color:#dcdce3;flex-basis:96px}
+body #overlay.phone .trade-card.is-picked{border-color:#34c759;box-shadow:0 0 0 3px #34c75933}
+body #overlay.phone .trade-card em,body #overlay.phone .trade-fair b{color:#1f8a3a}body #overlay.phone .trade-fair{background:#34c759}
+body #overlay.phone .trade-step button,body #overlay.phone .trade-actions button{background:#e4e4ea;color:#1d1d22}
+body #overlay.phone .trade-actions .trade-go{background:#34c759;color:#fff}
+body #overlay.phone .trade-meter{background:#e0e0e6}body #overlay.phone .trade-total b{color:#1f8a3a}
+body #overlay.phone .trade-say{background:#fff;color:#1d1d22}
+#modal.trading .talk-options,#modal.trading .deal-bubble,#modal.trading .counter-sheet{display:none}
+#modal.trading > #tradeBox{margin-top:10px}
+.trade-head small{opacity:.7;font-size:10px;letter-spacing:0}
+.cash-handoff{z-index:9999}
+body #overlay.phone .trade-actions button{font-size:12px;min-height:34px;padding:4px 6px}
+#modal.named-open > .trade-meet{display:none}.trade-meet .trade-cards{align-items:center}.trade-meet .trade-total{flex:1}
