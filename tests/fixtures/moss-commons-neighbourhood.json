@@ -1,0 +1,168 @@
+[
+  {
+    "level": 0,
+    "route": [
+      {
+        "kind": "house",
+        "p": 7
+      },
+      {
+        "kind": "house",
+        "p": 6
+      },
+      {
+        "kind": "orchard",
+        "p": 8
+      },
+      {
+        "kind": "well",
+        "p": 2
+      },
+      {
+        "kind": "garden",
+        "p": 5
+      },
+      {
+        "kind": "well",
+        "p": 1
+      },
+      {
+        "kind": "house",
+        "p": 3
+      }
+    ],
+    "timber": 2,
+    "services": [
+      {
+        "p": 3,
+        "water": true,
+        "food": true,
+        "served": true
+      },
+      {
+        "p": 6,
+        "water": true,
+        "food": true,
+        "served": true
+      },
+      {
+        "p": 7,
+        "water": true,
+        "food": true,
+        "served": true
+      }
+    ]
+  },
+  {
+    "level": 1,
+    "route": [
+      {
+        "kind": "path",
+        "p": 11
+      },
+      {
+        "kind": "house",
+        "p": 13
+      },
+      {
+        "kind": "garden",
+        "p": 6
+      },
+      {
+        "kind": "orchard",
+        "p": 14
+      },
+      {
+        "kind": "well",
+        "p": 8
+      },
+      {
+        "kind": "house",
+        "p": 5
+      },
+      {
+        "kind": "house",
+        "p": 1
+      },
+      {
+        "kind": "well",
+        "p": 0
+      }
+    ],
+    "timber": 0,
+    "services": [
+      {
+        "p": 1,
+        "water": true,
+        "food": true,
+        "served": true
+      },
+      {
+        "p": 5,
+        "water": true,
+        "food": true,
+        "served": true
+      },
+      {
+        "p": 13,
+        "water": true,
+        "food": true,
+        "served": true
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "route": [
+      {
+        "kind": "house",
+        "p": 11
+      },
+      {
+        "kind": "garden",
+        "p": 10
+      },
+      {
+        "kind": "well",
+        "p": 16
+      },
+      {
+        "kind": "house",
+        "p": 5
+      },
+      {
+        "kind": "house",
+        "p": 15
+      },
+      {
+        "kind": "orchard",
+        "p": 21
+      },
+      {
+        "kind": "well",
+        "p": 0
+      }
+    ],
+    "timber": 0,
+    "services": [
+      {
+        "p": 5,
+        "water": true,
+        "food": true,
+        "served": true
+      },
+      {
+        "p": 11,
+        "water": true,
+        "food": true,
+        "served": true
+      },
+      {
+        "p": 15,
+        "water": true,
+        "food": true,
+        "served": true
+      }
+    ]
+  }
+]
