@@ -86,10 +86,11 @@ export function buildContactBook({state={},contacts=[],strainNames=[]}={}){
   return Object.freeze({
    index,name,initial:name[0]||'?',
    role:text(contact?.role,48),
-   favourite:text(contact?.favourite,24),
+   favourite:text(contact?.favourite,40),
    line:text(last?.text,140)||text(contact?.line,140),
    band,deal:readDeal(state.deals,index,strainNames),
-   negotiating:thread?.status==='negotiating'
+   negotiating:thread?.status==='negotiating',
+   locked:contact?.locked===true
   });
  });
  const hired=!!state?.helpers?.seller;
@@ -124,7 +125,7 @@ export function contactBookHTML(book,esc=fallbackEsc){
   const deal=person.deal?'<p class="phone-deal-chip">Agreed · '+esc(person.deal.label)+'</p>':'';
   const talking=person.negotiating?'<p class="phone-deal-chip">Negotiating a price</p>':'';
   const favourite=person.favourite?'<small>Likes '+esc(person.favourite)+'</small>':'';
-  return '<article class="phone-contact" data-band="'+esc(person.band.id)+'"><header class="contact-heading"><span class="contact-initial" aria-hidden="true">'+esc(person.initial)+'</span><div><strong>'+esc(person.name)+'</strong><small>'+esc(person.role||'Customer')+'</small>'+favourite+'</div><b>'+person.band.score+'</b></header><div class="relation-meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+person.band.score+'" aria-label="'+esc(person.name)+' relationship '+person.band.score+' of 100, '+esc(person.band.label)+'"><i style="width:'+person.band.score+'%"></i></div><p class="relation-band">'+esc(person.band.label)+'</p><p>'+esc(person.line||'No messages yet.')+'</p>'+deal+talking+'<div class="order-actions"><button class="primary" onclick="menu(\'thread\','+person.index+')">Message</button><button class="ghost" onclick="trackCustomer('+person.index+')">Find</button></div></article>';
+  return '<article class="phone-contact" data-band="'+esc(person.band.id)+'"><header class="contact-heading"><span class="contact-initial" aria-hidden="true">'+esc(person.initial)+'</span><div><strong>'+esc(person.name)+'</strong><small>'+esc(person.role||'Customer')+'</small>'+favourite+'</div><b>'+person.band.score+'</b></header><div class="relation-meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+person.band.score+'" aria-label="'+esc(person.name)+' relationship '+person.band.score+' of 100, '+esc(person.band.label)+'"><i style="width:'+person.band.score+'%"></i></div><p class="relation-band">'+esc(person.band.label)+'</p><p>'+esc(person.line||'No messages yet.')+'</p>'+deal+talking+'<div class="order-actions">'+(person.locked?'<button class="primary" disabled title="Hand them a sample in person to unlock">🔒 Locked</button>':'<button class="primary" onclick="menu(\'thread\','+person.index+')">Message</button>')+'<button class="ghost" onclick="trackCustomer('+person.index+')">Find</button></div></article>';
  }).join('');
  const dealerCards=dealers.map(dealer=>{
   const where=dealer.area?'<small>'+esc(dealer.area)+'</small>':'';

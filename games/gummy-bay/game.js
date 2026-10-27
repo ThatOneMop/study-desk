@@ -99,17 +99,18 @@ import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
 import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=134';
-import {residentPlan,residentDescription,citizenRouteSteps,citizenRoute,segmentClear,curfewActive} from './resident-life.mjs?v=157';
+import {residentPlan,residentDescription,citizenRouteSteps,citizenRoute,segmentClear,curfewActive} from './resident-life.mjs?v=158';
 import {residentLocomotionClip,residentActionRate,applyResidentTransition} from './resident-animation.mjs?v=109';
 import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
+import {DEAL_SPOTS,WINDOW_MINUTES,GRACE_MINUTES,ON_TIME_BONUS,LATE_PENALTY,NO_SHOW_EXTRA,clockOf,windowOptions,fmtClock,windowLabel,nearestSpot,meetStatus,customerHeadsOut,meetOutcome,phaseText} from './deal-spots.mjs?v=158';
 import {STARTER_PROFILES,NEW_CUSTOMERS,STANDARD_LABEL,isUnlocked,vouchers,canSample,enjoymentOf,matchedEffects,fairPrice,appealOf,rankByAppeal,haggleChance,sampleChance,dealBonus} from './customer-roster.mjs?v=157';
-import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
+import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=158';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
 import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=156';
 import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=154';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
-import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=157';
+import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=158';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
 import {HORIZON_TREE_SITES,horizonSiteOutsideBounds,horizonViewGap,createDistrictHorizon} from './district-horizon.mjs?v=126';
 import {SKYLINE_LANDMARK_SITES,SKYLINE_APPROACHES,skylineFootprintOnSupport,createTownSkyline} from './town-skyline.mjs?v=126';
@@ -1054,11 +1055,11 @@ function resetSystems(){balanceFeedback.reset();if(typeof physicalCrafter!=='und
 const systemsLoad=load;load=function(...args){systemsLoad(...args);resetSystems();};window.loadGame=load;
 // Customer routes are deterministic, host-simulated and shared with guests.
 const customerHomes=CONTACTS.map(c=>({x:c.x,z:c.z}));
-function planForResident(i){return residentPlan(i,s.time,customerHomes[i],s.deals.some(d=>d.npc===i));}
+function planForResident(i){return residentPlan(i,s.time,customerHomes[i],meetPlanFor(i));}
 function residentStatus(i){return residentDescription(planForResident(i),CONTACTS[i],!!s.npcs[i]?.routeBlocked);}
 function updateCustomers(dt){for(let i=0;i<CONTACTS.length;i++){const c=CONTACTS[i],g=people[i],oldX=c.x,oldZ=c.z;
  if(net.role==='guest'){let p=s.npcs[i];if(p&&Number.isFinite(p.x)&&Number.isFinite(p.z)){c.x+=(p.x-c.x)*Math.min(1,dt*10);c.z+=(p.z-c.z)*Math.min(1,dt*10);}}
- else{const target=residentPlan(i,s.time,customerHomes[i],s.deals.some(d=>d.npc===i));const status=moveCustomerTo(c,i,target,dt);s.npcs[i]={x:c.x,z:c.z,routeBlocked:status==='blocked'};}
+ else{const target=residentPlan(i,s.time,customerHomes[i],meetPlanFor(i));const status=moveCustomerTo(c,i,target,dt);s.npcs[i]={x:c.x,z:c.z,routeBlocked:status==='blocked'};}
  let moving=Math.hypot(c.x-oldX,c.z-oldZ)>.0001;g.position.set(c.x,0,c.z);if(moving)g.rotation.y=turnTowards(g.rotation.y,Math.atan2(c.x-oldX,c.z-oldZ),dt);else if(Math.hypot(player.x-c.x,player.z-c.z)<3.5)g.rotation.y=turnTowards(g.rotation.y,Math.atan2(player.x-c.x,player.z-c.z),dt,5);g.userData.walking=moving;let p=points.find(p=>p.type==='customer'&&p.i===i);p.x=c.x;p.z=c.z;for(let [j,leg]of (g.userData.legs||[]).entries())leg.rotation.x=moving?Math.sin(now*7+j*Math.PI)*.35:0;
  if(track?.npc===i){track=projectTrackedCustomer(track,CONTACTS,{guest:net.role==='guest',connected:net.connected,moving,blocked:!!s.npcs[i]?.routeBlocked});if(track&&Math.hypot(player.x-c.x,player.z-c.z)<=2.8&&customerExchangeStatus(i).ok){toast('You found '+c.name+'.');track=null;}}}
 }
@@ -2611,7 +2612,7 @@ if(typeof createTownAudio==='function')try{
 // Contacts and deal satisfaction read the existing relationship score. Street
 // dealers stay absent unless the simulation supplies state.dealers.
 function contactSource(){
- return buildContactBook({state:s,strainNames:STRAINS.map(item=>item.name),contacts:CONTACTS.map((contact,index)=>({name:contact.name,line:contact.line,role:customerVoice(index).role,favourite:INGREDIENTS[index%INGREDIENTS.length].effect}))});
+ return buildContactBook({state:s,strainNames:STRAINS.map(item=>item.name),contacts:CONTACTS.map((contact,index)=>({name:contact.name,line:contact.line,role:customerVoice(index).role,favourite:contact.effects?rosterEffectNames(contact.effects).join(', '):INGREDIENTS[index%INGREDIENTS.length].effect,locked:typeof isUnlocked==='function'?!isUnlocked(s,index):false}))});
 }
 function insertBeforePhoneNav(fragment){
  const html=$('modal').innerHTML,at=html.indexOf('<nav class="device-keys"');
@@ -4807,7 +4808,7 @@ const rosterAction=doAction;doAction=function(k,a,b,c){
   if(d&&bonus&&s.sold>sold&&bonus.mult>1){
    const base=d.price*d.qty,extra=Math.round(base*(bonus.mult-1));
    if(s.bank>bank0&&s.cash<=cash0)s.bank+=extra;else s.cash+=extra;
-   s.earned+=extra;const ls=s.threads?.[a]?.lastSale;if(ls)ls.total+=extra;
+   s.earned+=extra;const ls=s.threads?.[a]?.lastSale;if(ls)ls.total+=extra;record('Delivery bonus · '+who.name+' · '+bonus.labels.map(x=>x.split(' · ')[0]).join(' + '),extra);
    toast('Bonus +'+cash(extra)+' · '+bonus.labels.map(x=>x.split(' · ')[0]).join(' · '));save();
   }
   return;
@@ -4860,3 +4861,120 @@ window.__roster={rows:()=>rosterAppealRows().map(r=>({name:r.name,chance:r.chanc
  stage:(t=0,extra=6)=>{if(!active)return null;s.packs[t]=Math.max(s.packs[t]||0,8);s.listing={t,qty:3,price:value(t)+extra};return window.__roster.rows();},
  locked:()=>CONTACTS.map((c,i)=>({name:c.name,locked:!isUnlocked(s,i),sample:canSample(s,CONTACTS,i)})),
  sampleChance:(i,t=0)=>rosterSampleChance(i,t),bonus:()=>rosterBonus(null),haggle:(i,p)=>rosterHaggle(i,p)};
+
+// v158: Schedule I-style meetups. Agreed orders get a named spot and a time window (changeable in Deals
+// until it starts). The customer heads there for the window; on time +2, late −6, no-show −8 relationship.
+var meetSpotCache=null,meetPicking=-1,meetMarks=null;
+function meetSpots(){
+ if(meetSpotCache)return meetSpotCache;
+ const clear=(x,z)=>{try{return !blocked(x,z)&&!blocked(x+.8,z)&&!blocked(x,z+.8);}catch{return true;}};
+ const list=DEAL_SPOTS.map(p=>{if(clear(p.x,p.z))return {...p};for(let r=1;r<=10;r++)for(let k=0;k<12;k++){const a=k*Math.PI/6,x=p.x+Math.cos(a)*r,z=p.z+Math.sin(a)*r;if(clear(x,z))return {...p,x,z};}return {...p};});
+ if(active)meetSpotCache=list;
+ return list;
+}
+function meetDeal(i){return (s.deals||[]).find(d=>d.npc===i);}
+function meetPlanFor(i){
+ const d=meetDeal(i);if(!d)return false;
+ if(!Number.isFinite(d.from))return true;
+ if(!customerHeadsOut(d,rosterNow()))return false;
+ const p=meetSpots()[d.spot]||meetSpots()[0];return {x:p.x,z:p.z,label:p.name};
+}
+function meetSay(i,text){const t=s.threads?.[i];if(t&&Array.isArray(t.messages))t.messages.push({mine:false,text});}
+function meetWindowText(d){return windowLabel({from:d.from,to:d.to},rosterNow());}
+function meetPlan(d){
+ const now=rosterNow(),home=customerHomes[d.npc]||CONTACTS[d.npc]||{x:0,z:0},w=windowOptions(now)[0];
+ d.spot=nearestSpot(meetSpots(),home.x,home.z);d.from=w.from;d.to=w.to;d.due=w.to+GRACE_MINUTES;
+ meetSay(d.npc,'Let’s meet at '+meetSpots()[d.spot].name+', '+meetWindowText(d)+'. Change the spot or time in Deals before then.');
+}
+function meetChip(d){const st=meetStatus(d,rosterNow());return '<span class="meet-chip" data-phase="'+st.phase+'">'+esc(phaseText(st))+'</span>';}
+function meetCardHTML(d){
+ const c=CONTACTS[d.npc],p=meetSpots()[d.spot]||meetSpots()[0],st=meetStatus(d,rosterNow()),far=Math.round(Math.hypot(player.x-p.x,player.z-p.z));
+ const item=STRAINS[d.t]?.name||'Gummies',picking=meetPicking===d.npc&&st.phase==='upcoming';
+ let h='<article class="meet-card" data-phase="'+st.phase+'"><header><strong>'+esc(c.name)+'</strong>'+meetChip(d)+'</header><p>'+d.qty+'× '+esc(item)+' · '+cash(d.price*d.qty)+'</p><p class="meet-where">📍 <b>'+esc(p.name)+'</b> · '+esc(meetWindowText(d))+'</p><p class="note">'+esc(p.hint)+' · '+far+' m away</p><div class="meet-actions"><button class="primary" onclick="trackMeet('+d.npc+')">Track</button>'+(st.phase==='upcoming'?'<button class="ghost" onclick="meetPick('+d.npc+')">'+(picking?'Done':'Change')+'</button>':'')+'</div>';
+ if(picking){
+  const wins=windowOptions(rosterNow());
+  h+='<div class="meet-pick"><small>Spot</small><div class="meet-options">'+meetSpots().map((q,j)=>'<button class="'+(j===d.spot?'on':'')+'" onclick="meetSet('+d.npc+','+j+',-1)">'+esc(q.name)+'<small>'+Math.round(Math.hypot(player.x-q.x,player.z-q.z))+' m</small></button>').join('')+'</div><small>Time window</small><div class="meet-options">'+wins.map(w=>'<button class="'+(w.from===d.from?'on':'')+'" onclick="meetSet('+d.npc+',-1,'+w.id+')">'+esc(windowLabel(w,rosterNow()))+'</button>').join('')+'</div></div>';
+ }
+ return h+'</article>';
+}
+function meetBoardHTML(){
+ const deals=(s.deals||[]).filter(d=>CONTACTS[d.npc]&&Number.isFinite(d.from)).sort((a,b)=>a.from-b.from);
+ return '<section class="meet-board" aria-label="Meetups"><div class="overline">MEETUPS · '+fmtClock(rosterNow())+'</div>'+(deals.length?deals.map(meetCardHTML).join(''):'<p>No meetups booked. Agree an order in Messages and pick a spot and time here.</p>')+'<p class="note">Be there during the window. Late hand-offs cost −'+LATE_PENALTY+' relationship and a no-show costs −'+(5+NO_SHOW_EXTRA)+'.</p></section>';
+}
+function trackMeet(i){const d=meetDeal(i);if(!d||!Number.isFinite(d.from))return trackCustomer(i);const p=meetSpots()[d.spot];track={x:p.x,z:p.z,label:p.name};close();toast('Tracking '+p.name+' · '+CONTACTS[i].name+' '+meetWindowText(d));}
+function meetPick(i){meetPicking=meetPicking===i?-1:i;menu('deals');}
+function meetSet(i,spot,win){action('meet',i,spot,win);if(panel==='deals')menu('deals');}
+Object.assign(window,{trackMeet,meetPick,meetSet});
+ACTION_NAMES.push('meet');
+const meetAction=doAction;doAction=function(k,a,b,c){
+ if(k==='meet'){
+  const d=meetDeal(a);if(!d||!Number.isFinite(d.from))return;
+  if(meetStatus(d,rosterNow()).phase!=='upcoming'){toast('That meetup has already started.');return;}
+  const spots=meetSpots();if(Number.isInteger(b)&&b>=0&&b<spots.length)d.spot=b;
+  const w=windowOptions(rosterNow()).find(x=>x.id===c);if(w){d.from=w.from;d.to=w.to;d.due=w.to+GRACE_MINUTES;}
+  meetSay(a,'Okay, '+spots[d.spot].name+', '+meetWindowText(d)+'. See you there.');
+  save();if(!processingRemote)toast('Meetup: '+spots[d.spot].name+' · '+meetWindowText(d));return;
+ }
+ if(k==='deliver'&&CONTACTS[a]){
+  const d=meetDeal(a);
+  if(d&&Number.isFinite(d.from)){
+   const out=meetOutcome(d,rosterNow()),p=meetSpots()[d.spot];
+   if(!out.ok){toast(out.phase==='early'?CONTACTS[a].name+' will meet you at '+p.name+' from '+fmtClock(d.from)+'.':CONTACTS[a].name+' has left.');return;}
+   const sold=s.sold;meetAction(k,a,b,c);
+   if(s.sold>sold&&out.relation<0){s.relations[a]=Math.max(0,Math.min(100,relationship(a)+out.relation));meetSay(a,'You kept me waiting. Don’t make it a habit.');toast('Late at '+p.name+' · '+out.relation+' relationship');save();}
+   return;
+  }
+ }
+ const before=new Set(s.deals||[]);
+ const r=meetAction(k,a,b,c);
+ if((k==='text'||k==='offer')&&Array.isArray(s.deals))for(const d of s.deals)if(!before.has(d)&&!Number.isFinite(d.from)&&CONTACTS[d.npc]){meetPlan(d);save();}
+ return r;
+};
+const meetProduction=production;production=function(dt){
+ const now=rosterNow(),gone=(s.deals||[]).filter(d=>Number.isFinite(d.from)&&d.due&&now>d.due);
+ meetProduction(dt);
+ for(const d of gone)if(!s.deals.includes(d)&&CONTACTS[d.npc]){const p=meetSpots()[d.spot];s.relations[d.npc]=Math.max(0,relationship(d.npc)-NO_SHOW_EXTRA);toast(CONTACTS[d.npc].name+' waited at '+(p?.name||'the spot')+' but you never came · −'+(5+NO_SHOW_EXTRA)+' relationship');}
+};
+const meetPaint=paintTownMap;paintTownMap=function(ctx,w,h,local=false){
+ const r=meetPaint(ctx,w,h,local);
+ try{
+  const scale=local?travelMapScale(driving):Math.min(w/740,h/700),cx=local?player.x:0,cz=local?player.z:(WORLD.minZ+95)/2,center={x:cx,z:cz};
+  const live=new Map();for(const d of s.deals||[])if(Number.isFinite(d.from)&&CONTACTS[d.npc])live.set(d.spot,d);
+  meetSpots().forEach((p,j)=>{
+   const q=local?projectMapPoint(p,center,scale,w,h,4):{x:w/2+(p.x-cx)*scale,y:h/2+(p.z-cz)*scale};if(!q)return;
+   const d=live.get(j);ctx.lineWidth=2;ctx.strokeStyle=d?'#3b2a10':'#f6edd3';ctx.fillStyle=d?'#ffb547':'rgba(246,237,211,.35)';
+   ctx.beginPath();ctx.arc(q.x,q.y-(d?6:0),d?5:3,0,7);ctx.fill();ctx.stroke();
+   if(d){ctx.beginPath();ctx.moveTo(q.x-4,q.y-4);ctx.lineTo(q.x,q.y+2);ctx.lineTo(q.x+4,q.y-4);ctx.fill();ctx.font='bold '+(local?9:10)+'px sans-serif';ctx.fillStyle='#fff3d1';ctx.textAlign='center';ctx.fillText(p.name+' · '+CONTACTS[d.npc].name,q.x,q.y-14);ctx.textAlign='start';}
+  });
+  r.meetSpots=live.size;
+ }catch(e){}
+ return r;
+};
+function meetMarkers(){
+ if(!active){if(meetMarks)meetMarks.forEach(m=>m.visible=false);return;}
+ if(!meetMarks){
+  const ringG=new THREE.RingGeometry(.9,1.25,24),beamG=new THREE.CylinderGeometry(.12,.12,7,8,1,true);
+  const ringM=new THREE.MeshBasicMaterial({color:0xffb547,transparent:true,opacity:.85,side:THREE.DoubleSide,depthWrite:false});
+  const beamM=new THREE.MeshBasicMaterial({color:0xffd27a,transparent:true,opacity:.32,depthWrite:false});
+  meetMarks=meetSpots().map(p=>{const g=new THREE.Group(),ring=new THREE.Mesh(ringG,ringM),beam=new THREE.Mesh(beamG,beamM);ring.rotation.x=-Math.PI/2;ring.position.y=.06;beam.position.y=3.5;g.add(ring,beam);g.position.set(p.x,floorHeight(p.x,p.z),p.z);g.visible=false;g.userData.meetSpot=p.id;scene.add(g);return g;});
+ }
+ const now=rosterNow(),on=new Set();for(const d of s.deals||[])if(Number.isFinite(d.from)&&meetStatus(d,now).phase!=='gone')on.add(d.spot);
+ meetMarks.forEach((g,j)=>{g.visible=on.has(j);if(g.visible){const k=1+Math.sin(performance.now()/300)*.08;g.children[0].scale.set(k,k,1);}});
+}
+const meetUpdate=update;update=function(dt){meetUpdate(dt);try{meetMarkers();}catch(e){}};
+const meetMenu=menu;menu=function(which,data){
+ meetMenu(which,data);
+ if(!active)return;
+ try{
+  if(which==='deals'){const m=$('modal'),html=m.innerHTML,at=html.indexOf('</h2>');if(at<0)insertAfterClose(meetBoardHTML());else m.innerHTML=html.slice(0,at+5)+meetBoardHTML()+html.slice(at+5);return;}
+  if(which==='thread'){const i=Number.isInteger(data)?data:selected,d=meetDeal(i);if(d&&Number.isFinite(d.from))insertAfterClose('<section class="meet-board">'+meetCardHTML(d)+'</section>');}
+ }catch(e){console.warn('Meetup panel skipped',e);}
+};window.menu=menu;
+window.__meet={spots:()=>meetSpots().map(p=>({id:p.id,name:p.name,x:+p.x.toFixed(1),z:+p.z.toFixed(1)})),
+ status:i=>{const d=meetDeal(i);return d?{spot:d.spot,from:d.from,to:d.to,due:d.due,...meetStatus(d,rosterNow()),plan:meetPlanFor(i)}:null;},
+ stage:(i=1,spot=null,win=0,pick=false)=>{if(!active)return null;s.deals=s.deals.filter(d=>d.npc!==i);s.packs[0]=Math.max(s.packs[0]||0,6);const d={npc:i,t:0,qty:3,price:36};s.deals.push(d);s.threads[i]??={messages:[],status:'agreed',t:0,qty:3};meetPlan(d);if(Number.isInteger(spot))d.spot=spot;const w=windowOptions(rosterNow())[win];if(w){d.from=w.from;d.to=w.to;d.due=w.to+GRACE_MINUTES;}if(pick)meetPicking=i;return window.__meet.status(i);},
+ arrive:i=>{const pl=meetPlanFor(i);if(!pl||pl===true)return null;const c=CONTACTS[i];c.x=pl.x+1.2;c.z=pl.z;people[i].position.set(c.x,0,c.z);return {x:c.x,z:c.z};},
+ look:(j,dist=9,side=.6)=>{const p=meetSpots()[j];if(!p)return null;close();const open=a=>{for(let t=.15;t<=1;t+=.05)if(blocked(p.x+Math.sin(a)*dist*t,p.z+Math.cos(a)*dist*t))return false;return true;};for(let k=0;k<24;k++){const a=side+k*Math.PI/12;if(open(a)){side=a;break;}}player.set(p.x+Math.sin(side)*dist,1.62+floorHeight(p.x,p.z),p.z+Math.cos(side)*dist);pitch=-.1;yaw=Math.atan2(player.x-p.x,player.z-p.z);syncPlayerView();return {x:p.x,z:p.z};},
+ calls:()=>renderer.info.render.calls,
+ skip:min=>{s.time+=min;while(s.time>=1440){s.time-=1440;s.day++;}return rosterNow();},
+ markers:()=>meetMarks?meetMarks.filter(g=>g.visible).length:0};

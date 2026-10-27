@@ -20,6 +20,7 @@ export const ROUTINES=[
  routine({place:'waterfront',activity:'drink',line:'Best place in town for a quiet morning.'},{place:'garden',activity:'browse',line:'A walk past Milo’s makes the day feel less rushed.'},{place:'waterfront',activity:'phone',line:'One last stop before the walk home.'})
 ];
 export function residentPlan(index,time,meeting,hasDeal=false){
+ if(hasDeal&&typeof hasDeal==='object'&&Number.isFinite(hasDeal.x)&&Number.isFinite(hasDeal.z))return {x:hasDeal.x,z:hasDeal.z,label:hasDeal.label||'the agreed meeting spot',activity:'waiting',line:'I’m at '+(hasDeal.label||'the spot')+' for our meetup.',meeting:true};
  if(hasDeal)return {...meeting,label:'the agreed meeting spot',activity:'waiting',line:'I’ve kept time for your delivery. See you at our usual spot.',meeting:true};
  const minute=((Number.isFinite(time)?time:540)%1440+1440)%1440;
  const entries=ROUTINES[index%ROUTINES.length]||ROUTINES[0];let chosen=entries[0];for(const entry of entries)if(entry.at<=minute)chosen=entry;
