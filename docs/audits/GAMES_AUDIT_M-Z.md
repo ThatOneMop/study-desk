@@ -473,3 +473,47 @@ Left at the before scores, on purpose:
 ![Scrap Orbit, lunchbox beside the dock](shots/scrap-orbit-after.jpg)
 
 ![Grime Time, contract 1 already half clear](shots/nightshift-wash-after.jpg)
+
+## Round 2, the fun pass
+
+Played again after the first-minute pass. **Before** here is that pass’s fun score. **After** is this round. Quality is unchanged. Third-party games (the micro hub, Pac-Man, Radius Raid) were not retouched. Saves stay on version 1.
+
+| Game | Fun before | Fun after | What makes the next minute better |
+| --- | --- | --- | --- |
+| The Quiet Cut | 4 | 7 | Chapter 1 is three wide cuts. The blade slows inside the green, then the guide steps to the other side. Later chapters drift the guide. A streak of three is called out, and the bench shakes. Sound starts on. |
+| Tidal Glass | 5 | 7 | Chapter 1 banks 4 treasures. Jellyfish only nudge you. Pearls are worth two. The surface station lights up when the hold is full. |
+| Orchard Atelier | 5 | 7 | Chapter 1 has no spoiled fruit and a goal of 6. Golden pears are marked 3 and sparkle on the way down. Every third catch is a bushel bonus. |
+| Velvet Circuit | 5 | 7 | Chapter 1 is a triangle of bumpers and 4 hits. A streak of three pays double and flashes the bumper. From chapter 3 a bumper drifts across the table. |
+| Storm Signal | 5 | 6 | Each call has a boat. It sails out while the job is open, glows when it is home, and the quay says the harbour answered. The codes are still the puzzle, so this stays a 6. |
+| Pocket Expedition | 5 | 6 | The path from camp is a colored bar, and the site you are considering names the ground and whether this weather makes it riskier, with a reminder you can turn back. The graph is unchanged, so this stays a 6. |
+| Rain Catcher | 5 | 6 | Wet tiles grow a drop, a preview tile shows an arrow, and a garden that has drunk its fill glows. The village map is the same, so old records still replay. This stays a 6. |
+| Queen of Cinders | 6 | 7 | Open soil shows marching ants, and assigned workers walk the connected tunnels. A brood row fills as hatchlings arrive. Trails pulse, fire flickers, and a dig pops. |
+| Moss Market | 6 | 7 | Visitors stand at the stall. A ready order pulses. Deliver while the neighbour is smiling and the tip jar fills; six coins and the regulars queue. Stock stays on the save’s own rules. |
+| Spore Kitchen | 6 | 7 | Beds take the colour of the mushroom. Orders show earth, glow and heat. A perfect plate is called out, and the service counts perfect plates toward 3. |
+| Stone Song | 6 | 7 | Hear the seam plays the engraving you are aiming at, one beat at a time, before you perform. |
+| Salt & Sail | 6 | 7 | The hull leans with the cargo, a wake appears at speed, and a clear-water streak counts the seconds without a knock. |
+| Static Orchard | 6 | 7 | The charge ring grows on the fruit and flashes when it is full. A chain shakes the grove and prints CHAIN ×n. |
+| Grime Time, Rent, Garden, Leaves, Parcel, Magnet, Slime | 6 | 7 | Streaks tip, and from contract 2 a piece turns gold. Each job also has its own trick: a clean row pays a stripe, glass breaks faster, every fourth gnome flares the lantern and a red hat takes two sweeps, gusts shove the leaves (the wrong way from contract 3), the matching bay lights up and a streak calls an express parcel, the heavy scrap pays extra on a slack line, and nearby crumbs chain. |
+| Nightshift lobby | 6 | 7 | The lobby says streaks tip and golden scrap pays double, so the next contract has a reason. |
+| Moonwell | 6 | 7 | The shot leaves a trail. A landing is called out. Chapter 3 adds a second world to bend around. Sound starts on. |
+| Pocket Palaeo, Ratchet Run, Paper Odyssey, Reefwright, Wellward | 6 | 7 | Digs throw dust, landings puff, folds flash, plantings ripple, and a calm cable glows. Each one has a streak you can see. |
+| Scrap Sandwich, One More Metre, Mothlight | 7 | 8 | Same streak and gold. A perfect press widens the green zone and a wide zone pays a bonus bale. A gem glitters on the next rocks, and those pay extra. A streak of three calls a moon moth worth more. |
+| Scrap Orbit | 7 | 8 | A dashed line runs from the coupled cargo to the beacon. A delivery bursts, and an untouched hull is a gentle docking. |
+| Threadbound | 7 | 8 | Landings throw dust. Hooking two pins without a fall starts a stitch streak. |
+| Roof Runner, Tidepost, Underleaf, Tiny Wilds, Tea for Ghosts, Lost & Found on the Moon | 7 | 8 | Roof landings and parcels pop, the ferry leaves a wake, digs fling dirt, the bobber splashes, steam sits on the cup, and the winch throws sparks. Each has a small streak or a thank-you. |
+
+Pac-Man, Radius Raid and the ABA microgames stay retired.
+
+![The Quiet Cut, wide green guide](shots/round2/quiet-cut.jpg)
+
+![Velvet Circuit, three bumpers](shots/round2/velvet.jpg)
+
+![Tidal Glass, station and glass](shots/round2/tidal.jpg)
+
+![Orchard Atelier, marked pears](shots/round2/orchard.jpg)
+
+![Queen of Cinders, trails on the soil](shots/round2/queen.jpg)
+
+![Moss Market, visitors at the stall](shots/round2/moss.jpg)
+
+![Nightshift, a streak on the job](shots/round2/nightshift.jpg)
