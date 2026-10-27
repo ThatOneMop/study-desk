@@ -408,8 +408,12 @@ body {
 	margin-bottom:-3.5px;
 }
 
+#socialShare,
+.rrssb-buttons{
+	display:none !important;
+}
 #socialShare{
-	display:none;
+	display:none !important;
 	margin:0;
 	padding:0;
 	bottom:0;

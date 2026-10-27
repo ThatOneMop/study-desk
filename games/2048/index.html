@@ -5,6 +5,13 @@
   <title>2048</title>
 
   <link href="style/main.css" rel="stylesheet" type="text/css">
+  <style>
+    .desk-actions{clear:both;display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+    .desk-actions .restart-button,.pause-2048{float:none;display:inline-block;width:auto;margin:0}
+    .pause-2048{background:#bbada0;border-radius:3px;padding:0 20px;text-decoration:none;color:#f9f6f2;height:40px;line-height:42px;text-align:center}
+    body.paused-2048 .game-container{opacity:.45}
+    .game-explanation{margin-top:18px}
+  </style>
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
   <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
@@ -28,7 +35,6 @@
 
     <div class="above-game">
       <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-      <a class="restart-button">New Game</a>
     </div>
 
     <div class="game-container">
@@ -72,9 +78,15 @@
       </div>
     </div>
 
-    <p class="game-explanation">
-      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
-    </p>
+    <div class="desk-actions">
+      <a class="restart-button">New Game</a>
+      <a class="pause-2048" id="pause-2048" href="#">Pause</a>
+    </div>
+
+    <details class="game-explanation">
+      <summary>How to play</summary>
+      <p>Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong> Esc pauses. R still starts a new game.</p>
+    </details>
     <hr>
     <p>This is a bundled copy of Gabriele Cirulli’s 2048. <a href="https://github.com/gabrielecirulli/2048" target="_blank" rel="noopener">Original source</a>.</p>
     <hr>
@@ -93,5 +105,26 @@
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
+  <script>
+    (function () {
+      var paused = false;
+      var btn = document.getElementById("pause-2048");
+      function setPaused(on) {
+        paused = on;
+        window.studyDesk2048Paused = on;
+        document.body.classList.toggle("paused-2048", on);
+        if (btn) btn.textContent = on ? "Resume" : "Pause";
+      }
+      if (btn) btn.addEventListener("click", function (event) {
+        event.preventDefault();
+        setPaused(!paused);
+      });
+      window.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape" || event.altKey || event.ctrlKey || event.metaKey) return;
+        event.preventDefault();
+        setPaused(!paused);
+      });
+    }());
+  </script>
 </body>
 </html>

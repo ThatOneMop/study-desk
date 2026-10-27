@@ -13,7 +13,7 @@
   leap:{name:'Margin note',cost:2,kind:'leap',range:2,text:'Jump to a square within two steps. Ignore shelves en route.'}
  };
  const chapters=[
-  {name:'The Returned Letter',story:'Someone has been returning letters to an address that no longer exists.',walls:[8,9,14,20,26],pages:[24,13,16,4],wells:[18,10],blots:[19,22,28],limit:22,par:14,color:'#9ee5d0'},
+  {name:'The Returned Letter',story:'Someone has been returning letters to an address that no longer exists. This first wing has no ink blots. Collect the pages, then the exit.',walls:[8,9,14,20,26],pages:[24,13,16,4],wells:[18,10],blots:[],limit:22,par:14,color:'#9ee5d0'},
   {name:'Atlas of Quiet Rooms',story:'The mapmaker drew rooms that only appear when nobody is speaking.',walls:[7,8,19,20,21,27],pages:[25,12,15,11],wells:[24,16],blots:[13,22,29,3],limit:20,par:10,color:'#e6c18b'},
   {name:'The Rain Catalogue',story:'A thousand years of rain, indexed by the things it almost washed away.',walls:[10,13,14,22,25,26],pages:[24,18,16,3],wells:[12,17],blots:[6,15,21,28,4],limit:22,par:12,color:'#a6cdeb'},
   {name:'Margins of a Giant',story:'A giant wrote a tiny apology. It takes a whole wing to contain it.',walls:[7,9,14,19,21,28],pages:[31,12,16,2],wells:[24,11],blots:[13,15,23,27,4],limit:23,par:13,color:'#d7b4e8'},

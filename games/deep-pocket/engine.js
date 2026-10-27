@@ -9,7 +9,7 @@
   {name:'Moon Koi',value:42,color:'#e6d4a0',pattern:[35,-10,30,0],habit:'Big runs alternate with breathing room.'}
  ];
  const chapters=[
-  {name:'The Paper Jetty',story:'Help Nori restock her little fish stall, and return a Lantern Dace to the jetty reeds.',current:0,cash:30,release:1,survey:0,contract:{fish:0,choice:'release'},par:4,color:'#dbbe77'},
+  {name:'The Paper Jetty',story:'Nori only needs one Lantern Dace for the stall today. Keep it. The nursery tasks start on the next trip.',current:0,cash:12,release:0,survey:0,contract:{fish:0,choice:'keep'},par:4,color:'#dbbe77'},
   {name:'Copper Reeds',story:'Record a Glass Loach, then return a Ribbon Perch to the reed nursery.',current:2,cash:55,release:1,survey:2,contract:{fish:1,choice:'release'},par:4,color:'#d49b76'},
   {name:'Blue Sink',story:'Tag and release the protected Velvet Pike, leaving another species swimming too.',current:4,cash:65,release:2,survey:4,contract:{fish:4,choice:'release'},par:5,color:'#8fc0d3'},
   {name:'Threadwater',story:'Survey the Copper Bream and return a Ribbon Perch before the channels close.',current:5,cash:80,release:2,survey:3,contract:{fish:1,choice:'release'},par:5,color:'#c5b4dc'},
@@ -17,11 +17,11 @@
  ];
  const spots=['Reed edge','Old pilings','Open pocket'],depths=['Shallow','Midwater','Deep'],habitat=[[0,1,2],[1,3,4],[2,4,5]],costs={grip:3,spool:3};
  const clone=o=>JSON.parse(JSON.stringify(o)),integer=(v,a,b)=>Number.isInteger(v)&&v>=a&&v<=b;
- function fresh(index,p){return{index,rules:2,plan:'balanced',status:'active',phase:'choose',spot:0,depth:0,casts:0,records:[],fight:null,stars:0,equipment:clone(p.upgrades),message:'Choose a field brief, bank and depth, then cast. Nothing moves until you choose an action.'}}
+ function fresh(index,p){return{index,rules:2,plan:'balanced',status:'active',phase:'choose',spot:0,depth:0,casts:0,records:[],fight:null,stars:0,equipment:clone(p.upgrades),message:index===0?'The reed edge is shallow. Cast, then keep the Lantern Dace.':'Choose a field brief, bank and depth, then cast. Nothing moves until you choose an action.'}}
  function create(){const profile={coins:0,best:[0,0,0,0,0],upgrades:{grip:false,spool:false},seen:[false,false,false,false,false,false]};return{version:1,profile,run:fresh(0,profile)}}
  function plan(o){return o.run.plan||'balanced'}
  function requirements(o){const c=chapters[o.run.index];return plan(o)==='conservation'?{cash:Math.max(0,c.cash-20),release:Math.min(3,c.release+1)}:{cash:c.cash,release:c.release}}
- function totals(o){const r=o.run.records,c=chapters[o.run.index];return{cash:r.filter(x=>x.choice==='keep').reduce((v,x)=>v+fish[x.fish].value,0),released:new Set(r.filter(x=>x.choice==='release').map(x=>x.fish)).size,escapes:r.filter(x=>x.choice==='escape').length,survey:r.some(x=>x.fish===c.survey&&x.choice!=='escape'),contract:o.run.rules!==2||r.some(x=>x.fish===c.contract.fish&&x.choice===c.contract.choice)}}
+ function totals(o){const r=o.run.records,c=chapters[o.run.index];return{cash:r.filter(x=>x.choice==='keep').reduce((v,x)=>v+fish[x.fish].value,0),released:new Set(r.filter(x=>x.choice==='release').map(x=>x.fish)).size,escapes:r.filter(x=>x.choice==='escape').length,survey:r.some(x=>x.fish===c.survey&&x.choice!=='escape'),contract:o.run.index===0||o.run.rules!==2||r.some(x=>x.fish===c.contract.fish&&x.choice===c.contract.choice)}}
  function efficiencyTarget(o){const c=chapters[o.run.index];return o.run.rules===2?c.par:c.release+3}
  function ready(o){const t=totals(o),r=requirements(o);return t.cash>=r.cash&&t.released>=r.release&&t.survey&&t.contract}
  function prediction(o,spot=o.run.spot,depth=o.run.depth,ahead=0){if(!integer(spot,0,2)||!integer(depth,0,2)||!integer(ahead,0,2))return null;return(habitat[spot][depth]+(o.run.casts+ahead)%3)%6}

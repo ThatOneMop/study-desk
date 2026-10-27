@@ -18,7 +18,9 @@
                 mouseY         = undefined,
                 maze           = undefined, 
                 mazeMesh       = undefined,
-                mazeDimension  = 11,
+                mazeDimension  = 7,
+                levelNumber    = 1,
+                paused         = false,
                 planeMesh      = undefined,
                 ballMesh       = undefined,
                 ballRadius     = 0.25,
@@ -89,7 +91,7 @@
                         }
                     }
                 }
-                var material = new THREE.MeshPhongMaterial({map: brickTexture});
+                var material = new THREE.MeshBasicMaterial({map: brickTexture});
                 var mesh = new THREE.Mesh(dummy, material)
                 return mesh;
             }
@@ -107,8 +109,9 @@
                 
                 // Add the ball.
                 g = new THREE.SphereGeometry(ballRadius, 32, 16);
-                m = new THREE.MeshPhongMaterial({map:ironTexture});
+                m = new THREE.MeshBasicMaterial({map:ironTexture});
                 ballMesh = new THREE.Mesh(g, m);
+                ballMesh.frustumCulled = false;
                 ballMesh.position.set(1, 1, ballRadius);
                 scene.add(ballMesh);
 
@@ -120,14 +123,16 @@
 
                 // Add the maze.
                 mazeMesh = generate_maze_mesh(maze);
+                mazeMesh.frustumCulled = false;
                 scene.add(mazeMesh);
 
                 // Add the ground.
                 g = new THREE.PlaneGeometry(mazeDimension*10, mazeDimension*10, mazeDimension, mazeDimension);
                 planeTexture.wrapS = planeTexture.wrapT = THREE.RepeatWrapping;
                 planeTexture.repeat.set(mazeDimension*5, mazeDimension*5);
-                m = new THREE.MeshPhongMaterial({map:planeTexture});
+                m = new THREE.MeshBasicMaterial({map:planeTexture});
                 planeMesh = new THREE.Mesh(g, m);
+                planeMesh.frustumCulled = false;
                 planeMesh.position.set((mazeDimension-1)/2, (mazeDimension-1)/2, 0);
                 planeMesh.rotation.set(Math.PI/2, 0, 0);
                 scene.add(planeMesh);                
@@ -193,8 +198,7 @@
                         camera.position.set(1, 1, 5);
                         light.position.set(1, 1, 1.3);
                         light.intensity = 0;
-                        var level = Math.floor((mazeDimension-1)/2 - 4);
-                        $('#level').html('Level ' + level);
+                        $('#level').html('Level ' + levelNumber + (paused?' · paused':''));
                         gameState = 'fade in';
                         break;
                         
@@ -208,15 +212,19 @@
                         break;
 
                     case 'play':
+                        if(!paused){
                         updatePhysicsWorld();
                         updateRenderWorld();
+                        }
                         renderer.render(scene, camera);
 
                         // Check for victory.
                         var mazeX = Math.floor(ballMesh.position.x + 0.5);
                         var mazeY = Math.floor(ballMesh.position.y + 0.5);
-                        if (mazeX == mazeDimension && mazeY == mazeDimension - 2) { 
+                        if (!paused && mazeX == mazeDimension && mazeY == mazeDimension - 2) { 
                             mazeDimension += 2;
+                            levelNumber += 1;
+                            try{localStorage.setItem('study-desk-astray-best', String(Math.max(levelNumber, +(localStorage.getItem('study-desk-astray-best')||0))));}catch(e){}
                             gameState = 'fade out';
                         }
                         break;
@@ -277,6 +285,11 @@
             }            
 
             
+            function setPaused(on){
+                paused = on;
+                $('#pause-astray').text(on?'Resume':'Pause');
+                if(gameState==='play' || gameState==='fade in') $('#level').html('Level ' + levelNumber + (paused?' · paused':''));
+            }
             $(document).ready(function() {
 
                 // Prepare the instructions.
@@ -288,6 +301,8 @@
                 // Create the renderer.
                 renderer = new THREE.WebGLRenderer();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+                if(renderer.setClearColorHex) renderer.setClearColorHex(0x14181c, 1);
+                renderer.domElement.style.cssText='position:fixed;inset:0;z-index:0';
                 document.body.appendChild(renderer.domElement);
 
                 // Bind keyboard and resize events.
@@ -298,6 +313,17 @@
 
                 // Set the initial game state.
                 gameState = 'initialize';
+                try{var best=localStorage.getItem('study-desk-astray-best'); if(best) $('#astray-best').text('Best level '+best);}catch(e){}
+                $('#pause-astray').on('click', function(){setPaused(!paused);});
+                $(document).on('keydown', function(e){
+                    if(e.key==='p'||e.key==='P'||e.key==='Escape'){setPaused(!paused); e.preventDefault();}
+                });
+                $('#astray-pad button').on('pointerdown', function(e){
+                    e.preventDefault();
+                    var a=String($(this).attr('data-axis')).split(',');
+                    keyAxis=[+a[0], +a[1]];
+                });
+                $('#astray-pad button').on('pointerup pointercancel pointerleave', function(){keyAxis=[0,0];});
                 
                 // Start the game loop.
                 requestAnimationFrame(gameLoop);
@@ -343,6 +369,23 @@
                 color: yellow;   
                 font-weight: bold;
             }
+            #help, #level, #astray-pad, #instructions { z-index: 3; }
+            #help { right: 0; left: auto; max-width: 320px; z-index: 3; }
+            #help button, #astray-pad button {
+                margin-left: 8px;
+                background: #243038;
+                color: #f4efe2;
+                border: 0;
+                border-radius: 6px;
+                padding: 6px 10px;
+            }
+            #astray-pad {
+                position: absolute;
+                right: 8px;
+                bottom: 8px;
+                display: flex;
+                gap: 6px;
+            }
 
         </style>
         
@@ -359,7 +402,15 @@
     </div>
     
     <div id='help'>
-        Hold down the 'I' key for instructions.
+        Arrows move the ball. Esc or Pause holds it. Find the gap in the far wall.
+        <button id="pause-astray" type="button">Pause</button>
+        <span id="astray-best"></span>
+    </div>
+    <div id="astray-pad">
+        <button type="button" data-axis="0,-1">Up</button>
+        <button type="button" data-axis="-1,0">Left</button>
+        <button type="button" data-axis="1,0">Right</button>
+        <button type="button" data-axis="0,1">Down</button>
     </div>
 
     <div id='level'>
