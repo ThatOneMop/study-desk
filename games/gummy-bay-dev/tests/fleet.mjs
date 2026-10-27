@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../dist/vendor/three.module.min.js';
 import {FLEET,activeFleet,fleetOwned,fleetRequest,createFleetModels} from '../dist/fleet.mjs';
-const legacy={vehicleOwned:true,xp:120,cash:5000,bank:4000,payment:'cash'};
+const legacy={vehicleOwned:true,xp:360,cash:5000,bank:4000,payment:'cash'};
 assert.equal(activeFleet(legacy).id,'van');assert(fleetOwned(legacy,'van'));assert(!fleetOwned(legacy,'compact'));
 assert(!fleetRequest({...legacy,vehicleOwned:false},'compact').ok);assert(!fleetRequest({...legacy,xp:0},'compact').ok);assert(!fleetRequest({...legacy,cash:1599},'compact').ok);
 assert(fleetRequest({...legacy,cash:0,payment:'card'},'compact').ok);assert(!fleetRequest({...legacy,payment:'card',bank:0},'compact').ok);

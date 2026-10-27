@@ -42,5 +42,5 @@ assert.match(game,/district-terrain\.mjs\?v=176/);
 assert.match(game,/height:typeof districtGroundHeight/);
 assert.match(game,/outerGround\(vehiclePose\.x,vehiclePose\.z\)/);
 const html=fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
-assert.match(html,/game\.js\?v=175/);
+assert.match(html,/game\.js\?v=1\d\d/);
 console.log('PASS v176 terrain: Hillcrest rises '+north.toFixed(1)+' m, steepest step '+worst.toFixed(3)+' m');

@@ -34,7 +34,7 @@ const slide=createCar(.5,.5,0);slide.vx=5;slide.vz=5;assert.equal(resolveMove(sl
 const turning=run(by('sprinter'),t=>t<3?{throttle:1}:{throttle:1,steer:1},3.6);let cam=null;for(let i=0;i<30;i++)cam=chaseCamera(turning,cam,1/60);assert(Math.abs(cam.roll)>.02&&Math.sign(cam.roll)===Math.sign(turning.lean),'camera roll follows the lean');
 const free=chaseCamera(createCar(0,0,0),null,1/60),walled=chaseCamera(createCar(0,0,0),null,1/60,{blocked:(x,z)=>z<-2});assert(free.z<-5&&walled.z>-2.1,'camera pulls in front of a wall');
 // Lot: registration, level and money gates; trunk maths.
-const base={vehicleOwned:true,xp:600,cash:9000,bank:0,payment:'cash'};
+const base={vehicleOwned:true,xp:1200,cash:9000,bank:0,payment:'cash'};
 assert(!lotRequest({...base,vehicleOwned:false},'tuktuk').ok,'lot needs a registered driver');assert(!lotRequest({...base,xp:0},'limo').ok,'level gate');assert(!lotRequest({...base,cash:10},'tuktuk').ok,'money gate');
 assert(lotRequest(base,'sprinter').ok);assert(!lotRequest(base,'__proto__').ok);assert(!lotRequest({...base,lotCars:['tuktuk']},'tuktuk').ok,'no double purchase');assert(lotRequest({...base,lotCars:['tuktuk']},'tuktuk',true).ok&&lotOwned({lotCars:['tuktuk']},'tuktuk'));
 const packs=[5,0,2],load=moveTrunk(packs,{},{type:0,qty:9,toTrunk:true,capacity:4});assert.deepEqual(load.packs,[1,0,2]);assert.equal(load.trunk[0],4);assert.equal(load.moved,4);assert(Array.isArray(load.packs)&&packs[0]===5,'trunk moves are pure and keep arrays');

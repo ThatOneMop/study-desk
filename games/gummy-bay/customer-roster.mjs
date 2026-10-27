@@ -1,7 +1,12 @@
 // v157: Gummy Bay's customer book, Schedule I-style. Fourteen original locals, each with
 // preferred effects, a weekly spend range and a quality standard. The first five are known
 // from the start. The rest unlock when a friend vouches for you and you hand them a sample.
+// v173 adds the town cast, sampling reactions and district gates beside this book.
 // All deal maths is delegated to sim-formulas.mjs.
+export {TOWN_CUSTOMERS,CUSTOMER_LOOKS,lookSignature} from './customer-cast.mjs';
+export {createCustomerCrowd,customerLook} from './customer-crowd.mjs';
+export {AREA_GATES,areaById,areaOpen,bestBatchQuality,gearRows,areaHow,gateText,progressModel,progressHTML} from './progression-book.mjs';
+export {levelOf,levelProgress,rankTitle,migrateXp} from './xp-curve.mjs';
 import {QUALITY,STANDARDS,ENJOYMENT_WEIGHTS,appeal,judgeCounter,sampleScore,sampleAcceptance,
  weeklyBudget,weeklyOrders,dealPay,QUICK_DEAL_MINUTES} from './sim-formulas.mjs';
 
@@ -36,6 +41,33 @@ export function vouchers(state,contacts,i){
  return contacts.map((c,j)=>j).filter(j=>j!==i&&isUnlocked(state,j)&&((contacts[j].knows||[]).includes(i)||(me.knows||[]).includes(j)));
 }
 export function canSample(state,contacts,i){return isUnlocked(state,i)||vouchers(state,contacts,i).length>0;}
+// People a successful sample introduces, one hop. Town locals list `introduces`;
+// the original book uses `knows`. Callers must not walk those contacts again.
+export function introductions(contact){
+ const raw=Array.isArray(contact?.introduces)?contact.introduces:Array.isArray(contact?.knows)?contact.knows:[];
+ return raw.filter(i=>Number.isInteger(i)&&i>=0);
+}
+// A town local can be approached when their level or district gate is open.
+// The original fourteen have no gate, so a district opening does not skip their vouch chain.
+export function canApproach(contact,ctx){
+ if(ctx?.unlocked||ctx?.vouched)return true;
+ const g=contact?.gate;if(!g)return false;
+ const level=ctx?.level||1,quality=ctx?.quality||0;
+ if(g.kind==='level')return level>=g.level&&!(g.quality>0&&quality<g.quality);
+ if(g.kind==='district')return !!ctx?.areaOpen?.(g.area);
+ if(g.kind==='both')return level>=(g.level||1)&&!(g.quality>0&&quality<g.quality)&&(!g.area||!!ctx?.areaOpen?.(g.area));
+ return false;
+}
+// How a free sample lands, from enjoyment (quality against their taste).
+export function sampleVerdict(contact,{enjoyment=0}={}){
+ const name=contact?.name||'They';
+ const taste=(contact?.effects||[]).slice(0,2).join(' and ')||'something sweet';
+ const e=clamp(enjoyment,0,1);
+ if(e>=.72)return Object.freeze({accept:true,tone:'delighted',text:name+' lights up. "That is exactly my kind of '+taste+'."'});
+ if(e>=.5)return Object.freeze({accept:true,tone:'warming',text:name+' nods. "I could go for more of that '+taste+'."'});
+ if(e>=.34)return Object.freeze({accept:false,tone:'unsure',text:name+' shrugs. "Not really my '+taste+'. Maybe another batch."'});
+ return Object.freeze({accept:false,tone:'polite',text:name+' hands it back. "Kind of you. I will wait for something closer to '+taste+'."'});
+}
 // Enjoyment 0..1 from sim ENJOYMENT_WEIGHTS: affinity (mixes vs plain), effect matches, quality vs standard.
 export function enjoymentOf(contact,{effects=[],mixed=false,quality=1}={}){
  const want=contact?.effects||[];

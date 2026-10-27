@@ -65,7 +65,7 @@ assert.equal(follow.phase,'deliver');
 assert.ok(follow.aim&&follow.aim.z>30,'delivery follows the customer after the home node');
 
 const rich=createDayDirector();
-const hireSnap=world({level:3,cash:700,xp:60,sold:12,harvested:12,policeReport:true,reach:true});
+const hireSnap=world({level:4,cash:700,xp:220,sold:12,harvested:12,policeReport:true,reach:true});
 const hire=rich.intent(hireSnap);
 assert.deepEqual(hire.action,['hire','gardener']);
 const blocked=createDayDirector();
@@ -74,8 +74,8 @@ assert.equal(refused.action,null);
 assert.equal(refused.phase,'hire');
 const early=createDayDirector();
 assert.notEqual(early.intent({...hireSnap,level:1,xp:0,cash:700,policeReport:true}).action?.[0],'hire');
-assert.deepEqual(createDayDirector().intent({...hireSnap,level:2,cash:320,harvested:0}).action,['hire','gardener'],'gardener gate is level 2 / $300');
-assert.notEqual(createDayDirector().intent({...hireSnap,level:2,cash:250,harvested:0}).action?.[0],'hire');
+assert.deepEqual(createDayDirector().intent({...hireSnap,level:4,cash:450,harvested:0}).action,['hire','gardener'],'gardener gate is level 4 / $450');
+assert.notEqual(createDayDirector().intent({...hireSnap,level:4,cash:400,harvested:0}).action?.[0],'hire');
 
 const evening=createDayDirector();
 const ready=world({level:3,cash:80,xp:60,sold:12,harvested:12,hired:true,policeReport:true,seeds:0,soil:0,wrappers:0});

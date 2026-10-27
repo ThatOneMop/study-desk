@@ -61,5 +61,16 @@ Models used: building-type-a to building-type-u (houses). Same modifications as 
 - Salt Docks, Tin Terrace, Hillcrest and Neon Row, their winding lanes, shopfronts and streamed chunks are generated in code (`outer-districts.mjs`). No new third-party assets. Lock state is not written into the save.
 - Idle, walk and run on the existing Quaternius townsfolk are blended in code, with the cycle driven by distance so a planted foot stays put. Turn lean, gait variation and idle fidgets are original. No new third-party assets.
 
+## Town customers (added v177)
+- The extra locals, their faces, hair, outfits and the town book are original code on the existing people-kit bodies. No new third-party assets.
+
 ## Controls and street conversations (added v165)
 - Street talk (names, moods, replies), the conversation panel, reaction gestures and portraits are original code. Portraits are live snapshots of the existing CC0 townsfolk models (see the v160 entry); no new third-party assets.
+
+## Staff ladder (added v178)
+
+Original code. Hire gates, tiers and dealer home routines. No new meshes.
+
+## Bay chronicle (added v179)
+
+Original story, cuts and property rules. Uses the existing letterbox player and, when present, window.GUMMY_DISTRICTS. No new meshes.
