@@ -592,12 +592,14 @@
       "tests": [
         "14 tests pass (9 engine, 5 jsdom): original garden and new orchard campaigns complete all three sites; exact saves/reload, crowding previews before spending timber, open-space/rock/edge rules, yield restoration on undo, progression, loss/retry, legacy records and storage isolation.",
         "Both gameplay scripts pass node --check. No rendered browser, screenshots, native keyboard/touch, full repository build or human enjoyment evidence.",
-        "Relocation: 19 passing tests (12 engine, 7 jsdom 26.1.0), retaining original fourteen. Full connectivity, crowded-orchard recovery, cost/refund, strict journals/targets, three relocation campaigns with reload, unchanged legacy saves, UI preview/commit, pause, undo/retry, records and isolation. Both scripts pass syntax checks; no rendered evidence."
+        "Relocation: 19 passing tests (12 engine, 7 jsdom 26.1.0), retaining original fourteen. Full connectivity, crowded-orchard recovery, cost/refund, strict journals/targets, three relocation campaigns with reload, unchanged legacy saves, UI preview/commit, pause, undo/retry, records and isolation. Both scripts pass syntax checks; no rendered evidence.",
+        "Neighbourhood challenge: 29 passing checks (18 engine, 11 jsdom 26.1.0), retaining prior 19. All three standard/challenge campaigns, per-action reload, local edge services, global capacity, relocation previews, independent records, unlock/confirm/cancel/pause, undo/retry/loss, malformed saves/recovery/reset isolation. Scripts pass syntax checks; local script/style references resolve. No rendered evidence."
       ],
       "commits": [
         "c9ebfeb6b75d6e7f698a29e6e63e88c760295823",
         "b77478fc32b11971cb95ca2c3c4e490101a76d8e",
-        "040436f94bdc1f060afe42d642dac532a6dec39c"
+        "040436f94bdc1f060afe42d642dac532a6dec39c",
+        "7ece0fd8f1f72624146bc8e0dfbfd52e68e286b8"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -623,6 +625,13 @@
         "before": "Buildings could only be added or removed in reverse journal order.",
         "after": "Move a building/path to empty buildable ground for one timber while preserving full hall connectivity. Final-layout resource forecasts, explicit source selection and undo/refund support redesign without discarding later buildings.",
         "remaining": "Rendered desktop/touch play, screenshots, targeting/readability, balance and substantial playtest-led improvement before selection."
+      },
+      "pendingNeighbourhoodRefinement": {
+        "commit": "7ece0fd8f1f72624146bc8e0dfbfd52e68e286b8",
+        "basis": "Source-level weakness: pooled settlement supplies made housing position largely irrelevant to service access. This was not a rendered-play observation.",
+        "before": "Any connected home could use pooled food and water regardless of distance.",
+        "after": "Optional per-site challenge unlocked by standard completion requires every home beside a well and food plot, while meeting total demand. Shared providers, orchard space, irrigation, paths and relocation now interact. Existing budgets, costs and standard rules unchanged; forecasts list missing service; separate records persist.",
+        "remaining": "Rendered desktop/touch play, inspected screenshots, native controls, challenge balance/enjoyment assessment and a substantial playtest-led improvement remain required before qualification or integration."
       }
     },
     {
@@ -1453,7 +1462,7 @@
     "Implement remaining 33 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "73067ee92704ca7a50c802f67543c0273eaa1b0b",
+  "latestObservedMain": "5250882e835cba4cb10e9c826a91691ed0a43886",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1756,6 +1765,13 @@
       "result": "Reedbreaker Vault implemented; 31 engine/DOM tests pass. Counts unchanged: third 17 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not bypassed or retried.",
       "mainObserved": "73067ee92704ca7a50c802f67543c0273eaa1b0b"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "7ece0fd8f1f72624146bc8e0dfbfd52e68e286b8",
+      "result": "Moss Commons neighbourhood challenge implemented; 29 engine/DOM tests pass. Counts unchanged: third 17 built, 0 improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Previously recorded rendering security-policy blocker not retried or bypassed.",
+      "mainObserved": "5250882e835cba4cb10e9c826a91691ed0a43886"
     }
   ]
 }
