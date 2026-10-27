@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "batch": 2,
   "branch": "indie-collection-two-dev",
-  "updated": "2026-10-26",
+  "updated": "2026-10-28",
   "firstBatchBaseline": {
     "developmentCommit": "c03682dc435ecdaacd94966273d789dd90e9f7b1",
     "report": "https://github.com/ThatOneMop/study-desk/blob/c03682dc435ecdaacd94966273d789dd90e9f7b1/dev/indie-collection/FINAL_REPORT.md",
@@ -1137,7 +1137,8 @@
         "CI 40023020207: native desktop 1280x1000 and touch emulation 390x844 complete all four migrations with twelve birds, fourteen feeding spots and three feathers. Mid-route exact reload on each migration, forecast changes while paused, mouse/keyboard/touch controls, cancellation, bridge suspension, collision and natural food-shortfall failures, retry/cancel, corrupt-save recovery, unrelated-key preservation and navigation pass. Zero browser errors; separate normal-RAF flight smoke passes.",
         "26 native screenshots retained in artifact 12531686836. ZIP digest verified; desktop route-four completion, phone pause-planning and phone natural food-shortfall images visually inspected. Cloud UI additionally reviewed desktop/390-pixel layouts, start/split/pause and a safe-to-unsafe forecast change. No physical-device claim.",
         "All 570 aggregate engine/interface checks and all fifteen native desktop/touch suites pass on exact verification commit 8ee1304 in CI 40023020207. All six jobs completed successfully; first-batch integrity, public routes and the exact twenty-slot gate pass.",
-        "18 engine and nine DOM checks pass. Native desktop/touch natural damaged-flight recovery, food spending, exact reload and successful arrival pass alongside all four original full-feather campaigns, loss/retry, input cancellation, bridge pause, recovery/reset and navigation. CI 40048553658; 32 screenshots retained, three new-mechanic views inspected. Cloud rendered keyboard recovery and phone reload reviewed; no physical-device or human enjoyment claim."
+        "18 engine and nine DOM checks pass. Native desktop/touch natural damaged-flight recovery, food spending, exact reload and successful arrival pass alongside all four original full-feather campaigns, loss/retry, input cancellation, bridge pause, recovery/reset and navigation. CI 40048553658; 32 screenshots retained, three new-mechanic views inspected. Cloud rendered keyboard recovery and phone reload reviewed; no physical-device or human enjoyment claim.",
+        "Embedded keyboard repair: 32 tests pass (18 engine, nine standalone DOM, five real-bridge/jsdom checks using simulated parent and deterministic RAF). K replaces reserved P for pause/resume. Red/green regression, moving-flight freeze/resume, exact paused reload, native controls/modifiers/repeats/composition, trusted parent suspension and forged-origin rejection pass. Browser suite now includes K pause checks but was not executed in this run. No engine/save schema changes."
       ],
       "quality": {
         "enjoyment": 3.5,
@@ -1155,7 +1156,8 @@
         "1a7ab925e6db1404606db3f1bd27df7154e8582a",
         "7d9d644fb6eabe22b50d236fe0b4dc602eb3a3e3",
         "8ee13044e2bcb050fe9417b2eee921c45b4c1dec",
-        "b1c2421ba2286bc833d62e12ffb256e8cf4795fc"
+        "b1c2421ba2286bc833d62e12ffb256e8cf4795fc",
+        "a7093b27d87356c6f39842dc4b5a2bde8c36ad8e"
       ],
       "verification": {
         "status": "passed",
@@ -1171,7 +1173,13 @@
         }
       },
       "selectionReason": "Retain as a finished development candidate for comparison across the full slate. Its flock action broadens variety, but compact progression and repeated obstacle vocabulary limit depth. No catalogue write by this increment.",
-      "publishedUrl": null
+      "publishedUrl": null,
+      "pendingControlVerification": {
+        "commit": "a7093b27d87356c6f39842dc4b5a2bde8c36ad8e",
+        "change": "K pauses/resumes instead of reserved P; native modifiers/composition excluded; visibility messages trust parent rather than assuming self-window.",
+        "status": "DOM and engine verified; rendered embedded desktop/touch check pending",
+        "historicalEvidence": "Existing improvement passes and their exact historical verification commit remain recorded; this repair does not claim a new substantive pass or rendered review."
+      }
     },
     {
       "slot": 36,
@@ -1942,9 +1950,16 @@
       "result": "Lanternwake hood toggle implemented; 56 scoped engine/DOM checks pass. All twenty additional upgrades have source, but verified completion remains 6/20. No new integration or live release.",
       "publicIntegration": null,
       "nextSteps": "Perform supported rendered before/after play, assess hood/lure routing and balance, inspect hood contrast and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+    },
+    {
+      "date": "2026-10-28",
+      "gameplayCommit": "a7093b27d87356c6f39842dc4b5a2bde8c36ad8e",
+      "result": "Murmuration embedded pause shortcut repaired; 32 engine/DOM/bridge checks pass. Audited 40 shell/source files across second collection, no workspace-switch controls found. Additional round remains 6/20 verified; no integration/live change.",
+      "publicIntegration": null,
+      "nextSteps": "Render changed embedded controls when supported; preserve pending fourteen additional upgrades and continue remaining third-batch candidates."
     }
   ],
-  "latestObservedMain": "85d941d59e8897585606e5a67f4413a710643067",
+  "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",

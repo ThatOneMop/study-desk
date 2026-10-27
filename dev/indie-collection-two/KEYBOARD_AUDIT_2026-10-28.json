@@ -1,0 +1,173 @@
+{
+  "date": "2026-10-28",
+  "branch": "3949e3d9f8e2e9846dc4c91c436d90b19bbbd341",
+  "files": [
+    {
+      "path": "games/borrowed-gravity/game.js",
+      "blob": "db5c20e9096403bc02f1e8174626ff6c4db92e38"
+    },
+    {
+      "path": "games/borrowed-gravity/index.html",
+      "blob": "03f83cc5a35adbc9087b79decfb4cf93f668ec8b"
+    },
+    {
+      "path": "games/cairn-and-cord/game.js",
+      "blob": "bf56cb0743f5ac9413e099ddb99f668b7964da7d"
+    },
+    {
+      "path": "games/cairn-and-cord/index.html",
+      "blob": "521956f1684b7fb62ef1bc50204505931bfbeabf"
+    },
+    {
+      "path": "games/clockwork-tide/game.js",
+      "blob": "03cc8d7821bb860198d8188437ab64e5f7474d12"
+    },
+    {
+      "path": "games/clockwork-tide/index.html",
+      "blob": "aa1aef81e0c64e32c98213e1590c8dbb96ff2e41"
+    },
+    {
+      "path": "games/copper-cadence/game.js",
+      "blob": "31e203f43d338e639de88d99ec46efe55cafbeee"
+    },
+    {
+      "path": "games/copper-cadence/index.html",
+      "blob": "6a003841648011865d8ff045f762d10d4ae027de"
+    },
+    {
+      "path": "games/counterweight/game.js",
+      "blob": "6a7c2e2c3755f2034b3ac1e6c083325f119da2bf"
+    },
+    {
+      "path": "games/counterweight/index.html",
+      "blob": "21028efae99d72442048acf3e919ff622b8c043f"
+    },
+    {
+      "path": "games/ember-parcel/game.js",
+      "blob": "054601d514fc5c4fb8bc10d8801d144c8c33d6fe"
+    },
+    {
+      "path": "games/ember-parcel/index.html",
+      "blob": "9ec2b79a03fe6ea9ca210731cae682efdee54821"
+    },
+    {
+      "path": "games/hollow-keeper/game.js",
+      "blob": "c203805cf0f612d8b109b51b40a63b1ecda43025"
+    },
+    {
+      "path": "games/hollow-keeper/index.html",
+      "blob": "242945fdbbf1a14e61641d1a0b8a5dde5135b307"
+    },
+    {
+      "path": "games/lanternwake/game.js",
+      "blob": "680dc5154b5034239d3c0e039ab8b8477abc6673"
+    },
+    {
+      "path": "games/lanternwake/index.html",
+      "blob": "e1246cd9c81811624438b6727031203140450bb6"
+    },
+    {
+      "path": "games/last-lighthouse/game.js",
+      "blob": "facb259209a4e50be7683d80dd219ad0e112616a"
+    },
+    {
+      "path": "games/last-lighthouse/index.html",
+      "blob": "73cf4c8f19d27b3844a56d6ee9b0abe306fdaadf"
+    },
+    {
+      "path": "games/murmuration/game.js",
+      "blob": "9ae9ee409944ab1e3b02cb98be189e67803e2f54"
+    },
+    {
+      "path": "games/murmuration/index.html",
+      "blob": "2b4e62b6008e7128a0252aedbef1478ede774cd9"
+    },
+    {
+      "path": "games/night-clerk/game.js",
+      "blob": "9940dd1072c29125a563eaf5379fec23fb11905a"
+    },
+    {
+      "path": "games/night-clerk/index.html",
+      "blob": "20bc2ade7185a7402ea151bb29e56c033004d0a1"
+    },
+    {
+      "path": "games/paper-odyssey/game.js",
+      "blob": "dfb0961901e62ab94c2fcb3124354874f2845a9e"
+    },
+    {
+      "path": "games/paper-odyssey/index.html",
+      "blob": "09886f053375d9e4f71c839864a099ab2c9a2686"
+    },
+    {
+      "path": "games/pocket-palaeo/game.js",
+      "blob": "217ce1f458267061f751cf681574d40586d8c086"
+    },
+    {
+      "path": "games/pocket-palaeo/index.html",
+      "blob": "f24b1cd1b0c3b17dec81a607e571e9e5f9a19f81"
+    },
+    {
+      "path": "games/ratchet-run/game.js",
+      "blob": "1111569fded85b2007e6ce46fd2eed25d38e65b1"
+    },
+    {
+      "path": "games/ratchet-run/index.html",
+      "blob": "c62581403bfff48638afc05b59d0067019668fab"
+    },
+    {
+      "path": "games/reefwright/game.js",
+      "blob": "008597b42b261b57a5c071df957e462bc7ef8269"
+    },
+    {
+      "path": "games/reefwright/index.html",
+      "blob": "591e03db3fe5836bebdb17f16d1e93afd378a7b9"
+    },
+    {
+      "path": "games/salt-and-sail/game.js",
+      "blob": "c5af2510bd1f9216eb5ceba848a79d1071660185"
+    },
+    {
+      "path": "games/salt-and-sail/index.html",
+      "blob": "02a9bc20aeb7b361ab13d332c8e9b07e2b0bac9f"
+    },
+    {
+      "path": "games/static-orchard/game.js",
+      "blob": "0aec4a782ac3cfa3e84d6baf11bf11eed9221c99"
+    },
+    {
+      "path": "games/static-orchard/index.html",
+      "blob": "9f7675b5570622dcf68c3dc3c6efd9490a6d3953"
+    },
+    {
+      "path": "games/tea-for-ghosts/game.js",
+      "blob": "16dd684bffb82b1fbf7c87d169d5034c2bb3d77e"
+    },
+    {
+      "path": "games/tea-for-ghosts/index.html",
+      "blob": "0eafdc99b484aa4472c2e3b508006965cdfdcf74"
+    },
+    {
+      "path": "games/wellward/game.js",
+      "blob": "bcc99c20b386eafaf4821307caa500472fc54c2f"
+    },
+    {
+      "path": "games/wellward/index.html",
+      "blob": "ba68eab1ead280d863fb8c0549b8098d1826243c"
+    },
+    {
+      "path": "games/windup-wrestling/game.js",
+      "blob": "1ac0596953f7fa886a84d2882e6151c24ff8d149"
+    },
+    {
+      "path": "games/windup-wrestling/index.html",
+      "blob": "1b14712d8bb939bd6ff8f3031a67888b5b2be131"
+    }
+  ],
+  "scope": "Second-batch game.js and index.html, source search only",
+  "workspaceControlMatches": [],
+  "explicitReservedPBinding": [
+    "games/murmuration/game.js"
+  ],
+  "fix": "a7093b27d87356c6f39842dc4b5a2bde8c36ad8e",
+  "rendered": false
+}
