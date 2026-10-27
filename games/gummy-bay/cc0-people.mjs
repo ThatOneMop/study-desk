@@ -1,6 +1,8 @@
 // v160: CC0 rigged townsfolk (Quaternius "Ultimate Animated Character" style models via poly.pizza, CC0 1.0).
 // Baked to one vertex-coloured, smooth-shaded primitive per model (see CREDITS.md), so each person is one draw call.
 // The nearest people on screen borrow a rigged model; everyone else keeps the cheap instanced chunky cast.
+// v172: idle/walk/run blend, distance-locked stride and foot planting live in rigged-locomotion.mjs.
+import {beginLocomotion,endLocomotion} from './rigged-locomotion.mjs?v=172';
 export const CC0_PEOPLE_VARIANTS=Object.freeze(['man','woman','suit','sleeves','tank','dress','womancasual']);
 export const CC0_POLICE_VARIANT='police';
 export const CC0_PEOPLE_HEIGHT=1.74;
@@ -9,6 +11,7 @@ export const CC0_GIRTH=1.1;
 export const cc0Budget=quality=>quality==='performance'?10:quality==='high'?22:16;
 export const cc0Range=quality=>quality==='performance'?34:quality==='high'?60:46;
 const hash=n=>{let x=(Math.abs(Math.trunc(Number(n)||0))+1)*2654435761%4294967296;x^=x>>>15;return x>>>0;};
+const keyId=key=>{if(typeof key==='number')return key;let n=0;const s=String(key??'');for(let i=0;i<s.length;i++)n=(Math.imul(n,33)+s.charCodeAt(i))>>>0;return n;};
 export const cc0Variant=(id,cop=false)=>cop?CC0_POLICE_VARIANT:CC0_PEOPLE_VARIANTS[hash(id)%CC0_PEOPLE_VARIANTS.length];
 // Gameplay clips map onto the four CC0 clips; speed (m/s) chooses walk or run.
 export function cc0Clip(clip=null,speed=0,pose=''){
@@ -37,7 +40,7 @@ function cloneSkinned(source){
  return copy;
 }
 export function createCc0People({THREE,scene,GLTFLoader,quality='balanced',base='./assets/people/',shadows=true}={}){
- const templates=new Map();let ready=false,failed=false,budget=cc0Budget(quality),range=cc0Range(quality);
+ const templates=new Map();let ready=false,failed=false,budget=cc0Budget(quality),range=cc0Range(quality),locoNow=0;
  const slots=[];// {key,variant,models:Map(variant->{obj,mixer,actions,head}),current,clip}
  // Baked colours live in the glTF COLOR_0 attribute; a mesh without one keeps a plain material (never black).
  const material=new THREE.MeshStandardMaterial({roughness:.8,metalness:0}),painted=material.clone();painted.vertexColors=true;
@@ -61,12 +64,16 @@ export function createCc0People({THREE,scene,GLTFLoader,quality='balanced',base=
   obj.visible=false;group.add(obj);
   const entry={obj,mixer,actions,head,shoulders,clip:null,applied:null};slot.models.set(variant,entry);return entry;
  }
- function play(entry,clip,speed){
-  const next=entry.actions[clip]||entry.actions.Idle;if(!next)return;
-  if(entry.clip!==clip){const prev=entry.clip&&entry.actions[entry.clip];next.reset().play();if(prev&&prev!==next)prev.crossFadeTo(next,.22,false);else next.setEffectiveWeight(1);
-   // Offset each person's cycle so a crowd never marches in step.
-   if(!entry.clip)next.time=(entry.obj.id*.37)%Math.max(.1,next.getClip().duration);entry.clip=clip;}
-  next.timeScale=cc0TimeScale(clip,speed);
+ function play(entry,clip,speed,motion){
+  if(clip==='Sit'||clip==='Wave'){
+   const undo=entry._locoUndo;if(undo){for(const fn of undo)fn();entry._locoUndo=null;}
+   entry._loco=null;entry._plants=null;
+   const next=entry.actions[clip]||entry.actions.Idle;if(!next)return;
+   if(entry.clip!==clip){const prev=entry.clip&&entry.actions[entry.clip];next.reset().play();if(prev&&prev!==next)prev.crossFadeTo(next,.22,false);else next.setEffectiveWeight(1);
+    if(!entry.clip)next.time=(entry.obj.id*.37)%Math.max(.1,next.getClip().duration);entry.clip=clip;}
+   next.timeScale=cc0TimeScale(clip,speed);entry._loco=null;return;
+  }
+  beginLocomotion(entry,{dt:motion.dt,speed,yaw:motion.yaw,clip,id:motion.id});entry.clip=clip;
  }
  // v165 reaction gestures: small offsets on top of the clip (head nods/shakes, shrugs, a lean or a bounce).
  // Offsets are undone before the next mixer update, so bones the clip does not animate never drift.
@@ -77,6 +84,7 @@ export function createCc0People({THREE,scene,GLTFLoader,quality='balanced',base=
   if(g.lean)entry.obj.rotation.x=g.lean;if(g.bob)entry.obj.position.y+=g.bob;entry.applied=a;}
  // candidates: [{key,x,y,z,yaw,speed,clip,pose,variant,height,ref,gesture?}] -> returns the refs that are now drawn as CC0 models.
  function update({dt=0,camera=null,candidates=[]}={}){
+  locoNow+=Math.min(.1,Math.max(0,dt));
   const shown=new Set();
   if(!ready){return shown;}
   const picks=cc0Pick(candidates,camera,budget,range);
@@ -89,13 +97,17 @@ export function createCc0People({THREE,scene,GLTFLoader,quality='balanced',base=
    const entry=model(slot,c.variant||CC0_PEOPLE_VARIANTS[0]);if(!entry)continue;
    if(slot.variant!==c.variant)for(const [v,m] of slot.models)m.obj.visible=v===c.variant;
    slot.variant=c.variant;entry.obj.visible=true;
+   if(entry._owner!==c.key){entry._owner=c.key;entry._phase=undefined;entry._plants=null;entry._gait=null;entry._yaw=c.yaw||0;entry._yawRate=0;}
    const h=Number.isFinite(c.height)?c.height:1,s=entry.obj.userData.baseScale*h;
    entry.obj.scale.set(s*CC0_GIRTH,s,s*CC0_GIRTH);
    entry.obj.position.set(c.x,(c.y||0)-entry.obj.userData.floor*h,c.z);entry.obj.rotation.set(0,c.yaw||0,0);
    const g=c.gesture||null;
-   play(entry,g?.clip&&entry.actions[g.clip]?g.clip:cc0Clip(c.clip,c.speed,c.pose),c.speed||0);
+   const clipName=g?.clip&&entry.actions[g.clip]?g.clip:cc0Clip(c.clip,c.speed,c.pose);
+   const who=keyId(c.key);
+   play(entry,clipName,c.speed||0,{dt,yaw:c.yaw||0,id:who});
    unGesture(entry);
    entry.mixer.update(Math.min(.1,Math.max(0,dt)));
+   if(clipName!=='Sit'&&clipName!=='Wave')endLocomotion(entry,{now:locoNow,id:who});
    if(g)applyGesture(entry,g);
    if(entry.head)entry.head.scale.setScalar(CC0_HEAD_SCALE);
    shown.add(c.ref??c.key);
