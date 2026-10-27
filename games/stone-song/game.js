@@ -1,5 +1,5 @@
 'use strict';
-(()=>{const E=window.StoneSong,$=id=>document.getElementById(id),key='study-desk-stone-song-v1';let o=E.create(),raw=null,blocked=false,sound=false,audio=null,timer=null,listening=-1,undo=null;
+(()=>{const E=window.StoneSong,$=id=>document.getElementById(id),key='study-desk-stone-song-v1';let o=E.create(),raw=null,blocked=false,sound=true,audio=null,timer=null,listening=-1,undo=null;$('sound').textContent='Sound on';$('sound').setAttribute('aria-pressed','true');
  function warn(t){$('storage').hidden=false;$('storage').textContent=t}
  try{raw=localStorage.getItem(key);if(raw!==null){const loaded=E.decode(raw);if(loaded)o=loaded;else{blocked=true;warn('Unreadable save preserved. Autosave paused; this seam is session-only.')}}}catch{blocked=true;warn('Storage unavailable. Progress lasts only for this session.')}
  function save(){if(blocked)return;try{if(localStorage.getItem(key)!==raw){blocked=true;warn('Another tab changed this save. Autosave paused to protect it; reload to use that progress.');return}const next=E.encode(o);localStorage.setItem(key,next);raw=next}catch{blocked=true;warn('Saving failed. Keep this tab open; progress is session-only.')}}

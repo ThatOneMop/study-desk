@@ -9,7 +9,7 @@ const species=[
 ];
 const methods=[{id:'fresh',name:'Fresh',add:[0,0,0]},{id:'broth',name:'Broth',add:[0,1,0]},{id:'roast',name:'Roast',add:[1,0,1]}];
 const services=[
- {name:'The first lantern',story:'Three neighbours have found your tiny woodland kitchen.',budget:30,orders:[['Moss toast',[4,0,0]],['Firefly broth',[2,3,0]],['Warm welcome',[3,0,3]]]},
+ {name:'The first lantern',story:'Serve the ember toast from the basket, then grow one Velvet Button and one Moon Lantern. The harder tables arrive with the rain.',budget:36,orders:[['Ember toast',[2,0,2]],['Moss toast',[4,0,0]],['Moon soup',[0,4,0]]]},
  {name:'Rain at the window',story:'The walking club arrives with muddy boots and bright appetites.',budget:28,orders:[['Moon soup',[0,5,0]],['Pepper parcel',[1,0,5]],['Cloud salad',[2,2,0]]]},
  {name:'The foragers’ table',story:'Foragers trade stories while you turn their favourite flavours into supper.',budget:27,orders:[['Woodland stew',[3,2,0]],['Ember clouds',[2,1,3]],['Lantern pickle',[1,3,0]]]},
  {name:'Market evening',story:'Your chalkboard menu is the talk of the village market.',budget:26,orders:[['Smoky moon',[1,2,3]],['Cloud roast',[3,2,1]],['Quiet comfort',[4,1,0]]]},
@@ -21,7 +21,7 @@ const blankProfile=()=>({coins:0,upgrades:{beds:0,basket:0,mist:0},best:[0,0,0,0
 const limits=p=>({beds:6+2*p.upgrades.beds,tray:8+2*p.upgrades.basket});
 const isInt=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
 function start(index=0,p=blankProfile()){
- return {service:index,turn:0,status:'growing',beds:Array(limits(p).beds).fill(null),tray:[0,0,1,2,...(p.upgrades.basket?[3]:[])],served:[0,0,0],earnings:0,upgradeChoice:null,checkpoint:copy(p),message:'Pick a seed, then an empty bed. Every garden action grows the other mushrooms.'};
+ return {service:index,turn:0,status:'growing',beds:Array(limits(p).beds).fill(null),tray:[0,0,1,2,...(p.upgrades.basket?[3]:[])],served:[0,0,0],earnings:0,upgradeChoice:null,checkpoint:copy(p),message:index===0?'Serve Ember toast first: one Velvet Button and the Ember Cap, method Fresh. Then grow what the other two bowls still need.':'Pick a seed, then an empty bed. Every garden action grows the other mushrooms.'};
 }
 const create=()=>{const profile=blankProfile();return {profile,kitchen:start(0,profile)}};
 function flavour(items,method){if(!Array.isArray(items)||items.length!==2||items.some(n=>!isInt(n,0,3))||!isInt(method,0,2))return null;return methods[method].add.map((n,i)=>n+items.reduce((s,id)=>s+species[id].traits[i],0))}
