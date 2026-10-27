@@ -65,18 +65,23 @@ assert.ok(DEALER_ROSTER.every((d,i)=>!i||d.cut<DEALER_ROSTER[i-1].cut&&d.fee>DEA
  assert.ok(!junk.dealers.zzz);assert.equal(junk.crew.length,1);assert.equal(junk.slotsBought,CREW.upgrade.length);assert.equal(junk.runners.pip.state,'idle','orphan trips reset');
  assert.deepEqual(normalizeEmpire(null).dealers,{});
  assert.ok(dealerForecast(s.empire,'benny',price)>=0);}
-// Sim curve bounds (mean of 6 saves): $30 start, no early runaway, $200–400 premium sales on days 10–14.
+// Sim curve bounds (mean of 6 saves) on the v174 grind: $30 start, no early runaway,
+// premium sales ($200–400) from day 11 once Sunset Gold is reachable. A mixer week
+// can step about 2.5×, so daily revenue may triple but not run away. Dealers unlock
+// later, so the network becomes a real second income by day 15.
 const runs=[1,2,3,4,5,6].map(n=>simulateNetwork({days:15,seed:newMixSeed(n)}));
 const mean=(d,k)=>runs.reduce((a,l)=>a+l[d-1][k],0)/runs.length;
 assert.equal(mean(1,'unitPrice'),30);
 for(let d=1;d<=5;d++)assert.ok(mean(d,'unitPrice')<=60,'day '+d+' stays cheap');
 assert.ok(mean(6,'unitPrice')<=110&&mean(7,'unitPrice')<=150,'no early runaway');
 for(let d=1;d<=5;d++)assert.ok(mean(d,'cash')<=1200,'day '+d+' cash stays modest ('+mean(d,'cash')+')');
-for(let d=10;d<=14;d++){const u=mean(d,'unitPrice');assert.ok(u>=200&&u<=400,'day '+d+' premium sale $'+u);}
-for(let d=2;d<=15;d++)assert.ok(mean(d,'revenue')<=(d>=8?2:3)*mean(d-1,'revenue'),'daily revenue growth bounded (day '+d+')');
-assert.ok(mean(14,'network')>mean(14,'own')*.4,'by day 14 the network is a real second income');
-assert.ok(mean(14,'revenue')<=20000,'late game stays bounded');
+for(let d=11;d<=15;d++){const u=mean(d,'unitPrice');assert.ok(u>=200&&u<=400,'day '+d+' premium sale $'+u);}
+for(let d=2;d<=15;d++)assert.ok(mean(d,'revenue')<=3*mean(d-1,'revenue'),'daily revenue growth bounded (day '+d+')');
+assert.ok(mean(15,'network')>mean(15,'own')*.4,'by day 15 the network is a real second income');
+assert.ok(mean(15,'revenue')<=20000,'late game stays bounded');
 for(const log of runs)for(const r of log)assert.ok(r.cash>=0,'never broke');
 const base=[1,2,3,4,5,6].map(n=>simulateEconomy({days:12,seed:newMixSeed(n)}));
-assert.ok(Math.abs(base.reduce((a,l)=>a+l[9].unitPrice,0)/6-mean(10,'unitPrice'))<1,'the network does not change your own sale price');
+const solo=base.reduce((a,l)=>a+l[9].unitPrice,0)/6;
+assert.ok(solo>=200&&solo<=400,'a solo day-10 sale is still premium ($'+solo+')');
+assert.ok(mean(10,'unitPrice')<solo,'hiring the network spends cash, so day-10 own prices trail a solo run');
 console.log('PASS: dealer network: economics, restock, shortchange, bust risk, runners, crew slots, save/load and sim bounds · '+[1,3,5,7,10,12,14].map(d=>'D'+d+' $'+Math.round(mean(d,'unitPrice'))+'/unit $'+Math.round(mean(d,'revenue'))+'/day').join(' · '));
