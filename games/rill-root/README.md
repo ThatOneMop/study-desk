@@ -12,7 +12,7 @@ Three authored gardens introduce a blocked high step, a side hollow stealing the
 
 ## Controls and visuals
 
-Original CSS layered soil, numbered ground heights, wet overlays and flow arrows; no external assets. Buttons and controls have minimum 44px targets. Two-column desktop layout stacks below 700px. Native Tab/Enter/Space works through buttons; on the page or selected terrain, C cuts, F fills, P pours, Z undoes, and arrows select adjacent plots. Global shortcuts avoid other native controls. Pause, confirmation and same-origin parent visibility guards prevent edits. Actual layout, native activation and touch remain unverified because rendering is blocked.
+Original CSS layered soil, numbered ground heights, wet overlays and flow arrows; no external assets. Buttons and controls have minimum 44px targets. Two-column desktop layout stacks below 700px. Native Tab/Enter/Space works through buttons; on the page or selected terrain, C cuts, F fills, W pours, Z undoes, and arrows select adjacent plots. Global shortcuts avoid other native controls. Pause, confirmation and same-origin parent visibility guards prevent edits. Actual layout, native activation and touch remain unverified because rendering is blocked.
 
 ## Saves
 
@@ -54,3 +54,11 @@ The native outlet selector previews resulting root-bed amounts. IN/OUT markers a
 29 tests pass (17 engine, 12 jsdom 26.1.0), retaining all original 21. Three pump-inclusive routes complete with per-action UI save/reload in 1/3/9 actions, versus original soil-only examples 2/4/8. The first crosses a plateau; the second bypasses the hollow. The third deliberately includes a redundant downhill placement for compatibility coverage, not a claimed strategic improvement. No optimality or duration claim. Tests cover plateau/one-step rise, actual loops, disabled high outlet, weir crossing, relocation/removal/undo/retry, strict action validation, conservation across varied terrain and barrier arrangements, read-only forecasts, markers, native keys and pause/modal guards. Both scripts parse; IDs/assets/bridge-first and absence of Switch workspace controls pass static checks. Fixtures: tests/fixtures/rill-root-pump.json.
 
 No rendered play, screenshot inspection, native touch/dialog verification, human enjoyment rating, full repository build or live release evidence. This is source-informed and earns no qualified improvement credit. The existing browser security-policy blocker was not retried or bypassed. Rendered review must check whether the pump makes the first garden too trivial, whether placement/rise/loop feedback is clear, and whether the added selector is comfortable on phones before qualification. The public catalogue remains unchanged.
+
+## Embedded keyboard repair
+
+Release water uses **W**, including the visible button hint and aria-keyshortcuts. P is reserved by Study Desk's shared bridge for workspace navigation when embedded. Earlier standalone jsdom tests omitted the bridge and therefore missed that the advertised P action was swallowed in the launcher. The engine, journals, mouse/touch button action and save key are unchanged.
+
+34 tests pass: 17 engine, 12 standalone DOM, five bridge-integrated DOM checks. Run all three tests/rill-root-{engine,dom,bridge}.cjs files with jsdom 26.1.0 on NODE_PATH. The new harness loads the real bridge before the game with a simulated parent window and visual-timer APIs. It checks P navigation without pouring, W pouring, a keyboard-completed garden plus save/reload, native selector/button/input ownership, modifiers/repeats, pause/dialog guards and bridge visibility suspension/resume. This is DOM simulation, not a real rendered iframe, screenshot or physical-touch test. The bridge is identical on the inspected main and development heads and is not modified.
+
+The W regression test failed before the handler change and passed afterwards. This is a concrete reliability fix, not a substantive rendered-play-led improvement pass. No catalogue entry or completion count changes.
