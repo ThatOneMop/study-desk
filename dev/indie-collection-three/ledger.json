@@ -847,11 +847,13 @@
         "Engine: pressure/whistle distance bands, immutability, simultaneous destination conflicts, occupied start-cell blocking, sheltered sheep, invalid/no-op actions, undo after arrival, retry/records, sequential unlocks, strict replay and a recoverable 512-action defensive journal cap.",
         "DOM: opening gate, read-only forecasts, campaign unlocks, keyboard/native-control guards, scaled SVG taps including border offsets, pause/dialog/trusted-parent hiding, retry/navigation/reset confirmation, isolated storage, corrupt-save recovery and quota failures.",
         "Both gameplay scripts pass node --check. Unique IDs, accessible board descriptions, SVG structure, local script/style paths, reduced-motion/mobile CSS and CSS parsing checked. No Switch workspace control introduced. No full repository build from the partial workspace or rendered browser/screenshot/touch evidence.",
-        "Quiet paws: 22 tests pass (11 engine, 11 jsdom), retaining all 16 prior tests. Quiet movement preserves sheep, costs a step, obeys obstacles, rejects malformed quiet actions and replays/undoes exactly. All three quiet-enabled campaign fixtures reload every action, preserve/improve records, and retain unrelated saves. UI tests cover prediction invalidation, default-off reload/retry/reset, button/keyboard/scaled tap input, pause guards and unchanged whistles. Both scripts pass syntax checks. No rendered evidence."
+        "Quiet paws: 22 tests pass (11 engine, 11 jsdom), retaining all 16 prior tests. Quiet movement preserves sheep, costs a step, obeys obstacles, rejects malformed quiet actions and replays/undoes exactly. All three quiet-enabled campaign fixtures reload every action, preserve/improve records, and retain unrelated saves. UI tests cover prediction invalidation, default-off reload/retry/reset, button/keyboard/scaled tap input, pause guards and unchanged whistles. Both scripts pass syntax checks. No rendered evidence.",
+        "Named calls: 29 passing tests (15 engine, 14 jsdom 26.1.0), retaining 22 previous checks. Shared-destination stalemate, one-sheep response, range/occupancy/shelter, strict action validation/copying, three named-call campaigns with per-action reload, legacy and quiet routes, forecast invalidation, native selector keys, opening/pause/modal/parent guards, undo/retry and records. Scripts parse. No rendered evidence."
       ],
       "commits": [
         "c83cf16c1cae29e2c1987273469ef11a91c91be2",
-        "56f433122a9298ebf22af4686e2be4b0e62f4366"
+        "56f433122a9298ebf22af4686e2be4b0e62f4366",
+        "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -869,6 +871,13 @@
         "before": "Every valid walk moved nearby sheep, even when the player only wanted a better approach angle.",
         "after": "Quiet paws walks move only the dog, consuming one route step. Players can reposition safely then return to nudging or whistling. Exact previews, undo and v1 replay support the choice.",
         "remaining": "Natural rendered play, screenshots and touch/focus/layout checks; evaluate whether free repositioning preserves satisfying challenge. No qualified improvement credit."
+      },
+      "pendingNamedCallRefinement": {
+        "commit": "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09",
+        "basis": "Source-observed limitation: flock whistles move every eligible sheep, with no way to call one while leaving others settled. Not a rendered observation.",
+        "before": "Only whole-flock whistles could draw sheep closer.",
+        "after": "Select a named sheep for a one-step call, preserving range and obstacle rules while other sheep wait. Exact previews, safe v1 journal objects, no-cost invalid calls, keyboard/touch-native selector and reset defaults. A shared-destination stalemate can be resolved; new final-meadow fixture is 15 steps versus original 17.",
+        "remaining": "Natural rendered desktop/touch play and screenshot inspection; balance, feedback and readability assessment; qualified playtest-led improvement and selection remain pending."
       }
     },
     {
@@ -1516,7 +1525,7 @@
     "Implement remaining 31 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "fed7f67bf45abceffe61513bc15617127472b44e",
+  "latestObservedMain": "476228e491fca42224de7f37a8cabf5b06390d8a",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1861,6 +1870,13 @@
       "result": "Fallow Table green manure implemented; 27 engine/DOM tests pass. Third totals unchanged: 19 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
       "browserStatus": "Existing security-policy rendering block not retried or bypassed. Main's independent catalogue audit is not verification of this branch.",
       "mainObserved": "fed7f67bf45abceffe61513bc15617127472b44e"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09",
+      "result": "Bellwether named calls implemented; 29 engine/DOM tests pass. Third remains 19 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing security-policy rendering blocker not retried or bypassed; independent main audits do not verify this development branch.",
+      "mainObserved": "476228e491fca42224de7f37a8cabf5b06390d8a"
     }
   ]
 }
