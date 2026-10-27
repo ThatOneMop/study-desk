@@ -43,5 +43,5 @@ assert.ok(changed>=2&&city.facades().length>=2&&city.facades().some(f=>f.site===
 // game.js wiring: Blender blocks hidden and swapped, signs, dressing, cache-busted imports.
 const src=fs.readFileSync('dist/game.js','utf8');
 for(const s of ['function installKenneyTown(','installKenneyTown(town)','HANK’S HARDWARE','CORNER STORE','function installDodgyDressing(','dodgyDressing?.update?.({night})',"dodgy-dressing.mjs?v=16","city-expansion.mjs?v=16"])assert.ok(src.includes(s),'game.js has '+s);
-assert.ok(/game\.js\?v=16[3-9]/.test(fs.readFileSync('dist/index.html','utf8')));
+assert.ok(/game\.js\?v=(16[3-9]|1[7-9]\d)/.test(fs.readFileSync('dist/index.html','utf8')));
 console.log('PASS: v163 Kenney town blocks (shop upper storeys + full swaps), lit glass, grime shader, compact streets ('+plan.lots.length+' lots, '+plan.alleys.length+' alleys), dodgy dressing in 2 draw calls');

@@ -26,5 +26,5 @@ assert.deepEqual([...WINDOW_STYLES],['blinds','curtains','boarded','dark','glass
 const sh={vertexShader:'#include <common>\n#include <project_vertex>',fragmentShader:'#include <common>\n#include <color_fragment>\n#include <emissivemap_fragment>'};nightWindowShader(sh);
 assert.ok(sh.fragmentShader.includes(WINDOW_GLSL)&&WINDOW_GLSL.includes('vEmissiveMapUv'));
 const src=fs.readFileSync('dist/game.js','utf8');for(const s of ["kerb-buildouts.mjs?v=164",'createKerbBuildOuts({scene,avoid:points})','colliders.push(...kerbBuildOuts.colliders)'])assert.ok(src.includes(s),s);
-assert.ok(/game\.js\?v=16[4-9]/.test(fs.readFileSync('dist/index.html','utf8')));
+assert.ok(/game\.js\?v=(16[4-9]|1[7-9]\d)/.test(fs.readFileSync('dist/index.html','utf8')));
 console.log('PASS: v164 narrower spawn streets (kerb build-outs '+(2*KERB_INNER)+' m asphalt, '+p.items.length+' clutter items, 1 draw), asymmetric mixed-height blocks ('+asym+'/39), five window styles');
