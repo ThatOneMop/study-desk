@@ -16,7 +16,7 @@ All SVG illustrations and CSS are original in this repository; no external asset
 
 ## Save contract
 
-`study-desk-bellwether-v1` stores `{version:1, level, moves, records}`. Moves are validated strings replayed through the same engine; invalid/locked/post-win journals are rejected. Records are bounded positive integers or null, with sequential unlocks. The 512-action journal cap is a defensive storage bound, not a content objective or timed challenge. Undo/retry remains available at the cap. Previews are temporary and never written as actions.
+`study-desk-bellwether-v1` stores `{version:1, level, moves, records}`. Moves are validated direction/whistle strings or single-sheep `{whistle:index}` objects replayed through the same engine; invalid/locked/post-win journals are rejected. Records are bounded positive integers or null, with sequential unlocks. The 512-action journal cap is a defensive storage bound, not a content objective or timed challenge. Undo/retry remains available at the cap. Previews are temporary and never written as actions.
 
 Unreadable data is preserved until explicit recovery. Quota/storage failures leave a temporary playable session and show a warning. Reset only replaces this game's key. Other games' saves are never modified. The shared Study Desk bridge is loaded first; trusted parent hide messages pause the shell and clear the prediction.
 
@@ -33,3 +33,15 @@ The Quiet paws toggle lets the dog walk one square without moving any sheep. It 
 The toggle clears any pending forecast; selecting a new direction shows the exact quiet result. Buttons, keyboard and adjacent-square taps share the mode. It defaults off on reload, retry, meadow change and reset, and is disabled while paused or in a dialog. This preference is not part of the saved game; committed quiet actions are stored as `quiet-north/east/south/west` in the existing v1 journal. Old journals, records and save keys remain unchanged.
 
 This upgrade addresses a source-observed lack of controlled repositioning. It is not yet a rendered-play improvement pass. Check whether quiet movement improves planning without making herding too easy, plus native touch, focus and layout, before integration.
+
+## Named-call source refinement
+
+Choose Whole flock, Clover (gold), Hazel (violet) or Pip (blue) in Whistle to. A named whistle moves only that sheep; the others wait and still occupy their starting cells. The existing 3–4-cell Manhattan range, compass preference, obstacles and gate rules remain. The dog stays still. A successful call costs one step; a blocked, out-of-range or sheltered target costs nothing. Changing the target discards the old forecast. Choose Whistle again and inspect the preview before committing.
+
+The native selector works with touch or Tab/arrow keys. Space on the page chooses the current call; native selector keys are not intercepted. Quiet paws only changes walking, so a named call works in either walking mode. Reload/retry/meadow change/reset default to Whole flock. Sheltered or absent sheep cannot be selected. Pause, opening and dialogs disable the selector and committing.
+
+The v1 save key and state shape remain unchanged. New actions store `{whistle:0}`, `{whistle:1}` or `{whistle:2}`; invalid fields/indices and impossible calls reject. Action objects are copied into and out of saved state. Old journals, quiet actions and records remain valid.
+
+29 tests pass (15 engine, 14 jsdom 26.1.0), retaining all 22 previous checks. Named-call fixtures complete the three meadows in 12/9/15 steps, with UI save/reload after each action. The original fixtures remain 11/9/17; calls provide an additional tool, not a requirement to use a slower first-meadow route. The last new fixture saves two steps over the original route. No global optimum across quiet-plus-call actions is claimed. A separate collision fixture shows two sheep both waiting for the same destination under a flock whistle, while a named call moves one safely.
+
+This refinement addresses a source-observed lack of selective control. It is not a rendered-play improvement pass. Natural rendered desktop/touch play, screenshots, balance, readability and feedback review remain pending. The candidate stays unlisted. The player-facing development label was removed in line with the current quality checklist; that copy edit is not counted as a substantive improvement.

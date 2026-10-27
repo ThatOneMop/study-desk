@@ -1,0 +1,50 @@
+[
+  [
+    "north",
+    "north",
+    {
+      "whistle": 0
+    },
+    "east",
+    "east",
+    "east",
+    "east",
+    "north",
+    "west",
+    "west",
+    "east",
+    "north"
+  ],
+  [
+    "north",
+    "north",
+    "north",
+    "whistle",
+    "north",
+    "whistle",
+    "north",
+    "whistle",
+    {
+      "whistle": 1
+    }
+  ],
+  [
+    "east",
+    "east",
+    "north",
+    "north",
+    {
+      "whistle": 2
+    },
+    "north",
+    "whistle",
+    "east",
+    "whistle",
+    "north",
+    "whistle",
+    "north",
+    "whistle",
+    "west",
+    "whistle"
+  ]
+]
