@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 20,
+    "built": 21,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -1039,21 +1039,35 @@
     },
     {
       "slot": 61,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "foldlight",
+      "title": "Foldlight",
+      "coreLoop": "Reflect and turn over layered two-sided paper stacks across chosen creases, matching a window pattern's occupied panes, top colours and layer counts.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/foldlight",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "14 passing tests: seven engine, seven jsdom 26.1.0. All three patterns completed through controls with per-action save/reload; reflection, stack reversal and face flipping; unique-paper conservation across every legal depth-two fold; invalid/out-of-frame/empty-side guards; exact target semantics; loss/undo/retry, record/unlock retention, free previews and stack inspection, keyboard/native focus, pause/modal/parent guards, corrupt recovery, isolated reset and quota failure.",
+        "Both scripts parse. Local asset references, unique IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
+        "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence."
+      ],
+      "commits": [
+        "f4672b82254e5e063573bf7cfa317f879d6b333a"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact fixed folding patterns with 3/4/5-fold example routes, not proven minima. No folding animation/audio. Crease readability, layer reasoning and mobile onboarding need rendered evaluation."
+      },
+      "nextSteps": [
+        "Naturally render/play all three patterns on desktop and touch; inspect screenshots and verify win/loss, undo/retry, saves/reload, reset and navigation.",
+        "Identify and implement a substantive observed improvement before qualification or catalogue selection."
+      ]
     },
     {
       "slot": 62,
@@ -1580,10 +1594,10 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all twenty third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 30 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all twenty-one third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 29 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
   "runHistory": [
     {
@@ -1976,6 +1990,13 @@
       "date": "2026-10-27",
       "commit": "701f44d42eeba3cf4b7387c9f70cc39de920ce68",
       "result": "Seedwake optional bloom deferral implemented; 34 engine/DOM checks pass. Third remains 20 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "f4672b82254e5e063573bf7cfa317f879d6b333a",
+      "result": "Built Foldlight (slot 61), a distinct layered paper-folding puzzle. 14 engine/DOM checks pass. Third now 21 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
