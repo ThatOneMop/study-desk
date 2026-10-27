@@ -954,11 +954,13 @@
       "tests": [
         "19 passing tests: 11 engine, eight jsdom 26.1.0. Three contracts with per-action save/reload, 24 transformed winning routes, varied legal resource-bound routes, soil/compost, crop rotation, rain/growth ordering, dry stalls, mature crops, companion shade/removal, cross-watering, work limits, season loss/undo/retry, progression, forecasts, input/pause/modal/parent guards, corrupt recovery/reset isolation/quota. Scripts parse; new assets exist; Games and bridge destinations validated against remote tree.",
         "No rendered browser, screenshot inspection, native touch/focus/dialog behavior, enjoyment assessment, qualified improvement pass, full repository build or live-release evidence.",
-        "Green manure refinement: 27 passing tests (16 engine, 11 jsdom 26.1.0), retaining original 19. Early/ripe food-versus-soil choice, eligibility/rejection, caps, shade removal, undo, three manure-inclusive campaigns with per-action reload, legacy routes/save shape, keyboard/native/pause/modal guards and retry. Both scripts parse. No rendered evidence."
+        "Green manure refinement: 27 passing tests (16 engine, 11 jsdom 26.1.0), retaining original 19. Early/ripe food-versus-soil choice, eligibility/rejection, caps, shade removal, undo, three manure-inclusive campaigns with per-action reload, legacy routes/save shape, keyboard/native/pause/modal guards and retry. Both scripts parse. No rendered evidence.",
+        "Transplanting: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining original 27. Three transplant-inclusive contracts with per-action DOM save/reload; immutable crop/growth/yield transfer, bed soil/water/history preservation, dry-night companion shade changes, strict eligibility/type guards, undo/retry and legacy routes, selector preview without saving, keyboard/native/pause/modal guards and ripe rejection. Scripts parse; asset references, unique IDs and bridge-first order pass. No rendered evidence."
       ],
       "commits": [
         "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393",
-        "8c76be91383d2363ba845e07b52a2057c73f20eb"
+        "8c76be91383d2363ba845e07b52a2057c73f20eb",
+        "bcf3ccd43d098c567c250c4d48b3dd3d6723ede3"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -976,6 +978,13 @@
         "before": "Beans only returned soil after two growth nights and always produced food.",
         "after": "After one growth night, turn beans into two soil and one compost for one work, sacrificing food and removing shade. Ripe beans retain a food-versus-extra-soil choice. Existing saves unchanged.",
         "remaining": "Natural rendered play, inspected screenshots, balance and feedback review, then a substantive playtest-led improvement before selection."
+      },
+      "pendingTransplantRefinement": {
+        "commit": "bcf3ccd43d098c567c250c4d48b3dd3d6723ede3",
+        "basis": "Source inspection, not rendered observation: planting fixed a crop's location for its entire growth period.",
+        "before": "A planted crop could not be moved toward wet ground or repositioned to alter bean shade.",
+        "after": "Move an immature crop to an empty bed for one work. Growth/yield move; soil, water and rotation history stay. New location controls next-night growth/shade. Exact destination information, native controls, strict replay and undo preserve saves.",
+        "remaining": "Rendered desktop/touch play and screenshot inspection; evaluate relocation balance and usefulness before the required playtest-led improvement and selection."
       }
     },
     {
@@ -1944,6 +1953,13 @@
       "date": "2026-10-27",
       "commit": "e6beab4bf5bedb9569efe379e5f65d85781e4673",
       "result": "Seedwake leave-one reserve implemented; 27 engine/DOM checks pass. Third remains 20 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "bcf3ccd43d098c567c250c4d48b3dd3d6723ede3",
+      "result": "Fallow Table transplanting implemented; 34 engine/DOM checks pass. Third remains 20 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
