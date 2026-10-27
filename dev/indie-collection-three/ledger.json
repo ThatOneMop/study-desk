@@ -926,10 +926,12 @@
       "improvementPasses": [],
       "tests": [
         "19 passing tests: 11 engine, eight jsdom 26.1.0. Three contracts with per-action save/reload, 24 transformed winning routes, varied legal resource-bound routes, soil/compost, crop rotation, rain/growth ordering, dry stalls, mature crops, companion shade/removal, cross-watering, work limits, season loss/undo/retry, progression, forecasts, input/pause/modal/parent guards, corrupt recovery/reset isolation/quota. Scripts parse; new assets exist; Games and bridge destinations validated against remote tree.",
-        "No rendered browser, screenshot inspection, native touch/focus/dialog behavior, enjoyment assessment, qualified improvement pass, full repository build or live-release evidence."
+        "No rendered browser, screenshot inspection, native touch/focus/dialog behavior, enjoyment assessment, qualified improvement pass, full repository build or live-release evidence.",
+        "Green manure refinement: 27 passing tests (16 engine, 11 jsdom 26.1.0), retaining original 19. Early/ripe food-versus-soil choice, eligibility/rejection, caps, shade removal, undo, three manure-inclusive campaigns with per-action reload, legacy routes/save shape, keyboard/native/pause/modal guards and retry. Both scripts parse. No rendered evidence."
       ],
       "commits": [
-        "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393"
+        "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393",
+        "8c76be91383d2363ba845e07b52a2057c73f20eb"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -940,7 +942,14 @@
       "nextSteps": [
         "Naturally play desktop and touch layouts, inspect screenshots, verify all three contracts, missed-season recovery, saves/reload, undo/retry/reset and navigation.",
         "Identify and fix a substantive observed weakness before counting an improvement pass or selecting this game for the catalogue."
-      ]
+      ],
+      "pendingManureRefinement": {
+        "commit": "8c76be91383d2363ba845e07b52a2057c73f20eb",
+        "basis": "Source-observed limitation: soil renewal via beans required waiting for the full food harvest; no early sacrifice option. Not a rendered observation.",
+        "before": "Beans only returned soil after two growth nights and always produced food.",
+        "after": "After one growth night, turn beans into two soil and one compost for one work, sacrificing food and removing shade. Ripe beans retain a food-versus-extra-soil choice. Existing saves unchanged.",
+        "remaining": "Natural rendered play, inspected screenshots, balance and feedback review, then a substantive playtest-led improvement before selection."
+      }
     },
     {
       "slot": 60,
@@ -1507,7 +1516,7 @@
     "Implement remaining 31 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-27",
-  "latestObservedMain": "b0b1255a9fce7757bbf2f7725ad51f01b3250f4e",
+  "latestObservedMain": "fed7f67bf45abceffe61513bc15617127472b44e",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -1845,6 +1854,13 @@
       "result": "Fallow Table slot 59 implemented with 19 passing engine/DOM tests. Third totals: 19 built, 0 qualified improved/browser-tested/integrated/live. Second additional round remains 6/20 verified.",
       "browserStatus": "Existing rendering security-policy blocker not retried or bypassed.",
       "mainObserved": "b0b1255a9fce7757bbf2f7725ad51f01b3250f4e"
+    },
+    {
+      "date": "2026-10-27",
+      "commit": "8c76be91383d2363ba845e07b52a2057c73f20eb",
+      "result": "Fallow Table green manure implemented; 27 engine/DOM tests pass. Third totals unchanged: 19 built, 0 qualified improved/browser-tested/integrated/live; second additional round 6/20 verified.",
+      "browserStatus": "Existing security-policy rendering block not retried or bypassed. Main's independent catalogue audit is not verification of this branch.",
+      "mainObserved": "fed7f67bf45abceffe61513bc15617127472b44e"
     }
   ]
 }
