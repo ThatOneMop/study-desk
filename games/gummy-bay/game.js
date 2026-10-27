@@ -99,16 +99,17 @@ import {stationReadiness} from './station-readiness.mjs?v=28';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
 import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=134';
-import {residentPlan,residentDescription,citizenRouteSteps,citizenRoute,segmentClear,curfewActive} from './resident-life.mjs?v=125';
+import {residentPlan,residentDescription,citizenRouteSteps,citizenRoute,segmentClear,curfewActive} from './resident-life.mjs?v=157';
 import {residentLocomotionClip,residentActionRate,applyResidentTransition} from './resident-animation.mjs?v=109';
 import {deliveryRound} from './delivery-round.mjs?v=1';
 import {PHONE_SCREENS,phoneDeviceStatus} from './phone-device.mjs?v=1';
+import {STARTER_PROFILES,NEW_CUSTOMERS,STANDARD_LABEL,isUnlocked,vouchers,canSample,enjoymentOf,matchedEffects,fairPrice,appealOf,rankByAppeal,haggleChance,sampleChance,dealBonus} from './customer-roster.mjs?v=157';
 import {PHONE_APP_KEYS,PHONE_HOME_APPS,buildContactBook,contactBookHTML,satisfactionContext,satisfactionView,satisfactionHTML} from './phone-contacts.mjs?v=123';
 import {weekdayClock,compassView,policeBanner,phoneBadges,curfewCue,revealTownPlaces} from './hud-readout.mjs?v=132';
 import {s1Clock,HUD_ICONS,HOTBAR_SLOTS,hotbarSlot,hotbarCounts,hotbarHTML,pushNotice,noticeKind,sleepSummary,sleepCardHTML,APP_ICONS} from './hud-s1.mjs?v=156';
 import {riderLook,BOARDS,boardById,normalizeSkate,buyBoard,createRide,stepRide,rideCamera,skateFov,DECK_HEIGHT,BAIL_TIME,KICKFLIP_SITE,KICKFLIP_POINT,KICKFLIP_COLLIDERS,skateSpotHeight,createBoardModel,spinBoardWheels,createRider,updateRider,createSkateAudio,createKickflipContainer,createKickflipKeeper,updateKickflipKeeper,kickflipShopHTML} from './skateboard.mjs?v=154';
 import {SHOP_PANELS,armShopMarkup,shopConfirmHTML,shopRefundHTML} from './shop-counter.mjs?v=123';
-import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=123';
+import {buildInbox,inboxHTML,negotiationView,dealBubbleHTML,counterSheetHTML,acceptChance,contactGraphModel,contactGraphHTML,productRowsHTML} from './phone-apps.mjs?v=157';
 import {createCoastalBackdrop} from './coastal-backdrop.mjs?v=25';
 import {HORIZON_TREE_SITES,horizonSiteOutsideBounds,horizonViewGap,createDistrictHorizon} from './district-horizon.mjs?v=126';
 import {SKYLINE_LANDMARK_SITES,SKYLINE_APPROACHES,skylineFootprintOnSupport,createTownSkyline} from './town-skyline.mjs?v=126';
@@ -155,7 +156,7 @@ import {GLTFLoader} from './vendor/gltf-loader.js';
 import {taskFraction,restoreComfort} from './workshop-state.mjs?v=25';
 import {createEffects,lookPreset,detectLookQuality} from './post-stack.mjs?v=153';
 import {postTuning,glowSources,sceneGlowExtras,createGlowHalos} from './gfx-post.mjs?v=153';
-import {OCEAN_VERTEX,OCEAN_FRAGMENT,SKY_FRAGMENT,applyCarPaint,tuftSpots,createGrassTufts,createShoreFoam,worldTuning} from './gfx-world.mjs?v=155';
+import {OCEAN_VERTEX,OCEAN_FRAGMENT,SKY_FRAGMENT,applyCarPaint,tuftSpots,createGrassTufts,createShoreFoam,worldTuning} from './gfx-world.mjs?v=157';
 const WORLD={minX:-280,maxX:280,minZ:95-(178*171*10/560),maxZ:95};
 const $=id=>document.getElementById(id),canvas=$('view');
 const STRAINS=[{name:'Pine Pop',desc:'The original green gummy.',color:0x93c35b,seed:30,price:30,level:1,time:24},{name:'Lemon Fizz',desc:'Sunny, tangy yellow chews.',color:0xe2ca63,seed:35,price:42,level:2,time:29},{name:'Purple Cloud',desc:'Soft violet gummy clusters.',color:0xaa83ce,seed:40,price:56,level:3,time:35},{name:'Blueberry Bounce',desc:'Rare blue, big flavour.',color:0x75bdd2,seed:45,price:72,level:4,time:40},{name:'Frostbite',desc:'Premium minty clusters.',color:0xb8e4d4,seed:74,price:92,level:5,time:46},{name:'Sunset Gold',desc:'The coast’s most prized gummy.',color:0xe5a86e,seed:100,price:118,level:7,time:50}];
@@ -170,6 +171,8 @@ for(const slot of mixedSlots(BASE_COUNT,INGREDIENTS.length))STRAINS[slot.index]=
 function applyMixSeed(seed,names){for(const slot of mixedSlots(BASE_COUNT,INGREDIENTS.length)){const entry=mixedStrainEntry(slot.base,slot.ingredient,seed),custom=names?.[slot.index];if(typeof custom==='string'&&custom.trim())entry.name=custom.trim().slice(0,40);Object.assign(STRAINS[slot.index],entry);}appliedMixSeed=seed;}
 function normalize(v){for(let k of ['seeds','raw','gummies','packs'])while(v[k].length<STRAINS.length)v[k].push(0);v.layout??={};v.storedPacks??=STRAINS.map(()=>0);while(v.storedPacks.length<STRAINS.length)v.storedPacks.push(0);v.workerEnabled??={gardener:true,crafter:true,seller:true};v.vehicleOwned??=false;v.vehiclePark??={x:-180,z:-155,angle:0};v.npcs??=[];v.packStation??=!!v.room;v.trimmers??=!!v.harvested;v.relations??={};v.atmWeek??=0;v.atmUsed??=0;v.ingredients??=INGREDIENTS.map(()=>0);v.mixer??=false;v.mixed??=0;v.payment??='cash';v.trash??=0;v.trashEarned??=0;v.picked??={};v.ledger??=[];v.visits=normalizeLocationVisits(v.visits);return v;}
 const CONTACTS=[{name:'Jules',x:-7,z:21,color:0xc67562,skin:0xc68d6a,budget:1.12,line:'Working the late shift again. Could use something sweet.'},{name:'Benji',x:18,z:8,color:0x80a7a8,skin:0xd8b991,budget:.98,line:'I’m on a budget, but I’ll come back if it’s good.'},{name:'Nina',x:-22,z:-9,color:0xb9a567,skin:0xb27e5b,budget:1.2,line:'Good flavour, fair price. That’s all I ask.'},{name:'Oz',x:38,z:-17,color:0x9e87b4,skin:0xe1b28f,budget:1.3,line:'I’ll pay more for premium stuff. Don’t disappoint me.'},{name:'Frankie',x:12,z:40,color:0x7f9f63,skin:0xc49674,budget:1.08,line:'Got a long walk home. Meet me by the pier.'}];
+// v157: the five starters gain Schedule I-style profiles and nine more locals join the book (locked until sampled).
+if(typeof STARTER_PROFILES!=='undefined'&&typeof NEW_CUSTOMERS!=='undefined'){STARTER_PROFILES.forEach((p,i)=>{const fav=typeof INGREDIENTS!=='undefined'?INGREDIENTS[i%4]?.effect:p.effects[0];Object.assign(CONTACTS[i],p,{effects:Object.freeze([fav,...p.effects.filter(e=>e!==fav)].slice(0,3))});});CONTACTS.push(...NEW_CUSTOMERS.map(c=>({...c})));}
 const fresh=mode=>({version:3,mode,cash:400,bank:0,x:-52.6,z:28.2,yaw:-Math.PI/2,pitch:0,day:1,time:540,xp:0,heat:0,called:0,chapter:0,room:false,layout:{},storedPacks:STRAINS.map(()=>0),workerEnabled:{gardener:true,crafter:true,seller:true},vehicleOwned:false,vehiclePark:{x:-180,z:-155,angle:0},npcs:[],props:null,packStation:false,trimmers:false,relations:{},visits:{},cravings:{},atmWeek:0,atmUsed:0,tents:0,soil:0,seeds:STRAINS.map(()=>0),raw:STRAINS.map(()=>0),gummies:STRAINS.map(()=>0),packs:STRAINS.map(()=>0),ingredients:INGREDIENTS.map(()=>0),mixer:false,mixed:0,payment:'cash',trash:0,trashEarned:0,picked:{},ledger:[],wrappers:0,can:false,water:0,plants:[],lights:0,irrigation:false,bench:0,house:0,helpers:{gardener:false,crafter:false,seller:false},staffConfig:{gardener:{strain:-1,tent:-1,stock:'carried',route:'walk'},crafter:{strain:-1,tent:-1,stock:'stored',route:'timer'},seller:{strain:-1,tent:-1,stock:'carried',route:'walk'}},hired:0,planted:0,watered:0,harvested:0,made:0,listed:0,texted:0,sold:0,earned:0,listing:null,threads:{},deals:[],laundry:null,laundered:0,front:false,job:null,savedAt:Date.now()});
 let s=fresh('story'),mode='story',slot=1,active=false,panel='title',keys={},yaw=0,pitch=0,near=null,conversationPoint=null,track=null,stamina=100,now=0,last=0,uiTimer=0,saveTimer=0,walkPhase=0,walk=false,toastTimer=0,selected=0,phoneTab='messages',processingRemote=false,work=null,pendingReset=null;
 bindGameplayState(()=>({day:s.day,time:s.time,heat:s.heat,curfew:curfewActive(s.time),police:policeNotice(s.heat,curfewActive(s.time)),cravings:CONTACTS.map((_,i)=>cravingState(s.cravings?.[i],s.day))}));
@@ -308,7 +311,7 @@ return g;
 }
 // Parked cars never move, so the static batcher may fold them into the town batches.
 for(const c of [car(-20,5,0xddb675,Math.PI/2),car(32,-5,0xb2c9bb,Math.PI/2),car(65,5,0xcb9380,Math.PI/2)])c.userData.batchStatic=true;
-CONTACTS.forEach((c,i)=>{let g=bobble(c.x,c.z,c.color,c.skin,[0x544833,0x725c42,0x4d4539,0x8b6d45,0x755944][i]);people.push(g);addPoint('customer',c.name,c.x,c.z+1,{i,actor:g})});let milo=bobble(30,31,0xa4b476,0xd2ac81);addPoint('dealer','Milo’s seed cart',30,32.3,{actor:milo});let patrol=bobble(6,-40,0x768fa0,0xd2b192,0x596052);patrol.userData.cop=true;
+CONTACTS.forEach((c,i)=>{let g=bobble(c.x,c.z,c.color,c.skin,[0x544833,0x725c42,0x4d4539,0x8b6d45,0x755944][i%5]);people.push(g);addPoint('customer',c.name,c.x,c.z+1,{i,actor:g})});let milo=bobble(30,31,0xa4b476,0xd2ac81);addPoint('dealer','Milo’s seed cart',30,32.3,{actor:milo});let patrol=bobble(6,-40,0x768fa0,0xd2b192,0x596052);patrol.userData.cop=true;
 // One physical grow tent for every owned tent. Purchase once; keep using it.
 for(let i=0;i<8;i++){let x=-31+(i%4)*3.3,z=35+Math.floor(i/4)*5.8,g=new THREE.Group();g.position.set(x,0,z);scene.add(g);box(0,.04,0,2.4,.08,2.4,0xa3b29f,false,g);box(-1.15,1.15,0,.1,2.3,2.4,0x657f73,false,g);box(1.15,1.15,0,.1,2.3,2.4,0x657f73,false,g);box(0,1.15,-1.1,2.4,2.3,.1,0x7f9686,false,g);box(0,2.3,0,2.4,.1,2.4,0x596f62,false,g);box(0,2.13,0,1.7,.06,1.4,0xece6b1,false,g);cyl(0,.35,0,.6,.7,0xbba37d,g);cyl(0,.72,0,.54,.05,0x6b6048,g);const plant=new THREE.Group();plant.position.y=.7;g.add(plant);cyl(0,.45,0,.045,.9,0x7e9c50,plant);for(let j=0;j<6;j++){let a=j*Math.PI*.7;let leaf=sphere(Math.sin(a)*.23,.2+j*.11,Math.cos(a)*.23,.27,0x87b45a,plant,1.4,.4,.6);leaf.rotation.z=Math.sin(a)*.5}sphere(0,.95,0,.18,0x9cc864,plant,.8,1.3,.8);plantVisuals.push(plant);tents.push(g);addPoint('tent','Grow tent '+(i+1),x,z+1.6,{i})}
 const beacon=new THREE.Group();scene.add(beacon);let beam=new THREE.Mesh(new THREE.CylinderGeometry(.1,.1,12,6),new THREE.MeshBasicMaterial({color:0xffe4a2,transparent:true,opacity:.5,depthWrite:false}));beam.position.y=6;beacon.add(beam);let arrow=new THREE.Mesh(new THREE.ConeGeometry(.4,.7,4),mat(0xffdf89));arrow.position.y=3;arrow.rotation.z=Math.PI;beacon.add(arrow);
@@ -1674,6 +1677,7 @@ function recordCravingSale(npc,product,qty){
 function postCravingAsks(){
  let posted=false;
  for(let i=0;i<CONTACTS.length;i++){
+  if(!isUnlocked(s,i))continue;
   const rec=s.cravings?.[i],thread=s.threads[i];
   const ask=cravingAsk(rec,{day:s.day,time:s.time,hasDeal:s.deals.some(d=>d.npc===i),threadStatus:thread?.status});
   if(!ask||!STRAINS[ask.t])continue;
@@ -2736,7 +2740,7 @@ function closeCounterSheet(){counterFor=null;counterArmed=false;if(panel==='thre
 function previewCounterChance(){
  const input=document.getElementById('counterPrice'),node=document.getElementById('counterChance');
  if(!input||!node)return;
- node.textContent=acceptChance(Number(input.value),Number(input.dataset.fair))+'%';
+ node.textContent=rosterHaggle(counterFor??selected,Number(input.value))+'%';
 }
 function phoneProductRows(){
  const rows=[];
@@ -2754,7 +2758,7 @@ const appsMenu=menu;menu=function(which,data){
  appsMenu(which,data);
  if(!active)return;
  if(which==='phone'){
-  const inbox=buildInbox({contacts:CONTACTS.map(person=>({name:person.name,swatch:phoneSwatch(person.color),line:person.line})),threads:s.threads,deals:s.deals,strainNames:STRAINS.map(item=>item.name)});
+  const inbox=buildInbox({contacts:CONTACTS.map((person,i)=>({name:person.name,swatch:phoneSwatch(person.color),line:isUnlocked(s,i)?person.line:'Locked · '+rosterLockNote(i),locked:!isUnlocked(s,i)})),threads:s.threads,deals:s.deals,strainNames:STRAINS.map(item=>item.name)});
   insertAfterClose(inboxHTML(inbox,esc));
   return;
  }
@@ -2771,7 +2775,7 @@ const appsMenu=menu;menu=function(which,data){
  if(which==='contacts'){
   const people=CONTACTS.map((person,index)=>{
    const craving=cravingState(s.cravings?.[index],s.day);
-   return {index,name:person.name,swatch:phoneSwatch(person.color),score:relationship(index),district:phoneDistrict(person),standards:'',effects:phoneEffects(index),craving:craving&&STRAINS[craving.product]?{name:STRAINS[craving.product].name,level:craving.level}:null};
+   return {index,name:person.name,swatch:phoneSwatch(person.color),score:relationship(index),district:phoneDistrict(person),locked:!isUnlocked(s,index),standards:rosterStandards(index),effects:(person.effects||[]).map(id=>effectById(id)?.name||id),craving:craving&&STRAINS[craving.product]?{name:STRAINS[craving.product].name,level:craving.level}:null};
   });
   insertAfterClose(contactGraphHTML(contactGraphModel({people,selected:contactFocus}),esc));
   return;
@@ -4739,3 +4743,120 @@ try{
   lotRefresh:refreshLot
  };
 }catch(error){console.warn('Wheels and weather unavailable',error);}
+
+// v157: Schedule I-style customer book wired into live deals through sim-formulas.mjs.
+// Locked locals join after a sample, fair prices follow enjoyment, counters roll a shown chance,
+// and deliveries pay curfew, rain and quick bonuses.
+function rosterProduct(t){const p=STRAINS[t];return p?{effects:p.effects||[],mixed:!!p.mixed,quality:listedQuality(s,t)}:null;}
+function rosterEnjoy(i,t){const p=rosterProduct(t);return p&&CONTACTS[i]?enjoymentOf(CONTACTS[i],p):.5;}
+function rosterCraving(i){const c=cravingState(s.cravings?.[i],s.day);return Number.isFinite(c?.level)?c.level:0;}
+function rosterFair(i,t){return fairPrice(value(t),CONTACTS[i].budget,rosterEnjoy(i,t));}
+function rosterNames(list){return list.filter(j=>CONTACTS[j]).map(j=>CONTACTS[j].name).join(', ');}
+function rosterEffectNames(list){return (list||[]).map(id=>effectById(id)?.name||id);}
+function rosterLockNote(i){const v=vouchers(s,CONTACTS,i);return v.length?'Hand them a sample in person. '+rosterNames(v)+' can vouch for you.':'Nobody you know has met them yet. Unlock '+rosterNames(CONTACTS[i]?.knows||[])+' first.';}
+function rosterStandards(i){const c=CONTACTS[i];if(!c?.spend)return '';const base=(c.role?c.role+' · ':'')+'Spends $'+c.spend[0]+'–$'+c.spend[1]+' a week · '+STANDARD_LABEL[c.standard]+' quality standard · Knows '+rosterNames(c.knows||[])+'.';return isUnlocked(s,i)?base:base+' Locked: '+rosterLockNote(i);}
+function rosterHaggle(i,price){const t=s.threads?.[i];if(!t||!CONTACTS[i]||!Number.isFinite(t.max))return 0;return haggleChance({price,fair:t.max,qty:t.qty,relation:relationship(i),craving:rosterCraving(i),spend:CONTACTS[i].spend||[100,250]});}
+function rosterSampleChance(i,t){let friend=0;for(const j of vouchers(s,CONTACTS,i))friend=Math.max(friend,relationship(j));return sampleChance({enjoyment:rosterEnjoy(i,t),relation:relationship(i),craving:rosterCraving(i),friendRelation:friend});}
+function rosterNow(){return (s.day-1)*1440+s.time;}
+function rosterBonus(deal){return dealBonus({curfew:curfewActive(s.time),rain:rainAt(s.day,s.time)>.2,agreedAt:deal?.at,now:rosterNow()});}
+function rosterBonusHTML(deal){const b=rosterBonus(deal);return '<p class="deal-bonus">'+(b.labels.length?'Delivery bonus now: <b>'+esc(b.labels.join(' · '))+'</b>':'No delivery bonus right now. Curfew +20%, rain +20%, or delivering within an hour +10%.')+'</p>';}
+function rosterStamp(){if(Array.isArray(s.deals))for(const d of s.deals)if(d&&!Number.isFinite(d.at))d.at=rosterNow();}
+function rosterAppealRows(){
+ const l=s.listing;if(!l||!STRAINS[l.t])return [];
+ const rows=[];
+ for(let i=0;i<CONTACTS.length;i++){
+  if(!isUnlocked(s,i)||s.deals.some(d=>d.npc===i))continue;
+  const e=rosterEnjoy(i,l.t),fair=rosterFair(i,l.t);
+  const chance=l.price<=fair?100:haggleChance({price:l.price,fair,qty:l.qty,relation:relationship(i),craving:rosterCraving(i),spend:CONTACTS[i].spend||[100,250]});
+  rows.push({index:i,name:CONTACTS[i].name,enjoy:e,fair,chance,appeal:appealOf(e,l.price,fair),matches:rosterEffectNames(matchedEffects(CONTACTS[i],STRAINS[l.t].effects||[]))});
+ }
+ return rankByAppeal(rows);
+}
+function rosterAppealHTML(){
+ const l=s.listing,locked=CONTACTS.filter((_,i)=>!isUnlocked(s,i)).length;
+ const lockNote=locked?'<p class="note">'+locked+' locals are still locked. Open Contacts to see who can vouch for you, then hand them a sample in person.</p>':'';
+ if(!l||!STRAINS[l.t])return '<section class="appeal-board"><div class="overline">BEST BUYERS</div><p>List a product to see who wants it most.</p>'+rosterBonusHTML(null)+lockNote+'</section>';
+ const rows=rosterAppealRows().slice(0,5).map((r,n)=>'<article class="appeal-row"><span class="appeal-rank">'+(n+1)+'</span><div><strong>'+esc(r.name)+'</strong><small>'+(r.matches.length?'Matches '+esc(r.matches.join(', ')):'No matching effects')+' · pays up to '+cash(r.fair)+'</small><span class="appeal-bar"><i style="width:'+Math.round(Math.max(0,Math.min(1,r.appeal))*100)+'%"></i></span></div><b title="Chance they accept your price">'+r.chance+'%</b><button class="ghost" type="button" onclick="action(\'text\','+r.index+')">Text</button></article>').join('');
+ return '<section class="appeal-board" aria-label="Best buyers"><div class="overline">BEST BUYERS · '+esc(STRAINS[l.t].name)+' AT '+cash(l.price)+'</div>'+(rows||'<p>Everyone you know already has an order.</p>')+'<p class="note">Ranked by appeal: how much they enjoy it against your price. % is the chance they say yes.</p>'+rosterBonusHTML(null)+lockNote+'</section>';
+}
+const rosterNormalize=normalize;normalize=function(v){const n=rosterNormalize(v);if(!n.unlocked||typeof n.unlocked!=='object'||Array.isArray(n.unlocked))n.unlocked={};return n;};
+const rosterAction=doAction;doAction=function(k,a,b,c){
+ const who=CONTACTS[a];
+ if((k==='text'||k==='offer')&&who&&!isUnlocked(s,a)){toast(who.name+' does not know you yet. '+rosterLockNote(a));return;}
+ if(k==='text'&&who&&s.listing&&STRAINS[s.listing.t]){
+  const old=who.budget,e=rosterEnjoy(a,s.listing.t);
+  who.budget=old*(.8+.5*e);
+  try{rosterAction(k,a,b,c);}finally{who.budget=old;}
+  const th=s.threads?.[a];if(th)th.enjoy=Math.round(e*100)/100;
+  rosterStamp();return;
+ }
+ if(k==='offer'){
+  const th=s.threads?.[a];
+  if(who&&th&&th.status==='negotiating'&&Number.isFinite(b)&&Number.isFinite(th.max)&&Math.round(b)>th.max){
+   const price=Math.round(b),chance=rosterHaggle(a,price),max=th.max,win=Math.random()*100<chance;
+   if(win)th.max=price;
+   try{rosterAction(k,a,b,c);}finally{if(th.status==='negotiating')th.max=max;}
+   if(win&&s.deals.some(d=>d.npc===a))toast(who.name+' took your counter of '+cash(price)+' ('+chance+'% chance).');
+   else if(!win)toast(who.name+' passed on '+cash(price)+' ('+chance+'% chance) and countered.');
+   rosterStamp();return;
+  }
+ }
+ if(k==='deliver'&&who){
+  const d=s.deals.find(x=>x.npc===a),bonus=d?rosterBonus(d):null,sold=s.sold,cash0=s.cash,bank0=s.bank;
+  rosterAction(k,a,b,c);
+  if(d&&bonus&&s.sold>sold&&bonus.mult>1){
+   const base=d.price*d.qty,extra=Math.round(base*(bonus.mult-1));
+   if(s.bank>bank0&&s.cash<=cash0)s.bank+=extra;else s.cash+=extra;
+   s.earned+=extra;const ls=s.threads?.[a]?.lastSale;if(ls)ls.total+=extra;
+   toast('Bonus +'+cash(extra)+' · '+bonus.labels.map(x=>x.split(' · ')[0]).join(' · '));save();
+  }
+  return;
+ }
+ if(k==='sample'&&who&&!isUnlocked(s,a)){
+  if(!canSample(s,CONTACTS,a)){toast(who.name+' does not know anyone you know. '+rosterLockNote(a));return;}
+  const chance=rosterSampleChance(a,b),packs=s.packs[b],rel=relationship(a);
+  rosterAction(k,a,b,c);
+  if(!(s.packs[b]<packs))return;
+  if(Math.random()*100<chance){
+   if(!s.unlocked||typeof s.unlocked!=='object')s.unlocked={};
+   s.unlocked[a]=true;s.xp+=10;
+   toast(who.name+' loved it ('+chance+'% chance) and is now in your contacts. Text them your listing.');
+  }else{
+   s.relations[a]=Math.min(100,rel+3);
+   toast(who.name+' was not won over ('+chance+'% chance). They like '+rosterEffectNames(who.effects).join(', ')+'.');
+  }
+  save();if(panel==='customer')menu('customer',a);return;
+ }
+ return rosterAction(k,a,b,c);
+};
+const rosterMenu=menu;menu=function(which,data){
+ rosterMenu(which,data);
+ if(!active)return;
+ try{
+  if(which==='phone'){insertAfterClose(rosterAppealHTML());return;}
+  if(which==='deals'){
+   const rows=(s.deals||[]).filter(d=>CONTACTS[d.npc]).map(d=>{const b=rosterBonus(d);return '<p><b>'+esc(CONTACTS[d.npc].name)+'</b> · '+(b.labels.length?esc(b.labels.join(' · ')):'no bonus right now')+'</p>';}).join('');
+   insertAfterClose('<section class="appeal-board"><div class="overline">DELIVERY BONUSES</div>'+rosterBonusHTML(null)+rows+'</section>');return;
+  }
+  const i=Number.isInteger(data)?data:selected,c=CONTACTS[i];
+  if(!c)return;
+  if(which==='thread'){
+   const th=s.threads?.[i];
+   const likes='<p class="note">'+esc(c.name)+' likes <b>'+esc(rosterEffectNames(c.effects).join(', '))+'</b> · '+esc(STANDARD_LABEL[c.standard]||'Moderate')+' standard · spends $'+(c.spend||[0,0])[0]+'–$'+(c.spend||[0,0])[1]+' a week.'+(th&&Number.isFinite(th.enjoy)?' Enjoys this one: '+Math.round(th.enjoy*100)+'%.':'')+'</p>';
+   insertAfterClose('<section class="appeal-board">'+likes+(th?.status==='negotiating'?'<p class="note">Counter above '+cash(th.max)+' and they roll the chance shown in the counter sheet.</p>':'')+'</section>');return;
+  }
+  if(which==='customer'){
+   let h='<section class="appeal-board roster-card"><div class="overline">'+esc((c.role||'Local').toUpperCase())+(isUnlocked(s,i)?'':' · LOCKED 🔒')+'</div><p>Likes <b>'+esc(rosterEffectNames(c.effects).join(', '))+'</b> · '+esc(STANDARD_LABEL[c.standard]||'Moderate')+' standard · spends $'+(c.spend||[0,0])[0]+'–$'+(c.spend||[0,0])[1]+' a week.</p>';
+   if(!isUnlocked(s,i)){
+    const choices=sampleChoices(s,i);
+    h+='<p>'+esc(rosterLockNote(i))+'</p>';
+    if(canSample(s,CONTACTS,i))h+=choices.length?'<p class="sample-odds">Sample odds: '+choices.slice(0,4).map(q=>'<b>'+esc(STRAINS[q.t].name)+' '+rosterSampleChance(i,q.t)+'%</b>').join(' · ')+'</p>':'<p class="note">Pack a gummy to offer them a sample.</p>';
+   }
+   insertAfterClose(h+'</section>');
+  }
+ }catch(e){console.warn('Roster panel skipped',e);}
+};window.menu=menu;
+window.__roster={rows:()=>rosterAppealRows().map(r=>({name:r.name,chance:r.chance,appeal:Math.round(r.appeal*100),fair:r.fair})),
+ stage:(t=0,extra=6)=>{if(!active)return null;s.packs[t]=Math.max(s.packs[t]||0,8);s.listing={t,qty:3,price:value(t)+extra};return window.__roster.rows();},
+ locked:()=>CONTACTS.map((c,i)=>({name:c.name,locked:!isUnlocked(s,i),sample:canSample(s,CONTACTS,i)})),
+ sampleChance:(i,t=0)=>rosterSampleChance(i,t),bonus:()=>rosterBonus(null),haggle:(i,p)=>rosterHaggle(i,p)};

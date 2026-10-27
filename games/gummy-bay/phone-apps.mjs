@@ -105,7 +105,7 @@ function hearts(score){
 }
 
 export function contactGraphModel({people=[],selected=0}={}){
- const list=Array.isArray(people)?people.slice(0,12):[];
+ const list=Array.isArray(people)?people.slice(0,16):[];
  const focus=list.some(person=>person.index===selected)?selected:(list[0]?.index??0);
  const nodes=list.map((person,slot)=>{
   const turn=list.length?(-Math.PI/2)+(slot/list.length)*Math.PI*2:0;
@@ -129,14 +129,14 @@ export function contactGraphHTML(model,esc=fallbackEsc){
  const lines=nodes.map(node=>'<line x1="50" y1="50" x2="'+node.x.toFixed(1)+'" y2="'+node.y.toFixed(1)+'"></line>').join('');
  const marks=nodes.map(node=>{
   const style='left:'+node.x.toFixed(1)+'%;top:'+node.y.toFixed(1)+'%';
-  if(node.locked)return '<span class="graph-node is-locked" style="'+style+'" title="Locked"><b aria-hidden="true">'+esc(node.initial)+'</b><i aria-label="Locked">🔒</i></span>';
+  if(node.locked)return '<button type="button" class="graph-node is-locked'+(node.selected?' on':'')+'" style="'+style+'" title="Locked" onclick="showContactCard('+node.index+')"><b aria-hidden="true">'+esc(node.initial)+'</b><i aria-label="Locked">🔒</i></button>';
   return '<button type="button" class="graph-node'+(node.selected?' on':'')+'" style="'+style+';background:'+node.swatch+'" onclick="showContactCard('+node.index+')" aria-pressed="'+(node.selected?'true':'false')+'"><b aria-hidden="true">'+esc(node.initial)+'</b><small>'+esc(node.name)+'</small></button>';
  }).join('');
  const detail=nodes.find(node=>node.index===model.focus)||nodes[0];
  const card=detail?(()=>{
   const craving=detail.craving?'<div class="craving-bar" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+detail.craving.level+'" aria-label="Craving for '+esc(detail.craving.name)+' '+detail.craving.level+' of 100"><i style="width:'+detail.craving.level+'%"></i><span>'+esc(detail.craving.name)+' · '+detail.craving.level+'</span></div>':'<p>No craving recorded.</p>';
-  const effects=detail.effects&&detail.effects.length?'<p class="effect-chips">'+detail.effects.map(effect=>'<em>'+esc(effect)+'</em>').join('')+'</p><p class="note">Only the effect this customer already favours is known.</p>':'<p>Preferred effects show after the first deal.</p>';
-  return '<article class="contact-detail"><header><span class="mug" style="background:'+detail.swatch+'" aria-hidden="true">'+esc(detail.initial)+'</span><div><h3>'+esc(detail.name)+'</h3><p>'+esc(detail.district)+'</p></div></header><p class="loyalty" aria-label="Loyalty '+detail.loyalty.filled+' of 5 hearts">'+detail.loyalty.glyph+'</p>'+craving+effects+'<p>'+esc(detail.standards)+'</p></article>';
+  const effects=detail.effects&&detail.effects.length?'<p class="effect-chips">'+detail.effects.map(effect=>'<em>'+esc(effect)+'</em>').join('')+'</p><p class="note">Preferred effects. Matching them raises what they pay.</p>':'<p>Preferred effects show after the first deal.</p>';
+  return '<article class="contact-detail"><header><span class="mug" style="background:'+detail.swatch+'" aria-hidden="true">'+esc(detail.initial)+'</span><div><h3>'+esc(detail.name)+(detail.locked?' 🔒':'')+'</h3><p>'+esc(detail.district)+'</p></div></header><p class="loyalty" aria-label="Loyalty '+detail.loyalty.filled+' of 5 hearts">'+detail.loyalty.glyph+'</p>'+craving+effects+'<p>'+esc(detail.standards)+'</p></article>';
  })():'';
  const lockedNote=nodes.some(node=>node.locked)?'':'<p class="note">Nobody in the book is locked.</p>';
  return '<section class="contact-graph" aria-label="Contact graph"><div class="overline">WHO KNOWS WHOM</div><div class="graph-board"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="4"></circle>'+lines+'</svg><span class="graph-you">You</span>'+marks+'</div>'+lockedNote+card+'</section>';

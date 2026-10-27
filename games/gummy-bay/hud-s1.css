@@ -354,3 +354,20 @@ body.skating .crosshair,body.skating #crosshair{opacity:0}
 #s1rank b{display:block;font-size:11px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:#ffe7a8}
 #s1rank i{display:block;height:3px;margin-top:5px;border-radius:2px;background:#ffffff22;overflow:hidden}
 #s1rank u{display:block;height:100%;background:linear-gradient(90deg,#f4c46b,#ffe7a8);text-decoration:none;transition:width .4s ease}
+/* v157 customer book: best-buyer ranking, delivery bonuses, sample odds */
+.appeal-board{margin:8px 0 10px;padding:10px 12px;border-radius:12px;background:rgba(255,246,220,.08);border:1px solid rgba(255,214,120,.28)}
+.appeal-board .overline{margin-bottom:6px}
+.appeal-row{display:grid;grid-template-columns:22px 1fr auto auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid rgba(255,255,255,.08)}
+.appeal-row:first-of-type{border-top:0}
+.appeal-row small{display:block;opacity:.8;font-size:11px}
+.appeal-rank{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#f2c65a;color:#3a2a10;font-weight:800;font-size:12px}
+.appeal-bar{display:block;height:5px;margin-top:4px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden}
+.appeal-bar i{display:block;height:100%;background:linear-gradient(90deg,#f2c65a,#7fd18b)}
+.appeal-row b{font-size:15px;color:#ffe6a0}
+.appeal-row button{padding:4px 10px}
+.deal-bonus{margin:8px 0 2px;font-size:12px}.deal-bonus b{color:#9fe3a8}
+.sample-odds b{color:#ffe6a0}
+.graph-node.is-locked{cursor:pointer;opacity:.78}
+
+/* v157: the global HUD header rule (absolute) was stacking contact rows and card headers inside the phone. */
+#modal header{position:static;top:auto;left:auto;right:auto;pointer-events:auto}
