@@ -20,7 +20,7 @@ check(e.stats.dealerSales>0&&stock()<16,'Benny sells while you are away');
 check(x.owed===e.stats.dealerGross-e.stats.cuts-e.stats.shorted-e.stats.seized||x.owed<=e.stats.dealerGross-e.stats.cuts,'owed = gross - cut - skim');
 const owed=x.owed,c1=s.cash;check(owed>0&&N.act('collect','benny',true)===owed&&s.cash===c1+owed&&st().dealers.benny.owed===0,'collect moves takings into your wallet');
 check(N.act('hireRunner','pip')===true&&st().runners.pip,'Pip hired at level 4');
-s.storedPacks.fill(0);s.storedPacks[0]=8;check(N.act('send','pip','benny')===true&&st().runners.pip.state==='out','runner leaves with stockroom packs');
+s.empire.dealers.benny.target=16;s.storedPacks.fill(0);s.storedPacks[0]=8;check(N.act('send','pip','benny')===true&&st().runners.pip.state==='out','runner leaves with stockroom packs');
 check(s.storedPacks[0]<8,'cargo leaves the stockroom');
 check(N.act('hireCrew','grower')===true&&st().crew.length===1&&N.act('hireCrew','bench')===false,'one crew slot in the starter flat');
 const lay=s.empire.dealers.benny.lowUntil;s.empire.dealers.benny.lowUntil=0;const sp=N.spot('benny');player.x=sp.x+3;player.z=sp.z;N.tick();update(.5);const v=N.visuals();check(v.dealers.benny===true,'dealer stall visible near Old Town');

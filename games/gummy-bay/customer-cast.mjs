@@ -36,7 +36,7 @@ const T=[
  ['Benny Boardwalk',-40,4.4,'old-town',levelGate(3),'Boardwalk energy. Keep it sunny.','I walk the old-town loop with a pocket full of samples.',['sunny','brisk'],[200,480],'moderate',1.22,'Old Town regular','anchor',['Bo Crumb']],
  ['Mo Marmalade',40,-4.2,'east-market',districtGate('east-market'),'Orange coat, orange opinions.','East Market is my beat. Bring flavour.',['hearty','zesty'],[220,520],'moderate',1.25,'East Market regular','anchor',['Gio Noodle']],
  ['Cleo Caramel',-64,5.1,'west-harbor',districtGate('west-harbor'),'Harbor wind, smooth chew.','West Harbor. I only share what I would eat.',['smooth','hazy'],[240,560],'high',1.28,'Harbor regular','anchor',['Ivo Treacle']],
- ['Dex Dimple',-32,4.9,'north-heights',districtGate('north-heights'),'Soft voice, high standard.','North Heights. Surprise me, gently.',['quiet','luminous'],[260,600],'veryHigh',1.3,'Heights regular','anchor',['Lou Button']],
+ ['Dex Dimple',-44,4.5,'north-heights',districtGate('north-heights'),'Soft voice, high standard.','North Heights. Surprise me, gently.',['quiet','luminous'],[260,600],'veryHigh',1.3,'Heights regular','anchor',['Lou Button']],
  ['Marge',32,5.8,'old-town',levelGate(6),'Pier gossip, warm chew.','Bait and tackle, and a long memory.',['still','sunny'],[140,340],'moderate',1.1,'Pier regular','anchor',['Tilly']],
  ['Tilly',40,5.2,'old-town',levelGate(6),'Overalls and a bright day.','I paint the pier rail and taste as I go.',['breezy','buoyant'],[90,220],'low',1.02,'Pier painter','anchor',[]],
  ['Lemon Larry',-48,4.6,'old-town',levelGate(4),'Lemon cap, lemon mood.','If it is zesty I am already listening.',['zesty','curious'],[80,200],'veryLow',.95,'Street regular','anchor',['Hank Harrow']],

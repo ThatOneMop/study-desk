@@ -6,6 +6,7 @@
 export {TOWN_CUSTOMERS,CUSTOMER_LOOKS,lookSignature} from './customer-cast.mjs';
 export {createCustomerCrowd,customerLook} from './customer-crowd.mjs';
 export {AREA_GATES,areaById,areaOpen,bestBatchQuality,gearRows,areaHow,gateText,progressModel,progressHTML} from './progression-book.mjs';
+export {levelOf,levelProgress,rankTitle,migrateXp} from './xp-curve.mjs';
 import {QUALITY,STANDARDS,ENJOYMENT_WEIGHTS,appeal,judgeCounter,sampleScore,sampleAcceptance,
  weeklyBudget,weeklyOrders,dealPay,QUICK_DEAL_MINUTES} from './sim-formulas.mjs';
 
