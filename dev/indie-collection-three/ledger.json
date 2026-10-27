@@ -1053,10 +1053,12 @@
       "tests": [
         "14 passing tests: seven engine, seven jsdom 26.1.0. All three patterns completed through controls with per-action save/reload; reflection, stack reversal and face flipping; unique-paper conservation across every legal depth-two fold; invalid/out-of-frame/empty-side guards; exact target semantics; loss/undo/retry, record/unlock retention, free previews and stack inspection, keyboard/native focus, pause/modal/parent guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse. Local asset references, unique IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
-        "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence."
+        "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence.",
+        "Under-folding: 21 passing tests (11 engine, 10 jsdom 26.1.0), retaining original 14. Three under-inclusive routes through controls and per-action reload; reversed/face-flipped bottom insertion, stationary top preservation, identical geometry/conservation, empty destinations, strict flags, undo/retry and old journals, mode previews and native/pause/modal guards. Both scripts parse. No rendered evidence."
       ],
       "commits": [
-        "f4672b82254e5e063573bf7cfa317f879d6b333a"
+        "f4672b82254e5e063573bf7cfa317f879d6b333a",
+        "bb255e048f6cbccea5d103460df6fe22d904c949"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1067,7 +1069,14 @@
       "nextSteps": [
         "Naturally render/play all three patterns on desktop and touch; inspect screenshots and verify win/loss, undo/retry, saves/reload, reset and navigation.",
         "Identify and implement a substantive observed improvement before qualification or catalogue selection."
-      ]
+      ],
+      "pendingUnderRefinement": {
+        "commit": "bb255e048f6cbccea5d103460df6fe22d904c949",
+        "basis": "Source inspection, not rendered observation: moving paper always covered the stationary top layers.",
+        "before": "Every moving stack landed above stationary paper.",
+        "after": "Optional under-fold inserts the turned moving stack below stationary layers, preserving their visible colour and changing buried layers for future folds. Previews and inspection reflect mode; old saves remain over-folds.",
+        "remaining": "Rendered desktop/touch play and screenshot inspection; assess sequence depth, mode clarity and preview usability before playtest-led qualification."
+      }
     },
     {
       "slot": 62,
@@ -1997,6 +2006,13 @@
       "date": "2026-10-28",
       "commit": "f4672b82254e5e063573bf7cfa317f879d6b333a",
       "result": "Built Foldlight (slot 61), a distinct layered paper-folding puzzle. 14 engine/DOM checks pass. Third now 21 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "bb255e048f6cbccea5d103460df6fe22d904c949",
+      "result": "Foldlight under-folding implemented; 21 engine/DOM checks pass. Third remains 21 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed."
     }
