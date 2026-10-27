@@ -29,7 +29,20 @@ function step(level,b,action){
  return n;
 }
 function board(s){let b=initial(s.level);for(const a of s.moves){b=step(s.level,b,a);if(!b)throw Error('Invalid herding journal')}return b}
+// Read-only, bounded breadth-first search. Exhaustion is not proof of a dead end.
+function advise(level,start,budget=25000){
+ if(!integer(budget,1,100000))throw Error('Invalid search budget');
+ if(won(start))return{status:'complete',actions:[],visited:0};
+ const key=b=>b.dog+':'+b.sheep.join(','),q=[{b:copy(start),parent:-1,action:null}],seen=new Set([key(start)]),actions=[...DIRS,'whistle',...start.sheep.map((_,i)=>({whistle:i})),...DIRS.map(d=>'quiet-'+d)];
+ for(let h=0;h<q.length;h++){
+  if(h>=budget)return{status:'unknown',actions:[],visited:h};
+  for(const a of actions){const b=step(level,q[h].b,a);if(!b)continue;const k=key(b);if(seen.has(k))continue;seen.add(k);const entry={b,parent:h,action:a};q.push(entry);
+   if(won(b)){const route=[];for(let i=q.length-1;q[i].parent>=0;i=q[i].parent)route.unshift(copy(q[i].action));return{status:'route',actions:route,visited:h+1}}
+  }
+ }
+ return{status:'stuck',actions:[],visited:q.length};
+}
 function create(){return{version:1,level:0,moves:[],records:[null,null,null]}}
 function act(s,a){const n=copy(s);if(a==='undo'){if(!n.moves.length)return{ok:false,state:s};n.moves.pop();return{ok:true,state:n}}if(a==='retry'){n.moves=[];return{ok:true,state:n}}if(a&&typeof a==='object'&&Object.keys(a).sort().join(',')==='level,type'&&a.type==='level'){if(!integer(a.level,0,2)||a.level>0&&n.records[a.level-1]===null)return{ok:false,state:s};n.level=a.level;n.moves=[];return{ok:true,state:n}}if(n.moves.length>=LIMIT)return{ok:false,state:s};const b=step(s.level,board(s),a);if(!b)return{ok:false,state:s};n.moves.push(copy(a));if(won(b))n.records[s.level]=Math.min(n.records[s.level]??Infinity,n.moves.length);return{ok:true,state:n}}
 function decode(raw){const s=JSON.parse(raw);if(!s||s.version!==1||!integer(s.level,0,2)||!Array.isArray(s.moves)||s.moves.length>LIMIT||!Array.isArray(s.records)||s.records.length!==3||!s.records.every(x=>x===null||integer(x,1,LIMIT))||s.records.some((x,i)=>i>0&&x!==null&&s.records[i-1]===null)||s.level>0&&s.records[s.level-1]===null)throw Error('Invalid save');const b=board(s);if(won(b)&&(s.records[s.level]===null||s.records[s.level]>s.moves.length))throw Error('Missing record');return{version:1,level:s.level,moves:copy(s.moves),records:s.records.slice()}}
-return{KEY,SIZE,LIMIT,LEVELS,DIRS,near,distance,initial,won,step,board,create,act,decode};});
+return{advise,KEY,SIZE,LIMIT,LEVELS,DIRS,near,distance,initial,won,step,board,create,act,decode};});

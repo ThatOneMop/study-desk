@@ -3,3 +3,5 @@
 #quiet{width:100%;margin:0 0 14px;font-size:14px}
 
 #call{display:block;width:100%;min-height:44px;padding:9px;margin:6px 0 14px;font:inherit;color:#344c39;background:#fff9e7;border:1px solid #8fa17c;border-radius:8px}
+
+#hint{margin-top:14px;width:100%}#hint-note{font-size:13px;color:#4b6550}
