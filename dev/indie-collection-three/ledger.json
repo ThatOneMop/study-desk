@@ -850,14 +850,16 @@
         "Quiet paws: 22 tests pass (11 engine, 11 jsdom), retaining all 16 prior tests. Quiet movement preserves sheep, costs a step, obeys obstacles, rejects malformed quiet actions and replays/undoes exactly. All three quiet-enabled campaign fixtures reload every action, preserve/improve records, and retain unrelated saves. UI tests cover prediction invalidation, default-off reload/retry/reset, button/keyboard/scaled tap input, pause guards and unchanged whistles. Both scripts pass syntax checks. No rendered evidence.",
         "Named calls: 29 passing tests (15 engine, 14 jsdom 26.1.0), retaining 22 previous checks. Shared-destination stalemate, one-sheep response, range/occupancy/shelter, strict action validation/copying, three named-call campaigns with per-action reload, legacy and quiet routes, forecast invalidation, native selector keys, opening/pause/modal/parent guards, undo/retry and records. Scripts parse. No rendered evidence.",
         "Route adviser: 35 passing tests (18 engine, 17 jsdom 26.1.0), retaining previous 29. Read-only route replay; first two starting meadows and progressed final meadow; search-limit uncertainty versus exhaustive trapped-position proof; first-meadow UI advice/confirmation campaign; native/pause/modal/parent guards; stale advice clearing. Both scripts parse. No rendered evidence.",
-        "Cooperative adviser: 41 passing tests (21 engine, 20 jsdom 26.1.0), retaining prior 35 checks with async waits. Identical synchronous/cooperative results; timer progress; cancellation before/during search; immutable snapshots; movement while searching; stale result suppression for target/mode/pause/dialog/hide/cancel; competing searches and error recovery. JS syntax checks pass. No rendered performance evidence."
+        "Cooperative adviser: 41 passing tests (21 engine, 20 jsdom 26.1.0), retaining prior 35 checks with async waits. Identical synchronous/cooperative results; timer progress; cancellation before/during search; immutable snapshots; movement while searching; stale result suppression for target/mode/pause/dialog/hide/cancel; competing searches and error recovery. JS syntax checks pass. No rendered performance evidence.",
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
       ],
       "commits": [
         "c83cf16c1cae29e2c1987273469ef11a91c91be2",
         "56f433122a9298ebf22af4686e2be4b0e62f4366",
         "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09",
         "ad5d1d4385b468fe81c681e704551339db07b977",
-        "db05228e86f03859234f3a15755d5df8f3db84ba"
+        "db05228e86f03859234f3a15755d5df8f3db84ba",
+        "b4b67145f615b1452c60e9673fdebe6c30c9b35a"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -896,6 +898,12 @@
         "before": "The whole bounded search ran in one UI callback.",
         "after": "Shared generator yields between 256-position batches. Controls remain available, explicit Cancel search is added, and generation tokens discard stale completions/errors after any state/context change. Search failures do not claim a dead end. Save shape/rules unchanged.",
         "remaining": "Rendered desktop/touch frame-time, native interaction and screenshot assessment; natural play and required playtest-led improvement before selection."
+      },
+      "pendingVisibilityFix": {
+        "commit": "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+        "before": "Pending reset/recovery could commit after hiding; resume and text-composition/editable input lacked complete guards.",
+        "after": "Persistent parent-hidden state and document.hidden independently block input/resume/confirmation. Returning stays paused. Composition/editable fields excluded. Bellwether retains adviser invalidation and blocks hidden entry/confirmation.",
+        "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending."
       }
     },
     {
@@ -916,13 +924,15 @@
         "No rendered browser, native keyboard/touch, screenshot, enjoyment, improvement-pass or live-release evidence.",
         "Portable low weir: 21 passing checks (12 engine, 9 jsdom 26.1.0), retaining original 13. Edge diversion, relocation/removal, dynamic overtopping/undo, strict validation, all three campaigns with per-action reload, old save/board shapes, flow/soil conservation, read-only previews, edge markers, pause/native selector guards, retry/records/reset isolation. Scripts pass syntax checks. No rendered evidence.",
         "Treadle pump: 29 passing tests (17 engine, 12 jsdom 26.1.0), retaining original 21. Three pump-inclusive routes through controls with per-action reload; plateau and one-step rise, genuine loop trapping, over-height fallback, weir crossing, relocation/removal, undo/retry, strict validation, water/soil conservation across varied terrain, pure forecasts, markers, native selector/pause/modal guards. Both scripts parse; IDs/assets/bridge-first and no Switch workspace controls pass static checks. No rendered evidence.",
-        "Embedded shortcut fix: 34 tests pass (17 engine, 12 standalone jsdom, five real-bridge/jsdom checks with simulated parent). P is reserved for embedded workspace navigation; W now pours. Regression failed before fix, passed after. Keyboard garden completion/reload, native focus/modifiers/repeats, pause/dialog and real bridge visibility suspension/resume pass. No engine or save changes; no rendered credit."
+        "Embedded shortcut fix: 34 tests pass (17 engine, 12 standalone jsdom, five real-bridge/jsdom checks with simulated parent). P is reserved for embedded workspace navigation; W now pours. Regression failed before fix, passed after. Keyboard garden completion/reload, native focus/modifiers/repeats, pause/dialog and real bridge visibility suspension/resume pass. No engine or save changes; no rendered credit.",
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
       ],
       "commits": [
         "c0cb277acc2f032d5b654f2619ec760130261bba",
         "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
         "b32fdd8d1d23e46028c3578860d78e64a729c4ec",
-        "1cd076ff0db03a4d4aa87348db9ffcab271a8ffd"
+        "1cd076ff0db03a4d4aa87348db9ffcab271a8ffd",
+        "b4b67145f615b1452c60e9673fdebe6c30c9b35a"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -953,6 +963,12 @@
         "before": "Advertised P pour was intercepted by bridge in embedded games; standalone tests omitted bridge.",
         "after": "W pours; visible hint and aria-keyshortcuts updated. Actual bridge runs before game in regression harness with simulated parent.",
         "qualification": "Reliability fix only, no substantive rendered improvement-pass credit."
+      },
+      "pendingVisibilityFix": {
+        "commit": "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+        "before": "Pending reset/recovery could commit after hiding; resume and text-composition/editable input lacked complete guards.",
+        "after": "Persistent parent-hidden state and document.hidden independently block input/resume/confirmation. Returning stays paused. Composition/editable fields excluded. Bellwether retains adviser invalidation and blocks hidden entry/confirmation.",
+        "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending."
       }
     },
     {
@@ -972,12 +988,14 @@
         "19 passing tests: 11 engine, eight jsdom 26.1.0. Three contracts with per-action save/reload, 24 transformed winning routes, varied legal resource-bound routes, soil/compost, crop rotation, rain/growth ordering, dry stalls, mature crops, companion shade/removal, cross-watering, work limits, season loss/undo/retry, progression, forecasts, input/pause/modal/parent guards, corrupt recovery/reset isolation/quota. Scripts parse; new assets exist; Games and bridge destinations validated against remote tree.",
         "No rendered browser, screenshot inspection, native touch/focus/dialog behavior, enjoyment assessment, qualified improvement pass, full repository build or live-release evidence.",
         "Green manure refinement: 27 passing tests (16 engine, 11 jsdom 26.1.0), retaining original 19. Early/ripe food-versus-soil choice, eligibility/rejection, caps, shade removal, undo, three manure-inclusive campaigns with per-action reload, legacy routes/save shape, keyboard/native/pause/modal guards and retry. Both scripts parse. No rendered evidence.",
-        "Transplanting: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining original 27. Three transplant-inclusive contracts with per-action DOM save/reload; immutable crop/growth/yield transfer, bed soil/water/history preservation, dry-night companion shade changes, strict eligibility/type guards, undo/retry and legacy routes, selector preview without saving, keyboard/native/pause/modal guards and ripe rejection. Scripts parse; asset references, unique IDs and bridge-first order pass. No rendered evidence."
+        "Transplanting: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining original 27. Three transplant-inclusive contracts with per-action DOM save/reload; immutable crop/growth/yield transfer, bed soil/water/history preservation, dry-night companion shade changes, strict eligibility/type guards, undo/retry and legacy routes, selector preview without saving, keyboard/native/pause/modal guards and ripe rejection. Scripts parse; asset references, unique IDs and bridge-first order pass. No rendered evidence.",
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
       ],
       "commits": [
         "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393",
         "8c76be91383d2363ba845e07b52a2057c73f20eb",
-        "bcf3ccd43d098c567c250c4d48b3dd3d6723ede3"
+        "bcf3ccd43d098c567c250c4d48b3dd3d6723ede3",
+        "b4b67145f615b1452c60e9673fdebe6c30c9b35a"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1002,6 +1020,12 @@
         "before": "A planted crop could not be moved toward wet ground or repositioned to alter bean shade.",
         "after": "Move an immature crop to an empty bed for one work. Growth/yield move; soil, water and rotation history stay. New location controls next-night growth/shade. Exact destination information, native controls, strict replay and undo preserve saves.",
         "remaining": "Rendered desktop/touch play and screenshot inspection; evaluate relocation balance and usefulness before the required playtest-led improvement and selection."
+      },
+      "pendingVisibilityFix": {
+        "commit": "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+        "before": "Pending reset/recovery could commit after hiding; resume and text-composition/editable input lacked complete guards.",
+        "after": "Persistent parent-hidden state and document.hidden independently block input/resume/confirmation. Returning stays paused. Composition/editable fields excluded. Bellwether retains adviser invalidation and blocks hidden entry/confirmation.",
+        "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending."
       }
     },
     {
@@ -2168,6 +2192,13 @@
       "result": "Fixed hidden confirmation/resume and composing/editable-input guards in Foldlight, Seedwake and Thimble Fair. 104 engine/DOM checks pass, including 15 new bridge regressions (12 red before fixes). Counts unchanged.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing policy blocker not retried/bypassed; no rendered evidence."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+      "result": "Fixed hidden confirmations/resume and composing/editable-input paths in Rill & Root, Fallow Table and Bellwether. 109 existing plus 16 new checks pass (125 total); counts unchanged.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing policy blocker not retried or bypassed; no rendered evidence."
     }
   ]
 }
