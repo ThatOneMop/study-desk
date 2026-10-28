@@ -123,7 +123,7 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/reef-deps" jsdom@26.1.0
       - name: DOM, persistence and input checks
-        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs tests/pocket-palaeo-dom.cjs tests/static-orchard-dom.cjs tests/borrowed-gravity-dom.cjs tests/tea-for-ghosts-dom.cjs tests/cairn-and-cord-dom.cjs tests/murmuration-dom.cjs tests/night-clerk-dom.cjs tests/clockwork-tide-dom.cjs tests/ember-parcel-dom.cjs tests/windup-wrestling-dom.cjs
+        run: NODE_PATH="$RUNNER_TEMP/reef-deps/node_modules" node --test tests/reefwright-dom.cjs tests/counterweight-dom.cjs tests/lanternwake-dom.cjs tests/copper-cadence-dom.cjs tests/hollow-keeper-dom.cjs tests/paper-odyssey-dom.cjs tests/ratchet-run-dom.cjs tests/wellward-dom.cjs tests/salt-and-sail-dom.cjs tests/pocket-palaeo-dom.cjs tests/static-orchard-dom.cjs tests/borrowed-gravity-dom.cjs tests/tea-for-ghosts-dom.cjs tests/cairn-and-cord-dom.cjs tests/murmuration-dom.cjs tests/night-clerk-dom.cjs tests/clockwork-tide-dom.cjs tests/ember-parcel-dom.cjs tests/windup-wrestling-dom.cjs tests/last-lighthouse-dom.cjs
   browsers:
     needs: checks
     runs-on: ubuntu-latest
@@ -173,3 +173,4 @@ jobs:
           name: second-batch-browser-${{ matrix.group }}
           path: test-artifacts/
           if-no-files-found: warn
+
