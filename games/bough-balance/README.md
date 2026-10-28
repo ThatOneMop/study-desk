@@ -22,6 +22,16 @@ The diagram intentionally keeps beams level for readability; balance meters desc
 
 `NODE_PATH=/path/to/jsdom/node_modules node --test tests/bough-balance-engine.cjs tests/bough-balance-dom.cjs`
 
-16 passing tests: 8 engine and 8 jsdom 26.1.0. All three winning routes through actual handlers, reload after every placement, unlocks, records, swaps/removal, mass/torque propagation, assignment identity conservation through depth three, strict save rejection, journal bound/retry, pure forecasts, native/composing/bridge keys, hidden confirmation and recovery, corrupt/quota saves and navigation markup. The real bridge is loaded with a simulated parent and stub dialogs. No rendered browser, screenshot inspection, physical touch, native-dialog or human enjoyment evidence. No full-repository build from the partial recovery.
+26 passing tests: 13 engine and 13 jsdom 26.1.0. All three winning routes through actual handlers, reload after every placement, unlocks, records, swaps/removal, mass/torque propagation, assignment identity conservation through depth three, strict save rejection, journal bound/retry, pure forecasts, native/composing/bridge keys, hidden confirmation and recovery, corrupt/quota saves and navigation markup. The real bridge is loaded with a simulated parent and stub dialogs. No rendered browser, screenshot inspection, physical touch, native-dialog or human enjoyment evidence. No full-repository build from the partial recovery.
 
 Before qualification: render all mobiles at desktop and phone sizes, inspect the diagram and controls, play unfamiliar arrangements naturally, and implement a meaningful improvement based on the weakest observed aspect. The three fixed puzzles may be too short; exact previews and simple arithmetic may limit replay. Assess those questions instead of padding a campaign. Do not count this source implementation as a qualified improvement or catalogue release.
+
+## Opening brass arrangement (source refinement, not rendered-qualified)
+
+The opening mobile now has one optional movable one-unit brass weight. Its four arm positions (-2, -1, +1, +2) add their signed pull without occupying a bird hook. Placing, sliding or removing it costs one action; undo restores it. Exact forecasts and a labelled SVG weight show the effect. Finish with the weight attached to earn an independent fewest-action brass record, keeping the usual record and subsequent unlocks.
+
+Exhaustive enumeration of all 24 ornament assignments at all four clip positions finds four brass-assisted solutions, each completed in five actions through controls and reload. Original ordinary solutions remain 4/6/6 actions. The nested mobiles have no possible one-unit brass solution, so their UI hides this tool and their action parser rejects it. This is explicitly an opening replay option, not a deeper nested campaign or a claim to have solved the game's depth limitations.
+
+The existing v1 save key remains. Old records/journals decode unchanged. New journals may contain `{clip:[0,arm]}` or `{clip:null}`; only a completed brass arrangement adds optional bounded `brassRecord`. This survives undo/restart/level selection. Tests cover terminal journal validation, independent records, copying/pure forecasts, slide/removal, save failure/recovery and hidden/native-input guards.
+
+Rendered inspection, touch, enjoyment and meaningful playtest-led improvement remain pending. No qualified improvement count or public integration is claimed for this source-based refinement.
