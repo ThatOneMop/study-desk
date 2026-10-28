@@ -33,6 +33,7 @@ function board(s){const b=Array(SIZE*SIZE).fill('.');STAGES[s.stage].rocks.forEa
 function cellsFor(s,m){if(!m||m.type!==undefined||!int(m.offer,0,2)||!int(m.rotation,0,3)||!int(m.x,0,SIZE-1)||!int(m.y,0,SIZE-1)||s.finished||planted(s)>=ROUNDS)return null;const cells=shape(offers(s)[m.offer],m.rotation).map(([dx,dy,k])=>[m.x+dx,m.y+dy,k]);if(cells.some(([x,y])=>x>=SIZE||y>=SIZE))return null;const b=board(s);return cells.every(([x,y])=>b[y*SIZE+x]==='.')?cells:null;}
 function place(s,m){if(!cellsFor(s,m))return null;return {...s,moves:[...s.moves,{offer:m.offer,rotation:m.rotation,x:m.x,y:m.y}]};}
 function prune(s,cell){if(s.finished||cutsLeft(s)<=0||!int(cell,0,SIZE*SIZE-1)||!['C','K','N'].includes(board(s)[cell]))return null;return {...s,moves:[...s.moves,{type:'prune',cell}]};}
+function cutPlan(s,cells){if(!Array.isArray(cells)||!cells.length||cells.length>cutsLeft(s)||new Set(cells).size!==cells.length)return null;let next=s;for(const cell of cells){next=prune(next,cell);if(!next)return null;}return next;}
 function undo(s){return s.finished?{...s,finished:false}:s.moves.length?{...s,moves:s.moves.slice(0,-1)}:s;}
 function finish(s){return {...s,finished:true};}
 function groups(b,kind){let seen=new Set(),out=[];for(let i=0;i<b.length;i++){if(b[i]!==kind||seen.has(i))continue;let q=[i];seen.add(i);for(let j=0;j<q.length;j++)for(const n of neighbors(q[j]))if(b[n]===kind&&!seen.has(n)){seen.add(n);q.push(n);}out.push(q);}return out;}
@@ -46,5 +47,6 @@ function profile(){return {version:1,current:fresh(),records:Array(5).fill(null)
 function unlocked(p){let n=0;while(n<4&&p.records[n])n++;return n;}
 function record(p){const s=p.current,e=evaluate(s);if(s.finished&&e.met&&(!p.records[s.stage]||evaluate(p.records[s.stage]).score<e.score))p.records[s.stage]=clone(s);return p;}
 function restore(raw){if(!raw||raw.version!==1||!Array.isArray(raw.records)||raw.records.length!==5)return null;const p=profile();for(let i=0;i<5;i++){if(raw.records[i]===null)continue;const s=replay(raw.records[i]);if(!s||s.stage!==i||!s.finished||!evaluate(s).met||(i>0&&!p.records[i-1]))return null;p.records[i]=s;}const current=replay(raw.current);if(!current||current.stage>unlocked(p))return null;p.current=current;return record(p);}
-return {SIZE,ROUNDS,PIECES,STAGES,fresh,shape,offers,board,cellsFor,place,prune,planted,cutsLeft,undo,finish,evaluate,legalMoves,replay,profile,unlocked,record,restore,neighbors};
+return {SIZE,ROUNDS,PIECES,STAGES,fresh,shape,offers,board,cellsFor,place,prune,cutPlan,planted,cutsLeft,undo,finish,evaluate,legalMoves,replay,profile,unlocked,record,restore,neighbors};
 });
+

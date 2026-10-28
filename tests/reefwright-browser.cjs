@@ -43,6 +43,11 @@ let browser;
   // Real keyboard traversal and activation, regardless of touch context.
   await page.locator('[data-cell="0"]').focus();await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.dataset.cell),'6');
   await page.keyboard.press('3');await page.keyboard.press('r');
+  const key='study-desk-reefwright-v1',raw=()=>page.evaluate(k=>localStorage.getItem(k),key),prefix=mobile?'touch':'desktop';
+  async function openCoast(stage){await act(`[data-stage="${stage}"]`);if(await page.locator('#confirm').evaluate(e=>e.open))await act('#accept-confirm');else{await act('#restart');await act('#accept-confirm');}}
+  async function place(m){await act(`[data-offer="${m.offer}"]`);for(let r=0;r<m.rotation;r++)await act('#rotate');await act(`[data-cell="${m.y*6+m.x}"]`);await act('#plant');}
+  for(const route of require('./fixtures/reefwright-cut-routes.json')){await openCoast(route.stage);for(const m of route.moves){if(m.type==='prune'){await act('#prune');const before=await raw();await act(`[data-cell="${m.cell}"]`);assert.equal(await raw(),before);await act('#plant');const after=await raw();await page.reload();assert.equal(await raw(),after);}else await place(m);}await act('#finish');assert.match(await page.locator('#result').textContent(),/A reef comes alive/);await page.screenshot({path:path.join(out,`${prefix}-cut-coast-${route.stage}.png`),fullPage:true});}
+  await openCoast(0);const pair=require('./fixtures/reefwright-paired-cut.json');for(const m of pair.state.moves)await place(m);const baseline=await raw();await act('#prune');await act('[data-cell="20"]');assert.match(await page.locator('#forecast').textContent(),/Vitality 24/);await act('#add-cut');assert(await page.locator('[data-cell="20"]').evaluate(e=>e.classList.contains('preview-cut')));await act('[data-cell="7"]');assert.match(await page.locator('#forecast').textContent(),/Vitality 27/);assert.match(await page.locator('#forecast').textContent(),/nurseries 7/);assert.equal(await raw(),baseline);await page.screenshot({path:path.join(out,`${prefix}-paired-preview.png`),fullPage:true});await act('#prune');assert.equal(await raw(),baseline);await act('#prune');await act('[data-cell="20"]');await act('#add-cut');await act('[data-cell="7"]');if(mobile)await act('#plant');else await page.keyboard.press('Enter');assert.match(await page.locator('#prune').textContent(),/0 left/);const committed=await raw();await page.reload();assert.equal(await raw(),committed);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:path.join(out,`${prefix}-paired-committed.png`),fullPage:true});await act('#undo');await act('#undo');assert.equal(await raw(),baseline);
   // Corrupt saves are not silently destroyed.
   await page.evaluate(()=>localStorage.setItem('study-desk-reefwright-v1','{broken'));await page.reload();await act('[data-cell="0"]');await act('#plant');
   assert.equal(await page.evaluate(()=>localStorage.getItem('study-desk-reefwright-v1')),'{broken');
@@ -52,3 +57,4 @@ let browser;
   await context.close();
  }
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();server.kill();});
+

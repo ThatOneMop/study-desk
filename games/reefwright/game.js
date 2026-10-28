@@ -1,5 +1,5 @@
 /* Original UI. Shared hosting requires a unique save key. */
-(()=>{'use strict';const E=window.Reefwright,$=id=>document.getElementById(id),KEY='study-desk-reefwright-v1';let p=E.profile(),offer=0,rotation=0,cursor=0,blocked=false,pending=null,anchor=null,channels=false,cutMode=false;
+(()=>{'use strict';const E=window.Reefwright,$=id=>document.getElementById(id),KEY='study-desk-reefwright-v1';let p=E.profile(),offer=0,rotation=0,cursor=0,blocked=false,pending=null,anchor=null,channels=false,cutMode=false,heldCuts=[];
 const names={'.':'Open water','#':'Stone',C:'Coral',K:'Kelp',N:'Nursery'};
 const art={C:'<path d="M24 41V12M24 29L12 20V10M24 25L35 16V7M24 36L37 29V23M12 17L6 12"/>',K:'<path d="M24 43C6 32 39 25 20 8M15 39C1 29 21 24 10 14M32 39C48 29 29 25 38 12"/>',N:'<path d="M9 33Q3 15 15 15Q20 6 25 13Q34 6 37 20Q47 22 38 36L24 41Z"/><path d="M24 38L14 19M24 38L24 16M24 38L35 21"/>','#':'<path d="M8 34L12 17L28 10L40 25L34 38Z"/><path d="M12 17L27 23L28 10M27 23L34 38"/>'};
 function icon(k){return `<svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="${k==='C'?'#a94f43':k==='K'?'#2f654e':k==='N'?'#98713a':'#8ba49a'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${art[k]||''}</svg>`;}
@@ -18,14 +18,15 @@ $('supply').classList.toggle('supply-done',s.finished||E.planted(s)===8);drawPre
 
 function drawPreview(){
  const s=p.current;document.querySelectorAll('[data-cell]').forEach(b=>{b.classList.remove('ghost','anchor','preview-coral','preview-kelp','preview-nursery','preview-cut');const i=Number(b.dataset.cell);b.tabIndex=i===cursor?0:-1;b.innerHTML=icon(E.board(s)[i]);});
- $('board').classList.toggle('show-channels',channels);$('channels').setAttribute('aria-pressed',String(channels));$('forecast').classList.remove('danger');$('plant').disabled=true;$('plant').textContent=cutMode?'Confirm cut':'Plant habitat';
+ $('board').classList.toggle('show-channels',channels);$('channels').setAttribute('aria-pressed',String(channels));$('forecast').classList.remove('danger');$('add-cut').hidden=true;$('plant').disabled=true;$('plant').textContent=cutMode?'Confirm cut':'Plant habitat';
  if(cutMode){
-  if(anchor===null){$('forecast').textContent='Choose one coral, kelp or nursery square to remove. Two cuts per reef; lost habitat is not refunded. The empty square can carry seawater or be replanted.';return;}
-  const next=E.prune(s,anchor);document.querySelector(`[data-cell="${anchor}"]`).classList.add('anchor');
+  for(const cell of heldCuts)document.querySelector(`[data-cell="${cell}"]`).classList.add('preview-cut');
+  if(anchor===null){$('forecast').textContent=heldCuts.length?'First cut held in the plan. Choose a second square to compare their combined effect. X cancels without spending.':'Choose a coral, kelp or nursery square to remove. You can plan both cuts together; confirm spends them together. Two cuts per reef; lost habitat is not refunded. The empty square can carry seawater or be replanted.';return;}
+  const planned=[...heldCuts,anchor],next=E.cutPlan(s,planned);document.querySelector(`[data-cell="${anchor}"]`).classList.add('anchor');
   if(!next){$('forecast').textContent='Cut unavailable. Select a living habitat square; stones and water cannot be cut. Reopen a completed survey with Undo.';$('forecast').classList.add('danger');return;}
   const before=E.evaluate(s),after=E.evaluate(next),delta=k=>`${after[k]-before[k]>=0?'+':''}${after[k]-before[k]}`;
-  document.querySelector(`[data-cell="${anchor}"]`).classList.add('preview-cut');
-  $('forecast').textContent=`Remove ${names[E.board(s)[anchor]].toLowerCase()}: coral ${after.coral} (${delta('coral')}), nurseries ${after.nursery} (${delta('nursery')}), kelp ${after.kelp} (${delta('kelp')}). Vitality ${after.score} (${delta('score')}). Costs one cut; ${E.cutsLeft(next)} remain. No new habitat offer. ${after.nursery>before.nursery?'A sea channel reopens!':after.score<before.score?'Warning: this reduces vitality.':'Empty space can carry seawater or be replanted.'}`;
+  for(const cell of planned)document.querySelector(`[data-cell="${cell}"]`).classList.add('preview-cut');$('add-cut').hidden=heldCuts.length>0||E.cutsLeft(s)<2;$('plant').textContent=planned.length===2?'Confirm both cuts':'Confirm cut';
+  $('forecast').textContent=`Remove ${planned.map(i=>names[E.board(s)[i]].toLowerCase()).join(' + ')}: coral ${after.coral} (${delta('coral')}), nurseries ${after.nursery} (${delta('nursery')}), kelp ${after.kelp} (${delta('kelp')}). Vitality ${after.score} (${delta('score')}). Costs ${planned.length===1?'one cut':'two cuts'}; ${E.cutsLeft(next)} remain. No new habitat offer. ${after.nursery>before.nursery?'A sea channel reopens!':after.score<before.score?'Warning: this reduces vitality.':'Empty space can carry seawater or be replanted.'}`;
   if(after.score<before.score)$('forecast').classList.add('danger');$('plant').disabled=false;return;
  }
  if(anchor===null){$('forecast').textContent=s.finished?'Survey recorded. Undo reopens the layout.':E.planted(s)===8?'All eight habitats planted. Complete your survey or undo to rearrange.':'Tap a square to preview a habitat. Nothing is planted until you confirm.';return;}
@@ -38,18 +39,19 @@ function drawPreview(){
 }
 
 function apply(m){const next=E.place(p.current,m);if(!next){message('That piece overlaps a habitat, stone or edge. Rotate it or choose another space.');return;}p.current=next;offer=0;rotation=0;anchor=null;save();draw();message(E.evaluate(next).met?'All habitat goals met! Complete your survey, or keep planting for more vitality.':E.planted(next)===8?'Your habitat supply is planted. Complete the survey or undo a placement.':'Habitat planted. Choose what belongs here next.');}
-function switchStage(i){p.current=E.fresh(i);offer=0;rotation=0;cursor=0;anchor=null;cutMode=false;save();draw();message(E.STAGES[i].note);}
+function switchStage(i){p.current=E.fresh(i);offer=0;rotation=0;cursor=0;anchor=null;cutMode=false;heldCuts=[];save();draw();message(E.STAGES[i].note);}
 function confirmAction(title,description,action){pending=action;$('confirm-title').textContent=title;$('confirm-text').textContent=description;$('confirm').showModal();}
 $('sites').onclick=e=>{const b=e.target.closest('[data-stage]');if(!b||b.disabled)return;const i=Number(b.dataset.stage);if(i===p.current.stage)return;confirmAction('Visit another coast?','This replaces your current layout. Completed best surveys stay saved.',()=>switchStage(i));};
-$('offers').onclick=e=>{const b=e.target.closest('[data-offer]');if(!b||b.disabled)return;cutMode=false;offer=Number(b.dataset.offer);rotation=0;draw();message(`${E.PIECES[E.offers(p.current)[offer]].name} selected. Rotate or tap a square to preview it.`);};
+$('offers').onclick=e=>{const b=e.target.closest('[data-offer]');if(!b||b.disabled)return;cutMode=false;heldCuts=[];offer=Number(b.dataset.offer);rotation=0;draw();message(`${E.PIECES[E.offers(p.current)[offer]].name} selected. Rotate or tap a square to preview it.`);};
 $('board').onclick=e=>{const b=e.target.closest('[data-cell]');if(!b)return;cursor=Number(b.dataset.cell);anchor=cursor;drawPreview();message(cutMode?'Preview only. Confirm cut removes the highlighted habitat.':'Preview only. Use Plant habitat to confirm.');};
 $('board').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(anchor===cursor&&!$('plant').disabled)$('plant').click();else {anchor=cursor;drawPreview();}return;}if(!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const dx=e.key==='ArrowLeft'?-1:e.key==='ArrowRight'?1:0,dy=e.key==='ArrowUp'?-1:e.key==='ArrowDown'?1:0;cursor=Math.max(0,Math.min(5,Math.floor(cursor/6)+dy))*6+Math.max(0,Math.min(5,cursor%6+dx));document.querySelectorAll('[data-cell]').forEach(b=>b.tabIndex=Number(b.dataset.cell)===cursor?0:-1);document.querySelector(`[data-cell="${cursor}"]`).focus();anchor=cursor;drawPreview();};
-$('prune').onclick=()=>{cutMode=!cutMode;anchor=null;draw();message(cutMode?'Choose a habitat square to preview its removal.':'Returned to planting.');};
-$('plant').onclick=()=>{if(cutMode){if(anchor===null)return;const next=E.prune(p.current,anchor);if(!next)return;p.current=next;cutMode=false;anchor=null;save();draw();message('One habitat square removed. Its water can reconnect the reef; Undo restores the square and cut.');return;}if(anchor!==null)apply({offer,rotation,x:anchor%6,y:Math.floor(anchor/6)});};
+$('prune').onclick=()=>{cutMode=!cutMode;heldCuts=[];anchor=null;draw();message(cutMode?'Choose a habitat square to preview its removal.':'Returned to planting.');};
+$('plant').onclick=()=>{if(cutMode){if(anchor===null)return;const next=E.cutPlan(p.current,[...heldCuts,anchor]);if(!next)return;p.current=next;cutMode=false;heldCuts=[];anchor=null;save();draw();message('Planned habitat cuts applied. Undo restores one square and cut at a time.');return;}if(anchor!==null)apply({offer,rotation,x:anchor%6,y:Math.floor(anchor/6)});};
+$('add-cut').onclick=()=>{if(cutMode&&anchor!==null&&!heldCuts.length&&E.cutsLeft(p.current)===2&&E.prune(p.current,anchor)){heldCuts=[anchor];anchor=null;drawPreview();message('Choose the second square. Nothing spent yet; X cancels the whole plan.');}};
 $('channels').onclick=()=>{channels=!channels;drawPreview();};
 $('rotate').onclick=()=>{rotation=(rotation+1)%4;draw();message('Piece rotated clockwise. Its top-left corner is the placement anchor.');};
-$('undo').onclick=()=>{p.current=E.undo(p.current);cutMode=false;offer=0;rotation=0;anchor=null;save();draw();message('Last change undone. Your previous best surveys are retained.');};
-$('finish').onclick=()=>{p.current=E.finish(p.current);cutMode=false;anchor=null;E.record(p);save();draw();message(E.evaluate(p.current).met?'Survey complete. This coast is restored.':'Survey complete. Reopen with Undo to improve this layout.');};
+$('undo').onclick=()=>{p.current=E.undo(p.current);cutMode=false;heldCuts=[];offer=0;rotation=0;anchor=null;save();draw();message('Last change undone. Your previous best surveys are retained.');};
+$('finish').onclick=()=>{p.current=E.finish(p.current);cutMode=false;heldCuts=[];anchor=null;E.record(p);save();draw();message(E.evaluate(p.current).met?'Survey complete. This coast is restored.':'Survey complete. Reopen with Undo to improve this layout.');};
 $('restart').onclick=()=>confirmAction('Start this reef again?','Only this layout will clear. Your best completed surveys are kept.',()=>switchStage(p.current.stage));
 $('reset-save').onclick=()=>confirmAction('Replace the unreadable save?','The old save will be replaced with this session. This cannot be undone.',()=>{blocked=false;save();$('reset-save').hidden=true;});
 $('accept-confirm').onclick=()=>{const action=pending;pending=null;$('confirm').close();if(action)action();};$('cancel-confirm').onclick=()=>{$('confirm').close();pending=null;};
@@ -58,3 +60,4 @@ document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey||e.rep
 for(const type of ['click','keydown'])document.addEventListener(type,e=>{const dialog=document.querySelector('dialog[open]');if(window.StudyBridge?.paused||(dialog&&!dialog.contains(e.target))){e.preventDefault();e.stopImmediatePropagation();}},true);
 draw();message('Choose a habitat below, rotate with R, then tap a square to preview. Plant habitat confirms. The Field guide explains how life connects.');
 })();
+
