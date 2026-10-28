@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 23,
+    "built": 24,
     "improved": 0,
     "browserTested": 0,
     "integrated": 0,
@@ -1237,21 +1237,36 @@
     },
     {
       "slot": 64,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "bough-balance",
+      "title": "Bough Balance",
+      "coreLoop": "Arrange weighted paper birds across nested hanging beams; balance every local torque while whole child-beam masses load their parents. Swap and remove ornaments with exact forecasts.",
+      "status": "prototype-awaiting-rendered-playtest",
+      "source": "games/bough-balance",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "16 passing tests: 8 engine, 8 jsdom 26.1.0 with actual bridge source and simulated parent/dialogs. Three complete campaigns through controls with per-placement reload, sequential unlock, minimum-placement records (4/6/6), undo/retry, swap/displacement/removal, exact forecasts and no mutation during selection.",
+        "Nested frame/descendant mass and local torque verified independently. Legal assignment prefixes through depth three conserve unique ornament identities and total weight. Invalid actions/saves, journal limit recovery, terminal protection, hidden confirmation/recovery, native/composition keys, corrupt/quota persistence and scoped reset pass.",
+        "Both production scripts parse; local assets, unique IDs, bridge-first order, accessible diagram description, root Games navigation markup and no Switch workspace controls checked.",
+        "No rendered play, screenshots, real touch/native dialogs, human enjoyment, qualified improvement, full-repository build, catalogue integration or live release evidence."
+      ],
+      "commits": [
+        "2f1e5af3e846ded34f0a862bf17730515451e970"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Not rated until rendered playtest",
+        "knownLimits": "Three compact fixed mobiles. Schematic stays level while meters report imbalance; no physics animation or audio. Arithmetic/forecast clarity, phone diagram readability and replay depth require rendered assessment."
+      },
+      "nextSteps": [
+        "Render all three puzzles on desktop/mobile and inspect screenshots, native input/dialogs, saves and navigation.",
+        "Assess actual enjoyment and implement a substantial improvement from the most important observed weakness before qualification."
+      ]
     },
     {
       "slot": 65,
@@ -1724,8 +1739,8 @@
   ],
   "nextSteps": [
     "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all twenty-three third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 27 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Render/play all twenty-four third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
+    "Implement remaining 26 distinct third-batch games incrementally; keep unfinished candidates unlisted."
   ],
   "updated": "2026-10-28",
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2197,6 +2212,13 @@
       "date": "2026-10-28",
       "commit": "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
       "result": "Fixed hidden confirmations/resume and composing/editable-input paths in Rill & Root, Fallow Table and Bellwether. 109 existing plus 16 new checks pass (125 total); counts unchanged.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing policy blocker not retried or bypassed; no rendered evidence."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "2f1e5af3e846ded34f0a862bf17730515451e970",
+      "result": "Built slot 64 Bough Balance: original nested torque mobile puzzles, three structural depths, exact forecasts and safe saves. 16 engine/DOM tests pass. Third now 24 built, zero qualified improved/browser-tested/integrated/live; second additional round stays 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing policy blocker not retried or bypassed; no rendered evidence."
     }
