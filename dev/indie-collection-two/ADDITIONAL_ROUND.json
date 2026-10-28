@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 11,
+  "completed": 12,
   "required": 20,
   "candidates": [
     {
@@ -150,21 +150,24 @@
       "slot": 30,
       "id": "pocket-palaeo",
       "title": "Pocket Palaeo",
-      "status": "implemented-awaiting-native-verification",
+      "status": "verified",
       "observedWeakness": "Rendered first specimen: selecting Brace after a lift preview removed all clearance/load guidance. Jacket placement consumed resin immediately, making comparisons costly and separating support decisions from their consequence.",
       "before": "Pending resin jackets protect individual bones, but switching tools discards the lift plan and placing a jacket spends resin without a treatment preview.",
-      "after": "Lift plans stay visible while excavating and adjusting supports. Jacket placement stages a pure proposed treatment showing resin cost and before/after whole-specimen condition when a valid grip is selected. Confirm spends one charge; cancel and comparing another bone are free. Plans clear on recovery, restart or site change. Hidden pointer/keyboard actions and pending reset/recovery confirmations cannot mutate state.",
+      "after": "Lift plans stay visible while excavating and adjusting supports. Jacket placement stages a pure proposed treatment showing resin cost and before/after whole-specimen condition when a valid grip is selected. Confirm spends one charge; cancel and comparing another bone are free. Plans clear on recovery, restart or site change. Hidden pointer/keyboard actions and pending reset/recovery confirmations cannot mutate state. A confirmed new field journal also clears transient jacket proposals; cancelling preserves them.",
       "implementationCommit": "1ff7d19e476b6c46b2006022d81504ad8be10f2e",
       "testing": [
         "25 engine and 19 jsdom checks pass. Original three-site/six-perfect-specimen campaign unchanged; jacket route improves Reedfin from 93% to 100% at cost of both repair charges. Exact forecasts, saves/reload, resource exhaustion, invalid actions, non-protection against picks, fracture/retry, reset and duplicate touch events checked.",
         "Syntax passes. DOM touch events and dialogs are simulated. No rendered play, screenshot inspection, physical touch or human enjoyment evidence; no full repository suite from partial checkout.",
         "2026-10-28: 46 engine/DOM checks pass, including all six original perfect recoveries, jacket replay saves, pure staged treatment/cancellation, retained forecasts and hidden reset/input guards. Syntax passes. Save format and engine are unchanged.",
-        "Rendered desktop: exposed Reedfin with normal pick/brush controls, selected grip 10, braces 10/12, previewed jacket 27 (93 to 96), cancelled without spending, then confirmed jackets 27/29 (96 to 100), recovered at 100 with three seals. Screenshot inspected. Full native jacket campaigns, phone layout and regression remain pending."
+        "Rendered desktop: exposed Reedfin with normal pick/brush controls, selected grip 10, braces 10/12, previewed jacket 27 (93 to 96), cancelled without spending, then confirmed jackets 27/29 (96 to 100), recovered at 100 with three seals. Screenshot inspected. Full native jacket campaigns, phone layout and regression remain pending.",
+        "CI 40686526711 on 184bb3c613a5dba1c17585500cd69b747b3add3e passes 527 engine + 363 DOM = 890 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122813466023 passes desktop 1280×1000 and emulated touch 390×844: staged/cancelled jackets, retained 93→96→100 condition forecasts, exact fitted-jacket reload, 100% recovery and three-seal reward, reopening without duplicate rewards, journal cancellation retaining the proposal and confirmation clearing it, all six original perfect recoveries, all three tools/sites, fast pointer/touch strokes, keyboard traversal, mid-site reloads, deliberate fracture/retry, isolated corrupt-save recovery/reset and navigation. No browser errors. All seven final CI jobs passed. Earlier full run 40685609385 passed all seven jobs on the same jacket gameplay before the isolated journal-reset correction.",
+        "40 Pocket Palaeo screenshots retained in artifact 12816395925. Inspected desktop-jacket-preview, touch-jacket-supported and touch-jacket-recovery: treatment cost and free cancellation are legible; amber jacket markers match retained safe-lift feedback; museum condition, rewards and site unlock appear correctly without horizontal clipping. Phone layout requires vertical scrolling. ZIP SHA256 8778fa06e811bbc87a3fde321c35a4d1ce908eda0c842198e7692c186a48bd6b. This is automated reliability and agent screenshot evidence, not human enjoyment or a physical-device claim."
       ],
-      "remaining": "Extend native desktop/touch routes to staged jackets, inspect phone screenshots, exercise all relevant supports/progression/reload/loss/retry/navigation, and assess remaining shallow fixed-site progression before counting. Additional round stays 11/20.",
+      "remaining": "Additional pass complete. Compare against the full improved slate before selecting; fixed six-specimen progression and phone scrolling remain known limits.",
       "implementationCommits": [
         "282ad742f526e7e30eb22667bc673bce4f449ac7",
-        "1ff7d19e476b6c46b2006022d81504ad8be10f2e"
+        "1ff7d19e476b6c46b2006022d81504ad8be10f2e",
+        "184bb3c613a5dba1c17585500cd69b747b3add3e"
       ]
     },
     {

@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 11/20 additional upgrades fully verified.** All twenty additional upgrades have source. Tea for Ghosts now supports a saved alternative blend and persistent tasting guidance, alongside its earned half measures and recipe refinement. Desktop/emulated-touch service and tray routes plus screenshot review pass. See [current evidence](TEA_ALTERNATIVES.md).
+**20/20 playable, initially improved and finished; 12/20 additional upgrades fully verified.** All twenty additional upgrades have source. Pocket Palaeo now combines resin-jacket protection with staged treatment forecasts, retained lift plans and clean journal-reset behavior. Native desktop/emulated-touch campaigns and screenshot review pass; all seven final CI jobs passed. See [current evidence](PALAEO_JACKETS.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -70,4 +70,4 @@ CI 40635652032 on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4 passed all seven jobs
 
 34 Windup screenshots retained in artifact 12792594859. Inspected desktop-boots-forecast-1, touch-coil-forecast-2 and touch-boots-won-2: readable wrapped forecasts and controls, correct kit resource limits, independent standard/kit records after reload. ZIP SHA256 121ae4ca94215b72d098192bcbcb173dae9c46a7eda0ffc488205a824bd04d44. Automated routes and agent play are reliability evidence, not human enjoyment or physical-device testing.
 
-Current additional round: **8/20 verified**. No new game or public integration in this verification increment. Source remains on the development branch; the first batch, thirteen concurrent second-batch catalogue entries, Gummy Bay and third branch are unchanged. See [Windup evidence](WINDUP_REHEARSAL.md).
+At that historical checkpoint: **8/20 verified**. No new game or public integration in this verification increment. Source remains on the development branch; the first batch, thirteen concurrent second-batch catalogue entries, Gummy Bay and third branch are unchanged. See [Windup evidence](WINDUP_REHEARSAL.md).

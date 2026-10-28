@@ -1,23 +1,37 @@
-# Pocket Palaeo — resin jackets
+# Pocket Palaeo — retained lift plans and staged resin jackets
 
-25 October 2026. Implementation 282ad742f526e7e30eb22667bc673bce4f449ac7. Additional round remains **6/20 verified**.
+The additional round combines local resin-jacket protection with a treatment planner developed after rendered play exposed disappearing support guidance. Initial improvement passes are excluded.
 
-## Source-led finding and change
+## Observed weakness and implemented change
 
-Existing resin only repairs excavation damage; lift strategy depends on reusable braces and grip location. Added a competing use of the same finite charges: fit a resin jacket on an exposed bone to absorb up to two lifting damage there. Jackets do not shorten graph distances, heal cracks, or prevent pick damage. They cannot move or refund, and are removed with the recovered specimen. Restart restores the expedition's normal inventory. The resin-case upgrade still adds two shared charges.
+In the rendered first excavation, changing from Lift to Brace hid the clearance and load forecast. Jacket placement immediately spent resin. Comparing ways to support the same specimen therefore lost useful context or consumed a finite resource.
 
-The sixth tool works through normal buttons or key 6. A dotted amber outline and accessible cell label identify jacketed bones. Lift condition forecasts include jacket protection and report jacketed-bone count. Toolbar wrapping keeps six controls from being forced into one row; actual desktop/mobile layout is not yet verified.
+Lift plans now remain visible while brushing, adjusting braces, treating cracks and staging jackets. Selecting a jacket shows its one-charge cost and the whole specimen's condition before and after treatment. Cancel keeps the resin. Confirm records exactly one jacket in the existing replay journal. Recovery, reopening and changing sites clear the plan. Hidden keyboard/pointer actions and paused reset/recovery confirmations cannot mutate the journal.
 
-## Evidence
+Gameplay commits:
+- Resin jacket mechanics: [282ad74](https://github.com/ThatOneMop/study-desk/commit/282ad742f526e7e30eb22667bc673bce4f449ac7).
+- Rendered-review planning and input corrections: [1ff7d19](https://github.com/ThatOneMop/study-desk/commit/1ff7d19e476b6c46b2006022d81504ad8be10f2e).
+- Expanded native regression: [5c18e3e](https://github.com/ThatOneMop/study-desk/commit/5c18e3ed14f3d59df0107ac74c33c4e17e399b3e).
+- New-journal proposal reset correction and regression: [184bb3c](https://github.com/ThatOneMop/study-desk/commit/184bb3c613a5dba1c17585500cd69b747b3add3e). A new DOM test reproduced the stale visible proposal before the fix; all 47 focused tests pass after it.
 
-25 engine and 19 jsdom checks passed (44 total). Original three-site/six-perfect-specimen campaign and all purchases still pass. The new Reedfin route clears the site through legal digging, places braces at 10/12, then jackets bones 27/29 and lifts at 10. Exact forecast and recovery improve from 93% to 100% while consuming both resin charges; alternative brace layouts remain available without that spending. Reload preserves spent resources and jackets, and successful recovery removes jackets without refund.
+## Concrete route and tradeoff
 
-Other tests reject buried, empty, recovered, duplicate and resource-exhausted placements; verify no healing/pick protection, fractures/retry, reset and original record/replay saves; simulate keyboard selection and touch release with duplicate-click suppression. These are engine/DOM checks, not real touch/browser testing or human enjoyment evidence. Node syntax checks passed. Full repository checks were not run from the partial checkout.
+Pick and brush expose Reedfin and its border. Grip 10 and braces 10/12 produce 93% projected condition. Jacket 27 previews 96%; cancelling preserves both charges. Confirming that treatment and jacket 29 reaches 100%, spends both charges and leaves one reusable brace free. Recovering awards three seals. Fitted jackets survive reload; recovered jackets leave with the specimen. Reopening restores field supplies without duplicating museum rewards.
 
-Save key and action-journal version stay unchanged. Old journals replay through fresh state with an empty jacket list and retain original campaign outcomes. New jackets reconstruct from validated actions rather than trusting saved metadata. Original art, first-batch files, other games, main and third-batch source are untouched.
+This is a forgiving alternative to rearranging reusable supports. Resin can instead repair excavation cracks. Jackets neither repair cracks nor protect against careless pick strikes, and they cannot rescue every unsupported lift. Optimally arranged reusable braces can still recover all six specimens perfectly without consuming resin.
 
-## Remaining gates
+## Verification
 
-Browser security restriction remains unresolved; no alternate surface or CI rendering workaround attempted. Required: permitted rendered play, screenshot inspection, layout/touch review and balance iteration from observed play before marking this additional pass verified or selecting it. Historical initial-version verification remains recorded separately. Six fixed specimens and three sites remain a content-depth limitation; this change adds a resource decision, not extra levels.
+[CI 40686526711](https://github.com/ThatOneMop/study-desk/actions/runs/40686526711) on [184bb3c](https://github.com/ThatOneMop/study-desk/commit/184bb3c613a5dba1c17585500cd69b747b3add3e) passes 527 engine + 363 DOM = 890 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122813466023 passes desktop 1280×1000 and emulated touch 390×844: staged/cancelled jackets, retained 93→96→100 condition forecasts, exact fitted-jacket reload, 100% recovery and three-seal reward, reopening without duplicate rewards, journal cancellation retaining the proposal and confirmation clearing it, all six original perfect recoveries, all three tools/sites, fast pointer/touch strokes, keyboard traversal, mid-site reloads, deliberate fracture/retry, isolated corrupt-save recovery/reset and navigation. No browser errors. All seven final CI jobs passed. Earlier full run 40685609385 passed all seven jobs on the same jacket gameplay before the isolated journal-reset correction.
 
-First batch: 20 finished/nine historically selected/zero verified live. Second: 20 initially complete, 6/20 additional upgrades verified. Third: 6/50 built, zero improved/browser-tested/integrated/live. No catalogue change or new live release. Previously investigated workspace/publication issues were not retried.
+40 Pocket Palaeo screenshots retained in [artifact 12816395925](https://github.com/ThatOneMop/study-desk/actions/runs/40686526711/artifacts/12816395925). Inspected desktop-jacket-preview, touch-jacket-supported and touch-jacket-recovery: treatment cost and free cancellation are legible; amber jacket markers match retained safe-lift feedback; museum condition, rewards and site unlock appear correctly without horizontal clipping. Phone layout requires vertical scrolling. ZIP SHA256 8778fa06e811bbc87a3fde321c35a4d1ce908eda0c842198e7692c186a48bd6b. This is automated reliability and agent screenshot evidence, not human enjoyment or a physical-device claim.
+
+The additional-round checklist is now **12/20 verified** (32 meaningful passes including the 20 initial passes). Third batch remains **24/50 built; 0 qualified improved/browser-tested/integrated/live**. No new catalogue integration or live release in this increment.
+
+## Quality assessment and limits
+
+Original field-journal SVG/CSS art, six distinct connected bone graphs, manual excavation and meaningful field-tool purchases remain intact. The new planner makes support/resource decisions easier to compare and reduces accidental spending. The campaign remains three fixed sites and six specimens. Replay comes from condition improvement, different grips/support arrangements and choosing repairs versus jackets; this does not create procedural discovery or justify a long playtime claim. Phone play requires vertical scrolling.
+
+The 28 October cloud-browser reopening attempt was rejected by browser security policy after the preview had stopped. No bypass was attempted. Prior rendered desktop play, the newly expanded GitHub Chromium routes and inspected retained screenshots are separate evidence sources. Automated routes are reliability evidence, not a human enjoyment study, physical-device testing or a full accessibility audit.
+
+Source remains on indie-collection-two-dev. No catalogue integration or live release is claimed for this upgrade. Existing saves, the first collection and concurrent main/third-batch work are preserved.

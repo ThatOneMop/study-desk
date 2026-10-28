@@ -1,4 +1,4 @@
-# Additional improvement round — 11/20 verified
+# Additional improvement round — 12/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -11,7 +11,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
 - [ ] 28. Wellward — cargo-costing repair kit implemented in `5b0fb766926891c874870f04331198f3802d1a16`; 42 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [ ] 29. Salt & Sail — confirmed optional cargo jettison implemented in `ef574e418ff648ad99e553b96818016af03621b7`; 54 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
-- [ ] 30. Pocket Palaeo — staged jacket forecasts and retained lift plans implemented from rendered review in `1ff7d19e476b6c46b2006022d81504ad8be10f2e`; 46 engine/DOM checks and first rendered recovery/reload pass. Full native jacket routes and mobile inspection remain pending. **Not counted.**
+- [x] 30. Pocket Palaeo — resin-jacket protection, staged treatment forecasts and retained lift guidance; final reset correction `184bb3c613a5dba1c17585500cd69b747b3add3e`, native CI 40686526711, 890 engine/DOM checks and three inspected screenshots. See `PALAEO_JACKETS.md`.
 - [x] 31. Static Orchard — earned-energy blossom lures, tree-placement and limited-resource choices; verified commit `304976b32bb3c7a114d23c235f19f853826041f2`, CI 40061003554.
 - [x] 32. Borrowed Gravity — safe surface anchors and one-use recovery choices; verified commit `dca02c401239e0d9060a7037ea9139a23597c82d`, CI 40057078381.
 - [x] 33. Tea for Ghosts — earned half measures and retained refinement, plus saved alternative blends and persistent tasting notes from rendered review; gameplay `d13dc0058e7f888725b75a9629ab3ed6af63ea7d`, native verification `c8ecf518d2a0ef17c409c3b37c457a3b8d00272d`, CI 40671107031. Three of 34 screenshots inspected. Copy-only follow-up `faab0da850e6716edfaead258508c4bc32eb6aeb` separately checked.
@@ -38,3 +38,5 @@ Native follow-up on 28 October: Last Lighthouse passes desktop/emulated-touch pr
 28 October Clockwork verification: all seven CI jobs passed; native storage/metering campaigns and screenshot review complete. **10/20 verified**, ten pending. Earlier counts above are historical checkpoints.
 
 28 October Tea verification: saved alternative blends and retained tasting guidance implemented from rendered observation; all six services and the half-measure refinement/tray route pass desktop and emulated touch. All seven CI jobs pass with 887 engine/DOM checks. Three of 34 retained screenshots inspected. **11/20 verified**, nine pending. No new public integration or live upgrade; first batch and concurrent main preserved.
+
+28 October Pocket Palaeo verification: treatment previews, retained lift guidance and the new-journal reset correction pass native desktop/emulated-touch play, saves, original six-specimen progression, loss/retry and navigation. Three of 40 final screenshots inspected. **12/20 verified**, eight pending. All seven final CI jobs passed. No new catalogue integration or live upgrade.
