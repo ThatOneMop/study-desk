@@ -1,0 +1,242 @@
+[
+  {
+    "chart": 0,
+    "actions": [
+      {
+        "type": "fold",
+        "axis": "x",
+        "side": -1
+      },
+      {
+        "type": "go",
+        "cell": 10
+      },
+      {
+        "type": "stitch",
+        "cell": 17
+      },
+      {
+        "type": "unpick"
+      },
+      {
+        "type": "fold",
+        "axis": "x",
+        "side": 0
+      }
+    ]
+  },
+  {
+    "chart": 1,
+    "actions": [
+      {
+        "type": "fold",
+        "axis": "x",
+        "side": -1
+      },
+      {
+        "type": "go",
+        "cell": 5
+      },
+      {
+        "type": "go",
+        "cell": 11
+      },
+      {
+        "type": "stitch",
+        "cell": 1
+      },
+      {
+        "type": "fold",
+        "axis": "x",
+        "side": 0
+      },
+      {
+        "type": "fold",
+        "axis": "y",
+        "side": -1
+      },
+      {
+        "type": "go",
+        "cell": 30
+      },
+      {
+        "type": "go",
+        "cell": 1
+      },
+      {
+        "type": "go",
+        "cell": 11
+      },
+      {
+        "type": "unpick"
+      },
+      {
+        "type": "go",
+        "cell": 35
+      },
+      {
+        "type": "fold",
+        "axis": "y",
+        "side": 0
+      }
+    ]
+  },
+  {
+    "chart": 2,
+    "actions": [
+      {
+        "type": "fold",
+        "axis": "y",
+        "side": -1
+      },
+      {
+        "type": "go",
+        "cell": 24
+      },
+      {
+        "type": "go",
+        "cell": 25
+      },
+      {
+        "type": "stitch",
+        "cell": 9
+      },
+      {
+        "type": "unpick"
+      },
+      {
+        "type": "go",
+        "cell": 10
+      },
+      {
+        "type": "go",
+        "cell": 29
+      },
+      {
+        "type": "fold",
+        "axis": "y",
+        "side": 0
+      }
+    ]
+  },
+  {
+    "chart": 3,
+    "actions": [
+      {
+        "type": "fold",
+        "axis": "x",
+        "side": -1
+      },
+      {
+        "type": "go",
+        "cell": 11
+      },
+      {
+        "type": "go",
+        "cell": 17
+      },
+      {
+        "type": "go",
+        "cell": 16
+      },
+      {
+        "type": "go",
+        "cell": 14
+      },
+      {
+        "type": "go",
+        "cell": 9
+      },
+      {
+        "type": "go",
+        "cell": 3
+      },
+      {
+        "type": "go",
+        "cell": 9
+      },
+      {
+        "type": "go",
+        "cell": 14
+      },
+      {
+        "type": "go",
+        "cell": 16
+      },
+      {
+        "type": "go",
+        "cell": 17
+      },
+      {
+        "type": "go",
+        "cell": 18
+      },
+      {
+        "type": "stitch",
+        "cell": 30
+      },
+      {
+        "type": "unpick"
+      },
+      {
+        "type": "go",
+        "cell": 35
+      },
+      {
+        "type": "fold",
+        "axis": "x",
+        "side": 0
+      }
+    ]
+  },
+  {
+    "chart": 4,
+    "actions": [
+      {
+        "type": "fold",
+        "axis": "y",
+        "side": -1
+      },
+      {
+        "type": "go",
+        "cell": 24
+      },
+      {
+        "type": "go",
+        "cell": 12
+      },
+      {
+        "type": "go",
+        "cell": 24
+      },
+      {
+        "type": "stitch",
+        "cell": 8
+      },
+      {
+        "type": "unpick"
+      },
+      {
+        "type": "go",
+        "cell": 27
+      },
+      {
+        "type": "go",
+        "cell": 10
+      },
+      {
+        "type": "go",
+        "cell": 4
+      },
+      {
+        "type": "go",
+        "cell": 34
+      },
+      {
+        "type": "fold",
+        "axis": "y",
+        "side": 0
+      }
+    ]
+  }
+]
