@@ -463,7 +463,8 @@
       "developmentCommits": [
         "fed424a977ca9e25e3d497007775571451e7eec5",
         "2fdcf59ad9da741f6ad8937608b42a5a28ae4f63",
-        "21d5fb515207f12feca724c2f5bffb8574a5a6bb"
+        "21d5fb515207f12feca724c2f5bffb8574a5a6bb",
+        "5d519169d661956a7ccb138ccb166da328667638"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain for broader comparison. Folding physical islands changes geometry and layer connectivity; distinct from first-batch Inkline drafting/ink economy and other second-batch mechanics. Not automatically selected.",
@@ -482,16 +483,21 @@
         "slot": 26,
         "id": "paper-odyssey",
         "title": "Paper Odyssey",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Source-based hypothesis: routes are limited to mirrored adjacency; surplus creases cannot fund a lasting local crossing. No new rendered observation while preview access remains blocked.",
-        "before": "Only touching or stacked islands connect; folding and unfolding are the only ways to alter routes.",
-        "after": "Once per chart, spend two creases to stitch and cross to an island at Manhattan distance two on the current map. The physical endpoints remain connected both ways after folding/unfolding. Staged preview, stitched SVG line and crossing labels expose the route. Stitching counts as two extra folds for the par seal; undo restores the bridge allowance.",
+        "status": "implemented-awaiting-final-rendered-verification",
+        "observedWeakness": "Reviewed retained native phone chart-four gameplay screenshot from CI 40694980007, artifact 12819072834. The bridge controls expose a one-use choice; source confirms no way to reclaim or reposition it. Five short fixed charts offer limited route experimentation. Screenshot review is not new direct interactive play or a player enjoyment study.",
+        "before": "A stitched connection is permanent until rewind/restart, spending two creases. Extra thread cannot be redirected during a continuing route.",
+        "after": "Unpick a bridge from either endpoint while play remains active to recover one crease, remove the connection and free thread for a different crossing. Preview shows the lost connection and remaining destinations before confirming. Each new stitch costs two creases and two permanent par points; undo restores the exact prior bridge and resources. Existing version-one routes still replay.",
         "implementationCommit": "21d5fb515207f12feca724c2f5bffb8574a5a6bb",
         "testing": [
           "33 engine + 26 jsdom checks pass. All five original three-seal routes remain unchanged; five new stitched routes win with full health (two seals on chart one, three on the others). Every new action has pure exact forecasts and replay roundtrips. Budget accounting, reusable endpoints, single-bridge restriction, invalid distance/resources, undo and record validation pass.",
-          "DOM simulations complete all five stitched charts through preview/cancel/confirm, Enter and saved reload. Bridge markup, pause/dialog guards, undo/restart, previous loss/recovery, isolated saves and navigation markup pass. Both scripts pass syntax checks. No rendered play, inspected screenshots, actual touch, human enjoyment or full-repository check claimed."
+          "DOM simulations complete all five stitched charts through preview/cancel/confirm, Enter and saved reload. Bridge markup, pause/dialog guards, undo/restart, previous loss/recovery, isolated saves and navigation markup pass. Both scripts pass syntax checks. No rendered play, inspected screenshots, actual touch, human enjoyment or full-repository check claimed.",
+          "70 focused tests pass: 39 engine and 31 DOM, including all five recovered-thread deliveries, pure forecast/replay, relocation sunk cost, endpoint restriction, undo, retained medal costs, preview/cancel/Enter and reload. Native suite extended to five original, five stitched and five unpicked deliveries per desktop/touch context; CI pending. No changed screenshots inspected yet."
         ],
-        "remaining": "Perform supported rendered before/after play, assess bridge placement and route-budget balance, inspect stitched lines and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+        "remaining": "Inspect exact-source native CI and new desktop/touch unpick previews/deliveries; assess route value, controls, saves, loss/retry, restart/navigation before counting. Additional round remains 13/20.",
+        "implementationCommits": [
+          "21d5fb515207f12feca724c2f5bffb8574a5a6bb",
+          "5d519169d661956a7ccb138ccb166da328667638"
+        ]
       }
     },
     {
@@ -1678,12 +1684,7 @@
       }
     }
   ],
-  "nextSteps": [
-    "Prioritize Paper Odyssey and Wellward (both retain compact progression), then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Inspect their pending upgrades before editing; finish rendered play, game-specific refinement and exact-source verification before final slate selection.",
-    "Compare the improved full slate and integrate selected source using freshly reread main; preserve concurrent 13 second-batch entries, Gummy Bay and requested games.",
-    "Third collection remains 24/50 built, zero improved/browser-tested/integrated/live in its own ledger. Complete distinct remaining candidates and substantive rendered-play improvements; no reskins or placeholder counts.",
-    "Keep existing automation cadence; do not pause until obligations complete."
-  ],
+  "nextSteps": "Inspect exact-source native CI and new desktop/touch unpick previews/deliveries; assess route value, controls, saves, loss/retry, restart/navigation before counting. Additional round remains 13/20. Then Wellward and the other five pending reviews before final selection; third collection remains 24/50 built.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2164,6 +2165,13 @@
       "result": "Salt & Sail additional course-comparison pass verified: 896 checks, all seven CI jobs, native original/jettison/risk campaigns and three inspected final screenshots. Additional round now 13/20; 33 meaningful passes including initial passes. No new integration or live upgrade.",
       "publicIntegration": null,
       "nextSteps": "Prioritize Paper Odyssey and Wellward (both retain compact progression), then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Inspect their pending upgrades before editing; finish rendered play, game-specific refinement and exact-source verification before final slate selection."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "5d519169d661956a7ccb138ccb166da328667638",
+      "result": "Paper Odyssey recoverable bridge thread implemented following retained screenshot review. 70 focused checks pass; expanded native routes pending. Additional verification stays 13/20; no integration/live change.",
+      "publicIntegration": null,
+      "nextSteps": "Inspect exact-source native CI and new desktop/touch unpick previews/deliveries; assess route value, controls, saves, loss/retry, restart/navigation before counting. Additional round remains 13/20. Then Wellward and the other five pending reviews before final selection; third collection remains 24/50 built."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
