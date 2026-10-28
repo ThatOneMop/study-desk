@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 13/20 additional upgrades fully verified.** All twenty additional upgrades have source. Salt & Sail now compares kept and discarded cargo under selectable reefed helm, with exact risk forecasts and fully visible paths. All seven exact-source CI jobs pass: 896 engine/DOM checks, native original/discard/risk routes and inspected screenshots. See [current evidence](SALT_CARGO_COMPARISON.md).
+**20/20 playable, initially improved and finished; 14/20 additional upgrades fully verified.** All twenty additional upgrades have source. Paper Odyssey’s recoverable bridge thread now passes all seven exact-source CI jobs: 907 engine/DOM checks, desktop/emulated-touch original, stitched and unpicked deliveries, and three inspected screenshots. See [current evidence](PAPER_THREAD.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -71,3 +71,6 @@ CI 40635652032 on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4 passed all seven jobs
 34 Windup screenshots retained in artifact 12792594859. Inspected desktop-boots-forecast-1, touch-coil-forecast-2 and touch-boots-won-2: readable wrapped forecasts and controls, correct kit resource limits, independent standard/kit records after reload. ZIP SHA256 121ae4ca94215b72d098192bcbcb173dae9c46a7eda0ffc488205a824bd04d44. Automated routes and agent play are reliability evidence, not human enjoyment or physical-device testing.
 
 At that historical checkpoint: **8/20 verified**. No new game or public integration in this verification increment. Source remains on the development branch; the first batch, thirteen concurrent second-batch catalogue entries, Gummy Bay and third branch are unchanged. See [Windup evidence](WINDUP_REHEARSAL.md).
+
+
+Latest next steps (29 October): Prioritize Wellward, then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper: inspect pending source and rendered core loops, refine game-specific weaknesses and verify exact source before counting. Six additional reviews remain before final second-batch selection/integration. Third collection remains 24/50 built with no qualified improved/browser-tested/integrated/live completions.

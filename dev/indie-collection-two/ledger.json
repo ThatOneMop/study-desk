@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 33,
+    "meaningfulPasses": 34,
     "verifiedLive": 0
   },
   "deployment": {
@@ -438,6 +438,23 @@
             "Added Enter confirmation and Escape cancellation, restored focus to the traveller after commits, and added reduced-motion-aware paper feedback."
           ],
           "validation": "Exact-source CI 39956463788 passed 25 Paper Odyssey engine + 20 DOM checks, all five three-seal desktop/touch charts, exact preview supplies, per-chart reload, native Enter/focus, keyboard/cancel, last-crease loss/undo, ink drying, restart/cancel, isolated recovery and navigation. All previous candidates pass unchanged: 261 checks total, 126 screenshots. All five charts additionally completed through direct cloud UI."
+        },
+        {
+          "passNumber": 2,
+          "date": "2026-10-29",
+          "round": "additional-2026-10-24",
+          "changes": [
+            "Stitched bridges add persistent two-way physical-island connections at a two-crease cost.",
+            "Recover thread at either endpoint during active play: remove the bridge and reclaim one crease, then choose a different crossing.",
+            "Preview removal and reachable destinations before committing; every stitch remains charged against par after recovery, preventing free resource or medal loops.",
+            "Preserve replay-based version-one saves, original deliveries, best records and exact undo."
+          ],
+          "implementationCommits": [
+            "21d5fb515207f12feca724c2f5bffb8574a5a6bb",
+            "5d519169d661956a7ccb138ccb166da328667638",
+            "5802ea7435c9b6b8f01715b2f90be58595ca4514"
+          ],
+          "validation": "Exact source 5802ea7435c9b6b8f01715b2f90be58595ca4514: CI 40702051106 passed all seven jobs, 536 engine + 371 DOM = 907 checks, syntax/assets, exact twenty-slot ledger and first-batch source integrity gates. Native job 122871578512 passed five original three-seal, five stitched and five unpicked deliveries in each desktop and emulated-touch context, pure previews/cancel, reload, native keyboard/focus and tap, preserved best records, last-crease loss/undo, ink drying, restart/cancel, isolated recovery and navigation; no browser errors. Inspected desktop-unpicked-3-preview.png, touch-unpicked-3-preview.png and touch-unpicked-4-done.png from 54 Paper Odyssey captures in artifact 12823008122. Recovered crease and removed bridge are visible in preview; final flat-chart delivery and best three-seal record are readable. Phone controls fit without horizontal overflow but require vertical scrolling. Evidence is automated rendered routes and agent screenshot review, not human enjoyment or physical-device testing. ZIP SHA256 038cb679daaf6d48982559dd8dcd862e9558467e1d250f3526d0828703759155."
         }
       ],
       "tests": [
@@ -446,7 +463,9 @@
         "20 DOM checks: five campaigns, onboarding/locks/labels/navigation, input/modal guards, per-chart reload, restart/cancel, exhausted-paper loss/undo, corrupt-save isolation, unavailable storage, ink state, staged map/cost previews, confirm focus, invalid preview clearing and risk warnings.",
         "Chromium desktop 1280x1000 and touch emulation 390x844: all five charts at three seals, exact forecasts/inventories, per-chart reload, native Enter/focus, keyboard/cancel, last-crease warning/loss/undo, ink drying, restart/cancel, isolated recovery and return navigation; no browser errors. Touch context also checks reduced motion.",
         "126 CI screenshots across six games, 24 for Paper Odyssey. Desktop preview and touch chart 4 midgame captures visually inspected. All five charts also completed in direct cloud UI: first at desktop width, remaining four in a 390px frame (layout inspection, not physical-device testing).",
-        "All prior 216 engine/DOM checks and five desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, static assets, nine first-batch selected-source hashes and exact twenty-slot gate passed."
+        "All prior 216 engine/DOM checks and five desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, static assets, nine first-batch selected-source hashes and exact twenty-slot gate passed.",
+        "Exact source 5802ea7435c9b6b8f01715b2f90be58595ca4514: CI 40702051106 passed all seven jobs, 536 engine + 371 DOM = 907 checks, syntax/assets, exact twenty-slot ledger and first-batch source integrity gates. Native job 122871578512 passed five original three-seal, five stitched and five unpicked deliveries in each desktop and emulated-touch context, pure previews/cancel, reload, native keyboard/focus and tap, preserved best records, last-crease loss/undo, ink drying, restart/cancel, isolated recovery and navigation; no browser errors.",
+        "Inspected desktop-unpicked-3-preview.png, touch-unpicked-3-preview.png and touch-unpicked-4-done.png from 54 Paper Odyssey captures in artifact 12823008122. Recovered crease and removed bridge are visible in preview; final flat-chart delivery and best three-seal record are readable. Phone controls fit without horizontal overflow but require vertical scrolling. Evidence is automated rendered routes and agent screenshot review, not human enjoyment or physical-device testing. ZIP SHA256 038cb679daaf6d48982559dd8dcd862e9558467e1d250f3526d0828703759155."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -455,7 +474,7 @@
         "polish": 4,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Mirrored spatial adjacency, layer crossings, scarce creases and one-use thread repairs create a distinct paper-folding puzzle. Exact previews make geometry readable and protect resources. Original smooth paper-world SVG. Five short charts constrain depth; phone layout scrolls between chart and controls. Crossing list provides larger targets than island markers. No multi-hour-content, physical-device or full screen-reader claim."
+        "notes": "Mirrored spatial adjacency, layer crossings, scarce creases and one-use thread repairs create a distinct paper-folding puzzle. Exact previews make geometry readable and protect resources. Original smooth paper-world SVG. Five short charts constrain depth; phone layout scrolls between chart and controls. Crossing list provides larger targets than island markers. No multi-hour-content, physical-device or full screen-reader claim. Additional review: recoverable bridges expand route/resource choices without adding repetitive charts. Rebuilding has a net one-crease cost and lasting par cost. Retain depth score 3; no content-duration or enjoyment-study claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -479,25 +498,12 @@
           "style.css": "d8e7577f77224a341946aad38074eed0eac58e57aace4e8da7f532f4a32a0ddd"
         }
       },
-      "pendingAdditionalUpgrade": {
-        "slot": 26,
-        "id": "paper-odyssey",
-        "title": "Paper Odyssey",
-        "status": "implemented-awaiting-final-rendered-verification",
-        "observedWeakness": "Reviewed retained native phone chart-four gameplay screenshot from CI 40694980007, artifact 12819072834. The bridge controls expose a one-use choice; source confirms no way to reclaim or reposition it. Five short fixed charts offer limited route experimentation. Screenshot review is not new direct interactive play or a player enjoyment study.",
-        "before": "A stitched connection is permanent until rewind/restart, spending two creases. Extra thread cannot be redirected during a continuing route.",
-        "after": "Unpick a bridge from either endpoint while play remains active to recover one crease, remove the connection and free thread for a different crossing. Preview shows the lost connection and remaining destinations before confirming. Each new stitch costs two creases and two permanent par points; undo restores the exact prior bridge and resources. Existing version-one routes still replay.",
-        "implementationCommit": "21d5fb515207f12feca724c2f5bffb8574a5a6bb",
-        "testing": [
-          "33 engine + 26 jsdom checks pass. All five original three-seal routes remain unchanged; five new stitched routes win with full health (two seals on chart one, three on the others). Every new action has pure exact forecasts and replay roundtrips. Budget accounting, reusable endpoints, single-bridge restriction, invalid distance/resources, undo and record validation pass.",
-          "DOM simulations complete all five stitched charts through preview/cancel/confirm, Enter and saved reload. Bridge markup, pause/dialog guards, undo/restart, previous loss/recovery, isolated saves and navigation markup pass. Both scripts pass syntax checks. No rendered play, inspected screenshots, actual touch, human enjoyment or full-repository check claimed.",
-          "70 focused tests pass: 39 engine and 31 DOM, including all five recovered-thread deliveries, pure forecast/replay, relocation sunk cost, endpoint restriction, undo, retained medal costs, preview/cancel/Enter and reload. Native suite extended to five original, five stitched and five unpicked deliveries per desktop/touch context; CI pending. No changed screenshots inspected yet."
-        ],
-        "remaining": "Inspect exact-source native CI and new desktop/touch unpick previews/deliveries; assess route value, controls, saves, loss/retry, restart/navigation before counting. Additional round remains 13/20.",
-        "implementationCommits": [
-          "21d5fb515207f12feca724c2f5bffb8574a5a6bb",
-          "5d519169d661956a7ccb138ccb166da328667638"
-        ]
+      "additionalVerification": {
+        "commit": "5802ea7435c9b6b8f01715b2f90be58595ca4514",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40702051106",
+        "job": 122871578512,
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40702051106/artifacts/12823008122",
+        "report": "dev/indie-collection-two/PAPER_THREAD.md"
       }
     },
     {
@@ -1684,7 +1690,7 @@
       }
     }
   ],
-  "nextSteps": "Inspect exact-source native CI and new desktop/touch unpick previews/deliveries; assess route value, controls, saves, loss/retry, restart/navigation before counting. Additional round remains 13/20. Then Wellward and the other five pending reviews before final selection; third collection remains 24/50 built.",
+  "nextSteps": "Prioritize Wellward, then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper: inspect pending source and rendered core loops, refine game-specific weaknesses and verify exact source before counting. Six additional reviews remain before final second-batch selection/integration. Third collection remains 24/50 built with no qualified improved/browser-tested/integrated/live completions.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2172,6 +2178,14 @@
       "result": "Paper Odyssey recoverable bridge thread implemented following retained screenshot review. 70 focused checks pass; expanded native routes pending. Additional verification stays 13/20; no integration/live change.",
       "publicIntegration": null,
       "nextSteps": "Inspect exact-source native CI and new desktop/touch unpick previews/deliveries; assess route value, controls, saves, loss/retry, restart/navigation before counting. Additional round remains 13/20. Then Wellward and the other five pending reviews before final selection; third collection remains 24/50 built."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "5d519169d661956a7ccb138ccb166da328667638",
+      "verificationCommit": "5802ea7435c9b6b8f01715b2f90be58595ca4514",
+      "result": "Paper Odyssey recoverable thread verified with all seven CI jobs, 907 checks, 30 desktop/emulated-touch deliveries and three inspected screenshots. Additional round now 14/20; 34 total meaningful passes. No public integration/live change.",
+      "publicIntegration": null,
+      "nextSteps": "Prioritize Wellward, then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper: inspect pending source and rendered core loops, refine game-specific weaknesses and verify exact source before counting. Six additional reviews remain before final second-batch selection/integration. Third collection remains 24/50 built with no qualified improved/browser-tested/integrated/live completions."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2179,7 +2193,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 13,
+    "completed": 14,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

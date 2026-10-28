@@ -1,4 +1,4 @@
-# Additional improvement round — 13/20 verified
+# Additional improvement round — 14/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -7,7 +7,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 23. Lanternwake — hooded light implemented in `237c2d8fbae76778b706f0681fdcc76b86e240b9`; 56 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [ ] 24. Copper Cadence — silent catches implemented in `8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9`; 59 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
-- [ ] 26. Paper Odyssey — recoverable bridge thread in `5d519169d661956a7ccb138ccb166da328667638`; 70 focused checks pass; expanded native desktop/touch verification pending. **Not counted.**
+- [x] 26. Paper Odyssey — recoverable thread and persistent par costs; source `5d519169`, verified at `5802ea74`. CI 40702051106: 907 checks, all seven jobs, desktop/touch original + stitched + unpicked deliveries; three screenshots inspected. See PAPER_THREAD.md.
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
 - [ ] 28. Wellward — cargo-costing repair kit implemented in `5b0fb766926891c874870f04331198f3802d1a16`; 42 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [x] 29. Salt & Sail — optional cargo sacrifice and selectable keep/discard course comparison, with exact endpoints and full visible paths. Verified final source `e1ed0d48c2abff8321e6e011666b2d2343e54292`, CI 40694980007, 896 engine/DOM checks and three inspected screenshots. See `SALT_CARGO_COMPARISON.md`.
