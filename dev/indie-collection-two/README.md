@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 10/20 additional upgrades fully verified.** All twenty additional upgrades have source. Ember Parcel now also has recoverable crossings based on rendered play; desktop/emulated-touch campaigns and screenshot review pass. See [current evidence](EMBER_RECOVERY.md).
+**20/20 playable, initially improved and finished; 11/20 additional upgrades fully verified.** All twenty additional upgrades have source. Tea for Ghosts now supports a saved alternative blend and persistent tasting guidance, alongside its earned half measures and recipe refinement. Desktop/emulated-touch service and tray routes plus screenshot review pass. See [current evidence](TEA_ALTERNATIVES.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -36,7 +36,7 @@ The previous Pages configuration blocker is resolved: [main release 40486136506]
 
 No Switch workspace controls were found in main launcher source or 44 second/third-batch game shells. Current main catalogue tests already assert that removed controls are absent. Preserve Games/Collection, search, genres, grouping, sorting, favourites and Gummy Bay.
 
-Next: CI 40654420826 is fully successful. Finish the remaining ten additional-round rendered reviews and substantive iteration, compare/integrate winners, and complete the separate fifty-game slate. Keep the existing cadence; the task is not complete.
+Next: CI 40671107031 is fully successful. Finish the remaining nine additional-round rendered reviews and substantive iteration, compare/integrate winners, and complete the separate fifty-game slate. Keep the existing cadence; the task is not complete.
 
 ## Writing and evidence notes
 

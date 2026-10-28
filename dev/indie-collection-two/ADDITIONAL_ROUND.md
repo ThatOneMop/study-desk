@@ -1,20 +1,20 @@
-# Additional improvement round — 10/20 verified
+# Additional improvement round — 11/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
-- [ ] 21. Reefwright — selective habitat cuts implemented in `0db09c81e7d4227733b4a9f16a6cd839187895f1`; 56 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 22. Counterweight — padded cradles implemented in `66e77e8d2e7a50acab5e99228cd92be17d958f63`; 56 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 23. Lanternwake — hooded light implemented in `237c2d8fbae76778b706f0681fdcc76b86e240b9`; 56 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 24. Copper Cadence — silent catches implemented in `8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9`; 59 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 26. Paper Odyssey — stitched bridges implemented in `21d5fb515207f12feca724c2f5bffb8574a5a6bb`; 59 engine/DOM checks pass, rendered review blocked. **Not counted.**
+- [ ] 21. Reefwright — selective habitat cuts implemented in `0db09c81e7d4227733b4a9f16a6cd839187895f1`; 56 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [ ] 22. Counterweight — padded cradles implemented in `66e77e8d2e7a50acab5e99228cd92be17d958f63`; 56 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [ ] 23. Lanternwake — hooded light implemented in `237c2d8fbae76778b706f0681fdcc76b86e240b9`; 56 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [ ] 24. Copper Cadence — silent catches implemented in `8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9`; 59 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [ ] 26. Paper Odyssey — stitched bridges implemented in `21d5fb515207f12feca724c2f5bffb8574a5a6bb`; 59 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
-- [ ] 28. Wellward — cargo-costing repair kit implemented in `5b0fb766926891c874870f04331198f3802d1a16`; 42 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 29. Salt & Sail — confirmed optional cargo jettison implemented in `ef574e418ff648ad99e553b96818016af03621b7`; 54 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 30. Pocket Palaeo — resin jackets implemented in `282ad742f526e7e30eb22667bc673bce4f449ac7`; 44 engine/DOM checks pass, rendered review blocked. **Not counted.**
+- [ ] 28. Wellward — cargo-costing repair kit implemented in `5b0fb766926891c874870f04331198f3802d1a16`; 42 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [ ] 29. Salt & Sail — confirmed optional cargo jettison implemented in `ef574e418ff648ad99e553b96818016af03621b7`; 54 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [ ] 30. Pocket Palaeo — resin jackets implemented in `282ad742f526e7e30eb22667bc673bce4f449ac7`; 44 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [x] 31. Static Orchard — earned-energy blossom lures, tree-placement and limited-resource choices; verified commit `304976b32bb3c7a114d23c235f19f853826041f2`, CI 40061003554.
 - [x] 32. Borrowed Gravity — safe surface anchors and one-use recovery choices; verified commit `dca02c401239e0d9060a7037ea9139a23597c82d`, CI 40057078381.
-- [ ] 33. Tea for Ghosts — half-measure spoon and recipe refinement implemented in `a66b0a0cc55289c94fe7d845401d11d2065b1aae`; 39 engine/DOM checks pass, rendered review blocked. **Not counted.**
+- [x] 33. Tea for Ghosts — earned half measures and retained refinement, plus saved alternative blends and persistent tasting notes from rendered review; gameplay `d13dc0058e7f888725b75a9629ab3ed6af63ea7d`, native verification `c8ecf518d2a0ef17c409c3b37c457a3b8d00272d`, CI 40671107031. Three of 34 screenshots inspected. Copy-only follow-up `faab0da850e6716edfaead258508c4bc32eb6aeb` separately checked.
 - [x] 34. Cairn & Cord — anchored lateral traverses, haul-back grip choices and separate survey records; verified commit `eb10e9e87ee414f0a218afe6176cc2589151a592`, CI 40044161548.
 - [x] 35. Murmuration — food-funded clear-air regroup calls and supply/survival choices; verified commit `b1c2421ba2286bc833d62e12ffb256e8cf4795fc`, CI 40048553658.
 - [x] 36. Night Clerk — movable moon/stove service cart, alternative room plans and collateral noise choices; verified commit `08fb6223f98854ee3097560b685b310f22d37dc6`, CI 40052886087.
@@ -23,7 +23,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 39. Windup Wrestling — kit tradeoffs plus exact optional rehearsal; verified `acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4`, CI 40635652032. All six alternate-kit victories on desktop/touch; 34 screenshots retained, three inspected.
 - [x] 40. Last Lighthouse — portable prism and free direct-chart beam/orientation planning; verified commit `fcc1da11ad19c5b84f88af22d8253a87e15a8e71`, CI 40631660878 job 122629895098. 869 engine/DOM checks and changed-game desktop/touch pass; 52 screenshots retained, three inspected.
 
-No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Ten candidates still require completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
+No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Nine candidates still require completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
 
 26 October checkpoint: all twenty additional upgrades have implementation source. Six are verified; fourteen still require rendered observation and iteration. This is not 20/20 completed additional improvements.
 
@@ -36,3 +36,5 @@ Native follow-up on 28 October: Last Lighthouse passes desktop/emulated-touch pr
 28 October Ember follow-up: built crossings can now be lifted into the bag, restoring the garden/water hazard. All four reclaimed routes played through rendered UI; native desktop/emulated-touch campaigns and inspected screenshots complete the pass. **9/20 verified**, eleven pending. Full 879 engine/DOM checks pass; remaining unrelated browser groups were running at the evidence checkpoint.
 
 28 October Clockwork verification: all seven CI jobs passed; native storage/metering campaigns and screenshot review complete. **10/20 verified**, ten pending. Earlier counts above are historical checkpoints.
+
+28 October Tea verification: saved alternative blends and retained tasting guidance implemented from rendered observation; all six services and the half-measure refinement/tray route pass desktop and emulated touch. All seven CI jobs pass with 887 engine/DOM checks. Three of 34 retained screenshots inspected. **11/20 verified**, nine pending. No new public integration or live upgrade; first batch and concurrent main preserved.

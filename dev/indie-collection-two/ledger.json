@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 30,
+    "meaningfulPasses": 31,
     "verifiedLive": 0
   },
   "deployment": {
@@ -974,6 +974,21 @@
             "Bring service feedback and new visitor names into keyboard focus; preserve record recipes beyond recent journal retention."
           ],
           "validation": "34 engine/interface checks plus complete six-visitor native desktop and touch campaigns pass in CI 40018382932. Both tools, repeated service, every preparation/poured reload, loss/retry, bridge pause, isolated recovery/reset and navigation pass. 28 screenshots retained; phone final-visitor/memory view inspected."
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-28",
+          "observedWeakness": "Rendered Mabel test: a 27-point cup gave useful flavour/temperature feedback, but Refine this blend removed those comments from the service panel. Live arrows showed only change direction; comparing multiple ideas meant rebuilding recipes or losing one to single-step undo.",
+          "changes": [
+            "Earned half measures and recipe refinement now pair with a saved alternative tray: set one blend aside, alter ingredients/extraction/dilution, and exchange both drafts without spending an attempt. Both recipes survive reload and subsequent cups during a visit. Historical tasting notes stay beside the live preview, with no hidden target or predicted score revealed. Restart/visitor change clear the tray; memories, earned tools and history remain. Paused reset/recovery confirmations cannot mutate saves."
+          ],
+          "implementationCommit": "d13dc0058e7f888725b75a9629ab3ed6af63ea7d",
+          "implementationCommits": [
+            "a66b0a0cc55289c94fe7d845401d11d2065b1aae",
+            "d13dc0058e7f888725b75a9629ab3ed6af63ea7d"
+          ],
+          "validation": "CI 40671107031 on c8ecf518d2a0ef17c409c3b37c457a3b8d00272d passed all seven jobs: 527 engine + 360 DOM = 887 checks, asset/syntax, exact twenty-slot and nine first-batch source-integrity gates. Native browser job 122761302287 passes all six Tea visitor services on desktop and emulated touch, all three tools/unlocks, the half-measure 87-to-100 refinement route, both saved alternatives, keyboard Enter/Space swaps, every planned/poured reload, natural loss/retry, bridge pause, isolated recovery/reset and navigation. 34 Tea screenshots retained in artifact 12808832756. Inspected desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success: alternative recipe, live profile and retained tasting notes are readable and wrap within the viewport; both records and equipment persist. Phone page still needs substantial scrolling. ZIP SHA256 6afa08c3da8d64b729f06d6317918bb7ee7931f662b6b037b03adeb9d72e1f13. Automated routes and agent walkthroughs are reliability evidence, not human enjoyment or physical-device testing. Copy-only follow-up faab0da850e6716edfaead258508c4bc32eb6aeb clarifies that a poor last cup ends this visit without denying earlier successes, and explicitly names the tray in restart confirmation. All 44 focused checks rerun successfully; the revised departure was observed after three native UI offerings at 390px. This two-string follow-up was not included in the earlier CI screenshot/source snapshot; mechanics are unchanged."
         }
       ],
       "tests": [
@@ -986,7 +1001,10 @@
         "Additional source upgrade a66b0a0cc55289c94fe7d845401d11d2065b1aae: 39 engine/DOM checks pass. Current changes await rendered review; historical verification/quality fields describe the initial version only.",
         "2026-10-28: 27 engine + 17 DOM checks pass. Tray exchange/replacement, empty-pot exchange, visit scoping, fractional capacity/locks, old-save migration, invalid tray rejection, exact reload, tasting/refine attempt counts and paused confirmation protection covered. JavaScript syntax passes.",
         "Rendered desktop walkthrough preserved two alternatives across reload and used keyboard Enter/Space swaps to improve Mabel from 27 to 100. At 390px pointer walkthrough, an earned half-scoop Otis blend improved from 87 to 100 through refinement and tray exchange. Desktop and phone-width screenshots inspected; these are agent walkthroughs, not physical touch or human enjoyment evidence.",
-        "CI 40670487254 passed all 887 engine/DOM checks (527 engine + 360 DOM) and asset/first-batch gates. Native Tea route completed original six visitors, then exposed a harness assumption: keyboard selects emit change at every arrow, so one undo restored 120 after reaching 140, correctly. Test-only correction c8ecf518d2a0ef17c409c3b37c457a3b8d00272d uses one actual native step. CI 40671107031 pending."
+        "CI 40670487254 passed all 887 engine/DOM checks (527 engine + 360 DOM) and asset/first-batch gates. Native Tea route completed original six visitors, then exposed a harness assumption: keyboard selects emit change at every arrow, so one undo restored 120 after reaching 140, correctly. Test-only correction c8ecf518d2a0ef17c409c3b37c457a3b8d00272d uses one actual native step. CI 40671107031 pending.",
+        "CI 40671107031 on c8ecf518d2a0ef17c409c3b37c457a3b8d00272d passed all seven jobs: 527 engine + 360 DOM = 887 checks, asset/syntax, exact twenty-slot and nine first-batch source-integrity gates. Native browser job 122761302287 passes all six Tea visitor services on desktop and emulated touch, all three tools/unlocks, the half-measure 87-to-100 refinement route, both saved alternatives, keyboard Enter/Space swaps, every planned/poured reload, natural loss/retry, bridge pause, isolated recovery/reset and navigation.",
+        "34 Tea screenshots retained in artifact 12808832756. Inspected desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success: alternative recipe, live profile and retained tasting notes are readable and wrap within the viewport; both records and equipment persist. Phone page still needs substantial scrolling. ZIP SHA256 6afa08c3da8d64b729f06d6317918bb7ee7931f662b6b037b03adeb9d72e1f13. Automated routes and agent walkthroughs are reliability evidence, not human enjoyment or physical-device testing.",
+        "Copy-only follow-up faab0da850e6716edfaead258508c4bc32eb6aeb clarifies that a poor last cup ends this visit without denying earlier successes, and explicitly names the tray in restart confirmation. All 44 focused checks rerun successfully; the revised departure was observed after three native UI offerings at 390px. This two-string follow-up was not included in the earlier CI screenshot/source snapshot; mechanics are unchanged."
       ],
       "quality": {
         "enjoyment": 3.5,
@@ -994,7 +1012,7 @@
         "polish": 4,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Agent review, not a player survey. Distinct flavour deduction, extraction/dilution and tasting feedback; six visitors with ingredient unlocks and two useful tools. Native desktop/touch services, saves/replay, loss/retry and pause pass. Cohesive illustrated tearoom; substantial phone scrolling, fixed preferences and no audio limit the scope."
+        "notes": "Agent review, not a player survey. Distinct flavour deduction, extraction/dilution and tasting feedback; six visitors with ingredient unlocks and two useful tools. Native desktop/touch services, saves/replay, loss/retry and pause pass. Cohesive illustrated tearoom; substantial phone scrolling, fixed preferences and no audio limit the scope. Additional round now verifies the third tool (half-measure spoon), retained recipe refinement, a saved alternative tray for branching experiments and persistent tasting guidance. Preserves the six fixed visitor preferences rather than inflating the campaign with repeats. Agent assessment remains provisional until full-slate selection."
       },
       "selected": false,
       "integrationCommits": [],
@@ -1008,7 +1026,8 @@
         "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
         "a66b0a0cc55289c94fe7d845401d11d2065b1aae",
         "d13dc0058e7f888725b75a9629ab3ed6af63ea7d",
-        "c8ecf518d2a0ef17c409c3b37c457a3b8d00272d"
+        "c8ecf518d2a0ef17c409c3b37c457a3b8d00272d",
+        "faab0da850e6716edfaead258508c4bc32eb6aeb"
       ],
       "verification": {
         "commit": "d4ba35cbbcff3f7f40e81300a6cabc5f759d7e81",
@@ -1025,28 +1044,20 @@
       },
       "selectionReason": "Retain as a finished development candidate for comparison across the complete second-batch slate. No public catalogue write by this run.",
       "publishedUrl": null,
-      "pendingAdditionalUpgrade": {
-        "slot": 33,
-        "id": "tea-for-ghosts",
-        "title": "Tea for Ghosts",
-        "status": "implemented-awaiting-native-verification",
-        "observedWeakness": "Rendered Mabel test: a 27-point cup gave useful flavour/temperature feedback, but Refine this blend removed those comments from the service panel. Live arrows showed only change direction; comparing multiple ideas meant rebuilding recipes or losing one to single-step undo.",
-        "before": "Whole-scoop original service had no retained refinement; the pending half-measure/refine upgrade retained a recipe but still offered only one draft and hid tasting guidance during preparation.",
-        "after": "Earned half measures and recipe refinement now pair with a saved alternative tray: set one blend aside, alter ingredients/extraction/dilution, and exchange both drafts without spending an attempt. Both recipes survive reload and subsequent cups during a visit. Historical tasting notes stay beside the live preview, with no hidden target or predicted score revealed. Restart/visitor change clear the tray; memories, earned tools and history remain. Paused reset/recovery confirmations cannot mutate saves.",
-        "implementationCommit": "d13dc0058e7f888725b75a9629ab3ed6af63ea7d",
-        "testing": [
-          "24 engine and 15 jsdom checks pass: all six original visitors, earned spoon and competing seal purchases, fractional capacity/locks, semantic saves, exact profiles, refinement/undo/attempt limits, legacy migration, natural loss/retry/reset and unrelated-save preservation.",
-          "JavaScript syntax passes. No rendered browser, screenshot, actual touch or human-enjoyment claim. Full repository suite not run from the partial checkout.",
-          "2026-10-28: 27 engine + 17 DOM checks pass. Tray exchange/replacement, empty-pot exchange, visit scoping, fractional capacity/locks, old-save migration, invalid tray rejection, exact reload, tasting/refine attempt counts and paused confirmation protection covered. JavaScript syntax passes.",
-          "Rendered desktop walkthrough preserved two alternatives across reload and used keyboard Enter/Space swaps to improve Mabel from 27 to 100. At 390px pointer walkthrough, an earned half-scoop Otis blend improved from 87 to 100 through refinement and tray exchange. Desktop and phone-width screenshots inspected; these are agent walkthroughs, not physical touch or human enjoyment evidence.",
-          "CI 40670487254 passed all 887 engine/DOM checks (527 engine + 360 DOM) and asset/first-batch gates. Native Tea route completed original six visitors, then exposed a harness assumption: keyboard selects emit change at every arrow, so one undo restored 120 after reaching 140, correctly. Test-only correction c8ecf518d2a0ef17c409c3b37c457a3b8d00272d uses one actual native step. CI 40671107031 pending."
-        ],
-        "remaining": "Review corrected native desktop/emulated-touch route, loss/retry, reload, reset/recovery/navigation and retained screenshots before counting this additional pass. Current completion remains 10/20.",
-        "implementationCommits": [
-          "a66b0a0cc55289c94fe7d845401d11d2065b1aae",
-          "d13dc0058e7f888725b75a9629ab3ed6af63ea7d"
-        ]
-      }
+      "additionalVerification": {
+        "commit": "c8ecf518d2a0ef17c409c3b37c457a3b8d00272d",
+        "gameplayCommit": "d13dc0058e7f888725b75a9629ab3ed6af63ea7d",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40671107031",
+        "job": 122761302287,
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40671107031/artifacts/12808832756",
+        "artifactSha256": "6afa08c3da8d64b729f06d6317918bb7ee7931f662b6b037b03adeb9d72e1f13",
+        "status": "All seven jobs passed; desktop/emulated-touch service and tray routes plus inspected screenshots complete.",
+        "copyFollowupCommit": "faab0da850e6716edfaead258508c4bc32eb6aeb",
+        "copyFollowupValidation": "Copy-only follow-up faab0da850e6716edfaead258508c4bc32eb6aeb clarifies that a poor last cup ends this visit without denying earlier successes, and explicitly names the tray in restart confirmation. All 44 focused checks rerun successfully; the revised departure was observed after three native UI offerings at 390px. This two-string follow-up was not included in the earlier CI screenshot/source snapshot; mechanics are unchanged."
+      },
+      "nextSteps": [
+        "Additional pass verified. Retain for final slate comparison after the remaining nine reviews; six fixed visitor preferences, a small finite cabinet and long phone scrolling still limit scope."
+      ]
     },
     {
       "slot": 34,
@@ -1616,7 +1627,7 @@
     }
   ],
   "nextSteps": [
-    "Complete the ten remaining additional-round rendered reviews and substantive iterations; prioritize Tea for Ghosts' pending recipe refinement and half-measure upgrade.",
+    "Complete the nine remaining additional-round rendered reviews and substantive iterations; prioritize Pocket Palaeo's shallow fixed-site progression and pending resin-jacket decisions.",
     "Compare the improved full slate and integrate selected source using freshly reread main; preserve concurrent 13 second-batch entries, Gummy Bay and requested games.",
     "Third collection remains 24/50 built, zero improved/browser-tested/integrated/live in its own ledger. Complete distinct remaining candidates and substantive rendered-play improvements; no reskins or placeholder counts.",
     "Keep existing automation cadence; do not pause until obligations complete."
@@ -2063,6 +2074,16 @@
       "ci": "40671107031",
       "publicIntegration": null,
       "nextSteps": "Review corrected native desktop/emulated-touch route, loss/retry, reload, reset/recovery/navigation and retained screenshots before counting this additional pass. Current completion remains 10/20."
+    },
+    {
+      "date": "2026-10-28",
+      "gameplayCommit": "d13dc0058e7f888725b75a9629ab3ed6af63ea7d",
+      "verificationCommit": "c8ecf518d2a0ef17c409c3b37c457a3b8d00272d",
+      "copyFollowupCommit": "faab0da850e6716edfaead258508c4bc32eb6aeb",
+      "result": "Tea alternate-blend upgrade verified with rendered walkthroughs, native desktop/touch service and tray routes, and three inspected retained screenshots. All seven CI jobs pass. Additional round now 11/20; 31 recorded meaningful passes. No new candidate or public integration.",
+      "ci": "40671107031",
+      "publicIntegration": null,
+      "nextSteps": "Complete the nine remaining additional-round rendered reviews and substantive iterations; prioritize Pocket Palaeo's shallow fixed-site progression and pending resin-jacket decisions."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2070,7 +2091,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 10,
+    "completed": 11,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
