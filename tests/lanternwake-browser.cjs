@@ -1,5 +1,6 @@
 'use strict';
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{spawn}=require('node:child_process');
+const E=require('../games/lanternwake/engine.js'),hoodRoutes=require('./fixtures/lanternwake-hood-routes.json');
 const routes=require('./fixtures/lanternwake-routes.json'),key='study-desk-lanternwake-v1',root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/lanternwake');fs.mkdirSync(out,{recursive:true});
 const server=spawn('python3',['-m','http.server','8137','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
 (async()=>{browser=await chromium.launch({executablePath:process.env.CHROME_EXECUTABLE_PATH||undefined,headless:true,args:['--no-sandbox']});for(const mobile of [false,true]){
@@ -11,10 +12,29 @@ const server=spawn('python3',['-m','http.server','8137','--bind','127.0.0.1'],{c
  if(i===Math.floor(route.actions.length/2)){await page.locator('#scene').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,`${prefix}-crossing-${route.voyage+1}-mid.png`),fullPage:true});const label=await page.locator('#scene').getAttribute('aria-label');await page.reload();assert.equal(await page.locator('#scene').getAttribute('aria-label'),label);if(mobile)await act('#plan');}}
  assert.match(await page.locator('#result').textContent(),/A little more light/);const saved=await page.evaluate(k=>JSON.parse(localStorage.getItem(k)),key);assert.equal(saved.records[route.voyage].medals,3);await page.screenshot({path:path.join(out,`${prefix}-crossing-${route.voyage+1}-done.png`),fullPage:true});if(route.voyage<4)await act('#next');}
  await page.reload();assert.match(await page.locator('#result').textContent(),/All five crossings complete/);await act('#restart');await act('#cancel');assert.match(await page.locator('#result').textContent(),/A little more light/);await act('#restart');await act('#accept');assert.equal(await page.locator('#turn').textContent(),'0 turns');
+ // Select the longer-lived nearby lamp rather than the shortcut's oldest lamp.
+ await act('[data-voyage="0"]');await act('#accept');for(const a of ['bs','s','bs','s'])await act(`[data-action=${a}]`);
+ assert.equal(await page.locator('.light-choice').count(),2);const original=await page.evaluate(k=>localStorage.getItem(k),key);
+ await act('#plan');await act('[data-action="hood:37"]');assert.match(await page.locator('#plan-summary').textContent(),/column 2, row 5/);assert.equal(await page.evaluate(k=>localStorage.getItem(k),key),original);
+ await page.screenshot({path:path.join(out,prefix+'-chosen-light-preview.png'),fullPage:true});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await act('#clear-plan');assert.equal(await page.evaluate(k=>localStorage.getItem(k),key),original);
+ await act('[data-action="hood:37"]');await act('#execute');await page.reload();assert.match(await page.locator('[data-action="hood:37"]').textContent(),/Open this hood/);assert.match(await page.locator('[data-action="hood:28"]').textContent(),/Close this hood/);
+ await page.screenshot({path:path.join(out,prefix+'-chosen-light-saved.png'),fullPage:true});await act('#undo');assert.equal(await page.evaluate(k=>localStorage.getItem(k),key),original);await act('[data-action="snuff:37"]');assert.equal(await page.locator('[data-action="hood:37"]').count(),0);assert.equal(await page.locator('[data-action="hood:28"]').count(),1);
+ // Three authored hood routes, with targeted hoods, retain their clean medals.
+ for(const route of hoodRoutes){
+  await act(`[data-voyage="${route.voyage}"]`);await act('#accept');if(mobile)await act('#plan');let state=E.create(route.voyage);
+  for(const oldAction of route.actions){
+   let a=oldAction;if(a==='hood'){const b=state.beacons.filter(b=>E.dist(state.boat,b.p)<=1).sort((a,b)=>a.life-b.life||a.p-b.p)[0];a='hood:'+b.p;}
+   const expected=E.step(state,a);assert(expected.ok);await act(`[data-action="${a}"]`);if(mobile)await act('#execute');state=expected.state;
+   const saved=await page.evaluate(k=>JSON.parse(localStorage.getItem(k)),key);assert.deepEqual(saved.current.actions,state.history);assert.equal(Number(await page.locator('#oil').textContent()),state.oil);
+   if(a.startsWith('hood:')){await page.reload();if(mobile)await act('#plan');assert.equal((await page.locator('#hull').textContent()).split('♥').length-1,state.hull);}
+  }
+  assert.match(await page.locator('#result').textContent(),/A little more light/);assert.equal(E.medal(state),3);await page.screenshot({path:path.join(out,`${prefix}-hood-crossing-${route.voyage+1}.png`),fullPage:true});if(mobile)await act('#plan');
+ }
  // Confirm known danger, failure, and free undo through the real second-crossing controls.
  await act('[data-voyage="1"]');await act('#accept');await act('[data-action=e]');assert.match(await page.locator('[data-action=be]').getAttribute('title'),/light disappears/);await act('[data-action=be]');assert.match(await page.locator('[data-action=e]').getAttribute('title'),/HULL −1/);for(const a of ['e','wait','wait'])await act(`[data-action=${a}]`);assert.match(await page.locator('#result').textContent(),/Rest among/);await act('#undo');assert.equal(await page.locator('#result').isVisible(),false);
  await act('#restart');await act('#accept');await page.locator('[data-action=e]').focus();await page.keyboard.press('d');assert.equal(await page.locator('#turn').textContent(),'1 turns');await page.keyboard.press('z');assert.equal(await page.locator('#turn').textContent(),'0 turns');
  await act('#plan');await act('[data-action=e]');await act('#clear-plan');assert.equal(await page.locator('#turn').textContent(),'0 turns');await act('[data-action=e]');await page.keyboard.press('Enter');assert.equal(await page.locator('#turn').textContent(),'1 turns');await act('#plan');
  await page.evaluate(k=>{localStorage.setItem(k,'{broken');localStorage.setItem('lw-unrelated-fixture','keep');},key);await page.reload();await act('[data-action=e]');assert.equal(await page.evaluate(k=>localStorage.getItem(k),key),'{broken');await act('#recover');await act('#cancel');assert.equal(await page.evaluate(k=>localStorage.getItem(k),key),'{broken');await act('#recover');await act('#accept');assert.equal(await page.evaluate(k=>JSON.parse(localStorage.getItem(k)).current.actions.length,key),1);assert.equal(await page.evaluate(()=>localStorage.getItem('lw-unrelated-fixture')),'keep');
- await act('header a');await page.waitForURL('**/index.html#games');assert(await page.locator('#games').count());assert.deepEqual(errors,[]);console.log(`PASS ${prefix}: all five three-medal crossings, exact forecasts, reloads, direct/planned controls, loss/undo, keyboard, restart/cancel, corrupt recovery and navigation; no browser errors`);await context.close();}
+ await act('header a');await page.waitForURL('**/index.html#games');assert(await page.locator('#games').count());assert.deepEqual(errors,[]);console.log(`PASS ${prefix}: five original plus three targeted-hood three-medal crossings, explicit lamp selection, preview/cancel/commit/reload/reclaim, exact forecasts, reloads, direct/planned controls, loss/undo, keyboard, restart/cancel, corrupt recovery and navigation; no browser errors`);await context.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();server.kill();});
+

@@ -26,3 +26,13 @@ test('hooded lamp still expires, can be reclaimed and is not a moth-proof shield
 test('hood requires adjacency and refuses terminal states without mutation',()=>{for(const s of [E.create(),E.replay(0,['be']),E.replay(0,routes[0].actions)]){const r=E.step(s,'hood');assert(!r.ok);assert.strictEqual(r.state,s);}});
 test('three hood-assisted crossings win cleanly with exact forecasts and replay saves',()=>{for(const r of require('./fixtures/lanternwake-hood-routes.json')){let s=E.create(r.voyage),uses=0;for(const a of r.actions){const old=JSON.stringify(s),f=E.forecast(s,a),n=E.step(s,a);assert(n.ok);assert.equal(JSON.stringify(s),old);assert.deepEqual(f.beacons,n.state.beacons);assert.deepEqual(f.moths,n.state.moths);s=n.state;assert.deepEqual(E.replay(r.voyage,s.history),s);uses+=a==='hood';}assert(uses>=2);assert.equal(s.hits,0);assert.equal(E.medal(s),3);}});
 test('two adjacent lights select least remaining life then map position deterministically',()=>{const s=E.create();s.boat=20;s.beacons=[{p:21,life:5},{p:19,life:3}];const n=E.step(s,'hood').state;assert(n.beacons.find(b=>b.p===19).hooded);assert(!n.beacons.find(b=>b.p===21).hooded);});
+
+test('chosen lantern actions preserve the other light and old automatic ordering',()=>{
+ const s=E.replay(0,['bs','s','bs','s']),before=JSON.stringify(s);
+ const chosen=E.step(s,'hood:37').state,automatic=E.step(s,'hood').state;
+ assert(chosen.beacons.find(b=>b.p===37).hooded);assert(!chosen.beacons.find(b=>b.p===28).hooded);assert(automatic.beacons.find(b=>b.p===28).hooded);
+ assert.deepEqual(E.replay(0,chosen.history),chosen);assert.deepEqual(E.undo(chosen),s);assert.equal(JSON.stringify(s),before);
+ const reclaimed=E.step(s,'snuff:37').state;assert.deepEqual(reclaimed.beacons.map(b=>b.p),[28]);assert.equal(reclaimed.oil,s.oil+1);assert.equal(reclaimed.turn,s.turn+1);
+ for(const a of ['hood:10','snuff:0','hood:99','hood:037'])assert(!E.step(s,a).ok);
+ assert.deepEqual(E.decode({...E.blank(),current:{voyage:0,actions:chosen.history}}).current.actions,chosen.history);
+});

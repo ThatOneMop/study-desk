@@ -1,5 +1,5 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.Lanternwake=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){'use strict';
-const DIRS={n:[0,-1],e:[1,0],s:[0,1],w:[-1,0]},ACTIONS=['n','e','s','w','bn','be','bs','bw','wait','snuff','hood'];
+const DIRS={n:[0,-1],e:[1,0],s:[0,1],w:[-1,0]},ACTIONS=['n','e','s','w','bn','be','bs','bw','wait','snuff','hood',...Array.from({length:63},(_,p)=>['hood:'+p,'snuff:'+p]).flat()];
 const VOYAGES=[
  {name:'A light to follow',brief:'Carry two firefly jars home. Throw a lantern ahead, then sail through its glow.',oil:5,par:24,throws:3,rows:['#########','#S..#..D#','#...#...#','#..J..J.#','#...#...#','#...#...#','#########']},
  {name:'The hungry wing',brief:'A moth follows your lanterns. Leave a light behind it, then take the other channel.',oil:5,par:28,throws:4,rows:['#########','#S...M.D#','#..###..#','#J.....J#','#..###..#','#...R...#','#########']},
@@ -23,8 +23,8 @@ function advanceMoths(s){const moved=[];for(const pos of s.moths){let target=nul
 function step(state,action){const fail=reason=>({ok:false,state,reason});if(state.status!=='playing')return fail('Voyage ended. Undo or restart to sail again.');if(!ACTIONS.includes(action))return fail('Unknown action.');const s=copy(state);let message='';
  if(DIRS[action]){const p=neighbour(s.boat,action);if(!water(s.voyage,p))return fail('Rock blocks that channel.');if(!lit(s).has(p))return fail('Unlit water. Throw a lantern before sailing.');s.boat=p;message='Oars dip into the glow.';}
  else if(action[0]==='b'){const p=target(s,action[1]);if(p<0)return fail('A lantern needs two clear water spaces.');if(!s.oil)return fail('No oil. Reclaim a nearby lantern or visit a refuge.');if(s.beacons.length>=2)return fail('Two lanterns already afloat. Reclaim one or let it expire.');if(s.beacons.some(b=>b.p===p))return fail('A lantern is already there.');s.beacons.push({p,life:7});s.oil--;s.throws++;message='Lantern afloat. Six turns of light remain after this turn.';}
- else if(action==='hood'){const near=s.beacons.filter(b=>dist(s.boat,b.p)<=1).sort((a,b)=>a.life-b.life||a.p-b.p)[0];if(!near)return fail('Sail beside a lantern to toggle its hood.');if(near.hooded){delete near.hooded;message='Hood opened: broad light attracts moths again.';}else{near.hooded=true;message='Hood closed: one-step light, no moth attraction. Lantern life still burns.';}}
- else if(action==='snuff'){const near=s.beacons.filter(b=>dist(s.boat,b.p)<=1).sort((a,b)=>a.life-b.life||a.p-b.p)[0];if(!near)return fail('Sail beside a lantern to reclaim it.');s.beacons=s.beacons.filter(b=>b!==near);s.oil++;message='Lantern reclaimed: one oil recovered.';}
+ else if(action==='hood'||action.startsWith('hood:')){const near=s.beacons.filter(b=>dist(s.boat,b.p)<=1&&(!action.includes(':')||b.p===Number(action.split(':')[1]))).sort((a,b)=>a.life-b.life||a.p-b.p)[0];if(!near)return fail('Sail beside a lantern to toggle its hood.');if(near.hooded){delete near.hooded;message='Hood opened: broad light attracts moths again.';}else{near.hooded=true;message='Hood closed: one-step light, no moth attraction. Lantern life still burns.';}}
+ else if(action==='snuff'||action.startsWith('snuff:')){const near=s.beacons.filter(b=>dist(s.boat,b.p)<=1&&(!action.includes(':')||b.p===Number(action.split(':')[1]))).sort((a,b)=>a.life-b.life||a.p-b.p)[0];if(!near)return fail('Sail beside a lantern to reclaim it.');s.beacons=s.beacons.filter(b=>b!==near);s.oil++;message='Lantern reclaimed: one oil recovered.';}
  else message='You hold the oars. Moths and lanterns still advance.';
  if(cell(s.voyage,s.boat)==='J'&&!s.jars.includes(s.boat)){s.jars.push(s.boat);message='Firefly jar aboard.';}
  if(cell(s.voyage,s.boat)==='R'&&!s.refuges.includes(s.boat)){s.refuges.push(s.boat);s.oil++;message='Reed refuge: one fresh oil collected.';}
@@ -46,3 +46,4 @@ function record(v,s){const out=copy(v);out.current={voyage:s.voyage,actions:s.hi
 function forecast(s,a){const r=step(s,a),n=r.state;return {allowed:r.ok,reason:r.reason,boat:n.boat,moths:n.moths.slice(),beacons:copy(n.beacons),hull:n.hull,oil:n.oil,jars:n.jars.length,damage:s.hull-n.hull,expiring:[...s.beacons.map(b=>b.p),...(r.ok&&a[0]==='b'?[target(s,a[1])]:[])].filter(p=>!n.beacons.some(q=>q.p===p)),status:n.status,lit:[...lit(n)]};}
 return {forecast,DIRS,ACTIONS,VOYAGES,W,H,xy,dist,cell,water,points,distances,lit,target,create,step,medal,replay,undo,blank,decode,unlocked,record};
 });
+
