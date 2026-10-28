@@ -30,3 +30,26 @@ test('cradle keyboard setup, exact warning, carried reload and scoped restart',(
 test('tap-style cradle control and undo return reservation without spending supply',()=>{
  const d=boot();d.click('#rig');d.click('#hook');assert.match(d.$('#rigging').textContent,/1 \/ 2/);d.click('#undo');assert.match(d.$('#rigging').textContent,/2 \/ 2.*ready/);assert.equal(d.$('#rig').getAttribute('aria-pressed'),'true');d.click('#rig');assert.equal(d.$('#rig').getAttribute('aria-pressed'),'false');d.click('#help');d.w.document.dispatchEvent(new d.w.KeyboardEvent('keydown',{key:'c',bubbles:true}));assert.equal(d.$('#rig').getAttribute('aria-pressed'),'false');assert.match(d.$('#guide').textContent,/one tonne more/);d.close();
 });
+
+test('rehearsal isolates a full lift, bounds undo and commits exact journal costs',()=>{
+ const d=boot();d.click('#rehearse');assert(d.$('#undo').disabled);
+ const plan=cradles[0].actions.slice(0,cradles[0].actions.indexOf('hook',cradles[0].actions.indexOf('hook')+1)+1);
+ for(const a of plan)d.click(`[data-action=${a}]`);
+ assert.equal(d.w.localStorage.getItem(key),null);assert.match(d.$('#rehearsal-summary').textContent,/1 delivered/);assert(d.$('#hook').disabled);assert(d.$('#restart').disabled);
+ d.click('#apply-rehearsal');assert.deepEqual(d.saved().current.actions,plan);assert.equal(E.replay(0,plan).moves,plan.length);assert(d.$('#rehearsal').hidden);assert(!d.$('#restart').disabled);d.close();
+});
+test('rehearsal overload can be revised; discard and reload preserve the exact saved attempt',()=>{
+ const d=boot();d.click('#hook');const raw=d.w.localStorage.getItem(key),before=d.$('#scene').getAttribute('aria-label');d.click('#rehearse');
+ for(const a of ['up','left','left','left','settle','settle'])d.click(`[data-action=${a}]`);
+ assert.match(d.$('#rehearsal-summary').textContent,/Safety brake/);assert(d.$('#apply-rehearsal').disabled);assert.equal(d.w.localStorage.getItem(key),raw);
+ d.click('#undo');assert(!d.$('#apply-rehearsal').disabled);d.click('#discard-rehearsal');assert.equal(d.$('#scene').getAttribute('aria-label'),before);assert.equal(d.w.localStorage.getItem(key),raw);
+ d.click('#rehearse');d.click('[data-action=up]');const e=boot(d.w.localStorage.getItem(key));assert.equal(e.$('#scene').getAttribute('aria-label'),before);assert(e.$('#rehearsal').hidden);e.close();d.close();
+});
+test('rehearsed win awards nothing until applied and cannot unlock a job early',()=>{
+ const actions=routes[0].actions.slice(0,-1),d=boot(JSON.stringify({...E.blank(),current:{job:0,actions}}));
+ d.click('#rehearse');d.click('#hook');assert.match(d.$('#result').textContent,/preview complete/);assert.equal(d.saved().records[0],null);assert.equal(d.$('#next'),null);assert(d.$('[data-job="1"]').disabled);
+ d.click('#discard-rehearsal');assert.equal(d.saved().records[0],null);d.click('#rehearse');d.click('#hook');d.click('#apply-rehearsal');assert.equal(d.saved().records[0].medals,3);assert(!d.$('[data-job="1"]').disabled);d.close();
+});
+test('rehearsal undo cannot cross its starting point and cancellation refunds padding',()=>{
+ const d=boot();d.click('#rehearse');d.click('#rig');d.click('#hook');d.click('#undo');d.click('#undo');assert(d.$('#undo').disabled);d.click('#undo');assert.match(d.$('#moves').textContent,/^0 moves/);assert.match(d.$('#rigging').textContent,/2 \/ 2/);assert(d.$('#apply-rehearsal').disabled);d.click('#discard-rehearsal');assert.equal(d.w.localStorage.getItem(key),null);d.close();
+});
