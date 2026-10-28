@@ -257,7 +257,8 @@
         "203c0aaa5cac9cccaba1318bf9254b871188dceb",
         "d2836f64f1d12ae318924bb7f12349373e4928a5",
         "c017ff969c15f763e59f4f5b22788f613f2e5ced",
-        "237c2d8fbae76778b706f0681fdcc76b86e240b9"
+        "237c2d8fbae76778b706f0681fdcc76b86e240b9",
+        "1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain as a finished candidate until the wider second-batch slate can be compared. Temporary light both enables navigation and lures hazards; distinct from Reefwright ecology, Counterweight cargo balance and first-batch cargo/stealth loops.",
@@ -277,15 +278,17 @@
         "id": "lanternwake",
         "title": "Lanternwake",
         "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Source-based hypothesis: lantern light and moth attraction are inseparable; reclaiming removes both illumination and lure. No new rendered observation while preview access remains blocked.",
+        "observedWeakness": "Inspected retained native touch-crossing-4-mid.png from CI 40769551504/artifact 12851884887. Phone map and risk controls are readable, but only a generic Lantern hood/Reclaim pair is exposed. Source and a naturally reached two-light fixture confirm both actions force oldest-first selection, preventing deliberate choice of which nearby lure to keep. This is agent screenshot/source assessment, not fresh human play.",
         "before": "Every floating lantern lights three water steps and attracts moths until reclaimed, eaten or expired.",
-        "after": "H toggles the adjacent lantern with least life remaining. Hooded lanterns light one water step and do not attract moths. Opening restores broad light and attraction immediately. Toggling spends a turn and life without refunding oil; moths may still eat a hooded lantern reached while pursuing another light. Planning previews, labelled hood graphics, undo and replay saves expose the choice.",
+        "after": "H toggles the adjacent lantern with least life remaining. Hooded lanterns light one water step and do not attract moths. Opening restores broad light and attraction immediately. Toggling spends a turn and life without refunding oil; moths may still eat a hooded lantern reached while pursuing another light. Planning previews, labelled hood graphics, undo and replay saves expose the choice. Nearby-light cards now identify each adjacent lantern by column/row, life and hood state, with explicit hood/reclaim actions and exact previews. The player can preserve the older lure while hooding or reclaiming the newer light. Targeted actions journal the map position; H/R retain their old deterministic ordering and all old journals replay unchanged.",
         "implementationCommit": "237c2d8fbae76778b706f0681fdcc76b86e240b9",
         "testing": [
           "30 engine + 26 jsdom checks pass. All five original three-medal crossings remain unchanged. Three hood-assisted routes (crossings 2, 3 and 5) finish without damage and earn three medals, with every action matching forecasts and exact replay. A natural two-action setup on crossing 4 shows both moths stop when the only light is hooded and resume on reopening.",
-          "Tests cover narrower illumination, unchanged oil, life/turn cost, expiry, reclaim, eating a hooded light, invalid adjacency/terminal rejection, deterministic selection, planned preview/cancel/confirm, H/button, saved hood reload, undo, restart and modal/bridge guards. Syntax passes. No rendered play, inspected screenshots, actual touch, human enjoyment or full-repository check claimed."
+          "Tests cover narrower illumination, unchanged oil, life/turn cost, expiry, reclaim, eating a hooded light, invalid adjacency/terminal rejection, deterministic selection, planned preview/cancel/confirm, H/button, saved hood reload, undo, restart and modal/bridge guards. Syntax passes. No rendered play, inspected screenshots, actual touch, human enjoyment or full-repository check claimed.",
+          "29 Oct: 58 focused checks pass (31 engine + 27 DOM), including original five and three hood-assisted routes, chosen-light versus automatic ordering, invalid/out-of-reach rejection, pure preview/cancel, commit, replay/reload, undo and targeted oil recovery. Source/browser syntax passes. Native tests expanded to targeted choice with two adjacent lights and three targeted-hood campaigns per desktop/emulated-touch context; final CI/screenshots pending."
         ],
-        "remaining": "Perform supported rendered before/after play, assess hood/lure routing and balance, inspect hood contrast and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+        "remaining": "Inspect exact-source CI and final desktop/touch choice screenshots; fix observed failures before counting. Then compare slate after Copper Cadence and Hollow Keeper.",
+        "refinementCommit": "1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57"
       }
     },
     {
@@ -1720,8 +1723,9 @@
     }
   ],
   "nextSteps": [
-    "Complete rendered game-specific reviews for Lanternwake, Copper Cadence and Hollow Keeper; then compare and integrate selected second-batch games preserving concurrent work.",
-    "Continue third batch: 24/50 built, zero qualified improved/browser-tested/integrated/live. No final pause until requested obligations are complete."
+    "Verify Lanternwake targeted lights on exact-source CI and inspect final screenshots; additional round remains 17/20.",
+    "Complete Copper Cadence and Hollow Keeper reviews, compare improved slate and integrate selected games preserving concurrent work.",
+    "Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live."
   ],
   "baselineTestLimitations": [
     {
