@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 35,
+    "meaningfulPasses": 36,
     "verifiedLive": 0
   },
   "deployment": {
@@ -68,6 +68,22 @@
             "Visual QA follow-up: compact sticky habitat chooser above the reef on phones, without obstructing successful touch campaigns."
           ],
           "validation": "21 engine and 19 DOM checks; all five three-medal routes through desktop and touch-emulated Chromium; exact final gameplay CI 39923241054 successful; 14 screenshots, representative desktop and touch images visually inspected."
+        },
+        {
+          "passNumber": 2,
+          "date": "2026-10-29",
+          "round": "additional-2026-10-24",
+          "changes": [
+            "Two selective cuts reshape existing habitat squares without undoing later placements or refunding habitat supply.",
+            "Plan both cuts before spending either: hold the first removal visibly, choose the second and compare their combined ecological result.",
+            "Confirm persists both ordinary replay actions; cancellation spends nothing, invalid/duplicate plans reject atomically, and Undo restores each cut separately.",
+            "Preserve all original five-coast solutions, scoring, records and version-one saves; the combined forecast exposes gains and losses rather than solving the reef."
+          ],
+          "implementationCommits": [
+            "0db09c81e7d4227733b4a9f16a6cd839187895f1",
+            "92639e48c7e2409f05f7911f67402707e9537b2b"
+          ],
+          "validation": "Exact source 92639e48c7e2409f05f7911f67402707e9537b2b: CI 40751257296 passed all seven jobs, 537 engine + 375 DOM = 912 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123039159774 passed five original and five cut-assisted campaigns in each desktop/emulated-touch context, paired-cut pure preview/cancel, keyboard/touch confirmation, cut reload, two-step undo, original loss/reopen, restart/cancel, isolated corrupt recovery and navigation without browser errors. Inspected desktop-paired-preview.png, touch-paired-preview.png and touch-paired-committed.png from 28 Reefwright screenshots in artifact 12843054368. Both selected cells and combined costs are visible; nursery 6→7 and forest kelp 3→0 are stated, with vitality remaining 27. The committed board and totals match. This is a tradeoff, not an automatically better or winning layout. Phone text/buttons fit but require vertical scrolling. ZIP SHA256 3f5623479a303a54e4364ab485483f4c7589368286799e7f394c5cc4955130e8. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
         }
       ],
       "tests": [
@@ -76,7 +92,9 @@
         "Chromium desktop 1280×1000 and touch emulation 390×844: all five coasts through real UI actions, previews, rotation, score forecasts, loss/reopen, persistence, restart/cancel, keyboard traversal, corrupt-save recovery, return navigation and zero uncaught browser errors.",
         "14 screenshots captured; initial and final desktop/mobile samples visually inspected. Compact mobile chooser refinement passed the complete repeat campaign.",
         "19 public routes/assets, nine first-batch selected-source hashes, exact 20-slot second-batch gate, shell, bridge-pointer and relaxed-collection tests passed.",
-        "Two inherited launcher tests still target the removed playerStudy control; see baselineTestLimitations."
+        "Two inherited launcher tests still target the removed playerStudy control; see baselineTestLimitations.",
+        "Exact source 92639e48c7e2409f05f7911f67402707e9537b2b: CI 40751257296 passed all seven jobs, 537 engine + 375 DOM = 912 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123039159774 passed five original and five cut-assisted campaigns in each desktop/emulated-touch context, paired-cut pure preview/cancel, keyboard/touch confirmation, cut reload, two-step undo, original loss/reopen, restart/cancel, isolated corrupt recovery and navigation without browser errors.",
+        "Inspected desktop-paired-preview.png, touch-paired-preview.png and touch-paired-committed.png from 28 Reefwright screenshots in artifact 12843054368. Both selected cells and combined costs are visible; nursery 6→7 and forest kelp 3→0 are stated, with vitality remaining 27. The committed board and totals match. This is a tradeoff, not an automatically better or winning layout. Phone text/buttons fit but require vertical scrolling. ZIP SHA256 3f5623479a303a54e4364ab485483f4c7589368286799e7f394c5cc4955130e8. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -85,7 +103,7 @@
         "polish": 4,
         "reliability": 4.5,
         "variety": 4.5,
-        "notes": "Rotated mixed-species pieces create competing adjacency and open-water goals. Exact previews support deliberate choices without hiding consequences; free undo encourages experimentation. Five different rock layouts/decks and medal optimization offer compact replay. Original sea-glass/SVG presentation is legible on reviewed desktop/touch captures. No randomized campaign, sound layer, physical-device test, full screen-reader audit or human enjoyment study is claimed."
+        "notes": "Rotated mixed-species pieces create competing adjacency and open-water goals. Exact previews support deliberate choices without hiding consequences; free undo encourages experimentation. Five different rock layouts/decks and medal optimization offer compact replay. Original sea-glass/SVG presentation is legible on reviewed desktop/touch captures. No randomized campaign, sound layer, physical-device test, full screen-reader audit or human enjoyment study is claimed. Additional review: selective cutting and combined two-cut planning add local restructuring and lookahead. A nursery gain can sacrifice a required forest despite equal vitality, preserving distinct goals. Five fixed coasts remain compact; no content-duration or human-enjoyment claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -110,25 +128,12 @@
           "index.html": "4efef80137949a50e15b1c124d3460848519ff7c5279852077e9e159e4868323"
         }
       },
-      "pendingAdditionalUpgrade": {
-        "slot": 21,
-        "id": "reefwright",
-        "title": "Reefwright",
-        "status": "implemented-awaiting-final-rendered-verification",
-        "observedWeakness": "Reviewed retained phone midgame image touch-midgame.png from native run 40731810668/artifact 12835223971. The board/controls are readable but ecological totals sit below the board. Source inspection confirms previews only assess a single cut, making a two-square channel difficult to compare before spending the first cut. This is automated rendered baseline review, not new direct interactive play.",
-        "before": "Two selective cuts exist, but only one can be previewed. Testing a second removal requires committing the first and undoing it later.",
-        "after": "After a valid cut preview, Plan a second cut holds the first square visibly without spending. Selecting a different habitat forecasts the combined ecological result; Confirm both cuts commits both existing replay actions. X cancels the whole plan, invalid/duplicate cuts cannot commit, and Undo restores one square and cut at a time. The two-cut allowance, habitat supply, scoring and version-one saves are unchanged.",
-        "implementationCommit": "0db09c81e7d4227733b4a9f16a6cd839187895f1",
-        "testing": [
-          "30 engine + 26 jsdom checks pass. All five original three-medal campaigns remain unchanged; five new cut-assisted routes earn three medals with vitality 51/41/43/44/49. A channel cut raises thriving nurseries from three to four; another cut drops required forest kelp from six to five and causes survey loss. Replanting cleared space, exhausted stock, invalid operations and per-action replay roundtrips pass.",
-          "UI simulations cover pure exact previews, cancel/Enter confirm, cut reload, progression, undo after loss, modal/bridge guards, scoped restart, preserved best records and navigation markup. Both scripts pass syntax checks. No rendered play, screenshots, actual touch, human enjoyment or full-repository check claimed.",
-          "58 focused checks pass: 31 engine + 27 DOM. Existing five original and five cut-assisted campaigns preserved. New paired-cut case starts at 27 vitality, drops to 24 after the first cut, then restores 27 and raises thriving nurseries 6→7 after both. Pure planning, atomic invalid/duplicate rejection, exact replay, no deck advancement, cancel, Enter confirmation, reload and two-step undo pass. Native desktop/touch routes added for all five cut-assisted campaigns plus paired plan/cancel/confirm/reload/undo; CI 40751257296 pending."
-        ],
-        "remaining": "Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20.",
-        "implementationCommits": [
-          "0db09c81e7d4227733b4a9f16a6cd839187895f1",
-          "92639e48c7e2409f05f7911f67402707e9537b2b"
-        ]
+      "additionalVerification": {
+        "commit": "92639e48c7e2409f05f7911f67402707e9537b2b",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40751257296",
+        "job": 123039159774,
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40751257296/artifacts/12843054368",
+        "report": "dev/indie-collection-two/REEF_PAIRED_CUTS.md"
       }
     },
     {
@@ -1709,7 +1714,7 @@
       }
     }
   ],
-  "nextSteps": "Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20. Then Counterweight, Lanternwake, Copper Cadence and Hollow Keeper before final comparative selection. Third collection remains 24/50 built.",
+  "nextSteps": "Finish rendered game-specific improvements and exact-source verification for Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare the second slate and integrate selected finished games while preserving concurrent catalogue work. Third collection remains 24/50 built, zero qualified improved/browser-tested/integrated/live.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2237,6 +2242,14 @@
       "ci": "40751257296",
       "publicIntegration": null,
       "nextSteps": "Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20. Then Counterweight, Lanternwake, Copper Cadence and Hollow Keeper before final comparative selection. Third collection remains 24/50 built."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "92639e48c7e2409f05f7911f67402707e9537b2b",
+      "result": "Reefwright selective/paired cuts verified: 912 checks, all seven CI jobs, original/cut-assisted native campaigns and three inspected final screenshots. Additional round now 16/20; 36 recorded meaningful passes. No public integration/live change.",
+      "ci": "40751257296",
+      "publicIntegration": null,
+      "nextSteps": "Finish rendered game-specific improvements and exact-source verification for Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare the second slate and integrate selected finished games while preserving concurrent catalogue work. Third collection remains 24/50 built, zero qualified improved/browser-tested/integrated/live."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2244,7 +2257,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 15,
+    "completed": 16,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

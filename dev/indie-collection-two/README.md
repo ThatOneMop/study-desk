@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 15/20 additional upgrades fully verified.** All twenty additional upgrades have source. Wellward’s repair kit, cancellable brake preparation and paused R/button repair pass all seven CI jobs: 910 engine/DOM checks, full desktop/emulated-touch campaigns and three inspected final screenshots. See [current evidence](WELLWARD_REPAIRS.md).
+**20/20 playable, initially improved and finished; 16/20 additional upgrades fully verified.** All twenty additional upgrades have source. Reefwright’s selective and paired cuts pass all seven CI jobs: 912 engine/DOM checks, original/cut-assisted desktop and emulated-touch campaigns, and three inspected final screenshots. See [current evidence](REEF_PAIRED_CUTS.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -77,3 +77,6 @@ Latest next steps (29 October): Prioritize Wellward, then Reefwright, Counterwei
 
 
 Latest next steps (29 October, after Wellward verification): Finish rendered game-specific upgrades and exact-source verification for Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare and integrate the strongest second-batch games while preserving concurrent catalogue entries. Third collection remains 24/50 built and zero qualified improved/browser-tested/integrated/live; complete its remaining candidates and improvements.
+
+
+Latest next steps (29 October, after Reefwright verification): Finish rendered game-specific improvements and exact-source verification for Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare the second slate and integrate selected finished games while preserving concurrent catalogue work. Third collection remains 24/50 built, zero qualified improved/browser-tested/integrated/live.

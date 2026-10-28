@@ -1,14 +1,14 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 15,
+  "completed": 16,
   "required": 20,
   "candidates": [
     {
       "slot": 21,
       "id": "reefwright",
       "title": "Reefwright",
-      "status": "implemented-awaiting-final-rendered-verification",
+      "status": "verified",
       "observedWeakness": "Reviewed retained phone midgame image touch-midgame.png from native run 40731810668/artifact 12835223971. The board/controls are readable but ecological totals sit below the board. Source inspection confirms previews only assess a single cut, making a two-square channel difficult to compare before spending the first cut. This is automated rendered baseline review, not new direct interactive play.",
       "before": "Two selective cuts exist, but only one can be previewed. Testing a second removal requires committing the first and undoing it later.",
       "after": "After a valid cut preview, Plan a second cut holds the first square visibly without spending. Selecting a different habitat forecasts the combined ecological result; Confirm both cuts commits both existing replay actions. X cancels the whole plan, invalid/duplicate cuts cannot commit, and Undo restores one square and cut at a time. The two-cut allowance, habitat supply, scoring and version-one saves are unchanged.",
@@ -16,13 +16,16 @@
       "testing": [
         "30 engine + 26 jsdom checks pass. All five original three-medal campaigns remain unchanged; five new cut-assisted routes earn three medals with vitality 51/41/43/44/49. A channel cut raises thriving nurseries from three to four; another cut drops required forest kelp from six to five and causes survey loss. Replanting cleared space, exhausted stock, invalid operations and per-action replay roundtrips pass.",
         "UI simulations cover pure exact previews, cancel/Enter confirm, cut reload, progression, undo after loss, modal/bridge guards, scoped restart, preserved best records and navigation markup. Both scripts pass syntax checks. No rendered play, screenshots, actual touch, human enjoyment or full-repository check claimed.",
-        "58 focused checks pass: 31 engine + 27 DOM. Existing five original and five cut-assisted campaigns preserved. New paired-cut case starts at 27 vitality, drops to 24 after the first cut, then restores 27 and raises thriving nurseries 6→7 after both. Pure planning, atomic invalid/duplicate rejection, exact replay, no deck advancement, cancel, Enter confirmation, reload and two-step undo pass. Native desktop/touch routes added for all five cut-assisted campaigns plus paired plan/cancel/confirm/reload/undo; CI 40751257296 pending."
+        "58 focused checks pass: 31 engine + 27 DOM. Existing five original and five cut-assisted campaigns preserved. New paired-cut case starts at 27 vitality, drops to 24 after the first cut, then restores 27 and raises thriving nurseries 6→7 after both. Pure planning, atomic invalid/duplicate rejection, exact replay, no deck advancement, cancel, Enter confirmation, reload and two-step undo pass. Native desktop/touch routes added for all five cut-assisted campaigns plus paired plan/cancel/confirm/reload/undo; CI 40751257296 pending.",
+        "Exact source 92639e48c7e2409f05f7911f67402707e9537b2b: CI 40751257296 passed all seven jobs, 537 engine + 375 DOM = 912 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123039159774 passed five original and five cut-assisted campaigns in each desktop/emulated-touch context, paired-cut pure preview/cancel, keyboard/touch confirmation, cut reload, two-step undo, original loss/reopen, restart/cancel, isolated corrupt recovery and navigation without browser errors.",
+        "Inspected desktop-paired-preview.png, touch-paired-preview.png and touch-paired-committed.png from 28 Reefwright screenshots in artifact 12843054368. Both selected cells and combined costs are visible; nursery 6→7 and forest kelp 3→0 are stated, with vitality remaining 27. The committed board and totals match. This is a tradeoff, not an automatically better or winning layout. Phone text/buttons fit but require vertical scrolling. ZIP SHA256 3f5623479a303a54e4364ab485483f4c7589368286799e7f394c5cc4955130e8. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
       ],
-      "remaining": "Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20.",
+      "remaining": "Additional round verified. Retain unselected for comparison after four remaining reviews; five compact coasts still limit progression depth.",
       "implementationCommits": [
         "0db09c81e7d4227733b4a9f16a6cd839187895f1",
         "92639e48c7e2409f05f7911f67402707e9537b2b"
-      ]
+      ],
+      "verificationCommit": "92639e48c7e2409f05f7911f67402707e9537b2b"
     },
     {
       "slot": 22,

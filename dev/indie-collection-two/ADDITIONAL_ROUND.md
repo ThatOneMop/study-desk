@@ -1,8 +1,8 @@
-# Additional improvement round — 15/20 verified
+# Additional improvement round — 16/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
-- [ ] 21. Reefwright — paired-cut ecological planning in `92639e48c7e2409f05f7911f67402707e9537b2b`; 58 focused checks pass, native CI 40751257296 and changed screenshot review pending. **Not counted.**
+- [x] 21. Reefwright — selective/paired-cut planning verified at `92639e48`; CI 40751257296: 912 checks, all seven jobs, original/cut-assisted desktop/touch routes, cancellation/reload/undo and three inspected screenshots. See REEF_PAIRED_CUTS.md.
 - [ ] 22. Counterweight — padded cradles implemented in `66e77e8d2e7a50acab5e99228cd92be17d958f63`; 56 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [ ] 23. Lanternwake — hooded light implemented in `237c2d8fbae76778b706f0681fdcc76b86e240b9`; 56 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [ ] 24. Copper Cadence — silent catches implemented in `8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9`; 59 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**

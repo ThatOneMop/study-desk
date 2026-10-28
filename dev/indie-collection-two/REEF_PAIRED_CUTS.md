@@ -25,3 +25,13 @@ Implementation: [92639e4](https://github.com/ThatOneMop/study-desk/commit/92639e
 Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20.
 
 Second collection: 20 initially finished, 15/20 additional verified, 35 recorded passes. Third: 24/50 built, zero qualified improved/browser-tested/integrated/live. No new catalogue integration or live release. First-batch sources/saves and concurrent main/Gummy Bay work preserved. Main remains 55c330d; earlier Switch-workspace audit and resolved Pages publication remain unchanged.
+
+## Completed verification — 29 October 2026
+
+Exact source 92639e48c7e2409f05f7911f67402707e9537b2b: CI 40751257296 passed all seven jobs, 537 engine + 375 DOM = 912 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123039159774 passed five original and five cut-assisted campaigns in each desktop/emulated-touch context, paired-cut pure preview/cancel, keyboard/touch confirmation, cut reload, two-step undo, original loss/reopen, restart/cancel, isolated corrupt recovery and navigation without browser errors.
+
+Inspected desktop-paired-preview.png, touch-paired-preview.png and touch-paired-committed.png from 28 Reefwright screenshots in artifact 12843054368. Both selected cells and combined costs are visible; nursery 6→7 and forest kelp 3→0 are stated, with vitality remaining 27. The committed board and totals match. This is a tradeoff, not an automatically better or winning layout. Phone text/buttons fit but require vertical scrolling. ZIP SHA256 3f5623479a303a54e4364ab485483f4c7589368286799e7f394c5cc4955130e8. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing.
+
+[Final CI](https://github.com/ThatOneMop/study-desk/actions/runs/40751257296) · [Screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/40751257296/artifacts/12843054368)
+
+**16/20 additional upgrades verified; 36 recorded meaningful passes including the twenty initial passes.** Earlier pending sections are historical checkpoints. This records verification of existing gameplay, not a new pass for documentation edits. No new public integration or live upgrade; main and third branches remain unchanged. Finish rendered game-specific improvements and exact-source verification for Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare the second slate and integrate selected finished games while preserving concurrent catalogue work. Third collection remains 24/50 built, zero qualified improved/browser-tested/integrated/live.
