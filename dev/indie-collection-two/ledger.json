@@ -758,7 +758,9 @@
         "Pocket Palaeo Chromium 1280x1000 desktop and 390x844 native touch: all six perfect museum recoveries, all three upgrades, every-site exact reload, native fast strokes, desktop Enter/Space and arrow navigation, safe and dangerous lift previews, deliberate fracture, restart cancellation/confirmation, isolated corrupt-save recovery and new journal, return navigation, no uncaught browser errors.",
         "Artifacts retain 238 screenshots across ten candidates, including 34 Pocket Palaeo captures. Representative desktop cradle/museum and phone museum images inspected; direct browser visual QA also checked trapped soil and overload feedback.",
         "Public checks passed: 19 bundled routes/55 HTML asset references, nine selected first-batch source hashes, exact 20-slot gate, current shell, bridge-pointer and relaxed collection. Two inherited playerStudy launcher tests remain unchanged and are not claimed to pass.",
-        "Additional source upgrade 282ad742f526e7e30eb22667bc673bce4f449ac7: 44 engine/DOM tests passed; rendered review pending. Historical verification and quality scores apply to the initial version, not this new source."
+        "Additional source upgrade 282ad742f526e7e30eb22667bc673bce4f449ac7: 44 engine/DOM tests passed; rendered review pending. Historical verification and quality scores apply to the initial version, not this new source.",
+        "2026-10-28: 46 engine/DOM checks pass, including all six original perfect recoveries, jacket replay saves, pure staged treatment/cancellation, retained forecasts and hidden reset/input guards. Syntax passes. Save format and engine are unchanged.",
+        "Rendered desktop: exposed Reedfin with normal pick/brush controls, selected grip 10, braces 10/12, previewed jacket 27 (93 to 96), cancelled without spending, then confirmed jackets 27/29 (96 to 100), recovered at 100 with three seals. Screenshot inspected. Full native jacket campaigns, phone layout and regression remain pending."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -779,7 +781,8 @@
         "b681dd37d5efed4b133cbd26c619313ecef601dd",
         "d7f940334afe98828517629fd84f7f671728f08c",
         "fac96672c40a85256d0c32eaf2a60aba994161b5",
-        "282ad742f526e7e30eb22667bc673bce4f449ac7"
+        "282ad742f526e7e30eb22667bc673bce4f449ac7",
+        "1ff7d19e476b6c46b2006022d81504ad8be10f2e"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain for comparison as a calm manual collection-and-upgrade candidate. Do not select automatically: its fixed finds and limited long-term discovery must be weighed against the full slate.",
@@ -799,16 +802,22 @@
         "slot": 30,
         "id": "pocket-palaeo",
         "title": "Pocket Palaeo",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Source-based hypothesis: resin only repairs excavation errors; lifting decisions rely on reusable brace placement. No new rendered observation while browser access is blocked.",
-        "before": "Resin restores cracked bones; only grip and reusable braces affect lift damage.",
-        "after": "A resin jacket spends one shared charge to absorb two lifting damage on one exposed bone. Jackets cannot move/refund, do not repair health or protect digging, and leave with recovery. Lift forecasts include protection; sixth keyboard/touch control and markers expose it.",
-        "implementationCommit": "282ad742f526e7e30eb22667bc673bce4f449ac7",
+        "status": "implemented-awaiting-native-verification",
+        "observedWeakness": "Rendered first specimen: selecting Brace after a lift preview removed all clearance/load guidance. Jacket placement consumed resin immediately, making comparisons costly and separating support decisions from their consequence.",
+        "before": "Pending resin jackets protect individual bones, but switching tools discards the lift plan and placing a jacket spends resin without a treatment preview.",
+        "after": "Lift plans stay visible while excavating and adjusting supports. Jacket placement stages a pure proposed treatment showing resin cost and before/after whole-specimen condition when a valid grip is selected. Confirm spends one charge; cancel and comparing another bone are free. Plans clear on recovery, restart or site change. Hidden pointer/keyboard actions and pending reset/recovery confirmations cannot mutate state.",
+        "implementationCommit": "1ff7d19e476b6c46b2006022d81504ad8be10f2e",
         "testing": [
           "25 engine and 19 jsdom checks pass. Original three-site/six-perfect-specimen campaign unchanged; jacket route improves Reedfin from 93% to 100% at cost of both repair charges. Exact forecasts, saves/reload, resource exhaustion, invalid actions, non-protection against picks, fracture/retry, reset and duplicate touch events checked.",
-          "Syntax passes. DOM touch events and dialogs are simulated. No rendered play, screenshot inspection, physical touch or human enjoyment evidence; no full repository suite from partial checkout."
+          "Syntax passes. DOM touch events and dialogs are simulated. No rendered play, screenshot inspection, physical touch or human enjoyment evidence; no full repository suite from partial checkout.",
+          "2026-10-28: 46 engine/DOM checks pass, including all six original perfect recoveries, jacket replay saves, pure staged treatment/cancellation, retained forecasts and hidden reset/input guards. Syntax passes. Save format and engine are unchanged.",
+          "Rendered desktop: exposed Reedfin with normal pick/brush controls, selected grip 10, braces 10/12, previewed jacket 27 (93 to 96), cancelled without spending, then confirmed jackets 27/29 (96 to 100), recovered at 100 with three seals. Screenshot inspected. Full native jacket campaigns, phone layout and regression remain pending."
         ],
-        "remaining": "Perform supported rendered before/after play and balance iteration; verify mobile layout, real keyboard/touch controls, saves, progression/loss/retry, restart/navigation and inspect screenshots. Do not count until complete."
+        "remaining": "Extend native desktop/touch routes to staged jackets, inspect phone screenshots, exercise all relevant supports/progression/reload/loss/retry/navigation, and assess remaining shallow fixed-site progression before counting. Additional round stays 11/20.",
+        "implementationCommits": [
+          "282ad742f526e7e30eb22667bc673bce4f449ac7",
+          "1ff7d19e476b6c46b2006022d81504ad8be10f2e"
+        ]
       }
     },
     {
@@ -1627,7 +1636,7 @@
     }
   ],
   "nextSteps": [
-    "Complete the nine remaining additional-round rendered reviews and substantive iterations; prioritize Pocket Palaeo's shallow fixed-site progression and pending resin-jacket decisions.",
+    "Extend native desktop/touch routes to staged jackets, inspect phone screenshots, exercise all relevant supports/progression/reload/loss/retry/navigation, and assess remaining shallow fixed-site progression before counting. Additional round stays 11/20.",
     "Compare the improved full slate and integrate selected source using freshly reread main; preserve concurrent 13 second-batch entries, Gummy Bay and requested games.",
     "Third collection remains 24/50 built, zero improved/browser-tested/integrated/live in its own ledger. Complete distinct remaining candidates and substantive rendered-play improvements; no reskins or placeholder counts.",
     "Keep existing automation cadence; do not pause until obligations complete."
@@ -2084,6 +2093,13 @@
       "ci": "40671107031",
       "publicIntegration": null,
       "nextSteps": "Complete the nine remaining additional-round rendered reviews and substantive iterations; prioritize Pocket Palaeo's shallow fixed-site progression and pending resin-jacket decisions."
+    },
+    {
+      "date": "2026-10-28",
+      "gameplayCommit": "1ff7d19e476b6c46b2006022d81504ad8be10f2e",
+      "result": "Pocket Palaeo staged resin treatment and retained lift guidance implemented from rendered observation; hidden input guards repaired. 46 focused tests pass. Additional count remains 11/20 until native/mobile verification.",
+      "publicIntegration": null,
+      "nextSteps": "Extend native desktop/touch routes to staged jackets, inspect phone screenshots, exercise all relevant supports/progression/reload/loss/retry/navigation, and assess remaining shallow fixed-site progression before counting. Additional round stays 11/20."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",

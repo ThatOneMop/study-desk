@@ -150,16 +150,22 @@
       "slot": 30,
       "id": "pocket-palaeo",
       "title": "Pocket Palaeo",
-      "status": "implemented-awaiting-rendered-review",
-      "observedWeakness": "Source-based hypothesis: resin only repairs excavation errors; lifting decisions rely on reusable brace placement. No new rendered observation while browser access is blocked.",
-      "before": "Resin restores cracked bones; only grip and reusable braces affect lift damage.",
-      "after": "A resin jacket spends one shared charge to absorb two lifting damage on one exposed bone. Jackets cannot move/refund, do not repair health or protect digging, and leave with recovery. Lift forecasts include protection; sixth keyboard/touch control and markers expose it.",
-      "implementationCommit": "282ad742f526e7e30eb22667bc673bce4f449ac7",
+      "status": "implemented-awaiting-native-verification",
+      "observedWeakness": "Rendered first specimen: selecting Brace after a lift preview removed all clearance/load guidance. Jacket placement consumed resin immediately, making comparisons costly and separating support decisions from their consequence.",
+      "before": "Pending resin jackets protect individual bones, but switching tools discards the lift plan and placing a jacket spends resin without a treatment preview.",
+      "after": "Lift plans stay visible while excavating and adjusting supports. Jacket placement stages a pure proposed treatment showing resin cost and before/after whole-specimen condition when a valid grip is selected. Confirm spends one charge; cancel and comparing another bone are free. Plans clear on recovery, restart or site change. Hidden pointer/keyboard actions and pending reset/recovery confirmations cannot mutate state.",
+      "implementationCommit": "1ff7d19e476b6c46b2006022d81504ad8be10f2e",
       "testing": [
         "25 engine and 19 jsdom checks pass. Original three-site/six-perfect-specimen campaign unchanged; jacket route improves Reedfin from 93% to 100% at cost of both repair charges. Exact forecasts, saves/reload, resource exhaustion, invalid actions, non-protection against picks, fracture/retry, reset and duplicate touch events checked.",
-        "Syntax passes. DOM touch events and dialogs are simulated. No rendered play, screenshot inspection, physical touch or human enjoyment evidence; no full repository suite from partial checkout."
+        "Syntax passes. DOM touch events and dialogs are simulated. No rendered play, screenshot inspection, physical touch or human enjoyment evidence; no full repository suite from partial checkout.",
+        "2026-10-28: 46 engine/DOM checks pass, including all six original perfect recoveries, jacket replay saves, pure staged treatment/cancellation, retained forecasts and hidden reset/input guards. Syntax passes. Save format and engine are unchanged.",
+        "Rendered desktop: exposed Reedfin with normal pick/brush controls, selected grip 10, braces 10/12, previewed jacket 27 (93 to 96), cancelled without spending, then confirmed jackets 27/29 (96 to 100), recovered at 100 with three seals. Screenshot inspected. Full native jacket campaigns, phone layout and regression remain pending."
       ],
-      "remaining": "Perform supported rendered before/after play and balance iteration; verify mobile layout, real keyboard/touch controls, saves, progression/loss/retry, restart/navigation and inspect screenshots. Do not count until complete."
+      "remaining": "Extend native desktop/touch routes to staged jackets, inspect phone screenshots, exercise all relevant supports/progression/reload/loss/retry/navigation, and assess remaining shallow fixed-site progression before counting. Additional round stays 11/20.",
+      "implementationCommits": [
+        "282ad742f526e7e30eb22667bc673bce4f449ac7",
+        "1ff7d19e476b6c46b2006022d81504ad8be10f2e"
+      ]
     },
     {
       "slot": 31,
