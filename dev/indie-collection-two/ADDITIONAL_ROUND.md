@@ -20,7 +20,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 36. Night Clerk — movable moon/stove service cart, alternative room plans and collateral noise choices; verified commit `08fb6223f98854ee3097560b685b310f22d37dc6`, CI 40052886087.
 - [ ] 37. Clockwork Tide — counterweight storage implemented in `2fecaad67037611daa8f410ae723e35992b3ac2d`; 42 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 38. Ember Parcel — boardwalks implemented in `736f0982041f909c218328e06edcf2b1bda7865d`; 26 engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 39. Windup Wrestling — mechanical kits implemented in `dc5d51f2076f3029ccdd39890dcc3bfe63668a1c`; engine/DOM checks pass, rendered review blocked. **Not counted.**
+- [ ] 39. Windup Wrestling — kits plus optional exact exchange rehearsal in `acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4`; desktop/390px play reviewed, 19 focused checks pass. Native CI 40635652032 pending. **Not counted yet.**
 - [x] 40. Last Lighthouse — portable prism and free direct-chart beam/orientation planning; verified commit `fcc1da11ad19c5b84f88af22d8253a87e15a8e71`, CI 40631660878 job 122629895098. 869 engine/DOM checks and changed-game desktop/touch pass; 52 screenshots retained, three inspected.
 
 No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Thirteen candidates still require completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.

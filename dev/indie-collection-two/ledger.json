@@ -1453,7 +1453,8 @@
       "developmentCommits": [
         "ff5b3c500bb3646d3f7838a66e062da603004719",
         "562848a8e8218cb32c45213a0d071c01eaf5eb71",
-        "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c"
+        "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c",
+        "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4"
       ],
       "publishedUrl": null,
       "verification": {
@@ -1470,28 +1471,29 @@
         "artifactSha256": "1c317747154e2b800f59f7af6a3e1ac3b3a7e6aa04c286509c9f91fdc07ce3fe"
       },
       "nextSteps": [
-        "Rendered baseline/after core-loop review and balance assessment when permitted; revise based on findings.",
-        "Desktop and touch layout screenshots, kit switching, progression, saves/reload, loss/retry, reset and navigation.",
-        "Only then count the additional pass; remain unselected."
+        "Review CI 40635652032, inspect native kit/rehearsal screenshots, and verify loss/retry, reset/navigation before counting. Three short fixed bouts remain a depth limit; do not select automatically."
       ],
       "pendingAdditionalUpgrade": {
-        "implementationCommit": "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c",
-        "status": "implemented-awaiting-rendered-review",
-        "weaknessBasis": "Source and existing initial-pass evidence: three short fixed bouts offer only best-turn replay. Current rendered inspection was blocked; this is a design hypothesis, not a new playtest finding.",
-        "changes": [
-          "First standard bell unlocks two mechanical kits with different capacity, brace and slip costs.",
-          "Brass boots: capacity 2, brace 3, slip cost 2. Long coil: capacity 4, brace 1, slip cost 1.",
-          "Separate alternate-kit records preserve standard bells, rival unlocks and legacy journal outcomes. Fitting a kit requires restart confirmation."
-        ],
-        "tests": [
+        "slot": 39,
+        "id": "windup-wrestling",
+        "title": "Windup Wrestling",
+        "status": "rendered-reviewed-awaiting-native-regression",
+        "observedWeakness": "Rendered standard opening at turn two showed a three-spring toy facing a two-space grapple: the telegraph named the rival move, but gave no full-exchange result for comparing shove, brace and reversal. Kit costs made that mental arithmetic less readable.",
+        "before": "Three fixed bouts; the earlier additional-round kit source changed spring capacity, guard and slip cost but committed each action immediately.",
+        "after": "Unlocked boots/coil retain distinct costs and separate mastery records. Optional rehearsal now stages any legal move, showing exact post-exchange positions, remaining springs, and win/loss before explicit commitment. Compare/cancel spends nothing; keys 1–6 stage when rehearsal is enabled. Hidden views cancel staged moves and pending destructive callbacks and cannot resume until visible. Existing save format and immediate-play mode retained.",
+        "implementationCommit": "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4",
+        "testing": [
           "13 Windup engine tests and 3 DOM tests pass. All six alternate kit/rival combinations have legal winning routes with per-action save roundtrips.",
           "Whole local engine glob: 434 checks passed; DOM glob: 293 passed. Asset, first-batch integrity and second-batch/additional-round gates passed.",
-          "No rendered upgrade, mobile layout or human-enjoyment claim. Browser security policy blocked preview access. No alternative browser surface or CI browser run initiated to work around the block. Source commit uses [skip ci]."
+          "No rendered upgrade, mobile layout or human-enjoyment claim. Browser security policy blocked preview access. No alternative browser surface or CI browser run initiated to work around the block. Source commit uses [skip ci].",
+          "2026-10-28: 19 focused checks pass (14 engine, five DOM). Pure forecasts checked against actual actions across every rival and kit, natural loss, terminal/illegal moves, keyboard staging/cancel/commit/reload and hidden-confirmation guards. Existing saves and six alternate-kit winning routes remain valid.",
+          "Direct rendered play: standard first opening observed before change; compared slip and winning shove forecasts afterward, committed standard bell, then six-turn brass-boots win and reload. At 390px iframe width completed Ram reversal with preview/cancel/keyboard restage/confirm, Velvet standard win and long-coil win; reload preserved all standard bells and both earned kit records. Screenshots of desktop baseline and phone reversal forecast inspected. Phone-width pointer clicks are not native touch evidence.",
+          "Expanded native browser regression to all six alternate kit/rival campaigns with pure preview/cancel/commit comparisons and saved victories. CI 40635652032 running on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4; native result/screenshots pending. Earlier CI 40631660878 has now passed all seven jobs, but does not verify this new code."
         ],
-        "remaining": [
-          "Rendered baseline/after core-loop review and balance assessment when permitted; revise based on findings.",
-          "Desktop and touch layout screenshots, kit switching, progression, saves/reload, loss/retry, reset and navigation.",
-          "Only then count the additional pass; remain unselected."
+        "remaining": "Review CI 40635652032, inspect native kit/rehearsal screenshots, and verify loss/retry, reset/navigation before counting. Three short fixed bouts remain a depth limit; do not select automatically.",
+        "implementationCommits": [
+          "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c",
+          "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4"
         ]
       }
     },
@@ -1981,6 +1983,13 @@
       "result": "Last Lighthouse direct-chart prism planning after rendered review; 23 checks pass; three campaigns played at desktop/390px. Full native CI pending; additional round remains 6/20. Audit of main launcher and 44 game shells finds no Switch workspace controls; main tests already assert absence. Pages blocker resolved with successful current workflow and live navigation evidence. Native Last Lighthouse desktop/touch subsequently passed and three retained screenshots were inspected; additional round now 7/20 verified.",
       "publicIntegration": null,
       "nextSteps": "Verified additional-round pass. Retain unselected for comparison after the remaining thirteen rendered reviews; three short harbours still limit depth."
+    },
+    {
+      "date": "2026-10-28",
+      "gameplayCommit": "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4",
+      "result": "Windup Wrestling rehearsal added after rendered tactical-readability review. 19 focused checks pass; native regression pending. Prior full CI 40631660878 now all seven jobs successful. Additional round remains 7/20; third batch remains 24/50 built and zero qualified improved/tested/integrated/live.",
+      "publicIntegration": null,
+      "nextSteps": "Review CI 40635652032, inspect native kit/rehearsal screenshots, and verify loss/retry, reset/navigation before counting. Three short fixed bouts remain a depth limit; do not select automatically."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
