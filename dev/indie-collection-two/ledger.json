@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 34,
+    "meaningfulPasses": 35,
     "verifiedLive": 0
   },
   "deployment": {
@@ -603,6 +603,23 @@
             "Wall contact retains overhead winch movement so reversing pulls the bucket clear rather than trapping it against a wall."
           ],
           "validation": "21 engine and 13 DOM checks; exact-source CI 39970632618 passed complete desktop and native multi-touch four-well/16-relic campaigns, mid-descent reloads, ballast, wall loss/recovery, bridge pause, isolated reset and navigation. Normal-clock lowering smoke passed; phone and desktop visuals reviewed."
+        },
+        {
+          "passNumber": 2,
+          "date": "2026-10-29",
+          "round": "additional-2026-10-24",
+          "changes": [
+            "Optional repair kit reserves a cargo hook in exchange for one field strap repair; using it releases the hook.",
+            "Cancellable preparation uses normal brake physics until speed and cooldown permit repair, then pauses without spending the kit.",
+            "Readiness explains cooldown/speed and exact strap/hook changes; keyboard or pointer steering overrides preparation with immediate feedback.",
+            "Repair button and R shortcut work from the stable paused state; hidden/external-pause guards prevent accidental changes and version-one saves remain supported."
+          ],
+          "implementationCommits": [
+            "5b0fb766926891c874870f04331198f3802d1a16",
+            "696e6c07a2947a613f99f193a1d058bb5ffe2157",
+            "4fc1344099f8b0181709129156895449e0f2f148"
+          ],
+          "validation": "Exact source 4fc1344099f8b0181709129156895449e0f2f148: all seven CI jobs in 40731810668 passed, with 536 engine + 374 DOM = 910 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122970863879 passed natural damage, cancelled/resumed physical settling, desktop paused R and touch button repair, exact reload, all four wells/16 relics per context, purchased upgrades, keyboard/multi-touch, clearance guide, ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF motion. Inspected desktop-repair-complete.png, touch-repair-ready.png and touch-repair-complete.png among 26 Wellward captures in artifact 12835472950. Readiness shows the strap/hook tradeoff; completed repair restores the strap and releases the reserved hook while remaining paused. Controls and feedback are legible, with substantial vertical phone scrolling. ZIP SHA256 51cff4364976b7eedfc420572b52cad58ae8beeed9cc4d57780c234e3e1352a4. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
         }
       ],
       "tests": [
@@ -612,7 +629,9 @@
         "Chromium 1280x1000 native keyboard and 390x844 native multi-touch: four complete wells and sixteen relics, purchased upgrades, exact mid-descent paused reloads on every well, guide toggle, ballast, input cancellation, wall-loss/retry, bridge pause, isolated corrupt recovery/new expedition, return navigation and no uncaught browser errors.",
         "Independent normal-clock animation-frame check verified held keyboard lowering and pause persistence.",
         "Direct desktop/390px phone layout review plus campaign screenshot review; no physical-device test or full screen-reader audit claimed.",
-        "19 public route/assets checks, nine first-batch selected-source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection tests passed. Inherited obsolete playerStudy launcher assertions remain preserved and are not claimed to pass."
+        "19 public route/assets checks, nine first-batch selected-source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection tests passed. Inherited obsolete playerStudy launcher assertions remain preserved and are not claimed to pass.",
+        "Exact source 4fc1344099f8b0181709129156895449e0f2f148: all seven CI jobs in 40731810668 passed, with 536 engine + 374 DOM = 910 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122970863879 passed natural damage, cancelled/resumed physical settling, desktop paused R and touch button repair, exact reload, all four wells/16 relics per context, purchased upgrades, keyboard/multi-touch, clearance guide, ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF motion.",
+        "Inspected desktop-repair-complete.png, touch-repair-ready.png and touch-repair-complete.png among 26 Wellward captures in artifact 12835472950. Readiness shows the strap/hook tradeoff; completed repair restores the strap and releases the reserved hook while remaining paused. Controls and feedback are legible, with substantial vertical phone scrolling. ZIP SHA256 51cff4364976b7eedfc420572b52cad58ae8beeed9cc4d57780c234e3e1352a4. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -621,7 +640,7 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Swing, steady and haul create a manual retrieval loop; cargo capacity, banked workshop purchases and optional water ballast add decisions. Four authored wells introduce bends, water and wind. The clearance sketch improves navigation without automating movement. Compact replay comes from optional relics and upgrade order; the finite campaign limits depth. Original smooth Canvas artwork. No sound layer, realistic rope wrapping, human enjoyment study, physical-device test or hours-of-content claim."
+        "notes": "Swing, steady and haul create a manual retrieval loop; cargo capacity, banked workshop purchases and optional water ballast add decisions. Four authored wells introduce bends, water and wind. The clearance sketch improves navigation without automating movement. Compact replay comes from optional relics and upgrade order; the finite campaign limits depth. Original smooth Canvas artwork. No sound layer, realistic rope wrapping, human enjoyment study, physical-device test or hours-of-content claim. Additional review: repair kit capacity cost and cancellable settling add a deliberate recovery choice. The paused keyboard mismatch found in rendered review is fixed and natively tested. Four fixed wells remain compact; phone layout requires scrolling. No unmeasured content-duration claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -647,29 +666,12 @@
           "style.css": "b55133c7fc3e8d6b05e69e17d82956581e3b972109b4c918798dab4363fd4d51"
         }
       },
-      "pendingAdditionalUpgrade": {
-        "slot": 28,
-        "id": "wellward",
-        "title": "Wellward",
-        "status": "implemented-awaiting-final-rendered-verification",
-        "observedWeakness": "Inspected touch-well-2-mid.png from native run 40702051106 artifact 12823556898. Repair sits below the movement controls and is disabled while paused; no changing speed/cooldown readout explains readiness. Source confirms the player must manage braking and reach Repair during live movement. This is retained automated gameplay and screenshot review, not new direct interactive play.",
-        "before": "Optional kit reserves one hook and repairs a strap, but the player must manually brake through impact cooldown and activate repair during live movement. Pausing prevents repair.",
-        "after": "Steady for repairs applies the real brake with neutral steering until speed is at most 20 and impact cooldown clears, then pauses without consuming the kit. Cancel pauses immediately; keyboard/pointer steering takes over and immediately updates feedback. Repair now works from the stable paused state, with exact strap/hook changes and live readiness text. The original manual R flow remains. No physics teleport, free health, or automatic kit spending.",
-        "implementationCommit": "5b0fb766926891c874870f04331198f3802d1a16",
-        "testing": [
-          "26 engine + 16 jsdom checks pass, including all four original complete wells and sixteen relics. A natural 117-frame rightward collision followed by settling permits one repair; position and saved physics remain exact. The original first cargo route banks one relic instead of two with a packed kit, proving the capacity cost; skipped relic remains available.",
-          "Checks include packed/used/legacy saves, invalid flags and overcapacity rejection, single-use/health/speed/cooldown/phase gates, no mutation on rejection, keyboard R, pause/dialog guards, reload, retry, isolated reset and navigation markup. JavaScript syntax passes. DOM uses a null canvas and simulated animation frames, not rendering; no screenshot, actual touch, human enjoyment or full-repository check claim.",
-          "44 focused checks pass (26 engine, 18 DOM), including four complete wells/16 relics, natural collision, physical settling, no kit consumption before choice, cancellation, steering takeover, external pause, exact paused reload and same-frame repair. New native desktop/touch routes cover collision, cancellation, automatic pause, readiness preview, reload, repair and retry; CI 40722093364 is in progress. JavaScript syntax checks pass. Changed rendered screenshots remain unreviewed.",
-          "CI 40722093364 on 696e6c07a2947a613f99f193a1d058bb5ffe2157 passed all seven jobs, 536 engine + 373 DOM = 909 checks, source/asset gates and nine first-batch source integrity checks. Native job 122936770474 passed desktop/emulated-touch natural damage, cancelled/resumed settling, paused button repair and exact reload; four complete wells/16 relics, upgrades, keyboard/multi-touch, guide/ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF movement.",
-          "Inspected desktop-repair-ready.png, touch-repair-ready.png and touch-repair-complete.png in artifact 12830674734 (26 Wellward captures; ZIP SHA256 2f992bdcc0ba7a9ffefeada1488b7eb1703848068e2b59c4a315418b607e08fc). Readiness, two-to-three straps and one-to-two hooks are legible; long phone scrolling remains. The displayed R shortcut was inactive while paused, discovered by screenshot/source review and fixed in 4fc1344099f8b0181709129156895449e0f2f148.",
-          "45 focused checks now pass (26 engine, 19 DOM), including paused R without simulation advance, repeat rejection and hidden/external-pause guards. Native desktop route now uses R at the stable paused state, touch uses its button. Exact-source run 40731810668 pending."
-        ],
-        "remaining": "Inspect exact-source CI 40731810668 and retained screenshots after the paused-R correction before counting. Earlier full verification passed; 14/20 additional upgrades remain credited until this follow-up passes.",
-        "implementationCommits": [
-          "5b0fb766926891c874870f04331198f3802d1a16",
-          "696e6c07a2947a613f99f193a1d058bb5ffe2157",
-          "4fc1344099f8b0181709129156895449e0f2f148"
-        ]
+      "additionalVerification": {
+        "commit": "4fc1344099f8b0181709129156895449e0f2f148",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40731810668",
+        "job": 122970863879,
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40731810668/artifacts/12835472950",
+        "report": "dev/indie-collection-two/WELLWARD_REPAIRS.md"
       }
     },
     {
@@ -1701,7 +1703,7 @@
       }
     }
   ],
-  "nextSteps": "Inspect exact-source CI 40731810668 and retained screenshots after the paused-R correction before counting. Earlier full verification passed; 14/20 additional upgrades remain credited until this follow-up passes. Then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper; final second-batch selection and third collection remain incomplete.",
+  "nextSteps": "Finish rendered game-specific upgrades and exact-source verification for Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare and integrate the strongest second-batch games while preserving concurrent catalogue entries. Third collection remains 24/50 built and zero qualified improved/browser-tested/integrated/live; complete its remaining candidates and improvements.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2213,6 +2215,14 @@
       "ci": "40731810668",
       "publicIntegration": null,
       "nextSteps": "Inspect exact-source CI 40731810668 and retained screenshots after the paused-R correction before counting. Earlier full verification passed; 14/20 additional upgrades remain credited until this follow-up passes. Then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper; final second-batch selection and third collection remain incomplete."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "4fc1344099f8b0181709129156895449e0f2f148",
+      "result": "Wellward additional repair/settling upgrade verified: 910 checks, all seven CI jobs, native keyboard/touch campaigns and three inspected final screenshots. Additional round now 15/20; 35 recorded meaningful passes. No public integration/live change.",
+      "ci": "40731810668",
+      "publicIntegration": null,
+      "nextSteps": "Finish rendered game-specific upgrades and exact-source verification for Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare and integrate the strongest second-batch games while preserving concurrent catalogue entries. Third collection remains 24/50 built and zero qualified improved/browser-tested/integrated/live; complete its remaining candidates and improvements."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2220,7 +2230,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 14,
+    "completed": 15,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

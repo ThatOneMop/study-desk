@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 14/20 additional upgrades fully verified.** All twenty additional upgrades have source. Paper Odyssey’s recoverable bridge thread now passes all seven exact-source CI jobs: 907 engine/DOM checks, desktop/emulated-touch original, stitched and unpicked deliveries, and three inspected screenshots. See [current evidence](PAPER_THREAD.md).
+**20/20 playable, initially improved and finished; 15/20 additional upgrades fully verified.** All twenty additional upgrades have source. Wellward’s repair kit, cancellable brake preparation and paused R/button repair pass all seven CI jobs: 910 engine/DOM checks, full desktop/emulated-touch campaigns and three inspected final screenshots. See [current evidence](WELLWARD_REPAIRS.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -74,3 +74,6 @@ At that historical checkpoint: **8/20 verified**. No new game or public integrat
 
 
 Latest next steps (29 October): Prioritize Wellward, then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper: inspect pending source and rendered core loops, refine game-specific weaknesses and verify exact source before counting. Six additional reviews remain before final second-batch selection/integration. Third collection remains 24/50 built with no qualified improved/browser-tested/integrated/live completions.
+
+
+Latest next steps (29 October, after Wellward verification): Finish rendered game-specific upgrades and exact-source verification for Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare and integrate the strongest second-batch games while preserving concurrent catalogue entries. Third collection remains 24/50 built and zero qualified improved/browser-tested/integrated/live; complete its remaining candidates and improvements.

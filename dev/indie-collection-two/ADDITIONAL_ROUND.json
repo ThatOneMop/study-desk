@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 14,
+  "completed": 15,
   "required": 20,
   "candidates": [
     {
@@ -128,7 +128,7 @@
       "slot": 28,
       "id": "wellward",
       "title": "Wellward",
-      "status": "implemented-awaiting-final-rendered-verification",
+      "status": "verified",
       "observedWeakness": "Inspected touch-well-2-mid.png from native run 40702051106 artifact 12823556898. Repair sits below the movement controls and is disabled while paused; no changing speed/cooldown readout explains readiness. Source confirms the player must manage braking and reach Repair during live movement. This is retained automated gameplay and screenshot review, not new direct interactive play.",
       "before": "Optional kit reserves one hook and repairs a strap, but the player must manually brake through impact cooldown and activate repair during live movement. Pausing prevents repair.",
       "after": "Steady for repairs applies the real brake with neutral steering until speed is at most 20 and impact cooldown clears, then pauses without consuming the kit. Cancel pauses immediately; keyboard/pointer steering takes over and immediately updates feedback. Repair now works from the stable paused state, with exact strap/hook changes and live readiness text. The original manual R flow remains. No physics teleport, free health, or automatic kit spending.",
@@ -139,14 +139,17 @@
         "44 focused checks pass (26 engine, 18 DOM), including four complete wells/16 relics, natural collision, physical settling, no kit consumption before choice, cancellation, steering takeover, external pause, exact paused reload and same-frame repair. New native desktop/touch routes cover collision, cancellation, automatic pause, readiness preview, reload, repair and retry; CI 40722093364 is in progress. JavaScript syntax checks pass. Changed rendered screenshots remain unreviewed.",
         "CI 40722093364 on 696e6c07a2947a613f99f193a1d058bb5ffe2157 passed all seven jobs, 536 engine + 373 DOM = 909 checks, source/asset gates and nine first-batch source integrity checks. Native job 122936770474 passed desktop/emulated-touch natural damage, cancelled/resumed settling, paused button repair and exact reload; four complete wells/16 relics, upgrades, keyboard/multi-touch, guide/ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF movement.",
         "Inspected desktop-repair-ready.png, touch-repair-ready.png and touch-repair-complete.png in artifact 12830674734 (26 Wellward captures; ZIP SHA256 2f992bdcc0ba7a9ffefeada1488b7eb1703848068e2b59c4a315418b607e08fc). Readiness, two-to-three straps and one-to-two hooks are legible; long phone scrolling remains. The displayed R shortcut was inactive while paused, discovered by screenshot/source review and fixed in 4fc1344099f8b0181709129156895449e0f2f148.",
-        "45 focused checks now pass (26 engine, 19 DOM), including paused R without simulation advance, repeat rejection and hidden/external-pause guards. Native desktop route now uses R at the stable paused state, touch uses its button. Exact-source run 40731810668 pending."
+        "45 focused checks now pass (26 engine, 19 DOM), including paused R without simulation advance, repeat rejection and hidden/external-pause guards. Native desktop route now uses R at the stable paused state, touch uses its button. Exact-source run 40731810668 pending.",
+        "Exact source 4fc1344099f8b0181709129156895449e0f2f148: all seven CI jobs in 40731810668 passed, with 536 engine + 374 DOM = 910 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122970863879 passed natural damage, cancelled/resumed physical settling, desktop paused R and touch button repair, exact reload, all four wells/16 relics per context, purchased upgrades, keyboard/multi-touch, clearance guide, ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF motion.",
+        "Inspected desktop-repair-complete.png, touch-repair-ready.png and touch-repair-complete.png among 26 Wellward captures in artifact 12835472950. Readiness shows the strap/hook tradeoff; completed repair restores the strap and releases the reserved hook while remaining paused. Controls and feedback are legible, with substantial vertical phone scrolling. ZIP SHA256 51cff4364976b7eedfc420572b52cad58ae8beeed9cc4d57780c234e3e1352a4. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
       ],
-      "remaining": "Inspect exact-source CI 40731810668 and retained screenshots after the paused-R correction before counting. Earlier full verification passed; 14/20 additional upgrades remain credited until this follow-up passes.",
+      "remaining": "Additional round verified. Retain unselected for comparison after the five remaining reviews; four compact wells still limit progression depth.",
       "implementationCommits": [
         "5b0fb766926891c874870f04331198f3802d1a16",
         "696e6c07a2947a613f99f193a1d058bb5ffe2157",
         "4fc1344099f8b0181709129156895449e0f2f148"
-      ]
+      ],
+      "verificationCommit": "4fc1344099f8b0181709129156895449e0f2f148"
     },
     {
       "slot": 29,

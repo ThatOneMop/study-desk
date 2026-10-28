@@ -1,4 +1,4 @@
-# Additional improvement round — 14/20 verified
+# Additional improvement round — 15/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -9,7 +9,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [x] 26. Paper Odyssey — recoverable thread and persistent par costs; source `5d519169`, verified at `5802ea74`. CI 40702051106: 907 checks, all seven jobs, desktop/touch original + stitched + unpicked deliveries; three screenshots inspected. See PAPER_THREAD.md.
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
-- [ ] 28. Wellward — repair preparation passed 909 checks and native desktop/touch; three screenshots inspected. Fixed paused R mismatch in `4fc1344099f8b0181709129156895449e0f2f148`; 45 focused checks pass, final CI 40731810668 pending. **Not counted.**
+- [x] 28. Wellward — repair-kit capacity choice, cancellable brake preparation and paused R/button repair verified at `4fc13440`: CI 40731810668, 910 checks, all seven jobs, native desktop/touch campaigns and three inspected screenshots. See WELLWARD_REPAIRS.md.
 - [x] 29. Salt & Sail — optional cargo sacrifice and selectable keep/discard course comparison, with exact endpoints and full visible paths. Verified final source `e1ed0d48c2abff8321e6e011666b2d2343e54292`, CI 40694980007, 896 engine/DOM checks and three inspected screenshots. See `SALT_CARGO_COMPARISON.md`.
 - [x] 30. Pocket Palaeo — resin-jacket protection, staged treatment forecasts and retained lift guidance; final reset correction `184bb3c613a5dba1c17585500cd69b747b3add3e`, native CI 40686526711, 890 engine/DOM checks and three inspected screenshots. See `PALAEO_JACKETS.md`.
 - [x] 31. Static Orchard — earned-energy blossom lures, tree-placement and limited-resource choices; verified commit `304976b32bb3c7a114d23c235f19f853826041f2`, CI 40061003554.
