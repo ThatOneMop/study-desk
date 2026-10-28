@@ -26,23 +26,23 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 6/20 additional upgrades verified.** Last Lighthouse now includes verified optional lifeboat routing. First-batch games, Nightshift and Afterlight are excluded.
+**20/20 playable, initially improved and finished; 7/20 additional upgrades fully verified.** All twenty additional upgrades have source; Last Lighthouse now also has direct rendered review and a prism-planning refinement. Its native desktop/touch regression and screenshot review now pass. See [current evidence](LAST_LIGHTHOUSE_PLANNING.md).
 
-Windup Wrestling is the nineteenth candidate: seven-space spring grappling, telegraphed rival actions, braces and momentum reversals. Its initial improvement replaces an identical three-move win across rivals with reactive guarding and an early grapple. See [the implementation report](WINDUP_WRESTLING_INITIAL.md). Its separate additional-round upgrade is not counted.
+The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
-Exact-source CI [40080637524](https://github.com/ThatOneMop/study-desk/actions/runs/40080637524) passed **713 engine/interface checks** (421 engine, 292 DOM), plus source and asset preservation gates. Changed-game native desktop/touch campaigns pass; ten screenshots retained and three inspected. Other browser groups remain in progress at checkpoint. Earlier Ember CI 40076388835 has now passed all seven jobs and all eighteen native suites.
+Main `55c330d9ec493afc40e81e89a371f64cbd5bd8b0` contains 65 catalogue entries, including thirteen earlier second-batch games from concurrent integration. These are not final additional-round selections. This increment changes only the second development branch.
 
-Next: complete fourteen remaining additional upgrades, compare and integrate selections. The third-batch branch has exactly 50 planned slots and no built games yet. The full task remains unfinished.
+The previous Pages configuration blocker is resolved: [main release 40486136506](https://github.com/ThatOneMop/study-desk/actions/runs/40486136506) succeeded, and the public site loads. Live desktop and 390px iframe search, Reefwright launch and Collection return were verified. Development-branch upgrades are not thereby live.
 
-The existing workspace-control and publication audit on main `b311b35` found no remaining Switch workspace controls. Preserve Games/Collection navigation, search, grouping, sorting and favourites. GitHub Pages configuration remains a previously recorded permission blocker; no unchanged retry was made. Separate hosted deployment was not verified through its sign-in wall. Repository commits are not live release evidence.
+No Switch workspace controls were found in main launcher source or 44 second/third-batch game shells. Current main catalogue tests already assert that removed controls are absent. Preserve Games/Collection, search, genres, grouping, sorting, favourites and Gummy Bay.
 
-Main reread at `18b81b1`: its 64 entries include thirteen earlier second-batch games from concurrent integration. No main or public catalogue edits in this increment. Re-read remote heads before future integration and preserve all Gummy Bay/requested-game work.
+Next: inspect the final overall CI outcome, finish the remaining thirteen additional-round rendered reviews and substantive iteration, compare/integrate winners, and complete the separate fifty-game slate. Keep the existing cadence; the task is not complete.
 
 ## Writing and evidence notes
 
 Git CLI reads work in this environment but CLI push had no credentials. Supported GitHub create-tree/create-commit and leased update-ref tools preserved source successfully. Always inspect the current branch before writes and include its latest tree/parent; do not overwrite concurrent work.
 
-The public `catalog-launch.cjs` and `curation-regression.cjs` tests are stale against base main: both still click the removed `playerStudy` button. These tests and public shell files are unchanged here. Current `dom-checks.cjs`, `bridge-pointer.cjs` and `relaxed-collection.cjs` pass. See the ledger and run report for the evidence boundary.
+Historical base-branch catalogue tests referenced removed workspace controls. Current main was reread on 28 October: `catalog-launch.cjs` no longer uses them; `curation-regression.cjs` and `relaxed-collection.cjs` explicitly assert absence. Do not reintroduce obsolete handlers while integrating this older development branch.
 
 At the first increment’s concurrency check, public main had advanced to `013a8d009286fe02a37ebce76126f44c19c72ecf` with private-messaging links/docs. This branch did not write main. Re-read and preserve those changes when later integrating selected games.
 
@@ -60,6 +60,6 @@ Launch `/games/last-lighthouse/`. See [initial evidence and weaknesses](LAST_LIG
 
 Last Lighthouse now has optional lifeboat beam routes and earned pennants, using spare power or risking hull on cranking. [Initial improvement evidence](LAST_LIGHTHOUSE_RESCUES.md). This does not count toward the additional round.
 
-## Latest checkpoint: Windup mechanical kits
+## Historical checkpoint: Windup mechanical kits
 
 Implementation and 727 automated engine/DOM checks are saved; rendered review is blocked and additional-round completion remains 6/20. See [Windup kit checkpoint](WINDUP_WRESTLING_KITS.md). No catalogue integration or live release in this increment.

@@ -1,4 +1,4 @@
-# Additional improvement round — 6/20 verified
+# Additional improvement round — 7/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -21,8 +21,12 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 37. Clockwork Tide — counterweight storage implemented in `2fecaad67037611daa8f410ae723e35992b3ac2d`; 42 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 38. Ember Parcel — boardwalks implemented in `736f0982041f909c218328e06edcf2b1bda7865d`; 26 engine/DOM checks pass, rendered review blocked. **Not counted.**
 - [ ] 39. Windup Wrestling — mechanical kits implemented in `dc5d51f2076f3029ccdd39890dcc3bfe63668a1c`; engine/DOM checks pass, rendered review blocked. **Not counted.**
-- [ ] 40. Last Lighthouse — portable prism implemented in `561cacd84e10bf4400a93d7bd78f224470b793ce`; 18 engine/DOM checks pass, rendered review blocked. **Not counted.**
+- [x] 40. Last Lighthouse — portable prism and free direct-chart beam/orientation planning; verified commit `fcc1da11ad19c5b84f88af22d8253a87e15a8e71`, CI 40631660878 job 122629895098. 869 engine/DOM checks and changed-game desktop/touch pass; 52 screenshots retained, three inspected.
 
-No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Fourteen candidates require the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
+No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Thirteen candidates still require completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
 
 26 October checkpoint: all twenty additional upgrades have implementation source. Six are verified; fourteen still require rendered observation and iteration. This is not 20/20 completed additional improvements.
+
+28 October checkpoint: supported cloud rendering now works; earlier blocked notes are historical. Last Lighthouse has been played and refined. CI 40631660878 checks pass; native browser groups remain pending. The completion count stays 6/20 until native evidence is reviewed.
+
+Native follow-up on 28 October: Last Lighthouse passes desktop/emulated-touch prism campaigns, original campaigns, saves, failure/retry, reset and navigation. Three of its 52 retained screenshots inspected. Additional round is now **7/20 verified**; remaining native groups do not count as additional-round review for other games.

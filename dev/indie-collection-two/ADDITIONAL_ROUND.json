@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 6,
+  "completed": 7,
   "required": 20,
   "candidates": [
     {
@@ -316,16 +316,24 @@
       "slot": 40,
       "id": "last-lighthouse",
       "title": "Last Lighthouse",
-      "status": "implemented-awaiting-rendered-review",
-      "observedWeakness": "Source-based hypothesis: three small harbours constrain beam routing to fixed relay positions. No new rendered observation while browser access remains blocked.",
-      "before": "Only the six fixed relays could shape a beam. Spare power funded rescue or mistakes.",
-      "after": "One portable prism can be placed or moved onto clear water for one power; rotation is free. Its prior position becomes water. It competes with rescue power and hull-costing cranking, and allows new beam paths. Coordinate selectors, cost preview, outlined prism, keyboard 7 and undo/save support expose the choice.",
-      "implementationCommit": "561cacd84e10bf4400a93d7bd78f224470b793ce",
+      "status": "verified",
+      "observedWeakness": "Rendered prism play exposed a cost-blind coordinate workflow: choosing a location required separate coordinate selectors and spending power before seeing the new beam. This made the new resource/routing choice harder to read, especially on a phone. Three fixed harbours remain a depth limitation.",
+      "before": "Six fixed relays were the initial baseline. The earlier additional-round source added a one-power portable prism, but coordinate selection had no staged beam or orientation preview.",
+      "after": "A movable one-power prism creates alternate rescue/convoy paths. New direct chart placement, free dashed beam/orientation previews and explicit confirmation make the route/power choice legible before commitment. Cancellation spends nothing; Signal is blocked during planning. Keyboard focus survives chart redraws and hidden games discard staged actions/dialog callbacks. Existing journals and pennants survive.",
+      "implementationCommit": "fcc1da11ad19c5b84f88af22d8253a87e15a8e71",
       "testing": [
         "13 engine + 5 jsdom checks pass, including all six original ships, original rescue routes, three prism-dependent rescues followed by complete convoys, exact journal roundtrips, cost/exhaustion, relocation/undo, blocked cells, caller mutation isolation and legacy saves.",
-        "DOM checks cover all three prism campaigns, keyboard rotation, controls, saved relocation, pause, retry confirmation, corrupt-save recovery and navigation markup. Syntax checks pass. No rendered review, screenshots, actual touch, human enjoyment or full-repository check claimed."
+        "DOM checks cover all three prism campaigns, keyboard rotation, controls, saved relocation, pause, retry confirmation, corrupt-save recovery and navigation markup. Syntax checks pass. No rendered review, screenshots, actual touch, human enjoyment or full-repository check claimed.",
+        "2026-10-28: 23 focused checks pass (15 engine, 8 DOM). All three prism-dependent rescue/convoy campaigns, exact pure preview and chosen-orientation journal replay, free cancel, keyboard focus, hidden-dialog cancellation, saves and loss/retry covered. Added these prism campaigns to native desktop/touch browser regression and restored Last Lighthouse DOM checks to the CI command.",
+        "Direct cloud rendered play: all three prism-dependent rescue/convoy campaigns completed at desktop and 390px iframe width; staged rotation/cancel/confirm, rescue save/reload, all three pennants, three-miss loss, undo, retry cancel/confirm, pause/resume, guide and relay keyboard input checked. Desktop and narrow-screen screenshots inspected. These were pointer clicks in a narrow iframe, not emulated/native touch; no human enjoyment claim.",
+        "Exact-source full CI 40631660878 started for fcc1da11ad19c5b84f88af22d8253a87e15a8e71; result and native screenshot review pending at this checkpoint.",
+        "Native Chrome 155 desktop and emulated touch pass all three prism-planned rescues/convoys, free preview/turn/cancel/commit, saved placement reload, all original ships/rescues, progression, loss/undo/retry, pause, recovery/reset and navigation. CI 40631660878, job 122629895098. Artifact 12791424605 contains 52 Last Lighthouse screenshots; desktop-prism-plan-0, touch-prism-placed-1 and touch-prism-win-2 inspected. ZIP SHA256 a5d7b17bfc6edd857682063de31ed953646c925ed2d4b854fe893eea8dc80a10. No physical-device or human enjoyment claim."
       ],
-      "remaining": "Perform supported rendered before/after play, inspect desktop/phone readability and controls, assess the new routing/resource choice and iterate. Verify progression, loss/retry, saves, restart/navigation and screenshots before credit."
+      "remaining": "Verified additional-round pass. Retain unselected for comparison after the remaining thirteen rendered reviews; three short harbours still limit depth.",
+      "implementationCommits": [
+        "561cacd84e10bf4400a93d7bd78f224470b793ce",
+        "fcc1da11ad19c5b84f88af22d8253a87e15a8e71"
+      ]
     }
   ]
 }

@@ -1,0 +1,319 @@
+{
+  "date": "2026-10-28",
+  "main": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+  "launcher": [
+    "index.html",
+    "app.js"
+  ],
+  "shells": [
+    {
+      "batch": "two",
+      "id": "reefwright",
+      "path": "games/reefwright/index.html",
+      "sha": "591e03db3fe5836bebdb17f16d1e93afd378a7b9",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "counterweight",
+      "path": "games/counterweight/index.html",
+      "sha": "21028efae99d72442048acf3e919ff622b8c043f",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "lanternwake",
+      "path": "games/lanternwake/index.html",
+      "sha": "e1246cd9c81811624438b6727031203140450bb6",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "copper-cadence",
+      "path": "games/copper-cadence/index.html",
+      "sha": "6a003841648011865d8ff045f762d10d4ae027de",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "hollow-keeper",
+      "path": "games/hollow-keeper/index.html",
+      "sha": "242945fdbbf1a14e61641d1a0b8a5dde5135b307",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "paper-odyssey",
+      "path": "games/paper-odyssey/index.html",
+      "sha": "09886f053375d9e4f71c839864a099ab2c9a2686",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "ratchet-run",
+      "path": "games/ratchet-run/index.html",
+      "sha": "c62581403bfff48638afc05b59d0067019668fab",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "wellward",
+      "path": "games/wellward/index.html",
+      "sha": "ba68eab1ead280d863fb8c0549b8098d1826243c",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "salt-and-sail",
+      "path": "games/salt-and-sail/index.html",
+      "sha": "02a9bc20aeb7b361ab13d332c8e9b07e2b0bac9f",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "pocket-palaeo",
+      "path": "games/pocket-palaeo/index.html",
+      "sha": "f24b1cd1b0c3b17dec81a607e571e9e5f9a19f81",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "static-orchard",
+      "path": "games/static-orchard/index.html",
+      "sha": "9f7675b5570622dcf68c3dc3c6efd9490a6d3953",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "borrowed-gravity",
+      "path": "games/borrowed-gravity/index.html",
+      "sha": "03f83cc5a35adbc9087b79decfb4cf93f668ec8b",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "tea-for-ghosts",
+      "path": "games/tea-for-ghosts/index.html",
+      "sha": "0eafdc99b484aa4472c2e3b508006965cdfdcf74",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "cairn-and-cord",
+      "path": "games/cairn-and-cord/index.html",
+      "sha": "521956f1684b7fb62ef1bc50204505931bfbeabf",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "murmuration",
+      "path": "games/murmuration/index.html",
+      "sha": "09ec2b84e6b27ba50ea8d645f9978cfe2d4f9f7b",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "night-clerk",
+      "path": "games/night-clerk/index.html",
+      "sha": "20bc2ade7185a7402ea151bb29e56c033004d0a1",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "clockwork-tide",
+      "path": "games/clockwork-tide/index.html",
+      "sha": "aa1aef81e0c64e32c98213e1590c8dbb96ff2e41",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "ember-parcel",
+      "path": "games/ember-parcel/index.html",
+      "sha": "9ec2b79a03fe6ea9ca210731cae682efdee54821",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "windup-wrestling",
+      "path": "games/windup-wrestling/index.html",
+      "sha": "1b14712d8bb939bd6ff8f3031a67888b5b2be131",
+      "matches": []
+    },
+    {
+      "batch": "two",
+      "id": "last-lighthouse",
+      "path": "games/last-lighthouse/index.html",
+      "sha": "73cf4c8f19d27b3844a56d6ee9b0abe306fdaadf",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "stencil-studio",
+      "path": "games/stencil-studio/index.html",
+      "sha": "c7658e319666a710d38275cf1c8d5042d3716860",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "moon-dial",
+      "path": "games/moon-dial/index.html",
+      "sha": "6a0a0675c9857901c60249019dbae651564f51f1",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "pebble-rink",
+      "path": "games/pebble-rink/index.html",
+      "sha": "98711c472e897b9d5cf169adc9369b80a30b14a8",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "pocket-regatta",
+      "path": "games/pocket-regatta/index.html",
+      "sha": "6e89f5abe6a466ccc1ad4b967a390531076e99d9",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "crate-and-cushion",
+      "path": "games/crate-and-cushion/index.html",
+      "sha": "0aee6625f2e5a9f2e56b9e094c3b345b0fab2407",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "bramble-dice",
+      "path": "games/bramble-dice/index.html",
+      "sha": "5282f2031b98535c24a50e1bc03ccd77528cef67",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "needlepath",
+      "path": "games/needlepath/index.html",
+      "sha": "6c3b8675cef932e800976e5d127cb5317e5cc691",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "reedbreaker",
+      "path": "games/reedbreaker/index.html",
+      "sha": "159128dfcf40ef869c9067daae5cefcae4316a0f",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "beepline",
+      "path": "games/beepline/index.html",
+      "sha": "7adef895b55a471e9764240647f3563b1c25f3d0",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "tumbleglass",
+      "path": "games/tumbleglass/index.html",
+      "sha": "ee47a8dfe9c294fc02f0d970c7f952efcaede898",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "soundings",
+      "path": "games/soundings/index.html",
+      "sha": "718bca6bff50ddc0ae9c6cb23f5cbb3e4407596f",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "moss-commons",
+      "path": "games/moss-commons/index.html",
+      "sha": "73a7414c60976e1ea3edf1d00a1b277511fff93a",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "canopy-weave",
+      "path": "games/canopy-weave/index.html",
+      "sha": "be30b203fb4d7cef9afce1ec297cbec8a9b43879",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "kiln-chorus",
+      "path": "games/kiln-chorus/index.html",
+      "sha": "2d34336f273352097d74785a2c7da523d86bf573",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "field-album",
+      "path": "games/field-album/index.html",
+      "sha": "6920c731514bbe9266a214b01d163cb89091d2b4",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "ribbon-reef",
+      "path": "games/ribbon-reef/index.html",
+      "sha": "aef6bf4047d6a9e3e74fb3efcaf8de6e10b90d74",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "bellwether",
+      "path": "games/bellwether/index.html",
+      "sha": "af9c9af944d7f3d01b3af7d1239ae3422a7dcaf5",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "rill-root",
+      "path": "games/rill-root/index.html",
+      "sha": "251c521109f2699be92dab19e839f71f844e3dbb",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "fallow-table",
+      "path": "games/fallow-table/index.html",
+      "sha": "18c74dba37cad4eea1b37d7ffb336acb1c37f513",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "seedwake",
+      "path": "games/seedwake/index.html",
+      "sha": "9f20245fc7caeb1c08cbb50e26a6d890db43e8ca",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "foldlight",
+      "path": "games/foldlight/index.html",
+      "sha": "1f23cfb39d9462a68d8baaa90e370a9f632a2eca",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "thimble-fair",
+      "path": "games/thimble-fair/index.html",
+      "sha": "3e07927e27b2c2d26bbddba8a00a19c297cc40ea",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "bramble-pact",
+      "path": "games/bramble-pact/index.html",
+      "sha": "a0c49b180538d4eb863d28a07551222d8eb0e909",
+      "matches": []
+    },
+    {
+      "batch": "three",
+      "id": "bough-balance",
+      "path": "games/bough-balance/index.html",
+      "sha": "e26eaf4c61c32e18a36fdd751b86a9388f283e3e",
+      "matches": []
+    }
+  ],
+  "result": "No Switch workspace controls found. Current main catalogue tests assert their absence. Live search/launch/Collection return checked at desktop and 390px iframe widths; not native touch emulation."
+}

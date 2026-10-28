@@ -24,20 +24,28 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 26,
+    "meaningfulPasses": 27,
     "verifiedLive": 0
   },
   "deployment": {
-    "status": "blocked",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
-    "checked": "2026-10-24",
-    "detail": "Latest main release 39925660833 freshly checked: Configure GitHub Pages reports Get Pages site: Not Found, then Create Pages site: Resource not accessible by integration. No public catalogue or hosting writes by this increment. Separate all-created-games integration is preserved and must be reread before promotion; zero verified-live URLs in this collection ledger is not a claim that no other hosting exists.",
-    "additionalRoundInvestigation": {
-      "date": "2026-10-24",
-      "run": 39925660833,
-      "head": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
-      "job": 120321277348,
-      "result": "Latest main Pages run still fails Configure GitHub Pages: site not found; Create Pages site: Resource not accessible by integration. No retry performed. Separate hosting work not inferred from this failure."
+    "status": "main-pages-live",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40486136506",
+    "checked": "2026-10-28",
+    "head": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+    "url": "https://thatonemop.github.io/study-desk/",
+    "detail": "Prior Configure Pages permission blocker superseded: current main workflow succeeds including Configure/Publish. Direct live desktop and 390px iframe catalogue search, Reefwright launch and Collection return verified. This is not deployment of development-branch upgrades; no claim all 13 second-batch entries match upgraded source.",
+    "previousFailure": {
+      "status": "blocked",
+      "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
+      "checked": "2026-10-24",
+      "detail": "Latest main release 39925660833 freshly checked: Configure GitHub Pages reports Get Pages site: Not Found, then Create Pages site: Resource not accessible by integration. No public catalogue or hosting writes by this increment. Separate all-created-games integration is preserved and must be reread before promotion; zero verified-live URLs in this collection ledger is not a claim that no other hosting exists.",
+      "additionalRoundInvestigation": {
+        "date": "2026-10-24",
+        "run": 39925660833,
+        "head": "ed2cf603aa47fc26e4f04216d5704351b72a32a9",
+        "job": 120321277348,
+        "result": "Latest main Pages run still fails Configure GitHub Pages: site not found; Create Pages site: Resource not accessible by integration. No retry performed. Separate hosting work not inferred from this failure."
+      }
     }
   },
   "candidates": [
@@ -1506,6 +1514,21 @@
           ],
           "implementationCommit": "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
           "validation": "Seven focused engine tests and preservation gates pass. Rendered first harbour rescue/reload/full convoy win with zero power and pennant; desktop screenshot inspected. Native CI 40088157129 pending. Native Chrome desktop/touch all original deliveries and all three rescues pass, with 34 screenshots retained and phone rescue-preview/desktop rescue-win inspected. Full checks: 720 passing."
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-28",
+          "observedWeakness": "Rendered prism play exposed a cost-blind coordinate workflow: choosing a location required separate coordinate selectors and spending power before seeing the new beam. This made the new resource/routing choice harder to read, especially on a phone. Three fixed harbours remain a depth limitation.",
+          "changes": [
+            "A movable one-power prism creates alternate rescue/convoy paths. New direct chart placement, free dashed beam/orientation previews and explicit confirmation make the route/power choice legible before commitment. Cancellation spends nothing; Signal is blocked during planning. Keyboard focus survives chart redraws and hidden games discard staged actions/dialog callbacks. Existing journals and pennants survive."
+          ],
+          "implementationCommit": "fcc1da11ad19c5b84f88af22d8253a87e15a8e71",
+          "implementationCommits": [
+            "561cacd84e10bf4400a93d7bd78f224470b793ce",
+            "fcc1da11ad19c5b84f88af22d8253a87e15a8e71"
+          ],
+          "validation": "Native Chrome 155 desktop and emulated touch pass all three prism-planned rescues/convoys, free preview/turn/cancel/commit, saved placement reload, all original ships/rescues, progression, loss/undo/retry, pause, recovery/reset and navigation. CI 40631660878, job 122629895098. Artifact 12791424605 contains 52 Last Lighthouse screenshots; desktop-prism-plan-0, touch-prism-placed-1 and touch-prism-win-2 inspected. ZIP SHA256 a5d7b17bfc6edd857682063de31ed953646c925ed2d4b854fe893eea8dc80a10. No physical-device or human enjoyment claim."
         }
       ],
       "tests": [
@@ -1515,16 +1538,17 @@
         "Native CI 40084157781 job 120843842346 passed desktop and emulated touch: all six ships/progression, exact saves/reload, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation. 22 screenshots retained in artifact 12556472208; touch-path-2-0 and desktop-win-2 inspected. No horizontal clipping; phone signal requires scrolling below board. Initial improvement still pending.",
         "Seven focused engine tests and preservation gates pass. Rendered first harbour rescue/reload/full convoy win with zero power and pennant; desktop screenshot inspected. Native CI 40088157129 pending.",
         "Exact-source CI checks passed: 428 engine + 292 DOM = 720 checks, plus preservation gates.",
-        "CI 40088157129 job 120855438529: all three optional rescues, pennants, rescue save/reload, original six ships, progression, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation pass on desktop and touch. Cloud mistake/crank route wins with one hull."
+        "CI 40088157129 job 120855438529: all three optional rescues, pennants, rescue save/reload, original six ships, progression, loss/undo/retry, pause, cancellation, isolated reset/recovery and navigation pass on desktop and touch. Cloud mistake/crank route wins with one hull.",
+        "Native Chrome 155 desktop and emulated touch pass all three prism-planned rescues/convoys, free preview/turn/cancel/commit, saved placement reload, all original ships/rescues, progression, loss/undo/retry, pause, recovery/reset and navigation. CI 40631660878, job 122629895098. Artifact 12791424605 contains 52 Last Lighthouse screenshots; desktop-prism-plan-0, touch-prism-placed-1 and touch-prism-win-2 inspected. ZIP SHA256 a5d7b17bfc6edd857682063de31ed953646c925ed2d4b854fe893eea8dc80a10. No physical-device or human enjoyment claim."
       ],
       "quality": {
         "scale": "1–5 provisional agent design review; not human enjoyment evidence",
         "enjoyment": 3,
-        "depth": 2.5,
-        "polish": 3,
-        "reliability": 4,
+        "depth": 3,
+        "polish": 3.5,
+        "reliability": 4.5,
         "variety": 4,
-        "notes": "Optional lifeboat routing gives spare power an earned-pennant use and creates mistake/crank tradeoffs. Three short fixed harbours remain limited; separate additional upgrade still pending. Not selected."
+        "notes": "Agent assessment, not human enjoyment evidence. Prism placement/orientation planning adds spatial/resource choices without padding the campaign. Desktop and emulated-touch routes pass with readable previews, legacy saves and scoped reset. Three short fixed harbours and phone scrolling still limit depth/polish. Unselected."
       },
       "selected": false,
       "integrationCommits": [],
@@ -1532,42 +1556,35 @@
       "developmentCommits": [
         "88b6d16534ad9d1b7b0227810b5692cdf799c1c7",
         "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
-        "561cacd84e10bf4400a93d7bd78f224470b793ce"
+        "561cacd84e10bf4400a93d7bd78f224470b793ce",
+        "fcc1da11ad19c5b84f88af22d8253a87e15a8e71"
       ],
       "publishedUrl": null,
       "nextSteps": [
-        "Play improved slate and implement a distinct additional-round upgrade; do not recount lifeboat initial pass."
+        "Verified additional-round pass. Retain unselected for comparison after the remaining thirteen rendered reviews; three short harbours still limit depth."
       ],
       "verification": {
-        "commit": "54afb5d2a302575ae7cbf8e154e21e7cb31a62b5",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40088157129",
-        "artifact": 12557089508,
-        "artifactSha256": "3380bef8f163730485a47bc32d70df54b22c7dc0d6a1ca6381715a76d2627f54",
-        "status": "CI 40088157129 now confirmed completed/success. Existing 720-check record, all browser groups, preservation gates and changed-game native desktop/touch passed. Previously inspected screenshots remain documented; no new screenshots in this increment."
-      },
-      "pendingAdditionalUpgrade": {
-        "slot": 40,
-        "id": "last-lighthouse",
-        "title": "Last Lighthouse",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Source-based hypothesis: three small harbours constrain beam routing to fixed relay positions. No new rendered observation while browser access remains blocked.",
-        "before": "Only the six fixed relays could shape a beam. Spare power funded rescue or mistakes.",
-        "after": "One portable prism can be placed or moved onto clear water for one power; rotation is free. Its prior position becomes water. It competes with rescue power and hull-costing cranking, and allows new beam paths. Coordinate selectors, cost preview, outlined prism, keyboard 7 and undo/save support expose the choice.",
-        "implementationCommit": "561cacd84e10bf4400a93d7bd78f224470b793ce",
-        "testing": [
-          "13 engine + 5 jsdom checks pass, including all six original ships, original rescue routes, three prism-dependent rescues followed by complete convoys, exact journal roundtrips, cost/exhaustion, relocation/undo, blocked cells, caller mutation isolation and legacy saves.",
-          "DOM checks cover all three prism campaigns, keyboard rotation, controls, saved relocation, pause, retry confirmation, corrupt-save recovery and navigation markup. Syntax checks pass. No rendered review, screenshots, actual touch, human enjoyment or full-repository check claimed."
-        ],
-        "remaining": "Perform supported rendered before/after play, inspect desktop/phone readability and controls, assess the new routing/resource choice and iterate. Verify progression, loss/retry, saves, restart/navigation and screenshots before credit."
+        "status": "passed",
+        "commit": "fcc1da11ad19c5b84f88af22d8253a87e15a8e71",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40631660878",
+        "job": 122629895098,
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40631660878/artifacts/12791424605",
+        "artifactSha256": "a5d7b17bfc6edd857682063de31ed953646c925ed2d4b854fe893eea8dc80a10",
+        "scope": "869 engine/DOM checks and preservation gates passed; changed-game desktop/touch passed. Other browser groups still running at checkpoint.",
+        "sha256": {
+          "engine.js": "c1c2e7bd91d0aba6d495c8fcb2a600723229ddb2f775a11a985c57131629c815",
+          "game.js": "7c2798d86fa14c66be6a5ef0d87a135211d04f45b8d1bb05e9aa0aa5e97b390d",
+          "index.html": "5fb4628165b988b178ffb65315f2651c40784b617e3698123d32984bdea4abb1",
+          "style.css": "6b2424762f298350db2f97d3da8cba912cbfd72c33d4abbab2765570c64bf1ab"
+        }
       }
     }
   ],
   "nextSteps": [
-    "All twenty second-batch additional upgrades now have implementation source, but only 6/20 are verified. Fourteen pending upgrades require supported rendered before/after review, observed iteration and desktop/touch checks; none are credited solely for engine/DOM tests.",
-    "Continue the remaining 44 third-batch prototypes independently while rendered review is blocked. Once supported review is available, finish the fourteen second-batch additional verifications and third-batch improvement passes, compare the slate and progressively integrate completed tested selections.",
-    "Continue the separate fifty-slot third batch on indie-collection-three-dev: current observed ab12bd0 has six built prototypes and zero completed improvements, browser-tested, integrated or live.",
-    "Preserve public main 85d941d59e8897585606e5a67f4413a710643067 and existing saves. No public catalogue writes in this increment.",
-    "Use the existing workspace-control/publication audit on main b311b35; do not repeat unchanged publishing failures or work around the browser policy block."
+    "Complete the remaining thirteen additional-round rendered reviews and game-specific iteration. Last Lighthouse is now verified; inspect final overall CI outcome separately.",
+    "Compare the improved full slate and integrate selected source using freshly reread main; preserve concurrent 13 second-batch entries, Gummy Bay and requested games.",
+    "Third collection remains 24/50 built, zero improved/browser-tested/integrated/live in its own ledger. Complete distinct remaining candidates and substantive rendered-play improvements; no reskins or placeholder counts.",
+    "Keep existing automation cadence; do not pause until obligations complete."
   ],
   "baselineTestLimitations": [
     {
@@ -1957,6 +1974,13 @@
       "result": "Murmuration embedded pause shortcut repaired; 32 engine/DOM/bridge checks pass. Audited 40 shell/source files across second collection, no workspace-switch controls found. Additional round remains 6/20 verified; no integration/live change.",
       "publicIntegration": null,
       "nextSteps": "Render changed embedded controls when supported; preserve pending fourteen additional upgrades and continue remaining third-batch candidates."
+    },
+    {
+      "date": "2026-10-28",
+      "gameplayCommit": "fcc1da11ad19c5b84f88af22d8253a87e15a8e71",
+      "result": "Last Lighthouse direct-chart prism planning after rendered review; 23 checks pass; three campaigns played at desktop/390px. Full native CI pending; additional round remains 6/20. Audit of main launcher and 44 game shells finds no Switch workspace controls; main tests already assert absence. Pages blocker resolved with successful current workflow and live navigation evidence. Native Last Lighthouse desktop/touch subsequently passed and three retained screenshots were inspected; additional round now 7/20 verified.",
+      "publicIntegration": null,
+      "nextSteps": "Verified additional-round pass. Retain unselected for comparison after the remaining thirteen rendered reviews; three short harbours still limit depth."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -1964,14 +1988,14 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 6,
+    "completed": 7,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
   },
   "concurrentIntegration": {
-    "commit": "0f295c9795590f96a90c6ceb8c1d165e77fcd3a7",
-    "catalogueTotal": 64,
+    "commit": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+    "catalogueTotal": 65,
     "secondBatchCount": 13,
     "secondBatchIds": [
       "reefwright",
@@ -1988,6 +2012,6 @@
       "borrowed-gravity",
       "tea-for-ghosts"
     ],
-    "scope": "Concurrent initial-game catalogue integration, separate from final additional-round selection and these development-branch upgrades. Live deployment not verified here."
+    "scope": "13 earlier second-batch entries remain integrated by concurrent work. Current live Reefwright launch verified; development-branch additional upgrades are not inferred to be live. Preserve all 65 entries and Gummy Bay v180."
   }
 }
