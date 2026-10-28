@@ -9,9 +9,9 @@ function fresh(job=0,tools=[]){return{job,tools:clone(tools),phase:'working',ste
 function create(){return{version:1,records:[null,null,null,null],tools:[],run:fresh()};}
 function unlocked(s){const n=s.records.findIndex(x=>!x);return n<0?3:n;}
 function coins(s){return s.records.filter(Boolean).length*3-TOOLS.filter(t=>s.tools.includes(t.id)).reduce((a,t)=>a+t.cost,0);}
-function valid(c){return c&&['hold','fill','mill'].includes(c.mode)&&Number.isInteger(c.gate)&&c.gate>=1&&c.gate<=3&&Number.isInteger(c.gear)&&c.gear>=0&&c.gear<=2&&Number.isInteger(c.feed)&&c.feed>=-1&&c.feed<=2&&(c.brake===undefined||typeof c.brake==='boolean')&&(c.buffer===undefined||['idle','store','release'].includes(c.buffer));}
+function valid(c){return c&&['hold','fill','mill'].includes(c.mode)&&Number.isInteger(c.gate)&&c.gate>=1&&c.gate<=3&&Number.isInteger(c.gear)&&c.gear>=0&&c.gear<=2&&Number.isInteger(c.feed)&&c.feed>=-1&&c.feed<=2&&(c.brake===undefined||typeof c.brake==='boolean')&&(c.amount===undefined||(Number.isInteger(c.amount)&&c.amount>=1&&c.amount<=6))&&(c.buffer===undefined||['idle','store','release'].includes(c.buffer));}
 function stroke(state,c){const s=clone(state),r=s.run,j=JOBS[r.job],sea=j.tide[r.step],head=r.basin-sea;let flow=0,gain=0,vent=0,loss=r.tools.includes('bearing')?1:2,outcome='No load queued.',made=-1;
- const buffer=c.buffer||'idle',transfer=buffer==='store'?Math.min(6,r.energy,8-r.reserve):buffer==='release'?0-Math.min(6,r.reserve):0;r.energy-=transfer;r.reserve+=transfer;
+ const amount=c.amount??6,buffer=c.buffer||'idle',transfer=buffer==='store'?Math.min(amount,r.energy,8-r.reserve):buffer==='release'?0-Math.min(amount,r.reserve):0;r.energy-=transfer;r.reserve+=transfer;
  if(c.mode==='fill'){flow=Math.sign(sea-r.basin)*Math.min(c.gate,Math.abs(sea-r.basin));r.basin+=flow;}else if(c.mode==='mill'&&head>0){flow=-Math.min(c.gate,head);gain=-flow*head;r.basin+=flow;r.wheel-=flow;}
  const total=r.energy+gain;r.spilled+=Math.max(0,total-CAP);r.energy=Math.min(CAP,total);const g=GEARS[c.gear],good=GOODS[c.feed];
  const brake=c.brake?Math.min(4,r.energy):0;r.energy-=brake;
