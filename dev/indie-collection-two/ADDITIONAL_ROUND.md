@@ -1,4 +1,4 @@
-# Additional improvement round — 9/20 verified
+# Additional improvement round — 10/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -18,12 +18,12 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 34. Cairn & Cord — anchored lateral traverses, haul-back grip choices and separate survey records; verified commit `eb10e9e87ee414f0a218afe6176cc2589151a592`, CI 40044161548.
 - [x] 35. Murmuration — food-funded clear-air regroup calls and supply/survival choices; verified commit `b1c2421ba2286bc833d62e12ffb256e8cf4795fc`, CI 40048553658.
 - [x] 36. Night Clerk — movable moon/stove service cart, alternative room plans and collateral noise choices; verified commit `08fb6223f98854ee3097560b685b310f22d37dc6`, CI 40052886087.
-- [ ] 37. Clockwork Tide — storage plus metered transfer limits implemented in `d9f27606298257ce63d4d3947fbd7080185ee996`; 45 focused checks, desktop and phone-width play pass. Native regression 40654420826 pending. **Not counted.**
+- [x] 37. Clockwork Tide — counterweight storage and metered transfers; verified `d9f27606298257ce63d4d3947fbd7080185ee996`, CI 40654420826. Four original and four storage campaigns pass desktop/touch; three of 54 screenshots inspected.
 - [x] 38. Ember Parcel — protected crossings and optional timber recovery after rendered play; verified `194b6fbaa4d2b54f52c1d29fcc179f563194b1ed`, CI 40648857538 job 122684566369. All four original and eight kept/lifted campaigns on desktop/touch; 62 screenshots retained, three inspected.
 - [x] 39. Windup Wrestling — kit tradeoffs plus exact optional rehearsal; verified `acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4`, CI 40635652032. All six alternate-kit victories on desktop/touch; 34 screenshots retained, three inspected.
 - [x] 40. Last Lighthouse — portable prism and free direct-chart beam/orientation planning; verified commit `fcc1da11ad19c5b84f88af22d8253a87e15a8e71`, CI 40631660878 job 122629895098. 869 engine/DOM checks and changed-game desktop/touch pass; 52 screenshots retained, three inspected.
 
-No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Eleven candidates still require completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
+No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Ten candidates still require completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
 
 26 October checkpoint: all twenty additional upgrades have implementation source. Six are verified; fourteen still require rendered observation and iteration. This is not 20/20 completed additional improvements.
 
@@ -34,3 +34,5 @@ Native follow-up on 28 October: Last Lighthouse passes desktop/emulated-touch pr
 28 October verification follow-up: Windup native desktop/emulated-touch kit and rehearsal suites pass; inspected three retained screenshots. **8/20 verified**, twelve pending. Prior 7/20 entries above are chronological checkpoints, not current totals.
 
 28 October Ember follow-up: built crossings can now be lifted into the bag, restoring the garden/water hazard. All four reclaimed routes played through rendered UI; native desktop/emulated-touch campaigns and inspected screenshots complete the pass. **9/20 verified**, eleven pending. Full 879 engine/DOM checks pass; remaining unrelated browser groups were running at the evidence checkpoint.
+
+28 October Clockwork verification: all seven CI jobs passed; native storage/metering campaigns and screenshot review complete. **10/20 verified**, ten pending. Earlier counts above are historical checkpoints.
