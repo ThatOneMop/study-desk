@@ -631,7 +631,8 @@
         "6180d74e9db13c9356ed9080e6908e85aaffbca8",
         "81a926013f7ab058d7d354c62715fce12d6efffa",
         "5b0fb766926891c874870f04331198f3802d1a16",
-        "696e6c07a2947a613f99f193a1d058bb5ffe2157"
+        "696e6c07a2947a613f99f193a1d058bb5ffe2157",
+        "4fc1344099f8b0181709129156895449e0f2f148"
       ],
       "selectionReason": "Retain as a finished development candidate for broader comparison. Manual retrieval adds variety, but four wells provide modest depth; no catalogue selection yet.",
       "publishedUrl": null,
@@ -658,12 +659,16 @@
         "testing": [
           "26 engine + 16 jsdom checks pass, including all four original complete wells and sixteen relics. A natural 117-frame rightward collision followed by settling permits one repair; position and saved physics remain exact. The original first cargo route banks one relic instead of two with a packed kit, proving the capacity cost; skipped relic remains available.",
           "Checks include packed/used/legacy saves, invalid flags and overcapacity rejection, single-use/health/speed/cooldown/phase gates, no mutation on rejection, keyboard R, pause/dialog guards, reload, retry, isolated reset and navigation markup. JavaScript syntax passes. DOM uses a null canvas and simulated animation frames, not rendering; no screenshot, actual touch, human enjoyment or full-repository check claim.",
-          "44 focused checks pass (26 engine, 18 DOM), including four complete wells/16 relics, natural collision, physical settling, no kit consumption before choice, cancellation, steering takeover, external pause, exact paused reload and same-frame repair. New native desktop/touch routes cover collision, cancellation, automatic pause, readiness preview, reload, repair and retry; CI 40722093364 is in progress. JavaScript syntax checks pass. Changed rendered screenshots remain unreviewed."
+          "44 focused checks pass (26 engine, 18 DOM), including four complete wells/16 relics, natural collision, physical settling, no kit consumption before choice, cancellation, steering takeover, external pause, exact paused reload and same-frame repair. New native desktop/touch routes cover collision, cancellation, automatic pause, readiness preview, reload, repair and retry; CI 40722093364 is in progress. JavaScript syntax checks pass. Changed rendered screenshots remain unreviewed.",
+          "CI 40722093364 on 696e6c07a2947a613f99f193a1d058bb5ffe2157 passed all seven jobs, 536 engine + 373 DOM = 909 checks, source/asset gates and nine first-batch source integrity checks. Native job 122936770474 passed desktop/emulated-touch natural damage, cancelled/resumed settling, paused button repair and exact reload; four complete wells/16 relics, upgrades, keyboard/multi-touch, guide/ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF movement.",
+          "Inspected desktop-repair-ready.png, touch-repair-ready.png and touch-repair-complete.png in artifact 12830674734 (26 Wellward captures; ZIP SHA256 2f992bdcc0ba7a9ffefeada1488b7eb1703848068e2b59c4a315418b607e08fc). Readiness, two-to-three straps and one-to-two hooks are legible; long phone scrolling remains. The displayed R shortcut was inactive while paused, discovered by screenshot/source review and fixed in 4fc1344099f8b0181709129156895449e0f2f148.",
+          "45 focused checks now pass (26 engine, 19 DOM), including paused R without simulation advance, repeat rejection and hidden/external-pause guards. Native desktop route now uses R at the stable paused state, touch uses its button. Exact-source run 40731810668 pending."
         ],
-        "remaining": "Review exact-source CI 40722093364 and inspect repair-impact/ready/complete desktop and touch screenshots. Verify progression, loss/retry, save/reset/navigation and assess the repair/capacity tradeoff before credit. Additional count stays 14/20.",
+        "remaining": "Inspect exact-source CI 40731810668 and retained screenshots after the paused-R correction before counting. Earlier full verification passed; 14/20 additional upgrades remain credited until this follow-up passes.",
         "implementationCommits": [
           "5b0fb766926891c874870f04331198f3802d1a16",
-          "696e6c07a2947a613f99f193a1d058bb5ffe2157"
+          "696e6c07a2947a613f99f193a1d058bb5ffe2157",
+          "4fc1344099f8b0181709129156895449e0f2f148"
         ]
       }
     },
@@ -1696,7 +1701,7 @@
       }
     }
   ],
-  "nextSteps": "Review exact-source CI 40722093364 and inspect repair-impact/ready/complete desktop and touch screenshots. Verify progression, loss/retry, save/reset/navigation and assess the repair/capacity tradeoff before credit. Additional count stays 14/20. Then finish Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper before final slate selection. Third collection remains 24/50 built.",
+  "nextSteps": "Inspect exact-source CI 40731810668 and retained screenshots after the paused-R correction before counting. Earlier full verification passed; 14/20 additional upgrades remain credited until this follow-up passes. Then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper; final second-batch selection and third collection remain incomplete.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2200,6 +2205,14 @@
       "ci": "40722093364",
       "publicIntegration": null,
       "nextSteps": "Review exact-source CI 40722093364 and inspect repair-impact/ready/complete desktop and touch screenshots. Verify progression, loss/retry, save/reset/navigation and assess the repair/capacity tradeoff before credit. Additional count stays 14/20. Then finish Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper before final slate selection. Third collection remains 24/50 built."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "4fc1344099f8b0181709129156895449e0f2f148",
+      "result": "Wellward's seven-job native suite passed and three screenshots were inspected. Found advertised R shortcut inactive while paused and repaired it; 45 focused checks pass. Final native follow-up pending, additional count stays 14/20.",
+      "ci": "40731810668",
+      "publicIntegration": null,
+      "nextSteps": "Inspect exact-source CI 40731810668 and retained screenshots after the paused-R correction before counting. Earlier full verification passed; 14/20 additional upgrades remain credited until this follow-up passes. Then Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper; final second-batch selection and third collection remain incomplete."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
