@@ -1022,12 +1022,14 @@
         "Both scripts parse; new local asset references and unique HTML IDs pass; bridge is first script; Games navigation resolves to root catalogue. No new Switch workspace controls.",
         "No rendered browser, inspected screenshots, native touch/dialog/focus verification, enjoyment evidence, qualified improvement pass, full-repository build or live-release evidence.",
         "Leave-one reserve: 27 passing tests (16 engine, 11 jsdom), retaining original 20. Three new reserve-inclusive routes with per-action UI save/reload; strict eligibility/type/repeat guards, long reverse laps, undo/retry restoration, legacy save compatibility, preview immutability, shortage feedback, native keyboard/pause/modal guards. Scripts parse. No rendered evidence.",
-        "Bloom deferral: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining previous 27. Three deferral-inclusive campaigns through controls and per-action save/reload; retained pile/no flower accounting, reserve/reverse cost combination, strict true/exact-landing guards, last-turn victory refusal, undo/replay, old route compatibility, exact previews, plan-change reset and native/pause/modal controls. Syntax, IDs, asset references and bridge-first checks pass. No rendered evidence."
+        "Bloom deferral: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining previous 27. Three deferral-inclusive campaigns through controls and per-action save/reload; retained pile/no flower accounting, reserve/reverse cost combination, strict true/exact-landing guards, last-turn victory refusal, undo/replay, old route compatibility, exact previews, plan-change reset and native/pause/modal controls. Syntax, IDs, asset references and bridge-first checks pass. No rendered evidence.",
+        "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit."
       ],
       "commits": [
         "018d8c74baec589351be660fc3519352a1652ecc",
         "e6beab4bf5bedb9569efe379e5f65d85781e4673",
-        "701f44d42eeba3cf4b7387c9f70cc39de920ce68"
+        "701f44d42eeba3cf4b7387c9f70cc39de920ce68",
+        "12af5c7665e55c69a9b2e712581e9b11b43d0f1e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1052,6 +1054,12 @@
         "before": "Exact final landings automatically spent their pile for a flower.",
         "after": "Optionally keep an exact landing's seeds for later sowing, forgoing its flower but paying normal move/gust costs. Can combine with the reserve. Explicit preview and plan-change reset prevent silent carryover; old saves remain automatic.",
         "remaining": "Rendered desktop/touch play and screenshot inspection; assess seed-conservation decisions and control complexity before required playtest-led qualification."
+      },
+      "pendingVisibilityFix": {
+        "commit": "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
+        "before": "A pending reset or corrupt-save recovery could commit while hidden, and Resume lacked a persistent hidden-state guard. Keyboard shortcuts could act during composition or editable-text input.",
+        "after": "Parent hiding and document visibility independently guard actions/resume/confirmations; returning stays paused. Confirmation can be cancelled and reopened after explicit resume. Composition and editable text are excluded from shortcuts.",
+        "verification": "Real bridge loaded with simulated parent and dialog stubs; rendered/native dialog verification pending."
       }
     },
     {
@@ -1072,12 +1080,14 @@
         "Both scripts parse. Local asset references, unique IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
         "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence.",
         "Under-folding: 21 passing tests (11 engine, 10 jsdom 26.1.0), retaining original 14. Three under-inclusive routes through controls and per-action reload; reversed/face-flipped bottom insertion, stationary top preservation, identical geometry/conservation, empty destinations, strict flags, undo/retry and old journals, mode previews and native/pause/modal guards. Both scripts parse. No rendered evidence.",
-        "Whole-sheet turnover: 27 passing tests (14 engine, 13 jsdom 26.1.0), retaining original 21. Three single-turnover routes with per-action control-driven reload; exact mirroring, stack reversal/face flipping, paper conservation, involution, allowance, strict actions, undo/retry, previews, disabled unrelated controls and native/keyboard/pause/modal guards. Scripts parse; IDs, bridge order and no workspace-switch control checks pass. No rendered evidence."
+        "Whole-sheet turnover: 27 passing tests (14 engine, 13 jsdom 26.1.0), retaining original 21. Three single-turnover routes with per-action control-driven reload; exact mirroring, stack reversal/face flipping, paper conservation, involution, allowance, strict actions, undo/retry, previews, disabled unrelated controls and native/keyboard/pause/modal guards. Scripts parse; IDs, bridge order and no workspace-switch control checks pass. No rendered evidence.",
+        "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit."
       ],
       "commits": [
         "f4672b82254e5e063573bf7cfa317f879d6b333a",
         "bb255e048f6cbccea5d103460df6fe22d904c949",
-        "9af4c55b48f6f67f68683d7c5d8789278604d034"
+        "9af4c55b48f6f67f68683d7c5d8789278604d034",
+        "12af5c7665e55c69a9b2e712581e9b11b43d0f1e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1102,6 +1112,12 @@
         "before": "Only crease folds could expose another face, moving selected stacks onto other panes.",
         "after": "Optional one-move whole-sheet turnover mirrors every pane left-to-right and reverses/flips every stack without merging panes. Exact preview and layer inspection use mode; original v1 journals remain valid.",
         "remaining": "Render desktop/touch play, inspect screenshots and assess usefulness, mirror-direction clarity and mode readability before qualification."
+      },
+      "pendingVisibilityFix": {
+        "commit": "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
+        "before": "A pending reset or corrupt-save recovery could commit while hidden, and Resume lacked a persistent hidden-state guard. Keyboard shortcuts could act during composition or editable-text input.",
+        "after": "Parent hiding and document visibility independently guard actions/resume/confirmations; returning stays paused. Confirmation can be cancelled and reopened after explicit resume. Composition and editable text are excluded from shortcuts.",
+        "verification": "Real bridge loaded with simulated parent and dialog stubs; rendered/native dialog verification pending."
       }
     },
     {
@@ -1121,11 +1137,13 @@
         "21 passing tests: 10 engine, 11 jsdom 26.1.0. Three premium fair routes completed through controls with per-action save/reload; 73 sampled conservative supply routes; deterministic offers, ties, overbids, losing bids, exact recipes/refunds, natural last-auction delivery, loss/undo/retry, bounded best records, malformed actions/saves, new fair confirmation, native/focus/pause/modal/parent/document guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse. Local asset references, unique/used IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
         "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence.",
-        "Thread exchange: 28 passing tests (14 engine, 14 jsdom 26.1.0), retaining all original 21. Three exchange-inclusive routes through controls with per-action reload, exact two-for-one conservation, no coin/auction cost, strict single use, invalid actions, pure forecasts, pause/modal guards, undo restoration and natural twelve-action final-auction rescue. Both scripts parse; IDs/controls/bridge order pass. No rendered evidence."
+        "Thread exchange: 28 passing tests (14 engine, 14 jsdom 26.1.0), retaining all original 21. Three exchange-inclusive routes through controls with per-action reload, exact two-for-one conservation, no coin/auction cost, strict single use, invalid actions, pure forecasts, pause/modal guards, undo restoration and natural twelve-action final-auction rescue. Both scripts parse; IDs/controls/bridge order pass. No rendered evidence.",
+        "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit."
       ],
       "commits": [
         "b53b3875b877c3722f4c031a383590b63b5d527f",
-        "ec1c3e57cc6f11858c639e166f86f1213036b8b5"
+        "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
+        "12af5c7665e55c69a9b2e712581e9b11b43d0f1e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1143,6 +1161,12 @@
         "before": "Only new auction purchases could supply a missing thread colour; surplus could not be converted.",
         "after": "Once per fair, exchange two threads of one colour for one of another without an auction or coin cost. Native controls preview the basket. Available after final auction; undo restores allowance. Existing journals retain purchase/craft outcomes; old surplus baskets can gain this recovery option.",
         "remaining": "Rendered desktop/touch play, screenshots and balance/onboarding assessment before qualification."
+      },
+      "pendingVisibilityFix": {
+        "commit": "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
+        "before": "A pending reset or corrupt-save recovery could commit while hidden, and Resume lacked a persistent hidden-state guard. Keyboard shortcuts could act during composition or editable-text input.",
+        "after": "Parent hiding and document visibility independently guard actions/resume/confirmations; returning stays paused. Confirmation can be cancelled and reopened after explicit resume. Composition and editable text are excluded from shortcuts.",
+        "verification": "Real bridge loaded with simulated parent and dialog stubs; rendered/native dialog verification pending."
       }
     },
     {
@@ -2137,6 +2161,13 @@
       "result": "Bramble Pact neighbour invitations implemented; 31 engine/DOM tests pass. Counts remain 23 built, zero qualified improved/browser-tested/integrated/live; second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed; no rendered evidence."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
+      "result": "Fixed hidden confirmation/resume and composing/editable-input guards in Foldlight, Seedwake and Thimble Fair. 104 engine/DOM checks pass, including 15 new bridge regressions (12 red before fixes). Counts unchanged.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing policy blocker not retried/bypassed; no rendered evidence."
     }
   ]
 }
