@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 8,
+  "completed": 9,
   "required": 20,
   "candidates": [
     {
@@ -285,16 +285,24 @@
       "slot": 38,
       "id": "ember-parcel",
       "title": "Ember Parcel",
-      "status": "implemented-awaiting-rendered-review",
-      "observedWeakness": "Source-based hypothesis: packed timber has only one use, stoking; garden avoidance and water routes cannot be improved by spending carried supplies. No new rendered observation while preview access is blocked.",
-      "before": "Packed kindling only restores warmth. Walking on gardens burns them; water costs four warmth, or two with cloak.",
-      "after": "Boardwalk mode spends one packed bundle and one warmth to cover adjacent water or a garden without moving. Crossings persist for the journey, cost one warmth to walk on and protect gardens from steps and flares. This competes with stoking for four warmth. V shortcut, mutually exclusive modes, labelled map tiles and undo/replay saves expose the choice.",
-      "implementationCommit": "736f0982041f909c218328e06edcf2b1bda7865d",
+      "status": "verified",
+      "observedWeakness": "Rendered first garden crossing left the player at two warmth with an empty bag and stranded timber behind them. The earlier additional-round boardwalk source only allowed permanent placement; route resources could not be recovered after crossing.",
+      "before": "Initial packed kindling only restored warmth. The earlier additional-round source added permanent garden/water crossings, but spent the bundle for the rest of the journey.",
+      "after": "Build a protected crossing for one bundle and one warmth; after passing it, optionally lift it for one warmth to recover the bundle. The original garden or deep water returns, exposing future footsteps/flares or water cost. Reuse timber for another crossing or four warmth. C keyboard mode, touch-sized controls, explicit cost hints and legal-cell highlighting make the choice readable. Hidden views cancel pending resets and cannot resume until visible; v1 journals and best records are preserved.",
+      "implementationCommit": "194b6fbaa4d2b54f52c1d29fcc179f563194b1ed",
       "testing": [
         "17 engine + 9 jsdom checks pass. All four original routes remain valid; four new earned-boardwalk routes finish with zero burned gardens, with per-action save roundtrips. Construction costs, invalid targets, exhausted resources, zero-warmth loss/recovery, flare protection, undo/retry and records are checked.",
-        "DOM checks include four boardwalk deliveries, V shortcut, mode exclusivity, construction reload, pause, retry confirmation, navigation markup and existing scoped save recovery/reset. Syntax checks pass. No rendered review, screenshot inspection, actual touch, human enjoyment or full-repository test claim."
+        "DOM checks include four boardwalk deliveries, V shortcut, mode exclusivity, construction reload, pause, retry confirmation, navigation markup and existing scoped save recovery/reset. Syntax checks pass. No rendered review, screenshot inspection, actual touch, human enjoyment or full-repository test claim.",
+        "2026-10-28: 22 engine + 11 DOM checks pass. Four original, four kept-boardwalk and four reclaimed-boardwalk routes remain legal; new routes save/replay after every action and preserve all gardens. Recovered terrain hazards, full-bag/zero-heat/invalid/repeated lifting, resource conservation, undo, key/pointer mode exclusivity, saved recovery, scoped reset and hidden confirmation guards checked.",
+        "Direct rendered walkthrough: played old permanent crossing before editing, then lifted it from an existing saved journey, restored the garden, tested burning it and undo, and completed the delivery by stoking the recovered bundle. Completed the other three reclaimed crossings at 390px iframe width with pointer controls; final route reached zero warmth with one recovered bundle, survived reload and delivered. Loss/undo/retry, pause, confirmation cancellation and field guide inspected. Desktop baseline and phone active-mode screenshots visually reviewed. Narrow-screen pointer play is not physical touch.",
+        "CI 40648857538 on 194b6fbaa4d2b54f52c1d29fcc179f563194b1ed: 522 engine + 357 DOM = 879 checks pass, including asset/syntax, first-batch integrity and second-batch gates. Native browser job 122684566369 passes desktop and emulated-touch four original deliveries plus all eight kept/lifted crossing campaigns, exact constructed/reclaimed/won save reloads, zero-warmth rescue, natural loss/undo/retry, equipment, confirmations, pause, isolated recovery/reset and navigation. Other browser groups still running at this checkpoint.",
+        "62 Ember screenshots retained in artifact 12798682617. Inspected desktop-lifted-choice-0, touch-lifted-reclaim-1 and touch-lifted-won-3: legal crossing highlight, readable cost/mode hints, restored water, intact records and wrapped phone controls. ZIP SHA256 b95edd2995e534a1063b756827612ff49735c0af5b4848d906c81781665f451a. Automated routes and agent walkthroughs are reliability evidence, not human enjoyment or physical-device testing."
       ],
-      "remaining": "Perform supported rendered before/after play, inspect phone controls and boardwalk readability, evaluate fuel versus construction choices and iterate. Verify progression/loss/retry, saves, restart/navigation and screenshots before counting."
+      "remaining": "Verified additional round. Compare after the remaining eleven reviews. Four short fixed routes and the often-superior direct path limit depth; do not select automatically.",
+      "implementationCommits": [
+        "736f0982041f909c218328e06edcf2b1bda7865d",
+        "194b6fbaa4d2b54f52c1d29fcc179f563194b1ed"
+      ]
     },
     {
       "slot": 39,

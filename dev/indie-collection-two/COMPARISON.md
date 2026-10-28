@@ -1,4 +1,4 @@
-# Second-batch comparison, through candidate 35
+# Second-batch comparison — provisional slate review
 
 This is an agent design review of the development slate, not a player survey or final catalogue selection. The ledger remains authoritative for completion and test status. No candidate is selected yet. First-batch games and the separate Nightshift/Afterlight collections are excluded.
 
@@ -32,7 +32,7 @@ Pocket Palaeo combines tactile soil removal with load distributed over a connect
 
 ## Remaining evaluation work
 
-- Build the three unimplemented slots with distinct loops. Do not turn all of them into five-stage optimization puzzles; the remaining action, machinery and social deduction concepts should broaden the slate.
+- All twenty initial candidates are now built and improved. Complete the eleven remaining additional-round rendered reviews before final selection.
 - Revisit the strongest candidates after the full slate exists. Prioritize meaningful progression and readable controls over adding arbitrary counts or waiting time.
 - Compare finalists by enjoyment, depth, polish, reliability and variety, with explicit limitations. Automated winning routes establish reachability and regression coverage, not human enjoyment or hours of content.
 - Select a small complementary group, integrate against freshly read main, update catalogue/launch checks for the current shell, and test the actual release. Preserve the first batch and all unrelated work.
@@ -48,3 +48,7 @@ Murmuration controls the spacing of a whole flock rather than a single vessel or
 Night Clerk shares a ghost-hospitality setting with Tea for Ghosts, but its decisions operate on a room adjacency graph rather than recipe composition. Moving one noisy guest can disturb several others; a felt screen silences incoming noise but cannot change a physical near/away requirement. The last three shifts have no successful allocation without a screen, verified by exhaustive unpadded room permutations. Five stages and a single kit keep the depth rating modest. The two games should compete for catalogue space despite their mechanical distinction.
 
 Clockwork Tide’s player controls water routing, gate opening, gear ratio and hopper load. Water stored during the flood is released against the lower sea on the ebb; the changing head generates energy, while product speed/torque windows decide whether a load succeeds. Exhaustive first-commission state search shows that bypass filling cannot be skipped. The manual brake rescues reachable overspeed states; the governor automates trimming but cannot supply torque. Copper Cadence instead routes conserved beads through unequal tracks and gates. Both should compete on clarity and meaningful machinery rather than receive two catalogue slots merely because their themes differ.
+
+## Ember Parcel additional-round review — 28 October
+
+Recoverable boardwalks turn one bundle into a temporary safe crossing and later fuel, while lifting restores water cost or garden exposure. The choice is distinct from the other slate's continuous winch/cargo movement. All four kept and all four reclaimed routes finish with no burned gardens; on those fixtures, recovery adds two actions and three arrival warmth, improving score by one. A return trip can make leaving the boardwalk preferable. Original shortest routes may still outperform construction: do not mistake an extra mechanic for a deeper campaign. Four short fixed maps and no sound layer remain limitations. Provisional enjoyment 3, depth 2.5, polish 3.5, reliability 4.5, variety 4 out of 5; this is agent judgment, not a player study. Retain for comparison, not automatic catalogue selection.
