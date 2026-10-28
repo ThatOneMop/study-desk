@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 12/20 additional upgrades fully verified.** All twenty additional upgrades have source. Pocket Palaeo now combines resin-jacket protection with staged treatment forecasts, retained lift plans and clean journal-reset behavior. Native desktop/emulated-touch campaigns and screenshot review pass; all seven final CI jobs passed. See [current evidence](PALAEO_JACKETS.md).
+**20/20 playable, initially improved and finished; 13/20 additional upgrades fully verified.** All twenty additional upgrades have source. Salt & Sail now compares kept and discarded cargo under selectable reefed helm, with exact risk forecasts and fully visible paths. All seven exact-source CI jobs pass: 896 engine/DOM checks, native original/discard/risk routes and inspected screenshots. See [current evidence](SALT_CARGO_COMPARISON.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 

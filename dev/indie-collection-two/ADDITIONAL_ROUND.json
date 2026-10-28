@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 12,
+  "completed": 13,
   "required": 20,
   "candidates": [
     {
@@ -135,7 +135,7 @@
       "slot": 29,
       "id": "salt-and-sail",
       "title": "Salt & Sail",
-      "status": "implemented-awaiting-final-rendered-verification",
+      "status": "verified",
       "observedWeakness": "Native-run desktop and 390px mid-voyage screenshots showed optional cargo buttons naming goods without advance handling guidance; the paused chart overlay and distant hold details separated the decision from its consequence. Source confirmed that jettison confirmation only compared value, mass and list. New rendered comparison screenshots then exposed a sharp-turn forecast clipped by fixed chart bounds.",
       "before": "Optional cargo can be sacrificed, but confirmation offers only weight/list/value numbers and a generic warning. Players cannot compare kept and discarded courses under different steering choices.",
       "after": "A paused two-second comparison charts keeping versus discarding cargo under selectable straight, port or starboard reefed helm. It shows hull hits/landing outcomes without advancing frames or spending cargo; confirmation remains one reefed step and pauses. Value-labelled touch controls keep their identity while sailing, hidden inputs are guarded, and both complete forecast paths remain within automatically expanded chart bounds.",
@@ -144,9 +144,11 @@
         "36 engine + 18 jsdom checks pass. Original five full-cargo keel and cutter routes remain valid. Five new jettison routes deliver required contracts with values 19/36/27/36/29 and seals 2/2/2/2/1. The fifth route takes a hull hit and loses citrus as well: removing balancing salt is not uniformly beneficial.",
         "Pure preview matches the recorded reefed frame; forecast, exact replay/reload, both optional slots, protected contracts, repeated/invalid rejection, legacy best records, confirm/cancel, paused reload, retry, isolated saves and navigation are checked. Both scripts pass syntax. DOM uses simulated frames and a null canvas, not rendered play; no screenshot, actual touch, human enjoyment or full-repository check claimed.",
         "60 focused engine/DOM checks pass. New pure equal-horizon comparison matches actual physics, includes confirmation-frame damage, preserves saves, and tests both helpful and harmful naturally reached mid-voyage choices. A failing endpoint assertion and a failing clipped-path DOM case were reproduced before their respective corrections.",
-        "CI 40692035038 on c9677ba910996e90a0bbe2faa78adc3812370999 passed all seven jobs, 895 engine/DOM checks and desktop/emulated-touch original plus five jettison deliveries, native risk cases, saves/retry/reset/navigation. 68 Salt screenshots retained in artifact 12818312551 (ZIP SHA256 141079829202163c4780f9690c263512d9efddc9c4ecf990c70eb63a42731b69). Inspected desktop-jettison-risk-0 and touch-jettison-risk-2; the latter exposed the cropped endpoint. These screenshots precede the bounds fix, so the additional pass remains uncounted."
+        "CI 40692035038 on c9677ba910996e90a0bbe2faa78adc3812370999 passed all seven jobs, 895 engine/DOM checks and desktop/emulated-touch original plus five jettison deliveries, native risk cases, saves/retry/reset/navigation. 68 Salt screenshots retained in artifact 12818312551 (ZIP SHA256 141079829202163c4780f9690c263512d9efddc9c4ecf990c70eb63a42731b69). Inspected desktop-jettison-risk-0 and touch-jettison-risk-2; the latter exposed the cropped endpoint. At that historical checkpoint these screenshots preceded the bounds fix, and the additional pass was not counted.",
+        "Final source e1ed0d48c2abff8321e6e011666b2d2343e54292 passed all seven CI jobs in run 40694980007: 530 engine + 366 DOM = 896 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122840267369 passes five original three-seal and five jettison deliveries on desktop and emulated touch, pure three-helm comparisons, both naturally reached helpful/harmful discard cases, full visible path bounds, cancellation, exact discarded-cargo reload, preserved best records, native keyboard/multi-touch, cutter unlock, loss/retry, bridge pause, isolated recovery/reset and navigation. Real-time RAF steering also passes. No browser errors.",
+        "68 Salt & Sail screenshots retained in artifact 12820355054. Inspected desktop-jettison-risk-0, touch-jettison-risk-2 and touch-jettison-5-arrival. Corrected sharp-turn paths and endpoints stay inside the chart, the shore boundary is visible, contrasting outcomes and controls remain readable, and the 29-crown one-seal arrival preserves earlier 15-seal best records. Phone pages still require scrolling. ZIP SHA256 388e70bdb7dec5802d6c4ccee214d445a89171d4ffbd30ebfe7ed5cd4d68cd9d. Evidence is automated rendered play plus agent screenshot review, not human enjoyment, direct interactive-browser play this increment, or physical-device testing."
       ],
-      "remaining": "Verify e1ed0d48c2abff8321e6e011666b2d2343e54292 in native desktop/touch, inspect corrected sharp-turn screenshots, then record the final additional-round pass. Count stays 12/20 until that review.",
+      "remaining": "Additional pass complete. Compare the improved full slate before final selection; authored short passages and non-spendable trade records remain scope limits.",
       "implementationCommits": [
         "ef574e418ff648ad99e553b96818016af03621b7",
         "338801dc521a79734d962e66bfcc9bd5ff171e22",

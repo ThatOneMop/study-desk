@@ -1,4 +1,4 @@
-# Additional improvement round — 12/20 verified
+# Additional improvement round — 13/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
@@ -10,7 +10,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [ ] 26. Paper Odyssey — stitched bridges implemented in `21d5fb515207f12feca724c2f5bffb8574a5a6bb`; 59 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
 - [ ] 28. Wellward — cargo-costing repair kit implemented in `5b0fb766926891c874870f04331198f3802d1a16`; 42 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
-- [ ] 29. Salt & Sail — jettison plus selectable keep/discard course comparison implemented; native review found and corrected sharp-turn clipping in `e1ed0d48c2abff8321e6e011666b2d2343e54292`. 60 focused checks pass; exact final native/screenshot review pending. **Not counted.**
+- [x] 29. Salt & Sail — optional cargo sacrifice and selectable keep/discard course comparison, with exact endpoints and full visible paths. Verified final source `e1ed0d48c2abff8321e6e011666b2d2343e54292`, CI 40694980007, 896 engine/DOM checks and three inspected screenshots. See `SALT_CARGO_COMPARISON.md`.
 - [x] 30. Pocket Palaeo — resin-jacket protection, staged treatment forecasts and retained lift guidance; final reset correction `184bb3c613a5dba1c17585500cd69b747b3add3e`, native CI 40686526711, 890 engine/DOM checks and three inspected screenshots. See `PALAEO_JACKETS.md`.
 - [x] 31. Static Orchard — earned-energy blossom lures, tree-placement and limited-resource choices; verified commit `304976b32bb3c7a114d23c235f19f853826041f2`, CI 40061003554.
 - [x] 32. Borrowed Gravity — safe surface anchors and one-use recovery choices; verified commit `dca02c401239e0d9060a7037ea9139a23597c82d`, CI 40057078381.
@@ -40,3 +40,5 @@ Native follow-up on 28 October: Last Lighthouse passes desktop/emulated-touch pr
 28 October Tea verification: saved alternative blends and retained tasting guidance implemented from rendered observation; all six services and the half-measure refinement/tray route pass desktop and emulated touch. All seven CI jobs pass with 887 engine/DOM checks. Three of 34 retained screenshots inspected. **11/20 verified**, nine pending. No new public integration or live upgrade; first batch and concurrent main preserved.
 
 28 October Pocket Palaeo verification: treatment previews, retained lift guidance and the new-journal reset correction pass native desktop/emulated-touch play, saves, original six-specimen progression, loss/retry and navigation. Three of 40 final screenshots inspected. **12/20 verified**, eight pending. All seven final CI jobs passed. No new catalogue integration or live upgrade.
+
+29 October Salt & Sail verification: all five original and five discard deliveries, two mid-voyage risk comparisons, saves, loss/retry, navigation and corrected chart bounds pass desktop/emulated-touch testing. All seven CI jobs pass; three of 68 screenshots inspected. **13/20 verified**, seven pending. No new public integration or live release.

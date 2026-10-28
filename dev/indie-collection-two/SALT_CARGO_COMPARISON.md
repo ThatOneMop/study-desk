@@ -16,19 +16,19 @@ The cargo buttons now expose forfeited value, have larger touch targets, and kee
 
 ## Implementation evidence
 
-- Earlier optional-jettison mechanics: ef574e418ff648ad99e553b96818016af03621b7 (previously uncounted source-only additional work).
-- Comparison chart, selectable helm, control stability and guards: 338801dc521a79734d962e66bfcc9bd5ff171e22.
-- Mid-voyage regression scenarios: f94a8a3f62284794c5f193b16bd1f5a7d0d32c0c.
-- Sharp-turn viewport correction: e1ed0d48c2abff8321e6e011666b2d2343e54292. The rendered phone risk comparison clipped its final point; a DOM regression reproduced y = -4.29 outside the chart before the bounds were expanded to include both complete paths.
-- Exact plotted endpoint correction: c9677ba910996e90a0bbe2faa78adc3812370999. A new assertion first failed because a 119-frame sampled path stopped at frame 105; the final actual position is now included. Numerical prediction and saved voyage physics were unchanged.
+- Earlier optional-jettison mechanics: [ef574e4](https://github.com/ThatOneMop/study-desk/commit/ef574e418ff648ad99e553b96818016af03621b7) (previously uncounted source-only additional work).
+- Comparison chart, selectable helm, control stability and guards: [338801d](https://github.com/ThatOneMop/study-desk/commit/338801dc521a79734d962e66bfcc9bd5ff171e22).
+- Mid-voyage regression scenarios: [f94a8a3](https://github.com/ThatOneMop/study-desk/commit/f94a8a3f62284794c5f193b16bd1f5a7d0d32c0c).
+- Sharp-turn viewport correction: [e1ed0d4](https://github.com/ThatOneMop/study-desk/commit/e1ed0d48c2abff8321e6e011666b2d2343e54292). The rendered phone risk comparison clipped its final point; a DOM regression reproduced y = -4.29 outside the chart before the bounds were expanded to include both complete paths.
+- Exact plotted endpoint correction: [c9677ba](https://github.com/ThatOneMop/study-desk/commit/c9677ba910996e90a0bbe2faa78adc3812370999). A new assertion first failed because a 119-frame sampled path stopped at frame 105; the final actual position is now included. Numerical prediction and saved voyage physics were unchanged.
 
 ## Verification
 
-60 focused engine/DOM checks pass. New pure equal-horizon comparison matches actual physics, includes confirmation-frame damage, preserves saves, and tests both helpful and harmful naturally reached mid-voyage choices. A failing endpoint assertion and a failing clipped-path DOM case were reproduced before their respective corrections.
+Final source [e1ed0d4](https://github.com/ThatOneMop/study-desk/commit/e1ed0d48c2abff8321e6e011666b2d2343e54292) passed all seven CI jobs in [run 40694980007](https://github.com/ThatOneMop/study-desk/actions/runs/40694980007): 530 engine + 366 DOM = 896 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122840267369 passes five original three-seal and five jettison deliveries on desktop and emulated touch, pure three-helm comparisons, both naturally reached helpful/harmful discard cases, full visible path bounds, cancellation, exact discarded-cargo reload, preserved best records, native keyboard/multi-touch, cutter unlock, loss/retry, bridge pause, isolated recovery/reset and navigation. Real-time RAF steering also passes. No browser errors.
 
-CI 40692035038 on c9677ba910996e90a0bbe2faa78adc3812370999 passed all seven jobs, 895 engine/DOM checks and desktop/emulated-touch original plus five jettison deliveries, native risk cases, saves/retry/reset/navigation. 68 Salt screenshots retained in artifact 12818312551 (ZIP SHA256 141079829202163c4780f9690c263512d9efddc9c4ecf990c70eb63a42731b69). Inspected desktop-jettison-risk-0 and touch-jettison-risk-2; the latter exposed the cropped endpoint. These screenshots precede the bounds fix, so the additional pass remains uncounted.
+68 Salt & Sail screenshots retained in [artifact 12820355054](https://github.com/ThatOneMop/study-desk/actions/runs/40694980007/artifacts/12820355054). Inspected desktop-jettison-risk-0, touch-jettison-risk-2 and touch-jettison-5-arrival. Corrected sharp-turn paths and endpoints stay inside the chart, the shore boundary is visible, contrasting outcomes and controls remain readable, and the 29-crown one-seal arrival preserves earlier 15-seal best records. Phone pages still require scrolling. ZIP SHA256 388e70bdb7dec5802d6c4ccee214d445a89171d4ffbd30ebfe7ed5cd4d68cd9d. Evidence is automated rendered play plus agent screenshot review, not human enjoyment, direct interactive-browser play this increment, or physical-device testing.
 
-Verify e1ed0d48c2abff8321e6e011666b2d2343e54292 in native desktop/touch, inspect corrected sharp-turn screenshots, then record the final additional-round pass. Count stays 12/20 until that review.
+Current result: **13/20 additional upgrades verified**, 33 meaningful passes including the 20 initial passes. Third collection remains **24/50 built; 0 qualified improved/browser-tested/integrated/live**. No new catalogue integration or live upgrade in this increment.
 
 ## Quality and scope
 
