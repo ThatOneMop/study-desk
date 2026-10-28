@@ -1299,7 +1299,8 @@
       "developmentCommits": [
         "3f5276be1a439d5c5abb1606e704d7d93c367ac6",
         "28583831dc5a72398865bc1665eabbd367e6dd2f",
-        "2fecaad67037611daa8f410ae723e35992b3ac2d"
+        "2fecaad67037611daa8f410ae723e35992b3ac2d",
+        "d9f27606298257ce63d4d3947fbd7080185ee996"
       ],
       "verification": {
         "status": "passed",
@@ -1320,17 +1321,27 @@
         "slot": 37,
         "id": "clockwork-tide",
         "title": "Clockwork Tide",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Source-based hypothesis: the flywheel only permits immediate use, decay or disposal of energy, with no alternative reserve to manage across idle tide marks. No new rendered observation while preview access remains blocked.",
-        "before": "Flywheel energy loses one or two each stroke; excess speed can only be discarded with the brake/governor. Four fixed commissions remain.",
-        "after": "A counterweight banks up to six existing flywheel energy before the wheel turns, capped at eight stored without friction. Release returns up to six before capacity/brake/governor/load calculations. Banking can stall a load; releasing can scorch one or overflow. Exact forecasts, one-stroke native selector, reserve meter, undo and replay saves expose the tradeoff.",
-        "implementationCommit": "2fecaad67037611daa8f410ae723e35992b3ac2d",
+        "status": "implemented-awaiting-native-review",
+        "observedWeakness": "Rendered first commission at stroke six had five stored energy; Release emptied the reserve even though the mill could deliver with a smaller contribution. The all-or-up-to-six control prevented dividing reserve across loads.",
+        "before": "Counterweight could bank or release up to six energy per stroke, without choosing a smaller transfer.",
+        "after": "Transfer limit selects one to six energy for either direction, preserving unused energy in its original store. The exact forecast exposes speed, damage, spillage and remaining reserve before commitment. Limit persists between strokes; transfer mode still returns to Hold. Legacy commands retain their six-energy default.",
+        "implementationCommit": "d9f27606298257ce63d4d3947fbd7080185ee996",
         "testing": [
           "28 engine + 14 jsdom checks pass. All four original campaigns remain valid. Four separate storage routes earn three seals, actually bank and release energy, match pure forecasts and round-trip saves after every action. Conservation, eight-energy capacity, six-energy transfer, partial/empty/full transfers, friction-free holding, stalling, overspeed, overflow and governor interactions checked.",
-          "DOM coverage includes all four storage campaigns, saved selection/transfers/wins, selector reset to Hold, focus, pause/dialog guards, undo and retry confirmation. Existing failure, recovery/reset and navigation markup checks pass. Syntax passes. No rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed."
+          "DOM coverage includes all four storage campaigns, saved selection/transfers/wins, selector reset to Hold, focus, pause/dialog guards, undo and retry confirmation. Existing failure, recovery/reset and navigation markup checks pass. Syntax passes. No rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed.",
+          "2026-10-28: 30 engine + 15 DOM checks pass. All four original and storage campaigns remain valid; each limit 1–6 is tested for real reserve transfer, exact forecast/replay, conservation, invalid values and successful first-commission continuation. UI choice/reload/undo and persistent limit checked.",
+          "Rendered baseline first six strokes reviewed. New one-energy release preserved four stored energy and delivered; a one-energy bank on the next stroke completed the first three-seal order. At 390px completed second storage commission, bought bearings and reloaded both three-seal records. Desktop and phone screenshots inspected. These are pointer walkthroughs, not physical touch or human enjoyment evidence.",
+          "Expanded native regression to all four storage campaigns in addition to original campaigns; includes first-commission metered release, exact saved settings and wins. CI 40654420826 pending; do not count verified yet. Previous Ember CI 40648857538 now confirmed successful in full."
         ],
-        "remaining": "Perform supported rendered before/after play, assess energy allocation and balance, inspect the enlarged phone panel and reserve readability, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
-      }
+        "remaining": "Inspect exact-source CI 40654420826, verify native desktop/touch storage routes and screenshots, then finish loss/retry/navigation review before counting. Four short fixed commissions remain a depth limitation.",
+        "implementationCommits": [
+          "2fecaad67037611daa8f410ae723e35992b3ac2d",
+          "d9f27606298257ce63d4d3947fbd7080185ee996"
+        ]
+      },
+      "nextSteps": [
+        "Inspect exact-source CI 40654420826, verify native desktop/touch storage routes and screenshots, then finish loss/retry/navigation review before counting. Four short fixed commissions remain a depth limitation."
+      ]
     },
     {
       "slot": 38,
@@ -1591,7 +1602,7 @@
     }
   ],
   "nextSteps": [
-    "Complete eleven remaining additional-round rendered reviews and substantive iterations; start with Clockwork Tide's pending storage mechanic. Review the remaining jobs in CI 40648857538.",
+    "Inspect exact-source CI 40654420826, verify native desktop/touch storage routes and screenshots, then finish loss/retry/navigation review before counting. Four short fixed commissions remain a depth limitation. Then complete the other ten additional-round reviews.",
     "Compare the improved full slate and integrate selected source using freshly reread main; preserve concurrent 13 second-batch entries, Gummy Bay and requested games.",
     "Third collection remains 24/50 built, zero improved/browser-tested/integrated/live in its own ledger. Complete distinct remaining candidates and substantive rendered-play improvements; no reskins or placeholder counts.",
     "Keep existing automation cadence; do not pause until obligations complete."
@@ -2014,6 +2025,14 @@
       "publicIntegration": null,
       "regressionStatus": "CI 40648857538 on 194b6fbaa4d2b54f52c1d29fcc179f563194b1ed: 522 engine + 357 DOM = 879 checks pass, including asset/syntax, first-batch integrity and second-batch gates. Native browser job 122684566369 passes desktop and emulated-touch four original deliveries plus all eight kept/lifted crossing campaigns, exact constructed/reclaimed/won save reloads, zero-warmth rescue, natural loss/undo/retry, equipment, confirmations, pause, isolated recovery/reset and navigation. Other browser groups still running at this checkpoint.",
       "nextSteps": "Complete eleven remaining additional-round rendered reviews and substantive iterations; start with Clockwork Tide's pending storage mechanic. Review the remaining jobs in CI 40648857538."
+    },
+    {
+      "date": "2026-10-28",
+      "gameplayCommit": "d9f27606298257ce63d4d3947fbd7080185ee996",
+      "result": "Clockwork Tide adjustable counterweight transfers implemented from rendered observation. 45 focused checks and rendered first/second commission play pass; native verification pending. Additional count remains 9/20; third batch remains 24/50 built, zero qualified improved/browser-tested/integrated/live.",
+      "ci": "40654420826",
+      "publicIntegration": null,
+      "nextSteps": "Inspect exact-source CI 40654420826, verify native desktop/touch storage routes and screenshots, then finish loss/retry/navigation review before counting. Four short fixed commissions remain a depth limitation."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
