@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 36,
+    "meaningfulPasses": 37,
     "verifiedLive": 0
   },
   "deployment": {
@@ -154,6 +154,16 @@
             "Reduce oversized scene/header spacing so the crane and controls can be viewed together; retain clear pixel-art sprites, responsive layout and reduced-motion support."
           ],
           "validation": "23 engine + 17 DOM checks. Exact-source CI 39930163890 passed both full five-job desktop/touch campaigns, all Reefwright campaigns, persistence, restart, loss/undo and navigation. 36 screenshots (22 Counterweight, 14 Reefwright); representative Counterweight desktop/phone images reviewed."
+        },
+        {
+          "pass": 2,
+          "date": "2026-10-29",
+          "changes": [
+            "Allocate two padded cradles between deliveries: +1 tonne while carried for +3 safe swing, with real torque and supply tradeoffs.",
+            "Rehearse a complete lift with normal controls; inspect delivery, damage, overload and supply costs, then apply or discard. Saved attempts and records remain unchanged until application.",
+            "Bound rehearsal undo to its starting point, restore the live attempt on discard/reload, and prevent preview wins from unlocking jobs or creating records."
+          ],
+          "validation": "Exact source 2bc91453985c3def8b6f51b4c8f696220873a444: CI 40769551504 passed all seven jobs, 537 engine + 379 DOM = 916 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123104095098 passed five original plus five cradled/rehearsed three-medal jobs in each desktop/emulated-touch context. Every delivery was applied and reloaded; exact previews, journal isolation, draft overload/loss/revision/discard/reload, keyboard, original restart/cancel, loss/undo, corrupt-save recovery and navigation passed without browser errors. Inspected desktop-rehearsal-risk.png, touch-rehearsal-delivery.png and touch-rehearsal-complete.png from 28 Counterweight screenshots in artifact 12851884887. Desktop shows the padded 3t load and next-move overload warnings. Phone preview distinctly labels the unchanged save, displays a ten-move/one-cradle clean delivery and readable apply/discard controls; final fifth job shows 63 moves, no damaged loads/overloads, and all jobs complete. No horizontal overflow; phone layout requires vertical scrolling. Archive SHA256 a0540ef86e7e71394b4c5458df6cc406fc777b63a191fc5f33a429fdaa4b3799. Automated rendered gameplay plus agent visual review; not human-enjoyment or physical-device evidence."
         }
       ],
       "tests": [
@@ -161,7 +171,9 @@
         "17 DOM tests: all five campaigns via controls, keyboard guards, invalid actions, onboarding, job unlock/switch confirmation, reload, restart/cancel, unreadable-save protection, storage failure, risk labels and landing advice.",
         "GitHub Chromium desktop 1280x1000 and touch emulation 390x844: all five jobs with three medals; every move checked against its displayed forecast; midgame reloads on all jobs; overload/loss/undo; keyboard; restart/cancel; corrupt recovery preserving an unrelated key; return navigation; no uncaught errors.",
         "Counterweight contributes 22 screenshots; representative desktop completion and phone midgame captures visually reviewed. First job also completed through cloud-browser UI controls.",
-        "All 40 Reefwright engine/DOM checks and both complete five-coast browser campaigns pass unchanged. Public route/assets, nine first-batch source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection checks pass."
+        "All 40 Reefwright engine/DOM checks and both complete five-coast browser campaigns pass unchanged. Public route/assets, nine first-batch source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection checks pass.",
+        "Exact source 2bc91453985c3def8b6f51b4c8f696220873a444: CI 40769551504 passed all seven jobs, 537 engine + 379 DOM = 916 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123104095098 passed five original plus five cradled/rehearsed three-medal jobs in each desktop/emulated-touch context. Every delivery was applied and reloaded; exact previews, journal isolation, draft overload/loss/revision/discard/reload, keyboard, original restart/cancel, loss/undo, corrupt-save recovery and navigation passed without browser errors.",
+        "Inspected desktop-rehearsal-risk.png, touch-rehearsal-delivery.png and touch-rehearsal-complete.png from 28 Counterweight screenshots in artifact 12851884887. Desktop shows the padded 3t load and next-move overload warnings. Phone preview distinctly labels the unchanged save, displays a ten-move/one-cradle clean delivery and readable apply/discard controls; final fifth job shows 63 moves, no damaged loads/overloads, and all jobs complete. No horizontal overflow; phone layout requires vertical scrolling. Archive SHA256 a0540ef86e7e71394b4c5458df6cc406fc777b63a191fc5f33a429fdaa4b3799. Automated rendered gameplay plus agent visual review; not human-enjoyment or physical-device evidence."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -170,7 +182,7 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4.5,
-        "notes": "Distinct deliberate crane loop: balancing reach and cargo weight while using hoist/ballast actions to damp swing, arranging cumulative-load stacks and optimizing move medals. Five compact authored jobs introduce light, heavy, long-reach, mixed-support and wind constraints. Pixel harbour and exact previews are readable in reviewed desktop/mobile captures. Simulation is discrete, not continuous pendulum physics; no sound, procedural campaign, long playtime, physical-device or full screen-reader certification is claimed."
+        "notes": "Distinct deliberate crane loop: balancing reach and cargo weight while using hoist/ballast actions to damp swing, arranging cumulative-load stacks and optimizing move medals. Five compact authored jobs introduce light, heavy, long-reach, mixed-support and wind constraints. Pixel harbour and exact previews are readable in reviewed desktop/mobile captures. Simulation is discrete, not continuous pendulum physics; no sound, procedural campaign, long playtime, physical-device or full screen-reader certification is claimed. Additional round: padded cradles and reversible lift rehearsal deepen equipment allocation and route comparison without changing existing journals. The five original versus cradle routes have mixed move costs, so equipment is not universally superior. Native desktop/phone evidence verifies usability and reliability; this is not a player survey."
       },
       "selected": false,
       "integrationCommits": [],
@@ -194,22 +206,12 @@
           "index.html": "7246d063bb0d27f8b4d4991dd907ba2df7d87ead2b69a032f2b92cb512577e52"
         }
       },
-      "pendingAdditionalUpgrade": {
-        "slot": 22,
-        "id": "counterweight",
-        "title": "Counterweight",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Reviewed retained native Chromium touch-job-3-mid.png from run 40751257296 / artifact 12843054368. The crane and controls fit the phone width, but forecasts show only one action; the added cradle changes torque throughout a delivery. This is an agent screenshot/source assessment supported by earlier automated rendered routes, not a new human play session.",
-        "before": "Every load uses its fixed swing tolerance and bare weight; only hoist, ballast and settling actions soften landings.",
-        "after": "Two expendable padded cradles per job can be prepared at the dock. Each adds three safe swing and one tonne while carried, consumes a supply on pickup and leaves on delivery. Exact forecasts, carried-weight/tolerance advice, keyboard C, tap-sized control and original cradle outline expose the tradeoff. Existing journals and records retain outcomes. Lift rehearsal now permits testing one delivery with the normal controls without writing the live journal or records. Undo is bounded to the rehearsal start; discard/reload restores the original attempt; apply charges every normal action, overload, damaged load and cradle. A safety-braked plan must be revised before application. Preview completion cannot unlock jobs or award records.",
-        "implementationCommit": "66e77e8d2e7a50acab5e99228cd92be17d958f63",
-        "testing": [
-          "32 engine + 24 jsdom checks pass: all five original three-medal jobs unchanged; five separate cradle routes complete with exact forecast and per-action save roundtrips. Route move counts 17/39/45/53/63 versus old 17/38/46/51/63 show equipment is not uniformly better. Stock exhaustion, invalid use, bounded protection, extra-weight overload/loss/undo, progression, records, reload, keyboard and scoped restart checked.",
-          "JavaScript syntax passes. DOM clicks/keys/dialogs are simulated; no rendered play, screenshot inspection, physical touch or human enjoyment evidence. Full repository checks were not run from the partial checkout.",
-          "29 Oct 2026: 60 focused checks pass (32 engine + 28 jsdom), including full-lift isolation/commit, preview loss/revision, discard/reload, win record isolation, undo boundary and preserved padding. Expanded native browser test committed for five original plus five cradled/rehearsed campaigns per desktop/touch, exact displayed forecasts, journal isolation, per-delivery commit/reload, keyboard, recovery and navigation. CI and final screenshots pending."
-        ],
-        "remaining": "Inspect exact-source native Chromium results and new desktop/touch rehearsal screenshots; fix any observed failures before crediting the additional pass.",
-        "refinementCommit": "2bc91453985c3def8b6f51b4c8f696220873a444"
+      "additionalVerification": {
+        "commit": "2bc91453985c3def8b6f51b4c8f696220873a444",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40769551504",
+        "job": 123104095098,
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40769551504/artifacts/12851884887",
+        "report": "dev/indie-collection-two/COUNTERWEIGHT_REHEARSAL.md"
       }
     },
     {
@@ -1718,9 +1720,8 @@
     }
   ],
   "nextSteps": [
-    "Verify Counterweight lift rehearsal on exact-source CI and inspect screenshots; do not count until verified.",
-    "Review Lanternwake, Copper Cadence and Hollow Keeper, then compare and select the improved second slate.",
-    "Continue the third batch: 24/50 built, zero qualified improved/browser-tested/integrated/live; preserve all existing work."
+    "Complete rendered game-specific reviews for Lanternwake, Copper Cadence and Hollow Keeper; then compare and integrate selected second-batch games preserving concurrent work.",
+    "Continue third batch: 24/50 built, zero qualified improved/browser-tested/integrated/live. No final pause until requested obligations are complete."
   ],
   "baselineTestLimitations": [
     {
@@ -2257,6 +2258,14 @@
       "ci": "40751257296",
       "publicIntegration": null,
       "nextSteps": "Finish rendered game-specific improvements and exact-source verification for Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare the second slate and integrate selected finished games while preserving concurrent catalogue work. Third collection remains 24/50 built, zero qualified improved/browser-tested/integrated/live."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "2bc91453985c3def8b6f51b4c8f696220873a444",
+      "result": "Counterweight padded cradles and lift rehearsal verified: 916 checks, all seven jobs, original/cradled desktop/touch campaigns and three inspected final screenshots. Additional round 17/20; 37 meaningful passes. No public integration/live change.",
+      "ci": "40769551504",
+      "publicIntegration": null,
+      "nextSteps": "Complete rendered game-specific reviews for Lanternwake, Copper Cadence and Hollow Keeper; then compare and integrate selected second-batch games preserving concurrent work. Continue third batch: 24/50 built, zero qualified improved/browser-tested/integrated/live. No final pause until requested obligations are complete."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2264,7 +2273,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 16,
+    "completed": 17,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

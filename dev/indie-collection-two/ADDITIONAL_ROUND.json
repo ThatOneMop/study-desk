@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 16,
+  "completed": 17,
   "required": 20,
   "candidates": [
     {
@@ -31,7 +31,7 @@
       "slot": 22,
       "id": "counterweight",
       "title": "Counterweight",
-      "status": "implemented-awaiting-rendered-review",
+      "status": "verified",
       "observedWeakness": "Reviewed retained native Chromium touch-job-3-mid.png from run 40751257296 / artifact 12843054368. The crane and controls fit the phone width, but forecasts show only one action; the added cradle changes torque throughout a delivery. This is an agent screenshot/source assessment supported by earlier automated rendered routes, not a new human play session.",
       "before": "Every load uses its fixed swing tolerance and bare weight; only hoist, ballast and settling actions soften landings.",
       "after": "Two expendable padded cradles per job can be prepared at the dock. Each adds three safe swing and one tonne while carried, consumes a supply on pickup and leaves on delivery. Exact forecasts, carried-weight/tolerance advice, keyboard C, tap-sized control and original cradle outline expose the tradeoff. Existing journals and records retain outcomes. Lift rehearsal now permits testing one delivery with the normal controls without writing the live journal or records. Undo is bounded to the rehearsal start; discard/reload restores the original attempt; apply charges every normal action, overload, damaged load and cradle. A safety-braked plan must be revised before application. Preview completion cannot unlock jobs or award records.",
@@ -39,10 +39,17 @@
       "testing": [
         "32 engine + 24 jsdom checks pass: all five original three-medal jobs unchanged; five separate cradle routes complete with exact forecast and per-action save roundtrips. Route move counts 17/39/45/53/63 versus old 17/38/46/51/63 show equipment is not uniformly better. Stock exhaustion, invalid use, bounded protection, extra-weight overload/loss/undo, progression, records, reload, keyboard and scoped restart checked.",
         "JavaScript syntax passes. DOM clicks/keys/dialogs are simulated; no rendered play, screenshot inspection, physical touch or human enjoyment evidence. Full repository checks were not run from the partial checkout.",
-        "29 Oct 2026: 60 focused checks pass (32 engine + 28 jsdom), including full-lift isolation/commit, preview loss/revision, discard/reload, win record isolation, undo boundary and preserved padding. Expanded native browser test committed for five original plus five cradled/rehearsed campaigns per desktop/touch, exact displayed forecasts, journal isolation, per-delivery commit/reload, keyboard, recovery and navigation. CI and final screenshots pending."
+        "29 Oct 2026: 60 focused checks pass (32 engine + 28 jsdom), including full-lift isolation/commit, preview loss/revision, discard/reload, win record isolation, undo boundary and preserved padding. Expanded native browser test committed for five original plus five cradled/rehearsed campaigns per desktop/touch, exact displayed forecasts, journal isolation, per-delivery commit/reload, keyboard, recovery and navigation. CI and final screenshots pending.",
+        "Exact source 2bc91453985c3def8b6f51b4c8f696220873a444: CI 40769551504 passed all seven jobs, 537 engine + 379 DOM = 916 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123104095098 passed five original plus five cradled/rehearsed three-medal jobs in each desktop/emulated-touch context. Every delivery was applied and reloaded; exact previews, journal isolation, draft overload/loss/revision/discard/reload, keyboard, original restart/cancel, loss/undo, corrupt-save recovery and navigation passed without browser errors.",
+        "Inspected desktop-rehearsal-risk.png, touch-rehearsal-delivery.png and touch-rehearsal-complete.png from 28 Counterweight screenshots in artifact 12851884887. Desktop shows the padded 3t load and next-move overload warnings. Phone preview distinctly labels the unchanged save, displays a ten-move/one-cradle clean delivery and readable apply/discard controls; final fifth job shows 63 moves, no damaged loads/overloads, and all jobs complete. No horizontal overflow; phone layout requires vertical scrolling. Archive SHA256 a0540ef86e7e71394b4c5458df6cc406fc777b63a191fc5f33a429fdaa4b3799. Automated rendered gameplay plus agent visual review; not human-enjoyment or physical-device evidence."
       ],
-      "remaining": "Inspect exact-source native Chromium results and new desktop/touch rehearsal screenshots; fix any observed failures before crediting the additional pass.",
-      "refinementCommit": "2bc91453985c3def8b6f51b4c8f696220873a444"
+      "remaining": "Additional round verified. Retain for slate comparison after Lanternwake, Copper Cadence and Hollow Keeper. Five compact fixed manifests remain a depth limitation.",
+      "refinementCommit": "2bc91453985c3def8b6f51b4c8f696220873a444",
+      "verificationCommit": "2bc91453985c3def8b6f51b4c8f696220873a444",
+      "implementationCommits": [
+        "66e77e8d2e7a50acab5e99228cd92be17d958f63",
+        "2bc91453985c3def8b6f51b4c8f696220873a444"
+      ]
     },
     {
       "slot": 23,

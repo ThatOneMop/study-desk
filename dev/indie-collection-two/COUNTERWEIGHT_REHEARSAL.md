@@ -1,6 +1,6 @@
-# Counterweight lift rehearsal — pending native verification
+# Counterweight lift rehearsal — verified
 
-29 October 2026. Source: `2bc91453985c3def8b6f51b4c8f696220873a444`. Additional round remains **16/20 verified**.
+29 October 2026. Source: `2bc91453985c3def8b6f51b4c8f696220873a444`. Additional round is now **17/20 verified** after the evidence below.
 
 ## Observed weakness and change
 
@@ -20,3 +20,11 @@ The preview has an explicit visual frame and summary of moves, deliveries, overl
 First collection, public catalogue, Gummy Bay, requested games and third-batch source are preserved. Third batch remains 24/50 built with zero qualified improved/browser-tested/integrated/live. Remaining additional reviews after Counterweight: Lanternwake, Copper Cadence, Hollow Keeper.
 
 Native verification queued/running: [40769551504](https://github.com/ThatOneMop/study-desk/actions/runs/40769551504), source `2bc91453985c3def8b6f51b4c8f696220873a444`.
+
+## Completed native verification — 29 October 2026
+
+Exact source 2bc91453985c3def8b6f51b4c8f696220873a444: CI 40769551504 passed all seven jobs, 537 engine + 379 DOM = 916 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123104095098 passed five original plus five cradled/rehearsed three-medal jobs in each desktop/emulated-touch context. Every delivery was applied and reloaded; exact previews, journal isolation, draft overload/loss/revision/discard/reload, keyboard, original restart/cancel, loss/undo, corrupt-save recovery and navigation passed without browser errors.
+
+Inspected desktop-rehearsal-risk.png, touch-rehearsal-delivery.png and touch-rehearsal-complete.png from 28 Counterweight screenshots in artifact 12851884887. Desktop shows the padded 3t load and next-move overload warnings. Phone preview distinctly labels the unchanged save, displays a ten-move/one-cradle clean delivery and readable apply/discard controls; final fifth job shows 63 moves, no damaged loads/overloads, and all jobs complete. No horizontal overflow; phone layout requires vertical scrolling. Archive SHA256 a0540ef86e7e71394b4c5458df6cc406fc777b63a191fc5f33a429fdaa4b3799. Automated rendered gameplay plus agent visual review; not human-enjoyment or physical-device evidence.
+
+[CI](https://github.com/ThatOneMop/study-desk/actions/runs/40769551504) · [Screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/40769551504/artifacts/12851884887). The pending statements above describe the implementation checkpoint; this section supersedes them. This verification credits the existing substantial cradle/rehearsal upgrade once, not documentation or tests as a new improvement. The second collection has 20 initially finished games, 17 verified additional upgrades and 37 meaningful passes. No new catalogue integration or verified live upgrade. Third collection remains 24/50 built, zero qualified improved/browser-tested/integrated/live. Next: Lanternwake, Copper Cadence, Hollow Keeper, then slate selection.

@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 16/20 additional upgrades fully verified.** All twenty additional upgrades have source. Reefwright’s selective and paired cuts pass all seven CI jobs: 912 engine/DOM checks, original/cut-assisted desktop and emulated-touch campaigns, and three inspected final screenshots. See [current evidence](REEF_PAIRED_CUTS.md).
+**20/20 playable, initially improved and finished; 17/20 additional upgrades fully verified.** All twenty additional upgrades have source. Counterweight’s padded cradles and lift rehearsal pass all seven CI jobs: 916 engine/DOM checks, original/cradled desktop and emulated-touch campaigns, and three inspected final screenshots. See [current evidence](COUNTERWEIGHT_REHEARSAL.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -80,3 +80,8 @@ Latest next steps (29 October, after Wellward verification): Finish rendered gam
 
 
 Latest next steps (29 October, after Reefwright verification): Finish rendered game-specific improvements and exact-source verification for Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare the second slate and integrate selected finished games while preserving concurrent catalogue work. Third collection remains 24/50 built, zero qualified improved/browser-tested/integrated/live.
+
+
+## Latest verification — 29 October 2026
+
+Counterweight is now verified at `2bc91453985c3def8b6f51b4c8f696220873a444` (CI 40769551504). The additional round is **17/20** with **37 total meaningful passes**. Earlier next-step snapshots above are historical. Remaining reviews: **Lanternwake, Copper Cadence, Hollow Keeper**, followed by selection and integration. Third batch stays 24/50 built and zero qualified improved/browser-tested/integrated/live. No new public release in this increment.
