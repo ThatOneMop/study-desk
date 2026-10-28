@@ -94,7 +94,8 @@
         "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
         "235994ffe87a59ef7e0d864f200696a211d7b07b",
         "0cb2dee04c5190e30ac0f4a3c406c9394e061346",
-        "0db09c81e7d4227733b4a9f16a6cd839187895f1"
+        "0db09c81e7d4227733b4a9f16a6cd839187895f1",
+        "92639e48c7e2409f05f7911f67402707e9537b2b"
       ],
       "selectionReason": "Retain as a finished development candidate until other second-batch candidates can be compared for enjoyment, depth, polish, reliability and collection variety.",
       "publishedUrl": null,
@@ -113,16 +114,21 @@
         "slot": 21,
         "id": "reefwright",
         "title": "Reefwright",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Source-based hypothesis: an obstructing habitat can only be removed by undoing whole later placements; there is no limited way to reshape an established reef. No new rendered observation while preview access remains blocked.",
-        "before": "Eight mixed-species placements only add habitat; undo reverses complete placements and all later work must be retraced.",
-        "after": "Two selective cuts per reef remove individual coral, kelp or nursery squares. Open water can reconnect sea channels or receive a later piece, but the removed habitat and its adjacency benefits are lost. Cuts do not advance or refund the eight-offer deck. Exact staged forecasts, highlighted removal, X shortcut, confirmation, undo and replay saves expose the tradeoff.",
+        "status": "implemented-awaiting-final-rendered-verification",
+        "observedWeakness": "Reviewed retained phone midgame image touch-midgame.png from native run 40731810668/artifact 12835223971. The board/controls are readable but ecological totals sit below the board. Source inspection confirms previews only assess a single cut, making a two-square channel difficult to compare before spending the first cut. This is automated rendered baseline review, not new direct interactive play.",
+        "before": "Two selective cuts exist, but only one can be previewed. Testing a second removal requires committing the first and undoing it later.",
+        "after": "After a valid cut preview, Plan a second cut holds the first square visibly without spending. Selecting a different habitat forecasts the combined ecological result; Confirm both cuts commits both existing replay actions. X cancels the whole plan, invalid/duplicate cuts cannot commit, and Undo restores one square and cut at a time. The two-cut allowance, habitat supply, scoring and version-one saves are unchanged.",
         "implementationCommit": "0db09c81e7d4227733b4a9f16a6cd839187895f1",
         "testing": [
           "30 engine + 26 jsdom checks pass. All five original three-medal campaigns remain unchanged; five new cut-assisted routes earn three medals with vitality 51/41/43/44/49. A channel cut raises thriving nurseries from three to four; another cut drops required forest kelp from six to five and causes survey loss. Replanting cleared space, exhausted stock, invalid operations and per-action replay roundtrips pass.",
-          "UI simulations cover pure exact previews, cancel/Enter confirm, cut reload, progression, undo after loss, modal/bridge guards, scoped restart, preserved best records and navigation markup. Both scripts pass syntax checks. No rendered play, screenshots, actual touch, human enjoyment or full-repository check claimed."
+          "UI simulations cover pure exact previews, cancel/Enter confirm, cut reload, progression, undo after loss, modal/bridge guards, scoped restart, preserved best records and navigation markup. Both scripts pass syntax checks. No rendered play, screenshots, actual touch, human enjoyment or full-repository check claimed.",
+          "58 focused checks pass: 31 engine + 27 DOM. Existing five original and five cut-assisted campaigns preserved. New paired-cut case starts at 27 vitality, drops to 24 after the first cut, then restores 27 and raises thriving nurseries 6→7 after both. Pure planning, atomic invalid/duplicate rejection, exact replay, no deck advancement, cancel, Enter confirmation, reload and two-step undo pass. Native desktop/touch routes added for all five cut-assisted campaigns plus paired plan/cancel/confirm/reload/undo; CI 40751257296 pending."
         ],
-        "remaining": "Perform supported rendered before/after play and balance iteration; inspect removal highlights and the enlarged desktop/phone toolbar. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+        "remaining": "Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20.",
+        "implementationCommits": [
+          "0db09c81e7d4227733b4a9f16a6cd839187895f1",
+          "92639e48c7e2409f05f7911f67402707e9537b2b"
+        ]
       }
     },
     {
@@ -1703,7 +1709,7 @@
       }
     }
   ],
-  "nextSteps": "Finish rendered game-specific upgrades and exact-source verification for Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare and integrate the strongest second-batch games while preserving concurrent catalogue entries. Third collection remains 24/50 built and zero qualified improved/browser-tested/integrated/live; complete its remaining candidates and improvements.",
+  "nextSteps": "Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20. Then Counterweight, Lanternwake, Copper Cadence and Hollow Keeper before final comparative selection. Third collection remains 24/50 built.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2223,6 +2229,14 @@
       "ci": "40731810668",
       "publicIntegration": null,
       "nextSteps": "Finish rendered game-specific upgrades and exact-source verification for Reefwright, Counterweight, Lanternwake, Copper Cadence and Hollow Keeper. Then compare and integrate the strongest second-batch games while preserving concurrent catalogue entries. Third collection remains 24/50 built and zero qualified improved/browser-tested/integrated/live; complete its remaining candidates and improvements."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "92639e48c7e2409f05f7911f67402707e9537b2b",
+      "result": "Reefwright combined two-cut planning implemented from rendered baseline/source review; 58 focused checks pass. Expanded native verification pending; additional count remains 15/20, no integration/live change.",
+      "ci": "40751257296",
+      "publicIntegration": null,
+      "nextSteps": "Inspect exact-source CI 40751257296 and paired-preview/committed desktop and touch screenshots, verify loss/retry/saves/reset/navigation, and evaluate readability before credit. Additional round remains 15/20. Then Counterweight, Lanternwake, Copper Cadence and Hollow Keeper before final comparative selection. Third collection remains 24/50 built."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
