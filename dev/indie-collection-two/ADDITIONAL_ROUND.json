@@ -201,16 +201,23 @@
       "slot": 33,
       "id": "tea-for-ghosts",
       "title": "Tea for Ghosts",
-      "status": "implemented-awaiting-rendered-review",
-      "observedWeakness": "Source/DOM finding only: whole-scoop increments constrain flavour ratios, and Adjust another cup discards the prior recipe. Rendered observation remains blocked.",
-      "before": "Three whole scoops; two tools; the next-cup action empties the pot, even when the player wants to adjust the last tasting.",
-      "after": "Earned half-measure spoon costs two seals and enables fractional ratios within unchanged capacity. Refine this blend retains the tasted recipe and normal attempt count; fresh blend remains a separate choice. Source implemented, not rendered verified.",
-      "implementationCommit": "a66b0a0cc55289c94fe7d845401d11d2065b1aae",
+      "status": "implemented-awaiting-native-verification",
+      "observedWeakness": "Rendered Mabel test: a 27-point cup gave useful flavour/temperature feedback, but Refine this blend removed those comments from the service panel. Live arrows showed only change direction; comparing multiple ideas meant rebuilding recipes or losing one to single-step undo.",
+      "before": "Whole-scoop original service had no retained refinement; the pending half-measure/refine upgrade retained a recipe but still offered only one draft and hid tasting guidance during preparation.",
+      "after": "Earned half measures and recipe refinement now pair with a saved alternative tray: set one blend aside, alter ingredients/extraction/dilution, and exchange both drafts without spending an attempt. Both recipes survive reload and subsequent cups during a visit. Historical tasting notes stay beside the live preview, with no hidden target or predicted score revealed. Restart/visitor change clear the tray; memories, earned tools and history remain. Paused reset/recovery confirmations cannot mutate saves.",
+      "implementationCommit": "d13dc0058e7f888725b75a9629ab3ed6af63ea7d",
       "testing": [
         "24 engine and 15 jsdom checks pass: all six original visitors, earned spoon and competing seal purchases, fractional capacity/locks, semantic saves, exact profiles, refinement/undo/attempt limits, legacy migration, natural loss/retry/reset and unrelated-save preservation.",
-        "JavaScript syntax passes. No rendered browser, screenshot, actual touch or human-enjoyment claim. Full repository suite not run from the partial checkout."
+        "JavaScript syntax passes. No rendered browser, screenshot, actual touch or human-enjoyment claim. Full repository suite not run from the partial checkout.",
+        "2026-10-28: 27 engine + 17 DOM checks pass. Tray exchange/replacement, empty-pot exchange, visit scoping, fractional capacity/locks, old-save migration, invalid tray rejection, exact reload, tasting/refine attempt counts and paused confirmation protection covered. JavaScript syntax passes.",
+        "Rendered desktop walkthrough preserved two alternatives across reload and used keyboard Enter/Space swaps to improve Mabel from 27 to 100. At 390px pointer walkthrough, an earned half-scoop Otis blend improved from 87 to 100 through refinement and tray exchange. Desktop and phone-width screenshots inspected; these are agent walkthroughs, not physical touch or human enjoyment evidence.",
+        "CI 40670487254 passed all 887 engine/DOM checks (527 engine + 360 DOM) and asset/first-batch gates. Native Tea route completed original six visitors, then exposed a harness assumption: keyboard selects emit change at every arrow, so one undo restored 120 after reaching 140, correctly. Test-only correction c8ecf518d2a0ef17c409c3b37c457a3b8d00272d uses one actual native step. CI 40671107031 pending."
       ],
-      "remaining": "Play rendered before/after behavior, assess meaningful choice and mobile layout, iterate from observed weakness and verify saves/reload, loss/retry, navigation and screenshots before counting."
+      "remaining": "Review corrected native desktop/emulated-touch route, loss/retry, reload, reset/recovery/navigation and retained screenshots before counting this additional pass. Current completion remains 10/20.",
+      "implementationCommits": [
+        "a66b0a0cc55289c94fe7d845401d11d2065b1aae",
+        "d13dc0058e7f888725b75a9629ab3ed6af63ea7d"
+      ]
     },
     {
       "slot": 34,
