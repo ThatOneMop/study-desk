@@ -1252,21 +1252,32 @@
         "16 passing tests: 8 engine, 8 jsdom 26.1.0 with actual bridge source and simulated parent/dialogs. Three complete campaigns through controls with per-placement reload, sequential unlock, minimum-placement records (4/6/6), undo/retry, swap/displacement/removal, exact forecasts and no mutation during selection.",
         "Nested frame/descendant mass and local torque verified independently. Legal assignment prefixes through depth three conserve unique ornament identities and total weight. Invalid actions/saves, journal limit recovery, terminal protection, hidden confirmation/recovery, native/composition keys, corrupt/quota persistence and scoped reset pass.",
         "Both production scripts parse; local assets, unique IDs, bridge-first order, accessible diagram description, root Games navigation markup and no Switch workspace controls checked.",
-        "No rendered play, screenshots, real touch/native dialogs, human enjoyment, qualified improvement, full-repository build, catalogue integration or live release evidence."
+        "No rendered play, screenshots, real touch/native dialogs, human enjoyment, qualified improvement, full-repository build, catalogue integration or live release evidence.",
+        "Opening brass refinement: 26 tests pass; old routes 4/6/6 and all four five-action brass arrangements verified in engine and DOM. Separate brass record preserves normal best. See BOUGH_BALANCE_BRASS.md."
       ],
       "commits": [
-        "2f1e5af3e846ded34f0a862bf17730515451e970"
+        "2f1e5af3e846ded34f0a862bf17730515451e970",
+        "29276ebe8746bc3ae33b20494d891a29a48892c3"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
         "status": "Not rated until rendered playtest",
-        "knownLimits": "Three compact fixed mobiles. Schematic stays level while meters report imbalance; no physics animation or audio. Arithmetic/forecast clarity, phone diagram readability and replay depth require rendered assessment."
+        "knownLimits": "Three compact fixed mobiles. Schematic stays level while meters report imbalance; no physics animation or audio. Arithmetic/forecast clarity, phone diagram readability and replay depth require rendered assessment. Brass replay is opening-only; nested progression depth remains unresolved."
       },
       "nextSteps": [
         "Render all three puzzles on desktop/mobile and inspect screenshots, native input/dialogs, saves and navigation.",
         "Assess actual enjoyment and implement a substantial improvement from the most important observed weakness before qualification."
-      ]
+      ],
+      "pendingBrassRefinement": {
+        "status": "implemented-awaiting-rendered-review",
+        "commit": "29276ebe8746bc3ae33b20494d891a29a48892c3",
+        "observedWeakness": "Source hypothesis, not rendered observation: the opening mobile has only bird rearrangement and one fewest-action goal. Nested mobiles remain too constrained for a single added weight.",
+        "before": "Only four bird hooks and ordinary minimum-action record.",
+        "after": "Optional one-unit brass weight at four signed arms in opening mobile. Move/remove costs one action, exact forecasts, undo and a separate brass record. Four alternate complete arrangements take five actions. Nested mobiles reject/hide the tool because no valid brass solution exists.",
+        "tests": "26 tests pass (13 engine, 13 real-bridge jsdom simulation): all old campaigns, four brass wins with reload/unlock, independent record preservation, strict old/new save validation, reversible slide/removal, input/visibility guards and corrupt/quota persistence.",
+        "qualification": "Not counted as a substantial rendered-led improvement; no new game or catalogue entry."
+      }
     },
     {
       "slot": 65,
@@ -2221,6 +2232,13 @@
       "result": "Built slot 64 Bough Balance: original nested torque mobile puzzles, three structural depths, exact forecasts and safe saves. 16 engine/DOM tests pass. Third now 24 built, zero qualified improved/browser-tested/integrated/live; second additional round stays 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing policy blocker not retried or bypassed; no rendered evidence."
+    },
+    {
+      "date": "2026-10-28",
+      "commit": "29276ebe8746bc3ae33b20494d891a29a48892c3",
+      "result": "Bough Balance opening brass-weight challenge implemented with independent record; 26 engine/DOM tests pass. Exactly 50 slots; totals remain 24 built and zero qualified improved/browser-tested/integrated/live. Second additional round remains 6/20 verified.",
+      "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+      "browserStatus": "Existing security-policy blocker not retried or bypassed; no rendered evidence."
     }
   ]
 }
