@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 7/20 additional upgrades fully verified.** All twenty additional upgrades have source; Last Lighthouse now also has direct rendered review and a prism-planning refinement. Its native desktop/touch regression and screenshot review now pass. See [current evidence](LAST_LIGHTHOUSE_PLANNING.md).
+**20/20 playable, initially improved and finished; 8/20 additional upgrades fully verified.** All twenty additional upgrades have source; Last Lighthouse now also has direct rendered review and a prism-planning refinement. Its native desktop/touch regression and screenshot review now pass. See [current evidence](LAST_LIGHTHOUSE_PLANNING.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -36,7 +36,7 @@ The previous Pages configuration blocker is resolved: [main release 40486136506]
 
 No Switch workspace controls were found in main launcher source or 44 second/third-batch game shells. Current main catalogue tests already assert that removed controls are absent. Preserve Games/Collection, search, genres, grouping, sorting, favourites and Gummy Bay.
 
-Next: inspect the final overall CI outcome, finish the remaining thirteen additional-round rendered reviews and substantive iteration, compare/integrate winners, and complete the separate fifty-game slate. Keep the existing cadence; the task is not complete.
+Next: inspect the final overall CI outcome, finish the remaining twelve additional-round rendered reviews and substantive iteration, compare/integrate winners, and complete the separate fifty-game slate. Keep the existing cadence; the task is not complete.
 
 ## Writing and evidence notes
 
@@ -63,3 +63,11 @@ Last Lighthouse now has optional lifeboat beam routes and earned pennants, using
 ## Historical checkpoint: Windup mechanical kits
 
 Implementation and 727 automated engine/DOM checks are saved; rendered review is blocked and additional-round completion remains 6/20. See [Windup kit checkpoint](WINDUP_WRESTLING_KITS.md). No catalogue integration or live release in this increment.
+
+## Windup verification checkpoint — 28 October 2026
+
+CI 40635652032 on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4 passed all seven jobs: 517 engine + 355 DOM = 872 checks, asset/syntax and nine first-batch selected-source integrity gates. Native desktop and emulated touch each complete all three standard bouts and all six alternate kit/rival victories, exact full-exchange rehearsal/cancel/commit, saved mastery reload, natural loss/undo/retry, pause, confirmation cancellation, isolated recovery/reset and navigation. Job 122642554331.
+
+34 Windup screenshots retained in artifact 12792594859. Inspected desktop-boots-forecast-1, touch-coil-forecast-2 and touch-boots-won-2: readable wrapped forecasts and controls, correct kit resource limits, independent standard/kit records after reload. ZIP SHA256 121ae4ca94215b72d098192bcbcb173dae9c46a7eda0ffc488205a824bd04d44. Automated routes and agent play are reliability evidence, not human enjoyment or physical-device testing.
+
+Current additional round: **8/20 verified**. No new game or public integration in this verification increment. Source remains on the development branch; the first batch, thirteen concurrent second-batch catalogue entries, Gummy Bay and third branch are unchanged. See [Windup evidence](WINDUP_REHEARSAL.md).

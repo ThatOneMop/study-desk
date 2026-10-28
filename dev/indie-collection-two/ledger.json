@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 27,
+    "meaningfulPasses": 28,
     "verifiedLive": 0
   },
   "deployment": {
@@ -1429,6 +1429,21 @@
           ],
           "validation": "8 engine and 2 DOM checks pass. Rendered Ram reversal succeeded in seven ordinary moves; Velvet early grapple was absorbed by brace. Desktop screenshot inspected. Native browser verification pending. Native desktop/touch-emulated all-rival wins, saves/reloads, natural loss/undo/retry, modal cancellation, pause, isolated reset/recovery and navigation pass in CI 40080637524 job 120833480441. Ten screenshots retained; desktop reversal, touch final win and touch guide visually inspected.",
           "implementationCommit": "562848a8e8218cb32c45213a0d071c01eaf5eb71"
+        },
+        {
+          "passNumber": 2,
+          "round": "additional-2026-10-24",
+          "date": "2026-10-28",
+          "observedWeakness": "Rendered standard opening at turn two showed a three-spring toy facing a two-space grapple: the telegraph named the rival move, but gave no full-exchange result for comparing shove, brace and reversal. Kit costs made that mental arithmetic less readable.",
+          "changes": [
+            "Unlocked boots/coil retain distinct costs and separate mastery records. Optional rehearsal now stages any legal move, showing exact post-exchange positions, remaining springs, and win/loss before explicit commitment. Compare/cancel spends nothing; keys 1–6 stage when rehearsal is enabled. Hidden views cancel staged moves and pending destructive callbacks and cannot resume until visible. Existing save format and immediate-play mode retained."
+          ],
+          "implementationCommit": "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4",
+          "implementationCommits": [
+            "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c",
+            "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4"
+          ],
+          "validation": "CI 40635652032 on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4 passed all seven jobs: 517 engine + 355 DOM = 872 checks, asset/syntax and nine first-batch selected-source integrity gates. Native desktop and emulated touch each complete all three standard bouts and all six alternate kit/rival victories, exact full-exchange rehearsal/cancel/commit, saved mastery reload, natural loss/undo/retry, pause, confirmation cancellation, isolated recovery/reset and navigation. Job 122642554331. 34 Windup screenshots retained in artifact 12792594859. Inspected desktop-boots-forecast-1, touch-coil-forecast-2 and touch-boots-won-2: readable wrapped forecasts and controls, correct kit resource limits, independent standard/kit records after reload. ZIP SHA256 121ae4ca94215b72d098192bcbcb173dae9c46a7eda0ffc488205a824bd04d44. Automated routes and agent play are reliability evidence, not human enjoyment or physical-device testing."
         }
       ],
       "tests": [
@@ -1436,16 +1451,18 @@
         "Two jsdom checks: keyboard progression, reload, pause, modal cancellation, isolated reset and unreadable-save preservation/recovery.",
         "713 full engine/interface checks pass locally and CI: 421 engine, 292 DOM. Assets, first-batch source hashes and twenty-slot/additional-round gates pass.",
         "Cloud rendered walkthrough: first win/reload, Ram seven-move grapple reversal, Velvet approach/brace/wind. Desktop screenshot inspected. Cloud policy rejected the final click/reload request; no workaround attempted. Native CI was already running independently.",
-        "Native Chrome desktop and emulated touch: all three distinct rival wins, reversal, brace, mid-bout and won reload, natural loss/undo/retry, pause, modal cancellation, isolated reset/recovery and navigation. Ten screenshots retained; desktop-bout-1, touch-bout-2 and touch-guide inspected. Readable layouts, no horizontal overflow; touch guide fits viewport. CI 40080637524, job 120833480441, artifact 12555156061."
+        "Native Chrome desktop and emulated touch: all three distinct rival wins, reversal, brace, mid-bout and won reload, natural loss/undo/retry, pause, modal cancellation, isolated reset/recovery and navigation. Ten screenshots retained; desktop-bout-1, touch-bout-2 and touch-guide inspected. Readable layouts, no horizontal overflow; touch guide fits viewport. CI 40080637524, job 120833480441, artifact 12555156061.",
+        "CI 40635652032 on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4 passed all seven jobs: 517 engine + 355 DOM = 872 checks, asset/syntax and nine first-batch selected-source integrity gates. Native desktop and emulated touch each complete all three standard bouts and all six alternate kit/rival victories, exact full-exchange rehearsal/cancel/commit, saved mastery reload, natural loss/undo/retry, pause, confirmation cancellation, isolated recovery/reset and navigation. Job 122642554331.",
+        "34 Windup screenshots retained in artifact 12792594859. Inspected desktop-boots-forecast-1, touch-coil-forecast-2 and touch-boots-won-2: readable wrapped forecasts and controls, correct kit resource limits, independent standard/kit records after reload. ZIP SHA256 121ae4ca94215b72d098192bcbcb173dae9c46a7eda0ffc488205a824bd04d44. Automated routes and agent play are reliability evidence, not human enjoyment or physical-device testing."
       ],
       "quality": {
         "scale": "1–5 provisional agent design review, not human enjoyment evidence",
         "enjoyment": 3,
-        "depth": 2,
-        "polish": 3,
-        "reliability": 4,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
         "variety": 4,
-        "notes": "Compact turn-based seven-space spring grappling. Three rival patterns, six actions, undo and best-turn medals; no timers. Distinct reactive guard and early grapple encourage different tactics. Three short bouts limit depth; not selected and requires a separate substantial additional-round upgrade. No human enjoyment or hours-of-content claim."
+        "notes": "Provisional agent assessment, not human survey. Spring/guard/slip tradeoffs produce distinct openings and saved kit mastery; optional exact rehearsal supports relaxed experimentation. The Ram reversal remains shared across loadouts and three fixed bouts provide limited depth. Phone controls and forecasts wrap cleanly but long workshop text requires scrolling. Retain for comparison rather than automatic selection."
       },
       "selected": false,
       "integrationCommits": [],
@@ -1458,44 +1475,23 @@
       ],
       "publishedUrl": null,
       "verification": {
-        "commit": "562848a8e8218cb32c45213a0d071c01eaf5eb71",
-        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40080637524",
-        "status": "All seven CI 40080637524 jobs passed: 713 engine/DOM checks and all nineteen desktop/touch suites. Confirmed during Last Lighthouse increment.",
+        "status": "passed",
+        "commit": "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40635652032",
+        "job": 122642554331,
+        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40635652032/artifacts/12792594859",
+        "artifactSha256": "121ae4ca94215b72d098192bcbcb173dae9c46a7eda0ffc488205a824bd04d44",
         "sha256": {
-          "engine.js": "4ea32ad89e85a6e2c0eb55ee2ad2420640add71f7b79be423621be086d93b038",
-          "game.js": "c960daead7915cf7e8249eb1d5120b36b4f417a6e0638ba641ad4bafa5585803",
-          "index.html": "47d6445564182e36ca7207677fe689662abf1d86f4f94925b04afce10059b087",
-          "style.css": "cc16e4a3e1845fc29689876b94a251d0a1cc31fa9380166088d1a0deff6156af"
-        },
-        "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40080637524/artifacts/12555156061",
-        "artifactSha256": "1c317747154e2b800f59f7af6a3e1ac3b3a7e6aa04c286509c9f91fdc07ce3fe"
+          "engine.js": "28433a3c5f2e06710e88ad65a5d1ea7cbd57701517022bef09a88b4d3d66b618",
+          "game.js": "421ced9951cfdb3e3987b6fed63eaf023dc7075ba4b64a8d477099130e1abdec",
+          "index.html": "4230c83efb3a1b644e3b86ed8da948eff43b6f7d65c21f91cf632b061269527a",
+          "style.css": "19f0f55ed3353bb108ee7fd2db77e1b9e45dc50bb9458de6276d3914c1ea59a2"
+        }
       },
       "nextSteps": [
-        "Review CI 40635652032, inspect native kit/rehearsal screenshots, and verify loss/retry, reset/navigation before counting. Three short fixed bouts remain a depth limit; do not select automatically."
+        "Verified additional-round pass. Compare after the other twelve candidates finish rendered review. Three short deterministic bouts and identical Ram reversal across kits limit replay depth; not selected automatically."
       ],
-      "pendingAdditionalUpgrade": {
-        "slot": 39,
-        "id": "windup-wrestling",
-        "title": "Windup Wrestling",
-        "status": "rendered-reviewed-awaiting-native-regression",
-        "observedWeakness": "Rendered standard opening at turn two showed a three-spring toy facing a two-space grapple: the telegraph named the rival move, but gave no full-exchange result for comparing shove, brace and reversal. Kit costs made that mental arithmetic less readable.",
-        "before": "Three fixed bouts; the earlier additional-round kit source changed spring capacity, guard and slip cost but committed each action immediately.",
-        "after": "Unlocked boots/coil retain distinct costs and separate mastery records. Optional rehearsal now stages any legal move, showing exact post-exchange positions, remaining springs, and win/loss before explicit commitment. Compare/cancel spends nothing; keys 1–6 stage when rehearsal is enabled. Hidden views cancel staged moves and pending destructive callbacks and cannot resume until visible. Existing save format and immediate-play mode retained.",
-        "implementationCommit": "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4",
-        "testing": [
-          "13 Windup engine tests and 3 DOM tests pass. All six alternate kit/rival combinations have legal winning routes with per-action save roundtrips.",
-          "Whole local engine glob: 434 checks passed; DOM glob: 293 passed. Asset, first-batch integrity and second-batch/additional-round gates passed.",
-          "No rendered upgrade, mobile layout or human-enjoyment claim. Browser security policy blocked preview access. No alternative browser surface or CI browser run initiated to work around the block. Source commit uses [skip ci].",
-          "2026-10-28: 19 focused checks pass (14 engine, five DOM). Pure forecasts checked against actual actions across every rival and kit, natural loss, terminal/illegal moves, keyboard staging/cancel/commit/reload and hidden-confirmation guards. Existing saves and six alternate-kit winning routes remain valid.",
-          "Direct rendered play: standard first opening observed before change; compared slip and winning shove forecasts afterward, committed standard bell, then six-turn brass-boots win and reload. At 390px iframe width completed Ram reversal with preview/cancel/keyboard restage/confirm, Velvet standard win and long-coil win; reload preserved all standard bells and both earned kit records. Screenshots of desktop baseline and phone reversal forecast inspected. Phone-width pointer clicks are not native touch evidence.",
-          "Expanded native browser regression to all six alternate kit/rival campaigns with pure preview/cancel/commit comparisons and saved victories. CI 40635652032 running on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4; native result/screenshots pending. Earlier CI 40631660878 has now passed all seven jobs, but does not verify this new code."
-        ],
-        "remaining": "Review CI 40635652032, inspect native kit/rehearsal screenshots, and verify loss/retry, reset/navigation before counting. Three short fixed bouts remain a depth limit; do not select automatically.",
-        "implementationCommits": [
-          "dc5d51f2076f3029ccdd39890dcc3bfe63668a1c",
-          "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4"
-        ]
-      }
+      "selectionReason": "Retain unselected: a distinct compact tactical grappler, but shorter and less open-ended than the slate's progression candidates. Compare after all additional passes; do not claim long-form content."
     },
     {
       "slot": 40,
@@ -1583,7 +1579,7 @@
     }
   ],
   "nextSteps": [
-    "Complete the remaining thirteen additional-round rendered reviews and game-specific iteration. Last Lighthouse is now verified; inspect final overall CI outcome separately.",
+    "Complete twelve remaining additional-round rendered reviews and substantive iterations. Last Lighthouse and Windup Wrestling are verified; their full CI runs pass.",
     "Compare the improved full slate and integrate selected source using freshly reread main; preserve concurrent 13 second-batch entries, Gummy Bay and requested games.",
     "Third collection remains 24/50 built, zero improved/browser-tested/integrated/live in its own ledger. Complete distinct remaining candidates and substantive rendered-play improvements; no reskins or placeholder counts.",
     "Keep existing automation cadence; do not pause until obligations complete."
@@ -1990,6 +1986,13 @@
       "result": "Windup Wrestling rehearsal added after rendered tactical-readability review. 19 focused checks pass; native regression pending. Prior full CI 40631660878 now all seven jobs successful. Additional round remains 7/20; third batch remains 24/50 built and zero qualified improved/tested/integrated/live.",
       "publicIntegration": null,
       "nextSteps": "Review CI 40635652032, inspect native kit/rehearsal screenshots, and verify loss/retry, reset/navigation before counting. Three short fixed bouts remain a depth limit; do not select automatically."
+    },
+    {
+      "date": "2026-10-28",
+      "gameplayCommit": "acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4",
+      "result": "Completed Windup native verification and screenshot review; all seven CI jobs pass, 872 checks. Additional round rises to 8/20 with 28 recorded meaningful passes overall. No replayed implementation counted; this closes the pending kit/rehearsal work.",
+      "publicIntegration": null,
+      "nextSteps": "Twelve additional reviews remain, then comparative selection/integration; third collection 24/50 built with zero qualified improved/tested/integrated/live."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -1997,7 +2000,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 7,
+    "completed": 8,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

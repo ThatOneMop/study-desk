@@ -25,3 +25,11 @@ Review CI 40635652032, inspect native kit/rehearsal screenshots, and verify loss
 First-batch FINAL_REPORT reread: 20 finished, nine selected. Latest main remains `55c330d9ec493afc40e81e89a371f64cbd5bd8b0`; third development branch remains `fb0ed7a0f0ed6f5fd8f3c2a53caae1ae732d9ecf`. No AGENTS.md exists in the second branch tree. The buildless HTML/JS conventions and isolated v1 save key are retained. Main's prior verified workspace-control removal and successful Pages deployment are unchanged; no repetitive publishing retry.
 
 Second batch: 20 initially finished/improved, 20 additional upgrades implemented, seven fully verified. Thirteen initial versions are already integrated by concurrent work; no new integration or live release this increment. Third: 24/50 built; zero qualified improved/browser-tested/integrated/live. No new candidate built this run. Keep the remaining thirteen reviews and separate fifty-game goal active.
+
+## Native verification completed
+
+CI 40635652032 on acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4 passed all seven jobs: 517 engine + 355 DOM = 872 checks, asset/syntax and nine first-batch selected-source integrity gates. Native desktop and emulated touch each complete all three standard bouts and all six alternate kit/rival victories, exact full-exchange rehearsal/cancel/commit, saved mastery reload, natural loss/undo/retry, pause, confirmation cancellation, isolated recovery/reset and navigation. Job 122642554331.
+
+34 Windup screenshots retained in artifact 12792594859. Inspected desktop-boots-forecast-1, touch-coil-forecast-2 and touch-boots-won-2: readable wrapped forecasts and controls, correct kit resource limits, independent standard/kit records after reload. ZIP SHA256 121ae4ca94215b72d098192bcbcb173dae9c46a7eda0ffc488205a824bd04d44. Automated routes and agent play are reliability evidence, not human enjoyment or physical-device testing.
+
+The earlier pending status is superseded. Additional round now **8/20 verified**; twelve remain. Source and save format unchanged during this verification increment. Quality review: distinct tactical identity and approachable previews; three fixed bouts and a shared Ram solution remain limitations. No new selection/integration/live release. Main and third branch heads were freshly checked and remain unchanged; the already resolved publishing issue was not retried.
