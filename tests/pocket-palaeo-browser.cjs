@@ -32,7 +32,9 @@ await act('#apply-lift');assert.equal((await state()).records[0].quality,100);as
 await shot('jacket-recovery');await page.reload();tool='brush';assert.equal((await state()).records[0].quality,100);
 // Reopening restores field consumables without duplicating museum rewards.
 await act('#restart');await act('#accept');assert.equal((await state()).resin,2);assert.equal((await state()).marks,3);
-await reset();
+await choose('pick');await act('[data-cell="10"]');await choose('brush');await act('[data-cell="10"]');await choose('jacket');await act('[data-cell="10"]');
+const proposedBeforeReset=await raw();await act('#new-logbook');await act('#cancel');assert.equal(await raw(),proposedBeforeReset);assert(await page.locator('#jacket-plan').isVisible());
+await reset();assert(!await page.locator('#jacket-plan').isVisible());assert(!await page.locator('#lift-plan').isVisible());
 let recovered=0,site=0,mid=false;for(const step of steps){await action(step);if(step.type==='site'){site=step.site;mid=false;}if(!mid&&step.type==='dig'&&step.cell>=30){mid=true;const before=await raw(),art=await page.locator('#fossils').innerHTML();await shot('site-'+site+'-mid');await page.reload();tool='brush';assert.equal(await raw(),before);assert.equal(await page.locator('#fossils').innerHTML(),art);}if(step.type==='lift'){recovered++;await shot('specimen-'+recovered+'-museum');}}
 const final=await state();assert(final.records.every(r=>r.quality===100&&r.medals===3));assert.deepEqual(final.upgrades,['brush','cradle','resin']);assert.equal(final.marks,8);assert.match(await page.locator('#result').textContent(),/Six stories/);await page.reload();tool='brush';assert.deepEqual((await state()).records,final.records);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await act('#new-logbook');await act('#cancel');assert.deepEqual((await state()).records,final.records);
 // Reopen with rewards intact, inspect a dangerous lift, cancel it, then deliberately commit it.
