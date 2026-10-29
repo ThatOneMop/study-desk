@@ -42,6 +42,19 @@ function unlocked(v){let i=0;while(i<4&&v.records[i])i++;return i;}
 function record(v,s){const out=copy(v);out.current={chapter:s.chapter,actions:s.history};if(s.phase==='won'){const old=out.records[s.chapter],m=medal(s);if(!old||m>old.medals||m===old.medals&&s.edits<old.edits)out.records[s.chapter]={actions:s.history,medals:m,hearts:s.health,edits:s.edits};}return out;}
 function decode(raw){const v=typeof raw==='string'?JSON.parse(raw):raw;if(!v||v.version!==1||!v.current||!Array.isArray(v.records)||v.records.length!==5)throw Error('Unreadable save');const records=v.records.map((r,i)=>{if(r===null)return null;const s=replay(i,r.actions);if(s.phase!=='won')throw Error('Unproven defense');return {actions:s.history,medals:medal(s),hearts:s.health,edits:s.edits};});const s=replay(v.current.chapter,v.current.actions);if(s.chapter>unlocked({records}))throw Error('Locked hollow');return {version:1,current:{chapter:s.chapter,actions:s.history},records};}
 function scout(s){let t=copy(s);if(t.phase==='prep'){const r=step(t,{type:'launch'});if(!r.ok)return {available:false,reason:r.reason};t=r.state;}let turns=0;while(t.phase==='defend'&&turns<120){const r=step(t,{type:'tick'});if(!r.ok)return {available:false,reason:r.reason};t=r.state;turns++;}return {available:t.phase!=='defend',hearts:t.health,leaks:t.leaks-s.leaks,stopped:t.defeated-s.defeated,phase:t.phase,turns,resin:t.resin};}
+function watch(state){
+ let s=copy(state),steps=0;
+ if(s.phase!=='defend')return {state:s,steps,reason:'Release a wave to scout safe marching.'};
+ while(s.phase==='defend'&&steps<120){
+  const r=step(s,{type:'tick'});if(!r.ok)return {state:s,steps,reason:r.reason};
+  const empty=s.traps.find(t=>t.charges>0&&r.state.traps.some(n=>n.cell===t.cell&&n.charges===0));
+  if(r.state.health<s.health)return {state:s,steps,reason:'Next step: nursery hit. Consider fruit or regrowth before marching.',danger:'nursery',cell:s.nest};
+  if(empty)return {state:s,steps,reason:'Next step: last thorn strike at row '+(Math.floor(empty.cell/W)+1)+', column '+(empty.cell%W+1)+'. Regrow now or spend the last strike manually.',danger:'thorns',cell:empty.cell};
+  s=r.state;steps++;
+ }
+ return {state:s,steps,reason:s.phase==='prep'?'Wave ends safely; prepare the next defense.':s.phase==='won'?'The hollow holds.':'Safe march limit reached.'};
+}
 function forecast(s,a){const r=step(s,a);return r.ok?{allowed:true,reason:r.reason,state:r.state,hearts:r.state.health,resin:r.state.resin,soil:r.state.soil,leaks:r.state.leaks-s.leaks,stopped:r.state.defeated-s.defeated,scout:scout(r.state)}:{allowed:false,reason:r.reason};}
-return {scout,forecast,W,H,CHAPTERS,create,walk,neighbors,route,paths,step,replay,undo,medal,blank,unlocked,record,decode};
+return {watch,scout,forecast,W,H,CHAPTERS,create,walk,neighbors,route,paths,step,replay,undo,medal,blank,unlocked,record,decode};
 });
+
