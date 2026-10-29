@@ -13,7 +13,7 @@ function bank(K,a,b){const haul=b.rel-a.rel,brass=b.coins-a.coins,time=a.frame/6
 const art=`<svg class="art" viewBox="0 0 150 96" aria-hidden="true"><rect x="40" y="6" width="70" height="90" fill="#163038"/><path d="M40 6v90M110 6v90" stroke="#2e4c52" stroke-width="6"/><path d="M30 8h90" stroke="#c9a46a" stroke-width="4"/><path d="M75 8v46" stroke="#e8dcc0" stroke-width="1.5"/><path d="M66 54h18l-3 14h-12z" fill="#c9a46a"/><circle cx="58" cy="80" r="4" fill="#8fc7c1"/><circle cx="96" cy="70" r="3" fill="#f0c98a"/><path d="M40 86q35-8 70 0" stroke="#4d8b8f" stroke-width="2" fill="none"/></svg>`;
 FeelKit({id:'wellward',prefix:'ww',global:'WWFeel',title:'Wellward',eyebrow:'A WINCH. A BUCKET. A LITTLE CURIOSITY.',art,
  tagline:'Swing a bucket down four winding wells, lift glowing relics and bring them home to the cabinet.',
- startLabel:'Uncoil the rope',keys:'A D slide · S lower · W raise · Space steady · E lift · F ballast · P pause',
+ startLabel:'Uncoil the rope',keys:'A D slide · S lower · W raise · Space steady · E lift · F ballast · R repair · P pause',
  pauseTitle:'Rope tied off',pauseText:'The bucket hangs still. Nothing swings until you return.',
  headerBefore:'header #help',guide:'#help',play:'#scene',tipAfter:'#brief',accent:'#f0c98a',accentInk:'#122a30',card:'#122a30',ink:'#f3e6c6',good:'#8fc7c1',root:349,
  colors:['#f0c98a','#8fc7c1','#fff1c9'],ambient:{cut:300,vol:.3,notes:[0,3,5,7,10]},
