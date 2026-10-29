@@ -25,15 +25,15 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 1
+    "verifiedLive": 3
   },
   "deployment": {
     "status": "main-pages-live",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40486136506",
-    "checked": "2026-10-28",
-    "head": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40832743585",
+    "checked": "2026-10-29",
+    "head": "0f47f738eecde95c0608f9c045091e8e690eda6b",
     "url": "https://thatonemop.github.io/study-desk/",
-    "detail": "Prior Configure Pages permission blocker superseded: current main workflow succeeds including Configure/Publish. Direct live desktop and 390px iframe catalogue search, Reefwright launch and Collection return verified. This is not deployment of development-branch upgrades; no claim all 13 second-batch entries match upgraded source.",
+    "detail": "Pages succeeded at the exact promoted commit. Cairn & Cord and Murmuration launched from live catalogue search and standalone routes, with gameplay/save reload smoke checks; no remaining publishing permission blocker. This verifies three of nine selected additional-round versions including previously released Hollow Keeper, not all older second-batch entries.",
     "previousFailure": {
       "status": "blocked",
       "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
@@ -1237,7 +1237,9 @@
         "notes": "Agent review, not a player survey. Optional survey detours make anchors useful for access; chalk, return grip and belay placement matter. Ordinary holds also support lateral traverses. Separate survey stamps preserve faster original summit records. Four compact authored walls, scrolling and no audio still limit depth/polish; no extended-playtime claim."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "0f47f738eecde95c0608f9c045091e8e690eda6b"
+      ],
       "initialCommit": "e377ee962c3440138d9402c87bac6428d18e6ba8",
       "developmentCommits": [
         "e377ee962c3440138d9402c87bac6428d18e6ba8",
@@ -1260,7 +1262,16 @@
         }
       },
       "selectionReason": "Deliberate climbing with optional survey routes and consequential anchor/grip choices.",
-      "publishedUrl": null
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/cairn-and-cord/index.html",
+      "releaseVerification": {
+        "commit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+        "ci": "40827311110",
+        "deployment": "40832743585",
+        "artifact": "12877850126",
+        "artifactSha256": "59fa80d7302700f09d2d2c60aeb4eb6455b44f710f9674fe8a3517a56f447785",
+        "live": "29 October: Live catalogue search/launch, select hold a, inspect forecast (10→9 grip), climb and set anchor. Reload/relaunch retained hold a, 9 grip, 3 hearts and 2 anchors. Standalone route also rendered. Full four standard/survey routes, loss/retry, keyboard/touch, saves/reset/navigation passed CI.",
+        "limits": "Automated native desktop/emulated-touch routes plus agent screenshot review and shorter live desktop smoke; not human enjoyment or physical-device testing."
+      }
     },
     {
       "slot": 35,
@@ -1311,7 +1322,9 @@
         "notes": "Agent review, not a human player survey. Food-funded regrouping adds recovery and supply-budget choices to flock spacing. Two calls and safe-air restrictions prevent unrestricted healing; spending can jeopardize arrival requirements. Four short authored migrations and two obstacle families still limit progression; no equipment, audio, long-playtime or physical-device claim."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "0f47f738eecde95c0608f9c045091e8e690eda6b"
+      ],
       "initialCommit": "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
       "developmentCommits": [
         "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
@@ -1335,12 +1348,21 @@
         }
       },
       "selectionReason": "Direct flock formation control adds action variety; regrouping competes with arrival food.",
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/murmuration/index.html",
       "pendingControlVerification": {
         "commit": "a7093b27d87356c6f39842dc4b5a2bde8c36ad8e",
         "change": "K pauses/resumes instead of reserved P; native modifiers/composition excluded; visibility messages trust parent rather than assuming self-window.",
         "status": "DOM and engine verified; rendered embedded desktop/touch check pending",
         "historicalEvidence": "Existing improvement passes and their exact historical verification commit remain recorded; this repair does not claim a new substantive pass or rendered review."
+      },
+      "releaseVerification": {
+        "commit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+        "ci": "40827311110",
+        "deployment": "40832743585",
+        "artifact": "12877850126",
+        "artifactSha256": "59fa80d7302700f09d2d2c60aeb4eb6455b44f710f9674fe8a3517a56f447785",
+        "live": "29 October: Live catalogue search/launch, choose split formation, adjust wind by keyboard, take flight and pause. Standalone route reload restored paused flight, split formation, wind321 and twelve birds. Live screenshot inspected. Full four desktop/touch migrations and alternative regroup routes, food shortfall/loss/retry, saves/reset/navigation passed CI.",
+        "limits": "Automated native desktop/emulated-touch routes plus agent screenshot review and shorter live desktop smoke; not human enjoyment or physical-device testing."
       }
     },
     {
@@ -1759,7 +1781,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review merged Cairn & Cord / Murmuration native CI and screenshots, fix failures before promoting against fresh main. Complete the other six selected merges while preserving visual effects. Third batch remains 24/50 built with zero qualified improved/browser-tested/integrated/live.",
+  "nextSteps": "Merge the six remaining selected additional-round upgrades (Reefwright, Counterweight, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts) against fresh main, preserving concurrent feel/visual/pause/input layers. Run merged native tests and inspect screenshots before promotion, then verify deployment. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes. Keep hourly cadence unchanged.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2333,9 +2355,17 @@
       "result": "Hollow Keeper additional upgrade integrated and verified live. Two new selected catalogue entries prepared on promotion branch; 62 focused checks and curation regression pass, merged browser verification pending.",
       "integrationCommit": "519934be03660c6c68dd8c0eeca7bc0060a43127",
       "nextSteps": "Review merged Cairn & Cord / Murmuration native CI and screenshots, fix failures before promoting against fresh main. Complete the other six selected merges while preserving visual effects. Third batch remains 24/50 built with zero qualified improved/browser-tested/integrated/live."
+    },
+    {
+      "date": "2026-10-29",
+      "result": "Cairn & Cord and Murmuration passed merged native CI, four representative screenshots inspected, then promoted with main expected-head lease. Pages succeeded and live launch/gameplay/save reload verified. Selected additional-round versions integrated/live now3/9; no new improvement pass credited for integration.",
+      "integrationCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+      "ci": "40827311110",
+      "deployment": "40832743585",
+      "nextSteps": "Merge the six remaining selected additional-round upgrades (Reefwright, Counterweight, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts) against fresh main, preserving concurrent feel/visual/pause/input layers. Run merged native tests and inspect screenshots before promotion, then verify deployment. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes. Keep hourly cadence unchanged."
     }
   ],
-  "latestObservedMain": "519934be03660c6c68dd8c0eeca7bc0060a43127",
+  "latestObservedMain": "0f47f738eecde95c0608f9c045091e8e690eda6b",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2364,17 +2394,25 @@
       "borrowed-gravity",
       "tea-for-ghosts"
     ],
-    "scope": "13 earlier second-batch entries remain integrated by concurrent work. Current live Reefwright launch verified; development-branch additional upgrades are not inferred to be live. Preserve all 65 entries and Gummy Bay v180."
+    "scope": "13 earlier second-batch entries remain integrated by concurrent work. Current live Reefwright launch verified; development-branch additional upgrades are not inferred to be live. Preserve all 65 entries and Gummy Bay v180.",
+    "observedCurrentCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+    "currentCatalogueTotal": 48,
+    "currentSecondBatchCount": 15,
+    "currentScope": "Preserved all 46 entries on main519934 and the deliberate Nightshift/Afterlight retirement; appended Cairn & Cord and Murmuration only. Earlier 65-entry historical snapshot above is not the current catalogue. Lane Eight, Gummy Bay, Ashwake and existing saves untouched."
   },
   "promotion": {
     "selected": 9,
-    "integrated": 1,
-    "verifiedLive": 1,
-    "pendingBranch": "indie-two-promotion",
-    "pendingCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
-    "pendingIds": [
-      "cairn-and-cord",
-      "murmuration"
-    ]
+    "integrated": 3,
+    "verifiedLive": 3,
+    "remainingIds": [
+      "reefwright",
+      "counterweight",
+      "copper-cadence",
+      "wellward",
+      "pocket-palaeo",
+      "tea-for-ghosts"
+    ],
+    "branch": "indie-two-promotion",
+    "latestCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b"
   }
 }
