@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "batch": 2,
   "branch": "indie-collection-two-dev",
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "firstBatchBaseline": {
     "developmentCommit": "c03682dc435ecdaacd94966273d789dd90e9f7b1",
     "report": "https://github.com/ThatOneMop/study-desk/blob/c03682dc435ecdaacd94966273d789dd90e9f7b1/dev/indie-collection/FINAL_REPORT.md",
@@ -344,7 +344,8 @@
         "All prior 125 engine/DOM checks and three desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, assets, nine first-batch source hashes and exactly twenty-slot gate passed.",
         "Exact source c38b7f5245cc0c1d382e6b7001fce4723f2c03de: CI 40798076659 passed all seven jobs, 539 engine + 381 DOM = 920 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123199832199 passed five original and five catch-assisted commissions in each desktop/emulated-touch context, retained-suffix score repair/cancel/blocked revision/reload, exact supply forecasts, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation without browser errors. Original routes retain three seals; catch routes earn 2/2/2/3/3.",
         "Inspected desktop-repair-preview.png, touch-repair-preview.png and touch-repair-saved.png from 26 Copper Cadence screenshots in artifact 12865476513. Repair beat four clearly previews 1→0 errors and 0→1 brake/catch cost with 100% accuracy and two seals; Apply/Cancel fit on desktop and 390px touch layout. Saved result shows zero errors, one catch and two seals, retaining the historical three-seal best. No visible horizontal clipping; mobile uses vertical scrolling. ZIP SHA256 379254efbabea711c2fb0b2a9715c71c88a7f6b132e4d089d759157dcb915399. Automated rendered gameplay plus agent screenshot review, not human enjoyment, physical-device or audible-quality evidence.",
-        "Merged Copper Cadence's already-verified silent catches and retained-suffix score repair with main's local Pause/Escape controls, sound, artwork and pulsing current beat. Pause now freezes repair apply/cancel and pending save mutations; resume restores the draft. Added 2 regression cases (63 focused engine/DOM checks pass) and desktop/touch native pause-during-repair coverage. Versioned all three local assets. Main remains d600ffdaa with 5/9 selected upgrades live; merged browser verification pending. No new gameplay pass or public entry counted. CI https://github.com/ThatOneMop/study-desk/actions/runs/40870555821"
+        "Merged Copper Cadence's already-verified silent catches and retained-suffix score repair with main's local Pause/Escape controls, sound, artwork and pulsing current beat. Pause now freezes repair apply/cancel and pending save mutations; resume restores the draft. Added 2 regression cases (63 focused engine/DOM checks pass) and desktop/touch native pause-during-repair coverage. Versioned all three local assets. Main remains d600ffdaa with 5/9 selected upgrades live; merged browser verification pending. No new gameplay pass or public entry counted. CI https://github.com/ThatOneMop/study-desk/actions/runs/40870555821",
+        "Merged CI40870555821 passed asset/first-batch checks and all63 Copper engine/DOM tests, then stopped in desktop repair pause coverage: Space natively activated the still-focused Resume button, so the subsequent Escape paused again. Test-only correction 4b26256a6fbe3add62aac94cc52fa252bc4120dc moves focus to the return link before blocked gameplay keys and asserts Resume still shows before explicitly resuming. No gameplay source change. Reviewed desktop-repair-preview from artifact12895359052 (SHA2560573b82abb263b17882f813e6b3acfa1130166f78e5d574ff73258ba7e06b87d): clear one-to-zero error comparison, catch efficiency cost and apply/cancel, preserved illustration; long page remains. Failed run does not qualify as completed merged browser verification."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -1809,7 +1810,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review Copper Cadence merged browser CI 40870555821 at 1b39c47a143e8647d1dadf2c7c9e5c145da05213 and inspect desktop/touch repair screenshots. Preserve local pause/Escape, bridge guards, sound, beat highlighting and saves; fix failures before expected-head main promotion. Then integrate Reefwright, Wellward and Pocket Palaeo against fresh main. Third collection remains 24/50 built, 0 qualified improved/browser-tested/integrated/live.",
+  "nextSteps": "Review corrected merged CI40878843230 at 4b26256a6fbe3add62aac94cc52fa252bc4120dc, inspect desktop/touch screenshots, fix any remaining failures and only then promote Copper Cadence against fresh main. Preserve native button keyboard activation and saves. Remaining selected upgrades: Reefwright, Wellward, Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2430,6 +2431,14 @@
       "ci": "40870555821",
       "publicIntegration": null,
       "nextSteps": "Review Copper Cadence merged browser CI 40870555821 at 1b39c47a143e8647d1dadf2c7c9e5c145da05213 and inspect desktop/touch repair screenshots. Preserve local pause/Escape, bridge guards, sound, beat highlighting and saves; fix failures before expected-head main promotion. Then integrate Reefwright, Wellward and Pocket Palaeo against fresh main. Third collection remains 24/50 built, 0 qualified improved/browser-tested/integrated/live."
+    },
+    {
+      "date": "2026-10-30",
+      "result": "Merged CI40870555821 passed asset/first-batch checks and all63 Copper engine/DOM tests, then stopped in desktop repair pause coverage: Space natively activated the still-focused Resume button, so the subsequent Escape paused again. Test-only correction 4b26256a6fbe3add62aac94cc52fa252bc4120dc moves focus to the return link before blocked gameplay keys and asserts Resume still shows before explicitly resuming. No gameplay source change. Reviewed desktop-repair-preview from artifact12895359052 (SHA2560573b82abb263b17882f813e6b3acfa1130166f78e5d574ff73258ba7e06b87d): clear one-to-zero error comparison, catch efficiency cost and apply/cancel, preserved illustration; long page remains. Failed run does not qualify as completed merged browser verification.",
+      "integrationCandidateCommit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
+      "ci": "40878843230",
+      "publicIntegration": null,
+      "nextSteps": "Review corrected merged CI40878843230 at 4b26256a6fbe3add62aac94cc52fa252bc4120dc, inspect desktop/touch screenshots, fix any remaining failures and only then promote Copper Cadence against fresh main. Preserve native button keyboard activation and saves. Remaining selected upgrades: Reefwright, Wellward, Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live."
     }
   ],
   "latestObservedMain": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
@@ -2480,10 +2489,10 @@
     "branch": "indie-two-promotion",
     "latestCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
     "pendingBranch": "indie-two-promotion",
-    "pendingCommit": "1b39c47a143e8647d1dadf2c7c9e5c145da05213",
+    "pendingCommit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
     "pendingIds": [
       "copper-cadence"
     ],
-    "pendingCI": "40870555821"
+    "pendingCI": "40878843230"
   }
 }
