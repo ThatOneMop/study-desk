@@ -60,7 +60,7 @@ function sync(){const s=G.state;dress(s.guest);$('tfNight').textContent=E.count(
 // ---------- react to actions ----------
 window.addEventListener('tea:act',ev=>{const {a,ok,state}=ev.detail;if(!F.opened)return;if(!ok){SFX.deny();return}const r=state.run,g=E.GUESTS[state.guest];sync();
  if(a.type==='scoop'){a.delta>0?SFX.scoop(a.id):SFX.unscoop(a.id);const jar=document.querySelectorAll('#ingredients .jar')[a.id];if(jar){jar.classList.remove('tf-pop');void jar.offsetWidth;jar.classList.add('tf-pop')}}
- else if(a.type==='set'||a.type==='undo'||a.type==='recall')SFX.set();
+ else if(a.type==='set'||a.type==='undo'||a.type==='recall'||a.type==='park'||a.type==='swap'||a.type==='measure')SFX.set();
  else if(a.type==='brew'){SFX.pour();art.classList.remove('tf-pouring');void art.offsetWidth;art.classList.add('tf-pouring');say('The steam smells… familiar. Offer it whenever you are ready.',g.name)}
  else if(a.type==='serve'){SFX.bell();const last=r.last,pass=last.score>=E.PASS[state.guest];setTimeout(()=>{if(pass){SFX.good();face('happy');sparkles(26);flash(`Memory restored · ${last.score} / 100`,'good');art.classList.add('tf-glow');setTimeout(()=>art.classList.remove('tf-glow'),1800);if(state.records.filter(Boolean).length>ev.detail.before.records.filter(Boolean).length&&E.ING.some(i=>i.unlock===E.count(state)))setTimeout(()=>flash('A new ingredient arrives in the cabinet','gift'),2300)}else if(last.score>=60){SFX.close();face('close');flash(`${last.score} / 100 · nearly`,'')}else{SFX.bad();face('sad');ghost.classList.remove('tf-shiver');void ghost.getBoundingClientRect();ghost.classList.add('tf-shiver');flash(`${last.score} / 100`,'')}say(r.phase==='lost'?'Thank you for trying. I will come back another night.':pass?reactLine(last,g)+' '+g.memory:reactLine(last,g),g.name)},380)}
  else if(a.type==='nextcup'){SFX.page();face('idle');say('Another cup? I would like that.',g.name)}
@@ -82,7 +82,7 @@ document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return
  if(F.paused){if(k==='p'||e.key==='Escape'){e.preventDefault();setPaused(false)}return}
  if(k==='p'||e.key==='Escape'){e.preventDefault();setPaused(true);return}
  const tag=document.activeElement?.tagName;if(tag==='SELECT'&&/^(arrow|enter| )/.test(k))return;
- const dm=/^Digit([1-6])$/.exec(e.code);if(dm){e.preventDefault();G.act({type:'scoop',id:+dm[1]-1,delta:e.shiftKey?-1:1});return}
+ const dm=/^Digit([1-6])$/.exec(e.code);if(dm){e.preventDefault();G.act({type:'scoop',id:+dm[1]-1,delta:e.shiftKey?-Math.min(G.state.scoopSize,G.state.run.mix[+dm[1]-1]):G.state.scoopSize});return}
  const map={t:()=>cycle('temp'),s:()=>cycle('steep'),w:()=>cycle('water'),b:()=>press('brew'),o:()=>press('serve'),z:()=>press('undo'),r:()=>press('recall'),a:()=>press('another'),n:()=>press('next'),h:()=>$('help').click(),'?':()=>$('help').click()};
  if(map[k]){e.preventDefault();map[k]()}});
 sync();

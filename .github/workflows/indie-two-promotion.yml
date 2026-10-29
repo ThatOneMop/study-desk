@@ -8,7 +8,7 @@ permissions:
 jobs:
   selected-games:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,6 +24,8 @@ jobs:
           node --test tests/hollow-keeper-engine.cjs tests/hollow-keeper-dom.cjs tests/cairn-and-cord-engine.cjs tests/cairn-and-cord-dom.cjs tests/murmuration-engine.cjs tests/murmuration-dom.cjs
           node --test tests/counterweight-engine.cjs tests/counterweight-dom.cjs
           node tests/counterweight-browser.cjs
+          node --test tests/tea-for-ghosts-engine.cjs tests/tea-for-ghosts-dom.cjs
+          node tests/tea-for-ghosts-browser.cjs
           node tests/curation-regression.cjs
           node tests/hollow-keeper-browser.cjs
           node tests/cairn-and-cord-browser.cjs
