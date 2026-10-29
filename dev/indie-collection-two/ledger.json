@@ -25,15 +25,15 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 4
+    "verifiedLive": 5
   },
   "deployment": {
     "status": "main-pages-live",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40846065975",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40862009832",
     "checked": "2026-10-29",
-    "head": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
+    "head": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
     "url": "https://thatonemop.github.io/study-desk/",
-    "detail": "Counterweight gameplay promotion and cache-version follow-up deployed successfully. Versioned local URLs repaired observed mixed old scripts/new markup. Live rehearsal/apply/save reload and return navigation verified. Four selected additional-round versions live; no publishing-permission blocker.",
+    "detail": "Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI verified mint blend parked, alternative honey blend swapped, both exact recipes preserved through reload, Mabel 100/100 cup awarded two seals and unlocked Otis. Returned to catalogue, searched Tea for Ghosts and launched it with saved memory intact. No Switch workspace controls observed; Games, search, grouping, sorting and favourites retained. Five selected additional-round upgrades live; no publishing blocker.",
     "previousFailure": {
       "status": "blocked",
       "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
@@ -1148,7 +1148,9 @@
         "CI 40670487254 passed all 887 engine/DOM checks (527 engine + 360 DOM) and asset/first-batch gates. Native Tea route completed original six visitors, then exposed a harness assumption: keyboard selects emit change at every arrow, so one undo restored 120 after reaching 140, correctly. Test-only correction c8ecf518d2a0ef17c409c3b37c457a3b8d00272d uses one actual native step. CI 40671107031 pending.",
         "CI 40671107031 on c8ecf518d2a0ef17c409c3b37c457a3b8d00272d passed all seven jobs: 527 engine + 360 DOM = 887 checks, asset/syntax, exact twenty-slot and nine first-batch source-integrity gates. Native browser job 122761302287 passes all six Tea visitor services on desktop and emulated touch, all three tools/unlocks, the half-measure 87-to-100 refinement route, both saved alternatives, keyboard Enter/Space swaps, every planned/poured reload, natural loss/retry, bridge pause, isolated recovery/reset and navigation.",
         "34 Tea screenshots retained in artifact 12808832756. Inspected desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success: alternative recipe, live profile and retained tasting notes are readable and wrap within the viewport; both records and equipment persist. Phone page still needs substantial scrolling. ZIP SHA256 6afa08c3da8d64b729f06d6317918bb7ee7931f662b6b037b03adeb9d72e1f13. Automated routes and agent walkthroughs are reliability evidence, not human enjoyment or physical-device testing.",
-        "Copy-only follow-up faab0da850e6716edfaead258508c4bc32eb6aeb clarifies that a poor last cup ends this visit without denying earlier successes, and explicitly names the tray in restart confirmation. All 44 focused checks rerun successfully; the revised departure was observed after three native UI offerings at 390px. This two-string follow-up was not included in the earlier CI screenshot/source snapshot; mechanics are unchanged."
+        "Copy-only follow-up faab0da850e6716edfaead258508c4bc32eb6aeb clarifies that a poor last cup ends this visit without denying earlier successes, and explicitly names the tray in restart confirmation. All 44 focused checks rerun successfully; the revised departure was observed after three native UI offerings at 390px. This two-string follow-up was not included in the earlier CI screenshot/source snapshot; mechanics are unchanged.",
+        "Merged CI 40853957537 passed: 46 Tea engine/DOM checks, 114 previously promoted checks, 61 Counterweight checks and 5 bridge checks; assets and first-batch integrity passed. Native desktop and emulated-touch completed six visitors, all three tools, half measures, blend tray/refinement, exact saves/reloads, loss/retry, keyboard, pause, recovery/reset and navigation without browser errors. Reviewed desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success screenshots from artifact 12887859430 (SHA256 49821c16fbfe3876df66fcd9b336f285f45e11c0603d6c5b2dd9db0dd293aa84). Phone layout still requires vertical scrolling. Automated routes and agent visual review are not human enjoyment or physical-device testing.",
+        "Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI verified mint blend parked, alternative honey blend swapped, both exact recipes preserved through reload, Mabel 100/100 cup awarded two seals and unlocked Otis. Returned to catalogue, searched Tea for Ghosts and launched it with saved memory intact. No Switch workspace controls observed; Games, search, grouping, sorting and favourites retained."
       ],
       "quality": {
         "enjoyment": 3.5,
@@ -1159,7 +1161,9 @@
         "notes": "Agent review, not a player survey. Distinct flavour deduction, extraction/dilution and tasting feedback; six visitors with ingredient unlocks and two useful tools. Native desktop/touch services, saves/replay, loss/retry and pause pass. Cohesive illustrated tearoom; substantial phone scrolling, fixed preferences and no audio limit the scope. Additional round now verifies the third tool (half-measure spoon), retained recipe refinement, a saved alternative tray for branching experiments and persistent tasting guidance. Preserves the six fixed visitor preferences rather than inflating the campaign with repeats. Agent assessment remains provisional until full-slate selection."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "d600ffdaaec8f4c2b0d40bc87f17892d3629f521"
+      ],
       "initialCommit": "fa654ca14729275ca06b07db332ae5ff0fdf5f2b",
       "developmentCommits": [
         "fa654ca14729275ca06b07db332ae5ff0fdf5f2b",
@@ -1187,7 +1191,7 @@
         "artifactSha256": "b4af6bfb14956dfd9caf25de8f22543005b117abc1e4733158f175a2774f1e76"
       },
       "selectionReason": "Relaxed recipe deduction with saved branching experiments and a strong illustrated identity.",
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/tea-for-ghosts/index.html",
       "additionalVerification": {
         "commit": "c8ecf518d2a0ef17c409c3b37c457a3b8d00272d",
         "gameplayCommit": "d13dc0058e7f888725b75a9629ab3ed6af63ea7d",
@@ -1200,8 +1204,18 @@
         "copyFollowupValidation": "Copy-only follow-up faab0da850e6716edfaead258508c4bc32eb6aeb clarifies that a poor last cup ends this visit without denying earlier successes, and explicitly names the tray in restart confirmation. All 44 focused checks rerun successfully; the revised departure was observed after three native UI offerings at 390px. This two-string follow-up was not included in the earlier CI screenshot/source snapshot; mechanics are unchanged."
       },
       "nextSteps": [
-        "Additional pass verified. Retain for final slate comparison after the remaining nine reviews; six fixed visitor preferences, a small finite cabinet and long phone scrolling still limit scope."
-      ]
+        "Released. Preserve live scoring and saves. Minor guide copy uses Arthur instead of Otis; correct in a future copy pass. Long phone scrolling and six fixed visitors remain scope limits."
+      ],
+      "releaseVerification": {
+        "commit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40853957537",
+        "deployment": "https://github.com/ThatOneMop/study-desk/actions/runs/40862009832",
+        "artifactId": 12887859430,
+        "artifactSha256": "49821c16fbfe3876df66fcd9b336f285f45e11c0603d6c5b2dd9db0dd293aa84",
+        "status": "passed and live",
+        "evidence": "Merged CI 40853957537 passed: 46 Tea engine/DOM checks, 114 previously promoted checks, 61 Counterweight checks and 5 bridge checks; assets and first-batch integrity passed. Native desktop and emulated-touch completed six visitors, all three tools, half measures, blend tray/refinement, exact saves/reloads, loss/retry, keyboard, pause, recovery/reset and navigation without browser errors. Reviewed desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success screenshots from artifact 12887859430 (SHA256 49821c16fbfe3876df66fcd9b336f285f45e11c0603d6c5b2dd9db0dd293aa84). Phone layout still requires vertical scrolling. Automated routes and agent visual review are not human enjoyment or physical-device testing.",
+        "live": "Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI verified mint blend parked, alternative honey blend swapped, both exact recipes preserved through reload, Mabel 100/100 cup awarded two seals and unlocked Otis. Returned to catalogue, searched Tea for Ghosts and launched it with saved memory intact. No Switch workspace controls observed; Games, search, grouping, sorting and favourites retained."
+      }
     },
     {
       "slot": 34,
@@ -1794,7 +1808,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review Tea for Ghosts merged native CI and screenshots atd600ffdaaec8f4c2b0d40bc87f17892d3629f521 before promotion. Preserve live PASS70/75/80 thresholds, prior records, animated/sound/title/rest layers and half-measure keyboard behavior; fix any merged browser regressions. Then integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against fresh main. Third collection remains24/50 built,0 qualified improved/browser-tested/integrated/live; complete remaining candidates and rendered improvements.",
+  "nextSteps": "Integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against freshly read main, preserving concurrent visuals/input/pause layers and saves. Version changed local assets; run merged desktop/touch routes and inspect screenshots before promotion. Correct Tea guide's minor Arthur/Otis name typo in a later copy pass. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2401,9 +2415,15 @@
       "ci": "40853957537",
       "publicIntegration": null,
       "nextSteps": "Review Tea for Ghosts merged native CI and screenshots atd600ffdaaec8f4c2b0d40bc87f17892d3629f521 before promotion. Preserve live PASS70/75/80 thresholds, prior records, animated/sound/title/rest layers and half-measure keyboard behavior; fix any merged browser regressions. Then integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against fresh main. Third collection remains24/50 built,0 qualified improved/browser-tested/integrated/live; complete remaining candidates and rendered improvements."
+    },
+    {
+      "date": "2026-10-29",
+      "result": "Merged CI 40853957537 passed: 46 Tea engine/DOM checks, 114 previously promoted checks, 61 Counterweight checks and 5 bridge checks; assets and first-batch integrity passed. Native desktop and emulated-touch completed six visitors, all three tools, half measures, blend tray/refinement, exact saves/reloads, loss/retry, keyboard, pause, recovery/reset and navigation without browser errors. Reviewed desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success screenshots from artifact 12887859430 (SHA256 49821c16fbfe3876df66fcd9b336f285f45e11c0603d6c5b2dd9db0dd293aa84). Phone layout still requires vertical scrolling. Automated routes and agent visual review are not human enjoyment or physical-device testing. Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI verified mint blend parked, alternative honey blend swapped, both exact recipes preserved through reload, Mabel 100/100 cup awarded two seals and unlocked Otis. Returned to catalogue, searched Tea for Ghosts and launched it with saved memory intact. No Switch workspace controls observed; Games, search, grouping, sorting and favourites retained.",
+      "publicIntegration": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
+      "nextSteps": "Integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against freshly read main, preserving concurrent visuals/input/pause layers and saves. Version changed local assets; run merged desktop/touch routes and inspect screenshots before promotion. Correct Tea guide's minor Arthur/Otis name typo in a later copy pass. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes."
     }
   ],
-  "latestObservedMain": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
+  "latestObservedMain": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2440,22 +2460,15 @@
   },
   "promotion": {
     "selected": 9,
-    "integrated": 4,
-    "verifiedLive": 4,
+    "integrated": 5,
+    "verifiedLive": 5,
     "remainingIds": [
       "reefwright",
       "copper-cadence",
       "wellward",
-      "pocket-palaeo",
-      "tea-for-ghosts"
+      "pocket-palaeo"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
-    "pendingBranch": "indie-two-promotion",
-    "pendingCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
-    "pendingIds": [
-      "tea-for-ghosts"
-    ],
-    "pendingCI": "40853957537"
+    "latestCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521"
   }
 }

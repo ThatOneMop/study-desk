@@ -75,3 +75,16 @@ Tea for Ghosts promotion candidate `d600ffdaaec8f4c2b0d40bc87f17892d3629f521` me
 Counts unchanged:20 built/initially improved/additionally verified,9 selected,4 upgraded integrations/live; third24/50 built,0 qualified improved/browser-tested/integrated/live. Exactly20 candidate slots retained. First collection, catalogue, saves, Lane Eight and Gummy Bay preserved. No automation changes.
 
 Next: Review Tea for Ghosts merged native CI and screenshots atd600ffdaaec8f4c2b0d40bc87f17892d3629f521 before promotion. Preserve live PASS70/75/80 thresholds, prior records, animated/sound/title/rest layers and half-measure keyboard behavior; fix any merged browser regressions. Then integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against fresh main. Third collection remains24/50 built,0 qualified improved/browser-tested/integrated/live; complete remaining candidates and rendered improvements.
+
+
+## Tea for Ghosts released — 29 October 2026
+
+Commit `d600ffdaaec8f4c2b0d40bc87f17892d3629f521` was promoted to main with expected-head protection after the merged native run and screenshots were reviewed.
+
+Merged CI 40853957537 passed: 46 Tea engine/DOM checks, 114 previously promoted checks, 61 Counterweight checks and 5 bridge checks; assets and first-batch integrity passed. Native desktop and emulated-touch completed six visitors, all three tools, half measures, blend tray/refinement, exact saves/reloads, loss/retry, keyboard, pause, recovery/reset and navigation without browser errors. Reviewed desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success screenshots from artifact 12887859430 (SHA256 49821c16fbfe3876df66fcd9b336f285f45e11c0603d6c5b2dd9db0dd293aa84). Phone layout still requires vertical scrolling. Automated routes and agent visual review are not human enjoyment or physical-device testing.
+
+Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI verified mint blend parked, alternative honey blend swapped, both exact recipes preserved through reload, Mabel 100/100 cup awarded two seals and unlocked Otis. Returned to catalogue, searched Tea for Ghosts and launched it with saved memory intact. No Switch workspace controls observed; Games, search, grouping, sorting and favourites retained.
+
+Counts: 20 built, 20 initial improvements, 20 additional-round verified; 9 selected, 5 selected upgrades integrated/live, 4 remaining. Third collection: 24/50 built, 0 qualified improved/browser-tested/integrated/live. No additional gameplay pass credited for release work. First-batch sources, 48 catalogue entries, saves, Lane Eight and Gummy Bay preserved. No automation changes.
+
+Next: Integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against freshly read main, preserving concurrent visuals/input/pause layers and saves. Version changed local assets; run merged desktop/touch routes and inspect screenshots before promotion. Correct Tea guide's minor Arthur/Otis name typo in a later copy pass. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes.
