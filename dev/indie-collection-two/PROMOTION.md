@@ -108,3 +108,16 @@ Merged CI40870555821 passed asset/first-batch checks and all63 Copper engine/DOM
 [Corrected merged run](https://github.com/ThatOneMop/study-desk/actions/runs/40878843230) is running; asset checks passed. Source scan still finds no Switch workspace controls in launcher or Copper Cadence. No publication retry, gameplay pass or live release claimed. Counts unchanged:20/20 additionally verified;9 selected;5 upgrades integrated/live. Third24/50 built;0 qualified improved/browser-tested/integrated/live. Existing catalogue, saves and unrelated work preserved.
 
 Next: Review corrected merged CI40878843230 at 4b26256a6fbe3add62aac94cc52fa252bc4120dc, inspect desktop/touch screenshots, fix any remaining failures and only then promote Copper Cadence against fresh main. Preserve native button keyboard activation and saves. Remaining selected upgrades: Reefwright, Wellward, Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live.
+
+
+## Copper Cadence released — 30 October 2026
+
+Merged CI40878843230 succeeded at 4b26256a6fbe3add62aac94cc52fa252bc4120dc: 63 Copper checks plus 114 earlier selected checks,61 Counterweight,46 Tea and5 bridge checks; asset/first-batch source integrity and curation pass. Both desktop and emulated touch completed five original and five catch commissions, retained-suffix repair preview/apply/cancel, blocked revisions, exact saves/reloads, pause/resume, keyboard, loss/undo, restart/recovery and navigation with no browser errors.
+
+Inspected desktop-repair-preview, touch-repair-preview and touch-repair-saved from artifact12900356215, SHA2568496c76bdcd5c731886ed7bfa9c81c73471f61e51753368704bbbec0a239b291. Repair error reduction and catch efficiency cost are legible; saved 100% take and historical three seals persist. Long vertical scrolling remains. Automated routes and agent screenshot review are reliability evidence, not human enjoyment or physical-device testing.
+
+Pages40887307844 succeeded. Live first commission: three empty cranks produced a missed note; repaired beat1 with short feed previewed1→0 errors; pause disabled apply/cancel and Escape resumed; applying/reloading retained beat3,0errors and corrected played note. Return to catalogue and search entry verified. Versioned assets served the upgraded UI. No current deployment blocker.
+
+Counts:20 built/initially improved/additionally verified,9 selected,6 upgraded versions integrated/live,3 remaining. Third24/50 built,0 qualified improved/browser-tested/integrated/live. No gameplay pass counted for release work.48 catalogue entries, first-batch sources and saves, Lane Eight/Gummy Bay preserved. No Switch workspace controls found in inspected launcher/game source. No automation changes.
+
+Next: Integrate Reefwright, Wellward and Pocket Palaeo against fresh main, preserving concurrent controls/graphics/saves; verify merged desktop/touch routes and inspect screenshots before promotion. Then complete the third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes.

@@ -25,15 +25,15 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 5
+    "verifiedLive": 6
   },
   "deployment": {
     "status": "main-pages-live",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40862009832",
-    "checked": "2026-10-29",
-    "head": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40887307844",
+    "checked": "2026-10-30",
+    "head": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
     "url": "https://thatonemop.github.io/study-desk/",
-    "detail": "Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI verified mint blend parked, alternative honey blend swapped, both exact recipes preserved through reload, Mabel 100/100 cup awarded two seals and unlocked Otis. Returned to catalogue, searched Tea for Ghosts and launched it with saved memory intact. No Switch workspace controls observed; Games, search, grouping, sorting and favourites retained. Five selected additional-round upgrades live; no publishing blocker.",
+    "detail": "Pages40887307844 succeeded. Live first commission: three empty cranks produced a missed note; repaired beat1 with short feed previewed1→0 errors; pause disabled apply/cancel and Escape resumed; applying/reloading retained beat3,0errors and corrected played note. Return to catalogue and search entry verified. Versioned assets served the upgraded UI. No current deployment blocker.",
     "previousFailure": {
       "status": "blocked",
       "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
@@ -345,7 +345,10 @@
         "Exact source c38b7f5245cc0c1d382e6b7001fce4723f2c03de: CI 40798076659 passed all seven jobs, 539 engine + 381 DOM = 920 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123199832199 passed five original and five catch-assisted commissions in each desktop/emulated-touch context, retained-suffix score repair/cancel/blocked revision/reload, exact supply forecasts, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation without browser errors. Original routes retain three seals; catch routes earn 2/2/2/3/3.",
         "Inspected desktop-repair-preview.png, touch-repair-preview.png and touch-repair-saved.png from 26 Copper Cadence screenshots in artifact 12865476513. Repair beat four clearly previews 1→0 errors and 0→1 brake/catch cost with 100% accuracy and two seals; Apply/Cancel fit on desktop and 390px touch layout. Saved result shows zero errors, one catch and two seals, retaining the historical three-seal best. No visible horizontal clipping; mobile uses vertical scrolling. ZIP SHA256 379254efbabea711c2fb0b2a9715c71c88a7f6b132e4d089d759157dcb915399. Automated rendered gameplay plus agent screenshot review, not human enjoyment, physical-device or audible-quality evidence.",
         "Merged Copper Cadence's already-verified silent catches and retained-suffix score repair with main's local Pause/Escape controls, sound, artwork and pulsing current beat. Pause now freezes repair apply/cancel and pending save mutations; resume restores the draft. Added 2 regression cases (63 focused engine/DOM checks pass) and desktop/touch native pause-during-repair coverage. Versioned all three local assets. Main remains d600ffdaa with 5/9 selected upgrades live; merged browser verification pending. No new gameplay pass or public entry counted. CI https://github.com/ThatOneMop/study-desk/actions/runs/40870555821",
-        "Merged CI40870555821 passed asset/first-batch checks and all63 Copper engine/DOM tests, then stopped in desktop repair pause coverage: Space natively activated the still-focused Resume button, so the subsequent Escape paused again. Test-only correction 4b26256a6fbe3add62aac94cc52fa252bc4120dc moves focus to the return link before blocked gameplay keys and asserts Resume still shows before explicitly resuming. No gameplay source change. Reviewed desktop-repair-preview from artifact12895359052 (SHA2560573b82abb263b17882f813e6b3acfa1130166f78e5d574ff73258ba7e06b87d): clear one-to-zero error comparison, catch efficiency cost and apply/cancel, preserved illustration; long page remains. Failed run does not qualify as completed merged browser verification."
+        "Merged CI40870555821 passed asset/first-batch checks and all63 Copper engine/DOM tests, then stopped in desktop repair pause coverage: Space natively activated the still-focused Resume button, so the subsequent Escape paused again. Test-only correction 4b26256a6fbe3add62aac94cc52fa252bc4120dc moves focus to the return link before blocked gameplay keys and asserts Resume still shows before explicitly resuming. No gameplay source change. Reviewed desktop-repair-preview from artifact12895359052 (SHA2560573b82abb263b17882f813e6b3acfa1130166f78e5d574ff73258ba7e06b87d): clear one-to-zero error comparison, catch efficiency cost and apply/cancel, preserved illustration; long page remains. Failed run does not qualify as completed merged browser verification.",
+        "Merged CI40878843230 succeeded at 4b26256a6fbe3add62aac94cc52fa252bc4120dc: 63 Copper checks plus 114 earlier selected checks,61 Counterweight,46 Tea and5 bridge checks; asset/first-batch source integrity and curation pass. Both desktop and emulated touch completed five original and five catch commissions, retained-suffix repair preview/apply/cancel, blocked revisions, exact saves/reloads, pause/resume, keyboard, loss/undo, restart/recovery and navigation with no browser errors.",
+        "Inspected desktop-repair-preview, touch-repair-preview and touch-repair-saved from artifact12900356215, SHA2568496c76bdcd5c731886ed7bfa9c81c73471f61e51753368704bbbec0a239b291. Repair error reduction and catch efficiency cost are legible; saved 100% take and historical three seals persist. Long vertical scrolling remains. Automated routes and agent screenshot review are reliability evidence, not human enjoyment or physical-device testing.",
+        "Pages40887307844 succeeded. Live first commission: three empty cranks produced a missed note; repaired beat1 with short feed previewed1→0 errors; pause disabled apply/cancel and Escape resumed; applying/reloading retained beat3,0errors and corrected played note. Return to catalogue and search entry verified. Versioned assets served the upgraded UI. No current deployment blocker."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -357,7 +360,10 @@
         "notes": "Conserved beads, unequal track lengths, one feeder, queue brakes and in-flight routing make a distinct mechanical pipeline puzzle. Exact forecasts support reasoning; a revised commission now genuinely requires braking for perfection. Five compact authored commissions and seal optimization limit replay depth. Original SVG instrument and synthesized audio. No physical-device test, full screen-reader audit, subjective audio listening review or long-playtime claim. Additional round: catches add recycling choices and score repair makes earlier alternatives practical without replaying the entire suffix. The preview exposes seal-cost tradeoffs, not an automatic optimal solution. Five fixed commissions remain a compact campaign; no enjoyment survey or long-duration claim."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "1b39c47a143e8647d1dadf2c7c9e5c145da05213",
+        "4b26256a6fbe3add62aac94cc52fa252bc4120dc"
+      ],
       "initialCommit": "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
       "developmentCommits": [
         "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
@@ -367,7 +373,7 @@
         "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
         "c38b7f5245cc0c1d382e6b7001fce4723f2c03de"
       ],
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/copper-cadence/index.html",
       "selectionReason": "Distinct musical pipeline; resource-preserving score repair supports experimentation.",
       "verification": {
         "commit": "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6",
@@ -386,7 +392,21 @@
         "job": 123199832199,
         "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40798076659/artifacts/12865476513",
         "report": "dev/indie-collection-two/COPPER_SCORE_REPAIR.md"
-      }
+      },
+      "releaseVerification": {
+        "commit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40878843230",
+        "deployment": "https://github.com/ThatOneMop/study-desk/actions/runs/40887307844",
+        "artifactId": 12900356215,
+        "artifactSha256": "8496c76bdcd5c731886ed7bfa9c81c73471f61e51753368704bbbec0a239b291",
+        "evidence": "Merged CI40878843230 succeeded at 4b26256a6fbe3add62aac94cc52fa252bc4120dc: 63 Copper checks plus 114 earlier selected checks,61 Counterweight,46 Tea and5 bridge checks; asset/first-batch source integrity and curation pass. Both desktop and emulated touch completed five original and five catch commissions, retained-suffix repair preview/apply/cancel, blocked revisions, exact saves/reloads, pause/resume, keyboard, loss/undo, restart/recovery and navigation with no browser errors.",
+        "visuals": "Inspected desktop-repair-preview, touch-repair-preview and touch-repair-saved from artifact12900356215, SHA2568496c76bdcd5c731886ed7bfa9c81c73471f61e51753368704bbbec0a239b291. Repair error reduction and catch efficiency cost are legible; saved 100% take and historical three seals persist. Long vertical scrolling remains. Automated routes and agent screenshot review are reliability evidence, not human enjoyment or physical-device testing.",
+        "live": "Pages40887307844 succeeded. Live first commission: three empty cranks produced a missed note; repaired beat1 with short feed previewed1→0 errors; pause disabled apply/cancel and Escape resumed; applying/reloading retained beat3,0errors and corrected played note. Return to catalogue and search entry verified. Versioned assets served the upgraded UI. No current deployment blocker.",
+        "status": "passed and live"
+      },
+      "nextSteps": [
+        "Released; preserve native pause/keyboard behavior and saves. Five finite commissions and long phone scrolling remain scope limits."
+      ]
     },
     {
       "slot": 25,
@@ -1810,7 +1830,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review corrected merged CI40878843230 at 4b26256a6fbe3add62aac94cc52fa252bc4120dc, inspect desktop/touch screenshots, fix any remaining failures and only then promote Copper Cadence against fresh main. Preserve native button keyboard activation and saves. Remaining selected upgrades: Reefwright, Wellward, Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live.",
+  "nextSteps": "Integrate Reefwright, Wellward and Pocket Palaeo against fresh main, preserving concurrent controls/graphics/saves; verify merged desktop/touch routes and inspect screenshots before promotion. Then complete the third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2439,9 +2459,15 @@
       "ci": "40878843230",
       "publicIntegration": null,
       "nextSteps": "Review corrected merged CI40878843230 at 4b26256a6fbe3add62aac94cc52fa252bc4120dc, inspect desktop/touch screenshots, fix any remaining failures and only then promote Copper Cadence against fresh main. Preserve native button keyboard activation and saves. Remaining selected upgrades: Reefwright, Wellward, Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live."
+    },
+    {
+      "date": "2026-10-30",
+      "result": "Merged CI40878843230 succeeded at 4b26256a6fbe3add62aac94cc52fa252bc4120dc: 63 Copper checks plus 114 earlier selected checks,61 Counterweight,46 Tea and5 bridge checks; asset/first-batch source integrity and curation pass. Both desktop and emulated touch completed five original and five catch commissions, retained-suffix repair preview/apply/cancel, blocked revisions, exact saves/reloads, pause/resume, keyboard, loss/undo, restart/recovery and navigation with no browser errors. Inspected desktop-repair-preview, touch-repair-preview and touch-repair-saved from artifact12900356215, SHA2568496c76bdcd5c731886ed7bfa9c81c73471f61e51753368704bbbec0a239b291. Repair error reduction and catch efficiency cost are legible; saved 100% take and historical three seals persist. Long vertical scrolling remains. Automated routes and agent screenshot review are reliability evidence, not human enjoyment or physical-device testing. Pages40887307844 succeeded. Live first commission: three empty cranks produced a missed note; repaired beat1 with short feed previewed1→0 errors; pause disabled apply/cancel and Escape resumed; applying/reloading retained beat3,0errors and corrected played note. Return to catalogue and search entry verified. Versioned assets served the upgraded UI. No current deployment blocker.",
+      "publicIntegration": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
+      "nextSteps": "Integrate Reefwright, Wellward and Pocket Palaeo against fresh main, preserving concurrent controls/graphics/saves; verify merged desktop/touch routes and inspect screenshots before promotion. Then complete the third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes."
     }
   ],
-  "latestObservedMain": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
+  "latestObservedMain": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2478,21 +2504,14 @@
   },
   "promotion": {
     "selected": 9,
-    "integrated": 5,
-    "verifiedLive": 5,
+    "integrated": 6,
+    "verifiedLive": 6,
     "remainingIds": [
       "reefwright",
-      "copper-cadence",
       "wellward",
       "pocket-palaeo"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
-    "pendingBranch": "indie-two-promotion",
-    "pendingCommit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
-    "pendingIds": [
-      "copper-cadence"
-    ],
-    "pendingCI": "40878843230"
+    "latestCommit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc"
   }
 }
