@@ -26,6 +26,8 @@ jobs:
           node tests/counterweight-browser.cjs
           node --test tests/tea-for-ghosts-engine.cjs tests/tea-for-ghosts-dom.cjs
           node tests/tea-for-ghosts-browser.cjs
+          node --test tests/copper-cadence-engine.cjs tests/copper-cadence-dom.cjs
+          node tests/copper-cadence-browser.cjs
           node tests/curation-regression.cjs
           node tests/hollow-keeper-browser.cjs
           node tests/cairn-and-cord-browser.cjs
