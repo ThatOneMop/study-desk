@@ -477,15 +477,27 @@
       const d = Math.hypot(j.x - x, j.y - y);
       if (d < bd) { bd = d; best = { kind: 'joint', id: j.id, x: j.x, y: j.y }; }
     }
-    for (const p of run.pistes) {
-      const hit = projectPiste(p, x, y);
-      if (hit.d < bd) { bd = hit.d; best = { kind: 'piste', piste: p, x: hit.x, y: hit.y, along: hit.along, total: hit.total }; }
-    }
     for (const l of run.lifts) {
       for (const end of [{ id: l.from, x: l.x1, y: l.y1 }, { id: l.to, x: l.x2, y: l.y2 }]) {
         const d = Math.hypot(end.x - x, end.y - y);
         if (d < bd) { bd = d; best = { kind: 'lift', id: end.id, x: end.x, y: end.y }; }
       }
+    }
+    // Stops, joints and lift ends win over the middle of a run. A run's own
+    // end is its node, so we never split a run at (or a hair from) its end.
+    const nodeBd = best ? bd : Infinity;
+    for (const p of run.pistes) {
+      const hit = projectPiste(p, x, y);
+      if (hit.d >= bd) continue;
+      if (hit.along < 10 || hit.total - hit.along < 10) {
+        const head = hit.along < 10;
+        const end = head ? p.pts[0] : p.pts[p.pts.length - 1];
+        const id = head ? p.from : p.to;
+        if (!best || best.kind !== 'poi') { bd = hit.d; best = { kind: 'joint', id, x: end.x, y: end.y }; }
+        continue;
+      }
+      if (nodeBd !== Infinity && hit.d > nodeBd - 8) continue;
+      bd = hit.d; best = { kind: 'piste', piste: p, x: hit.x, y: hit.y, along: hit.along, total: hit.total };
     }
     return best;
   }

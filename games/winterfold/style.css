@@ -145,12 +145,15 @@ dialog::backdrop { background: rgba(36, 40, 38, 0.28); }
 label.chk { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
 
 @media (max-width: 800px) {
-  #key { display: none; width: min(280px, 86vw); bottom: auto; max-height: 70vh; }
+  #key { display: none; width: min(280px, 86vw); top: 142px; bottom: auto; max-height: calc(100% - 300px); z-index: 6; }
   #key.open { display: flex; }
   #keyToggle { display: block; }
   #topbar { top: 12px; bottom: auto; left: auto; right: 12px; max-width: calc(100% - 130px); transform: none; border-radius: 14px; flex-wrap: wrap; justify-content: flex-end; }
   #topbar span { min-width: 0; font-size: 12px; }
-  #dock { bottom: 8px; left: 8px; right: 8px; transform: none; max-width: none; overflow: auto; }
+  #dock { bottom: 8px; left: 8px; right: 8px; transform: none; max-width: none; overflow: hidden; gap: 3px; padding: 4px; }
+  #dock button { flex: 1 1 0; min-width: 0; padding: 7px 2px 5px; }
+  #dock button small { font-size: 9px; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #dock button b { font-size: 12px; }
   #hands { top: auto; bottom: 78px; right: 8px; transform: none; flex-direction: row; }
   #hint { top: 70px; max-width: calc(100% - 24px); }
   #tutorial { max-width: calc(100% - 20px); bottom: 150px; }

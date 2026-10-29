@@ -115,7 +115,12 @@
   }
   function apply(result) {
     if (!result) return;
-    if (result.ok) audio.draw();
+    if (result.ok) {
+      audio.draw();
+      if (result.color) $('hint').textContent = SLOPE_LABEL[result.color] + ' run drawn.';
+      else if (tool === 'lift') $('hint').textContent = LIFT_LABEL[liftType] + ' built.';
+      else if ($('hint').textContent && !run.speed) $('hint').textContent = 'Paused. Press play when the hill is ready.';
+    }
     else { audio.error(); if (result.reason) toast(result.reason); }
     refresh();
     save();

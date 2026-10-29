@@ -51,6 +51,18 @@ const picked = E.chooseCard(run, 0);
 assert.equal(picked.ok, true);
 assert.equal(run.phase, 'play');
 
+// A lift drawn a hair off the stops must still attach to them, not split the run at its ends.
+const near = E.startRun(meta, 'lark', 'run');
+const jitter = pts => pts.map(p => ({ x: p.x + 1e-6, y: p.y - 2e-6 }));
+assert.equal(E.commitStroke(near, jitter(stroke(summit, station))).ok, true);
+const nearLift = E.commitLift(near, { x: station.x + 1e-5, y: station.y }, { x: summit.x - 1e-5, y: summit.y }, 'chair');
+assert.equal(nearLift.ok, true, nearLift.reason);
+assert.equal(near.lifts[0].from, station.id);
+assert.equal(near.lifts[0].to, summit.id);
+assert.equal(near.pistes.length, 1);
+playDay(near);
+assert.equal(near.phase, 'dawn', near.reason);
+
 const idle = E.startRun(meta, 'lark', 'run');
 playDay(idle);
 assert.equal(idle.phase, 'over');
