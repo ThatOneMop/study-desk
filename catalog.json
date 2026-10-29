@@ -756,5 +756,31 @@
     "internet": false,
     "multiplayer": "Single player",
     "credits": "credits.html#created-games"
+  },
+  {
+    "id": "winterfold",
+    "title": "Winterfold",
+    "description": "Draw coloured ski runs and lifts on a paper trail map. New stops open each morning, and every guest must be home by dusk.",
+    "icon": "🎿",
+    "genre": "Strategy",
+    "color": "#7f97a6",
+    "url": "games/winterfold/index.html",
+    "group": "Your games",
+    "controls": "Drag runs and lifts · 1–5 tools · M move, D draw, X erase · Q/E clock · Space pauses",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#winterfold",
+    "aliases": [
+      "ski",
+      "snow",
+      "resort",
+      "lifts",
+      "strategy",
+      "winter"
+    ],
+    "thumbnail": "art/curated/winterfold.svg",
+    "thumbnailAlt": "Winterfold cover illustration of coloured runs on a paper mountain",
+    "updated": "2026-10-29"
   }
 ]
