@@ -52,3 +52,22 @@ Clockwork Tide’s player controls water routing, gate opening, gear ratio and h
 ## Ember Parcel additional-round review — 28 October
 
 Recoverable boardwalks turn one bundle into a temporary safe crossing and later fuel, while lifting restores water cost or garden exposure. The choice is distinct from the other slate's continuous winch/cargo movement. All four kept and all four reclaimed routes finish with no burned gardens; on those fixtures, recovery adds two actions and three arrival warmth, improving score by one. A return trip can make leaving the boardwalk preferable. Original shortest routes may still outperform construction: do not mistake an extra mechanic for a deeper campaign. Four short fixed maps and no sound layer remain limitations. Provisional enjoyment 3, depth 2.5, polish 3.5, reliability 4.5, variety 4 out of 5; this is agent judgment, not a player study. Retain for comparison, not automatic catalogue selection.
+
+
+## Final selection after all twenty additional upgrades — 29 October 2026
+
+This supersedes the provisional selection above. Select nine compact games for complementary loops, not presumed playtime. All twenty now pass the additional-round evidence gate. Ratings remain agent judgment, not a human enjoyment study.
+
+- **Reefwright**: Strongest calm spatial planning; paired cuts expose ecological tradeoffs.
+- **Counterweight**: Manual machinery with load, swing and consumable cradle decisions; reversible delivery rehearsal.
+- **Copper Cadence**: Distinct musical pipeline; resource-preserving score repair supports experimentation.
+- **Hollow Keeper**: Colony-adjacent route defense with active resin intervention and safe decision stops.
+- **Wellward**: Strongest manual retrieval and bank-and-upgrade loop; recovery competes with cargo capacity.
+- **Pocket Palaeo**: Tactile excavation, support planning and useful tool purchases.
+- **Tea for Ghosts**: Relaxed recipe deduction with saved branching experiments and a strong illustrated identity.
+- **Cairn & Cord**: Deliberate climbing with optional survey routes and consequential anchor/grip choices.
+- **Murmuration**: Direct flock formation control adds action variety; regrouping competes with arrival food.
+
+Reserves: Lanternwake, Paper Odyssey, Ratchet Run, Salt & Sail, Static Orchard, Borrowed Gravity, Night Clerk, Clockwork Tide, Ember Parcel, Windup Wrestling and Last Lighthouse. Their full source and tests remain durable. The latter three have especially limited fixed campaigns; Night Clerk overlaps the selected hospitality game; the remaining action/nautical/machinery candidates offer less progression or overlap selected loops. Existing concurrent main entries are preserved, not removed.
+
+Promotion is pending: main has newer feel layers absent from development. Merge those layers and rerun browser coverage before claiming the selected upgrade live.

@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 19,
+  "completed": 20,
   "required": 20,
   "candidates": [
     {
@@ -103,7 +103,7 @@
       "slot": 25,
       "id": "hollow-keeper",
       "title": "Hollow Keeper",
-      "status": "implemented-awaiting-rendered-review",
+      "status": "verified",
       "observedWeakness": "Inspected touch-hollow-5-mid.png from native run 40798076659/artifact 12865476513: a readable scout report predicts 2/3 hearts, but gives no timing for intervention. Single-step marching or continuous auto march requires watching every step to catch depletion. This is agent screenshot/source assessment of rendered native gameplay, not human enjoyment evidence.",
       "before": "Thorn strikes only refill between waves; active spending is limited to fruit lures.",
       "after": "Regrow spends two resin to restore up to two strikes, capped at three, then advances the attack immediately. It competes with fruit and later upgrades. Exact previews/scout reports include the advancing step. Tool 6 supports staged confirmation and saved replay. Safe marching now simulates ordinary steps and stops before the next nursery hit or thorn-bed exhaustion, naming the bed's row and column. It preserves every tick in the journal for single-step undo. The player can accept the warned step manually or choose regrowth/fruit. Safe marching is disabled while a tool preview is staged; auto march remains optional.",
@@ -111,10 +111,12 @@
       "testing": [
         "28 engine + 22 jsdom checks pass. All five original two-wave campaigns remain unchanged. An earned single reinforced-bed route otherwise loses one heart; regrowth preserves all three hearts and earns three seals. Costs, caps, immediate charge consumption, exact forecasts, saves, undo, invalid use and progression checked.",
         "DOM checks cover shortcut 6, forecast/cancel/confirm, auto-march pause, saved regrowth and win, undo and restart. Original loss/recovery, navigation markup and scoped saves also pass. Syntax passes; no rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed.",
-        "29 October: 52 focused engine/DOM checks pass (29 engine + 23 DOM), including pure warning boundaries, no input mutation, ordinary replay/undo, reload, preview guard and original five full campaigns. Native browser suite expanded with earned regrowth victory, safe-march warning, preview/cancel/apply/reload and desktop/touch screenshots; final native evidence pending."
+        "29 October: 52 focused engine/DOM checks pass (29 engine + 23 DOM), including pure warning boundaries, no input mutation, ordinary replay/undo, reload, preview guard and original five full campaigns. Native browser suite expanded with earned regrowth victory, safe-march warning, preview/cancel/apply/reload and desktop/touch screenshots; final native evidence pending.",
+        "Exact source be33501dc31ceec3ed3c251ee935ec0dadef5761: CI 40810194303 passed all seven jobs; 540 engine + 382 DOM = 922 checks. Native job 123238838453 passed five three-seal hollows, earned regrowth victory, safe-march warning/reload/cancel, forecasts, loss/undo, keyboard, restart/cancel, isolated save recovery and navigation in desktop and touch emulation without browser errors. Inspected desktop-warning.png, touch-regrow-preview.png and touch-regrow-safe.png from artifact 12870138863. Warning names row 4 column 3 before the final strike; preview states 2 resin plus an advancing step; victory retains three hearts and four resin. Phone controls fit but require substantial vertical scrolling. ZIP SHA256 1097db8a6d273c83fc9a045a17ce3583809ea75b50b6d5b59a34f880c487dcd4. Automated rendered routes and agent screenshot review, not human enjoyment or physical-device evidence."
       ],
-      "remaining": "Inspect exact-source native results and warning/regrowth screenshots, fix failures before counting. Additional round remains 19/20. Then compare and integrate selected games; third-batch obligations remain outstanding.",
-      "refinementCommit": "be33501dc31ceec3ed3c251ee935ec0dadef5761"
+      "remaining": "Verified; merge with concurrent main visual effects before promotion.",
+      "refinementCommit": "be33501dc31ceec3ed3c251ee935ec0dadef5761",
+      "verificationCommit": "be33501dc31ceec3ed3c251ee935ec0dadef5761"
     },
     {
       "slot": 26,

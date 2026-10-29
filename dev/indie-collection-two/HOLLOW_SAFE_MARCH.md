@@ -21,3 +21,12 @@ The existing regrowth pass is `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; this r
 No new public integration or live release. First batch, main (55c330d9ec493afc40e81e89a371f64cbd5bd8b0), Gummy Bay, existing saves and third-batch work preserved. The resolved Pages/workspace-control audit is unchanged; it was not retried as new work. Third batch remains 24/50 built and zero qualified improved/browser-tested/integrated/live.
 
 Exact-source native CI: [40810194303](https://github.com/ThatOneMop/study-desk/actions/runs/40810194303), in progress at this checkpoint.
+
+
+## Final additional-round verification — 29 October 2026
+
+**20/20 additional upgrades verified; 40 meaningful passes across the second batch.**
+
+Exact source be33501dc31ceec3ed3c251ee935ec0dadef5761: CI 40810194303 passed all seven jobs; 540 engine + 382 DOM = 922 checks. Native job 123238838453 passed five three-seal hollows, earned regrowth victory, safe-march warning/reload/cancel, forecasts, loss/undo, keyboard, restart/cancel, isolated save recovery and navigation in desktop and touch emulation without browser errors. Inspected desktop-warning.png, touch-regrow-preview.png and touch-regrow-safe.png from artifact 12870138863. Warning names row 4 column 3 before the final strike; preview states 2 resin plus an advancing step; victory retains three hearts and four resin. Phone controls fit but require substantial vertical scrolling. ZIP SHA256 1097db8a6d273c83fc9a045a17ce3583809ea75b50b6d5b59a34f880c487dcd4. Automated rendered routes and agent screenshot review, not human enjoyment or physical-device evidence.
+
+Nine finalists are selected in the ledger. Source promotion must preserve concurrent visual effects, the 46-entry curated catalogue and Lane Eight at main 2098eeb559d90c840faaab3b8c500b3623f37cbf. No new main integration or live upgrade is claimed by this checkpoint. Earlier status snapshots above are historical. Third batch remains 24/50 built, zero qualified improved/browser-tested/integrated/live.

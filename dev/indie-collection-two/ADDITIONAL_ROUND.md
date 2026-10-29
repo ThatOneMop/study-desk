@@ -44,3 +44,12 @@ Native follow-up on 28 October: Last Lighthouse passes desktop/emulated-touch pr
 29 October Salt & Sail verification: all five original and five discard deliveries, two mid-voyage risk comparisons, saves, loss/retry, navigation and corrected chart bounds pass desktop/emulated-touch testing. All seven CI jobs pass; three of 68 screenshots inspected. **13/20 verified**, seven pending. No new public integration or live release.
 
 29 October Copper Cadence verification: five original and five catch-assisted commissions per desktop/emulated-touch context, repair preview/cancel/apply/blocked-edit/reload and existing regression routes pass. All seven CI jobs passed; three of 26 screenshots inspected. **19/20 verified**, Hollow Keeper pending. No new public integration or live release.
+
+
+## Final additional-round verification — 29 October 2026
+
+**20/20 additional upgrades verified; 40 meaningful passes across the second batch.**
+
+Exact source be33501dc31ceec3ed3c251ee935ec0dadef5761: CI 40810194303 passed all seven jobs; 540 engine + 382 DOM = 922 checks. Native job 123238838453 passed five three-seal hollows, earned regrowth victory, safe-march warning/reload/cancel, forecasts, loss/undo, keyboard, restart/cancel, isolated save recovery and navigation in desktop and touch emulation without browser errors. Inspected desktop-warning.png, touch-regrow-preview.png and touch-regrow-safe.png from artifact 12870138863. Warning names row 4 column 3 before the final strike; preview states 2 resin plus an advancing step; victory retains three hearts and four resin. Phone controls fit but require substantial vertical scrolling. ZIP SHA256 1097db8a6d273c83fc9a045a17ce3583809ea75b50b6d5b59a34f880c487dcd4. Automated rendered routes and agent screenshot review, not human enjoyment or physical-device evidence.
+
+Nine finalists are selected in the ledger. Source promotion must preserve concurrent visual effects, the 46-entry curated catalogue and Lane Eight at main 2098eeb559d90c840faaab3b8c500b3623f37cbf. No new main integration or live upgrade is claimed by this checkpoint. Earlier status snapshots above are historical. Third batch remains 24/50 built, zero qualified improved/browser-tested/integrated/live.

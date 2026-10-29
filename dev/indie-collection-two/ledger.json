@@ -23,8 +23,8 @@
     "playable": 20,
     "improved": 20,
     "finished": 20,
-    "selected": 0,
-    "meaningfulPasses": 39,
+    "selected": 9,
+    "meaningfulPasses": 40,
     "verifiedLive": 0
   },
   "deployment": {
@@ -105,7 +105,7 @@
         "variety": 4.5,
         "notes": "Rotated mixed-species pieces create competing adjacency and open-water goals. Exact previews support deliberate choices without hiding consequences; free undo encourages experimentation. Five different rock layouts/decks and medal optimization offer compact replay. Original sea-glass/SVG presentation is legible on reviewed desktop/touch captures. No randomized campaign, sound layer, physical-device test, full screen-reader audit or human enjoyment study is claimed. Additional review: selective cutting and combined two-cut planning add local restructuring and lookahead. A nursery gain can sacrifice a required forest despite equal vitality, preserving distinct goals. Five fixed coasts remain compact; no content-duration or human-enjoyment claim."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
       "developmentCommits": [
@@ -115,7 +115,7 @@
         "0db09c81e7d4227733b4a9f16a6cd839187895f1",
         "92639e48c7e2409f05f7911f67402707e9537b2b"
       ],
-      "selectionReason": "Retain as a finished development candidate until other second-batch candidates can be compared for enjoyment, depth, polish, reliability and collection variety.",
+      "selectionReason": "Strongest calm spatial planning; paired cuts expose ecological tradeoffs.",
       "publishedUrl": null,
       "verification": {
         "commit": "0cb2dee04c5190e30ac0f4a3c406c9394e061346",
@@ -184,7 +184,7 @@
         "variety": 4.5,
         "notes": "Distinct deliberate crane loop: balancing reach and cargo weight while using hoist/ballast actions to damp swing, arranging cumulative-load stacks and optimizing move medals. Five compact authored jobs introduce light, heavy, long-reach, mixed-support and wind constraints. Pixel harbour and exact previews are readable in reviewed desktop/mobile captures. Simulation is discrete, not continuous pendulum physics; no sound, procedural campaign, long playtime, physical-device or full screen-reader certification is claimed. Additional round: padded cradles and reversible lift rehearsal deepen equipment allocation and route comparison without changing existing journals. The five original versus cradle routes have mixed move costs, so equipment is not universally superior. Native desktop/phone evidence verifies usability and reliability; this is not a player survey."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "922d502a8e59c5df7637e008e10802f7f2faea26",
       "developmentCommits": [
@@ -194,7 +194,7 @@
         "2bc91453985c3def8b6f51b4c8f696220873a444"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain as a finished development candidate. Compare against the wider second-batch slate before public selection; it adds physical load-balancing and manual control distinct from Reefwright spatial ecology.",
+      "selectionReason": "Manual machinery with load, swing and consumable cradle decisions; reversible delivery rehearsal.",
       "verification": {
         "commit": "a7f25641eb9a7957a35d580c3d905066234a32ee",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39930163890",
@@ -273,7 +273,7 @@
         "1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain as a finished candidate until the wider second-batch slate can be compared. Temporary light both enables navigation and lures hazards; distinct from Reefwright ecology, Counterweight cargo balance and first-batch cargo/stealth loops.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "verification": {
         "commit": "c017ff969c15f763e59f4f5b22788f613f2e5ced",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39938472688",
@@ -341,7 +341,7 @@
         "variety": 4,
         "notes": "Conserved beads, unequal track lengths, one feeder, queue brakes and in-flight routing make a distinct mechanical pipeline puzzle. Exact forecasts support reasoning; a revised commission now genuinely requires braking for perfection. Five compact authored commissions and seal optimization limit replay depth. Original SVG instrument and synthesized audio. No physical-device test, full screen-reader audit, subjective audio listening review or long-playtime claim. Additional round: catches add recycling choices and score repair makes earlier alternatives practical without replaying the entire suffix. The preview exposes seal-cost tradeoffs, not an automatic optimal solution. Five fixed commissions remain a compact campaign; no enjoyment survey or long-duration claim."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "0f72f4d238eff2b1693d3dbf3e8f535ad80c85ff",
       "developmentCommits": [
@@ -353,7 +353,7 @@
         "c38b7f5245cc0c1d382e6b7001fce4723f2c03de"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain for comparison with the wider second-batch slate. A scarce-bead mechanical pipeline is distinct from first-batch Stone Song rhythm arrangement, Reefwright ecology, Counterweight balance and Lanternwake navigation. No automatic public selection.",
+      "selectionReason": "Distinct musical pipeline; resource-preserving score repair supports experimentation.",
       "verification": {
         "commit": "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39945625373",
@@ -391,6 +391,15 @@
           "validation": "Exact-source CI 39953185745 passed 25 Hollow Keeper engine + 20 DOM checks, all five three-seal desktop/touch hollows, exact scouts/costs, reloads, invalid previews, route toggles, loss/undo, keyboard focus/Enter/Space, auto pause, fruit, restart/cancel, isolated save recovery and navigation. All four previous candidates passed unchanged: 216 checks total, 102 screenshots.",
           "passNumber": 1,
           "date": "2026-10-23"
+        },
+        {
+          "passNumber": 2,
+          "date": "2026-10-29",
+          "changes": [
+            "Regrowth trades two resin and an immediate marching step for up to two restored strikes.",
+            "Safe marching stops at a meaningful thorn-depletion or nursery-danger decision and preserves ordinary per-step undo and saves."
+          ],
+          "validation": "Exact source be33501dc31ceec3ed3c251ee935ec0dadef5761: CI 40810194303 passed all seven jobs; 540 engine + 382 DOM = 922 checks. Native job 123238838453 passed five three-seal hollows, earned regrowth victory, safe-march warning/reload/cancel, forecasts, loss/undo, keyboard, restart/cancel, isolated save recovery and navigation in desktop and touch emulation without browser errors. Inspected desktop-warning.png, touch-regrow-preview.png and touch-regrow-safe.png from artifact 12870138863. Warning names row 4 column 3 before the final strike; preview states 2 resin plus an advancing step; victory retains three hearts and four resin. Phone controls fit but require substantial vertical scrolling. ZIP SHA256 1097db8a6d273c83fc9a045a17ce3583809ea75b50b6d5b59a34f880c487dcd4. Automated rendered routes and agent screenshot review, not human enjoyment or physical-device evidence."
         }
       ],
       "tests": [
@@ -410,7 +419,7 @@
         "variety": 4,
         "notes": "Route shaping, shared approaches, limited thorn charges and fruit recrossing create a distinct compact maze-defense puzzle. Scout reports and safe previews support experimentation. Five authored hollows constrain replay depth; phone play still scrolls between planning and wave controls. Original SVG art, no audio dependency. Not a deep colony simulation or evidence of multi-hour content. No physical-device or full screen-reader audit."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "f6266bd85765772a9c7824b77f48e4f96b152837",
       "developmentCommits": [
@@ -420,7 +429,7 @@
         "be33501dc31ceec3ed3c251ee935ec0dadef5761"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain for comparison with the wider slate. Maze-defense route shaping adds variety alongside ecology, balancing, navigation and mechanical timing; distinct from first-batch Queen of Cinders worker/rescue loop. No automatic public selection.",
+      "selectionReason": "Colony-adjacent route defense with active resin intervention and safe decision stops.",
       "verification": {
         "commit": "73b95527ab3861f9e75a9047564169c098a809db",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39953185745",
@@ -448,6 +457,13 @@
         ],
         "remaining": "Inspect exact-source native results and warning/regrowth screenshots, fix failures before counting. Additional round remains 19/20. Then compare and integrate selected games; third-batch obligations remain outstanding.",
         "refinementCommit": "be33501dc31ceec3ed3c251ee935ec0dadef5761"
+      },
+      "additionalVerification": {
+        "commit": "be33501dc31ceec3ed3c251ee935ec0dadef5761",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40810194303",
+        "job": 123238838453,
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40810194303/artifacts/12870138863",
+        "report": "dev/indie-collection-two/HOLLOW_SAFE_MARCH.md"
       }
     },
     {
@@ -515,7 +531,7 @@
         "5d519169d661956a7ccb138ccb166da328667638"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain for broader comparison. Folding physical islands changes geometry and layer connectivity; distinct from first-batch Inkline drafting/ink economy and other second-batch mechanics. Not automatically selected.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "verification": {
         "commit": "2fdcf59ad9da741f6ad8937608b42a5a28ae4f63",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39956463788",
@@ -599,7 +615,7 @@
         "6599f77659f45ceb6994970000654b051236d66b"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain as an improved action candidate for final comparison after all twenty additional-round entries pass. Active equipment/resource choices improve depth and relaxed controls, but the authored route scope remains small. No automatic public selection.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "verification": {
         "status": "passed",
         "commit": "6599f77659f45ceb6994970000654b051236d66b",
@@ -671,7 +687,7 @@
         "variety": 4,
         "notes": "Swing, steady and haul create a manual retrieval loop; cargo capacity, banked workshop purchases and optional water ballast add decisions. Four authored wells introduce bends, water and wind. The clearance sketch improves navigation without automating movement. Compact replay comes from optional relics and upgrade order; the finite campaign limits depth. Original smooth Canvas artwork. No sound layer, realistic rope wrapping, human enjoyment study, physical-device test or hours-of-content claim. Additional review: repair kit capacity cost and cancellable settling add a deliberate recovery choice. The paused keyboard mismatch found in rendered review is fixed and natively tested. Four fixed wells remain compact; phone layout requires scrolling. No unmeasured content-duration claim."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "902ba544df8b138932b5ed1f2abad1051b4ea37e",
       "developmentCommits": [
@@ -682,7 +698,7 @@
         "696e6c07a2947a613f99f193a1d058bb5ffe2157",
         "4fc1344099f8b0181709129156895449e0f2f148"
       ],
-      "selectionReason": "Retain as a finished development candidate for broader comparison. Manual retrieval adds variety, but four wells provide modest depth; no catalogue selection yet.",
+      "selectionReason": "Strongest manual retrieval and bank-and-upgrade loop; recovery competes with cargo capacity.",
       "publishedUrl": null,
       "verification": {
         "commit": "81a926013f7ab058d7d354c62715fce12d6efffa",
@@ -780,7 +796,7 @@
         "e1ed0d48c2abff8321e6e011666b2d2343e54292"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain as a finished packing/action candidate for broader comparison. Its core loop differs from crane operations, ecological placement and lantern navigation, but the repeated nautical/cargo theme and limited route depth argue against automatic selection.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "verification": {
         "commit": "3abdf9c1a79e75844abe9365a66e6b288da89554",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39978965563",
@@ -877,7 +893,7 @@
         "variety": 4,
         "notes": "Manual excavation now feeds a more forgiving support puzzle: reusable braces are free to rearrange, while irreversible resin jackets offer a clearly forecast alternative and compete with crack repairs. Kept lift guidance and cancellation make experiments understandable. All six specimens remain perfectly recoverable with the original reusable supports, so the jacket route is an option rather than a mandatory upgrade. Three fixed sites/six specimens still limit long-term discovery; condition records, different support plans and tool purchases provide compact replay. Original SVG/CSS journal presentation is readable in desktop/390px captures, with vertical scrolling on phones. No procedural campaign, sound, measured long playtime, human enjoyment study, physical-device testing or full accessibility certification is claimed."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "56a94c7b79a35c4407e266e51fe4be3e83c83673",
       "developmentCommits": [
@@ -893,7 +909,7 @@
         "184bb3c613a5dba1c17585500cd69b747b3add3e"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain for comparison as a calm manual collection-and-upgrade candidate. Do not select automatically: its fixed finds and limited long-term discovery must be weighed against the full slate.",
+      "selectionReason": "Tactile excavation, support planning and useful tool purchases.",
       "verification": {
         "commit": "fac96672c40a85256d0c32eaf2a60aba994161b5",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39990612900",
@@ -980,7 +996,7 @@
         "304976b32bb3c7a114d23c235f19f853826041f2"
       ],
       "publishedUrl": null,
-      "selectionReason": "Retain for slate comparison as real-time aiming/defense variety. Compact depth must compete with the full collection; no automatic publication.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "verification": {
         "commit": "304976b32bb3c7a114d23c235f19f853826041f2",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40061003554",
@@ -1047,7 +1063,7 @@
         "c4a3ab98f1177fbbed7c4ae62c910d49509f9702",
         "dca02c401239e0d9060a7037ea9139a23597c82d"
       ],
-      "selectionReason": "Retain for comparison as gravity platforming variety; especially short campaign means it must earn a place against stronger depth contenders. Not selected.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "verification": {
         "status": "passed",
         "commit": "dca02c401239e0d9060a7037ea9139a23597c82d",
@@ -1120,7 +1136,7 @@
         "variety": 4,
         "notes": "Agent review, not a player survey. Distinct flavour deduction, extraction/dilution and tasting feedback; six visitors with ingredient unlocks and two useful tools. Native desktop/touch services, saves/replay, loss/retry and pause pass. Cohesive illustrated tearoom; substantial phone scrolling, fixed preferences and no audio limit the scope. Additional round now verifies the third tool (half-measure spoon), retained recipe refinement, a saved alternative tray for branching experiments and persistent tasting guidance. Preserves the six fixed visitor preferences rather than inflating the campaign with repeats. Agent assessment remains provisional until full-slate selection."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "fa654ca14729275ca06b07db332ae5ff0fdf5f2b",
       "developmentCommits": [
@@ -1148,7 +1164,7 @@
         "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40018382932/artifacts/12528844767",
         "artifactSha256": "b4af6bfb14956dfd9caf25de8f22543005b117abc1e4733158f175a2774f1e76"
       },
-      "selectionReason": "Retain as a finished development candidate for comparison across the complete second-batch slate. No public catalogue write by this run.",
+      "selectionReason": "Relaxed recipe deduction with saved branching experiments and a strong illustrated identity.",
       "publishedUrl": null,
       "additionalVerification": {
         "commit": "c8ecf518d2a0ef17c409c3b37c457a3b8d00272d",
@@ -1211,7 +1227,7 @@
         "variety": 4,
         "notes": "Agent review, not a player survey. Optional survey detours make anchors useful for access; chalk, return grip and belay placement matter. Ordinary holds also support lateral traverses. Separate survey stamps preserve faster original summit records. Four compact authored walls, scrolling and no audio still limit depth/polish; no extended-playtime claim."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "e377ee962c3440138d9402c87bac6428d18e6ba8",
       "developmentCommits": [
@@ -1234,7 +1250,7 @@
           "index.html": "586f0e926df8db54c311bdb4e9519e6163a746f755070bbf84435ed6707af1a1"
         }
       },
-      "selectionReason": "Retain as a finished development candidate for comparison across the complete second-batch slate. No public catalogue write by this run.",
+      "selectionReason": "Deliberate climbing with optional survey routes and consequential anchor/grip choices.",
       "publishedUrl": null
     },
     {
@@ -1285,7 +1301,7 @@
         "variety": 4,
         "notes": "Agent review, not a human player survey. Food-funded regrouping adds recovery and supply-budget choices to flock spacing. Two calls and safe-air restrictions prevent unrestricted healing; spending can jeopardize arrival requirements. Four short authored migrations and two obstacle families still limit progression; no equipment, audio, long-playtime or physical-device claim."
       },
-      "selected": false,
+      "selected": true,
       "integrationCommits": [],
       "initialCommit": "ff29e8caf09a3df32b06a36db6d5e82590bfeb16",
       "developmentCommits": [
@@ -1309,7 +1325,7 @@
           "style.css": "39ad19cb52b7ccdfdce358a39461574ac9e75dce038fcc16e14a5810544623c2"
         }
       },
-      "selectionReason": "Retain as a finished development candidate for comparison across the full slate. Its flock action broadens variety, but compact progression and repeated obstacle vocabulary limit depth. No catalogue write by this increment.",
+      "selectionReason": "Direct flock formation control adds action variety; regrouping competes with arrival food.",
       "publishedUrl": null,
       "pendingControlVerification": {
         "commit": "a7093b27d87356c6f39842dc4b5a2bde8c36ad8e",
@@ -1385,7 +1401,7 @@
           "style.css": "076f4dae0558b3ad519033ab3f820c4c5521aab36d264b981db26e1e7c351009"
         }
       },
-      "selectionReason": "Retain as a finished development candidate, unselected. Compare its social/spatial reasoning against the other calm planners, including the thematically similar Tea for Ghosts. Compact depth prevents automatic selection.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "publishedUrl": null
     },
     {
@@ -1461,7 +1477,7 @@
           "style.css": "3792d6e9b96adf8d8c44745f0548f5f1b78ff925dc7ded81f72ab188f75b6192"
         }
       },
-      "selectionReason": "Retain as finished but unselected. Compare its hydraulic resource decisions against Copper Cadence and the stronger progression candidates; compact depth and finite workshop spending prevent automatic selection.",
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection.",
       "publishedUrl": null,
       "nextSteps": [
         "Additional pass verified. Retain for final slate comparison after the remaining ten reviews; four fixed commissions and two tools still limit depth."
@@ -1562,7 +1578,8 @@
         "job": 122684566369,
         "screenshots": "https://github.com/ThatOneMop/study-desk/actions/runs/40648857538/artifacts/12798682617",
         "status": "Changed-game desktop/emulated-touch complete; three of 62 screenshots inspected. Full engine/DOM checks pass; remaining browser groups pending."
-      }
+      },
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     },
     {
       "slot": 39,
@@ -1645,7 +1662,7 @@
       "nextSteps": [
         "Verified additional-round pass. Compare after the other twelve candidates finish rendered review. Three short deterministic bouts and identical Ram reversal across kits limit replay depth; not selected automatically."
       ],
-      "selectionReason": "Retain unselected: a distinct compact tactical grappler, but shorter and less open-ended than the slate's progression candidates. Compare after all additional passes; do not claim long-form content."
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     },
     {
       "slot": 40,
@@ -1729,14 +1746,11 @@
           "index.html": "5fb4628165b988b178ffb65315f2651c40784b617e3698123d32984bdea4abb1",
           "style.css": "6b2424762f298350db2f97d3da8cba912cbfd72c33d4abbab2765570c64bf1ab"
         }
-      }
+      },
+      "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": [
-    "Verify Hollow Keeper safe marching and regrowth on exact-source native CI; inspect screenshots before advancing 19/20 additional-round count.",
-    "Compare and integrate selected second-batch games preserving concurrent work.",
-    "Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live."
-  ],
+  "nextSteps": "Promote the nine selected additional-round versions with concurrent main visual effects preserved; integration and deployed verification remain pending. Then finish third batch (24/50 built; 0 qualified improved/browser-tested/integrated/live).",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2296,14 +2310,22 @@
       "ci": "40798076659",
       "publicIntegration": null,
       "nextSteps": "Finish Hollow Keeper rendered review and substantive refinement, then exact-source native verification; additional round is 19/20. Compare and integrate selected second-batch games preserving concurrent catalogue/source/save changes. Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "be33501dc31ceec3ed3c251ee935ec0dadef5761",
+      "result": "Hollow Keeper verified; additional round 20/20, 40 meaningful passes, nine finalists selected. No new main integration or live upgrade yet.",
+      "ci": "40810194303",
+      "publicIntegration": null,
+      "nextSteps": "Promote the nine selected additional-round versions with concurrent main visual effects preserved; integration and deployed verification remain pending. Then finish third batch (24/50 built; 0 qualified improved/browser-tested/integrated/live)."
     }
   ],
-  "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+  "latestObservedMain": "2098eeb559d90c840faaab3b8c500b3623f37cbf",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 19,
+    "completed": 20,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."
