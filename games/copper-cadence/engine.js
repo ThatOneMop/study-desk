@@ -28,5 +28,11 @@ function record(v,s){const out=copy(v);out.current={job:s.job,actions:s.history}
 function decode(raw){const v=typeof raw==='string'?JSON.parse(raw):raw;if(!v||v.version!==1||!v.current||!Array.isArray(v.records)||v.records.length!==5)throw Error('Unreadable save');const records=v.records.map((r,i)=>{if(r===null)return null;const s=replay(i,r.actions);if(s.status!=='won')throw Error('Unproven record');return {actions:s.history,medals:medal(s),errors:s.errors,brakes:s.brakeTurns};});const s=replay(v.current.job,v.current.actions);if(s.job>unlocked({records}))throw Error('Locked commission');return {version:1,current:{job:s.job,actions:s.history},records};}
 function forecast(s,a){const r=step(s,a);if(!r.ok)return {allowed:false,reason:r.reason};const n=r.state;return {allowed:true,reason:r.reason,notes:r.notes.slice(),missed:r.missed.slice(),extra:r.extra.slice(),stock:n.stock,tracks:copy(n.tracks),motion:copy(r.motion),errors:n.errors-s.errors,undelivered:n.status==='playing'?0:n.tracks.flat().filter(Boolean).length,status:n.status,accuracy:accuracy(n),medals:medal(n),catches:n.catches,beat:n.beat};}
 function trace(s,a){const frames=[];let state=s;for(let i=0;i<3&&state.status==='playing';i++){const action=i?{feed:null,brakes:a.brakes,shift:a.shift}:a,f=forecast(state,action);frames.push(f);if(!f.allowed)break;state=step(state,action).state;}return frames;}
-return {forecast,trace,NOTES,LENGTHS,JOBS,create,validAction,step,medal,accuracy,replay,undo,blank,unlocked,record,decode};
+function revise(s,index,action){
+ if(!Number.isInteger(index)||index<0||index>=s.history.length)return {ok:false,reason:'Choose a played beat.'};
+ let next=create(s.job);for(let i=0;i<s.history.length;i++){const r=step(next,i===index?action:s.history[i]);if(!r.ok)return {ok:false,reason:`Beat ${i+1} would be blocked: ${r.reason}`};next=r.state;}
+ return {ok:true,state:next,reason:`${s.errors} → ${next.errors} note errors; ${s.brakeTurns+s.catches} → ${next.brakeTurns+next.catches} brake beats + catches.`};
+}
+return {revise,forecast,trace,NOTES,LENGTHS,JOBS,create,validAction,step,medal,accuracy,replay,undo,blank,unlocked,record,decode};
 });
+
