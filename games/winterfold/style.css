@@ -130,6 +130,7 @@ dialog::backdrop { background: rgba(36, 40, 38, 0.28); }
 .supply[aria-pressed="true"], .supply:hover { background: var(--blue); color: white; border-style: solid; border-color: var(--blue); transform: translateY(-3px); }
 .supply strong { font-size: 18px; letter-spacing: 0.08em; }
 .supply em { font-style: normal; font-weight: 700; }
+.confetti { pointer-events: none; }
 .confetti i { position: absolute; width: 8px; height: 14px; top: -10px; animation: fall 1.1s ease-in forwards; }
 @keyframes fall { to { transform: translateY(240px) rotate(160deg); opacity: 0.2; } }
 .statgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
@@ -168,3 +169,5 @@ label.chk { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
 @media (prefers-reduced-motion: reduce) {
   .confetti i, #dock button, .supply { animation: none; transition: none; }
 }
+
+#hint.warn { background: #fbe9e4; color: #8c2b1f; border-color: #e7b3a6; }

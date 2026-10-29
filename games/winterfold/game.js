@@ -102,6 +102,16 @@
     $('capacity').textContent = g.out + '/' + cap;
     $('capacity').classList.toggle('warn', g.out > cap);
     if (run.speed > 0 && $('hint').textContent.startsWith('Paused')) $('hint').textContent = 'Guests are moving. Empty the hill before 18:00.';
+    const stuck = run.phase === 'play' && !run.sandbox ? run.skiers.filter(k => k.state === 'stuck') : [];
+    if (stuck.length) {
+      const want = POI_LABEL[stuck[0].shape] ? POI_LABEL[stuck[0].shape].toLowerCase() : 'stop';
+      const msg = stuck.length + (stuck.length === 1 ? ' guest is' : ' guests are') + ' stuck. Link the ' + want + ' before 18:00 or the hill closes.';
+      if ($('hint').textContent !== msg) $('hint').textContent = msg;
+      $('hint').classList.add('warn');
+    } else if ($('hint').classList.contains('warn')) {
+      $('hint').classList.remove('warn');
+      $('hint').textContent = 'Everyone has a way round again.';
+    }
     const res = run.resources;
     $('stockSlope').textContent = Math.floor(res.slope) + ' m';
     $('stockLift').textContent = res.lift;
