@@ -53,11 +53,14 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e0b15a; outline-offs
 #keyToggle { display: none; position: fixed; z-index: 5; top: 12px; left: 12px; background: var(--paper-2); border-radius: 10px; padding: 10px 12px; box-shadow: var(--shadow); font-weight: 700; }
 
 #topbar {
-  top: 14px; right: 14px; display: flex; align-items: center; gap: 8px;
-  padding: 6px 8px 6px 12px; border-radius: 999px; font-variant-numeric: tabular-nums;
+  top: 14px; right: 14px; display: flex; align-items: center; gap: 10px;
+  padding: 6px 8px 6px 10px; border-radius: 16px; font-variant-numeric: tabular-nums;
 }
-#topbar span { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; min-width: 52px; }
-#topbar .clock.warn { color: #a33b2b; }
+.stat { display: flex; align-items: center; gap: 5px; min-width: 0; }
+.stat svg { width: 16px; height: 16px; flex: none; }
+.stat small { display: block; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; line-height: 1; }
+.stat b { display: block; font-size: 14px; font-weight: 750; line-height: 1.15; }
+#topbar .clock.warn, #capacity.warn { color: #a33b2b; }
 .speeds { display: flex; gap: 4px; margin-left: 4px; }
 .speeds button { width: 32px; height: 32px; border-radius: 8px; background: #f3efe6; font-size: 14px; }
 .speeds button[aria-pressed="true"] { background: var(--blue); color: white; }
@@ -148,8 +151,10 @@ label.chk { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
   #key { display: none; width: min(280px, 86vw); top: 142px; bottom: auto; max-height: calc(100% - 300px); z-index: 6; }
   #key.open { display: flex; }
   #keyToggle { display: block; }
-  #topbar { top: 12px; bottom: auto; left: auto; right: 12px; max-width: calc(100% - 130px); transform: none; border-radius: 14px; flex-wrap: wrap; justify-content: flex-end; }
-  #topbar span { min-width: 0; font-size: 12px; }
+  #topbar { top: 12px; bottom: auto; left: 108px; right: 8px; max-width: none; transform: none; border-radius: 14px; flex-wrap: wrap; justify-content: flex-end; gap: 6px; padding: 6px; }
+  .stat small { font-size: 8px; }
+  .stat b { font-size: 12px; }
+  .stat svg { width: 13px; height: 13px; }
   #dock { bottom: 8px; left: 8px; right: 8px; transform: none; max-width: none; overflow: hidden; gap: 3px; padding: 4px; }
   #dock button { flex: 1 1 0; min-width: 0; padding: 7px 2px 5px; }
   #dock button small { font-size: 9px; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

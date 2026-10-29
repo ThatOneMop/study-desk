@@ -37,6 +37,17 @@ const summit = run.pois.find(p => p.kind === 'summit');
 const piste = E.commitStroke(run, stroke(summit, station));
 assert.equal(piste.ok, true, piste.reason);
 assert.equal(piste.color, 'green');
+function bow(a, b, amount) {
+  const pts = [];
+  for (let i = 0; i <= 14; i++) {
+    const t = i / 14, x = a.x + (b.x - a.x) * t, y = a.y + (b.y - a.y) * t;
+    const nx = -(b.y - a.y), ny = b.x - a.x, len = Math.hypot(nx, ny) || 1;
+    pts.push({ x: x + nx / len * Math.sin(t * Math.PI) * amount, y: y + ny / len * Math.sin(t * Math.PI) * amount });
+  }
+  return pts;
+}
+const curve = E.previewStroke(E.startRun(meta, 'lark', 'run'), bow(summit, station, 40));
+assert.equal(curve.ok, true, curve.reason);
 assert.equal(E.counts(run).slopes.green, 1);
 const lift = E.commitLift(run, station, summit, 'chair');
 assert.equal(lift.ok, true, lift.reason);

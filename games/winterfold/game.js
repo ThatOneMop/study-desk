@@ -93,10 +93,14 @@
     $('diamonds').textContent = '◆'.repeat(run.mountain.diamonds) + '◇'.repeat(Math.max(0, 4 - run.mountain.diamonds));
     $('clock').textContent = E.formatClock(run);
     $('clock').classList.toggle('warn', E.clockHours(run) >= 17);
-    $('day').textContent = 'Day ' + run.day;
+    $('day').textContent = String(run.day);
     $('score').textContent = Math.round(run.score);
+    $('money').textContent = Math.round(run.money || 0);
     const g = E.guests(run);
-    $('guests').textContent = g.out + '/' + g.total;
+    const cap = E.capacity(run);
+    $('guests').textContent = String(g.out);
+    $('capacity').textContent = g.out + '/' + cap;
+    $('capacity').classList.toggle('warn', g.out > cap);
     if (run.speed > 0 && $('hint').textContent.startsWith('Paused')) $('hint').textContent = 'Guests are moving. Empty the hill before 18:00.';
     const res = run.resources;
     $('stockSlope').textContent = Math.floor(res.slope) + ' m';
@@ -394,6 +398,7 @@
         time: now / 1000,
         ghost: drawing && tool === 'slope' ? drawing.pts : null,
         ghostColor: drawing && tool === 'slope' ? (E.previewStroke(shown, drawing.pts).color || 'green') : 'green',
+        liftGhost: drawing && tool === 'lift' ? drawing.pts : null,
         reduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       });
     }
