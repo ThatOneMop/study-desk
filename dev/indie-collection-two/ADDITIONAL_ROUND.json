@@ -104,15 +104,17 @@
       "id": "hollow-keeper",
       "title": "Hollow Keeper",
       "status": "implemented-awaiting-rendered-review",
-      "observedWeakness": "Source-based hypothesis: during attacks resin only funds fruit; depleted beds cannot compete for those supplies until the next preparation. No new rendered observation while preview access remains blocked.",
+      "observedWeakness": "Inspected touch-hollow-5-mid.png from native run 40798076659/artifact 12865476513: a readable scout report predicts 2/3 hearts, but gives no timing for intervention. Single-step marching or continuous auto march requires watching every step to catch depletion. This is agent screenshot/source assessment of rendered native gameplay, not human enjoyment evidence.",
       "before": "Thorn strikes only refill between waves; active spending is limited to fruit lures.",
-      "after": "Regrow spends two resin to restore up to two strikes, capped at three, then advances the attack immediately. It competes with fruit and later upgrades. Exact previews/scout reports include the advancing step. Tool 6 supports staged confirmation and saved replay.",
+      "after": "Regrow spends two resin to restore up to two strikes, capped at three, then advances the attack immediately. It competes with fruit and later upgrades. Exact previews/scout reports include the advancing step. Tool 6 supports staged confirmation and saved replay. Safe marching now simulates ordinary steps and stops before the next nursery hit or thorn-bed exhaustion, naming the bed's row and column. It preserves every tick in the journal for single-step undo. The player can accept the warned step manually or choose regrowth/fruit. Safe marching is disabled while a tool preview is staged; auto march remains optional.",
       "implementationCommit": "2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709",
       "testing": [
         "28 engine + 22 jsdom checks pass. All five original two-wave campaigns remain unchanged. An earned single reinforced-bed route otherwise loses one heart; regrowth preserves all three hearts and earns three seals. Costs, caps, immediate charge consumption, exact forecasts, saves, undo, invalid use and progression checked.",
-        "DOM checks cover shortcut 6, forecast/cancel/confirm, auto-march pause, saved regrowth and win, undo and restart. Original loss/recovery, navigation markup and scoped saves also pass. Syntax passes; no rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed."
+        "DOM checks cover shortcut 6, forecast/cancel/confirm, auto-march pause, saved regrowth and win, undo and restart. Original loss/recovery, navigation markup and scoped saves also pass. Syntax passes; no rendered review, actual touch, screenshot inspection, human enjoyment or full-repository check claimed.",
+        "29 October: 52 focused engine/DOM checks pass (29 engine + 23 DOM), including pure warning boundaries, no input mutation, ordinary replay/undo, reload, preview guard and original five full campaigns. Native browser suite expanded with earned regrowth victory, safe-march warning, preview/cancel/apply/reload and desktop/touch screenshots; final native evidence pending."
       ],
-      "remaining": "Perform supported rendered before/after play, assess resin allocation and pacing, inspect six-tool layout on phones and iterate. Verify actual controls, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+      "remaining": "Inspect exact-source native results and warning/regrowth screenshots, fix failures before counting. Additional round remains 19/20. Then compare and integrate selected games; third-batch obligations remain outstanding.",
+      "refinementCommit": "be33501dc31ceec3ed3c251ee935ec0dadef5761"
     },
     {
       "slot": 26,
