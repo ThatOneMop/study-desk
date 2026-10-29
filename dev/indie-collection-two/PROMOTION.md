@@ -62,3 +62,16 @@ Live https://thatonemop.github.io/study-desk/games/counterweight/index.html now 
 Counts:20/20 additionally verified;9 selected;4 upgraded versions integrated and live,5 remaining. Third24/50 built,0 qualified improved/browser-tested/integrated/live. No new improvement pass or automation change.
 
 Next: Check repeat cache-only promotion CI, then merge Reefwright, Copper Cadence, Wellward, Pocket Palaeo and Tea for Ghosts against fresh main, preserving concurrent graphics/input/pause layers. Version changed game assets when integrating to prevent old cached scripts mixing with new markup. Verify merged desktop/touch campaigns and screenshots before promotion. Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live; finish its remaining candidates and rendered improvement passes.
+
+
+## Tea for Ghosts merge staged — 29 October 2026
+
+Counterweight cache-only full regression40846074115 completed successfully. Main remains1ce5518a6c6887c6d59222b0b07346f3b9e7dd44 with4/9 selected additional upgrades live. No current publishing blocker; no unchanged deployment retry.
+
+Tea for Ghosts promotion candidate `d600ffdaaec8f4c2b0d40bc87f17892d3629f521` merges its already-verified alternative tray, retained tasting reference, half-measure spoon and refine action with main's title/rest controls, sound, ghost accessories/reactions, pouring animation, gold burst and tea:act interface. Retains the live70/75/80 early-to-late success thresholds in scoring, UI, reaction effects and save validation, so earlier earned70-point memories remain valid. Number-key scoops/removals respect the selected measure; tray actions update the visual/audio layer. Versioned local asset URLs avoid the mixed-cache issue observed in Counterweight.
+
+46 focused engine/DOM checks pass, including legacy70-point migration and title/rest guards against tray/reset mutation. Syntax checks pass. Native routes enter the real title screen after each reload and recovery navigation. [Merged browser CI](https://github.com/ThatOneMop/study-desk/actions/runs/40853957537) is running; includes six visitors, tools/tray, persistence, loss/retry, desktop/touch, current catalogue/assets and earlier selected-game regression. Do not count this as main-integrated/live until results/screenshots are reviewed and it is promoted. No new gameplay pass credited for compatibility work.
+
+Counts unchanged:20 built/initially improved/additionally verified,9 selected,4 upgraded integrations/live; third24/50 built,0 qualified improved/browser-tested/integrated/live. Exactly20 candidate slots retained. First collection, catalogue, saves, Lane Eight and Gummy Bay preserved. No automation changes.
+
+Next: Review Tea for Ghosts merged native CI and screenshots atd600ffdaaec8f4c2b0d40bc87f17892d3629f521 before promotion. Preserve live PASS70/75/80 thresholds, prior records, animated/sound/title/rest layers and half-measure keyboard behavior; fix any merged browser regressions. Then integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against fresh main. Third collection remains24/50 built,0 qualified improved/browser-tested/integrated/live; complete remaining candidates and rendered improvements.

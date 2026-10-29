@@ -1794,7 +1794,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Check repeat cache-only promotion CI, then merge Reefwright, Copper Cadence, Wellward, Pocket Palaeo and Tea for Ghosts against fresh main, preserving concurrent graphics/input/pause layers. Version changed game assets when integrating to prevent old cached scripts mixing with new markup. Verify merged desktop/touch campaigns and screenshots before promotion. Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live; finish its remaining candidates and rendered improvement passes.",
+  "nextSteps": "Review Tea for Ghosts merged native CI and screenshots atd600ffdaaec8f4c2b0d40bc87f17892d3629f521 before promotion. Preserve live PASS70/75/80 thresholds, prior records, animated/sound/title/rest layers and half-measure keyboard behavior; fix any merged browser regressions. Then integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against fresh main. Third collection remains24/50 built,0 qualified improved/browser-tested/integrated/live; complete remaining candidates and rendered improvements.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2393,6 +2393,14 @@
       "ci": "40839583026",
       "deployment": "40846065975",
       "nextSteps": "Check repeat cache-only promotion CI, then merge Reefwright, Copper Cadence, Wellward, Pocket Palaeo and Tea for Ghosts against fresh main, preserving concurrent graphics/input/pause layers. Version changed game assets when integrating to prevent old cached scripts mixing with new markup. Verify merged desktop/touch campaigns and screenshots before promotion. Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live; finish its remaining candidates and rendered improvement passes."
+    },
+    {
+      "date": "2026-10-29",
+      "result": "Counterweight cache-only follow-up CI40846074115 succeeded. Merged Tea for Ghosts alternative tray, retained tasting notes, half-scoop spoon and refine action with live gentler early pass thresholds, old saves, title/rest, audio/ghost effects and keyboard shortcuts. Added legacy70-point save and rest/title mutation guards.46 focused engine/DOM checks pass; exact merged native CI pending. Main remains unchanged;4/9 selected upgrades integrated/live.",
+      "integrationCandidateCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
+      "ci": "40853957537",
+      "publicIntegration": null,
+      "nextSteps": "Review Tea for Ghosts merged native CI and screenshots atd600ffdaaec8f4c2b0d40bc87f17892d3629f521 before promotion. Preserve live PASS70/75/80 thresholds, prior records, animated/sound/title/rest layers and half-measure keyboard behavior; fix any merged browser regressions. Then integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against fresh main. Third collection remains24/50 built,0 qualified improved/browser-tested/integrated/live; complete remaining candidates and rendered improvements."
     }
   ],
   "latestObservedMain": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
@@ -2442,6 +2450,12 @@
       "tea-for-ghosts"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44"
+    "latestCommit": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
+    "pendingBranch": "indie-two-promotion",
+    "pendingCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
+    "pendingIds": [
+      "tea-for-ghosts"
+    ],
+    "pendingCI": "40853957537"
   }
 }
