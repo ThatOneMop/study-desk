@@ -337,7 +337,8 @@
         "3a4d8659f47a4b3788af906ee907a93bcfbcad04",
         "9d33ea9fcfe9347c6adbe11019da406592b9c95d",
         "ac885cb7e7ed0629efbd865d92ad227be0f0c0c6",
-        "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9"
+        "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
+        "c38b7f5245cc0c1d382e6b7001fce4723f2c03de"
       ],
       "publishedUrl": null,
       "selectionReason": "Retain for comparison with the wider second-batch slate. A scarce-bead mechanical pipeline is distinct from first-batch Stone Song rhythm arrangement, Reefwright ecology, Counterweight balance and Lanternwake navigation. No automatic public selection.",
@@ -357,15 +358,17 @@
         "id": "copper-cadence",
         "title": "Copper Cadence",
         "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Source-based hypothesis: circulating beads can only sound or remain queued behind brakes; there is no limited way to recycle an unwanted exit silently. No new rendered observation while browser access remains blocked.",
+        "observedWeakness": "Inspected native touch-commission-4-mid.png from run 40784599336/artifact 12858698912. The requested/played score and forecast are readable; source confirms earlier choices can only be repaired by repeated rewind, discarding every later action. This makes testing an earlier catch/feed unnecessarily repetitive. Agent screenshot/source assessment, not new human play.",
         "before": "Every unbraked exit sounds its routed instrument. Brakes retain beads and delay their return to supply.",
-        "after": "Two silent catches per take recycle one selected exiting bead without sounding it. A catch requires an open brake and an exit bead, resets after one crank, and counts against the third-seal efficiency target. Exact preview, 4/5/6 shortcuts, labelled catcher indicators and undo/replay saves expose the tradeoff.",
+        "after": "Two silent catches per take recycle one selected exiting bead without sounding it. A catch requires an open brake and an exit bead, resets after one crank, and counts against the third-seal efficiency target. Exact preview, 4/5/6 shortcuts, labelled catcher indicators and undo/replay saves expose the tradeoff. Played score beats now open repair mode. Change that beat's feed, brakes, routing or catch; the rest of the recorded take replays unchanged in a pure preview. Total error/efficiency changes and resulting accuracy/seals are shown. Illegal later actions block application and identify the failed beat. Cancel/reload preserves the saved attempt; apply journals the revised take and retains historical best records.",
         "implementationCommit": "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
         "testing": [
           "31 engine + 28 jsdom checks pass. All five original three-seal campaigns remain unchanged. Five additional catch-assisted routes finish with zero note errors and seals 2/2/2/3/3. Catches conserve stock, recycle before feeding, can cause a missing required note, reject unavailable/empty/braked/exhausted use atomically and replay exactly after each action.",
-          "Interface simulations verify staging/cancel, forecast, keyboard/button use, saved resource reload, focus retention, modal/bridge guards, undo refund and restart with unrelated saves preserved. Syntax checks pass. No rendered play, actual touch/audio quality, inspected screenshots, human enjoyment or full-repository check claimed."
+          "Interface simulations verify staging/cancel, forecast, keyboard/button use, saved resource reload, focus retention, modal/bridge guards, undo refund and restart with unrelated saves preserved. Syntax checks pass. No rendered play, actual touch/audio quality, inspected screenshots, human enjoyment or full-repository check claimed.",
+          "29 Oct: 61 focused checks pass (32 engine + 29 DOM): original five and five catch-assisted commissions, retained-suffix repair, pure state handling, invalid/future beat rejection, downstream catch blockage, preview/cancel/apply, keyboard catch and blocked crank, exact saves/reload and unrelated-key protection. Browser suite expanded for five catch routes plus repair/cancel/reload/invalid edit per desktop/emulated-touch context; final native evidence pending."
         ],
-        "remaining": "Perform supported rendered before/after play, assess catch allocation and efficiency balance, inspect machine indicators and expanded phone controls, and iterate. Verify actual keyboard/touch, progression/loss/retry, saves, restart/navigation and screenshots before counting."
+        "remaining": "Inspect exact-source CI and repair screenshots; fix observed failures before counting. Then finish Hollow Keeper, compare slate and integrate selections.",
+        "refinementCommit": "c38b7f5245cc0c1d382e6b7001fce4723f2c03de"
       }
     },
     {
@@ -1725,8 +1728,9 @@
     }
   ],
   "nextSteps": [
-    "Finish rendered game-specific reviews for Copper Cadence and Hollow Keeper; then compare the improved second slate and integrate selected games preserving concurrent catalogue work.",
-    "Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live. Do not pause before requested obligations are complete."
+    "Verify Copper Cadence score repair on exact-source native CI and inspect screenshots; additional round remains 18/20.",
+    "Finish Hollow Keeper rendered review, then compare and integrate selected second-batch games preserving concurrent work.",
+    "Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live."
   ],
   "baselineTestLimitations": [
     {
