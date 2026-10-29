@@ -28,6 +28,8 @@ jobs:
           node tests/tea-for-ghosts-browser.cjs
           node --test tests/copper-cadence-engine.cjs tests/copper-cadence-dom.cjs
           node tests/copper-cadence-browser.cjs
+          node --test tests/wellward-engine.cjs tests/wellward-dom.cjs
+          node tests/wellward-browser.cjs
           node tests/curation-regression.cjs
           node tests/hollow-keeper-browser.cjs
           node tests/cairn-and-cord-browser.cjs
