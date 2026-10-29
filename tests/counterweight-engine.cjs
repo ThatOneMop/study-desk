@@ -1,0 +1,56 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),E=require('../games/counterweight/engine.js'),routes=require('./fixtures/counterweight-routes.json');
+for(const route of routes)test('complete authored job '+(route.job+1)+' with three medals',()=>{const s=E.replay(route.job,route.actions);assert.equal(s.status,'won');assert.equal(E.medal(s),3);assert.equal(s.next,E.JOBS[s.job].cargo.length);assert.equal(s.damage+s.strain,0);assert.equal(s.moves,route.moves);assert.equal(Object.values(s.stacks).flat().length,s.next);});
+test('state and job definitions are unchanged by step',()=>{const s=E.create(),old=JSON.stringify(s),j=JSON.stringify(E.JOBS);E.step(s,'hook');assert.equal(JSON.stringify(s),old);assert.equal(JSON.stringify(E.JOBS),j);});
+test('must lift before travel; invalid actions are free',()=>{const s=E.step(E.create(),'hook').state;const r=E.step(s,'left');assert.equal(r.ok,false);assert.deepEqual(r.state,s);assert.match(r.reason,/Lift/);assert.equal(E.step(s,'wat').ok,false);});
+test('torque reflects weight, reach, ballast and wind',()=>{let s=E.create(2);s=E.step(s,'hook').state;s=E.step(s,'up').state;s=E.step(s,'right').state;assert.equal(E.torque(s),5);s=E.step(s,'ballastLeft').state;assert.equal(E.torque(s),2);});
+test('three overloaded actions stop the crane; undo restores it',()=>{let s=E.create(2);for(const a of ['hook','up','right','right','settle','settle'])s=E.step(s,a).state;assert.equal(s.status,'lost');assert.equal(s.strain,3);assert.equal(E.step(s,'up').ok,false);assert.equal(E.undo(s).status,'playing');assert.equal(E.undo(s).strain,2);});
+test('glass cannot support any cargo',()=>{const s=E.create();s.stacks[-2]=[1];assert.equal(E.support(s,-2,1),false);});
+test('support includes the entire load above each crate',()=>{const s=E.create(3);s.stacks[-2]=[0,1,2];assert.equal(E.support(s,-2,1),false);s.stacks[-2]=[0,2];assert.equal(E.support(s,-2,1),true);});
+test('wrong berth and suspended releases are rejected',()=>{let s=E.replay(0,['hook','up']);assert.equal(E.step(s,'hook').ok,false);s=E.step(s,'left').state;s=E.step(s,'left').state;assert.match(E.step(s,'hook').reason,/Lower/);});
+test('moving over a stack requires clearance',()=>{const s=E.create();s.x=-1;s.y=0;s.stacks[-2]=[0];assert.equal(E.step(s,'left').ok,false);});
+test('swing can damage a delivery and remove clean medal',()=>{let s=E.replay(0,routes[0].actions);const pre=E.replay(0,routes[0].actions.slice(0,-1));pre.sway=2;const r=E.step(pre,'hook');assert.equal(r.state.damage,1);assert.equal(E.medal(r.state),1);assert.equal(E.medal(s),3);});
+test('steady cable lowers swing; ballast and hoist damp it',()=>{let s=E.create();s.sway=6;s=E.step(s,'settle').state;assert.equal(s.sway,4);s=E.step(s,'up').state;assert.equal(s.sway,3);s=E.step(s,'ballastRight').state;assert.equal(s.sway,2);});
+test('completed records unlock next job and survive an undo',()=>{let v=E.blank();for(const r of routes){assert.equal(E.unlocked(v),r.job);v=E.record(v,E.replay(r.job,r.actions));}assert.equal(E.unlocked(v),4);const s=E.undo(E.replay(4,routes[4].actions));assert.equal(s.status,'playing');v=E.record(v,s);assert.equal(v.records[4].medals,3);assert.deepEqual(E.decode(JSON.stringify(v)),v);});
+test('records retain better scores and fewer moves',()=>{let s=E.replay(0,routes[0].actions),v=E.record(E.blank(),s);s=E.replay(0,['settle',...routes[0].actions]);v=E.record(v,s);assert.equal(v.records[0].moves,routes[0].moves);});
+test('save replay recomputes records rather than trusting claimed medals',()=>{const v=E.record(E.blank(),E.replay(0,routes[0].actions));v.records[0].medals=99;v.records[0].moves=-2;const d=E.decode(v);assert.equal(d.records[0].medals,3);assert.equal(d.records[0].moves,17);});
+test('invalid saves reject locked jobs, malformed routes and oversized histories',()=>{for(const raw of ['{broken','null','{}'])assert.throws(()=>E.decode(raw));const v=E.blank();v.current.job=3;assert.throws(()=>E.decode(v));assert.throws(()=>E.replay(0,['down']));assert.throws(()=>E.replay(0,Array(601).fill('settle')));assert.throws(()=>E.create(NaN));v.current.job=0;v.records[0]={actions:['hook']};assert.throws(()=>E.decode(v));});
+test('600-move cap is replayable and recoverable',()=>{const s=E.replay(0,Array(600).fill('settle'));assert.equal(s.status,'lost');assert.equal(E.undo(s).status,'playing');});
+test('forecast is exact for every control along five full routes and never mutates state',()=>{for(const route of routes){let s=E.create(route.job);for(const action of route.actions){const before=JSON.stringify(s);for(const a of E.ACTIONS){const f=E.forecast(s,a),r=E.step(s,a);assert.equal(f.allowed,r.ok);assert.equal(f.balance,E.torque(r.state));assert.equal(f.sway,r.state.sway);assert.equal(f.damage,r.state.damage-s.damage);assert.equal(f.overload,r.state.strain-s.strain);}assert.equal(JSON.stringify(s),before);s=E.step(s,action).state;}}});
+test('overload and damaged-landing previews warn before acting',()=>{let s=E.replay(2,['hook','up','right']);assert.equal(E.forecast(s,'right').overload,1);s=E.replay(0,routes[0].actions.slice(0,-1));s.sway=2;assert.equal(E.forecast(s,'hook').damage,1);});
+test('initial v1 ballast saves migrate without changing outcomes or medal routes',()=>{const route=routes[4],flip=a=>a==='ballastLeft'?'ballastRight':a==='ballastRight'?'ballastLeft':a;let v=E.blank();for(const r of routes)v=E.record(v,E.replay(r.job,r.actions));v.version=1;v.records.forEach(r=>r.actions=r.actions.map(flip));v.current.actions=route.actions.map(flip);const d=E.decode(v);assert.equal(d.version,2);assert.equal(d.records[4].medals,3);assert.deepEqual(d.current.actions,route.actions);});
+
+const cradles=require('./fixtures/counterweight-cradles.json');
+for(const route of cradles)test('cradle route '+(route.job+1)+' has exact forecasts and save roundtrips',()=>{
+ let v=E.blank();for(let i=0;i<route.job;i++)v=E.record(v,E.replay(i,routes[i].actions));
+ let s=E.create(route.job),protectedLandings=0;
+ for(const a of route.actions){const before=JSON.stringify(s),f=E.forecast(s,a),r=E.step(s,a);assert.equal(r.ok,true);assert.equal(JSON.stringify(s),before);assert.equal(f.balance,E.torque(r.state));assert.equal(f.damage,r.state.damage-s.damage);assert.equal(f.overload,r.state.strain-s.strain);
+ if(a==='hook'&&s.held!==null&&s.rigged){if(s.sway>E.TYPES[E.JOBS[s.job].cargo[s.held].type].tolerance)protectedLandings++;assert.equal(r.state.rigged,false);assert.equal(r.state.cradles,s.cradles);}
+ s=r.state;v=E.record(v,s);const d=E.decode(JSON.stringify(v));assert.deepEqual(E.replay(d.current.job,d.current.actions),s);
+ }
+ assert.equal(E.medal(s),3);assert.equal(s.moves,route.moves);assert(protectedLandings>0);assert.equal(E.unlocked(v),Math.min(4,route.job+1));
+});
+test('cradles spend on pickup, cannot detach in flight, and undo restores stock',()=>{
+ let s=E.replay(0,['rig']);assert.equal(s.rigged,true);assert.equal(s.cradles,2);assert.equal(s.moves,1);
+ s=E.step(s,'rig').state;assert.equal(s.rigged,false);assert.equal(s.cradles,2);
+ s=E.replay(0,['rig','hook']);assert.equal(s.cradles,1);assert.equal(E.cargo(s).weight,3);assert.equal(E.cargo(s).tolerance,5);
+ assert.equal(E.step(s,'rig').ok,false);const u=E.undo(s);assert.equal(u.cradles,2);assert.equal(u.rigged,true);assert.equal(u.held,null);
+ assert.equal(E.step(E.replay(0,['up']),'rig').ok,false);assert.equal(E.create(0).cradles,2);
+});
+test('extra cradle weight can cause a natural overload and loss; undo recovers',()=>{
+ const bare=E.replay(0,['hook','up','left']);const padded=E.replay(0,['rig','hook','up','left']);assert.equal(E.forecast(bare,'left').overload,0);assert.equal(E.forecast(padded,'left').overload,1);
+ const lost=E.replay(0,['rig','hook','up','left','left','settle','settle']);assert.equal(lost.status,'lost');assert.equal(lost.cradles,1);assert.equal(E.undo(lost).status,'playing');assert.equal(E.undo(lost).cradles,1);
+});
+test('padding is bounded, leaves stack weight unchanged, and never refunds delivery',()=>{
+ const route=cradles[1],last=E.replay(1,route.actions.slice(0,-1));assert.equal(last.cradles,0);assert(last.rigged);
+ // This legal alternate return reaches the dock before placing the last load only after undoing pickup.
+ let ready=last;while(ready.held!==null)ready=E.undo(ready);assert.equal(ready.cradles,1);
+ const won=E.step(last,'hook').state;assert.equal(won.cradles,0);assert.equal(won.rigged,false);assert.equal(E.support(won,2,1),false); // glass still cannot support weight
+ const fast=E.replay(0,['rig','ballastRight','hook','up','left','left','right','left','down','hook']);assert.equal(fast.damage,0); // capped six swing minus lowering => five, padded crate tolerance five
+ const rough=E.replay(0,['rig','ballastRight','hook','up','left','left','right','left','down']);rough.sway=6;assert.equal(E.forecast(rough,'hook').damage,1);
+});
+test('two earlier deliveries exhaust cradles before remaining cargo',()=>{
+ const actions=['ballastRight','rig','hook','up','left','left','down','hook','right','right','ballastLeft','ballastLeft','rig','hook','up','right','right','down','hook','left','left'];
+ const s=E.replay(1,actions);assert.equal(s.cradles,0);assert.equal(s.next,2);assert.equal(s.held,null);assert.match(E.step(s,'rig').reason,/Both padded/);assert.deepEqual(E.step(s,'rig').state,s);
+ const v=E.record(E.record(E.blank(),E.replay(0,routes[0].actions)),s);assert.deepEqual(E.replay(1,E.decode(v).current.actions),s);v.current.actions.push('rig');assert.throws(()=>E.decode(v),/Invalid replay/);
+});
