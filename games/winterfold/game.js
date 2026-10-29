@@ -93,11 +93,25 @@
     $('diamonds').textContent = '◆'.repeat(run.mountain.diamonds) + '◇'.repeat(Math.max(0, 4 - run.mountain.diamonds));
     $('clock').textContent = E.formatClock(run);
     $('clock').classList.toggle('warn', E.clockHours(run) >= 17);
-    $('day').textContent = 'Day ' + run.day;
+    $('day').textContent = String(run.day);
     $('score').textContent = Math.round(run.score);
+    $('money').textContent = Math.round(run.money || 0);
     const g = E.guests(run);
-    $('guests').textContent = g.out + '/' + g.total;
+    const cap = E.capacity(run);
+    $('guests').textContent = String(g.out);
+    $('capacity').textContent = g.out + '/' + cap;
+    $('capacity').classList.toggle('warn', g.out > cap);
     if (run.speed > 0 && $('hint').textContent.startsWith('Paused')) $('hint').textContent = 'Guests are moving. Empty the hill before 18:00.';
+    const stuck = run.phase === 'play' && !run.sandbox ? run.skiers.filter(k => k.state === 'stuck') : [];
+    if (stuck.length) {
+      const want = POI_LABEL[stuck[0].shape] ? POI_LABEL[stuck[0].shape].toLowerCase() : 'stop';
+      const msg = stuck.length + (stuck.length === 1 ? ' guest is' : ' guests are') + ' stuck. Link the ' + want + ' before 18:00 or the hill closes.';
+      if ($('hint').textContent !== msg) $('hint').textContent = msg;
+      $('hint').classList.add('warn');
+    } else if ($('hint').classList.contains('warn')) {
+      $('hint').classList.remove('warn');
+      $('hint').textContent = 'Everyone has a way round again.';
+    }
     const res = run.resources;
     $('stockSlope').textContent = Math.floor(res.slope) + ' m';
     $('stockLift').textContent = res.lift;
@@ -394,6 +408,7 @@
         time: now / 1000,
         ghost: drawing && tool === 'slope' ? drawing.pts : null,
         ghostColor: drawing && tool === 'slope' ? (E.previewStroke(shown, drawing.pts).color || 'green') : 'green',
+        liftGhost: drawing && tool === 'lift' ? drawing.pts : null,
         reduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       });
     }

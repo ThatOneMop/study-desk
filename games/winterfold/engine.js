@@ -23,15 +23,15 @@
       id: 'lark', name: 'Lark Basin', region: 'A short folded hill',
       blurb: 'One honest fall line, then a few new places. Learn the colours before the queues do.',
       difficulty: 'Gentle', diamonds: 1, medals: [4, 7, 10], unlock: null,
-      seed: 11, snowLine: 0, treeLow: 14, treeHigh: 70, treeAt: 0.55, rough: 5, base: 12,
+      seed: 11, snowLine: 0, treeLow: 16, treeHigh: 72, treeAt: 0.57, rough: 7, base: 12,
       peaks: [
         { x: 0.42, y: 0.62, h: 8, s: 0.42 },
         { x: 0.42, y: 0.46, h: 24, s: 0.24 },
         { x: 0.66, y: 0.48, h: 30, s: 0.11 }
       ],
       glades: [
-        { x1: 420, y1: 560, x2: 520, y2: 390, w: 46 },
-        { x1: 520, y1: 400, x2: 650, y2: 330, w: 34 }
+        { x1: 390, y1: 580, x2: 550, y2: 360, w: 96 },
+        { x1: 520, y1: 400, x2: 670, y2: 310, w: 40 }
       ],
       rocks: [{ x: 250, y: 300, r: 28 }],
       rivers: [], cliffs: [], fences: [],
@@ -411,7 +411,7 @@
     const sandbox = mode === 'sandbox';
     const run = {
       version: 1, mountainId: m.id, mountain: m, mode: sandbox ? 'sandbox' : 'run',
-      phase: 'play', day: 1, clock: 0, speed: 0, score: 0, completed: 0,
+      phase: 'play', day: 1, clock: 0, speed: 0, score: 0, money: 0, completed: 0,
       pois: m.pois.map(p => ({ ...p, born: 1 })),
       pistes: [], lifts: [], cannons: [], joints: [],
       cleared: {}, resources: sandbox ? { slope: 9999, lift: 9999, cannon: 9999, trees: 9999, upgrade: 9999 } : freshResources(),
@@ -888,7 +888,9 @@
     if (skier.visited && node && node.kind === 'station') {
       skier.state = 'done';
       const mult = { green: 1, blue: 1.35, red: 1.8, black: 2.4 }[skier.skill];
-      run.score += Math.round((14 + 8) * mult * (1 + 0.08 * (run.day - 1)));
+      const gain = Math.round((14 + 8) * mult * (1 + 0.08 * (run.day - 1)));
+      run.score += gain;
+      run.money = (run.money || 0) + gain;
       return;
     }
     assign(run, skier);
@@ -943,6 +945,12 @@
   }
   function guests(run) {
     return { out: run.skiers.length, total: run.schedule.length };
+  }
+  function capacity(run) {
+    let cap = 14;
+    for (const lift of run.lifts) cap += liftSeats(lift);
+    cap += Math.min(18, run.pistes.length * 3);
+    return cap;
   }
   function openDawn(run) {
     run.completed = run.day;
@@ -1048,7 +1056,7 @@
   function strip(run) {
     return {
       version: 1, mountainId: run.mountainId, mode: run.mode, phase: run.phase, day: run.day,
-      clock: run.clock, speed: 0, score: run.score, completed: run.completed,
+      clock: run.clock, speed: 0, score: run.score, money: run.money || 0, completed: run.completed,
       pois: run.pois, pistes: run.pistes, lifts: run.lifts.map(l => ({ ...l, queue: [], riders: [] })),
       cannons: run.cannons, joints: run.joints, cleared: run.cleared, resources: run.resources,
       nextId: run.nextId, rerolls: run.rerolls, weekMark: run.weekMark, cards: run.cards,
@@ -1065,6 +1073,7 @@
       pistes: (data.pistes || []).map(p => ({ riders: 0, ...p }))
     };
     if (run.phase === 'play') run.speed = 0;
+    if (typeof run.money !== 'number') run.money = run.score || 0;
     return run;
   }
   function encode(bundle) {
@@ -1089,7 +1098,7 @@
     mountainById, height, naturalForest, forestAt, snowAt, groundBlock, passage,
     createMeta, unlocked, startRun, previewStroke, commitStroke, previewLift, commitLift,
     placeCannon, cutAt, upgradeAt, eraseAt, undo, redo, tick, setSpeed, chooseCard, reroll,
-    counts, connected, altitude, guests, clockHours, formatClock, recordResult, starsFor,
+    counts, connected, altitude, guests, capacity, clockHours, formatClock, recordResult, starsFor,
     encode, decode, classify, sectionGrade, polyLength, allows, pathToShape, pathHome, nodesOf
   };
 });
