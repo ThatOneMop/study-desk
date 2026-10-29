@@ -7,7 +7,8 @@ w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-b
 const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-assert(catalog.length>=64);
+assert.equal(catalog.length,46);
+assert(catalog.every(g=>!['Nightshift','Afterlight'].includes(g.group)));
 assert(catalog.every(g=>['bundled','external'].includes(g.type)));
 assert(catalog.filter(g=>g.type==='external').every(g=>/^https:\/\//.test(g.url)));
 assert(!d.querySelector('#playerStudy, #studyBtn'));

@@ -2,7 +2,7 @@
 (function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.UnderleafSaves=factory()})(typeof window==='undefined'?globalThis:window,()=>{
  'use strict';
  const KEY='underleaf-v1',BACKUP=KEY+'.backup';
- const initial=()=>({food:20,workers:3,rooms:1,carry:0,speed:0,nurse:0,auto:0,autoOn:true,eggs:[],gathered:0,time:0,rewards:0});
+ const initial=()=>({food:20,workers:3,rooms:1,carry:0,speed:0,nurse:0,auto:0,autoOn:true,eggs:[],gathered:0,time:0,rewards:0,focus:'balanced',focusCooldown:0});
  function validate(value){
   if(!value||typeof value!=='object'||Array.isArray(value))throw Error('Invalid colony');
   const s=initial();for(const key of Object.keys(s))if(Object.hasOwn(value,key))s[key]=value[key];
@@ -10,6 +10,7 @@
   for(const key of ['food','gathered','time'])if(!Number.isFinite(s[key])||s[key]<0||s[key]>Number.MAX_SAFE_INTEGER)throw Error('Invalid '+key);
   integer('rooms',1,25);integer('workers',3,12+(s.rooms-1)*8);
   for(const key of ['carry','speed','nurse'])integer(key,0,5);
+  if(!['balanced','forage','nursery','dig'].includes(s.focus)||!Number.isFinite(s.focusCooldown)||s.focusCooldown<0||s.focusCooldown>15)throw Error('Invalid work priority');
   integer('auto',0,1);integer('rewards',0,4);
   if(typeof s.autoOn!=='boolean'||!Array.isArray(s.eggs)||s.workers+s.eggs.length>12+(s.rooms-1)*8)throw Error('Invalid brood');
   s.eggs=s.eggs.map(e=>{

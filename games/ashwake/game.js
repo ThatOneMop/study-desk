@@ -267,7 +267,7 @@ function sync(){
  $('hud').hidden=!run;
  $('pauseBtn').hidden=!run||phase==='pause'||phase==='dead'||phase==='dawn';
  $('stick').hidden=!run||phase!=='play';
- $('level').hidden=phase!=='level';
+ $('level').hidden=phase!=='level';$('redraw').disabled=phase!=='level'||run.redraws<=0;setText('redraw','Redraw relics · '+(run?.redraws??0)+' left');
  $('pause').hidden=phase!=='pause';
  $('result').hidden=!(settled&&run);
  setText('pauseBtn','Pause');
@@ -288,7 +288,7 @@ function sync(){
   const key=phase==='level'&&run.draft?run.draft.map(c=>c.kind+c.id+c.level).join('|'):'';
   if(phase==='level'&&key!==shown){
    shown=key;$('cards').replaceChildren();
-   run.draft.forEach((card,i)=>{const b=document.createElement('button');b.type='button';const k=document.createElement('kbd');k.textContent=String(i+1);const name=document.createElement('b');name.textContent=card.name;const text=document.createElement('span');text.textContent=card.text;b.append(k,name,text);b.onclick=()=>pick(i);$('cards').append(b);});
+   run.draft.forEach((card,i)=>{const b=document.createElement('button');b.type='button';const k=document.createElement('kbd');k.textContent=String(i+1);const name=document.createElement('b');name.textContent=card.name;const text=document.createElement('span');text.textContent=card.text;const sigil=document.createElement('span');sigil.className='relic-sigil';sigil.textContent=card.kind==='weapon'?({sparks:'✦',orbit:'◉',thorn:'❖',pulse:'◎'}[card.id]||'✦'):card.kind==='breath'?'♡':'◇';const role=document.createElement('small');role.className='relic-role';role.textContent=(card.kind==='weapon'?'LANTERN':card.kind==='passive'?'KEEPER':'RECOVERY')+' · '+(card.level===1?'NEW RELIC':'RANK '+card.level);b.dataset.kind=card.kind;b.append(k,sigil,role,name,text);b.onclick=()=>pick(i);$('cards').append(b);});
    $('cards').querySelector('button')?.focus();
   }
   if(settled){
@@ -324,6 +324,8 @@ function sync(){
  for(const mark of A.ACHIEVEMENTS){const li=document.createElement('li');li.textContent=(meta.achievements[mark.id]?'◆ ':'○ ')+mark.name+' — '+mark.detail;li.className=meta.achievements[mark.id]?'earned':'';$('achievements').append(li);}}
  if(performance.now()>toastUntil)$('toast').hidden=true;
 }
+function redrawRelics(){if(!run||run.phase!=='level')return;const result=A.redraw(run);if(!result.ok){toast(result.reason);return}audio.play('pick');shown='';save();sync();$('cards').querySelector('button')?.focus()}
+$('redraw').onclick=redrawRelics;
 function pick(index){if(!run||run.phase!=='level')return;const chosen=A.choose(run,index);if(!chosen.ok){toast(chosen.reason);return;}audio.play('pick');shown='';save();sync();}
 
 function frame(now){
@@ -402,7 +404,7 @@ document.addEventListener('keydown',e=>{
  if(e.target.closest?.('input,textarea,select')||e.metaKey||e.ctrlKey||e.altKey)return;
  if(uiBlocks()&&e.key!=='Escape')return;
  const key=e.key.toLowerCase();
- if(key==='escape'){e.preventDefault();if($('tutorial').open){$('tutorial').close();return;}if($('confirm').open){$('confirm').close();return;}if(!run)return;if(run.phase==='pause')A.resume(run);else if(run.phase==='play'||run.phase==='level')A.pause(run);save();sync();return;}
+ if(key==='r'&&run?.phase==='level'&&!e.repeat){e.preventDefault();redrawRelics();return;}if(key==='escape'){e.preventDefault();if($('tutorial').open){$('tutorial').close();return;}if($('confirm').open){$('confirm').close();return;}if(!run)return;if(run.phase==='pause')A.resume(run);else if(run.phase==='play'||run.phase==='level')A.pause(run);save();sync();return;}
  if(!run&&(key==='enter')&&e.target===document.body){begin('warden');return;}
  if(run?.phase==='level'&&!e.repeat&&['1','2','3'].includes(key)){e.preventDefault();pick(Number(key)-1);return;}
  if(key==='m'&&!e.repeat){toggleSound();return;}

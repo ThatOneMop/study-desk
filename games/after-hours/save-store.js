@@ -22,9 +22,9 @@ function validate(raw,engine){
   const result=list.map(c=>{if(!obj(c)||!integer(c.id,0,51)||!integer(c.rank,2,14)||!integer(c.suit,0,3)||c.id!==c.suit*13+c.rank-2||!integer(c.bonus??0,0,1000000))fail();return {id:c.id,rank:c.rank,suit:c.suit,bonus:c.bonus??0};});
   if(new Set(result.map(c=>c.id)).size!==result.length)fail();return result;
  }
- s.deck=cards(raw.deck,52);if(s.deck.length!==52)fail();
+ s.deck=cards(raw.deck,52);if(s.deck.length<20)fail();
  s.hand=cards(raw.hand,8);s.pile=cards(raw.pile,52);
- const remaining=[...s.hand,...s.pile];if(new Set(remaining.map(c=>c.id)).size!==remaining.length)fail();
+ const remaining=[...s.hand,...s.pile];if(!remaining.every(c=>s.deck.some(d=>d.id===c.id)))fail();if(new Set(remaining.map(c=>c.id)).size!==remaining.length)fail();
  // Shop polishing changes the deck before the next round, so bonuses in the
  // remaining hand/pile may legitimately differ until the next draw.
  s.selected=Array.isArray(raw.selected)?[...new Set(raw.selected.filter(id=>s.hand.some(c=>c.id===id)))].slice(0,5):[];
@@ -37,11 +37,12 @@ function validate(raw,engine){
   for(const k of ['clear','hands','interest','extra']){const n=raw.reward[k]??0;if(!integer(n))fail();s.reward[k]=n;}
  }
  if(raw.phase==='shop'){
+  if(raw.trimmed!==undefined&&typeof raw.trimmed!=='boolean')fail();s.trimmed=raw.trimmed===true;
   if(!integer(raw.rerollCost,1)||!Array.isArray(raw.stock)||raw.stock.length>6)fail();s.rerollCost=raw.rerollCost;
   s.stock=raw.stock.map(item=>{if(item===null)return null;if(!obj(item)||!integer(item.cost))fail();
    if(item.kind==='charm'){if(!engine.CHARMS.some(c=>c.id===item.id))fail();}
    else if(item.kind==='level'){if(!integer(item.id,0,8))fail();}
-   else if(item.kind==='polish'){if(!integer(item.id,0,51))fail();}else fail();
+   else if(item.kind==='polish'){if(!integer(item.id,0,51)||!s.deck.some(c=>c.id===item.id))fail();}else fail();
    return {kind:item.kind,id:item.id,cost:item.cost};
   });
  }

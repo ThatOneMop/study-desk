@@ -65,3 +65,5 @@ dialog h2{font:34px/1.1 Georgia,serif;margin:0 0 8px}
 }
 @media(pointer:fine) and (min-width:801px){#stick{opacity:.92}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+#cards .relic-sigil{display:block;font:48px Georgia;color:#f2bf70;text-shadow:0 0 24px #e68a4155;margin:7px 0 16px}#cards .relic-role{display:block;color:#cbae92;font-size:10px;letter-spacing:2px;margin-bottom:10px}#cards button[data-kind="passive"] .relic-sigil{color:#add1c7;text-shadow:0 0 24px #73bda355}#cards button[data-kind="breath"] .relic-sigil{color:#e1a4a6}#redraw{margin-top:20px}

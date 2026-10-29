@@ -3,13 +3,13 @@
 const bike=()=>{const c=document.getElementById('scene');if(!c)return null;const r=c.getBoundingClientRect();return{x:r.left+r.width*.3,y:r.top+r.height*.42}};
 const art=`<svg class="art" viewBox="0 0 150 96" aria-hidden="true"><path d="M0 74q38-26 75-6t75-8v36H0z" fill="#47665a"/><circle cx="118" cy="22" r="11" fill="#e4b94e"/><g transform="translate(44 44)" fill="none" stroke="#1d3a40" stroke-width="3"><circle cx="0" cy="22" r="11"/><circle cx="40" cy="22" r="11"/><path d="M0 22l14-18h18l8 18M14 4l-4-8M32 4l3-8h6"/></g><rect x="52" y="30" width="14" height="12" rx="2" fill="#c46a3a"/><circle cx="64" cy="18" r="5" fill="#c46a3a"/><path d="M106 60l8-4" stroke="#6aa6d8" stroke-width="5" stroke-linecap="round"/></svg>`;
 FeelKit({id:'ratchet-run',prefix:'rr',global:'RRFeel',title:'Ratchet Run',eyebrow:'TWO WHEELS. ONE GOOD DELIVERY.',art,
- tagline:'Ride five hand-drawn courier routes. Throttle, brake, hop and lean, keep the cargo strapped, and stop in the striped bay.',
+ tagline:'Ride eight hand-drawn courier routes. Throttle, brake, hop and lean, keep the cargo strapped, and stop in the striped bay.',
  startLabel:'Start your shift',keys:'W/↑ throttle · S/↓ brake · A D lean · Space hop · P pause',
  pauseTitle:'Kickstand down',pauseText:'The bike waits right where you left it. Cargo is safe.',
  headerBefore:'header #help',guide:'#help',play:'#scene',tipAfter:'.route-heading',accent:'#e4b94e',accentInk:'#1d3a40',card:'#1d3a40',ink:'#f1edd7',good:'#9fd18b',root:440,tipBg:'#e4b94e22',
  colors:['#e4b94e','#6aa6d8','#c46a3a','#f1edd7'],ambient:{cut:700,vol:.12,notes:[0,4,7,9]},
  onPause:()=>{const g=G();if(!g)return;riding=!g.paused&&g.s.phase==='ride';g.pause()},onResume:()=>{if(riding)G().resume();riding=false},
- progress:()=>{const sv=G()&&G().save;const n=sv?(sv.records||[]).filter(Boolean).length:0;return n?`${n} of 5 deliveries signed`:'Five routes across the old town'},
+ progress:()=>{const sv=G()&&G().save;const n=sv?(sv.records||[]).filter(Boolean).length:0;return n?`${n} of 8 deliveries signed`:'Eight routes from the old town to the snowfields'},
  snap:()=>{const g=G();if(!g)return null;const s=g.s;return{course:s.course,frame:s.frame,phase:s.phase,ground:s.ground,integ:s.integrity,parcels:s.parcels.length,land:s.landings,x:s.x,v:s.v,msg:s.message,paused:g.paused,medal:E.medal(s)}},
  rules:[
   {test:(a,b)=>b.course===a.course&&b.frame>a.frame&&a.ground&&!b.ground&&b.phase==='ride',sfx:'whoosh'},

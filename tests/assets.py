@@ -13,6 +13,7 @@ class Parser(HTMLParser):
    p=(self.base/unquote(v.split('?')[0].split('#')[0])).resolve();checked+=1
    if not p.exists():errors.append(str(self.base.relative_to(r))+': '+v)
 for g in games:
+ if g.get('thumbnail'):assert (r/g['thumbnail']).is_file(),g['thumbnail']
  if g['type']=='external':continue
  p=r/g['url'].split('?')[0];assert p.exists(),p
  s=p.read_text();assert 'bridge.js' in s,p

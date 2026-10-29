@@ -1,6 +1,6 @@
-# Study Desk — 66 games
+# Study Desk — 46 games
 
-The catalogue has 66 games. 65 run on this site, and Nightshift — Town Empire opens on its original site. Those 66 include the 10 recovered games, the indie selections, Nightshift, Afterlight, and Ashwake. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
+The curated catalogue has 46 games: 45 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
 
 ## Upload to GitHub Pages
 
@@ -16,7 +16,7 @@ Study opens first. Create, edit and delete cards and decks in Create cards. Flip
 
 Monday pick chooses one bundled game for the calendar week, starting each Monday, on the study page and the game collection. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves lists each key that will change, replaces only those keys after confirmation, then reloads. Identical keys are left alone. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
 
-The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, newer additions, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
+The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, six freshly improved games, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
 
 ## Switching
 
@@ -24,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 65 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 45 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
