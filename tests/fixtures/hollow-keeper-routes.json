@@ -1,0 +1,428 @@
+[
+  {
+    "chapter": 0,
+    "actions": [
+      {
+        "type": "trap",
+        "cell": 10
+      },
+      {
+        "type": "upgrade",
+        "cell": 10
+      },
+      {
+        "type": "trap",
+        "cell": 30
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "upgrade",
+        "cell": 30
+      },
+      {
+        "type": "trap",
+        "cell": 29
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      }
+    ]
+  },
+  {
+    "chapter": 1,
+    "actions": [
+      {
+        "type": "trap",
+        "cell": 11
+      },
+      {
+        "type": "upgrade",
+        "cell": 11
+      },
+      {
+        "type": "trap",
+        "cell": 32
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "upgrade",
+        "cell": 32
+      },
+      {
+        "type": "trap",
+        "cell": 12
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      }
+    ]
+  },
+  {
+    "chapter": 2,
+    "actions": [
+      {
+        "type": "trap",
+        "cell": 11
+      },
+      {
+        "type": "upgrade",
+        "cell": 11
+      },
+      {
+        "type": "trap",
+        "cell": 12
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "upgrade",
+        "cell": 12
+      },
+      {
+        "type": "trap",
+        "cell": 14
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      }
+    ]
+  },
+  {
+    "chapter": 3,
+    "actions": [
+      {
+        "type": "dig",
+        "cell": 25
+      },
+      {
+        "type": "dig",
+        "cell": 43
+      },
+      {
+        "type": "trap",
+        "cell": 14
+      },
+      {
+        "type": "upgrade",
+        "cell": 14
+      },
+      {
+        "type": "trap",
+        "cell": 30
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "upgrade",
+        "cell": 30
+      },
+      {
+        "type": "trap",
+        "cell": 15
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      }
+    ]
+  },
+  {
+    "chapter": 4,
+    "actions": [
+      {
+        "type": "dig",
+        "cell": 25
+      },
+      {
+        "type": "dig",
+        "cell": 43
+      },
+      {
+        "type": "trap",
+        "cell": 19
+      },
+      {
+        "type": "upgrade",
+        "cell": 19
+      },
+      {
+        "type": "trap",
+        "cell": 32
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "upgrade",
+        "cell": 32
+      },
+      {
+        "type": "trap",
+        "cell": 28
+      },
+      {
+        "type": "launch"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      },
+      {
+        "type": "tick"
+      }
+    ]
+  }
+]

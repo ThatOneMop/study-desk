@@ -22,13 +22,14 @@ function advance(s){const spec=CHAPTERS[s.chapter].waves[s.wave];s.tick++;const 
  s.message=messages.join(' ')||'Footsteps follow the open tunnels.';
 }
 function step(state,action){const fail=reason=>({ok:false,state,reason});if(!action||typeof action!=='object'||typeof action.type!=='string')return fail('Choose a tool.');if(['won','lost'].includes(state.phase))return fail('This defense has ended. Rewind or restart.');if(state.history.length>=256)return fail('Decision journal full. Restart this hollow to begin a fresh plan.');const s=copy(state),a={type:action.type},c=action.cell;
- if(['dig','trap','upgrade','sell','lure'].includes(a.type)){if(!inside(c))return fail('Choose a cell in the hollow.');a.cell=c;}
+ if(['dig','trap','upgrade','sell','lure','regrow'].includes(a.type)){if(!inside(c))return fail('Choose a cell in the hollow.');a.cell=c;}
  if(['dig','trap','upgrade','sell'].includes(a.type)&&s.phase!=='prep')return fail('Terrain and thorn beds can be changed only between waves.');
  const trap=s.traps.find(t=>t.cell===c),special=s.starts.includes(c)||c===s.nest;
  if(a.type==='dig'){if(special||s.tiles[c]==='#')return fail('Stone, entrances and the nursery cannot be changed.');if(trap||s.enemies.some(e=>e.cell===c))return fail('Clear that cell before packing its soil.');if(!s.soil)return fail('No soil work remains for this preparation.');const before=s.tiles[c];s.tiles[c]=before==='+'?'.':'+';if(paths(s).some(p=>!p))return fail('Keep an open route from every entrance to the nursery.');s.soil--;s.edits++;s.message=before==='+'?'A new tunnel is open.':'Soil packed. The scouts will find another route.';}
  else if(a.type==='trap'){if(!walk(s,c)||special||trap)return fail('Place thorns on an empty open tunnel.');if(s.traps.length>=3)return fail('The colony can tend three thorn beds.');if(s.resin<2)return fail('A thorn bed costs 2 resin.');s.resin-=2;s.traps.push({cell:c,level:1,charges:3});s.message='Thorn bed planted: 1 damage, 3 strikes each wave.';}
  else if(a.type==='upgrade'){if(!trap)return fail('Choose an existing thorn bed.');if(trap.level===2)return fail('These thorns are already reinforced.');if(s.resin<2)return fail('Reinforcement costs 2 resin.');s.resin-=2;trap.level=2;s.message='Reinforced thorns: 2 damage per strike.';}
  else if(a.type==='sell'){if(!trap)return fail('Choose an existing thorn bed.');s.resin+=trap.level*2;s.traps=s.traps.filter(t=>t.cell!==c);s.message='Thorns reclaimed. All resin returned.';}
+ else if(a.type==='regrow'){if(s.phase!=='defend')return fail('Regrow thorns during an attack; beds refill free between waves.');if(!trap)return fail('Choose an existing thorn bed.');if(trap.charges===3)return fail('This bed already has three strikes.');if(s.resin<2)return fail('Regrowth costs 2 resin.');s.resin-=2;trap.charges=Math.min(3,trap.charges+2);advance(s);s.message='Thorns regrown for 2 resin; the wave advanced. '+s.message;}
  else if(a.type==='launch'){if(s.phase!=='prep')return fail('The wave is already moving.');s.phase='defend';s.message='Wave released. March one step at a time or enable auto march.';}
  else if(a.type==='tick'){if(s.phase!=='defend')return fail('Launch the next wave first.');advance(s);}
  else if(a.type==='lure'){if(s.phase!=='defend')return fail('Fruit lures are used during an attack.');if(!walk(s,c)||special)return fail('Drop fruit in an open tunnel away from the nursery.');if(s.resin<1)return fail('A fruit lure costs 1 resin.');s.resin--;s.lure={cell:c,life:5};advance(s);}
@@ -41,6 +42,19 @@ function unlocked(v){let i=0;while(i<4&&v.records[i])i++;return i;}
 function record(v,s){const out=copy(v);out.current={chapter:s.chapter,actions:s.history};if(s.phase==='won'){const old=out.records[s.chapter],m=medal(s);if(!old||m>old.medals||m===old.medals&&s.edits<old.edits)out.records[s.chapter]={actions:s.history,medals:m,hearts:s.health,edits:s.edits};}return out;}
 function decode(raw){const v=typeof raw==='string'?JSON.parse(raw):raw;if(!v||v.version!==1||!v.current||!Array.isArray(v.records)||v.records.length!==5)throw Error('Unreadable save');const records=v.records.map((r,i)=>{if(r===null)return null;const s=replay(i,r.actions);if(s.phase!=='won')throw Error('Unproven defense');return {actions:s.history,medals:medal(s),hearts:s.health,edits:s.edits};});const s=replay(v.current.chapter,v.current.actions);if(s.chapter>unlocked({records}))throw Error('Locked hollow');return {version:1,current:{chapter:s.chapter,actions:s.history},records};}
 function scout(s){let t=copy(s);if(t.phase==='prep'){const r=step(t,{type:'launch'});if(!r.ok)return {available:false,reason:r.reason};t=r.state;}let turns=0;while(t.phase==='defend'&&turns<120){const r=step(t,{type:'tick'});if(!r.ok)return {available:false,reason:r.reason};t=r.state;turns++;}return {available:t.phase!=='defend',hearts:t.health,leaks:t.leaks-s.leaks,stopped:t.defeated-s.defeated,phase:t.phase,turns,resin:t.resin};}
+function watch(state){
+ let s=copy(state),steps=0;
+ if(s.phase!=='defend')return {state:s,steps,reason:'Release a wave to scout safe marching.'};
+ while(s.phase==='defend'&&steps<120){
+  const r=step(s,{type:'tick'});if(!r.ok)return {state:s,steps,reason:r.reason};
+  const empty=s.traps.find(t=>t.charges>0&&r.state.traps.some(n=>n.cell===t.cell&&n.charges===0));
+  if(r.state.health<s.health)return {state:s,steps,reason:'Next step: nursery hit. Consider fruit or regrowth before marching.',danger:'nursery',cell:s.nest};
+  if(empty)return {state:s,steps,reason:'Next step: last thorn strike at row '+(Math.floor(empty.cell/W)+1)+', column '+(empty.cell%W+1)+'. Regrow now or spend the last strike manually.',danger:'thorns',cell:empty.cell};
+  s=r.state;steps++;
+ }
+ return {state:s,steps,reason:s.phase==='prep'?'Wave ends safely; prepare the next defense.':s.phase==='won'?'The hollow holds.':'Safe march limit reached.'};
+}
 function forecast(s,a){const r=step(s,a);return r.ok?{allowed:true,reason:r.reason,state:r.state,hearts:r.state.health,resin:r.state.resin,soil:r.state.soil,leaks:r.state.leaks-s.leaks,stopped:r.state.defeated-s.defeated,scout:scout(r.state)}:{allowed:false,reason:r.reason};}
-return {scout,forecast,W,H,CHAPTERS,create,walk,neighbors,route,paths,step,replay,undo,medal,blank,unlocked,record,decode};
+return {watch,scout,forecast,W,H,CHAPTERS,create,walk,neighbors,route,paths,step,replay,undo,medal,blank,unlocked,record,decode};
 });
+

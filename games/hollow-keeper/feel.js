@@ -4,7 +4,7 @@ const cell=c=>document.querySelector(`[data-cell="${c}"]`)||'#board';
 const art=`<svg class="art" viewBox="0 0 150 96" aria-hidden="true"><path d="M0 70q40-18 75-6t75-4v36H0z" fill="#3d2f22"/><path d="M0 78q50-10 150 0v18H0z" fill="#2a2018"/><path d="M30 92q10-40 45-46 34 6 45 46" fill="none" stroke="#c9a46a" stroke-width="3" stroke-dasharray="4 5"/><g transform="translate(75 40)"><ellipse rx="19" ry="14" fill="#4f6b3c"/><path d="M0-14V14" stroke="#24331c" stroke-width="2"/><circle cx="-9" cy="-4" r="3" fill="#a9c47f"/><circle cx="9" cy="-4" r="3" fill="#a9c47f"/><path d="M-6-15q-8-12-16-10M6-15q8-12 16-10" stroke="#24331c" stroke-width="2" fill="none"/><path d="M-19 0h-8M19 0h8M-17 8l-8 5M17 8l8 5" stroke="#24331c" stroke-width="2"/></g><g fill="#e3b25a"><circle cx="22" cy="20" r="2"/><circle cx="128" cy="14" r="1.6"/><circle cx="110" cy="30" r="1.2"/></g></svg>`;
 FeelKit({id:'hollow-keeper',prefix:'hk',global:'HKFeel',title:'Hollow Keeper',eyebrow:'A COLONY BENEATH THE ROOTS',art,
  tagline:'Shape the trail, set thorn beds and lure intruders away from the nursery. Nothing marches until you say so.',
- startLabel:'Enter the hollow',keys:'1–5 tools · arrows + Enter place · L release · Space march · Z undo · P pause',
+ startLabel:'Enter the hollow',keys:'1–6 tools · arrows + Enter place · L release · Space march · Z undo · P pause',
  pauseTitle:'Roots still',pauseText:'The colony holds its breath. Auto march stops until you return.',
  headerBefore:'header #help',guide:'#help',play:'#board',tipAfter:'#tool-note',accent:'#d9a95b',card:'#1d2a1f',ink:'#f0e6c8',good:'#a9c47f',root:330,
  colors:['#d9a95b','#a9c47f','#f0e6c8','#8c6a43'],ambient:{cut:380,vol:.22,notes:[0,2,5,7,9]},
