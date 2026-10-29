@@ -1,6 +1,6 @@
-# Study Desk — 65 games
+# Study Desk — 66 games
 
-The catalogue has 65 games. 64 run on this site, and Nightshift — Town Empire opens on its original site. Those 65 include the 10 recovered games, the indie selections, Nightshift, Afterlight, and Ashwake. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
+The catalogue has 66 games. 65 run on this site, and Nightshift — Town Empire opens on its original site. Those 66 include the 10 recovered games, the indie selections, Nightshift, Afterlight, and Ashwake. Tiny Wilds' fishing and ant colony modes count as one game. The previously imported community collection remains archived and is not silently restored to the active catalogue.
 
 ## Upload to GitHub Pages
 
@@ -24,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 64 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 65 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
@@ -57,3 +57,8 @@ Existing game keys/formats are unchanged. All bundled games share this site's or
 ## Verification
 
 See TEST_REPORT.md. Automated DOM/bridge and static checks passed; no real browser was available for this build. Do not treat static validation as gameplay certification.
+
+
+## Lane Eight
+
+Lane Eight is bundled at `games/lane-eight/index.html`: manage training load, earn places at six fictional clubs, plan meets and control every race with chase/overhead cameras. Career progression continues into retirement and squad coaching. Use Export career / Import career to move a save from the standalone site. Save keys remain compatible. See `docs/lane-eight.md` for implementation and verification evidence.

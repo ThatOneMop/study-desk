@@ -1,5 +1,28 @@
 [
   {
+    "id": "lane-eight",
+    "title": "Lane Eight",
+    "description": "Manage a swimming career: train, earn elite club places and race the swimmer yourself. Retire into coaching and develop your next squad.",
+    "icon": "🏊",
+    "genre": "Sports + Management",
+    "color": "#3b8d98",
+    "url": "games/lane-eight/index.html",
+    "group": "Your games",
+    "controls": "A/D alternate strokes · Space breathe/turn · Shift sprint · C camera · On-screen touch controls",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#lane-eight",
+    "aliases": [
+      "swimming",
+      "swim",
+      "career",
+      "manager",
+      "clubs",
+      "coaching"
+    ]
+  },
+  {
     "id": "gummy-bay",
     "title": "Gummy Bay",
     "description": "Gummy business simulator with Blender town and characters, tactile production, protected batches, storage and deliveries.",
