@@ -25,7 +25,7 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 0
+    "verifiedLive": 1
   },
   "deployment": {
     "status": "main-pages-live",
@@ -420,7 +420,9 @@
         "notes": "Route shaping, shared approaches, limited thorn charges and fruit recrossing create a distinct compact maze-defense puzzle. Scout reports and safe previews support experimentation. Five authored hollows constrain replay depth; phone play still scrolls between planning and wave controls. Original SVG art, no audio dependency. Not a deep colony simulation or evidence of multi-hour content. No physical-device or full screen-reader audit."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "519934be03660c6c68dd8c0eeca7bc0060a43127"
+      ],
       "initialCommit": "f6266bd85765772a9c7824b77f48e4f96b152837",
       "developmentCommits": [
         "f6266bd85765772a9c7824b77f48e4f96b152837",
@@ -428,7 +430,7 @@
         "2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709",
         "be33501dc31ceec3ed3c251ee935ec0dadef5761"
       ],
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/hollow-keeper/index.html",
       "selectionReason": "Colony-adjacent route defense with active resin intervention and safe decision stops.",
       "verification": {
         "commit": "73b95527ab3861f9e75a9047564169c098a809db",
@@ -464,6 +466,13 @@
         "job": 123238838453,
         "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40810194303/artifacts/12870138863",
         "report": "dev/indie-collection-two/HOLLOW_SAFE_MARCH.md"
+      },
+      "releaseVerification": {
+        "commit": "519934be03660c6c68dd8c0eeca7bc0060a43127",
+        "ci": "40821596198",
+        "deployment": "40826925321",
+        "artifact": "12874183820",
+        "live": "29 October: cloud browser planted thorn bed via preview/confirm, launched and safe-marched first wave; observed 3 hearts, 8 resin, wave 2, reloaded those values, and returned to live catalogue. Desktop live smoke only; full desktop/touch campaigns passed native CI."
       }
     },
     {
@@ -1750,7 +1759,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Promote the nine selected additional-round versions with concurrent main visual effects preserved; integration and deployed verification remain pending. Then finish third batch (24/50 built; 0 qualified improved/browser-tested/integrated/live).",
+  "nextSteps": "Review merged Cairn & Cord / Murmuration native CI and screenshots, fix failures before promoting against fresh main. Complete the other six selected merges while preserving visual effects. Third batch remains 24/50 built with zero qualified improved/browser-tested/integrated/live.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2318,9 +2327,15 @@
       "ci": "40810194303",
       "publicIntegration": null,
       "nextSteps": "Promote the nine selected additional-round versions with concurrent main visual effects preserved; integration and deployed verification remain pending. Then finish third batch (24/50 built; 0 qualified improved/browser-tested/integrated/live)."
+    },
+    {
+      "date": "2026-10-29",
+      "result": "Hollow Keeper additional upgrade integrated and verified live. Two new selected catalogue entries prepared on promotion branch; 62 focused checks and curation regression pass, merged browser verification pending.",
+      "integrationCommit": "519934be03660c6c68dd8c0eeca7bc0060a43127",
+      "nextSteps": "Review merged Cairn & Cord / Murmuration native CI and screenshots, fix failures before promoting against fresh main. Complete the other six selected merges while preserving visual effects. Third batch remains 24/50 built with zero qualified improved/browser-tested/integrated/live."
     }
   ],
-  "latestObservedMain": "2098eeb559d90c840faaab3b8c500b3623f37cbf",
+  "latestObservedMain": "519934be03660c6c68dd8c0eeca7bc0060a43127",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2350,5 +2365,16 @@
       "tea-for-ghosts"
     ],
     "scope": "13 earlier second-batch entries remain integrated by concurrent work. Current live Reefwright launch verified; development-branch additional upgrades are not inferred to be live. Preserve all 65 entries and Gummy Bay v180."
+  },
+  "promotion": {
+    "selected": 9,
+    "integrated": 1,
+    "verifiedLive": 1,
+    "pendingBranch": "indie-two-promotion",
+    "pendingCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+    "pendingIds": [
+      "cairn-and-cord",
+      "murmuration"
+    ]
   }
 }
