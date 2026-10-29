@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  hollow:
+  selected-games:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -21,11 +21,14 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
-          node --test tests/hollow-keeper-engine.cjs tests/hollow-keeper-dom.cjs
+          node --test tests/hollow-keeper-engine.cjs tests/hollow-keeper-dom.cjs tests/cairn-and-cord-engine.cjs tests/cairn-and-cord-dom.cjs tests/murmuration-engine.cjs tests/murmuration-dom.cjs
           node tests/curation-regression.cjs
           node tests/hollow-keeper-browser.cjs
+          node tests/cairn-and-cord-browser.cjs
+          node tests/murmuration-browser.cjs
+          node tests/murmuration-bridge.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: merged-hollow-browser
+          name: selected-games-browser
           path: test-artifacts/

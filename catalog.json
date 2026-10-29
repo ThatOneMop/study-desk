@@ -726,5 +726,35 @@
       "clubs",
       "coaching"
     ]
+  },
+  {
+    "id": "cairn-and-cord",
+    "title": "Cairn & Cord",
+    "description": "Plan a climb with finite grip, rope anchors and optional survey detours. Compare falls before committing.",
+    "icon": "🧗",
+    "genre": "Climbing + Strategy",
+    "color": "#cbbda4",
+    "controls": "Click / tap holds · Tab + Enter selects controls · Rope, anchor and survey controls on screen",
+    "url": "games/cairn-and-cord/index.html",
+    "group": "Indie collection two",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#created-games"
+  },
+  {
+    "id": "murmuration",
+    "title": "Murmuration",
+    "description": "Steer and split a flock through estuary winds. Trade stored food for regrouping and guide the birds to their roost.",
+    "icon": "🪶",
+    "genre": "Action + Relaxed",
+    "color": "#cf976e",
+    "controls": "Left/Right or A/D steer · Space splits · R regroups · K pauses · Touch controls",
+    "url": "games/murmuration/index.html",
+    "group": "Indie collection two",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#created-games"
   }
 ]
