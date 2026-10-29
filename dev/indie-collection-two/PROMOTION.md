@@ -88,3 +88,14 @@ Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI
 Counts: 20 built, 20 initial improvements, 20 additional-round verified; 9 selected, 5 selected upgrades integrated/live, 4 remaining. Third collection: 24/50 built, 0 qualified improved/browser-tested/integrated/live. No additional gameplay pass credited for release work. First-batch sources, 48 catalogue entries, saves, Lane Eight and Gummy Bay preserved. No automation changes.
 
 Next: Integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against freshly read main, preserving concurrent visuals/input/pause layers and saves. Version changed local assets; run merged desktop/touch routes and inspect screenshots before promotion. Correct Tea guide's minor Arthur/Otis name typo in a later copy pass. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes.
+
+
+## Copper Cadence merge staged — 29 October 2026
+
+Commit `1b39c47a143e8647d1dadf2c7c9e5c145da05213`: Merged Copper Cadence's already-verified silent catches and retained-suffix score repair with main's local Pause/Escape controls, sound, artwork and pulsing current beat. Pause now freezes repair apply/cancel and pending save mutations; resume restores the draft. Added 2 regression cases (63 focused engine/DOM checks pass) and desktop/touch native pause-during-repair coverage. Versioned all three local assets. Main remains d600ffdaa with 5/9 selected upgrades live; merged browser verification pending. No new gameplay pass or public entry counted.
+
+[Exact merged browser run](https://github.com/ThatOneMop/study-desk/actions/runs/40870555821) covers five original and five catch commissions, score repair preview/apply/cancel, blocked revisions, saves/reloads, local pause and keyboard/touch controls, loss/undo, recovery, navigation and previous selected-game regression. Review results and screenshots before publishing.
+
+No Switch workspace controls found in launcher or Copper Cadence source. Current main still has 48 catalogue entries; first collection, existing saves, Lane Eight and Gummy Bay preserved. Counts remain 20 built/initially improved/additionally verified, 9 selected, 5 upgraded integrations/live; third 24/50 built, 0 qualified improved/browser-tested/integrated/live. No automation changes.
+
+Next: Review Copper Cadence merged browser CI 40870555821 at 1b39c47a143e8647d1dadf2c7c9e5c145da05213 and inspect desktop/touch repair screenshots. Preserve local pause/Escape, bridge guards, sound, beat highlighting and saves; fix failures before expected-head main promotion. Then integrate Reefwright, Wellward and Pocket Palaeo against fresh main. Third collection remains 24/50 built, 0 qualified improved/browser-tested/integrated/live.

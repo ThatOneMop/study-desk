@@ -343,7 +343,8 @@
         "80 CI screenshots across four games, 22 for Copper Cadence. Final representative desktop/phone midgame captures inspected. All five Copper Cadence commissions additionally completed in cloud UI; first desktop-width, remaining four in a 390px layout frame (not physical-device touch testing).",
         "All prior 125 engine/DOM checks and three desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, assets, nine first-batch source hashes and exactly twenty-slot gate passed.",
         "Exact source c38b7f5245cc0c1d382e6b7001fce4723f2c03de: CI 40798076659 passed all seven jobs, 539 engine + 381 DOM = 920 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123199832199 passed five original and five catch-assisted commissions in each desktop/emulated-touch context, retained-suffix score repair/cancel/blocked revision/reload, exact supply forecasts, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation without browser errors. Original routes retain three seals; catch routes earn 2/2/2/3/3.",
-        "Inspected desktop-repair-preview.png, touch-repair-preview.png and touch-repair-saved.png from 26 Copper Cadence screenshots in artifact 12865476513. Repair beat four clearly previews 1→0 errors and 0→1 brake/catch cost with 100% accuracy and two seals; Apply/Cancel fit on desktop and 390px touch layout. Saved result shows zero errors, one catch and two seals, retaining the historical three-seal best. No visible horizontal clipping; mobile uses vertical scrolling. ZIP SHA256 379254efbabea711c2fb0b2a9715c71c88a7f6b132e4d089d759157dcb915399. Automated rendered gameplay plus agent screenshot review, not human enjoyment, physical-device or audible-quality evidence."
+        "Inspected desktop-repair-preview.png, touch-repair-preview.png and touch-repair-saved.png from 26 Copper Cadence screenshots in artifact 12865476513. Repair beat four clearly previews 1→0 errors and 0→1 brake/catch cost with 100% accuracy and two seals; Apply/Cancel fit on desktop and 390px touch layout. Saved result shows zero errors, one catch and two seals, retaining the historical three-seal best. No visible horizontal clipping; mobile uses vertical scrolling. ZIP SHA256 379254efbabea711c2fb0b2a9715c71c88a7f6b132e4d089d759157dcb915399. Automated rendered gameplay plus agent screenshot review, not human enjoyment, physical-device or audible-quality evidence.",
+        "Merged Copper Cadence's already-verified silent catches and retained-suffix score repair with main's local Pause/Escape controls, sound, artwork and pulsing current beat. Pause now freezes repair apply/cancel and pending save mutations; resume restores the draft. Added 2 regression cases (63 focused engine/DOM checks pass) and desktop/touch native pause-during-repair coverage. Versioned all three local assets. Main remains d600ffdaa with 5/9 selected upgrades live; merged browser verification pending. No new gameplay pass or public entry counted. CI https://github.com/ThatOneMop/study-desk/actions/runs/40870555821"
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -1808,7 +1809,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against freshly read main, preserving concurrent visuals/input/pause layers and saves. Version changed local assets; run merged desktop/touch routes and inspect screenshots before promotion. Correct Tea guide's minor Arthur/Otis name typo in a later copy pass. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes.",
+  "nextSteps": "Review Copper Cadence merged browser CI 40870555821 at 1b39c47a143e8647d1dadf2c7c9e5c145da05213 and inspect desktop/touch repair screenshots. Preserve local pause/Escape, bridge guards, sound, beat highlighting and saves; fix failures before expected-head main promotion. Then integrate Reefwright, Wellward and Pocket Palaeo against fresh main. Third collection remains 24/50 built, 0 qualified improved/browser-tested/integrated/live.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2421,6 +2422,14 @@
       "result": "Merged CI 40853957537 passed: 46 Tea engine/DOM checks, 114 previously promoted checks, 61 Counterweight checks and 5 bridge checks; assets and first-batch integrity passed. Native desktop and emulated-touch completed six visitors, all three tools, half measures, blend tray/refinement, exact saves/reloads, loss/retry, keyboard, pause, recovery/reset and navigation without browser errors. Reviewed desktop-alternative-comparison, touch-half-measure-refined and touch-refinement-success screenshots from artifact 12887859430 (SHA256 49821c16fbfe3876df66fcd9b336f285f45e11c0603d6c5b2dd9db0dd293aa84). Phone layout still requires vertical scrolling. Automated routes and agent visual review are not human enjoyment or physical-device testing. Pages 40862009832 succeeded at d600ffdaaec8f4c2b0d40bc87f17892d3629f521. Live UI verified mint blend parked, alternative honey blend swapped, both exact recipes preserved through reload, Mabel 100/100 cup awarded two seals and unlocked Otis. Returned to catalogue, searched Tea for Ghosts and launched it with saved memory intact. No Switch workspace controls observed; Games, search, grouping, sorting and favourites retained.",
       "publicIntegration": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
       "nextSteps": "Integrate Reefwright, Copper Cadence, Wellward and Pocket Palaeo against freshly read main, preserving concurrent visuals/input/pause layers and saves. Version changed local assets; run merged desktop/touch routes and inspect screenshots before promotion. Correct Tea guide's minor Arthur/Otis name typo in a later copy pass. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes."
+    },
+    {
+      "date": "2026-10-29",
+      "result": "Merged Copper Cadence's already-verified silent catches and retained-suffix score repair with main's local Pause/Escape controls, sound, artwork and pulsing current beat. Pause now freezes repair apply/cancel and pending save mutations; resume restores the draft. Added 2 regression cases (63 focused engine/DOM checks pass) and desktop/touch native pause-during-repair coverage. Versioned all three local assets. Main remains d600ffdaa with 5/9 selected upgrades live; merged browser verification pending. No new gameplay pass or public entry counted.",
+      "integrationCandidateCommit": "1b39c47a143e8647d1dadf2c7c9e5c145da05213",
+      "ci": "40870555821",
+      "publicIntegration": null,
+      "nextSteps": "Review Copper Cadence merged browser CI 40870555821 at 1b39c47a143e8647d1dadf2c7c9e5c145da05213 and inspect desktop/touch repair screenshots. Preserve local pause/Escape, bridge guards, sound, beat highlighting and saves; fix failures before expected-head main promotion. Then integrate Reefwright, Wellward and Pocket Palaeo against fresh main. Third collection remains 24/50 built, 0 qualified improved/browser-tested/integrated/live."
     }
   ],
   "latestObservedMain": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
@@ -2469,6 +2478,12 @@
       "pocket-palaeo"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521"
+    "latestCommit": "d600ffdaaec8f4c2b0d40bc87f17892d3629f521",
+    "pendingBranch": "indie-two-promotion",
+    "pendingCommit": "1b39c47a143e8647d1dadf2c7c9e5c145da05213",
+    "pendingIds": [
+      "copper-cadence"
+    ],
+    "pendingCI": "40870555821"
   }
 }
