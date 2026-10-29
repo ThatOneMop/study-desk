@@ -47,3 +47,18 @@ Promotion branch commit `1e6d909323ec6dc8039f42fa540083616fe63c82` is based on c
 Counts unchanged:20/20 additional-round verified,9 selected,3/9 selected upgraded versions integrated/live. Third24/50 built,0 qualified improved/browser-tested/integrated/live. No extra improvement pass credited for this compatibility merge. No deployment retry or automation change.
 
 Next: Review Counterweight merged CI40839583026 at1e6d909323ec6dc8039f42fa540083616fe63c82 and inspect its desktop/touch retained screenshots. Fix failures before main promotion with a fresh expected-head lease. Preserve the title, pause, sound, effects, coach and existing save format. Then merge the other five selected upgrades (Reefwright, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts). Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live.
+
+
+## Counterweight released, cache mismatch repaired — 29 October 2026
+
+Gameplay commit `1e6d909323ec6dc8039f42fa540083616fe63c82` passed [CI40839583026](https://github.com/ThatOneMop/study-desk/actions/runs/40839583026), job123332441477.61 Counterweight checks plus114 previously-promoted engine/DOM and5 bridge checks passed. Both desktop and touch emulation completed five original and five padded/rehearsed three-medal jobs, exact forecasts, rehearsal save isolation, draft loss/revision/discard/reload, keyboard, pause, restart/cancel, corrupt recovery and navigation; no browser errors. Existing asset, catalogue and first-batch integrity gates passed.
+
+Inspected desktop-rehearsal-risk, touch-rehearsal-delivery and touch-rehearsal-complete. Cradle weight/overload previews, saved-attempt isolation and apply/discard are legible; fifth job shows63 moves, zero damaged loads/overloads. The phone layout requires vertical scrolling. Artifact12881739304 SHA256515c2fa092a2884684c8431ce5649849f09cdd999a6bc13faf6c93f166e4e375. Automated routes plus agent visual review, not human enjoyment or physical-device testing.
+
+Main advanced with expected-head protection. Initial Pages40845881726 succeeded, but live reload exposed new HTML mixed with old JavaScript. Cache follow-up `1ce5518a6c6887c6d59222b0b07346f3b9e7dd44` versions engine.js, game.js, feel.js, style.css and feel.css URLs.61 focused checks passed again; [Pages40846065975](https://github.com/ThatOneMop/study-desk/actions/runs/40846065975) passed assets and deployment. Repeat full native regression runs on the promotion branch; gameplay source is unchanged from the reviewed run.
+
+Live https://thatonemop.github.io/study-desk/games/counterweight/index.html now exposes working cradle and rehearsal controls. Clocked in, rehearsed rig/hook/raise, observed3 moves/3t padded load/1 cradle remaining, applied and reloaded those values, then returned to the live catalogue. No save clearing required. Source scan found no Switch workspace controls in launcher or Counterweight. Existing48 catalogue entries, saves and other work preserved.
+
+Counts:20/20 additionally verified;9 selected;4 upgraded versions integrated and live,5 remaining. Third24/50 built,0 qualified improved/browser-tested/integrated/live. No new improvement pass or automation change.
+
+Next: Check repeat cache-only promotion CI, then merge Reefwright, Copper Cadence, Wellward, Pocket Palaeo and Tea for Ghosts against fresh main, preserving concurrent graphics/input/pause layers. Version changed game assets when integrating to prevent old cached scripts mixing with new markup. Verify merged desktop/touch campaigns and screenshots before promotion. Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live; finish its remaining candidates and rendered improvement passes.

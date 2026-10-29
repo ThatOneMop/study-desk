@@ -25,15 +25,15 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 3
+    "verifiedLive": 4
   },
   "deployment": {
     "status": "main-pages-live",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40832743585",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40846065975",
     "checked": "2026-10-29",
-    "head": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+    "head": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
     "url": "https://thatonemop.github.io/study-desk/",
-    "detail": "Pages succeeded at the exact promoted commit. Cairn & Cord and Murmuration launched from live catalogue search and standalone routes, with gameplay/save reload smoke checks; no remaining publishing permission blocker. This verifies three of nine selected additional-round versions including previously released Hollow Keeper, not all older second-batch entries.",
+    "detail": "Counterweight gameplay promotion and cache-version follow-up deployed successfully. Versioned local URLs repaired observed mixed old scripts/new markup. Live rehearsal/apply/save reload and return navigation verified. Four selected additional-round versions live; no publishing-permission blocker.",
     "previousFailure": {
       "status": "blocked",
       "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
@@ -182,10 +182,13 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4.5,
-        "notes": "Distinct deliberate crane loop: balancing reach and cargo weight while using hoist/ballast actions to damp swing, arranging cumulative-load stacks and optimizing move medals. Five compact authored jobs introduce light, heavy, long-reach, mixed-support and wind constraints. Pixel harbour and exact previews are readable in reviewed desktop/mobile captures. Simulation is discrete, not continuous pendulum physics; no sound, procedural campaign, long playtime, physical-device or full screen-reader certification is claimed. Additional round: padded cradles and reversible lift rehearsal deepen equipment allocation and route comparison without changing existing journals. The five original versus cradle routes have mixed move costs, so equipment is not universally superior. Native desktop/phone evidence verifies usability and reliability; this is not a player survey."
+        "notes": "Distinct deliberate crane loop: balancing reach and cargo weight while using hoist/ballast actions to damp swing, arranging cumulative-load stacks and optimizing move medals. Five compact authored jobs introduce light, heavy, long-reach, mixed-support and wind constraints. Pixel harbour and exact previews are readable in reviewed desktop/mobile captures. Simulation is discrete, not continuous pendulum physics; no sound, procedural campaign, long playtime, physical-device or full screen-reader certification is claimed. Additional round: padded cradles and reversible lift rehearsal deepen equipment allocation and route comparison without changing existing journals. The five original versus cradle routes have mixed move costs, so equipment is not universally superior. Native desktop/phone evidence verifies usability and reliability; this is not a player survey. Integration review29 October: preserved newer main sound, title/pause, particles and coaching; earlier no-sound limitation above describes the historical development version. Reviewed merged phone layout fits with vertical scrolling."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "1e6d909323ec6dc8039f42fa540083616fe63c82",
+        "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44"
+      ],
       "initialCommit": "922d502a8e59c5df7637e008e10802f7f2faea26",
       "developmentCommits": [
         "922d502a8e59c5df7637e008e10802f7f2faea26",
@@ -193,7 +196,7 @@
         "66e77e8d2e7a50acab5e99228cd92be17d958f63",
         "2bc91453985c3def8b6f51b4c8f696220873a444"
       ],
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/counterweight/index.html",
       "selectionReason": "Manual machinery with load, swing and consumable cradle decisions; reversible delivery rehearsal.",
       "verification": {
         "commit": "a7f25641eb9a7957a35d580c3d905066234a32ee",
@@ -212,6 +215,16 @@
         "job": 123104095098,
         "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40769551504/artifacts/12851884887",
         "report": "dev/indie-collection-two/COUNTERWEIGHT_REHEARSAL.md"
+      },
+      "releaseVerification": {
+        "commit": "1e6d909323ec6dc8039f42fa540083616fe63c82",
+        "cacheCommit": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
+        "ci": "40839583026",
+        "deployment": "40846065975",
+        "artifact": "12881739304",
+        "artifactSha256": "515c2fa092a2884684c8431ce5649849f09cdd999a6bc13faf6c93f166e4e375",
+        "live": "29 October: entered live title screen, rehearsed rig/hook/raise (3 moves,3t padded crate,1 remaining cradle), applied and reloaded; the lifted padded cargo and costs persisted. Returned to Study Desk catalogue. Initially observed mixed cached old JS/new HTML; versioned all five local game script/style URLs and verified correct controls after deployment. No save deletion/cache clearing required.",
+        "limits": "Full five original and five cradled/rehearsed campaigns per desktop/emulated-touch context in native CI, three inspected screenshots; short live desktop smoke. Not human enjoyment or physical-device evidence. Cache-only HTML follow-up passes61 local checks and Pages asset checks; repeat full browser CI runs independently."
       }
     },
     {
@@ -1781,7 +1794,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review Counterweight merged CI40839583026 at1e6d909323ec6dc8039f42fa540083616fe63c82 and inspect its desktop/touch retained screenshots. Fix failures before main promotion with a fresh expected-head lease. Preserve the title, pause, sound, effects, coach and existing save format. Then merge the other five selected upgrades (Reefwright, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts). Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live.",
+  "nextSteps": "Check repeat cache-only promotion CI, then merge Reefwright, Copper Cadence, Wellward, Pocket Palaeo and Tea for Ghosts against fresh main, preserving concurrent graphics/input/pause layers. Version changed game assets when integrating to prevent old cached scripts mixing with new markup. Verify merged desktop/touch campaigns and screenshots before promotion. Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live; finish its remaining candidates and rendered improvement passes.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2371,9 +2384,18 @@
       "ci": "40839583026",
       "publicIntegration": null,
       "nextSteps": "Review Counterweight merged CI40839583026 at1e6d909323ec6dc8039f42fa540083616fe63c82 and inspect its desktop/touch retained screenshots. Fix failures before main promotion with a fresh expected-head lease. Preserve the title, pause, sound, effects, coach and existing save format. Then merge the other five selected upgrades (Reefwright, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts). Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live."
+    },
+    {
+      "date": "2026-10-29",
+      "result": "Counterweight merged gameplay verified and published. Native61 focused checks plus prior114 and5 bridge checks passed, all original/cradle campaigns across desktop/touch, three screenshots inspected. Found and fixed live mixed cached assets via versioned script/style URLs; live rehearsal/apply/reload/navigation verified. Four of nine selected additional-round releases now integrated/live. No extra gameplay improvement pass counted.",
+      "integrationCommit": "1e6d909323ec6dc8039f42fa540083616fe63c82",
+      "cacheCommit": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
+      "ci": "40839583026",
+      "deployment": "40846065975",
+      "nextSteps": "Check repeat cache-only promotion CI, then merge Reefwright, Copper Cadence, Wellward, Pocket Palaeo and Tea for Ghosts against fresh main, preserving concurrent graphics/input/pause layers. Version changed game assets when integrating to prevent old cached scripts mixing with new markup. Verify merged desktop/touch campaigns and screenshots before promotion. Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live; finish its remaining candidates and rendered improvement passes."
     }
   ],
-  "latestObservedMain": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+  "latestObservedMain": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2410,23 +2432,16 @@
   },
   "promotion": {
     "selected": 9,
-    "integrated": 3,
-    "verifiedLive": 3,
+    "integrated": 4,
+    "verifiedLive": 4,
     "remainingIds": [
       "reefwright",
-      "counterweight",
       "copper-cadence",
       "wellward",
       "pocket-palaeo",
       "tea-for-ghosts"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
-    "pendingBranch": "indie-two-promotion",
-    "pendingCommit": "1e6d909323ec6dc8039f42fa540083616fe63c82",
-    "pendingIds": [
-      "counterweight"
-    ],
-    "pendingCI": "40839583026"
+    "latestCommit": "1ce5518a6c6887c6d59222b0b07346f3b9e7dd44"
   }
 }
