@@ -720,7 +720,8 @@
         "Direct desktop/390px phone layout review plus campaign screenshot review; no physical-device test or full screen-reader audit claimed.",
         "19 public route/assets checks, nine first-batch selected-source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection tests passed. Inherited obsolete playerStudy launcher assertions remain preserved and are not claimed to pass.",
         "Exact source 4fc1344099f8b0181709129156895449e0f2f148: all seven CI jobs in 40731810668 passed, with 536 engine + 374 DOM = 910 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122970863879 passed natural damage, cancelled/resumed physical settling, desktop paused R and touch button repair, exact reload, all four wells/16 relics per context, purchased upgrades, keyboard/multi-touch, clearance guide, ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF motion.",
-        "Inspected desktop-repair-complete.png, touch-repair-ready.png and touch-repair-complete.png among 26 Wellward captures in artifact 12835472950. Readiness shows the strap/hook tradeoff; completed repair restores the strap and releases the reserved hook while remaining paused. Controls and feedback are legible, with substantial vertical phone scrolling. ZIP SHA256 51cff4364976b7eedfc420572b52cad58ae8beeed9cc4d57780c234e3e1352a4. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
+        "Inspected desktop-repair-complete.png, touch-repair-ready.png and touch-repair-complete.png among 26 Wellward captures in artifact 12835472950. Readiness shows the strap/hook tradeoff; completed repair restores the strap and releases the reserved hook while remaining paused. Controls and feedback are legible, with substantial vertical phone scrolling. ZIP SHA256 51cff4364976b7eedfc420572b52cad58ae8beeed9cc4d57780c234e3e1352a4. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing.",
+        "Wellward merge 5ec9e33b405a8078c368d4bdf69f6e50ea3bb59c passed CI40898047405, job123532413007: 46 focused engine/DOM checks, earlier selected-game regressions, assets, first-batch integrity and curation. Desktop and emulated multi-touch completed natural wall damage, cancelled/resumed physical settling, paused repair and exact reload, four wells/16 relics, purchased upgrades, clearance guidance, ballast, loss/retry, isolated recovery/reset, title/feel/bridge pause and navigation. Normal-clock lowering also passed. Inspected desktop-repair-complete, touch-repair-ready and touch-repair-complete from artifact12909730795; SHA256 c2410344e3d0ee1f64e4befceb347260603c79c71cf6211493ab96d0a1f2fb4a. Strap/hook tradeoff and successful paused repair are legible; long vertical phone scrolling remains. This is automated route and agent visual-review evidence, not human enjoyment or physical-device testing."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -729,7 +730,7 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Swing, steady and haul create a manual retrieval loop; cargo capacity, banked workshop purchases and optional water ballast add decisions. Four authored wells introduce bends, water and wind. The clearance sketch improves navigation without automating movement. Compact replay comes from optional relics and upgrade order; the finite campaign limits depth. Original smooth Canvas artwork. No sound layer, realistic rope wrapping, human enjoyment study, physical-device test or hours-of-content claim. Additional review: repair kit capacity cost and cancellable settling add a deliberate recovery choice. The paused keyboard mismatch found in rendered review is fixed and natively tested. Four fixed wells remain compact; phone layout requires scrolling. No unmeasured content-duration claim."
+        "notes": "Swing, steady and haul create a manual retrieval loop; cargo capacity, banked workshop purchases and optional water ballast add decisions. Four authored wells introduce bends, water and wind. The clearance sketch improves navigation without automating movement. Compact replay comes from optional relics and upgrade order; the finite campaign limits depth. Original smooth Canvas artwork. No sound layer, realistic rope wrapping, human enjoyment study, physical-device test or hours-of-content claim. Additional review: repair kit capacity cost and cancellable settling add a deliberate recovery choice. The paused keyboard mismatch found in rendered review is fixed and natively tested. Four fixed wells remain compact; phone layout requires scrolling. No unmeasured content-duration claim. Promotion review: main's title/pause/audio, splash, steady-haul effects and personal-best panel are preserved. Prior note about no sound describes the original development version."
       },
       "selected": true,
       "integrationCommits": [],
@@ -761,6 +762,12 @@
         "job": 122970863879,
         "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40731810668/artifacts/12835472950",
         "report": "dev/indie-collection-two/WELLWARD_REPAIRS.md"
+      },
+      "mergeVerification": {
+        "commit": "5ec9e33b405a8078c368d4bdf69f6e50ea3bb59c",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40898047405",
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40898047405/artifacts/12909730795",
+        "pendingReconciliation": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72"
       }
     },
     {
@@ -1830,7 +1837,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Integrate Reefwright, Wellward and Pocket Palaeo against fresh main, preserving concurrent controls/graphics/saves; verify merged desktop/touch routes and inspect screenshots before promotion. Then complete the third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes.",
+  "nextSteps": "Review fresh-main regression 40970354471 at 8f5777321a35b6c2f7283f37bdadc8f6bd61ed72, preserving Winterfold and its newer catalogue/test changes. Wellward gameplay is identical to the reviewed successful run. After checks pass, promote with a fresh main lease and verify deployment/live repair, save/reload and catalogue navigation. Then integrate Reefwright and Pocket Palaeo; finish third collection (24/50 built,0 qualified improved/browser-tested/integrated/live).",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2465,9 +2472,14 @@
       "result": "Merged CI40878843230 succeeded at 4b26256a6fbe3add62aac94cc52fa252bc4120dc: 63 Copper checks plus 114 earlier selected checks,61 Counterweight,46 Tea and5 bridge checks; asset/first-batch source integrity and curation pass. Both desktop and emulated touch completed five original and five catch commissions, retained-suffix repair preview/apply/cancel, blocked revisions, exact saves/reloads, pause/resume, keyboard, loss/undo, restart/recovery and navigation with no browser errors. Inspected desktop-repair-preview, touch-repair-preview and touch-repair-saved from artifact12900356215, SHA2568496c76bdcd5c731886ed7bfa9c81c73471f61e51753368704bbbec0a239b291. Repair error reduction and catch efficiency cost are legible; saved 100% take and historical three seals persist. Long vertical scrolling remains. Automated routes and agent screenshot review are reliability evidence, not human enjoyment or physical-device testing. Pages40887307844 succeeded. Live first commission: three empty cranks produced a missed note; repaired beat1 with short feed previewed1→0 errors; pause disabled apply/cancel and Escape resumed; applying/reloading retained beat3,0errors and corrected played note. Return to catalogue and search entry verified. Versioned assets served the upgraded UI. No current deployment blocker.",
       "publicIntegration": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
       "nextSteps": "Integrate Reefwright, Wellward and Pocket Palaeo against fresh main, preserving concurrent controls/graphics/saves; verify merged desktop/touch routes and inspect screenshots before promotion. Then complete the third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes."
+    },
+    {
+      "date": "2026-10-30",
+      "result": "Wellward merge 5ec9e33b405a8078c368d4bdf69f6e50ea3bb59c passed CI40898047405, job123532413007: 46 focused engine/DOM checks, earlier selected-game regressions, assets, first-batch integrity and curation. Desktop and emulated multi-touch completed natural wall damage, cancelled/resumed physical settling, paused repair and exact reload, four wells/16 relics, purchased upgrades, clearance guidance, ballast, loss/retry, isolated recovery/reset, title/feel/bridge pause and navigation. Normal-clock lowering also passed. Inspected desktop-repair-complete, touch-repair-ready and touch-repair-complete from artifact12909730795; SHA256 c2410344e3d0ee1f64e4befceb347260603c79c71cf6211493ab96d0a1f2fb4a. Strap/hook tradeoff and successful paused repair are legible; long vertical phone scrolling remains. This is automated route and agent visual-review evidence, not human enjoyment or physical-device testing. Main advanced independently to 15f1531aed5f0b52a5ee44d13fc492eb3d0b396b with Winterfold. Reconciled the nine Wellward source/test/workflow files onto that main as 8f5777321a35b6c2f7283f37bdadc8f6bd61ed72; kept all concurrent changes. Fresh-main regression 40970354471 running. No main/live release or additional gameplay pass claimed.",
+      "nextSteps": "Review fresh-main regression 40970354471 at 8f5777321a35b6c2f7283f37bdadc8f6bd61ed72, preserving Winterfold and its newer catalogue/test changes. Wellward gameplay is identical to the reviewed successful run. After checks pass, promote with a fresh main lease and verify deployment/live repair, save/reload and catalogue navigation. Then integrate Reefwright and Pocket Palaeo; finish third collection (24/50 built,0 qualified improved/browser-tested/integrated/live)."
     }
   ],
-  "latestObservedMain": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
+  "latestObservedMain": "15f1531aed5f0b52a5ee44d13fc492eb3d0b396b",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2512,6 +2524,12 @@
       "pocket-palaeo"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc"
+    "latestCommit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
+    "pending": {
+      "id": "wellward",
+      "commit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+      "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40970354471",
+      "status": "Reviewed gameplay; fresh-main regression pending before promotion"
+    }
   }
 }
