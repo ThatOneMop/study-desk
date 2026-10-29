@@ -1,11 +1,11 @@
-# Additional improvement round — 18/20 verified
+# Additional improvement round — 19/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
 - [x] 21. Reefwright — selective/paired-cut planning verified at `92639e48`; CI 40751257296: 912 checks, all seven jobs, original/cut-assisted desktop/touch routes, cancellation/reload/undo and three inspected screenshots. See REEF_PAIRED_CUTS.md.
 - [x] 22. Counterweight — padded cradles and lift rehearsal verified at `2bc91453`; CI 40769551504: 916 checks, all seven jobs, five original + five cradled/rehearsed desktop/touch jobs, saves/loss/retry/navigation and three inspected screenshots. See COUNTERWEIGHT_REHEARSAL.md.
 - [x] 23. Lanternwake — hoods and chosen-light controls verified at `1146af1f`; CI 40784599336: 918 checks, all seven jobs, five original + three targeted-hood desktop/touch crossings, save/reload/cancel/reclaim/navigation and three inspected screenshots. See LANTERNWAKE_CHOICES.md.
-- [ ] 24. Copper Cadence — silent catches implemented in `8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9`; 59 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [x] 24. Copper Cadence — silent catches and retained-suffix score repair verified at `c38b7f5245cc0c1d382e6b7001fce4723f2c03de`, CI 40798076659: all seven jobs, 920 engine/DOM checks, original/catch desktop and emulated-touch commissions and three inspected final screenshots. See `COPPER_SCORE_REPAIR.md`.
 - [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [x] 26. Paper Odyssey — recoverable thread and persistent par costs; source `5d519169`, verified at `5802ea74`. CI 40702051106: 907 checks, all seven jobs, desktop/touch original + stitched + unpicked deliveries; three screenshots inspected. See PAPER_THREAD.md.
 - [x] 27. Ratchet Run — active field kits, steady pedal and buffered inputs; verified commit `6599f77659f45ceb6994970000654b051236d66b`, CI 40038858541.
@@ -23,7 +23,7 @@ Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`.
 - [x] 39. Windup Wrestling — kit tradeoffs plus exact optional rehearsal; verified `acfd9fa8cfdbd26e0b8445e01f3e1c8724902fd4`, CI 40635652032. All six alternate-kit victories on desktop/touch; 34 screenshots retained, three inspected.
 - [x] 40. Last Lighthouse — portable prism and free direct-chart beam/orientation planning; verified commit `fcc1da11ad19c5b84f88af22d8253a87e15a8e71`, CI 40631660878 job 122629895098. 869 engine/DOM checks and changed-game desktop/touch pass; 52 screenshots retained, three inspected.
 
-No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Nine candidates still require completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
+No final selection or pause until this round and the integration goal are complete. All candidates now have playable source. All twenty initial improvements are verified. Hollow Keeper still requires completion of the separate additional pass. Automated route completion is reliability/reachability evidence, not human enjoyment evidence.
 
 26 October checkpoint: all twenty additional upgrades have implementation source. Six are verified; fourteen still require rendered observation and iteration. This is not 20/20 completed additional improvements.
 
@@ -42,3 +42,5 @@ Native follow-up on 28 October: Last Lighthouse passes desktop/emulated-touch pr
 28 October Pocket Palaeo verification: treatment previews, retained lift guidance and the new-journal reset correction pass native desktop/emulated-touch play, saves, original six-specimen progression, loss/retry and navigation. Three of 40 final screenshots inspected. **12/20 verified**, eight pending. All seven final CI jobs passed. No new catalogue integration or live upgrade.
 
 29 October Salt & Sail verification: all five original and five discard deliveries, two mid-voyage risk comparisons, saves, loss/retry, navigation and corrected chart bounds pass desktop/emulated-touch testing. All seven CI jobs pass; three of 68 screenshots inspected. **13/20 verified**, seven pending. No new public integration or live release.
+
+29 October Copper Cadence verification: five original and five catch-assisted commissions per desktop/emulated-touch context, repair preview/cancel/apply/blocked-edit/reload and existing regression routes pass. All seven CI jobs passed; three of 26 screenshots inspected. **19/20 verified**, Hollow Keeper pending. No new public integration or live release.

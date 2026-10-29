@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 18/20 additional upgrades fully verified.** All twenty additional upgrades have source. Lanternwake’s hoods and chosen-light controls pass all seven CI jobs: 918 engine/DOM checks, original/targeted-hood desktop and emulated-touch campaigns, and three inspected final screenshots. See [current evidence](LANTERNWAKE_CHOICES.md).
+**20/20 playable, initially improved and finished; 19/20 additional upgrades fully verified.** All twenty additional upgrades have source. Copper Cadence’s silent catches and retained-suffix score repair pass all seven CI jobs: 920 engine/DOM checks, original/catch desktop and emulated-touch campaigns, and three inspected final screenshots. See [current evidence](COPPER_SCORE_REPAIR.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -36,7 +36,7 @@ The previous Pages configuration blocker is resolved: [main release 40486136506]
 
 No Switch workspace controls were found in main launcher source or 44 second/third-batch game shells. Current main catalogue tests already assert that removed controls are absent. Preserve Games/Collection, search, genres, grouping, sorting, favourites and Gummy Bay.
 
-Next: CI 40671107031 is fully successful. Finish the remaining nine additional-round rendered reviews and substantive iteration, compare/integrate winners, and complete the separate fifty-game slate. Keep the existing cadence; the task is not complete.
+Next: finish Hollow Keeper’s additional-round rendered review and substantive iteration, compare/integrate winners, and complete the separate fifty-game slate. Keep the existing cadence; the task is not complete.
 
 ## Writing and evidence notes
 
@@ -90,3 +90,7 @@ Counterweight is now verified at `2bc91453985c3def8b6f51b4c8f696220873a444` (CI 
 ## Latest verification — Lanternwake, 29 October 2026
 
 Lanternwake is verified at `1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57` (CI 40784599336). The additional round is **18/20**, with **38 total meaningful passes**. Earlier next-step snapshots are historical. Remaining: **Copper Cadence and Hollow Keeper**, followed by comparison and integration. Third batch remains 24/50 built, zero qualified improved/browser-tested/integrated/live. No new public release in this increment.
+
+## Latest verification — Copper Cadence, 29 October 2026
+
+Copper Cadence is verified at `c38b7f5245cc0c1d382e6b7001fce4723f2c03de` (CI 40798076659). The additional round is **19/20**, with **39 total meaningful passes**. Earlier next-step snapshots are historical. Remaining: **Hollow Keeper**, followed by comparison and integration. Third batch remains 24/50 built, zero qualified improved/browser-tested/integrated/live. No new public release in this increment.

@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 38,
+    "meaningfulPasses": 39,
     "verifiedLive": 0
   },
   "deployment": {
@@ -311,6 +311,16 @@
             "Revise the brake-teaching score to create a genuine competing-feed constraint; an independent search proves no perfect unbraked path survives its first chord. Correct the browser harness to avoid activating the modal Close button with Space."
           ],
           "validation": "Final exact-source CI 39945625373 passed 26 Copper Cadence engine + 20 DOM checks, all five three-seal desktop/touch commissions, forecasts, reloads, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, corrupt recovery and navigation. All three prior candidates pass unchanged; 171 checks total and 80 screenshots. All five Copper Cadence commissions additionally completed through cloud UI."
+        },
+        {
+          "pass": 2,
+          "date": "2026-10-29",
+          "changes": [
+            "Two silent catches recycle exiting beads instead of sounding them, trading reduced note errors against the third-seal efficiency limit.",
+            "Repair any played score beat while retaining all later controls; compare full-take errors, resource cost and results before applying.",
+            "Atomically reject repairs that make later actions invalid; cancel/reload preserves the saved attempt and apply retains best records and legacy saves."
+          ],
+          "validation": "Exact source c38b7f5245cc0c1d382e6b7001fce4723f2c03de: CI 40798076659 passed all seven jobs, 539 engine + 381 DOM = 920 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123199832199 passed five original and five catch-assisted commissions in each desktop/emulated-touch context, retained-suffix score repair/cancel/blocked revision/reload, exact supply forecasts, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation without browser errors. Original routes retain three seals; catch routes earn 2/2/2/3/3. Inspected desktop-repair-preview.png, touch-repair-preview.png and touch-repair-saved.png from 26 Copper Cadence screenshots in artifact 12865476513. Repair beat four clearly previews 1→0 errors and 0→1 brake/catch cost with 100% accuracy and two seals; Apply/Cancel fit on desktop and 390px touch layout. Saved result shows zero errors, one catch and two seals, retaining the historical three-seal best. No visible horizontal clipping; mobile uses vertical scrolling. ZIP SHA256 379254efbabea711c2fb0b2a9715c71c88a7f6b132e4d089d759157dcb915399. Automated rendered gameplay plus agent screenshot review, not human enjoyment, physical-device or audible-quality evidence."
         }
       ],
       "tests": [
@@ -318,7 +328,9 @@
         "20 DOM tests: five campaigns, input locks, keyboard/modal guards, focus preservation, staged controls and forecasts, midgame save/reload, restart/cancel, loss/undo, unlock navigation, corrupt-save recovery, blocked storage, optional audio/fallback and reduced-motion behavior.",
         "GitHub Chromium desktop 1280x1000 and touch emulation 390x844: all five three-seal commissions, exact supply forecasts, midgame reload per commission, audio opt-in, blocked-feed atomicity, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation; no uncaught errors.",
         "80 CI screenshots across four games, 22 for Copper Cadence. Final representative desktop/phone midgame captures inspected. All five Copper Cadence commissions additionally completed in cloud UI; first desktop-width, remaining four in a 390px layout frame (not physical-device touch testing).",
-        "All prior 125 engine/DOM checks and three desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, assets, nine first-batch source hashes and exactly twenty-slot gate passed."
+        "All prior 125 engine/DOM checks and three desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, assets, nine first-batch source hashes and exactly twenty-slot gate passed.",
+        "Exact source c38b7f5245cc0c1d382e6b7001fce4723f2c03de: CI 40798076659 passed all seven jobs, 539 engine + 381 DOM = 920 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123199832199 passed five original and five catch-assisted commissions in each desktop/emulated-touch context, retained-suffix score repair/cancel/blocked revision/reload, exact supply forecasts, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation without browser errors. Original routes retain three seals; catch routes earn 2/2/2/3/3.",
+        "Inspected desktop-repair-preview.png, touch-repair-preview.png and touch-repair-saved.png from 26 Copper Cadence screenshots in artifact 12865476513. Repair beat four clearly previews 1→0 errors and 0→1 brake/catch cost with 100% accuracy and two seals; Apply/Cancel fit on desktop and 390px touch layout. Saved result shows zero errors, one catch and two seals, retaining the historical three-seal best. No visible horizontal clipping; mobile uses vertical scrolling. ZIP SHA256 379254efbabea711c2fb0b2a9715c71c88a7f6b132e4d089d759157dcb915399. Automated rendered gameplay plus agent screenshot review, not human enjoyment, physical-device or audible-quality evidence."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -327,7 +339,7 @@
         "polish": 4,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Conserved beads, unequal track lengths, one feeder, queue brakes and in-flight routing make a distinct mechanical pipeline puzzle. Exact forecasts support reasoning; a revised commission now genuinely requires braking for perfection. Five compact authored commissions and seal optimization limit replay depth. Original SVG instrument and synthesized audio. No physical-device test, full screen-reader audit, subjective audio listening review or long-playtime claim."
+        "notes": "Conserved beads, unequal track lengths, one feeder, queue brakes and in-flight routing make a distinct mechanical pipeline puzzle. Exact forecasts support reasoning; a revised commission now genuinely requires braking for perfection. Five compact authored commissions and seal optimization limit replay depth. Original SVG instrument and synthesized audio. No physical-device test, full screen-reader audit, subjective audio listening review or long-playtime claim. Additional round: catches add recycling choices and score repair makes earlier alternatives practical without replaying the entire suffix. The preview exposes seal-cost tradeoffs, not an automatic optimal solution. Five fixed commissions remain a compact campaign; no enjoyment survey or long-duration claim."
       },
       "selected": false,
       "integrationCommits": [],
@@ -353,22 +365,12 @@
           "style.css": "65946eaba810dfef7cbc080b84fc20cd60daa5136aa88a2f2669ba2f8b749200"
         }
       },
-      "pendingAdditionalUpgrade": {
-        "slot": 24,
-        "id": "copper-cadence",
-        "title": "Copper Cadence",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Inspected native touch-commission-4-mid.png from run 40784599336/artifact 12858698912. The requested/played score and forecast are readable; source confirms earlier choices can only be repaired by repeated rewind, discarding every later action. This makes testing an earlier catch/feed unnecessarily repetitive. Agent screenshot/source assessment, not new human play.",
-        "before": "Every unbraked exit sounds its routed instrument. Brakes retain beads and delay their return to supply.",
-        "after": "Two silent catches per take recycle one selected exiting bead without sounding it. A catch requires an open brake and an exit bead, resets after one crank, and counts against the third-seal efficiency target. Exact preview, 4/5/6 shortcuts, labelled catcher indicators and undo/replay saves expose the tradeoff. Played score beats now open repair mode. Change that beat's feed, brakes, routing or catch; the rest of the recorded take replays unchanged in a pure preview. Total error/efficiency changes and resulting accuracy/seals are shown. Illegal later actions block application and identify the failed beat. Cancel/reload preserves the saved attempt; apply journals the revised take and retains historical best records.",
-        "implementationCommit": "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
-        "testing": [
-          "31 engine + 28 jsdom checks pass. All five original three-seal campaigns remain unchanged. Five additional catch-assisted routes finish with zero note errors and seals 2/2/2/3/3. Catches conserve stock, recycle before feeding, can cause a missing required note, reject unavailable/empty/braked/exhausted use atomically and replay exactly after each action.",
-          "Interface simulations verify staging/cancel, forecast, keyboard/button use, saved resource reload, focus retention, modal/bridge guards, undo refund and restart with unrelated saves preserved. Syntax checks pass. No rendered play, actual touch/audio quality, inspected screenshots, human enjoyment or full-repository check claimed.",
-          "29 Oct: 61 focused checks pass (32 engine + 29 DOM): original five and five catch-assisted commissions, retained-suffix repair, pure state handling, invalid/future beat rejection, downstream catch blockage, preview/cancel/apply, keyboard catch and blocked crank, exact saves/reload and unrelated-key protection. Browser suite expanded for five catch routes plus repair/cancel/reload/invalid edit per desktop/emulated-touch context; final native evidence pending."
-        ],
-        "remaining": "Inspect exact-source CI and repair screenshots; fix observed failures before counting. Then finish Hollow Keeper, compare slate and integrate selections.",
-        "refinementCommit": "c38b7f5245cc0c1d382e6b7001fce4723f2c03de"
+      "additionalVerification": {
+        "commit": "c38b7f5245cc0c1d382e6b7001fce4723f2c03de",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40798076659",
+        "job": 123199832199,
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40798076659/artifacts/12865476513",
+        "report": "dev/indie-collection-two/COPPER_SCORE_REPAIR.md"
       }
     },
     {
@@ -1728,8 +1730,8 @@
     }
   ],
   "nextSteps": [
-    "Verify Copper Cadence score repair on exact-source native CI and inspect screenshots; additional round remains 18/20.",
-    "Finish Hollow Keeper rendered review, then compare and integrate selected second-batch games preserving concurrent work.",
+    "Finish Hollow Keeper rendered review and substantive refinement, then exact-source native verification; additional round is 19/20.",
+    "Compare and integrate selected second-batch games preserving concurrent catalogue/source/save changes.",
     "Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live."
   ],
   "baselineTestLimitations": [
@@ -2283,6 +2285,14 @@
       "ci": "40784599336",
       "publicIntegration": null,
       "nextSteps": "Finish rendered game-specific reviews for Copper Cadence and Hollow Keeper; then compare the improved second slate and integrate selected games preserving concurrent catalogue work. Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live. Do not pause before requested obligations are complete."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "c38b7f5245cc0c1d382e6b7001fce4723f2c03de",
+      "result": "Copper Cadence silent catches and retained-suffix score repair verified: 920 checks, all seven jobs, original/catch native campaigns and three inspected screenshots. Additional round 19/20; 39 meaningful passes. No public integration/live change.",
+      "ci": "40798076659",
+      "publicIntegration": null,
+      "nextSteps": "Finish Hollow Keeper rendered review and substantive refinement, then exact-source native verification; additional round is 19/20. Compare and integrate selected second-batch games preserving concurrent catalogue/source/save changes. Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2290,7 +2300,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 18,
+    "completed": 19,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

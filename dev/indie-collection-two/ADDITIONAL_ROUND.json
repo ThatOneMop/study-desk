@@ -1,7 +1,7 @@
 {
   "requested": "2026-10-24",
   "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-  "completed": 18,
+  "completed": 19,
   "required": 20,
   "candidates": [
     {
@@ -79,7 +79,7 @@
       "slot": 24,
       "id": "copper-cadence",
       "title": "Copper Cadence",
-      "status": "implemented-awaiting-rendered-review",
+      "status": "verified",
       "observedWeakness": "Inspected native touch-commission-4-mid.png from run 40784599336/artifact 12858698912. The requested/played score and forecast are readable; source confirms earlier choices can only be repaired by repeated rewind, discarding every later action. This makes testing an earlier catch/feed unnecessarily repetitive. Agent screenshot/source assessment, not new human play.",
       "before": "Every unbraked exit sounds its routed instrument. Brakes retain beads and delay their return to supply.",
       "after": "Two silent catches per take recycle one selected exiting bead without sounding it. A catch requires an open brake and an exit bead, resets after one crank, and counts against the third-seal efficiency target. Exact preview, 4/5/6 shortcuts, labelled catcher indicators and undo/replay saves expose the tradeoff. Played score beats now open repair mode. Change that beat's feed, brakes, routing or catch; the rest of the recorded take replays unchanged in a pure preview. Total error/efficiency changes and resulting accuracy/seals are shown. Illegal later actions block application and identify the failed beat. Cancel/reload preserves the saved attempt; apply journals the revised take and retains historical best records.",
@@ -87,10 +87,17 @@
       "testing": [
         "31 engine + 28 jsdom checks pass. All five original three-seal campaigns remain unchanged. Five additional catch-assisted routes finish with zero note errors and seals 2/2/2/3/3. Catches conserve stock, recycle before feeding, can cause a missing required note, reject unavailable/empty/braked/exhausted use atomically and replay exactly after each action.",
         "Interface simulations verify staging/cancel, forecast, keyboard/button use, saved resource reload, focus retention, modal/bridge guards, undo refund and restart with unrelated saves preserved. Syntax checks pass. No rendered play, actual touch/audio quality, inspected screenshots, human enjoyment or full-repository check claimed.",
-        "29 Oct: 61 focused checks pass (32 engine + 29 DOM): original five and five catch-assisted commissions, retained-suffix repair, pure state handling, invalid/future beat rejection, downstream catch blockage, preview/cancel/apply, keyboard catch and blocked crank, exact saves/reload and unrelated-key protection. Browser suite expanded for five catch routes plus repair/cancel/reload/invalid edit per desktop/emulated-touch context; final native evidence pending."
+        "29 Oct: 61 focused checks pass (32 engine + 29 DOM): original five and five catch-assisted commissions, retained-suffix repair, pure state handling, invalid/future beat rejection, downstream catch blockage, preview/cancel/apply, keyboard catch and blocked crank, exact saves/reload and unrelated-key protection. Browser suite expanded for five catch routes plus repair/cancel/reload/invalid edit per desktop/emulated-touch context; final native evidence pending.",
+        "Exact source c38b7f5245cc0c1d382e6b7001fce4723f2c03de: CI 40798076659 passed all seven jobs, 539 engine + 381 DOM = 920 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123199832199 passed five original and five catch-assisted commissions in each desktop/emulated-touch context, retained-suffix score repair/cancel/blocked revision/reload, exact supply forecasts, audio opt-in, blocked feed, loss/undo, keyboard/Enter/Space, restart/cancel, isolated corrupt recovery and return navigation without browser errors. Original routes retain three seals; catch routes earn 2/2/2/3/3.",
+        "Inspected desktop-repair-preview.png, touch-repair-preview.png and touch-repair-saved.png from 26 Copper Cadence screenshots in artifact 12865476513. Repair beat four clearly previews 1→0 errors and 0→1 brake/catch cost with 100% accuracy and two seals; Apply/Cancel fit on desktop and 390px touch layout. Saved result shows zero errors, one catch and two seals, retaining the historical three-seal best. No visible horizontal clipping; mobile uses vertical scrolling. ZIP SHA256 379254efbabea711c2fb0b2a9715c71c88a7f6b132e4d089d759157dcb915399. Automated rendered gameplay plus agent screenshot review, not human enjoyment, physical-device or audible-quality evidence."
       ],
-      "remaining": "Inspect exact-source CI and repair screenshots; fix observed failures before counting. Then finish Hollow Keeper, compare slate and integrate selections.",
-      "refinementCommit": "c38b7f5245cc0c1d382e6b7001fce4723f2c03de"
+      "remaining": "Additional pass complete. Compare with improved slate after Hollow Keeper verification; public integration remains separate.",
+      "refinementCommit": "c38b7f5245cc0c1d382e6b7001fce4723f2c03de",
+      "verificationCommit": "c38b7f5245cc0c1d382e6b7001fce4723f2c03de",
+      "implementationCommits": [
+        "8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9",
+        "c38b7f5245cc0c1d382e6b7001fce4723f2c03de"
+      ]
     },
     {
       "slot": 25,
