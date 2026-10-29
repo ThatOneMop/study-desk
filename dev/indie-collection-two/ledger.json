@@ -24,7 +24,7 @@
     "improved": 20,
     "finished": 20,
     "selected": 0,
-    "meaningfulPasses": 37,
+    "meaningfulPasses": 38,
     "verifiedLive": 0
   },
   "deployment": {
@@ -232,6 +232,16 @@
             "Fix Enter-to-commit with focus remaining on an action button; explicitly label the turn that reaches the 180-action safety bound."
           ],
           "validation": "Final exact-source CI 39938472688 passed: 24 Lanternwake engine + 21 DOM/save tests, all five three-medal desktop and touch-emulated crossings, exact forecasts, planning/direct controls, reloads, failure/undo, restart, recovery and navigation. All Reefwright/Counterweight regressions unchanged; 58 screenshots across three games. All five Lanternwake crossings also completed through cloud-browser controls."
+        },
+        {
+          "pass": 2,
+          "date": "2026-10-29",
+          "changes": [
+            "Toggle lantern hoods to trade broad illumination and moth attraction for smaller local light; normal turn and lifetime costs remain.",
+            "Choose which adjacent lantern to hood or reclaim using individual position/lifetime controls rather than forced oldest-first selection.",
+            "Preview, cancel and commit selected lamp actions; journal exact map positions while preserving H/R shortcuts and legacy saves."
+          ],
+          "validation": "Exact source 1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57: CI 40784599336 passed all seven jobs, 538 engine + 380 DOM = 918 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123155411839 passed five original plus three targeted-hood three-medal crossings in each desktop/emulated-touch context, explicit two-lamp choice, pure preview/cancel, commit/reload, targeted reclaim, exact forecasts, original loss/undo, keyboard, restart/cancel, corrupt-save recovery and navigation without browser errors. Inspected desktop-chosen-light-preview.png, touch-chosen-light-saved.png and touch-hood-crossing-5.png among 32 Lanternwake screenshots in artifact 12858698912. Preview identifies column 2 row 5; saved phone view shows that newer lamp hooded with four turns left and the older lamp open with two. Both action cards fit, with vertical scrolling and no horizontal overflow in the tested choice layout. Final fifth crossing shows all three jars, 21 turns, five throws, zero hits and three medals; the prior best 19-turn record remains. ZIP SHA256 11cc0ee27ef2f145ced1c0947b93833b21a7906bc52d413e816c00abce7e1c67. Evidence is automated rendered gameplay and agent screenshot review, not human enjoyment or physical-device testing."
         }
       ],
       "tests": [
@@ -239,7 +249,9 @@
         "21 DOM tests: five campaigns in direct and optional planning modes, keyboard guards and Enter commitment, blocked moves, save/reload, restart/cancel, unlocks, unreadable-save protection, storage failure, danger/fading/end-of-run labels.",
         "GitHub Chromium desktop 1280x1000 and touch emulation 390x844: all five three-medal crossings; every selected action forecast checked against actual hull/oil/jars/lights; midgame reload per crossing; loss/undo; direct/planned controls; keyboard; restart/cancel; corrupt recovery preserving another key; return navigation; no uncaught errors.",
         "58 CI screenshots across three candidates, including 22 Lanternwake captures. Representative final desktop and phone midgame captures visually inspected. All five crossings additionally completed through cloud UI controls (first two desktop-width, last three in a 390px layout frame; not a physical-device claim).",
-        "All 80 prior Reefwright/Counterweight engine+DOM checks and their full desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, route/assets, nine selected-source hashes and exact twenty-slot gate also passed."
+        "All 80 prior Reefwright/Counterweight engine+DOM checks and their full desktop/touch campaigns passed unchanged. Local shell, bridge-pointer, relaxed-collection, route/assets, nine selected-source hashes and exact twenty-slot gate also passed.",
+        "Exact source 1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57: CI 40784599336 passed all seven jobs, 538 engine + 380 DOM = 918 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123155411839 passed five original plus three targeted-hood three-medal crossings in each desktop/emulated-touch context, explicit two-lamp choice, pure preview/cancel, commit/reload, targeted reclaim, exact forecasts, original loss/undo, keyboard, restart/cancel, corrupt-save recovery and navigation without browser errors.",
+        "Inspected desktop-chosen-light-preview.png, touch-chosen-light-saved.png and touch-hood-crossing-5.png among 32 Lanternwake screenshots in artifact 12858698912. Preview identifies column 2 row 5; saved phone view shows that newer lamp hooded with four turns left and the older lamp open with two. Both action cards fit, with vertical scrolling and no horizontal overflow in the tested choice layout. Final fifth crossing shows all three jars, 21 turns, five throws, zero hits and three medals; the prior best 19-turn record remains. ZIP SHA256 11cc0ee27ef2f145ced1c0947b93833b21a7906bc52d413e816c00abce7e1c67. Evidence is automated rendered gameplay and agent screenshot review, not human enjoyment or physical-device testing."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -248,7 +260,7 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Light has a dual role: connected-water navigation and moth attraction. Five compact authored maps introduce expiry, oil recovery, refuges and competing swarms. Exact forecasts and optional planning make deterministic risks inspectable. Original pixel marsh art and responsive controls reviewed. No sound, procedural campaign, long-playtime claim, physical-device test or full screen-reader audit."
+        "notes": "Light has a dual role: connected-water navigation and moth attraction. Five compact authored maps introduce expiry, oil recovery, refuges and competing swarms. Exact forecasts and optional planning make deterministic risks inspectable. Original pixel marsh art and responsive controls reviewed. No sound, procedural campaign, long-playtime claim, physical-device test or full screen-reader audit. Additional round: hooded light and explicit nearby-lamp selection provide lure-versus-shelter and oil-recovery choices. Existing five crossings remain compact; original and three hood routes are verified, not a claim of three new levels. Desktop/phone captures show clear lamp states and readable controls with vertical scrolling."
       },
       "selected": false,
       "integrationCommits": [],
@@ -273,22 +285,12 @@
           "style.css": "fc368a2a2d948693ac0f3e7c35dd6a8d6f6df446ade2d191ccaa250129f36918"
         }
       },
-      "pendingAdditionalUpgrade": {
-        "slot": 23,
-        "id": "lanternwake",
-        "title": "Lanternwake",
-        "status": "implemented-awaiting-rendered-review",
-        "observedWeakness": "Inspected retained native touch-crossing-4-mid.png from CI 40769551504/artifact 12851884887. Phone map and risk controls are readable, but only a generic Lantern hood/Reclaim pair is exposed. Source and a naturally reached two-light fixture confirm both actions force oldest-first selection, preventing deliberate choice of which nearby lure to keep. This is agent screenshot/source assessment, not fresh human play.",
-        "before": "Every floating lantern lights three water steps and attracts moths until reclaimed, eaten or expired.",
-        "after": "H toggles the adjacent lantern with least life remaining. Hooded lanterns light one water step and do not attract moths. Opening restores broad light and attraction immediately. Toggling spends a turn and life without refunding oil; moths may still eat a hooded lantern reached while pursuing another light. Planning previews, labelled hood graphics, undo and replay saves expose the choice. Nearby-light cards now identify each adjacent lantern by column/row, life and hood state, with explicit hood/reclaim actions and exact previews. The player can preserve the older lure while hooding or reclaiming the newer light. Targeted actions journal the map position; H/R retain their old deterministic ordering and all old journals replay unchanged.",
-        "implementationCommit": "237c2d8fbae76778b706f0681fdcc76b86e240b9",
-        "testing": [
-          "30 engine + 26 jsdom checks pass. All five original three-medal crossings remain unchanged. Three hood-assisted routes (crossings 2, 3 and 5) finish without damage and earn three medals, with every action matching forecasts and exact replay. A natural two-action setup on crossing 4 shows both moths stop when the only light is hooded and resume on reopening.",
-          "Tests cover narrower illumination, unchanged oil, life/turn cost, expiry, reclaim, eating a hooded light, invalid adjacency/terminal rejection, deterministic selection, planned preview/cancel/confirm, H/button, saved hood reload, undo, restart and modal/bridge guards. Syntax passes. No rendered play, inspected screenshots, actual touch, human enjoyment or full-repository check claimed.",
-          "29 Oct: 58 focused checks pass (31 engine + 27 DOM), including original five and three hood-assisted routes, chosen-light versus automatic ordering, invalid/out-of-reach rejection, pure preview/cancel, commit, replay/reload, undo and targeted oil recovery. Source/browser syntax passes. Native tests expanded to targeted choice with two adjacent lights and three targeted-hood campaigns per desktop/emulated-touch context; final CI/screenshots pending."
-        ],
-        "remaining": "Inspect exact-source CI and final desktop/touch choice screenshots; fix observed failures before counting. Then compare slate after Copper Cadence and Hollow Keeper.",
-        "refinementCommit": "1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57"
+      "additionalVerification": {
+        "commit": "1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40784599336",
+        "job": 123155411839,
+        "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40784599336/artifacts/12858698912",
+        "report": "dev/indie-collection-two/LANTERNWAKE_CHOICES.md"
       }
     },
     {
@@ -1723,9 +1725,8 @@
     }
   ],
   "nextSteps": [
-    "Verify Lanternwake targeted lights on exact-source CI and inspect final screenshots; additional round remains 17/20.",
-    "Complete Copper Cadence and Hollow Keeper reviews, compare improved slate and integrate selected games preserving concurrent work.",
-    "Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live."
+    "Finish rendered game-specific reviews for Copper Cadence and Hollow Keeper; then compare the improved second slate and integrate selected games preserving concurrent catalogue work.",
+    "Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live. Do not pause before requested obligations are complete."
   ],
   "baselineTestLimitations": [
     {
@@ -2270,6 +2271,14 @@
       "ci": "40769551504",
       "publicIntegration": null,
       "nextSteps": "Complete rendered game-specific reviews for Lanternwake, Copper Cadence and Hollow Keeper; then compare and integrate selected second-batch games preserving concurrent work. Continue third batch: 24/50 built, zero qualified improved/browser-tested/integrated/live. No final pause until requested obligations are complete."
+    },
+    {
+      "date": "2026-10-29",
+      "gameplayCommit": "1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57",
+      "result": "Lanternwake hoods and chosen-light controls verified: 918 checks, all seven jobs, original/targeted-hood native campaigns and three inspected screenshots. Additional round 18/20; 38 meaningful passes. No public integration/live change.",
+      "ci": "40784599336",
+      "publicIntegration": null,
+      "nextSteps": "Finish rendered game-specific reviews for Copper Cadence and Hollow Keeper; then compare the improved second slate and integrate selected games preserving concurrent catalogue work. Continue third batch: 24/50 built; zero qualified improved/browser-tested/integrated/live. Do not pause before requested obligations are complete."
     }
   ],
   "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
@@ -2277,7 +2286,7 @@
   "additionalRound": {
     "requested": "2026-10-24",
     "baselineCommit": "8223e6b5038309a08f5b6a1a4f2aa7874d218633",
-    "completed": 17,
+    "completed": 18,
     "required": 20,
     "checklist": "dev/indie-collection-two/ADDITIONAL_ROUND.json",
     "policy": "Earlier initial passes do not count. Each of these exact 20 candidates needs a new substantial game-specific upgrade, rendered core-loop review, before/after notes, commit and regression evidence before final selection or pause."

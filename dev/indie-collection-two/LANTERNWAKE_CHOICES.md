@@ -1,6 +1,6 @@
-# Lanternwake: choose the light — pending native verification
+# Lanternwake: choose the light — verified
 
-29 October 2026. Source `1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57`. Additional round remains **17/20 verified**.
+29 October 2026. Source `1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57`. Additional round is now **18/20 verified** following the completed evidence below.
 
 ## Observed weakness
 
@@ -22,3 +22,11 @@ The natural fixture `bs, s, bs, s` on crossing one places the boat at 28 with la
 Only Lanternwake source/tests and second-batch records changed. First-batch sources, saves and tests, main catalogue, Gummy Bay and third-batch work are preserved. Second batch: 20 initially finished, 17/20 additional upgrades verified. Third batch: 24/50 built, zero qualified improved/browser-tested/integrated/live. No new public integration or live release. Existing Pages/workspace audit remains applicable to unchanged main; no unchanged failure retried.
 
 Exact-source CI: [40784599336](https://github.com/ThatOneMop/study-desk/actions/runs/40784599336), running at this checkpoint.
+
+## Completed native verification — 29 October 2026
+
+Exact source 1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57: CI 40784599336 passed all seven jobs, 538 engine + 380 DOM = 918 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123155411839 passed five original plus three targeted-hood three-medal crossings in each desktop/emulated-touch context, explicit two-lamp choice, pure preview/cancel, commit/reload, targeted reclaim, exact forecasts, original loss/undo, keyboard, restart/cancel, corrupt-save recovery and navigation without browser errors.
+
+Inspected desktop-chosen-light-preview.png, touch-chosen-light-saved.png and touch-hood-crossing-5.png among 32 Lanternwake screenshots in artifact 12858698912. Preview identifies column 2 row 5; saved phone view shows that newer lamp hooded with four turns left and the older lamp open with two. Both action cards fit, with vertical scrolling and no horizontal overflow in the tested choice layout. Final fifth crossing shows all three jars, 21 turns, five throws, zero hits and three medals; the prior best 19-turn record remains. ZIP SHA256 11cc0ee27ef2f145ced1c0947b93833b21a7906bc52d413e816c00abce7e1c67. Evidence is automated rendered gameplay and agent screenshot review, not human enjoyment or physical-device testing.
+
+[CI](https://github.com/ThatOneMop/study-desk/actions/runs/40784599336) · [Screenshots](https://github.com/ThatOneMop/study-desk/actions/runs/40784599336/artifacts/12858698912). Pending statements above describe the implementation checkpoint and are superseded by this completed verification. This credits the existing substantive hood/choice upgrade once; tests and documentation are not counted as a separate improvement. Second batch: 20 initially finished, 18 verified additional upgrades and 38 meaningful passes. Third batch unchanged at 24/50 built, zero qualified improved/browser-tested/integrated/live. No new catalogue integration or live upgrade. Next: Copper Cadence, Hollow Keeper, then slate comparison and integration.

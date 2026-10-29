@@ -1,10 +1,10 @@
-# Additional improvement round — 17/20 verified
+# Additional improvement round — 18/20 verified
 
 Requested 24 October 2026. Baseline: `8223e6b5038309a08f5b6a1a4f2aa7874d218633`. Earlier initial improvement passes are excluded. The machine-readable checklist in `ADDITIONAL_ROUND.json` records observed weakness, before/after behaviour, implementation commit and testing for each exact candidate slot.
 
 - [x] 21. Reefwright — selective/paired-cut planning verified at `92639e48`; CI 40751257296: 912 checks, all seven jobs, original/cut-assisted desktop/touch routes, cancellation/reload/undo and three inspected screenshots. See REEF_PAIRED_CUTS.md.
 - [x] 22. Counterweight — padded cradles and lift rehearsal verified at `2bc91453`; CI 40769551504: 916 checks, all seven jobs, five original + five cradled/rehearsed desktop/touch jobs, saves/loss/retry/navigation and three inspected screenshots. See COUNTERWEIGHT_REHEARSAL.md.
-- [ ] 23. Lanternwake — hooded light implemented in `237c2d8fbae76778b706f0681fdcc76b86e240b9`; 56 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
+- [x] 23. Lanternwake — hoods and chosen-light controls verified at `1146af1f`; CI 40784599336: 918 checks, all seven jobs, five original + three targeted-hood desktop/touch crossings, save/reload/cancel/reclaim/navigation and three inspected screenshots. See LANTERNWAKE_CHOICES.md.
 - [ ] 24. Copper Cadence — silent catches implemented in `8ae2c4dde78e3e95744a74f34e6a0c5ffea1c7d9`; 59 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [ ] 25. Hollow Keeper — thorn regrowth implemented in `2d97ff8c7a23d109fd2f34d0d2580be5d5d4c709`; 50 engine/DOM checks pass, rendered review pending; earlier access blocker resolved. **Not counted.**
 - [x] 26. Paper Odyssey — recoverable thread and persistent par costs; source `5d519169`, verified at `5802ea74`. CI 40702051106: 907 checks, all seven jobs, desktop/touch original + stitched + unpicked deliveries; three screenshots inspected. See PAPER_THREAD.md.

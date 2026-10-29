@@ -26,7 +26,7 @@ Counterweight checks use the same test dependency setup:
 
 ## Current result and next work
 
-**20/20 playable, initially improved and finished; 17/20 additional upgrades fully verified.** All twenty additional upgrades have source. Counterweight’s padded cradles and lift rehearsal pass all seven CI jobs: 916 engine/DOM checks, original/cradled desktop and emulated-touch campaigns, and three inspected final screenshots. See [current evidence](COUNTERWEIGHT_REHEARSAL.md).
+**20/20 playable, initially improved and finished; 18/20 additional upgrades fully verified.** All twenty additional upgrades have source. Lanternwake’s hoods and chosen-light controls pass all seven CI jobs: 918 engine/DOM checks, original/targeted-hood desktop and emulated-touch campaigns, and three inspected final screenshots. See [current evidence](LANTERNWAKE_CHOICES.md).
 
 The third-batch ledger now records **24/50 built**, with zero substantive improvements, browser-tested completions, integrations or verified live routes. No third-batch count changed in this increment.
 
@@ -85,3 +85,8 @@ Latest next steps (29 October, after Reefwright verification): Finish rendered g
 ## Latest verification — 29 October 2026
 
 Counterweight is now verified at `2bc91453985c3def8b6f51b4c8f696220873a444` (CI 40769551504). The additional round is **17/20** with **37 total meaningful passes**. Earlier next-step snapshots above are historical. Remaining reviews: **Lanternwake, Copper Cadence, Hollow Keeper**, followed by selection and integration. Third batch stays 24/50 built and zero qualified improved/browser-tested/integrated/live. No new public release in this increment.
+
+
+## Latest verification — Lanternwake, 29 October 2026
+
+Lanternwake is verified at `1146af1f7864acb3d1dfc4ca5d1c2cac4abb2c57` (CI 40784599336). The additional round is **18/20**, with **38 total meaningful passes**. Earlier next-step snapshots are historical. Remaining: **Copper Cadence and Hollow Keeper**, followed by comparison and integration. Third batch remains 24/50 built, zero qualified improved/browser-tested/integrated/live. No new public release in this increment.
