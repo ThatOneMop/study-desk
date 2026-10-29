@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f3ec">
+  <title>Winterfold — Study Desk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="map" aria-label="Resort map"></canvas>
+  <button id="keyToggle" type="button" aria-expanded="false">Map key</button>
+  <aside id="key" class="panel">
+    <div class="brand">
+      <svg viewBox="0 0 180 78" aria-hidden="true">
+        <path d="M18 62 L52 18 L70 40 L96 12 L132 62 Z" fill="#dfe7ea"/>
+        <path d="M52 18 L70 40 L58 40 Z" fill="#c5d5dc"/>
+        <path d="M28 62 H150" stroke="#24302c" stroke-width="2"/>
+        <path d="M46 28 H92" stroke="#5d6b73" stroke-width="1.4"/>
+        <rect x="78" y="24" width="7" height="5" rx="1" fill="#f7f4ee" stroke="#24302c"/>
+        <circle cx="62" cy="26" r="2" fill="#24302c"/>
+      </svg>
+      <h1>Winter<i>fold</i></h1>
+      <div class="ribbon">PAPER PEAKS</div>
+    </div>
+    <div class="hill-row">
+      <div><strong id="hillName">Lark Basin</strong><small id="hillRegion"></small></div>
+      <div class="diamonds" id="diamonds" aria-label="Difficulty"></div>
+    </div>
+    <div class="key-scroll">
+      <h2>Points of interest</h2>
+      <div id="poiList"></div>
+      <h2>Slope difficulty</h2>
+      <div id="slopeList"></div>
+      <h2>Lifts</h2>
+      <div id="liftList"></div>
+      <h2>Other</h2>
+      <div class="rowline"><i>❄</i> Snow cannon <b id="cannonBuilt">0</b></div>
+    </div>
+    <div class="key-actions">
+      <button id="openSettings" class="primary" type="button">Settings</button>
+      <button id="quit" class="danger" type="button">Quit</button>
+    </div>
+  </aside>
+  <header id="topbar" class="panel" aria-label="Day status">
+    <span class="clock" id="clock">7H30</span>
+    <span id="day">Day 1</span>
+    <span id="score">0</span>
+    <span id="guests">0/0</span>
+    <div class="speeds" role="group" aria-label="Clock">
+      <button type="button" id="speed0" aria-pressed="true" title="Pause">❚❚</button>
+      <button type="button" id="speed1" aria-pressed="false" title="Play">▶</button>
+      <button type="button" id="speed2" aria-pressed="false" title="Faster">▶▶</button>
+      <button type="button" id="speed4" aria-pressed="false" title="Fastest">▶▶▶</button>
+    </div>
+  </header>
+  <nav id="hands" class="panel" aria-label="Pointer mode">
+    <button type="button" data-hand="move" aria-pressed="false" title="Move the map">✥</button>
+    <button type="button" data-hand="draw" aria-pressed="true" title="Draw">✎</button>
+    <button type="button" data-hand="erase" aria-pressed="false" title="Erase">⌫</button>
+  </nav>
+  <div id="liftKinds" hidden>
+    <button type="button" data-lift="tow" aria-pressed="true">Ski lift · 1</button>
+    <button type="button" data-lift="chair" aria-pressed="false">Chair · 1</button>
+    <button type="button" data-lift="cabin" aria-pressed="false">Cabin · 2</button>
+  </div>
+  <footer id="dock" class="panel" aria-label="Build tools">
+    <button type="button" data-tool="slope" aria-pressed="true"><small>1 Slope</small><b id="stockSlope">200 m</b></button>
+    <button type="button" data-tool="lift" aria-pressed="false"><small>2 Lift</small><b id="stockLift">4</b></button>
+    <button type="button" data-tool="cannon" aria-pressed="false"><small>3 Cannon</small><b id="stockCannon">4</b></button>
+    <button type="button" data-tool="cut" aria-pressed="false"><small>4 Cut trees</small><b id="stockTrees">20</b></button>
+    <button type="button" data-tool="upgrade" aria-pressed="false"><small>5 Upgrade</small><b id="stockUpgrade">4</b></button>
+  </footer>
+  <p id="hint" role="status"></p>
+  <section id="tutorial" hidden>
+    <strong id="tutTitle">A paper hill</strong>
+    <p id="tutBody"></p>
+    <div class="tut-actions"><button type="button" id="tutSkip" class="ghost">Skip</button><button type="button" id="tutNext" class="primary">Next</button></div>
+  </section>
+  <div id="toast" role="status"></div>
+  <div class="scale" aria-hidden="true"><i></i>40 m</div>
+  <a href="../../index.html#games" id="catalogue" hidden>Catalogue</a>
+
+  <dialog id="home">
+    <div class="card">
+      <div class="ribbon">PAPER PEAKS</div>
+      <h2>Winterfold</h2>
+      <p>Draw the runs. Send the chairs up. Everyone needs to be back at a station when the clock says 18:00.</p>
+      <div class="stack">
+        <button type="button" id="playBtn" class="primary">Play</button>
+        <button type="button" id="continueBtn" class="ghost" hidden>Continue</button>
+        <button type="button" id="howBtn" class="ghost">How to play</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="levels">
+    <div class="card wide">
+      <h2>Choose a hill</h2>
+      <label class="modes"><input type="checkbox" id="sandbox"> Sandbox — unlimited tools, no dusk</label>
+      <div id="hillList" class="stack"></div>
+      <h3>Best scores</h3>
+      <table class="board" id="board"></table>
+      <div class="stack"><button type="button" id="backHome" class="ghost">Back</button></div>
+    </div>
+  </dialog>
+  <dialog id="draft">
+    <div class="card" id="draftBox">
+      <div class="confetti" id="confetti"></div>
+      <div class="ribbon">MORNING</div>
+      <h2 id="draftDay">Day 2</h2>
+      <p>Pick one supply drop. The new place on the map is already waiting.</p>
+      <div class="cards" id="draftCards"></div>
+      <p id="rerollNote"></p>
+      <button type="button" id="reroll" class="ghost">Shuffle the cards</button>
+    </div>
+  </dialog>
+  <dialog id="result">
+    <div class="card">
+      <div class="ribbon" id="resultKicker">DUSK</div>
+      <h2 id="resultTitle">The hill closed</h2>
+      <p id="resultBody"></p>
+      <div class="statgrid">
+        <div>Score <b id="resultScore">0</b></div>
+        <div>Days closed <b id="resultDays">0</b></div>
+        <div>Best score <b id="resultBest">0</b></div>
+        <div>Stars <b id="resultStars">0</b></div>
+      </div>
+      <div class="stack">
+        <button type="button" id="retry" class="primary">Retry this hill</button>
+        <button type="button" id="toLevels" class="ghost">All hills</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="guide">
+    <div class="card wide">
+      <h2>Field notes</h2>
+      <p>Drag a ribbon downhill. Its colour follows the steepness: orange trail, then green, blue, red, and black. Runs are one-way, the way you dragged.</p>
+      <p>Guests are little shapes. A triangle is looking for a summit, a diamond for a viewpoint, and so on. They only ski runs up to their own colour. Green guests cannot take a black pitch. Lifts carry everyone uphill.</p>
+      <p>They must be back at a station by 18:00. If anyone is still out, the day is over. Each morning you pick one refill: lifts, ribbon, upgrades, cannons, or tree cuts. New stops flash until a line ends near them.</p>
+      <p>Surface lifts need a clear path. Chairs cross trees. Cabins can cross a cliff. Cannons lay snow on bare ground. Cut trees one clump at a time. Upgrade a busy lift, a groomed run, or a cannon.</p>
+      <p>Keys: 1–5 tools, M move, D draw, X erase, Q and E change the clock, Space pauses, Ctrl+Z undoes a build. Sandbox turns the stocks and the dusk rule off.</p>
+      <button type="button" id="closeGuide" class="primary">Back to the hill</button>
+    </div>
+  </dialog>
+  <dialog id="settingsDlg">
+    <div class="card">
+      <h2>Settings</h2>
+      <label class="chk"><input type="checkbox" id="soundToggle" checked> Sound</label>
+      <p>Progress stays on this device. Replacing an unreadable save only clears Winterfold.</p>
+      <div class="stack">
+        <button type="button" id="closeSettings" class="primary">Done</button>
+        <button type="button" id="wipe" class="danger">Erase Winterfold save</button>
+      </div>
+    </div>
+  </dialog>
+  <script src="../../bridge.js"></script>
+  <script src="engine.js"></script>
+  <script src="audio.js"></script>
+  <script src="render.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
