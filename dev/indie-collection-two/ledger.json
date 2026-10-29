@@ -1781,7 +1781,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Merge the six remaining selected additional-round upgrades (Reefwright, Counterweight, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts) against fresh main, preserving concurrent feel/visual/pause/input layers. Run merged native tests and inspect screenshots before promotion, then verify deployment. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes. Keep hourly cadence unchanged.",
+  "nextSteps": "Review Counterweight merged CI40839583026 at1e6d909323ec6dc8039f42fa540083616fe63c82 and inspect its desktop/touch retained screenshots. Fix failures before main promotion with a fresh expected-head lease. Preserve the title, pause, sound, effects, coach and existing save format. Then merge the other five selected upgrades (Reefwright, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts). Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2363,6 +2363,14 @@
       "ci": "40827311110",
       "deployment": "40832743585",
       "nextSteps": "Merge the six remaining selected additional-round upgrades (Reefwright, Counterweight, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts) against fresh main, preserving concurrent feel/visual/pause/input layers. Run merged native tests and inspect screenshots before promotion, then verify deployment. Third collection remains 24/50 built and 0 qualified improved/browser-tested/integrated/live; complete its remaining candidates and rendered improvement passes. Keep hourly cadence unchanged."
+    },
+    {
+      "date": "2026-10-29",
+      "result": "Merged Counterweight padded cradles/lift rehearsal with current main title/pause/audio/landing-effects and CWGame events. Coach search distinguishes rigging/supply state and labels cradle actions. Rehearsed wins do not emit completion celebrations. Added pause/title protection regression and native routes that enter the actual title screen after every reload.61 focused engine/DOM checks pass; exact merged native CI pending. No new gameplay pass or live integration claimed.",
+      "integrationCandidateCommit": "1e6d909323ec6dc8039f42fa540083616fe63c82",
+      "ci": "40839583026",
+      "publicIntegration": null,
+      "nextSteps": "Review Counterweight merged CI40839583026 at1e6d909323ec6dc8039f42fa540083616fe63c82 and inspect its desktop/touch retained screenshots. Fix failures before main promotion with a fresh expected-head lease. Preserve the title, pause, sound, effects, coach and existing save format. Then merge the other five selected upgrades (Reefwright, Copper Cadence, Wellward, Pocket Palaeo, Tea for Ghosts). Third collection remains24/50 built and0 qualified improved/browser-tested/integrated/live."
     }
   ],
   "latestObservedMain": "0f47f738eecde95c0608f9c045091e8e690eda6b",
@@ -2413,6 +2421,12 @@
       "tea-for-ghosts"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b"
+    "latestCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
+    "pendingBranch": "indie-two-promotion",
+    "pendingCommit": "1e6d909323ec6dc8039f42fa540083616fe63c82",
+    "pendingIds": [
+      "counterweight"
+    ],
+    "pendingCI": "40839583026"
   }
 }
