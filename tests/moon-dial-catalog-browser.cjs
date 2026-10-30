@@ -12,7 +12,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
   try{
    await page.goto(base+'/index.html#games');
    assert.equal(await page.getByRole('button',{name:/switch workspace/i}).count(),0);
-   await page.locator('#search').fill('clockwork');assert.equal(await page.locator('#games .game').count(),1);
+   await page.locator('#search').fill('moon dial');assert.equal(await page.locator('#games .game').count(),1);
    await page.locator('#groupBy').selectOption('collection');await page.locator('#sortGames').selectOption('az');
    assert.match(await page.locator('#games').innerText(),/Indie collection three/);
    await act(page.locator('#games [data-action="favourite"]'));await act(page.locator('#filters').getByRole('button',{name:'Favourites',exact:true}));
