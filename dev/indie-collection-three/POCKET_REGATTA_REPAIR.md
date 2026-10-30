@@ -1,0 +1,9 @@
+# Pocket Regatta draft repair
+
+31 October 2026. Implementation: `badffb5f4b6e4c74d921eb0e2b1e7d9221d0aa99`.
+
+Managed Sites/CUA baseline: full-sail NE reached column4,row6; next NE draft grounded against the reef. Existing editor could only remove the tail or clear the route. Added per-tack edit/replace/cancel retaining the entire suffix. Rendered changed first draft tack from NE to NW while retaining second E tack; later E became invalid under90° helm limit, explicit repair warning appeared and sailing was disabled. Repaired second tack to NE, sailed both, reloaded at column3,row3 with hull3/3 and three committed moves. Continued normally through all first-course buoys, earned a12-move pennant and verified reload/unlock. Inspected baseline reef, invalid-route warning and final pennant screenshots.15 engine/DOM tests pass (7engine,8DOM), including new retained-suffix repair, invalid-commit guard, cancellation/pause/undo/reload checks; syntax passes. All three courses pass automated DOM routes, but only first course rendered this run. No full touch, remaining rendered campaigns, hidden confirmation/recovery or real catalogue verification yet.
+
+Pending: Audit hidden confirmation/resume guards in Pocket Regatta; current source predates repairs applied to the first three selected games. Complete desktop/touch-emulated rendered campaigns, including retained-suffix edits, invalid plans, cancellation, saves/reload, loss/retry and recovery. Assess and select only after full qualification; keep unlisted until catalogue integration.
+
+Third totals remain24 built,3 fully improved,3 browser-tested,3 integrated and3 live. Second collection complete; no catalogue or first/second game source/save changes. Main observed1a873b4cb4e93c1ab489b371901c5f9a89e79462; existing publication and workspace-control audit evidence remains current, so no unchanged publishing investigation was repeated.
