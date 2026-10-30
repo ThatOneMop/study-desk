@@ -1,5 +1,5 @@
 'use strict';
-const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{spawn}=require('node:child_process'),E=require('../games/pebble-rink/engine'),solve=require('./pebble-rink-routes');
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{spawn}=require('node:child_process'),E=require('../games/pebble-rink/engine'),solve=require('./pebble-rink-routes.cjs');
 const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/pebble-rink'),base='http://127.0.0.1:8154';fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','8154','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
 (async()=>{for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promise(r=>setTimeout(r,100))}browser=await chromium.launch({headless:true});
 for(const touch of [false,true]){const context=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},hasTouch:touch,isMobile:touch}),page=await context.newPage(),prefix=touch?'touch':'desktop',errors=[];page.on('pageerror',e=>errors.push(e.message));
