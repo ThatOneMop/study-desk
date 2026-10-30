@@ -1,0 +1,155 @@
+{
+  "state": {
+    "stage": 0,
+    "moves": [
+      {
+        "offer": 1,
+        "rotation": 1,
+        "x": 4,
+        "y": 0
+      },
+      {
+        "offer": 0,
+        "rotation": 1,
+        "x": 0,
+        "y": 1
+      },
+      {
+        "offer": 0,
+        "rotation": 2,
+        "x": 1,
+        "y": 3
+      },
+      {
+        "offer": 2,
+        "rotation": 1,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "offer": 0,
+        "rotation": 0,
+        "x": 0,
+        "y": 5
+      },
+      {
+        "offer": 2,
+        "rotation": 0,
+        "x": 4,
+        "y": 2
+      },
+      {
+        "offer": 1,
+        "rotation": 1,
+        "x": 2,
+        "y": 1
+      },
+      {
+        "offer": 0,
+        "rotation": 3,
+        "x": 3,
+        "y": 4
+      }
+    ],
+    "finished": false
+  },
+  "cells": [
+    20,
+    7
+  ],
+  "before": {
+    "coral": 3,
+    "nursery": 6,
+    "kelp": 3,
+    "score": 27,
+    "met": false,
+    "medals": 0,
+    "sea": [
+      1,
+      2,
+      3,
+      4,
+      18,
+      24,
+      29,
+      34,
+      25,
+      26
+    ],
+    "nurseryCells": [
+      6,
+      9,
+      11,
+      23,
+      27,
+      33
+    ],
+    "forests": [
+      19,
+      20,
+      21
+    ]
+  },
+  "first": {
+    "coral": 3,
+    "nursery": 6,
+    "kelp": 0,
+    "score": 24,
+    "met": false,
+    "medals": 0,
+    "sea": [
+      1,
+      2,
+      3,
+      4,
+      18,
+      24,
+      29,
+      34,
+      25,
+      26,
+      20
+    ],
+    "nurseryCells": [
+      6,
+      9,
+      11,
+      23,
+      27,
+      33
+    ],
+    "forests": []
+  },
+  "after": {
+    "coral": 3,
+    "nursery": 7,
+    "kelp": 0,
+    "score": 27,
+    "met": false,
+    "medals": 0,
+    "sea": [
+      1,
+      2,
+      3,
+      4,
+      18,
+      24,
+      29,
+      34,
+      7,
+      25,
+      26,
+      20
+    ],
+    "nurseryCells": [
+      6,
+      9,
+      11,
+      13,
+      23,
+      27,
+      33
+    ],
+    "forests": []
+  }
+}

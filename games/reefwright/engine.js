@@ -26,11 +26,14 @@ const neighbors=i=>[i%SIZE>0?i-1:-1,i%SIZE<SIZE-1?i+1:-1,i>=SIZE?i-SIZE:-1,i<SIZ
 const edge=i=>i%SIZE===0||i%SIZE===SIZE-1||i<SIZE||i>=SIZE*(SIZE-1);
 function fresh(stage=0){if(!int(stage,0,STAGES.length-1))throw Error('Unknown reef');return {stage,moves:[],finished:false};}
 function shape(id,rotation=0){if(!int(id,0,PIECES.length-1)||!int(rotation,0,3))throw Error('Unknown piece');let cells=clone(PIECES[id].cells);for(let r=0;r<rotation;r++)cells=cells.map(([x,y,k])=>[-y,x,k]);let minX=Math.min(...cells.map(c=>c[0])),minY=Math.min(...cells.map(c=>c[1]));return cells.map(([x,y,k])=>[x-minX,y-minY,k]);}
-function offers(s){return s.moves.length<ROUNDS?STAGES[s.stage].deck[s.moves.length]:[];}
-function board(s){const b=Array(SIZE*SIZE).fill('.');STAGES[s.stage].rocks.forEach(i=>b[i]='#');for(const m of s.moves){const id=STAGES[s.stage].deck[bRound(s,m)][m.offer];for(const [dx,dy,k]of shape(id,m.rotation))b[(m.y+dy)*SIZE+m.x+dx]=k;}return b;}
-function bRound(s,m){return s.moves.indexOf(m);}
-function cellsFor(s,m){if(!m||!int(m.offer,0,2)||!int(m.rotation,0,3)||!int(m.x,0,SIZE-1)||!int(m.y,0,SIZE-1)||s.finished||s.moves.length>=ROUNDS)return null;const cells=shape(offers(s)[m.offer],m.rotation).map(([dx,dy,k])=>[m.x+dx,m.y+dy,k]);if(cells.some(([x,y])=>x>=SIZE||y>=SIZE))return null;const b=board(s);return cells.every(([x,y])=>b[y*SIZE+x]==='.')?cells:null;}
+const planted=s=>s.moves.filter(m=>m.type!=='prune').length;
+const cutsLeft=s=>2-s.moves.filter(m=>m.type==='prune').length;
+function offers(s){const n=planted(s);return n<ROUNDS?STAGES[s.stage].deck[n]:[];}
+function board(s){const b=Array(SIZE*SIZE).fill('.');STAGES[s.stage].rocks.forEach(i=>b[i]='#');let round=0;for(const m of s.moves){if(m.type==='prune'){b[m.cell]='.';continue;}const id=STAGES[s.stage].deck[round++][m.offer];for(const [dx,dy,k]of shape(id,m.rotation))b[(m.y+dy)*SIZE+m.x+dx]=k;}return b;}
+function cellsFor(s,m){if(!m||m.type!==undefined||!int(m.offer,0,2)||!int(m.rotation,0,3)||!int(m.x,0,SIZE-1)||!int(m.y,0,SIZE-1)||s.finished||planted(s)>=ROUNDS)return null;const cells=shape(offers(s)[m.offer],m.rotation).map(([dx,dy,k])=>[m.x+dx,m.y+dy,k]);if(cells.some(([x,y])=>x>=SIZE||y>=SIZE))return null;const b=board(s);return cells.every(([x,y])=>b[y*SIZE+x]==='.')?cells:null;}
 function place(s,m){if(!cellsFor(s,m))return null;return {...s,moves:[...s.moves,{offer:m.offer,rotation:m.rotation,x:m.x,y:m.y}]};}
+function prune(s,cell){if(s.finished||cutsLeft(s)<=0||!int(cell,0,SIZE*SIZE-1)||!['C','K','N'].includes(board(s)[cell]))return null;return {...s,moves:[...s.moves,{type:'prune',cell}]};}
+function cutPlan(s,cells){if(!Array.isArray(cells)||!cells.length||cells.length>cutsLeft(s)||new Set(cells).size!==cells.length)return null;let next=s;for(const cell of cells){next=prune(next,cell);if(!next)return null;}return next;}
 function undo(s){return s.finished?{...s,finished:false}:s.moves.length?{...s,moves:s.moves.slice(0,-1)}:s;}
 function finish(s){return {...s,finished:true};}
 function groups(b,kind){let seen=new Set(),out=[];for(let i=0;i<b.length;i++){if(b[i]!==kind||seen.has(i))continue;let q=[i];seen.add(i);for(let j=0;j<q.length;j++)for(const n of neighbors(q[j]))if(b[n]===kind&&!seen.has(n)){seen.add(n);q.push(n);}out.push(q);}return out;}
@@ -39,10 +42,10 @@ const coral=Math.max(0,...groups(b,'C').map(g=>g.length));const forests=groups(b
 const nursery=nurseryCells.length,kelp=forests.length,score=coral*2+nursery*3+kelp;const goal=STAGES[s.stage].goals,met=coral>=goal.coral&&nursery>=goal.nursery&&kelp>=goal.kelp;const medals=met?1+Number(score>=STAGES[s.stage].par)+Number(score>=STAGES[s.stage].par+6):0;
 return {coral,nursery,kelp,score,met,medals,sea:[...sea],nurseryCells,forests};}
 function legalMoves(s){const out=[];for(let offer=0;offer<offers(s).length;offer++)for(let rotation=0;rotation<4;rotation++)for(let y=0;y<SIZE;y++)for(let x=0;x<SIZE;x++){let m={offer,rotation,x,y};if(cellsFor(s,m))out.push(m);}return out;}
-function replay(raw){if(!raw||!int(raw.stage,0,4)||!Array.isArray(raw.moves)||raw.moves.length>ROUNDS||typeof raw.finished!=='boolean')return null;let s=fresh(raw.stage);for(const m of raw.moves){s=place(s,m);if(!s)return null;}s.finished=raw.finished;return s;}
+function replay(raw){if(!raw||!int(raw.stage,0,4)||!Array.isArray(raw.moves)||raw.moves.length>ROUNDS+2||typeof raw.finished!=='boolean')return null;let s=fresh(raw.stage);for(const m of raw.moves){s=m?.type==='prune'?prune(s,m.cell):place(s,m);if(!s)return null;}s.finished=raw.finished;return s;}
 function profile(){return {version:1,current:fresh(),records:Array(5).fill(null)};}
 function unlocked(p){let n=0;while(n<4&&p.records[n])n++;return n;}
 function record(p){const s=p.current,e=evaluate(s);if(s.finished&&e.met&&(!p.records[s.stage]||evaluate(p.records[s.stage]).score<e.score))p.records[s.stage]=clone(s);return p;}
 function restore(raw){if(!raw||raw.version!==1||!Array.isArray(raw.records)||raw.records.length!==5)return null;const p=profile();for(let i=0;i<5;i++){if(raw.records[i]===null)continue;const s=replay(raw.records[i]);if(!s||s.stage!==i||!s.finished||!evaluate(s).met||(i>0&&!p.records[i-1]))return null;p.records[i]=s;}const current=replay(raw.current);if(!current||current.stage>unlocked(p))return null;p.current=current;return record(p);}
-return {SIZE,ROUNDS,PIECES,STAGES,fresh,shape,offers,board,cellsFor,place,undo,finish,evaluate,legalMoves,replay,profile,unlocked,record,restore,neighbors};
+return {SIZE,ROUNDS,PIECES,STAGES,fresh,shape,offers,board,cellsFor,place,prune,cutPlan,planted,cutsLeft,undo,finish,evaluate,legalMoves,replay,profile,unlocked,record,restore,neighbors};
 });

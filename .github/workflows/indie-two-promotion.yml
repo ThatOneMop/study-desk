@@ -8,7 +8,7 @@ permissions:
 jobs:
   selected-games:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,6 +30,8 @@ jobs:
           node tests/copper-cadence-browser.cjs
           node --test tests/wellward-engine.cjs tests/wellward-dom.cjs
           node tests/wellward-browser.cjs
+          node --test tests/reefwright-engine.cjs tests/reefwright-dom.cjs tests/reefwright-dialog-focus.cjs
+          node tests/reefwright-browser.cjs
           node tests/curation-regression.cjs
           node tests/hollow-keeper-browser.cjs
           node tests/cairn-and-cord-browser.cjs
