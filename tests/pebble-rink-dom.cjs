@@ -38,3 +38,23 @@ test('help freezes playback and Escape restores controls after native dialog can
   $('throw').click();d.advance(12);$('help').click();const before=d.stones();d.advance(100);assert.deepEqual(d.stones(),before);
   $('close').click();d.advance();assert.equal($('throw').disabled,false);d.window.close();
 });
+
+test('forecast is read-only and predicts collision scoring before release',()=>{
+ const d=boot(),w=d.window,$=id=>w.document.getElementById(id);
+ $('throw').click();d.advance();const saved=w.localStorage.getItem(E.KEY);
+ $('forecast').click();assert.equal(w.localStorage.getItem(E.KEY),saved);
+ assert.match($('forecast-note').textContent,/total 2 → 5/);assert.match($('forecast-note').textContent,/Stone 1: 2 → 3/);
+ $('throw').click();d.advance();assert.equal(E.run(E.decode(w.localStorage.getItem(E.KEY))).score,5);
+ $('undo').click();assert.match($('forecast-note').textContent,/total 2 → 5/);
+ $('forecast').click();assert.match($('forecast-note').textContent,/Optional forecast/);d.window.close();
+});
+test('forecast follows curl and weight, blocks toggling while paused and is transient on reload',()=>{
+ const d=boot(),w=d.window,$=id=>w.document.getElementById(id);$('forecast').click();
+ $('power').value=40;$('power').dispatchEvent(new w.Event('input'));assert.match($('forecast-note').textContent,/total 0 → 0/);
+ $('power').value=70;$('power').dispatchEvent(new w.Event('input'));$('spin').value=1;$('spin').dispatchEvent(new w.Event('input'));
+ const raw=w.localStorage.getItem(E.KEY),s=E.decode(raw),expected=E.score(E.simulate([],s.setup,0).stones);
+ assert.match($('forecast-note').textContent,new RegExp('total 0 → '+expected));
+ $('pause').click();assert($('forecast').disabled);$('forecast').click();assert.equal($('forecast').getAttribute('aria-pressed'),'true');$('pause').click();
+ const other=boot(raw);assert.equal(other.window.document.getElementById('forecast').getAttribute('aria-pressed'),'false');assert.equal(other.window.localStorage.getItem(E.KEY),raw);
+ other.window.close();d.window.close();
+});

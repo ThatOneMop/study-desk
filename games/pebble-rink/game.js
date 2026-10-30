@@ -4,6 +4,7 @@ const E = PebbleRink, $ = id => document.getElementById(id), ctx = $('rink').get
 // not the number of requestAnimationFrame callbacks (which varies by display).
 const FRAME_MS = 50;
 let state = E.create(), paused = false, blocked = false, pending = null;
+let forecasting = false, forecast = null;
 let frames = [], frame = 0, elapsed = 0, lastTime = null, replaying = false;
 try { const raw = localStorage.getItem(E.KEY); if (raw) state = E.decode(raw); } catch { blocked = true; }
 const busy = () => paused || frames.length > 0 || $('guide').open || $('confirm').open;
@@ -36,6 +37,14 @@ function draw(stones) {
     ctx.lineTo(65 + Math.cos(a) * state.setup.power * 2, 200 + Math.sin(a) * state.setup.power * 2);
     ctx.strokeStyle = '#365e71'; ctx.lineWidth = 3; ctx.setLineDash([8, 6]); ctx.stroke(); ctx.setLineDash([]);
   }
+  if (forecast && !frames.length) {
+    forecast.stones.forEach((p, i) => {
+      ctx.strokeStyle = ['#93432f', '#8a6412', '#314d89'][i]; ctx.lineWidth = 2;
+      ctx.setLineDash([5, 5]); ctx.beginPath();
+      forecast.frames.forEach((f, n) => { if (n === 0) ctx.moveTo(f[i].x, f[i].y); else ctx.lineTo(f[i].x, f[i].y); });
+      ctx.stroke(); ctx.beginPath(); ctx.arc(p.x, p.y, 14, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+    });
+  }
   stones.forEach((p, i) => {
     ctx.beginPath(); ctx.arc(p.x, p.y, 10, 0, Math.PI * 2); ctx.fillStyle = ['#bc634d', '#e3b34f', '#4964a1'][i]; ctx.fill();
     ctx.strokeStyle = '#fff4d6'; ctx.lineWidth = 2; ctx.stroke(); ctx.fillStyle = '#fff'; ctx.font = 'bold 11px system-ui';
@@ -44,6 +53,13 @@ function draw(stones) {
 }
 function render() {
   const r = E.run(state);
+  forecast = forecasting && !frames.length && r.phase === 'aiming' ? E.simulate(r.stones, state.setup, state.level, true) : null;
+  $('forecast').disabled = busy() || r.phase !== 'aiming';
+  $('forecast').setAttribute('aria-pressed', String(forecasting));
+  $('forecast').textContent = forecasting ? 'Hide shot forecast' : 'Forecast this shot';
+  $('forecast-note').textContent = forecast
+    ? 'Forecast only · total ' + r.score + ' → ' + E.score(forecast.stones) + '. ' + forecast.stones.map((p,i) => 'Stone ' + (i+1) + ': ' + (r.stones[i] ? E.points(r.stones[i]) : 0) + ' → ' + E.points(p) + ' points').join(' · ') + '. Dashed paths and hollow circles are predicted; solid stones stay saved. Adjust angle, weight or curl to compare. Release commits the shot.'
+    : 'Optional forecast shows curl, bank rebounds and displaced stones without spending a shot.';
   $('title').textContent = E.COURSES[state.level].name;
   $('status').textContent = paused ? 'Paused.' : frames.length ? (replaying ? 'Replay · your saved end is unchanged.' : 'Stone in motion…')
     : r.phase === 'won' ? 'Club card earned! ' + r.score + ' points.'
@@ -102,6 +118,7 @@ $('rink').onclick = e => {
   state.setup.angle = Math.round(Math.max(-45, Math.min(45, Math.atan2(y - 200, x - 65) * 180 / Math.PI)));
   $('rink').focus({ preventScroll: true }); sync(); save(); render();
 };
+$('forecast').onclick = () => { if (!busy()) { forecasting = !forecasting; render(); } };
 $('throw').onclick = release;
 $('review').onclick = () => { if (!busy()) { const review = E.review(state); if (review) startFilm(review.frames, true); } };
 $('undo').onclick = () => go('undo');
@@ -133,3 +150,4 @@ window.addEventListener('message', e => {
   if (e.source === parent && e.origin === location.origin && e.data?.type === 'study-visibility' && !e.data.visible) { paused = true; lastTime = null; render(); }
 });
 sync(); save(); render(); requestAnimationFrame(tick);
+
