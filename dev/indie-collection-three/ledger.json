@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 5,
     "browserTested": 5,
-    "integrated": 4,
-    "live": 4
+    "integrated": 5,
+    "live": 5
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -491,13 +491,13 @@
       "id": "crate-and-cushion",
       "title": "Crate & Cushion",
       "coreLoop": "Rotate and fit parcels around tray braces, cushion a telescope along shared edges and keep the heavy toolbox away before sealing.",
-      "status": "qualified-selected-awaiting-integration",
+      "status": "integrated-live",
       "source": "games/crate-and-cushion",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -521,17 +521,21 @@
         "Syntax and catalogue exclusion pass. No rendered browser, screenshot, touch or enjoyment evidence; full repository build not run from partial checkout.",
         "Rendered managed-preview baseline placed Telescope at2,1; Foam at2,2; Toolbox at1,3. Blanket placement at4,1 overlapped Telescope/Foam; old UI required separate lifting with generic feedback. Added explicit blocker-lifting rearrangement with named affected parcels, hatched affected footprints, prospective foam/heavy checks, confirmation and normal lift+placement cost; only overlapping parcels return to workbench. Atomic journal action supports single undo and v1 save replay without changing existing save keys. Added hidden/modal/resume guards and composing-key exclusion.17 focused checks pass (10engine,7DOM), including exact blocker/cost/nonmutation, invalid brace/edge/finished/no-blocker guards, cancel/commit/reload/undo and hidden reset confirmation. Existing all-three-job and care-seal DOM routes pass. Rendered new action lifted Telescope/Foam and placed Blankets for3moves while Toolbox stayed; reloaded at6moves, then single undo restored original3move packing. Repositioned Foam/Toolbox, packed Blankets and dispatched first job at6moves with care seal; reload retained award and Around the braces unlock. Inspected baseline, confirmation, reloaded rearranged crate and saved-dispatch screenshots. Only first job rendered; full remaining jobs, touch, rendered recovery/retry/navigation and catalogue selection pending. No full qualification credit or human enjoyment/physical-device claim.",
         "Qualification found a move-limit UI mismatch: after multi-cost rearrangement the100-move cap can precede100journal actions. Place/Lift now disable and explain undo/repack; regression failed before fix. Screenshot review found excessive phone button wrapping and a false invalid-placement warning after completion. Two-column phone controls and clean completed-crate preview fixed both.",
-        "CI41136733611 on fecf453907cea951074e64eae8e3dc29cdf7daf7 passed19 focused checks (10engine,9DOM), all3 care-seal jobs through normal controls on desktop1280×1000 and touch-emulated390×844, per-tray rearrangement/atomic undo, exact saves/reload, named blockers/cancel, pause, keyboard or native touch taps, repack/record retention, move-cap undo recovery, scoped reset/corrupt-save recovery and standalone Games navigation. All three records4/4/4 and care seals retained. Hidden reset/rearrangement/recovery guards covered by DOM tests.63 development bundled routes/231HTML references and9first-batch integrity checks passed. Artifact13015689017 SHA256d5d0e61a1cd95fc08b040ba6305671ef01d3f1c04b0768b1738d7354eab0a2f0 contains12screenshots; reviewed touch-rearrangement-confirm,touch-care-job-2,desktop-care-job-2. Phone controls now two columns, named confirmation readable, completed crates have no stale invalid footprint/warning. No horizontal overflow; vertical scrolling remains. Independent managed-preview CUA completed all3care jobs, reload, pause, repack cancellation/confirmation and Games return. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification. No loss condition: invalid packing blocks sealing; undo and repack are recovery."
+        "CI41136733611 on fecf453907cea951074e64eae8e3dc29cdf7daf7 passed19 focused checks (10engine,9DOM), all3 care-seal jobs through normal controls on desktop1280×1000 and touch-emulated390×844, per-tray rearrangement/atomic undo, exact saves/reload, named blockers/cancel, pause, keyboard or native touch taps, repack/record retention, move-cap undo recovery, scoped reset/corrupt-save recovery and standalone Games navigation. All three records4/4/4 and care seals retained. Hidden reset/rearrangement/recovery guards covered by DOM tests.63 development bundled routes/231HTML references and9first-batch integrity checks passed. Artifact13015689017 SHA256d5d0e61a1cd95fc08b040ba6305671ef01d3f1c04b0768b1738d7354eab0a2f0 contains12screenshots; reviewed touch-rearrangement-confirm,touch-care-job-2,desktop-care-job-2. Phone controls now two columns, named confirmation readable, completed crates have no stale invalid footprint/warning. No horizontal overflow; vertical scrolling remains. Independent managed-preview CUA completed all3care jobs, reload, pause, repack cancellation/confirmation and Games return. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification. No loss condition: invalid packing blocks sealing; undo and repack are recovery.",
+        "Release CI41141996836 passed97 focused tests (27+17+17+17+19), five desktop/touch-emulated campaigns and catalogue regressions,53bundled routes/268HTML references and9first-batch integrity checks. Artifact13019616151 contains106screenshots; SHA256ed8f91153b6ee094ad01507e079420cf5c1c800beadfd2ef718ef2d49785ab06. Reviewed crate-catalog desktop-search-favourite,touch-rearranged,touch-saved-return: cover/card readable, phone controls usable, saved packing preserved, no horizontal overflow. Pages41142532352 publish job completed successfully. Live catalogue54entries/53bundled observed. Normal live controls verified blocker lifting, atomic undo, first care seal at6moves and second-job unlock; embedded Games returned to filtered top-level catalogue. Reload/relaunch and direct game route retained record/seal; standalone Games returned correctly. Live screenshot reviewed; no Switch workspace controls. Mobile verification is Chromium touch emulation, not physical-device testing. No deployment blocker."
       ],
       "commits": [
         "56bba933abc8a6c8b389619d17db74592f806af0",
         "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
         "566505d93013a6ee95455385b154c32af9735472",
         "5f03639067114461761c9484b9ef416079846e92",
-        "fecf453907cea951074e64eae8e3dc29cdf7daf7"
+        "fecf453907cea951074e64eae8e3dc29cdf7daf7",
+        "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/crate-and-cushion/index.html",
       "quality": {
         "status": "Agent assessment, not player survey",
         "scale": "1–5",
@@ -543,7 +547,7 @@
         "knownLimits": "Three compact fixed four-parcel jobs, each solvable in four placements. Optional adjacency care goals and alternate arrangements offer modest replay, not a long progression campaign. Phone layout still scrolls vertically. No loss condition, audio, measured content-hours or physical-device claim."
       },
       "nextSteps": [
-        "Finish staged integration CI41141996836; inspect screenshots, then fast-forward unchanged main with expected head and verify Pages/live navigation."
+        "Retain compact three-job scope and vertical phone scrolling limitations; use future player feedback to guide deeper progression."
       ],
       "pendingSourceRefinement": {
         "commit": "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
@@ -576,7 +580,15 @@
         "commit": "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b",
         "branch": "indie-three-promotion",
         "ci": 41141996836,
-        "status": "testing-before-main"
+        "status": "integrated-live"
+      },
+      "release": {
+        "commit": "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b",
+        "ci": 41141996836,
+        "pages": 41142532352,
+        "artifact": 13019616151,
+        "artifactSha256": "ed8f91153b6ee094ad01507e079420cf5c1c800beadfd2ef718ef2d49785ab06",
+        "status": "integrated-live"
       }
     },
     {
@@ -2067,11 +2079,12 @@
     }
   ],
   "nextSteps": [
-    "Finish staged integration CI41141996836; inspect screenshots, then fast-forward unchanged main with expected head and verify Pages/live navigation.",
-    "Continue Bramble Dice after Crate release;19built candidates need qualification and26slots remain unbuilt."
+    "Render-play Bramble Dice(slot46), identify its key weakness and implement a substantive game-specific upgrade.",
+    "Preserve five live third-batch games and completed second batch.19built candidates need qualification;26slots remain unbuilt.",
+    "Continue existing cadence until requested scope completes."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "0e0549c071974f5b3ce8d7229833a719680a69c2",
+  "latestObservedMain": "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2689,6 +2702,13 @@
       "commit": "fecf453907cea951074e64eae8e3dc29cdf7daf7",
       "verificationRun": 41136733611,
       "summary": "Crate & Cushion qualification complete:19focused checks, desktop/touch all3care jobs and per-tray rearrangement pass. Fixed move-cap feedback, excessive mobile button wrapping and stale completed-crate warning. Three final screenshots reviewed. Selected but not integrated/live; counts24/5/5/4/4."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b",
+      "verificationRun": 41141996836,
+      "pagesRun": 41142532352,
+      "summary": "Crate & Cushion integrated and live;97focused checks, five desktop/touch campaigns and catalogue regressions passed. Three integration screenshots plus live completion reviewed. Counts24/5/5/5/5."
     }
   ]
 }
