@@ -12,14 +12,18 @@
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
-    "observedCommit": "0fa986284b4e8bea2b0f2ac5ae393c70dc48a3a5",
+    "observedCommit": "6d3e347cb3b3fc630cdccfccdeb09e7c9f121225",
     "implemented": 20,
     "initiallyImproved": 20,
-    "additionalRoundVerified": 6,
+    "additionalRoundVerified": 20,
     "remainingInitialSlots": [],
-    "remainingAdditional": 14,
-    "pendingRenderedUpgrade": "All 20 second-batch additional source upgrades are implemented. Fourteen await rendered review; source/engine/DOM checks do not count as verified completion.",
-    "additionalRoundSourceImplemented": 20
+    "remainingAdditional": 0,
+    "pendingRenderedUpgrade": null,
+    "additionalRoundSourceImplemented": 20,
+    "selected": 9,
+    "integrated": 9,
+    "live": 9,
+    "report": "https://github.com/ThatOneMop/study-desk/blob/indie-collection-two-dev/dev/indie-collection-two/FINAL_REPORT.md"
   },
   "rules": [
     "Slots 41–90 are reserved work slots, not playable games. Unassigned slots count as zero.",
@@ -47,12 +51,14 @@
         "6 DOM tests pass: all commission wins, setup/filter reload, focus retention, pre-print warning, pause/modal/reset/recovery and malformed-save preservation.",
         "Asset reference and first-batch integrity checks passed. Syntax and git diff checks passed.",
         "No rendered browser, touch-emulation, screenshot or enjoyment evidence for this prototype yet.",
-        "Selective ink lift: 20 passing tests (12 engine, 8 jsdom), retaining original 15. Selected-channel removal, later-layer preservation, exact read-only forecasts, five-operation recovery route, allowance/no-op guards, undo/records, malformed journals, old saves/setup, UI preview/commit/reload, pause/guide and native-button Space ownership. Scripts pass syntax checks. No rendered evidence."
+        "Selective ink lift: 20 passing tests (12 engine, 8 jsdom), retaining original 15. Selected-channel removal, later-layer preservation, exact read-only forecasts, five-operation recovery route, allowance/no-op guards, undo/records, malformed journals, old saves/setup, UI preview/commit/reload, pause/guide and native-button Space ownership. Scripts pass syntax checks. No rendered evidence.",
+        "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit."
       ],
       "commits": [
         "035611d0c1a147dc63a09484abfc30ed8bee29c0",
         "c7fdaa6bb22f71405466d434b797ec145885390b",
-        "08600a642bbc4bba782731e5ddc9634d2ea51fc8"
+        "08600a642bbc4bba782731e5ddc9634d2ea51fc8",
+        "5e75339160f8099d7a4f80fbeab3ff32747994de"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -81,6 +87,11 @@
         "before": "Stencils could only add ink; local removal was unavailable.",
         "after": "Lift mode removes just the selected ink through the current stencil, preserving other colours and later layers. It shares the five-operation allowance, previews the exact result and rejects empty lifts free. Old print journals and setup remain compatible. Native-button Space no longer unexpectedly stamps.",
         "remaining": "Rendered natural desktop/touch play, screenshot inspection, mode clarity and whether the five-operation repair choice adds worthwhile depth. No completed improvement credit."
+      },
+      "pendingInputRepair": {
+        "commit": "5e75339160f8099d7a4f80fbeab3ff32747994de",
+        "basis": "Source inspection plus reproduced failing jsdom regressions; not rendered playtesting.",
+        "validation": "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit."
       }
     },
     {
@@ -1749,12 +1760,12 @@
     }
   ],
   "nextSteps": [
-    "Render and verify fourteen pending second-batch upgrades; verified count remains 6/20.",
-    "Render/play all twenty-four third-batch prototypes and complete substantive playtest-led improvement passes before selection.",
-    "Implement remaining 26 distinct third-batch games incrementally; keep unfinished candidates unlisted."
+    "Second batch complete: preserve20 finished candidates,40 substantive passes and9 selected upgraded live releases.",
+    "Prioritize rendered Stencil Studio baseline playtest, then implement a game-specific improvement based on observed play. Verify desktop/touch progression, repair choices, save/reload, restart and navigation; inspect screenshots. Do not count source-only refinements as completed improvements.",
+    "Render and improve all24 third-batch prototypes; implement26 remaining distinct games and progressively integrate qualified games. Keep unfinished candidates unlisted. Retain existing hourly schedule."
   ],
-  "updated": "2026-10-28",
-  "latestObservedMain": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
+  "updated": "2026-10-30",
+  "latestObservedMain": "184368dfcf0f68352014b850e5283c6c6fe545ed",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2239,6 +2250,13 @@
       "result": "Bough Balance opening brass-weight challenge implemented with independent record; 26 engine/DOM tests pass. Exactly 50 slots; totals remain 24 built and zero qualified improved/browser-tested/integrated/live. Second additional round remains 6/20 verified.",
       "mainObserved": "55c330d9ec493afc40e81e89a371f64cbd5bd8b0",
       "browserStatus": "Existing security-policy blocker not retried or bypassed; no rendered evidence."
+    },
+    {
+      "date": "2026-10-30",
+      "commit": "5e75339160f8099d7a4f80fbeab3ff32747994de",
+      "result": "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit.",
+      "mainObserved": "184368dfcf0f68352014b850e5283c6c6fe545ed",
+      "browserStatus": "No rendered claim in this increment. Historical third-branch rendering blocker is not a fresh failure: second-batch CI and live browser testing subsequently succeeded. Establish third-batch rendered verification through supported tooling rather than repeating the old blocker."
     }
   ]
 }
