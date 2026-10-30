@@ -857,5 +857,30 @@
     "thumbnail": "art/curated/pebble-rink.svg",
     "thumbnailAlt": "Three coloured curling stones following a curved line toward rings on pale green ice",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "pocket-regatta",
+    "title": "Pocket Regatta",
+    "description": "Plot wind-aware tacks around three small buoy courses. Repair individual draft moves, balance short and full sails, and earn pennants with fewer turns.",
+    "icon": "⛵",
+    "genre": "Puzzle + Sailing",
+    "color": "#dcb66c",
+    "controls": "1–8 choose heading · Enter on chart sails · Touch heading and draft controls",
+    "url": "games/pocket-regatta/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#pocket-regatta",
+    "aliases": [
+      "sailing",
+      "boat",
+      "wind",
+      "tacks",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/pocket-regatta.svg",
+    "thumbnailAlt": "A cream sailboat following a gold tack line around numbered buoys on a navy chart",
+    "updated": "2026-10-31"
   }
 ]

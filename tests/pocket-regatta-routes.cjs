@@ -1,0 +1,2 @@
+const E=require('../games/pocket-regatta/engine.js');module.exports=level=>{const q=[{r:E.fresh(level),path:[]}],seen=new Set();for(let i=0;i<q.length;i++){const {r,path}=q[i];if(r.phase==='won')return path;for(let heading=0;heading<8;heading++)for(const reefed of [false,true]){const a={heading,reefed},t=E.step(r,a);if(!t||t.hull<3)continue;const key=[t.x,t.y,t.heading,t.mark].join('/');if(seen.has(key))continue;seen.add(key);q.push({r:t,path:[...path,a]})}}throw Error('No clear route')};
+

@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  rink-catalogue:
+  regatta-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -37,12 +37,16 @@ jobs:
           node --test tests/pebble-rink-engine.cjs tests/pebble-rink-dom.cjs
           node tests/pebble-rink-browser.cjs
           node tests/pebble-rink-catalog-browser.cjs
+          node --check games/pocket-regatta/game.js
+          node --test tests/pocket-regatta-engine.cjs tests/pocket-regatta-dom.cjs
+          node tests/pocket-regatta-browser.cjs
+          node tests/pocket-regatta-catalog-browser.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: rink-catalogue-browser
+          name: regatta-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -51,3 +55,6 @@ jobs:
 
             test-artifacts/pebble-rink/
             test-artifacts/pebble-catalog/
+
+            test-artifacts/pocket-regatta/
+            test-artifacts/regatta-catalog/
