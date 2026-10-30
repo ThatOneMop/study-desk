@@ -543,8 +543,7 @@
         "knownLimits": "Three compact fixed four-parcel jobs, each solvable in four placements. Optional adjacency care goals and alternate arrangements offer modest replay, not a long progression campaign. Phone layout still scrolls vertically. No loss condition, audio, measured content-hours or physical-device claim."
       },
       "nextSteps": [
-        "Integrate only qualified Crate & Cushion source from fecf453907cea951074e64eae8e3dc29cdf7daf7 onto fresh main, with original cover/credits and embedded Games return. Preserve concurrent catalogue and saves.",
-        "Run combined selected-game and real desktop/touch catalogue regressions, then verify Pages and live save/return routes before marking integrated/live."
+        "Finish staged integration CI41141996836; inspect screenshots, then fast-forward unchanged main with expected head and verify Pages/live navigation."
       ],
       "pendingSourceRefinement": {
         "commit": "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
@@ -572,6 +571,12 @@
         "artifact": 13015689017,
         "artifactSha256": "d5d0e61a1cd95fc08b040ba6305671ef01d3f1c04b0768b1738d7354eab0a2f0",
         "status": "passed"
+      },
+      "pendingRelease": {
+        "commit": "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b",
+        "branch": "indie-three-promotion",
+        "ci": 41141996836,
+        "status": "testing-before-main"
       }
     },
     {
@@ -2062,9 +2067,8 @@
     }
   ],
   "nextSteps": [
-    "Integrate selected Crate & Cushion after real catalogue regression and verify live release; qualified source fecf453907cea951074e64eae8e3dc29cdf7daf7.",
-    "Then render-play and improve Bramble Dice (slot46). Preserve second-batch completion and four live third-batch games.19built candidates still need qualification;26slots remain unbuilt.",
-    "Retain existing hourly schedule. Pause only after the complete requested scope."
+    "Finish staged integration CI41141996836; inspect screenshots, then fast-forward unchanged main with expected head and verify Pages/live navigation.",
+    "Continue Bramble Dice after Crate release;19built candidates need qualification and26slots remain unbuilt."
   ],
   "updated": "2026-10-31",
   "latestObservedMain": "0e0549c071974f5b3ce8d7229833a719680a69c2",
