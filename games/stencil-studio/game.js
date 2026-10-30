@@ -1,4 +1,5 @@
 'use strict';const E=StencilStudio,$=id=>document.getElementById(id);let state=E.create(),shape=0,rotation=0,ink=1,x=0,y=0,paused=false,blocked=false,pending=null,bridgeHidden=false;
+document.querySelector('header a').onclick=e=>{if(parent!==window){e.preventDefault();parent.postMessage({type:'study-collection'},location.origin)}};
 try{const raw=localStorage.getItem(E.KEY);if(raw)state=E.decode(raw)}catch{blocked=true}
 function restoreSetup(){$('lift').checked=false;({shape,rotation,x,y,ink}=state.setup);$('isolate').checked=state.setup.isolate}
 restoreSetup();

@@ -34,5 +34,13 @@ $('sessionReturn').querySelector('button').click();assert.equal($('frame').conte
 $('libraryBtn').click();checkFocus($('search'));
 d.querySelector('.empty button').click();assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
 assert.equal($('genre').value,'all');assert.equal(filter('All').getAttribute('aria-pressed'),'true');
+// Only the current same-origin player can request a collection return.
+launch('after-hours').click();
+function collectionMessage(source,origin){w.dispatchEvent(new w.MessageEvent('message',{source,origin,data:{type:'study-collection'}}))}
+collectionMessage(w,'https://example.test');assert.equal($('player').hidden,false);
+collectionMessage($('frame').contentWindow,'https://untrusted.test');assert.equal($('player').hidden,false);
+const currentFrame=$('frame').contentWindow;
+collectionMessage(currentFrame,'https://example.test');assert.equal($('arcade').hidden,false);assert.equal($('player').hidden,true);assert.equal($('frame').contentWindow,currentFrame);
 console.log('PASS launcher: browse vs PPP, preserved iframe session, return through empty filters, named controls, focus restoration, paused keyboard isolation, late-load focus guards.');
 w.close();
+

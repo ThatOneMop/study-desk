@@ -140,7 +140,7 @@ function openHash(){if(['#games','#movies','#tv'].includes(location.hash)){openC
 window.addEventListener('hashchange',openHash);
 $('libraryBtn').onclick=()=>openCollection(true);
 $('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;$('groupBy').onchange=drawGames;$('sortGames').onchange=drawGames;$('clearFilters').onclick=()=>{$('search').value='';$('genre').value='all';$('groupBy').value='genre';$('sortGames').value='collection';filter='All';tag='All';drawGames();$('search').focus()};
-window.addEventListener('message',e=>{if(e.source===$('frame').contentWindow&&e.origin===location.origin&&e.data?.type==='study-toggle')toggle()});
+window.addEventListener('message',e=>{if(e.source!==$('frame').contentWindow||e.origin!==location.origin)return;if(e.data?.type==='study-toggle')toggle();else if(e.data?.type==='study-collection')openCollection(true)});
 window.addEventListener('keydown',e=>{if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
 function weekMonday(date=new Date()){const monday=new Date(date.getFullYear(),date.getMonth(),date.getDate());const day=monday.getDay()||7;monday.setDate(monday.getDate()-(day-1));monday.setHours(0,0,0,0);return monday}
 function mondayPick(date=new Date()){
@@ -383,3 +383,4 @@ for(const id of ['exportSaves','exportSavesArcade'])$(id).onclick=exportAllSaves
 for(const id of ['importSaves','importSavesArcade'])$(id).onchange=async e=>{try{await importAllSaves(e.target.files?.[0])}catch{setVaultStatus('That file is not a Study Desk save backup.');toast('That file is not a Study Desk save backup.')}finally{e.target.value=''}};
 buildGenreChips();buildTagChips();renderHero();wireDesk();
 reset();drawGames();renderMondayPicks();openHash();refreshStorageNotices();
+
