@@ -882,5 +882,30 @@
     "thumbnail": "art/curated/pocket-regatta.svg",
     "thumbnailAlt": "A cream sailboat following a gold tack line around numbered buoys on a navy chart",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "crate-and-cushion",
+    "title": "Crate & Cushion",
+    "description": "Fit four parcels around wooden braces, cushion a telescope and keep the toolbox clear. Rehearse rearrangements with reversible blocker lifting and collect three care seals.",
+    "icon": "📦",
+    "genre": "Puzzle + Packing",
+    "color": "#b6d3aa",
+    "controls": "Arrows move anchor · R rotates · Enter places · Touch parcel and tray controls",
+    "url": "games/crate-and-cushion/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#crate-and-cushion",
+    "aliases": [
+      "packing",
+      "parcels",
+      "telescope",
+      "relaxed",
+      "spatial"
+    ],
+    "thumbnail": "art/curated/crate-and-cushion.svg",
+    "thumbnailAlt": "Wooden packing tray with a copper telescope, mint padding and folded gold blankets",
+    "updated": "2026-10-31"
   }
 ]

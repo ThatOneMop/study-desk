@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  regatta-catalogue:
+  crate-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -41,12 +41,15 @@ jobs:
           node --test tests/pocket-regatta-engine.cjs tests/pocket-regatta-dom.cjs
           node tests/pocket-regatta-browser.cjs
           node tests/pocket-regatta-catalog-browser.cjs
+          node --test tests/crate-cushion-engine.cjs tests/crate-cushion-dom.cjs
+          node tests/crate-cushion-browser.cjs
+          node tests/crate-cushion-catalog-browser.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: regatta-catalogue-browser
+          name: crate-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -58,3 +61,6 @@ jobs:
 
             test-artifacts/pocket-regatta/
             test-artifacts/regatta-catalog/
+
+            test-artifacts/crate-cushion/
+            test-artifacts/crate-catalog/
