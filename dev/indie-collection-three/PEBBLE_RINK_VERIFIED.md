@@ -1,0 +1,13 @@
+# Pebble Rink qualification — 31 October 2026
+
+CI41086070525 at4be3cafd6b61060c52f817fb382bebd17e759c12 passed17 focused checks (7engine,10DOM) and complete desktop1280×1000/touch-emulated390×844 campaigns across all3 rinks. Every shot settled naturally without reload skipping animation; forecasts matched resolved stone positions and scores. Pause, replay nonmutation, exact per-shot saves/reload, all unlocks, loss/undo/retry, reset cancellation/confirmation, isolated corrupt-save recovery and return to development launcher passed. Touch buttons used native taps; range values used native keyboard input in both contexts, so physical touch dragging is not certified.63 development bundled routes/231 HTML asset references and9 first-batch integrity checks passed. Artifact12992186221 SHA256f800d985d4482e1da28efffe509c11d61a240e2213e2a563fd4b6d4b0b0a6cd1 contains16 screenshots. Reviewed touch-forecast-1, desktop-won-2 and touch-recovery: island ricochet and displaced-stone forecast legible, final8/4/8 records visible, recovery usable. Phone requires vertical scrolling; no horizontal overflow. Automated reliability and agent visual evidence, not human enjoyment testing.
+
+## Reliability repair
+Hidden reset confirmation reproduced data loss before the fix. Commit2a83f5119fccff5cb0773edd2fd96d13d8433070 tracks trusted parent visibility and document visibility and guards confirmation, recovery, modal actions, resume and animation. Pending decisions remain intact while hidden. Saves and physics remain unchanged. The first CI failed only on the browser script's missing .cjs route-helper extension; corrected at4be3cafd6b61060c52f817fb382bebd17e759c12.
+
+## Assessment and next step
+Calm physical aiming, curl and collision planning adds motion-based variety alongside ink layering and coupled dials; select as a compact tabletop game. Three compact rinks and high-score replay. Optional exact forecasts reduce execution difficulty while making collision planning legible. No audio, extended campaign, physical-device dragging or measured content-hours claim. Long vertical phone layout.
+
+The prior rendered weakness and substantive forecast change remain recorded in PEBBLE_RINK_FORECAST.md and the ledger. This is one improvement pass; tests and guard fixes do not add another. The earlier CUA playback uncertainty is resolved by uninterrupted Chromium campaigns. Current-main catalogue and live checks remain pending; Pebble Rink is unlisted.
+
+Third ledger retains exactly50 slots:24 built,3 improved,3 browser-tested,2 integrated,2 live. Second collection remains20 additionally improved and9 selected upgrades live. Main7b5ab86417d57b6eab7e8de7a8f8fc75d9556250 was untouched. No new deployment blocker or automation change.
