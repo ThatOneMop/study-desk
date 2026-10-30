@@ -94,7 +94,8 @@
         "19 public routes/assets, nine first-batch selected-source hashes, exact 20-slot second-batch gate, shell, bridge-pointer and relaxed-collection tests passed.",
         "Two inherited launcher tests still target the removed playerStudy control; see baselineTestLimitations.",
         "Exact source 92639e48c7e2409f05f7911f67402707e9537b2b: CI 40751257296 passed all seven jobs, 537 engine + 375 DOM = 912 checks, syntax/assets, exact twenty-slot and nine first-batch integrity gates. Native planning job 123039159774 passed five original and five cut-assisted campaigns in each desktop/emulated-touch context, paired-cut pure preview/cancel, keyboard/touch confirmation, cut reload, two-step undo, original loss/reopen, restart/cancel, isolated corrupt recovery and navigation without browser errors.",
-        "Inspected desktop-paired-preview.png, touch-paired-preview.png and touch-paired-committed.png from 28 Reefwright screenshots in artifact 12843054368. Both selected cells and combined costs are visible; nursery 6→7 and forest kelp 3→0 are stated, with vitality remaining 27. The committed board and totals match. This is a tradeoff, not an automatically better or winning layout. Phone text/buttons fit but require vertical scrolling. ZIP SHA256 3f5623479a303a54e4364ab485483f4c7589368286799e7f394c5cc4955130e8. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing."
+        "Inspected desktop-paired-preview.png, touch-paired-preview.png and touch-paired-committed.png from 28 Reefwright screenshots in artifact 12843054368. Both selected cells and combined costs are visible; nursery 6→7 and forest kelp 3→0 are stated, with vitality remaining 27. The committed board and totals match. This is a tradeoff, not an automatically better or winning layout. Phone text/buttons fit but require vertical scrolling. ZIP SHA256 3f5623479a303a54e4364ab485483f4c7589368286799e7f394c5cc4955130e8. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing.",
+        "Merged paired selective cuts into main's Reefwright at 55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d, preserving easier first-coast goals/par, prior medal saves, water seams, planting ripples/streaks, sound/celebrations, title/pause and accessible dialog focus/return. Two-cut previews remain pure; title/local/bridge/hidden guards protect proposals and pending reset confirmations. Versioned local assets. 61 focused engine/DOM/focus checks plus syntax and diff-whitespace checks passed locally. New coverage retains a26-vitality three-medal first-coast record and protects paired previews/confirmation while paused. Native desktop/touch routes now enter the real title screen after reload and test pause during the paired proposal. CI40983082802 running; no public promotion or extra improvement pass counted."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -1847,7 +1848,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Integrate Reefwright and Pocket Palaeo against fresh main, preserving concurrent visuals, controls and saves. Verify merged desktop/touch campaigns and inspect screenshots before promotion, then live routes. Complete third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes.",
+  "nextSteps": "Review Reefwright merged CI40983082802 at55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d, inspect desktop/touch paired-cut screenshots and fix failures before expected-head main promotion/live checks. Preserve gentler first-coast scoring, saves, effects, title/pause and dialog focus. Then integrate Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live; finish remaining candidates and rendered improvement passes.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2493,6 +2494,11 @@
       "result": "Fresh-main CI40970354471 succeeded, job123785266892: 46 Wellward engine/DOM checks and complete desktop/emulated-touch four-well/16-relic routes, repairs, exact reloads, upgrades, ballast, loss/retry, isolated recovery/reset, pause and navigation. Earlier selected-game regression, assets, first-batch integrity and current curation passed. Reviewed repair screenshots from identical gameplay source in prior run40898047405; fresh-main artifact12940718181 SHA256176084cb4706d84023228ab3930b10c075951379f7aa92f72aff223018a62ce5 retained. Automated route and agent screenshot evidence, not human enjoyment or physical-device testing. Pages40977126617 succeeded. Live packed kit reduced cargo capacity from2 to1; held steering caused a natural wall strike (3→2 straps). Steady for repairs braked and paused at readiness; repair restored3 straps and capacity2, consumed the kit, and left the bucket paused. Reload preserved bucket505/depth44,3straps,0/2cargo and used kit. Live repair screenshot inspected. Return, catalogue search and embedded relaunch retained that state. Catalogue shows49 games with Winterfold intact. No Switch workspace controls in freshly read launcher/Wellward source or observed live launcher. No deployment blocker.",
       "publicIntegration": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
       "nextSteps": "Integrate Reefwright and Pocket Palaeo against fresh main, preserving concurrent visuals, controls and saves. Verify merged desktop/touch campaigns and inspect screenshots before promotion, then live routes. Complete third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes."
+    },
+    {
+      "date": "2026-10-30",
+      "result": "Merged paired selective cuts into main's Reefwright at 55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d, preserving easier first-coast goals/par, prior medal saves, water seams, planting ripples/streaks, sound/celebrations, title/pause and accessible dialog focus/return. Two-cut previews remain pure; title/local/bridge/hidden guards protect proposals and pending reset confirmations. Versioned local assets. 61 focused engine/DOM/focus checks plus syntax and diff-whitespace checks passed locally. New coverage retains a26-vitality three-medal first-coast record and protects paired previews/confirmation while paused. Native desktop/touch routes now enter the real title screen after reload and test pause during the paired proposal. CI40983082802 running; no public promotion or extra improvement pass counted.",
+      "nextSteps": "Review Reefwright merged CI40983082802 at55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d, inspect desktop/touch paired-cut screenshots and fix failures before expected-head main promotion/live checks. Preserve gentler first-coast scoring, saves, effects, title/pause and dialog focus. Then integrate Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live; finish remaining candidates and rendered improvement passes."
     }
   ],
   "latestObservedMain": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
@@ -2539,6 +2545,12 @@
       "pocket-palaeo"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72"
+    "latestCommit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+    "pending": {
+      "id": "reefwright",
+      "commit": "55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d",
+      "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40983082802",
+      "status": "merged native regression pending"
+    }
   }
 }
