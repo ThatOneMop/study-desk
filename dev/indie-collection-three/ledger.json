@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 2,
     "browserTested": 2,
-    "integrated": 1,
-    "live": 1
+    "integrated": 2,
+    "live": 2
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -176,13 +176,13 @@
       "id": "moon-dial",
       "title": "Moon Dial",
       "coreLoop": "Rotate coupled dials while shifting a single clutch to isolate connected components and align every hand to its target.",
-      "status": "finished-awaiting-integration",
+      "status": "integrated-live",
       "source": "games/moon-dial",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -203,17 +203,24 @@
         "JavaScript syntax checks passed. No rendered browser, screenshot, touch or enjoyment evidence. Full repository build was not run from the partial checkout.",
         "Rendered baseline: completed bedside clock in2 turns, opened garden chime. Screenshot showed right-turn-only motion labels while playing left turns, requiring mental inversion and no exact precommit alignment forecast. Added optional left/right rehearsal: dashed ghost hands, per-dial current→planned positions, aligned outlines, newly aligned/leaves-moon-mark summary, explicit Wind/Discard. No save/history change until Wind; clutch/dial edits invalidate the preview. Rendered garden route compared fully coupled left turn (aligns A, displaces B) against A–B isolation (aligns A, preserves B), committed, undid, rehearsed and committed the isolated move, then reloaded: committed turn retained, transient preview cleared. Inspected baseline and post-change screenshots including exact forecast and ghost-hand view.15 engine/DOM tests pass (7engine+8DOM), including2 new rehearsal regressions; syntax passes. Existing saves and engine rules unchanged. Full remaining rendered campaigns, mobile/native-touch, reset/recovery/hidden bridge and catalogue navigation remain pending. Full-page screenshot timed out, but viewport screenshots succeeded and were inspected.",
         "Two hidden reset/recovery regressions failed before the fix; all17 focused tests pass afterward. Hidden state blocks reset/recovery confirmation, modal opening and resume while preserving pending choice/rehearsal. Composing and editable input retain shortcuts.",
-        "CI41059674598 at19fe0199efc89c85ca4c35e426652833f50a4fa8 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 mechanisms using rehearsed turns, exact per-action save/reload, alignment-disruption warning, preview discard/pause, optional hints, detour/undo/retry, keyboard/native taps, transient-preview clearing, scoped reset, isolated malformed-save preservation/recovery and return to development launcher. Development-branch asset check passed63 bundled routes/231 HTML references and all9 first-batch release integrity checks. Artifact12977673665 SHA256b34ef115fe14a65ac0d777a51b7badcf250ad41a7bd2798dcb5134d49cc0f817 contains10 screenshots. Reviewed touch-alignment-warning, desktop-mechanism-2 and touch-recovery: dashed versus solid hands and exact per-dial outcomes legible, target-disruption warning readable, final records2/3/7 turns intact, recovery usable. Phone needs vertical scrolling; no horizontal overflow. Automated and agent-observed evidence, not human enjoyment or physical-device certification."
+        "CI41059674598 at19fe0199efc89c85ca4c35e426652833f50a4fa8 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 mechanisms using rehearsed turns, exact per-action save/reload, alignment-disruption warning, preview discard/pause, optional hints, detour/undo/retry, keyboard/native taps, transient-preview clearing, scoped reset, isolated malformed-save preservation/recovery and return to development launcher. Development-branch asset check passed63 bundled routes/231 HTML references and all9 first-batch release integrity checks. Artifact12977673665 SHA256b34ef115fe14a65ac0d777a51b7badcf250ad41a7bd2798dcb5134d49cc0f817 contains10 screenshots. Reviewed touch-alignment-warning, desktop-mechanism-2 and touch-recovery: dashed versus solid hands and exact per-dial outcomes legible, target-disruption warning readable, final records2/3/7 turns intact, recovery usable. Phone needs vertical scrolling; no horizontal overflow. Automated and agent-observed evidence, not human enjoyment or physical-device certification.",
+        "Promotion CI41068188767 passed17 Moon Dial and27 Stencil focused checks,5 launcher suites, complete desktop1280×1000/touch-emulated390×844 campaigns for both games, real catalogue search/group/sort/favourites/launch/pause/Collection and in-game Games return/restart/saved re-entry.50 bundled routes/256 HTML references and all9 first-batch release integrity checks passed. Artifact12984835482:40 screenshots; reviewed Moon touch-launched, touch-search-favourite and desktop-saved-return. Cover, controls and rehearsal warning are legible; phone requires vertical scrolling, no horizontal overflow. Initial CI41067925283 failed a test assumption that clockwork would match only one game; exact Moon Dial query fixes the assertion without changing search behavior.",
+        "Pages41068656055 succeeded at7b5ab86417d57b6eab7e8de7a8f8fc75d9556250. Live catalogue51 entries/50 bundled, unique Moon Dial search and original cover, moon-20261031 catalogue asset query. Embedded launch: turned A left, rehearsed another left and observed warning that C would leave its moon mark, opened B–C and committed rehearsal to restore first clock in2 turns and unlock garden chime. In-game Games returned to the filtered collection despite unchanged #games hash. Opening direct game URL retained completed board and2-turn record; live screenshot inspected. No Switch workspace controls or publication/cache barrier observed. Live evidence desktop; mobile evidence comes from passing touch-emulated Chromium CI, not a physical device."
       ],
       "commits": [
         "60dd61044207070fef97638b829242cf1e273715",
         "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
         "86cded4d921af68656fc13ab3304d7de161be834",
         "fb91fd3e93a1de1c8845b2df77e59ecfd30438e8",
-        "19fe0199efc89c85ca4c35e426652833f50a4fa8"
+        "19fe0199efc89c85ca4c35e426652833f50a4fa8",
+        "8373de88070626b6a092037f11d38d85fe9b5269",
+        "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "8373de88070626b6a092037f11d38d85fe9b5269",
+        "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/moon-dial/index.html",
       "quality": {
         "status": "Agent review, not player survey",
         "scale": "1–5",
@@ -222,11 +229,10 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "knownLimits": "Three compact authored mechanisms and best-turn records; no failure penalty, audio, extended campaign or measured content duration. A readable but vertically long phone layout. Real catalogue integration pending."
+        "knownLimits": "Three compact authored mechanisms and best-turn records; no failure penalty, audio, extended campaign or measured content duration. A readable but vertically long phone layout."
       },
       "nextSteps": [
-        "Merge only qualified Moon Dial source/tests and catalogue metadata into a fresh main-based promotion branch.",
-        "Use current main's validated study-collection return message for embedded Games navigation, then test real search/launch/pause/return/restart/save on desktop/touch before publishing."
+        "Moon Dial integration and release complete. Preserve compact scope and existing saves. Next candidate: Pebble Rink rendered playtest and substantive improvement."
       ],
       "pendingSourceRefinement": {
         "commit": "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
@@ -253,7 +259,7 @@
         "before": "Immediate turns or textual next-step hint; no exact reversible turn rehearsal.",
         "after": "Optional left/right ghost-hand rehearsal with exact per-dial outcomes, alignment gains/losses and explicit commit/discard.",
         "evidence": "Rendered baseline: completed bedside clock in2 turns, opened garden chime. Screenshot showed right-turn-only motion labels while playing left turns, requiring mental inversion and no exact precommit alignment forecast. Added optional left/right rehearsal: dashed ghost hands, per-dial current→planned positions, aligned outlines, newly aligned/leaves-moon-mark summary, explicit Wind/Discard. No save/history change until Wind; clutch/dial edits invalidate the preview. Rendered garden route compared fully coupled left turn (aligns A, displaces B) against A–B isolation (aligns A, preserves B), committed, undid, rehearsed and committed the isolated move, then reloaded: committed turn retained, transient preview cleared. Inspected baseline and post-change screenshots including exact forecast and ghost-hand view.15 engine/DOM tests pass (7engine+8DOM), including2 new rehearsal regressions; syntax passes. Existing saves and engine rules unchanged. Full remaining rendered campaigns, mobile/native-touch, reset/recovery/hidden bridge and catalogue navigation remain pending. Full-page screenshot timed out, but viewport screenshots succeeded and were inspected.",
-        "remaining": "Real current-main catalogue integration and live verification.",
+        "remaining": "None: catalogue and live verification passed; see MOON_DIAL_INTEGRATION.md.",
         "status": "verified-complete"
       },
       "verification": {
@@ -264,7 +270,23 @@
         "status": "passed"
       },
       "selected": true,
-      "selectionReason": "Quiet coupled-mechanism puzzle complements spatial printmaking with graph isolation and counter-rotation; rehearsal makes consequences inspectable without dictating a solution. Select as a compact puzzle, with its three-mechanism limit explicit."
+      "selectionReason": "Quiet coupled-mechanism puzzle complements spatial printmaking with graph isolation and counter-rotation; rehearsal makes consequences inspectable without dictating a solution. Select as a compact puzzle, with its three-mechanism limit explicit.",
+      "integrationCommit": "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250",
+      "integration": {
+        "branch": "main",
+        "commit": "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250",
+        "verificationRun": 41068188767,
+        "artifact": 12984835482,
+        "artifactSha256": "c8361fd9c3cd1c82542e9e71253e60c288839ead55132350bf44b7626db9bde7",
+        "report": "dev/indie-collection-three/MOON_DIAL_INTEGRATION.md"
+      },
+      "liveVerification": {
+        "date": "2026-10-31",
+        "pagesRun": 41068656055,
+        "commit": "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250",
+        "status": "passed",
+        "evidence": "Pages41068656055 succeeded at7b5ab86417d57b6eab7e8de7a8f8fc75d9556250. Live catalogue51 entries/50 bundled, unique Moon Dial search and original cover, moon-20261031 catalogue asset query. Embedded launch: turned A left, rehearsed another left and observed warning that C would leave its moon mark, opened B–C and committed rehearsal to restore first clock in2 turns and unlock garden chime. In-game Games returned to the filtered collection despite unchanged #games hash. Opening direct game URL retained completed board and2-turn record; live screenshot inspected. No Switch workspace controls or publication/cache barrier observed. Live evidence desktop; mobile evidence comes from passing touch-emulated Chromium CI, not a physical device."
+      }
     },
     {
       "slot": 43,
@@ -1880,12 +1902,12 @@
     }
   ],
   "nextSteps": [
-    "Merge only qualified Moon Dial source/tests and catalogue metadata into a fresh main-based promotion branch.",
-    "Use current main's validated study-collection return message for embedded Games navigation, then test real search/launch/pause/return/restart/save on desktop/touch before publishing.",
-    "Continue22 other built third-batch candidates and26 unbuilt slots; preserve all first/second games and concurrent work."
+    "Play Pebble Rink through its rendered core loop, identify its main weakness and implement a substantive game-specific improvement.",
+    "Qualify remaining22 built candidates and implement26 unbuilt slots; integrate only finished tested games progressively.",
+    "Preserve completed second-batch20/20 additional round and nine live selected upgrades, all first-batch sources/saves and concurrent Study Desk work. Retain hourly schedule."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "55da1ef2ffa43989ed034413f19a3cc5b6b69bfb",
+  "latestObservedMain": "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2437,6 +2459,17 @@
         "integrated": 1,
         "live": 1
       }
+    },
+    {
+      "date": "2026-10-31",
+      "summary": "Moon Dial integrated and live.44 focused checks,5 shell suites, both complete desktop/touch campaigns and real catalogue navigation pass; three integration screenshots and live screenshot reviewed. Third counts24/2/2/2/2.",
+      "commits": [
+        "8373de88070626b6a092037f11d38d85fe9b5269",
+        "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250"
+      ],
+      "verificationRun": 41068188767,
+      "pagesRun": 41068656055,
+      "next": "Pebble Rink rendered improvement."
     }
   ]
 }
