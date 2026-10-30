@@ -3,4 +3,6 @@
 h3{font-size:13px;text-transform:uppercase;letter-spacing:.1em;margin:12px 0 4px}.choices{margin:4px 0 12px}#preview{font-weight:600}
 
 
-.cell.comparing{align-content:center;gap:3px}.ink-difference{z-index:1;background:#18383c;color:#fff4d9;padding:1px 3px;border-radius:3px;font:700 11px/1.2 system-ui;pointer-events:none}.cell.comparing.ghost:after{border-width:2px;inset:1px}@media(max-width:400px){.ink-difference{font-size:9px}}
+.cell.comparing{align-content:center;gap:3px}.ink-difference{z-index:1;background:#18383c;color:#fff4d9;padding:1px 3px;border-radius:3px;font:700 11px/1.2 system-ui;pointer-events:none}.cell.comparing.ghost:after{border-width:2px;inset:1px}
+
+#inspection{font-size:15px;line-height:1.6;padding:12px;background:#18383c;border-left:4px solid #efc65e;border-radius:4px}.ink-difference{white-space:normal;text-align:center}
