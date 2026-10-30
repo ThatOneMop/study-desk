@@ -1,0 +1,35 @@
+name: Crate and Cushion candidate verification
+on:
+  push:
+    branches: [indie-collection-three-dev]
+    paths:
+      - 'games/crate-and-cushion/**'
+      - 'tests/crate-cushion*'
+      - '.github/workflows/crate-cushion-verification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  crate-cushion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0 playwright@1.58.2
+          node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/crate-and-cushion/game.js
+          node --test tests/crate-cushion-engine.cjs tests/crate-cushion-dom.cjs
+          node tests/crate-cushion-browser.cjs
+          python tests/assets.py
+          python tests/selected-indie.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crate-cushion-browser
+          path: test-artifacts/crate-cushion/
