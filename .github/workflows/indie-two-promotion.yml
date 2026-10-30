@@ -30,7 +30,7 @@ jobs:
           node tests/copper-cadence-browser.cjs
           node --test tests/wellward-engine.cjs tests/wellward-dom.cjs
           node tests/wellward-browser.cjs
-          node --test tests/reefwright-engine.cjs tests/reefwright-dom.cjs tests/reefwright-dialog-focus.cjs
+          node --test tests/reefwright-engine.cjs tests/reefwright-dom.cjs tests/reefwright-dialog-focus.cjs tests/reefwright-feel.cjs
           node tests/reefwright-browser.cjs
           node tests/curation-regression.cjs
           node tests/hollow-keeper-browser.cjs
