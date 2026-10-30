@@ -1,0 +1,35 @@
+name: Pocket Regatta candidate verification
+on:
+  push:
+    branches: [indie-collection-three-dev]
+    paths:
+      - 'games/pocket-regatta/**'
+      - 'tests/pocket-regatta*'
+      - '.github/workflows/pocket-regatta-verification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pocket-regatta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0 playwright@1.58.2
+          node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/pocket-regatta/game.js
+          node --test tests/pocket-regatta-engine.cjs tests/pocket-regatta-dom.cjs
+          node tests/pocket-regatta-browser.cjs
+          python tests/assets.py
+          python tests/selected-indie.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pocket-regatta-browser
+          path: test-artifacts/pocket-regatta/
