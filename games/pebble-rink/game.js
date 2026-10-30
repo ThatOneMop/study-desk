@@ -4,10 +4,12 @@ const E = PebbleRink, $ = id => document.getElementById(id), ctx = $('rink').get
 // not the number of requestAnimationFrame callbacks (which varies by display).
 const FRAME_MS = 50;
 let state = E.create(), paused = false, blocked = false, pending = null;
+let bridgeHidden = false;
+const hidden = () => bridgeHidden || document.hidden;
 let forecasting = false, forecast = null;
 let frames = [], frame = 0, elapsed = 0, lastTime = null, replaying = false;
 try { const raw = localStorage.getItem(E.KEY); if (raw) state = E.decode(raw); } catch { blocked = true; }
-const busy = () => paused || frames.length > 0 || $('guide').open || $('confirm').open;
+const busy = () => hidden() || paused || frames.length > 0 || $('guide').open || $('confirm').open;
 function btn(t, f) { const b = document.createElement('button'); b.textContent = t; b.onclick = f; return b; }
 function save() {
   if (blocked) { $('save').textContent = 'Unreadable save preserved until confirmed recovery.'; return; }
@@ -15,7 +17,7 @@ function save() {
   catch { $('save').textContent = 'Storage unavailable; this session is temporary.'; }
 }
 function sync() { for (const k of ['angle', 'power', 'spin']) $(k).value = state.setup[k]; }
-function ask(t, f) { pending = f; lastTime = null; $('question').textContent = t; $('confirm').showModal(); render(); }
+function ask(t, f) { if (hidden() || paused || $('guide').open || $('confirm').open) return; pending = f; lastTime = null; $('question').textContent = t; $('confirm').showModal(); render(); }
 function clearFilm() { frames = []; frame = 0; elapsed = 0; lastTime = null; replaying = false; }
 function startFilm(film, replay = false) {
   frames = film; frame = 0; elapsed = 0; lastTime = null; replaying = replay; render();
@@ -99,7 +101,7 @@ function release() {
   if (t.ok) { state = t.state; save(); startFilm(film.frames); }
 }
 function tick(time) {
-  if (frames.length && !paused && !$('guide').open && !$('confirm').open) {
+  if (frames.length && !hidden() && !paused && !$('guide').open && !$('confirm').open) {
     // A stalled/background tab must never skip a whole shot on return.
     if (lastTime !== null) elapsed += Math.min(100, Math.max(0, time - lastTime));
     lastTime = time;
@@ -123,18 +125,18 @@ $('throw').onclick = release;
 $('review').onclick = () => { if (!busy()) { const review = E.review(state); if (review) startFilm(review.frames, true); } };
 $('undo').onclick = () => go('undo');
 $('retry').onclick = () => ask('Retry this rink? Club cards stay.', () => { clearFilm(); go('retry'); });
-$('pause').onclick = () => { paused = !paused; lastTime = null; render(); };
-$('help').onclick = () => { lastTime = null; $('guide').showModal(); render(); };
-$('close').onclick = () => { $('guide').close(); lastTime = null; render(); };
+$('pause').onclick = () => { if (hidden() || $('guide').open || $('confirm').open) return; paused = !paused; lastTime = null; render(); };
+$('help').onclick = () => { if (hidden() || paused || $('confirm').open) return; lastTime = null; $('guide').showModal(); render(); };
+$('close').onclick = () => { if (hidden()) return; $('guide').close(); lastTime = null; render(); };
 $('guide').addEventListener('cancel', () => { lastTime = null; queueMicrotask(render); });
-$('cancel').onclick = () => { pending = null; $('confirm').close(); lastTime = null; render(); };
+$('cancel').onclick = () => { if (hidden()) return; pending = null; $('confirm').close(); lastTime = null; render(); };
 $('confirm').addEventListener('cancel', () => { pending = null; lastTime = null; queueMicrotask(render); });
-$('accept').onclick = () => { const fn = pending; pending = null; $('confirm').close(); paused = false; lastTime = null; fn?.(); };
+$('accept').onclick = () => { if (hidden() || paused || !$('confirm').open) return; const fn = pending; pending = null; $('confirm').close(); paused = false; lastTime = null; fn?.(); };
 $('reset').onclick = () => ask('Clear only Pebble Rink progress?', () => { clearFilm(); state = E.create(); blocked = false; sync(); save(); render(); });
 $('recover').onclick = () => ask('Replace only the unreadable Pebble Rink save?', () => { blocked = false; save(); render(); });
 window.addEventListener('keydown', e => {
   // Preserve native Space/arrow behavior for focused controls and navigation.
-  if (e.repeat || e.ctrlKey || e.altKey || e.metaKey || busy() || e.target.closest?.('input,select,textarea,button,a,summary,[role="button"],[contenteditable]:not([contenteditable="false"])')) return;
+  if (e.isComposing || e.repeat || e.ctrlKey || e.altKey || e.metaKey || busy() || e.target.closest?.('input,select,textarea,button,a,summary,[role="button"],[contenteditable]:not([contenteditable="false"])')) return;
   if (e.key === ' ') { e.preventDefault(); release(); }
   else if (e.key.startsWith('Arrow')) {
     e.preventDefault();
@@ -147,7 +149,7 @@ window.addEventListener('keydown', e => {
 });
 document.addEventListener('visibilitychange', () => { if (document.hidden) { paused = true; lastTime = null; render(); } });
 window.addEventListener('message', e => {
-  if (e.source === parent && e.origin === location.origin && e.data?.type === 'study-visibility' && !e.data.visible) { paused = true; lastTime = null; render(); }
+  if (e.source === parent && e.origin === location.origin && e.data?.type === 'study-visibility' && typeof e.data.visible === 'boolean') { bridgeHidden = !e.data.visible; if (bridgeHidden) paused = true; lastTime = null; render(); }
 });
 sync(); save(); render(); requestAnimationFrame(tick);
 
