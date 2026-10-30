@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  stencil-catalogue:
+  moon-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -27,6 +27,10 @@ jobs:
           node tests/catalog-launch.cjs
           node tests/launcher-navigation.cjs
           node tests/relaxed-collection.cjs
+          node --check games/moon-dial/game.js
+          node --test tests/moon-dial-engine.cjs tests/moon-dial-dom.cjs
+          node tests/moon-dial-browser.cjs
+          node tests/moon-dial-catalog-browser.cjs
           node tests/stencil-studio-browser.cjs
           node tests/stencil-studio-catalog-browser.cjs
           python tests/assets.py
@@ -34,7 +38,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: stencil-catalogue-browser
+          name: moon-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
+            test-artifacts/moon-dial/
+            test-artifacts/moon-catalog/

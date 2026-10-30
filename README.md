@@ -1,6 +1,6 @@
-# Study Desk — 50 games
+# Study Desk — 51 games
 
-The curated catalogue has 50 games: 49 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
+The curated catalogue has 51 games: 50 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
 
 ## Upload to GitHub Pages
 
@@ -67,3 +67,4 @@ Lane Eight is bundled at `games/lane-eight/index.html`: manage training load, ea
 ## Third collection
 
 Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
+

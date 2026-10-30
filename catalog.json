@@ -807,5 +807,30 @@
     "thumbnail": "art/curated/stencil-studio.svg",
     "thumbnailAlt": "Three overlapping sea, rose and sun ink stencils on cream paper",
     "updated": "2026-10-30"
+  },
+  {
+    "id": "moon-dial",
+    "title": "Moon Dial",
+    "description": "Restore three small clockworks by disconnecting couplings and counter-rotating their hands. Rehearse each turn with ghost hands before winding.",
+    "icon": "☾",
+    "genre": "Puzzle",
+    "color": "#e1bd77",
+    "controls": "Tap a dial · 1–5 select · A/D turn · Z undo · On-screen touch controls",
+    "url": "games/moon-dial/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#moon-dial",
+    "aliases": [
+      "clockwork",
+      "moon",
+      "clutch",
+      "mechanical",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/moon-dial.svg",
+    "thumbnailAlt": "Three linked brass dials and pale moon hands on a midnight blue workbench",
+    "updated": "2026-10-31"
   }
 ]
