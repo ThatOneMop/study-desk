@@ -1,0 +1,40 @@
+name: Third collection catalogue promotion
+on:
+  push:
+    branches: [indie-three-promotion]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  stencil-catalogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0 playwright@1.58.2
+          node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/stencil-studio/game.js
+          node --check games/stencil-studio/engine.js
+          node --test tests/stencil-studio-engine.cjs tests/stencil-studio-dom.cjs
+          node tests/curation-regression.cjs
+          node tests/active-credits.cjs
+          node tests/catalog-launch.cjs
+          node tests/launcher-navigation.cjs
+          node tests/relaxed-collection.cjs
+          node tests/stencil-studio-browser.cjs
+          node tests/stencil-studio-catalog-browser.cjs
+          python tests/assets.py
+          python tests/selected-indie.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stencil-catalogue-browser
+          path: |
+            test-artifacts/stencil-studio/
+            test-artifacts/stencil-catalog/

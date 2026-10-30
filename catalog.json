@@ -782,5 +782,30 @@
     "thumbnail": "art/curated/winterfold.svg",
     "thumbnailAlt": "Winterfold cover illustration of coloured runs on a paper mountain",
     "updated": "2026-10-29"
+  },
+  {
+    "id": "stencil-studio",
+    "title": "Stencil Studio",
+    "description": "Layer sea, rose and sun inks into three small prints. Preview colour mixes and lift one ink to repair a mistake without losing later layers.",
+    "icon": "🎨",
+    "genre": "Puzzle + Craft",
+    "color": "#d2ac8b",
+    "controls": "Tap paper to position · Arrows move · R rotates · Z undoes · Space prints · On-screen touch controls",
+    "url": "games/stencil-studio/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#stencil-studio",
+    "aliases": [
+      "printmaking",
+      "stencil",
+      "ink",
+      "craft",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/stencil-studio.svg",
+    "thumbnailAlt": "Three overlapping sea, rose and sun ink stencils on cream paper",
+    "updated": "2026-10-30"
   }
 ]

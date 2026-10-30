@@ -1,6 +1,6 @@
-# Study Desk — 49 games
+# Study Desk — 50 games
 
-The curated catalogue has 49 games: 48 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
+The curated catalogue has 50 games: 49 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
 
 ## Upload to GitHub Pages
 
@@ -24,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 48 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 49 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
@@ -62,3 +62,8 @@ See TEST_REPORT.md. Automated DOM/bridge and static checks passed; no real brows
 ## Lane Eight
 
 Lane Eight is bundled at `games/lane-eight/index.html`: manage training load, earn places at six fictional clubs, plan meets and control every race with chase/overhead cameras. Career progression continues into retirement and squad coaching. Use Export career / Import career to move a save from the standalone site. Save keys remain compatible. See `docs/lane-eight.md` for implementation and verification evidence.
+
+
+## Third collection
+
+Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
