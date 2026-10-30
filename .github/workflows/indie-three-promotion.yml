@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  moon-catalogue:
+  rink-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -33,14 +33,21 @@ jobs:
           node tests/moon-dial-catalog-browser.cjs
           node tests/stencil-studio-browser.cjs
           node tests/stencil-studio-catalog-browser.cjs
+          node --check games/pebble-rink/game.js
+          node --test tests/pebble-rink-engine.cjs tests/pebble-rink-dom.cjs
+          node tests/pebble-rink-browser.cjs
+          node tests/pebble-rink-catalog-browser.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: moon-catalogue-browser
+          name: rink-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
             test-artifacts/moon-dial/
             test-artifacts/moon-catalog/
+
+            test-artifacts/pebble-rink/
+            test-artifacts/pebble-catalog/

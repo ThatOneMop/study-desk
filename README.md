@@ -1,6 +1,6 @@
-# Study Desk — 51 games
+# Study Desk — 52 games
 
-The curated catalogue has 51 games: 50 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
+The curated catalogue has 52 games: 51 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
 
 ## Upload to GitHub Pages
 
@@ -24,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 49 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 51 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
@@ -66,5 +66,6 @@ Lane Eight is bundled at `games/lane-eight/index.html`: manage training load, ea
 
 ## Third collection
 
-Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
+Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. Moon Dial adds three coupled clockworks with turn rehearsal. Pebble Rink adds three tabletop curling rinks with optional collision forecasts, replay and saved club cards. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
+
 

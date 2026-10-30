@@ -832,5 +832,30 @@
     "thumbnail": "art/curated/moon-dial.svg",
     "thumbnailAlt": "Three linked brass dials and pale moon hands on a midnight blue workbench",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "pebble-rink",
+    "title": "Pebble Rink",
+    "description": "Curl three stones into the house. Compare curved paths, bank rebounds and scoring collisions with an optional forecast, then earn club cards on three quiet rinks.",
+    "icon": "🥌",
+    "genre": "Sports + Puzzle",
+    "color": "#90bbb3",
+    "controls": "Tap ice to aim · Arrows adjust angle/weight · Space releases · Touch sliders and buttons",
+    "url": "games/pebble-rink/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#pebble-rink",
+    "aliases": [
+      "curling",
+      "stones",
+      "ice",
+      "relaxed",
+      "winter club"
+    ],
+    "thumbnail": "art/curated/pebble-rink.svg",
+    "thumbnailAlt": "Three coloured curling stones following a curved line toward rings on pale green ice",
+    "updated": "2026-10-31"
   }
 ]

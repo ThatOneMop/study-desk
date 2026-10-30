@@ -1,0 +1,23 @@
+'use strict';
+const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{spawn}=require('node:child_process'),E=require('../games/pebble-rink/engine'),solve=require('./pebble-rink-routes.cjs');
+const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/pebble-rink'),base='http://127.0.0.1:8154';fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','8154','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
+(async()=>{for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promise(r=>setTimeout(r,100))}browser=await chromium.launch({headless:true});
+for(const touch of [false,true]){const context=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},hasTouch:touch,isMobile:touch}),page=await context.newPage(),prefix=touch?'touch':'desktop',errors=[];page.on('pageerror',e=>errors.push(e.message));
+const act=async s=>{const l=page.locator(s);await l.scrollIntoViewIfNeeded();touch?await l.tap():await l.click()},raw=()=>page.evaluate(k=>localStorage.getItem(k),E.KEY),shot=n=>page.screenshot({path:path.join(out,prefix+'-'+n+'.png'),fullPage:true});
+async function setup(a){for(const k of ['angle','power']){await page.locator('#'+k).focus();await page.keyboard.press('Home');const min=k==='angle'?-45:40;for(let i=min;i<a[k];i++)await page.keyboard.press('ArrowRight')}await page.locator('#spin').selectOption(String(a.spin));}
+async function settle(){await page.waitForFunction(()=>!(/motion|Replay/.test(document.querySelector('#status').textContent)),{},{timeout:20000});}
+try{await page.goto(base+'/games/pebble-rink/index.html');await act('#help');await act('#close');
+for(let level=0;level<3;level++){if(level){await act('#courses button:nth-child('+(level+1)+')');await act('#accept')}
+for(const [i,a]of solve(level).entries()){await setup(a);const before=await raw(),s=E.decode(before),expected=E.simulate(E.run(s).stones,a,level).stones;if(await page.locator('#forecast').getAttribute('aria-pressed')!=='true')await act('#forecast');assert.equal(await raw(),before);assert.match(await page.locator('#forecast-note').textContent(),new RegExp('→ '+E.score(expected)+'\\.'));if(i===1)await shot('forecast-'+level);await act('#throw');
+if(level===0&&i===0){await act('#pause');const saved=await raw();assert.match(await page.locator('#status').textContent(),/Paused/);await act('#pause');assert.equal(await raw(),saved)}
+await settle();assert.deepEqual(E.run(E.decode(await raw())).stones,expected);const saved=await raw();await page.reload();assert.equal(await raw(),saved);assert.equal(await page.locator('#forecast').getAttribute('aria-pressed'),'false');}
+assert.match(await page.locator('#status').textContent(),/card earned/);await shot('won-'+level);}
+const saved=await raw();await act('#review');await settle();assert.equal(await raw(),saved);await act('#undo');assert.equal(E.decode(await raw()).shots.length,2);await act('#retry');await act('#cancel');assert.equal(E.decode(await raw()).shots.length,2);await act('#retry');await act('#accept');
+for(let i=0;i<3;i++){await setup({angle:45,power:40,spin:0});await act('#throw');await settle()}assert.match(await page.locator('#status').textContent(),/End finished/);await shot('loss');await act('#undo');assert.equal(E.run(E.decode(await raw())).phase,'aiming');
+await act('#reset');await act('#cancel');await act('#reset');await act('#accept');assert.deepEqual(E.decode(await raw()).records,[null,null,null]);
+// Isolated malformed-save fixture; ordinary UI handles recovery.
+await page.evaluate(k=>{localStorage.setItem(k,'{bad');localStorage.setItem('rink-unrelated','keep')},E.KEY);await page.reload();await act('#recover');await act('#cancel');assert.equal(await raw(),'{bad');await act('#recover');await act('#accept');assert.equal(await page.evaluate(()=>localStorage.getItem('rink-unrelated')),'keep');await shot('recovery');
+assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await act('header a');await page.waitForURL('**/index.html#games');assert.equal(await page.getByRole('button',{name:/switch workspace/i}).count(),0);assert.deepEqual(errors,[]);console.log('PASS',prefix,'all3 rinks with uninterrupted animation, forecast outcomes, pause/replay, exact saves/reload, loss/undo/retry/reset/recovery and navigation');
+}catch(e){await shot('failure');throw e}finally{await context.close()}}
+})().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{if(browser)await browser.close();server.kill()});
+
