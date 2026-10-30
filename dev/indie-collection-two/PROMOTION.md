@@ -156,3 +156,14 @@ Merged paired selective cuts into main's Reefwright at 55d3643e7cb7bff08b3ca7d99
 Counts unchanged:20 built/initially improved/additionally verified;9 selected;7 upgraded versions integrated/live. Third24/50 built,0 qualified improved/browser-tested/integrated/live. All49 catalogue entries, Winterfold, Lane Eight, Gummy Bay and first-batch saves preserved. Launcher/Wellward switch-control audit and live catalogue checks from the preceding release remain current because main is unchanged. No automation changes.
 
 Next: Review Reefwright merged CI40983082802 at55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d, inspect desktop/touch paired-cut screenshots and fix failures before expected-head main promotion/live checks. Preserve gentler first-coast scoring, saves, effects, title/pause and dialog focus. Then integrate Pocket Palaeo. Third24/50 built,0 qualified improved/browser-tested/integrated/live; finish remaining candidates and rendered improvement passes.
+
+
+## Reefwright pause callback fixed — 30 October 2026
+
+Merged CI40983082802 failed after all61 focused checks and desktop campaign interactions: opening shared pause raised Cannot read properties of null (reading textContent). Main's inherited callbacks used CSS-style #IDs with Reefwright's getElementById helper. Fixed pause goal/vitality/help and visual-feedback targets in bb453d6a7f69cba89c2ed0b1d80c4693f50dca09; actual shared-layer regression verifies summary text, paused paired-plan save protection and resume/confirm. All62 focused engine/DOM/focus/feel checks and syntax pass locally. Corrected native CI40989577269 running; no main/live release.
+
+Inspected desktop-paired-preview and desktop-paired-paused from artifact12945544082 (SHA256 a6e6cccdb148774e587d7d7ac537b863ab221348246be8515e5d718292be4b0b): paired forecast clearly shows nurseries+1,kelp−3,vitality unchanged and two-cut cost; paused screenshot exposes missing summary caused by the diagnosed error. Failed run is not qualified merged browser verification; touch loop was not reached. No new gameplay improvement pass counted.
+
+[Corrected merged regression](https://github.com/ThatOneMop/study-desk/actions/runs/40989577269). Counts unchanged:20 built/initially improved/additionally verified;9 selected;7 selected upgrades integrated/live. Third24/50 built,0 qualified improved/browser-tested/integrated/live. Main unchanged; Winterfold, all49 catalogue entries, prior games/saves and automation preserved.
+
+Next: Review corrected Reefwright native CI40989577269 atbb453d6a7f69cba89c2ed0b1d80c4693f50dca09; inspect desktop/touch paired and populated-pause screenshots. Preserve first-coast scoring, records, pause and dialog focus; promote only after passing results, then verify live. Pocket Palaeo remains the final selected merge afterward. Third24/50 built,0 qualified improved/browser-tested/integrated/live; continue remaining games and rendered improvement passes.
