@@ -25,15 +25,15 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 8
+    "verifiedLive": 9
   },
   "deployment": {
     "status": "main-pages-live",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40994808446",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/41011899175",
     "checked": "2026-10-30",
-    "head": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
+    "head": "184368dfcf0f68352014b850e5283c6c6fe545ed",
     "url": "https://thatonemop.github.io/study-desk/",
-    "detail": "Pages40994808446 succeeded. Live UI: placed rotated shell habitat, previewed two nursery removals (vitality5→2), paused with populated summary, resumed and confirmed both cuts. Reload retained one planted habitat,0cuts and vitality2. First Undo restored the thriving nursery,1cut and vitality5; second Undo restored both nurseries and2cuts. Return to catalogue, search and embedded launch preserved the restored reef; paired planning works embedded. Inspected live screenshot. Catalogue49 entries including Winterfold, Lane Eight and Gummy Bay preserved. No Switch workspace controls observed in launcher/game shell; Games, Collection, search, genre/grouping, sort and favourites remain. Desktop and390px touch-emulated return navigation passed in CI. No deployment blocker.",
+    "detail": "Pages41011899175 succeeded on 184368dfcf0f68352014b850e5283c6c6fe545ed. Live browser: title/start, pick and brush exposed Reedfin; jacket preview/confirmation produced JACKET FITTED, local pause opened, reload retained jacket and one remaining resin charge. Return to catalogue, search (one result), embedded launch retained fitted jacket, and Collection returned to filtered catalogue. Live launcher49 entries/48bundled, no Switch workspace controls observed; useful Games/Collection, search, genres, grouping, sorting and favourites preserved. Desktop live interaction plus CI touch-emulated navigation; no deployment blocker.",
     "previousFailure": {
       "status": "blocked",
       "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
@@ -966,7 +966,9 @@
         "40 Pocket Palaeo screenshots retained in artifact 12816395925. Inspected desktop-jacket-preview, touch-jacket-supported and touch-jacket-recovery: treatment cost and free cancellation are legible; amber jacket markers match retained safe-lift feedback; museum condition, rewards and site unlock appear correctly without horizontal clipping. Phone layout requires vertical scrolling. ZIP SHA256 8778fa06e811bbc87a3fde321c35a4d1ce908eda0c842198e7692c186a48bd6b. This is automated reliability and agent screenshot evidence, not human enjoyment or a physical-device claim.",
         "Merged Pocket Palaeo's additional-round resin jackets and retained lift forecasts with current main dust/glint effects, sound, coaching, title and pause in 7ca2a6dcb09fcbbf9619db1e172758191876ac0f. Kept original replay-save format and all existing artwork; restored PPGame adapter for the live feel layer, added title/local/bridge pause guards and stopped excavation strokes on local pause. Jacket fitting now has distinct feedback rather than claiming crack consolidation. Versioned changed local assets. 47 focused engine/DOM checks passed, including all six perfect recoveries, exact jacket forecasts/saves and merged paused journal protection; syntax checks passed. Native routes now enter the real title screen on load/reload and test pause with a staged jacket. Full desktop/touch CI41001276599 is running; merged rendered verification and main promotion remain pending. No new substantive improvement pass counted for integration.",
         "CI41001276599: all48 committed focused checks and complete merged desktop campaign passed, but native touch fast stroke cleared only the first4/8 cells. Failed run is not qualified merged touch verification. Added endpoint interpolation on pointerup (visited cells remain single-hit; pointercancel does not extrapolate), and deferred coach text changes while a stroke is active to prevent tray movement under the finger. Local49 engine/DOM checks passed including release/cancellation regression; syntax passed after coaching guard. Corrected source 184368dfcf0f68352014b850e5283c6c6fe545ed; CI41005746891 running. Native test retains the strict all-eight-cell assertion and now captures fast-stroke screenshot/events for diagnosis.",
-        "Reviewed desktop-jacket-preview, desktop-jacket-supported and touch-start from artifact12954590267 SHA256684b2dbe28637e0d46327e4f9874efca59d32d71b645fdf147d8bc8529e0b0d0. Desktop cost/cancellation and93→96 forecast are readable; two fitted jackets give100% retained lift forecast with distinct feedback. Phone start fits horizontally; title fade visible in capture. No claim of completed touch campaign or human enjoyment."
+        "Reviewed desktop-jacket-preview, desktop-jacket-supported and touch-start from artifact12954590267 SHA256684b2dbe28637e0d46327e4f9874efca59d32d71b645fdf147d8bc8529e0b0d0. Desktop cost/cancellation and93→96 forecast are readable; two fitted jackets give100% retained lift forecast with distinct feedback. Phone start fits horizontally; title fade visible in capture. No claim of completed touch campaign or human enjoyment.",
+        "Corrected merged CI41005746891 on 184368dfcf0f68352014b850e5283c6c6fe545ed passed:49 focused engine/DOM checks; complete desktop and390×844 touch-emulated campaigns covering all six perfect recoveries, all three sites/tools, eight-cell fast strokes, staged/cancelled jackets, retained93→96→100 forecasts, exact saves/reload, pause, fracture/retry, recovery/reset and navigation. Selected-game regressions, assets, first-batch integrity and curation gates passed. Artifact12955754660 SHA2561dc609a2d9c5d3487a094372076c1285c8e233339046533d4c54f15a0c5d47dc; inspected touch-fast-stroke, touch-jacket-supported and touch-jacket-recovery screenshots. All eight stroke cells cleared; jackets/forecasts and100% recovery rewards readable without horizontal clipping. Phone requires vertical scrolling. Automated reliability and agent visual review, not human enjoyment or physical-device evidence.",
+        "Pages41011899175 succeeded on 184368dfcf0f68352014b850e5283c6c6fe545ed. Live browser: title/start, pick and brush exposed Reedfin; jacket preview/confirmation produced JACKET FITTED, local pause opened, reload retained jacket and one remaining resin charge. Return to catalogue, search (one result), embedded launch retained fitted jacket, and Collection returned to filtered catalogue. Live launcher49 entries/48bundled, no Switch workspace controls observed; useful Games/Collection, search, genres, grouping, sorting and favourites preserved. Desktop live interaction plus CI touch-emulated navigation; no deployment blocker."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -975,10 +977,13 @@
         "polish": 4,
         "reliability": 4.5,
         "variety": 4,
-        "notes": "Manual excavation now feeds a more forgiving support puzzle: reusable braces are free to rearrange, while irreversible resin jackets offer a clearly forecast alternative and compete with crack repairs. Kept lift guidance and cancellation make experiments understandable. All six specimens remain perfectly recoverable with the original reusable supports, so the jacket route is an option rather than a mandatory upgrade. Three fixed sites/six specimens still limit long-term discovery; condition records, different support plans and tool purchases provide compact replay. Original SVG/CSS journal presentation is readable in desktop/390px captures, with vertical scrolling on phones. No procedural campaign, sound, measured long playtime, human enjoyment study, physical-device testing or full accessibility certification is claimed."
+        "notes": "Manual excavation now feeds a more forgiving support puzzle: reusable braces are free to rearrange, while irreversible resin jackets offer a clearly forecast alternative and compete with crack repairs. Kept lift guidance and cancellation make experiments understandable. All six specimens remain perfectly recoverable with the original reusable supports, so the jacket route is an option rather than a mandatory upgrade. Three fixed sites/six specimens still limit long-term discovery; condition records, different support plans and tool purchases provide compact replay. Original SVG/CSS journal presentation is readable in desktop/390px captures, with vertical scrolling on phones. Merged release retains main sound, dust/glint feedback and coaching. No procedural campaign, measured long playtime, human enjoyment study, physical-device testing or full accessibility certification is claimed."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "7ca2a6dcb09fcbbf9619db1e172758191876ac0f",
+        "184368dfcf0f68352014b850e5283c6c6fe545ed"
+      ],
       "initialCommit": "56a94c7b79a35c4407e266e51fe4be3e83c83673",
       "developmentCommits": [
         "56a94c7b79a35c4407e266e51fe4be3e83c83673",
@@ -992,7 +997,7 @@
         "5c18e3ed14f3d59df0107ac74c33c4e17e399b3e",
         "184bb3c613a5dba1c17585500cd69b747b3add3e"
       ],
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/pocket-palaeo/index.html",
       "selectionReason": "Tactile excavation, support planning and useful tool purchases.",
       "verification": {
         "commit": "fac96672c40a85256d0c32eaf2a60aba994161b5",
@@ -1015,6 +1020,20 @@
         "artifactSha256": "8778fa06e811bbc87a3fde321c35a4d1ce908eda0c842198e7692c186a48bd6b",
         "status": "Changed-game desktop/emulated-touch routes, 890 engine/DOM checks and inspected screenshots pass; all seven final jobs passed.",
         "report": "dev/indie-collection-two/PALAEO_JACKETS.md"
+      },
+      "mergeVerification": {
+        "commit": "184368dfcf0f68352014b850e5283c6c6fe545ed",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41005746891",
+        "artifact": 12955754660,
+        "artifactSha256": "1dc609a2d9c5d3487a094372076c1285c8e233339046533d4c54f15a0c5d47dc",
+        "status": "passed",
+        "evidence": "Corrected merged CI41005746891 on 184368dfcf0f68352014b850e5283c6c6fe545ed passed:49 focused engine/DOM checks; complete desktop and390×844 touch-emulated campaigns covering all six perfect recoveries, all three sites/tools, eight-cell fast strokes, staged/cancelled jackets, retained93→96→100 forecasts, exact saves/reload, pause, fracture/retry, recovery/reset and navigation. Selected-game regressions, assets, first-batch integrity and curation gates passed. Artifact12955754660 SHA2561dc609a2d9c5d3487a094372076c1285c8e233339046533d4c54f15a0c5d47dc; inspected touch-fast-stroke, touch-jacket-supported and touch-jacket-recovery screenshots. All eight stroke cells cleared; jackets/forecasts and100% recovery rewards readable without horizontal clipping. Phone requires vertical scrolling. Automated reliability and agent visual review, not human enjoyment or physical-device evidence."
+      },
+      "liveVerification": {
+        "commit": "184368dfcf0f68352014b850e5283c6c6fe545ed",
+        "date": "2026-10-30",
+        "pages": "https://github.com/ThatOneMop/study-desk/actions/runs/41011899175",
+        "evidence": "Pages41011899175 succeeded on 184368dfcf0f68352014b850e5283c6c6fe545ed. Live browser: title/start, pick and brush exposed Reedfin; jacket preview/confirmation produced JACKET FITTED, local pause opened, reload retained jacket and one remaining resin charge. Return to catalogue, search (one result), embedded launch retained fitted jacket, and Collection returned to filtered catalogue. Live launcher49 entries/48bundled, no Switch workspace controls observed; useful Games/Collection, search, genres, grouping, sorting and favourites preserved. Desktop live interaction plus CI touch-emulated navigation; no deployment blocker."
       }
     },
     {
@@ -1870,7 +1889,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review corrected Pocket Palaeo CI41005746891 at184368dfcf0f68352014b850e5283c6c6fe545ed; confirm full touch stroke and all six recoveries, inspect new desktop/touch screenshots, fix remaining failures before main promotion/live checks. Main remains8/9 selected upgrades live. Then finish third collection24/50 built,0 qualified improved/browser-tested/integrated/live; retain schedule.",
+  "nextSteps": "Second batch complete:20 built,20 initial and20 additional substantive improvements verified,9selected upgraded releases integrated/live; preserve eleven finished reserves and concurrent catalogue entries. Continue third collection from its exact50-slot ledger:24/50 built,0 qualified improved/browser-tested/integrated/live. Inspect current third source and weakest candidate; implement and rendered-playtest game-specific improvements, then integrate qualified games progressively. Retain existing hourly schedule; do not pause until third obligations complete.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2542,9 +2561,15 @@
       "date": "2026-10-30",
       "result": "CI41001276599: all48 committed focused checks and complete merged desktop campaign passed, but native touch fast stroke cleared only the first4/8 cells. Failed run is not qualified merged touch verification. Added endpoint interpolation on pointerup (visited cells remain single-hit; pointercancel does not extrapolate), and deferred coach text changes while a stroke is active to prevent tray movement under the finger. Local49 engine/DOM checks passed including release/cancellation regression; syntax passed after coaching guard. Corrected source 184368dfcf0f68352014b850e5283c6c6fe545ed; CI41005746891 running. Native test retains the strict all-eight-cell assertion and now captures fast-stroke screenshot/events for diagnosis. Reviewed desktop-jacket-preview, desktop-jacket-supported and touch-start from artifact12954590267 SHA256684b2dbe28637e0d46327e4f9874efca59d32d71b645fdf147d8bc8529e0b0d0. Desktop cost/cancellation and93→96 forecast are readable; two fitted jackets give100% retained lift forecast with distinct feedback. Phone start fits horizontally; title fade visible in capture. No claim of completed touch campaign or human enjoyment.",
       "nextSteps": "Review corrected Pocket Palaeo CI41005746891 at184368dfcf0f68352014b850e5283c6c6fe545ed; confirm full touch stroke and all six recoveries, inspect new desktop/touch screenshots, fix remaining failures before main promotion/live checks. Main remains8/9 selected upgrades live. Then finish third collection24/50 built,0 qualified improved/browser-tested/integrated/live; retain schedule."
+    },
+    {
+      "date": "2026-10-30",
+      "result": "Corrected merged CI41005746891 on 184368dfcf0f68352014b850e5283c6c6fe545ed passed:49 focused engine/DOM checks; complete desktop and390×844 touch-emulated campaigns covering all six perfect recoveries, all three sites/tools, eight-cell fast strokes, staged/cancelled jackets, retained93→96→100 forecasts, exact saves/reload, pause, fracture/retry, recovery/reset and navigation. Selected-game regressions, assets, first-batch integrity and curation gates passed. Artifact12955754660 SHA2561dc609a2d9c5d3487a094372076c1285c8e233339046533d4c54f15a0c5d47dc; inspected touch-fast-stroke, touch-jacket-supported and touch-jacket-recovery screenshots. All eight stroke cells cleared; jackets/forecasts and100% recovery rewards readable without horizontal clipping. Phone requires vertical scrolling. Automated reliability and agent visual review, not human enjoyment or physical-device evidence. Pages41011899175 succeeded on 184368dfcf0f68352014b850e5283c6c6fe545ed. Live browser: title/start, pick and brush exposed Reedfin; jacket preview/confirmation produced JACKET FITTED, local pause opened, reload retained jacket and one remaining resin charge. Return to catalogue, search (one result), embedded launch retained fitted jacket, and Collection returned to filtered catalogue. Live launcher49 entries/48bundled, no Switch workspace controls observed; useful Games/Collection, search, genres, grouping, sorting and favourites preserved. Desktop live interaction plus CI touch-emulated navigation; no deployment blocker.",
+      "publicIntegration": "184368dfcf0f68352014b850e5283c6c6fe545ed",
+      "nextSteps": "Second batch complete:20 built,20 initial and20 additional substantive improvements verified,9selected upgraded releases integrated/live; preserve eleven finished reserves and concurrent catalogue entries. Continue third collection from its exact50-slot ledger:24/50 built,0 qualified improved/browser-tested/integrated/live. Inspect current third source and weakest candidate; implement and rendered-playtest game-specific improvements, then integrate qualified games progressively. Retain existing hourly schedule; do not pause until third obligations complete."
     }
   ],
-  "latestObservedMain": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
+  "latestObservedMain": "184368dfcf0f68352014b850e5283c6c6fe545ed",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2574,25 +2599,18 @@
       "tea-for-ghosts"
     ],
     "scope": "13 earlier second-batch entries remain integrated by concurrent work. Current live Reefwright launch verified; development-branch additional upgrades are not inferred to be live. Preserve all 65 entries and Gummy Bay v180.",
-    "observedCurrentCommit": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
+    "observedCurrentCommit": "184368dfcf0f68352014b850e5283c6c6fe545ed",
     "currentCatalogueTotal": 49,
     "currentSecondBatchCount": 15,
-    "currentScope": "Preserved Winterfold and all49 catalogue entries, first-batch sources, Lane Eight, Gummy Bay and saves. Eight selected additional-round versions are promoted; earlier initial second-batch entries are not counted as upgraded releases."
+    "currentScope": "All49 catalogue entries preserved, including Winterfold, Lane Eight and Gummy Bay. Nine selected additional-round versions integrated/live. Fifteen total second-batch catalogue entries include concurrent initial versions; not all are additional-round releases."
   },
   "promotion": {
     "selected": 9,
-    "integrated": 8,
-    "verifiedLive": 8,
-    "remainingIds": [
-      "pocket-palaeo"
-    ],
+    "integrated": 9,
+    "verifiedLive": 9,
+    "remainingIds": [],
     "branch": "indie-two-promotion",
-    "latestCommit": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
-    "pending": {
-      "id": "pocket-palaeo",
-      "commit": "184368dfcf0f68352014b850e5283c6c6fe545ed",
-      "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41005746891",
-      "status": "touch stroke correction committed; corrected native verification pending"
-    }
+    "latestCommit": "184368dfcf0f68352014b850e5283c6c6fe545ed",
+    "status": "All nine selected additional-round upgrades integrated and verified live."
   }
 }
