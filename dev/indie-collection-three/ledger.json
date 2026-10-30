@@ -293,7 +293,7 @@
       "id": "pebble-rink",
       "title": "Pebble Rink",
       "coreLoop": "Aim, weight and curl three stones; use friction, banks and collisions to leave stones in scoring rings.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-improvement-in-progress",
       "source": "games/pebble-rink",
       "built": true,
       "improved": false,
@@ -305,11 +305,13 @@
         "7 engine tests pass: all three rink wins/unlocks and exact saves, opposite curl, collisions/bounds, film endpoints, loss/undo/retry, malformed saves, read-only review and precise undo setup recall.",
         "7 DOM tests pass: all rink routes/reloads, pause/resume, loss/retry/reset/recovery, elapsed-time playback at different callback rates, read-only replay, per-stone scoring notes, native focused-control keys and help cancellation. Canvas and animation timestamps are mocked.",
         "Syntax, local asset references and exact fifty-slot/count checks passed. Remote change comparison confirms only Pebble Rink source/tests and its development documentation changed. Full repository build/preservation suite not run from partial checkout.",
-        "No rendered, screenshot, physical-touch or enjoyment evidence. Not selected."
+        "No rendered, screenshot, physical-touch or enjoyment evidence. Not selected.",
+        "Managed Sites/CUA rendered baseline released weight70 straight, then reloaded its resolved2-point result. Curl selection retained a straight aiming guide, leaving prospective curve/collision consequences unclear. Added optional dashed trajectories and hollow resting positions for every affected stone, with per-stone and total scoring forecasts. Rendered comparison predicted right curl total2→4 versus straight collision2→5, including existing stone2→3. Released straight and reloaded: exact5-point result; third straight forecast5→6 resolved to6 and unlocked island rink. Inspected baseline, collision forecast and island rebound screenshots. Island forecast correctly shows a central hit rebounding short for0 points.16 focused engine/DOM checks pass, including2 new forecast tests for nonmutation, collision score equivalence, control updates, pause and transient reload behavior. CUA initial animation did not visibly settle before reload; reload skips playback by design. Uninterrupted rendered playback needs explicit CI validation. Full remaining campaigns, touch layout, hidden reset/recovery and catalogue navigation remain pending; no full qualification credit."
       ],
       "commits": [
         "2fd5e3af77d206f05f0231e8dda5435e0909ab34",
-        "db3b0fa00d19be493cfe6fcea0619443497cff9f"
+        "db3b0fa00d19be493cfe6fcea0619443497cff9f",
+        "479bc100196112461058c4538f559b233908a653"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -318,8 +320,9 @@
         "knownLimits": "Three compact rinks with finite three-stone ends. No rendered/touch or human enjoyment evidence. Physics tuning and readability need review."
       },
       "nextSteps": [
-        "Play rendered aiming, curl and collision loops on desktop/touch; inspect screenshots and tune mechanics from observed weaknesses.",
-        "Complete a substantive improvement pass and verify progression/loss/retry, saves/reload, reset and real navigation before catalogue integration."
+        "Validate uninterrupted rendered animation; initial CUA route used documented save/reload to skip playback.",
+        "Complete remaining rinks and touch playtests; audit hidden confirm/recovery guards before qualification.",
+        "Assess forecast readability when multiple stones overlap; qualify only after complete browser regression."
       ],
       "pendingSourceRefinement": {
         "commit": "db3b0fa00d19be493cfe6fcea0619443497cff9f",
@@ -332,6 +335,15 @@
           "Refresh disabled controls after native guide cancellation and preserve rink-selection focus."
         ],
         "remaining": "Rendered desktop/touch review, screenshot inspection and substantive playtest-led improvement remain required. No completed improvement credit."
+      },
+      "pendingRenderedImprovement": {
+        "date": "2026-10-31",
+        "commit": "479bc100196112461058c4538f559b233908a653",
+        "observedWeakness": "Curl and weight setup show only a short straight aim guide; future collision displacement cannot be compared while choosing the next shot.",
+        "before": "Only committed shots or replay reveal curves, rebounds and scoring displacement.",
+        "after": "Optional read-only whole-shot forecast draws curved trajectories and hollow resting stones, reports individual scoring gains/losses, and updates while adjusting angle/weight/curl. Normal release commits; hide restores unassisted play.",
+        "evidence": "Managed Sites/CUA rendered baseline released weight70 straight, then reloaded its resolved2-point result. Curl selection retained a straight aiming guide, leaving prospective curve/collision consequences unclear. Added optional dashed trajectories and hollow resting positions for every affected stone, with per-stone and total scoring forecasts. Rendered comparison predicted right curl total2→4 versus straight collision2→5, including existing stone2→3. Released straight and reloaded: exact5-point result; third straight forecast5→6 resolved to6 and unlocked island rink. Inspected baseline, collision forecast and island rebound screenshots. Island forecast correctly shows a central hit rebounding short for0 points.16 focused engine/DOM checks pass, including2 new forecast tests for nonmutation, collision score equivalence, control updates, pause and transient reload behavior. CUA initial animation did not visibly settle before reload; reload skips playback by design. Uninterrupted rendered playback needs explicit CI validation. Full remaining campaigns, touch layout, hidden reset/recovery and catalogue navigation remain pending; no full qualification credit.",
+        "remaining": "Verify all3 rinks naturally through uninterrupted animation, touch layout, loss/undo/retry, hidden reset/recovery, saves and navigation; inspect screenshots. Do not count as fully improved/browser-tested yet."
       }
     },
     {
@@ -1902,9 +1914,10 @@
     }
   ],
   "nextSteps": [
-    "Play Pebble Rink through its rendered core loop, identify its main weakness and implement a substantive game-specific improvement.",
-    "Qualify remaining22 built candidates and implement26 unbuilt slots; integrate only finished tested games progressively.",
-    "Preserve completed second-batch20/20 additional round and nine live selected upgrades, all first-batch sources/saves and concurrent Study Desk work. Retain hourly schedule."
+    "Validate uninterrupted rendered animation; initial CUA route used documented save/reload to skip playback.",
+    "Complete remaining rinks and touch playtests; audit hidden confirm/recovery guards before qualification.",
+    "Assess forecast readability when multiple stones overlap; qualify only after complete browser regression.",
+    "Continue21 other built candidates and26 unbuilt slots; preserve completed batches and current live releases."
   ],
   "updated": "2026-10-31",
   "latestObservedMain": "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250",
@@ -2470,6 +2483,11 @@
       "verificationRun": 41068188767,
       "pagesRun": 41068656055,
       "next": "Pebble Rink rendered improvement."
+    },
+    {
+      "date": "2026-10-31",
+      "summary": "Pebble Rink optional collision-aware shot forecast implemented after rendered playtest;16 focused checks pass. First rink complete and island forecast reviewed; full qualification pending. Counts remain24/2/2/2/2.",
+      "commit": "479bc100196112461058c4538f559b233908a653"
     }
   ]
 }
