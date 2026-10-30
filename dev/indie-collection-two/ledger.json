@@ -25,15 +25,15 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 7
+    "verifiedLive": 8
   },
   "deployment": {
     "status": "main-pages-live",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40977126617",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40994808446",
     "checked": "2026-10-30",
-    "head": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+    "head": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
     "url": "https://thatonemop.github.io/study-desk/",
-    "detail": "Pages40977126617 succeeded. Live packed kit reduced cargo capacity from2 to1; held steering caused a natural wall strike (3→2 straps). Steady for repairs braked and paused at readiness; repair restored3 straps and capacity2, consumed the kit, and left the bucket paused. Reload preserved bucket505/depth44,3straps,0/2cargo and used kit. Live repair screenshot inspected. Return, catalogue search and embedded relaunch retained that state. Catalogue shows49 games with Winterfold intact. No Switch workspace controls in freshly read launcher/Wellward source or observed live launcher. No deployment blocker.",
+    "detail": "Pages40994808446 succeeded. Live UI: placed rotated shell habitat, previewed two nursery removals (vitality5→2), paused with populated summary, resumed and confirmed both cuts. Reload retained one planted habitat,0cuts and vitality2. First Undo restored the thriving nursery,1cut and vitality5; second Undo restored both nurseries and2cuts. Return to catalogue, search and embedded launch preserved the restored reef; paired planning works embedded. Inspected live screenshot. Catalogue49 entries including Winterfold, Lane Eight and Gummy Bay preserved. No Switch workspace controls observed in launcher/game shell; Games, Collection, search, genre/grouping, sort and favourites remain. Desktop and390px touch-emulated return navigation passed in CI. No deployment blocker.",
     "previousFailure": {
       "status": "blocked",
       "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
@@ -97,7 +97,9 @@
         "Inspected desktop-paired-preview.png, touch-paired-preview.png and touch-paired-committed.png from 28 Reefwright screenshots in artifact 12843054368. Both selected cells and combined costs are visible; nursery 6→7 and forest kelp 3→0 are stated, with vitality remaining 27. The committed board and totals match. This is a tradeoff, not an automatically better or winning layout. Phone text/buttons fit but require vertical scrolling. ZIP SHA256 3f5623479a303a54e4364ab485483f4c7589368286799e7f394c5cc4955130e8. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing.",
         "Merged paired selective cuts into main's Reefwright at 55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d, preserving easier first-coast goals/par, prior medal saves, water seams, planting ripples/streaks, sound/celebrations, title/pause and accessible dialog focus/return. Two-cut previews remain pure; title/local/bridge/hidden guards protect proposals and pending reset confirmations. Versioned local assets. 61 focused engine/DOM/focus checks plus syntax and diff-whitespace checks passed locally. New coverage retains a26-vitality three-medal first-coast record and protects paired previews/confirmation while paused. Native desktop/touch routes now enter the real title screen after reload and test pause during the paired proposal. CI40983082802 running; no public promotion or extra improvement pass counted.",
         "Merged CI40983082802 failed after all61 focused checks and desktop campaign interactions: opening shared pause raised Cannot read properties of null (reading textContent). Main's inherited callbacks used CSS-style #IDs with Reefwright's getElementById helper. Fixed pause goal/vitality/help and visual-feedback targets in bb453d6a7f69cba89c2ed0b1d80c4693f50dca09; actual shared-layer regression verifies summary text, paused paired-plan save protection and resume/confirm. All62 focused engine/DOM/focus/feel checks and syntax pass locally. Corrected native CI40989577269 running; no main/live release.",
-        "Inspected desktop-paired-preview and desktop-paired-paused from artifact12945544082 (SHA256 a6e6cccdb148774e587d7d7ac537b863ab221348246be8515e5d718292be4b0b): paired forecast clearly shows nurseries+1,kelp−3,vitality unchanged and two-cut cost; paused screenshot exposes missing summary caused by the diagnosed error. Failed run is not qualified merged browser verification; touch loop was not reached. No new gameplay improvement pass counted."
+        "Inspected desktop-paired-preview and desktop-paired-paused from artifact12945544082 (SHA256 a6e6cccdb148774e587d7d7ac537b863ab221348246be8515e5d718292be4b0b): paired forecast clearly shows nurseries+1,kelp−3,vitality unchanged and two-cut cost; paused screenshot exposes missing summary caused by the diagnosed error. Failed run is not qualified merged browser verification; touch loop was not reached. No new gameplay improvement pass counted.",
+        "Corrected CI40989577269 succeeded at bb453d6a7f69cba89c2ed0b1d80c4693f50dca09, job123848455302: 62 focused engine/DOM/dialog/real-feel checks, five original plus five cut-assisted campaigns per desktop and emulated-touch context, paired preview/cancel/pause/confirm, exact reload, two-step undo, loss/reopen, restart/cancel, isolated corrupt recovery and navigation with no browser errors. Assets, first-batch integrity, catalogue curation and all earlier selected regressions passed. Artifact12948992857 SHA256540caedd55546297f57be366a3196024d5e36e077fbb5ec88a0d709ada01d761; inspected desktop-paired-paused, touch-paired-preview and touch-paired-committed. Pause now includes goals and vitality. Phone combined forecast and two-cut cost fit; committed nursery6→7/kelp3→0/vitality27 matches forecast. Automated routes and agent screenshot inspection, not human-enjoyment or physical-device evidence.",
+        "Pages40994808446 succeeded. Live UI: placed rotated shell habitat, previewed two nursery removals (vitality5→2), paused with populated summary, resumed and confirmed both cuts. Reload retained one planted habitat,0cuts and vitality2. First Undo restored the thriving nursery,1cut and vitality5; second Undo restored both nurseries and2cuts. Return to catalogue, search and embedded launch preserved the restored reef; paired planning works embedded. Inspected live screenshot. Catalogue49 entries including Winterfold, Lane Eight and Gummy Bay preserved. No Switch workspace controls observed in launcher/game shell; Games, Collection, search, genre/grouping, sort and favourites remain. Desktop and390px touch-emulated return navigation passed in CI. No deployment blocker."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -109,7 +111,10 @@
         "notes": "Rotated mixed-species pieces create competing adjacency and open-water goals. Exact previews support deliberate choices without hiding consequences; free undo encourages experimentation. Five different rock layouts/decks and medal optimization offer compact replay. Original sea-glass/SVG presentation is legible on reviewed desktop/touch captures. No randomized campaign, sound layer, physical-device test, full screen-reader audit or human enjoyment study is claimed. Additional review: selective cutting and combined two-cut planning add local restructuring and lookahead. A nursery gain can sacrifice a required forest despite equal vitality, preserving distinct goals. Five fixed coasts remain compact; no content-duration or human-enjoyment claim."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "55d3643e7cb7bff08b3ca7d99d2a6d028d85ca5d",
+        "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09"
+      ],
       "initialCommit": "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
       "developmentCommits": [
         "64de8a9cc7cb92bd7cd1cef109393b87e99476c3",
@@ -119,7 +124,7 @@
         "92639e48c7e2409f05f7911f67402707e9537b2b"
       ],
       "selectionReason": "Strongest calm spatial planning; paired cuts expose ecological tradeoffs.",
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/reefwright/index.html",
       "verification": {
         "commit": "0cb2dee04c5190e30ac0f4a3c406c9394e061346",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39923241054",
@@ -137,6 +142,18 @@
         "job": 123039159774,
         "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40751257296/artifacts/12843054368",
         "report": "dev/indie-collection-two/REEF_PAIRED_CUTS.md"
+      },
+      "mergeVerification": {
+        "commit": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40989577269",
+        "artifact": 12948992857,
+        "checks": 62
+      },
+      "liveVerification": {
+        "date": "2026-10-30",
+        "commit": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
+        "pagesRun": 40994808446,
+        "detail": "Pages40994808446 succeeded. Live UI: placed rotated shell habitat, previewed two nursery removals (vitality5→2), paused with populated summary, resumed and confirmed both cuts. Reload retained one planted habitat,0cuts and vitality2. First Undo restored the thriving nursery,1cut and vitality5; second Undo restored both nurseries and2cuts. Return to catalogue, search and embedded launch preserved the restored reef; paired planning works embedded. Inspected live screenshot. Catalogue49 entries including Winterfold, Lane Eight and Gummy Bay preserved. No Switch workspace controls observed in launcher/game shell; Games, Collection, search, genre/grouping, sort and favourites remain. Desktop and390px touch-emulated return navigation passed in CI. No deployment blocker."
       }
     },
     {
@@ -1850,7 +1867,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review corrected Reefwright native CI40989577269 atbb453d6a7f69cba89c2ed0b1d80c4693f50dca09; inspect desktop/touch paired and populated-pause screenshots. Preserve first-coast scoring, records, pause and dialog focus; promote only after passing results, then verify live. Pocket Palaeo remains the final selected merge afterward. Third24/50 built,0 qualified improved/browser-tested/integrated/live; continue remaining games and rendered improvement passes.",
+  "nextSteps": "Integrate Pocket Palaeo, the final selected additional-round upgrade, against fresh main; preserve concurrent graphics, sound, controls and saves. Run merged desktop/touch campaigns and inspect screenshots, then promote with expected-head protection and verify live. Continue third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; implement remaining candidates and substantive rendered-playtest improvement passes. Keep existing automation schedule.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2506,9 +2523,15 @@
       "date": "2026-10-30",
       "result": "Merged CI40983082802 failed after all61 focused checks and desktop campaign interactions: opening shared pause raised Cannot read properties of null (reading textContent). Main's inherited callbacks used CSS-style #IDs with Reefwright's getElementById helper. Fixed pause goal/vitality/help and visual-feedback targets in bb453d6a7f69cba89c2ed0b1d80c4693f50dca09; actual shared-layer regression verifies summary text, paused paired-plan save protection and resume/confirm. All62 focused engine/DOM/focus/feel checks and syntax pass locally. Corrected native CI40989577269 running; no main/live release. Inspected desktop-paired-preview and desktop-paired-paused from artifact12945544082 (SHA256 a6e6cccdb148774e587d7d7ac537b863ab221348246be8515e5d718292be4b0b): paired forecast clearly shows nurseries+1,kelp−3,vitality unchanged and two-cut cost; paused screenshot exposes missing summary caused by the diagnosed error. Failed run is not qualified merged browser verification; touch loop was not reached. No new gameplay improvement pass counted.",
       "nextSteps": "Review corrected Reefwright native CI40989577269 atbb453d6a7f69cba89c2ed0b1d80c4693f50dca09; inspect desktop/touch paired and populated-pause screenshots. Preserve first-coast scoring, records, pause and dialog focus; promote only after passing results, then verify live. Pocket Palaeo remains the final selected merge afterward. Third24/50 built,0 qualified improved/browser-tested/integrated/live; continue remaining games and rendered improvement passes."
+    },
+    {
+      "date": "2026-10-30",
+      "result": "Corrected CI40989577269 succeeded at bb453d6a7f69cba89c2ed0b1d80c4693f50dca09, job123848455302: 62 focused engine/DOM/dialog/real-feel checks, five original plus five cut-assisted campaigns per desktop and emulated-touch context, paired preview/cancel/pause/confirm, exact reload, two-step undo, loss/reopen, restart/cancel, isolated corrupt recovery and navigation with no browser errors. Assets, first-batch integrity, catalogue curation and all earlier selected regressions passed. Artifact12948992857 SHA256540caedd55546297f57be366a3196024d5e36e077fbb5ec88a0d709ada01d761; inspected desktop-paired-paused, touch-paired-preview and touch-paired-committed. Pause now includes goals and vitality. Phone combined forecast and two-cut cost fit; committed nursery6→7/kelp3→0/vitality27 matches forecast. Automated routes and agent screenshot inspection, not human-enjoyment or physical-device evidence. Pages40994808446 succeeded. Live UI: placed rotated shell habitat, previewed two nursery removals (vitality5→2), paused with populated summary, resumed and confirmed both cuts. Reload retained one planted habitat,0cuts and vitality2. First Undo restored the thriving nursery,1cut and vitality5; second Undo restored both nurseries and2cuts. Return to catalogue, search and embedded launch preserved the restored reef; paired planning works embedded. Inspected live screenshot. Catalogue49 entries including Winterfold, Lane Eight and Gummy Bay preserved. No Switch workspace controls observed in launcher/game shell; Games, Collection, search, genre/grouping, sort and favourites remain. Desktop and390px touch-emulated return navigation passed in CI. No deployment blocker.",
+      "publicIntegration": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
+      "nextSteps": "Integrate Pocket Palaeo, the final selected additional-round upgrade, against fresh main; preserve concurrent graphics, sound, controls and saves. Run merged desktop/touch campaigns and inspect screenshots, then promote with expected-head protection and verify live. Continue third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; implement remaining candidates and substantive rendered-playtest improvement passes. Keep existing automation schedule."
     }
   ],
-  "latestObservedMain": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+  "latestObservedMain": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2538,26 +2561,19 @@
       "tea-for-ghosts"
     ],
     "scope": "13 earlier second-batch entries remain integrated by concurrent work. Current live Reefwright launch verified; development-branch additional upgrades are not inferred to be live. Preserve all 65 entries and Gummy Bay v180.",
-    "observedCurrentCommit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+    "observedCurrentCommit": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
     "currentCatalogueTotal": 49,
     "currentSecondBatchCount": 15,
-    "currentScope": "Preserved Winterfold and all49 catalogue entries, first-batch sources, Lane Eight, Gummy Bay and saves. Seven selected additional-round versions are promoted; earlier initial second-batch entries are not counted as upgraded releases."
+    "currentScope": "Preserved Winterfold and all49 catalogue entries, first-batch sources, Lane Eight, Gummy Bay and saves. Eight selected additional-round versions are promoted; earlier initial second-batch entries are not counted as upgraded releases."
   },
   "promotion": {
     "selected": 9,
-    "integrated": 7,
-    "verifiedLive": 7,
+    "integrated": 8,
+    "verifiedLive": 8,
     "remainingIds": [
-      "reefwright",
       "pocket-palaeo"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
-    "pending": {
-      "id": "reefwright",
-      "commit": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09",
-      "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40989577269",
-      "status": "pause callback fixed; corrected native verification pending"
-    }
+    "latestCommit": "bb453d6a7f69cba89c2ed0b1d80c4693f50dca09"
   }
 }
