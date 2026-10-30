@@ -25,15 +25,15 @@
     "finished": 20,
     "selected": 9,
     "meaningfulPasses": 40,
-    "verifiedLive": 6
+    "verifiedLive": 7
   },
   "deployment": {
     "status": "main-pages-live",
-    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40887307844",
+    "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/40977126617",
     "checked": "2026-10-30",
-    "head": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
+    "head": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
     "url": "https://thatonemop.github.io/study-desk/",
-    "detail": "Pages40887307844 succeeded. Live first commission: three empty cranks produced a missed note; repaired beat1 with short feed previewed1→0 errors; pause disabled apply/cancel and Escape resumed; applying/reloading retained beat3,0errors and corrected played note. Return to catalogue and search entry verified. Versioned assets served the upgraded UI. No current deployment blocker.",
+    "detail": "Pages40977126617 succeeded. Live packed kit reduced cargo capacity from2 to1; held steering caused a natural wall strike (3→2 straps). Steady for repairs braked and paused at readiness; repair restored3 straps and capacity2, consumed the kit, and left the bucket paused. Reload preserved bucket505/depth44,3straps,0/2cargo and used kit. Live repair screenshot inspected. Return, catalogue search and embedded relaunch retained that state. Catalogue shows49 games with Winterfold intact. No Switch workspace controls in freshly read launcher/Wellward source or observed live launcher. No deployment blocker.",
     "previousFailure": {
       "status": "blocked",
       "latestRun": "https://github.com/ThatOneMop/study-desk/actions/runs/39925660833",
@@ -721,7 +721,9 @@
         "19 public route/assets checks, nine first-batch selected-source hashes, exact 20-slot gate, shell, bridge-pointer and relaxed-collection tests passed. Inherited obsolete playerStudy launcher assertions remain preserved and are not claimed to pass.",
         "Exact source 4fc1344099f8b0181709129156895449e0f2f148: all seven CI jobs in 40731810668 passed, with 536 engine + 374 DOM = 910 checks, syntax/assets, exact twenty-slot and nine first-batch source-integrity gates. Native job 122970863879 passed natural damage, cancelled/resumed physical settling, desktop paused R and touch button repair, exact reload, all four wells/16 relics per context, purchased upgrades, keyboard/multi-touch, clearance guide, ballast, loss/retry, isolated recovery/reset, bridge pause/navigation and real-time RAF motion.",
         "Inspected desktop-repair-complete.png, touch-repair-ready.png and touch-repair-complete.png among 26 Wellward captures in artifact 12835472950. Readiness shows the strap/hook tradeoff; completed repair restores the strap and releases the reserved hook while remaining paused. Controls and feedback are legible, with substantial vertical phone scrolling. ZIP SHA256 51cff4364976b7eedfc420572b52cad58ae8beeed9cc4d57780c234e3e1352a4. Evidence is automated rendered play plus agent screenshot review, not human enjoyment or physical-device testing.",
-        "Wellward merge 5ec9e33b405a8078c368d4bdf69f6e50ea3bb59c passed CI40898047405, job123532413007: 46 focused engine/DOM checks, earlier selected-game regressions, assets, first-batch integrity and curation. Desktop and emulated multi-touch completed natural wall damage, cancelled/resumed physical settling, paused repair and exact reload, four wells/16 relics, purchased upgrades, clearance guidance, ballast, loss/retry, isolated recovery/reset, title/feel/bridge pause and navigation. Normal-clock lowering also passed. Inspected desktop-repair-complete, touch-repair-ready and touch-repair-complete from artifact12909730795; SHA256 c2410344e3d0ee1f64e4befceb347260603c79c71cf6211493ab96d0a1f2fb4a. Strap/hook tradeoff and successful paused repair are legible; long vertical phone scrolling remains. This is automated route and agent visual-review evidence, not human enjoyment or physical-device testing."
+        "Wellward merge 5ec9e33b405a8078c368d4bdf69f6e50ea3bb59c passed CI40898047405, job123532413007: 46 focused engine/DOM checks, earlier selected-game regressions, assets, first-batch integrity and curation. Desktop and emulated multi-touch completed natural wall damage, cancelled/resumed physical settling, paused repair and exact reload, four wells/16 relics, purchased upgrades, clearance guidance, ballast, loss/retry, isolated recovery/reset, title/feel/bridge pause and navigation. Normal-clock lowering also passed. Inspected desktop-repair-complete, touch-repair-ready and touch-repair-complete from artifact12909730795; SHA256 c2410344e3d0ee1f64e4befceb347260603c79c71cf6211493ab96d0a1f2fb4a. Strap/hook tradeoff and successful paused repair are legible; long vertical phone scrolling remains. This is automated route and agent visual-review evidence, not human enjoyment or physical-device testing.",
+        "Fresh-main CI40970354471 succeeded, job123785266892: 46 Wellward engine/DOM checks and complete desktop/emulated-touch four-well/16-relic routes, repairs, exact reloads, upgrades, ballast, loss/retry, isolated recovery/reset, pause and navigation. Earlier selected-game regression, assets, first-batch integrity and current curation passed. Reviewed repair screenshots from identical gameplay source in prior run40898047405; fresh-main artifact12940718181 SHA256176084cb4706d84023228ab3930b10c075951379f7aa92f72aff223018a62ce5 retained. Automated route and agent screenshot evidence, not human enjoyment or physical-device testing.",
+        "Pages40977126617 succeeded. Live packed kit reduced cargo capacity from2 to1; held steering caused a natural wall strike (3→2 straps). Steady for repairs braked and paused at readiness; repair restored3 straps and capacity2, consumed the kit, and left the bucket paused. Reload preserved bucket505/depth44,3straps,0/2cargo and used kit. Live repair screenshot inspected. Return, catalogue search and embedded relaunch retained that state. Catalogue shows49 games with Winterfold intact. No Switch workspace controls in freshly read launcher/Wellward source or observed live launcher. No deployment blocker."
       ],
       "quality": {
         "scale": "1–5, agent design review; not player survey scores",
@@ -733,7 +735,9 @@
         "notes": "Swing, steady and haul create a manual retrieval loop; cargo capacity, banked workshop purchases and optional water ballast add decisions. Four authored wells introduce bends, water and wind. The clearance sketch improves navigation without automating movement. Compact replay comes from optional relics and upgrade order; the finite campaign limits depth. Original smooth Canvas artwork. No sound layer, realistic rope wrapping, human enjoyment study, physical-device test or hours-of-content claim. Additional review: repair kit capacity cost and cancellable settling add a deliberate recovery choice. The paused keyboard mismatch found in rendered review is fixed and natively tested. Four fixed wells remain compact; phone layout requires scrolling. No unmeasured content-duration claim. Promotion review: main's title/pause/audio, splash, steady-haul effects and personal-best panel are preserved. Prior note about no sound describes the original development version."
       },
       "selected": true,
-      "integrationCommits": [],
+      "integrationCommits": [
+        "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72"
+      ],
       "initialCommit": "902ba544df8b138932b5ed1f2abad1051b4ea37e",
       "developmentCommits": [
         "902ba544df8b138932b5ed1f2abad1051b4ea37e",
@@ -744,7 +748,7 @@
         "4fc1344099f8b0181709129156895449e0f2f148"
       ],
       "selectionReason": "Strongest manual retrieval and bank-and-upgrade loop; recovery competes with cargo capacity.",
-      "publishedUrl": null,
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/wellward/index.html",
       "verification": {
         "commit": "81a926013f7ab058d7d354c62715fce12d6efffa",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/39970632618",
@@ -768,6 +772,12 @@
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40898047405",
         "artifact": "https://github.com/ThatOneMop/study-desk/actions/runs/40898047405/artifacts/12909730795",
         "pendingReconciliation": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72"
+      },
+      "liveVerification": {
+        "date": "2026-10-30",
+        "commit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+        "url": "https://thatonemop.github.io/study-desk/games/wellward/index.html",
+        "detail": "Pages40977126617 succeeded. Live packed kit reduced cargo capacity from2 to1; held steering caused a natural wall strike (3→2 straps). Steady for repairs braked and paused at readiness; repair restored3 straps and capacity2, consumed the kit, and left the bucket paused. Reload preserved bucket505/depth44,3straps,0/2cargo and used kit. Live repair screenshot inspected. Return, catalogue search and embedded relaunch retained that state. Catalogue shows49 games with Winterfold intact. No Switch workspace controls in freshly read launcher/Wellward source or observed live launcher. No deployment blocker."
       }
     },
     {
@@ -1837,7 +1847,7 @@
       "selectionReason": "Finished reserve: the compact campaign and overlap with selected loops make it a lower priority for this release. Preserve any concurrent existing catalogue entry; do not remove it as part of selection."
     }
   ],
-  "nextSteps": "Review fresh-main regression 40970354471 at 8f5777321a35b6c2f7283f37bdadc8f6bd61ed72, preserving Winterfold and its newer catalogue/test changes. Wellward gameplay is identical to the reviewed successful run. After checks pass, promote with a fresh main lease and verify deployment/live repair, save/reload and catalogue navigation. Then integrate Reefwright and Pocket Palaeo; finish third collection (24/50 built,0 qualified improved/browser-tested/integrated/live).",
+  "nextSteps": "Integrate Reefwright and Pocket Palaeo against fresh main, preserving concurrent visuals, controls and saves. Verify merged desktop/touch campaigns and inspect screenshots before promotion, then live routes. Complete third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes.",
   "baselineTestLimitations": [
     {
       "tests": [
@@ -2477,9 +2487,15 @@
       "date": "2026-10-30",
       "result": "Wellward merge 5ec9e33b405a8078c368d4bdf69f6e50ea3bb59c passed CI40898047405, job123532413007: 46 focused engine/DOM checks, earlier selected-game regressions, assets, first-batch integrity and curation. Desktop and emulated multi-touch completed natural wall damage, cancelled/resumed physical settling, paused repair and exact reload, four wells/16 relics, purchased upgrades, clearance guidance, ballast, loss/retry, isolated recovery/reset, title/feel/bridge pause and navigation. Normal-clock lowering also passed. Inspected desktop-repair-complete, touch-repair-ready and touch-repair-complete from artifact12909730795; SHA256 c2410344e3d0ee1f64e4befceb347260603c79c71cf6211493ab96d0a1f2fb4a. Strap/hook tradeoff and successful paused repair are legible; long vertical phone scrolling remains. This is automated route and agent visual-review evidence, not human enjoyment or physical-device testing. Main advanced independently to 15f1531aed5f0b52a5ee44d13fc492eb3d0b396b with Winterfold. Reconciled the nine Wellward source/test/workflow files onto that main as 8f5777321a35b6c2f7283f37bdadc8f6bd61ed72; kept all concurrent changes. Fresh-main regression 40970354471 running. No main/live release or additional gameplay pass claimed.",
       "nextSteps": "Review fresh-main regression 40970354471 at 8f5777321a35b6c2f7283f37bdadc8f6bd61ed72, preserving Winterfold and its newer catalogue/test changes. Wellward gameplay is identical to the reviewed successful run. After checks pass, promote with a fresh main lease and verify deployment/live repair, save/reload and catalogue navigation. Then integrate Reefwright and Pocket Palaeo; finish third collection (24/50 built,0 qualified improved/browser-tested/integrated/live)."
+    },
+    {
+      "date": "2026-10-30",
+      "result": "Fresh-main CI40970354471 succeeded, job123785266892: 46 Wellward engine/DOM checks and complete desktop/emulated-touch four-well/16-relic routes, repairs, exact reloads, upgrades, ballast, loss/retry, isolated recovery/reset, pause and navigation. Earlier selected-game regression, assets, first-batch integrity and current curation passed. Reviewed repair screenshots from identical gameplay source in prior run40898047405; fresh-main artifact12940718181 SHA256176084cb4706d84023228ab3930b10c075951379f7aa92f72aff223018a62ce5 retained. Automated route and agent screenshot evidence, not human enjoyment or physical-device testing. Pages40977126617 succeeded. Live packed kit reduced cargo capacity from2 to1; held steering caused a natural wall strike (3→2 straps). Steady for repairs braked and paused at readiness; repair restored3 straps and capacity2, consumed the kit, and left the bucket paused. Reload preserved bucket505/depth44,3straps,0/2cargo and used kit. Live repair screenshot inspected. Return, catalogue search and embedded relaunch retained that state. Catalogue shows49 games with Winterfold intact. No Switch workspace controls in freshly read launcher/Wellward source or observed live launcher. No deployment blocker.",
+      "publicIntegration": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+      "nextSteps": "Integrate Reefwright and Pocket Palaeo against fresh main, preserving concurrent visuals, controls and saves. Verify merged desktop/touch campaigns and inspect screenshots before promotion, then live routes. Complete third collection:24/50 built,0 qualified improved/browser-tested/integrated/live; finish missing candidates and rendered improvement passes."
     }
   ],
-  "latestObservedMain": "15f1531aed5f0b52a5ee44d13fc492eb3d0b396b",
+  "latestObservedMain": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
   "concurrentWork": "Concurrent main 0f295c9795590f96a90c6ceb8c1d165e77fcd3a7 adds all-created catalogue (64 total), including thirteen second-batch initial games. Cairn, Murmuration, Night Clerk and Clockwork Tide were absent from that earlier snapshot. Preserve this integration; no merging or catalogue writes by this increment.",
   "additionalRound": {
     "requested": "2026-10-24",
@@ -2509,27 +2525,20 @@
       "tea-for-ghosts"
     ],
     "scope": "13 earlier second-batch entries remain integrated by concurrent work. Current live Reefwright launch verified; development-branch additional upgrades are not inferred to be live. Preserve all 65 entries and Gummy Bay v180.",
-    "observedCurrentCommit": "0f47f738eecde95c0608f9c045091e8e690eda6b",
-    "currentCatalogueTotal": 48,
+    "observedCurrentCommit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
+    "currentCatalogueTotal": 49,
     "currentSecondBatchCount": 15,
-    "currentScope": "Preserved all 46 entries on main519934 and the deliberate Nightshift/Afterlight retirement; appended Cairn & Cord and Murmuration only. Earlier 65-entry historical snapshot above is not the current catalogue. Lane Eight, Gummy Bay, Ashwake and existing saves untouched."
+    "currentScope": "Preserved Winterfold and all49 catalogue entries, first-batch sources, Lane Eight, Gummy Bay and saves. Seven selected additional-round versions are promoted; earlier initial second-batch entries are not counted as upgraded releases."
   },
   "promotion": {
     "selected": 9,
-    "integrated": 6,
-    "verifiedLive": 6,
+    "integrated": 7,
+    "verifiedLive": 7,
     "remainingIds": [
       "reefwright",
-      "wellward",
       "pocket-palaeo"
     ],
     "branch": "indie-two-promotion",
-    "latestCommit": "4b26256a6fbe3add62aac94cc52fa252bc4120dc",
-    "pending": {
-      "id": "wellward",
-      "commit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72",
-      "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/40970354471",
-      "status": "Reviewed gameplay; fresh-main regression pending before promotion"
-    }
+    "latestCommit": "8f5777321a35b6c2f7283f37bdadc8f6bd61ed72"
   }
 }
