@@ -53,14 +53,16 @@
         "No rendered browser, touch-emulation, screenshot or enjoyment evidence for this prototype yet.",
         "Selective ink lift: 20 passing tests (12 engine, 8 jsdom), retaining original 15. Selected-channel removal, later-layer preservation, exact read-only forecasts, five-operation recovery route, allowance/no-op guards, undo/records, malformed journals, old saves/setup, UI preview/commit/reload, pause/guide and native-button Space ownership. Scripts pass syntax checks. No rendered evidence.",
         "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit.",
-        "Managed Sites local preview succeeded through sites-preview at its returned terminal.local URL. CUA rendered desktop baseline completed Paper garden in3 operations, then printed a misplaced Sun ribbon. Screenshots showed target/bed vertically offset and aggregate-only diagnosis. Implemented optional on-bed planned comparison: per-cell +missing inks, −excess inks and match ticks, including prospective print/lift effects without spending an operation. Rendered post-change route previewed removal of misplaced Sun, confirmed lift, completed first commission in5 operations, reloaded the completed journal (best3 retained), paused/resumed and returned through Games to the local preview index. Inspected baseline, mistake/comparison and final completed-board screenshots.26 engine/DOM tests pass (13 each); syntax passes. No injected game state used. No mobile, full three-commission browser suite, physical-device or human enjoyment claim."
+        "Managed Sites local preview succeeded through sites-preview at its returned terminal.local URL. CUA rendered desktop baseline completed Paper garden in3 operations, then printed a misplaced Sun ribbon. Screenshots showed target/bed vertically offset and aggregate-only diagnosis. Implemented optional on-bed planned comparison: per-cell +missing inks, −excess inks and match ticks, including prospective print/lift effects without spending an operation. Rendered post-change route previewed removal of misplaced Sun, confirmed lift, completed first commission in5 operations, reloaded the completed journal (best3 retained), paused/resumed and returned through Games to the local preview index. Inspected baseline, mistake/comparison and final completed-board screenshots.26 engine/DOM tests pass (13 each); syntax passes. No injected game state used. No mobile, full three-commission browser suite, physical-device or human enjoyment claim.",
+        "30October rendered CUA verification: all three commissions completed in3 operations via normal controls; Harbour flags mid-print reload retained exact layer/setup, final reload retained three best records. Deliberate five-operation loss, undo back to active, retry cancellation and confirmation passed. Bed ArrowRight/R keyboard placement tested. Authored390×844 iframe harness exercised actual responsive CSS (desktop pointer, not touch emulation): comparison, printing, lift preview/confirmation and scoped reset cancellation/confirmation passed. Narrow screenshot showed9px badges too small; removed9px override and added full-size selected-square readout of current/target/planned inks and add/lift actions. After edit, inspected390px screenshot; readout wraps legibly without horizontal clipping.27 automated checks pass (13 engine,14 DOM), syntax passes. Native touch, rendered corrupt-save recovery and real catalogue integration remain pending."
       ],
       "commits": [
         "035611d0c1a147dc63a09484abfc30ed8bee29c0",
         "c7fdaa6bb22f71405466d434b797ec145885390b",
         "08600a642bbc4bba782731e5ddc9634d2ea51fc8",
         "5e75339160f8099d7a4f80fbeab3ff32747994de",
-        "c138bd39bd240599882f3ba79e15e077ca6fff0d"
+        "c138bd39bd240599882f3ba79e15e077ca6fff0d",
+        "24ed18e62fe61df94a930814f47ea4f7e8a15d02"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -69,8 +71,7 @@
         "knownLimits": "Three compact authored commissions. Initial mechanics only; no playtest-led improvement yet."
       },
       "nextSteps": [
-        "Complete remaining commissions, deliberate loss/retry, keyboard routes, reset/recovery, mobile/touch and full navigation against real launcher; inspect screenshots before qualified improvement/browser-tested status or integration.",
-        "Assess whether compact three-commission progression needs a deeper player choice after full rendered play."
+        "Native touch input, rendered corrupt-save recovery and actual catalogue launch/navigation; final regression after integration. Narrow iframe is responsive-layout/pointer evidence, not native touch."
       ],
       "pendingSourceRefinement": {
         "commit": "c7fdaa6bb22f71405466d434b797ec145885390b",
@@ -102,7 +103,9 @@
         "before": "Only separate target and mismatch totals; player must visually compare mixed colours across boards.",
         "after": "Optional cell-local planned comparison gives exact +add/−lift inks and matches while positioning either print or lift, without spending resources.",
         "evidence": "Managed Sites local preview succeeded through sites-preview at its returned terminal.local URL. CUA rendered desktop baseline completed Paper garden in3 operations, then printed a misplaced Sun ribbon. Screenshots showed target/bed vertically offset and aggregate-only diagnosis. Implemented optional on-bed planned comparison: per-cell +missing inks, −excess inks and match ticks, including prospective print/lift effects without spending an operation. Rendered post-change route previewed removal of misplaced Sun, confirmed lift, completed first commission in5 operations, reloaded the completed journal (best3 retained), paused/resumed and returned through Games to the local preview index. Inspected baseline, mistake/comparison and final completed-board screenshots.26 engine/DOM tests pass (13 each); syntax passes. No injected game state used. No mobile, full three-commission browser suite, physical-device or human enjoyment claim.",
-        "remaining": "Complete remaining commissions, deliberate loss/retry, keyboard routes, reset/recovery, mobile/touch and full navigation against real launcher; inspect screenshots before qualified improvement/browser-tested status or integration."
+        "remaining": "Native touch input, rendered corrupt-save recovery and actual catalogue launch/navigation; final regression after integration. Narrow iframe is responsive-layout/pointer evidence, not native touch.",
+        "followupCommit": "24ed18e62fe61df94a930814f47ea4f7e8a15d02",
+        "followupEvidence": "30October rendered CUA verification: all three commissions completed in3 operations via normal controls; Harbour flags mid-print reload retained exact layer/setup, final reload retained three best records. Deliberate five-operation loss, undo back to active, retry cancellation and confirmation passed. Bed ArrowRight/R keyboard placement tested. Authored390×844 iframe harness exercised actual responsive CSS (desktop pointer, not touch emulation): comparison, printing, lift preview/confirmation and scoped reset cancellation/confirmation passed. Narrow screenshot showed9px badges too small; removed9px override and added full-size selected-square readout of current/target/planned inks and add/lift actions. After edit, inspected390px screenshot; readout wraps legibly without horizontal clipping.27 automated checks pass (13 engine,14 DOM), syntax passes. Native touch, rendered corrupt-save recovery and real catalogue integration remain pending."
       }
     },
     {
@@ -1772,7 +1775,7 @@
   ],
   "nextSteps": [
     "Second batch complete: preserve20 finished candidates,40 substantive passes and9 selected upgraded live releases.",
-    "Continue Stencil Studio rendered comparison improvement c138bd39bd240599882f3ba79e15e077ca6fff0d: first commission baseline/repair, reload and pause verified; remaining commissions, desktop/touch, loss/retry/reset/recovery and actual catalogue navigation pending. Use working Sites managed local preview + CUA, not old blocked browser paths.",
+    "Finish Stencil Studio qualification: comparison source c138bd39 plus narrow readout24ed18e. All three desktop commissions, loss/retry, saves, keyboard and390px pointer layout verified. Native touch, rendered corrupt-save recovery and actual catalogue launch/navigation remain before completed improvement/integration credit.",
     "Render and improve all24 third-batch prototypes; implement26 remaining distinct games and progressively integrate qualified games. Keep unfinished candidates unlisted. Retain existing hourly schedule."
   ],
   "updated": "2026-10-30",
@@ -2275,6 +2278,13 @@
       "result": "Managed Sites local preview succeeded through sites-preview at its returned terminal.local URL. CUA rendered desktop baseline completed Paper garden in3 operations, then printed a misplaced Sun ribbon. Screenshots showed target/bed vertically offset and aggregate-only diagnosis. Implemented optional on-bed planned comparison: per-cell +missing inks, −excess inks and match ticks, including prospective print/lift effects without spending an operation. Rendered post-change route previewed removal of misplaced Sun, confirmed lift, completed first commission in5 operations, reloaded the completed journal (best3 retained), paused/resumed and returned through Games to the local preview index. Inspected baseline, mistake/comparison and final completed-board screenshots.26 engine/DOM tests pass (13 each); syntax passes. No injected game state used. No mobile, full three-commission browser suite, physical-device or human enjoyment claim.",
       "mainObserved": "184368dfcf0f68352014b850e5283c6c6fe545ed",
       "browserStatus": "Local supported preview is now working; historical third-batch rendering blocker is superseded. Complete rendered QA, do not repeat the old failure."
+    },
+    {
+      "date": "2026-10-30",
+      "commit": "24ed18e62fe61df94a930814f47ea4f7e8a15d02",
+      "result": "30October rendered CUA verification: all three commissions completed in3 operations via normal controls; Harbour flags mid-print reload retained exact layer/setup, final reload retained three best records. Deliberate five-operation loss, undo back to active, retry cancellation and confirmation passed. Bed ArrowRight/R keyboard placement tested. Authored390×844 iframe harness exercised actual responsive CSS (desktop pointer, not touch emulation): comparison, printing, lift preview/confirmation and scoped reset cancellation/confirmation passed. Narrow screenshot showed9px badges too small; removed9px override and added full-size selected-square readout of current/target/planned inks and add/lift actions. After edit, inspected390px screenshot; readout wraps legibly without horizontal clipping.27 automated checks pass (13 engine,14 DOM), syntax passes. Native touch, rendered corrupt-save recovery and real catalogue integration remain pending.",
+      "mainObserved": "184368dfcf0f68352014b850e5283c6c6fe545ed",
+      "browserStatus": "Managed local preview + CUA works. Narrow iframe checks are explicitly desktop pointer, not touch."
     }
   ]
 }
