@@ -7,7 +7,7 @@ FeelKit({id:'pocket-palaeo',prefix:'pp',global:'PPFeel',title:'Pocket Palaeo',ey
  tagline:'Brush away the years, brace fragile bones and lift whole specimens into your little museum.',
  startLabel:'Open the field case',keys:'1 brush · 2 pick · 3 brace · 4 resin · 5 lift · 6 jacket · arrows + Enter · P pause',
  pauseTitle:'Tea in the tent',pauseText:'The dig site waits under its tarp. Nothing changes until you return.',
- onPause:()=>G()?.stop(),headerBefore:'header #help',guide:'#help',play:'#board',tipAfter:'#tool-note',accent:'#2f5547',accentInk:'#f6ecd8',card:'#f6ecd8',ink:'#2b3a33',good:'#2f5547',goodInk:'#2f5547',tipBg:'#2f554714',shade:'#3b2a1acc',root:392,
+ holdTip:()=>G()?.stroking,onPause:()=>G()?.stop(),headerBefore:'header #help',guide:'#help',play:'#board',tipAfter:'#tool-note',accent:'#2f5547',accentInk:'#f6ecd8',card:'#f6ecd8',ink:'#2b3a33',good:'#2f5547',goodInk:'#2f5547',tipBg:'#2f554714',shade:'#3b2a1acc',root:392,
  colors:['#c9905d','#e7c9a0','#8a5a36','#f3e6c8'],ambient:{cut:900,vol:.08,notes:[0,2,4,7,9]},
  escBusy:()=>G()&&G().grip!=null,
  progress:()=>{const g=G();if(!g)return'';const n=g.s.records.filter(Boolean).length;return n?`${n} of 6 specimens in the museum · ${g.s.marks} research seals`:'Three sites. Six specimens waiting.'},

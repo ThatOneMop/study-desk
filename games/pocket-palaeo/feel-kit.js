@@ -78,7 +78,7 @@ window.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;c
 for(const t of ['pointerdown','mousedown','click'])window.addEventListener(t,e=>{if(e.target.closest&&e.target.closest("a[href]")&&!K.paused)return;if((K.paused&&!pause.contains(e.target))||(!K.opened&&!title.contains(e.target))){e.stopImmediatePropagation();e.preventDefault()}},true);
 // watch the game state and react
 let prev=null;function loop(){try{const cur=C.snap();if(prev&&cur){for(const r of C.rules)if(r.test(prev,cur)){r.sfx&&SFX[r.sfx]&&SFX[r.sfx]();r.run&&r.run(K,prev,cur)}}
- if(tip){const t=C.tip(cur);tip.hidden=!t;if(t&&tip.innerHTML!==t)tip.innerHTML=t}
+ if(tip&&!C.holdTip?.()){const t=C.tip(cur);tip.hidden=!t;if(t&&tip.innerHTML!==t)tip.innerHTML=t}
  const pr=$('#'+P+'Prog');if(pr&&C.progress&&!K.opened)pr.textContent=C.progress();prev=cur}catch(e){console.warn(e)}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 window[C.global]=K;return K}})();
