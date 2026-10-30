@@ -38,7 +38,7 @@
       "id": "stencil-studio",
       "title": "Stencil Studio",
       "coreLoop": "Position and rotate stencils, overlay three ink colours, and reproduce spatial print commissions with limited impressions.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-improvement-in-progress",
       "source": "games/stencil-studio",
       "built": true,
       "improved": false,
@@ -52,13 +52,15 @@
         "Asset reference and first-batch integrity checks passed. Syntax and git diff checks passed.",
         "No rendered browser, touch-emulation, screenshot or enjoyment evidence for this prototype yet.",
         "Selective ink lift: 20 passing tests (12 engine, 8 jsdom), retaining original 15. Selected-channel removal, later-layer preservation, exact read-only forecasts, five-operation recovery route, allowance/no-op guards, undo/records, malformed journals, old saves/setup, UI preview/commit/reload, pause/guide and native-button Space ownership. Scripts pass syntax checks. No rendered evidence.",
-        "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit."
+        "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit.",
+        "Managed Sites local preview succeeded through sites-preview at its returned terminal.local URL. CUA rendered desktop baseline completed Paper garden in3 operations, then printed a misplaced Sun ribbon. Screenshots showed target/bed vertically offset and aggregate-only diagnosis. Implemented optional on-bed planned comparison: per-cell +missing inks, −excess inks and match ticks, including prospective print/lift effects without spending an operation. Rendered post-change route previewed removal of misplaced Sun, confirmed lift, completed first commission in5 operations, reloaded the completed journal (best3 retained), paused/resumed and returned through Games to the local preview index. Inspected baseline, mistake/comparison and final completed-board screenshots.26 engine/DOM tests pass (13 each); syntax passes. No injected game state used. No mobile, full three-commission browser suite, physical-device or human enjoyment claim."
       ],
       "commits": [
         "035611d0c1a147dc63a09484abfc30ed8bee29c0",
         "c7fdaa6bb22f71405466d434b797ec145885390b",
         "08600a642bbc4bba782731e5ddc9634d2ea51fc8",
-        "5e75339160f8099d7a4f80fbeab3ff32747994de"
+        "5e75339160f8099d7a4f80fbeab3ff32747994de",
+        "c138bd39bd240599882f3ba79e15e077ca6fff0d"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -67,8 +69,8 @@
         "knownLimits": "Three compact authored commissions. Initial mechanics only; no playtest-led improvement yet."
       },
       "nextSteps": [
-        "Play actual rendered core loop; assess stencil readability, mobile targeting and progression depth.",
-        "Implement substantive improvement based on observed weakness; verify natural wins/loss/retry, save/reload, reset/navigation, desktop/touch and inspect screenshots before integration."
+        "Complete remaining commissions, deliberate loss/retry, keyboard routes, reset/recovery, mobile/touch and full navigation against real launcher; inspect screenshots before qualified improvement/browser-tested status or integration.",
+        "Assess whether compact three-commission progression needs a deeper player choice after full rendered play."
       ],
       "pendingSourceRefinement": {
         "commit": "c7fdaa6bb22f71405466d434b797ec145885390b",
@@ -92,6 +94,15 @@
         "commit": "5e75339160f8099d7a4f80fbeab3ff32747994de",
         "basis": "Source inspection plus reproduced failing jsdom regressions; not rendered playtesting.",
         "validation": "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit."
+      },
+      "pendingRenderedImprovement": {
+        "commit": "c138bd39bd240599882f3ba79e15e077ca6fff0d",
+        "date": "2026-10-30",
+        "observedWeakness": "Rendered printing bed and target are vertically offset; aggregate forecast does not explain which channels need adding versus lifting in each square.",
+        "before": "Only separate target and mismatch totals; player must visually compare mixed colours across boards.",
+        "after": "Optional cell-local planned comparison gives exact +add/−lift inks and matches while positioning either print or lift, without spending resources.",
+        "evidence": "Managed Sites local preview succeeded through sites-preview at its returned terminal.local URL. CUA rendered desktop baseline completed Paper garden in3 operations, then printed a misplaced Sun ribbon. Screenshots showed target/bed vertically offset and aggregate-only diagnosis. Implemented optional on-bed planned comparison: per-cell +missing inks, −excess inks and match ticks, including prospective print/lift effects without spending an operation. Rendered post-change route previewed removal of misplaced Sun, confirmed lift, completed first commission in5 operations, reloaded the completed journal (best3 retained), paused/resumed and returned through Games to the local preview index. Inspected baseline, mistake/comparison and final completed-board screenshots.26 engine/DOM tests pass (13 each); syntax passes. No injected game state used. No mobile, full three-commission browser suite, physical-device or human enjoyment claim.",
+        "remaining": "Complete remaining commissions, deliberate loss/retry, keyboard routes, reset/recovery, mobile/touch and full navigation against real launcher; inspect screenshots before qualified improvement/browser-tested status or integration."
       }
     },
     {
@@ -1761,7 +1772,7 @@
   ],
   "nextSteps": [
     "Second batch complete: preserve20 finished candidates,40 substantive passes and9 selected upgraded live releases.",
-    "Prioritize rendered Stencil Studio baseline playtest, then implement a game-specific improvement based on observed play. Verify desktop/touch progression, repair choices, save/reload, restart and navigation; inspect screenshots. Do not count source-only refinements as completed improvements.",
+    "Continue Stencil Studio rendered comparison improvement c138bd39bd240599882f3ba79e15e077ca6fff0d: first commission baseline/repair, reload and pause verified; remaining commissions, desktop/touch, loss/retry/reset/recovery and actual catalogue navigation pending. Use working Sites managed local preview + CUA, not old blocked browser paths.",
     "Render and improve all24 third-batch prototypes; implement26 remaining distinct games and progressively integrate qualified games. Keep unfinished candidates unlisted. Retain existing hourly schedule."
   ],
   "updated": "2026-10-30",
@@ -2257,6 +2268,13 @@
       "result": "Stencil Studio hidden-action and keyboard repair: four new regressions failed before the fix; all24 checks (12 engine,12 DOM) now pass. Hidden bridge/document state blocks reset/recovery confirmation, modal reopening and resume; visible return requires explicit resume and preserves the pending decision. Composing/editable input and focused native controls retain shortcuts; bed arrow placement still works. Existing save format and all three commission routes preserved. Syntax passes. No rendered evidence or substantive gameplay-improvement credit.",
       "mainObserved": "184368dfcf0f68352014b850e5283c6c6fe545ed",
       "browserStatus": "No rendered claim in this increment. Historical third-branch rendering blocker is not a fresh failure: second-batch CI and live browser testing subsequently succeeded. Establish third-batch rendered verification through supported tooling rather than repeating the old blocker."
+    },
+    {
+      "date": "2026-10-30",
+      "commit": "c138bd39bd240599882f3ba79e15e077ca6fff0d",
+      "result": "Managed Sites local preview succeeded through sites-preview at its returned terminal.local URL. CUA rendered desktop baseline completed Paper garden in3 operations, then printed a misplaced Sun ribbon. Screenshots showed target/bed vertically offset and aggregate-only diagnosis. Implemented optional on-bed planned comparison: per-cell +missing inks, −excess inks and match ticks, including prospective print/lift effects without spending an operation. Rendered post-change route previewed removal of misplaced Sun, confirmed lift, completed first commission in5 operations, reloaded the completed journal (best3 retained), paused/resumed and returned through Games to the local preview index. Inspected baseline, mistake/comparison and final completed-board screenshots.26 engine/DOM tests pass (13 each); syntax passes. No injected game state used. No mobile, full three-commission browser suite, physical-device or human enjoyment claim.",
+      "mainObserved": "184368dfcf0f68352014b850e5283c6c6fe545ed",
+      "browserStatus": "Local supported preview is now working; historical third-batch rendering blocker is superseded. Complete rendered QA, do not repeat the old failure."
     }
   ]
 }
