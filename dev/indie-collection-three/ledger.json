@@ -502,11 +502,13 @@
       "tests": [
         "8 engine tests pass: original pack/seal/unlock/save checks, fit/contact rules, undo/repack, corruption rejection, all three achievable care goals, award timing/persistence, legacy save migration and nonmutating protection forecasts.",
         "5 DOM tests pass: original control/reload/recovery checks plus care-goal feedback, prospective protection, award reload and selecting packed parcels without moving them.",
-        "Syntax and catalogue exclusion pass. No rendered browser, screenshot, touch or enjoyment evidence; full repository build not run from partial checkout."
+        "Syntax and catalogue exclusion pass. No rendered browser, screenshot, touch or enjoyment evidence; full repository build not run from partial checkout.",
+        "Rendered managed-preview baseline placed Telescope at2,1; Foam at2,2; Toolbox at1,3. Blanket placement at4,1 overlapped Telescope/Foam; old UI required separate lifting with generic feedback. Added explicit blocker-lifting rearrangement with named affected parcels, hatched affected footprints, prospective foam/heavy checks, confirmation and normal lift+placement cost; only overlapping parcels return to workbench. Atomic journal action supports single undo and v1 save replay without changing existing save keys. Added hidden/modal/resume guards and composing-key exclusion.17 focused checks pass (10engine,7DOM), including exact blocker/cost/nonmutation, invalid brace/edge/finished/no-blocker guards, cancel/commit/reload/undo and hidden reset confirmation. Existing all-three-job and care-seal DOM routes pass. Rendered new action lifted Telescope/Foam and placed Blankets for3moves while Toolbox stayed; reloaded at6moves, then single undo restored original3move packing. Repositioned Foam/Toolbox, packed Blankets and dispatched first job at6moves with care seal; reload retained award and Around the braces unlock. Inspected baseline, confirmation, reloaded rearranged crate and saved-dispatch screenshots. Only first job rendered; full remaining jobs, touch, rendered recovery/retry/navigation and catalogue selection pending. No full qualification credit or human enjoyment/physical-device claim."
       ],
       "commits": [
         "56bba933abc8a6c8b389619d17db74592f806af0",
-        "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579"
+        "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
+        "566505d93013a6ee95455385b154c32af9735472"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -515,8 +517,8 @@
         "knownLimits": "Three small four-parcel jobs. Automated solutions use four placements plus sealing. No loss condition; undo/repacking is unrestricted within journal bounds. Difficulty and replay depth require rendered playtesting."
       },
       "nextSteps": [
-        "Play actual rendered packing loop and inspect desktop/touch previews, controls and occupied-cell readability.",
-        "Identify the primary enjoyment/depth weakness and implement a substantial improvement, then verify saves/reload, undo/repack, restart and real navigation before selection."
+        "Complete rendered qualification of rearrangement across all3jobs and optional care goals, including keyboard/touch and save/retry/reset/recovery.",
+        "Compare quality after qualification; keep unlisted until selected and catalogue-tested."
       ],
       "pendingSourceRefinement": {
         "commit": "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
@@ -524,6 +526,16 @@
         "before": "Only normal dispatch and move-count records; protection feedback appeared after placement. Reselecting a parcel recalled rotation but not its position.",
         "after": "Optional job-specific care seals reward extra blanket/foam protection while retaining normal dispatch. Pre-placement feedback shows resulting contacts and readiness. Reselecting packed parcels recalls anchor and rotation. Old saves migrate without invented care awards.",
         "testing": "13 engine/DOM checks passed. All three optional goals have valid packing solutions. Rendered review and substantive playtest-led improvement still required; no completed improvement credit."
+      },
+      "pendingRenderedImprovement": {
+        "date": "2026-10-31",
+        "commit": "566505d93013a6ee95455385b154c32af9735472",
+        "observedWeakness": "Trying a conflicting placement requires multiple separate lifts and manual restoration; generic invalid feedback does not identify affected parcels.",
+        "before": "Manual lifts and individual undo steps for every blocking parcel.",
+        "after": "Confirmed lift-and-place identifies blockers, preserves unrelated packing and charges the same move cost; one undo restores the entire arrangement.",
+        "evidence": "Rendered managed-preview baseline placed Telescope at2,1; Foam at2,2; Toolbox at1,3. Blanket placement at4,1 overlapped Telescope/Foam; old UI required separate lifting with generic feedback. Added explicit blocker-lifting rearrangement with named affected parcels, hatched affected footprints, prospective foam/heavy checks, confirmation and normal lift+placement cost; only overlapping parcels return to workbench. Atomic journal action supports single undo and v1 save replay without changing existing save keys. Added hidden/modal/resume guards and composing-key exclusion.17 focused checks pass (10engine,7DOM), including exact blocker/cost/nonmutation, invalid brace/edge/finished/no-blocker guards, cancel/commit/reload/undo and hidden reset confirmation. Existing all-three-job and care-seal DOM routes pass. Rendered new action lifted Telescope/Foam and placed Blankets for3moves while Toolbox stayed; reloaded at6moves, then single undo restored original3move packing. Repositioned Foam/Toolbox, packed Blankets and dispatched first job at6moves with care seal; reload retained award and Around the braces unlock. Inspected baseline, confirmation, reloaded rearranged crate and saved-dispatch screenshots. Only first job rendered; full remaining jobs, touch, rendered recovery/retry/navigation and catalogue selection pending. No full qualification credit or human enjoyment/physical-device claim.",
+        "status": "implemented-partially-rendered",
+        "remaining": "Complete all jobs/care goals in rendered desktop/touch; verify pause/retry/reset/recovery, navigation and source/build checks before selection."
       }
     },
     {
@@ -2014,10 +2026,9 @@
     }
   ],
   "nextSteps": [
-    "Continue Crate & Cushion rendered improvement from CRATE_BASELINE_2026-10-31.md; complete baseline and implement a substantive game-specific upgrade.",
-    "Qualify all three packing jobs/care seals, keyboard/touch, saves/retry/reset/recovery and hidden-state handling before selection.",
-    "Retain second-batch completion and all prior games/saves. Third collection remains24built,4improved/tested/integrated/live;20built candidates need qualification and26slots are unbuilt.",
-    "Preserve existing hourly cadence; do not pause until all50 additional distinct games and required improvements/integrations are complete."
+    "Qualify Crate & Cushion's new reversible rearrangement; source566505d93013a6ee95455385b154c32af9735472 has17passing focused checks and first-job rendered evidence.",
+    "Preserve second-batch completion and four live third-batch releases. Continue remaining20built candidates and26unbuilt slots; do not count partial rendered passes as qualified.",
+    "Retain existing schedule; pause only after the complete third-batch scope."
   ],
   "updated": "2026-10-31",
   "latestObservedMain": "0e0549c071974f5b3ce8d7229833a719680a69c2",
@@ -2627,6 +2638,11 @@
       "verificationRun": 41120918060,
       "pagesRun": 41121776206,
       "summary": "Pocket Regatta integrated and live;78 focused checks, four desktop/touch campaigns and catalogue regressions pass. Three integration screenshots and live saved-course screenshot reviewed. Counts24/4/4/4/4. Crate & Cushion partial rendered baseline recorded without improvement credit."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "566505d93013a6ee95455385b154c32af9735472",
+      "summary": "Crate & Cushion blocker-lifting rearrangement implemented from rendered baseline;17 focused checks, rendered commit/reload/atomic undo and first care-seal completion verified. Full qualification pending. Counts remain24/4/4/4/4."
     }
   ]
 }
