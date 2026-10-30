@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 1,
-    "browserTested": 1,
+    "improved": 2,
+    "browserTested": 2,
     "integrated": 1,
     "live": 1
   },
@@ -176,35 +176,57 @@
       "id": "moon-dial",
       "title": "Moon Dial",
       "coreLoop": "Rotate coupled dials while shifting a single clutch to isolate connected components and align every hand to its target.",
-      "status": "rendered-improvement-in-progress",
+      "status": "finished-awaiting-integration",
       "source": "games/moon-dial",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-31",
+          "observedWeakness": "Direction-only right-turn labels leave left-turn consequences and disruption of already-aligned hands to mental inversion.",
+          "before": "Immediate turns or textual next-step hint; no exact reversible turn rehearsal.",
+          "after": "Optional left/right ghost-hand rehearsal with exact per-dial outcomes, alignment gains/losses and explicit commit/discard.",
+          "implementationCommits": [
+            "fb91fd3e93a1de1c8845b2df77e59ecfd30438e8"
+          ],
+          "reliabilityCommit": "19fe0199efc89c85ca4c35e426652833f50a4fa8",
+          "verification": "CI41059674598 at19fe0199efc89c85ca4c35e426652833f50a4fa8 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 mechanisms using rehearsed turns, exact per-action save/reload, alignment-disruption warning, preview discard/pause, optional hints, detour/undo/retry, keyboard/native taps, transient-preview clearing, scoped reset, isolated malformed-save preservation/recovery and return to development launcher. Development-branch asset check passed63 bundled routes/231 HTML references and all9 first-batch release integrity checks. Artifact12977673665 SHA256b34ef115fe14a65ac0d777a51b7badcf250ad41a7bd2798dcb5134d49cc0f817 contains10 screenshots. Reviewed touch-alignment-warning, desktop-mechanism-2 and touch-recovery: dashed versus solid hands and exact per-dial outcomes legible, target-disruption warning readable, final records2/3/7 turns intact, recovery usable. Phone needs vertical scrolling; no horizontal overflow. Automated and agent-observed evidence, not human enjoyment or physical-device certification."
+        }
+      ],
       "tests": [
         "7 engine tests pass, including all original solutions/saves, optional shortest-action guidance, nonmutation and recovery from 24 legal detours across three mechanisms.",
         "6 DOM tests pass, including prior control/save regressions, optional guidance, hint clearing after moves, paused/won handling, unreadable-save preservation and full-journal explanation.",
         "JavaScript syntax checks passed. No rendered browser, screenshot, touch or enjoyment evidence. Full repository build was not run from the partial checkout.",
-        "Rendered baseline: completed bedside clock in2 turns, opened garden chime. Screenshot showed right-turn-only motion labels while playing left turns, requiring mental inversion and no exact precommit alignment forecast. Added optional left/right rehearsal: dashed ghost hands, per-dial current→planned positions, aligned outlines, newly aligned/leaves-moon-mark summary, explicit Wind/Discard. No save/history change until Wind; clutch/dial edits invalidate the preview. Rendered garden route compared fully coupled left turn (aligns A, displaces B) against A–B isolation (aligns A, preserves B), committed, undid, rehearsed and committed the isolated move, then reloaded: committed turn retained, transient preview cleared. Inspected baseline and post-change screenshots including exact forecast and ghost-hand view.15 engine/DOM tests pass (7engine+8DOM), including2 new rehearsal regressions; syntax passes. Existing saves and engine rules unchanged. Full remaining rendered campaigns, mobile/native-touch, reset/recovery/hidden bridge and catalogue navigation remain pending. Full-page screenshot timed out, but viewport screenshots succeeded and were inspected."
+        "Rendered baseline: completed bedside clock in2 turns, opened garden chime. Screenshot showed right-turn-only motion labels while playing left turns, requiring mental inversion and no exact precommit alignment forecast. Added optional left/right rehearsal: dashed ghost hands, per-dial current→planned positions, aligned outlines, newly aligned/leaves-moon-mark summary, explicit Wind/Discard. No save/history change until Wind; clutch/dial edits invalidate the preview. Rendered garden route compared fully coupled left turn (aligns A, displaces B) against A–B isolation (aligns A, preserves B), committed, undid, rehearsed and committed the isolated move, then reloaded: committed turn retained, transient preview cleared. Inspected baseline and post-change screenshots including exact forecast and ghost-hand view.15 engine/DOM tests pass (7engine+8DOM), including2 new rehearsal regressions; syntax passes. Existing saves and engine rules unchanged. Full remaining rendered campaigns, mobile/native-touch, reset/recovery/hidden bridge and catalogue navigation remain pending. Full-page screenshot timed out, but viewport screenshots succeeded and were inspected.",
+        "Two hidden reset/recovery regressions failed before the fix; all17 focused tests pass afterward. Hidden state blocks reset/recovery confirmation, modal opening and resume while preserving pending choice/rehearsal. Composing and editable input retain shortcuts.",
+        "CI41059674598 at19fe0199efc89c85ca4c35e426652833f50a4fa8 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 mechanisms using rehearsed turns, exact per-action save/reload, alignment-disruption warning, preview discard/pause, optional hints, detour/undo/retry, keyboard/native taps, transient-preview clearing, scoped reset, isolated malformed-save preservation/recovery and return to development launcher. Development-branch asset check passed63 bundled routes/231 HTML references and all9 first-batch release integrity checks. Artifact12977673665 SHA256b34ef115fe14a65ac0d777a51b7badcf250ad41a7bd2798dcb5134d49cc0f817 contains10 screenshots. Reviewed touch-alignment-warning, desktop-mechanism-2 and touch-recovery: dashed versus solid hands and exact per-dial outcomes legible, target-disruption warning readable, final records2/3/7 turns intact, recovery usable. Phone needs vertical scrolling; no horizontal overflow. Automated and agent-observed evidence, not human enjoyment or physical-device certification."
       ],
       "commits": [
         "60dd61044207070fef97638b829242cf1e273715",
         "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
         "86cded4d921af68656fc13ab3304d7de161be834",
-        "fb91fd3e93a1de1c8845b2df77e59ecfd30438e8"
+        "fb91fd3e93a1de1c8845b2df77e59ecfd30438e8",
+        "19fe0199efc89c85ca4c35e426652833f50a4fa8"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Not rated until rendered playtest",
-        "knownLimits": "Three compact mechanisms; solutions use 3, 6 and 11 total actions. Unlimited undo; no failure condition. No long-play claim."
+        "status": "Agent review, not player survey",
+        "scale": "1–5",
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3.5,
+        "reliability": 4.5,
+        "variety": 4,
+        "knownLimits": "Three compact authored mechanisms and best-turn records; no failure penalty, audio, extended campaign or measured content duration. A readable but vertically long phone layout. Real catalogue integration pending."
       },
       "nextSteps": [
-        "Complete all3 rendered mechanisms and touch/layout, save/reload, undo/retry/reset/recovery, keyboard, hidden-state and navigation checks before qualified improvement credit or integration.",
-        "Assess whether the compact three-mechanism slate has enough worthwhile choices for selection; do not pad it with repetitive counts."
+        "Merge only qualified Moon Dial source/tests and catalogue metadata into a fresh main-based promotion branch.",
+        "Use current main's validated study-collection return message for embedded Games navigation, then test real search/launch/pause/return/restart/save on desktop/touch before publishing."
       ],
       "pendingSourceRefinement": {
         "commit": "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
@@ -231,8 +253,18 @@
         "before": "Immediate turns or textual next-step hint; no exact reversible turn rehearsal.",
         "after": "Optional left/right ghost-hand rehearsal with exact per-dial outcomes, alignment gains/losses and explicit commit/discard.",
         "evidence": "Rendered baseline: completed bedside clock in2 turns, opened garden chime. Screenshot showed right-turn-only motion labels while playing left turns, requiring mental inversion and no exact precommit alignment forecast. Added optional left/right rehearsal: dashed ghost hands, per-dial current→planned positions, aligned outlines, newly aligned/leaves-moon-mark summary, explicit Wind/Discard. No save/history change until Wind; clutch/dial edits invalidate the preview. Rendered garden route compared fully coupled left turn (aligns A, displaces B) against A–B isolation (aligns A, preserves B), committed, undid, rehearsed and committed the isolated move, then reloaded: committed turn retained, transient preview cleared. Inspected baseline and post-change screenshots including exact forecast and ghost-hand view.15 engine/DOM tests pass (7engine+8DOM), including2 new rehearsal regressions; syntax passes. Existing saves and engine rules unchanged. Full remaining rendered campaigns, mobile/native-touch, reset/recovery/hidden bridge and catalogue navigation remain pending. Full-page screenshot timed out, but viewport screenshots succeeded and were inspected.",
-        "remaining": "Complete all3 rendered mechanisms and touch/layout, save/reload, undo/retry/reset/recovery, keyboard, hidden-state and navigation checks before qualified improvement credit or integration."
-      }
+        "remaining": "Real current-main catalogue integration and live verification.",
+        "status": "verified-complete"
+      },
+      "verification": {
+        "commit": "19fe0199efc89c85ca4c35e426652833f50a4fa8",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41059674598",
+        "artifact": 12977673665,
+        "artifactSha256": "b34ef115fe14a65ac0d777a51b7badcf250ad41a7bd2798dcb5134d49cc0f817",
+        "status": "passed"
+      },
+      "selected": true,
+      "selectionReason": "Quiet coupled-mechanism puzzle complements spatial printmaking with graph isolation and counter-rotation; rehearsal makes consequences inspectable without dictating a solution. Select as a compact puzzle, with its three-mechanism limit explicit."
     },
     {
       "slot": 43,
@@ -1848,10 +1880,11 @@
     }
   ],
   "nextSteps": [
-    "Finish Moon Dial rendered-led rehearsal verification across remaining mechanisms and desktop/touch; fix observed issues before qualification.",
-    "Continue other23 built/unqualified candidates (including Moon Dial) and26 unbuilt slots; preserve all existing games/saves."
+    "Merge only qualified Moon Dial source/tests and catalogue metadata into a fresh main-based promotion branch.",
+    "Use current main's validated study-collection return message for embedded Games navigation, then test real search/launch/pause/return/restart/save on desktop/touch before publishing.",
+    "Continue22 other built third-batch candidates and26 unbuilt slots; preserve all first/second games and concurrent work."
   ],
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "latestObservedMain": "55da1ef2ffa43989ed034413f19a3cc5b6b69bfb",
   "runHistory": [
     {
@@ -2388,6 +2421,19 @@
         "built": 24,
         "improved": 1,
         "browserTested": 1,
+        "integrated": 1,
+        "live": 1
+      }
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "19fe0199efc89c85ca4c35e426652833f50a4fa8",
+      "result": "CI41059674598 at19fe0199efc89c85ca4c35e426652833f50a4fa8 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 mechanisms using rehearsed turns, exact per-action save/reload, alignment-disruption warning, preview discard/pause, optional hints, detour/undo/retry, keyboard/native taps, transient-preview clearing, scoped reset, isolated malformed-save preservation/recovery and return to development launcher. Development-branch asset check passed63 bundled routes/231 HTML references and all9 first-batch release integrity checks. Artifact12977673665 SHA256b34ef115fe14a65ac0d777a51b7badcf250ad41a7bd2798dcb5134d49cc0f817 contains10 screenshots. Reviewed touch-alignment-warning, desktop-mechanism-2 and touch-recovery: dashed versus solid hands and exact per-dial outcomes legible, target-disruption warning readable, final records2/3/7 turns intact, recovery usable. Phone needs vertical scrolling; no horizontal overflow. Automated and agent-observed evidence, not human enjoyment or physical-device certification.",
+      "mainObserved": "55da1ef2ffa43989ed034413f19a3cc5b6b69bfb",
+      "totals": {
+        "built": 24,
+        "improved": 2,
+        "browserTested": 2,
         "integrated": 1,
         "live": 1
       }

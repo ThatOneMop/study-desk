@@ -1,0 +1,13 @@
+# Moon Dial qualification — 31 October 2026
+
+CI41059674598 at19fe0199efc89c85ca4c35e426652833f50a4fa8 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 mechanisms using rehearsed turns, exact per-action save/reload, alignment-disruption warning, preview discard/pause, optional hints, detour/undo/retry, keyboard/native taps, transient-preview clearing, scoped reset, isolated malformed-save preservation/recovery and return to development launcher. Development-branch asset check passed63 bundled routes/231 HTML references and all9 first-batch release integrity checks. Artifact12977673665 SHA256b34ef115fe14a65ac0d777a51b7badcf250ad41a7bd2798dcb5134d49cc0f817 contains10 screenshots. Reviewed touch-alignment-warning, desktop-mechanism-2 and touch-recovery: dashed versus solid hands and exact per-dial outcomes legible, target-disruption warning readable, final records2/3/7 turns intact, recovery usable. Phone needs vertical scrolling; no horizontal overflow. Automated and agent-observed evidence, not human enjoyment or physical-device certification.
+
+## Fixes
+
+Two new regressions reproduced hidden reset and unreadable-save recovery overwriting state before repair. Commit 19fe0199efc89c85ca4c35e426652833f50a4fa8 now tracks trusted parent visibility and rejects hidden confirmation, resume and modal actions. Pending choices and rehearsals remain available after visible return and explicit resume. Save schema and engine rules are unchanged. Existing first and second collections and public main were untouched.
+
+## Review and next step
+
+The original rendered weakness and before/after rehearsal are recorded in MOON_DIAL_REHEARSAL.md and the candidate ledger. This is one substantive improvement pass, not additional credit for tests or the save repair. Select for compact, calm mechanical reasoning: separating components and counter-rotation differ from Stencil Studio's ink layers. Three mechanisms limit depth; best-turn replay is modest. No human enjoyment, physical-device or content-hours claim.
+
+Current totals: exactly50 third-batch slots;24 built,2 improved,2 browser-tested,1 integrated and1 live. Moon Dial is finished awaiting current-main catalogue integration; it is not published. Stencil Studio remains live at main55da1ef2ffa43989ed034413f19a3cc5b6b69bfb. Second collection remains20 additionally improved,9 selected upgrades integrated/live. Next use a fresh main-based promotion, adapt embedded Games to the verified collection-message protocol, and run real catalogue desktop/touch navigation before release. No repeated deployment investigation or automation change was needed.
