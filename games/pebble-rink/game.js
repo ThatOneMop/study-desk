@@ -153,3 +153,8 @@ window.addEventListener('message', e => {
 });
 sync(); save(); render(); requestAnimationFrame(tick);
 
+
+
+document.querySelector('header a').onclick = e => {
+  if (parent !== window) { e.preventDefault(); parent.postMessage({type:'study-collection'}, location.origin); }
+};

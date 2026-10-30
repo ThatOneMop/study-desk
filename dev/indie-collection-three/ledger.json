@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 3,
     "browserTested": 3,
-    "integrated": 2,
-    "live": 2
+    "integrated": 3,
+    "live": 3
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -293,13 +293,13 @@
       "id": "pebble-rink",
       "title": "Pebble Rink",
       "coreLoop": "Aim, weight and curl three stones; use friction, banks and collisions to leave stones in scoring rings.",
-      "status": "finished-awaiting-integration",
+      "status": "integrated-live",
       "source": "games/pebble-rink",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -321,17 +321,22 @@
         "No rendered, screenshot, physical-touch or enjoyment evidence. Not selected.",
         "Managed Sites/CUA rendered baseline released weight70 straight, then reloaded its resolved2-point result. Curl selection retained a straight aiming guide, leaving prospective curve/collision consequences unclear. Added optional dashed trajectories and hollow resting positions for every affected stone, with per-stone and total scoring forecasts. Rendered comparison predicted right curl total2→4 versus straight collision2→5, including existing stone2→3. Released straight and reloaded: exact5-point result; third straight forecast5→6 resolved to6 and unlocked island rink. Inspected baseline, collision forecast and island rebound screenshots. Island forecast correctly shows a central hit rebounding short for0 points.16 focused engine/DOM checks pass, including2 new forecast tests for nonmutation, collision score equivalence, control updates, pause and transient reload behavior. CUA initial animation did not visibly settle before reload; reload skips playback by design. Uninterrupted rendered playback needs explicit CI validation. Full remaining campaigns, touch layout, hidden reset/recovery and catalogue navigation remain pending; no full qualification credit.",
         "Hidden reset regression reproduced destructive save replacement before fix. Trusted bridge/document hidden state now blocks confirmations, modal actions, resume, shots and animation; visible return requires explicit resume.17 focused checks pass. First CI41085779442 passed focused tests but browser entry failed on a missing .cjs import extension; corrected in4be3cafd.",
-        "CI41086070525 at4be3cafd6b61060c52f817fb382bebd17e759c12 passed17 focused checks (7engine,10DOM) and complete desktop1280×1000/touch-emulated390×844 campaigns across all3 rinks. Every shot settled naturally without reload skipping animation; forecasts matched resolved stone positions and scores. Pause, replay nonmutation, exact per-shot saves/reload, all unlocks, loss/undo/retry, reset cancellation/confirmation, isolated corrupt-save recovery and return to development launcher passed. Touch buttons used native taps; range values used native keyboard input in both contexts, so physical touch dragging is not certified.63 development bundled routes/231 HTML asset references and9 first-batch integrity checks passed. Artifact12992186221 SHA256f800d985d4482e1da28efffe509c11d61a240e2213e2a563fd4b6d4b0b0a6cd1 contains16 screenshots. Reviewed touch-forecast-1, desktop-won-2 and touch-recovery: island ricochet and displaced-stone forecast legible, final8/4/8 records visible, recovery usable. Phone requires vertical scrolling; no horizontal overflow. Automated reliability and agent visual evidence, not human enjoyment testing."
+        "CI41086070525 at4be3cafd6b61060c52f817fb382bebd17e759c12 passed17 focused checks (7engine,10DOM) and complete desktop1280×1000/touch-emulated390×844 campaigns across all3 rinks. Every shot settled naturally without reload skipping animation; forecasts matched resolved stone positions and scores. Pause, replay nonmutation, exact per-shot saves/reload, all unlocks, loss/undo/retry, reset cancellation/confirmation, isolated corrupt-save recovery and return to development launcher passed. Touch buttons used native taps; range values used native keyboard input in both contexts, so physical touch dragging is not certified.63 development bundled routes/231 HTML asset references and9 first-batch integrity checks passed. Artifact12992186221 SHA256f800d985d4482e1da28efffe509c11d61a240e2213e2a563fd4b6d4b0b0a6cd1 contains16 screenshots. Reviewed touch-forecast-1, desktop-won-2 and touch-recovery: island ricochet and displaced-stone forecast legible, final8/4/8 records visible, recovery usable. Phone requires vertical scrolling; no horizontal overflow. Automated reliability and agent visual evidence, not human enjoyment testing.",
+        "Promotion CI41096061507 passed61 focused checks across three selected third games, all three desktop/touch campaigns and catalogue suites, five shell suites,51bundled routes/260HTML references and9first-batch integrity checks. Pebble catalogue includes mouse/touch-protocol range dragging, canvas aim, uninterrupted shot, saved re-entry and Games return. Artifact12995797971 SHA256a0ad41b92c1435967ca56282765ebfc184984a6fb36478660f216a10d60f7f52;64screenshots, three Pebble integration screenshots inspected. See PEBBLE_RINK_INTEGRATION.md.",
+        "Pages41096718012 succeeded on1a873b4cb4e93c1ab489b371901c5f9a89e79462. Live catalogue52 entries/51bundled, exact Pebble search and embedded launch work; asset queries rink-20261031 match source. No Switch workspace controls. Live normal UI releases at0°/weight70 retained2→5→6 points, first club card and island unlock after reload and standalone-to-catalogue relaunch. In-game Games returns to same-hash catalogue; standalone Games works; shell pause/resume works. Cloud browser initially remained on first-shot motion until a pause/resume cycle, then showed settled2points; later shots deliberately used documented reload-to-resolved-result recovery. Do not claim uninterrupted live animation from this session: uninterrupted desktop/touch-emulated campaigns passed in CI. Inspected live completed-card screenshot. No publication blocker; no physical-device claim."
       ],
       "commits": [
         "2fd5e3af77d206f05f0231e8dda5435e0909ab34",
         "db3b0fa00d19be493cfe6fcea0619443497cff9f",
         "479bc100196112461058c4538f559b233908a653",
         "2a83f5119fccff5cb0773edd2fd96d13d8433070",
-        "4be3cafd6b61060c52f817fb382bebd17e759c12"
+        "4be3cafd6b61060c52f817fb382bebd17e759c12",
+        "1a873b4cb4e93c1ab489b371901c5f9a89e79462"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "1a873b4cb4e93c1ab489b371901c5f9a89e79462"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/pebble-rink/index.html",
       "quality": {
         "status": "Agent assessment, not player survey",
         "scale": "1–5",
@@ -340,11 +345,10 @@
         "polish": 3.5,
         "reliability": 4.5,
         "variety": 4,
-        "knownLimits": "Three compact rinks and high-score replay. Optional exact forecasts reduce execution difficulty while making collision planning legible. No audio, extended campaign, physical-device dragging or measured content-hours claim. Long vertical phone layout."
+        "knownLimits": "Three compact rinks and high-score replay. Optional exact forecasts reduce execution difficulty while making collision planning legible. No audio, extended campaign, physical-device testing or measured content-hours claim. Long vertical phone layout."
       },
       "nextSteps": [
-        "Promote only qualified Pebble Rink files into fresh main-based integration.",
-        "Adapt embedded Games return to validated study-collection protocol; verify catalogue desktop/touch, range dragging and live route before public release."
+        "No remaining Pebble promotion gate. Continue Pocket Regatta rendered improvement; retain all source and save evidence."
       ],
       "pendingSourceRefinement": {
         "commit": "db3b0fa00d19be493cfe6fcea0619443497cff9f",
@@ -356,7 +360,8 @@
           "Undo recalls the removed shot's angle, weight and curl and restores previous stone positions, allowing targeted adjustment.",
           "Refresh disabled controls after native guide cancellation and preserve rink-selection focus."
         ],
-        "remaining": "Rendered desktop/touch review, screenshot inspection and substantive playtest-led improvement remain required. No completed improvement credit."
+        "remaining": "Completed through rendered qualification and integration.",
+        "status": "historical-completed-and-verified"
       },
       "pendingRenderedImprovement": {
         "date": "2026-10-31",
@@ -365,7 +370,7 @@
         "before": "Only committed shots or replay reveal curves, rebounds and scoring displacement.",
         "after": "Optional read-only whole-shot forecast draws curved trajectories and hollow resting stones, reports individual scoring gains/losses, and updates while adjusting angle/weight/curl. Normal release commits; hide restores unassisted play.",
         "evidence": "Managed Sites/CUA rendered baseline released weight70 straight, then reloaded its resolved2-point result. Curl selection retained a straight aiming guide, leaving prospective curve/collision consequences unclear. Added optional dashed trajectories and hollow resting positions for every affected stone, with per-stone and total scoring forecasts. Rendered comparison predicted right curl total2→4 versus straight collision2→5, including existing stone2→3. Released straight and reloaded: exact5-point result; third straight forecast5→6 resolved to6 and unlocked island rink. Inspected baseline, collision forecast and island rebound screenshots. Island forecast correctly shows a central hit rebounding short for0 points.16 focused engine/DOM checks pass, including2 new forecast tests for nonmutation, collision score equivalence, control updates, pause and transient reload behavior. CUA initial animation did not visibly settle before reload; reload skips playback by design. Uninterrupted rendered playback needs explicit CI validation. Full remaining campaigns, touch layout, hidden reset/recovery and catalogue navigation remain pending; no full qualification credit.",
-        "remaining": "Current-main catalogue integration and live release checks.",
+        "remaining": "None: catalogue promotion and live route/progression/save/navigation verified. See PEBBLE_RINK_INTEGRATION.md.",
         "status": "verified-complete"
       },
       "verification": {
@@ -376,7 +381,14 @@
         "status": "passed"
       },
       "selected": true,
-      "selectionReason": "Calm physical aiming, curl and collision planning adds motion-based variety alongside ink layering and coupled dials; select as a compact tabletop game."
+      "selectionReason": "Calm physical aiming, curl and collision planning adds motion-based variety alongside ink layering and coupled dials; select as a compact tabletop game.",
+      "integrationVerification": {
+        "commit": "1a873b4cb4e93c1ab489b371901c5f9a89e79462",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41096061507",
+        "pages": "https://github.com/ThatOneMop/study-desk/actions/runs/41096718012",
+        "artifact": 12995797971,
+        "artifactSha256": "a0ad41b92c1435967ca56282765ebfc184984a6fb36478660f216a10d60f7f52"
+      }
     },
     {
       "slot": 44,
@@ -1946,12 +1958,12 @@
     }
   ],
   "nextSteps": [
-    "Promote only qualified Pebble Rink files into fresh main-based integration.",
-    "Adapt embedded Games return to validated study-collection protocol; verify catalogue desktop/touch, range dragging and live route before public release.",
-    "Continue21 other built candidates and26 unbuilt slots; preserve all prior games and saves."
+    "Play Pocket Regatta in a rendered browser, identify its main weakness, implement a substantial game-specific improvement and verify it.",
+    "Continue21 remaining built candidates and26 unbuilt slots; preserve exact50slots, prior games and saves.",
+    "Keep progressive qualified catalogue integration, distinct source/live counts and existing hourly schedule."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250",
+  "latestObservedMain": "1a873b4cb4e93c1ab489b371901c5f9a89e79462",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2525,6 +2537,14 @@
       "summary": "Pebble Rink hidden-action protection fixed, rendered improvement qualified via complete desktop/touch-emulated campaigns and screenshot review. Counts24/3/3/2/2; selected but not integrated/live.",
       "commit": "4be3cafd6b61060c52f817fb382bebd17e759c12",
       "verificationRun": 41086070525
+    },
+    {
+      "date": "2026-10-31",
+      "summary": "Pebble Rink integrated and live;61 focused checks, desktop/touch campaigns and catalogue regressions pass. Three integration screenshots and live screenshot reviewed. Counts24/3/3/3/3.",
+      "commit": "1a873b4cb4e93c1ab489b371901c5f9a89e79462",
+      "verificationRun": 41096061507,
+      "pagesRun": 41096718012,
+      "next": "Pocket Regatta rendered improvement."
     }
   ]
 }
