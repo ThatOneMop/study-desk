@@ -7,7 +7,7 @@
     "built": 24,
     "improved": 4,
     "browserTested": 4,
-    "integrated": 3,
+    "integrated": 4,
     "live": 3
   },
   "priorObligations": {
@@ -395,12 +395,12 @@
       "id": "pocket-regatta",
       "title": "Pocket Regatta",
       "coreLoop": "Tack a small sailboat around ordered buoys using wind direction, limited helm turns and short/full sail while avoiding grounding.",
-      "status": "finished-awaiting-integration",
+      "status": "integrated-awaiting-live",
       "source": "games/pocket-regatta",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
+      "integrated": true,
       "live": false,
       "improvementPasses": [
         {
@@ -422,15 +422,19 @@
         "Syntax and catalogue exclusion checks passed. No rendered browser, screenshot, touch or human enjoyment evidence. Full repository build not run from partial checkout.",
         "Managed Sites/CUA baseline: full-sail NE reached column4,row6; next NE draft grounded against the reef. Existing editor could only remove the tail or clear the route. Added per-tack edit/replace/cancel retaining the entire suffix. Rendered changed first draft tack from NE to NW while retaining second E tack; later E became invalid under90° helm limit, explicit repair warning appeared and sailing was disabled. Repaired second tack to NE, sailed both, reloaded at column3,row3 with hull3/3 and three committed moves. Continued normally through all first-course buoys, earned a12-move pennant and verified reload/unlock. Inspected baseline reef, invalid-route warning and final pennant screenshots.15 engine/DOM tests pass (7engine,8DOM), including new retained-suffix repair, invalid-commit guard, cancellation/pause/undo/reload checks; syntax passes. All three courses pass automated DOM routes, but only first course rendered this run. No full touch, remaining rendered campaigns, hidden confirmation/recovery or real catalogue verification yet.",
         "Two regressions failed before repair: hidden confirmation replaced saved journal and reset retained active editor. Hidden/modal/resume guards, editor reset cleanup and composing-key exclusion fixed;17 focused tests pass.",
-        "CI41112214322 atd65098433afd2fe84c67f6fd774d7087090c4275 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 courses using six-tack drafts, exact saves/reload, retained-suffix repair, invalid-turn sailing guard, pause, loss/undo/retry, active-editor reset, scoped corrupt-save preservation/recovery and navigation. Native touch taps used for all game controls; desktop chart keyboard sailing checked. Records10/9/12 retained.63 development bundled routes/231HTML references and9first-batch integrity checks passed. Artifact13004960585 SHA2566a8122fad2cbc5f9b0bf1f1df9feb9803307df69003d83fcabc70faf558d4dbb contains14screenshots. Reviewed touch-invalid-suffix, touch-repaired-route and desktop-course-2: invalid-turn warning and edit controls legible, valid prefix/diamond displayed, repaired route sails, all three pennants visible. Phone requires substantial vertical scrolling; no horizontal overflow. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification."
+        "CI41112214322 atd65098433afd2fe84c67f6fd774d7087090c4275 passed17 focused checks (7engine,10DOM), complete desktop1280×1000 and touch-emulated390×844 campaigns through all3 courses using six-tack drafts, exact saves/reload, retained-suffix repair, invalid-turn sailing guard, pause, loss/undo/retry, active-editor reset, scoped corrupt-save preservation/recovery and navigation. Native touch taps used for all game controls; desktop chart keyboard sailing checked. Records10/9/12 retained.63 development bundled routes/231HTML references and9first-batch integrity checks passed. Artifact13004960585 SHA2566a8122fad2cbc5f9b0bf1f1df9feb9803307df69003d83fcabc70faf558d4dbb contains14screenshots. Reviewed touch-invalid-suffix, touch-repaired-route and desktop-course-2: invalid-turn warning and edit controls legible, valid prefix/diamond displayed, repaired route sails, all three pennants visible. Phone requires substantial vertical scrolling; no horizontal overflow. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification.",
+        "Release CI41120918060 exact0e0549c071974f5b3ce8d7229833a719680a69c2 completed all test steps successfully:78 focused checks,5 shell suites,four desktop/touch campaigns and catalogue tests,52 bundled routes/264HTML references and9first-batch integrity checks.88 screenshots downloaded, SHA256fcc9f34b4ce3caba936ed5a316a0e4cfc87568ae6b7f506170724ae5c4ba04e3; inspected touch-invalid-draft,touch-saved-return,desktop-search-favourite. See POCKET_REGATTA_INTEGRATION.md."
       ],
       "commits": [
         "ba16b341745c0c7db43300111b81b58faff9134b",
         "be2fd59bca2a9e07b327a86e69edcfbffb842510",
         "badffb5f4b6e4c74d921eb0e2b1e7d9221d0aa99",
-        "d65098433afd2fe84c67f6fd774d7087090c4275"
+        "d65098433afd2fe84c67f6fd774d7087090c4275",
+        "0e0549c071974f5b3ce8d7229833a719680a69c2"
       ],
-      "integrationCommits": [],
+      "integrationCommits": [
+        "0e0549c071974f5b3ce8d7229833a719680a69c2"
+      ],
       "publishedUrl": null,
       "quality": {
         "status": "Agent assessment, not player survey",
@@ -443,8 +447,7 @@
         "knownLimits": "Three compact fixed-wind courses, solved in10/9/12moves; lower-move records and alternate routes provide modest replay. Long vertical phone layout; no audio, extended campaign, measured content-hours or physical-device claim."
       },
       "nextSteps": [
-        "Promote qualified Pocket Regatta files onto fresh current main without merging stale development catalogue.",
-        "Add cover/credits/catalogue entry and embedded Games protocol; run desktop/touch real-catalogue tests and verify live route before counting integration/live."
+        "Verify Pages41121776206 and live saves/navigation before marking live."
       ],
       "pendingSourceRefinement": {
         "commit": "be2fd59bca2a9e07b327a86e69edcfbffb842510",
@@ -461,7 +464,7 @@
         "before": "Only tail removal or clearing the entire draft.",
         "after": "Edit any reachable draft tack, change heading/sail and replace while keeping the suffix; recompute later helm validity, flag the first invalid tack, block sailing until repaired, and retain read-only planning.",
         "evidence": "Managed Sites/CUA baseline: full-sail NE reached column4,row6; next NE draft grounded against the reef. Existing editor could only remove the tail or clear the route. Added per-tack edit/replace/cancel retaining the entire suffix. Rendered changed first draft tack from NE to NW while retaining second E tack; later E became invalid under90° helm limit, explicit repair warning appeared and sailing was disabled. Repaired second tack to NE, sailed both, reloaded at column3,row3 with hull3/3 and three committed moves. Continued normally through all first-course buoys, earned a12-move pennant and verified reload/unlock. Inspected baseline reef, invalid-route warning and final pennant screenshots.15 engine/DOM tests pass (7engine,8DOM), including new retained-suffix repair, invalid-commit guard, cancellation/pause/undo/reload checks; syntax passes. All three courses pass automated DOM routes, but only first course rendered this run. No full touch, remaining rendered campaigns, hidden confirmation/recovery or real catalogue verification yet.",
-        "remaining": "Current-main catalogue integration and live verification.",
+        "remaining": "Live release verification.",
         "status": "verified-complete"
       },
       "selected": true,
@@ -2002,12 +2005,12 @@
     }
   ],
   "nextSteps": [
-    "Promote qualified Pocket Regatta files onto fresh current main without merging stale development catalogue.",
-    "Add cover/credits/catalogue entry and embedded Games protocol; run desktop/touch real-catalogue tests and verify live route before counting integration/live.",
-    "Continue20 other built candidates and26 unbuilt slots; preserve all prior source and saves."
+    "Verify Pocket Regatta Pages release and live interaction; then update live count.",
+    "Continue Crate & Cushion rendered improvement from CRATE_BASELINE_2026-10-31.md. It has only a partial baseline; no new completion/improvement credit.",
+    "Preserve second-batch completion and all concurrent work. Third scope remains24built/4improved/4browser-tested;26unbuilt and20otherbuilt candidates still need substantive passes."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "1a873b4cb4e93c1ab489b371901c5f9a89e79462",
+  "latestObservedMain": "0e0549c071974f5b3ce8d7229833a719680a69c2",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2600,6 +2603,13 @@
       "commit": "d65098433afd2fe84c67f6fd774d7087090c4275",
       "verificationRun": 41112214322,
       "summary": "Pocket Regatta hidden/reset editor repairs and full rendered qualification passed. Counts24/4/4/3/3; selected but unlisted."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "0e0549c071974f5b3ce8d7229833a719680a69c2",
+      "verificationRun": 41120918060,
+      "pagesRun": 41121776206,
+      "summary": "Pocket Regatta source integrated after all release test steps passed; live verification pending. Counts24/4/4/4/3."
     }
   ]
 }

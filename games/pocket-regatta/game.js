@@ -29,3 +29,6 @@ window.addEventListener('keydown',e=>{if(e.isComposing||e.repeat||e.ctrlKey||e.a
 
 $('replace-plan').onclick=()=>{if(busy()||editIndex===null)return;const prefix=E.project(state,plan.slice(0,editIndex));if(!prefix.ok||!E.forecast(prefix.state,state.setup).ok)return;plan[editIndex]={...state.setup};editIndex=null;render()};
 $('finish-edit').onclick=()=>{if(!busy()){editIndex=null;render()}};
+
+
+document.querySelector('header a').onclick=e=>{if(parent!==window){e.preventDefault();parent.postMessage({type:'study-collection'},location.origin);}};
