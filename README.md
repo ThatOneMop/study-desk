@@ -1,12 +1,12 @@
-# Study Desk — 54 games
+# Study Desk — 63 games
 
-The curated catalogue has 54 games: 53 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
+The curated catalogue has 63 games: 62 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
 
 ## Upload to GitHub Pages
 
 Create a dedicated repository such as `study-desk`. Extract this archive and upload its contents with index.html at the repository root. Do not upload the ZIP as the website. The included `.github/workflows/pages.yml` publishes this static site with GitHub Actions. It does not create the Pages site: in Settings → Pages, set Source to GitHub Actions first. Until that setting is on, the workflow cannot deploy. After it is on, a push to main runs the asset checks and publishes. Paths support repository subfolders. No build or backend is needed for solo games. GitHub's web uploader has individual-file limits, so use GitHub Desktop or git to commit the complete folder if web upload rejects a large file. Do not omit the source archives.
 
-This delivery was not published: the connected GitHub integration did not expose dedicated repository creation or Pages configuration. No unrelated existing repository was modified. Use the URL GitHub displays after deployment; no live URL has been verified.
+This repository is published at https://thatonemop.github.io/study-desk/. Pages and the current catalogue have been verified; the earlier archive-delivery configuration blocker is resolved. Release-specific checks are recorded in the collection development reports.
 
 For local use, run `python -m http.server 8000` in this folder and visit http://localhost:8000. Double-clicking index.html is not supported for games requiring fetch or modules.
 
@@ -24,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 52 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 62 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
@@ -56,7 +56,7 @@ Existing game keys/formats are unchanged. All bundled games share this site's or
 
 ## Verification
 
-See TEST_REPORT.md. Automated DOM/bridge and static checks passed; no real browser was available for this build. Do not treat static validation as gameplay certification.
+See TEST_REPORT.md for the original archive checks. Subsequent selected-game releases have separate rendered desktop/emulated-touch and catalogue evidence in their collection reports. Those checks apply to the named games and routes; they are not human enjoyment or physical-device certification.
 
 
 ## Lane Eight
@@ -66,7 +66,7 @@ Lane Eight is bundled at `games/lane-eight/index.html`: manage training load, ea
 
 ## Third collection
 
-Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. Moon Dial adds three coupled clockworks with turn rehearsal. Pebble Rink adds three tabletop curling rinks with optional collision forecasts, replay and saved club cards. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
+Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. Moon Dial adds three coupled clockworks with turn rehearsal. Pebble Rink adds three tabletop curling rinks with optional collision forecasts, replay and saved club cards. Pocket Regatta, Crate & Cushion, Bramble Dice, Needlepath, Reedbreaker, Beepline and Tumbleglass are also selected. Soundings adds compact hidden-beacon deduction with evidence-only survey planning and a visible recovery reserve. Its evidence is in `dev/indie-collection-three/SOUNDINGS_INTEGRATION.md`. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
 
 
 
