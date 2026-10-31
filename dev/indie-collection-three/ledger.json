@@ -5,10 +5,10 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 6,
-    "browserTested": 6,
-    "integrated": 6,
-    "live": 6
+    "improved": 7,
+    "browserTested": 7,
+    "integrated": 7,
+    "live": 7
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -695,39 +695,64 @@
       "id": "needlepath",
       "title": "Needlepath",
       "coreLoop": "Route a needle through flower pins with alternating horizontal front stitches and vertical back stitches; use optional guide pins and one costly knot to finish within the thread budget, then optimize ribbons.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "integrated-live",
       "source": "games/needlepath",
       "built": true,
-      "improved": false,
-      "browserTested": false,
-      "integrated": false,
-      "live": false,
-      "improvementPasses": [],
+      "improved": true,
+      "browserTested": true,
+      "integrated": true,
+      "live": true,
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-31",
+          "commit": "c81e91484c4487bf2e1bd3377271262546ed2a7e",
+          "observedWeakness": "Rendered baseline play passed over flower 5 without collecting it, and focus restoration replaced useful feedback with “already stitched.” After the 12-thread finish, the single overall record gave knot routes no separate mastery reward.",
+          "before": "One overall least-thread score per sampler; no stored route comparison. Prior source-only guide did not supply separate knotwork objectives.",
+          "after": "Separate seamless and knotwork studies retain the best legal pattern of each style, with attainable 12/14/18 and 14/16/18 goals. Optional pale numbered traces support route comparison during retry; guide searches only the chosen style. Passed-over flowers are explicitly named and current-pin focus no longer overwrites feedback. Existing ribbons and saves survive migration.",
+          "testing": "24 engine/DOM checks; candidate CI 41163130615 passed both styles on all three boards on desktop and 390x844 touch emulation, exact saves, loss/retry, keyboard, pause/dialog guards, scoped recovery/reset and Games navigation. CUA naturally completed the first sampler in both styles, second seamless and third knotwork, and verified reload/trace. Four candidate screenshots inspected."
+        }
+      ],
       "tests": [
-        "11 engine tests pass, including all 31 initial winning routes and advisory correctness against independent winning-route fixtures at all 1,262 reachable action prefixes. Search cutoff reports unknown conservatively; advice preserves state and save format.",
-        "7 jsdom 26.1.0 tests pass, including guide opt-in/hide/reload, target highlights, knot advice, early blocked-branch explanation, campaign, saves, resets and pause/dialog/bridge guards. Dialog methods are simulated.",
-        "Both gameplay scripts pass syntax checks. No rendered/browser, screenshot, native keyboard activation, touch or human-enjoyment evidence. Full repository checks not run from partial checkout."
+        "24 engine/DOM checks pass: all 31 original routes; guide at 1,262 prefixes; both style optima; pattern replacement/validation; legacy migration; skipped flower; UI controls/guards.",
+        "Candidate CI 41163130615, job 124424851754: two rendered runs, each six study completions using controls; no injected campaign progress. Desktop keyboard and 390x844 touch emulation, save/reload, loss/undo/retry, trace, reset/recovery and Games navigation pass.",
+        "Candidate assets:63 bundled routes/231 HTML asset references and 9 first-batch release integrity checks pass on dev. Promotion checks separately test the actual main catalogue.",
+        "Candidate artifact 13028137168:30 screenshots; SHA256 dc672f09e80bd2b1b225d147d34174fdd20fb906d80ed0ac626ec5e2c503a04a. Inspected desktop-missed-flower, desktop-sampler-2-style-1, touch-sampler-1-style-1, touch-records-2-1. Responsive layout, trace distinction and stacked study cards readable.",
+        "Promotion CI 41163397525 success:153 focused checks, seven desktop/touch game suites and seven catalogue suites;56 launch entries,55 bundled routes/276 asset refs and first-batch integrity pass. Original cover and desktop/phone catalogue screenshots inspected.",
+        "Pages 41163797464 success. Live interactive knotwork14-thread completion, reload, saved trace, standalone Games, catalogue launch and embedded Games→existing Collection verified. No visible Switch workspace controls and no deployment barrier."
       ],
       "commits": [
         "d0ea3fa23950b1005e8d41ba56c960503c2d216c",
-        "df16bfbc9a301c27b56090e4d8030cc3e72b7b00"
+        "df16bfbc9a301c27b56090e4d8030cc3e72b7b00",
+        "c81e91484c4487bf2e1bd3377271262546ed2a7e"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "68acf01efc054a536a4f61577fde6540928a5eab"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/needlepath/index.html",
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored samplers. Exhaustive engine checks find 31 finishing action sequences, not 31 authored levels. Fewest-thread goals are attainable at 12/14/18; optimization and knot tradeoffs remain unassessed for human enjoyment. No content-duration claim."
+        "status": "Selected, integrated and live",
+        "reasons": "Relaxed deterministic embroidery routing supplies a distinct puzzle loop alongside released action, racing, dice tactics and craft games. Separate styles create useful knot tradeoffs rather than repetitive additional boards.",
+        "knownLimits": "Three compact authored boards and two studies each. 31 original winning action sequences are not 31 levels. Optional advice makes completion quick; no hours or human enjoyment claim. Touch evidence is emulation, not a physical device."
       },
       "nextSteps": [
-        "Play the actual rendered core loop on desktop and touch; inspect thread faces, optional pins, flower endpoints and pass-over-pin readability.",
-        "Implement a substantive improvement from observed rendered play; verify progression, dead ends/retry, saves/reload, restart, navigation and screenshots before integration."
+        "Preserve this release; continue with Reedbreaker(slot48)."
       ],
       "pendingSourceRefinement": {
         "commit": "df16bfbc9a301c27b56090e4d8030cc3e72b7b00",
         "basis": "Source and engine inspection, not rendered playtesting.",
         "before": "Immediate legal-stitch highlights did not tell players whether a completion remained; a locally legal branch could be doomed without an explanation until later.",
         "after": "An optional read-only thread guide suggests one next move toward the least-thread completion, forecasts remaining/total thread and ribbon, and explains when undo is required. Knot advice is included. No auto-play, thread cost or save-format change.",
-        "remaining": "Rendered desktop/touch play, screenshot inspection and a substantive playtest-led improvement remain required."
+        "remaining": "Superseded by rendered pass c81e914 and candidate CI 41163130615; the earlier source-only guide itself was not counted as this new pass."
+      },
+      "releaseEvidence": {
+        "date": "2026-10-31",
+        "mainCommit": "68acf01efc054a536a4f61577fde6540928a5eab",
+        "verificationRun": 41163397525,
+        "pagesRun": 41163797464,
+        "artifact": 13027379457,
+        "artifactSha256": "98fe35b2f945c324782ec6576fb87272ca5a7cf6395d0afa428c6030b61db71b",
+        "report": "dev/indie-collection-three/NEEDLEPATH_INTEGRATION.md"
       }
     },
     {
@@ -2120,12 +2145,12 @@
     }
   ],
   "nextSteps": [
-    "Render-play Needlepath(slot47), identify its key weakness and implement a substantive game-specific upgrade.",
-    "Preserve six live third-batch games and completed second batch.18built candidates need qualification;26slots remain unbuilt.",
-    "Continue existing cadence until requested scope completes."
+    "Render-play Reedbreaker(slot48), identify its key weakness and implement a substantive game-specific upgrade.",
+    "Preserve seven live third-batch games and completed second batch.17 built candidates need qualification;26 slots remain unbuilt.",
+    "Continue the existing cadence until the requested scope completes."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "91155c64be71c4fced8a4c017ebe9e5ab3e0bf44",
+  "latestObservedMain": "68acf01efc054a536a4f61577fde6540928a5eab",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2768,6 +2793,14 @@
       "verificationRun": 41159279264,
       "pagesRun": 41159693932,
       "summary": "Bramble Dice integrated and live;129 focused checks, six desktop/touch campaigns and catalogue regressions passed. Three integration screenshots plus live reserve/save/navigation reviewed. Counts24/6/6/6/6."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "68acf01efc054a536a4f61577fde6540928a5eab",
+      "implementationCommit": "c81e91484c4487bf2e1bd3377271262546ed2a7e",
+      "verificationRun": 41163397525,
+      "pagesRun": 41163797464,
+      "summary": "Needlepath gained independent seamless/knotwork studies, saved trace comparisons and missed-flower feedback; qualified, integrated and live.153 focused checks plus seven desktop/touch game and catalogue suites passed. Candidate/release screenshots and live save/navigation reviewed. Counts24/7/7/7/7."
     }
   ]
 }
