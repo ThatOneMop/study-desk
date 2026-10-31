@@ -386,6 +386,20 @@
     return false;
   }
 
+  // True when a planned path touches this tile but sits on a different level,
+  // so the honest answer is "add a step-stair" rather than "off the paths".
+  function needsStair(run, x, y) {
+    const cell = get(run, x, y);
+    if (!cell || !run.plan) return false;
+    const ns = neigh(run, cell);
+    for (let i = 0; i < ns.length; i++) {
+      if (!run.plan.has(keyOf(ns[i].x, ns[i].y))) continue;
+      const dz = Math.abs(walkZ(ns[i]) - walkZ(cell));
+      if (dz >= 1 && dz <= 3) return true;
+    }
+    return false;
+  }
+
   function reachWith(run, x, y, def, net) {
     const cell = get(run, x, y);
     if (!cell || !net) return false;
@@ -398,7 +412,7 @@
       if (!net.has(keyOf(n.x, n.y))) continue;
       const dz = Math.abs(walkZ(n) - target);
       if (dz === 0) return true;
-      const stair = n.stair || cell.stair || (n.building && DEF[n.building.id] && DEF[n.building.id].stairs);
+      const stair = n.stair || cell.stair || (def && def.stairs) || (n.building && DEF[n.building.id] && DEF[n.building.id].stairs);
       if (dz >= 1 && dz <= 3 && stair) return true;
     }
     return false;
@@ -523,7 +537,7 @@
     if (cell.building && !swapping) return { ok: false, reason: 'blocked' };
     if (cell.tree && !d.bridge) return { ok: false, reason: 'tree' };
     if (!d.dam && !d.levee && !d.gate && !d.bridge && !d.wheel && cell.water > 0.22 && !swapping) return { ok: false, reason: 'wet' };
-    if (!canReach(run, x, y, d)) return { ok: false, reason: 'unreached' };
+    if (!canReach(run, x, y, d)) return { ok: false, reason: !hydro(d) && needsStair(run, x, y) ? 'step' : 'unreached' };
     if (!pay(run, d.cost)) return { ok: false, reason: 'cost' };
     const keptFloors = swapping ? cell.floors : 0;
     cell.building = {
@@ -571,11 +585,28 @@
     return { ok: true };
   }
 
+  // The idea tree opens tier by tier: tier 2+ needs TIER_GATE studied ideas from the tier below.
+  const TIER_GATE = 2;
+  function tierProgress(run, tier) {
+    let n = 0;
+    for (let i = 0; i < BUILDINGS.length; i++) {
+      const b = BUILDINGS[i];
+      if ((b.tier || 0) !== tier || !b.science) continue;
+      if (b.faction && b.faction !== run.faction) continue;
+      if (run.unlocked[b.id]) n++;
+    }
+    return n;
+  }
+  function tierOpen(run, tier) {
+    return tier <= 1 || tierProgress(run, tier - 1) >= TIER_GATE;
+  }
+
   function unlock(run, id) {
     const d = DEF[id];
     if (!d) return { ok: false, reason: 'unknown' };
     if (run.unlocked[id]) return { ok: false, reason: 'known' };
     if (d.faction && d.faction !== run.faction) return { ok: false, reason: 'other-circle' };
+    if (!tierOpen(run, d.tier || 0)) return { ok: false, reason: 'tier' };
     const cost = d.science || 0;
     if (run.store.science < cost) return { ok: false, reason: 'ideas' };
     run.store.science -= cost;
@@ -1906,7 +1937,7 @@
     demolish: demolish,
     setGate: setGate,
     setPaused: setPaused,
-    unlock: unlock,
+    unlock: unlock, tierOpen: tierOpen, tierProgress: tierProgress, TIER_GATE: TIER_GATE,
     finishAll: finishAll,
     living: living,
     adults: adults,

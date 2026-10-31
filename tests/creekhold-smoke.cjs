@@ -124,6 +124,21 @@ const gorge = E.startRun(E.createMeta(), 'gorge', 'reed', 'hard');
 assert.equal(gorge.rules.badFrom, 2);
 assert(gorge.network.has('9,11'), 'the gorge stair reaches the bench');
 
+// QA: a step-stair can be laid down a bank from the path above, and a plain path says why it cannot.
+const bank = E.startRun(E.createMeta(), 'willow', 'reed', 'easy');
+for (const y of [5, 6, 7]) assert.equal(E.place(bank, 'path', 5, y).ok, true);
+assert.equal(E.place(bank, 'path', 5, 8).reason, 'step');
+assert.equal(E.place(bank, 'stairs', 5, 8).ok, true);
+assert.equal(E.place(bank, 'path', 4, 8).ok, true);
+// QA: the idea tree opens tier by tier.
+bank.store.science = 200;
+assert.equal(E.unlock(bank, 'bridge').reason, 'tier');
+assert.equal(E.unlock(bank, 'platform').ok, true);
+assert.equal(E.unlock(bank, 'saw').ok, true);
+assert.equal(E.unlock(bank, 'bridge').ok, true);
+assert(html.includes('rel="icon"'), 'favicon link so the live page has no 404');
+assert(html.includes('id="overlayBtn"'), 'on-screen overlay toggle for touch');
+
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'catalog.json'), 'utf8'));
 const entry = catalog.find(function (g) { return g.id === 'creekhold'; });
 assert(entry, 'catalogue entry');
