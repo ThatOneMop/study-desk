@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 9,
-    "browserTested": 9,
+    "improved": 10,
+    "browserTested": 10,
     "integrated": 9,
     "live": 9
   },
@@ -995,37 +995,57 @@
       "id": "tumbleglass",
       "title": "Tumbleglass",
       "coreLoop": "Tilt a tray to slide multiple beads; matching sockets lock beads into obstacles, making settling order matter. Undo, solve and optimize tilt counts.",
-      "status": "rendered-improvement-awaiting-qualification",
+      "status": "qualified-awaiting-catalogue-promotion",
       "source": "games/tumbleglass",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "date": "2026-10-31",
+          "basis": "Natural rendered three-tray campaign and tool exploration",
+          "weakness": "3/5/5 ordinary-tilt solutions gave no persistent reason to use tools; controls below the board.",
+          "before": "General best moves only; no technique goals.",
+          "after": "Per-tray no-tool, useful-clamp and nested-bead lift studies save their best actual winning journals. Compact bench, marked tool targets, phone direction pad before menus, embedded Collection return, hidden modal/input and native Escape fixes.",
+          "implementationCommit": "6fc74fdb18b8d5de7b7b0a853a8091219196a7ac",
+          "finalSourceCommit": "e1804e43a6372487d39c06766bc904a4676781cf",
+          "verificationRun": 41191843917,
+          "evidence": "29 checks and 18 desktop/touch technique wins; every-action reload, undo/retry, native Escape, tool focus, advisory recovery, pause, parent-hide modal guard, navigation, corruption recovery/reset, storage failure, no page errors/overflow. Earlier artifact screenshots reviewed, final phone layout reviewed in 390px iframe; final catalogue screenshots pending promotion."
+        }
+      ],
       "tests": [
         "4 engine tests: sequential campaign, exact journal saves/reload, undo/records, exhaustive reachable boards (8/32/37), shortest paths (3/5/5), collisions/locking/no-ops and invalid saves.",
         "3 jsdom 26.1.0 tests: UI campaign and every-tilt reload, navigation markup, arrow/form focus guards, undo/retry, pause/parent hide, isolated reset, corrupt recovery and storage failure. Dialogs simulated.",
         "Both scripts pass syntax checks. No rendered/browser/mobile/native-input/enjoyment claim. Full repository checks not run from partial checkout.",
         "Clamp refinement: 11 total tests pass (6 engine, 5 jsdom). Three position-changing clamp-assisted wins, single-use/locked/no-op rejection, undo/reload, old v1 string journals, owned object journals, selector keyboard focus and pause/dialog guards. Both scripts pass syntax checks.",
         "Tray guidance refinement: 16 total tests pass (8 engine, 8 jsdom). Reverse-graph verification covers all 269 reachable board/clamp states and 14 dead ends; every suggested route replays to a win. Read-only save/selection behavior, stale advice, guards, undo recovery and journal-capacity feedback pass.",
-        "Bead lift: 24 passing tests (13 engine, 11 jsdom 26.1.0). Original tilt/clamp behavior retained; extended adviser verified against independent reverse distances for all 1,127 reachable states. All three lift-assisted campaigns, prior dead-end recovery, exact replay/save/reload, blocked/invalid/repeated actions, undo/records/retry, tool exclusivity/focus/pause, reset isolation and syntax checks pass. No rendered evidence."
+        "Bead lift: 24 passing tests (13 engine, 11 jsdom 26.1.0). Original tilt/clamp behavior retained; extended adviser verified against independent reverse distances for all 1,127 reachable states. All three lift-assisted campaigns, prior dead-end recovery, exact replay/save/reload, blocked/invalid/repeated actions, undo/records/retry, tool exclusivity/focus/pause, reset isolation and syntax checks pass. No rendered evidence.",
+        "Run 41191843917/job124510047357 at e1804e43:29 focused tests,18 desktop/touch study wins, saves/reload/undo/retry/reset/recovery/pause/native Escape/tool-focus/navigation passed. Asset and first selected collection integrity checks passed. Artifact13039275949 SHA256 bc897cf09d0b28280cbac2f0dc6c3e7272468e7b4225b503680a72c82b05f251."
       ],
       "commits": [
         "0c67d045d33c8170dd461e5b66a08d3507857ef8",
         "a32f7119573ed337e270ac68279d41ff0219ff18",
         "4c3e706ec38567eba77b6ffcfaee219dd0d3aca6",
-        "62b15d4b4003f2aec62a969be4fa6e26078eb671"
+        "62b15d4b4003f2aec62a969be4fa6e26078eb671",
+        "6fc74fdb18b8d5de7b7b0a853a8091219196a7ac",
+        "ad44e2cfbb0f76011da1878ed074801ab9f686df",
+        "e1804e43a6372487d39c06766bc904a4676781cf"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three small initial puzzles with shortest routes of 3/5/5 tilts. Depth, settling-order readability and physical touch need review; no hours claim."
+        "status": "Qualified; selected pending catalogue regression",
+        "enjoyment": "Agent assessment: calm spatial planning with reversible mistakes; no human enjoyment study.",
+        "depth": "Three compact authored trays; alternate technique goals make targeted interventions useful, with saved best routes. Limited campaign depth.",
+        "polish": "Readable glass/socket numbers, settled checks, marked tools, desktop bench and compact phone direction pad.",
+        "reliability": "29 focused tests, all18 technique routes, safe legacy saves and recovery guards.",
+        "variety": "Simultaneous sliding and locked obstacles differ from Beepline programming and Reedbreaker combat.",
+        "knownLimits": "No content-hour or physical-device touch claim. Emulated touch and native browser input tested."
       },
       "nextSteps": [
-        "Play all trays naturally in a rendered browser; inspect locking order, clamp usability, and the optional adviser on desktop/touch.",
-        "Make a substantive playtest-led improvement and verify saves/restart/navigation before selection."
+        "Complete ten-game catalogue promotion and inspect its screenshots; publish only after passing."
       ],
       "pendingSourceRefinement": {
         "commit": "a32f7119573ed337e270ac68279d41ff0219ff18",
@@ -1048,12 +1068,6 @@
         "after": "A single-use bead lift moves one bead one cell independently, including out of a locked socket. Other beads stay still; the lifted bead only locks on its own socket. Blocked actions are free. The adviser includes lifts, and UI tools are mutually exclusive selections. Existing saves replay identically.",
         "evidence": "A tray-1 dead end after clamped-down/right now finishes with left, lift bead 1 right, up, down. All three campaign fixtures finish; exhaustive graph validates advisor distances. Not every dead end is rescued.",
         "remaining": "Rendered play, screenshots, native keyboard/touch, two-tool usability and game balance assessment plus required playtest-led improvement before integration."
-      },
-      "pendingRenderedPass": {
-        "report": "dev/indie-collection-three/TUMBLEGLASS_RENDERED_PASS.md",
-        "observed": "Completed natural baseline 3/5/5; no incentive for optional tools; board separated from controls.",
-        "change": "Nine technique studies across existing three trays, verified winning journals, useful clamp effect and nested-bead rescue objectives; compact bench; hidden/dialog/navigation fixes.",
-        "testing": "29 local checks pass; natural changed third-tray recovery win/reload completed. Desktop/touch CI and screenshots pending."
       }
     },
     {
@@ -2269,11 +2283,11 @@
     }
   ],
   "nextSteps": [
-    "Play Tumbleglass actual rendered core loop, implement a substantive game-specific improvement, then qualify on desktop/touch before selection.",
-    "Continue the remaining third-batch slate:15 built candidates still need qualification,26 remain unbuilt. Preserve all earlier games and saves."
+    "Finish Tumbleglass catalogue promotion and live-route verification.",
+    "Next: Soundings rendered play, substantial improvement, desktop/touch qualification.14 other built candidates await qualification;26 remain unbuilt."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "747f657ab18de9ce291b0bdd2387a429945d25a7",
+  "latestObservedMain": "51dabae98504065aebcbea35c1eaf23555ee3ce3",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2968,6 +2982,12 @@
       "verificationRun": 41182960783,
       "pagesRun": 41186668161,
       "summary": "Beepline integrated and live after213-check/nine-game promotion regression. Three final screenshots and live win/notebook/reload/navigation verified. Counts24/9/9/9/9; prior collections preserved."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "e1804e43a6372487d39c06766bc904a4676781cf",
+      "verificationRun": 41191843917,
+      "summary": "Tumbleglass qualified after rendered-led technique studies and compact bench.24 built/10 improved/10 browser-tested/9 integrated/9 live. Promotion c9eebba preserves concurrent Creekhold and Spanwright."
     }
   ]
 }
