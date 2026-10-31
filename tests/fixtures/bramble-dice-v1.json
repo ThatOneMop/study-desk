@@ -1,0 +1,583 @@
+[
+  {
+    "save": {
+      "version": 1,
+      "seed": 42,
+      "journal": [
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "perk",
+          "id": "guard"
+        }
+      ],
+      "best": null,
+      "setup": {
+        "keep": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "expected": {
+      "hp": 18,
+      "foeHp": 38,
+      "dice": [
+        3,
+        1,
+        4,
+        1
+      ],
+      "rng": 1757981406,
+      "room": 1,
+      "phase": "active",
+      "turns": 2
+    }
+  },
+  {
+    "save": {
+      "version": 1,
+      "seed": 42,
+      "journal": [
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "perk",
+          "id": "guard"
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            3,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "perk",
+          "id": "guard"
+        }
+      ],
+      "best": null,
+      "setup": {
+        "keep": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "expected": {
+      "hp": 18,
+      "foeHp": 48,
+      "dice": [
+        5,
+        5,
+        4,
+        5
+      ],
+      "rng": 124717480,
+      "room": 2,
+      "phase": "active",
+      "turns": 6
+    }
+  },
+  {
+    "save": {
+      "version": 1,
+      "seed": 42,
+      "journal": [
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "perk",
+          "id": "guard"
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            false,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            false,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            3,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "perk",
+          "id": "guard"
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            2,
+            1,
+            2,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "type": "reroll",
+          "keep": [
+            true,
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "type": "resolve",
+          "slots": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "best": 10,
+      "setup": {
+        "keep": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "expected": {
+      "hp": 18,
+      "foeHp": 0,
+      "dice": [
+        5,
+        4,
+        5,
+        6
+      ],
+      "rng": 431997381,
+      "room": 2,
+      "phase": "won",
+      "turns": 10
+    }
+  }
+]

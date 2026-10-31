@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  crate-catalogue:
+  bramble-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -44,12 +44,15 @@ jobs:
           node --test tests/crate-cushion-engine.cjs tests/crate-cushion-dom.cjs
           node tests/crate-cushion-browser.cjs
           node tests/crate-cushion-catalog-browser.cjs
+          node --test tests/bramble-dice-engine.cjs tests/bramble-dice-dom.cjs
+          node tests/bramble-dice-browser.cjs
+          node tests/bramble-dice-catalog-browser.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: crate-catalogue-browser
+          name: bramble-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -64,3 +67,6 @@ jobs:
 
             test-artifacts/crate-cushion/
             test-artifacts/crate-catalog/
+
+            test-artifacts/bramble-dice/
+            test-artifacts/bramble-catalog/
