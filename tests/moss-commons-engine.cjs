@@ -24,3 +24,31 @@ test('local services use edges only; paths do not relay and one service may serv
 test('all three standard-to-neighbourhood campaigns win and reload every action with separate records',()=>{let s=E.create();for(let l=0;l<3;l++){for(const[kind,p]of routes[l])s=apply(s,{kind,p});const standard=s.records.slice();s=apply(s,{type:'neighbourhood',enabled:true});for(const a of neighbourhoods[l].route){s=apply(s,a);A.deepEqual(E.decode(JSON.stringify(s)),s)}const b=E.board(s);A.equal(E.phase(l,b),'won');A.equal(E.services(l,b).every(h=>h.served),true);A.equal(b.wood,neighbourhoods[l].timber);A.deepEqual(s.records,standard);A.equal(s.neighbourhoodRecords[l],b.wood);A.equal(E.act(s,{kind:'path',p:23}).ok,false);const earned=s.neighbourhoodRecords.slice();s=apply(s,'undo');A.equal(E.phase(l,E.board(s)),'playing');A.deepEqual(s.neighbourhoodRecords,earned);s=apply(s,neighbourhoods[l].route.at(-1));s=apply(s,'retry');A.equal(s.neighbourhood,true);A.deepEqual(s.moves,[]);A.deepEqual(s.neighbourhoodRecords,earned);if(l<2){s=apply(s,{type:'level',level:l+1});A.equal(s.neighbourhood,undefined)}}A.deepEqual(s.records,[3,2,1]);A.deepEqual(s.neighbourhoodRecords,[2,0,0]);s=apply(s,{type:'neighbourhood',enabled:false});A.equal(s.neighbourhood,undefined);A.deepEqual(E.decode(JSON.stringify(s)),s)});
 test('neighbourhood journal validates mode, unlocks, record bounds and terminal completion',()=>{const base={...E.create(),records:[3,null,null]};for(const extra of [{neighbourhood:false},{neighbourhood:'true'},{neighbourhood:true},{neighbourhoodRecords:[]},{neighbourhoodRecords:[21,null,null]},{neighbourhoodRecords:[null,0,null]},{neighbourhoodRecords:[false,null,null]}])A.throws(()=>E.decode(JSON.stringify({...base,...extra})));A.throws(()=>E.decode(JSON.stringify({...E.create(),neighbourhood:true,neighbourhoodRecords:[null,null,null]})));let s=apply(base,{type:'neighbourhood',enabled:true});for(const a of neighbourhoods[0].route)s=apply(s,a);A.throws(()=>E.decode(JSON.stringify({...s,neighbourhoodRecords:[null,null,null]})));A.throws(()=>E.decode(JSON.stringify({...s,moves:s.moves.concat({kind:'path',p:18})})));A.deepEqual(E.decode(JSON.stringify(s)),s)});
 test('neighbourhood loss, undo and retry preserve mode and standard progress',()=>{let s=apply({...E.create(),records:[3,null,null]},{type:'neighbourhood',enabled:true});while(E.phase(0,E.board(s))==='playing'){const b=E.board(s),p=b.cells.findIndex((_,p)=>E.legal(0,b,{kind:'path',p}));s=apply(s,{kind:'path',p})}A.equal(E.phase(0,E.board(s)),'lost');s=E.decode(JSON.stringify(s));s=apply(s,'undo');A.equal(E.phase(0,E.board(s)),'playing');s=apply(s,'retry');A.equal(s.neighbourhood,true);A.deepEqual(s.records,[3,null,null]);A.deepEqual(s.moves,[])});
+
+test('conversion repairs a service-complete but underfed neighbourhood without deleting later buildings',()=>{
+ let s=E.create();for(const [kind,p]of routes[0])s=apply(s,{kind,p});s=apply(s,{type:'neighbourhood',enabled:true});
+ for(const [p,kind]of [[7,'house'],[11,'house'],[17,'house'],[6,'well'],[8,'garden'],[16,'garden'],[18,'well']])s=apply(s,{kind,p});
+ const old=JSON.stringify(s),b=E.board(s);A.equal(E.services(0,b).every(h=>h.served),true);A.equal(E.totals(0,b).food,2);
+ const preview=E.place(0,b,{kind:'convert',p:8,to:'orchard'});A.equal(preview.wood,1);A.equal(E.totals(0,preview).food,7);A.equal(JSON.stringify(s),old);
+ s=apply(s,{kind:'convert',p:8,to:'orchard'});A.equal(E.phase(0,E.board(s)),'won');A.equal(s.neighbourhoodRecords[0],1);A.deepEqual(E.decode(JSON.stringify(s)),s);
+ s=apply(s,'undo');A.deepEqual(E.board(s),b);A.equal(s.neighbourhoodRecords[0],1);
+});
+test('conversion costs include labour, never refund, and preserve full occupancy/connectivity',()=>{
+ for(const from of Object.keys(E.COST))for(const to of Object.keys(E.COST)){
+  let b=E.initial(0);b.cells[7]=from;const a={kind:'convert',p:7,to},n=E.place(0,b,a);
+  if(from===to){A.equal(n,null);continue}const cost=Math.max(1,E.COST[to]-E.COST[from]+1);A.equal(E.conversionCost(from,to),cost);A.equal(n.wood,b.wood-cost);A.equal(n.cells[7],to);A.ok(E.connected(n.cells));A.deepEqual(n.cells.map(Boolean),b.cells.map(Boolean));
+ }
+});
+test('conversion rejects empty plots, hall, unknown uses, extra fields, low timber and terminal edits',()=>{
+ let b=E.initial(0);b.cells[7]='garden';
+ for(const a of [{kind:'convert',p:0,to:'well'},{kind:'convert',p:12,to:'well'},{kind:'convert',p:7,to:'hall'},{kind:'convert',p:7,to:'garden'},{kind:'convert',p:7,to:'well',extra:1}])A.equal(E.place(0,b,a),null);
+ b.wood=0;A.equal(E.place(0,b,{kind:'convert',p:7,to:'orchard'}),null);
+ let s=E.create();for(const [kind,p]of routes[0])s=apply(s,{kind,p});A.equal(E.act(s,{kind:'convert',p:7,to:'garden'}).ok,false);
+ const raw=E.create();raw.moves=[{kind:'convert',p:7,to:'well'}];A.throws(()=>E.decode(JSON.stringify(raw)));
+});
+test('all three standard sites support path-to-well conversion and exact reload journals',()=>{
+ let s=E.create();for(let l=0;l<3;l++){const [[kind,p],...rest]=routes[l];A.equal(kind,'well');s=apply(s,{kind:'path',p});s=apply(s,{kind:'convert',p,to:'well'});for(const [kind,p]of rest){s=apply(s,{kind,p});A.deepEqual(E.decode(JSON.stringify(s)),s)}A.equal(E.board(s).wood,2-l);A.equal(E.phase(l,E.board(s)),'won');if(l<2)s=apply(s,{type:'level',level:l+1});}
+});
+test('a full board with timber can still be redesigned by conversion',()=>{
+ const b=E.initial(0);for(let p=0;p<25;p++)if(p!==12&&!E.LEVELS[0].rocks.includes(p))b.cells[p]='well';b.wood=1;A.equal(E.phase(0,b),'playing');A.ok(E.place(0,b,{kind:'convert',p:7,to:'garden'}));b.wood=0;A.equal(E.phase(0,b),'lost');
+});

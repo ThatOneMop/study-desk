@@ -8,10 +8,16 @@ function services(level,b){return b.cells.flatMap((kind,p)=>{if(kind!=='house')r
 function won(level,b){const t=totals(level,b);return t.homes>=3&&t.food>=t.people&&t.water>=t.people&&(!b.neighbourhood||services(level,b).every(h=>h.served))}
 function connected(cells){const seen=new Set([12]),queue=[12];for(const p of queue)for(const q of near(p))if(cells[q]&&!seen.has(q)){seen.add(q);queue.push(q)}return cells.every((kind,p)=>!kind||seen.has(p))}
 function relocation(level,b,a){if(!a||Object.keys(a).sort().join(',')!=='from,kind,p'||a.kind!=='move'||!int(a.from,0,24)||a.from===12||!Object.hasOwn(COST,b.cells[a.from])||!int(a.p,0,24)||b.cells[a.p]||LEVELS[level].rocks.includes(a.p)||b.wood<1)return null;const n=copy(b);n.cells[a.p]=n.cells[a.from];n.cells[a.from]=null;n.wood--;return connected(n.cells)?n:null}
-function legal(level,b,a){if(a?.kind==='move')return !!relocation(level,b,a);return a&&Object.keys(a).length===2&&Object.hasOwn(COST,a.kind)&&int(a.p,0,24)&&!b.cells[a.p]&&!LEVELS[level].rocks.includes(a.p)&&b.wood>=COST[a.kind]&&near(a.p).some(q=>b.cells[q])}
-function place(level,b,a){if(won(level,b)||!legal(level,b,a))return null;if(a.kind==='move')return relocation(level,b,a);const n=copy(b);n.cells[a.p]=a.kind;n.wood-=COST[a.kind];return n}
+function conversionCost(from,to){return Object.hasOwn(COST,from)&&Object.hasOwn(COST,to)&&from!==to?Math.max(1,COST[to]-COST[from]+1):null}
+function conversion(level,b,a){
+ if(!a||Object.keys(a).sort().join(',')!=='kind,p,to'||a.kind!=='convert'||!int(a.p,0,24))return null;
+ const cost=conversionCost(b.cells[a.p],a.to);if(cost===null||b.wood<cost)return null;
+ const n=copy(b);n.cells[a.p]=a.to;n.wood-=cost;return n;
+}
+function legal(level,b,a){if(a?.kind==='convert')return !!conversion(level,b,a);if(a?.kind==='move')return !!relocation(level,b,a);return a&&Object.keys(a).length===2&&Object.hasOwn(COST,a.kind)&&int(a.p,0,24)&&!b.cells[a.p]&&!LEVELS[level].rocks.includes(a.p)&&b.wood>=COST[a.kind]&&near(a.p).some(q=>b.cells[q])}
+function place(level,b,a){if(won(level,b)||!legal(level,b,a))return null;if(a.kind==='move')return relocation(level,b,a);if(a.kind==='convert')return conversion(level,b,a);const n=copy(b);n.cells[a.p]=a.kind;n.wood-=COST[a.kind];return n}
 function board(s){let b=initial(s.level,s.neighbourhood===true);for(const a of s.moves){b=place(s.level,b,a);if(!b)throw Error('Invalid construction journal')}return b}
-function phase(level,b){return won(level,b)?'won':Array.from({length:25},(_,p)=>p).some(p=>legal(level,b,{kind:'path',p}))?'playing':'lost'}
+function phase(level,b){return won(level,b)?'won':Array.from({length:25},(_,p)=>p).some(p=>legal(level,b,{kind:'path',p})||Object.keys(COST).some(to=>legal(level,b,{kind:'convert',p,to})))?'playing':'lost'}
 function create(){return{version:1,level:0,moves:[],records:[null,null,null]}}
 function act(s,a){const n=copy(s);if(a?.type==='neighbourhood'){if(Object.keys(a).sort().join(',')!=='enabled,type'||typeof a.enabled!=='boolean'||(a.enabled&&s.records[s.level]===null))return{ok:false,state:s};if(a.enabled){n.neighbourhood=true;n.neighbourhoodRecords??=[null,null,null]}else delete n.neighbourhood;n.moves=[];return{ok:true,state:n}}if(a==='undo'){if(!n.moves.length)return{ok:false,state:s};n.moves.pop();return{ok:true,state:n}}if(a==='retry'){n.moves=[];return{ok:true,state:n}}if(a?.type==='level'){if(!int(a.level,0,2)||(a.level>0&&n.records[a.level-1]===null))return{ok:false,state:s};n.level=a.level;n.moves=[];delete n.neighbourhood;return{ok:true,state:n}}const b=place(s.level,board(s),a);if(!b)return{ok:false,state:s};n.moves.push(copy(a));if(won(s.level,b)){const records=s.neighbourhood?n.neighbourhoodRecords:n.records;records[s.level]=Math.max(records[s.level]??-1,b.wood)}return{ok:true,state:n}}
 function decode(raw){const s=JSON.parse(raw);if(!s||s.version!==1||!int(s.level,0,2)||!Array.isArray(s.moves)||s.moves.length>20||!Array.isArray(s.records)||s.records.length!==3||!s.records.every((x,i)=>x===null||int(x,0,LEVELS[i].wood))||s.records.some((x,i)=>x!==null&&i>0&&s.records[i-1]===null)||(s.level>0&&s.records[s.level-1]===null))throw Error('Invalid save');
@@ -20,5 +26,4 @@ if(Object.hasOwn(s,'neighbourhoodRecords')&&(!Array.isArray(s.neighbourhoodRecor
 if(s.neighbourhood&&(s.records[s.level]===null||!s.neighbourhoodRecords))throw Error('Locked neighbourhood');
 const b=board(s),records=s.neighbourhood?s.neighbourhoodRecords:s.records;if(won(s.level,b)&&(records[s.level]===null||records[s.level]<b.wood))throw Error('Missing record');
 return{version:1,level:s.level,moves:copy(s.moves),records:s.records.slice(),...(s.neighbourhood?{neighbourhood:true}:{}),...(s.neighbourhoodRecords?{neighbourhoodRecords:s.neighbourhoodRecords.slice()}:{})}}
-return{KEY,COST,LEVELS,near,connected,initial,orchard,totals,services,won,legal,place,board,phase,create,act,decode};});
-
+return{KEY,COST,LEVELS,near,connected,initial,orchard,totals,services,won,conversionCost,conversion,legal,place,board,phase,create,act,decode};});
