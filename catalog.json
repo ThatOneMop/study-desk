@@ -1034,6 +1034,58 @@
     "updated": "2026-10-31"
   },
   {
+    "id": "creekhold",
+    "title": "Creekhold",
+    "description": "Raise a colony of nibs on a living river. Dam the clear days, store for the dry spell, and shut the gate when the water turns sour.",
+    "icon": "🦫",
+    "genre": "Strategy",
+    "color": "#1f7c86",
+    "url": "games/creekhold/index.html",
+    "group": "Your games",
+    "controls": "WASD or edge pan · wheel or pinch zoom · Q/E rotate · click or tap places · 1–7 build groups · V water, R paths, G power, C sour · X removes · Space pauses · Esc menu",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#creekhold",
+    "aliases": [
+      "colony",
+      "river",
+      "dam",
+      "city",
+      "builder",
+      "strategy",
+      "nibs"
+    ],
+    "thumbnail": "art/curated/creekhold.svg",
+    "thumbnailAlt": "A teal river held by a timber dam, with lodges, a pump, and two nibs on the bank",
+    "updated": "2026-10-31"
+  },
+  {
+    "id": "tumbleglass",
+    "title": "Tumbleglass",
+    "description": "Tilt a glass tray, nest numbered beads and plan around the ones that lock. Explore three compact puzzles through tool-free, useful-clamp and nested-bead rescue studies.",
+    "icon": "🔮",
+    "genre": "Puzzle + Tactics",
+    "color": "#72b7bb",
+    "controls": "Arrow keys on tray · Native tool menus · Touch direction buttons · Unlimited undo",
+    "url": "games/tumbleglass/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#tumbleglass",
+    "aliases": [
+      "glass",
+      "beads",
+      "tilt",
+      "gravity",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/tumbleglass.svg",
+    "thumbnailAlt": "Amber and teal glass beads resting among numbered sockets in a dark wooden tray",
+    "updated": "2026-10-31"
+  },
+  {
     "id": "lanewright",
     "title": "Lanewright",
     "description": "Draw a calm road network so coloured cars can finish their trips before a shop's ring fills.",

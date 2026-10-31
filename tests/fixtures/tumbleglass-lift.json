@@ -1,0 +1,34 @@
+[
+  [
+    {
+      "dir": "right",
+      "lift": 0
+    },
+    "down",
+    "left"
+  ],
+  [
+    "up",
+    {
+      "dir": "down",
+      "hold": 1
+    },
+    "right",
+    "up",
+    {
+      "dir": "left",
+      "lift": 1
+    }
+  ],
+  [
+    "up",
+    {
+      "dir": "down",
+      "lift": 0
+    },
+    "right",
+    "down",
+    "left"
+  ]
+]
+
