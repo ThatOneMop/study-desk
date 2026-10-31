@@ -1084,5 +1084,31 @@
     "thumbnail": "art/curated/tumbleglass.svg",
     "thumbnailAlt": "Amber and teal glass beads resting among numbered sockets in a dark wooden tray",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "lanewright",
+    "title": "Lanewright",
+    "description": "Draw a calm road network so coloured cars can finish their trips before a shop's ring fills.",
+    "icon": "🚗",
+    "genre": "Strategy",
+    "color": "#e7efe4",
+    "url": "games/lanewright/index.html",
+    "group": "Your games",
+    "controls": "Drag roads · Right-drag or Erase lifts tiles · 1–6 tools · Space pauses · Pinch zoom · Wheel zoom",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#lanewright",
+    "aliases": [
+      "roads",
+      "traffic",
+      "city",
+      "cars",
+      "puzzle",
+      "strategy"
+    ],
+    "thumbnail": "art/curated/lanewright.svg",
+    "thumbnailAlt": "Lanewright cover of a pale road between coloured houses and a blue shop, crossing a river",
+    "updated": "2026-10-31"
   }
 ]

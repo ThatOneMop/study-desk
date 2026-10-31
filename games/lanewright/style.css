@@ -1,0 +1,214 @@
+:root {
+  --ink: #24302c;
+  --paper: #f6f3ec;
+  --paper2: #fffdf8;
+  --leaf: #2f7d55;
+  --leaf2: #d7ebdd;
+  --coral: #d85a4e;
+  --line: rgba(36, 48, 44, 0.14);
+  --shadow: 0 16px 40px rgba(36, 40, 32, 0.12);
+  color-scheme: light;
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #e7efe6;
+  color: var(--ink);
+  touch-action: none;
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 3px solid #8fbe9e;
+  outline-offset: 2px;
+}
+#app { height: 100%; height: 100dvh; overflow: hidden; position: relative; }
+a.back { color: var(--leaf); text-decoration: none; font-size: 14px; letter-spacing: 0.04em; }
+#title, #cities, #achieve {
+  height: 100%;
+  overflow: auto;
+  padding: 18px 14px 24px;
+  touch-action: pan-y;
+  display: flex;
+  justify-content: center;
+  background:
+    radial-gradient(800px 380px at 90% -10%, rgba(232, 168, 92, 0.28), transparent 55%),
+    radial-gradient(700px 420px at -10% 100%, rgba(90, 168, 196, 0.22), transparent 50%),
+    linear-gradient(#f7f4ee, #e4efe6);
+}
+#title { align-items: safe center; }
+#cities, #achieve { align-items: flex-start; }
+.sheet {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  background: var(--paper2);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 22px 22px 18px;
+}
+.logo { display: block; width: min(240px, 70%); height: auto; }
+h1 {
+  font-family: "Iowan Old Style", Palatino, Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(40px, 8vw, 68px);
+  line-height: 0.9;
+  margin: 6px 0 4px;
+  letter-spacing: -0.03em;
+}
+h1 i { font-style: italic; color: var(--leaf); }
+h2 { font-family: "Iowan Old Style", Palatino, Georgia, serif; font-weight: 500; margin: 0 0 6px; }
+.kicker { letter-spacing: 0.16em; text-transform: uppercase; font-size: 12px; color: var(--leaf); margin: 12px 0 0; }
+.lede { font-size: 18px; line-height: 1.4; margin: 8px 0 16px; max-width: 38em; }
+.actions, .row { display: flex; flex-wrap: wrap; gap: 8px; }
+button.primary, button.ghost, button.danger, .card button {
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+button.ghost, .card button.ghost { background: transparent; color: var(--ink); }
+button.danger { background: var(--coral); border-color: var(--coral); color: white; }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+.fine { color: rgba(36, 48, 44, 0.72); font-size: 13px; }
+.citygrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-top: 12px; }
+.city {
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+}
+.city .swatch { height: 8px; border-radius: 99px; }
+.city strong { font-size: 18px; }
+.city small, .city p { margin: 0; color: rgba(36, 48, 44, 0.75); line-height: 1.35; }
+.city .row button { flex: 1; }
+.lock { font-size: 13px; color: #8a5a32; }
+#play { position: absolute; inset: 0; overflow: hidden; background: #e7efe6; }
+#scene { width: 100%; height: 100%; display: block; touch-action: none; background: #f4f1e8; }
+#hud, #status, #dock, #tutorial { position: absolute; z-index: 2; }
+#hud {
+  top: 8px; left: 8px; right: 8px;
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  pointer-events: none;
+  max-height: 42%;
+}
+#hud > * { pointer-events: auto; }
+.pill, .speeds button, #hud > button, #dock button {
+  background: rgba(255, 252, 247, 0.94);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(40, 40, 30, 0.06);
+}
+.pill { display: flex; flex-direction: column; padding: 4px 12px 5px; min-height: 44px; justify-content: center; }
+.pill small { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(36, 48, 44, 0.62); }
+.pill b { font-size: 16px; font-variant-numeric: tabular-nums; }
+.speeds { display: flex; gap: 4px; }
+.speeds button, #hud > button {
+  min-width: 44px; min-height: 44px; padding: 0 10px;
+}
+.speeds button[aria-pressed="true"], #dock button[aria-pressed="true"] {
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+}
+#status {
+  left: 12px; right: 12px; bottom: 78px;
+  margin: 0; min-height: 0;
+  text-align: center; font-size: 14px;
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+#dock {
+  left: 8px; right: 8px; bottom: 8px;
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  max-height: 34%;
+}
+#dock button {
+  min-height: 48px; min-width: 64px;
+  padding: 4px 10px 5px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+#dock button b { font-size: 13px; font-weight: 600; }
+#dock button small { font-size: 11px; opacity: 0.75; }
+#tutorial {
+  left: 12px; bottom: 92px;
+  width: min(380px, calc(100% - 24px));
+  background: rgba(255, 252, 247, 0.96);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 12px 14px;
+  z-index: 5;
+}
+#tutorial p { margin: 6px 0 10px; line-height: 1.4; }
+dialog {
+  border: none; padding: 0; background: transparent;
+  max-width: min(520px, calc(100vw - 20px));
+  max-height: calc(100dvh - 20px); max-height: calc(100vh - 20px);
+}
+dialog::backdrop { background: rgba(28, 36, 32, 0.35); }
+.card {
+  background: var(--paper2);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  max-height: calc(100dvh - 24px); max-height: calc(100vh - 24px);
+  overflow: auto;
+}
+.wide { width: min(560px, 100%); }
+.choices { display: grid; grid-template-columns: 1fr; gap: 8px; }
+@media (min-width: 640px) { .choices { grid-template-columns: 1fr 1fr; } }
+#upgrade button.choice {
+  text-align: left;
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  min-height: 132px;
+  padding: 16px;
+  line-height: 1.35;
+  white-space: normal;
+}
+#upgrade button.choice b { display: block; font-size: 18px; margin-bottom: 6px; color: var(--ink); }
+.statgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+.statgrid div { background: var(--paper); border-radius: 12px; padding: 8px 10px; }
+.statgrid b { display: block; font-size: 22px; }
+label.chk, label.slide { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 10px 0; }
+.achieve { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.achieve div { border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; background: white; }
+.achieve div.off { opacity: 0.55; }
+#weekbar {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 3;
+  background: rgba(36, 48, 44, 0.08); pointer-events: none;
+}
+#weekbar i { display: block; height: 100%; width: 0; background: var(--leaf); }
+@media (max-width: 720px) {
+  .sheet { padding: 16px 14px; border-radius: 14px; }
+  .lede { font-size: 16px; }
+  .pill b { font-size: 14px; }
+  /* Phone: two slim HUD rows, one dock row, so the city gets the screen. */
+  #hud { gap: 4px; left: 6px; right: 6px; top: 6px; }
+  .pill { min-height: 38px; padding: 3px 9px 4px; }
+  .pill small { font-size: 9px; }
+  .speeds button, #hud > button { min-width: 38px; min-height: 38px; padding: 0 8px; font-size: 13px; }
+  #speed2 { display: none; }
+  #status { bottom: 64px; font-size: 13px; }
+  #tutorial { top: 98px; bottom: auto; max-height: 30%; overflow: auto; }
+  #dock { flex-wrap: nowrap; gap: 3px; left: 4px; right: 4px; bottom: max(6px, env(safe-area-inset-bottom)); }
+  #dock button { flex: 1 1 0; min-width: 0; min-height: 46px; padding: 3px 1px 4px; }
+  #dock button b { font-size: 11px; }
+  #dock button small { font-size: 10px; }
+}
+@media (max-height: 700px) {
+  #title, #cities, #achieve { padding-top: 8px; }
+  h1 { font-size: clamp(34px, 7vw, 52px); }
+}
