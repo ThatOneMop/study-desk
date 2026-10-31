@@ -95,6 +95,7 @@ These are design choices for this replica, tuned so an unconnected destination d
 | Week-1 square pin rate | 0.105 / second, plus a short opening grace | Two cars on a short road can keep a new square under the cap. |
 | Later weeks | +0.03 pins/second per week, and a further +0.018 after week 5; circles ×1.62 | Demand climbs even if you stop building. |
 | Road speed | about 2.75 tiles/second; motorway about 6 | A long commute is a real choice, not a teleport. |
-| Intersection hold | about 0.22 seconds; roundabout about 0.06; red light waits | Queues form at crosses and not at gentle bends. |
+| Intersection hold | about 0.22 seconds, plus a half-tile wait if another car is already in the shared junction; roundabout about 0.06 | Queues form at crosses and not at gentle bends. |
+| Opening road pile | about 38–46 tiles, Sunday bundles about 7–15 | Roughly a third under the first tuning, so a kept-up city spends the pile down instead of finishing with a surplus. |
 | Cars per house | 2 | As published. |
 | New colours | weeks 1, 2, 4, 6, 8, up to six | The palette arrives before the map is full. |

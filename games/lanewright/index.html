@@ -86,8 +86,8 @@
     <footer id="dock" aria-label="Tools">
       <button type="button" data-tool="road" aria-pressed="true"><b>Road</b><small id="nRoad">0</small></button>
       <button type="button" data-tool="motorway" aria-pressed="false"><b>Motor</b><small id="nMotor">0</small></button>
-      <button type="button" data-tool="bridge" aria-pressed="false"><b>Bridge</b><small id="nBridge">0</small></button>
-      <button type="button" data-tool="tunnel" aria-pressed="false"><b>Tunnel</b><small id="nTunnel">0</small></button>
+      <button type="button" data-note="bridge" title="Spent automatically when a road crosses water"><b>Bridge</b><small id="nBridge">0</small></button>
+      <button type="button" data-note="tunnel" title="Spent automatically when a road crosses a hill"><b>Tunnel</b><small id="nTunnel">0</small></button>
       <button type="button" data-tool="roundabout" aria-pressed="false"><b>Circle</b><small id="nRound">0</small></button>
       <button type="button" data-tool="light" aria-pressed="false"><b>Light</b><small id="nLight">0</small></button>
       <button type="button" id="eraseBtn" aria-pressed="false"><b>Erase</b><small>lift</small></button>
@@ -127,6 +127,7 @@
   <div class="card wide">
     <p class="kicker">Sunday</p>
     <h2 id="upgradeTitle">Week 2</h2>
+    <p id="upgradeNote">The week closed.</p>
     <p>Choose one supply. Both come with road tiles.</p>
     <div id="upgradeCards" class="choices"></div>
   </div>
@@ -136,6 +137,7 @@
     <p class="kicker" id="resultKicker">The ring filled</p>
     <h2 id="resultTitle">The city stopped</h2>
     <p id="resultBody"></p>
+    <img id="resultMap" alt="The city when it stopped" width="520" height="280">
     <div class="statgrid">
       <div>Trips <b id="resultScore">0</b></div>
       <div>Week <b id="resultWeek">1</b></div>
@@ -155,9 +157,9 @@
     <h2>How the lanes work</h2>
     <p>Houses are circles and hold two cars. Shops are squares. A car only collects a pin from a shop of the same colour, then drives home. Each pin is one trip.</p>
     <p>A square shop can hold seven pins. A round shop, ten. Past that, a ring starts. If the ring completes, the city stops. Cars already out prefer a shop whose ring is running. Bringing the pins back under the cap lets the ring fade.</p>
-    <p>Drag along the grid to spend road tiles. Diagonals are allowed. Right-drag, or Erase, lifts a tile back into the pile. A bridge spends one bridge for a whole stretch of water, and a road tile per step. A tunnel does the same for a hill. A motorway is a fast curve that hops roads and water, not hills. A circle keeps a junction moving. A light lets one axis through at a time.</p>
+    <p>Drag along the grid to spend road tiles. Diagonals are allowed. Right-drag, or Erase, lifts a tile back into the pile. Bridge and Tunnel are counters, not tools: a crossing spends one on its own when the road meets water or a hill. A motorway is a fast raised thread that hops roads and water, not hills. A circle keeps a junction moving. A light lets one axis through at a time.</p>
     <p>Sunday pauses the week and offers two supplies. Daily and weekly lanes share a seed for that day or that week. The sketchbook never runs out and never stops.</p>
-    <p>Keys: 1 road, 2 motorway, 3 bridge, 4 tunnel, 5 circle, 6 light, X erase, Z undo, Y redo, Space pauses the clock, Esc opens this pause, arrows pan, minus and plus zoom. On a touch screen, drag to draw, use Erase to lift, and pinch to zoom.</p>
+    <p>Keys: 1 road, 2 motorway, 3 bridge count, 4 tunnel count, 5 circle, 6 light, X erase, Z undo, Y redo, Space pauses the clock, Esc opens this pause, arrows pan, minus and plus zoom. On a phone the map starts zoomed in: drag empty ground to pan, pinch to zoom. Erase lifts a tile.</p>
     <button type="button" id="helpClose" class="primary">Back</button>
   </div>
 </dialog>

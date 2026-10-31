@@ -61,7 +61,7 @@ assert.ok(lone.time > 20 && lone.time < 140);
 function maintain(run) {
   if (run.phase === 'upgrade') {
     const cards = run.offer;
-    const idx = run.stock.road < 18
+    const idx = run.stock.road < 12
       ? (cards[0].roads >= cards[1].roads ? 0 : 1)
       : Math.max(0, cards.findIndex(c => c.tool));
     assert.equal(E.chooseUpgrade(run, idx).ok, true);
@@ -85,6 +85,9 @@ while (bot.time < E.WEEK * 3 && bot.phase !== 'over' && steps++ < 5000) {
 assert.ok(bot.time >= E.WEEK * 2, 'a maintained city should last more than two weeks, t=' + bot.time);
 assert.ok(bot.score > 120, 'score ' + bot.score);
 assert.ok(bot.buildings.length > served.buildings.length, 'the city keeps spawning');
+assert.ok(bot.stock.road < 32, 'road tiles should be a real constraint, left ' + bot.stock.road);
+assert.ok(bot.segs.length > bot.stock.road, 'more road is on the map than left in the pile');
+assert.ok(E.cityById('larkmere').roads <= 50);
 
 const paved = E.startRun(meta, 'larkmere', 'endless', { seed: 1 });
 const h2 = paved.buildings.find(b => b.role === 'house');
@@ -93,7 +96,7 @@ assert.equal(E.connectBuildings(paved, h2.id, d2.id).ok, true);
 const spent = paved.segs.length;
 assert.equal(E.undo(paved), true);
 assert.equal(paved.segs.length, 0);
-assert.ok(paved.stock.road > 70);
+assert.equal(paved.stock.road, E.cityById('larkmere').roads);
 assert.equal(E.redo(paved), true);
 assert.equal(paved.segs.length, spent);
 

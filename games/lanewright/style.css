@@ -191,6 +191,17 @@ label.chk, label.slide { display: flex; justify-content: space-between; align-it
   background: rgba(36, 48, 44, 0.08); pointer-events: none;
 }
 #weekbar i { display: block; height: 100%; width: 0; background: var(--leaf); }
+#resultMap {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 8px 0;
+  background: #e7efe6;
+}
+#dock [data-note] { background: #e7f0ea; }
 @media (max-width: 720px) {
   .sheet { padding: 16px 14px; border-radius: 14px; }
   .lede { font-size: 16px; }

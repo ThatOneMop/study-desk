@@ -185,7 +185,7 @@
       const T = 0.42;
       if (age >= T) return 1;
       const t = Math.max(0, age / T);
-      const c1 = 1.70158;
+      const c1 = 2.4;
       const c3 = c1 + 1;
       return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
     }
@@ -265,9 +265,9 @@
       }
       ctx.fillStyle = col.fill;
       ctx.beginPath();
-      if (b.role === 'house' || b.shape === 'circle') ctx.arc(0, 0, z * 0.36, 0, 7);
-      else if (ctx.roundRect) ctx.roundRect(-z * 0.34, -z * 0.34, z * 0.68, z * 0.68, z * 0.14);
-      else ctx.rect(-z * 0.34, -z * 0.34, z * 0.68, z * 0.68);
+      if (b.role === 'house' || b.shape === 'circle') ctx.arc(0, 0, z * 0.47, 0, 7);
+      else if (ctx.roundRect) ctx.roundRect(-z * 0.44, -z * 0.44, z * 0.88, z * 0.88, z * 0.18);
+      else ctx.rect(-z * 0.44, -z * 0.44, z * 0.88, z * 0.88);
       ctx.fill();
       if (opt.colorblind) pattern(b.color, 0, 0, z * 0.3);
       ctx.fillStyle = 'rgba(255,255,255,0.9)';
@@ -277,9 +277,14 @@
         ctx.fill();
       } else {
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(-z * 0.16, -z * 0.16, z * 0.32, z * 0.32, z * 0.06);
-        else ctx.rect(-z * 0.16, -z * 0.16, z * 0.32, z * 0.32);
+        if (ctx.roundRect) ctx.roundRect(-z * 0.2, -z * 0.2, z * 0.4, z * 0.4, z * 0.08);
+        else ctx.rect(-z * 0.2, -z * 0.2, z * 0.4, z * 0.4);
         ctx.fill();
+        ctx.fillStyle = b.timer > 0 ? '#9f2a22' : col.deep;
+        ctx.font = '700 ' + Math.max(11, z * 0.34) + 'px "Avenir Next", "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(Math.max(0, Math.ceil(b.pins - 0.05))), 0, z * 0.02);
       }
       if (b.role === 'dest') drawPins(b, z, now, opt.motion, col);
       ctx.restore();
@@ -292,27 +297,29 @@
       for (let i = 0; i < n; i++) {
         const ang = -Math.PI / 2 + (i - (n - 1) / 2) * spread;
         const bob = motion ? 0 : Math.sin(now / 380 + i) * z * 0.015;
-        const rad = z * 0.58 + bob;
+        const rad = z * 0.78 + bob;
         const x = Math.cos(ang) * rad;
         const y = Math.sin(ang) * rad;
         ctx.fillStyle = '#fffaf6';
         ctx.beginPath();
-        ctx.arc(x, y, Math.max(3.2, z * 0.09), 0, 7);
+        ctx.arc(x, y, Math.max(4.5, z * 0.13), 0, 7);
         ctx.fill();
-        ctx.fillStyle = b.timer > 0 ? '#d85a4e' : col.fill;
+        ctx.fillStyle = b.timer > 0 ? '#c5362c' : col.fill;
         ctx.beginPath();
-        ctx.arc(x, y, Math.max(2, z * 0.055), 0, 7);
+        ctx.arc(x, y, Math.max(3, z * 0.085), 0, 7);
         ctx.fill();
       }
       if (b.timer > 0) {
-        const rad = z * 0.78;
-        ctx.strokeStyle = 'rgba(60,40,36,0.12)';
-        ctx.lineWidth = Math.max(3, z * 0.07);
+        const rad = z * 0.98;
+        const pulse = motion ? 1 : 1 + Math.sin(now / 180) * 0.04 * (b.timer > 0.7 ? 1 : 0);
+        ctx.strokeStyle = 'rgba(90,32,28,0.18)';
+        ctx.lineWidth = Math.max(6, z * 0.16);
         ctx.beginPath();
         ctx.arc(0, 0, rad, 0, Math.PI * 2);
         ctx.stroke();
-        ctx.strokeStyle = b.timer > 0.72 ? '#c5362c' : '#e06a4e';
+        ctx.strokeStyle = b.timer > 0.72 ? '#9f1d14' : '#d64532';
         ctx.lineCap = 'round';
+        ctx.lineWidth = Math.max(5, z * 0.13) * pulse;
         ctx.beginPath();
         ctx.arc(0, 0, rad, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, b.timer));
         ctx.stroke();
@@ -378,6 +385,22 @@
       if (node) {
         const ix = node.x - prev.x, iy = node.y - prev.y, il = Math.hypot(ix, iy) || 1;
         const ox = next.x - node.x, oy = next.y - node.y, ol = Math.hypot(ox, oy) || 1;
+        const dot = (ix / il) * (ox / ol) + (iy / il) * (oy / ol);
+        if (dot < -0.2) {
+          const turn = 0.32;
+          const sAng = Math.atan2(-ix / il, iy / il);
+          let eAng = Math.atan2(-ox / ol, oy / ol);
+          let sweep = eAng - sAng;
+          while (sweep > Math.PI) sweep -= Math.PI * 2;
+          while (sweep < -Math.PI) sweep += Math.PI * 2;
+          if (Math.abs(sweep) < 0.8) sweep = sweep >= 0 ? Math.PI : -Math.PI;
+          const ang = sAng + sweep * s;
+          const x = node.x + Math.cos(ang) * turn;
+          const y = node.y + Math.sin(ang) * turn;
+          const hx = -Math.sin(ang) * Math.sign(sweep || 1);
+          const hy = Math.cos(ang) * Math.sign(sweep || 1);
+          return { x: x, y: y, hx: hx, hy: hy, motor: false };
+        }
         if (Math.abs(ix / il - ox / ol) + Math.abs(iy / il - oy / ol) > 0.01) {
           const ri = Math.min(r, il * 0.45), ro = Math.min(r, ol * 0.45);
           const P0 = { x: node.x - ix / il * ri, y: node.y - iy / il * ri };
@@ -457,39 +480,69 @@
 
     function drawMotor(cam, m) {
       const c = motorCurve(m);
+      const z = cam.z;
       const A = toScreen(cam, c.ax, c.ay);
       const B = toScreen(cam, c.bx, c.by);
       const C = toScreen(cam, c.cx, c.cy);
+      function ramp(end, toward) {
+        const dx = toward.x - end.x;
+        const dy = toward.y - end.y;
+        const len = Math.hypot(dx, dy) || 1;
+        const ux = dx / len;
+        const uy = dy / len;
+        const px = -uy;
+        const py = ux;
+        const tip = toScreen(cam, end.x, end.y);
+        const base = toScreen(cam, end.x + ux * 0.7, end.y + uy * 0.7);
+        ctx.fillStyle = '#d5dde2';
+        ctx.beginPath();
+        ctx.moveTo(tip.x + px * z * 0.16, tip.y + py * z * 0.16);
+        ctx.lineTo(tip.x - px * z * 0.16, tip.y - py * z * 0.16);
+        ctx.lineTo(base.x - px * z * 0.28, base.y - py * z * 0.28);
+        ctx.lineTo(base.x + px * z * 0.28, base.y + py * z * 0.28);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ramp({ x: c.ax, y: c.ay }, { x: c.cx, y: c.cy });
+      ramp({ x: c.bx, y: c.by }, { x: c.cx, y: c.cy });
       ctx.save();
       ctx.lineCap = 'round';
-      ctx.translate(0, cam.z * 0.08);
-      ctx.strokeStyle = 'rgba(40,36,28,0.13)';
-      ctx.lineWidth = cam.z * 0.22;
+      ctx.translate(0, z * 0.14);
+      ctx.strokeStyle = 'rgba(30,36,40,0.22)';
+      ctx.lineWidth = z * 0.42;
       ctx.beginPath();
       ctx.moveTo(A.x, A.y);
       ctx.quadraticCurveTo(C.x, C.y, B.x, B.y);
       ctx.stroke();
       ctx.restore();
-      ctx.strokeStyle = '#5c6b73';
-      ctx.lineWidth = cam.z * 0.2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#2c3a42';
+      ctx.lineWidth = z * 0.4;
       ctx.beginPath();
       ctx.moveTo(A.x, A.y);
       ctx.quadraticCurveTo(C.x, C.y, B.x, B.y);
       ctx.stroke();
-      ctx.strokeStyle = '#eef3f4';
-      ctx.lineWidth = cam.z * 0.11;
+      ctx.strokeStyle = '#8ea3ae';
+      ctx.lineWidth = z * 0.22;
       ctx.beginPath();
       ctx.moveTo(A.x, A.y);
       ctx.quadraticCurveTo(C.x, C.y, B.x, B.y);
       ctx.stroke();
-      ctx.fillStyle = '#f4f7f4';
-      ctx.strokeStyle = '#2c3330';
-      ctx.lineWidth = 1.4;
-      for (const pt of [A, B]) {
-        ctx.beginPath();
-        ctx.arc(pt.x, pt.y, Math.max(4, cam.z * 0.1), 0, 7);
-        ctx.fill();
-        ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+      ctx.lineWidth = Math.max(1.5, z * 0.035);
+      ctx.setLineDash([z * 0.16, z * 0.14]);
+      ctx.beginPath();
+      ctx.moveTo(A.x, A.y);
+      ctx.quadraticCurveTo(C.x, C.y, B.x, B.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#243038';
+      for (const t of [0.35, 0.65]) {
+        const u = 1 - t;
+        const x = u * u * c.ax + 2 * u * t * c.cx + t * t * c.bx;
+        const y = u * u * c.ay + 2 * u * t * c.cy + t * t * c.by;
+        const p = toScreen(cam, x, y + 0.12);
+        ctx.fillRect(p.x - z * 0.04, p.y, z * 0.08, z * 0.16);
       }
     }
 
@@ -507,8 +560,8 @@
           const dx = cx - corner[0];
           const dy = cy - corner[1];
           const len = Math.hypot(dx, dy) || 1;
-          const endx = cx - (dx / len) * 0.4;
-          const endy = cy - (dy / len) * 0.4;
+          const endx = cx - (dx / len) * 0.52;
+          const endy = cy - (dy / len) * 0.52;
           const a = toScreen(cam, corner[0], corner[1]);
           const end = toScreen(cam, endx, endy);
           path.moveTo(a.x, a.y);
@@ -545,7 +598,14 @@
           const X = p.x + l - (w ? 0.5 : 0), Y = p.y + t - (n ? 0.5 : 0);
           const W = z - l - rr + (w ? 0.5 : 0) + (e ? 0.5 : 0), H = z - t - b + (n ? 0.5 : 0) + (so ? 0.5 : 0);
           if (W <= 0 || H <= 0) continue;
-          const rad = [!n && !w ? r : 0, !n && !e ? r : 0, !so && !e ? r : 0, !so && !w ? r : 0].map(v => Math.min(v, W / 2, H / 2));
+          const nw = at(x - 1, y - 1), ne = at(x + 1, y - 1), sw = at(x - 1, y + 1), se = at(x + 1, y + 1);
+          const inner = r * 0.92;
+          const rad = [
+            (!n && !w) || (n && w && !nw) ? ((!n && !w) ? r : inner) : 0,
+            (!n && !e) || (n && e && !ne) ? ((!n && !e) ? r : inner) : 0,
+            (!so && !e) || (so && e && !se) ? ((!so && !e) ? r : inner) : 0,
+            (!so && !w) || (so && w && !sw) ? ((!so && !w) ? r : inner) : 0
+          ].map(v => Math.min(v, W / 2, H / 2));
           if (ctx.roundRect) ctx.roundRect(X, Y, W, H, rad);
           else ctx.rect(X, Y, W, H);
         }

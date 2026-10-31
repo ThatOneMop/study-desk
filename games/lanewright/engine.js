@@ -122,7 +122,7 @@
     defineCity({
       id: 'larkmere', name: 'Larkmere', region: 'Open meadow',
       blurb: 'A flat first page. Two colours, no river, no hill. Learn the drag.',
-      cols: 18, rows: 12, unlock: 0, roads: 72,
+      cols: 18, rows: 12, unlock: 0, roads: 46,
       ground: '#f4f1e8', ground2: '#e3eddf', water: '#b7d4e8', waterDeep: '#8ebbd6',
       mountain: '#d5d0c8', mountainLight: '#ece8e1', road: '#fbfaf6', roadEdge: '#d9d3c8', ink: '#2c3330',
       paint: [],
@@ -136,7 +136,7 @@
     defineCity({
       id: 'pebble-quay', name: 'Pebble Quay', region: 'A bent river',
       blurb: 'The water steps across the middle. Same-bank trips are easy. The other bank is a bridge.',
-      cols: 20, rows: 14, unlock: 140, roads: 64, bridges: 1,
+      cols: 20, rows: 14, unlock: 140, roads: 41, bridges: 1,
       ground: '#f3efe4', ground2: '#e7f0e4', water: '#9ec8de', waterDeep: '#6ea8c6',
       mountain: '#d2cdc4', mountainLight: '#ebe6de', road: '#fbfaf6', roadEdge: '#d5cfc4', ink: '#243038',
       paint: [
@@ -153,7 +153,7 @@
     defineCity({
       id: 'kiln-ridge', name: 'Kiln Ridge', region: 'A stone spine',
       blurb: 'The ridge sits in the middle. A tunnel is short. The long way round the south still works.',
-      cols: 18, rows: 14, unlock: 260, roads: 64, tunnels: 1,
+      cols: 18, rows: 14, unlock: 260, roads: 41, tunnels: 1,
       ground: '#f6f0e6', ground2: '#efe2d2', water: '#b7d4e8', waterDeep: '#8ebbd6',
       mountain: '#c9b5a2', mountainLight: '#e6d5c4', road: '#fbf8f3', roadEdge: '#d9cbb8', ink: '#3a2c24',
       paint: [
@@ -170,7 +170,7 @@
     defineCity({
       id: 'saltglass', name: 'Saltglass', region: 'Three islands',
       blurb: 'Each island can serve itself. The third island cannot, until a bridge says so.',
-      cols: 22, rows: 15, unlock: 400, roads: 60, bridges: 2,
+      cols: 22, rows: 15, unlock: 400, roads: 38, bridges: 2,
       ground: '#e7f2ef', ground2: '#d5ebe4', water: '#8ec4cf', waterDeep: '#5fa4b4',
       mountain: '#d5d0c8', mountainLight: '#ece8e1', road: '#f7fbfa', roadEdge: '#c5ddd8', ink: '#1c3336',
       paint: [
@@ -189,7 +189,7 @@
     defineCity({
       id: 'reed-crossing', name: 'Reed Crossing', region: 'Two banks',
       blurb: 'A wide channel and not much else. North talks to north until you spend the bridge.',
-      cols: 20, rows: 14, unlock: 560, roads: 62, bridges: 1,
+      cols: 20, rows: 14, unlock: 560, roads: 40, bridges: 1,
       ground: '#f4f3e6', ground2: '#e4ecd4', water: '#7fb8c4', waterDeep: '#4e96a6',
       mountain: '#d5d0c8', mountainLight: '#ece8e1', road: '#fbfaf4', roadEdge: '#d5d2c2', ink: '#243028',
       paint: [{ type: 'rect', x: 0, y: 5, w: 20, h: 4, tile: 'water' }],
@@ -203,7 +203,7 @@
     defineCity({
       id: 'moth-terrace', name: 'Moth Terrace', region: 'Lilac shelves',
       blurb: 'The north is a terrace of stone. Everything you need starts on the lower shelf.',
-      cols: 18, rows: 13, unlock: 740, roads: 64, tunnels: 1,
+      cols: 18, rows: 13, unlock: 740, roads: 41, tunnels: 1,
       ground: '#efeaf6', ground2: '#e2d8f0', water: '#b7c8e4', waterDeep: '#8aa6cc',
       mountain: '#c9c0d8', mountainLight: '#e4dced', road: '#faf8fc', roadEdge: '#d4cce0', ink: '#2a2438',
       paint: [
@@ -220,7 +220,7 @@
     defineCity({
       id: 'cinder-steps', name: 'Cinder Steps', region: 'Hill then pond',
       blurb: 'Steps of cinder on the west, a round pond on the east. Tunnel one way, bridge the other.',
-      cols: 20, rows: 14, unlock: 940, roads: 62, tunnels: 1,
+      cols: 20, rows: 14, unlock: 940, roads: 40, tunnels: 1,
       ground: '#f6efe8', ground2: '#f0ddd0', water: '#a9cfe0', waterDeep: '#78b0c8',
       mountain: '#c4a898', mountainLight: '#e4d0c4', road: '#fbf7f3', roadEdge: '#e0d0c4', ink: '#3a2a24',
       paint: [
@@ -238,7 +238,7 @@
     defineCity({
       id: 'halo-basin', name: 'Halo Basin', region: 'A ring of water',
       blurb: 'An outer shore, a moat, and an island that cannot hear you until a bridge lands.',
-      cols: 22, rows: 16, unlock: 1160, roads: 68, bridges: 2,
+      cols: 22, rows: 16, unlock: 1160, roads: 44, bridges: 2,
       ground: '#f3f6ef', ground2: '#dcead8', water: '#8fb8d2', waterDeep: '#5e94b4',
       mountain: '#d5d0c8', mountainLight: '#ece8e1', road: '#fbfcf8', roadEdge: '#d0ddd4', ink: '#24302c',
       paint: [
@@ -1129,6 +1129,31 @@ function edgeSpeed(edge) {
     return Math.abs(to.x - from.x) >= Math.abs(to.y - from.y) ? 0 : 1;
   }
 
+  // Another car already in the shared tile makes this one wait short of the junction.
+  function approachBlock(run, car, node) {
+    const deg = degree(run, node.x, node.y);
+    const round = roundAt(run, node.x, node.y);
+    if (deg < 3 && !round && !lightAt(run, node.x, node.y)) return false;
+    const a = car.path[car.i];
+    const b = car.path[car.i + 1];
+    if (!a || !b) return false;
+    const len = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+    const mine = (b.x === node.x && b.y === node.y) ? (1 - car.t) * len : car.t * len;
+    const box = round ? 0.22 : 0.5;
+    for (const other of run.cars) {
+      if (other.id === car.id || other.state === 'idle' || !other.path || !other.path[other.i + 1]) continue;
+      const oa = other.path[other.i];
+      const ob = other.path[other.i + 1];
+      const olen = Math.hypot(ob.x - oa.x, ob.y - oa.y) || 1;
+      let od = 99;
+      if (ob.x === node.x && ob.y === node.y) od = Math.min(od, (1 - other.t) * olen);
+      if (oa.x === node.x && oa.y === node.y) od = Math.min(od, other.t * olen);
+      if (od > box) continue;
+      if (od < mine - 0.015 || (Math.abs(od - mine) <= 0.015 && other.id < car.id)) return true;
+    }
+    return false;
+  }
+
   function junctionState(run, from, to) {
     const deg = degree(run, to.x, to.y);
     const light = lightAt(run, to.x, to.y);
@@ -1228,9 +1253,13 @@ function edgeSpeed(edge) {
     if (ahead && ahead.state !== 'idle' && ahead.path && ahead.path[ahead.i] && ahead.path[ahead.i + 1]
       && ahead.path[ahead.i].x === a.x && ahead.path[ahead.i].y === a.y
       && ahead.path[ahead.i + 1].x === b.x && ahead.path[ahead.i + 1].y === b.y) {
-      maxT = Math.min(maxT, ahead.t - (0.48 / len));
+      maxT = Math.min(maxT, ahead.t - (0.66 / len));
     }
     if (junc.hold) maxT = Math.min(maxT, 0.9);
+    if (approachBlock(run, car, b)) {
+      const round = roundAt(run, b.x, b.y);
+      maxT = Math.min(maxT, Math.max(0, 1 - (round ? 0.24 : 0.52) / len));
+    }
     if (maxT < 0) maxT = 0;
     const nt = car.t + (speed * dt) / len;
     if (nt < maxT || (maxT < 1 && nt >= maxT)) {
@@ -1379,8 +1408,8 @@ function stepCars(run, dt) {
     if (run.city.hasMountain) specials.push('tunnel');
     const tool = specials[Math.floor(rng() * specials.length)];
     const count = tool === 'light' ? 2 : 1;
-    const roadsOnly = 18 + Math.floor(rng() * 8);
-    const withTool = 12 + Math.floor(rng() * 5);
+    const roadsOnly = 11 + Math.floor(rng() * 5);
+    const withTool = 7 + Math.floor(rng() * 3);
     const cards = [
       { roads: roadsOnly, tool: null, count: 0 },
       { roads: withTool, tool: tool, count: count }
@@ -1407,6 +1436,8 @@ function stepCars(run, dt) {
   }
 
   function openUpgrade(run) {
+    const gained = Math.max(0, run.score - (run.weekMark || 0));
+    run.sundayNote = 'This week the city finished ' + gained + (gained === 1 ? ' trip.' : ' trips.');
     run.phase = 'upgrade';
     run.offer = makeOffer(run);
     pushEvent(run, 'sunday');
@@ -1431,6 +1462,7 @@ function stepCars(run, dt) {
       run.stock.road += card.roads;
       if (card.tool) run.stock[card.tool] = (run.stock[card.tool] || 0) + card.count;
     }
+    run.weekMark = run.score;
     run.weekIndex += 1;
     run.offer = null;
     run.phase = 'play';
@@ -1538,6 +1570,8 @@ function stepCars(run, dt) {
       weekIndex: 0,
       score: 0,
       banked: 0,
+      weekMark: 0,
+      sundayNote: '',
       phase: 'play',
       reason: '',
       overId: 0,
@@ -1593,6 +1627,8 @@ function stepCars(run, dt) {
       weekIndex: run.weekIndex,
       score: run.score,
       banked: run.banked,
+      weekMark: run.weekMark || 0,
+      sundayNote: run.sundayNote || '',
       phase: run.phase,
       reason: run.reason,
       overId: run.overId,
@@ -1631,6 +1667,8 @@ function stepCars(run, dt) {
       weekIndex: data.weekIndex || 0,
       score: data.score || 0,
       banked: data.banked || 0,
+      weekMark: data.weekMark || 0,
+      sundayNote: data.sundayNote || '',
       phase: data.phase || 'play',
       reason: data.reason || '',
       overId: data.overId || 0,

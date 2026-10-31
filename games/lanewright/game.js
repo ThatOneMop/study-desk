@@ -34,6 +34,7 @@
   let status = '';
   let launched = null;
   let wipeArmed = false;
+  let framed = false;
 
   function load() {
     try {
@@ -102,20 +103,31 @@
     const view = renderer.view();
     if (view.w < 40 || view.h < 40) return;
     const city = run.city;
-    const narrow = view.w < 720;
-    const top = narrow ? 96 : 72;
-    const bot = narrow ? 70 : 84;
-    const availW = Math.max(80, view.w - (narrow ? 4 : 28));
-    const availH = Math.max(80, view.h - top - bot);
-    cam.z = Math.max(16, Math.min(availW / (city.cols + (narrow ? 0.5 : 1.4)), availH / (city.rows + 1.4)));
-    cam.x = city.cols / 2;
-    cam.y = city.rows / 2 - ((top + availH / 2) - view.h / 2) / cam.z;
+    const portrait = view.h > view.w * 1.15;
+    if (portrait) {
+      const top = 112;
+      const bot = 86;
+      const availH = Math.max(80, view.h - top - bot);
+      cam.z = Math.max(40, Math.min(56, (view.w - 10) / 8.4));
+      cam.x = city.cols / 2;
+      cam.y = city.rows / 2 - ((top + availH / 2) - view.h / 2) / cam.z;
+    } else {
+      const narrow = view.w < 720;
+      const top = narrow ? 96 : 72;
+      const bot = narrow ? 70 : 84;
+      const availW = Math.max(80, view.w - (narrow ? 4 : 28));
+      const availH = Math.max(80, view.h - top - bot);
+      cam.z = Math.max(16, Math.min(availW / (city.cols + (narrow ? 0.5 : 1.4)), availH / (city.rows + 1.4)));
+      cam.x = city.cols / 2;
+      cam.y = city.rows / 2 - ((top + availH / 2) - view.h / 2) / cam.z;
+    }
     userCam = false;
+    if (view.w > 40 && view.h > 40) framed = true;
   }
 
   function clampCam() {
     if (!run) return;
-    cam.z = Math.max(14, Math.min(96, cam.z));
+    cam.z = Math.max(14, Math.min(120, cam.z));
     cam.x = Math.max(-2, Math.min(run.city.cols + 2, cam.x));
     cam.y = Math.max(-2, Math.min(run.city.rows + 2, cam.y));
   }
@@ -172,12 +184,20 @@
     $('nMotor').textContent = run.mode === 'sketch' ? '∞' : String(run.stock.motorway);
     $('nBridge').textContent = run.mode === 'sketch' ? '∞' : String(run.stock.bridge);
     $('nTunnel').textContent = run.mode === 'sketch' ? '∞' : String(run.stock.tunnel);
+    const bridgeBtn = document.querySelector('[data-note="bridge"]');
+    const tunnelBtn = document.querySelector('[data-note="tunnel"]');
+    if (bridgeBtn) bridgeBtn.hidden = run.mode !== 'sketch' && !run.city.hasWater && run.stock.bridge < 1;
+    if (tunnelBtn) tunnelBtn.hidden = run.mode !== 'sketch' && !run.city.hasMountain && run.stock.tunnel < 1;
     $('nRound').textContent = run.mode === 'sketch' ? '∞' : String(run.stock.roundabout);
     $('nLight').textContent = run.mode === 'sketch' ? '∞' : String(run.stock.light);
-    const bridgeOn = run.city.hasWater || run.stock.bridge > 0;
-    const tunnelOn = run.city.hasMountain || run.stock.tunnel > 0;
-    document.querySelector('[data-tool="bridge"]').disabled = !bridgeOn && run.mode !== 'sketch';
-    document.querySelector('[data-tool="tunnel"]').disabled = !tunnelOn && run.mode !== 'sketch';
+  }
+
+  function explainCrossing(kind) {
+    if (!run) return;
+    const n = run.mode === 'sketch' ? 'as many as you need' : String(run.stock[kind]);
+    setStatus(kind === 'bridge'
+      ? 'Bridges are not a separate tool. Drawing a road across water spends one. You have ' + n + '.'
+      : 'Tunnels are not a separate tool. Drawing a road across a hill spends one. You have ' + n + '.');
   }
 
   function refreshHud() {
@@ -300,6 +320,7 @@
     launched = { cityId: cityId, mode: mode, opts: opts || {} };
     speed = 1;
     userCam = false;
+    framed = false;
     drawChain = null;
     preview = null;
     hand = 'draw';
@@ -329,6 +350,7 @@
     if (!run || run.phase !== 'upgrade' || $('upgrade').open) return;
     const cal = E.calendar(run);
     $('upgradeTitle').textContent = 'Week ' + (cal.week + 1) + ' supplies';
+    $('upgradeNote').textContent = run.sundayNote || '';
     $('upgradeCards').innerHTML = (run.offer || []).map((card, i) =>
       '<button type="button" class="choice" data-card="' + i + '"><b>' + card.label + '</b><span>' + card.detail + '</span></button>'
     ).join('');
@@ -352,6 +374,13 @@
     $('resultAwards').textContent = granted.length
       ? 'New: ' + granted.map(id => (E.ACHIEVEMENTS.find(a => a.id === id) || {}).name).filter(Boolean).join(', ')
       : '';
+    const shot = document.createElement('canvas');
+    const sw = 520;
+    const sh = Math.max(1, Math.round(sw * (canvas.clientHeight || 1) / Math.max(1, canvas.clientWidth || 1)));
+    shot.width = sw;
+    shot.height = sh;
+    shot.getContext('2d').drawImage(canvas, 0, 0, sw, sh);
+    $('resultMap').src = shot.toDataURL('image/jpeg', 0.72);
     show('result');
   }
 
@@ -394,11 +423,7 @@
     if (tut >= 0) paintTut();
     if (run && $('play').hidden === false) {
       renderer.resize();
-      if (!userCam && renderer.view().w > 40 && renderer.view().h > 40) {
-        const city = run.city;
-        const expect = Math.min(renderer.view().w / (city.cols + 2), renderer.view().h / (city.rows + 3));
-        if (Math.abs(cam.z - expect) > expect * 0.45 && cam.z <= 42) fit(true);
-      }
+      if (!userCam && !framed && renderer.view().w > 40 && renderer.view().h > 40) fit(true);
       if (run.phase === 'upgrade') openUpgrade();
       if (run.phase === 'over') openResult();
       renderer.draw(run, cam, preview, {
@@ -569,7 +594,9 @@
     if (key === 'x') { hand = hand === 'erase' ? 'draw' : 'erase'; refreshTools(); return; }
     if (key === 'd') { hand = 'draw'; refreshTools(); return; }
     if (key === 'm') { hand = 'pan'; refreshTools(); return; }
-    const tools = { '1': 'road', '2': 'motorway', '3': 'bridge', '4': 'tunnel', '5': 'roundabout', '6': 'light' };
+    if (key === '3') { explainCrossing('bridge'); return; }
+    if (key === '4') { explainCrossing('tunnel'); return; }
+    const tools = { '1': 'road', '2': 'motorway', '5': 'roundabout', '6': 'light' };
     if (tools[key]) { tool = tools[key]; hand = 'draw'; refreshTools(); return; }
     if (key === 'q' || key === '[') { speed = Math.max(0, speed - 1); return; }
     if (key === 'e' || key === ']') { speed = Math.min(3, speed === 0 ? 1 : speed + 1); return; }
@@ -591,6 +618,9 @@
       audio.ui();
       refreshTools();
     });
+  });
+  document.querySelectorAll('#dock [data-note]').forEach(btn => {
+    btn.addEventListener('click', () => explainCrossing(btn.getAttribute('data-note')));
   });
   $('eraseBtn').addEventListener('click', () => {
     hand = hand === 'erase' ? 'draw' : 'erase';
