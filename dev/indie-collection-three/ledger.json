@@ -995,7 +995,7 @@
       "id": "tumbleglass",
       "title": "Tumbleglass",
       "coreLoop": "Tilt a tray to slide multiple beads; matching sockets lock beads into obstacles, making settling order matter. Undo, solve and optimize tilt counts.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-improvement-awaiting-qualification",
       "source": "games/tumbleglass",
       "built": true,
       "improved": false,
@@ -1048,6 +1048,12 @@
         "after": "A single-use bead lift moves one bead one cell independently, including out of a locked socket. Other beads stay still; the lifted bead only locks on its own socket. Blocked actions are free. The adviser includes lifts, and UI tools are mutually exclusive selections. Existing saves replay identically.",
         "evidence": "A tray-1 dead end after clamped-down/right now finishes with left, lift bead 1 right, up, down. All three campaign fixtures finish; exhaustive graph validates advisor distances. Not every dead end is rescued.",
         "remaining": "Rendered play, screenshots, native keyboard/touch, two-tool usability and game balance assessment plus required playtest-led improvement before integration."
+      },
+      "pendingRenderedPass": {
+        "report": "dev/indie-collection-three/TUMBLEGLASS_RENDERED_PASS.md",
+        "observed": "Completed natural baseline 3/5/5; no incentive for optional tools; board separated from controls.",
+        "change": "Nine technique studies across existing three trays, verified winning journals, useful clamp effect and nested-bead rescue objectives; compact bench; hidden/dialog/navigation fixes.",
+        "testing": "29 local checks pass; natural changed third-tray recovery win/reload completed. Desktop/touch CI and screenshots pending."
       }
     },
     {
@@ -2267,7 +2273,7 @@
     "Continue the remaining third-batch slate:15 built candidates still need qualification,26 remain unbuilt. Preserve all earlier games and saves."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "7280851f04cf44ecd2e387fdca9858b453661108",
+  "latestObservedMain": "747f657ab18de9ce291b0bdd2387a429945d25a7",
   "runHistory": [
     {
       "date": "2026-10-25",
