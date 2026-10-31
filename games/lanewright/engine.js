@@ -1147,7 +1147,8 @@ function edgeSpeed(edge) {
       const olen = Math.hypot(ob.x - oa.x, ob.y - oa.y) || 1;
       let od = 99;
       if (ob.x === node.x && ob.y === node.y) od = Math.min(od, (1 - other.t) * olen);
-      if (oa.x === node.x && oa.y === node.y) od = Math.min(od, other.t * olen);
+      // A car pulling away down the other lane of my own road never crosses my path.
+      if (oa.x === node.x && oa.y === node.y && !(ob.x === a.x && ob.y === a.y)) od = Math.min(od, other.t * olen);
       if (od > box) continue;
       if (od < mine - 0.015 || (Math.abs(od - mine) <= 0.015 && other.id < car.id)) return true;
     }
@@ -1256,9 +1257,13 @@ function edgeSpeed(edge) {
       maxT = Math.min(maxT, ahead.t - (0.66 / len));
     }
     if (junc.hold) maxT = Math.min(maxT, 0.9);
-    if (approachBlock(run, car, b)) {
+    // Yield at a busy junction, but never for long: a car that has waited a
+    // few seconds goes anyway, so queues can't lock each other forever.
+    if ((car.yieldT || 0) < 2.5 && approachBlock(run, car, b)) {
       const round = roundAt(run, b.x, b.y);
-      maxT = Math.min(maxT, Math.max(0, 1 - (round ? 0.24 : 0.52) / len));
+      const stop = Math.max(0, 1 - (round ? 0.24 : 0.52) / len);
+      if (car.t >= stop - 0.02) car.yieldT = (car.yieldT || 0) + dt;
+      maxT = Math.min(maxT, stop);
     }
     if (maxT < 0) maxT = 0;
     const nt = car.t + (speed * dt) / len;
@@ -1272,6 +1277,7 @@ function edgeSpeed(edge) {
     }
     if (junc.dwell > 0) run.nodeHold.set(nk(b.x, b.y), run.time + junc.dwell);
     const leftover = Math.max(0, (nt - 1) * len);
+    car.yieldT = 0;
     car.i += 1;
     car.t = 0;
     if (!car.path[car.i + 1]) { arrive(run, car); return; }
