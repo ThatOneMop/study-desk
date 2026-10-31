@@ -91,10 +91,10 @@
   function focusHearth() {
     if (!run) return;
     const v = viewSize();
-    // Frame halfway between the hearth and the map centre so the river is in view.
-    const narrow = v.w < 520;
-    const fx = narrow ? run.hx + 1 : (run.hx + run.w / 2) / 2;
-    R.centerOn(cam, fx, (run.hy + run.h / 2) / 2, 2, v.w, v.h, run.w, run.h);
+    // Frame the hearth, nudged toward the map centre so the nearest water is in view.
+    const fx = run.hx + (run.w / 2 - run.hx) * 0.35;
+    const fy = run.hy + (run.h / 2 - run.hy) * 0.4;
+    R.centerOn(cam, fx, fy, 2, v.w, v.h, run.w, run.h);
   }
 
   const OVERLAYS = ['none', 'water', 'reach', 'power', 'sour'];
@@ -196,7 +196,7 @@
     A.setMode(run.season);
     const aim = E.goal(run);
     const bar = $('goalbar');
-    if (aim && run.phase === 'play') {
+    if (aim && run.phase === 'play' && !tutorOn) {
       bar.hidden = false;
       $('goalKicker').textContent = 'Next ' + aim.index + '/' + aim.total + (aim.spare < 0 ? ' · ' + (-aim.spare) + ' rough' : aim.spare > 0 ? ' · ' + aim.spare + ' spare bed' + (aim.spare > 1 ? 's' : '') : '');
       $('goalTitle').textContent = aim.title;
@@ -212,6 +212,7 @@
         gx.lineWidth = 2;
         gx.beginPath();
         const series = log.length ? log : [E.living(run).length];
+        g.hidden = series.length < 2;
         const n = Math.max(2, series.length);
         const peak = Math.max(8, ...series);
         for (let i = 0; i < series.length; i++) {
@@ -249,7 +250,7 @@
 
   function tutorSync() {
     const step = TUTOR[tutorStep];
-    if (!step) { $('tutor').hidden = true; tutorOn = false; meta.tutorial = true; save(); return; }
+    if (!step) { $('tutor').hidden = true; tutorOn = false; meta.tutorial = true; save(); if (run) syncHud(); return; }
     $('tutor').hidden = false;
     $('tutorTitle').textContent = step.title;
     $('tutorBody').textContent = step.body;
@@ -592,7 +593,7 @@
       node.type = 'button';
       node.className = 'node' + (known ? ' known' : '') + (open ? '' : ' shut') + (aim && aim.id === def.id ? ' now' : '');
       node.dataset.id = def.id;
-      const needs = (def.need || []).map(function (id) { return E.DEF[id] ? E.DEF[id].name : id; }).join(', ');
+      const needs = (def.need || []).filter(function (id) { return !run.unlocked[id]; }).map(function (id) { return E.DEF[id] ? E.DEF[id].name : id; }).join(', ');
       node.innerHTML = '<b>' + def.name + '</b><span>' + (known ? 'Known' : !open ? 'Ring still shut' : needs ? 'After ' + needs : (def.science ? def.science + ' ideas' : 'Free')) + '</span>';
       node.disabled = known || !open;
       node.addEventListener('click', function () {
@@ -683,7 +684,7 @@
     $('pick').close();
     $('title').close();
     resize();
-    cam.zoom = viewSize().w < 520 ? 0.62 : 0.85;
+    cam.zoom = viewSize().w < 520 ? 0.95 : 1.35;
     focusHearth();
     renderDock();
     syncHud();
@@ -724,7 +725,7 @@
       $('title').close();
       setSpeed(0);
       resize();
-      cam.zoom = viewSize().w < 520 ? 0.62 : 0.85;
+      cam.zoom = viewSize().w < 520 ? 0.95 : 1.35;
       focusHearth();
       renderDock();
       syncHud();
@@ -756,7 +757,7 @@
     $('closeAchieve').addEventListener('click', function () { $('achieve').close(); });
     $('retryBtn').addEventListener('click', function () { $('over').close(); begin(); });
     $('overMaps').addEventListener('click', function () { $('over').close(); fillPick(); $('pick').showModal(); });
-    $('tutorSkip').addEventListener('click', function () { tutorOn = false; tutorStep = TUTOR.length; meta.tutorial = true; $('tutor').hidden = true; save(); });
+    $('tutorSkip').addEventListener('click', function () { tutorOn = false; tutorStep = TUTOR.length; meta.tutorial = true; $('tutor').hidden = true; save(); syncHud(); });
     $('tutorNext').addEventListener('click', function () { tutorStep++; tutorSync(); });
     ['0', '1', '2', '3'].forEach(function (k) {
       $('speed' + k).addEventListener('click', function () { setSpeed(+k); unlockAudio(); });

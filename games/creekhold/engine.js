@@ -570,7 +570,7 @@
     if (!run.unlocked[id]) return { ok: false, reason: 'locked' };
     const stacking = (d.levee && cell.building && cell.building.id === 'levee') || (d.platform && cell.building && cell.building.id === 'platform');
     if (cell.building && !stacking) return { ok: false, reason: 'blocked' };
-    if (cell.tree && !d.bridge && !d.dam && !d.levee && !d.gate) return { ok: false, reason: 'tree' };
+    if (cell.tree && !d.bridge) return { ok: false, reason: 'tree' };
     if (!d.dam && !d.levee && !d.gate && !d.bridge && !d.wheel && cell.water > 0.22) return { ok: false, reason: 'wet' };
     if (!canReach(run, x, y, d)) return { ok: false, reason: !hydro(d) && needsStair(run, x, y) ? 'step' : 'unreached' };
     const cost = d.cost || {};
@@ -603,7 +603,7 @@
     const trees = treeStock(run);
     const spare = beds(run) - living(run).length;
     const steps = [
-      { id: 'pump', title: 'Draw the river', text: 'Set a paw pump on the dry bank beside the channel.', ok: !!built.pump || !!built['deep-pump'] },
+      { id: 'pump', title: 'Draw the river', text: 'Set a paw pump on the grass edge above the shallows, touching a path.', ok: !!built.pump || !!built['deep-pump'] },
       { id: 'tank', title: 'Put water aside', text: 'A clay tank is what the dry spell drinks.', ok: !!built.tank || !!built.cistern },
       { id: 'dam', title: 'Hold the channel', text: 'Dam the whole low bed so a pool stays upstream of the pump.', ok: (built.dam || 0) >= 2 },
       { id: 'beds', title: 'Leave a spare bed', text: 'Another lodge. A kit comes when a bed, food and water are all spare.', ok: spare >= 1 || run.born > 0 },

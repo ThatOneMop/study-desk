@@ -414,7 +414,7 @@
     const moving = nib.mode === 'drink' || nib.mode === 'eat' || nib.mode === 'build' || nib.mode === 'work' || (nib.path && nib.path.length);
     const step = moving ? Math.sin(t / 90 + nib.id) : 0;
     const bob = step * 1.4 * zoom;
-    const s = (nib.kit ? 6.2 : 9.4) * zoom;
+    const s = (nib.kit ? 7.4 : 11.2) * zoom;
     const y = sy + bob;
     ctx.fillStyle = 'rgba(30, 24, 16, 0.22)';
     ctx.beginPath();

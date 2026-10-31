@@ -120,6 +120,9 @@ E.tick(grown, 40);
 assert(grown.born >= 1, 'a kit is born when a bed, food and water are spare');
 assert(E.living(grown).length > beforePop);
 assert(E.goal(grown) && E.goal(grown).title, 'there is a next aim');
+const woods = grown.cells.find(function (c) { return c.tree && !c.building; });
+assert.equal(E.preview(grown, 'dam', woods.x, woods.y).ok, false, 'valid-tile marks agree with place() on trees');
+assert.equal(E.place(grown, 'dam', woods.x, woods.y).ok, false);
 const oldSave = E.encode({ meta: E.createMeta(), run: smart });
 assert.equal(E.decode(oldSave).ok, true);
 
