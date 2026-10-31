@@ -932,5 +932,30 @@
     "thumbnail": "art/curated/bramble-dice.svg",
     "thumbnailAlt": "Ivory dice and copper trail markers among green woodland leaves",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "needlepath",
+    "title": "Needlepath",
+    "description": "Stitch flower pins with alternating front and back threads. Find elegant knotwork and seamless routes, save fine patterns and trace them while trying a new approach.",
+    "icon": "🪡",
+    "genre": "Puzzle + Craft",
+    "color": "#d8c5a4",
+    "controls": "Click/tap pins · Arrow keys focus · Enter stitches · K knot · U undo",
+    "url": "games/needlepath/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#needlepath",
+    "aliases": [
+      "stitching",
+      "embroidery",
+      "thread",
+      "route",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/needlepath.svg",
+    "thumbnailAlt": "An embroidery hoop with rose and teal threads joining flower pins on cream cloth",
+    "updated": "2026-10-31"
   }
 ]

@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  bramble-catalogue:
+  needlepath-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/needlepath-engine.cjs tests/needlepath-dom.cjs
+          node tests/needlepath-browser.cjs
+          node tests/needlepath-catalog-browser.cjs
           node --test tests/bramble-dice-engine.cjs tests/bramble-dice-dom.cjs
           node tests/bramble-dice-browser.cjs
           node tests/bramble-dice-catalog-browser.cjs
@@ -52,7 +55,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: bramble-catalogue-browser
+          name: needlepath-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -70,3 +73,5 @@ jobs:
 
             test-artifacts/bramble-dice/
             test-artifacts/bramble-catalog/
+            test-artifacts/needlepath/
+            test-artifacts/needle-catalog/
