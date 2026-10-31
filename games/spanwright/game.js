@@ -27,6 +27,7 @@
   let pointers = new Map();
   let pinching = null;
   let panning = null;
+  let inspectorKey = '';
   const speeds = [1, 2, 4];
   let speedIndex = 0;
 
@@ -183,7 +184,11 @@
   function updateInspector() {
     const box = $('inspector');
     const beam = session && session.selected ? session.beams.find(b => b.id === session.selected) : null;
-    if (!beam || (beam.mat !== 'hydraulic' && beam.mat !== 'spring')) { box.hidden = true; box.replaceChildren(); return; }
+    const running = session && session.sim && (session.sim.mode === 'run' || session.sim.mode === 'replay');
+    if (running || !beam || (beam.mat !== 'hydraulic' && beam.mat !== 'spring')) { if (!box.hidden) { box.hidden = true; box.replaceChildren(); } inspectorKey = ''; return; }
+    const key = [beam.id, JSON.stringify(beam.phaseOn || {}), JSON.stringify(session.splits.map(x => x.open || {}))].join('|');
+    if (key === inspectorKey && !box.hidden) return;
+    inspectorKey = key;
     box.hidden = false;
     box.replaceChildren();
     const label = document.createElement('label');
@@ -210,15 +215,18 @@
         box.append(btn);
       });
     }
-    const split = session.splits.find(s => session.beams.some(b => b.id === beam.id && (s.a === b.a || s.b === b.a || s.a === b.b || s.b === b.b)));
-    if (session.splits.length) {
-      session.splits.forEach(splitItem => {
+    if (beam.mat === 'hydraulic' && session.splits.length) {
+      const touching = session.splits.filter(sp => [sp.a, sp.b].some(id => id === beam.a || id === beam.b));
+      const list = touching.length ? touching : session.splits;
+      list.forEach(splitItem => {
+        const n = session.splits.indexOf(splitItem) + 1;
         (session.level.phases || []).forEach(phase => {
           const btn = document.createElement('button');
           btn.type = 'button';
-          btn.className = 'ghost';
+          btn.className = 'ghost hinge';
           const on = !!(splitItem.open && splitItem.open[phase.id]);
-          btn.textContent = 'Hinge ' + phase.id + (on ? ' opens' : ' holds');
+          btn.setAttribute('aria-pressed', String(on));
+          btn.textContent = 'Hinge ' + n + ' · ' + (phase.label || phase.id) + (on ? ' · opens' : ' · holds');
           btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); updateInspector(); });
           box.append(btn);
         });
@@ -371,7 +379,20 @@
     const moved = Math.hypot(ev.clientX - origin.sx, ev.clientY - origin.sy);
     const p = screenPoint(ev);
     if (moved < 6) {
-      if (!anchor.armed) { anchor = { x: p.x, y: p.y, sx: ev.clientX, sy: ev.clientY, armed: true }; ghost = null; setStatus('Start set. Tap the other end.'); return; }
+      if (!anchor.armed) {
+        const pick = E.pickBeam(session, p.x, p.y);
+        const nearJoint = session.nodes.some(n => Math.hypot(n.x - p.x, n.y - p.y) < 0.45);
+        const picked = pick && session.beams.find(b => b.id === pick.id);
+        if (picked && !nearJoint && (picked.mat === 'hydraulic' || picked.mat === 'spring')) {
+          session.selected = picked.id; anchor = null; ghost = null;
+          setStatus(picked.mat === 'hydraulic' ? 'Piston selected. Set its reach and phases below.' : 'Coil selected.');
+          audio.play('ui');
+          return;
+        }
+        if (session.selected && !nearJoint && !pick) session.selected = null;
+      }
+      if (!anchor.armed) { anchor = { x: p.x, y: p.y, sx: ev.clientX, sy: ev.clientY, armed: true }; ghost = null; setStatus('Start set. Tap the other end, or tap here again to cancel.'); return; }
+      if (Math.hypot(ev.clientX - anchor.sx, ev.clientY - anchor.sy) < 10) { anchor = null; ghost = null; setStatus('Member cancelled.'); return; }
       place(anchor.x, anchor.y, p.x, p.y);
     } else if (E.MATERIALS[tool]) place(anchor.x, anchor.y, p.x, p.y);
     anchor = null;
