@@ -1185,5 +1185,30 @@
     "thumbnail": "art/curated/canopy-weave.svg",
     "thumbnailAlt": "Five lettered leaf knots linked by clear green vines, with a hollow rehearsal origin",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "kiln-chorus",
+    "title": "Kiln Chorus",
+    "description": "Fire different clays in one shared kiln. Rehearse heating, baffles and careful draw timing, then commit your plan one step at a time across three compact loads.",
+    "icon": "🏺",
+    "genre": "Puzzle + Craft",
+    "color": "#c79261",
+    "controls": "1–4 choose heat controls · A/B/C draw · Enter performs · Touch buttons and firing-plan rehearsal",
+    "url": "games/kiln-chorus/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#kiln-chorus",
+    "aliases": [
+      "pottery",
+      "kiln",
+      "craft",
+      "planning",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/kiln-chorus.svg",
+    "thumbnailAlt": "Honey cup, blue bowl and ivory vase warming above amber embers in a dark pottery kiln",
+    "updated": "2026-11-01"
   }
 ]
