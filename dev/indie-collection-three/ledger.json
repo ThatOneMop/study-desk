@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 13,
-    "browserTested": 13,
+    "improved": 14,
+    "browserTested": 14,
     "integrated": 13,
     "live": 13
   },
@@ -1336,37 +1336,57 @@
       "id": "kiln-chorus",
       "title": "Kiln Chorus",
       "coreLoop": "Schedule a shared kiln: manage fuel and chamber heat while pieces respond at different speeds, accumulate glaze marks in distinct bands, and draw each before it overheats.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "improved-awaiting-catalogue-verification",
       "source": "games/kiln-chorus",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-01",
+          "observedWeakness": "All three small authored loads finish quickly, with replay currently only a numeric fuel record. In narrow firing an immediately safe Stoke creates a delayed overheating trap on Bank; comparing future action sequences requires committing/undoing or mentally tracking temperatures, and the saved best record does not retain its route for study. After drawing, selection remains on the now-disabled draw action until another action is selected. The artwork is legible but pieces and controls occupy separate vertical screen regions. After overheating a ready piece, its card still says 'Glaze ready — draw when safe' even though the whole load is terminal; correct that feedback in the next pass.",
+          "before": "Exact forecasts described only the next action. Investigating delayed overheating required committing and undoing real moves or mentally tracking clay temperatures.",
+          "after": "Branchable multi-action rehearsal previews whole firing sequences, including one-use baffles and drawing. Revise the last step or commit one actual step while keeping the remainder editable. Drafts never award records/unlocks or enter saves. Final commit closes the draft automatically. Overheated cards and draft baffle recovery explain the correct recovery action. Real iframe Games return and hidden reset guards repaired.",
+          "implementationCommits": [
+            "6f21a974a1851ab40e2ecbf2ed1f5c2f1fdbb809",
+            "85d97d814f5acd28c55f384782b64d5533146816",
+            "5d3474b652c4263e245634ccf1d3ef1905e9f525",
+            "4b6b464aab777750db57988b3d04033f340b9766"
+          ],
+          "validation": "Natural desktop play rehearsed and committed all3 loads with 3/4/2 fuel, reloading each; narrow Bank overheat10>9 revised into Vent/Soak/Draw without altering actual kiln. Single-action commit/reload retained only that action. Final-commit auto-exit and baffle draft guidance observed. Candidate CI41204557019 and41204934908 passed30 checks and all3 desktop/touch campaigns; later auto-exit CI41205277798 passed. Final navigation revision candidate CI41205500760 passed31 checks (14engine,17DOM), both desktop/touch campaigns and repository asset/first-batch integrity checks. Promotion/real-launcher regression pending separately. Inspected desktop narrow winning plan and touch onboarding/narrow plan/real loss screenshots; long action list scrolls, clear actual/preview distinction, readable pottery. No physical-device/human-enjoyment/content-duration claim."
+        }
+      ],
       "tests": [
         "13 tests pass: 7 engine and 6 jsdom 26.1.0. All three loads finish through button routes, with exact save/reload after every action and best fuel records 3/4/3.",
         "Thermal lag, cumulative glaze, draw-before-update ordering, overheating/cold fuel exhaustion, undo/retry, records, invalid journals/unlocks, read-only full-kiln forecasts, keyboard ownership, pause/dialog/parent guards, corruption recovery, isolated reset and quota failures.",
         "Exhaustive engine exploration checks 2,715 / 62,445 / 20,973 distinct successor states and confirms achievable fuel ceilings. This is simulation evidence, not content or human enjoyment.",
         "Both scripts pass syntax checks; local HTML dependencies exist in the branch tree/new files. Partial workspace: no full repository build. Dialogs simulated; no rendered browser/screenshot/native touch or layout verification.",
         "Heat-baffle refinement: 18 passing tests (10 engine, 8 jsdom). Thermal isolation with continued glaze, three assisted routes and per-action reload, strict one-use/target validation, preview/cancel, pause, undo/retry, spent-state UI and narrow-load completion. Legacy 13 tests and script syntax checks pass. Exhaustive legacy state/fuel results apply only without the baffle.",
-        "Soak refinement: 25 tests pass (14 engine, 11 jsdom), all 18 earlier tests retained. New tests cover stable chamber with moving clay, glaze, fuel cost, overheating, baffle combination, cold/no-fuel/terminal rejection, save journals, undo/retry, forecast/keyboard/native ownership, pause/dialog and three complete reload campaigns. Soak-assisted routes leave 2/3/1 fuel, preserving better 3/4/3 records. Both scripts pass syntax. No rendered/native touch evidence; legacy exhaustive search excludes new controls."
+        "Soak refinement: 25 tests pass (14 engine, 11 jsdom), all 18 earlier tests retained. New tests cover stable chamber with moving clay, glaze, fuel cost, overheating, baffle combination, cold/no-fuel/terminal rejection, save journals, undo/retry, forecast/keyboard/native ownership, pause/dialog and three complete reload campaigns. Soak-assisted routes leave 2/3/1 fuel, preserving better 3/4/3 records. Both scripts pass syntax. No rendered/native touch evidence; legacy exhaustive search excludes new controls.",
+        "CI41205500760:31 engine/DOM checks, all3 desktop1280x1000 and touch-emulated390x844 campaigns, plan branching/isolation/one-step commits, actual loss/undo/retry, records/reload, native Escape/Enter, pause/dialog discard, corrupt recovery/reset/quota and Games link. Repository63 bundled routes/231 HTML references and9 first-batch hash checks passed. Candidate-only build; final main-based catalogue promotion separately pending."
       ],
       "commits": [
         "68dd28cf93bf79f10b8a48a0603e052b93c7c068",
         "f1601ef4e23d35349772a7bb78d8628fb2184d61",
         "bdcdf6ac35ecb552cd58695fd4d2bfaaaed7474f",
-        "ee5483f86782c36c241a8634f5e4cc69db5afb8b"
+        "ee5483f86782c36c241a8634f5e4cc69db5afb8b",
+        "6f21a974a1851ab40e2ecbf2ed1f5c2f1fdbb809",
+        "85d97d814f5acd28c55f384782b64d5533146816",
+        "5d3474b652c4263e245634ccf1d3ef1905e9f525",
+        "4b6b464aab777750db57988b3d04033f340b9766"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three small authored loads with demonstrated 7/9/13-action routes. Exact forecasts support relaxed planning but may reduce discovery. Replay depth, firing satisfaction, visual hierarchy, native inputs and mobile layout need rendered review. No hours-of-content claim. Baffle-assisted routes use 7/9/11 actions with 3/4/3 fuel remaining; expanded action-set optima are not established."
+        "status": "Selected pending final launcher regression",
+        "assessment": "Agent review: thermal lag, glaze bands, shared heat, drawing order and one-use isolation provide a distinct relaxed scheduling loop. Rehearsal makes multi-step experimentation practical. Selected for manual craft variety alongside the existing graph, colony, deduction and movement games.",
+        "knownLimits": "Three compact authored loads; no long campaign or duration claim. Fuel records support economical replay but best routes are not retained separately. The action list scrolls at twelve steps and pottery/actions occupy different vertical regions on phones. Touch-emulated Chromium evidence is not physical-device testing."
       },
       "nextSteps": [
-        "Play all three loads naturally on desktop/touch and inspect screenshots; assess thermal readability, draw-order choices and replay depth.",
-        "Implement a substantive improvement based on rendered play, then verify saves/reload, loss/undo/retry/reset and actual catalogue navigation before selection."
+        "Finish final real-launcher desktop/touch regression, inspect catalogue screenshots, then promote only qualified files from the main-based branch and verify Pages."
       ],
       "pendingSourceRefinement": {
         "commit": "f1601ef4e23d35349772a7bb78d8628fb2184d61",
@@ -2404,11 +2424,11 @@
     }
   ],
   "nextSteps": [
-    "Kiln Chorus slot54: use recorded all-three-load desktop baseline for substantive scheduling/replay upgrade; native Escape recovery already repaired. Fix misleading ready-card text after overheat, then full desktop/touch qualification.",
-    "Qualify remaining11 built candidates individually before listing; then complete26 unbuilt slots, retaining exactly50.",
-    "Keep second-batch20/20 additional improvements and9 live selections, first-batch sources, Gummy Bay and concurrent work intact. Pause only at entire goal completion."
+    "Finish Kiln Chorus catalogue promotion and live verification after final regression.",
+    "Field Album slot55: inspect current source/ledger, play its rendered card-drafting loop, then make a substantive game-specific upgrade.",
+    "Qualify remaining10 built candidates; implement26 unbuilt slots while retaining exactly50. Preserve both earlier collections and concurrent games."
   ],
-  "updated": "2026-10-31",
+  "updated": "2026-11-01",
   "latestObservedMain": "d2331ff75e78e9290135d970e9f6911693554469",
   "runHistory": [
     {
@@ -3154,6 +3174,12 @@
       "verificationRun": 41201189495,
       "pagesRun": 41201908556,
       "summary": "Canopy Weave integrated/live after329-check thirteen-game desktop/touch promotion and screenshot review. Live rehearsal/win/reload/catalogue/Collection verified. Counts24/13/13/13/13. Kiln all-three-load rendered baseline plus Escape repair preserved without improvement credit."
+    },
+    {
+      "date": "2026-11-01",
+      "commit": "4b6b464aab777750db57988b3d04033f340b9766",
+      "verificationRun": 41205500760,
+      "summary": "Kiln Chorus gained branchable firing-plan rehearsal after rendered baseline; all3 natural desktop rehearsals/commits/reloads completed.31 focused checks plus desktop/touch candidate campaigns passed. Counts24/14/14/13/13 pending real catalogue regression and live promotion."
     }
   ]
 }
