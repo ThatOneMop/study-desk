@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 6,
     "browserTested": 6,
-    "integrated": 5,
-    "live": 5
+    "integrated": 6,
+    "live": 6
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -596,13 +596,13 @@
       "id": "bramble-dice",
       "title": "Bramble Dice",
       "coreLoop": "Keep or reroll four dice, allocate every die to attack, guard or repair against visible enemy intents, then choose stacking equipment between woodland encounters.",
-      "status": "selected-awaiting-catalogue-integration",
+      "status": "integrated-live",
       "source": "games/bramble-dice",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -627,7 +627,8 @@
         "Opposite-face refinement: 19 passing tests (11 engine, 8 jsdom), retaining original 13 and old exact-save fixtures. Shared reroll budget, RNG/other-die/setup preservation, invalid actions, mixed reroll/flip exhaustion, turn reset, phase guards, per-action replay, native input ownership, pause/guide, full flipped seed-42 route and retry/record preservation. Script syntax checks pass; no rendered evidence.",
         "Reserve refinement: 27 tests pass (15 engine, 12 jsdom), retaining prior 19 and old exact-save fixtures. Current output/gear exclusion, next-turn same-slot face, unchanged RNG/other dice, reward carry/reload, retry reset, multiple-reserve rejection, saved setup, focused-card shortcut/native keys, pause, and full reserved-opening engine/DOM wins. Both scripts pass syntax; no rendered/native touch evidence.",
         "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass.",
-        "CI41153624171 on3920092130f679850f4a014cad83801bb1d922dc passed32 focused checks(15engine,17DOM), full control-driven seed1 campaigns on desktop1280×1000 and touch-emulated390×844, comparison/swap, reserve, win/reload, natural loss/reload/retry, best retention, keyboard assignments, touch button taps/native select programmatic choices, modal/pause/shell guards, new seed, reset/corrupt-save recovery and Games navigation.63 development bundled routes/231HTML references plus9first-batch integrity checks passed. Artifact13024311324 SHA256a07f35886813cbc56a43ff21c1bcacd9125538626f9238cb36fb108de10a5124 contains12screenshots; reviewed desktop-comparison,touch-comparison,touch-victory. Readable stacked phone comparison, no horizontal overflow, vertical scrolling remains. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification."
+        "CI41153624171 on3920092130f679850f4a014cad83801bb1d922dc passed32 focused checks(15engine,17DOM), full control-driven seed1 campaigns on desktop1280×1000 and touch-emulated390×844, comparison/swap, reserve, win/reload, natural loss/reload/retry, best retention, keyboard assignments, touch button taps/native select programmatic choices, modal/pause/shell guards, new seed, reset/corrupt-save recovery and Games navigation.63 development bundled routes/231HTML references plus9first-batch integrity checks passed. Artifact13024311324 SHA256a07f35886813cbc56a43ff21c1bcacd9125538626f9238cb36fb108de10a5124 contains12screenshots; reviewed desktop-comparison,touch-comparison,touch-victory. Readable stacked phone comparison, no horizontal overflow, vertical scrolling remains. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification.",
+        "Release CI41159279264 passed129 focused checks (32+27+17+17+17+19), six desktop/touch-emulated full campaigns and six catalogue suites,55launch entries,54bundled routes/272HTML references, launcher/relaxed catalogue checks and9first-batch integrity checks. Artifact13026940293 has124screenshots, SHA256f178adad182392167de816531b7a8b58b0bddc94861c2c4ece648d8bdcba3b19; reviewed desktop-search-favourite,touch-comparison,touch-saved-return. Pages41159693932 succeeded. Live CUA confirmed comparison, reserve six transfer, turn1/full-health reload, standalone Games return, real catalogue launch retaining save, and embedded Games returning to existing collection. Live screenshot inspected. No Switch workspace controls visible."
       ],
       "commits": [
         "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
@@ -638,16 +639,17 @@
         "1ae8f96901a16cf86e8d8821be62e95322b0b9fd",
         "3920092130f679850f4a014cad83801bb1d922dc"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "91155c64be71c4fced8a4c017ebe9e5ab3e0bf44"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bramble-dice/index.html",
       "quality": {
         "status": "Selected after rendered improvement and browser qualification",
         "assessment": "A compact, untimed tactical choice loop adds combat variety beside the five released logistics/sailing/physics games. Exact intent scouting, reserve carry, low-die and mixed-job gear create useful alternatives; plan comparison makes these understandable. Safe deterministic retries and record retention support replay.",
         "knownLimits": "Three authored encounters and two equipment clearings. Sampled complete trails are short; seed variation is not additional authored content. Phone layout requires vertical scrolling. Automated checks are not evidence of human enjoyment or real-device coverage."
       },
       "nextSteps": [
-        "Integrate into latest main with original cover and accurate short tactical-game description; preserve all concurrent catalogue entries and saves.",
-        "Run catalogue launch/search/favourite/return regression alongside released-game suites; verify Pages and live route before setting integrated/live."
+        "Maintain save compatibility and release regression coverage. Continue next unqualified candidate Needlepath(slot47)."
       ],
       "pendingSourceRefinement": {
         "commit": "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
@@ -684,7 +686,7 @@
           "Desktop comparison and victory screenshots inspected in CUA; no human enjoyment claim."
         ],
         "tests": "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass.",
-        "remaining": "Qualified by CI41153624171 and inspected screenshots; catalogue integration remains."
+        "remaining": "Integrated and live; see BRAMBLE_DICE_INTEGRATION.md."
       },
       "selected": true
     },
@@ -2118,12 +2120,12 @@
     }
   ],
   "nextSteps": [
-    "Integrate qualified Bramble Dice(slot46) into latest main; verify catalogue regression, deployment and live saves/navigation.",
-    "Then render-play Mosslight Apiary or the next weakest unqualified candidate according to its source and ledger.18 built candidates remain unqualified;26 slots remain unbuilt.",
-    "Preserve both completed prior collections and five existing third-batch releases."
+    "Render-play Needlepath(slot47), identify its key weakness and implement a substantive game-specific upgrade.",
+    "Preserve six live third-batch games and completed second batch.18built candidates need qualification;26slots remain unbuilt.",
+    "Continue existing cadence until requested scope completes."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b",
+  "latestObservedMain": "91155c64be71c4fced8a4c017ebe9e5ab3e0bf44",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2759,6 +2761,13 @@
       "commit": "3920092130f679850f4a014cad83801bb1d922dc",
       "verificationRun": 41153624171,
       "summary": "Bramble Dice qualified and selected, unlisted pending catalogue integration.32focused checks, complete desktop/touch campaigns and three inspected screenshots. Counts24/6/6/5/5."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "91155c64be71c4fced8a4c017ebe9e5ab3e0bf44",
+      "verificationRun": 41159279264,
+      "pagesRun": 41159693932,
+      "summary": "Bramble Dice integrated and live;129 focused checks, six desktop/touch campaigns and catalogue regressions passed. Three integration screenshots plus live reserve/save/navigation reviewed. Counts24/6/6/6/6."
     }
   ]
 }
