@@ -1,0 +1,46 @@
+const {test}=require('node:test'),A=require('node:assert/strict'),E=require('../games/soundings/engine.js');
+function choice(v){const pairs=E.candidates(v),certain=[...new Set(pairs.flat())].find(p=>!v.found.includes(p)&&pairs.every(a=>a.includes(p)));if(certain!==undefined)return{type:'recover',p:certain};let best=Infinity,at=-1;for(let p=0;p<25;p++){if(v.scans.some(s=>s.p===p))continue;const groups={};for(const pair of pairs){const d=E.reading(pair,p);groups[d]=(groups[d]||0)+1}const score=Object.values(groups).reduce((s,n)=>s+n*n,0);if(score<best){best=score;at=p}}return{type:'scan',p:at}}
+function solve(s){while(E.view(s).phase==='playing'){const n=E.act(s,choice(E.view(s)));A.ok(n.ok);s=n.state;A.deepEqual(E.decode(JSON.stringify(s)),s)}A.equal(E.view(s).phase,'won');return s}
+test('100 seeded three-sector campaigns win using only visible notebook evidence',()=>{for(let seed=1;seed<=100;seed++){let s=E.create(seed);for(let l=0;l<3;l++){s=solve(s);A.ok(s.records[l]>=0);if(l<2)s=E.act(s,{type:'level',level:l+1}).state}}});
+test('nearest readings, candidates and recovery keep both transponders active',()=>{let s=E.create(),t=E.targets(1,0);s=E.act(s,{type:'scan',p:t[0]}).state;A.equal(E.view(s).scans[0].d,0);A.ok(E.candidates(E.view(s)).every(p=>p.includes(t[0])));s=E.act(s,{type:'recover',p:t[0]}).state;const n=E.act(s,{type:'scan',p:12});A.ok(n.ok);A.equal(E.view(n.state).scans.at(-1).d,E.reading(t,12));A.ok(E.candidates(E.view(n.state)).some(p=>JSON.stringify(p)===JSON.stringify(t)));});
+test('misses cost fuel, loss guards actions, retry repeats and new voyage preserves unlocks',()=>{let s=E.create(),t=E.targets(1,0);for(let p=0;E.view(s).phase==='playing';p++)if(!t.includes(p))s=E.act(s,{type:'recover',p}).state;A.equal(E.view(s).phase,'lost');A.equal(E.act(s,{type:'scan',p:24}).ok,false);s=E.act(s,'retry').state;A.equal(E.view(s).fuel,14);s=solve(s);const record=s.records.slice();s=E.act(s,'voyage').state;A.equal(s.seed,2);A.deepEqual(s.records,record);A.ok(E.act(s,{type:'level',level:1}).ok);});
+test('duplicate/invalid actions are free and caller data cannot mutate the journal',()=>{const s=E.create(),a={type:'scan',p:0},n=E.act(s,a);A.ok(n.ok);a.p=5;A.equal(n.state.moves[0].p,0);A.equal(s.moves.length,0);A.equal(E.act(n.state,{type:'scan',p:0}).ok,false);for(const a of [null,{}, {type:'scan',p:25},{type:'scan',p:1,extra:1}])A.equal(E.act(s,a).ok,false);});
+test('corrupt saves reject journals, records, seeds and unlocks',()=>{for(const s of [null,{}, {...E.create(),seed:0},{...E.create(),level:2},{...E.create(),records:[null,2,null]},{...E.create(),moves:[{type:'scan',p:0},{type:'scan',p:0}]},{...E.create(),moves:Array(15).fill({type:'scan',p:0})}])A.throws(()=>E.decode(JSON.stringify(s)));let s=solve(E.create());s.records[0]=null;A.throws(()=>E.decode(JSON.stringify(s)));A.deepEqual(E.decode(JSON.stringify({...E.create(),extra:1})),E.create());});
+module.exports={choice};
+
+test('all 300 beacon pairs are solvable within fuel by the visible-evidence policy',()=>{for(let a=0;a<24;a++)for(let b=a+1;b<25;b++){let v=E.initial();while(v.phase==='playing'){A.ok(E.candidates(v).some(p=>p[0]===a&&p[1]===b));v=E.step(v,[a,b],choice(v));A.ok(v)}A.equal(v.phase,'won');A.ok(v.fuel>=0);}});
+
+test('bearings distinguish mirrored distance clues and preserve duplicate/Here directions',()=>{A.equal(E.reading([6,18],12),E.reading([8,16],12));A.deepEqual(E.bearing([6,18],12),['NW','SE']);A.deepEqual(E.bearing([8,16],12),['NE','SW']);A.deepEqual(E.bearing([0,6],12),['NW','NW']);A.deepEqual(E.bearing([12,17],12),['Here','S']);let v=E.step(E.initial(),[6,18],{type:'scan',p:12});A.ok(E.candidates(v).some(p=>p[0]===8&&p[1]===16));const before=E.candidates(v).length;v=E.step(v,[6,18],{type:'bearing',p:12});A.equal(v.fuel,11);A.ok(E.candidates(v).length<before);A.ok(!E.candidates(v).some(p=>p[0]===8&&p[1]===16));});
+test('bearing-first policy finishes all 300 pairs using only notebook evidence',()=>{for(let a=0;a<24;a++)for(let b=a+1;b<25;b++){let v=E.step(E.initial(),[a,b],{type:'bearing',p:12});while(v.phase==='playing'){A.ok(E.candidates(v).some(p=>p[0]===a&&p[1]===b));v=E.step(v,[a,b],choice(v));A.ok(v)}A.equal(v.phase,'won');}});
+test('bearing journals roundtrip, reject duplicates, keep old saves and persistent signals',()=>{const old='{"version":1,"seed":1,"level":0,"moves":[{"type":"scan","p":0}],"records":[null,null,null]}';A.equal(JSON.stringify(E.decode(old)),old);let s=E.act(E.create(),{type:'bearing',p:12}).state;A.equal(E.view(s).fuel,12);A.deepEqual(E.decode(JSON.stringify(s)),s);A.equal(E.act(s,{type:'bearing',p:12}).ok,false);A.throws(()=>E.decode(JSON.stringify({...s,moves:[...s.moves,{type:'bearing',p:12}]})));A.equal(E.act(s,{type:'bearing',p:4,dirs:['N']}).ok,false);const t=E.targets(s.seed,s.level);s=E.act(s,{type:'recover',p:t[0]}).state;s=E.act(s,{type:'bearing',p:t[0]}).state;A.deepEqual(E.view(s).bearings.at(-1).dirs,E.bearing(t,t[0]));});
+test('overspending on bearings can lose; terminal guards and retry remain intact',()=>{let s=E.create();for(let p=0;p<5;p++)s=E.act(s,{type:'bearing',p}).state;A.equal(E.view(s).fuel,4);A.equal(E.view(s).phase,'lost');A.equal(E.act(s,{type:'recover',p:10}).ok,false);s=E.act(s,'retry').state;A.equal(E.view(s).bearings.length,0);A.equal(E.view(s).fuel,14);});
+test('area counts use a Manhattan radius including the centre and both active transponders',()=>{A.equal(E.sweep([12,14],12),2);A.equal(E.sweep([0,24],12),0);A.equal(E.sweep([0,24],2),1);A.equal(E.sweep([0,24],6),1);let v=E.step(E.initial(),[0,24],{type:'recover',p:0});v=E.step(v,[0,24],{type:'sweep',p:0});A.equal(v.sweeps[0].count,1);A.equal(v.fuel,10)});
+test('sweeps distinguish pairs with equal nearest distances and remove only inconsistent hypotheses',()=>{let v=E.step(E.initial(),[11,13],{type:'scan',p:12});A.ok(E.candidates(v).some(p=>p[0]===0&&p[1]===11));v=E.step(v,[11,13],{type:'sweep',p:12});A.equal(v.sweeps[0].count,2);A.ok(!E.candidates(v).some(p=>p[0]===0&&p[1]===11));A.ok(E.candidates(v).some(p=>p[0]===11&&p[1]===13));A.equal(v.fuel,12)});
+test('sweep journals reload, duplicates reject and old derived boards remain unchanged',()=>{let s=E.create();A.equal(E.view(s).sweeps,undefined);s=E.act(s,{type:'sweep',p:12}).state;A.deepEqual(E.decode(JSON.stringify(s)),s);A.equal(E.act(s,{type:'sweep',p:12}).ok,false);A.equal(E.act(s,{type:'sweep',p:12,count:2}).ok,false);A.throws(()=>E.decode(JSON.stringify({...s,moves:[...s.moves,...s.moves]})));A.equal(E.view(E.act(s,'retry').state).sweeps,undefined)});
+test('sweep-first visible-evidence policy completes every possible pair',()=>{for(let a=0;a<24;a++)for(let b=a+1;b<25;b++){let v=E.step(E.initial(),[a,b],{type:'sweep',p:12});while(v.phase==='playing'){A.ok(E.candidates(v).some(p=>p[0]===a&&p[1]===b));v=E.step(v,[a,b],choice(v));A.ok(v)}A.equal(v.phase,'won')}});
+test('excessive sweeps can exhaust the recovery reserve and retry remains available',()=>{let s=E.create();for(let p=0;p<9;p++)s=E.act(s,{type:'sweep',p}).state;A.equal(E.view(s).phase,'lost');A.equal(E.view(s).fuel,5);A.equal(E.act(s,{type:'sweep',p:20}).ok,false);A.equal(E.view(E.act(s,'retry').state).fuel,14)});
+
+
+test('survey planning partitions public hypotheses exactly without mutating evidence',()=>{
+ for(let seed=1;seed<=100;seed++){
+  let s=E.create(seed);for(const action of [{type:'bearing',p:12},{type:'scan',p:0},{type:'sweep',p:24}])s=E.act(s,action).state;
+  const v=E.view(s),before=JSON.stringify(v),pairs=E.candidates(v);
+  for(let p=0;p<25;p++){
+   const plan=E.plan(v,p);A.equal(plan.reserve,6);A.equal(plan.spare,v.fuel-6);A.equal(plan.pairs,pairs.length);
+   for(const survey of plan.surveys){
+    const read=survey.type==='scan'?E.reading:survey.type==='sweep'?E.sweep:E.bearing;
+    const counts=new Map();for(const pair of pairs){const x=read(pair,p),label=Array.isArray(x)?x.join(' + '):String(x);counts.set(label,(counts.get(label)||0)+1)}
+    A.deepEqual(survey.outcomes,[...counts].map(([label,remaining])=>({label,remaining})));
+    A.equal(survey.worst,Math.max(...counts.values()));A.equal(survey.informative,counts.size>1);
+   }
+  }A.equal(JSON.stringify(v),before);
+ }
+});
+test('planner identifies uninformative readings and recovery reserve exhaustion',()=>{
+ let s=E.create();for(const a of [{type:'bearing',p:12},{type:'scan',p:0},{type:'bearing',p:1}])s=E.act(s,a).state;
+ let v=E.view(s);A.equal(E.plan(v,7).pairs,1);A.ok(E.plan(v,7).surveys.every(x=>!x.informative));
+ s=E.act(s,{type:'recover',p:1}).state;v=E.view(s);A.equal(E.plan(v,7).reserve,3);
+ for(const p of [3,4,8])s=E.act(s,{type:'scan',p}).state;
+ A.equal(E.plan(E.view(s),7).spare,0);A.ok(E.plan(E.view(s),7).surveys.every(x=>x.spareAfter<0));
+ A.throws(()=>E.plan(v,25));
+});

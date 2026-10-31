@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  tumbleglass-catalogue:
+  soundings-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/soundings-engine.cjs tests/soundings-dom.cjs
+          node tests/soundings-browser.cjs
+          node tests/soundings-catalog-browser.cjs
           node --test tests/tumbleglass-engine.cjs tests/tumbleglass-dom.cjs
           node tests/tumbleglass-browser.cjs
           node tests/tumbleglass-catalog-browser.cjs
@@ -64,7 +67,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: tumbleglass-catalogue-browser
+          name: soundings-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -91,3 +94,5 @@ jobs:
 
             test-artifacts/tumbleglass/
             test-artifacts/tumbleglass-catalog/
+            test-artifacts/soundings/
+            test-artifacts/soundings-catalog/
