@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 9,
     "browserTested": 9,
-    "integrated": 8,
-    "live": 8
+    "integrated": 9,
+    "live": 9
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -869,13 +869,13 @@
       "id": "beepline",
       "title": "Beepline",
       "coreLoop": "Compose a short repeating flight program with forward, glide, turn and conditional Scout commands; debug its route to collect flowers and return to the hive, then optimize command count.",
-      "status": "qualified-selected-awaiting-catalogue-regression",
+      "status": "integrated-live",
       "source": "games/beepline",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -897,7 +897,9 @@
         "Delivery refinement: 18 total tests pass (10 engine, 8 jsdom); normal program enumeration remains unchanged, three delivery routes use 5/2/4 commands, overload/loop/save/record/UI regressions pass. Script syntax passes.",
         "31October rendered desktop Clover square baseline exposed successful-route loss while editing. Implemented six independently saved normal/delivery loop slots and optional read-only outcome comparison. Rendered F/F/R win, F/F/L hedge-versus-kept-win comparison, restore/reload, F/F/L/G/L pollen delivery win, mode notebook isolation, native Escape then Space stepping verified. Comparison and delivery notebook screenshots inspected.22 focused checks pass (12 engine,10DOM), preserving earlier18 and adding notebook validation/copy/slot/read-only/save plus hidden pending-reset/resume protection. Syntax passes. Remaining full three-garden/touch/corrupt-save/catalogue qualification not claimed.",
         "31October CI41178957134 at e5fabb10d3f200a554f24b3e63a2be2fe1c3749c passed22 focused checks, desktop1280x1000 and touch-emulated390x844 control-driven campaigns through all3 normal and3 delivery gardens, six notebook slots, read-only comparison, mid-flight exact reload, overload/back/retry, pause, native Escape, keyboard/native taps, embedded hide/Collection and scoped recovery/reset. Assets:63 bundled routes/231 references, source syntax and all9 first-batch release integrity checks pass. Artifact13034391398 contains22 screenshots plus shell fixture, SHA256d961c5841bdfdba2f642fe7784b53148fa242085cc4cee6f2632476b492374a8. Screenshots were generated but NOT reviewed this run because rendered browser/workspace environment is unavailable. Do not count full qualification or integrate until visual review and catalogue regression.",
-        "31October reviewed artifact13034391398 with matching SHA256d961c5841bdfdba2f642fe7784b53148fa242085cc4cee6f2632476b492374a8. Inspected touch-normal-comparison-2: full route diagnosis wraps legibly and notebook buttons remain usable; touch-delivery-win-2: bag0/2, delivered3/3, hive/bee/flower states and completion are clear; desktop-overload: failure explains earlier hive return and kept route remains available. Phone requires vertical scrolling, no horizontal overflow in CI. Prior rendered natural play plus passing all-garden desktop/touch CI and current visual review qualify the improvement. Agent assessment, not a player survey or physical-device certification."
+        "31October reviewed artifact13034391398 with matching SHA256d961c5841bdfdba2f642fe7784b53148fa242085cc4cee6f2632476b492374a8. Inspected touch-normal-comparison-2: full route diagnosis wraps legibly and notebook buttons remain usable; touch-delivery-win-2: bag0/2, delivered3/3, hive/bee/flower states and completion are clear; desktop-overload: failure explains earlier hive return and kept route remains available. Phone requires vertical scrolling, no horizontal overflow in CI. Prior rendered natural play plus passing all-garden desktop/touch CI and current visual review qualify the improvement. Agent assessment, not a player survey or physical-device certification.",
+        "31October release CI41182960783 passed213 focused checks, nine games desktop/touch-emulated campaign and actual-catalogue suites, five shell/catalogue checks,57 bundled routes/284 asset references and all9 first-batch integrity checks. Final artifact13035728476 SHA256a95537de5436bb963583d4c1081f9067279d8375a5249e51b31e4e3f3d13c976 downloaded and touch-search-favourite, touch-garden-victory, desktop-saved-return reviewed: correct cover/card, usable wrapped notebook, preserved completion and controls. Main fast-forwarded with expected-head lease after verifying unchanged branch.",
+        "Pages41186668161 succeeded. Live catalogue58 entries (57bundled+1external), searched and launched Beepline. Naturally completed Clover square F/F/R, kept loop, changed to F/F/L and compared hedge failure against kept completion, restored and returned through in-game Games to Collection. Direct game retained program, kept loop and shortest3 record; pause/resume, native Escape cancellation, Space step and reload retained step1. Live screenshot inspected; desktop live evidence, mobile is CI touch emulation. Catalogue script query beepline-20261031 matches release; no visible Switch workspace controls. No content-hours, human-enjoyment or physical-device claim."
       ],
       "commits": [
         "4271c69152ec426d0c3df7452c252b0c90bb1706",
@@ -907,8 +909,10 @@
         "bade4d2081ebb0cc7a27af3107f2606c7cbb3ae2",
         "e5fabb10d3f200a554f24b3e63a2be2fe1c3749c"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "7280851f04cf44ecd2e387fdca9858b453661108"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/beepline/index.html",
       "quality": {
         "status": "Agent design and visual assessment",
         "enjoyment": 3.5,
@@ -920,8 +924,7 @@
         "notes": "Compact three-garden programming puzzle; normal Scout routes can be simple, while separate pollen-capacity routes and saved-loop comparison support optimization. Clear controls and failure feedback. No audio, long campaign, physical-device or content-hours claim."
       },
       "nextSteps": [
-        "Finish combined catalogue regression and inspect release screenshots before main integration.",
-        "Verify Pages and live notebook/save/navigation after release."
+        "Monitor regressions; next candidate Tumbleglass needs rendered-play improvement."
       ],
       "pendingSourceRefinement": {
         "commit": "882241479028fb664a192b21b05550312ba78e01",
@@ -945,10 +948,11 @@
         "before": "Successful programs had to be re-entered after experimentation.",
         "after": "Keep one loop per garden and flight mode; compare current and kept outcomes without progression, then restore the kept route at step zero across reloads.",
         "evidence": "31October rendered desktop Clover square baseline exposed successful-route loss while editing. Implemented six independently saved normal/delivery loop slots and optional read-only outcome comparison. Rendered F/F/R win, F/F/L hedge-versus-kept-win comparison, restore/reload, F/F/L/G/L pollen delivery win, mode notebook isolation, native Escape then Space stepping verified. Comparison and delivery notebook screenshots inspected.22 focused checks pass (12 engine,10DOM), preserving earlier18 and adding notebook validation/copy/slot/read-only/save plus hidden pending-reset/resume protection. Syntax passes. Remaining full three-garden/touch/corrupt-save/catalogue qualification not claimed.",
-        "remaining": "Candidate qualification complete. Promotion7280851f04cf44ecd2e387fdca9858b453661108 awaits combined CI41182960783; main remains unchanged.",
+        "remaining": "None for Beepline; release regression, screenshot review and live verification passed.",
         "report": "dev/indie-collection-three/BEEPLINE_RENDERED_PASS.md",
         "followupCommit": "e5fabb10d3f200a554f24b3e63a2be2fe1c3749c",
-        "followupEvidence": "31October CI41178957134 at e5fabb10d3f200a554f24b3e63a2be2fe1c3749c passed22 focused checks, desktop1280x1000 and touch-emulated390x844 control-driven campaigns through all3 normal and3 delivery gardens, six notebook slots, read-only comparison, mid-flight exact reload, overload/back/retry, pause, native Escape, keyboard/native taps, embedded hide/Collection and scoped recovery/reset. Assets:63 bundled routes/231 references, source syntax and all9 first-batch release integrity checks pass. Artifact13034391398 contains22 screenshots plus shell fixture, SHA256d961c5841bdfdba2f642fe7784b53148fa242085cc4cee6f2632476b492374a8. Screenshots were generated but NOT reviewed this run because rendered browser/workspace environment is unavailable. Do not count full qualification or integrate until visual review and catalogue regression."
+        "followupEvidence": "31October CI41178957134 at e5fabb10d3f200a554f24b3e63a2be2fe1c3749c passed22 focused checks, desktop1280x1000 and touch-emulated390x844 control-driven campaigns through all3 normal and3 delivery gardens, six notebook slots, read-only comparison, mid-flight exact reload, overload/back/retry, pause, native Escape, keyboard/native taps, embedded hide/Collection and scoped recovery/reset. Assets:63 bundled routes/231 references, source syntax and all9 first-batch release integrity checks pass. Artifact13034391398 contains22 screenshots plus shell fixture, SHA256d961c5841bdfdba2f642fe7784b53148fa242085cc4cee6f2632476b492374a8. Screenshots were generated but NOT reviewed this run because rendered browser/workspace environment is unavailable. Do not count full qualification or integrate until visual review and catalogue regression.",
+        "status": "verified-complete"
       },
       "verification": {
         "commit": "e5fabb10d3f200a554f24b3e63a2be2fe1c3749c",
@@ -964,10 +968,26 @@
         "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
         "branch": "indie-three-promotion",
         "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41182960783",
-        "status": "running-at-checkpoint",
+        "status": "completed",
         "previousRun": 41182662925,
         "previousFailure": "Exact catalogue count expected57; added Beepline produces58. Corrected assertion and required Beepline presence; gameplay/catalogue desktop/touch steps before this assertion passed.",
         "visualReview": "Reviewed touch-search-favourite, touch-garden-victory and desktop-saved-return from artifact13035633200. Original cover/card, wrapped phone notebook and preserved completion/kept route look correct. Artifact SHA2561b684c6d510f287c63960f950754358263eee059371fbbe2e59e7bad1aec737c. Only later code difference is the count test; final workflow still must pass."
+      },
+      "integrationCommit": "7280851f04cf44ecd2e387fdca9858b453661108",
+      "integration": {
+        "branch": "main",
+        "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
+        "verificationRun": 41182960783,
+        "artifact": 13035728476,
+        "artifactSha256": "a95537de5436bb963583d4c1081f9067279d8375a5249e51b31e4e3f3d13c976",
+        "report": "dev/indie-collection-three/BEEPLINE_INTEGRATION.md"
+      },
+      "liveVerification": {
+        "date": "2026-10-31",
+        "pagesRun": 41186668161,
+        "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
+        "status": "passed",
+        "evidence": "Pages41186668161 succeeded. Live catalogue58 entries (57bundled+1external), searched and launched Beepline. Naturally completed Clover square F/F/R, kept loop, changed to F/F/L and compared hedge failure against kept completion, restored and returned through in-game Games to Collection. Direct game retained program, kept loop and shortest3 record; pause/resume, native Escape cancellation, Space step and reload retained step1. Live screenshot inspected; desktop live evidence, mobile is CI touch emulation. Catalogue script query beepline-20261031 matches release; no visible Switch workspace controls. No content-hours, human-enjoyment or physical-device claim."
       }
     },
     {
@@ -2243,11 +2263,11 @@
     }
   ],
   "nextSteps": [
-    "Finish combined catalogue regression and inspect release screenshots before main integration.",
-    "Verify Pages and live notebook/save/navigation after release."
+    "Play Tumbleglass actual rendered core loop, implement a substantive game-specific improvement, then qualify on desktop/touch before selection.",
+    "Continue the remaining third-batch slate:15 built candidates still need qualification,26 remain unbuilt. Preserve all earlier games and saves."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "7599ac67644b7e041ab9083f0a64b68b3ce46fbf",
+  "latestObservedMain": "7280851f04cf44ecd2e387fdca9858b453661108",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2935,6 +2955,13 @@
       "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
       "verificationRun": 41182960783,
       "summary": "Prepared Beepline release and reviewed three real-catalogue screenshots. Initial regression stopped only at old57-entry assertion after Beepline desktop/touch checks passed. Count corrected to58; full rerun in progress. No main release; counts24/9/9/8/8."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
+      "verificationRun": 41182960783,
+      "pagesRun": 41186668161,
+      "summary": "Beepline integrated and live after213-check/nine-game promotion regression. Three final screenshots and live win/notebook/reload/navigation verified. Counts24/9/9/9/9; prior collections preserved."
     }
   ]
 }
