@@ -64,10 +64,14 @@
     });
   }
 
+  let statusTimer = 0;
   function setStatus(text) {
     status = text || '';
     const el = $('status');
     if (el) el.textContent = status;
+    clearTimeout(statusTimer);
+    // Hints fade after a few seconds so the board stays clean.
+    if (status) statusTimer = setTimeout(() => { if (status === text) setStatus(''); }, 4200);
   }
 
   function show(id) {
@@ -99,11 +103,11 @@
     if (view.w < 40 || view.h < 40) return;
     const city = run.city;
     const narrow = view.w < 720;
-    const top = narrow ? 108 : 72;
-    const bot = narrow ? 132 : 84;
-    const availW = Math.max(80, view.w - 28);
+    const top = narrow ? 96 : 72;
+    const bot = narrow ? 70 : 84;
+    const availW = Math.max(80, view.w - (narrow ? 4 : 28));
     const availH = Math.max(80, view.h - top - bot);
-    cam.z = Math.max(16, Math.min(availW / (city.cols + 1.4), availH / (city.rows + 1.4)));
+    cam.z = Math.max(16, Math.min(availW / (city.cols + (narrow ? 0.5 : 1.4)), availH / (city.rows + 1.4)));
     cam.x = city.cols / 2;
     cam.y = city.rows / 2 - ((top + availH / 2) - view.h / 2) / cam.z;
     userCam = false;
@@ -426,7 +430,8 @@
       const b = drawChain[drawChain.length - 1];
       res = E.placeMotorway(run, a, b);
     } else res = E.stroke(run, drawChain);
-    setStatus(res.ok ? '' : (res.reason || ''));
+    // A stroke can lay part of a line and stop at water or a hill; say why.
+    setStatus(res.reason || '');
     if (res.ok) save();
   }
 
@@ -669,6 +674,7 @@
     save();
   });
   $('upgrade').addEventListener('cancel', e => e.preventDefault());
+  $('result').addEventListener('cancel', e => e.preventDefault());
 
   $('retryBtn').addEventListener('click', () => {
     hide('result');
@@ -688,6 +694,9 @@
 
   window.addEventListener('resize', () => { if (run && !$('play').hidden) fit(false); });
   document.addEventListener('pointerdown', () => audio.resume(), { once: false });
+
+  // Read-only handle for tests and the console.
+  window.Lanewright = { get run() { return run; }, get cam() { return cam; }, get speed() { return speed; }, toScreen: (x, y) => renderer.toScreen(cam, x, y), carPose: car => renderer.carPose(run, car) };
 
   load();
   syncSettings();

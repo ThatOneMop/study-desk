@@ -119,8 +119,8 @@
       chains = chainsOf(groups.road, 'road').concat(chainsOf(groups.bridge, 'bridge'), chainsOf(groups.tunnel, 'tunnel'));
     }
 
-    function traceChain(cam, pts) {
-      ctx.beginPath();
+    function traceChain(cam, pts, keep) {
+      if (!keep) ctx.beginPath();
       let moved = false;
       for (const p of pts) {
         if (p.curve) {
@@ -143,21 +143,19 @@
       ctx.translate(0, style.shadow || 0);
       ctx.strokeStyle = style.shadowColor || 'rgba(40,36,28,0.10)';
       ctx.lineWidth = style.wide;
-      for (const chain of list) traceChain(cam, chain.pts);
+      ctx.beginPath();
+      for (const chain of list) traceChain(cam, chain.pts, true);
       ctx.stroke();
       ctx.restore();
+      // One path per pass, so a junction never shows the kerb of the road beneath it.
+      ctx.beginPath();
+      for (const chain of list) traceChain(cam, chain.pts, true);
       ctx.strokeStyle = style.edge;
       ctx.lineWidth = style.wide;
-      for (const chain of list) {
-        traceChain(cam, chain.pts);
-        ctx.stroke();
-      }
+      ctx.stroke();
       ctx.strokeStyle = style.fill;
       ctx.lineWidth = style.inner;
-      for (const chain of list) {
-        traceChain(cam, chain.pts);
-        ctx.stroke();
-      }
+      ctx.stroke();
       if (style.dash) {
         ctx.save();
         ctx.strokeStyle = style.dash;
@@ -362,6 +360,37 @@
       const dy = b.y - a.y;
       const len = Math.hypot(dx, dy) || 1;
       const side = 0.1;
+      // Ease through corners on the same curve the road is drawn with,
+      // instead of snapping heading at each grid node.
+      const groundStep = (p, q) => {
+        if (!p || !q) return false;
+        const e = (run.adj.get(p.x + ',' + p.y) || []).find(n => n.x === q.x && n.y === q.y);
+        return !!e && !e.motor;
+      };
+      const r = Math.min(0.32, len * 0.45);
+      const d = car.t * len;
+      let node = null, prev = null, next = null, s = 0;
+      if (d < r && groundStep(car.path[car.i - 1], a)) {
+        node = a; prev = car.path[car.i - 1]; next = b; s = 0.5 + d / (2 * r);
+      } else if (len - d < r && groundStep(b, car.path[car.i + 2])) {
+        node = b; prev = a; next = car.path[car.i + 2]; s = 0.5 - (len - d) / (2 * r);
+      }
+      if (node) {
+        const ix = node.x - prev.x, iy = node.y - prev.y, il = Math.hypot(ix, iy) || 1;
+        const ox = next.x - node.x, oy = next.y - node.y, ol = Math.hypot(ox, oy) || 1;
+        if (Math.abs(ix / il - ox / ol) + Math.abs(iy / il - oy / ol) > 0.01) {
+          const ri = Math.min(r, il * 0.45), ro = Math.min(r, ol * 0.45);
+          const P0 = { x: node.x - ix / il * ri, y: node.y - iy / il * ri };
+          const P2 = { x: node.x + ox / ol * ro, y: node.y + oy / ol * ro };
+          const u = 1 - s;
+          const x = u * u * P0.x + 2 * u * s * node.x + s * s * P2.x;
+          const y = u * u * P0.y + 2 * u * s * node.y + s * s * P2.y;
+          const hx = 2 * u * (node.x - P0.x) + 2 * s * (P2.x - node.x);
+          const hy = 2 * u * (node.y - P0.y) + 2 * s * (P2.y - node.y);
+          const hl = Math.hypot(hx, hy) || 1;
+          return { x: x + (-hy / hl) * side, y: y + (hx / hl) * side, hx: hx, hy: hy, motor: false };
+        }
+      }
       return {
         x: a.x + dx * car.t + (-dy / len) * side,
         y: a.y + dy * car.t + (dx / len) * side,
@@ -497,6 +526,34 @@
       ctx.stroke(path);
     }
 
+    // Terrain as one soft shape: a cell rounds each corner where open ground
+    // meets it on both sides, so rivers and hills read as blobs, not tiles.
+    function blob(cam, city, kind, color, inset, alpha) {
+      const z = cam.z;
+      const at = (x, y) => x >= 0 && y >= 0 && x < city.cols && y < city.rows && city.terrain[y][x] === kind;
+      const r = z * 0.45;
+      const pad = z * (inset || 0);
+      ctx.fillStyle = color;
+      if (alpha) ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      for (let y = 0; y < city.rows; y++) {
+        for (let x = 0; x < city.cols; x++) {
+          if (!at(x, y)) continue;
+          const n = at(x, y - 1), so = at(x, y + 1), w = at(x - 1, y), e = at(x + 1, y);
+          const l = w ? 0 : pad, t = n ? 0 : pad, rr = e ? 0 : pad, b = so ? 0 : pad;
+          const p = toScreen(cam, x, y);
+          const X = p.x + l - (w ? 0.5 : 0), Y = p.y + t - (n ? 0.5 : 0);
+          const W = z - l - rr + (w ? 0.5 : 0) + (e ? 0.5 : 0), H = z - t - b + (n ? 0.5 : 0) + (so ? 0.5 : 0);
+          if (W <= 0 || H <= 0) continue;
+          const rad = [!n && !w ? r : 0, !n && !e ? r : 0, !so && !e ? r : 0, !so && !w ? r : 0].map(v => Math.min(v, W / 2, H / 2));
+          if (ctx.roundRect) ctx.roundRect(X, Y, W, H, rad);
+          else ctx.rect(X, Y, W, H);
+        }
+      }
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
     function draw(run, cam, preview, opt) {
       resize();
       const now = opt.now || 0;
@@ -505,20 +562,23 @@
       ctx.clearRect(0, 0, viewW, viewH);
       ctx.fillStyle = city.ground;
       ctx.fillRect(0, 0, viewW, viewH);
+      // The map itself is a shade deeper than the margin, so pale roads read.
+      const m0 = toScreen(cam, 0, 0);
+      ctx.fillStyle = city.ground2;
+      ctx.globalAlpha = 0.55;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(m0.x, m0.y, city.cols * z, city.rows * z, z * 0.6);
+      else ctx.rect(m0.x, m0.y, city.cols * z, city.rows * z);
+      ctx.fill();
+      ctx.globalAlpha = 1;
       const wash = ctx.createRadialGradient(viewW * 0.5, viewH * 0.4, z, viewW * 0.5, viewH * 0.5, Math.max(viewW, viewH) * 0.7);
       wash.addColorStop(0, 'rgba(255,255,255,0.28)');
       wash.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = wash;
       ctx.fillRect(0, 0, viewW, viewH);
 
-      ctx.fillStyle = city.water;
-      for (let y = 0; y < city.rows; y++) {
-        for (let x = 0; x < city.cols; x++) {
-          if (city.terrain[y][x] !== 'water') continue;
-          const p = toScreen(cam, x, y);
-          ctx.fillRect(p.x - 0.5, p.y - 0.5, z + 1, z + 1);
-        }
-      }
+      blob(cam, city, 'water', city.water, 0);
+      blob(cam, city, 'water', city.waterDeep, 0.2, 0.28);
       if (!opt.motion) {
         ctx.fillStyle = city.waterDeep;
         ctx.globalAlpha = 0.22;
@@ -536,27 +596,22 @@
         ctx.globalAlpha = 1;
       }
 
+      blob(cam, city, 'mountain', city.mountainLight, 0);
+      blob(cam, city, 'mountain', city.mountain, 0.16);
       for (let y = 0; y < city.rows; y++) {
         for (let x = 0; x < city.cols; x++) {
           if (city.terrain[y][x] !== 'mountain') continue;
-          const p = toScreen(cam, x + 0.5, y + 0.72);
-          ctx.fillStyle = 'rgba(60,50,40,0.08)';
-          ctx.beginPath();
-          ctx.ellipse(p.x, p.y, z * 0.42, z * 0.16, 0, 0, 7);
-          ctx.fill();
-          ctx.fillStyle = city.mountain;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y - z * 0.78);
-          ctx.quadraticCurveTo(p.x + z * 0.46, p.y - z * 0.2, p.x + z * 0.32, p.y - z * 0.05);
-          ctx.quadraticCurveTo(p.x, p.y + z * 0.08, p.x - z * 0.34, p.y - z * 0.04);
-          ctx.quadraticCurveTo(p.x - z * 0.48, p.y - z * 0.28, p.x, p.y - z * 0.78);
-          ctx.fill();
+          if ((x * 7 + y * 3) % 4 !== 0) continue;
+          const p = toScreen(cam, x + 0.5, y + 0.62);
           ctx.fillStyle = city.mountainLight;
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y - z * 0.78);
-          ctx.quadraticCurveTo(p.x + z * 0.16, p.y - z * 0.4, p.x + z * 0.02, p.y - z * 0.28);
-          ctx.quadraticCurveTo(p.x - z * 0.08, p.y - z * 0.46, p.x, p.y - z * 0.78);
+          ctx.moveTo(p.x - z * 0.3, p.y + z * 0.12);
+          ctx.quadraticCurveTo(p.x - z * 0.06, p.y - z * 0.5, p.x, p.y - z * 0.5);
+          ctx.quadraticCurveTo(p.x + z * 0.06, p.y - z * 0.5, p.x + z * 0.3, p.y + z * 0.12);
+          ctx.closePath();
+          ctx.globalAlpha = 0.75;
           ctx.fill();
+          ctx.globalAlpha = 1;
         }
       }
 
@@ -603,22 +658,26 @@
 
       for (const r of run.rounds) {
         const p = toScreen(cam, r.x, r.y);
+        const rad = z * 0.46;
         ctx.strokeStyle = city.roadEdge;
-        ctx.lineWidth = z * 0.12;
+        ctx.lineWidth = z * 0.42;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, z * 0.42, 0, 7);
+        ctx.arc(p.x, p.y, rad, 0, Math.PI * 2);
         ctx.stroke();
         ctx.strokeStyle = city.road;
-        ctx.lineWidth = z * 0.08;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, z * 0.42, 0, 7);
+        ctx.lineWidth = z * 0.3;
         ctx.stroke();
-        ctx.fillStyle = city.ink;
-        ctx.globalAlpha = 0.35;
+        ctx.fillStyle = city.ground2;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(2, z * 0.05), 0, 7);
+        ctx.arc(p.x, p.y, rad - z * 0.21, 0, Math.PI * 2);
         ctx.fill();
-        ctx.globalAlpha = 1;
+        ctx.strokeStyle = city.roadEdge;
+        ctx.lineWidth = Math.max(1, z * 0.04);
+        ctx.stroke();
+        ctx.fillStyle = '#9fbf8f';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, z * 0.12, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       for (const b of run.buildings) drawBuilding(run, cam, b, opt, now);
@@ -694,6 +753,8 @@
       resize: resize,
       draw: draw,
       screenToWorld: screenToWorld,
+      toScreen: toScreen,
+      carPose: carPose,
       view: () => ({ w: viewW, h: viewH })
     };
   }

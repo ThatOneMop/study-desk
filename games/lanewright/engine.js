@@ -681,7 +681,7 @@ function edgeSpeed(edge) {
     return run.buildings.some(b => b.cx === cx && b.cy === cy);
   }
 
-  function pickCell(run) {
+  function pickCell(run, role, color) {
     const city = run.city;
     let loose = false;
     for (let pass = 0; pass < 2; pass++) {
@@ -698,7 +698,16 @@ function edgeSpeed(edge) {
           }
           if (!loose && near < 2) continue;
           const edge = Math.min(cx, cy, city.cols - 1 - cx, city.rows - 1 - cy);
-          const score = near * 4 + edge;
+          let score = Math.min(near, 6) * 4 + edge;
+          if (role === 'house') {
+            // Houses settle a short drive from a shop of their colour.
+            let kin = 99;
+            for (const b of run.buildings) {
+              if (b.color !== color || b.role !== 'dest') continue;
+              kin = Math.min(kin, Math.max(Math.abs(b.cx - cx), Math.abs(b.cy - cy)));
+            }
+            if (kin < 99) score = 40 - Math.abs(kin - 4) * 5 + Math.min(near, 3) + edge * 0.5;
+          }
           if (score > bestScore) { bestScore = score; best = [{ cx: cx, cy: cy }]; }
           else if (score === bestScore) best.push({ cx: cx, cy: cy });
         }
@@ -730,21 +739,25 @@ function edgeSpeed(edge) {
         color = missing.color;
         role = missing.role;
       } else {
-        let houseColor = colors[0];
-        let houseGap = 0;
+        // Keep every colour supplied: a house where cars are short of the
+        // demand, otherwise a new shop on the colour with the most spare cars.
+        let houseColor = null;
+        let houseNeed = Infinity;
         let destColor = colors[0];
-        let destGap = -1;
+        let destSpare = -Infinity;
         for (const c of colors) {
-          const extraDests = counts[c].dest - counts[c].house;
-          if (extraDests > houseGap) { houseGap = extraDests; houseColor = c; }
-          const extraHouses = counts[c].house - counts[c].dest;
-          if (extraHouses > destGap) { destGap = extraHouses; destColor = c; }
+          let weight = 0;
+          for (const b of run.buildings) if (b.role === 'dest' && b.color === c) weight += b.shape === 'circle' ? 1.62 : 1;
+          const ratio = counts[c].house / Math.max(1, weight);
+          const jitter = run.rng() * 0.2;
+          if (ratio < 1.5 && ratio + jitter < houseNeed) { houseNeed = ratio + jitter; houseColor = c; }
+          if (ratio + jitter > destSpare) { destSpare = ratio + jitter; destColor = c; }
         }
-        if (houseGap >= 1) { role = 'house'; color = houseColor; }
+        if (houseColor) { role = 'house'; color = houseColor; }
         else { role = 'dest'; color = destColor; }
       }
     }
-    const cell = forced && forced.cx != null ? nearestLand(run, forced.cx, forced.cy) : pickCell(run);
+    const cell = forced && forced.cx != null ? nearestLand(run, forced.cx, forced.cy) : pickCell(run, role, color);
     if (!cell) return null;
     const b = makeBuilding(run, role, color, cell.cx, cell.cy);
     run.buildings.push(b);
@@ -1327,8 +1340,8 @@ function stepCars(run, dt) {
           d.timer = 1;
           run.phase = 'over';
           run.overId = d.id;
-          const name = COLOR[d.color] ? d.color : 'a';
-          run.reason = 'The ring filled on a ' + name + ' destination.';
+          const name = COLOR[d.color] ? d.color : '';
+          run.reason = 'The ring filled on ' + (/^[aeiou]/.test(name) ? 'an ' : 'a ') + (name ? name + ' ' : '') + 'destination.';
           pushEvent(run, 'over', { id: d.id, color: d.color });
           return;
         }

@@ -195,9 +195,18 @@ label.chk, label.slide { display: flex; justify-content: space-between; align-it
   .sheet { padding: 16px 14px; border-radius: 14px; }
   .lede { font-size: 16px; }
   .pill b { font-size: 14px; }
-  #status { bottom: 168px; }
-  #tutorial { top: 178px; bottom: auto; max-height: 30%; overflow: auto; }
-  #dock button { flex: 1 1 30%; min-width: 0; }
+  /* Phone: two slim HUD rows, one dock row, so the city gets the screen. */
+  #hud { gap: 4px; left: 6px; right: 6px; top: 6px; }
+  .pill { min-height: 38px; padding: 3px 9px 4px; }
+  .pill small { font-size: 9px; }
+  .speeds button, #hud > button { min-width: 38px; min-height: 38px; padding: 0 8px; font-size: 13px; }
+  #speed2 { display: none; }
+  #status { bottom: 64px; font-size: 13px; }
+  #tutorial { top: 98px; bottom: auto; max-height: 30%; overflow: auto; }
+  #dock { flex-wrap: nowrap; gap: 3px; left: 4px; right: 4px; bottom: max(6px, env(safe-area-inset-bottom)); }
+  #dock button { flex: 1 1 0; min-width: 0; min-height: 46px; padding: 3px 1px 4px; }
+  #dock button b { font-size: 11px; }
+  #dock button small { font-size: 10px; }
 }
 @media (max-height: 700px) {
   #title, #cities, #achieve { padding-top: 8px; }

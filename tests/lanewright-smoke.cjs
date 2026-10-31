@@ -124,6 +124,20 @@ const daily = E.startRun(meta, E.CITIES[E.dailySeed(day) % E.CITIES.length].id, 
 assert.equal(daily.mode, 'daily');
 assert.ok(daily.mod && daily.mod.name);
 
+// Spawns keep every colour in play instead of piling new houses onto the first colour.
+const spread = E.startRun(meta, 'larkmere', 'endless', { seed: 7 });
+while (spread.weekIndex < 6 && spread.time < 2000) {
+  for (const b of spread.buildings) if (b.role === 'dest') { b.pins = 0; b.timer = 0; }
+  if (spread.phase === 'upgrade') E.chooseUpgrade(spread, 0);
+  else E.tick(spread, 0.5);
+}
+const houses = spread.buildings.filter(b => b.role === 'house');
+const tally = {};
+for (const h of houses) tally[h.color] = (tally[h.color] || 0) + 1;
+assert(Object.keys(tally).length >= 4, 'houses in four or more colours by week 6: ' + JSON.stringify(tally));
+assert(Math.max(...Object.values(tally)) <= houses.length * 0.5, 'no colour holds most houses: ' + JSON.stringify(tally));
+for (const c of Object.keys(tally)) assert(spread.buildings.some(b => b.role === 'dest' && b.color === c), 'every house colour has a shop: ' + c);
+
 const saved = E.encode({ meta: meta, run: paved });
 const back = E.decode(saved);
 assert.equal(back.ok, true);
