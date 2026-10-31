@@ -370,23 +370,25 @@
   }
 
   function pick(cam, viewW, viewH, mx, my, run) {
+    // Hit-test in the same back-to-front order frame() paints, so the tile the
+    // player can actually see under the pointer wins (including cliff faces).
     if (!run) return null;
-    let best = null, bestZ = -1, bestKey = -1;
+    let best = null, bestKey = -Infinity;
+    const hw = (TW / 2) * cam.zoom, hh = (TH / 2) * cam.zoom;
     for (let i = 0; i < run.cells.length; i++) {
       const c = run.cells[i];
-      const z = c.ground + (c.levee || 0) + (c.floors || 0);
+      const solid = c.ground + (c.levee || 0) + (c.floors || 0);
+      // Water is drawn as a raised surface, so it is what the player taps.
+      const z = c.water > 0.03 ? Math.max(solid, c.ground + (c.levee || 0) + Math.min(c.water, 3.2)) : solid;
       const pt = project(c.x, c.y, z, cam, run.w, run.h);
-      const hw = (TW / 2) * cam.zoom, hh = (TH / 2) * cam.zoom;
       const dx = Math.abs(mx - pt[0]) / hw;
-      const dy = Math.abs(my - (pt[1])) / hh;
-      if (dx + dy <= 1) {
-        const key = c.x + c.y;
-        if (z > bestZ || (z === bestZ && key > bestKey)) {
-          best = c;
-          bestZ = z;
-          bestKey = key;
-        }
-      }
+      if (dx > 1) continue;
+      const slack = hh * (1 - dx);
+      const baseY = pt[1] + z * TZ * cam.zoom;
+      if (my < pt[1] - slack || my > baseY + slack) continue;
+      const p = rotOf(c.x, c.y, cam.rot, run.w, run.h);
+      const key = p[0] + p[1] + (c.ground + c.floors) * 0.01;
+      if (key > bestKey) { best = c; bestKey = key; }
     }
     return best;
   }
