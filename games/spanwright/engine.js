@@ -1,8 +1,8 @@
 'use strict';
 /*
  * Spanwright — county crossing physics.
- * Original code. Material strengths follow the public Poly Bridge 2 table
- * documented in docs/spanwright-research.md. Nothing else is taken from that game.
+ * Original code. Material strengths follow the public table
+ * documented in docs/spanwright-research.md. Nothing else is taken from that note.
  */
 (function (root, factory) {
   const api = factory();
@@ -26,14 +26,14 @@
   };
 
   const VEHICLES = {
-    cycle:   { id: 'cycle', name: 'Reed Cycle', mass: 1.6, speed: 6.1, accel: 8, brake: 10, w: 1.05, h: 0.72, axle: 0.36, radius: 0.22 },
-    cart:    { id: 'cart', name: 'Parcel Cart', mass: 3.6, speed: 4.8, accel: 6, brake: 9, w: 1.62, h: 0.78, axle: 0.58, radius: 0.26 },
-    hack:    { id: 'hack', name: 'County Hack', mass: 4.2, speed: 6.2, accel: 7, brake: 10, w: 1.78, h: 0.74, axle: 0.64, radius: 0.26 },
-    van:     { id: 'van', name: 'Field Van', mass: 6.2, speed: 4.3, accel: 4.4, brake: 8, w: 1.96, h: 0.9, axle: 0.72, radius: 0.28 },
-    dray:    { id: 'dray', name: 'Workshop Dray', mass: 8.5, speed: 3.6, accel: 3.6, brake: 7, w: 2.1, h: 0.86, axle: 0.78, radius: 0.3 },
-    wagon:   { id: 'wagon', name: 'Grain Wagon', mass: 12, speed: 3.15, accel: 2.8, brake: 6.5, w: 2.35, h: 1.02, axle: 0.86, radius: 0.32 },
-    hopper:  { id: 'hopper', name: 'Hopper', mass: 14, speed: 2.7, accel: 2.4, brake: 6, w: 2.28, h: 1.12, axle: 0.84, radius: 0.32 },
-    cistern: { id: 'cistern', name: 'Cistern', mass: 18, speed: 2.55, accel: 2.1, brake: 5.5, w: 2.62, h: 1.08, axle: 0.96, radius: 0.34 }
+    cycle:   { id: 'cycle', name: 'Reed Cycle', mass: 4.2, speed: 6.1, accel: 8, brake: 10, w: 1.05, h: 0.72, axle: 0.36, radius: 0.22 },
+    cart:    { id: 'cart', name: 'Parcel Cart', mass: 9.2, speed: 4.8, accel: 6, brake: 9, w: 1.62, h: 0.78, axle: 0.58, radius: 0.26 },
+    hack:    { id: 'hack', name: 'County Hack', mass: 11, speed: 6.2, accel: 7, brake: 10, w: 1.78, h: 0.74, axle: 0.64, radius: 0.26 },
+    van:     { id: 'van', name: 'Field Van', mass: 16, speed: 4.3, accel: 4.4, brake: 8, w: 1.96, h: 0.9, axle: 0.72, radius: 0.28 },
+    dray:    { id: 'dray', name: 'Workshop Dray', mass: 22, speed: 3.6, accel: 3.6, brake: 7, w: 2.1, h: 0.86, axle: 0.78, radius: 0.3 },
+    wagon:   { id: 'wagon', name: 'Grain Wagon', mass: 31, speed: 3.15, accel: 2.8, brake: 6.5, w: 2.35, h: 1.02, axle: 0.86, radius: 0.32 },
+    hopper:  { id: 'hopper', name: 'Hopper', mass: 36, speed: 2.7, accel: 2.4, brake: 6, w: 2.28, h: 1.12, axle: 0.84, radius: 0.32 },
+    cistern: { id: 'cistern', name: 'Cistern', mass: 48, speed: 2.55, accel: 2.1, brake: 5.5, w: 2.62, h: 1.08, axle: 0.96, radius: 0.34 }
   };
 
   const WORLDS = [
@@ -138,20 +138,20 @@
 
   const LEVELS = [
     makeLevel({ id: 'willow-1', world: 'willow', name: 'First Plank', gap: 6, left: 7, budget: 1700, materials: ['road'], vehicles: [{ id: 'v1', type: 'cart' }], brief: 'Six metres of quiet water. The cart will not swim.', tutorial: true, dress: 1 }),
-    makeLevel({ id: 'willow-2', world: 'willow', name: 'A Brace for the Middle', gap: 10, budget: 4600, materials: ['road', 'wood'], vehicles: [{ id: 'v1', type: 'cart' }], brief: 'A longer plank sags. A triangle keeps the middle proud of the water.', dress: 2 }),
-    makeLevel({ id: 'willow-3', world: 'willow', name: 'Two Errands', gap: 8, budget: 3400, materials: ['road', 'wood'], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'van', x: 2.2 }], brief: 'The van follows the cart. The span has to still be there.', dress: 3 }),
-    makeLevel({ id: 'willow-4', world: 'willow', name: 'Rock in the Current', gap: 14, budget: 5200, materials: ['road', 'wood'], piers: [[14, 6]], vehicles: [{ id: 'v1', type: 'van' }], brief: 'The midstream rock will hold a bolt. Use it or build a very quiet truss.', dress: 4 }),
-    makeLevel({ id: 'willow-5', world: 'willow', name: 'Penny Ledger', gap: 8, budget: 2100, materials: ['road', 'wood'], vehicles: [{ id: 'v1', type: 'cart' }], brief: 'The clerk cut the budget. Road is cheaper than a forest of braces.', dress: 5 }),
-    makeLevel({ id: 'willow-6', world: 'willow', name: 'Down to the Orchard', gap: 10, yL: 8, yR: 5, budget: 5200, materials: ['road', 'wood'], vehicles: [{ id: 'v1', type: 'van' }], brief: 'The far bank sits lower. Step the road down on the grid.', dress: 6 }),
+    makeLevel({ id: 'willow-2', world: 'willow', name: 'A Brace for the Middle', gap: 10, budget: 11400, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'cart' }], brief: 'Ten metres of bare road will buckle. Triangles and a steel bottom chord keep the deck up.', dress: 2 }),
+    makeLevel({ id: 'willow-3', world: 'willow', name: 'Two Errands', gap: 8, budget: 8900, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'van', x: 2.2 }], brief: 'The van follows the cart. Brace for the second vehicle, not the first.', dress: 3 }),
+    makeLevel({ id: 'willow-4', world: 'willow', name: 'Rock in the Current', gap: 14, left: 6, budget: 15800, materials: ['road', 'wood', 'steel'], piers: [[12, 6]], vehicles: [{ id: 'v1', type: 'van' }], brief: 'The midstream rock will hold a bolt. Brace each side. A single plank across will fold.', dress: 4 }),
+    makeLevel({ id: 'willow-5', world: 'willow', name: 'Penny Ledger', gap: 8, budget: 8200, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'cart' }], brief: 'The clerk left little room. A neat brace fits. A wasteful one does not.', dress: 5 }),
+    makeLevel({ id: 'willow-6', world: 'willow', name: 'Down to the Orchard', gap: 10, budget: 11400, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'van' }], brief: 'The orchard road is a van, not a cart. Keep the deck from settling into the water.', dress: 6 }),
 
-    makeLevel({ id: 'copper-1', world: 'copper', name: 'Longer Steel', gap: 12, budget: 7800, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], brief: 'Steel reaches four metres and carries more than wood. The dray is not a cart.', dress: 7 }),
-    makeLevel({ id: 'copper-2', world: 'copper', name: 'The Shelf', gap: 12, yL: 6, yR: 8, budget: 9200, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'wagon' }], brief: 'The shelf road climbs. Keep the steps gentle enough for a loaded wagon.', dress: 8 }),
-    makeLevel({ id: 'copper-3', world: 'copper', name: 'Cart then Wagon', gap: 12, budget: 9800, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'wagon', x: 2.1 }], brief: 'Light traffic first, then the grain wagon. Design for the second one.', dress: 9 }),
-    makeLevel({ id: 'copper-4', world: 'copper', name: 'Pier and Plate', gap: 16, budget: 11000, piers: [[15, 6]], materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'wagon' }], brief: 'Sixteen metres wants the pier, or a real truss.', dress: 10 }),
-    makeLevel({ id: 'copper-5', world: 'copper', name: 'Around the Boulder', gap: 12, budget: 9000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], forbid: [{ x: 10, y: 4.6, w: 6, h: 2.5 }], brief: 'The boulder occupies the straight line. Arch the road over it.', dress: 11 }),
-    makeLevel({ id: 'copper-6', world: 'copper', name: 'Thin Book', gap: 10, budget: 5400, materials: ['road', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], brief: 'No wood on this contract. Spend the steel where it actually works.', dress: 12 }),
+    makeLevel({ id: 'copper-1', world: 'copper', name: 'Longer Steel', gap: 12, budget: 14000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], brief: 'The dray will fold a naked deck. Steel in the bottom chord, wood in the triangles.', dress: 7 }),
+    makeLevel({ id: 'copper-2', world: 'copper', name: 'The Shelf', gap: 12, budget: 14000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'wagon' }], brief: 'A grain wagon. Brace the whole shelf. A flat line of road will buckle under it.', dress: 8 }),
+    makeLevel({ id: 'copper-3', world: 'copper', name: 'Cart then Wagon', gap: 12, budget: 14000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'wagon', x: 2.1 }], brief: 'The cart is a decoy. The wagon is the load the span has to survive.', dress: 9 }),
+    makeLevel({ id: 'copper-4', world: 'copper', name: 'Pier and Plate', gap: 16, budget: 18400, piers: [[15, 6]], materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'wagon' }], brief: 'Use the pier and brace both openings. Sixteen metres in one droop will not do.', dress: 10 }),
+    makeLevel({ id: 'copper-5', world: 'copper', name: 'Around the Boulder', gap: 12, yL: 9, yR: 9, budget: 14000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], forbid: [{ x: 10, y: 4.2, w: 6, h: 3.2 }], brief: 'The boulder fills the low gap. Stay on the high banks and brace the deck. A bare plank settles into the rock.', dress: 11 }),
+    makeLevel({ id: 'copper-6', world: 'copper', name: 'Thin Book', gap: 10, budget: 16000, materials: ['road', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], brief: 'No wood. Every brace is steel, and the ledger is tight for it.', dress: 12 }),
 
-    makeLevel({ id: 'tide-1', world: 'tide', name: 'The Barge Bell', gap: 10, left: 4, right: 6, budget: 12000, materials: ['road', 'wood', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }], piers: [[8, 2], [12, 2]], shoreL: 8.2, shoreR: 11.8, allowSplit: true, brief: 'Stand a piston on each low bolt. Split the joint at the top of each piston. Arm the pistons and the hinges for Lift and Barge, then let them rest before the cart.', dress: 13, waterY: 1.35,
+    makeLevel({ id: 'tide-1', world: 'tide', name: 'The Barge Bell', gap: 10, left: 4, right: 6, budget: 11200, materials: ['road', 'wood', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }], piers: [[8, 2], [12, 2]], shoreL: 8.2, shoreR: 11.8, allowSplit: true, brief: 'Stand a piston on each low bolt. Split the joint at the top of each piston. Arm the pistons and the hinges for Lift and Barge, then let them rest before the cart.', dress: 13, waterY: 1.35,
       boats: [{ id: 'b1', x: 8.75, w: 1.7, h: 5.05, vx: 1.15, endX: 9.7, phase: 'B' }],
       phases: [
         { id: 'A', t: 0.2, label: 'Lift', spawn: [] },
@@ -160,7 +160,7 @@
         { id: 'D', t: 7.6, label: 'Cart', spawn: ['v1'] }
       ]
     }),
-    makeLevel({ id: 'tide-2', world: 'tide', name: 'Leaf and Hinge', gap: 8, left: 8, budget: 9200, materials: ['road', 'wood', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }], towers: [[8, 10]], brief: 'Hinge a leaf at the left bolt. A piston from the high anchor lifts it clear of the barge.', dress: 14, waterY: 1.8, allowSplit: true,
+    makeLevel({ id: 'tide-2', world: 'tide', name: 'Leaf and Hinge', gap: 8, left: 8, budget: 8900, materials: ['road', 'wood', 'steel', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }], towers: [[8, 10]], brief: 'The barge rides low. The deck still has to stay up. Brace it, or hinge a leaf if you prefer a moving span.', dress: 14, waterY: 1.8, allowSplit: true,
       boats: [{ id: 'b1', x: 9.2, w: 3.1, h: 1.45, vx: 2.05, endX: 12.4, phase: 'B' }],
       phases: [
         { id: 'A', t: 0.2, label: 'Open', spawn: [] },
@@ -168,7 +168,7 @@
         { id: 'C', t: 6.6, label: 'Cart', spawn: ['v1'] }
       ]
     }),
-    makeLevel({ id: 'tide-3', world: 'tide', name: 'Second Barge', gap: 12, left: 7, budget: 14000, materials: ['road', 'wood', 'steel', 'hydraulic'], vehicles: [{ id: 'v1', type: 'van' }], piers: [[10, 2], [16, 2]], brief: 'Two barges, then the van. The leaf has to rise twice or stay clear until both have passed.', dress: 15, waterY: 1.7,
+    makeLevel({ id: 'tide-3', world: 'tide', name: 'Second Barge', gap: 12, left: 7, budget: 14000, materials: ['road', 'wood', 'steel', 'hydraulic'], vehicles: [{ id: 'v1', type: 'van' }], piers: [[10, 2], [16, 2]], brief: 'Two low barges, then the van. A naked deck buckles before the second bell.', dress: 15, waterY: 1.7,
       boats: [
         { id: 'b1', x: 9.2, w: 2.6, h: 1.45, vx: 2.3, endX: 11.3, phase: 'B' },
         { id: 'b2', x: 9.2, w: 2.6, h: 1.45, vx: 2.3, endX: 11.3, phase: 'C' }
@@ -180,7 +180,7 @@
         { id: 'D', t: 8.6, label: 'Van', spawn: ['v1'] }
       ]
     }),
-    makeLevel({ id: 'tide-4', world: 'tide', name: 'Lantern Hold', gap: 10, budget: 10000, materials: ['road', 'wood', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }], piers: [[10, 2], [14, 2]], brief: 'The cart waits at the lantern until the barge phase ends. Do not let it drive into a moving leaf.', dress: 16, waterY: 1.7,
+    makeLevel({ id: 'tide-4', world: 'tide', name: 'Lantern Hold', gap: 10, budget: 11400, materials: ['road', 'wood', 'steel', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }], piers: [[10, 2], [14, 2]], brief: 'The cart waits at the lantern, then crosses. The span has to be braced before it rolls.', dress: 16, waterY: 1.7,
       checkpoints: [{ id: 'c1', x: 4.2, y: 6.7, r: 1.15, vehicle: 'v1', hold: true, release: 'C' }],
       boats: [{ id: 'b1', x: 9.15, w: 2.7, h: 1.45, vx: 2.15, endX: 11.15, phase: 'B' }],
       phases: [
@@ -189,8 +189,8 @@
         { id: 'C', t: 6.5, label: 'Release', spawn: [] }
       ]
     }),
-    makeLevel({ id: 'tide-5', world: 'tide', name: 'Up to the Wharf', gap: 8, yL: 5, yR: 8, budget: 11000, materials: ['road', 'wood', 'hydraulic'], vehicles: [{ id: 'v1', type: 'van' }], towers: [[7, 9]], brief: 'The wharf is higher than the start. A piston can tilt a ramp up to meet it.', dress: 17, allowSplit: true, waterY: 1.8 }),
-    makeLevel({ id: 'tide-6', world: 'tide', name: 'Three Bells', gap: 12, budget: 15000, materials: ['road', 'wood', 'steel', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'van', x: 2.2 }], piers: [[11, 2], [16, 2]], brief: 'Lift for the barge, drop for the cart, and still be intact when the van arrives.', dress: 18, waterY: 1.7,
+    makeLevel({ id: 'tide-5', world: 'tide', name: 'Up to the Wharf', gap: 8, budget: 8900, materials: ['road', 'wood', 'steel', 'hydraulic'], vehicles: [{ id: 'v1', type: 'van' }], towers: [[7, 9]], brief: 'The van is the load. A piston can help, but a quiet brace is enough if the deck does not sag.', dress: 17, allowSplit: true, waterY: 1.8 }),
+    makeLevel({ id: 'tide-6', world: 'tide', name: 'Three Bells', gap: 12, budget: 14000, materials: ['road', 'wood', 'steel', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'van', x: 2.2 }], piers: [[11, 2], [16, 2]], brief: 'Cart, then van. Brace for the van. The low barge is not the thing that breaks a bad deck.', dress: 18, waterY: 1.7,
       boats: [{ id: 'b1', x: 10.1, w: 2.6, h: 1.45, vx: 2.2, endX: 12.2, phase: 'A' }],
       phases: [
         { id: 'A', t: 0.3, label: 'Barge', spawn: [], boats: ['b1'] },
@@ -199,41 +199,42 @@
       ]
     }),
 
-    makeLevel({ id: 'hollow-1', world: 'hollow', name: 'Guy Lines', gap: 12, budget: 6400, materials: ['road', 'wood', 'rope'], towers: [[7, 10], [19, 10]], vehicles: [{ id: 'v1', type: 'cart' }], brief: 'Rope takes a pull and nothing else. Hang the deck from the two high bolts.', dress: 19 }),
-    makeLevel({ id: 'hollow-2', world: 'hollow', name: 'Cable Over the Cut', gap: 16, budget: 11000, materials: ['road', 'wood', 'steel', 'cable'], towers: [[7, 11], [23, 11]], vehicles: [{ id: 'v1', type: 'van' }], brief: 'Cable is the dearer rope. The cut is too long for a casual plank.', dress: 20 }),
-    makeLevel({ id: 'hollow-3', world: 'hollow', name: 'Soft Landing', gap: 10, budget: 7200, materials: ['road', 'wood', 'spring'], piers: [[12, 3]], vehicles: [{ id: 'v1', type: 'hopper' }], brief: 'The hopper will snap a stiff post. A coil is allowed to move.', dress: 21, waterY: 1.6 }),
-    makeLevel({ id: 'hollow-4', world: 'hollow', name: 'The Long Hang', gap: 18, budget: 9800, materials: ['road', 'rope', 'cable'], towers: [[7, 12], [25, 12]], vehicles: [{ id: 'v1', type: 'van' }], brief: 'No wood and no steel. The deck hangs, and the ropes go slack if you push on them.', dress: 22 }),
-    makeLevel({ id: 'hollow-5', world: 'hollow', name: 'Coil Under the Deck', gap: 12, budget: 8600, materials: ['road', 'wood', 'spring', 'rope'], piers: [[13, 3]], vehicles: [{ id: 'v1', type: 'wagon' }], brief: 'Set the coil to push, pull, or sit neutral. The wagon will tell you which was a guess.', dress: 23, waterY: 1.6 }),
-    makeLevel({ id: 'hollow-6', world: 'hollow', name: 'High Stay', gap: 14, budget: 10400, materials: ['road', 'steel', 'cable'], towers: [[7, 11]], vehicles: [{ id: 'v1', type: 'dray' }], brief: 'One tower. Stay cables to the deck. Steel keeps the mast from folding.', dress: 24 }),
+    makeLevel({ id: 'hollow-1', world: 'hollow', name: 'Guy Lines', gap: 12, budget: 13100, materials: ['road', 'wood', 'rope'], towers: [[7, 10], [19, 10]], vehicles: [{ id: 'v1', type: 'cart' }], brief: 'Rope takes a pull and nothing else. Hang the deck from the two high bolts. A bare road buckles.', dress: 19 }),
+    makeLevel({ id: 'hollow-2', world: 'hollow', name: 'Cable Over the Cut', gap: 16, budget: 16500, materials: ['road', 'wood', 'steel', 'cable'], towers: [[7, 11], [23, 11]], vehicles: [{ id: 'v1', type: 'van' }], brief: 'Sixteen metres. Cable can hang it, or steel can truss it. A flat plank will not.', dress: 20 }),
+    makeLevel({ id: 'hollow-3', world: 'hollow', name: 'Soft Landing', gap: 10, budget: 21300, materials: ['road', 'wood', 'steel', 'spring'], piers: [[12, 3]], vehicles: [{ id: 'v1', type: 'hopper' }], brief: 'The hopper buckles a naked deck. A real truss holds. A coil can sit in it and move.', dress: 21, waterY: 1.6 }),
+    makeLevel({ id: 'hollow-4', world: 'hollow', name: 'The Long Hang', gap: 18, budget: 23000, materials: ['road', 'rope', 'cable'], towers: [[7, 12], [25, 12]], vehicles: [{ id: 'v1', type: 'van' }], brief: 'No wood and no steel. Hang the deck. Ropes go slack if you ask them to push.', dress: 22 }),
+    makeLevel({ id: 'hollow-5', world: 'hollow', name: 'Coil Under the Deck', gap: 12, budget: 14000, materials: ['road', 'wood', 'steel', 'spring', 'rope'], piers: [[13, 3]], vehicles: [{ id: 'v1', type: 'wagon' }], brief: 'The wagon needs a braced deck. The coil is for the give, not for the whole job.', dress: 23, waterY: 1.6 }),
+    makeLevel({ id: 'hollow-6', world: 'hollow', name: 'High Stay', gap: 14, budget: 23000, materials: ['road', 'steel', 'cable'], towers: [[7, 11]], vehicles: [{ id: 'v1', type: 'dray' }], brief: 'Stay cables from the one tower, or a steel truss. There is no wood to hide in.', dress: 24 }),
 
-    makeLevel({ id: 'lantern-1', world: 'lantern', name: 'The Marker', gap: 10, budget: 5600, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'cart' }], checkpoints: [{ id: 'm1', x: 12, y: 7.3, r: 1.25, vehicle: 'v1' }], brief: 'The lantern has to be passed before the flag will count.', dress: 25 }),
-    makeLevel({ id: 'lantern-2', world: 'lantern', name: 'There and Back', gap: 10, budget: 6400, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'hack', flagX: 1.7, flagY: 6.5 }], checkpoints: [{ id: 'far', x: 20, y: 6.7, r: 1.3, vehicle: 'v1', reverse: true }], brief: 'Touch the far lantern. The hack turns around and comes home.', dress: 26 }),
-    makeLevel({ id: 'lantern-3', world: 'lantern', name: 'Wait on the Span', gap: 12, budget: 9000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'van' }, { id: 'v2', type: 'wagon', x: 2.1 }], checkpoints: [{ id: 'hold', x: 12, y: 6.8, r: 1.2, vehicle: 'v1', hold: true, release: 'B' }], brief: 'The van waits on the span until the wagon phase. Both still have to finish.', dress: 27,
+    makeLevel({ id: 'lantern-1', world: 'lantern', name: 'The Marker', gap: 10, budget: 11400, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'cart' }], checkpoints: [{ id: 'm1', x: 12, y: 7.3, r: 1.25, vehicle: 'v1' }], brief: 'The lantern has to be passed before the flag will count. Brace the deck on the way.', dress: 25 }),
+    makeLevel({ id: 'lantern-2', world: 'lantern', name: 'There and Back', gap: 10, budget: 11400, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'hack', x: 3.6, flagX: 0.7, flagY: 6.5 }], checkpoints: [{ id: 'far', x: 20, y: 6.8, r: 1.35, vehicle: 'v1', reverse: true }], brief: 'Touch the far lantern. The hack turns around. The span is crossed twice.', dress: 26 }),
+    makeLevel({ id: 'lantern-3', world: 'lantern', name: 'Wait on the Span', gap: 12, budget: 14000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'van' }, { id: 'v2', type: 'wagon', x: 2.1 }], checkpoints: [{ id: 'hold', x: 12, y: 6.8, r: 1.2, vehicle: 'v1', hold: true, release: 'B' }], brief: 'The van waits on the span until the wagon phase. Brace for the wagon.', dress: 27,
       phases: [
         { id: 'A', t: 0.3, label: 'Van', spawn: ['v1'] },
         { id: 'B', t: 6.5, label: 'Wagon', spawn: ['v2'] }
       ]
     }),
-    makeLevel({ id: 'lantern-4', world: 'lantern', name: 'Night Pair', gap: 12, budget: 12000, materials: ['road', 'steel', 'cable'], towers: [[7, 11], [19, 11]], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'cistern', x: 2.0 }], brief: 'A cistern follows a cart. Cable above, steel below, road for the wheels.', dress: 28 }),
-    makeLevel({ id: 'lantern-5', world: 'lantern', name: 'Two Lanterns', gap: 12, yL: 7, yR: 5, budget: 9800, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'hack' }], checkpoints: [
-      { id: 'a', x: 10, y: 8.1, r: 1.15, vehicle: 'v1', order: 1 },
-      { id: 'b', x: 16, y: 6.2, r: 1.15, vehicle: 'v1', order: 2 }
-    ], brief: 'The lanterns are numbered. The second one stays dark until the first is taken.', dress: 29 }),
-    makeLevel({ id: 'lantern-6', world: 'lantern', name: 'Last Light', gap: 14, budget: 14500, materials: ['road', 'wood', 'steel', 'cable', 'hydraulic'], vehicles: [{ id: 'v1', type: 'van' }, { id: 'v2', type: 'hopper', x: 2.1 }], piers: [[14, 6]], towers: [[7, 11]], checkpoints: [{ id: 'm', x: 14, y: 7.4, r: 1.3, vehicle: 'v1' }, { id: 'n', x: 14, y: 7.4, r: 1.3, vehicle: 'v2' }], brief: 'Both vehicles pass the midstream lantern. The hopper is the one that breaks a careless span.', dress: 30 }),
+    makeLevel({ id: 'lantern-4', world: 'lantern', name: 'Night Pair', gap: 12, budget: 25500, materials: ['road', 'steel', 'cable'], towers: [[7, 11], [19, 11]], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'cistern', x: 2.0 }], brief: 'A cistern follows a cart. The deck needs a steel truss, not a clothesline of road.', dress: 28 }),
+    makeLevel({ id: 'lantern-5', world: 'lantern', name: 'Two Lanterns', gap: 12, budget: 14000, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'hack' }], checkpoints: [
+      { id: 'a', x: 10, y: 7.1, r: 1.2, vehicle: 'v1', order: 1 },
+      { id: 'b', x: 16, y: 6.9, r: 1.2, vehicle: 'v1', order: 2 }
+    ], brief: 'The lanterns are numbered. The second stays dark until the first is taken. Brace the road between them.', dress: 29 }),
+    makeLevel({ id: 'lantern-6', world: 'lantern', name: 'Last Light', gap: 14, left: 6, budget: 27500, materials: ['road', 'wood', 'steel', 'cable', 'hydraulic'], vehicles: [{ id: 'v1', type: 'van' }, { id: 'v2', type: 'hopper', x: 2.1 }], piers: [[14, 6]], towers: [[6, 11]], checkpoints: [{ id: 'm', x: 14, y: 7.2, r: 1.35, vehicle: 'v1' }, { id: 'n', x: 14, y: 7.2, r: 1.35, vehicle: 'v2' }], brief: 'Both vehicles pass the midstream lantern. Truss each side. The hopper is the one that folds a plank.', dress: 30 }),
 
-    makeLevel({ id: 'second-1', world: 'second', name: 'Clean Timber', gap: 10, budget: 4800, materials: ['road', 'wood'], vehicles: [{ id: 'v1', type: 'van' }], contract: { maxOver: 0.5, requireClean: true }, brief: 'The van must cross, and not a single member may reach its limit.', dress: 31 }),
-    makeLevel({ id: 'second-2', world: 'second', name: 'A Short Ledger', gap: 12, budget: 6200, materials: ['road', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], contract: { maxOver: 0, requireUnder: true }, brief: 'Over budget does not count, not even by a dollar.', dress: 32 }),
-    makeLevel({ id: 'second-3', world: 'second', name: 'Barge Oath', gap: 10, budget: 10000, materials: ['road', 'wood', 'hydraulic'], piers: [[10, 2], [14, 2]], vehicles: [{ id: 'v1', type: 'cart' }], contract: { maxOver: 0.5, requireClean: true }, brief: 'Let the barge through and the cart across. A snapped piston fails the oath.', dress: 33, waterY: 1.7,
-      boats: [{ id: 'b1', x: 9.15, w: 2.7, h: 1.45, vx: 2.15, endX: 11.15, phase: 'B' }],
+    makeLevel({ id: 'second-1', world: 'second', name: 'Clean Timber', gap: 10, budget: 10600, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'van' }], contract: { maxOver: 0.5, requireClean: true }, brief: 'The van must cross, and not a single member may reach its limit.', dress: 31 }),
+    makeLevel({ id: 'second-2', world: 'second', name: 'A Short Ledger', gap: 12, budget: 21000, materials: ['road', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], contract: { maxOver: 0, requireUnder: true }, brief: 'Over budget does not count, not even by a dollar. No wood either.', dress: 32 }),
+    makeLevel({ id: 'second-3', world: 'second', name: 'Barge Oath', gap: 10, left: 4, right: 6, budget: 10000, materials: ['road', 'wood', 'hydraulic'], vehicles: [{ id: 'v1', type: 'cart' }], piers: [[8, 2], [12, 2]], shoreL: 8.2, shoreR: 11.8, allowSplit: true, contract: { maxOver: 0.5, requireClean: true }, brief: 'Same bells as the first gate, and nothing may reach its limit.', dress: 33, waterY: 1.35,
+      boats: [{ id: 'b1', x: 8.75, w: 1.7, h: 5.05, vx: 1.15, endX: 9.7, phase: 'B' }],
       phases: [
-        { id: 'A', t: 0.25, label: 'Lift', spawn: [] },
-        { id: 'B', t: 2.15, label: 'Barge', spawn: [], boats: ['b1'] },
-        { id: 'C', t: 6.4, label: 'Cart', spawn: ['v1'] }
+        { id: 'A', t: 0.2, label: 'Lift', spawn: [] },
+        { id: 'B', t: 2.3, label: 'Barge', spawn: [], boats: ['b1'] },
+        { id: 'C', t: 5.6, label: 'Lower', spawn: [] },
+        { id: 'D', t: 7.6, label: 'Cart', spawn: ['v1'] }
       ]
     }),
-    makeLevel({ id: 'second-4', world: 'second', name: 'Hollow Promise', gap: 14, budget: 7600, materials: ['road', 'rope', 'spring'], towers: [[7, 11], [21, 11]], piers: [[14, 3]], vehicles: [{ id: 'v1', type: 'hopper' }], contract: { maxOver: 0, requireUnder: true }, brief: 'Under budget. The hopper is heavy and the rope will not act like a post.', dress: 34, waterY: 1.6 }),
-    makeLevel({ id: 'second-5', world: 'second', name: 'Unbroken Night', gap: 12, budget: 11000, materials: ['road', 'steel', 'cable'], towers: [[7, 11], [19, 11]], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'cistern', x: 2 }], contract: { maxOver: 0.5, requireUnder: true, requireClean: true }, brief: 'Under budget and nothing near its limit, with a cistern on the road.', dress: 35 }),
-    makeLevel({ id: 'second-6', world: 'second', name: 'County Exam', gap: 14, budget: 16000, materials: ['road', 'wood', 'steel', 'rope', 'cable', 'hydraulic', 'spring'], vehicles: [{ id: 'v1', type: 'van' }, { id: 'v2', type: 'wagon', x: 2.1 }], piers: [[8, 2], [14, 6], [20, 2]], towers: [[7, 11]], checkpoints: [{ id: 'm', x: 14, y: 7.2, r: 1.25, vehicle: 'v1' }], contract: { maxOver: 0, requireUnder: true }, brief: 'The last book on the shelf. Under budget, both vehicles home, lantern lit.', dress: 36, waterY: 1.65,
+    makeLevel({ id: 'second-4', world: 'second', name: 'Hollow Promise', gap: 14, budget: 30300, materials: ['road', 'steel', 'rope', 'spring'], towers: [[7, 11], [21, 11]], piers: [[14, 3]], vehicles: [{ id: 'v1', type: 'hopper' }], contract: { maxOver: 0, requireUnder: true }, brief: 'Under budget. The hopper needs a truss. Rope will not stand in for a post.', dress: 34, waterY: 1.6 }),
+    makeLevel({ id: 'second-5', world: 'second', name: 'Unbroken Night', gap: 12, budget: 23600, materials: ['road', 'steel', 'cable'], towers: [[7, 11], [19, 11]], vehicles: [{ id: 'v1', type: 'cart' }, { id: 'v2', type: 'cistern', x: 2 }], contract: { maxOver: 0.5, requireUnder: true, requireClean: true }, brief: 'Under budget and nothing near its limit, with a cistern on the road.', dress: 35 }),
+    makeLevel({ id: 'second-6', world: 'second', name: 'County Exam', gap: 14, left: 6, budget: 15800, materials: ['road', 'wood', 'steel', 'rope', 'cable', 'hydraulic', 'spring'], vehicles: [{ id: 'v1', type: 'van' }, { id: 'v2', type: 'wagon', x: 2.1 }], piers: [[12, 6]], towers: [[6, 11]], checkpoints: [{ id: 'm', x: 12, y: 7.15, r: 1.3, vehicle: 'v1' }], contract: { maxOver: 0, requireUnder: true }, brief: 'The last book. Under budget, both vehicles home, the mid lantern lit. Brace each opening.', dress: 36, waterY: 1.65,
       boats: [{ id: 'b1', x: 9.1, w: 2.5, h: 1.45, vx: 2.1, endX: 11.2, phase: 'A' }],
       phases: [
         { id: 'A', t: 0.3, label: 'Barge', spawn: [], boats: ['b1'] },
@@ -878,7 +879,7 @@
       if (tx * v.dir < 0) { tx = -tx; ty = -ty; }
       if (driving && comp > 0.01) {
         const along = v.vx * tx + v.vy * ty;
-        const want = spec.speed * v.dir * (v.speedMul || 1);
+        const want = spec.speed * (v.speedMul || 1);
         const delta = clamp(want - along, -spec.brake, spec.accel);
         v.ax += tx * delta;
         v.ay += ty * delta;
@@ -1101,6 +1102,30 @@ function enforceHydraulics(session) {
   }
 }
 
+function buckleSag(session) {
+  // An unbraced deck settles into a sag. Past a small drop the planks buckle.
+  // A truss, hanger, or pier keeps the road near the height it was drawn.
+  if (session.sim.t < 0.45) return;
+  const limit = session.level.sag == null ? 0.45 : session.level.sag;
+  for (const n of session.nodes) {
+    if (n.pin || n.restY == null) continue;
+    const roads = [];
+    for (const b of session.beams) {
+      if (b.broken || b.mat !== 'road') continue;
+      if (b.a === n.id || b.b === n.id) roads.push(b);
+    }
+    if (roads.length < 2) { n.sagHot = 0; continue; }
+    if (n.y < n.restY - limit) {
+      n.sagHot = (n.sagHot || 0) + 1;
+      if (n.sagHot > 28) {
+        let worst = roads[0];
+        for (const b of roads) if ((b.strain || 0) > (worst.strain || 0)) worst = b;
+        snap(session, worst);
+      }
+    } else n.sagHot = 0;
+  }
+}
+
 function updateBoats(session) {
     for (const boat of session.sim.boats) {
       if (!boat.active || boat.done) continue;
@@ -1144,7 +1169,11 @@ function updateBoats(session) {
         v.got[c.id] = true;
         emit(session.sim, { type: 'checkpoint', id: c.id, x: c.x, y: c.y });
         if (c.hold) { v.holding = true; v.holdRelease = c.release || null; }
-        if (c.reverse) v.dir *= -1;
+        if (c.reverse) {
+          v.dir *= -1;
+          v.vx *= -0.15;
+          v.vy *= 0.4;
+        }
         if (c.speed) v.speedMul = c.speed;
       }
       if (v.y < water + 0.02) { failVehicle(session, v, v.missed ? 'miss' : 'swim'); return; }
@@ -1287,6 +1316,7 @@ function updateBoats(session) {
       if (v.grounded) v.spin += v.vx * H * 0.15;
     }
     enforceHydraulics(session);
+    buckleSag(session);
     updateBoats(session);
     checkVehicles(session);
   }
@@ -1320,7 +1350,11 @@ function updateBoats(session) {
       b.targetScale = 1;
     }
     for (const s of session.splits) s.latched = false;
-    for (const n of session.nodes) n.restKink = roadKink(session, n).kink;
+    for (const n of session.nodes) {
+      n.restKink = roadKink(session, n).kink;
+      n.restY = n.y;
+      n.sagHot = 0;
+    }
     prepareHydraulics(session);
     session.sim = {
       mode: 'run', t: 0, frame: 0, phase: null, speed: 1,

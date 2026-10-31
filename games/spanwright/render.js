@@ -163,37 +163,81 @@
   }
 
   function drawBanks(ctx, w, h, session, cam, theme) {
+    const bands = [theme.bank, '#d7c4a2', theme.bank2, '#6a5344', '#3d322c', '#241910'];
     for (const g of session.level.ground || []) {
       const a = worldToScreen(cam, g.x0, g.y0, w, h);
       const b = worldToScreen(cam, g.x1, g.y1, w, h);
       const top = Math.min(a.y, b.y);
       const left = Math.min(a.x, b.x);
       const width = Math.abs(b.x - a.x);
-      const grad = ctx.createLinearGradient(0, top, 0, top + 220);
-      grad.addColorStop(0, theme.bank);
-      grad.addColorStop(0.25, theme.bank2);
-      grad.addColorStop(1, '#241910');
-      ctx.fillStyle = grad;
+      const face = Math.max(80, h - top);
+      ctx.save();
       ctx.beginPath();
-      ctx.moveTo(left, top);
-      ctx.lineTo(left + width, top);
-      ctx.lineTo(left + width + 18, h);
-      ctx.lineTo(left - 18, h);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(255,244,220,.35)';
+      ctx.moveTo(left - 8, top + 6);
+      for (let x = 0; x <= width; x += 18) {
+        const n = rnd((g.x0 + x) * 0.17);
+        ctx.lineTo(left + x, top + (n - 0.5) * 5);
+      }
+      ctx.lineTo(left + width + 22, h + 8);
+      ctx.lineTo(left - 24, h + 8);
+      ctx.closePath();
+      ctx.clip();
+      const grad = ctx.createLinearGradient(0, top, 0, top + face);
+      bands.forEach((color, i) => grad.addColorStop(i / (bands.length - 1), color));
+      ctx.fillStyle = grad;
+      ctx.fillRect(left - 30, top - 8, width + 70, face + 20);
+      ctx.globalAlpha = 0.28;
+      for (let i = 0; i < 5; i++) {
+        const y = top + 18 + i * (face / 6);
+        ctx.strokeStyle = i % 2 ? 'rgba(255,236,210,.45)' : 'rgba(40,24,16,.45)';
+        ctx.lineWidth = 2 + (i % 3);
+        ctx.beginPath();
+        for (let x = left - 10; x < left + width + 20; x += 12) {
+          const n = rnd(i * 19 + x * 0.05 + g.x0);
+          const yy = y + (n - 0.4) * 7;
+          if (x === left - 10) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 0.18;
+      ctx.fillStyle = '#1a120e';
+      for (let i = 0; i < 18; i++) {
+        const n = rnd(g.x0 * 3 + i * 8.1);
+        const px = left + n * width;
+        const py = top + 30 + rnd(i + 4) * (face - 40);
+        ctx.beginPath();
+        ctx.ellipse(px, py, 7 + rnd(i) * 10, 3 + rnd(i + 2) * 4, rnd(i) * 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(255,248,230,.55)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(left, top);
       ctx.lineTo(left + width, top);
       ctx.stroke();
-      // grass ticks
-      ctx.strokeStyle = 'rgba(70,90,48,.45)';
-      for (let x = left; x < left + width; x += 14) {
+      ctx.fillStyle = theme.hill || '#6d8b58';
+      for (let x = left + 4; x < left + width - 4; x += 11) {
+        const n = rnd(x * 0.2 + g.x0);
+        const lean = (n - 0.5) * 6;
+        ctx.globalAlpha = 0.75;
         ctx.beginPath();
-        ctx.moveTo(x, top);
-        ctx.quadraticCurveTo(x + 3, top - 10, x + 1, top - 16);
+        ctx.moveTo(x, top + 1);
+        ctx.quadraticCurveTo(x + lean, top - 8 - n * 8, x + lean * 0.3, top - 14 - n * 10);
+        ctx.strokeStyle = n > 0.5 ? '#2f4a34' : '#6f8a48';
+        ctx.lineWidth = 1.3;
         ctx.stroke();
       }
+      ctx.globalAlpha = 1;
+      const cliff = g.x1 > (session.level.xL || 0) - 1 && g.x0 < (session.level.xL || 0) + 1;
+      const edgeX = cliff ? left + width : left;
+      ctx.strokeStyle = 'rgba(30,20,14,.45)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(edgeX, top);
+      ctx.lineTo(edgeX + (cliff ? 10 : -10), top + 40);
+      ctx.lineTo(edgeX + (cliff ? 4 : -4), h);
+      ctx.stroke();
     }
   }
 
@@ -224,14 +268,41 @@
 
   function drawForbid(ctx, w, h, session, cam) {
     for (const r of session.level.forbid || []) {
-      const a = worldToScreen(cam, r.x, r.y + r.h, w, h);
-      const b = worldToScreen(cam, r.x + r.w, r.y, w, h);
-      ctx.fillStyle = 'rgba(90,70,60,.55)';
-      ctx.strokeStyle = 'rgba(40,28,24,.8)';
-      ctx.lineWidth = 2;
-      roundRect(ctx, a.x, a.y, b.x - a.x, b.y - a.y, 8);
-      ctx.fill();
-      ctx.stroke();
+      const stones = 7;
+      for (let i = 0; i < stones; i++) {
+        const nx = rnd(r.x * 2 + i * 5.1);
+        const ny = rnd(r.y * 3 + i * 2.7);
+        const cx = r.x + 0.4 + nx * (r.w - 0.8);
+        const cy = r.y + 0.35 + ny * (r.h - 0.7);
+        const p = worldToScreen(cam, cx, cy, w, h);
+        const rw = (0.55 + rnd(i + 1) * 0.7) * cam.zoom;
+        const rh = (0.4 + rnd(i + 3) * 0.45) * cam.zoom;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((rnd(i + 8) - 0.5) * 0.8);
+        const g = ctx.createLinearGradient(-rw, -rh, rw, rh);
+        g.addColorStop(0, '#d9cbb8');
+        g.addColorStop(0.45, '#8d7564');
+        g.addColorStop(1, '#4a382e');
+        ctx.fillStyle = g;
+        ctx.strokeStyle = '#2a211c';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(-rw, rh * 0.2);
+        ctx.lineTo(-rw * 0.4, -rh);
+        ctx.lineTo(rw * 0.55, -rh * 0.7);
+        ctx.lineTo(rw, rh * 0.35);
+        ctx.lineTo(rw * 0.2, rh);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,244,230,.35)';
+        ctx.beginPath();
+        ctx.moveTo(-rw * 0.2, -rh * 0.2);
+        ctx.lineTo(rw * 0.15, rh * 0.4);
+        ctx.stroke();
+        ctx.restore();
+      }
     }
   }
 
