@@ -907,5 +907,30 @@
     "thumbnail": "art/curated/crate-and-cushion.svg",
     "thumbnailAlt": "Wooden packing tray with a copper telescope, mint padding and folded gold blankets",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "bramble-dice",
+    "title": "Bramble Dice",
+    "description": "Keep, turn and allocate four dice through three woodland encounters. Compare plans, reserve a useful face and combine trail equipment in an untimed tactical expedition.",
+    "icon": "🎲",
+    "genre": "Strategy + Roguelike",
+    "color": "#b8c6ab",
+    "controls": "Focused die: 1–4 assign · K keeps · F turns over · Keyboard or touch menus and buttons",
+    "url": "games/bramble-dice/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#bramble-dice",
+    "aliases": [
+      "dice",
+      "woodland",
+      "tactics",
+      "reserve",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/bramble-dice.svg",
+    "thumbnailAlt": "Ivory dice and copper trail markers among green woodland leaves",
+    "updated": "2026-10-31"
   }
 ]
