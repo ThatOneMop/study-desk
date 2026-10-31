@@ -1376,6 +1376,14 @@
         "before": "Only stoking, banking, venting and drawing changed shared heat.",
         "after": "Soak fire spends one fuel to hold chamber heat while clay responds and gains glaze normally. Warm chamber/fuel guards, exact forecasts, key 4, baffle combination, undo and old-save compatibility are implemented.",
         "remaining": "Rendered desktop/touch core loops and screenshots; assess whether fuel tradeoffs are useful and distinct from the baffle. No improvement/browser-tested credit."
+      },
+      "pendingRenderedBaseline": {
+        "date": "2026-10-31",
+        "sourceRef": "b7001b07a2ef7e4041d274ffa2abfe8d4c1abd61",
+        "evidence": "Natural desktop managed-preview play completed all3 loads with records3/4/2 fuel, each reloaded. Morning: stoke,stoke,bank,drawA,stoke,bank,drawB (7actions). Market: stoke,stoke,stoke+baffleA,drawA,stoke,drawC,bank,bank,drawB (9actions). Narrow: stoke,stoke,bank,bank,stoke+baffleA,drawA,drawB,stoke,stoke,vent,soak,drawC (12actions). At narrow heat11/cup9 with1/3 glaze, Bank forecast correctly warned cup10>9; Vent then Soak completed safely. Forecast/baffle and final pottery screenshots inspected. Native Escape after Retry reproduced a closed dialog with disabled controls. Close-event rendering repair passed12 DOM tests and natural Escape→Undo recovery. A deliberate warned Ember cup overheating loss at10>9, undo, safe draw and reload retained the2-fuel record.",
+        "observedWeakness": "All three small authored loads finish quickly, with replay currently only a numeric fuel record. In narrow firing an immediately safe Stoke creates a delayed overheating trap on Bank; comparing future action sequences requires committing/undoing or mentally tracking temperatures, and the saved best record does not retain its route for study. After drawing, selection remains on the now-disabled draw action until another action is selected. The artwork is legible but pieces and controls occupy separate vertical screen regions. After overheating a ready piece, its card still says 'Glaze ready — draw when safe' even though the whole load is terminal; correct that feedback in the next pass.",
+        "next": "Use this baseline for a substantial scheduling/replay improvement; consider a recorded firing-plan study with branchable multi-action rehearsal or additional player-chosen firing constraints, not repetitive extra loads. Verify loss/undo/retry, keyboard/touch/mobile and real catalogue navigation. No improvement credit yet.",
+        "credit": "Baseline only: built remains true, improved/browserTested/integrated/live remain false."
       }
     },
     {
