@@ -40,6 +40,8 @@
   let hudAt = 0;
   let loopErr = false;
   let previewReady = false;
+  let marks = [];
+  let markAt = 0;
   const pickState = { faction: 'reed', map: 'willow', diff: 'easy' };
 
   function countId(r, id) {
@@ -89,10 +91,10 @@
   function focusHearth() {
     if (!run) return;
     const v = viewSize();
-    // Frame halfway between the hearth and the map centre so the river is in view.
-    const narrow = v.w < 520;
-    const fx = narrow ? run.hx + 1 : (run.hx + run.w / 2) / 2;
-    R.centerOn(cam, fx, (run.hy + run.h / 2) / 2, 2, v.w, v.h, run.w, run.h);
+    // Frame the hearth, nudged toward the map centre so the nearest water is in view.
+    const fx = run.hx + (run.w / 2 - run.hx) * 0.35;
+    const fy = run.hy + (run.h / 2 - run.hy) * 0.4;
+    R.centerOn(cam, fx, fy, 2, v.w, v.h, run.w, run.h);
   }
 
   const OVERLAYS = ['none', 'water', 'reach', 'power', 'sour'];
@@ -129,7 +131,7 @@
       b.type = 'button';
       b.textContent = (i + 1) + ' ' + c.name;
       b.setAttribute('aria-pressed', String(c.id === cat));
-      b.addEventListener('click', function () { cat = c.id; tool = null; renderDock(); });
+      b.addEventListener('click', function () { cat = c.id; tool = null; marks = []; renderDock(); });
       $('cats').appendChild(b);
     });
     $('pieces').innerHTML = '';
@@ -152,6 +154,8 @@
       b.addEventListener('click', function () {
         if (!known && !other) { openTech(); return; }
         tool = tool === def.id ? null : def.id;
+        marks = [];
+        markAt = 0;
         renderDock();
       });
       $('pieces').appendChild(b);
@@ -190,6 +194,39 @@
       A.play('achieve');
     }
     A.setMode(run.season);
+    const aim = E.goal(run);
+    const bar = $('goalbar');
+    if (aim && run.phase === 'play' && !tutorOn) {
+      bar.hidden = false;
+      $('goalKicker').textContent = 'Next ' + aim.index + '/' + aim.total + (aim.spare < 0 ? ' · ' + (-aim.spare) + ' rough' : aim.spare > 0 ? ' · ' + aim.spare + ' spare bed' + (aim.spare > 1 ? 's' : '') : '');
+      $('goalTitle').textContent = aim.title;
+      $('goalText').textContent = aim.text;
+      const g = $('popGraph');
+      if (g) {
+        const gx = g.getContext('2d');
+        gx.clearRect(0, 0, 96, 32);
+        const log = run.popLog || [];
+        gx.fillStyle = '#e7f3f2';
+        gx.fillRect(0, 0, 96, 32);
+        gx.strokeStyle = '#1f7c86';
+        gx.lineWidth = 2;
+        gx.beginPath();
+        const series = log.length ? log : [E.living(run).length];
+        g.hidden = series.length < 2;
+        const n = Math.max(2, series.length);
+        const peak = Math.max(8, ...series);
+        for (let i = 0; i < series.length; i++) {
+          const x = series.length === 1 ? 48 : (i / (n - 1)) * 90 + 3;
+          const y = 28 - (series[i] / peak) * 22;
+          if (i === 0) gx.moveTo(x, y); else gx.lineTo(x, y);
+        }
+        gx.stroke();
+        gx.fillStyle = '#1f7c86';
+        const last = series[series.length - 1];
+        const lx = series.length === 1 ? 48 : 93;
+        gx.fillRect(lx - 2, 28 - (last / peak) * 22 - 2, 4, 4);
+      }
+    } else if (bar) bar.hidden = true;
     if (run.phase === 'over' && !$('over').open) showOver();
   }
 
@@ -213,7 +250,7 @@
 
   function tutorSync() {
     const step = TUTOR[tutorStep];
-    if (!step) { $('tutor').hidden = true; tutorOn = false; meta.tutorial = true; save(); return; }
+    if (!step) { $('tutor').hidden = true; tutorOn = false; meta.tutorial = true; save(); if (run) syncHud(); return; }
     $('tutor').hidden = false;
     $('tutorTitle').textContent = step.title;
     $('tutorBody').textContent = step.body;
@@ -278,9 +315,11 @@
     R.frame(ctx, {
       run: shown, cam: cam, w: v.w, h: v.h, time: now, overlay: run ? overlay : 'none',
       selected: run ? selected : null, ghost: run ? ghostAt() : null, particles: particles,
+      marks: run ? marks : null,
       reduce: meta.settings && meta.settings.motion === false
     });
     if (run && now - hudAt > 200) { hudAt = now; syncHud(); }
+    if (run && tool && tool !== 'erase' && now - markAt > 400) { markAt = now; refreshMarks(); }
     requestAnimationFrame(loop);
     } catch (err) {
       // Keep the colony running, but say so once instead of failing silently.
@@ -293,12 +332,33 @@
     document.body.classList.toggle('playing', !!run);
   }
 
+  function refreshMarks() {
+    marks = [];
+    if (!run || !hover || !tool || tool === 'erase' || !E.DEF[tool]) return;
+    for (let i = 0; i < run.cells.length; i++) {
+      const c = run.cells[i];
+      if (Math.abs(c.x - hover.x) + Math.abs(c.y - hover.y) > 4) continue;
+      const st = E.preview(run, tool, c.x, c.y);
+      let near = run.network && run.network.has(c.x + ',' + c.y);
+      if (!near && run.network) {
+        if ((c.x > 0 && run.network.has((c.x - 1) + ',' + c.y)) || (c.x + 1 < run.w && run.network.has((c.x + 1) + ',' + c.y)) || (c.y > 0 && run.network.has(c.x + ',' + (c.y - 1))) || (c.y + 1 < run.h && run.network.has(c.x + ',' + (c.y + 1)))) near = true;
+      }
+      if (!near) continue;
+      if (st.ok) marks.push({ x: c.x, y: c.y, ok: true });
+      else if (st.reason === 'step') marks.push({ x: c.x, y: c.y, step: true });
+    }
+  }
+
   function ghostAt() {
     if (!run || !hover || !tool || tool === 'erase') return null;
     const def = E.DEF[tool];
     if (!def) return null;
-    const reach = E.canReach(run, hover.x, hover.y, def);
-    return { x: hover.x, y: hover.y, id: tool, ok: reach && !!run.unlocked[tool] };
+    const st = E.preview(run, tool, hover.x, hover.y);
+    if (st.reason === 'step' && run.unlocked.stairs) {
+      const stair = E.preview(run, 'stairs', hover.x, hover.y);
+      return { x: hover.x, y: hover.y, id: 'stairs', ok: stair.ok, step: true };
+    }
+    return { x: hover.x, y: hover.y, id: tool, ok: !!st.ok };
   }
 
   function placeAt(cell, quiet) {
@@ -396,6 +456,9 @@
     if (!run || !hover) return '';
     if (tool && tool !== 'erase' && E.DEF[tool]) {
       const d = E.DEF[tool];
+      const st = E.preview(run, tool, hover.x, hover.y);
+      if (st.reason === 'step') return 'This edge needs a step-stair. The ghost shows one.';
+      if (!st.ok && st.reason) return d.name + ' — ' + reasonText(st.reason);
       return d.name + ' — ' + d.blurb;
     }
     const info = E.cellInfo(run, hover.x, hover.y);
@@ -414,6 +477,7 @@
   // Mouse drag with a line-type tool paints tiles like a brush; right/middle drag still pans.
   const PAINT = { path: 1, dam: 1, levee: 1, erase: 1 };
   let painting = null;
+  let holdTimer = null;
   function paintAt(p) {
     const v = viewSize();
     const cell = R.pick(cam, v.w, v.h, p.x, p.y, run);
@@ -429,9 +493,19 @@
     pointers.set(ev.pointerId, localPoint(ev));
     moved = 0;
     painting = null;
-    if (ev.pointerType === 'mouse' && ev.button === 0 && run && tool && PAINT[tool]) {
-      painting = { done: {}, count: 0 };
-      paintAt(localPoint(ev));
+    if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
+    if (ev.button === 0 && run && tool && PAINT[tool]) {
+      if (ev.pointerType === 'mouse') {
+        painting = { done: {}, count: 0 };
+        paintAt(localPoint(ev));
+      } else {
+        const start = localPoint(ev);
+        holdTimer = setTimeout(function () {
+          holdTimer = null;
+          painting = { done: {}, count: 0 };
+          paintAt(start);
+        }, 280);
+      }
     }
     if (pointers.size === 2) {
       const pts = Array.from(pointers.values());
@@ -447,6 +521,7 @@
       const dx = p.x - prev.x, dy = p.y - prev.y;
       moved += Math.hypot(dx, dy);
       pointers.set(ev.pointerId, p);
+      if (holdTimer && moved > 10) { clearTimeout(holdTimer); holdTimer = null; }
       if (painting) { paintAt(p); return; }
       if (pointers.size === 1 && moved > 8) { cam.x += dx; cam.y += dy; }
       if (pointers.size === 2 && pinch) {
@@ -471,6 +546,7 @@
   }
 
   function onPointerUp(ev) {
+    if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
     if (painting) { pointers.delete(ev.pointerId); painting = null; return; }
     const wasTap = moved < 8 && pointers.size <= 1;
     pointers.delete(ev.pointerId);
@@ -492,51 +568,76 @@
 
   function openTech() {
     if (!run) return;
-    $('techLead').textContent = Math.floor(run.store.science) + ' ideas on the desk. Known recipes stay known.';
+    const aim = E.goal(run);
+    $('techLead').textContent = Math.floor(run.store.science) + ' ideas. Lines show what must be known first. Tiers open after ' + E.TIER_GATE + ' studies in the ring below.';
     const list = $('techList');
     list.innerHTML = '';
-    const TIER_NAME = ['Known from the start', 'First ideas', 'Second ring', 'Deep works'];
-    let lastTier = -1;
-    E.BUILDINGS.slice().sort(function (a, b) { return (a.tier || 0) - (b.tier || 0); }).forEach(function (def) {
+    const TIER_NAME = ['At the hearth', 'First ideas', 'Second ring', 'Deep works'];
+    const cols = [];
+    for (let tier = 0; tier < 4; tier++) {
+      const col = document.createElement('div');
+      col.className = 'tcol';
+      const open = E.tierOpen(run, tier);
+      const h = document.createElement('h3');
+      h.textContent = TIER_NAME[tier] + (open ? '' : ' · ' + E.tierProgress(run, tier - 1) + '/' + E.TIER_GATE);
+      col.appendChild(h);
+      cols.push(col);
+      list.appendChild(col);
+    }
+    E.BUILDINGS.forEach(function (def) {
       if (def.faction && def.faction !== run.faction) return;
       const tier = def.tier || 0;
-      const open = E.tierOpen(run, tier);
-      if (tier !== lastTier) {
-        lastTier = tier;
-        const h = document.createElement('h3');
-        h.className = 'tier-head' + (open ? '' : ' shut');
-        h.textContent = 'Tier ' + tier + ' · ' + (TIER_NAME[tier] || '') +
-          (open ? '' : ' — study ' + E.TIER_GATE + ' from tier ' + (tier - 1) + ' (' + E.tierProgress(run, tier - 1) + '/' + E.TIER_GATE + ')');
-        list.appendChild(h);
-      }
       const known = !!run.unlocked[def.id];
-      if (tier === 0 && known && !def.science) {
-        let p = list.querySelector('.tier-known');
-        if (!p) { p = document.createElement('p'); p.className = 'tier-known'; list.appendChild(p); }
-        p.textContent = (p.textContent ? p.textContent + ' · ' : '') + def.name;
-        return;
-      }
-      const row = document.createElement('div');
-      row.className = 'tech' + (open ? '' : ' shut');
-      row.innerHTML = '<div><b>' + def.name + '</b><span>' + def.blurb + '</span></div>';
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = known ? 'ghost' : 'primary';
-      btn.textContent = known ? 'Known' : !open ? 'Locked' : (def.science ? def.science + ' ideas' : 'Learn');
-      btn.disabled = known || !open;
-      btn.addEventListener('click', function () {
+      const open = E.tierOpen(run, tier);
+      const node = document.createElement('button');
+      node.type = 'button';
+      node.className = 'node' + (known ? ' known' : '') + (open ? '' : ' shut') + (aim && aim.id === def.id ? ' now' : '');
+      node.dataset.id = def.id;
+      const needs = (def.need || []).filter(function (id) { return !run.unlocked[id]; }).map(function (id) { return E.DEF[id] ? E.DEF[id].name : id; }).join(', ');
+      node.innerHTML = '<b>' + def.name + '</b><span>' + (known ? 'Known' : !open ? 'Ring still shut' : needs ? 'After ' + needs : (def.science ? def.science + ' ideas' : 'Free')) + '</span>';
+      node.disabled = known || !open;
+      node.addEventListener('click', function () {
         const r = E.unlock(run, def.id);
-        if (!r.ok) { A.play('deny'); toast(r.reason === 'ideas' ? 'Not enough ideas yet.' : r.reason === 'tier' ? 'Study more of the tier below first.' : 'Already known.'); return; }
+        if (!r.ok) {
+          A.play('deny');
+          const why = r.reason === 'ideas' ? 'Not enough ideas yet.' : r.reason === 'tier' ? 'Study two works in the ring below first.' : r.reason === 'prereq' ? 'Learn ' + (E.DEF[r.missing] ? E.DEF[r.missing].name : 'the earlier work') + ' first.' : 'Already known.';
+          toast(why);
+          return;
+        }
         A.play('achieve');
         toast(def.name + ' is in the dock.');
         save();
         openTech();
         renderDock();
       });
-      row.appendChild(btn);
-      list.appendChild(row);
+      cols[tier].appendChild(node);
     });
     if (!$('tech').open) $('tech').showModal();
+    requestAnimationFrame(function () {
+      const board = $('techBoard');
+      const svg = $('techLines');
+      if (!board || !svg) return;
+      const br = board.getBoundingClientRect();
+      svg.setAttribute('viewBox', '0 0 ' + board.scrollWidth + ' ' + board.scrollHeight);
+      svg.setAttribute('width', board.scrollWidth);
+      svg.setAttribute('height', board.scrollHeight);
+      let html = '';
+      E.BUILDINGS.forEach(function (def) {
+        (def.need || []).forEach(function (id) {
+          const a = list.querySelector('[data-id="' + id + '"]');
+          const b = list.querySelector('[data-id="' + def.id + '"]');
+          if (!a || !b) return;
+          const ar = a.getBoundingClientRect();
+          const brb = b.getBoundingClientRect();
+          const x1 = ar.right - br.left + board.scrollLeft;
+          const y1 = ar.top + ar.height / 2 - br.top + board.scrollTop;
+          const x2 = brb.left - br.left + board.scrollLeft;
+          const y2 = brb.top + brb.height / 2 - br.top + board.scrollTop;
+          html += '<path d="M' + x1 + ' ' + y1 + ' C ' + (x1 + 24) + ' ' + y1 + ', ' + (x2 - 24) + ' ' + y2 + ', ' + x2 + ' ' + y2 + '" fill="none" stroke="#1f7c86" stroke-width="1.4" opacity="0.55"/>';
+        });
+      });
+      svg.innerHTML = html;
+    });
   }
 
   function openAchieve() {
@@ -583,7 +684,7 @@
     $('pick').close();
     $('title').close();
     resize();
-    cam.zoom = viewSize().w < 520 ? 0.62 : 0.85;
+    cam.zoom = viewSize().w < 520 ? 0.95 : 1.35;
     focusHearth();
     renderDock();
     syncHud();
@@ -624,7 +725,7 @@
       $('title').close();
       setSpeed(0);
       resize();
-      cam.zoom = viewSize().w < 520 ? 0.62 : 0.85;
+      cam.zoom = viewSize().w < 520 ? 0.95 : 1.35;
       focusHearth();
       renderDock();
       syncHud();
@@ -656,7 +757,7 @@
     $('closeAchieve').addEventListener('click', function () { $('achieve').close(); });
     $('retryBtn').addEventListener('click', function () { $('over').close(); begin(); });
     $('overMaps').addEventListener('click', function () { $('over').close(); fillPick(); $('pick').showModal(); });
-    $('tutorSkip').addEventListener('click', function () { tutorOn = false; tutorStep = TUTOR.length; meta.tutorial = true; $('tutor').hidden = true; save(); });
+    $('tutorSkip').addEventListener('click', function () { tutorOn = false; tutorStep = TUTOR.length; meta.tutorial = true; $('tutor').hidden = true; save(); syncHud(); });
     $('tutorNext').addEventListener('click', function () { tutorStep++; tutorSync(); });
     ['0', '1', '2', '3'].forEach(function (k) {
       $('speed' + k).addEventListener('click', function () { setSpeed(+k); unlockAudio(); });

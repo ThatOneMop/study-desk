@@ -64,7 +64,18 @@
   ];
 
   const DEF = {};
-  BUILDINGS.forEach(function (b) { DEF[b.id] = b; });
+  const NEED = {
+    bridge: ['platform'], fill: ['levee'], cracker: ['fill'], gate: ['dam'],
+    wheel: ['dam'], shaft: ['wheel'], vshaft: ['shaft'], wind: ['shaft'], engine: ['shaft'],
+    mill: ['saw', 'shaft'], gears: ['saw'], cistern: ['tank'], filter: ['gate'],
+    carrots: ['forager'], spuds: ['carrots'], kettle: ['carrots'], grill: ['forager'],
+    'deep-pump': ['pump'], vat: ['bunk'], porter: ['gears'], warehouse: ['saw'],
+    hauler: ['lumber'], hive: ['forager'], pool: ['tank'], arch: ['lantern'], bell: ['lantern']
+  };
+  BUILDINGS.forEach(function (b) {
+    if (NEED[b.id]) b.need = NEED[b.id];
+    DEF[b.id] = b;
+  });
 
   const CATS = [
     { id: 'paths', name: 'Paths' },
@@ -155,7 +166,7 @@
     blobTrees(cells, w, [[3, 1], [2, 2], [6, 1], [7, 2], [8, 1], [9, 2], [11, 1], [12, 2], [14, 1], [15, 2], [3, 3], [13, 3], [16, 3], [6, 4]]);
     blobBush(cells, w, [[9, 5], [11, 5], [13, 5], [15, 4]]);
     return {
-      id: 'willow', name: 'Willow Bend', difficulty: 'A first river',
+      id: 'willow', name: 'Willow Bend', tone: 'willow', difficulty: 'A first river',
       blurb: 'One channel, a flat bank, and bushes enough to learn the pump before the water sleeps.',
       hint: 'Lay a path to the bank, pump into a tank, and dam the channel downstream of the pump.',
       w: w, h: h, cells: cells, hx: 5, hy: 3
@@ -180,7 +191,7 @@
     blobTrees(cells, w, [[16, 9], [18, 9], [20, 9], [17, 12], [19, 12], [22, 10], [15, 8], [21, 8], [15, 4], [22, 4]]);
     blobBush(cells, w, [[17, 8], [20, 8], [18, 4]]);
     return {
-      id: 'split', name: 'Split Current', difficulty: 'A fork',
+      id: 'split', name: 'Split Current', tone: 'split', difficulty: 'A fork',
       blurb: 'The river divides around a high island. One arm can be a store; the other should stay a spillway.',
       hint: 'Keep the island above the crest. Dam one arm, and leave the other open so the sour tide has a way past.',
       w: w, h: h, cells: cells, hx: 18, hy: 10
@@ -206,7 +217,7 @@
     blobTrees(cells, w, [[5, 6], [7, 6], [10, 6], [12, 7], [6, 8], [11, 5], [9, 9], [14, 6]]);
     blobBush(cells, w, [[6, 7], [12, 8]]);
     return {
-      id: 'gorge', name: 'Ash Gorge', difficulty: 'A narrow cut',
+      id: 'gorge', name: 'Ash Gorge', tone: 'gorge', difficulty: 'A narrow cut',
       blurb: 'A canyon, a bench, and a sealed sour pocket. Stairs are already cut. The dry spells grow teeth.',
       hint: 'The stair down to the bench is in. Extend the path, store hard, and do not crack into the sour pocket until you mean to.',
       w: w, h: h, cells: cells, hx: 8, hy: 6,
@@ -551,6 +562,63 @@
     return { ok: true };
   }
 
+  function preview(run, id, x, y) {
+    const d = DEF[id];
+    const cell = get(run, x, y);
+    if (!d || !cell) return { ok: false, reason: 'off-map' };
+    if (d.faction && d.faction !== run.faction) return { ok: false, reason: 'other-circle' };
+    if (!run.unlocked[id]) return { ok: false, reason: 'locked' };
+    const stacking = (d.levee && cell.building && cell.building.id === 'levee') || (d.platform && cell.building && cell.building.id === 'platform');
+    if (cell.building && !stacking) return { ok: false, reason: 'blocked' };
+    if (cell.tree && !d.bridge) return { ok: false, reason: 'tree' };
+    if (!d.dam && !d.levee && !d.gate && !d.bridge && !d.wheel && cell.water > 0.22) return { ok: false, reason: 'wet' };
+    if (!canReach(run, x, y, d)) return { ok: false, reason: !hydro(d) && needsStair(run, x, y) ? 'step' : 'unreached' };
+    const cost = d.cost || {};
+    const keys = Object.keys(cost);
+    for (let i = 0; i < keys.length; i++) if ((run.store[keys[i]] || 0) < cost[keys[i]]) return { ok: false, reason: 'cost' };
+    return { ok: true, reason: stacking ? 'stack' : '' };
+  }
+
+  function treeStock(run) {
+    let mature = 0, stumps = 0;
+    for (let i = 0; i < run.cells.length; i++) {
+      const t = run.cells[i].tree;
+      if (!t) continue;
+      if (t.wood > 0) mature++;
+      else stumps++;
+    }
+    return { mature: mature, stumps: stumps };
+  }
+
+  function goal(run) {
+    if (!run) return null;
+    const built = {};
+    let maxF = 0, maxL = 0;
+    for (let i = 0; i < run.cells.length; i++) {
+      const c = run.cells[i];
+      if (c.floors > maxF) maxF = c.floors;
+      if (c.levee > maxL) maxL = c.levee;
+      if (c.building && c.building.progress >= 1) built[c.building.id] = (built[c.building.id] || 0) + 1;
+    }
+    const trees = treeStock(run);
+    const spare = beds(run) - living(run).length;
+    const steps = [
+      { id: 'pump', title: 'Draw the river', text: 'Set a paw pump on the grass edge above the shallows, touching a path.', ok: !!built.pump || !!built['deep-pump'] },
+      { id: 'tank', title: 'Put water aside', text: 'A clay tank is what the dry spell drinks.', ok: !!built.tank || !!built.cistern },
+      { id: 'dam', title: 'Hold the channel', text: 'Dam the whole low bed so a pool stays upstream of the pump.', ok: (built.dam || 0) >= 2 },
+      { id: 'beds', title: 'Leave a spare bed', text: 'Another lodge. A kit comes when a bed, food and water are all spare.', ok: spare >= 1 || run.born > 0 },
+      { id: 'planks', title: 'Cut the first planks', text: 'Study the hand saw. Logs are not planks until something cuts them.', ok: !!built.saw || !!built.mill },
+      { id: 'replant', title: 'Plant the stumps', text: trees.mature < 6 ? 'Standing timber is down to ' + trees.mature + '. Study a sapling yard.' : 'A sapling yard keeps the bend from going bald.', ok: !!built.forester || trees.mature >= 8 },
+      { id: 'power', title: 'Catch the current', text: 'A paddle wheel in the flow, then a cog shaft toward the workshops.', ok: !!built.wheel || !!built.wind || !!built.engine },
+      { id: 'gear', title: 'Press a gear', text: 'Two planks through the gear press. Gears open the taller works.', ok: !!built.gears },
+      { id: 'high', title: 'Leave the ground', text: 'Stack a platform twice, or a second clay levee.', ok: maxF >= 2 || maxL >= 2 }
+    ];
+    for (let i = 0; i < steps.length; i++) {
+      if (!steps[i].ok) return { id: steps[i].id, title: steps[i].title, text: steps[i].text, index: i + 1, total: steps.length, spare: spare };
+    }
+    return { id: 'thrive', title: 'Hold the next tide', text: 'Tanks full, gates ready. The sour water should go around the fields.', index: steps.length, total: steps.length, spare: spare };
+  }
+
   function demolish(run, x, y) {
     const cell = get(run, x, y);
     if (!cell || !cell.building) return { ok: false, reason: 'empty' };
@@ -607,6 +675,11 @@
     if (run.unlocked[id]) return { ok: false, reason: 'known' };
     if (d.faction && d.faction !== run.faction) return { ok: false, reason: 'other-circle' };
     if (!tierOpen(run, d.tier || 0)) return { ok: false, reason: 'tier' };
+    if (d.need) {
+      for (let i = 0; i < d.need.length; i++) {
+        if (!run.unlocked[d.need[i]]) return { ok: false, reason: 'prereq', missing: d.need[i] };
+      }
+    }
     const cost = d.science || 0;
     if (run.store.science < cost) return { ok: false, reason: 'ideas' };
     run.store.science -= cost;
@@ -1459,7 +1532,7 @@
     const well = avgWell(run);
     if (run.faction === 'reed') {
       run.breedAcc += dt;
-      if (run.breedAcc >= 34 && spare >= 1 && foodTotal(run) > 14 && run.store.water > 12 && well >= 48) {
+      if (run.breedAcc >= 30 && spare >= 1 && foodTotal(run) > 12 && run.store.water > 10 && well >= 36) {
         run.breedAcc = 0;
         giveBirth(run);
       }
@@ -1600,6 +1673,13 @@
     if (foodTotal(run) < 8) out.push('The larder is thin');
     if (living(run).some(function (n) { return n.thirst < 18 && !n.kit; })) out.push('A nib is parched');
     if (living(run).some(function (n) { return n.contaminated > 2; })) out.push('A nib waded in sour water');
+    const spare = beds(run) - living(run).length;
+    if (spare < 0) out.push((-spare) + ' nib' + (spare < -1 ? 's sleep' : ' sleeps') + ' rough at the hearth');
+    else if (spare >= 1 && run.faction === 'reed' && run.born === 0) out.push(spare + ' spare bed' + (spare > 1 ? 's' : '') + ' — a kit can come');
+    const trees = treeStock(run);
+    if (trees.mature <= 4) out.push('Timber is thin (' + trees.mature + ' standing). Plant a sapling yard.');
+    if (run.store.planks < 2 && run.unlocked.saw) out.push('Planks are short');
+    if ((run.store.gears || 0) < 1 && run.unlocked.gears) out.push('No gears in the loft');
     let off = 0;
     ensureNet(run);
     for (let i = 0; i < run.cells.length; i++) {
@@ -1633,6 +1713,11 @@
     }
     const pop = living(run).length;
     if (pop > (run.peak || 0)) run.peak = pop;
+    if (!run.popLog) run.popLog = [];
+    if (Math.floor(run.hour / 24) !== Math.floor((run.hour - dt) / 24)) {
+      run.popLog.push(pop);
+      if (run.popLog.length > 60) run.popLog.shift();
+    }
     review(run);
     if (Math.floor(run.hour) !== Math.floor(run.hour - dt)) noteBest(run);
     run.nibs = run.nibs.filter(function (n) { return !n.dead; });
@@ -1681,6 +1766,7 @@
       blurb: map.blurb,
       hint: map.hint,
       faction: faction,
+      tone: map.tone || map.id,
       difficulty: rules.id,
       rules: {
         wet: rules.wet, dryBase: rules.dryBase, dryGrow: rules.dryGrow,
@@ -1723,6 +1809,7 @@
       powered: {},
       flowFlip: false,
       breedAcc: 0,
+      popLog: [8],
       decor: 0,
       porter: false,
       haulerBoost: false,
@@ -1798,7 +1885,7 @@
       mapId: run.mapId, faction: run.faction, difficulty: run.difficulty,
       hour: run.hour, season: run.season, seasonHour: run.seasonHour, cycle: run.cycle,
       deaths: run.deaths, born: run.born, peak: run.peak, phase: run.phase, overWhy: run.overWhy || '',
-      breedAcc: run.breedAcc, seed: run.seed, nextId: run.nextId,
+      breedAcc: run.breedAcc, seed: run.seed, nextId: run.nextId, popLog: run.popLog || [],
       store: run.store, unlocked: run.unlocked,
       nibs: run.nibs.filter(function (n) { return !n.dead; }).map(function (n) {
         return {
@@ -1838,6 +1925,8 @@
     run.phase = data.phase || 'play';
     run.overWhy = data.overWhy || '';
     run.breedAcc = data.breedAcc || 0;
+    run.popLog = Array.isArray(data.popLog) ? data.popLog : [];
+    run.tone = map.tone || map.id;
     run.seed = data.seed || run.seed;
     run.nextId = data.nextId || run.nextId;
     run.store = data.store;
@@ -1938,6 +2027,7 @@
     setGate: setGate,
     setPaused: setPaused,
     unlock: unlock, tierOpen: tierOpen, tierProgress: tierProgress, TIER_GATE: TIER_GATE,
+    preview: preview, goal: goal, treeStock: treeStock,
     finishAll: finishAll,
     living: living,
     adults: adults,

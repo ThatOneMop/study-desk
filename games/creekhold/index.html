@@ -36,6 +36,14 @@
     <div id="stage">
       <canvas id="view" aria-label="Creekhold colony"></canvas>
       <div id="alerts" role="status"></div>
+      <div id="goalbar" hidden>
+        <div>
+          <small id="goalKicker">Next</small>
+          <b id="goalTitle"></b>
+          <span id="goalText"></span>
+        </div>
+        <canvas id="popGraph" width="96" height="32" aria-label="Population over recent days"></canvas>
+      </div>
       <div id="toasts"></div>
       <aside id="inspect" hidden>
         <h2 id="inspectName">Tile</h2>
@@ -124,7 +132,7 @@
     <div class="card wide">
       <h2>Idea tree</h2>
       <p id="techLead"></p>
-      <div class="tech-grid" id="techList"></div>
+      <div id="techBoard"><svg id="techLines"></svg><div class="tech-grid" id="techList"></div></div>
       <button type="button" id="closeTech" class="primary">Back to the bend</button>
     </div>
   </dialog>
