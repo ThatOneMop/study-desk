@@ -516,7 +516,16 @@
       const rect = canvas.getBoundingClientRect();
       const mx = (pts[0].x + pts[1].x) / 2 - rect.left;
       const my = (pts[0].y + pts[1].y) / 2 - rect.top;
-      zoomAt(mx, my, pinch.z * dist / pinch.dist);
+      // Two fingers pinch and pan together: the spot under the fingers stays under them.
+      const v = renderer.view();
+      const sx0 = pinch.mx - rect.left, sy0 = pinch.my - rect.top;
+      const wx = pinch.cx + (sx0 - v.w / 2) / pinch.z;
+      const wy = pinch.cy + (sy0 - v.h / 2) / pinch.z;
+      cam.z = Math.max(14, Math.min(120, pinch.z * dist / pinch.dist));
+      cam.x = wx - (mx - v.w / 2) / cam.z;
+      cam.y = wy - (my - v.h / 2) / cam.z;
+      clampCam();
+      userCam = true;
       return;
     }
     if (panning) {
