@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  moss-commons-catalogue:
+  canopy-weave-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/canopy-weave-engine.cjs tests/canopy-weave-dom.cjs
+          node tests/canopy-weave-browser.cjs
+          node tests/canopy-weave-catalog-browser.cjs
           node --test tests/moss-commons-engine.cjs tests/moss-commons-dom.cjs
           node tests/moss-commons-browser.cjs
           node tests/moss-commons-catalog-browser.cjs
@@ -70,7 +73,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: moss-commons-catalogue-browser
+          name: canopy-weave-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -102,3 +105,6 @@ jobs:
 
             test-artifacts/moss-commons/
             test-artifacts/moss-commons-catalog/
+
+            test-artifacts/canopy-weave/
+            test-artifacts/canopy-weave-catalog/

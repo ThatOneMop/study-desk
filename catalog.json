@@ -1160,5 +1160,30 @@
     "thumbnail": "art/curated/moss-commons.svg",
     "thumbnailAlt": "Three warm-roofed cottages sharing wells, gardens and an orchard on a moss-green village grid",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "canopy-weave",
+    "title": "Canopy Weave",
+    "description": "Untangle leafy trellises, then pack every vine within reach. Inspect tangled connections and rehearse a better arrangement before placing each leaf.",
+    "icon": "🌿",
+    "genre": "Puzzle + Relaxed",
+    "color": "#819469",
+    "controls": "Drag or tap leaves and dots · Arrow keys · Optional move rehearsal",
+    "url": "games/canopy-weave/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#canopy-weave",
+    "aliases": [
+      "garden",
+      "untangle",
+      "graph",
+      "vines",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/canopy-weave.svg",
+    "thumbnailAlt": "Five lettered leaf knots linked by clear green vines, with a hollow rehearsal origin",
+    "updated": "2026-10-31"
   }
 ]

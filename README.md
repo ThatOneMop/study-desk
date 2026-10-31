@@ -1,6 +1,6 @@
-# Study Desk — 64 games
+# Study Desk — 65 games
 
-The curated catalogue has 64 games: 63 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
+The curated catalogue has 65 games: 64 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
 
 ## Upload to GitHub Pages
 
@@ -66,7 +66,7 @@ Lane Eight is bundled at `games/lane-eight/index.html`: manage training load, ea
 
 ## Third collection
 
-Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. Moon Dial adds three coupled clockworks with turn rehearsal. Pebble Rink adds three tabletop curling rinks with optional collision forecasts, replay and saved club cards. Pocket Regatta, Crate & Cushion, Bramble Dice, Needlepath, Reedbreaker, Beepline and Tumbleglass are also selected. Soundings adds compact hidden-beacon deduction with evidence-only survey planning and a visible recovery reserve. Its evidence is in `dev/indie-collection-three/SOUNDINGS_INTEGRATION.md`. Moss Commons adds finite-timber settlement planning with irrigation, open-space orchards, local-service challenges and building-use conversion. Its evidence is in `dev/indie-collection-three/MOSS_COMMONS_INTEGRATION.md`. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
+Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. Moon Dial adds three coupled clockworks with turn rehearsal. Pebble Rink adds three tabletop curling rinks with optional collision forecasts, replay and saved club cards. Pocket Regatta, Crate & Cushion, Bramble Dice, Needlepath, Reedbreaker, Beepline and Tumbleglass are also selected. Soundings adds compact hidden-beacon deduction with evidence-only survey planning and a visible recovery reserve. Its evidence is in `dev/indie-collection-three/SOUNDINGS_INTEGRATION.md`. Moss Commons adds finite-timber settlement planning with irrigation, open-space orchards, local-service challenges and building-use conversion. Its evidence is in `dev/indie-collection-three/MOSS_COMMONS_INTEGRATION.md`. Canopy Weave adds graph untangling and compact vine packing with optional move rehearsal and named conflict inspection; evidence is in `dev/indie-collection-three/CANOPY_WEAVE_RENDERED_PASS.md`. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
 
 
 
