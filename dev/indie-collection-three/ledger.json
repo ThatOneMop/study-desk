@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 13,
     "browserTested": 13,
-    "integrated": 12,
-    "live": 12
+    "integrated": 13,
+    "live": 13
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1260,13 +1260,13 @@
       "id": "canopy-weave",
       "title": "Canopy Weave",
       "coreLoop": "Directly rearrange leaf knots in a connected graph so straight vines no longer cross, overlap or pass through unrelated leaves; inspect previews, undo and optimize moves.",
-      "status": "qualified-awaiting-catalogue-integration",
+      "status": "selected-integrated-live",
       "source": "games/canopy-weave",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1287,7 +1287,9 @@
         "DOM checks cover tap placement, drag preview/release/cancellation/occupied targets/pause, keyboard/button and parent guards, navigation markup, corruption recovery, isolated reset and quota failures. Dialogs, SVG bounds and pointer events/capture are simulated.",
         "Both scripts pass syntax checks. No rendered browser, screenshot, native keyboard/touch, mobile layout, human-enjoyment or full repository build evidence.",
         "Compact refinement: 13 total tests pass (7 engine, 6 jsdom). Three compact solutions, length boundary/diagonals, wide planar-but-unfinished layouts, exact old saves, independent records, per-move reloads, mode/unlock validation, reach feedback, confirmation/pause and temporary drag previews. Syntax checks pass.",
-        "Natural desktop play in managed preview: first trellis solved in1 move by selecting B and tapping column5,row2, reload retained win. Sunwheel solved in2 drags (B→column7,row2; E→column4,row4). Compact sunwheel completed in5 moves, placing E at5,5 then A3,3/B7,3/C7,7/D3,7. A browser-control timeout interrupted the last drag; after rebinding the same tab, inspected its pending0-tangle/0-stretch preview and completed pointer release. No game crash observed. Compact central overlaps displayed11 tangles and8 stretched vines, but only aggregate conflict counts: no named conflict pair or leaf-on-vine diagnosis. Dense rust dashed edges obscure which relationship to repair. Native drag also selected letter text. Free campaigns were short (1/2 moves observed), so assess compact-mode decisions before selecting. Baseline only; no completed rendered pass."
+        "Natural desktop play in managed preview: first trellis solved in1 move by selecting B and tapping column5,row2, reload retained win. Sunwheel solved in2 drags (B→column7,row2; E→column4,row4). Compact sunwheel completed in5 moves, placing E at5,5 then A3,3/B7,3/C7,7/D3,7. A browser-control timeout interrupted the last drag; after rebinding the same tab, inspected its pending0-tangle/0-stretch preview and completed pointer release. No game crash observed. Compact central overlaps displayed11 tangles and8 stretched vines, but only aggregate conflict counts: no named conflict pair or leaf-on-vine diagnosis. Dense rust dashed edges obscure which relationship to repair. Native drag also selected letter text. Free campaigns were short (1/2 moves observed), so assess compact-mode decisions before selecting. Baseline only; no completed rendered pass.",
+        "Full promotion CI41201189495 passed329 focused checks across13 selected games, desktop/touch game+catalogue routes,65 launch routes,64 bundled routes/322asset references, relaxed navigation without Switch workspace and9first-selected hash/integrity checks. Artifact13043300733 SHA25664b2da7af851a2deee19396554be39a427a760a46c6c93ef72a8a10392a7e7bd verified. Inspected touch catalogue favourite/search and winning rehearsal plus desktop saved return.",
+        "Pages41201908556 succeeded. Live route: inspector/rehearsal B→column5,row2, committed1-move first win, compact unlock and record survived reload. Live catalogue65entries/64bundled used catalog.js?v=canopy-weave-20261031; search, real iframe retained record and in-game Games returned to top-level Collection. No Switch workspace control observed; no deployment barrier."
       ],
       "commits": [
         "d55722bdaafe719b17c003f5cc9365b02ecac95d",
@@ -1296,10 +1298,12 @@
         "be83cce76bbc1ce0aec36d2cb94217831ea2f2db",
         "4c94b55773ce79a12021045a013c18b3115f3476"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "d2331ff75e78e9290135d970e9f6911693554469"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/canopy-weave/index.html",
       "quality": {
-        "status": "Selected after rendered qualification; catalogue regression pending",
+        "status": "Selected, integrated and live",
         "enjoyment": "Clear manipulate-inspect-compare-place loop; compact constraints add spatial tradeoffs without penalties.",
         "depth": "Three short authored graphs, free and compact modes, alternative embeddings and fewest-move records. Limited long-term depth.",
         "polish": "Warm original SVG garden, clear diagnoses, optional rehearsal and enlarged touch targets.",
@@ -1308,7 +1312,7 @@
         "knownLimits": "Short campaigns, no loss state or generated levels. Automated routes do not establish human enjoyment or content hours. Phone controls use vertical scrolling; physical devices untested."
       },
       "nextSteps": [
-        "Run full real-catalogue desktop/touch promotion regression, inspect screenshots, integrate and verify live route."
+        "Preserve v1 saves and include in later catalogue regression."
       ],
       "pendingSourceRefinement": {
         "commit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
@@ -1351,7 +1355,8 @@
       "commits": [
         "68dd28cf93bf79f10b8a48a0603e052b93c7c068",
         "f1601ef4e23d35349772a7bb78d8628fb2184d61",
-        "bdcdf6ac35ecb552cd58695fd4d2bfaaaed7474f"
+        "bdcdf6ac35ecb552cd58695fd4d2bfaaaed7474f",
+        "ee5483f86782c36c241a8634f5e4cc69db5afb8b"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1376,6 +1381,14 @@
         "before": "Only stoking, banking, venting and drawing changed shared heat.",
         "after": "Soak fire spends one fuel to hold chamber heat while clay responds and gains glaze normally. Warm chamber/fuel guards, exact forecasts, key 4, baffle combination, undo and old-save compatibility are implemented.",
         "remaining": "Rendered desktop/touch core loops and screenshots; assess whether fuel tradeoffs are useful and distinct from the baffle. No improvement/browser-tested credit."
+      },
+      "pendingRenderedBaseline": {
+        "date": "2026-10-31",
+        "sourceRef": "b7001b07a2ef7e4041d274ffa2abfe8d4c1abd61",
+        "evidence": "Natural desktop managed-preview play completed all3 loads with records3/4/2 fuel, each reloaded. Morning: stoke,stoke,bank,drawA,stoke,bank,drawB (7actions). Market: stoke,stoke,stoke+baffleA,drawA,stoke,drawC,bank,bank,drawB (9actions). Narrow: stoke,stoke,bank,bank,stoke+baffleA,drawA,drawB,stoke,stoke,vent,soak,drawC (12actions). At narrow heat11/cup9 with1/3 glaze, Bank forecast correctly warned cup10>9; Vent then Soak completed safely. Forecast/baffle and final pottery screenshots inspected. Native Escape after Retry reproduced a closed dialog with disabled controls. Close-event rendering repair passed12 DOM tests and natural Escape→Undo recovery. A deliberate warned Ember cup overheating loss at10>9, undo, safe draw and reload retained the2-fuel record.",
+        "observedWeakness": "All three small authored loads finish quickly, with replay currently only a numeric fuel record. In narrow firing an immediately safe Stoke creates a delayed overheating trap on Bank; comparing future action sequences requires committing/undoing or mentally tracking temperatures, and the saved best record does not retain its route for study. After drawing, selection remains on the now-disabled draw action until another action is selected. The artwork is legible but pieces and controls occupy separate vertical screen regions. After overheating a ready piece, its card still says 'Glaze ready — draw when safe' even though the whole load is terminal; correct that feedback in the next pass.",
+        "next": "Use this baseline for a substantial scheduling/replay improvement; consider a recorded firing-plan study with branchable multi-action rehearsal or additional player-chosen firing constraints, not repetitive extra loads. Verify loss/undo/retry, keyboard/touch/mobile and real catalogue navigation. No improvement credit yet.",
+        "credit": "Baseline only: built remains true, improved/browserTested/integrated/live remain false."
       }
     },
     {
@@ -2391,12 +2404,12 @@
     }
   ],
   "nextSteps": [
-    "Canopy Weave qualified: finish catalogue regression, source integration and live verification.",
-    "Qualify remaining12 built candidates individually before listing; then complete26 unbuilt slots, retaining exactly50.",
+    "Kiln Chorus slot54: use recorded all-three-load desktop baseline for substantive scheduling/replay upgrade; native Escape recovery already repaired. Fix misleading ready-card text after overheat, then full desktop/touch qualification.",
+    "Qualify remaining11 built candidates individually before listing; then complete26 unbuilt slots, retaining exactly50.",
     "Keep second-batch20/20 additional improvements and9 live selections, first-batch sources, Gummy Bay and concurrent work intact. Pause only at entire goal completion."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "3ab355ae1f3442ec87b988be3d745fa74adc33f5",
+  "latestObservedMain": "d2331ff75e78e9290135d970e9f6911693554469",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3134,6 +3147,13 @@
       "verificationRun": 41198525804,
       "pagesRun": 41199101772,
       "summary": "Moss Commons integrated/live after308-check twelve-game desktop/touch promotion and final screenshot review. Live conversion rescue, records/reload and actual catalogue return verified. Counts24/12/12/12/12; no deployment barrier. Canopy Weave natural baseline recorded without improvement credit."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "d2331ff75e78e9290135d970e9f6911693554469",
+      "verificationRun": 41201189495,
+      "pagesRun": 41201908556,
+      "summary": "Canopy Weave integrated/live after329-check thirteen-game desktop/touch promotion and screenshot review. Live rehearsal/win/reload/catalogue/Collection verified. Counts24/13/13/13/13. Kiln all-three-load rendered baseline plus Escape repair preserved without improvement credit."
     }
   ]
 }
