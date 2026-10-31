@@ -1,0 +1,28 @@
+(function(root,f){const a=f();if(typeof module==='object'&&module.exports)module.exports=a;else root.Soundings=a})(globalThis,function(){'use strict';
+const KEY='study-desk-soundings-v1',NAMES=['Sheltered inlet','Split shoals','Outer sound'],int=(n,a,b)=>Number.isInteger(n)&&n>=a&&n<=b,copy=x=>JSON.parse(JSON.stringify(x));
+function targets(seed,level){let n=(seed+level*7919)%2147483647;const next=()=>{n=n*16807%2147483647;return n};const a=next()%25;let b=next()%24;if(b>=a)b++;return[a,b].sort((a,b)=>a-b)}
+function distance(a,b){return Math.abs(a%5-b%5)+Math.abs(Math.floor(a/5)-Math.floor(b/5))}
+function reading(pair,p){return Math.min(...pair.map(t=>distance(t,p)))}
+function bearing(pair,p){return pair.map(t=>{const y=Math.sign(Math.floor(t/5)-Math.floor(p/5)),x=Math.sign(t%5-p%5);return(y<0?'N':y>0?'S':'')+(x<0?'W':x>0?'E':'')||'Here'}).sort()}
+function sweep(pair,p){return pair.filter(t=>distance(t,p)<=2).length}
+function initial(){return{fuel:14,scans:[],bearings:[],found:[],misses:[],phase:'playing',event:'Choose a square, then sound the water.'}}
+function step(v,t,a){if(v.phase!=='playing'||!a||!['scan','bearing','sweep','recover'].includes(a.type)||!int(a.p,0,24)||Object.keys(a).length!==2)return null;const n=copy(v);if(a.type==='sweep'){if((n.sweeps||[]).some(s=>s.p===a.p))return null;n.fuel--;n.sweeps=n.sweeps||[];const count=sweep(t,a.p);n.sweeps.push({p:a.p,count});n.event='Area sweep: '+count+' beacons within 2 grid steps, including this square.';}else if(a.type==='scan'){if(n.scans.some(s=>s.p===a.p))return null;n.fuel--;const d=reading(t,a.p);n.scans.push({p:a.p,d});n.event='Buoy reads '+d+' grid steps to the nearer beacon.'}else if(a.type==='bearing'){if(n.fuel<2||n.bearings.some(s=>s.p===a.p))return null;n.fuel-=2;const dirs=bearing(t,a.p);n.bearings.push({p:a.p,dirs});n.event='Bearings: '+dirs.join(' + ')+'. Both beacons, no distances.';}else{if(n.fuel<3||n.found.includes(a.p)||n.misses.includes(a.p))return null;n.fuel-=3;if(t.includes(a.p)){n.found.push(a.p);n.event='Beacon recovered. Its transponder keeps sounding.'}else{n.misses.push(a.p);n.event='Empty water. The recovery cost 3 fuel.'}}n.phase=n.found.length===2?'won':n.fuel<3*(2-n.found.length)?'lost':'playing';return n}
+function view(s){let v=initial(),t=targets(s.seed,s.level);for(const a of s.moves){v=step(v,t,a);if(!v)throw Error('Invalid journal')}return v}
+function candidates(v){const out=[];for(let a=0;a<24;a++)for(let b=a+1;b<25;b++){const pair=[a,b];if(v.found.every(p=>pair.includes(p))&&v.misses.every(p=>!pair.includes(p))&&v.scans.every(s=>reading(pair,s.p)===s.d)&&(v.sweeps||[]).every(s=>sweep(pair,s.p)===s.count)&&v.bearings.every(s=>JSON.stringify(bearing(pair,s.p))===JSON.stringify(s.dirs)))out.push(pair)}return out}
+// A planning table uses only recorded evidence. It never receives a seed or hidden targets.
+function plan(v,p){
+ if(!int(p,0,24))throw Error('Invalid planning square');
+ const pairs=candidates(v),reserve=3*(2-v.found.length);
+ const surveys=[['scan',1,reading,v.scans],['sweep',1,sweep,v.sweeps||[]],['bearing',2,bearing,v.bearings]].map(([type,cost,read,journal])=>{
+  const groups=new Map();
+  for(const pair of pairs){const value=read(pair,p),label=Array.isArray(value)?value.join(' + '):String(value);groups.set(label,(groups.get(label)||0)+1)}
+  const outcomes=[...groups].map(([label,remaining])=>({label,remaining}));
+  return{type,cost,recorded:journal.some(s=>s.p===p),outcomes,worst:Math.max(0,...outcomes.map(o=>o.remaining)),informative:outcomes.length>1,spareAfter:v.fuel-cost-reserve};
+ });
+ return{pairs:pairs.length,reserve,spare:v.fuel-reserve,surveys};
+}
+function create(seed=1){if(!int(seed,1,999999))throw Error('Invalid chart');return{version:1,seed,level:0,moves:[],records:[null,null,null]}}
+function act(s,a){const n=copy(s);if(a==='retry'){n.moves=[];return{ok:true,state:n}}if(a==='voyage'){n.seed=n.seed%999999+1;n.level=0;n.moves=[];return{ok:true,state:n}}if(a?.type==='level'){if(!int(a.level,0,2)||(a.level>0&&n.records[a.level-1]===null))return{ok:false,state:s};n.level=a.level;n.moves=[];return{ok:true,state:n}}const v=step(view(s),targets(s.seed,s.level),a);if(!v)return{ok:false,state:s};n.moves.push(copy(a));if(v.phase==='won')n.records[n.level]=Math.max(n.records[n.level]??-1,v.fuel);return{ok:true,state:n}}
+function decode(raw){const s=JSON.parse(raw);if(!s||s.version!==1||!int(s.seed,1,999999)||!int(s.level,0,2)||!Array.isArray(s.moves)||s.moves.length>14||!Array.isArray(s.records)||s.records.length!==3||!s.records.every(x=>x===null||int(x,0,8))||s.records.some((x,i)=>x!==null&&i>0&&s.records[i-1]===null)||(s.level>0&&s.records[s.level-1]===null))throw Error('Invalid save');const v=view(s);if(v.phase==='won'&&(s.records[s.level]===null||s.records[s.level]<v.fuel))throw Error('Missing record');return{version:1,seed:s.seed,level:s.level,moves:copy(s.moves),records:s.records.slice()}}
+return{KEY,NAMES,targets,distance,reading,bearing,sweep,initial,step,view,candidates,plan,create,act,decode};});
+

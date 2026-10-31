@@ -1110,5 +1110,30 @@
     "thumbnail": "art/curated/lanewright.svg",
     "thumbnailAlt": "Lanewright cover of a pale road between coloured houses and a blue shop, crossing a river",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "soundings",
+    "title": "Soundings",
+    "description": "Find two hidden beacons by comparing distance, area and compass clues. Plan useful surveys, protect recovery fuel and salvage three compact nautical charts.",
+    "icon": "🧭",
+    "genre": "Puzzle + Exploration",
+    "color": "#567f89",
+    "controls": "Click or tap chart and actions · Arrow keys select · Free survey planner",
+    "url": "games/soundings/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#soundings",
+    "aliases": [
+      "sonar",
+      "salvage",
+      "deduction",
+      "beacons",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/soundings.svg",
+    "thumbnailAlt": "A pale nautical grid with a survey boat, sonar rings and two amber beacons",
+    "updated": "2026-10-31"
   }
 ]
