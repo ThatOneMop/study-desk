@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 8,
     "browserTested": 8,
-    "integrated": 7,
-    "live": 7
+    "integrated": 8,
+    "live": 8
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -760,13 +760,13 @@
       "id": "reedbreaker",
       "title": "Reedbreaker",
       "coreLoop": "Walk to recover energy, bait deterministic clockwork beetles near water, then dash up to three squares to shove one off the bank while managing enemy responses and shield.",
-      "status": "qualified-selected-awaiting-catalogue-regression",
+      "status": "selected-integrated-live",
       "source": "games/reedbreaker",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-10-31",
@@ -775,7 +775,7 @@
           "before": "Aggregate shield/energy forecast, no reversible committed turns.",
           "after": "Undo turn/U reverses a whole tactical turn, all enemy responses and costs, while retaining earned records. Forecast and last-turn notes name each beetle attack, approach, counter, splash or skipped response. Embedded Games returns to parent Collection. Hiding now cancels pending destructive dialogs and disables Resume until visible. Native dialog close re-enables controls after Escape.",
           "evidence": "Interactive rendered all-three-bank wins, final counter preview/commit/reload, genuine eleven-turn loss, reload/undo and native Escape defect reproduction/fix. CI 41171094555 passed 38 engine/DOM tests and 24 rendered bank clears; four desktop/touch screenshots inspected from artifact 13030713765 (SHA256 c41cf1f16f4cdd747f531ae1664c0d91d909c55527c95013182d3be3d0a0fba8).",
-          "remaining": "Catalogue promotion regression and live release verification.",
+          "remaining": "Complete: isolated catalogue regression passed and live release verified.",
           "completed": "2026-10-31",
           "qualificationCommit": "159b330f9d8916121ebd726b5a741616f2f58bf5",
           "guardCommit": "39236cd14b9c4984753c9f39dfe941e844bfee60"
@@ -789,7 +789,8 @@
         "Optional turn planning: 24 passing tests (13 engine, 11 jsdom). Detached forecast positions across three route families, three-bank preview/confirm UI campaign, exact future boards, no preview save mutation, cancellation on mode/pause/dialog/reload/parent hide, keyboard/form guards and immediate-control compatibility. Both scripts pass syntax checks. No native touch/rendered evidence.",
         "Vault refinement: 31 tests pass (17 engine, 14 jsdom), retaining all 24 prior tests. Costs one energy, crosses an adjacent beetle without displacing it, suppresses only that response, and rejects absent targets/blocked landings freely. Other beetles can damage or defeat the ranger. Three vault-assisted routes win in 7/8/7 turns with 4/5/3 shield, exact forecasts and per-action reload. UI tests cover V/button control, planning/cancel/confirm, pause, progression/retry/reset. Script syntax checks pass; no rendered evidence.",
         "35 engine/DOM checks pass, all four route families/three banks checked for exact undo/reload and retained records; loss reversal checked. Interactive rendered first-bank exposed brace, U/button undo, revised facing, five-turn win, reload and victory rewind verified. Baseline/changed screenshots inspected.",
-        "38 engine/DOM checks pass. CI 41171094555 plays 12 bank/style clears on desktop and 12 on 390x844 touch emulation, exact forecasts and saved reloads, win/loss undo, records/retry, keyboard/touch, native Escape, actual iframe hide/show, scoped unreadable recovery/quota and standalone/embedded Games navigation. Repository asset/syntax and all nine first-batch selected source hashes pass."
+        "38 engine/DOM checks pass. CI 41171094555 plays 12 bank/style clears on desktop and 12 on 390x844 touch emulation, exact forecasts and saved reloads, win/loss undo, records/retry, keyboard/touch, native Escape, actual iframe hide/show, scoped unreadable recovery/quota and standalone/embedded Games navigation. Repository asset/syntax and all nine first-batch selected source hashes pass.",
+        "Promotion41171284844/job124449578365 passes191 engine/DOM checks across8 releases, all8 desktop/touch game+catalogue suites,57 launch routes, asset/syntax checks and9 original selected source hashes. Inspected desktop/touch catalogue and embedded victory screenshots. Artifact13031347364 SHA256 faa6be22cc23fa84f0d154e8d4ac86a93e5142c77d36d85b297db9dbc3ce63f8."
       ],
       "commits": [
         "cfd3d84885b77c5ea8968e8adf636d571dc64b3d",
@@ -801,43 +802,49 @@
         "39236cd14b9c4984753c9f39dfe941e844bfee60",
         "159b330f9d8916121ebd726b5a741616f2f58bf5"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "7599ac67644b7e041ab9083f0a64b68b3ce46fbf"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/reedbreaker/index.html",
       "quality": {
-        "status": "Selected after rendered improvement and qualification",
+        "status": "Selected, integrated and live",
         "reasons": "Deterministic positional combat offers distinct spatial decisions beside Bramble Dice allocation, Needlepath route stitching, sailing, packing and printing. Five actions trade energy, position and exposure; named response previews plus reversible turns make experimentation relaxed. Multiple proven approaches include a shorter but more damaging first-bank counter route.",
         "knownLimits": "Three compact authored banks with two beetles each. Four route families are alternate tactics, not twelve levels. Modest best-turn replay; vertically scrolling phone layout; no audio, physical-device testing, human enjoyment study or content-hours claim."
       },
       "nextSteps": [
-        "Pass isolated catalogue promotion 7599ac67644b7e041ab9083f0a64b68b3ce46fbf, inspect desktop/touch catalogue screenshots, then fast-forward main with a fresh lease and verify Pages/live route."
+        "No blocking Reedbreaker work. Retain three-bank scope honestly; consider richer optional tactical goals only after the remaining batch candidates are qualified."
       ],
       "pendingSourceRefinement": {
         "commit": "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
         "basis": "Source/engine inspection; rendered playtesting remains blocked.",
         "before": "Only walking and forward dash shoves were possible. Players could not directly draw beetles away from an obstacle.",
         "after": "Hook costs one energy to pull an adjacent beetle into the ranger's old square while retreating one square onto free land. Only the hooked beetle skips its response. The choice competes with saving two energy for dashing; whole-turn forecasts include all responses.",
-        "remaining": "Rendered desktop/touch play, screenshot inspection, balance/clarity assessment and substantive playtest-led improvement remain required."
+        "remaining": "Historical source refinement; rendered qualification completed31 October. See improvementPasses.",
+        "resolvedByRenderedPass": "159b330f9d8916121ebd726b5a741616f2f58bf5"
       },
       "pendingBraceRefinement": {
         "commit": "4632be8e78fc82c9aba25a05580c3119a55032c6",
         "basis": "Source review: all successful actions moved the ranger, limiting defensive lures and hold-position tactics. Not rendered observation.",
         "before": "Only walk, dash and hook could advance the turn.",
         "after": "Brace holds position for one energy, blocks only a faced adjacent attacker and counter-shoves it; side/rear attacks still hurt. Distant beetles approach normally. Existing forecasts, journals and retries support it.",
-        "remaining": "Rendered desktop/touch play and screenshot inspection; facing/forecast clarity, counter feedback, energy balance and meaningful playtest-led improvement before selection."
+        "remaining": "Historical source refinement; rendered qualification completed31 October. See improvementPasses.",
+        "resolvedByRenderedPass": "159b330f9d8916121ebd726b5a741616f2f58bf5"
       },
       "pendingPlanningRefinement": {
         "commit": "dff682c8c642d8f09727eb3e1aa2479ab6c63754",
         "basis": "Source inspection: hover/focus-only forecasts offered no explicit touch planning interaction. Not rendered play.",
         "before": "Direction activation committed immediately; forecasts described totals but not the whole resulting board.",
         "after": "Optional planning selects a read-only turn, shows exact post-response ranger/beetle positions and totals, then requires confirmation. Cancel/stale-context guards preserve committed saves. Immediate controls remain available.",
-        "remaining": "Rendered desktop/touch review and screenshots, preview-board layout/clarity, natural usability assessment and completed playtest-led improvement before selection."
+        "remaining": "Historical source refinement; rendered qualification completed31 October. See improvementPasses.",
+        "resolvedByRenderedPass": "159b330f9d8916121ebd726b5a741616f2f58bf5"
       },
       "pendingVaultRefinement": {
         "commit": "5351ad11cf5d8dec4fe0bf044fc060afc409217b",
         "basis": "Source inspection: existing actions displaced beetles or held position but could not cross an occupied adjacent square.",
         "before": "Changing sides around an adjacent beetle required walking around it or displacing it with another action.",
         "after": "Vault costs one energy, crosses one adjacent beetle onto free land without moving it and skips its response. Other beetles still act; whole-turn previews reveal the risk.",
-        "remaining": "Rendered play, screenshots and native keyboard/touch/navigation checks; assess tactical value, energy balance and crowding from the fifth action. No improved/browser-tested credit."
+        "remaining": "Historical source refinement; rendered qualification completed31 October. See improvementPasses.",
+        "resolvedByRenderedPass": "159b330f9d8916121ebd726b5a741616f2f58bf5"
       },
       "pendingRenderedImprovement": {
         "date": "2026-10-31",
@@ -846,7 +853,15 @@
         "before": "Aggregate shield/energy forecast, no reversible committed turns.",
         "after": "Undo turn/U reverses a whole tactical turn, all enemy responses and costs, while retaining earned records. Forecast and last-turn notes name each beetle attack, approach, counter, splash or skipped response. Embedded Games returns to parent Collection.",
         "evidence": "35 engine/DOM checks pass, all four route families/three banks checked for exact undo/reload and retained records; loss reversal checked. Interactive rendered first-bank exposed brace, U/button undo, revised facing, five-turn win, reload and victory rewind verified. Baseline/changed screenshots inspected.",
-        "remaining": "Qualified; see improvementPasses. Catalogue promotion pending."
+        "remaining": "Complete: see improvementPasses and release evidence."
+      },
+      "release": {
+        "commit": "7599ac67644b7e041ab9083f0a64b68b3ce46fbf",
+        "workflow": 41171774271,
+        "job": 124451059712,
+        "status": "success",
+        "verified": "2026-10-31",
+        "evidence": "Live catalogue search and launch; five-turn first-bank win; native Escape reset dismissal and victory undo preserving record5; in-game Games returns to parent Collection; direct game URL loads saved turn4/shield3/energy1. Live assets reedbreaker-20261031; zero Switch workspace controls. Desktop/touch navigation verified in promotion CI."
       }
     },
     {
@@ -2172,11 +2187,11 @@
     }
   ],
   "nextSteps": [
-    "Complete Reedbreaker catalogue promotion and live verification.",
-    "Then inspect Beepline slot49 rendered core loop and implement its playtest-led improvement. 24 built;8 qualified;7 integrated/live;26 unbuilt slots."
+    "Beepline(slot49): render the current Scout and pollen-delivery loops; assess branch feedback, carrying-capacity clarity and route debugging, then implement a substantial observed improvement. Existing source-only refinements do not count.",
+    "Preserve8 live third-batch games and completed second batch.24/50 built;8/50 improved/browser-tested/integrated/live;16 built candidates await qualification and26 remain unbuilt. Keep50 distinct slots and retain hourly cadence."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "68acf01efc054a536a4f61577fde6540928a5eab",
+  "latestObservedMain": "7599ac67644b7e041ab9083f0a64b68b3ce46fbf",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2837,6 +2852,11 @@
       "date": "2026-10-31",
       "commit": "159b330f9d8916121ebd726b5a741616f2f58bf5",
       "summary": "Completed Reedbreaker rendered qualification; fixed hidden pending-confirmation mutation and real native Escape control lock.38 checks and24 CI bank clears pass; screenshots inspected. Selected for isolated catalogue regression. Counts24/8/8/7/7."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "7599ac67644b7e041ab9083f0a64b68b3ce46fbf",
+      "summary": "Reedbreaker selected and published after191-check/eight-game desktop+touch promotion regression. Pages41171774271 succeeded; live launch, win, native Escape, undo/save, direct route and parent Collection verified. Source/asset version matches deployment; no Switch workspace controls. Counts24/8/8/8/8; prior collections preserved."
     }
   ]
 }
