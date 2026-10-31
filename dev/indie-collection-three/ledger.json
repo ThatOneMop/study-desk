@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 7,
-    "browserTested": 7,
+    "improved": 8,
+    "browserTested": 8,
     "integrated": 7,
     "live": 7
   },
@@ -760,14 +760,27 @@
       "id": "reedbreaker",
       "title": "Reedbreaker",
       "coreLoop": "Walk to recover energy, bait deterministic clockwork beetles near water, then dash up to three squares to shove one off the bank while managing enemy responses and shield.",
-      "status": "rendered-improvement-implemented-awaiting-full-qualification",
+      "status": "qualified-selected-awaiting-catalogue-regression",
       "source": "games/reedbreaker",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "date": "2026-10-31",
+          "commit": "817116f9ed0a7d3c64ba6f4e50ee7083300b749b",
+          "observedWeakness": "Rendered east-facing brace forecast lost shield without naming the attacker; after commit only full-bank retry could recover a mistake.",
+          "before": "Aggregate shield/energy forecast, no reversible committed turns.",
+          "after": "Undo turn/U reverses a whole tactical turn, all enemy responses and costs, while retaining earned records. Forecast and last-turn notes name each beetle attack, approach, counter, splash or skipped response. Embedded Games returns to parent Collection. Hiding now cancels pending destructive dialogs and disables Resume until visible. Native dialog close re-enables controls after Escape.",
+          "evidence": "Interactive rendered all-three-bank wins, final counter preview/commit/reload, genuine eleven-turn loss, reload/undo and native Escape defect reproduction/fix. CI 41171094555 passed 38 engine/DOM tests and 24 rendered bank clears; four desktop/touch screenshots inspected from artifact 13030713765 (SHA256 c41cf1f16f4cdd747f531ae1664c0d91d909c55527c95013182d3be3d0a0fba8).",
+          "remaining": "Catalogue promotion regression and live release verification.",
+          "completed": "2026-10-31",
+          "qualificationCommit": "159b330f9d8916121ebd726b5a741616f2f58bf5",
+          "guardCommit": "39236cd14b9c4984753c9f39dfe941e844bfee60"
+        }
+      ],
       "tests": [
         "9 engine tests pass: all original routes and saves, three hook-assisted routes with exact forecasts/reloads, hook energy/retreat constraints, other-beetle retaliation, loss/retry, records and malformed saves.",
         "6 jsdom 26.1.0 tests pass: original and hook campaigns, button/H-key selection, previews, reload, pause/confirmation/bridge guards, reset isolation, unreadable recovery and quota failures. Dialogs simulated.",
@@ -775,7 +788,8 @@
         "Directional brace: 20 passing tests (12 engine, 8 jsdom), retaining prior fifteen. Directional blocking/rear exposure, counter splashes, blocked counter tiles, distant approach, energy guards, three brace routes, forecast and per-action reload, UI progression/shortcut/pause/retry. Syntax checks pass; no rendered evidence.",
         "Optional turn planning: 24 passing tests (13 engine, 11 jsdom). Detached forecast positions across three route families, three-bank preview/confirm UI campaign, exact future boards, no preview save mutation, cancellation on mode/pause/dialog/reload/parent hide, keyboard/form guards and immediate-control compatibility. Both scripts pass syntax checks. No native touch/rendered evidence.",
         "Vault refinement: 31 tests pass (17 engine, 14 jsdom), retaining all 24 prior tests. Costs one energy, crosses an adjacent beetle without displacing it, suppresses only that response, and rejects absent targets/blocked landings freely. Other beetles can damage or defeat the ranger. Three vault-assisted routes win in 7/8/7 turns with 4/5/3 shield, exact forecasts and per-action reload. UI tests cover V/button control, planning/cancel/confirm, pause, progression/retry/reset. Script syntax checks pass; no rendered evidence.",
-        "35 engine/DOM checks pass, all four route families/three banks checked for exact undo/reload and retained records; loss reversal checked. Interactive rendered first-bank exposed brace, U/button undo, revised facing, five-turn win, reload and victory rewind verified. Baseline/changed screenshots inspected."
+        "35 engine/DOM checks pass, all four route families/three banks checked for exact undo/reload and retained records; loss reversal checked. Interactive rendered first-bank exposed brace, U/button undo, revised facing, five-turn win, reload and victory rewind verified. Baseline/changed screenshots inspected.",
+        "38 engine/DOM checks pass. CI 41171094555 plays 12 bank/style clears on desktop and 12 on 390x844 touch emulation, exact forecasts and saved reloads, win/loss undo, records/retry, keyboard/touch, native Escape, actual iframe hide/show, scoped unreadable recovery/quota and standalone/embedded Games navigation. Repository asset/syntax and all nine first-batch selected source hashes pass."
       ],
       "commits": [
         "cfd3d84885b77c5ea8968e8adf636d571dc64b3d",
@@ -783,17 +797,19 @@
         "4632be8e78fc82c9aba25a05580c3119a55032c6",
         "dff682c8c642d8f09727eb3e1aa2479ab6c63754",
         "5351ad11cf5d8dec4fe0bf044fc060afc409217b",
-        "817116f9ed0a7d3c64ba6f4e50ee7083300b749b"
+        "817116f9ed0a7d3c64ba6f4e50ee7083300b749b",
+        "39236cd14b9c4984753c9f39dfe941e844bfee60",
+        "159b330f9d8916121ebd726b5a741616f2f58bf5"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored banks with two beetles each. Automated winning routes take 8/5/6 turns and retain 6/5/5 shield. This demonstrates playability, not enjoyment or substantial content duration. Depth, balance and visual readability require rendered playtesting."
+        "status": "Selected after rendered improvement and qualification",
+        "reasons": "Deterministic positional combat offers distinct spatial decisions beside Bramble Dice allocation, Needlepath route stitching, sailing, packing and printing. Five actions trade energy, position and exposure; named response previews plus reversible turns make experimentation relaxed. Multiple proven approaches include a shorter but more damaging first-bank counter route.",
+        "knownLimits": "Three compact authored banks with two beetles each. Four route families are alternate tactics, not twelve levels. Modest best-turn replay; vertically scrolling phone layout; no audio, physical-device testing, human enjoyment study or content-hours claim."
       },
       "nextSteps": [
-        "Complete natural rendered remaining banks, loss/recovery, touch-emulated controls/layout, hidden-dialog guards, full browser and navigation regression. Keep unlisted; no full improved/browserTested credit yet.",
-        "Assess quality after full qualification, then select and integrate if warranted."
+        "Pass isolated catalogue promotion 7599ac67644b7e041ab9083f0a64b68b3ce46fbf, inspect desktop/touch catalogue screenshots, then fast-forward main with a fresh lease and verify Pages/live route."
       ],
       "pendingSourceRefinement": {
         "commit": "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
@@ -830,7 +846,7 @@
         "before": "Aggregate shield/energy forecast, no reversible committed turns.",
         "after": "Undo turn/U reverses a whole tactical turn, all enemy responses and costs, while retaining earned records. Forecast and last-turn notes name each beetle attack, approach, counter, splash or skipped response. Embedded Games returns to parent Collection.",
         "evidence": "35 engine/DOM checks pass, all four route families/three banks checked for exact undo/reload and retained records; loss reversal checked. Interactive rendered first-bank exposed brace, U/button undo, revised facing, five-turn win, reload and victory rewind verified. Baseline/changed screenshots inspected.",
-        "remaining": "Complete natural rendered remaining banks, loss/recovery, touch-emulated controls/layout, hidden-dialog guards, full browser and navigation regression. Keep unlisted; no full improved/browserTested credit yet."
+        "remaining": "Qualified; see improvementPasses. Catalogue promotion pending."
       }
     },
     {
@@ -2156,8 +2172,8 @@
     }
   ],
   "nextSteps": [
-    "Finish Reedbreaker rendered/touch qualification and fix findings before selection.",
-    "Preserve seven live third-batch games and the completed second batch.24 built;7 fully improved/browser-tested/integrated/live;26 slots remain unbuilt."
+    "Complete Reedbreaker catalogue promotion and live verification.",
+    "Then inspect Beepline slot49 rendered core loop and implement its playtest-led improvement. 24 built;8 qualified;7 integrated/live;26 unbuilt slots."
   ],
   "updated": "2026-10-31",
   "latestObservedMain": "68acf01efc054a536a4f61577fde6540928a5eab",
@@ -2816,6 +2832,11 @@
       "date": "2026-10-31",
       "commit": "817116f9ed0a7d3c64ba6f4e50ee7083300b749b",
       "summary": "Reedbreaker rendered baseline exposed unclear damage attribution and restart-only recovery. Implemented tactical undo and named response notes;35 checks and first-bank rendered recovery/victory/reload verified. Remaining browser/touch qualification pending; counts unchanged24/7/7/7/7."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "159b330f9d8916121ebd726b5a741616f2f58bf5",
+      "summary": "Completed Reedbreaker rendered qualification; fixed hidden pending-confirmation mutation and real native Escape control lock.38 checks and24 CI bank clears pass; screenshots inspected. Selected for isolated catalogue regression. Counts24/8/8/7/7."
     }
   ]
 }
