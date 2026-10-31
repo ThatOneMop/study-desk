@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 14,
     "browserTested": 14,
-    "integrated": 13,
-    "live": 13
+    "integrated": 14,
+    "live": 14
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1336,13 +1336,13 @@
       "id": "kiln-chorus",
       "title": "Kiln Chorus",
       "coreLoop": "Schedule a shared kiln: manage fuel and chamber heat while pieces respond at different speeds, accumulate glaze marks in distinct bands, and draw each before it overheats.",
-      "status": "improved-awaiting-catalogue-verification",
+      "status": "selected-integrated-live",
       "source": "games/kiln-chorus",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1366,7 +1366,9 @@
         "Both scripts pass syntax checks; local HTML dependencies exist in the branch tree/new files. Partial workspace: no full repository build. Dialogs simulated; no rendered browser/screenshot/native touch or layout verification.",
         "Heat-baffle refinement: 18 passing tests (10 engine, 8 jsdom). Thermal isolation with continued glaze, three assisted routes and per-action reload, strict one-use/target validation, preview/cancel, pause, undo/retry, spent-state UI and narrow-load completion. Legacy 13 tests and script syntax checks pass. Exhaustive legacy state/fuel results apply only without the baffle.",
         "Soak refinement: 25 tests pass (14 engine, 11 jsdom), all 18 earlier tests retained. New tests cover stable chamber with moving clay, glaze, fuel cost, overheating, baffle combination, cold/no-fuel/terminal rejection, save journals, undo/retry, forecast/keyboard/native ownership, pause/dialog and three complete reload campaigns. Soak-assisted routes leave 2/3/1 fuel, preserving better 3/4/3 records. Both scripts pass syntax. No rendered/native touch evidence; legacy exhaustive search excludes new controls.",
-        "CI41205500760:31 engine/DOM checks, all3 desktop1280x1000 and touch-emulated390x844 campaigns, plan branching/isolation/one-step commits, actual loss/undo/retry, records/reload, native Escape/Enter, pause/dialog discard, corrupt recovery/reset/quota and Games link. Repository63 bundled routes/231 HTML references and9 first-batch hash checks passed. Candidate-only build; final main-based catalogue promotion separately pending."
+        "CI41205500760:31 engine/DOM checks, all3 desktop1280x1000 and touch-emulated390x844 campaigns, plan branching/isolation/one-step commits, actual loss/undo/retry, records/reload, native Escape/Enter, pause/dialog discard, corrupt recovery/reset/quota and Games link. Repository63 bundled routes/231 HTML references and9 first-batch hash checks passed. Candidate-only build; final main-based catalogue promotion separately pending.",
+        "Promotion CI41206268436 passed360 focused checks across14 games, desktop/touch standalone+real-catalogue routes,66launch routes,65bundled routes/326HTML asset references, relaxed controls and9first-batch hashes. Final artifact13044741485 SHA256c75d1d36506d6b26f38d0c87b2c1b13a8521f653c4b736672b0d80367e5dcc87 verified; inspected touch search/favourite, rehearsal endpoint and desktop saved return.",
+        "Pages41207017159 succeeded. Live catalogue66entries/65bundled uses catalog.js?v=kiln-chorus-20261101. Natural live iframe play rehearsed all7 Morning actions without unlocking/record, committed all7 to win with3fuel and Market unlock, and returned through in-game Games to top-level Collection. Opening the standalone route restored that win/record/unlock; screenshot inspected. No Switch workspace control or deployment barrier observed."
       ],
       "commits": [
         "68dd28cf93bf79f10b8a48a0603e052b93c7c068",
@@ -1376,17 +1378,20 @@
         "6f21a974a1851ab40e2ecbf2ed1f5c2f1fdbb809",
         "85d97d814f5acd28c55f384782b64d5533146816",
         "5d3474b652c4263e245634ccf1d3ef1905e9f525",
-        "4b6b464aab777750db57988b3d04033f340b9766"
+        "4b6b464aab777750db57988b3d04033f340b9766",
+        "a3ae6518560e4452736cdeb711c8f4d887c3f03e"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "a3ae6518560e4452736cdeb711c8f4d887c3f03e"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/kiln-chorus/index.html",
       "quality": {
-        "status": "Selected pending final launcher regression",
+        "status": "Selected, integrated and live",
         "assessment": "Agent review: thermal lag, glaze bands, shared heat, drawing order and one-use isolation provide a distinct relaxed scheduling loop. Rehearsal makes multi-step experimentation practical. Selected for manual craft variety alongside the existing graph, colony, deduction and movement games.",
         "knownLimits": "Three compact authored loads; no long campaign or duration claim. Fuel records support economical replay but best routes are not retained separately. The action list scrolls at twelve steps and pottery/actions occupy different vertical regions on phones. Touch-emulated Chromium evidence is not physical-device testing."
       },
       "nextSteps": [
-        "Finish final real-launcher desktop/touch regression, inspect catalogue screenshots, then promote only qualified files from the main-based branch and verify Pages."
+        "Preserve v1 saves and include in later catalogue regression."
       ],
       "pendingSourceRefinement": {
         "commit": "f1601ef4e23d35349772a7bb78d8628fb2184d61",
@@ -1460,6 +1465,14 @@
         "before": "Only the current three finds were available; an unchosen species could not be carried forward.",
         "after": "Once per album, pocket an unplaced find and place the other two. In a later survey replace a different unplaced find with the saved species. The album still has twelve placements; rearrangement remains independent and undo restores both.",
         "remaining": "Rendered desktop/touch play and screenshot review, balance assessment and clarity of replacement controls. No improved/browser-tested credit."
+      },
+      "pendingRenderedBaseline": {
+        "date": "2026-11-01",
+        "sourceBranch": "indie-collection-three-dev",
+        "evidence": "Natural managed-preview desktop play completed Home Meadow seed137 at54 points (target36) and reloaded the completed page and best record. Chose meadow/meadow/pond/forest/meadow/pond packets, used the pocket to carry an early Robin into a later forest packet, paired three clovers around a bee (11 points), kept forest robins separated, and placed frogs beside plants. Rearrangement remained unused. Inspected the original illustrated cards, terrain patterns, numeric neighbour forecasts and completed result. Post-completion source7→destination12 Clover/Reed swap forecast54→51; confirmed and undid it, restoring54 and the rearrangement allowance while retaining best54.",
+        "observedWeakness": "Target36 was already passed at39 after eight of twelve placements; remaining surveys contributed score but little pressure to change strategy. Investigate optional ecological objectives or player-selected constraints that create useful late-page choices, rather than extra repetitive surveys. Rearrangement source requires a separate dropdown; clicking two board cells only changed destination, so evaluate direct source selection.",
+        "next": "Complete remaining trails and failure/retry/native keyboard/touch baseline; implement a substantial distinct upgrade and qualify actual rendered loops before counting improved/browserTested.",
+        "credit": "Baseline only. No new built, improvement, browser-qualified, integration or live credit."
       }
     },
     {
@@ -2424,12 +2437,11 @@
     }
   ],
   "nextSteps": [
-    "Finish Kiln Chorus catalogue promotion and live verification after final regression.",
-    "Field Album slot55: inspect current source/ledger, play its rendered card-drafting loop, then make a substantive game-specific upgrade.",
-    "Qualify remaining10 built candidates; implement26 unbuilt slots while retaining exactly50. Preserve both earlier collections and concurrent games."
+    "Field Album slot55: use recorded Home Meadow baseline to deepen useful late-page choices and improve rearrangement source selection; complete native desktop/touch campaign qualification.",
+    "Qualify remaining10 built candidates and implement26 unbuilt slots, retaining exactly50. Preserve both prior collections, saves and concurrent games."
   ],
   "updated": "2026-11-01",
-  "latestObservedMain": "d2331ff75e78e9290135d970e9f6911693554469",
+  "latestObservedMain": "a3ae6518560e4452736cdeb711c8f4d887c3f03e",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3180,6 +3192,13 @@
       "commit": "4b6b464aab777750db57988b3d04033f340b9766",
       "verificationRun": 41205500760,
       "summary": "Kiln Chorus gained branchable firing-plan rehearsal after rendered baseline; all3 natural desktop rehearsals/commits/reloads completed.31 focused checks plus desktop/touch candidate campaigns passed. Counts24/14/14/13/13 pending real catalogue regression and live promotion."
+    },
+    {
+      "date": "2026-11-01",
+      "commit": "a3ae6518560e4452736cdeb711c8f4d887c3f03e",
+      "verificationRun": 41206268436,
+      "pagesRun": 41207017159,
+      "summary": "Kiln Chorus selected, integrated and verified live after branchable firing-plan improvement.360 focused checks across14games, full desktop/touch catalogue regression and inspected screenshots. Third totals24/14/14/14/14. Field Album Home Meadow baseline completed54points and reloaded; no new qualification credit."
     }
   ]
 }
