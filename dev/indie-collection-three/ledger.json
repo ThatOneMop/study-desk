@@ -945,7 +945,7 @@
         "before": "Successful programs had to be re-entered after experimentation.",
         "after": "Keep one loop per garden and flight mode; compare current and kept outcomes without progression, then restore the kept route at step zero across reloads.",
         "evidence": "31October rendered desktop Clover square baseline exposed successful-route loss while editing. Implemented six independently saved normal/delivery loop slots and optional read-only outcome comparison. Rendered F/F/R win, F/F/L hedge-versus-kept-win comparison, restore/reload, F/F/L/G/L pollen delivery win, mode notebook isolation, native Escape then Space stepping verified. Comparison and delivery notebook screenshots inspected.22 focused checks pass (12 engine,10DOM), preserving earlier18 and adding notebook validation/copy/slot/read-only/save plus hidden pending-reset/resume protection. Syntax passes. Remaining full three-garden/touch/corrupt-save/catalogue qualification not claimed.",
-        "remaining": "Candidate qualification complete. Promotion b8d994d21359e4e8854931045d7c52c7758fcba1 awaits combined catalogue regression; main unchanged.",
+        "remaining": "Candidate qualification complete. Promotion7280851f04cf44ecd2e387fdca9858b453661108 awaits combined CI41182960783; main remains unchanged.",
         "report": "dev/indie-collection-three/BEEPLINE_RENDERED_PASS.md",
         "followupCommit": "e5fabb10d3f200a554f24b3e63a2be2fe1c3749c",
         "followupEvidence": "31October CI41178957134 at e5fabb10d3f200a554f24b3e63a2be2fe1c3749c passed22 focused checks, desktop1280x1000 and touch-emulated390x844 control-driven campaigns through all3 normal and3 delivery gardens, six notebook slots, read-only comparison, mid-flight exact reload, overload/back/retry, pause, native Escape, keyboard/native taps, embedded hide/Collection and scoped recovery/reset. Assets:63 bundled routes/231 references, source syntax and all9 first-batch release integrity checks pass. Artifact13034391398 contains22 screenshots plus shell fixture, SHA256d961c5841bdfdba2f642fe7784b53148fa242085cc4cee6f2632476b492374a8. Screenshots were generated but NOT reviewed this run because rendered browser/workspace environment is unavailable. Do not count full qualification or integrate until visual review and catalogue regression."
@@ -959,7 +959,16 @@
         "visualReview": "31October reviewed artifact13034391398 with matching SHA256d961c5841bdfdba2f642fe7784b53148fa242085cc4cee6f2632476b492374a8. Inspected touch-normal-comparison-2: full route diagnosis wraps legibly and notebook buttons remain usable; touch-delivery-win-2: bag0/2, delivered3/3, hive/bee/flower states and completion are clear; desktop-overload: failure explains earlier hive return and kept route remains available. Phone requires vertical scrolling, no horizontal overflow in CI. Prior rendered natural play plus passing all-garden desktop/touch CI and current visual review qualify the improvement. Agent assessment, not a player survey or physical-device certification."
       },
       "selected": true,
-      "selectionReason": "Distinct untimed looping-program puzzle; notebook comparison supports experimentation and capacity-limited delivery adds routing choices beyond normal flower collection."
+      "selectionReason": "Distinct untimed looping-program puzzle; notebook comparison supports experimentation and capacity-limited delivery adds routing choices beyond normal flower collection.",
+      "pendingIntegration": {
+        "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
+        "branch": "indie-three-promotion",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41182960783",
+        "status": "running-at-checkpoint",
+        "previousRun": 41182662925,
+        "previousFailure": "Exact catalogue count expected57; added Beepline produces58. Corrected assertion and required Beepline presence; gameplay/catalogue desktop/touch steps before this assertion passed.",
+        "visualReview": "Reviewed touch-search-favourite, touch-garden-victory and desktop-saved-return from artifact13035633200. Original cover/card, wrapped phone notebook and preserved completion/kept route look correct. Artifact SHA2561b684c6d510f287c63960f950754358263eee059371fbbe2e59e7bad1aec737c. Only later code difference is the count test; final workflow still must pass."
+      }
     },
     {
       "slot": 50,
@@ -2920,6 +2929,12 @@
       "date": "2026-10-31",
       "commit": "b8d994d21359e4e8854931045d7c52c7758fcba1",
       "summary": "Beepline visual review complete, qualified and selected. Prepared original cover/catalogue/credits and nine-game promotion regression; main unchanged pending CI. Counts24/9/9/8/8."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
+      "verificationRun": 41182960783,
+      "summary": "Prepared Beepline release and reviewed three real-catalogue screenshots. Initial regression stopped only at old57-entry assertion after Beepline desktop/touch checks passed. Count corrected to58; full rerun in progress. No main release; counts24/9/9/8/8."
     }
   ]
 }
