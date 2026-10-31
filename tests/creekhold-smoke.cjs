@@ -108,6 +108,21 @@ assert.equal(idle.phase, 'over');
 assert.equal(E.living(idle).length, 0);
 assert.equal(idle.overWhy, 'thirst');
 
+const grown = E.startRun(E.createMeta(), 'willow', 'reed', 'easy');
+layWillow(grown, true);
+assert.equal(E.place(grown, 'lodge', 4, 5).ok, true, 'spare lodge');
+E.finishAll(grown);
+assert(E.beds(grown) > E.living(grown).length, 'a free bed');
+grown.store.water = 70;
+grown.store.berry = 50;
+const beforePop = E.living(grown).length;
+E.tick(grown, 40);
+assert(grown.born >= 1, 'a kit is born when a bed, food and water are spare');
+assert(E.living(grown).length > beforePop);
+assert(E.goal(grown) && E.goal(grown).title, 'there is a next aim');
+const oldSave = E.encode({ meta: E.createMeta(), run: smart });
+assert.equal(E.decode(oldSave).ok, true);
+
 const saved = E.encode({ meta: E.createMeta(), run: smart });
 const back = E.decode(saved);
 assert.equal(back.ok, true);
@@ -136,6 +151,7 @@ assert.equal(E.unlock(bank, 'bridge').reason, 'tier');
 assert.equal(E.unlock(bank, 'platform').ok, true);
 assert.equal(E.unlock(bank, 'saw').ok, true);
 assert.equal(E.unlock(bank, 'bridge').ok, true);
+assert.equal(E.unlock(bank, 'mill').reason, 'prereq');
 assert(html.includes('rel="icon"'), 'favicon link so the live page has no 404');
 assert(html.includes('id="overlayBtn"'), 'on-screen overlay toggle for touch');
 
