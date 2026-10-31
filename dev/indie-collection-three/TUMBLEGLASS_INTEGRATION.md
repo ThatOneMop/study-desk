@@ -34,3 +34,5 @@ Pages run **41192642375** for release6ac7007406ff0a3f438b23439a8f09008ee798aa su
 Third batch: **24/50 built;10/50 substantially improved;10/50 browser-tested;10/50 integrated;10/50 live**. There remain14 built candidates needing qualification and26 unbuilt slots. The second-batch additional round remains20/20 verified; earlier sources, saves and catalogue entries preserved. No first/second-batch games or concurrent Creekhold/Spanwright additions count toward these50.
 
 Next: Soundings, then the remaining distinct candidates; preserve this exact50-slot ledger. The task is unfinished, so the existing hourly schedule is retained and no other automations were modified.
+
+Final branch re-read: main advanced to88105787fd71d0cd279b0a6031995d741ae2eecd after release. Its delta contains only six Creekhold game/test files; Tumbleglass and catalogue files are unchanged. This concurrent polish commit is preserved, with no further main writes.
