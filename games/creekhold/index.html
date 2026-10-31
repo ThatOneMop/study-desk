@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f7c86">
+  <title>Creekhold — Study Desk</title>
+  <link rel="icon" href="../../favicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="topbar" aria-label="Colony status">
+      <span class="chip"><small>Day</small><b id="day">1</b></span>
+      <span class="chip"><small>Clock</small><b id="clock">06:00</b></span>
+      <span class="chip" id="seasonChip"><small>Season</small><b id="season">Clear water</b></span>
+      <span class="chip"><small>Nibs</small><b id="pop">0</b></span>
+      <span class="chip"><small>Mood</small><b id="mood">0</b></span>
+      <span class="chip"><small>Water</small><b id="water">0</b></span>
+      <span class="chip"><small>Food</small><b id="food">0</b></span>
+      <span class="chip"><small>Logs</small><b id="logs">0</b></span>
+      <span class="chip"><small>Planks</small><b id="planks">0</b></span>
+      <span class="chip"><small>Gears</small><b id="gears">0</b></span>
+      <span class="chip"><small>Ideas</small><b id="ideas">0</b></span>
+      <div id="controls">
+      <button type="button" id="overlayBtn" class="iconbtn" title="Overlay: none (V water, R reach, G power, C sour)" aria-pressed="false">View</button>
+      <button type="button" id="openMenu" class="iconbtn" title="Menu">Menu</button>
+      <div id="speeds" role="group" aria-label="Speed">
+        <button type="button" id="speed0" aria-pressed="true" title="Pause">❚❚</button>
+        <button type="button" id="speed1" aria-pressed="false" title="Play">▶</button>
+        <button type="button" id="speed2" aria-pressed="false" title="Fast">▶▶</button>
+        <button type="button" id="speed3" aria-pressed="false" title="Faster">▶▶▶</button>
+      </div>
+      </div>
+    </header>
+    <div id="stage">
+      <canvas id="view" aria-label="Creekhold colony"></canvas>
+      <div id="alerts" role="status"></div>
+      <div id="toasts"></div>
+      <aside id="inspect" hidden>
+        <h2 id="inspectName">Tile</h2>
+        <p id="inspectBody"></p>
+        <div class="row" id="inspectActions"></div>
+      </aside>
+      <section id="tutor" hidden>
+        <strong id="tutorTitle">The bend</strong>
+        <p id="tutorBody"></p>
+        <div class="row">
+          <button type="button" id="tutorSkip" class="ghost">Skip</button>
+          <button type="button" id="tutorNext" class="primary">Next</button>
+        </div>
+      </section>
+      <div id="tooltip" hidden></div>
+    </div>
+    <footer id="dock" aria-label="Build">
+      <div id="cats" role="tablist"></div>
+      <div id="pieces"></div>
+    </footer>
+  </div>
+  <a href="../../index.html#games" id="catalogue" hidden>Catalogue</a>
+
+  <dialog id="title">
+    <div class="card">
+      <div class="kicker">A river colony</div>
+      <svg class="mark" viewBox="0 0 72 28" aria-hidden="true"><path d="M4 18c8-8 14-8 20 0s12 8 20 0 12-8 20 0" fill="none" stroke="#1f7c86" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="10" r="3" fill="#c46b45"/></svg>
+      <h2>Creekhold</h2>
+      <p>Raise a colony of nibs on a living river. Store the clear days. Hold the dry spell. Shut the gate when the water turns sour.</p>
+      <div class="stack">
+        <button type="button" id="playBtn" class="primary">New colony</button>
+        <button type="button" id="continueBtn" class="ghost" hidden>Continue</button>
+        <button type="button" id="howBtn" class="ghost">How the bend works</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="pick">
+    <div class="card wide">
+      <h2>Choose a bend</h2>
+      <p id="pickHint">Two circles, three rivers, three tempers. Willow Bend is the place to learn.</p>
+      <h3>Circle</h3>
+      <div class="choices" id="factionList"></div>
+      <h3>River</h3>
+      <div class="choices" id="mapList"></div>
+      <h3>Temper</h3>
+      <div class="choices" id="diffList"></div>
+      <div class="row">
+        <button type="button" id="startBtn" class="primary">Settle</button>
+        <button type="button" id="pickBack" class="ghost">Back</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="pause">
+    <div class="card">
+      <div class="kicker">Paused</div>
+      <h2>The day is held</h2>
+      <div class="stack">
+        <button type="button" id="resumeBtn" class="primary">Resume</button>
+        <button type="button" id="techBtn" class="ghost">Idea tree</button>
+        <button type="button" id="achieveBtn" class="ghost">Marks</button>
+        <button type="button" id="settingsBtn" class="ghost">Settings</button>
+        <button type="button" id="helpBtn" class="ghost">How the bend works</button>
+        <button type="button" id="menuBtn" class="ghost">Title</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="settings">
+    <div class="card">
+      <h2>Settings</h2>
+      <label class="chk"><input type="checkbox" id="soundToggle" checked> Sound</label>
+      <label class="chk">Volume <input type="range" id="volume" min="0" max="1" step="0.05" value="0.7"></label>
+      <label class="chk"><input type="checkbox" id="motionToggle" checked> Motion</label>
+      <label class="chk"><input type="checkbox" id="edgeToggle" checked> Edge pan</label>
+      <p>Progress stays on this device under Creekhold’s own save.</p>
+      <div class="stack">
+        <button type="button" id="closeSettings" class="primary">Done</button>
+        <button type="button" id="wipe" class="danger">Erase Creekhold save</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="tech">
+    <div class="card wide">
+      <h2>Idea tree</h2>
+      <p id="techLead"></p>
+      <div class="tech-grid" id="techList"></div>
+      <button type="button" id="closeTech" class="primary">Back to the bend</button>
+    </div>
+  </dialog>
+
+  <dialog id="help">
+    <div class="card wide" id="helpText">
+      <h2>Field notes</h2>
+      <p>Nibs drink stored water, never the river. A paw pump fills tanks while the sources run. A stick dam holds a pool on its upstream side and lets the rest spill. A clay levee is a wall. A sluice gate is a lip you set: shut it when a sour tide is coming.</p>
+      <p>Footpaths must reach the district hearth. Frames off the path stay unbuilt. Stairs climb one floor. Platforms stack three high and water runs under them. Levees stack four high and water sits on top.</p>
+      <p>Logs become planks at a saw, and planks become gears at the press if a shaft brings power. A paddle wheel needs a sideways current. The Reed Circle keeps a fan turning in a dry spell. The Cog Lodge burns logs in an engine.</p>
+      <p>Reed kits need a spare lodge bed and a content colony. Cog kits come from a berry vat, and only when a bunk is free. Hunger is slow. Thirst is not.</p>
+      <p>Mouse: click places; with Footpath, Stick dam, Clay levee or Remove picked, drag paints a line; right-drag pans. Keys: WASD pans, Q and E rotate, the wheel zooms, 1–7 pick a build group, V water, R paths, G power, C sour (or the View button), X removes, Space pauses, Esc opens this rest. On a touch screen, drag pans, a pinch zooms, and a tap places.</p>
+      <button type="button" id="closeHelp" class="primary">Back</button>
+    </div>
+  </dialog>
+
+  <dialog id="achieve">
+    <div class="card wide">
+      <h2>Marks</h2>
+      <div id="achieveList" class="stack"></div>
+      <button type="button" id="closeAchieve" class="primary">Back</button>
+    </div>
+  </dialog>
+
+  <dialog id="over">
+    <div class="card">
+      <div class="kicker" id="overKicker">The hearth is dark</div>
+      <h2 id="overTitle">The colony is gone</h2>
+      <p id="overBody"></p>
+      <div class="stack">
+        <button type="button" id="retryBtn" class="primary">Try this bend again</button>
+        <button type="button" id="overMaps" class="ghost">All bends</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="../../bridge.js"></script>
+  <script src="engine.js"></script>
+  <script src="audio.js"></script>
+  <script src="render.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
