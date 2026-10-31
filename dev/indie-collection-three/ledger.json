@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 12,
-    "browserTested": 12,
+    "improved": 13,
+    "browserTested": 13,
     "integrated": 12,
     "live": 12
   },
@@ -1260,14 +1260,28 @@
       "id": "canopy-weave",
       "title": "Canopy Weave",
       "coreLoop": "Directly rearrange leaf knots in a connected graph so straight vines no longer cross, overlap or pass through unrelated leaves; inspect previews, undo and optimize moves.",
-      "status": "rendered-upgrade-awaiting-browser-qualification",
+      "status": "qualified-awaiting-catalogue-integration",
       "source": "games/canopy-weave",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-31",
+          "observedWeakness": "Compact central overlaps displayed11 tangles and8 stretched vines, but only aggregate conflict counts: no named conflict pair or leaf-on-vine diagnosis. Dense rust dashed edges obscure which relationship to repair. Native drag also selected letter text. Free campaigns were short (1/2 moves observed), so assess compact-mode decisions before selecting.",
+          "before": "Only aggregate conflict counts and immediate placements; dense compact hubs obscured useful repair choices.",
+          "after": "Optional move rehearsal compares exact tangle/reach deltas before a single commit; transient origin/travel guides and named conflict inspector isolate crossings, overlap, leaf-on-vine and stretched connections. Direct controls remain; drag text selection and native dialog/parent visibility handling repaired. Enlarged invisible grid hit areas and non-scrolling focus fix native mobile placement.",
+          "implementationCommits": [
+            "fc14f57a98f020b3b419a4ce67c3bd0b4a4041fb",
+            "be83cce76bbc1ce0aec36d2cb94217831ea2f2db",
+            "4c94b55773ce79a12021045a013c18b3115f3476"
+          ],
+          "validation": "CI41200936734 passed21 focused checks (9engine,12DOM), all3 free/compact campaigns on desktop and touch-emulated Chromium, per-move saves/reload, undo/retry/records, actual desktop drag, keyboard/tap rehearsal, native Escape, parent-hidden dialog guards, recovery/reset/quota and Games return. Artifact13043005730 SHA256651a2a98f7178b8e8b76e421fac3f708f631b6d63862b34718cec24da3fd4945 verified. Inspected desktop diagnosis/alternative/compact win and touch winning rehearsal/leaf-on-vine/compact nested win: readable, no horizontal overflow. Natural desktop play completed compact Sunwheel5,nested free5/compact6,first compact4 with reload. No physical-device or human-enjoyment claim."
+        }
+      ],
       "tests": [
         "9 tests pass (5 engine, 4 jsdom 26.1.0): all three trellis wins/unlocks and per-move reloads; crossings/touches/overlaps/opposite rays; 24 rotated/reflected solved embeddings; invalid placements/journals, undo/retry, records and storage bound.",
         "DOM checks cover tap placement, drag preview/release/cancellation/occupied targets/pause, keyboard/button and parent guards, navigation markup, corruption recovery, isolated reset and quota failures. Dialogs, SVG bounds and pointer events/capture are simulated.",
@@ -1277,17 +1291,24 @@
       ],
       "commits": [
         "d55722bdaafe719b17c003f5cc9365b02ecac95d",
-        "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6"
+        "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
+        "fc14f57a98f020b3b419a4ce67c3bd0b4a4041fb",
+        "be83cce76bbc1ce0aec36d2cb94217831ea2f2db",
+        "4c94b55773ce79a12021045a013c18b3115f3476"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored graphs with demonstrated 3/5/6-move solutions; no optimality or content-hours claim. No loss state. Drag feel, visual clarity, spatial depth and touch usability remain unassessed. Compact-mode solutions use 4/5/6 moves; reach/packing clarity and balance are not rendered-verified."
+        "status": "Selected after rendered qualification; catalogue regression pending",
+        "enjoyment": "Clear manipulate-inspect-compare-place loop; compact constraints add spatial tradeoffs without penalties.",
+        "depth": "Three short authored graphs, free and compact modes, alternative embeddings and fewest-move records. Limited long-term depth.",
+        "polish": "Warm original SVG garden, clear diagnoses, optional rehearsal and enlarged touch targets.",
+        "reliability": "21 focused checks and complete desktop/touch-emulated routes passed after two rendered input repairs.",
+        "variety": "Direct graph embedding and constrained packing complement colony, action, crafting and deduction selections.",
+        "knownLimits": "Short campaigns, no loss state or generated levels. Automated routes do not establish human enjoyment or content hours. Phone controls use vertical scrolling; physical devices untested."
       },
       "nextSteps": [
-        "Run candidate Chromium desktop/touch suite; review all garden and mobile screenshots, repair failures.",
-        "Assess for selection after qualification; preserve v1 saves and exact50 slots."
+        "Run full real-catalogue desktop/touch promotion regression, inspect screenshots, integrate and verify live route."
       ],
       "pendingSourceRefinement": {
         "commit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
@@ -1304,13 +1325,6 @@
         "screenshots": "Inspected initial trellis, sunwheel before/after moves, compact reach/overstretch baseline. No mobile or complete three-trellis qualification.",
         "next": "Implement a substantive game-specific improvement to conflict diagnosis/planning based on the observed dense compact layout; fix text-selection dragging and verify naturally, then full browser qualification.",
         "credit": "Baseline only; no completed improvement/browser-tested/integration/live credit."
-      },
-      "pendingRenderedUpgrade": {
-        "date": "2026-10-31",
-        "before": "Compact central overlaps displayed11 tangles and8 stretched vines, but only aggregate conflict counts: no named conflict pair or leaf-on-vine diagnosis. Dense rust dashed edges obscure which relationship to repair. Native drag also selected letter text. Free campaigns were short (1/2 moves observed), so assess compact-mode decisions before selecting.",
-        "after": "Optional move rehearsal compares exact tangle/reach deltas before a single commit; transient origin/travel guides and named conflict inspector isolate crossings, overlap, leaf-on-vine and stretched connections. Direct controls remain; drag text selection and native dialog/parent visibility handling repaired.",
-        "validation": "21 focused checks pass (9 engine,12 DOM), syntax checks pass. Natural desktop compact Sunwheel alternate-placement comparison,5-move completion, Escape,undo,rehearsed winning move and reload reviewed. All-three-garden desktop/touch Chromium suite written; pending CI and screenshot review.",
-        "credit": "Pending qualification; no increment to improved/browserTested/integrated/live."
       }
     },
     {
@@ -2377,7 +2391,7 @@
     }
   ],
   "nextSteps": [
-    "Canopy Weave slot53: finish Chromium qualification and screenshot assessment for rehearsal/inspector upgrade, then select and integrate if qualified.",
+    "Canopy Weave qualified: finish catalogue regression, source integration and live verification.",
     "Qualify remaining12 built candidates individually before listing; then complete26 unbuilt slots, retaining exactly50.",
     "Keep second-batch20/20 additional improvements and9 live selections, first-batch sources, Gummy Bay and concurrent work intact. Pause only at entire goal completion."
   ],
