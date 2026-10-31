@@ -1,0 +1,576 @@
+'use strict';
+(function () {
+  const E = window.SpanEngine;
+  const R = window.SpanRender;
+  const audio = window.SpanAudio.createAudio();
+  const $ = id => document.getElementById(id);
+  const TUTORIAL = [
+    { title: 'Road', body: 'Wheels only trust road. Select it, then tap the left brass bolt.' },
+    { title: 'Two metres', body: 'Road stops at 2 m. Tap the next joint, and the next, until you hold the far bolt.' },
+    { title: 'Send it', body: 'Play runs the cart. If it swims, undo and give the middle a triangle.' },
+    { title: 'The load', body: 'Stress paints the members while they work. Green is quiet. Red is about to complain.' }
+  ];
+
+  let meta = loadMeta();
+  let screen = 'title';
+  let session = null;
+  let tool = 'road';
+  let anchor = null;
+  let ghost = null;
+  let side = null;
+  let cam = { x: 8, y: 6, zoom: 48, shake: 0 };
+  let cursor = null;
+  let particles = [];
+  let tut = 0;
+  let keys = {};
+  let last = 0;
+  let pointers = new Map();
+  let pinching = null;
+  const speeds = [1, 2, 4];
+  let speedIndex = 0;
+
+  function loadMeta() {
+    try {
+      const raw = localStorage.getItem(E.SAVE_KEY);
+      if (!raw) return E.defaultMeta();
+      const decoded = E.decode(raw);
+      return decoded.ok ? decoded.meta : E.defaultMeta();
+    } catch (err) {
+      return E.defaultMeta();
+    }
+  }
+  function saveMeta() {
+    try { localStorage.setItem(E.SAVE_KEY, E.encode({ meta: meta })); } catch (err) {}
+  }
+
+  function show(next) {
+    screen = next;
+    ['title', 'map', 'achievements', 'play'].forEach(id => { $(id).hidden = id !== next; });
+    if (next === 'map') renderMap();
+    if (next === 'achievements') renderAchievements();
+    if (next === 'play') {
+      requestAnimationFrame(() => { resize(); $('scene').focus(); });
+    }
+    if (next === 'title') {
+      $('yardBtn').disabled = !E.levelUnlocked(meta, 'yard');
+    }
+  }
+
+  function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+  function stars(n) { return '★★★'.slice(0, n) + '☆☆☆'.slice(0, 3 - n); }
+
+  function renderMap() {
+    const root = $('worlds');
+    root.replaceChildren();
+    E.WORLDS.forEach(world => {
+      const section = document.createElement('section');
+      section.className = 'world';
+      const open = E.worldUnlocked(meta, world.id);
+      const h = document.createElement('h2');
+      h.textContent = world.name;
+      const p = document.createElement('p');
+      p.className = 'fine';
+      p.textContent = open ? world.line : 'Opens after four clears in the previous chapter.';
+      section.append(h, p);
+      const grid = document.createElement('div');
+      grid.className = 'levels';
+      E.LEVELS.filter(l => l.world === world.id).forEach(level => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        const unlocked = E.levelUnlocked(meta, level);
+        btn.disabled = !unlocked;
+        const s = meta.stars[level.id] || 0;
+        btn.innerHTML = '<strong>' + level.name + '</strong><small>' + (unlocked ? stars(s) : 'Locked') + '</small>';
+        btn.addEventListener('click', () => start(level.id));
+        grid.append(btn);
+      });
+      section.append(grid);
+      root.append(section);
+    });
+    $('mapYard').disabled = !E.levelUnlocked(meta, 'yard');
+  }
+
+  function renderAchievements() {
+    const root = $('achieveList');
+    root.replaceChildren();
+    E.ACHIEVEMENTS.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'achieve' + (meta.achievements[item.id] ? '' : ' lock');
+      row.innerHTML = '<div><strong>' + item.name + '</strong><div class="fine">' + item.detail + '</div></div><span>' + (meta.achievements[item.id] ? 'Kept' : '—') + '</span>';
+      root.append(row);
+    });
+  }
+
+  function start(id) {
+    session = E.startLevel(meta, id);
+    if (!session) return;
+    tool = session.level.materials[0];
+    anchor = null;
+    ghost = null;
+    side = null;
+    particles = [];
+    tut = session.level.tutorial && meta.tutorial ? 0 : -1;
+    cursor = { x: session.level.anchors[0].x, y: session.level.anchors[0].y };
+    fitCamera();
+    buildTools();
+    closeVeils();
+    show('play');
+    audio.startMusic();
+    setStatus(session.level.brief);
+    updateTutorial();
+    updateHud();
+  }
+
+  function fitCamera() {
+    const b = session.level.bounds;
+    const vw = $('scene').clientWidth || 800;
+    const vh = $('scene').clientHeight || 450;
+    cam.zoom = Math.max(26, Math.min(vw / (b.x1 - b.x0 + 3), vh / ((b.y1 - b.y0) * 0.55)) * 0.92);
+    cam.x = (b.x0 + b.x1) / 2;
+    cam.y = (session.level.waterY + Math.max(session.level.yL || 6, session.level.yR || 6)) / 2 + 1.2;
+    cam.shake = 0;
+  }
+
+  function buildTools() {
+    const bar = $('tools');
+    bar.replaceChildren();
+    const items = session.level.materials.slice();
+    if (session.level.allowSplit || session.level.materials.indexOf('hydraulic') >= 0 || session.level.sandbox) items.push('split');
+    items.push('erase');
+    if (session.level.sandbox) items.push('anchor');
+    items.forEach(id => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      const mat = E.MATERIALS[id];
+      const label = mat ? mat.name : (id === 'split' ? 'Hinge' : id === 'erase' ? 'Lift out' : 'Bolt');
+      const key = mat ? mat.key : (id === 'split' ? 'H' : id === 'erase' ? 'X' : 'B');
+      btn.innerHTML = '<small>' + key + '</small>' + label;
+      btn.setAttribute('aria-pressed', String(tool === id));
+      btn.addEventListener('click', () => { tool = id; anchor = null; buildTools(); audio.play('ui'); });
+      bar.append(btn);
+    });
+  }
+
+  function updateTutorial() {
+    const box = $('tutorial');
+    if (tut < 0 || !session || session.level.id !== 'willow-1' || (session.sim && session.sim.mode)) { box.hidden = true; return; }
+    const step = TUTORIAL[tut];
+    box.hidden = false;
+    $('tutTitle').textContent = step.title;
+    $('tutBody').textContent = step.body;
+  }
+
+  function updateHud() {
+    if (!session) return;
+    $('levelName').textContent = session.level.name;
+    const spent = session.spent || 0;
+    const budget = session.level.budget;
+    $('budgetText').textContent = money(spent) + ' / ' + money(budget);
+    $('budgetPill').classList.toggle('warn', spent > budget);
+    const sim = session.sim;
+    const peak = sim ? Math.round((sim.liveStrain || sim.peakStrain || 0) * 100) : 0;
+    $('stressText').textContent = sim && (sim.mode === 'run' || sim.mode === 'replay') ? peak + '%' : 'Quiet';
+    updateTutorial();
+    $('playBtn').textContent = sim && sim.mode === 'run' ? 'Running' : 'Play';
+    const speed = sim && sim.speed || 1;
+    $('speedBtn').textContent = 'Speed ' + speed + '×';
+    updateInspector();
+  }
+
+  function updateInspector() {
+    const box = $('inspector');
+    const beam = session && session.selected ? session.beams.find(b => b.id === session.selected) : null;
+    if (!beam || (beam.mat !== 'hydraulic' && beam.mat !== 'spring')) { box.hidden = true; box.replaceChildren(); return; }
+    box.hidden = false;
+    box.replaceChildren();
+    const label = document.createElement('label');
+    const title = beam.mat === 'hydraulic' ? 'Piston reach' : 'Coil, pull to push';
+    label.append(document.createTextNode(title));
+    const range = document.createElement('input');
+    range.type = 'range';
+    range.min = beam.mat === 'hydraulic' ? '0.5' : '0.65';
+    range.max = beam.mat === 'hydraulic' ? '1.5' : '1.4';
+    range.step = '0.01';
+    range.value = String(beam.scale || 1);
+    range.addEventListener('input', () => { E.setScale(session, beam.id, parseFloat(range.value)); setStatus(beam.mat === 'hydraulic' ? 'Piston set to ' + Math.round(beam.scale * 100) + '%.' : 'Coil set.'); });
+    label.append(range);
+    box.append(label);
+    if (beam.mat === 'hydraulic') {
+      (session.level.phases || []).forEach(phase => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'ghost';
+        const on = !!(beam.phaseOn && beam.phaseOn[phase.id]);
+        btn.textContent = phase.label + (on ? ' · armed' : ' · quiet');
+        btn.setAttribute('aria-pressed', String(on));
+        btn.addEventListener('click', () => { E.togglePhase(session, beam.id, phase.id); updateInspector(); audio.play('ui'); });
+        box.append(btn);
+      });
+    }
+    const split = session.splits.find(s => session.beams.some(b => b.id === beam.id && (s.a === b.a || s.b === b.a || s.a === b.b || s.b === b.b)));
+    if (session.splits.length) {
+      session.splits.forEach(splitItem => {
+        (session.level.phases || []).forEach(phase => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'ghost';
+          const on = !!(splitItem.open && splitItem.open[phase.id]);
+          btn.textContent = 'Hinge ' + phase.id + (on ? ' opens' : ' holds');
+          btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); updateInspector(); });
+          box.append(btn);
+        });
+      });
+    }
+  }
+
+  function setStatus(text) { $('status').textContent = text || ''; }
+
+  function screenPoint(ev) {
+    const rect = $('scene').getBoundingClientRect();
+    const sx = ev.clientX - rect.left;
+    const sy = ev.clientY - rect.top;
+    return {
+      x: cam.x + (sx - rect.width / 2) / cam.zoom,
+      y: cam.y - (sy - rect.height / 2) / cam.zoom
+    };
+  }
+
+  function place(x0, y0, x1, y1) {
+    if (tool === 'erase') {
+      const hit = E.deleteAt(session, x1, y1);
+      setStatus(hit.ok ? 'Lifted out.' : hit.reason);
+      if (hit.ok) audio.play('delete');
+      return;
+    }
+    if (tool === 'split') {
+      const hit = E.splitJoint(session, x1, y1);
+      setStatus(hit.ok ? 'Hinge seated. Arm it on the phases where it should open.' : hit.reason);
+      if (hit.ok) { session.selected = null; audio.play('steel'); updateInspector(); }
+      return;
+    }
+    if (tool === 'anchor') {
+      const hit = E.addAnchor(session, x1, y1);
+      setStatus(hit.ok ? 'Bolt seated.' : hit.reason);
+      return;
+    }
+    const hit = E.placeBeam(session, tool, x0, y0, x1, y1, { sideA: side, sideB: side });
+    if (!hit.ok && hit.needSide) {
+      side = side === 'a' ? 'b' : 'a';
+      setStatus(side === 'a' ? 'Hinge side: bank.' : 'Hinge side: leaf. Tap again.');
+      return;
+    }
+    if (!hit.ok) { setStatus(hit.reason); return; }
+    audio.play(tool === 'steel' || tool === 'hydraulic' ? 'steel' : tool === 'rope' || tool === 'cable' ? 'rope' : 'wood');
+    burst(hit.x1, hit.y1, '#e6d3b0', 8);
+    setStatus(E.MATERIALS[tool].name + ' · ' + hit.len.toFixed(1) + ' m · ' + money(hit.cost));
+    updateHud();
+    if (session.level.sandbox) meta.sandbox = E.exportDesign(session);
+    else meta.drafts[session.level.id] = E.exportDesign(session);
+    saveMeta();
+  }
+
+  function burst(x, y, color, n) {
+    if (meta.settings.quality === 'plain') return;
+    for (let i = 0; i < n; i++) {
+      particles.push({ x: x, y: y, vx: (Math.random() - 0.5) * 2, vy: Math.random() * 2, life: 0.6 + Math.random() * 0.4, color: color, size: 2 + Math.random() * 3 });
+    }
+  }
+
+  function onPointerDown(ev) {
+    $('scene').setPointerCapture(ev.pointerId);
+    pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    if (pointers.size === 2) {
+      const pts = [...pointers.values()];
+      pinching = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), x: cam.x, y: cam.y, zoom: cam.zoom };
+      anchor = null;
+      return;
+    }
+    if (ev.button === 2 || tool === 'erase') {
+      const p = screenPoint(ev);
+      place(p.x, p.y, p.x, p.y);
+      return;
+    }
+    if (ev.button === 1 || ev.shiftKey || tool === 'pan') return;
+    const p = screenPoint(ev);
+    anchor = { x: p.x, y: p.y, sx: ev.clientX, sy: ev.clientY };
+  }
+  function onPointerMove(ev) {
+    if (!pointers.has(ev.pointerId)) return;
+    pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    if (pointers.size === 2 && pinching) {
+      const pts = [...pointers.values()];
+      const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+      cam.zoom = Math.max(18, Math.min(90, pinching.zoom * dist / (pinching.dist || 1)));
+      return;
+    }
+    if (!anchor) return;
+    if (Math.hypot(ev.clientX - anchor.sx, ev.clientY - anchor.sy) > 8 && (ev.altKey || tool === 'pan')) {
+      cam.x -= (ev.clientX - anchor.sx) / cam.zoom;
+      cam.y += (ev.clientY - anchor.sy) / cam.zoom;
+      anchor.sx = ev.clientX; anchor.sy = ev.clientY;
+      return;
+    }
+    const p = screenPoint(ev);
+    if (E.MATERIALS[tool]) {
+      const len = Math.hypot(p.x - anchor.x, p.y - anchor.y);
+      const mat = E.MATERIALS[tool];
+      ghost = { x0: anchor.x, y0: anchor.y, x1: p.x, y1: p.y, ok: len <= mat.max + 0.05 && len > 0.3 };
+    }
+  }
+  function onPointerUp(ev) {
+    pointers.delete(ev.pointerId);
+    if (pointers.size < 2) pinching = null;
+    if (!anchor) return;
+    const moved = Math.hypot(ev.clientX - anchor.sx, ev.clientY - anchor.sy);
+    const p = screenPoint(ev);
+    if (moved < 6) {
+      if (!anchor.armed) { anchor = { x: p.x, y: p.y, sx: ev.clientX, sy: ev.clientY, armed: true }; ghost = null; setStatus('Start set. Tap the other end.'); return; }
+      place(anchor.x, anchor.y, p.x, p.y);
+    } else if (E.MATERIALS[tool]) place(anchor.x, anchor.y, p.x, p.y);
+    anchor = null;
+    ghost = null;
+  }
+
+  function consumeEvents() {
+    const sim = session && session.sim;
+    if (!sim || !sim.events) return;
+    for (const e of sim.events) {
+      if (e.type === 'break') {
+        audio.play('break');
+        if (meta.settings.shake !== false) cam.shake = Math.min(22, cam.shake + 8);
+        burst(e.x, e.y, e.mat === 'wood' ? '#c4894a' : '#d7dde3', 14);
+      } else if (e.type === 'splash') audio.play('splash');
+      else if (e.type === 'flag') audio.play('star');
+      else if (e.type === 'result') {
+        audio.play(e.result === 'success' ? 'success' : 'fail');
+        onResult();
+      }
+    }
+    sim.events.length = 0;
+  }
+
+  function onResult() {
+    const fresh = E.award(meta, session);
+    if (session.level.sandbox) meta.sandbox = E.exportDesign(session);
+    else meta.drafts[session.level.id] = E.exportDesign(session);
+    saveMeta();
+    const g = session.sim.grade;
+    const ok = session.sim.result === 'success';
+    $('resultKicker').textContent = ok ? 'Across' : 'Not this time';
+    $('resultTitle').textContent = ok ? session.level.name : 'The span gave way';
+    $('resultBody').textContent = E.reasonText(session.sim) + ' ' + money(g.spent) + ' of ' + money(g.budget) + '. Peak load ' + Math.round(g.peak * 100) + '%.';
+    $('resultStars').textContent = stars(g.stars || 0);
+    $('result').hidden = false;
+    if (fresh.length) setStatus('Noted in the book: ' + fresh.map(id => E.ACHIEVEMENTS.find(a => a.id === id).name).join(', '));
+    const idx = E.LEVELS.findIndex(l => l.id === session.level.id);
+    const next = E.LEVELS[idx + 1];
+    $('nextBtn').disabled = !next || !E.levelUnlocked(meta, next);
+  }
+
+  function tick(now) {
+    const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
+    last = now;
+    if (screen === 'play' && session && !paused() && session.sim && session.sim.mode === 'run') {
+      const n = session.sim.speed || 1;
+      for (let i = 0; i < n; i++) E.tick(session);
+      consumeEvents();
+    } else if (screen === 'play' && session && session.sim && session.sim.mode === 'replay' && !paused()) {
+      E.tickReplay(session, dt);
+    }
+    particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy -= dt * 2; p.life -= dt; });
+    particles = particles.filter(p => p.life > 0);
+    cam.shake *= 0.86;
+    if (screen === 'play' && session) paint();
+    updateHud();
+    requestAnimationFrame(tick);
+  }
+
+  function paused() {
+    return !$('pause').hidden || !$('settings').hidden || !$('info').hidden;
+  }
+
+  function paint() {
+    const canvas = $('scene');
+    const dpr = Math.min(window.devicePixelRatio || 1, meta.settings.quality === 'plain' ? 1.25 : 2);
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+      canvas.width = Math.max(1, Math.floor(w * dpr));
+      canvas.height = Math.max(1, Math.floor(h * dpr));
+    }
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const shake = meta.settings.shake === false ? 0 : cam.shake;
+    const view = { x: cam.x + (Math.random() - 0.5) * shake * 0.04, y: cam.y + (Math.random() - 0.5) * shake * 0.04, zoom: cam.zoom };
+    R.draw(ctx, w, h, session, view, particles, {
+      time: performance.now() / 1000,
+      quality: meta.settings.quality,
+      stress: session.sim && (session.sim.stress || $('stressBtn').getAttribute('aria-pressed') === 'true'),
+      ink: !!meta.settings.stressInk,
+      ghost: ghost,
+      selected: session.selected,
+      cursor: cursor,
+      mode: session.sim && session.sim.mode
+    });
+  }
+
+  function resize() {
+    if (session && screen === 'play') fitCamera();
+  }
+
+  function closeVeils() {
+    ['pause', 'settings', 'result', 'info'].forEach(id => { $(id).hidden = true; });
+  }
+
+  function openSettings() {
+    $('volMaster').value = meta.settings.master;
+    $('volMusic').value = meta.settings.music;
+    $('volSfx').value = meta.settings.sfx;
+    $('qualityBtn').textContent = 'Picture: ' + (meta.settings.quality === 'plain' ? 'Plain' : 'Fine');
+    $('inkBtn').textContent = 'Stress: ' + (meta.settings.stressInk ? 'Ink' : 'Colour');
+    $('shakeBtn').textContent = 'Shake: ' + (meta.settings.shake === false ? 'Off' : 'On');
+    $('gridBtn').textContent = 'Grid: ' + (meta.settings.grid === 0.5 ? '½ m' : '1 m');
+    $('settings').hidden = false;
+  }
+
+  function bind() {
+    $('continueBtn').addEventListener('click', () => {
+      audio.resume(); audio.startMusic(); audio.play('ui');
+      const next = E.LEVELS.find(l => E.levelUnlocked(meta, l) && !(meta.stars[l.id] > 0)) || E.LEVELS[0];
+      start(next.id);
+    });
+    $('mapBtn').addEventListener('click', () => { audio.play('ui'); show('map'); });
+    $('yardBtn').addEventListener('click', () => start('yard'));
+    $('mapYard').addEventListener('click', () => start('yard'));
+    $('achieveBtn').addEventListener('click', () => { audio.play('ui'); show('achievements'); });
+    $('settingsBtn').addEventListener('click', openSettings);
+    $('mapHome').addEventListener('click', () => show('title'));
+    $('achieveHome').addEventListener('click', () => show('title'));
+    $('pauseBtn').addEventListener('click', () => { $('pause').hidden = false; $('resumeBtn').focus(); });
+    $('resumeBtn').addEventListener('click', () => { $('pause').hidden = true; $('scene').focus(); });
+    $('retryBtn').addEventListener('click', () => { if (session.sim) E.rebuild(session); $('pause').hidden = true; updateHud(); });
+    $('quitBtn').addEventListener('click', () => { closeVeils(); if (session && !session.level.sandbox) { meta.drafts[session.level.id] = E.exportDesign(session); saveMeta(); } show('map'); });
+    $('pauseSettings').addEventListener('click', openSettings);
+    $('settingsClose').addEventListener('click', () => { $('settings').hidden = true; });
+    $('infoBtn').addEventListener('click', () => {
+      const level = session.level;
+      $('infoKicker').textContent = level.world;
+      $('infoTitle').textContent = level.name;
+      const vehicles = (level.vehicles || []).map(v => (E.VEHICLES[v.type] || {}).name || v.type).join(', ');
+      const phases = (level.phases || []).map(p => p.id + ' ' + (p.label || '')).join(' · ');
+      const contract = level.contract && level.contract.requireClean ? ' Nothing may reach its limit.' : '';
+      const under = level.contract && level.contract.requireUnder ? ' It must come in under budget.' : '';
+      $('infoBody').textContent = level.brief + ' Budget ' + money(level.budget) + '. Vehicles: ' + vehicles + '. Phases: ' + phases + '.' + contract + under;
+      $('info').hidden = false;
+    });
+    $('infoClose').addEventListener('click', () => { $('info').hidden = true; });
+    $('playBtn').addEventListener('click', () => {
+      audio.resume();
+      if (session.sim && session.sim.mode === 'run') return;
+      if (session.sim) E.rebuild(session);
+      const started = E.beginSim(session);
+      if (!started.ok) { setStatus(started.reason); return; }
+      audio.play('play');
+      $('result').hidden = true;
+      setStatus('The crossing is in motion.');
+    });
+    $('undoBtn').addEventListener('click', () => { if (E.undo(session)) { audio.play('ui'); updateHud(); } });
+    $('stressBtn').addEventListener('click', () => {
+      const on = $('stressBtn').getAttribute('aria-pressed') !== 'true';
+      $('stressBtn').setAttribute('aria-pressed', String(on));
+      if (session.sim) session.sim.stress = on;
+    });
+    $('rebuildBtn').addEventListener('click', () => { E.rebuild(session); $('result').hidden = true; updateHud(); });
+    $('resultMap').addEventListener('click', () => { closeVeils(); show('map'); });
+    $('nextBtn').addEventListener('click', () => {
+      const idx = E.LEVELS.findIndex(l => l.id === session.level.id);
+      const next = E.LEVELS[idx + 1];
+      if (next && E.levelUnlocked(meta, next)) start(next.id);
+    });
+    $('replayBtn').addEventListener('click', () => {
+      const fresh = E.noteReplay(meta);
+      saveMeta();
+      E.beginReplay(session);
+      $('result').hidden = true;
+      if (fresh.length) setStatus('Replay kept in the book.');
+    });
+    $('speedBtn').addEventListener('click', () => {
+      speedIndex = (speedIndex + 1) % speeds.length;
+      if (session.sim) E.setSpeed(session, speeds[speedIndex]);
+      $('speedBtn').textContent = 'Speed ' + speeds[speedIndex] + '×';
+    });
+    $('replayScrub').addEventListener('input', () => {
+      if (session && session.sim && session.sim.samples) E.seekReplay(session, parseFloat($('replayScrub').value));
+    });
+    ['volMaster', 'volMusic', 'volSfx'].forEach(id => {
+      $(id).addEventListener('input', () => {
+        meta.settings.master = parseFloat($('volMaster').value);
+        meta.settings.music = parseFloat($('volMusic').value);
+        meta.settings.sfx = parseFloat($('volSfx').value);
+        audio.setVolumes(meta.settings);
+        saveMeta();
+      });
+    });
+    $('qualityBtn').addEventListener('click', () => { meta.settings.quality = meta.settings.quality === 'plain' ? 'fine' : 'plain'; saveMeta(); openSettings(); });
+    $('inkBtn').addEventListener('click', () => { meta.settings.stressInk = !meta.settings.stressInk; saveMeta(); openSettings(); });
+    $('shakeBtn').addEventListener('click', () => { meta.settings.shake = meta.settings.shake === false; saveMeta(); openSettings(); });
+    $('gridBtn').addEventListener('click', () => {
+      meta.settings.grid = meta.settings.grid === 0.5 ? 1 : 0.5;
+      if (session) session.grid = meta.settings.grid;
+      saveMeta(); openSettings();
+    });
+    $('tutNext').addEventListener('click', () => { tut += 1; if (tut >= TUTORIAL.length) { tut = -1; meta.tutorial = false; saveMeta(); } updateTutorial(); });
+    $('tutSkip').addEventListener('click', () => { tut = -1; meta.tutorial = false; saveMeta(); updateTutorial(); });
+
+    const scene = $('scene');
+    scene.addEventListener('contextmenu', ev => ev.preventDefault());
+    scene.addEventListener('pointerdown', onPointerDown);
+    scene.addEventListener('pointermove', onPointerMove);
+    scene.addEventListener('pointerup', onPointerUp);
+    scene.addEventListener('pointercancel', onPointerUp);
+    scene.addEventListener('wheel', ev => {
+      ev.preventDefault();
+      cam.zoom = Math.max(18, Math.min(90, cam.zoom * (ev.deltaY > 0 ? 0.92 : 1.08)));
+    }, { passive: false });
+
+    window.addEventListener('keydown', ev => {
+      if (ev.target && ev.target.closest && ev.target.closest('input, textarea')) return;
+      if (ev.key === 'Escape') {
+        if (!$('settings').hidden) { $('settings').hidden = true; return; }
+        if (!$('info').hidden) { $('info').hidden = true; return; }
+        if (!$('result').hidden) return;
+        if (screen === 'play') { $('pause').hidden = !$('pause').hidden; if (!$('pause').hidden) $('resumeBtn').focus(); }
+        return;
+      }
+      if (paused()) return;
+      keys[ev.key] = true;
+      if (screen !== 'play' || !session) return;
+      const mat = Object.values(E.MATERIALS).find(m => m.key === ev.key && session.level.materials.indexOf(m.id) >= 0);
+      if (mat) { tool = mat.id; buildTools(); return; }
+      if (ev.key === 'h' || ev.key === 'H') { tool = 'split'; buildTools(); }
+      if (ev.key === 'x' || ev.key === 'X') { tool = 'erase'; buildTools(); }
+      if (ev.key === 'z' && !ev.metaKey && !ev.ctrlKey) { E.undo(session); updateHud(); }
+      if (ev.key === 'Z' && ev.shiftKey) E.redo(session);
+      if (ev.key === ' ') { ev.preventDefault(); $('playBtn').click(); }
+      if (ev.key === 't' || ev.key === 'T') $('stressBtn').click();
+      if (ev.key === 'r' || ev.key === 'R') { if (session.sim) E.rebuild(session); }
+      if ((ev.key === 'Enter' || ev.key === ' ') && cursor && ev.key === 'Enter') {
+        if (!anchor) anchor = { x: cursor.x, y: cursor.y, sx: 0, sy: 0, armed: true };
+        else { place(anchor.x, anchor.y, cursor.x, cursor.y); anchor = null; }
+      }
+      const step = session.grid || 1;
+      if (ev.key === 'ArrowLeft') cursor.x -= step;
+      if (ev.key === 'ArrowRight') cursor.x += step;
+      if (ev.key === 'ArrowUp') cursor.y += step;
+      if (ev.key === 'ArrowDown') cursor.y -= step;
+      if (cursor) setStatus('Survey pin ' + cursor.x.toFixed(1) + ', ' + cursor.y.toFixed(1) + '. Enter places.');
+    });
+    window.addEventListener('keyup', ev => { keys[ev.key] = false; });
+    window.addEventListener('resize', resize);
+  }
+
+  bind();
+  audio.setVolumes(meta.settings);
+  show('title');
+  requestAnimationFrame(tick);
+  window.Spanwright = { get meta() { return meta; }, get session() { return session; }, start: start };
+})();
