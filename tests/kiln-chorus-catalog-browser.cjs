@@ -22,7 +22,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
    await act(frame.locator('#plan-toggle'));const beforePlan=await raw();
    for(const a of ['stoke','stoke','bank','draw0','stoke','bank','draw1']){await act(frame.locator('[data-action="'+a+'"]'));await act(frame.locator('#perform'))}
    assert.match(await frame.locator('#status').innerText(),/Rehearsal.*Load complete/);assert.equal(await raw(),beforePlan);await shot('winning-rehearsal');
-   for(let i=0;i<7;i++)await act(frame.locator('#plan-commit'));await act(frame.locator('#plan-toggle'));
+   for(let i=0;i<7;i++)await act(frame.locator('#plan-commit'));assert(await frame.locator('#plan-panel').isHidden());
    assert.match(await frame.locator('#status').innerText(),/Load complete/);await shot('kiln-victory');
    const saved=await raw();assert.equal(JSON.parse(saved).records[0],3);
    await act(page.locator('#pauseGame'));assert(await page.locator('#pauseCover').isVisible());assert.equal(await raw(),saved);
@@ -42,6 +42,3 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
   }catch(e){await shot('failure');throw e}finally{await context.close()}
  }
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{if(browser)await browser.close();server.kill()});
-
-
-
