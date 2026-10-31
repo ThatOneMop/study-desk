@@ -25,8 +25,8 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
    for(let i=0;i<7;i++)await act(frame.locator('#plan-commit'));assert(await frame.locator('#plan-panel').isHidden());
    assert.match(await frame.locator('#status').innerText(),/Load complete/);await shot('kiln-victory');
    const saved=await raw();assert.equal(JSON.parse(saved).records[0],3);
-   await act(frame.locator('#reset'));await act(page.locator('#pauseGame'));assert(await frame.locator('#accept').isDisabled());await act(frame.locator('#cancel'));assert(await page.locator('#pauseCover').isVisible());assert.equal(await raw(),saved);
-   await act(page.locator('#resumeGame'));assert.equal(await frame.locator('#pause').textContent(),'Resume');await act(frame.locator('#pause'));
+   await act(frame.locator('#reset'));await act(page.locator('#pauseGame'));await page.waitForFunction(()=>document.querySelector('#frame').contentDocument.querySelector('#accept').disabled);assert(await page.locator('#pauseCover').isVisible());assert.equal(await raw(),saved);
+   await act(page.locator('#resumeGame'));await act(frame.locator('#cancel'));assert.equal(await frame.locator('#pause').textContent(),'Resume');await act(frame.locator('#pause'));
    assert(await frame.locator('#retry').isEnabled());
    await act(page.locator('#libraryBtn'));assert(await page.locator('#arcade').isVisible());assert.equal(await raw(),saved);
    await act(page.locator('#games [data-action="play"]'));assert.equal(await raw(),saved);assert.equal(await frame.locator('#pause').textContent(),'Resume');await act(frame.locator('#pause'));
