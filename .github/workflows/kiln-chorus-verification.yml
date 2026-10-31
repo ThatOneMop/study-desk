@@ -1,0 +1,36 @@
+name: Kiln Chorus candidate verification
+on:
+  push:
+    branches: [indie-collection-three-dev]
+    paths:
+      - 'games/kiln-chorus/**'
+      - 'tests/kiln-chorus*'
+      - 'tests/fixtures/kiln-chorus*'
+      - '.github/workflows/kiln-chorus-verification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  kiln-chorus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0 playwright@1.58.2
+          node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/kiln-chorus/game.js
+          node --test tests/kiln-chorus-engine.cjs tests/kiln-chorus-dom.cjs
+          node tests/kiln-chorus-browser.cjs
+          python tests/assets.py
+          python tests/selected-indie.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kiln-chorus-browser
+          path: test-artifacts/kiln-chorus/
