@@ -3,12 +3,12 @@ const {chromium}=require('playwright'),A=require('node:assert/strict'),fs=requir
 const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/field-album'),base='http://127.0.0.1:8168';fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','8168','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
 (async()=>{for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promise(r=>setTimeout(r,100))}browser=await chromium.launch();for(const touch of[false,true]){
  const context=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},hasTouch:touch,isMobile:touch}),page=await context.newPage(),prefix=touch?'touch':'desktop',errors=[];page.on('pageerror',e=>errors.push(e.message));const click=async id=>touch?await page.locator(id).tap():await page.locator(id).click(),raw=()=>page.evaluate(k=>localStorage.getItem(k),E.KEY),state=async()=>E.decode(await raw());
- const shot=async(name,id='#studies')=>{await page.locator(id).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,prefix+'-'+name+'.png')});A.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))};
+ const shot=async(name,id='#studies')=>{if(id==='#studies'&&!(await page.locator('#study-panel').getAttribute('open')!==null))await click('#studies-title');await page.locator(id).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,prefix+'-'+name+'.png')});A.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))};
  async function reload(){const s=await state();await page.reload();await click('#start');A.deepEqual(await state(),s)}
  async function move(a){if(a.type==='survey')await click('#survey'+a.habitat);else{await click('#card'+a.card);await click('#plot'+a.p);await click('#place')}}
  async function campaign(route){for(let i=0;i<route.moves.length;i++){await move(route.moves[i]);if(i%3===2)await reload()}A.equal(E.board(await state()).phase,'complete');A.equal(E.score(E.board(await state()).cells,route.level).total,route.total)}
  try{
- await page.goto(base+'/games/field-album/index.html');await click('#start');await shot('onboarding');
+ await page.goto(base+'/games/field-album/index.html');await click('#start');await shot('onboarding','#album');
  for(const route of routes){await campaign(route);await shot('base-win-'+route.level,'#result');if(route.level<2)await click('#next')}
  // Earned all trail access above: no injected campaign state.
  for(let level=0;level<3;level++){
