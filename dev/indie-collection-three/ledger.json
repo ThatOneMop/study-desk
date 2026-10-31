@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 11,
     "browserTested": 11,
-    "integrated": 10,
-    "live": 10
+    "integrated": 11,
+    "live": 11
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1081,13 +1081,13 @@
       "id": "soundings",
       "title": "Soundings",
       "coreLoop": "Place sonar buoys, combine distances to the nearer of two hidden beacons, and choose when to spend scarce fuel on recoveries; notebook deductions narrow possible pairs.",
-      "status": "qualified-awaiting-catalogue-promotion",
+      "status": "integrated-live",
       "source": "games/soundings",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-10-31",
@@ -1099,7 +1099,10 @@
           "finalTestCommit": "a24b24fdfb2346f530f5cf2f313efa29c0eec4a5",
           "verificationRun": 41195928930,
           "evidence": "28 focused checks and six desktop/emulated-touch campaign victories with every-action reload, survey planner, loss/retry, new voyage/records, sweep footprint, native Escape, pause/parent-hidden guards, Collection navigation and storage recovery/reset/quota failure. Natural sector victories left3/2/3 fuel. Desktop and phone screenshots inspected; no human enjoyment or physical-touch claim.",
-          "integrationReport": "dev/indie-collection-three/SOUNDINGS_INTEGRATION.md"
+          "integrationReport": "dev/indie-collection-three/SOUNDINGS_INTEGRATION.md",
+          "promotionRun": 41196046685,
+          "combinedTreeRun": 41196680541,
+          "integrationCommit": "ccaadaa8ed63f70814f17291974793ce745199ae"
         }
       ],
       "tests": [
@@ -1108,7 +1111,8 @@
         "Both scripts pass syntax checks. No rendered play, screenshots, native keyboard/touch, mobile-layout or enjoyment claim. Full repository checks not run from partial checkout.",
         "Bearing refinement: 16 total tests pass (10 engine, 6 jsdom). Both distance-only and bearing-first visible-evidence policies solve all 300 pairs. Mirrored-clue filtering, duplicate/Here directions, combined evidence, expensive-survey loss, legacy saves, journal validation, free rereading/reload and pause/dialog guards covered. Both scripts pass syntax checks.",
         "Area sweep: 24 passing tests (15 engine, 9 jsdom), retaining the previous 16. Radius/count and centre/edge boundaries, persistent recovered signals, combined hypothesis filtering, v1 reload/duplicates, loss/retry, read-only footprint, notebook labels, pause/dialog guards and complete UI progression. Centre-sweep-first visible-evidence policy solves all 300 beacon pairs. Scripts pass syntax checks. No rendered evidence.",
-        "Run41195928930/job124521956441 passed28 tests and complete desktop/emulated-touch suite; candidate asset check63 bundled routes/231 references and first selected collection integrity passed. Artifact13040009357 SHA256ad79a86d1a0820d801c00d7a9f5dbc18faabfbd7e0681ff469b79b3d6337709b. Phone screenshots from identical game source in artifact13040935954 (previous test-harness revision) inspected: onboarding, planner, reserve. Initial CI failures were test timing around DOM replacement and touch navigation, fixed in f1619f3/a24b24f."
+        "Run41195928930/job124521956441 passed28 tests and complete desktop/emulated-touch suite; candidate asset check63 bundled routes/231 references and first selected collection integrity passed. Artifact13040009357 SHA256ad79a86d1a0820d801c00d7a9f5dbc18faabfbd7e0681ff469b79b3d6337709b. Phone screenshots from identical game source in artifact13040935954 (previous test-harness revision) inspected: onboarding, planner, reserve. Initial CI failures were test timing around DOM replacement and touch navigation, fixed in f1619f3/a24b24f.",
+        "Promotion41196046685/job124522306916:270 focused tests, eleven-game desktop/touch gameplay and catalogue suites,62 bundled routes/314 refs, first-batch integrity. Artifact13041366371 SHA256a1896c3245ef810ece4342859bbfb952f82702bb518076cb81c7ad756d2ab677; final phone search/favourite and victory plus desktop saved-return screenshots inspected. Concurrent Lanewright fixes preserved in mergeccaadaa8; focused combined-tree run41196680541 also passed including Lanewright smoke. Pages41196769368 and41196902733 succeeded. Live victory/reload/catalogue re-entry and in-game Collection return verified; normal reload confirmed soundings-20261031 asset version."
       ],
       "commits": [
         "53b115faa06a46e8b7512a6f1cae13caa5e964b8",
@@ -1118,10 +1122,14 @@
         "f1619f33864c6ca1670bd42fd327926a50d5904c",
         "a24b24fdfb2346f530f5cf2f313efa29c0eec4a5"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "ccaadaa8ed63f70814f17291974793ce745199ae",
+        "c6d53a79b09e753d0ffb0facd5b939b06c8ae8ba",
+        "2f773b6603cbfa4cd64a68e73dcc894ff1b737d2"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/soundings/index.html",
       "quality": {
-        "status": "Selected; promotion testing pending",
+        "status": "Selected, integrated and live",
         "enjoyment": "Agent assessment: calm evidence gathering, with planner-supported choices between cheap clues and stronger bearings. No human enjoyment study.",
         "depth": "Three compact sectors, deterministic chart variations and saved fuel records. No authored-content or duration inflation.",
         "polish": "Nautical grid, stronger possible-location borders, keyboard chart selection, readable responsive planner and reserve feedback.",
@@ -1130,7 +1138,7 @@
         "knownLimits": "Compact campaign; best-fuel records across retries/charts are casual, not competitive. Physical touch devices untested."
       },
       "nextSteps": [
-        "Pass promotion9667fb80ee095ca9fed17baace5499e591254943 on current main; inspect catalogue screenshots, integrate with fresh branch leases, verify Pages/live route."
+        "Retain survey-planner evidence, v1 saves and native input/Collection guards in future regression checks."
       ],
       "pendingSourceRefinement": {
         "commit": "95bc2808de3dce9257d98bd32eef0fb5c40c6f94",
@@ -2310,11 +2318,11 @@
     }
   ],
   "nextSteps": [
-    "Finish Soundings promotion9667fb80ee095ca9fed17baace5499e591254943: review run41196046685, screenshots, fresh main integration and live route.",
-    "Then play and improve Moss Commons slot52;13 built candidates remain unqualified and26 third-batch slots remain unbuilt. Preserve earlier collections and concurrent user work."
+    "Play Moss Commons slot52 naturally, identify and implement a substantial game-specific improvement, then qualify desktop/touch and catalogue integration.",
+    "Continue remaining third-batch slate:13 built candidates need qualification,26 remain unbuilt. Keep exactly50 slots, preserve prior collections and concurrent Lanewright/Creekhold/Spanwright/Gummy Bay work; retain hourly schedule until completion."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "d87aabed2e358d689a66eb556ffc4f9ad195a7d2",
+  "latestObservedMain": "2f773b6603cbfa4cd64a68e73dcc894ff1b737d2",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3029,6 +3037,15 @@
       "verificationRun": 41195928930,
       "promotionCommit": "9667fb80ee095ca9fed17baace5499e591254943",
       "summary": "Soundings survey-planning upgrade qualified after28 tests and six desktop/touch campaign victories. Natural rendered choice/loss/retry/save evidence recorded. Counts24/11/11/10/10; catalogue promotion41196046685 pending. Concurrent Lanewright preserved. Live current catalogue matches main and has no Switch workspace control."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "2f773b6603cbfa4cd64a68e73dcc894ff1b737d2",
+      "integrationCommit": "ccaadaa8ed63f70814f17291974793ce745199ae",
+      "verificationRun": 41196046685,
+      "combinedTreeRun": 41196680541,
+      "pagesRun": 41196902733,
+      "summary": "Soundings integrated/live after270 focused checks, eleven-game desktop/touch gameplay/catalogue suite and final screenshots. Non-overlapping concurrent Lanewright fixes retained and smoke-tested. Live stale catalogue observed, asset URL versioned, normal reload verified new version,63 entries and saved Soundings launch/Collection return. Counts24/11/11/11/11; no publication barrier."
     }
   ]
 }
