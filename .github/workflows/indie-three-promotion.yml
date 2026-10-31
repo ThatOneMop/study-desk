@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/bramble-dice-engine.cjs tests/bramble-dice-dom.cjs
+          node tests/bramble-dice-browser.cjs
+          node tests/bramble-dice-catalog-browser.cjs
           node --check games/stencil-studio/game.js
           node --check games/stencil-studio/engine.js
           node --test tests/stencil-studio-engine.cjs tests/stencil-studio-dom.cjs
@@ -44,9 +47,6 @@ jobs:
           node --test tests/crate-cushion-engine.cjs tests/crate-cushion-dom.cjs
           node tests/crate-cushion-browser.cjs
           node tests/crate-cushion-catalog-browser.cjs
-          node --test tests/bramble-dice-engine.cjs tests/bramble-dice-dom.cjs
-          node tests/bramble-dice-browser.cjs
-          node tests/bramble-dice-catalog-browser.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
