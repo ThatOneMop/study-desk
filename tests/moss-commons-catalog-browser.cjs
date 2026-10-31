@@ -12,7 +12,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
   try{
    await page.goto(base+'/index.html#games');
    assert.equal(await page.getByRole('button',{name:/switch workspace/i}).count(),0);
-   await page.locator('#search').fill('moss-commons');assert.equal(await page.locator('#games .game').count(),1);
+   await page.locator('#search').fill('Moss Commons');assert.equal(await page.locator('#games .game').count(),1);
    await page.locator('#groupBy').selectOption('collection');await page.locator('#sortGames').selectOption('az');
    assert.match(await page.locator('#games').innerText(),/Indie collection three/);
    await act(page.locator('#games [data-action="favourite"]'));await act(page.locator('#filters').getByRole('button',{name:'Favourites',exact:true}));
@@ -31,7 +31,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
    // In-game Games must leave the player, rather than nesting another launcher in its iframe.
    await act(frame.locator('header a'));await page.waitForURL('**/index.html#games');await page.locator('#search').waitFor();
    assert(await page.locator('#arcade').isVisible());assert.equal(await page.locator('#player').isVisible(),false);assert.equal(await raw(),saved);
-   await page.locator('#search').fill('moss-commons');assert.equal(await page.locator('#games .game').count(),1);assert.equal(await page.locator('#games [data-action="favourite"]').getAttribute('aria-pressed'),'true');
+   await page.locator('#search').fill('Moss Commons');assert.equal(await page.locator('#games .game').count(),1);assert.equal(await page.locator('#games [data-action="favourite"]').getAttribute('aria-pressed'),'true');
    await act(page.locator('#games [data-action="play"]'));await frame.locator('#board .plot').first().waitFor();assert.equal(await raw(),saved);await shot('saved-return');
    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
    const gameFrame=page.frames().find(f=>f.url().includes('/games/moss-commons/'));assert(await gameFrame.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
