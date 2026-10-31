@@ -29,3 +29,12 @@ The pocket and rearrangement are independent allowances. Undo restores either on
 This is a source-led refinement, not a rendered-play improvement pass. Test whether delaying a useful find creates satisfying choices, whether the replacement label prevents accidental trades, and whether the additional controls remain readable on touch devices before selecting this prototype for the catalogue.
 
 Current validation: 33 tests pass (18 engine, 15 jsdom), retaining all 26 pre-pocket tests. Includes full 21-action replay with both allowances, exact species carry, invalid/late/taken/identical trades, legacy board shapes, unused pockets, UI preview/selection, pause and native keyboard guards, packet reloads, completion and isolated reset. No rendered evidence.
+
+
+## Ecology studies and direct rearrangement — 1 November 2026
+
+The recorded Home Meadow playtest passed its target after eight placements. This upgrade adds optional current-page ecology studies: feed every bee and create a shared clover link; surround one frog with all three plant species; establish each native plant plus an isolated forest robin. These goals encourage habitat diversity beyond raw score without adding surveys or changing unlocks. Placement and swap previews show relationship gains/losses before committing. A full page confirms satisfied studies; they describe the current saved arrangement, not permanent medals. No save fields are added: existing v1 journals reconstruct every relationship on reload, and undo can remove a confirmation.
+
+Rearrangement now accepts a source tap directly on the board, followed by a destination and confirmation; tapping the source again clears it. The dropdown remains available. Paused reset confirmation is guarded, dialog close refreshes controls, and iframe Games uses the existing collection-return message.
+
+38 local checks pass (20 engine,18 jsdom), retaining all33 earlier tests. New checks cover ecology relationships, absence of empty-page awards, old-journal derivation, transient previews, board swaps/undo and hidden-reset protection. Engine/game syntax passes. Browser controls were unavailable in this run: new layout, native Escape, touch input, study balance/achievability through actual drafting, all-trail rendered play and real catalogue navigation remain unverified. This is implemented work based on the prior rendered baseline, not a completed rendered improvement pass. The game stays unlisted; no additional improvement/browser-tested/integrated/live credit.
