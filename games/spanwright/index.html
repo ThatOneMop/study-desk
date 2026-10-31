@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#142028">
+  <link rel="icon" href="../../favicon.ico">
   <title>Spanwright — Study Desk</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -65,6 +66,8 @@
       <button id="infoBtn" class="ghost" type="button">Brief</button>
       <button id="stressBtn" class="ghost" type="button" aria-pressed="false">Stress</button>
       <button id="undoBtn" class="ghost" type="button">Undo</button>
+      <button id="redoBtn" class="ghost" type="button">Redo</button>
+      <button id="cancelBtn" class="ghost" type="button">Cancel</button>
       <button id="playBtn" class="primary" type="button">Play</button>
       <button id="pauseBtn" class="ghost" type="button">Pause</button>
     </header>
@@ -117,7 +120,9 @@
       <h2 id="resultTitle">Home</h2>
       <p id="resultBody"></p>
       <p class="stars" id="resultStars" aria-label="Stars"></p>
-      <label>Replay <input id="replayScrub" type="range" min="0" max="1" step="0.001" value="0"></label>
+      <label class="scrub">Replay
+        <input id="replayScrub" type="range" min="0" max="1" step="0.001" value="0">
+      </label>
       <div class="actions">
         <button id="replayBtn" class="ghost" type="button">Watch again</button>
         <button id="speedBtn" class="ghost" type="button">Speed 1×</button>
@@ -138,6 +143,7 @@
   </div>
 </div>
 <script src="engine.js"></script>
+<script src="solutions.js"></script>
 <script src="render.js"></script>
 <script src="audio.js"></script>
 <script src="game.js"></script>
