@@ -37,7 +37,12 @@ button { cursor: pointer; }
 .chip b { font-size: 14px; }
 .chip.warn { border-color: #e0b15a; background: #fff6e4; }
 .chip.bad { border-color: #c9a15a; background: #f6efd8; }
-#speeds { display: inline-flex; gap: 4px; margin-left: auto; }
+#controls {
+  display: inline-flex; gap: 4px; align-items: center; margin-left: auto;
+  position: sticky; right: -8px; z-index: 1; padding: 0 8px 0 6px; margin-right: -8px; background: var(--paper);
+  box-shadow: -10px 0 10px -8px rgba(28, 36, 28, 0.28);
+}
+#speeds { display: inline-flex; gap: 4px; }
 #speeds button, .iconbtn {
   border: 1px solid var(--line); background: #fff; border-radius: 9px; min-width: 36px; min-height: 36px; padding: 0 8px;
 }
@@ -105,6 +110,11 @@ dialog::backdrop { background: rgba(18, 24, 18, 0.48); }
   border: 1px solid var(--line); border-radius: 12px; padding: 8px; background: #fffdf8;
 }
 .tech b { display: block; }
+.tier-head { margin: 10px 0 0; font: 600 12px/1.2 system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--river); }
+.tier-known { margin: 2px 0 4px; font: 13px/1.45 system-ui, sans-serif; color: var(--muted); }
+.tier-head.shut { color: var(--muted); }
+.tech.shut { opacity: 0.62; }
+#closeTech { position: sticky; bottom: 0; width: 100%; margin-top: 10px; box-shadow: 0 -6px 14px rgba(246, 241, 230, 0.95); }
 .tech span { font: 12px/1.3 system-ui, sans-serif; color: var(--muted); }
 .chk { display: flex; gap: 8px; align-items: center; font: 14px/1.3 system-ui, sans-serif; }
 #helpText p { font: 14px/1.4 system-ui, sans-serif; }
@@ -112,6 +122,9 @@ dialog::backdrop { background: rgba(18, 24, 18, 0.48); }
 @media (max-width: 720px) {
   .chip { min-width: 54px; padding: 2px 6px; }
   .chip b { font-size: 13px; }
+  #topbar { padding: 5px 6px; gap: 4px; }
+  #speeds button, .iconbtn { min-width: 32px; padding: 0 6px; }
+  #speed2 { display: none; }
   #inspect { top: auto; bottom: 8px; left: 8px; right: 8px; width: auto; max-height: 30%; }
   .card h2 { font-size: 26px; }
 }

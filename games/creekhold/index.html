@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1f7c86">
   <title>Creekhold — Study Desk</title>
+  <link rel="icon" href="../../favicon.ico">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,12 +22,15 @@
       <span class="chip"><small>Planks</small><b id="planks">0</b></span>
       <span class="chip"><small>Gears</small><b id="gears">0</b></span>
       <span class="chip"><small>Ideas</small><b id="ideas">0</b></span>
+      <div id="controls">
+      <button type="button" id="overlayBtn" class="iconbtn" title="Overlay: none (V water, R reach, G power, C sour)" aria-pressed="false">View</button>
       <button type="button" id="openMenu" class="iconbtn" title="Menu">Menu</button>
       <div id="speeds" role="group" aria-label="Speed">
         <button type="button" id="speed0" aria-pressed="true" title="Pause">❚❚</button>
         <button type="button" id="speed1" aria-pressed="false" title="Play">▶</button>
         <button type="button" id="speed2" aria-pressed="false" title="Fast">▶▶</button>
         <button type="button" id="speed3" aria-pressed="false" title="Faster">▶▶▶</button>
+      </div>
       </div>
     </header>
     <div id="stage">
@@ -132,7 +136,7 @@
       <p>Footpaths must reach the district hearth. Frames off the path stay unbuilt. Stairs climb one floor. Platforms stack three high and water runs under them. Levees stack four high and water sits on top.</p>
       <p>Logs become planks at a saw, and planks become gears at the press if a shaft brings power. A paddle wheel needs a sideways current. The Reed Circle keeps a fan turning in a dry spell. The Cog Lodge burns logs in an engine.</p>
       <p>Reed kits need a spare lodge bed and a content colony. Cog kits come from a berry vat, and only when a bunk is free. Hunger is slow. Thirst is not.</p>
-      <p>Keys: WASD pans, Q and E rotate, the wheel zooms, 1–7 pick a build group, V water, R paths, G power, C sour, X removes, Space pauses, Esc opens this rest. On a touch screen, drag pans, a pinch zooms, and a tap places.</p>
+      <p>Mouse: click places; with Footpath, Stick dam, Clay levee or Remove picked, drag paints a line; right-drag pans. Keys: WASD pans, Q and E rotate, the wheel zooms, 1–7 pick a build group, V water, R paths, G power, C sour (or the View button), X removes, Space pauses, Esc opens this rest. On a touch screen, drag pans, a pinch zooms, and a tap places.</p>
       <button type="button" id="closeHelp" class="primary">Back</button>
     </div>
   </dialog>

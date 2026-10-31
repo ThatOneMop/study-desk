@@ -12,7 +12,7 @@
   const TUTOR = [
     { title: 'A living river', body: 'The sources run in clear weather and stop in a dry spell. Later, a sour tide rides the same bed. Space starts and stops the clock.', check: function () { return false; } },
     { title: 'Lay a footpath', body: 'Paths is the first group. Tap tiles from the hearth down toward the water. Nibs only build what the path can reach.', check: function (run) { return countId(run, 'path') >= 4; } },
-    { title: 'A paw pump', body: 'Choose Water, then Paw pump, on the dry bank beside the channel. It will not drink sour water.', check: function (run) { return countId(run, 'pump') >= 1; } },
+    { title: 'A paw pump', body: 'Choose Water, then Paw pump, on the grass edge just above the sandy shallows, touching your path. It draws from the tile beside it and will not drink sour water.', check: function (run) { return countId(run, 'pump') >= 1; } },
     { title: 'A clay tank', body: 'Place a tank on the path. The pump fills it. Nibs drink the store, not the river.', check: function (run) { return countId(run, 'tank') >= 1; } },
     { title: 'Hold the channel', body: 'A stick dam downstream of the pump keeps a pool when the sources sleep. Dam the whole low bed, not one tile of it.', check: function (run) { return countId(run, 'dam') >= 2; } },
     { title: 'The clock', body: 'Press play. Watch the season chip. A dry spell is announced a day ahead. The idea tree spends what the wonder desk files.', check: function () { return false; } }
@@ -38,6 +38,7 @@
   let particles = [];
   let audioOn = false;
   let hudAt = 0;
+  let loopErr = false;
   let previewReady = false;
   const pickState = { faction: 'reed', map: 'willow', diff: 'easy' };
 
@@ -88,7 +89,26 @@
   function focusHearth() {
     if (!run) return;
     const v = viewSize();
-    R.centerOn(cam, run.hx, run.hy, 2, v.w, v.h, run.w, run.h);
+    // Frame halfway between the hearth and the map centre so the river is in view.
+    const narrow = v.w < 520;
+    const fx = narrow ? run.hx + 1 : (run.hx + run.w / 2) / 2;
+    R.centerOn(cam, fx, (run.hy + run.h / 2) / 2, 2, v.w, v.h, run.w, run.h);
+  }
+
+  const OVERLAYS = ['none', 'water', 'reach', 'power', 'sour'];
+  const OVERLAY_NAME = { none: 'View', water: 'Water', reach: 'Reach', power: 'Power', sour: 'Sour' };
+  function setOverlay(next) {
+    overlay = next;
+    const b = $('overlayBtn');
+    if (b) {
+      b.textContent = OVERLAY_NAME[overlay] || 'View';
+      b.setAttribute('aria-pressed', String(overlay !== 'none'));
+      b.title = 'Overlay: ' + overlay + ' (V water, R reach, G power, C sour)';
+    }
+  }
+  function cycleOverlay() {
+    setOverlay(OVERLAYS[(OVERLAYS.indexOf(overlay) + 1) % OVERLAYS.length]);
+    if (overlay !== 'none') toast((OVERLAY_NAME[overlay]) + ' overlay');
   }
 
   function setSpeed(n) {
@@ -123,6 +143,7 @@
       const b = document.createElement('button');
       b.type = 'button';
       const other = def.faction && run && def.faction !== run.faction;
+      if (other) return; // like the idea tree, only show this circle's own pieces
       const known = run && run.unlocked[def.id];
       b.disabled = !run || !!other;
       const cost = costLabel(def);
@@ -262,6 +283,8 @@
     if (run && now - hudAt > 200) { hudAt = now; syncHud(); }
     requestAnimationFrame(loop);
     } catch (err) {
+      // Keep the colony running, but say so once instead of failing silently.
+      if (!loopErr) { loopErr = true; console.warn('Creekhold frame error', err); }
       requestAnimationFrame(loop);
     }
   }
@@ -278,7 +301,7 @@
     return { x: hover.x, y: hover.y, id: tool, ok: reach && !!run.unlocked[tool] };
   }
 
-  function placeAt(cell) {
+  function placeAt(cell, quiet) {
     if (!run || !cell) return;
     if (tool === 'erase') {
       const r = E.demolish(run, cell.x, cell.y);
@@ -287,7 +310,7 @@
     }
     if (!tool) { selectCell(cell); return; }
     const r = E.place(run, tool, cell.x, cell.y);
-    if (!r.ok) { A.play('deny'); toast(reasonText(r.reason)); return; }
+    if (!r.ok) { if (!quiet || r.reason === 'cost') { A.play('deny'); toast(reasonText(r.reason)); } return; }
     A.play('place');
     burst(cell.x, cell.y, '#e7d3b0');
     tutorMaybe();
@@ -299,6 +322,7 @@
   function reasonText(reason) {
     const map = {
       'unreached': 'That tile is off the paths.',
+      'step': 'One level down or up: lay a Step-stair (Paths) on the edge first.',
       'cost': 'Not enough stores.',
       'locked': 'Study it in the idea tree first.',
       'wet': 'Too much water. Use a dam, a levee, or a bridge.',
@@ -321,10 +345,15 @@
     box.hidden = false;
     $('inspectName').textContent = info.building.name;
     const bits = [];
-    bits.push(Math.round(info.building.progress * 100) + '% raised.');
+    const def = E.DEF[info.building.id];
+    bits.push(info.building.progress >= 1 ? 'Built.' : Math.round(info.building.progress * 100) + '% raised.');
+    if (def.workers && info.building.progress >= 1) {
+      const crew = run.nibs.filter(function (n) { return !n.dead && n.job && n.job.x === cell.x && n.job.y === cell.y && n.mode === 'work'; });
+      bits.push(info.building.paused ? 'Paused.' : crew.length ? 'Crew: ' + crew.map(function (n) { return n.name; }).join(', ') + '.' : 'No crew yet — needs a free adult nib.');
+    }
     if (info.water > 0.05) bits.push('Water ' + info.water.toFixed(1) + (info.bad > 0.2 ? ', sour ' + Math.round(info.bad * 100) + '%' : ''));
     if (info.power > 0) bits.push('Power ' + Math.round(info.power * 100) + '%');
-    $('inspectBody').textContent = bits.join(' ');
+    $('inspectBody').textContent = bits.join(' ') + (def.blurb ? ' ' + def.blurb : '');
     const actions = $('inspectActions');
     actions.innerHTML = '';
     if (E.DEF[info.building.id].gate) {
@@ -382,10 +411,28 @@
     return { x: ev.clientX - rect.left, y: ev.clientY - rect.top, cx: ev.clientX, cy: ev.clientY };
   }
 
+  // Mouse drag with a line-type tool paints tiles like a brush; right/middle drag still pans.
+  const PAINT = { path: 1, dam: 1, levee: 1, erase: 1 };
+  let painting = null;
+  function paintAt(p) {
+    const v = viewSize();
+    const cell = R.pick(cam, v.w, v.h, p.x, p.y, run);
+    if (!cell) return;
+    const k = cell.x + ',' + cell.y;
+    if (painting.done[k]) return;
+    painting.done[k] = true;
+    placeAt(cell, painting.count++ > 0);
+  }
+
   function onPointerDown(ev) {
     canvas.setPointerCapture(ev.pointerId);
     pointers.set(ev.pointerId, localPoint(ev));
     moved = 0;
+    painting = null;
+    if (ev.pointerType === 'mouse' && ev.button === 0 && run && tool && PAINT[tool]) {
+      painting = { done: {}, count: 0 };
+      paintAt(localPoint(ev));
+    }
     if (pointers.size === 2) {
       const pts = Array.from(pointers.values());
       pinch = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), zoom: cam.zoom };
@@ -400,6 +447,7 @@
       const dx = p.x - prev.x, dy = p.y - prev.y;
       moved += Math.hypot(dx, dy);
       pointers.set(ev.pointerId, p);
+      if (painting) { paintAt(p); return; }
       if (pointers.size === 1 && moved > 8) { cam.x += dx; cam.y += dy; }
       if (pointers.size === 2 && pinch) {
         const pts = Array.from(pointers.values());
@@ -423,6 +471,7 @@
   }
 
   function onPointerUp(ev) {
+    if (painting) { pointers.delete(ev.pointerId); painting = null; return; }
     const wasTap = moved < 8 && pointers.size <= 1;
     pointers.delete(ev.pointerId);
     if (pointers.size < 2) pinch = null;
@@ -446,20 +495,38 @@
     $('techLead').textContent = Math.floor(run.store.science) + ' ideas on the desk. Known recipes stay known.';
     const list = $('techList');
     list.innerHTML = '';
-    E.BUILDINGS.forEach(function (def) {
+    const TIER_NAME = ['Known from the start', 'First ideas', 'Second ring', 'Deep works'];
+    let lastTier = -1;
+    E.BUILDINGS.slice().sort(function (a, b) { return (a.tier || 0) - (b.tier || 0); }).forEach(function (def) {
       if (def.faction && def.faction !== run.faction) return;
-      const row = document.createElement('div');
-      row.className = 'tech';
+      const tier = def.tier || 0;
+      const open = E.tierOpen(run, tier);
+      if (tier !== lastTier) {
+        lastTier = tier;
+        const h = document.createElement('h3');
+        h.className = 'tier-head' + (open ? '' : ' shut');
+        h.textContent = 'Tier ' + tier + ' · ' + (TIER_NAME[tier] || '') +
+          (open ? '' : ' — study ' + E.TIER_GATE + ' from tier ' + (tier - 1) + ' (' + E.tierProgress(run, tier - 1) + '/' + E.TIER_GATE + ')');
+        list.appendChild(h);
+      }
       const known = !!run.unlocked[def.id];
+      if (tier === 0 && known && !def.science) {
+        let p = list.querySelector('.tier-known');
+        if (!p) { p = document.createElement('p'); p.className = 'tier-known'; list.appendChild(p); }
+        p.textContent = (p.textContent ? p.textContent + ' · ' : '') + def.name;
+        return;
+      }
+      const row = document.createElement('div');
+      row.className = 'tech' + (open ? '' : ' shut');
       row.innerHTML = '<div><b>' + def.name + '</b><span>' + def.blurb + '</span></div>';
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = known ? 'ghost' : 'primary';
-      btn.textContent = known ? 'Known' : (def.science ? def.science + ' ideas' : 'Learn');
-      btn.disabled = known;
+      btn.textContent = known ? 'Known' : !open ? 'Locked' : (def.science ? def.science + ' ideas' : 'Learn');
+      btn.disabled = known || !open;
       btn.addEventListener('click', function () {
         const r = E.unlock(run, def.id);
-        if (!r.ok) { A.play('deny'); toast(r.reason === 'ideas' ? 'Not enough ideas yet.' : 'Already known.'); return; }
+        if (!r.ok) { A.play('deny'); toast(r.reason === 'ideas' ? 'Not enough ideas yet.' : r.reason === 'tier' ? 'Study more of the tier below first.' : 'Already known.'); return; }
         A.play('achieve');
         toast(def.name + ' is in the dock.');
         save();
@@ -516,6 +583,7 @@
     $('pick').close();
     $('title').close();
     resize();
+    cam.zoom = viewSize().w < 520 ? 0.62 : 0.85;
     focusHearth();
     renderDock();
     syncHud();
@@ -549,12 +617,14 @@
 
   function wire() {
     $('openMenu').addEventListener('click', function () { setSpeed(0); $('pause').showModal(); });
+    $('overlayBtn').addEventListener('click', function () { cycleOverlay(); });
     $('playBtn').addEventListener('click', function () { fillPick(); $('title').close(); $('pick').showModal(); unlockAudio(); });
     $('continueBtn').addEventListener('click', function () {
       if (!run) return;
       $('title').close();
       setSpeed(0);
       resize();
+      cam.zoom = viewSize().w < 520 ? 0.62 : 0.85;
       focusHearth();
       renderDock();
       syncHud();
@@ -619,15 +689,19 @@
       else if (ev.key === 'e' || ev.key === 'E') { cam.rot = (cam.rot + 1) & 3; if (run) focusHearth(); }
       else if (ev.key === 'Escape') {
         if (document.querySelector('dialog[open]')) return;
+        // Chrome treats Escape as a close request after keydown; without this the
+        // freshly opened pause dialog is closed by the same key press.
+        ev.preventDefault();
+        if (tool) { tool = null; renderDock(); return; }
         setSpeed(0);
         $('pause').showModal();
       } else if (ev.key >= '1' && ev.key <= '7') {
         cat = E.CATS[+ev.key - 1].id;
         renderDock();
-      } else if (ev.key === 'v' || ev.key === 'V') overlay = overlay === 'water' ? 'none' : 'water';
-      else if (ev.key === 'r' || ev.key === 'R') overlay = overlay === 'reach' ? 'none' : 'reach';
-      else if (ev.key === 'g' || ev.key === 'G') overlay = overlay === 'power' ? 'none' : 'power';
-      else if (ev.key === 'c' || ev.key === 'C') overlay = overlay === 'sour' ? 'none' : 'sour';
+      } else if (ev.key === 'v' || ev.key === 'V') setOverlay(overlay === 'water' ? 'none' : 'water');
+      else if (ev.key === 'r' || ev.key === 'R') setOverlay(overlay === 'reach' ? 'none' : 'reach');
+      else if (ev.key === 'g' || ev.key === 'G') setOverlay(overlay === 'power' ? 'none' : 'power');
+      else if (ev.key === 'c' || ev.key === 'C') setOverlay(overlay === 'sour' ? 'none' : 'sour');
       else if (ev.key === 'x' || ev.key === 'X') { tool = tool === 'erase' ? null : 'erase'; renderDock(); }
       else if (ev.key === 't' || ev.key === 'T') openTech();
       else if (ev.key === 'h' || ev.key === '?') $('help').showModal();
@@ -635,6 +709,7 @@
     window.addEventListener('keyup', function (ev) { keys[ev.code] = false; });
     window.addEventListener('resize', function () { resize(); if (run) focusHearth(); });
     document.addEventListener('visibilitychange', function () { if (document.hidden) save(); });
+    window.addEventListener('pagehide', save);
     setInterval(save, 20000);
   }
 
