@@ -5,10 +5,10 @@
   const audio = window.SpanAudio.createAudio();
   const $ = id => document.getElementById(id);
   const TUTORIAL = [
-    { title: 'Road', body: 'Wheels only trust road. Select it, then tap the left brass bolt.' },
-    { title: 'Two metres', body: 'Road stops at 2 m. Tap the next joint, and the next, until you hold the far bolt.' },
+    { title: 'Road', body: 'Wheels only trust road. Drag from the left brass bolt two squares right, or tap the bolt and then the next joint.' },
+    { title: 'Two metres', body: 'Road stops at 2 m. Keep going from the joint you just made until the road reaches the far bolt.' },
     { title: 'Send it', body: 'Play runs the cart. If it swims, undo and give the middle a triangle.' },
-    { title: 'The load', body: 'Stress paints the members while they work. Green is quiet. Red is about to complain.' }
+    { title: 'The load', body: 'Stress paints the members while they work. Green is quiet. Red is about to complain. Pinch or wheel to zoom; two fingers or the middle button pan.' }
   ];
 
   let meta = loadMeta();
@@ -26,6 +26,7 @@
   let last = 0;
   let pointers = new Map();
   let pinching = null;
+  let panning = null;
   const speeds = [1, 2, 4];
   let speedIndex = 0;
 
@@ -125,7 +126,9 @@
     const b = session.level.bounds;
     const vw = $('scene').clientWidth || 800;
     const vh = $('scene').clientHeight || 450;
-    cam.zoom = Math.max(26, Math.min(vw / (b.x1 - b.x0 + 3), vh / ((b.y1 - b.y0) * 0.55)) * 0.92);
+    const fit = Math.min(vw / (b.x1 - b.x0 + 3), vh / ((b.y1 - b.y0) * 0.55)) * 0.92;
+    cam.zoom = Math.max(Math.min(26, vw / (b.x1 - b.x0 + 1)), fit);
+    cam.minZoom = Math.min(18, cam.zoom * 0.8);
     cam.x = (b.x0 + b.x1) / 2;
     cam.y = (session.level.waterY + Math.max(session.level.yL || 6, session.level.yR || 6)) / 2 + 1.2;
     cam.shake = 0;
@@ -153,7 +156,7 @@
 
   function updateTutorial() {
     const box = $('tutorial');
-    if (tut < 0 || !session || session.level.id !== 'willow-1' || (session.sim && session.sim.mode)) { box.hidden = true; return; }
+    if (tut < 0 || !session || session.level.id !== 'willow-1' || (session.sim && session.sim.mode && tut < 3) || !$('result').hidden) { box.hidden = true; return; }
     const step = TUTORIAL[tut];
     box.hidden = false;
     $('tutTitle').textContent = step.title;
@@ -169,7 +172,7 @@
     $('budgetPill').classList.toggle('warn', spent > budget);
     const sim = session.sim;
     const peak = sim ? Math.round((sim.liveStrain || sim.peakStrain || 0) * 100) : 0;
-    $('stressText').textContent = sim && (sim.mode === 'run' || sim.mode === 'replay') ? peak + '%' : 'Quiet';
+    $('stressText').textContent = sim && (sim.mode === 'run' || sim.mode === 'replay') ? (peak > 100 ? 'Snapping' : peak + '%') : 'Quiet';
     updateTutorial();
     $('playBtn').textContent = sim && sim.mode === 'run' ? 'Running' : 'Play';
     const speed = sim && sim.speed || 1;
@@ -235,6 +238,35 @@
     };
   }
 
+  function zoomAt(clientX, clientY, nextZoom) {
+    const rect = $('scene').getBoundingClientRect();
+    const sx = clientX - rect.left - rect.width / 2;
+    const sy = clientY - rect.top - rect.height / 2;
+    const z = Math.max(cam.minZoom || 18, Math.min(90, nextZoom));
+    const wx = cam.x + sx / cam.zoom, wy = cam.y - sy / cam.zoom;
+    cam.zoom = z;
+    cam.x = wx - sx / z;
+    cam.y = wy + sy / z;
+  }
+  function followCursor() {
+    if (!cursor) return;
+    const rect = $('scene').getBoundingClientRect();
+    const halfW = rect.width / 2 / cam.zoom - 1, halfH = rect.height / 2 / cam.zoom - 1.5;
+    if (cursor.x < cam.x - halfW) cam.x = cursor.x + halfW;
+    if (cursor.x > cam.x + halfW) cam.x = cursor.x - halfW;
+    if (cursor.y < cam.y - halfH) cam.y = cursor.y + halfH;
+    if (cursor.y > cam.y + halfH) cam.y = cursor.y - halfH;
+  }
+  function tutorialProgress(event) {
+    if (tut < 0 || !session || session.level.id !== 'willow-1') return;
+    if (event === 'beam' && tut === 0) tut = 1;
+    const far = session.level.anchors[1];
+    const reached = session.beams.some(b => b.mat === 'road' && [b.a, b.b].some(id => { const n = session.nodes.find(k => k.id === id); return n && Math.abs(n.x - far.x) < 0.01 && Math.abs(n.y - far.y) < 0.01; }));
+    if (event === 'beam' && tut === 1 && reached) tut = 2;
+    if (event === 'play' && tut <= 2) tut = 3;
+    updateTutorial();
+  }
+
   function place(x0, y0, x1, y1) {
     if (tool === 'erase') {
       const hit = E.deleteAt(session, x1, y1);
@@ -264,6 +296,7 @@
     burst(hit.x1, hit.y1, '#e6d3b0', 8);
     setStatus(E.MATERIALS[tool].name + ' · ' + hit.len.toFixed(1) + ' m · ' + money(hit.cost));
     updateHud();
+    tutorialProgress('beam');
     if (session.level.sandbox) meta.sandbox = E.exportDesign(session);
     else meta.drafts[session.level.id] = E.exportDesign(session);
     saveMeta();
@@ -281,8 +314,14 @@
     pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
     if (pointers.size === 2) {
       const pts = [...pointers.values()];
-      pinching = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), x: cam.x, y: cam.y, zoom: cam.zoom };
+      pinching = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), mx: (pts[0].x + pts[1].x) / 2, my: (pts[0].y + pts[1].y) / 2, zoom: cam.zoom };
       anchor = null;
+      ghost = null;
+      return;
+    }
+    if (ev.button === 1 || (ev.button === 0 && ev.shiftKey)) {
+      ev.preventDefault();
+      panning = { sx: ev.clientX, sy: ev.clientY };
       return;
     }
     if (ev.button === 2 || tool === 'erase') {
@@ -290,26 +329,30 @@
       place(p.x, p.y, p.x, p.y);
       return;
     }
-    if (ev.button === 1 || ev.shiftKey || tool === 'pan') return;
     const p = screenPoint(ev);
+    if (anchor && anchor.armed) { anchor.down = { sx: ev.clientX, sy: ev.clientY }; return; }
     anchor = { x: p.x, y: p.y, sx: ev.clientX, sy: ev.clientY };
   }
   function onPointerMove(ev) {
-    if (!pointers.has(ev.pointerId)) return;
-    pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    if (panning && pointers.has(ev.pointerId)) {
+      cam.x -= (ev.clientX - panning.sx) / cam.zoom;
+      cam.y += (ev.clientY - panning.sy) / cam.zoom;
+      panning.sx = ev.clientX; panning.sy = ev.clientY;
+      return;
+    }
+    if (!pointers.has(ev.pointerId) && !(anchor && anchor.armed && ev.pointerType === 'mouse')) return;
+    if (pointers.has(ev.pointerId)) pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
     if (pointers.size === 2 && pinching) {
       const pts = [...pointers.values()];
       const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
-      cam.zoom = Math.max(18, Math.min(90, pinching.zoom * dist / (pinching.dist || 1)));
+      const mx = (pts[0].x + pts[1].x) / 2, my = (pts[0].y + pts[1].y) / 2;
+      cam.x -= (mx - pinching.mx) / cam.zoom;
+      cam.y += (my - pinching.my) / cam.zoom;
+      pinching.mx = mx; pinching.my = my;
+      zoomAt(mx, my, pinching.zoom * dist / (pinching.dist || 1));
       return;
     }
     if (!anchor) return;
-    if (Math.hypot(ev.clientX - anchor.sx, ev.clientY - anchor.sy) > 8 && (ev.altKey || tool === 'pan')) {
-      cam.x -= (ev.clientX - anchor.sx) / cam.zoom;
-      cam.y += (ev.clientY - anchor.sy) / cam.zoom;
-      anchor.sx = ev.clientX; anchor.sy = ev.clientY;
-      return;
-    }
     const p = screenPoint(ev);
     if (E.MATERIALS[tool]) {
       const len = Math.hypot(p.x - anchor.x, p.y - anchor.y);
@@ -318,10 +361,14 @@
     }
   }
   function onPointerUp(ev) {
+    const wasPinch = !!pinching;
     pointers.delete(ev.pointerId);
     if (pointers.size < 2) pinching = null;
+    if (panning) { if (!pointers.size) panning = null; return; }
+    if (wasPinch || pointers.size) return;
     if (!anchor) return;
-    const moved = Math.hypot(ev.clientX - anchor.sx, ev.clientY - anchor.sy);
+    const origin = anchor.armed && anchor.down ? anchor.down : anchor;
+    const moved = Math.hypot(ev.clientX - origin.sx, ev.clientY - origin.sy);
     const p = screenPoint(ev);
     if (moved < 6) {
       if (!anchor.armed) { anchor = { x: p.x, y: p.y, sx: ev.clientX, sy: ev.clientY, armed: true }; ghost = null; setStatus('Start set. Tap the other end.'); return; }
@@ -358,7 +405,7 @@
     const ok = session.sim.result === 'success';
     $('resultKicker').textContent = ok ? 'Across' : 'Not this time';
     $('resultTitle').textContent = ok ? session.level.name : 'The span gave way';
-    $('resultBody').textContent = E.reasonText(session.sim) + ' ' + money(g.spent) + ' of ' + money(g.budget) + '. Peak load ' + Math.round(g.peak * 100) + '%.';
+    $('resultBody').textContent = E.reasonText(session.sim) + ' ' + money(g.spent) + ' of ' + money(g.budget) + (g.peak > 1 ? '. Something went past its limit.' : '. Peak load ' + Math.round(g.peak * 100) + '%.');
     $('resultStars').textContent = stars(g.stars || 0);
     $('result').hidden = false;
     if (fresh.length) setStatus('Noted in the book: ' + fresh.map(id => E.ACHIEVEMENTS.find(a => a.id === id).name).join(', '));
@@ -471,7 +518,9 @@
       if (!started.ok) { setStatus(started.reason); return; }
       audio.play('play');
       $('result').hidden = true;
+      anchor = null; ghost = null;
       setStatus('The crossing is in motion.');
+      tutorialProgress('play');
     });
     $('undoBtn').addEventListener('click', () => { if (E.undo(session)) { audio.play('ui'); updateHud(); } });
     $('stressBtn').addEventListener('click', () => {
@@ -527,15 +576,17 @@
     scene.addEventListener('pointermove', onPointerMove);
     scene.addEventListener('pointerup', onPointerUp);
     scene.addEventListener('pointercancel', onPointerUp);
+    scene.addEventListener('auxclick', ev => ev.preventDefault());
     scene.addEventListener('wheel', ev => {
       ev.preventDefault();
-      cam.zoom = Math.max(18, Math.min(90, cam.zoom * (ev.deltaY > 0 ? 0.92 : 1.08)));
+      zoomAt(ev.clientX, ev.clientY, cam.zoom * (ev.deltaY > 0 ? 0.92 : 1.08));
     }, { passive: false });
 
     window.addEventListener('keydown', ev => {
       if (ev.target && ev.target.closest && ev.target.closest('input, textarea')) return;
       if (ev.key === 'Escape') {
         if (!$('settings').hidden) { $('settings').hidden = true; return; }
+        if (screen === 'play' && anchor && $('pause').hidden) { anchor = null; ghost = null; setStatus('Member cancelled.'); return; }
         if (!$('info').hidden) { $('info').hidden = true; return; }
         if (!$('result').hidden) return;
         if (screen === 'play') { $('pause').hidden = !$('pause').hidden; if (!$('pause').hidden) $('resumeBtn').focus(); }
@@ -554,15 +605,27 @@
       if (ev.key === 't' || ev.key === 'T') $('stressBtn').click();
       if (ev.key === 'r' || ev.key === 'R') { if (session.sim) E.rebuild(session); }
       if ((ev.key === 'Enter' || ev.key === ' ') && cursor && ev.key === 'Enter') {
-        if (!anchor) anchor = { x: cursor.x, y: cursor.y, sx: 0, sy: 0, armed: true };
-        else { place(anchor.x, anchor.y, cursor.x, cursor.y); anchor = null; }
+        if (tool === 'erase' || tool === 'split' || tool === 'anchor') { place(cursor.x, cursor.y, cursor.x, cursor.y); return; }
+        if (!anchor) { anchor = { x: cursor.x, y: cursor.y, sx: 0, sy: 0, armed: true }; setStatus('Start set. Move the pin and press Enter.'); }
+        else {
+          place(anchor.x, anchor.y, cursor.x, cursor.y);
+          ghost = null;
+          anchor = { x: cursor.x, y: cursor.y, sx: 0, sy: 0, armed: true };
+        }
       }
       const step = session.grid || 1;
-      if (ev.key === 'ArrowLeft') cursor.x -= step;
-      if (ev.key === 'ArrowRight') cursor.x += step;
-      if (ev.key === 'ArrowUp') cursor.y += step;
-      if (ev.key === 'ArrowDown') cursor.y -= step;
-      if (cursor) setStatus('Survey pin ' + cursor.x.toFixed(1) + ', ' + cursor.y.toFixed(1) + '. Enter places.');
+      const arrows = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, step], ArrowDown: [0, -step] };
+      if (arrows[ev.key] && cursor) {
+        ev.preventDefault();
+        cursor.x += arrows[ev.key][0];
+        cursor.y += arrows[ev.key][1];
+        followCursor();
+        if (anchor && anchor.armed && E.MATERIALS[tool]) {
+          const len = Math.hypot(cursor.x - anchor.x, cursor.y - anchor.y);
+          ghost = { x0: anchor.x, y0: anchor.y, x1: cursor.x, y1: cursor.y, ok: len <= E.MATERIALS[tool].max + 0.05 && len > 0.3 };
+        }
+        setStatus('Survey pin ' + cursor.x.toFixed(1) + ', ' + cursor.y.toFixed(1) + (anchor ? '. Enter ends the member, Esc cancels.' : '. Enter starts a member.'));
+      }
     });
     window.addEventListener('keyup', ev => { keys[ev.key] = false; });
     window.addEventListener('resize', resize);
@@ -572,5 +635,5 @@
   audio.setVolumes(meta.settings);
   show('title');
   requestAnimationFrame(tick);
-  window.Spanwright = { get meta() { return meta; }, get session() { return session; }, start: start };
+  window.Spanwright = { get meta() { return meta; }, get session() { return session; }, get cam() { return cam; }, start: start };
 })();
