@@ -1265,7 +1265,8 @@
         "9 tests pass (5 engine, 4 jsdom 26.1.0): all three trellis wins/unlocks and per-move reloads; crossings/touches/overlaps/opposite rays; 24 rotated/reflected solved embeddings; invalid placements/journals, undo/retry, records and storage bound.",
         "DOM checks cover tap placement, drag preview/release/cancellation/occupied targets/pause, keyboard/button and parent guards, navigation markup, corruption recovery, isolated reset and quota failures. Dialogs, SVG bounds and pointer events/capture are simulated.",
         "Both scripts pass syntax checks. No rendered browser, screenshot, native keyboard/touch, mobile layout, human-enjoyment or full repository build evidence.",
-        "Compact refinement: 13 total tests pass (7 engine, 6 jsdom). Three compact solutions, length boundary/diagonals, wide planar-but-unfinished layouts, exact old saves, independent records, per-move reloads, mode/unlock validation, reach feedback, confirmation/pause and temporary drag previews. Syntax checks pass."
+        "Compact refinement: 13 total tests pass (7 engine, 6 jsdom). Three compact solutions, length boundary/diagonals, wide planar-but-unfinished layouts, exact old saves, independent records, per-move reloads, mode/unlock validation, reach feedback, confirmation/pause and temporary drag previews. Syntax checks pass.",
+        "Natural desktop play in managed preview: first trellis solved in1 move by selecting B and tapping column5,row2, reload retained win. Sunwheel solved in2 drags (B→column7,row2; E→column4,row4). Compact sunwheel completed in5 moves, placing E at5,5 then A3,3/B7,3/C7,7/D3,7. A browser-control timeout interrupted the last drag; after rebinding the same tab, inspected its pending0-tangle/0-stretch preview and completed pointer release. No game crash observed. Compact central overlaps displayed11 tangles and8 stretched vines, but only aggregate conflict counts: no named conflict pair or leaf-on-vine diagnosis. Dense rust dashed edges obscure which relationship to repair. Native drag also selected letter text. Free campaigns were short (1/2 moves observed), so assess compact-mode decisions before selecting. Baseline only; no completed rendered pass."
       ],
       "commits": [
         "d55722bdaafe719b17c003f5cc9365b02ecac95d",
@@ -1287,6 +1288,15 @@
         "before": "Every untangled arrangement completed the trellis regardless of vine lengths.",
         "after": "Optional compact mode unlocks per completed trellis and requires each vine to fit a four-grid-step straight-line reach. Overstretched vines remain movable but prevent completion. Reach-circle and endpoint-list feedback explain packing choices; records and mode saves preserve free gardens.",
         "remaining": "Natural rendered desktop/touch play, screenshot inspection, challenge balance and readability review. No improvement-pass credit."
+      },
+      "pendingRenderedBaseline": {
+        "date": "2026-10-31",
+        "sourceCommit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
+        "evidence": "Natural desktop play in managed preview: first trellis solved in1 move by selecting B and tapping column5,row2, reload retained win. Sunwheel solved in2 drags (B→column7,row2; E→column4,row4). Compact sunwheel completed in5 moves, placing E at5,5 then A3,3/B7,3/C7,7/D3,7. A browser-control timeout interrupted the last drag; after rebinding the same tab, inspected its pending0-tangle/0-stretch preview and completed pointer release. No game crash observed. Compact win and5-move record survived a subsequent normal reload.",
+        "observedWeakness": "Compact central overlaps displayed11 tangles and8 stretched vines, but only aggregate conflict counts: no named conflict pair or leaf-on-vine diagnosis. Dense rust dashed edges obscure which relationship to repair. Native drag also selected letter text. Free campaigns were short (1/2 moves observed), so assess compact-mode decisions before selecting.",
+        "screenshots": "Inspected initial trellis, sunwheel before/after moves, compact reach/overstretch baseline. No mobile or complete three-trellis qualification.",
+        "next": "Implement a substantive game-specific improvement to conflict diagnosis/planning based on the observed dense compact layout; fix text-selection dragging and verify naturally, then full browser qualification.",
+        "credit": "Baseline only; no completed improvement/browser-tested/integration/live credit."
       }
     },
     {
