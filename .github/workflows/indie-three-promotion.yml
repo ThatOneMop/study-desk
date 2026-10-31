@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  beepline-catalogue:
+  tumbleglass-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/tumbleglass-engine.cjs tests/tumbleglass-dom.cjs
+          node tests/tumbleglass-browser.cjs
+          node tests/tumbleglass-catalog-browser.cjs
           node --test tests/beepline-engine.cjs tests/beepline-dom.cjs
           node tests/beepline-browser.cjs
           node tests/beepline-catalog-browser.cjs
@@ -61,7 +64,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: beepline-catalogue-browser
+          name: tumbleglass-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -85,3 +88,6 @@ jobs:
             test-artifacts/reed-catalog/
             test-artifacts/beepline/
             test-artifacts/bee-catalog/
+
+            test-artifacts/tumbleglass/
+            test-artifacts/tumbleglass-catalog/

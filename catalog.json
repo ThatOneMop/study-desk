@@ -1059,5 +1059,30 @@
     "thumbnail": "art/curated/creekhold.svg",
     "thumbnailAlt": "A teal river held by a timber dam, with lodges, a pump, and two nibs on the bank",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "tumbleglass",
+    "title": "Tumbleglass",
+    "description": "Tilt a glass tray, nest numbered beads and plan around the ones that lock. Explore three compact puzzles through tool-free, useful-clamp and nested-bead rescue studies.",
+    "icon": "🔮",
+    "genre": "Puzzle + Tactics",
+    "color": "#72b7bb",
+    "controls": "Arrow keys on tray · Native tool menus · Touch direction buttons · Unlimited undo",
+    "url": "games/tumbleglass/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#tumbleglass",
+    "aliases": [
+      "glass",
+      "beads",
+      "tilt",
+      "gravity",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/tumbleglass.svg",
+    "thumbnailAlt": "Amber and teal glass beads resting among numbered sockets in a dark wooden tray",
+    "updated": "2026-10-31"
   }
 ]
