@@ -596,7 +596,7 @@
       "id": "bramble-dice",
       "title": "Bramble Dice",
       "coreLoop": "Keep or reroll four dice, allocate every die to attack, guard or repair against visible enemy intents, then choose stacking equipment between woodland encounters.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-improvement-awaiting-full-browser-qualification",
       "source": "games/bramble-dice",
       "built": true,
       "improved": false,
@@ -609,23 +609,25 @@
         "5 jsdom tests pass: equipment routes, reload, setup/focus/native keys, loss/retry/pause/help/reset, unreadable-save preservation and new equipment/forecast persistence. Dialog methods simulated.",
         "Script syntax passed. No rendered browser, screenshots, touch or human-enjoyment evidence. Full repository build not run from partial checkout.",
         "Opposite-face refinement: 19 passing tests (11 engine, 8 jsdom), retaining original 13 and old exact-save fixtures. Shared reroll budget, RNG/other-die/setup preservation, invalid actions, mixed reroll/flip exhaustion, turn reset, phase guards, per-action replay, native input ownership, pause/guide, full flipped seed-42 route and retry/record preservation. Script syntax checks pass; no rendered evidence.",
-        "Reserve refinement: 27 tests pass (15 engine, 12 jsdom), retaining prior 19 and old exact-save fixtures. Current output/gear exclusion, next-turn same-slot face, unchanged RNG/other dice, reward carry/reload, retry reset, multiple-reserve rejection, saved setup, focused-card shortcut/native keys, pause, and full reserved-opening engine/DOM wins. Both scripts pass syntax; no rendered/native touch evidence."
+        "Reserve refinement: 27 tests pass (15 engine, 12 jsdom), retaining prior 19 and old exact-save fixtures. Current output/gear exclusion, next-turn same-slot face, unchanged RNG/other dice, reward carry/reload, retry reset, multiple-reserve rejection, saved setup, focused-card shortcut/native keys, pause, and full reserved-opening engine/DOM wins. Both scripts pass syntax; no rendered/native touch evidence.",
+        "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass."
       ],
       "commits": [
         "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
         "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
         "8e7d63d094d7f7431ba5790d00ab0d6463e0b016",
-        "5582c22c4eef24ba2c3b4169dcb4ead54bdeaa1e"
+        "5582c22c4eef24ba2c3b4169dcb4ead54bdeaa1e",
+        "886dd5cb2b354c5bd2e942bcc09c87b5e51789eb"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
+        "status": "Desktop upgrade played to victory; full qualification pending",
         "knownLimits": "Three authored encounters with changing intent cycles. Automated winning routes take 6–10 turns for the sampled seeds/equipment; dice-seed variation is not additional authored content. No playtime or enjoyment claim."
       },
       "nextSteps": [
-        "Play the actual rendered loop on desktop and touch; assess dice pinning, exact forecast readability, equipment tradeoffs and progression depth.",
-        "Implement a substantive improvement based on observed play, verify natural progression/loss/retry/saves/restart/navigation and inspect screenshots before integration."
+        "Run desktop/touch browser qualification covering comparison/swap, reserve and equipment, loss/retry, reload, hidden/modal guards and navigation; inspect captured mobile screenshots.",
+        "Evaluate final quality and integrate only after full catalogue/build and concurrent-main preservation checks."
       ],
       "pendingSourceRefinement": {
         "commit": "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
@@ -647,6 +649,22 @@
         "before": "Every die had to attack, guard or repair, then all four faces were replaced next turn.",
         "after": "One die can take Reserve: no current contribution, exact same-slot face on the next turn or after the reward clearing. Normal RNG draws still occur; the carried die remains rerollable/flippable. Keyboard/select controls and exact preview explain the cost. Existing journals remain compatible.",
         "remaining": "Rendered desktop/touch play and screenshots; assess usefulness across intent cycles, balance, distinction from Keep and mobile readability. No completed improvement credit."
+      },
+      "pendingPlanningPass": {
+        "commit": "886dd5cb2b354c5bd2e942bcc09c87b5e51789eb",
+        "date": "2026-10-31",
+        "basis": "Actual rendered desktop baseline: first turn compared attack with reserving a six; replacing jobs erased the previous outcome and the following enemy intent was hidden.",
+        "before": "Only one mutable current-turn forecast. Reserving a face required remembering the previous plan and guessing the next intent.",
+        "after": "Bookmark a complete allocation, compare health and reserve outcomes, swap plans without spending resources, and inspect the following enemy intent. Comparisons invalidate on dice changes or committed actions. Existing v1 saves remain unchanged.",
+        "renderedEvidence": [
+          "Baseline reserve turn carried die 2 at six into Shell charge.",
+          "Improved turn 2 comparison showed reserve trial at 11 player/16 creature health versus guarded plan at 18/18; swap restored guarded allocation before resolution.",
+          "Full seed-one trail completed naturally in 10 turns at 18 health using reserve carry through a clearing, Acorn Sling, Three-leaf Clasp, flipping and plan comparison.",
+          "Victory and best 10 persisted on reload. Confirmed retry restored starting dice and preserved best 10. Focused-card keyboard jobs and Enter on Compare worked.",
+          "Desktop comparison and victory screenshots inspected in CUA; no human enjoyment claim."
+        ],
+        "tests": "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass.",
+        "remaining": "Mobile/touch rendered gameplay/layout, rendered loss, broader browser regression and full repository/catalogue verification. Do not promote or count this as a fully qualified improved/browser-tested candidate yet."
       }
     },
     {
@@ -2079,8 +2097,8 @@
     }
   ],
   "nextSteps": [
-    "Render-play Bramble Dice(slot46), identify its key weakness and implement a substantive game-specific upgrade.",
-    "Preserve five live third-batch games and completed second batch.19built candidates need qualification;26slots remain unbuilt.",
+    "Finish Bramble Dice(slot46) browser qualification: mobile/touch, loss, shell/navigation and catalogue regression; inspect screenshots.",
+    "Preserve five live third-batch games and completed second batch.19 built candidates remain unqualified;26 slots remain unbuilt.",
     "Continue existing cadence until requested scope completes."
   ],
   "updated": "2026-10-31",
@@ -2709,6 +2727,11 @@
       "verificationRun": 41141996836,
       "pagesRun": 41142532352,
       "summary": "Crate & Cushion integrated and live;97focused checks, five desktop/touch campaigns and catalogue regressions passed. Three integration screenshots plus live completion reviewed. Counts24/5/5/5/5."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "886dd5cb2b354c5bd2e942bcc09c87b5e51789eb",
+      "summary": "Bramble Dice received rendered-play-led plan comparison and next-intent scouting; natural ten-turn desktop victory/reload/retry/keyboard verified;32 focused tests pass. Full mobile/browser qualification pending. Counts unchanged24/5/5/5/5."
     }
   ]
 }
