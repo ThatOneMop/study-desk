@@ -30,3 +30,4 @@ test('ecology studies reward distinct relationships, not empty pages or score al
 test('studies derive identically after old-journal reload and do not alter score records',()=>{
  for(const r of routes){const s=run({...E.create(),level:r.level,records:[66,64,57]},r.moves),raw=JSON.stringify(s),old=E.studies(E.board(s).cells,s.level);A.deepEqual(E.studies(E.board(E.decode(raw)).cells,s.level),old);A.equal(JSON.stringify(s),raw);A.equal(s.records[r.level],r.total);}
 });
+test('all nine ecology studies have complete reachable drafting routes with exact reloads',()=>{for(const r of require('./fixtures/field-album-studies.json')){const s=run({...E.create(r.seed),level:r.level,records:[66,64,57]},r.moves),b=E.board(s);A.equal(b.phase,'complete');A.equal(E.studies(b.cells,r.level)[r.goal].met,true);A.equal(E.score(b.cells,r.level).total,r.total);A.ok(r.total>=E.SITES[r.level].target)}});

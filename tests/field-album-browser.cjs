@@ -1,0 +1,29 @@
+'use strict';
+const {chromium}=require('playwright'),A=require('node:assert/strict'),fs=require('fs'),path=require('path'),{spawn}=require('child_process'),E=require('../games/field-album/engine.js'),routes=require('./fixtures/field-album-routes.json'),studies=require('./fixtures/field-album-studies.json');
+const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/field-album'),base='http://127.0.0.1:8168';fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','8168','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});let browser;
+(async()=>{for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promise(r=>setTimeout(r,100))}browser=await chromium.launch();for(const touch of[false,true]){
+ const context=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},hasTouch:touch,isMobile:touch}),page=await context.newPage(),prefix=touch?'touch':'desktop',errors=[];page.on('pageerror',e=>errors.push(e.message));const click=async id=>touch?await page.locator(id).tap():await page.locator(id).click(),raw=()=>page.evaluate(k=>localStorage.getItem(k),E.KEY),state=async()=>E.decode(await raw());
+ const shot=async(name,id='#studies')=>{await page.locator(id).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,prefix+'-'+name+'.png')});A.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))};
+ async function reload(){const s=await state();await page.reload();await click('#start');A.deepEqual(await state(),s)}
+ async function move(a){if(a.type==='survey')await click('#survey'+a.habitat);else{await click('#card'+a.card);await click('#plot'+a.p);await click('#place')}}
+ async function campaign(route){for(let i=0;i<route.moves.length;i++){await move(route.moves[i]);if(i%3===2)await reload()}A.equal(E.board(await state()).phase,'complete');A.equal(E.score(E.board(await state()).cells,route.level).total,route.total)}
+ try{
+ await page.goto(base+'/games/field-album/index.html');await click('#start');await shot('onboarding');
+ for(const route of routes){await campaign(route);await shot('base-win-'+route.level,'#result');if(route.level<2)await click('#next')}
+ // Earned all trail access above: no injected campaign state.
+ for(let level=0;level<3;level++){
+ await page.getByText('Trails, records & new field season',{exact:true}).click();await click('#trail'+level);await click('#accept');
+ for(const route of studies.filter(r=>r.level===level)){
+ if((await state()).moves.length){await click('#retry');await click('#accept')}
+ await campaign(route);A.equal(E.studies(E.board(await state()).cells,level)[route.goal].met,true);A.match(await page.locator('#studies article').nth(route.goal).innerText(),/Confirmed on this page/);await shot('study-'+level+'-'+route.goal);
+ const before=await raw();await click('#rearrange');const cells=E.board(await state()).cells,p=cells.findIndex(s=>s!==cells[0]);await click('#plot0');A.equal(await page.locator('#source').inputValue(),'0');await click('#plot'+p);A.equal(await raw(),before);A.match(await page.locator('#studies').innerText(),/→/);await shot('swap-preview-'+level+'-'+route.goal);await click('#place');await click('#undo');A.deepEqual(E.board(await state()).cells,cells);await reload();
+ }
+ }
+ // A missed-target page must remain recoverable through one real swap.
+ await page.getByText('Trails, records & new field season',{exact:true}).click();await click('#trail0');await click('#accept');for(let d=0;d<6;d++)for(const a of[{type:'survey',habitat:2},{type:'place',card:0,p:d*2},{type:'place',card:1,p:d*2+1}])await move(a);A.match(await page.locator('#score').innerText(),/31 points/);await shot('missed-target','#result');await click('#rearrange');await click('#plot4');await click('#plot5');await click('#place');A.match(await page.locator('#score').innerText(),/39 points/);await reload();
+ await click('#retry');await page.locator('#cancel').press('Escape');await page.waitForFunction(()=>!document.querySelector('#confirm').open&&!document.querySelector('#retry').disabled);await click('#retry');await click('#accept');await page.locator('#survey0').press('Enter');A.equal((await state()).moves.length,1);const prior=await raw();await click('#card0');await click('#plot0');await click('#pause');A.ok(await page.locator('#place').isDisabled());await click('#pause');A.equal(await raw(),prior);await reload();
+ await click('#collection');await page.waitForURL('**/index.html#games');await page.goto(base+'/games/field-album/index.html');await click('#start');
+ // Failure fixtures alone use storage injection.
+ await page.evaluate(k=>{localStorage.setItem(k,'broken');localStorage.setItem('field-test-other','safe')},E.KEY);await page.reload();await click('#start');await click('#survey0');A.equal(await raw(),'broken');await click('#recover');await click('#cancel');A.equal(await raw(),'broken');await click('#recover');await click('#accept');await click('#reset');await click('#accept');A.deepEqual(await state(),E.create());A.equal(await page.evaluate(()=>localStorage.getItem('field-test-other')),'safe');await shot('reset');await page.evaluate(()=>Storage.prototype.setItem=function(){throw Error('quota')});await click('#survey0');A.match(await page.locator('#save').innerText(),/temporary/);A.deepEqual(errors,[]);console.log('PASS',prefix,'all3 trails,9 reachable ecology routes, packet reloads, direct swaps/previews/undo, missed-target recovery, native Escape/Enter, pause, corruption/reset/quota, navigation and overflow checks');
+ }catch(e){await page.screenshot({path:path.join(out,prefix+'-failure.png'),fullPage:true});throw e}finally{await context.close()}
+}})().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{if(browser)await browser.close();server.kill()});
