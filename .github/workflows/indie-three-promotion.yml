@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  needlepath-catalogue:
+  reedbreaker-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/reedbreaker-engine.cjs tests/reedbreaker-dom.cjs
+          node tests/reedbreaker-browser.cjs
+          node tests/reedbreaker-catalog-browser.cjs
           node --test tests/needlepath-engine.cjs tests/needlepath-dom.cjs
           node tests/needlepath-browser.cjs
           node tests/needlepath-catalog-browser.cjs
@@ -55,7 +58,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: needlepath-catalogue-browser
+          name: reedbreaker-catalogue-browser
           path: |
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
@@ -75,3 +78,5 @@ jobs:
             test-artifacts/bramble-catalog/
             test-artifacts/needlepath/
             test-artifacts/needle-catalog/
+            test-artifacts/reedbreaker/
+            test-artifacts/reed-catalog/

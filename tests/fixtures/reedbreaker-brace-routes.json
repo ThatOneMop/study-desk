@@ -1,0 +1,82 @@
+[
+  {
+    "path": [
+      {
+        "type": "brace",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "brace",
+        "d": 0
+      },
+      {
+        "type": "brace",
+        "d": 1
+      }
+    ],
+    "hp": 3
+  },
+  {
+    "path": [
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "dash",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "brace",
+        "d": 1
+      }
+    ],
+    "hp": 5
+  },
+  {
+    "path": [
+      {
+        "type": "brace",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "dash",
+        "d": 1
+      },
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "brace",
+        "d": 0
+      }
+    ],
+    "hp": 5
+  }
+]
+

@@ -1,0 +1,100 @@
+[
+  {
+    "level": 0,
+    "path": [
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "dash",
+        "d": 1
+      },
+      {
+        "type": "walk",
+        "d": 3
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "dash",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 3
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "dash",
+        "d": 0
+      }
+    ],
+    "hp": 6,
+    "turns": 8
+  },
+  {
+    "level": 1,
+    "path": [
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "dash",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "walk",
+        "d": 1
+      },
+      {
+        "type": "dash",
+        "d": 1
+      }
+    ],
+    "hp": 5,
+    "turns": 5
+  },
+  {
+    "level": 2,
+    "path": [
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 2
+      },
+      {
+        "type": "dash",
+        "d": 1
+      },
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "walk",
+        "d": 0
+      },
+      {
+        "type": "dash",
+        "d": 0
+      }
+    ],
+    "hp": 5,
+    "turns": 6
+  }
+]
+

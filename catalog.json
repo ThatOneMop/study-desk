@@ -957,5 +957,30 @@
     "thumbnail": "art/curated/needlepath.svg",
     "thumbnailAlt": "An embroidery hoop with rose and teal threads joining flower pins on cream cloth",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "reedbreaker",
+    "title": "Reedbreaker",
+    "description": "Bait clockwork beetles along three wetland banks. Trade energy between dashes, hooks, vaults and directional counters, preview every response and undo to try another approach.",
+    "icon": "🪲",
+    "genre": "Tactics + Puzzle",
+    "color": "#7b9470",
+    "controls": "Arrows move · W/D/H/B/V choose stride · U undo · Touch buttons and turn planning",
+    "url": "games/reedbreaker/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#reedbreaker",
+    "aliases": [
+      "beetles",
+      "wetland",
+      "turn based",
+      "tactics",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/reedbreaker.svg",
+    "thumbnailAlt": "A green ranger facing copper clockwork beetles on stepping banks surrounded by blue water",
+    "updated": "2026-10-31"
   }
 ]
