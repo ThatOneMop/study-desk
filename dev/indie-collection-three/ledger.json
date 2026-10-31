@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 10,
     "browserTested": 10,
-    "integrated": 9,
-    "live": 9
+    "integrated": 10,
+    "live": 10
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -995,13 +995,13 @@
       "id": "tumbleglass",
       "title": "Tumbleglass",
       "coreLoop": "Tilt a tray to slide multiple beads; matching sockets lock beads into obstacles, making settling order matter. Undo, solve and optimize tilt counts.",
-      "status": "qualified-awaiting-catalogue-promotion",
+      "status": "integrated-live",
       "source": "games/tumbleglass",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-10-31",
@@ -1012,7 +1012,9 @@
           "implementationCommit": "6fc74fdb18b8d5de7b7b0a853a8091219196a7ac",
           "finalSourceCommit": "e1804e43a6372487d39c06766bc904a4676781cf",
           "verificationRun": 41191843917,
-          "evidence": "29 checks and 18 desktop/touch technique wins; every-action reload, undo/retry, native Escape, tool focus, advisory recovery, pause, parent-hide modal guard, navigation, corruption recovery/reset, storage failure, no page errors/overflow. Earlier artifact screenshots reviewed, final phone layout reviewed in 390px iframe; final catalogue screenshots pending promotion."
+          "evidence": "29 checks and 18 desktop/touch technique wins; every-action reload, undo/retry, native Escape, tool focus, advisory recovery, pause, parent-hide modal guard, navigation, corruption recovery/reset, storage failure, no page errors/overflow. Earlier artifact screenshots reviewed, final phone layout reviewed in 390px iframe; final catalogue screenshots pending promotion.",
+          "promotionRun": 41191942404,
+          "integrationReport": "dev/indie-collection-three/TUMBLEGLASS_INTEGRATION.md"
         }
       ],
       "tests": [
@@ -1022,7 +1024,8 @@
         "Clamp refinement: 11 total tests pass (6 engine, 5 jsdom). Three position-changing clamp-assisted wins, single-use/locked/no-op rejection, undo/reload, old v1 string journals, owned object journals, selector keyboard focus and pause/dialog guards. Both scripts pass syntax checks.",
         "Tray guidance refinement: 16 total tests pass (8 engine, 8 jsdom). Reverse-graph verification covers all 269 reachable board/clamp states and 14 dead ends; every suggested route replays to a win. Read-only save/selection behavior, stale advice, guards, undo recovery and journal-capacity feedback pass.",
         "Bead lift: 24 passing tests (13 engine, 11 jsdom 26.1.0). Original tilt/clamp behavior retained; extended adviser verified against independent reverse distances for all 1,127 reachable states. All three lift-assisted campaigns, prior dead-end recovery, exact replay/save/reload, blocked/invalid/repeated actions, undo/records/retry, tool exclusivity/focus/pause, reset isolation and syntax checks pass. No rendered evidence.",
-        "Run 41191843917/job124510047357 at e1804e43:29 focused tests,18 desktop/touch study wins, saves/reload/undo/retry/reset/recovery/pause/native Escape/tool-focus/navigation passed. Asset and first selected collection integrity checks passed. Artifact13039275949 SHA256 bc897cf09d0b28280cbac2f0dc6c3e7272468e7b4225b503680a72c82b05f251."
+        "Run 41191843917/job124510047357 at e1804e43:29 focused tests,18 desktop/touch study wins, saves/reload/undo/retry/reset/recovery/pause/native Escape/tool-focus/navigation passed. Asset and first selected collection integrity checks passed. Artifact13039275949 SHA256 bc897cf09d0b28280cbac2f0dc6c3e7272468e7b4225b503680a72c82b05f251.",
+        "Promotion41191942404/job124510339384:242 focused checks, ten gameplay/catalogue desktop-touch suites,60 bundled routes/303 references, first-batch integrity. Artifact13038879597 SHA25618cb009d833ea379917f828d48c49becc0128e116fbc6f2f419f63bb70598d50; three final catalogue screenshots inspected. Pages41192642375 succeeded. Live UI earned Bare hands and Steady hand, returned to Collection, and retained both on direct route/reload."
       ],
       "commits": [
         "0c67d045d33c8170dd461e5b66a08d3507857ef8",
@@ -1033,10 +1036,13 @@
         "ad44e2cfbb0f76011da1878ed074801ab9f686df",
         "e1804e43a6372487d39c06766bc904a4676781cf"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "c9eebba0c66efd8f8d8979260edb8e2d6307cb62",
+        "6ac7007406ff0a3f438b23439a8f09008ee798aa"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/tumbleglass/index.html",
       "quality": {
-        "status": "Qualified; selected pending catalogue regression",
+        "status": "Selected, integrated and live",
         "enjoyment": "Agent assessment: calm spatial planning with reversible mistakes; no human enjoyment study.",
         "depth": "Three compact authored trays; alternate technique goals make targeted interventions useful, with saved best routes. Limited campaign depth.",
         "polish": "Readable glass/socket numbers, settled checks, marked tools, desktop bench and compact phone direction pad.",
@@ -1045,7 +1051,7 @@
         "knownLimits": "No content-hour or physical-device touch claim. Emulated touch and native browser input tested."
       },
       "nextSteps": [
-        "Complete ten-game catalogue promotion and inspect its screenshots; publish only after passing."
+        "Retain saves and technique records in future regression checks."
       ],
       "pendingSourceRefinement": {
         "commit": "a32f7119573ed337e270ac68279d41ff0219ff18",
@@ -2283,11 +2289,11 @@
     }
   ],
   "nextSteps": [
-    "Finish Tumbleglass catalogue promotion and live-route verification.",
-    "Next: Soundings rendered play, substantial improvement, desktop/touch qualification.14 other built candidates await qualification;26 remain unbuilt."
+    "Play Soundings actual rendered core loop, identify and implement a substantial game-specific improvement, then qualify on desktop/touch before selection.",
+    "Continue the remaining third-batch slate:14 built candidates need qualification,26 remain unbuilt. Preserve earlier collections and concurrent user work."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "51dabae98504065aebcbea35c1eaf23555ee3ce3",
+  "latestObservedMain": "6ac7007406ff0a3f438b23439a8f09008ee798aa",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -2988,6 +2994,13 @@
       "commit": "e1804e43a6372487d39c06766bc904a4676781cf",
       "verificationRun": 41191843917,
       "summary": "Tumbleglass qualified after rendered-led technique studies and compact bench.24 built/10 improved/10 browser-tested/9 integrated/9 live. Promotion c9eebba preserves concurrent Creekhold and Spanwright."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "6ac7007406ff0a3f438b23439a8f09008ee798aa",
+      "verificationRun": 41191942404,
+      "pagesRun": 41192642375,
+      "summary": "Tumbleglass integrated/live after242 focused checks, ten-game desktop/touch catalogue regression, final screenshot inspection and live studies/reload/Collection verification. Counts24/10/10/10/10; Creekhold and Spanwright preserved; no publishing barrier."
     }
   ]
 }
