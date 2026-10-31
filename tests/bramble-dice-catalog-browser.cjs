@@ -22,7 +22,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
    await act(frame.locator('#flip1'));
    for(const [i,v] of [2,1,3,2].entries())await frame.locator('#job'+i).selectOption(String(v));
    await act(frame.locator('#bookmark'));await frame.locator('#job1').selectOption('4');await frame.locator('#job2').selectOption('1');
-   assert.match(await frame.locator('#difference').innerText(),/0 your health; \\+5 creature health/);await shot('comparison');
+   assert((await frame.locator('#difference').innerText()).includes('0 your health; +5 creature health'));await shot('comparison');
    await act(frame.locator('#resolve'));const saved=await raw();assert.equal(JSON.parse(saved).journal.length,2);assert.match(await frame.locator('#last').innerText(),/Reserved die 2 at 6/);
    await act(page.locator('#pauseGame'));assert(await page.locator('#pauseCover').isVisible());assert.equal(await raw(),saved);
    await act(page.locator('#resumeGame'));assert.equal(await frame.locator('#pause').textContent(),'Resume');await act(frame.locator('#pause'));
