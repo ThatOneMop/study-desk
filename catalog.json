@@ -984,6 +984,31 @@
     "updated": "2026-10-31"
   },
   {
+    "id": "beepline",
+    "title": "Beepline",
+    "description": "Program a little bee through three gardens. Compare and keep looping routes, then return to the hive often enough to deliver pollen with a two-flower carrying limit.",
+    "icon": "🐝",
+    "genre": "Puzzle + Programming",
+    "color": "#b8be86",
+    "controls": "Native command menus · Space on board steps · Touch playback and notebook buttons",
+    "url": "games/beepline/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#beepline",
+    "aliases": [
+      "bee",
+      "garden",
+      "programming",
+      "pollen",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/beepline.svg",
+    "thumbnailAlt": "Golden bee following a looping route between pink flowers in a green hedge garden",
+    "updated": "2026-10-31"
+  },
+  {
     "id": "spanwright",
     "title": "Spanwright",
     "description": "Build river spans from road, timber, steel, rope and pistons. Send the carts across, watch the load, and stay inside the ledger.",
@@ -992,7 +1017,7 @@
     "color": "#1e5462",
     "url": "games/spanwright/index.html",
     "group": "Your games",
-    "controls": "Click joints to build · 1–7 materials · H hinge · X lift out · Space simulates · T stress · Esc pauses",
+    "controls": "Drag or tap joint to joint · 1–7 materials · H hinge · X lift out · Space runs · T stress · Wheel/pinch zoom, two fingers or middle-drag pan · Esc pauses",
     "type": "bundled",
     "internet": false,
     "multiplayer": "Single player",
