@@ -16,7 +16,7 @@ const routes=[['stoke','stoke','bank','draw0','stoke','bank','draw1'],['stoke','
   for(let level=0;level<3;level++){
    await click('#plan-toggle');const before=await raw();for(const a of routes[level])await move(a);A.match(await page.locator('#status').innerText(),/Rehearsal.*Load complete/);A.equal(await raw(),before);A.ok(await page.locator('#next').isHidden());await shot('winning-plan-'+level,'#plan-panel');
    for(let i=0;i<routes[level].length;i++){await click('#plan-commit');A.equal((await state()).moves.length,i+1);A.deepEqual(E.decode(await raw()),await state())}
-   await click('#plan-toggle');await reload();A.equal((await state()).records[level],[3,4,2][level]);A.equal(E.board(await state()).phase,'won');await shot('saved-win-'+level);
+   A.ok(await page.locator('#plan-panel').isHidden());await reload();A.equal((await state()).records[level],[3,4,2][level]);A.equal(E.board(await state()).phase,'won');await shot('saved-win-'+level);
    await click('#retry');await page.locator('#cancel').press('Escape');await page.waitForFunction(()=>!document.querySelector('#confirm').open&&!document.querySelector('#retry').disabled);A.equal(E.board(await state()).phase,'won');
    if(level<2)await click('#next');
   }
