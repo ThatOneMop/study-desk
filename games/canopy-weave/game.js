@@ -46,7 +46,7 @@ function render(){
  $('compact').textContent=compact?'Return to free garden':'Try compact garden';$('compact').disabled=busy()||state.records[state.level]===null;
  $('reach-note').textContent=compact?(info.stretched.length?'Overstretched: '+info.stretched.map(edgeName).join(', ')+'. Bring these leaves closer.':info.won?'All vines are within reach and clear.':'All vines are within reach. Clear any remaining tangles.'):(state.records[state.level]===null?'Complete this trellis to unlock its compact-garden challenge.':'Compact garden unlocked: try shorter connections while keeping your free-garden record.');
  $('board').replaceChildren();
- for(let x=0;x<=8;x++)for(let y=0;y<=8;y++)$('board').append(svg('circle',{cx:20+x*40,cy:20+y*40,r:2,class:'dot'}));
+ for(let x=0;x<=8;x++)for(let y=0;y<=8;y++)$('board').append(svg('circle',{cx:20+x*40,cy:20+y*40,r:17,class:'dot'}),svg('circle',{cx:20+x*40,cy:20+y*40,r:2,class:'dot-mark'}));
  if(compact)$('board').append(svg('circle',{cx:20+points[selected][0]*40,cy:20+points[selected][1]*40,r:160,class:'reach'}));
  l.edges.forEach(([a,b],i)=>$('board').append(svg('line',{x1:20+points[a][0]*40,y1:20+points[a][1]*40,x2:20+points[b][0]*40,y2:20+points[b][1]*40,class:'vine'+(info.stretched.includes(i)?' stretched':'')+(info.bad.includes(i)?' tangled':'')+(issue?(issue.edges.includes(i)?' isolated':' muted'):'')})));
  if(planned||drag?.action){const p=original[selected],q=points[selected];$('board').append(svg('line',{x1:20+p[0]*40,y1:20+p[1]*40,x2:20+q[0]*40,y2:20+q[1]*40,class:'travel'}),svg('circle',{cx:20+p[0]*40,cy:20+p[1]*40,r:21,class:'origin'}))}
@@ -71,7 +71,7 @@ function render(){
  $('undo').disabled=busy()||!state.moves.length;$('retry').disabled=busy();$('pause').textContent=paused?'Resume':'Pause';$('pause').disabled=parentHidden||document.hidden;
  $('next').hidden=!win||state.level===2;$('next').disabled=busy();$('record').textContent='Fewest moves: '+((compact?state.compactRecords:state.records)[state.level]??'not completed');$('recover').hidden=!blocked;
  $('levels').replaceChildren();E.LEVELS.forEach((l,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+l.name;b.disabled=busy()||(i>0&&state.records[i-1]===null);b.onclick=()=>ask('Open this trellis? Current layout restarts; records stay.',()=>go({type:'level',level:i}));$('levels').append(b)});
- if(focus&&$(focus)&&!$(focus).disabled)$(focus).focus();
+ if(focus&&$(focus)&&!$(focus).disabled)$(focus).focus({preventScroll:true});
 }
 function position(e){const r=$('board').getBoundingClientRect();if(!r.width||!r.height)return null;return[Math.max(0,Math.min(8,Math.round(((e.clientX-r.left)/r.width*360-20)/40))),Math.max(0,Math.min(8,Math.round(((e.clientY-r.top)/r.height*360-20)/40)))]}
 $('board').addEventListener('pointerdown',e=>{
