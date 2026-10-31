@@ -869,7 +869,7 @@
       "id": "beepline",
       "title": "Beepline",
       "coreLoop": "Compose a short repeating flight program with forward, glide, turn and conditional Scout commands; debug its route to collect flowers and return to the hive, then optimize command count.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-improvement-awaiting-full-qualification",
       "source": "games/beepline",
       "built": true,
       "improved": false,
@@ -881,22 +881,24 @@
         "8 engine tests pass: original sequential three-garden wins and save/reload, all 5,460 legacy programs per garden unchanged (minima 3/2/5), new Scout branches/routes, all 19,530 extended programs per garden (minima 3/1/3), backward inspection at every cursor with records preserved, and malformed/legacy save validation.",
         "7 jsdom 26.1.0 tests pass: original UI campaign, Scout UI routes through every garden, backward inspection/reload, Run/Stop/pause/dialog/parent guards, crash/loop retry, Space/form controls, reset isolation, corrupt-save recovery and quota failure. Dialogs and intervals simulated.",
         "Both gameplay scripts pass syntax checks. No rendered play, screenshots, native keyboard activation, touch/mobile layout or human-enjoyment evidence. Full repository checks not run from partial checkout.",
-        "Delivery refinement: 18 total tests pass (10 engine, 8 jsdom); normal program enumeration remains unchanged, three delivery routes use 5/2/4 commands, overload/loop/save/record/UI regressions pass. Script syntax passes."
+        "Delivery refinement: 18 total tests pass (10 engine, 8 jsdom); normal program enumeration remains unchanged, three delivery routes use 5/2/4 commands, overload/loop/save/record/UI regressions pass. Script syntax passes.",
+        "31October rendered desktop Clover square baseline exposed successful-route loss while editing. Implemented six independently saved normal/delivery loop slots and optional read-only outcome comparison. Rendered F/F/R win, F/F/L hedge-versus-kept-win comparison, restore/reload, F/F/L/G/L pollen delivery win, mode notebook isolation, native Escape then Space stepping verified. Comparison and delivery notebook screenshots inspected.22 focused checks pass (12 engine,10DOM), preserving earlier18 and adding notebook validation/copy/slot/read-only/save plus hidden pending-reset/resume protection. Syntax passes. Remaining full three-garden/touch/corrupt-save/catalogue qualification not claimed."
       ],
       "commits": [
         "4271c69152ec426d0c3df7452c252b0c90bb1706",
         "882241479028fb664a192b21b05550312ba78e01",
-        "a7f13d7c632d87b8bdcc63c913b25a0d58e0f834"
+        "a7f13d7c632d87b8bdcc63c913b25a0d58e0f834",
+        "f2cbf083b404f4c1cd8f51b72fe914a3acc1396b"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored gardens. Extended-program minima are 3/1/3; original command minima stay 3/2/5. Scout simplifies Hedge run to one command, requiring natural-play balance assessment. Enumeration is verification, not extra levels or content hours. Visual/debugging clarity and enjoyment remain unassessed. Optional delivery mode adds capacity-aware routing; its readability and enjoyment remain unverified."
+        "status": "Partial rendered assessment; full qualification pending",
+        "knownLimits": "Three compact gardens; first normal/delivery garden rendered successfully with reversible notebook comparison. Full remaining garden/touch assessment pending. No hours or human enjoyment claim."
       },
       "nextSteps": [
-        "Play all three gardens naturally in a rendered browser on desktop/touch; inspect Scout branch feedback, backward inspection, glide highlighting, focus and loop explanations.",
-        "Assess whether conditional programming leaves adequate puzzle depth, especially Hedge run; make and verify a substantive playtest-led improvement before catalogue selection."
+        "Complete rendered desktop/touch qualification for all three gardens and both flight modes, including kept notebook persistence, controls, reset/recovery, hidden bridge and navigation.",
+        "Evaluate route depth and readability, then select and integrate only after release regressions."
       ],
       "pendingSourceRefinement": {
         "commit": "882241479028fb664a192b21b05550312ba78e01",
@@ -912,6 +914,16 @@
         "after": "Optional unlocked delivery mode carries two flowers; a third uncollected flower overloads the bag. Return through the hive to unload while preserving program counter. Independent records and mode-confirmed rewind preserve normal flights.",
         "tests": "18 engine/DOM tests pass; three delivery routes, per-frame saves, overload/retry, old exhaustive outcomes, UI mode/cargo/reload and isolated records.",
         "remaining": "Rendered natural play, screenshots, desktop/touch readability and balance assessment. No improvement credit."
+      },
+      "pendingRenderedImprovement": {
+        "date": "2026-10-31",
+        "commit": "f2cbf083b404f4c1cd8f51b72fe914a3acc1396b",
+        "observedWeakness": "Editing a successful route erased its commands; only the shortest command count survived.",
+        "before": "Successful programs had to be re-entered after experimentation.",
+        "after": "Keep one loop per garden and flight mode; compare current and kept outcomes without progression, then restore the kept route at step zero across reloads.",
+        "evidence": "31October rendered desktop Clover square baseline exposed successful-route loss while editing. Implemented six independently saved normal/delivery loop slots and optional read-only outcome comparison. Rendered F/F/R win, F/F/L hedge-versus-kept-win comparison, restore/reload, F/F/L/G/L pollen delivery win, mode notebook isolation, native Escape then Space stepping verified. Comparison and delivery notebook screenshots inspected.22 focused checks pass (12 engine,10DOM), preserving earlier18 and adding notebook validation/copy/slot/read-only/save plus hidden pending-reset/resume protection. Syntax passes. Remaining full three-garden/touch/corrupt-save/catalogue qualification not claimed.",
+        "remaining": "Complete desktop/touch qualification across all three gardens and both modes, failure/retry, malformed save/reset and real catalogue navigation; select only after passing.",
+        "report": "dev/indie-collection-three/BEEPLINE_RENDERED_PASS.md"
       }
     },
     {
@@ -2187,8 +2199,8 @@
     }
   ],
   "nextSteps": [
-    "Beepline(slot49): render the current Scout and pollen-delivery loops; assess branch feedback, carrying-capacity clarity and route debugging, then implement a substantial observed improvement. Existing source-only refinements do not count.",
-    "Preserve8 live third-batch games and completed second batch.24/50 built;8/50 improved/browser-tested/integrated/live;16 built candidates await qualification and26 remain unbuilt. Keep50 distinct slots and retain hourly cadence."
+    "Finish Beepline rendered qualification and selection/integration if it passes.",
+    "Continue remaining third-batch candidates, preserving completed batches and all current saves."
   ],
   "updated": "2026-10-31",
   "latestObservedMain": "7599ac67644b7e041ab9083f0a64b68b3ce46fbf",
@@ -2857,6 +2869,11 @@
       "date": "2026-10-31",
       "commit": "7599ac67644b7e041ab9083f0a64b68b3ce46fbf",
       "summary": "Reedbreaker selected and published after191-check/eight-game desktop+touch promotion regression. Pages41171774271 succeeded; live launch, win, native Escape, undo/save, direct route and parent Collection verified. Source/asset version matches deployment; no Switch workspace controls. Counts24/8/8/8/8; prior collections preserved."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "f2cbf083b404f4c1cd8f51b72fe914a3acc1396b",
+      "summary": "Beepline saved loop notebook/comparison implemented from rendered first-garden play;22 focused checks pass. Normal/delivery wins, reload/mode isolation and native Escape/Space checked. Full qualification pending; counts unchanged24/8/8/8/8."
     }
   ]
 }
