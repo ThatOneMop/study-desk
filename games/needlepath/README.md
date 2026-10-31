@@ -31,3 +31,12 @@ Render and play all samplers naturally on desktop and touch, inspect the cloth/t
 Ask the thread guide to see one next move toward the least-thread finish and its total thread/ribbon forecast. It can warn that no finish remains even when a local stitch is legal. It never moves the needle or spends thread. Advice is hidden by default and after reload; saves remain byte-compatible with the initial journal format. A bounded search returns “unknown” rather than claiming impossibility when its work limit is reached.
 
 The guide was checked against all 1,262 reachable action prefixes and the independent initial winning-route fixture. Source/engine inspection motivated it; this is not a credited rendered-playtest improvement. Rendered usability and visual highlighting remain pending.
+
+
+## Rendered-play refinement — 31 October 2026
+
+Baseline browser play crossed flower 5 without collecting it, then completed the 12-thread route. The journal only rewarded the shortest overall route: knotwork alternatives had no separate mastery target. Added seamless and knotwork studies, independently validated best action journals, six attainable style-specific fine-pattern goals (not six new levels), opt-in saved-pattern traces, and study-aware advice. Passing a flower now names the missed endpoint. Focus restoration no longer replaces useful feedback with “already stitched.” Embedded Games returns to the parent collection.
+
+Saves retain key/version and ordinary ribbons. Missing study data is initialized empty; only an actually replayable current completed journal can be inferred. Older numeric records never invent a saved route. Recorded patterns are validated by full legal replay and style. Study selection and trace visibility are session-only.
+
+Qualification is tracked in the separate second refinement report/ledger; do not interpret source implementation as public integration. Automated browser verification runs on GitHub Actions, including desktop and 390px touch emulation.
