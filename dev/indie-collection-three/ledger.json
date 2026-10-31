@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 12,
     "browserTested": 12,
-    "integrated": 11,
-    "live": 11
+    "integrated": 12,
+    "live": 12
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1160,13 +1160,13 @@
       "id": "moss-commons",
       "title": "Moss Commons",
       "coreLoop": "Plan connected houses, gardens, wells and paths under a finite timber budget; balance population demand, fertile plots and well adjacency to sustain a small settlement.",
-      "status": "qualified-awaiting-integration",
+      "status": "integrated-live",
       "source": "games/moss-commons",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1187,7 +1187,9 @@
         "Relocation: 19 passing tests (12 engine, 7 jsdom 26.1.0), retaining original fourteen. Full connectivity, crowded-orchard recovery, cost/refund, strict journals/targets, three relocation campaigns with reload, unchanged legacy saves, UI preview/commit, pause, undo/retry, records and isolation. Both scripts pass syntax checks; no rendered evidence.",
         "Neighbourhood challenge: 29 passing checks (18 engine, 11 jsdom 26.1.0), retaining prior 19. All three standard/challenge campaigns, per-action reload, local edge services, global capacity, relocation previews, independent records, unlock/confirm/cancel/pause, undo/retry/loss, malformed saves/recovery/reset isolation. Scripts pass syntax checks; local script/style references resolve. No rendered evidence.",
         "Conversion pass:38 focused checks (23 engine,15 jsdom) passed. All building-use costs, strict conversion journals, three conversion-assisted standard wins, full-board redesign, previews, deficit messaging, undo/reload, roving focus and hidden-dialog guards added. Rendered first-site conversion rescue and second-site irrigation win verified; full qualification pending.",
-        "CI41197983483 passed38 focused tests (23engine,15jsdom) and all three sites through conversion-assisted irrigation, orchard and neighbourhood routes on desktop and touch-emulated Chromium, plus the played repair route, saves/reload, undo, loss/retry, relocation, native Escape, hidden/pause guards, navigation and storage recovery/reset/quota. Artifact13041810568 SHA256bdd578dcddf85582eb7573d7ca44ece3787d6f837f7d01c33d77d55e87a2649c verified. Inspected touch onboarding/repair preview/final neighbourhood and desktop relocation: legible controls and forecasts, vertical scrolling on phone. No human enjoyment or physical-device claim."
+        "CI41197983483 passed38 focused tests (23engine,15jsdom) and all three sites through conversion-assisted irrigation, orchard and neighbourhood routes on desktop and touch-emulated Chromium, plus the played repair route, saves/reload, undo, loss/retry, relocation, native Escape, hidden/pause guards, navigation and storage recovery/reset/quota. Artifact13041810568 SHA256bdd578dcddf85582eb7573d7ca44ece3787d6f837f7d01c33d77d55e87a2649c verified. Inspected touch onboarding/repair preview/final neighbourhood and desktop relocation: legible controls and forecasts, vertical scrolling on phone. No human enjoyment or physical-device claim.",
+        "Promotion CI41198525804:308 focused checks, twelve-game desktop/touch gameplay+catalogue suites, five shell suites,63 bundled/318 references and9 first-batch integrity checks pass. Final artifact13041712421 SHA2563584ef4408928eb4e61b95fa07a5cfbee3dd83ff6744d4967084f61d802655f6 verified; three catalogue screenshots inspected.",
+        "Pages41199101772 succeeded. Live standard4-timber win, neighbourhood conversion rescue1-timber win, reload/record retention, direct Games, search, real iframe saved launch and in-game top-level Collection verified. Catalogue version moss-commons-20261031,64 entries/63 bundled. No remaining publishing barrier."
       ],
       "commits": [
         "c9ebfeb6b75d6e7f698a29e6e63e88c760295823",
@@ -1195,10 +1197,15 @@
         "040436f94bdc1f060afe42d642dac532a6dec39c",
         "7ece0fd8f1f72624146bc8e0dfbfd52e68e286b8",
         "7a67f279e895c046118a45e879dc990224e156f5",
-        "4f57cb287bc1771f1840b18c871e4ab64328c1a3"
+        "4f57cb287bc1771f1840b18c871e4ab64328c1a3",
+        "f985026af855ee9e58ccf4742515b919dcbe5d0e",
+        "0bafbb835af7514b0a92849dcbf10e691ae81e66"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "f985026af855ee9e58ccf4742515b919dcbe5d0e",
+        "0bafbb835af7514b0a92849dcbf10e691ae81e66"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/moss-commons/index.html",
       "quality": {
         "status": "Agent design assessment, not player survey",
         "enjoyment": 3.5,
@@ -1210,7 +1217,7 @@
         "notes": "Relaxed village-layout decisions connect irrigation, orchard open-space, local services and limited timber. Conversion recovers early choices while undo offers free redesign. Three compact sites and optional neighbourhood challenges limit scope; no audio, long campaign, physical-device or content-hours claim. Selected for colony-building variety."
       },
       "nextSteps": [
-        "Complete twelve-game catalogue promotion regression, review final catalogue screenshots, preserve current main, verify live route and saves."
+        "No outstanding Moss Commons release gate. Preserve regression coverage and saves; next candidate is Canopy Weave."
       ],
       "pendingSourceRefinement": {
         "commit": "b77478fc32b11971cb95ca2c3c4e490101a76d8e",
@@ -2363,12 +2370,12 @@
     }
   ],
   "nextSteps": [
-    "Finish Moss Commons catalogue promotion and live verification.",
-    "Canopy Weave slot53: play rendered baseline, identify weakness and implement substantial improvement.",
-    "Continue remaining built candidates and26 unbuilt slots; preserve exactly50 third-batch slots."
+    "Canopy Weave slot53: use recorded rendered baseline to implement and naturally verify a substantial compact-layout diagnosis/planning upgrade; repair drag text selection.",
+    "Qualify remaining12 built candidates individually before listing; then complete26 unbuilt slots, retaining exactly50.",
+    "Keep second-batch20/20 additional improvements and9 live selections, first-batch sources, Gummy Bay and concurrent work intact. Pause only at entire goal completion."
   ],
   "updated": "2026-10-31",
-  "latestObservedMain": "2f773b6603cbfa4cd64a68e73dcc894ff1b737d2",
+  "latestObservedMain": "3ab355ae1f3442ec87b988be3d745fa74adc33f5",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3099,6 +3106,13 @@
       "verificationRun": 41197983483,
       "promotionCommit": "f985026af855ee9e58ccf4742515b919dcbe5d0e",
       "summary": "Moss Commons qualified after rendered-led building conversion and explicit capacity deficits.38focused checks and desktop/touch campaigns pass; screenshots inspected. Counts24/12/12/11/11; catalogue promotion pending."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "0bafbb835af7514b0a92849dcbf10e691ae81e66",
+      "verificationRun": 41198525804,
+      "pagesRun": 41199101772,
+      "summary": "Moss Commons integrated/live after308-check twelve-game desktop/touch promotion and final screenshot review. Live conversion rescue, records/reload and actual catalogue return verified. Counts24/12/12/12/12; no deployment barrier. Canopy Weave natural baseline recorded without improvement credit."
     }
   ]
 }
