@@ -117,6 +117,7 @@
     buildTools();
     closeVeils();
     show('play');
+    $('stressBtn').setAttribute('aria-pressed', 'false');
     audio.startMusic();
     setStatus(session.level.brief);
     updateTutorial();
@@ -124,14 +125,22 @@
   }
 
   function fitCamera() {
-    const b = session.level.bounds;
+    const level = session.level;
+    const x0 = level.xL == null ? level.bounds.x0 : level.xL - 3;
+    const x1 = level.xR == null ? level.bounds.x1 : level.xR + 3;
+    const deck = Math.max(level.yL || 6, level.yR || 6);
+    const y0 = (level.waterY || 1) - 1.2;
+    const topBolt = Math.max(deck, ...(level.anchors || []).map((a) => a.y));
+    const y1 = Math.max(deck + 4.2, topBolt + 1.6);
     const vw = $('scene').clientWidth || 800;
     const vh = $('scene').clientHeight || 450;
-    const fit = Math.min(vw / (b.x1 - b.x0 + 3), vh / ((b.y1 - b.y0) * 0.55)) * 0.92;
-    cam.zoom = Math.max(Math.min(26, vw / (b.x1 - b.x0 + 1)), fit);
-    cam.minZoom = Math.min(18, cam.zoom * 0.8);
-    cam.x = (b.x0 + b.x1) / 2;
-    cam.y = (session.level.waterY + Math.max(session.level.yL || 6, session.level.yR || 6)) / 2 + 1.2;
+    const zx = vw / Math.max(8, x1 - x0);
+    const zy = vh / Math.max(6, y1 - y0);
+    const fit = Math.min(zx, zy) * 0.96;
+    cam.zoom = Math.max(16, Math.min(fit, 64));
+    cam.minZoom = Math.min(16, cam.zoom * 0.8);
+    cam.x = ((level.xL == null ? level.bounds.x0 : level.xL) + (level.xR == null ? level.bounds.x1 : level.xR)) / 2;
+    cam.y = (y0 + y1) / 2;
     cam.shake = 0;
   }
 
@@ -543,7 +552,9 @@
       setStatus('The crossing is in motion.');
       tutorialProgress('play');
     });
-    $('undoBtn').addEventListener('click', () => { if (E.undo(session)) { audio.play('ui'); updateHud(); } });
+    $('undoBtn').addEventListener('click', () => { if (session && E.undo(session)) { audio.play('ui'); updateHud(); } });
+    $('redoBtn').addEventListener('click', () => { if (session && E.redo(session)) { audio.play('ui'); updateHud(); } });
+    $('cancelBtn').addEventListener('click', () => { anchor = null; ghost = null; setStatus('Member cancelled.'); audio.play('ui'); });
     $('stressBtn').addEventListener('click', () => {
       const on = $('stressBtn').getAttribute('aria-pressed') !== 'true';
       $('stressBtn').setAttribute('aria-pressed', String(on));

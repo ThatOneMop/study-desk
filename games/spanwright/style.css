@@ -137,8 +137,16 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .achieve.lock { opacity: 0.45; }
 @media (max-width: 720px) {
   h1 { font-size: 42px; }
-  #status { top: 108px; font-size: 14px; }
-  #tutorial { top: 148px; bottom: auto; }
+  #status {
+    top: auto;
+    bottom: 132px;
+    font-size: 14px;
+    background: rgba(20, 16, 12, 0.72);
+    color: #f7f1e6;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+  #tutorial { top: auto; bottom: 188px; }
   .sheet { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -151,4 +159,32 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 }
 @media (max-width: 480px) {
   #tools button { min-width: 62px; padding: 6px 6px; font-size: 15px; }
+}
+.scrub { display: block; margin: 10px 0 14px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); }
+.scrub input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 10px;
+  margin-top: 8px;
+  border-radius: 99px;
+  border: 1px solid rgba(27, 25, 20, 0.28);
+  background: linear-gradient(90deg, #8d6a45, #e4c27a 55%, #1e5462);
+}
+.scrub input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f4ecdf;
+  border: 2px solid #1b1914;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+}
+.scrub input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f4ecdf;
+  border: 2px solid #1b1914;
 }
