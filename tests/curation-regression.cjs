@@ -7,7 +7,8 @@ w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-b
 const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-assert.equal(catalog.length,63);
+assert.equal(catalog.length,64);
+assert(catalog.some(g=>g.id==='moss-commons'),'qualified Moss Commons is present');
 assert(catalog.some(g=>g.id==='soundings'),'qualified Soundings is present');
 assert(catalog.some(g=>g.id==='tumbleglass'),'qualified Tumbleglass is present');
 assert(catalog.some(g=>g.id==='beepline'),'qualified Beepline is present');

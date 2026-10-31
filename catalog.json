@@ -1135,5 +1135,30 @@
     "thumbnail": "art/curated/soundings.svg",
     "thumbnailAlt": "A pale nautical grid with a survey boat, sonar rings and two amber beacons",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "moss-commons",
+    "title": "Moss Commons",
+    "description": "Grow a small settlement around a shared hall. Balance irrigated gardens, open-space orchards and nearby services, then redesign existing buildings to make the commons thrive.",
+    "icon": "🌳",
+    "genre": "Strategy + Puzzle",
+    "color": "#7b8c59",
+    "controls": "Click or tap plots and actions · Arrow keys select · Free previews and undo",
+    "url": "games/moss-commons/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#moss-commons",
+    "aliases": [
+      "colony",
+      "village",
+      "gardens",
+      "building",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/moss-commons.svg",
+    "thumbnailAlt": "Three warm-roofed cottages sharing wells, gardens and an orchard on a moss-green village grid",
+    "updated": "2026-10-31"
   }
 ]
