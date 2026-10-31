@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 5,
-    "browserTested": 5,
+    "improved": 6,
+    "browserTested": 6,
     "integrated": 5,
     "live": 5
   },
@@ -596,38 +596,58 @@
       "id": "bramble-dice",
       "title": "Bramble Dice",
       "coreLoop": "Keep or reroll four dice, allocate every die to attack, guard or repair against visible enemy intents, then choose stacking equipment between woodland encounters.",
-      "status": "rendered-improvement-awaiting-full-browser-qualification",
+      "status": "selected-awaiting-catalogue-integration",
       "source": "games/bramble-dice",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-10-31",
+          "observedWeakness": "Actual rendered desktop baseline: first turn compared attack with reserving a six; replacing jobs erased the previous outcome and the following enemy intent was hidden.",
+          "before": "Only one mutable current-turn forecast. Reserving a face required remembering the previous plan and guessing the next intent.",
+          "after": "Bookmark a complete allocation, compare health and reserve outcomes, swap plans without spending resources, and inspect the following enemy intent. Comparisons invalidate on dice changes or committed actions. Existing v1 saves remain unchanged.",
+          "implementationCommits": [
+            "886dd5cb2b354c5bd2e942bcc09c87b5e51789eb"
+          ],
+          "verificationCommits": [
+            "1ae8f96901a16cf86e8d8821be62e95322b0b9fd",
+            "3920092130f679850f4a014cad83801bb1d922dc"
+          ],
+          "verification": "CI41153624171 on3920092130f679850f4a014cad83801bb1d922dc passed32 focused checks(15engine,17DOM), full control-driven seed1 campaigns on desktop1280×1000 and touch-emulated390×844, comparison/swap, reserve, win/reload, natural loss/reload/retry, best retention, keyboard assignments, touch button taps/native select programmatic choices, modal/pause/shell guards, new seed, reset/corrupt-save recovery and Games navigation.63 development bundled routes/231HTML references plus9first-batch integrity checks passed. Artifact13024311324 SHA256a07f35886813cbc56a43ff21c1bcacd9125538626f9238cb36fb108de10a5124 contains12screenshots; reviewed desktop-comparison,touch-comparison,touch-victory. Readable stacked phone comparison, no horizontal overflow, vertical scrolling remains. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification."
+        }
+      ],
       "tests": [
         "8 engine tests pass: 25 seeded wins across five equipment focuses, exact saves/replay, reroll constraints, forecasts, loss/retry/records, malformed saves, conditional bonus rules and pre-upgrade journal compatibility.",
         "5 jsdom tests pass: equipment routes, reload, setup/focus/native keys, loss/retry/pause/help/reset, unreadable-save preservation and new equipment/forecast persistence. Dialog methods simulated.",
         "Script syntax passed. No rendered browser, screenshots, touch or human-enjoyment evidence. Full repository build not run from partial checkout.",
         "Opposite-face refinement: 19 passing tests (11 engine, 8 jsdom), retaining original 13 and old exact-save fixtures. Shared reroll budget, RNG/other-die/setup preservation, invalid actions, mixed reroll/flip exhaustion, turn reset, phase guards, per-action replay, native input ownership, pause/guide, full flipped seed-42 route and retry/record preservation. Script syntax checks pass; no rendered evidence.",
         "Reserve refinement: 27 tests pass (15 engine, 12 jsdom), retaining prior 19 and old exact-save fixtures. Current output/gear exclusion, next-turn same-slot face, unchanged RNG/other dice, reward carry/reload, retry reset, multiple-reserve rejection, saved setup, focused-card shortcut/native keys, pause, and full reserved-opening engine/DOM wins. Both scripts pass syntax; no rendered/native touch evidence.",
-        "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass."
+        "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass.",
+        "CI41153624171 on3920092130f679850f4a014cad83801bb1d922dc passed32 focused checks(15engine,17DOM), full control-driven seed1 campaigns on desktop1280×1000 and touch-emulated390×844, comparison/swap, reserve, win/reload, natural loss/reload/retry, best retention, keyboard assignments, touch button taps/native select programmatic choices, modal/pause/shell guards, new seed, reset/corrupt-save recovery and Games navigation.63 development bundled routes/231HTML references plus9first-batch integrity checks passed. Artifact13024311324 SHA256a07f35886813cbc56a43ff21c1bcacd9125538626f9238cb36fb108de10a5124 contains12screenshots; reviewed desktop-comparison,touch-comparison,touch-victory. Readable stacked phone comparison, no horizontal overflow, vertical scrolling remains. Automated reliability and agent visual assessment, not human enjoyment or physical-device certification."
       ],
       "commits": [
         "53da98cfae1c9620d8f1612ce1e7185d235dcc52",
         "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
         "8e7d63d094d7f7431ba5790d00ab0d6463e0b016",
         "5582c22c4eef24ba2c3b4169dcb4ead54bdeaa1e",
-        "886dd5cb2b354c5bd2e942bcc09c87b5e51789eb"
+        "886dd5cb2b354c5bd2e942bcc09c87b5e51789eb",
+        "1ae8f96901a16cf86e8d8821be62e95322b0b9fd",
+        "3920092130f679850f4a014cad83801bb1d922dc"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Desktop upgrade played to victory; full qualification pending",
-        "knownLimits": "Three authored encounters with changing intent cycles. Automated winning routes take 6–10 turns for the sampled seeds/equipment; dice-seed variation is not additional authored content. No playtime or enjoyment claim."
+        "status": "Selected after rendered improvement and browser qualification",
+        "assessment": "A compact, untimed tactical choice loop adds combat variety beside the five released logistics/sailing/physics games. Exact intent scouting, reserve carry, low-die and mixed-job gear create useful alternatives; plan comparison makes these understandable. Safe deterministic retries and record retention support replay.",
+        "knownLimits": "Three authored encounters and two equipment clearings. Sampled complete trails are short; seed variation is not additional authored content. Phone layout requires vertical scrolling. Automated checks are not evidence of human enjoyment or real-device coverage."
       },
       "nextSteps": [
-        "Run desktop/touch browser qualification covering comparison/swap, reserve and equipment, loss/retry, reload, hidden/modal guards and navigation; inspect captured mobile screenshots.",
-        "Evaluate final quality and integrate only after full catalogue/build and concurrent-main preservation checks."
+        "Integrate into latest main with original cover and accurate short tactical-game description; preserve all concurrent catalogue entries and saves.",
+        "Run catalogue launch/search/favourite/return regression alongside released-game suites; verify Pages and live route before setting integrated/live."
       ],
       "pendingSourceRefinement": {
         "commit": "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
@@ -664,8 +684,9 @@
           "Desktop comparison and victory screenshots inspected in CUA; no human enjoyment claim."
         ],
         "tests": "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass.",
-        "remaining": "Mobile/touch rendered gameplay/layout, rendered loss, broader browser regression and full repository/catalogue verification. Do not promote or count this as a fully qualified improved/browser-tested candidate yet."
-      }
+        "remaining": "Qualified by CI41153624171 and inspected screenshots; catalogue integration remains."
+      },
+      "selected": true
     },
     {
       "slot": 47,
@@ -2097,9 +2118,9 @@
     }
   ],
   "nextSteps": [
-    "Finish Bramble Dice(slot46) browser qualification: mobile/touch, loss, shell/navigation and catalogue regression; inspect screenshots.",
-    "Preserve five live third-batch games and completed second batch.19 built candidates remain unqualified;26 slots remain unbuilt.",
-    "Continue existing cadence until requested scope completes."
+    "Integrate qualified Bramble Dice(slot46) into latest main; verify catalogue regression, deployment and live saves/navigation.",
+    "Then render-play Mosslight Apiary or the next weakest unqualified candidate according to its source and ledger.18 built candidates remain unqualified;26 slots remain unbuilt.",
+    "Preserve both completed prior collections and five existing third-batch releases."
   ],
   "updated": "2026-10-31",
   "latestObservedMain": "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b",
@@ -2732,6 +2753,12 @@
       "date": "2026-10-31",
       "commit": "886dd5cb2b354c5bd2e942bcc09c87b5e51789eb",
       "summary": "Bramble Dice received rendered-play-led plan comparison and next-intent scouting; natural ten-turn desktop victory/reload/retry/keyboard verified;32 focused tests pass. Full mobile/browser qualification pending. Counts unchanged24/5/5/5/5."
+    },
+    {
+      "date": "2026-10-31",
+      "commit": "3920092130f679850f4a014cad83801bb1d922dc",
+      "verificationRun": 41153624171,
+      "summary": "Bramble Dice qualified and selected, unlisted pending catalogue integration.32focused checks, complete desktop/touch campaigns and three inspected screenshots. Counts24/6/6/5/5."
     }
   ]
 }
