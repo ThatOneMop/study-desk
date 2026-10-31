@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="icon" href="../../favicon.ico">
+  <title>Lanewright — Study Desk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <section id="title">
+    <div class="sheet">
+      <a class="back" href="../../index.html#games">← Study Desk</a>
+      <svg class="logo" viewBox="0 0 240 72" role="img" aria-label="Lanewright">
+        <path d="M16 50 C48 50 52 28 84 28 C116 28 120 50 152 50" fill="none" stroke="#d9d3c8" stroke-width="10" stroke-linecap="round"/>
+        <path d="M16 50 C48 50 52 28 84 28 C116 28 120 50 152 50" fill="none" stroke="#fbfaf6" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="46" cy="40" r="10" fill="#e15b4c"/>
+        <rect x="118" y="22" width="20" height="20" rx="5" fill="#3a8fd4"/>
+        <circle cx="188" cy="36" r="9" fill="#e6a23a"/>
+      </svg>
+      <p class="kicker">Colour trips</p>
+      <h1>Lane<i>wright</i></h1>
+      <p class="lede">Draw the lanes. Match the colours. Keep every ring from filling.</p>
+      <div class="actions">
+        <button id="continueBtn" class="primary" type="button" hidden>Continue</button>
+        <button id="citiesBtn" class="primary" type="button">Cities</button>
+        <button id="dailyBtn" class="ghost" type="button">Daily lane</button>
+        <button id="weeklyBtn" class="ghost" type="button">Weekly lane</button>
+        <button id="sketchBtn" class="ghost" type="button">Sketchbook</button>
+        <button id="achieveBtn" class="ghost" type="button">Achievements</button>
+        <button id="helpBtn" class="ghost" type="button">How to play</button>
+        <button id="settingsBtn" class="ghost" type="button">Settings</button>
+      </div>
+      <p class="fine" id="titleNote">Saved on this device. A trip is a pin collected.</p>
+    </div>
+  </section>
+
+  <section id="cities" hidden>
+    <div class="sheet">
+      <div class="row">
+        <button id="citiesHome" class="ghost" type="button">Title</button>
+      </div>
+      <h1>Cities</h1>
+      <p class="lede" id="citiesLede">Eight shores. A good week on one opens the next.</p>
+      <div id="cityList" class="citygrid"></div>
+    </div>
+  </section>
+
+  <section id="achieve" hidden>
+    <div class="sheet">
+      <button id="achieveHome" class="ghost" type="button">Title</button>
+      <h1>Pins kept</h1>
+      <div id="achieveList" class="achieve"></div>
+    </div>
+  </section>
+
+  <section id="play" hidden>
+    <canvas id="scene" tabindex="0" aria-label="City map. Drag to draw a road. Right-drag to erase. Pinch to zoom."></canvas>
+    <div id="weekbar" aria-hidden="true"><i id="weekfill"></i></div>
+    <header id="hud" aria-label="City status">
+      <div class="pill"><small id="cityName">City</small><b id="when">Mon · Week 1</b></div>
+      <div class="pill"><small>Trips</small><b id="score">0</b></div>
+      <div class="pill"><small>Roads</small><b id="roads">0</b></div>
+      <div class="pill" id="modPill" hidden><small>Today</small><b id="modName">Clear</b></div>
+      <div class="speeds" role="group" aria-label="Clock">
+        <button type="button" id="speed0" aria-pressed="false" title="Pause the clock">❚❚</button>
+        <button type="button" id="speed1" aria-pressed="true" title="Play">▶</button>
+        <button type="button" id="speed2" aria-pressed="false" title="Faster">▶▶</button>
+        <button type="button" id="speed3" aria-pressed="false" title="Fastest">▶▶▶</button>
+      </div>
+      <button type="button" id="undoBtn" class="ghost" title="Undo">Undo</button>
+      <button type="button" id="fitBtn" class="ghost" title="Fit the city">Fit</button>
+      <button type="button" id="pauseBtn" class="ghost">Pause</button>
+    </header>
+    <p id="status" role="status"></p>
+    <div id="tutorial" hidden>
+      <strong id="tutTitle"></strong>
+      <p id="tutBody"></p>
+      <div class="row">
+        <button type="button" id="tutSkip" class="ghost">Skip</button>
+        <button type="button" id="tutNext" class="primary">Next</button>
+      </div>
+    </div>
+    <footer id="dock" aria-label="Tools">
+      <button type="button" data-tool="road" aria-pressed="true"><b>Road</b><small id="nRoad">0</small></button>
+      <button type="button" data-tool="motorway" aria-pressed="false"><b>Motor</b><small id="nMotor">0</small></button>
+      <button type="button" data-tool="bridge" aria-pressed="false"><b>Bridge</b><small id="nBridge">0</small></button>
+      <button type="button" data-tool="tunnel" aria-pressed="false"><b>Tunnel</b><small id="nTunnel">0</small></button>
+      <button type="button" data-tool="roundabout" aria-pressed="false"><b>Circle</b><small id="nRound">0</small></button>
+      <button type="button" data-tool="light" aria-pressed="false"><b>Light</b><small id="nLight">0</small></button>
+      <button type="button" id="eraseBtn" aria-pressed="false"><b>Erase</b><small>lift</small></button>
+    </footer>
+  </section>
+</div>
+
+<dialog id="pause">
+  <div class="card">
+    <h2>Paused</h2>
+    <p>The cars wait. The week does not move.</p>
+    <div class="actions">
+      <button type="button" id="resumeBtn" class="primary">Resume</button>
+      <button type="button" id="pauseHelp" class="ghost">How to play</button>
+      <button type="button" id="pauseSettings" class="ghost">Settings</button>
+      <button type="button" id="pauseCities" class="ghost">Cities</button>
+      <button type="button" id="pauseTitle" class="ghost">Title</button>
+    </div>
+  </div>
+</dialog>
+<dialog id="settings">
+  <div class="card">
+    <h2>Settings</h2>
+    <label class="slide">Music <input id="music" type="range" min="0" max="1" step="0.05" value="0.55"></label>
+    <label class="slide">Effects <input id="sfx" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+    <label class="chk"><span>Quiet</span><input id="mute" type="checkbox"></label>
+    <label class="chk"><span>Patterns on the colours</span><input id="colorblind" type="checkbox"></label>
+    <label class="chk"><span>Reduce motion</span><input id="motion" type="checkbox"></label>
+    <p class="fine">Progress stays on this device under one Lanewright key. Erasing it does not touch other games.</p>
+    <div class="actions">
+      <button type="button" id="settingsDone" class="primary">Done</button>
+      <button type="button" id="wipe" class="danger">Erase Lanewright save</button>
+    </div>
+  </div>
+</dialog>
+<dialog id="upgrade">
+  <div class="card wide">
+    <p class="kicker">Sunday</p>
+    <h2 id="upgradeTitle">Week 2</h2>
+    <p>Choose one supply. Both come with road tiles.</p>
+    <div id="upgradeCards" class="choices"></div>
+  </div>
+</dialog>
+<dialog id="result">
+  <div class="card">
+    <p class="kicker" id="resultKicker">The ring filled</p>
+    <h2 id="resultTitle">The city stopped</h2>
+    <p id="resultBody"></p>
+    <div class="statgrid">
+      <div>Trips <b id="resultScore">0</b></div>
+      <div>Week <b id="resultWeek">1</b></div>
+      <div>Best here <b id="resultBest">0</b></div>
+      <div>All trips <b id="resultLife">0</b></div>
+    </div>
+    <p id="resultAwards"></p>
+    <div class="actions">
+      <button type="button" id="retryBtn" class="primary">Retry</button>
+      <button type="button" id="resultCities" class="ghost">Cities</button>
+      <button type="button" id="resultTitleBtn" class="ghost">Title</button>
+    </div>
+  </div>
+</dialog>
+<dialog id="help">
+  <div class="card wide">
+    <h2>How the lanes work</h2>
+    <p>Houses are circles and hold two cars. Shops are squares. A car only collects a pin from a shop of the same colour, then drives home. Each pin is one trip.</p>
+    <p>A square shop can hold seven pins. A round shop, ten. Past that, a ring starts. If the ring completes, the city stops. Cars already out prefer a shop whose ring is running. Bringing the pins back under the cap lets the ring fade.</p>
+    <p>Drag along the grid to spend road tiles. Diagonals are allowed. Right-drag, or Erase, lifts a tile back into the pile. A bridge spends one bridge for a whole stretch of water, and a road tile per step. A tunnel does the same for a hill. A motorway is a fast curve that hops roads and water, not hills. A circle keeps a junction moving. A light lets one axis through at a time.</p>
+    <p>Sunday pauses the week and offers two supplies. Daily and weekly lanes share a seed for that day or that week. The sketchbook never runs out and never stops.</p>
+    <p>Keys: 1 road, 2 motorway, 3 bridge, 4 tunnel, 5 circle, 6 light, X erase, Z undo, Y redo, Space pauses the clock, Esc opens this pause, arrows pan, minus and plus zoom. On a touch screen, drag to draw, use Erase to lift, and pinch to zoom.</p>
+    <button type="button" id="helpClose" class="primary">Back</button>
+  </div>
+</dialog>
+<script src="../../bridge.js"></script>
+<script src="engine.js"></script>
+<script src="audio.js"></script>
+<script src="render.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
