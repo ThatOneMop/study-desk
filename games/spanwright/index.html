@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142028">
+  <title>Spanwright — Study Desk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <section id="title">
+    <div class="sheet">
+      <a class="back" href="../../index.html#games">← Study Desk</a>
+      <svg class="logo" viewBox="0 0 280 78" role="img" aria-label="Spanwright">
+        <path d="M16 62 H264" fill="none" stroke="#1b1914" stroke-width="2"/>
+        <path d="M48 62 L78 26 H118 L148 62" fill="none" stroke="#1b1914" stroke-width="3"/>
+        <path d="M78 26 L148 62 M118 26 L48 62 M78 44 H118" fill="none" stroke="#a56b32" stroke-width="2"/>
+        <circle cx="48" cy="62" r="4" fill="#e4c27a" stroke="#1b1914"/>
+        <circle cx="148" cy="62" r="4" fill="#e4c27a" stroke="#1b1914"/>
+        <path d="M168 58 C190 48 206 50 230 58" fill="none" stroke="#1e5462" stroke-width="2"/>
+        <path d="M176 64 C198 56 214 58 236 64" fill="none" stroke="#1e5462" stroke-width="1.4"/>
+      </svg>
+      <p class="kicker">County crossings</p>
+      <h1>Span<i>wright</i></h1>
+      <p class="lede">Build the span. Send the cart. Stay inside the ledger.</p>
+      <div class="actions">
+        <button id="continueBtn" class="primary" type="button">Continue</button>
+        <button id="mapBtn" class="ghost" type="button">Crossings</button>
+        <button id="yardBtn" class="ghost" type="button">Practice yard</button>
+        <button id="achieveBtn" class="ghost" type="button">Achievements</button>
+        <button id="settingsBtn" class="ghost" type="button">Settings</button>
+      </div>
+      <p class="fine">Saved on this device. Wheels trust road. Everything else is structure.</p>
+    </div>
+  </section>
+
+  <section id="map" hidden>
+    <div class="sheet">
+      <div class="row">
+        <button id="mapHome" class="ghost" type="button">Title</button>
+        <button id="mapYard" class="ghost" type="button">Practice yard</button>
+      </div>
+      <h1>The county</h1>
+      <p class="lede">Four clears in a chapter open the next. A star is a cart that made it home.</p>
+      <div id="worlds"></div>
+    </div>
+  </section>
+
+  <section id="achievements" hidden>
+    <div class="sheet">
+      <button id="achieveHome" class="ghost" type="button">Title</button>
+      <h1>The book</h1>
+      <div id="achieveList"></div>
+    </div>
+  </section>
+
+  <section id="play" hidden>
+    <canvas id="scene" tabindex="0" aria-label="Crossing works. Arrows move the survey pin. Enter places a member. Space runs the crossing."></canvas>
+    <header id="hud" aria-label="Contract">
+      <div class="pill"><small>Contract</small><b id="levelName">—</b></div>
+      <div class="pill" id="budgetPill"><small>Ledger</small><b id="budgetText">—</b></div>
+      <div class="pill"><small>Stress</small><b id="stressText">Quiet</b></div>
+      <div class="spacer"></div>
+      <button id="infoBtn" class="ghost" type="button">Brief</button>
+      <button id="stressBtn" class="ghost" type="button" aria-pressed="false">Stress</button>
+      <button id="undoBtn" class="ghost" type="button">Undo</button>
+      <button id="playBtn" class="primary" type="button">Play</button>
+      <button id="pauseBtn" class="ghost" type="button">Pause</button>
+    </header>
+    <p id="status" role="status"></p>
+    <div id="inspector" hidden></div>
+    <footer id="tools" aria-label="Materials"></footer>
+    <div id="tutorial" hidden>
+      <strong id="tutTitle"></strong>
+      <p id="tutBody"></p>
+      <div class="row">
+        <button id="tutSkip" class="ghost" type="button">Skip</button>
+        <button id="tutNext" class="primary" type="button">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="pause" class="veil" hidden role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+    <div class="sheet">
+      <p class="kicker">Held</p>
+      <h2 id="pauseTitle">The works are still.</h2>
+      <div class="actions">
+        <button id="resumeBtn" class="primary" type="button">Resume</button>
+        <button id="retryBtn" class="ghost" type="button">Rebuild</button>
+        <button id="pauseSettings" class="ghost" type="button">Settings</button>
+        <button id="quitBtn" class="danger" type="button">Back to the county</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="settings" class="veil" hidden role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="sheet">
+      <h2 id="settingsTitle">Settings</h2>
+      <label>Master volume <input id="volMaster" type="range" min="0" max="1" step="0.01"></label>
+      <label>Music <input id="volMusic" type="range" min="0" max="1" step="0.01"></label>
+      <label>Effects <input id="volSfx" type="range" min="0" max="1" step="0.01"></label>
+      <div class="actions">
+        <button id="qualityBtn" class="ghost" type="button">Picture: Fine</button>
+        <button id="inkBtn" class="ghost" type="button">Stress: Colour</button>
+        <button id="shakeBtn" class="ghost" type="button">Shake: On</button>
+        <button id="gridBtn" class="ghost" type="button">Grid: 1 m</button>
+      </div>
+      <p class="fine">Ink stress is the black-and-white load view. Fine grid is half a metre.</p>
+      <button id="settingsClose" class="primary" type="button">Done</button>
+    </div>
+  </div>
+
+  <div id="result" class="veil" hidden role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="sheet">
+      <p class="kicker" id="resultKicker">Crossing</p>
+      <h2 id="resultTitle">Home</h2>
+      <p id="resultBody"></p>
+      <p class="stars" id="resultStars" aria-label="Stars"></p>
+      <label>Replay <input id="replayScrub" type="range" min="0" max="1" step="0.001" value="0"></label>
+      <div class="actions">
+        <button id="replayBtn" class="ghost" type="button">Watch again</button>
+        <button id="speedBtn" class="ghost" type="button">Speed 1×</button>
+        <button id="rebuildBtn" class="ghost" type="button">Rebuild</button>
+        <button id="nextBtn" class="primary" type="button">Next crossing</button>
+        <button id="resultMap" class="ghost" type="button">County</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="info" class="veil" hidden role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="sheet">
+      <p class="kicker" id="infoKicker"></p>
+      <h2 id="infoTitle"></h2>
+      <p id="infoBody"></p>
+      <button id="infoClose" class="primary" type="button">Back to the works</button>
+    </div>
+  </div>
+</div>
+<script src="engine.js"></script>
+<script src="render.js"></script>
+<script src="audio.js"></script>
+<script src="game.js"></script>
+<script src="../../bridge.js"></script>
+</body>
+</html>

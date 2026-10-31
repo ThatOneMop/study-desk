@@ -1007,5 +1007,30 @@
     "thumbnail": "art/curated/beepline.svg",
     "thumbnailAlt": "Golden bee following a looping route between pink flowers in a green hedge garden",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "spanwright",
+    "title": "Spanwright",
+    "description": "Build river spans from road, timber, steel, rope and pistons. Send the carts across, watch the load, and stay inside the ledger.",
+    "icon": "🌉",
+    "genre": "Puzzle + Physics",
+    "color": "#1e5462",
+    "url": "games/spanwright/index.html",
+    "group": "Your games",
+    "controls": "Drag or tap joint to joint · 1–7 materials · H hinge · X lift out · Space runs · T stress · Wheel/pinch zoom, two fingers or middle-drag pan · Esc pauses",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#spanwright",
+    "aliases": [
+      "bridge",
+      "physics",
+      "engineering",
+      "puzzles",
+      "building"
+    ],
+    "thumbnail": "art/curated/spanwright.svg",
+    "thumbnailAlt": "A timber truss over a teal river with a small cart on the near bank",
+    "updated": "2026-10-31"
   }
 ]
