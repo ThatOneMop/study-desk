@@ -1421,7 +1421,7 @@
       "id": "field-album",
       "title": "Field Album",
       "coreLoop": "Choose a habitat survey, open three wildlife cards, draft two and arrange a twelve-space field page to combine terrain matches, clover–bee links, frog plant diversity and robin solitude.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-baseline-upgrade-awaiting-browser-verification",
       "source": "games/field-album",
       "built": true,
       "improved": false,
@@ -1435,12 +1435,14 @@
         "Two-placement greedy helper reaches all three targets on seeds 1/42/137/2026/999999 (15 engine runs), not exhaustive or globally optimal. Forest-first low route scores 31; the initial assumed-failure meadow route actually scored 56, so the test route was corrected without changing rules/targets.",
         "Both scripts pass syntax checks, CSS parses, 32 HTML IDs are unique and script/style paths resolve in new files/current branch tree. Static audit caught and corrected the initial bridge filename before commit. Partial workspace: no full repository build; no rendered browser, screenshot inspection or native touch/layout evidence.",
         "Rearrangement refinement: 26 tests pass (14 engine, 12 jsdom), retaining all 18 original tests. Moves/swaps, one-use and invalid-action guards, full-page scoring/records, legacy journals, undo/retry, exact previews, pause/cancel/reload and missed-target recovery. A 31-point page becomes 39 via a final swap and unlocks trail two. Script syntax checks pass. No rendered/native touch evidence.",
-        "Field pocket: 33 tests pass (18 engine, 15 jsdom), including all 26 prior tests. Exact species carry across packets, consumed draft choice, later replacement, one-use and taken/late/identical-action guards, legacy board compatibility, full 21-action journals combining pocket and rearrangement on all trails, unused pockets, undo/retry, UI selection, pause/native keyboard guards, reload/completion and isolated reset. Both scripts pass syntax checks. No rendered evidence."
+        "Field pocket: 33 tests pass (18 engine, 15 jsdom), including all 26 prior tests. Exact species carry across packets, consumed draft choice, later replacement, one-use and taken/late/identical-action guards, legacy board compatibility, full 21-action journals combining pocket and rearrangement on all trails, unused pockets, undo/retry, UI selection, pause/native keyboard guards, reload/completion and isolated reset. Both scripts pass syntax checks. No rendered evidence.",
+        "38 local checks (20engine/18DOM) passed, retaining33 earlier tests. New ecology/empty-page/old-journal/preview/direct-swap/undo/hidden-reset checks and script syntax pass. Native close-event rendering and iframe Games handler implemented but require rendered validation."
       ],
       "commits": [
         "7f0a21f19bc2ae8acaed1169d23bfed61d8df92a",
         "edeb533554ea7b7b96e7f2070e8c9c7162130f91",
-        "283fa96a252613fb9de44e5eea88d22da16886ac"
+        "283fa96a252613fb9de44e5eea88d22da16886ac",
+        "8e76c112e17f1c24e96f77c3f83360d4409028c1"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1449,8 +1451,8 @@
         "knownLimits": "Six surveys per album, six species and three authored terrain pages; seed variation changes packets only. Engine sampling establishes reachable targets, not human balance, optimal scores or content hours. Simple targets and powerful clover–bee chains may reduce challenge; assess draft variety, animal choices, reward feedback and mobile board/card readability through natural rendered play."
       },
       "nextSteps": [
-        "Naturally play all three trails on desktop and touch, inspect screenshots and evaluate drafting satisfaction, legibility and scoring clarity.",
-        "Implement a substantial improvement based on observed rendered weakness; verify progression, missed-target recovery, undo/retry/reset, saves/reload and real Games navigation before catalogue selection."
+        "Complete rendered qualification of ecology studies and direct source selection; use pendingEcologyImprovement as the checkpoint, not an extra completed pass.",
+        "Keep unlisted until all-trail desktop/touch play, visual review and selection are complete."
       ],
       "pendingSourceRefinement": {
         "commit": "edeb533554ea7b7b96e7f2070e8c9c7162130f91",
@@ -1473,6 +1475,16 @@
         "observedWeakness": "Target36 was already passed at39 after eight of twelve placements; remaining surveys contributed score but little pressure to change strategy. Investigate optional ecological objectives or player-selected constraints that create useful late-page choices, rather than extra repetitive surveys. Rearrangement source requires a separate dropdown; clicking two board cells only changed destination, so evaluate direct source selection.",
         "next": "Complete remaining trails and failure/retry/native keyboard/touch baseline; implement a substantial distinct upgrade and qualify actual rendered loops before counting improved/browserTested.",
         "credit": "Baseline only. No new built, improvement, browser-qualified, integration or live credit."
+      },
+      "pendingEcologyImprovement": {
+        "date": "2026-11-01",
+        "implementationCommit": "8e76c112e17f1c24e96f77c3f83360d4409028c1",
+        "basis": "Target36 was already passed at39 after eight of twelve placements; remaining surveys contributed score but little pressure to change strategy. Investigate optional ecological objectives or player-selected constraints that create useful late-page choices, rather than extra repetitive surveys. Rearrangement source requires a separate dropdown; clicking two board cells only changed destination, so evaluate direct source selection.",
+        "before": "Score target was passed after eight placements; extra placements mostly increased score. Rearrangement required a separate source dropdown.",
+        "after": "Three optional ecology studies reward fed-bee networks, frog plant diversity and native refuge relationships. Exact placement/swap previews show relationship changes; only complete pages confirm satisfied studies. Tap a source on the board, then destination and confirm. Existing scoring, unlocks and v1 journals unchanged.",
+        "validation": "38 local checks (20engine/18DOM) passed, retaining33 earlier tests. New ecology/empty-page/old-journal/preview/direct-swap/undo/hidden-reset checks and script syntax pass. Native close-event rendering and iframe Games handler implemented but require rendered validation.",
+        "remaining": "Browser-control tools are unavailable in this run; no managed preview started and no substitute browser automation used. Naturally play updated studies through actual packets on all trails, inspect desktop/mobile screenshots, verify native Escape/touch/keyboard, saves/reload/retry/reset and catalogue navigation. Assess whether study choices remain engaging and reachable before selection.",
+        "credit": "Source implementation only; completed improvement/browserTested/integrated/live remain false."
       }
     },
     {
@@ -2437,8 +2449,8 @@
     }
   ],
   "nextSteps": [
-    "Field Album slot55: use recorded Home Meadow baseline to deepen useful late-page choices and improve rearrangement source selection; complete native desktop/touch campaign qualification.",
-    "Qualify remaining10 built candidates and implement26 unbuilt slots, retaining exactly50. Preserve both prior collections, saves and concurrent games."
+    "Field Album55: qualify ecology studies/direct board rearrangement implemented at 8e76c112e17f1c24e96f77c3f83360d4409028c1. Browser tooling unavailable in latest run; no completed-pass credit.",
+    "Then qualify remaining built candidates and implement26 unbuilt slots; maintain exactly50slots and preserve prior collections/saves."
   ],
   "updated": "2026-11-01",
   "latestObservedMain": "a3ae6518560e4452736cdeb711c8f4d887c3f03e",
@@ -3199,6 +3211,11 @@
       "verificationRun": 41206268436,
       "pagesRun": 41207017159,
       "summary": "Kiln Chorus selected, integrated and verified live after branchable firing-plan improvement.360 focused checks across14games, full desktop/touch catalogue regression and inspected screenshots. Third totals24/14/14/14/14. Field Album Home Meadow baseline completed54points and reloaded; no new qualification credit."
+    },
+    {
+      "date": "2026-11-01",
+      "commit": "8e76c112e17f1c24e96f77c3f83360d4409028c1",
+      "summary": "Field Album gained optional ecology studies with exact relationship previews and direct board rearrangement, based on prior rendered Home Meadow weakness.38 local tests pass. New rendered verification unavailable; totals unchanged24/14/14/14/14, public main untouched."
     }
   ]
 }
