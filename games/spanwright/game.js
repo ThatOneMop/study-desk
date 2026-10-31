@@ -130,13 +130,15 @@
     const x1 = level.xR == null ? level.bounds.x1 : level.xR + 3;
     const deck = Math.max(level.yL || 6, level.yR || 6);
     const y0 = (level.waterY || 1) - 1.2;
-    const y1 = deck + 4.2;
+    const topBolt = Math.max(deck, ...(level.anchors || []).map((a) => a.y));
+    const y1 = Math.max(deck + 4.2, topBolt + 1.6);
     const vw = $('scene').clientWidth || 800;
     const vh = $('scene').clientHeight || 450;
     const zx = vw / Math.max(8, x1 - x0);
     const zy = vh / Math.max(6, y1 - y0);
     const fit = Math.min(zx, zy) * 0.96;
     cam.zoom = Math.max(16, Math.min(fit, 64));
+    cam.minZoom = Math.min(16, cam.zoom * 0.8);
     cam.x = ((level.xL == null ? level.bounds.x0 : level.xL) + (level.xR == null ? level.bounds.x1 : level.xR)) / 2;
     cam.y = (y0 + y1) / 2;
     cam.shake = 0;
