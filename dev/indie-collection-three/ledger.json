@@ -1260,7 +1260,7 @@
       "id": "canopy-weave",
       "title": "Canopy Weave",
       "coreLoop": "Directly rearrange leaf knots in a connected graph so straight vines no longer cross, overlap or pass through unrelated leaves; inspect previews, undo and optimize moves.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-upgrade-awaiting-browser-qualification",
       "source": "games/canopy-weave",
       "built": true,
       "improved": false,
@@ -1286,8 +1286,8 @@
         "knownLimits": "Three compact authored graphs with demonstrated 3/5/6-move solutions; no optimality or content-hours claim. No loss state. Drag feel, visual clarity, spatial depth and touch usability remain unassessed. Compact-mode solutions use 4/5/6 moves; reach/packing clarity and balance are not rendered-verified."
       },
       "nextSteps": [
-        "Play all three trellises naturally on desktop/touch and inspect screenshots; assess knot targeting, crossing feedback and progression depth.",
-        "Implement a meaningful rendered-play-led improvement, then verify saves/reload, undo/retry/restart and real navigation before selection."
+        "Run candidate Chromium desktop/touch suite; review all garden and mobile screenshots, repair failures.",
+        "Assess for selection after qualification; preserve v1 saves and exact50 slots."
       ],
       "pendingSourceRefinement": {
         "commit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
@@ -1304,6 +1304,13 @@
         "screenshots": "Inspected initial trellis, sunwheel before/after moves, compact reach/overstretch baseline. No mobile or complete three-trellis qualification.",
         "next": "Implement a substantive game-specific improvement to conflict diagnosis/planning based on the observed dense compact layout; fix text-selection dragging and verify naturally, then full browser qualification.",
         "credit": "Baseline only; no completed improvement/browser-tested/integration/live credit."
+      },
+      "pendingRenderedUpgrade": {
+        "date": "2026-10-31",
+        "before": "Compact central overlaps displayed11 tangles and8 stretched vines, but only aggregate conflict counts: no named conflict pair or leaf-on-vine diagnosis. Dense rust dashed edges obscure which relationship to repair. Native drag also selected letter text. Free campaigns were short (1/2 moves observed), so assess compact-mode decisions before selecting.",
+        "after": "Optional move rehearsal compares exact tangle/reach deltas before a single commit; transient origin/travel guides and named conflict inspector isolate crossings, overlap, leaf-on-vine and stretched connections. Direct controls remain; drag text selection and native dialog/parent visibility handling repaired.",
+        "validation": "21 focused checks pass (9 engine,12 DOM), syntax checks pass. Natural desktop compact Sunwheel alternate-placement comparison,5-move completion, Escape,undo,rehearsed winning move and reload reviewed. All-three-garden desktop/touch Chromium suite written; pending CI and screenshot review.",
+        "credit": "Pending qualification; no increment to improved/browserTested/integrated/live."
       }
     },
     {
@@ -2370,7 +2377,7 @@
     }
   ],
   "nextSteps": [
-    "Canopy Weave slot53: use recorded rendered baseline to implement and naturally verify a substantial compact-layout diagnosis/planning upgrade; repair drag text selection.",
+    "Canopy Weave slot53: finish Chromium qualification and screenshot assessment for rehearsal/inspector upgrade, then select and integrate if qualified.",
     "Qualify remaining12 built candidates individually before listing; then complete26 unbuilt slots, retaining exactly50.",
     "Keep second-batch20/20 additional improvements and9 live selections, first-batch sources, Gummy Bay and concurrent work intact. Pause only at entire goal completion."
   ],
