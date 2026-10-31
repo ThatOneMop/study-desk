@@ -982,5 +982,30 @@
     "thumbnail": "art/curated/reedbreaker.svg",
     "thumbnailAlt": "A green ranger facing copper clockwork beetles on stepping banks surrounded by blue water",
     "updated": "2026-10-31"
+  },
+  {
+    "id": "beepline",
+    "title": "Beepline",
+    "description": "Program a little bee through three gardens. Compare and keep looping routes, then return to the hive often enough to deliver pollen with a two-flower carrying limit.",
+    "icon": "🐝",
+    "genre": "Puzzle + Programming",
+    "color": "#b8be86",
+    "controls": "Native command menus · Space on board steps · Touch playback and notebook buttons",
+    "url": "games/beepline/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#beepline",
+    "aliases": [
+      "bee",
+      "garden",
+      "programming",
+      "pollen",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/beepline.svg",
+    "thumbnailAlt": "Golden bee following a looping route between pink flowers in a green hedge garden",
+    "updated": "2026-10-31"
   }
 ]
