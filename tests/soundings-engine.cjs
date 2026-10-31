@@ -19,3 +19,28 @@ test('sweeps distinguish pairs with equal nearest distances and remove only inco
 test('sweep journals reload, duplicates reject and old derived boards remain unchanged',()=>{let s=E.create();A.equal(E.view(s).sweeps,undefined);s=E.act(s,{type:'sweep',p:12}).state;A.deepEqual(E.decode(JSON.stringify(s)),s);A.equal(E.act(s,{type:'sweep',p:12}).ok,false);A.equal(E.act(s,{type:'sweep',p:12,count:2}).ok,false);A.throws(()=>E.decode(JSON.stringify({...s,moves:[...s.moves,...s.moves]})));A.equal(E.view(E.act(s,'retry').state).sweeps,undefined)});
 test('sweep-first visible-evidence policy completes every possible pair',()=>{for(let a=0;a<24;a++)for(let b=a+1;b<25;b++){let v=E.step(E.initial(),[a,b],{type:'sweep',p:12});while(v.phase==='playing'){A.ok(E.candidates(v).some(p=>p[0]===a&&p[1]===b));v=E.step(v,[a,b],choice(v));A.ok(v)}A.equal(v.phase,'won')}});
 test('excessive sweeps can exhaust the recovery reserve and retry remains available',()=>{let s=E.create();for(let p=0;p<9;p++)s=E.act(s,{type:'sweep',p}).state;A.equal(E.view(s).phase,'lost');A.equal(E.view(s).fuel,5);A.equal(E.act(s,{type:'sweep',p:20}).ok,false);A.equal(E.view(E.act(s,'retry').state).fuel,14)});
+
+
+test('survey planning partitions public hypotheses exactly without mutating evidence',()=>{
+ for(let seed=1;seed<=100;seed++){
+  let s=E.create(seed);for(const action of [{type:'bearing',p:12},{type:'scan',p:0},{type:'sweep',p:24}])s=E.act(s,action).state;
+  const v=E.view(s),before=JSON.stringify(v),pairs=E.candidates(v);
+  for(let p=0;p<25;p++){
+   const plan=E.plan(v,p);A.equal(plan.reserve,6);A.equal(plan.spare,v.fuel-6);A.equal(plan.pairs,pairs.length);
+   for(const survey of plan.surveys){
+    const read=survey.type==='scan'?E.reading:survey.type==='sweep'?E.sweep:E.bearing;
+    const counts=new Map();for(const pair of pairs){const x=read(pair,p),label=Array.isArray(x)?x.join(' + '):String(x);counts.set(label,(counts.get(label)||0)+1)}
+    A.deepEqual(survey.outcomes,[...counts].map(([label,remaining])=>({label,remaining})));
+    A.equal(survey.worst,Math.max(...counts.values()));A.equal(survey.informative,counts.size>1);
+   }
+  }A.equal(JSON.stringify(v),before);
+ }
+});
+test('planner identifies uninformative readings and recovery reserve exhaustion',()=>{
+ let s=E.create();for(const a of [{type:'bearing',p:12},{type:'scan',p:0},{type:'bearing',p:1}])s=E.act(s,a).state;
+ let v=E.view(s);A.equal(E.plan(v,7).pairs,1);A.ok(E.plan(v,7).surveys.every(x=>!x.informative));
+ s=E.act(s,{type:'recover',p:1}).state;v=E.view(s);A.equal(E.plan(v,7).reserve,3);
+ for(const p of [3,4,8])s=E.act(s,{type:'scan',p}).state;
+ A.equal(E.plan(E.view(s),7).spare,0);A.ok(E.plan(E.view(s),7).surveys.every(x=>x.spareAfter<0));
+ A.throws(()=>E.plan(v,25));
+});
