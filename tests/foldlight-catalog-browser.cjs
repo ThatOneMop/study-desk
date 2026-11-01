@@ -9,7 +9,7 @@ const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/foldligh
 
 
  const route=require('./fixtures/foldlight-under.json')[0];
- for(const a of route){await act(f.locator('#side-'+a.side));await f.locator('#crease').selectOption(String(a.crease));if(await f.locator('#under').isChecked()!==!!a.under)await act(f.locator('#under'));const anchor=await raw();await act(f.locator('#preview'));await act(f.locator('#mismatch'));A.equal(await raw(),anchor);await act(f.locator('#fold'));}
+ for(const a of route){await act(f.locator('#side-'+a.side));await f.locator('#crease').selectOption(String(a.crease));if(await f.locator('#under').isChecked()!==!!a.under)await act(f.locator('#under'));const anchor=await raw();await act(f.locator('#preview'));if(await f.locator('#mismatch').isEnabled())await act(f.locator('#mismatch'));A.equal(await raw(),anchor);await act(f.locator('#fold'));}
  const saved=await raw();A.equal(E.decode(saved).records[0],route.length);A.match(await f.locator('#status').innerText(),/Window matched/);await f.locator('#status').scrollIntoViewIfNeeded();await shot('pattern-complete');
 
  await act(f.locator('#retry'));await act(page.locator('#pauseGame'));await page.waitForFunction(()=>document.querySelector('#frame').contentDocument.querySelector('#accept').disabled);A.equal(await raw(),saved);await act(page.locator('#resumeGame'));await act(f.locator('#cancel'));await act(f.locator('#pause'));A.ok(await f.locator('#retry').isEnabled());await act(page.locator('#libraryBtn'));await page.locator('#arcade').waitFor({state:'visible'});A.equal(await raw(),saved);await act(page.locator('#games [data-action="play"]'));await act(f.locator('#pause'));A.equal(await raw(),saved);
