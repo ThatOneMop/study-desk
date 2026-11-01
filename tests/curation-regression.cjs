@@ -7,7 +7,8 @@ w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-b
 const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-assert.equal(catalog.length,66);
+assert.equal(catalog.length,67);
+assert(catalog.some(g=>g.id==='field-album'),'qualified Field Album is present');
 assert(catalog.some(g=>g.id==='kiln-chorus'),'qualified Kiln Chorus is present');
 assert(catalog.some(g=>g.id==='canopy-weave'),'qualified Canopy Weave is present');
 assert(catalog.some(g=>g.id==='moss-commons'),'qualified Moss Commons is present');
@@ -49,6 +50,7 @@ assert(saved.favourites.includes('micro-bmath'));assert(saved.recent.includes('p
 assert.equal(w.localStorage.getItem('retired-game-save'),save);
 console.log('PASS curation: exact active catalogue, dynamic counts, aliases/filters, retired preferences/saves preserved, background pause and manual pause retained.');
 w.close();
+
 
 
 

@@ -1,14 +1,14 @@
 name: Third collection catalogue promotion
 on:
   push:
-    branches: [indie-three-promotion, indie-three-kiln-promotion-20261101]
+    branches: [indie-three-promotion, indie-three-kiln-promotion-20261101, indie-three-field-promotion-20261101]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  kiln-chorus-catalogue:
+  field-album-catalogue:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/field-album-engine.cjs tests/field-album-dom.cjs
+          node tests/field-album-browser.cjs
+          node tests/field-album-catalog-browser.cjs
           node --test tests/kiln-chorus-engine.cjs tests/kiln-chorus-dom.cjs
           node tests/kiln-chorus-browser.cjs
           node tests/kiln-chorus-catalog-browser.cjs
@@ -76,8 +79,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: kiln-chorus-catalogue-browser
+          name: field-album-catalogue-browser
           path: |
+            test-artifacts/field-album/
+            test-artifacts/field-album-catalog/
             test-artifacts/stencil-studio/
             test-artifacts/stencil-catalog/
             test-artifacts/moon-dial/
@@ -114,3 +119,4 @@ jobs:
 
             test-artifacts/kiln-chorus/
             test-artifacts/kiln-chorus-catalog/
+
