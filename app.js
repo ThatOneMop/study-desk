@@ -135,7 +135,7 @@ $('restartGame').onclick=restartCurrent;
 $('openGames').onclick=()=>openCollection();
 function openHash(){if(['#games','#movies','#tv'].includes(location.hash)){openCollection();window.selectEntertainment?.(location.hash.slice(1),false)}}
 window.addEventListener('hashchange',openHash);
-$('libraryBtn').onclick=()=>openCollection(true);$('switch').onclick=()=>openCollection();
+$('libraryBtn').onclick=()=>openCollection(true);
 $('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;$('groupBy').onchange=drawGames;$('sortGames').onchange=drawGames;$('clearFilters').onclick=()=>{$('search').value='';$('genre').value='all';$('groupBy').value='genre';$('sortGames').value='collection';filter='All';drawGames();$('search').focus()};
 window.addEventListener('message',e=>{if(e.source===$('frame').contentWindow&&e.origin===location.origin&&e.data?.type==='study-toggle')toggle()});
 window.addEventListener('keydown',e=>{if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
