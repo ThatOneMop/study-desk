@@ -1235,5 +1235,55 @@
     "thumbnail": "art/curated/field-album.svg",
     "thumbnailAlt": "An open field notebook with clover, a bee, reeds and a frog arranged into neighbouring habitats",
     "updated": "2026-11-01"
+  },
+  {
+    "id": "ribbon-reef",
+    "title": "Ribbon Reef",
+    "description": "Draw careful nets around exact fish orders while leaving coral and rays free. Place and adjust corners, choose your catches, then replay three compact reefs for less rope.",
+    "icon": "🐟",
+    "genre": "Puzzle + Fishing",
+    "color": "#338590",
+    "controls": "Drag a loop or tap corners · Arrows aim · Space pins · Enter closes and hauls · Undo",
+    "url": "games/ribbon-reef/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#ribbon-reef",
+    "aliases": [
+      "nets",
+      "fishing",
+      "geometry",
+      "coral",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/ribbon-reef.svg",
+    "thumbnailAlt": "A golden polygon net encloses silver and amber fish, leaving pink coral and a lavender ray outside",
+    "updated": "2026-11-01"
+  },
+  {
+    "id": "bellwether",
+    "title": "Bellwether",
+    "description": "Bring a small flock home by choosing when to nudge, move quietly or call one sheep. Preview herding ranges, undo freely and replay three pastoral meadows for shorter routes.",
+    "icon": "🐑",
+    "genre": "Puzzle",
+    "color": "#719367",
+    "controls": "Arrow keys or direction buttons · Space previews whistle · Enter guides · Undo",
+    "url": "games/bellwether/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#bellwether",
+    "aliases": [
+      "sheep",
+      "herding",
+      "dog",
+      "pastoral",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/bellwether.svg",
+    "thumbnailAlt": "A shepherd dog guides two marked sheep through a green meadow toward a golden shelter, with dotted whistle ranges",
+    "updated": "2026-11-01"
   }
 ]

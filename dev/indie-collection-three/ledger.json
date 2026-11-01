@@ -5,9 +5,9 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 15,
-    "browserTested": 15,
-    "integrated": 15,
+    "improved": 17,
+    "browserTested": 17,
+    "integrated": 17,
     "live": 15
   },
   "priorObligations": {
@@ -1525,14 +1525,28 @@
       "id": "ribbon-reef",
       "title": "Ribbon Reef",
       "coreLoop": "Draw free-form closed nets around exact fish orders, leave coral and protected rays outside, choose groups from the remaining shoal and improve total rope use.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "integrated-awaiting-live",
       "source": "games/ribbon-reef",
       "built": true,
-      "improved": false,
-      "browserTested": false,
-      "integrated": false,
+      "improved": true,
+      "browserTested": true,
+      "integrated": true,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "date": "2026-11-01",
+          "name": "Deliberate corner casting and touch-haul reliability",
+          "basis": "Rendered baseline required many keyboard steps and awkward continuous tracing around Coral Arch; new Chromium touch regression exposed a suppressed click after dragging.",
+          "before": "Only continuous casts; a misplaced turn needed closed-loop editing or a full retrace. A rapid touch haul after dragging could be ignored.",
+          "after": "Optional individual corner taps, unfinished unpin and explicit close; keyboard aim/pin/close/haul. Existing editable handles retained. Deliberate touch release hauls once with movement/cancel/out-of-bounds guards.",
+          "commits": [
+            "54fd90e3cbbb549aa16ab160831c434197606146",
+            "daad73576ea6950465fa0b34bb2e13ade56b7d81",
+            "f6c1534ec123c2a0bba7cf9174a1517b058df485"
+          ],
+          "evidence": "27 engine/DOM checks plus rendered desktop1280x1000 and touch-emulated390x844: all3 reefs × both modes, exact records1430/2108/1600, reload each haul, repair, keyboard, pause, invalid net, loss/undo/retry, Escape, navigation, corrupt/reset/quota. CI41283986102 success;58 screenshots, selected screens inspected. Natural CUA Sandbar1472rope this run; previous natural CoralArch2165. Not physical-device or human-enjoyment evidence."
+        }
+      ],
       "tests": [
         "17 tests pass: 9 engine and 8 jsdom 26.1.0. Three complete pointer-event campaigns reload exact saves after each haul; hand-authored routes use 1430/2108/1600 rope. Not optimal solutions or human playtests.",
         "Geometry: clockwise/reversed and subdivided outlines, concave coral exclusion, crossing/touching/doubled-back rope, degenerate/oversized bounds, fish clearance, coral/rays, exact species, wrong-catch release, three-fray loss and five-action recovery journal. Undo/retry and minimum records preserve progression.",
@@ -1540,29 +1554,43 @@
         "Both scripts pass syntax checks. 34 HTML IDs unique; 44 CSS rules parse. Script/style paths resolve in the new files/current branch tree. No Switch workspace control introduced. No full repository build from the partial workspace; no rendered browser/screenshot/native touch evidence.",
         "Corner editing refinement: all 22 tests pass (9 engine, 13 jsdom), retaining the original 17. New tests repair invalid fish-touching geometry to the 470-rope opening net, save/reload the edited haul, scale pointer dragging, restore cancelled/lost capture edits, remove corners with a triangle floor, preserve native form keys, ignore extra pointers, and clear edits on pause/dialog. Script syntax passes; 39 unique IDs and 49 CSS rules parse. No rendered evidence.",
         "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending.",
-        "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending. A390px-wide iframe with desktop pointer completed Coral Arch with pinned nets745/560/860=2165rope,0frays, and retained completion/record on reload. Phone-width screenshots inspected: readable controls, no evident clipping, vertical scrolling; not native touch."
+        "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending. A390px-wide iframe with desktop pointer completed Coral Arch with pinned nets745/560/860=2165rope,0frays, and retained completion/record on reload. Phone-width screenshots inspected: readable controls, no evident clipping, vertical scrolling; not native touch.",
+        "27 engine/DOM checks plus rendered desktop1280x1000 and touch-emulated390x844: all3 reefs × both modes, exact records1430/2108/1600, reload each haul, repair, keyboard, pause, invalid net, loss/undo/retry, Escape, navigation, corrupt/reset/quota. CI41283986102 success;58 screenshots, selected screens inspected. Natural CUA Sandbar1472rope this run; previous natural CoralArch2165. Not physical-device or human-enjoyment evidence.",
+        "Release gates green: 41285078383 full16-game regression427checks and desktop/touch; 41285613908 Bellwether43+Ribbon27 and both catalogue suites,69launchroutes, search/group/sort/favourites/pause/restart/Games and save retention, assets/credits and first-batch hashes. Combined128screens artifact13075186043 verified SHA1f67a998a43edcd0ed75d5860a452af1b47830443f02ea1daef7f1396c806507; reviewed desktop named-call, touch saved meadow, touch reef victory and filtered catalogue."
       ],
       "commits": [
         "d2ad53aa94c282774ef03cb6fdc01eb448b1cf02",
         "1aa2b5566a423156d1a33166fb112fab33c74735",
-        "54fd90e3cbbb549aa16ab160831c434197606146"
+        "54fd90e3cbbb549aa16ab160831c434197606146",
+        "155ecf0d6de8ac4374b95a7f00017a05f007b9a7",
+        "8fe895758a977d04847e6f2a9b4381bc26f6784d",
+        "d66769caf65c442b0816133df7cc82bf95d314ca",
+        "625cad77f85f8cab8fdff7521316e9df01eccc82",
+        "daad73576ea6950465fa0b34bb2e13ade56b7d81",
+        "f6c1534ec123c2a0bba7cf9174a1517b058df485"
       ],
-      "integrationCommits": [],
+      "integrationCommits": [
+        "11d5ee3774e86fa4b1e7fb14bea432d685e080cf"
+      ],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored reefs and three exact catches per reef; fish do not move. Complete routes prove feasibility, not optimality or enjoyment. Exact pre-haul previews make errors avoidable. Assess finger occlusion, drawing space, rope/clearance feedback, concave nets and the third reef’s challenge before selecting."
+        "status": "Selected for catalogue regression",
+        "enjoyment": "Agent assessment: a readable, relaxed net-planning loop with immediate catch feedback and reversible experimentation; not a human enjoyment measurement.",
+        "depth": "Finite fish-group choices and free-form polygon efficiency; three compact reefs, not a long campaign. Exact previews deliberately make errors avoidable.",
+        "polish": "Original coastal SVG artwork, species marks, pinned corner mode, repair handles, clear loss/retry and safe v1 journal saves. Phone layout scrolls vertically.",
+        "reliability": "27 focused checks and complete mouse/touch-emulated Chromium campaigns. Touch regression found and fixed ignored rapid post-drag hauls.",
+        "variety": "Geometric fishing and coral exclusion add a distinct manual planning loop alongside rod fishing, crafting, graph puzzles and habitat drafting.",
+        "knownLimits": "Three static authored reefs, nine deliveries. No physical phone testing, optimality proof, human enjoyment score or duration claim."
       },
       "nextSteps": [
-        "Finish rendered desktop/touch qualification in both casting modes; inspect mobile drawing/controls and later-order planning.",
-        "Verify failure/retry, saves/reset, native Escape, navigation; select only after full qualification."
+        "Verify Pages release and live gameplay/save/navigation before live credit."
       ],
       "pendingCornerRefinement": {
         "commit": "1aa2b5566a423156d1a33166fb112fab33c74735",
         "basis": "Source inspection, not rendered play: a misplaced corner required retracing the entire net.",
         "before": "Closed net geometry could only be cleared and drawn again.",
         "after": "Adjust corners exposes handles and a numbered selector. Drag or keyboard-nudge one corner, or remove it down to a triangle. Preview revalidates geometry/catch immediately. Cancelled drag restores that corner; no save/turn until haul.",
-        "remaining": "Natural rendered desktop and touch play, screenshot review, handle overlap/occlusion, focus and layout assessment. No improvement/browser credit yet."
+        "remaining": "Completed by the rendered qualification recorded above."
       },
       "pendingCornerCasting": {
         "date": "2026-11-01",
@@ -1570,7 +1598,7 @@
         "before": "Continuous drawing required many intermediate keyboard steps; concave routes around coral were awkward to plan.",
         "after": "Optional pinned corners, removable last corner and explicit closure; keyboard aim/pin/close then haul; existing closed-net editing and v1 saves retained.",
         "validation": "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending. A390px-wide iframe with desktop pointer completed Coral Arch with pinned nets745/560/860=2165rope,0frays, and retained completion/record on reload. Phone-width screenshots inspected: readable controls, no evident clipping, vertical scrolling; not native touch.",
-        "credit": "No additional improved/browserTested/integrated/live credit yet."
+        "credit": "Qualified on 1 November after full rendered desktop/touch suite and screenshot inspection."
       }
     },
     {
@@ -1578,14 +1606,27 @@
       "id": "bellwether",
       "title": "Bellwether",
       "coreLoop": "Position a dog to nudge nearby sheep away, whistle distant sheep closer, and steer a simultaneous flock around rocks into a shelter gate with exact pre-move forecasts.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "integrated-awaiting-live",
       "source": "games/bellwether",
       "built": true,
-      "improved": false,
-      "browserTested": false,
-      "integrated": false,
+      "improved": true,
+      "browserTested": true,
+      "integrated": true,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "date": "2026-11-01",
+          "name": "Explain and visualize herding pressure before commitment",
+          "basis": "Rendered north/whistle play only said Hazel waits; distance and quiet-pressure causes were invisible.",
+          "before": "Rendered north/whistle play only said Hazel waits; distance and quiet-pressure causes were invisible.",
+          "after": "Optional nudge/call range from proposed dog position and per-sheep wait/movement explanations; pure preview with unchanged v1 saves.",
+          "commits": [
+            "fb8cd528d3672fd8acf9217e000f2ce39b327ba1",
+            "6a70fac1be44f79db023c02a81df480cee622cae"
+          ],
+          "evidence": "CI41285207844 passed43 focused checks and desktop1280x1000/touch-emulated390x844 Chromium campaigns: all three meadows across original, quiet and named-call routes, nine earned clears per viewport with exact per-step saves/reload. Range/explanations, keys/Escape, adviser read-only/cancel/pause/uncertainty, undo/retry/reset/recovery/quota/navigation and overflow checked. 56 screenshots; inspected touch range explanation, third-meadow named call, desktop quiet reposition and touch bounded-adviser. Artifact13075340803 SHA25614be4d891027a15e4f2ad0b1d4f4f879c9fec2cd930d31a0cc7ffd17c484533c. Automated routes are reliability evidence, not human enjoyment or physical-device testing."
+        }
+      ],
       "tests": [
         "16 tests pass: 8 engine and 8 jsdom 26.1.0. Complete three-meadow campaigns reload after every move; independent breadth-first search verifies shortest routes of 11/9/17 steps under the current rules.",
         "Engine: pressure/whistle distance bands, immutability, simultaneous destination conflicts, occupied start-cell blocking, sheltered sheep, invalid/no-op actions, undo after arrival, retry/records, sequential unlocks, strict replay and a recoverable 512-action defensive journal cap.",
@@ -1595,7 +1636,10 @@
         "Named calls: 29 passing tests (15 engine, 14 jsdom 26.1.0), retaining 22 previous checks. Shared-destination stalemate, one-sheep response, range/occupancy/shelter, strict action validation/copying, three named-call campaigns with per-action reload, legacy and quiet routes, forecast invalidation, native selector keys, opening/pause/modal/parent guards, undo/retry and records. Scripts parse. No rendered evidence.",
         "Route adviser: 35 passing tests (18 engine, 17 jsdom 26.1.0), retaining previous 29. Read-only route replay; first two starting meadows and progressed final meadow; search-limit uncertainty versus exhaustive trapped-position proof; first-meadow UI advice/confirmation campaign; native/pause/modal/parent guards; stale advice clearing. Both scripts parse. No rendered evidence.",
         "Cooperative adviser: 41 passing tests (21 engine, 20 jsdom 26.1.0), retaining prior 35 checks with async waits. Identical synchronous/cooperative results; timer progress; cancellation before/during search; immutable snapshots; movement while searching; stale result suppression for target/mode/pause/dialog/hide/cancel; competing searches and error recovery. JS syntax checks pass. No rendered performance evidence.",
-        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
+        "43 checks pass (21 engine/22 DOM), including predicted-position ranges, read-only overlay toggles, quiet and named/no-response calls and pause. Natural desktop play completed Clover gate in12steps and Willow passage in9 via normal controls/optional adviser; first completion survived reload. Third meadow adviser correctly reports bounded uncertainty. No full third-meadow/touch/catalogue credit.",
+        "CI41285207844 passed43 focused checks and desktop1280x1000/touch-emulated390x844 Chromium campaigns: all three meadows across original, quiet and named-call routes, nine earned clears per viewport with exact per-step saves/reload. Range/explanations, keys/Escape, adviser read-only/cancel/pause/uncertainty, undo/retry/reset/recovery/quota/navigation and overflow checked. 56 screenshots; inspected touch range explanation, third-meadow named call, desktop quiet reposition and touch bounded-adviser. Artifact13075340803 SHA25614be4d891027a15e4f2ad0b1d4f4f879c9fec2cd930d31a0cc7ffd17c484533c. Automated routes are reliability evidence, not human enjoyment or physical-device testing.",
+        "Release gates green: 41285078383 full16-game regression427checks and desktop/touch; 41285613908 Bellwether43+Ribbon27 and both catalogue suites,69launchroutes, search/group/sort/favourites/pause/restart/Games and save retention, assets/credits and first-batch hashes. Combined128screens artifact13075186043 verified SHA1f67a998a43edcd0ed75d5860a452af1b47830443f02ea1daef7f1396c806507; reviewed desktop named-call, touch saved meadow, touch reef victory and filtered catalogue."
       ],
       "commits": [
         "c83cf16c1cae29e2c1987273469ef11a91c91be2",
@@ -1603,51 +1647,68 @@
         "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09",
         "ad5d1d4385b468fe81c681e704551339db07b977",
         "db05228e86f03859234f3a15755d5df8f3db84ba",
-        "b4b67145f615b1452c60e9673fdebe6c30c9b35a"
+        "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+        "fb8cd528d3672fd8acf9217e000f2ce39b327ba1",
+        "6a70fac1be44f79db023c02a81df480cee622cae"
       ],
-      "integrationCommits": [],
+      "integrationCommits": [
+        "11d5ee3774e86fa4b1e7fb14bea432d685e080cf"
+      ],
       "publishedUrl": null,
       "quality": {
-        "status": "Awaiting rendered assessment",
-        "knownLimits": "Three compact authored meadows; no damage or timed/irreversible loss, and undo is always available. Exact forecasts make flock movement predictable but may reduce discovery. Compass tie-breaks, an easier second meadow, mobile readability and long-route replay need natural play. Search results are mechanical feasibility/optimality, not human enjoyment."
+        "status": "Selected for catalogue regression",
+        "enjoyment": "Agent assessment: deliberate reversible flock planning with clear reactions and optional help; no human enjoyment study.",
+        "depth": "Nudge, quiet reposition, whole-flock and named calls create different route choices and shortest-path replay across three compact meadows.",
+        "polish": "Original pastoral SVG, readable named sheep, optional range overlay and explicit causes. Mobile vertically scrolls; controls remain readable.",
+        "reliability": "43 checks and all9 route/meadow combinations on desktop and touch-emulated Chromium; exact saves/reloads and guarded adviser.",
+        "variety": "Simultaneous animal steering distinct from fishing geometry and construction/graph/drafting games.",
+        "knownLimits": "Three authored meadows; bounded adviser cannot solve every starting position within its25000-state budget and reports uncertainty. No physical-device, duration or human enjoyment claim."
       },
       "nextSteps": [
-        "Play each meadow naturally on desktop and touch; inspect screenshots, sheep/dog contrast, preview clarity, native focus/dialog behavior and Games navigation.",
-        "Identify the most important rendered weakness, implement a substantial game-specific improvement, and reverify saves/reload, arrivals, blocked choices, undo/retry, records and reset before any catalogue integration."
+        "Verify Pages release and live gameplay/save/navigation before live credit."
       ],
       "pendingQuietRefinement": {
         "commit": "56f433122a9298ebf22af4686e2be4b0e62f4366",
         "basis": "Source inspection, not rendered play: repositioning the dog inevitably nudged nearby sheep.",
         "before": "Every valid walk moved nearby sheep, even when the player only wanted a better approach angle.",
         "after": "Quiet paws walks move only the dog, consuming one route step. Players can reposition safely then return to nudging or whistling. Exact previews, undo and v1 replay support the choice.",
-        "remaining": "Natural rendered play, screenshots and touch/focus/layout checks; evaluate whether free repositioning preserves satisfying challenge. No qualified improvement credit."
+        "remaining": "Completed by rendered qualification above; historical source-only work is not counted as a separate qualified pass."
       },
       "pendingNamedCallRefinement": {
         "commit": "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09",
         "basis": "Source-observed limitation: flock whistles move every eligible sheep, with no way to call one while leaving others settled. Not a rendered observation.",
         "before": "Only whole-flock whistles could draw sheep closer.",
         "after": "Select a named sheep for a one-step call, preserving range and obstacle rules while other sheep wait. Exact previews, safe v1 journal objects, no-cost invalid calls, keyboard/touch-native selector and reset defaults. A shared-destination stalemate can be resolved; new final-meadow fixture is 15 steps versus original 17.",
-        "remaining": "Natural rendered desktop/touch play and screenshot inspection; balance, feedback and readability assessment; qualified playtest-led improvement and selection remain pending."
+        "remaining": "Completed by rendered qualification above; historical source-only work is not counted as a separate qualified pass."
       },
       "pendingAdviserRefinement": {
         "commit": "ad5d1d4385b468fe81c681e704551339db07b977",
         "basis": "Source-observed onboarding/recovery gap: exact one-step previews existed but no help recovering a route from a difficult position. Not a rendered observation.",
         "before": "Players could inspect only their selected next move.",
         "after": "Optional bounded breadth-first search considers normal/quiet walking and flock/named calls. Found routes preview the first move without committing or saving. Controls reflect the suggestion. Limit exhaustion explicitly reports uncertainty; exhausted graphs alone report no route. Advice clears when state or input context changes.",
-        "remaining": "Natural rendered desktop/touch and screenshot review, including batch latency and learning value. The synchronous UI limitation is addressed by pendingCooperativeAdviser; initial third-meadow search still reaches the bound. No universal solver promise; qualified improvement/selection pending."
+        "remaining": "Completed by rendered qualification above; historical source-only work is not counted as a separate qualified pass."
       },
       "pendingCooperativeAdviser": {
         "commit": "db05228e86f03859234f3a15755d5df8f3db84ba",
         "basis": "Known source-level limitation recorded in the previous adviser report: a synchronous search could block input until completion. Not a rendered observation.",
         "before": "The whole bounded search ran in one UI callback.",
         "after": "Shared generator yields between 256-position batches. Controls remain available, explicit Cancel search is added, and generation tokens discard stale completions/errors after any state/context change. Search failures do not claim a dead end. Save shape/rules unchanged.",
-        "remaining": "Rendered desktop/touch frame-time, native interaction and screenshot assessment; natural play and required playtest-led improvement before selection."
+        "remaining": "Completed by rendered qualification above; historical source-only work is not counted as a separate qualified pass."
       },
       "pendingVisibilityFix": {
         "commit": "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
         "before": "Pending reset/recovery could commit after hiding; resume and text-composition/editable input lacked complete guards.",
         "after": "Persistent parent-hidden state and document.hidden independently block input/resume/confirmation. Returning stays paused. Composition/editable fields excluded. Bellwether retains adviser invalidation and blocks hidden entry/confirmation.",
-        "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending."
+        "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending.",
+        "remaining": "Completed by rendered qualification above; historical source-only work is not counted as a separate qualified pass."
+      },
+      "pendingRangePlanning": {
+        "date": "2026-11-01",
+        "commit": "fb8cd528d3672fd8acf9217e000f2ce39b327ba1",
+        "before": "Rendered north/whistle play only said Hazel waits; distance and quiet-pressure causes were invisible.",
+        "after": "Optional nudge/call range from proposed dog position and per-sheep wait/movement explanations; pure preview with unchanged v1 saves.",
+        "evidence": "43 checks pass (21 engine/22 DOM), including predicted-position ranges, read-only overlay toggles, quiet and named/no-response calls and pause. Natural desktop play completed Clover gate in12steps and Willow passage in9 via normal controls/optional adviser; first completion survived reload. Third meadow adviser correctly reports bounded uncertainty. No full third-meadow/touch/catalogue credit.",
+        "remaining": "Completed by rendered qualification above; historical source-only work is not counted as a separate qualified pass."
       }
     },
     {
@@ -1669,7 +1730,8 @@
         "Portable low weir: 21 passing checks (12 engine, 9 jsdom 26.1.0), retaining original 13. Edge diversion, relocation/removal, dynamic overtopping/undo, strict validation, all three campaigns with per-action reload, old save/board shapes, flow/soil conservation, read-only previews, edge markers, pause/native selector guards, retry/records/reset isolation. Scripts pass syntax checks. No rendered evidence.",
         "Treadle pump: 29 passing tests (17 engine, 12 jsdom 26.1.0), retaining original 21. Three pump-inclusive routes through controls with per-action reload; plateau and one-step rise, genuine loop trapping, over-height fallback, weir crossing, relocation/removal, undo/retry, strict validation, water/soil conservation across varied terrain, pure forecasts, markers, native selector/pause/modal guards. Both scripts parse; IDs/assets/bridge-first and no Switch workspace controls pass static checks. No rendered evidence.",
         "Embedded shortcut fix: 34 tests pass (17 engine, 12 standalone jsdom, five real-bridge/jsdom checks with simulated parent). P is reserved for embedded workspace navigation; W now pours. Regression failed before fix, passed after. Keyboard garden completion/reload, native focus/modifiers/repeats, pause/dialog and real bridge visibility suspension/resume pass. No engine or save changes; no rendered credit.",
-        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
+        "Natural managed-preview desktop baseline 1Nov: first garden2earthworks, second garden3actions via cut/fill+weir after an observed1/2-per-bed split and2trapped. Second completion/record survived reload; third unlocked. Screenshots inspected. Partial baseline only; no qualified improvement/browser credit."
       ],
       "commits": [
         "c0cb277acc2f032d5b654f2619ec760130261bba",
@@ -1685,8 +1747,8 @@
         "knownLimits": "Three compact authored gardens. Height-field earthwork, finite bucket and flow splitting implemented; free preview, depth, clarity and progression need rendered assessment."
       },
       "nextSteps": [
-        "Naturally play desktop/touch and inspect screenshots, including height/flow arrows, soil bucket and stacked layout.",
-        "Identify an observed weakness and implement a substantive improvement pass; verify progression, dry-bed recovery, saves/reload, undo/retry/reset and navigation before catalogue selection."
+        "Implement optional terrain rehearsal/compare from observed mismatch: cut/fill forecast only height/bucket while water routing requires a committed action; weir already previews bed outcomes.",
+        "Verify third garden, desktop/touch, save-safe draft commit/cancel, controls and full regression before qualification."
       ],
       "pendingWeirRefinement": {
         "commit": "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
@@ -2493,9 +2555,9 @@
     }
   ],
   "nextSteps": [
-    "Continue Ribbon Reef56 qualification in rendered desktop and native-touch-emulated routes, both casting modes, third reef, loss/retry/saves/navigation.",
-    "Eight further built candidates57–64 need qualification;26slots65–90 remain unbuilt.",
-    "Preserve first/second collections, all saves, concurrent games and exactly50third-batch slots; do not pause the hourly task yet."
+    "Verify live Ribbon Reef/Bellwether deployment independently from source integration.",
+    "Implement Rill & Root terrain rehearsal from recorded rendered baseline, then qualify remaining built candidates58–64.",
+    "Implement26unbuilt slots65–90; final improvement, selection and regression remain required."
   ],
   "updated": "2026-11-01",
   "latestObservedMain": "d75347a231716401b095cd5f95eb344c77ad7efe",
@@ -3279,6 +3341,20 @@
       "verificationRun": 41279124343,
       "deploymentRun": 41279987508,
       "summary": "Field Album integrated and verified live after400focused checks across15games, desktop/touch game and catalogue regression, artifact screenshot review and live73point completed habitat/save/navigation. Totals24/15/15/15/15. Ribbon Reef corner casting54fd90e3 has26checks and rendered desktop/narrow-layout play, but remains unqualified/unlisted."
+    },
+    {
+      "date": "2026-11-01",
+      "work": "Ribbon Reef rendered qualification and post-drag touch-haul fix",
+      "commit": "f6c1534ec123c2a0bba7cf9174a1517b058df485",
+      "tests": "27 checks; Chromium desktop/touch all3reefs bothmodes; CI41283986102;58screenshots",
+      "counts": {
+        "built": 24,
+        "improved": 16,
+        "browserTested": 16,
+        "integrated": 15,
+        "live": 15
+      },
+      "next": "Main-based catalogue promotion"
     }
   ]
 }

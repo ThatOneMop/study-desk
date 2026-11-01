@@ -7,7 +7,9 @@ w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-b
 const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-assert.equal(catalog.length,67);
+assert.equal(catalog.length,69);
+assert(catalog.some(g=>g.id==='bellwether'),'qualified Bellwether is present');
+assert(catalog.some(g=>g.id==='ribbon-reef'),'qualified Ribbon Reef is present');
 assert(catalog.some(g=>g.id==='field-album'),'qualified Field Album is present');
 assert(catalog.some(g=>g.id==='kiln-chorus'),'qualified Kiln Chorus is present');
 assert(catalog.some(g=>g.id==='canopy-weave'),'qualified Canopy Weave is present');
