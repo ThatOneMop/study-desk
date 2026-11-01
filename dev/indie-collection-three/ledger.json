@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 20,
-    "browserTested": 20,
+    "improved": 21,
+    "browserTested": 21,
     "integrated": 20,
     "live": 20
   },
@@ -1999,14 +1999,25 @@
       "id": "foldlight",
       "title": "Foldlight",
       "coreLoop": "Reflect and turn over layered two-sided paper stacks across chosen creases, matching a window pattern's occupied panes, top colours and layer counts.",
-      "status": "rendered-planning-pass-awaiting-qualification",
+      "status": "qualified-selected-awaiting-catalogue-integration",
       "source": "games/foldlight",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "date": "2026-11-02",
+          "commit": "4c5263850acb2c701ae2af5f44f1e2d980bd0c6d",
+          "observedWeakness": "Rendered top-fold preview reported 30/36 matches dominated by empty panes; selecting moving paper showed empty with no way to follow it. A colour-only stack list obscured which faces and layers changed.",
+          "before": "One current-or-preview list of colours and aggregate 36-pane score.",
+          "after": "Interactive before/after ordered layer comparison with original paper coordinates and front/back faces; follow moving paper to its landing pane; cycle current/preview mismatches with exact height/colour guidance; separate occupied target matches from extra occupied panes. Open layer lists survive mode changes. Existing rules, routes and v1 saves preserved.",
+          "verificationCommit": "de26a6d70fe41bf4808adadda433ff4a1393e5b1",
+          "verificationRun": 41323801913,
+          "evidence": "GitHub Actions 41323801913 on de26a6d70fe41bf4808adadda433ff4a1393e5b1: 32 focused checks; nine campaigns each on desktop and 390px touch-emulated Chromium (three original, three under, three turnover), exact per-pane preview comparisons and per-move save/reload; layer tracking and mismatch navigation; loss/undo/retry, native keyboard/Escape, pause, hidden confirmation, corrupt recovery, isolated reset, standalone Games and embedded collection-message navigation. Asset checks:63 bundled routes/231 references;9 first-batch release hashes verified."
+        }
+      ],
       "tests": [
         "14 passing tests: seven engine, seven jsdom 26.1.0. All three patterns completed through controls with per-action save/reload; reflection, stack reversal and face flipping; unique-paper conservation across every legal depth-two fold; invalid/out-of-frame/empty-side guards; exact target semantics; loss/undo/retry, record/unlock retention, free previews and stack inspection, keyboard/native focus, pause/modal/parent guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse. Local asset references, unique IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
@@ -2014,24 +2025,31 @@
         "Under-folding: 21 passing tests (11 engine, 10 jsdom 26.1.0), retaining original 14. Three under-inclusive routes through controls and per-action reload; reversed/face-flipped bottom insertion, stationary top preservation, identical geometry/conservation, empty destinations, strict flags, undo/retry and old journals, mode previews and native/pause/modal guards. Both scripts parse. No rendered evidence.",
         "Whole-sheet turnover: 27 passing tests (14 engine, 13 jsdom 26.1.0), retaining original 21. Three single-turnover routes with per-action control-driven reload; exact mirroring, stack reversal/face flipping, paper conservation, involution, allowance, strict actions, undo/retry, previews, disabled unrelated controls and native/keyboard/pause/modal guards. Scripts parse; IDs, bridge order and no workspace-switch control checks pass. No rendered evidence.",
         "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit.",
-        "2026-11-01 rendered planning pass: 32 focused checks pass (14 engine,18 jsdom). Original rendered campaigns completed through controls in 3/4/5 moves; first and third records reloaded. Over/under planned stack order compared in rendered browser. 390px iframe board and 24-layer inspector screenshots inspected; native Escape followed by enabled Undo verified. Added embedded same-origin Collection navigation and close-event refresh tests."
+        "2026-11-01 rendered planning pass: 32 focused checks pass (14 engine,18 jsdom). Original rendered campaigns completed through controls in 3/4/5 moves; first and third records reloaded. Over/under planned stack order compared in rendered browser. 390px iframe board and 24-layer inspector screenshots inspected; native Escape followed by enabled Undo verified. Added embedded same-origin Collection navigation and close-event refresh tests.",
+        "GitHub Actions 41323801913 on de26a6d70fe41bf4808adadda433ff4a1393e5b1: 32 focused checks; nine campaigns each on desktop and 390px touch-emulated Chromium (three original, three under, three turnover), exact per-pane preview comparisons and per-move save/reload; layer tracking and mismatch navigation; loss/undo/retry, native keyboard/Escape, pause, hidden confirmation, corrupt recovery, isolated reset, standalone Games and embedded collection-message navigation. Asset checks:63 bundled routes/231 references;9 first-batch release hashes verified."
       ],
       "commits": [
         "f4672b82254e5e063573bf7cfa317f879d6b333a",
         "bb255e048f6cbccea5d103460df6fe22d904c949",
         "9af4c55b48f6f67f68683d7c5d8789278604d034",
         "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
-        "4c5263850acb2c701ae2af5f44f1e2d980bd0c6d"
+        "4c5263850acb2c701ae2af5f44f1e2d980bd0c6d",
+        "de26a6d70fe41bf4808adadda433ff4a1393e5b1"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Promising planning improvement; qualification pending",
-        "knownLimits": "Three compact fixed patterns; no animation/audio. Before/after provenance makes layer reasoning inspectable. Desktop original routes rendered; mobile touch and alternate campaign qualification remain pending."
+        "status": "Selected for catalogue integration testing",
+        "enjoyment": "Relaxed no-clock folding with free inspection, reversible mistakes and two-sided layer reasoning; review is agent playtesting, not human enjoyment measurement.",
+        "depth": "Three compact fixed patterns; over/under/turnover routes and fewest-move records supply alternate solutions. No duration or optimality claim.",
+        "polish": "Desktop and narrow touch layouts readable; colour letters supplement colours; layer origins/faces and exact mismatch guidance clarify consequences.",
+        "reliability": "32 focused checks and18 rendered campaign clears plus failure/recovery/navigation coverage passed.",
+        "variety": "Spatial paper reflection and stack order add a distinct puzzle loop alongside the collection’s farming, fishing and action games.",
+        "knownLimits": "No folding animation or audio. Long layer stacks scroll; mobile boards stack vertically. Physical touch-device testing and full embedded catalogue regression not claimed."
       },
       "nextSteps": [
-        "Run rendered over/under/turnover campaigns with desktop and touch input, loss/retry, saves, recovery, visibility and actual catalogue navigation; inspect screenshots.",
-        "Run repository CI and evaluate selection. Keep development-only until finished gates pass."
+        "Add original catalogue cover and selected entry on a candidate integration branch based on fresh main; preserve all current games and saves.",
+        "Run actual embedded catalogue desktop/touch navigation and launch regressions, then promote and verify live routes."
       ],
       "pendingUnderRefinement": {
         "commit": "bb255e048f6cbccea5d103460df6fe22d904c949",
@@ -2060,7 +2078,8 @@
         "before": "One current-or-preview list of colours and aggregate 36-pane score.",
         "after": "Interactive before/after ordered layer comparison with original paper coordinates and front/back faces; follow moving paper to its landing pane; cycle current/preview mismatches with exact height/colour guidance; separate occupied target matches from extra occupied panes. Open layer lists survive mode changes. Existing rules, routes and v1 saves preserved.",
         "testing": "32 focused checks pass (14 engine,18 jsdom). Original rendered campaigns completed through controls in 3/4/5 moves; first and third records reloaded. Over/under planned stack order compared in rendered browser. 390px iframe board and 24-layer inspector screenshots inspected; native Escape followed by enabled Undo verified. Added embedded same-origin Collection navigation and close-event refresh tests.",
-        "limits": "390px iframe is narrow-layout evidence, not touch input. Full rendered under/turnover campaigns, loss/retry and recovery/visibility suite, actual catalogue navigation, full repository CI and selection pending. No qualification count increase; no human-enjoyment or duration claim."
+        "limits": "390px iframe is narrow-layout evidence, not touch input. Full rendered under/turnover campaigns, loss/retry and recovery/visibility suite, actual catalogue navigation, full repository CI and selection pending. No qualification count increase; no human-enjoyment or duration claim.",
+        "qualification": "Completed 2026-11-02 with rendered desktop/touch-emulated regression and reviewed screenshots. Actual catalogue integration remains pending."
       }
     },
     {
@@ -2668,11 +2687,11 @@
     }
   ],
   "nextSteps": [
-    "Finish Foldlight61 qualification after the rendered layer-planning upgrade at 4c5263850acb2c701ae2af5f44f1e2d980bd0c6d; do not replay or recount the completed pass.",
+    "Integrate qualified Foldlight61 with original cover and real catalogue regression, then verify live release.",
     "Finish built candidates61–64 and implement26 distinct candidates65–90. Keep unfinished games off the catalogue.",
     "Preserve both earlier collections, concurrent projects and existing saves; task remains incomplete."
   ],
-  "updated": "2026-11-01T15:13:47Z",
+  "updated": "2026-11-02",
   "latestObservedMain": "059f7d64b95bca528098eed23d8f5c70914922dc",
   "runHistory": [
     {
@@ -3633,6 +3652,19 @@
         "built": 24,
         "improved": 20,
         "browserTested": 20,
+        "integrated": 20,
+        "live": 20
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Foldlight61 qualified and selected after32 focused checks,18 desktop/touch-emulated campaign clears and screenshot review. Main unchanged; integration/live remain20.",
+      "verificationCommit": "de26a6d70fe41bf4808adadda433ff4a1393e5b1",
+      "verificationRun": 41323801913,
+      "totals": {
+        "built": 24,
+        "improved": 21,
+        "browserTested": 21,
         "integrated": 20,
         "live": 20
       }
