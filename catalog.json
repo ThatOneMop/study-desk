@@ -1335,5 +1335,31 @@
     "thumbnail": "art/curated/fallow-table.svg",
     "thumbnailAlt": "Beans, carrots and golden squash growing in nine garden beds beside a supper basket",
     "updated": "2026-11-01"
+  },
+  {
+    "id": "seedwake",
+    "title": "Seedwake",
+    "description": "Sow careful handfuls around a flower ring. Save seeds instead of blooming, budget reversing gusts and rehearse branching routes across three compact bouquet gardens.",
+    "icon": "🌼",
+    "genre": "Puzzle + Relaxed",
+    "color": "#7a9571",
+    "controls": "1–8 choose beds · R reverses · K reserves one seed · S sows · Z undoes · Touch controls and route rehearsal",
+    "url": "games/seedwake/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#seedwake",
+    "aliases": [
+      "flowers",
+      "sowing",
+      "seeds",
+      "garden",
+      "relaxed",
+      "mancala"
+    ],
+    "thumbnail": "art/curated/seedwake.svg",
+    "thumbnailAlt": "Eight flower beds around a circular sowing path, with poppy, cornflower and chamomile blossoms",
+    "updated": "2026-11-02"
   }
 ]
