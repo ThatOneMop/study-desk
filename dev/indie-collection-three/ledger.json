@@ -1620,7 +1620,8 @@
         "Named calls: 29 passing tests (15 engine, 14 jsdom 26.1.0), retaining 22 previous checks. Shared-destination stalemate, one-sheep response, range/occupancy/shelter, strict action validation/copying, three named-call campaigns with per-action reload, legacy and quiet routes, forecast invalidation, native selector keys, opening/pause/modal/parent guards, undo/retry and records. Scripts parse. No rendered evidence.",
         "Route adviser: 35 passing tests (18 engine, 17 jsdom 26.1.0), retaining previous 29. Read-only route replay; first two starting meadows and progressed final meadow; search-limit uncertainty versus exhaustive trapped-position proof; first-meadow UI advice/confirmation campaign; native/pause/modal/parent guards; stale advice clearing. Both scripts parse. No rendered evidence.",
         "Cooperative adviser: 41 passing tests (21 engine, 20 jsdom 26.1.0), retaining prior 35 checks with async waits. Identical synchronous/cooperative results; timer progress; cancellation before/during search; immutable snapshots; movement while searching; stale result suppression for target/mode/pause/dialog/hide/cancel; competing searches and error recovery. JS syntax checks pass. No rendered performance evidence.",
-        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
+        "43 checks pass (21 engine/22 DOM), including predicted-position ranges, read-only overlay toggles, quiet and named/no-response calls and pause. Natural desktop play completed Clover gate in12steps and Willow passage in9 via normal controls/optional adviser; first completion survived reload. Third meadow adviser correctly reports bounded uncertainty. No full third-meadow/touch/catalogue credit."
       ],
       "commits": [
         "c83cf16c1cae29e2c1987273469ef11a91c91be2",
@@ -1628,7 +1629,8 @@
         "5834ecbb1e38bb158ba9c0de98b61cfaf8509e09",
         "ad5d1d4385b468fe81c681e704551339db07b977",
         "db05228e86f03859234f3a15755d5df8f3db84ba",
-        "b4b67145f615b1452c60e9673fdebe6c30c9b35a"
+        "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+        "fb8cd528d3672fd8acf9217e000f2ce39b327ba1"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1637,8 +1639,8 @@
         "knownLimits": "Three compact authored meadows; no damage or timed/irreversible loss, and undo is always available. Exact forecasts make flock movement predictable but may reduce discovery. Compass tie-breaks, an easier second meadow, mobile readability and long-route replay need natural play. Search results are mechanical feasibility/optimality, not human enjoyment."
       },
       "nextSteps": [
-        "Play each meadow naturally on desktop and touch; inspect screenshots, sheep/dog contrast, preview clarity, native focus/dialog behavior and Games navigation.",
-        "Identify the most important rendered weakness, implement a substantial game-specific improvement, and reverify saves/reload, arrivals, blocked choices, undo/retry, records and reset before any catalogue integration."
+        "Finish rendered range-planning pass in third meadow and touch layouts; validate adviser search/cancel and existing quiet/named controls.",
+        "Preserve v1 saves, qualify before catalogue selection."
       ],
       "pendingQuietRefinement": {
         "commit": "56f433122a9298ebf22af4686e2be4b0e62f4366",
@@ -1673,6 +1675,14 @@
         "before": "Pending reset/recovery could commit after hiding; resume and text-composition/editable input lacked complete guards.",
         "after": "Persistent parent-hidden state and document.hidden independently block input/resume/confirmation. Returning stays paused. Composition/editable fields excluded. Bellwether retains adviser invalidation and blocks hidden entry/confirmation.",
         "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending."
+      },
+      "pendingRangePlanning": {
+        "date": "2026-11-01",
+        "commit": "fb8cd528d3672fd8acf9217e000f2ce39b327ba1",
+        "before": "Rendered north/whistle play only said Hazel waits; distance and quiet-pressure causes were invisible.",
+        "after": "Optional nudge/call range from proposed dog position and per-sheep wait/movement explanations; pure preview with unchanged v1 saves.",
+        "evidence": "43 checks pass (21 engine/22 DOM), including predicted-position ranges, read-only overlay toggles, quiet and named/no-response calls and pause. Natural desktop play completed Clover gate in12steps and Willow passage in9 via normal controls/optional adviser; first completion survived reload. Third meadow adviser correctly reports bounded uncertainty. No full third-meadow/touch/catalogue credit.",
+        "remaining": "Complete third meadow, rendered touch, adviser responsiveness/cancellation, saves/reset/restart and actual catalogue navigation. No full improvement/browser qualification credited yet."
       }
     },
     {
@@ -2518,9 +2528,9 @@
     }
   ],
   "nextSteps": [
-    "Promote qualified Ribbon Reef56 after main-based catalogue regression, then verify live release.",
-    "Eight built candidates57–64 still need rendered improvements/qualification;26 slots65–90 remain unbuilt.",
-    "Keep all prior games/saves and hourly cadence; task is not complete."
+    "Complete Ribbon Reef56 main-based catalogue regression, integrate and verify live.",
+    "Finish Bellwether57 range-planning rendered qualification; seven further built candidates58–64 await qualification.",
+    "26 slots65–90 remain unbuilt; preserve first/second games, saves and hourly cadence."
   ],
   "updated": "2026-11-01",
   "latestObservedMain": "d75347a231716401b095cd5f95eb344c77ad7efe",
