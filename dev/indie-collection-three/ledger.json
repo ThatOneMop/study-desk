@@ -1503,6 +1503,12 @@
         "validation": "38 local checks (20engine/18DOM) passed, retaining33 earlier tests. New ecology/empty-page/old-journal/preview/direct-swap/undo/hidden-reset checks and script syntax pass. Native close-event rendering and iframe Games handler implemented but require rendered validation.",
         "remaining": "Candidate qualification completed; real main-based catalogue tests and deployment remain pending.",
         "credit": "One completed playtest-led improvement pass recorded above; source-only refinements not counted as extra passes."
+      },
+      "pendingCatalogue": {
+        "branch": "indie-three-field-promotion-20261101",
+        "commit": "22fd6d54b0fc6980efc60a7af26e6009a698a77c",
+        "run": 41279124343,
+        "status": "Regression running; source not on main."
       }
     },
     {
@@ -1523,11 +1529,13 @@
         "Geometry: clockwise/reversed and subdivided outlines, concave coral exclusion, crossing/touching/doubled-back rope, degenerate/oversized bounds, fish clearance, coral/rays, exact species, wrong-catch release, three-fray loss and five-action recovery journal. Undo/retry and minimum records preserve progression.",
         "DOM: opening gate, keyboard rectangle, native form shortcuts, scaled 300×200 simulated SVG coordinates, extra-pointer rejection/cancel, read-only previews, pause/dialog/trusted parent hiding, reef switching, isolated reset, corrupt-save recovery and quota failure.",
         "Both scripts pass syntax checks. 34 HTML IDs unique; 44 CSS rules parse. Script/style paths resolve in the new files/current branch tree. No Switch workspace control introduced. No full repository build from the partial workspace; no rendered browser/screenshot/native touch evidence.",
-        "Corner editing refinement: all 22 tests pass (9 engine, 13 jsdom), retaining the original 17. New tests repair invalid fish-touching geometry to the 470-rope opening net, save/reload the edited haul, scale pointer dragging, restore cancelled/lost capture edits, remove corners with a triangle floor, preserve native form keys, ignore extra pointers, and clear edits on pause/dialog. Script syntax passes; 39 unique IDs and 49 CSS rules parse. No rendered evidence."
+        "Corner editing refinement: all 22 tests pass (9 engine, 13 jsdom), retaining the original 17. New tests repair invalid fish-touching geometry to the 470-rope opening net, save/reload the edited haul, scale pointer dragging, restore cancelled/lost capture edits, remove corners with a triangle floor, preserve native form keys, ignore extra pointers, and clear edits on pause/dialog. Script syntax passes; 39 unique IDs and 49 CSS rules parse. No rendered evidence.",
+        "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending."
       ],
       "commits": [
         "d2ad53aa94c282774ef03cb6fdc01eb448b1cf02",
-        "1aa2b5566a423156d1a33166fb112fab33c74735"
+        "1aa2b5566a423156d1a33166fb112fab33c74735",
+        "54fd90e3cbbb549aa16ab160831c434197606146"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1536,8 +1544,8 @@
         "knownLimits": "Three compact authored reefs and three exact catches per reef; fish do not move. Complete routes prove feasibility, not optimality or enjoyment. Exact pre-haul previews make errors avoidable. Assess finger occlusion, drawing space, rope/clearance feedback, concave nets and the third reef’s challenge before selecting."
       },
       "nextSteps": [
-        "Naturally play all three reefs on desktop and touch and inspect screenshots; test native pointer capture, scrolling, keyboard focus and actual Games navigation.",
-        "Implement a substantive improvement based on observed rendered weakness, then verify progression, loss/undo/retry, records, saves/reload and reset before selection."
+        "Finish rendered desktop/touch qualification in both casting modes; inspect mobile drawing/controls and later-order planning.",
+        "Verify failure/retry, saves/reset, native Escape, navigation; select only after full qualification."
       ],
       "pendingCornerRefinement": {
         "commit": "1aa2b5566a423156d1a33166fb112fab33c74735",
@@ -1545,6 +1553,14 @@
         "before": "Closed net geometry could only be cleared and drawn again.",
         "after": "Adjust corners exposes handles and a numbered selector. Drag or keyboard-nudge one corner, or remove it down to a triangle. Preview revalidates geometry/catch immediately. Cancelled drag restores that corner; no save/turn until haul.",
         "remaining": "Natural rendered desktop and touch play, screenshot review, handle overlap/occlusion, focus and layout assessment. No improvement/browser credit yet."
+      },
+      "pendingCornerCasting": {
+        "date": "2026-11-01",
+        "commit": "54fd90e3cbbb549aa16ab160831c434197606146",
+        "before": "Continuous drawing required many intermediate keyboard steps; concave routes around coral were awkward to plan.",
+        "after": "Optional pinned corners, removable last corner and explicit closure; keyboard aim/pin/close then haul; existing closed-net editing and v1 saves retained.",
+        "validation": "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending.",
+        "credit": "No additional improved/browserTested/integrated/live credit yet."
       }
     },
     {
@@ -2467,11 +2483,12 @@
     }
   ],
   "nextSteps": [
-    "Promote selected Field Album after real main-based catalogue regression and live verification.",
-    "Then Ribbon Reef56;9 other built candidates need qualification and26slots remain unbuilt. Preserve prior collections and concurrent games."
+    "Finish Field Album combined catalogue CI41279124343 and inspect screenshots before main integration.",
+    "Finish Ribbon Reef pinned-corner rendered desktop/touch qualification; source54fd90e3 and26checks are not full qualification.",
+    "Preserve exactly50slots, prior collections, saves and concurrent games.26slots remain unbuilt."
   ],
   "updated": "2026-11-01",
-  "latestObservedMain": "a3ae6518560e4452736cdeb711c8f4d887c3f03e",
+  "latestObservedMain": "b1c8112581e17ff45c5161d5e91484296a676057",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3240,6 +3257,11 @@
       "commit": "e20d2324d8c7a682efdfc313d10bfa44271c51be",
       "verificationRun": 41275268950,
       "summary": "Field Album qualified and selected after40 checks, desktop/touch all-trail and9study routes, final screenshot review and compact-panel usability repair. Totals24/15/15/14/14; unlisted pending catalogue verification."
+    },
+    {
+      "date": "2026-11-01",
+      "commit": "54fd90e3cbbb549aa16ab160831c434197606146",
+      "summary": "Ribbon Reef corner casting implemented from rendered baseline and concave-net play,26checks; full qualification pending. Field Album catalogue promotion22fd6d54 CI41279124343 running."
     }
   ]
 }
