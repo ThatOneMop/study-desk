@@ -1724,7 +1724,8 @@
         "Portable low weir: 21 passing checks (12 engine, 9 jsdom 26.1.0), retaining original 13. Edge diversion, relocation/removal, dynamic overtopping/undo, strict validation, all three campaigns with per-action reload, old save/board shapes, flow/soil conservation, read-only previews, edge markers, pause/native selector guards, retry/records/reset isolation. Scripts pass syntax checks. No rendered evidence.",
         "Treadle pump: 29 passing tests (17 engine, 12 jsdom 26.1.0), retaining original 21. Three pump-inclusive routes through controls with per-action reload; plateau and one-step rise, genuine loop trapping, over-height fallback, weir crossing, relocation/removal, undo/retry, strict validation, water/soil conservation across varied terrain, pure forecasts, markers, native selector/pause/modal guards. Both scripts parse; IDs/assets/bridge-first and no Switch workspace controls pass static checks. No rendered evidence.",
         "Embedded shortcut fix: 34 tests pass (17 engine, 12 standalone jsdom, five real-bridge/jsdom checks with simulated parent). P is reserved for embedded workspace navigation; W now pours. Regression failed before fix, passed after. Keyboard garden completion/reload, native focus/modifiers/repeats, pause/dialog and real bridge visibility suspension/resume pass. No engine or save changes; no rendered credit.",
-        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
+        "Natural managed-preview desktop baseline 1Nov: first garden2earthworks, second garden3actions via cut/fill+weir after an observed1/2-per-bed split and2trapped. Second completion/record survived reload; third unlocked. Screenshots inspected. Partial baseline only; no qualified improvement/browser credit."
       ],
       "commits": [
         "c0cb277acc2f032d5b654f2619ec760130261bba",
@@ -1740,8 +1741,8 @@
         "knownLimits": "Three compact authored gardens. Height-field earthwork, finite bucket and flow splitting implemented; free preview, depth, clarity and progression need rendered assessment."
       },
       "nextSteps": [
-        "Naturally play desktop/touch and inspect screenshots, including height/flow arrows, soil bucket and stacked layout.",
-        "Identify an observed weakness and implement a substantive improvement pass; verify progression, dry-bed recovery, saves/reload, undo/retry/reset and navigation before catalogue selection."
+        "Implement optional terrain rehearsal/compare from observed mismatch: cut/fill forecast only height/bucket while water routing requires a committed action; weir already previews bed outcomes.",
+        "Verify third garden, desktop/touch, save-safe draft commit/cancel, controls and full regression before qualification."
       ],
       "pendingWeirRefinement": {
         "commit": "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
