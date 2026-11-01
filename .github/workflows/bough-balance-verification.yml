@@ -1,0 +1,23 @@
+name: Bough Balance verification
+on:
+  push:
+    branches: [indie-collection-three-dev]
+    paths: ['games/bough-balance/**', 'tests/bough-balance-*', '.github/workflows/bough-balance-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/bough-balance/game.js
+          node --test tests/bough-balance-engine.cjs tests/bough-balance-dom.cjs
+          python tests/assets.py
+          python tests/selected-indie.py

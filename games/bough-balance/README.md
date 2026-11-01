@@ -35,3 +35,7 @@ Exhaustive enumeration of all 24 ornament assignments at all four clip positions
 The existing v1 save key remains. Old records/journals decode unchanged. New journals may contain `{clip:[0,arm]}` or `{clip:null}`; only a completed brass arrangement adds optional bounded `brassRecord`. This survives undo/restart/level selection. Tests cover terminal journal validation, independent records, copying/pure forecasts, slide/removal, save failure/recovery and hidden/native-input guards.
 
 Rendered inspection, touch, enjoyment and meaningful playtest-led improvement remain pending. No qualified improvement count or public integration is claimed for this source-based refinement.
+
+## Rendered comparison pass — 2026-11-02
+
+Added load decomposition and all-hook comparison after rendered nested play exposed unclear parent pull and serial hook comparison. Pure forecasts include swaps, tray displacement, beam tradeoffs and completion; choosing only selects, Hang commits ordinary v1 actions. Native dialog close restores controls; embedded Games requests Collection.30 focused tests pass locally. Opening baseline and upgraded nested/deep-canopy completion, reload and390px layout inspected; full touch/brass/recovery/catalogue qualification remains pending. No extra puzzle count or duration claim.
