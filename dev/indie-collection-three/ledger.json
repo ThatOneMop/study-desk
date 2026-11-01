@@ -1915,7 +1915,7 @@
       "id": "seedwake",
       "title": "Seedwake",
       "coreLoop": "Lift and sow whole handfuls around an eight-bed ring; bloom exact final landings into a three-species bouquet while budgeting reverse-direction gusts and preserving seeds for later requests.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-upgrade-awaiting-full-qualification",
       "source": "games/seedwake",
       "built": true,
       "improved": false,
@@ -1929,23 +1929,25 @@
         "No rendered browser, inspected screenshots, native touch/dialog/focus verification, enjoyment evidence, qualified improvement pass, full-repository build or live-release evidence.",
         "Leave-one reserve: 27 passing tests (16 engine, 11 jsdom), retaining original 20. Three new reserve-inclusive routes with per-action UI save/reload; strict eligibility/type/repeat guards, long reverse laps, undo/retry restoration, legacy save compatibility, preview immutability, shortage feedback, native keyboard/pause/modal guards. Scripts parse. No rendered evidence.",
         "Bloom deferral: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining previous 27. Three deferral-inclusive campaigns through controls and per-action save/reload; retained pile/no flower accounting, reserve/reverse cost combination, strict true/exact-landing guards, last-turn victory refusal, undo/replay, old route compatibility, exact previews, plan-change reset and native/pause/modal controls. Syntax, IDs, asset references and bridge-first checks pass. No rendered evidence.",
-        "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit."
+        "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit.",
+        "2026-11-02: 39 focused checks pass; five new planner regressions cover unsaved victory/unlocks, mid-garden anchor branching, reserve/deferral logs, planned loss/undo, pause/modal/hidden guards, corrupted-save protection. Desktop natural rendered routes completed and screenshot inspected. Full qualification pending."
       ],
       "commits": [
         "018d8c74baec589351be660fc3519352a1652ecc",
         "e6beab4bf5bedb9569efe379e5f65d85781e4673",
         "701f44d42eeba3cf4b7387c9f70cc39de920ce68",
-        "12af5c7665e55c69a9b2e712581e9b11b43d0f1e"
+        "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
+        "53dee6eac0ee208194923edbaab6485f58df9678"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Not rated until rendered playtest",
+        "status": "Promising relaxed sowing puzzle; rendered route planner improves multi-step seed-conservation exploration. Full qualification pending.",
         "knownLimits": "Three compact fixed puzzles. Winning fixtures are feasible examples, not proven shortest routes. No procedural mode, audio or animated sowing trail. Numerical preview and ring order need visual evaluation, especially mobile."
       },
       "nextSteps": [
-        "Play actual rendered loop on desktop and touch layouts; inspect screenshots and verify progression, loss/retry, undo, saves/reload, reset and Games navigation.",
-        "Identify the most important observed weakness in choice depth, readability or replayability and implement a substantive playtest-led upgrade before qualification or integration."
+        "Finish CI41314535262 desktop/touch campaigns and inspect screenshots.",
+        "Qualify/select only after all regression and layout checks; promote against fresh main with catalogue and live verification."
       ],
       "pendingReserveRefinement": {
         "commit": "e6beab4bf5bedb9569efe379e5f65d85781e4673",
@@ -1966,6 +1968,16 @@
         "before": "A pending reset or corrupt-save recovery could commit while hidden, and Resume lacked a persistent hidden-state guard. Keyboard shortcuts could act during composition or editable-text input.",
         "after": "Parent hiding and document visibility independently guard actions/resume/confirmations; returning stays paused. Confirmation can be cancelled and reopened after explicit resume. Composition and editable text are excluded from shortcuts.",
         "verification": "Real bridge loaded with simulated parent and dialog stubs; rendered/native dialog verification pending."
+      },
+      "pendingRenderedImprovement": {
+        "date": "2026-11-02",
+        "commit": "53dee6eac0ee208194923edbaab6485f58df9678",
+        "observedWeakness": "Rendered Morning ring play: the forecast only shows one sow; longer reserve/deferral experiments change the saved garden and require repeated undo to restore the starting resources.",
+        "before": "Only single-handful forecast; actual actions immediately save and wins record progression.",
+        "after": "Branchable route rehearsal keeps an immutable planted anchor; normal controls simulate multiple sows, ordered landing log explains seed consumption/deferral, resource and bouquet deltas compare outcomes. Return to anchor, undo within plan, discard or plant. No rehearsal records/unlocks/save writes before planting; reload returns to planted state.",
+        "renderedEvidence": "Natural desktop: baseline reverse bed2 poppy, clockwise bed5 redistribution; new five-handful deferral win, return to starting point, four-handful reserve win, planting/reload with record4 and second garden unlock. Native Space starts rehearsal; native Escape closes retry, subsequent Undo works. Reviewed desktop route-summary screenshot. No human enjoyment claim.",
+        "tests": "39 local passing checks (20 engine,19 DOM); browser CI41314535262 running nine campaigns per viewport (desktop and touch emulation), branch/reload/hidden/save/navigation checks.",
+        "remaining": "Inspect final desktop/touch CI results and screenshots; fix failures; selection and isolated main catalogue regression before publication."
       }
     },
     {
@@ -2631,7 +2643,7 @@
     }
   ],
   "nextSteps": [
-    "Naturally play Seedwake60 and implement a substantive observed improvement, then qualify before selecting.",
+    "Finish Seedwake60 rendered qualification and inspect CI41314535262 artifacts before selection.",
     "Finish built candidates61–64 and implement26 distinct candidates65–90. Keep unfinished games off the catalogue.",
     "Preserve both earlier collections, concurrent projects and existing saves; task remains incomplete."
   ],
@@ -3534,6 +3546,21 @@
         41309214782
       ],
       "deploymentRun": 41309422300,
+      "totals": {
+        "built": 24,
+        "improved": 19,
+        "browserTested": 19,
+        "integrated": 19,
+        "live": 19
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Implemented Seedwake60 branchable route rehearsal from rendered baseline;39 focused checks pass and natural desktop five/four-handful plans, commit/reload/unlock verified. Full desktop/touch qualification pending; no public integration or count increase.",
+      "implementationCommit": "53dee6eac0ee208194923edbaab6485f58df9678",
+      "verificationRuns": [
+        41314535262
+      ],
       "totals": {
         "built": 24,
         "improved": 19,
