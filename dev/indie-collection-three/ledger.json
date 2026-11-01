@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 22,
     "browserTested": 22,
-    "integrated": 21,
-    "live": 21
+    "integrated": 22,
+    "live": 22
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -2089,13 +2089,13 @@
       "id": "thimble-fair",
       "title": "Thimble Fair",
       "coreLoop": "Choose thread bundles against visible rival bids and alternating tie priority, fund three textile commissions through careful purchases and delivery coin refunds.",
-      "status": "qualified-awaiting-catalogue-regression",
+      "status": "integrated-live",
       "source": "games/thimble-fair",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2113,7 +2113,9 @@
         "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence.",
         "Thread exchange: 28 passing tests (14 engine, 14 jsdom 26.1.0), retaining all original 21. Three exchange-inclusive routes through controls with per-action reload, exact two-for-one conservation, no coin/auction cost, strict single use, invalid actions, pure forecasts, pause/modal guards, undo restoration and natural twelve-action final-auction rescue. Both scripts parse; IDs/controls/bridge order pass. No rendered evidence.",
         "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit.",
-        "2026-11-02: 33 engine/DOM tests and desktop/touch browser checks passed in run 41335398552. Candidate branch also passed old dev catalogue asset checks (63 bundled routes,231 references) and first-batch9 source hashes; fresh-main catalogue regression remains separate."
+        "2026-11-02: 33 engine/DOM tests and desktop/touch browser checks passed in run 41335398552. Candidate branch also passed old dev catalogue asset checks (63 bundled routes,231 references) and first-batch9 source hashes; fresh-main catalogue regression remains separate.",
+        "Fresh-main release candidate 4b29234b174535655c8ed03f424f162bdd03bf89: run41335771661 passed33 focused tests, desktop/touch full game routes and real catalogue search/group/sort/favourite, completion, parent pause during confirmation, Collection/Games return, restart and save retention;74 launch routes,73 bundled routes/358 asset references,9 first-batch source hashes. Screenshot artifact13094789220 sha2564891fd00c516f0066c38456999a9be0198255552a2c6f2f5e392f11124efbd56: touch catalogue and desktop embedded completion inspected.",
+        "Pages run41335904356 succeeded. Live direct route opened; natural tray completion3 auctions/5coins survived reload and catalogue relaunch. Live catalogue search verified via native keyboard input; no Switch workspace buttons; catalog.js?v=thimble-fair-20261102 observed. No live deployment blocker. Local managed preview stopped."
       ],
       "commits": [
         "b53b3875b877c3722f4c031a383590b63b5d527f",
@@ -2121,10 +2123,12 @@
         "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
         "1bba988aa84ae6b30c53f8308cc7723b0a22278f"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "4b29234b174535655c8ed03f424f162bdd03bf89"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/thimble-fair/index.html",
       "quality": {
-        "status": "Selected provisionally for catalogue regression",
+        "status": "Selected, integrated and live",
         "enjoyment": "Open bids make outcomes legible; choosing useful materials and immediate coin refunds gives short, deliberate turns. Tray exposes mutually exclusive weaving choices without prescribing a route.",
         "depth": "Three commissions compete for shared stock; alternating ties, a finite purse, variable offers, delivery refunds and one surplus exchange support route comparison.",
         "polish": "Warm original thread/spool artwork, woven cards, responsive tray and explicit controls. No timing pressure.",
@@ -2133,7 +2137,7 @@
         "knownLimits": "Compact fairs: premium routes measured at three auctions and conservative route within six purchases; procedural fair numbers vary the same small ruleset. No audio or purchase animation. No long-duration or human enjoyment claim."
       },
       "nextSteps": [
-        "Run fresh-main release-candidate catalogue tests, then integrate only on success. Verify GitHub Pages and live route before incrementing integrated/live counts."
+        "No release blocker. Keep this compact game and its v1 saves intact while progressing to Bramble Pact63."
       ],
       "pendingExchangeRefinement": {
         "commit": "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
@@ -2147,7 +2151,8 @@
         "before": "A pending reset or corrupt-save recovery could commit while hidden, and Resume lacked a persistent hidden-state guard. Keyboard shortcuts could act during composition or editable-text input.",
         "after": "Parent hiding and document visibility independently guard actions/resume/confirmations; returning stays paused. Confirmation can be cancelled and reopened after explicit resume. Composition and editable text are excluded from shortcuts.",
         "verification": "Real bridge loaded with simulated parent and dialog stubs; rendered/native dialog verification pending."
-      }
+      },
+      "report": "dev/indie-collection-three/THIMBLE_FAIR_INTEGRATION.md"
     },
     {
       "slot": 63,
@@ -2705,12 +2710,12 @@
     }
   ],
   "nextSteps": [
-    "Complete Thimble Fair62 release-candidate regression and live verification.",
-    "Render and improve Bramble Pact63 and Bough Balance64; implement26 distinct candidates65–90.",
-    "Preserve both earlier collections and concurrent work; overall task remains incomplete."
+    "Naturally play Bramble Pact63, identify its largest observed weakness and implement a substantial improvement before qualification.",
+    "Finish built candidates63–64 and implement26 distinct candidates65–90; keep unfinished games off the catalogue.",
+    "Preserve both earlier collections, concurrent projects and existing saves. Task remains incomplete; hourly automation unchanged."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "b29871a0b241f7de269b94eeaa603c5bf453a688",
+  "latestObservedMain": "4b29234b174535655c8ed03f424f162bdd03bf89",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3716,6 +3721,24 @@
         "browserTested": 22,
         "integrated": 21,
         "live": 21
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Thimble Fair62 integrated and live with original market cover and shared-thread planning tray.33 focused tests, desktop/touch core and real catalogue regression,74 launch routes and live completion/save/navigation verification.",
+      "implementationCommit": "1bba988aa84ae6b30c53f8308cc7723b0a22278f",
+      "integrationCommit": "4b29234b174535655c8ed03f424f162bdd03bf89",
+      "verificationRuns": [
+        41335398552,
+        41335771661
+      ],
+      "deploymentRun": 41335904356,
+      "totals": {
+        "built": 24,
+        "improved": 22,
+        "browserTested": 22,
+        "integrated": 22,
+        "live": 22
       }
     }
   ]
