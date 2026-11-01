@@ -5,8 +5,8 @@
   "required": 50,
   "totals": {
     "built": 24,
-    "improved": 21,
-    "browserTested": 21,
+    "improved": 22,
+    "browserTested": 22,
     "integrated": 21,
     "live": 21
   },
@@ -2089,35 +2089,51 @@
       "id": "thimble-fair",
       "title": "Thimble Fair",
       "coreLoop": "Choose thread bundles against visible rival bids and alternating tie priority, fund three textile commissions through careful purchases and delivery coin refunds.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "qualified-awaiting-catalogue-regression",
       "source": "games/thimble-fair",
       "built": true,
-      "improved": false,
-      "browserTested": false,
+      "improved": true,
+      "browserTested": true,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "date": "2026-11-02",
+          "commit": "1bba988aa84ae6b30c53f8308cc7723b0a22278f",
+          "basis": "Rendered baseline: played fair 1 opening purchase. Auction and commission sections required scrolling and mental shared-stock subtraction; individual readiness did not reveal mutually exclusive deliveries.",
+          "before": "Purchase preview showed only bought thread and purse; exchange preview showed only its resulting basket. Delivery required returning to commission cards.",
+          "after": "All lots compare useful thread against aggregate unfinished requirements. Selected affordable bids enumerate exact jointly feasible commission bundles, remaining basket, purse and refunds. Named buy-and-make choices commit validated ordinary purchase/craft journals atomically. Exchange preview names gained and sacrificed readiness and remaining total needs. Native Escape close restores controls and embedded Games returns to Collection.",
+          "evidence": "Direct rendered baseline and upgraded fair-1 completion in three auctions/five coins, save reload, native Escape; 390px iframe layout and mutually exclusive River runner/Berry blanket choices inspected. CI 41335398552 passed 33 focused tests and desktop/touch Chromium: tray route, three premium routes, three exchange routes, conservative last-auction completion, loss/undo/retry, per-action reload, keyboard, hidden dialog, isolated reset/recovery and navigation. Agent-driven routes are functional evidence, not human enjoyment testing.",
+          "screenshots": "CI artifact 13094747392, sha256 49eec94bfbc8c8019c778ff081012272f9122a3782b5be197fc1ed4f27b7932f; desktop exchange tradeoff and touch opening tray visually inspected. Direct 390px choice tray also inspected."
+        }
+      ],
       "tests": [
         "21 passing tests: 10 engine, 11 jsdom 26.1.0. Three premium fair routes completed through controls with per-action save/reload; 73 sampled conservative supply routes; deterministic offers, ties, overbids, losing bids, exact recipes/refunds, natural last-auction delivery, loss/undo/retry, bounded best records, malformed actions/saves, new fair confirmation, native/focus/pause/modal/parent/document guards, corrupt recovery, isolated reset and quota failure.",
         "Both scripts parse. Local asset references, unique/used IDs, bridge-first loading and no Switch workspace controls pass. Games navigation resolves to existing root catalogue.",
         "No rendered browser, screenshot inspection, native touch/dialog evidence, human enjoyment assessment, qualified improvement pass, full-repository build or live-release evidence.",
         "Thread exchange: 28 passing tests (14 engine, 14 jsdom 26.1.0), retaining all original 21. Three exchange-inclusive routes through controls with per-action reload, exact two-for-one conservation, no coin/auction cost, strict single use, invalid actions, pure forecasts, pause/modal guards, undo restoration and natural twelve-action final-auction rescue. Both scripts parse; IDs/controls/bridge order pass. No rendered evidence.",
-        "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit."
+        "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit.",
+        "2026-11-02: 33 engine/DOM tests and desktop/touch browser checks passed in run 41335398552. Candidate branch also passed old dev catalogue asset checks (63 bundled routes,231 references) and first-batch9 source hashes; fresh-main catalogue regression remains separate."
       ],
       "commits": [
         "b53b3875b877c3722f4c031a383590b63b5d527f",
         "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
-        "12af5c7665e55c69a9b2e712581e9b11b43d0f1e"
+        "12af5c7665e55c69a9b2e712581e9b11b43d0f1e",
+        "1bba988aa84ae6b30c53f8308cc7723b0a22278f"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Not rated until rendered playtest",
-        "knownLimits": "Short open-information fairs; tested premium routes finish in three auctions, conservative routes within six. Procedural fair numbers vary one small game, not separate campaigns. No audio or purchase animation. Open-bid engagement, budget pressure, missing-thread explanations and mobile layout require rendered assessment."
+        "status": "Selected provisionally for catalogue regression",
+        "enjoyment": "Open bids make outcomes legible; choosing useful materials and immediate coin refunds gives short, deliberate turns. Tray exposes mutually exclusive weaving choices without prescribing a route.",
+        "depth": "Three commissions compete for shared stock; alternating ties, a finite purse, variable offers, delivery refunds and one surplus exchange support route comparison.",
+        "polish": "Warm original thread/spool artwork, woven cards, responsive tray and explicit controls. No timing pressure.",
+        "reliability": "33 focused checks and real Chromium desktop/touch routes pass; original v1 journals/save key retained.",
+        "variety": "Adds procurement and crafting economics to the collection rather than another spatial puzzle.",
+        "knownLimits": "Compact fairs: premium routes measured at three auctions and conservative route within six purchases; procedural fair numbers vary the same small ruleset. No audio or purchase animation. No long-duration or human enjoyment claim."
       },
       "nextSteps": [
-        "Naturally render/play conservative and premium routes on desktop and touch; inspect screenshots and verify win/loss, undo/retry, saves/reload, reset and navigation.",
-        "Identify and implement a substantive observed improvement before qualification or catalogue selection."
+        "Run fresh-main release-candidate catalogue tests, then integrate only on success. Verify GitHub Pages and live route before incrementing integrated/live counts."
       ],
       "pendingExchangeRefinement": {
         "commit": "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
@@ -2689,9 +2705,9 @@
     }
   ],
   "nextSteps": [
-    "Naturally play Thimble Fair62, identify its largest observed weakness and implement a substantial improvement before qualification.",
-    "Finish built candidates62–64 and implement26 distinct candidates65–90. Keep unfinished games off the catalogue.",
-    "Preserve both earlier collections, concurrent projects and existing saves; task remains incomplete."
+    "Complete Thimble Fair62 release-candidate regression and live verification.",
+    "Render and improve Bramble Pact63 and Bough Balance64; implement26 distinct candidates65–90.",
+    "Preserve both earlier collections and concurrent work; overall task remains incomplete."
   ],
   "updated": "2026-11-02",
   "latestObservedMain": "b29871a0b241f7de269b94eeaa603c5bf453a688",
@@ -3683,6 +3699,21 @@
         "built": 24,
         "improved": 21,
         "browserTested": 21,
+        "integrated": 21,
+        "live": 21
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Thimble Fair62 planning tray qualified after baseline play, substantive purchase/delivery control upgrade,33 focused tests and desktop/touch rendered routes.",
+      "implementationCommit": "1bba988aa84ae6b30c53f8308cc7723b0a22278f",
+      "verificationRuns": [
+        41335398552
+      ],
+      "totals": {
+        "built": 24,
+        "improved": 22,
+        "browserTested": 22,
         "integrated": 21,
         "live": 21
       }
