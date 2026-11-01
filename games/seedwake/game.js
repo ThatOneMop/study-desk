@@ -30,3 +30,5 @@ $('plan-start').onclick=()=>{if(busy()||E.won(state.level,E.board(state))||E.los
 $('plan-back').onclick=()=>{if(busy()||!planAnchor)return;state=E.decode(JSON.stringify(planAnchor));clearSelection();save();render()};
 $('plan-discard').onclick=()=>{if(busy()||!planAnchor)return;state=planAnchor;planAnchor=null;clearSelection();save();render()};
 $('plan-commit').onclick=()=>{if(busy()||!planAnchor||state.moves.length===planAnchor.moves.length)return;planAnchor=null;save();render()};
+
+document.querySelector('header a').addEventListener('click',e=>{if(parent!==window){e.preventDefault();parent.postMessage({type:'study-collection'},location.origin)}});
