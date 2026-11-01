@@ -1818,7 +1818,7 @@
       "id": "fallow-table",
       "title": "Fallow Table",
       "coreLoop": "Schedule planting, cross-watering and harvests across a small growing season; rotate crops, replenish soil with beans and use companion shade to fill a supper basket.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-upgrade-awaiting-qualification",
       "source": "games/fallow-table",
       "built": true,
       "improved": false,
@@ -1831,23 +1831,25 @@
         "No rendered browser, screenshot inspection, native touch/focus/dialog behavior, enjoyment assessment, qualified improvement pass, full repository build or live-release evidence.",
         "Green manure refinement: 27 passing tests (16 engine, 11 jsdom 26.1.0), retaining original 19. Early/ripe food-versus-soil choice, eligibility/rejection, caps, shade removal, undo, three manure-inclusive campaigns with per-action reload, legacy routes/save shape, keyboard/native/pause/modal guards and retry. Both scripts parse. No rendered evidence.",
         "Transplanting: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining original 27. Three transplant-inclusive contracts with per-action DOM save/reload; immutable crop/growth/yield transfer, bed soil/water/history preservation, dry-night companion shade changes, strict eligibility/type guards, undo/retry and legacy routes, selector preview without saving, keyboard/native/pause/modal guards and ripe rejection. Scripts parse; asset references, unique IDs and bridge-first order pass. No rendered evidence.",
-        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged."
+        "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
+        "CI41300403660 at 355fb70104bef5e522fbe4381226f9a82eacf77c passed37 focused checks (21 engine,16 DOM), syntax,63 bundled routes/231 HTML asset references and all9 selected first-batch integrity checks. Natural CUA desktop play exposed bean harvest removing squash shade (next-night water2→1); new preview predicted it before commit, subsequent night/reload matched. Completed Kitchen garden through new job controls on day6 with8 work points, reloaded win/record, undid/recommitted winning harvest, cancelled retry with native Escape, and confirmed retry retaining record. Inspected baseline, expanded harvest comparison, winning preview and390px iframe screenshots. Narrow native Space planted exactly once.390px harness uses desktop pointer, not touch emulation. Other two rendered contracts, touch, complete loss/recovery and real catalogue integration remain pending; no human enjoyment or content-duration claim."
       ],
       "commits": [
         "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393",
         "8c76be91383d2363ba845e07b52a2057c73f20eb",
         "bcf3ccd43d098c567c250c4d48b3dd3d6723ede3",
-        "b4b67145f615b1452c60e9673fdebe6c30c9b35a"
+        "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+        "355fb70104bef5e522fbe4381226f9a82eacf77c"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Not rated until rendered playtest",
-        "knownLimits": "Three compact contracts and eight workdays each. Fixture scores 13/11/8 are feasible, not proven optimal. Needs rendered evaluation of crop rotation relevance, central cross-watering advantage, bean shade clarity and replay depth."
+        "status": "Partial rendered assessment; not yet qualified",
+        "knownLimits": "Three compact eight-day contracts. First natural win scored8; fixture scores are not optimality claims. Job comparison makes bean-shade timing legible and gives informed food/soil/transplant choices. Panel requires vertical scrolling on390px; other contracts and native touch remain unverified."
       },
       "nextSteps": [
-        "Naturally play desktop and touch layouts, inspect screenshots, verify all three contracts, missed-season recovery, saves/reload, undo/retry/reset and navigation.",
-        "Identify and fix a substantive observed weakness before counting an improvement pass or selecting this game for the catalogue."
+        "Qualify the job comparison with complete desktop/touch rendered campaigns through all three contracts, natural loss/recovery, save/reload, reset/undo/retry, pause/hidden bridge and navigation.",
+        "Inspect screenshots and compare quality before fresh-main catalogue promotion. Keep unlisted until qualification."
       ],
       "pendingManureRefinement": {
         "commit": "8c76be91383d2363ba845e07b52a2057c73f20eb",
@@ -1868,6 +1870,15 @@
         "before": "Pending reset/recovery could commit after hiding; resume and text-composition/editable input lacked complete guards.",
         "after": "Persistent parent-hidden state and document.hidden independently block input/resume/confirmation. Returning stays paused. Composition/editable fields excluded. Bellwether retains adviser invalidation and blocks hidden entry/confirmation.",
         "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending."
+      },
+      "pendingJobComparison": {
+        "commit": "355fb70104bef5e522fbe4381226f9a82eacf77c",
+        "date": "2026-11-01",
+        "observedWeakness": "During natural Kitchen garden play, picking standing beans reduced adjacent squash's next-night water from2 to1. Existing forecast disclosed this only after spending work, obscuring the tradeoff between harvesting food and keeping shade.",
+        "before": "Only the current board's overnight outcome was visible; trying a harvest or transplant needed a real action followed by undo.",
+        "after": "Optional job comparison shows work, compost, basket, soil, water, crops and bean shade before/after, plus next-night no-further-jobs versus proposed-job outcomes. Explicit commit spends work; merely selecting jobs changes neither journal nor resources. Winning and final-day jobs do not invent another night. All six jobs share the original validated rules; v1 saves retained.",
+        "validation": "CI41300403660 at 355fb70104bef5e522fbe4381226f9a82eacf77c passed37 focused checks (21 engine,16 DOM), syntax,63 bundled routes/231 HTML asset references and all9 selected first-batch integrity checks. Natural CUA desktop play exposed bean harvest removing squash shade (next-night water2→1); new preview predicted it before commit, subsequent night/reload matched. Completed Kitchen garden through new job controls on day6 with8 work points, reloaded win/record, undid/recommitted winning harvest, cancelled retry with native Escape, and confirmed retry retaining record. Inspected baseline, expanded harvest comparison, winning preview and390px iframe screenshots. Narrow native Space planted exactly once.390px harness uses desktop pointer, not touch emulation. Other two rendered contracts, touch, complete loss/recovery and real catalogue integration remain pending; no human enjoyment or content-duration claim.",
+        "remaining": "Complete all-three-contract desktop/touch rendered routes, loss/retry, reset/recovery, hidden bridge and native navigation. Review screenshots and game-specific depth before counting improvement qualification or catalogue selection."
       }
     },
     {
@@ -2591,9 +2602,9 @@
     }
   ],
   "nextSteps": [
-    "Improve/qualify remaining built59–64 and implement26new distinct65–90.",
-    "Third totals24built/18improved/18browser-tested/18integrated/18live. Preserve completed first/second batches.",
-    "Use latest main catalogue as integration baseline; developer-only prototypes stay unlisted."
+    "Finish Fallow Table59 rendered qualification for the job-comparison upgrade; do not replay earlier source-only passes as new improvements.",
+    "Then qualify remaining built candidates60–64, create distinct candidates65–90, and integrate only finished tested selections using fresh main.",
+    "Keep batch2 completed20/20 additional improvements and9selected/live, all first-batch sources/saves/entries, concurrent work and hourly cadence unchanged."
   ],
   "updated": "2026-11-01",
   "latestObservedMain": "3bf083bbcfbf11ee5cadbe669b079b74a7a62d1a",
@@ -3448,6 +3459,21 @@
         41295846719
       ],
       "deploymentRun": 41296009261,
+      "totals": {
+        "built": 24,
+        "improved": 18,
+        "browserTested": 18,
+        "integrated": 18,
+        "live": 18
+      }
+    },
+    {
+      "date": "2026-11-01",
+      "summary": "Implemented Fallow Table59 job comparisons from natural rendered crop/shade play.37 CI checks, asset and first-batch integrity pass; natural first-garden win/save/retry plus390px layout and native Space verified. Full qualification pending; no catalogue promotion or count change.",
+      "implementationCommit": "355fb70104bef5e522fbe4381226f9a82eacf77c",
+      "verificationRuns": [
+        41300403660
+      ],
       "totals": {
         "built": 24,
         "improved": 18,
