@@ -45,3 +45,13 @@ Select Turn the whole sheet over instead, preview using the existing checkbox, t
 27 checks pass (14 engine, 13 jsdom 26.1.0), including all original 21. Three alternate routes with one turnover each complete in 4/5/6 moves, versus original 3/4/5-fold routes. These demonstrate reachable alternatives, not faster solutions or optimality. Per-action control-driven save/reload, exact previews, stack reversal and face mirroring, conservation, involution, strict actions, allowance exhaustion, undo/retry, disabled unrelated controls and keyboard/native/pause/modal guards pass. Fixtures: tests/fixtures/foldlight-flip.json. Both scripts parse and used/unique IDs, bridge order and absence of workspace-switch controls pass static checks.
 
 This is a source-informed option, not a rendered-qualified improvement. No screenshot, native touch, enjoyment, full-repository build or live evidence. The existing browser security-policy blocker was not retried or bypassed. Rendered play must evaluate whether turnover creates useful planning rather than redundant moves, and whether its mode and mirror direction are clear. Foldlight remains unlisted.
+
+## Rendered planning pass — 2026-11-01 UTC
+
+Observed in the browser: after the first fold, a top-fold preview reported 30/36 matches, largely counting empty space, while the selected moving pane simply became “empty.” This hid the useful difference between shape progress and correct window panes.
+
+The planner now separates occupied target matches from unwanted occupied panes. Selecting a pane compares current and proposed stacks, identifies exact layer-count or top-colour mismatch, and exposes original paper coordinates and front/back faces in ordered, coloured layer lists. “Follow this paper” jumps to its landing pane; “Find next mismatch” cycles the displayed board's remaining differences. These are free inspection tools, not solver hints, and they preserve the save format and all existing routes. Open layer lists remain open while comparing over/under modes.
+
+Native dialog cancellation refreshes controls on the close event; embedded Games navigation sends the existing same-origin collection message.
+
+Validation: 32 focused engine/DOM checks; rendered original campaigns completed in 3/4/5 moves, records reloaded; over/under layer comparison inspected; 390px iframe layout and 24-layer inspector inspected; native Escape and undo verified. Narrow layout is not touch-device evidence. Full rendered under/turnover campaigns, touch input, full repository CI and catalogue qualification remain pending. Source stays on the development branch.
