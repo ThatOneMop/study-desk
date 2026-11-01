@@ -1411,5 +1411,30 @@
     "thumbnail": "art/curated/thimble-fair.svg",
     "thumbnailAlt": "Marigold, lake-blue and rose thread spools beneath a striped market awning, beside woven commissions and a small purse",
     "updated": "2026-11-02"
+  },
+  {
+    "id": "bramble-pact",
+    "title": "Bramble Pact",
+    "description": "Keep exact harvest promises in an open-hand woodland card game. Follow changing wind suits, offer an unwanted harvest and compare two tricks before playing across three compact picnics.",
+    "icon": "🍃",
+    "genre": "Cards + Puzzle",
+    "color": "#7c926b",
+    "controls": "1–6 select · Enter plays · G offers · Z undoes · Touch cards and two-trick planner",
+    "url": "games/bramble-pact/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#bramble-pact",
+    "aliases": [
+      "cards",
+      "tricks",
+      "woodland",
+      "harvest",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/bramble-pact.svg",
+    "thumbnailAlt": "Berry, acorn and leaf cards laid on a woodland table beside three harvest baskets",
+    "updated": "2026-11-02"
   }
 ]
