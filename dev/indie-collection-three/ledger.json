@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 18,
     "browserTested": 18,
-    "integrated": 17,
-    "live": 17
+    "integrated": 18,
+    "live": 18
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1720,13 +1720,13 @@
       "id": "rill-root",
       "title": "Rill & Root",
       "coreLoop": "Cut and fill a height field with conserved soil to route a downhill stream, split its flow and water two root beds.",
-      "status": "selected-awaiting-catalogue-regression",
+      "status": "integrated-live",
       "source": "games/rill-root",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-01",
@@ -1749,7 +1749,8 @@
         "Natural managed-preview desktop baseline 1Nov: first garden2earthworks, second garden3actions via cut/fill+weir after an observed1/2-per-bed split and2trapped. Second completion/record survived reload; third unlocked. Screenshots inspected. Partial baseline only; no qualified improvement/browser credit.",
         "38 passing local checks (17engine,16DOM,5actual-bridge/jsdom), retaining34 previous. Draft campaign commits/reloads all3gardens; original comparison, no-save/no-award preview, undo boundary, cancel/pause/modal/parent hiding and pump planning. Natural rendered desktop: third garden planned8earthworks, compared original6trapped/0caught to draft0trapped/3+3caught, committed/poured, reloaded best8; nativeEscape retry, undo and pause-discard verified. Screenshots inspected. Full mobile/touch/catalogue qualification pending; repository checks subsequently passed.",
         "Repository CI 41287198092 at 48eac849d077ee3cf5f020894f070e6d7779a33c passed: all38 focused checks,63 bundled routes/231 HTML asset references, source syntax/Freedoom structure and nine selected first-batch routes with source hashes, links and credits. These are automated checks, not mobile/touch qualification.",
-        "CI41291596000 at b16ae01e14fd6ebff5a8e060d8fe9a21e6ab05db:38 focused checks; nine earned soil/weir/pump clears per viewport on1280x1000 desktop and390x844 touch-emulated Chromium. Draft comparison/undo/commit/discard, exact saves/reloads, dry-bed recovery, native keyboard/Escape/retry, pause, isolated corrupt-save recovery/reset/quota and standalone navigation passed.40 screenshots captured; inspected touch opening, touch third-garden soil draft, desktop third-garden pump draft, touch second-garden weir completion. No horizontal overflow. Artifact13077875550 SHA256dd01fbf4e88a04aebf106f927bf99d401339d3344182253187994031bef86e3a verified.63 bundled routes/231asset references and nine first-batch selected source hashes passed. Automated routes establish reliability, not human enjoyment or physical-device testing."
+        "CI41291596000 at b16ae01e14fd6ebff5a8e060d8fe9a21e6ab05db:38 focused checks; nine earned soil/weir/pump clears per viewport on1280x1000 desktop and390x844 touch-emulated Chromium. Draft comparison/undo/commit/discard, exact saves/reloads, dry-bed recovery, native keyboard/Escape/retry, pause, isolated corrupt-save recovery/reset/quota and standalone navigation passed.40 screenshots captured; inspected touch opening, touch third-garden soil draft, desktop third-garden pump draft, touch second-garden weir completion. No horizontal overflow. Artifact13077875550 SHA256dd01fbf4e88a04aebf106f927bf99d401339d3344182253187994031bef86e3a verified.63 bundled routes/231asset references and nine first-batch selected source hashes passed. Automated routes establish reliability, not human enjoyment or physical-device testing.",
+        "Release41295846719 passed38 focused checks, desktop/touch nine-route campaigns and both embedded catalogue flows: search/group/sort/favourites, rehearsal comparison/commit, completion, parent pause during confirmation, Collection/Games return and restart with save retention.70 launch routes,69bundled/342asset references, source syntax and nine first-batch hashes passed. Artifact13078979434 SHA2561227b7ad129f472b81bf2896a27c2a13ea1d669cdaa18b2aec248d44dd3a0df0 verified; inspected desktop cover/catalogue, touch rehearsal and saved return. Live1Nov: first garden completed by2earthworks through rehearsal, completion/record survived reload and catalogue launch. Live launcher has0Switch workspace buttons."
       ],
       "commits": [
         "c0cb277acc2f032d5b654f2619ec760130261bba",
@@ -1760,8 +1761,10 @@
         "74ffa7fd09893ace0f144a2813b243280fde2c2e",
         "b16ae01e14fd6ebff5a8e060d8fe9a21e6ab05db"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "3bf083bbcfbf11ee5cadbe669b079b74a7a62d1a"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/rill-root/index.html",
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Agent assessment: reversible soil planning and readable water consequences encourage experimentation without losing an existing layout; no human enjoyment study.",
@@ -1772,7 +1775,7 @@
         "knownLimits": "Three gardens, no claim of long campaign or physical-device testing. Embedded catalogue regression and live release still pending."
       },
       "nextSteps": [
-        "Add original catalogue cover/credits and staged catalogue entry; run embedded desktop/touch navigation, pause, restart and save regression before publishing."
+        "Preserve save compatibility and include in future catalogue regression."
       ],
       "pendingWeirRefinement": {
         "commit": "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
@@ -2588,12 +2591,12 @@
     }
   ],
   "nextSteps": [
-    "Integrate selected Rill & Root58 after catalogue regression; qualification complete at b16ae01e14fd6ebff5a8e060d8fe9a21e6ab05db.",
     "Improve/qualify remaining built59–64 and implement26new distinct65–90.",
-    "Third counts24built/18qualified/17integrated/17live; preserve first/second batches and concurrent work."
+    "Third totals24built/18improved/18browser-tested/18integrated/18live. Preserve completed first/second batches.",
+    "Use latest main catalogue as integration baseline; developer-only prototypes stay unlisted."
   ],
   "updated": "2026-11-01",
-  "latestObservedMain": "425044f92c98e4800c74e3a3e3b8fb2a11c0e427",
+  "latestObservedMain": "3bf083bbcfbf11ee5cadbe669b079b74a7a62d1a",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3435,6 +3438,22 @@
         "browserTested": 18,
         "integrated": 17,
         "live": 17
+      }
+    },
+    {
+      "date": "2026-11-01",
+      "summary": "Published Rill & Root58 after catalogue regression and live completion/save/navigation checks.",
+      "integrationCommit": "3bf083bbcfbf11ee5cadbe669b079b74a7a62d1a",
+      "verificationRuns": [
+        41295846719
+      ],
+      "deploymentRun": 41296009261,
+      "totals": {
+        "built": 24,
+        "improved": 18,
+        "browserTested": 18,
+        "integrated": 18,
+        "live": 18
       }
     }
   ]
