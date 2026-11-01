@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 15,
     "browserTested": 15,
-    "integrated": 14,
-    "live": 14
+    "integrated": 15,
+    "live": 15
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1421,13 +1421,13 @@
       "id": "field-album",
       "title": "Field Album",
       "coreLoop": "Choose a habitat survey, open three wildlife cards, draft two and arrange a twelve-space field page to combine terrain matches, clover–bee links, frog plant diversity and robin solitude.",
-      "status": "selected-awaiting-catalogue-verification",
+      "status": "integrated-live",
       "source": "games/field-album",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1450,7 +1450,9 @@
         "Rearrangement refinement: 26 tests pass (14 engine, 12 jsdom), retaining all 18 original tests. Moves/swaps, one-use and invalid-action guards, full-page scoring/records, legacy journals, undo/retry, exact previews, pause/cancel/reload and missed-target recovery. A 31-point page becomes 39 via a final swap and unlocks trail two. Script syntax checks pass. No rendered/native touch evidence.",
         "Field pocket: 33 tests pass (18 engine, 15 jsdom), including all 26 prior tests. Exact species carry across packets, consumed draft choice, later replacement, one-use and taken/late/identical-action guards, legacy board compatibility, full 21-action journals combining pocket and rearrangement on all trails, unused pockets, undo/retry, UI selection, pause/native keyboard guards, reload/completion and isolated reset. Both scripts pass syntax checks. No rendered evidence.",
         "38 local checks (20engine/18DOM) passed, retaining33 earlier tests. New ecology/empty-page/old-journal/preview/direct-swap/undo/hidden-reset checks and script syntax pass. Native close-event rendering and iframe Games handler implemented but require rendered validation.",
-        "CI41275268950 at e20d2324d8c7a682efdfc313d10bfa44271c51be passed40 focused checks (21engine/19DOM), all3 base trails plus9 ecology-study routes on desktop1280x1000 and touch-emulated390x844. Packet reloads, direct swaps/read-only forecasts/undo, missed target31→39 recovery, native Escape/Enter, pause, corruption/recovery/reset/quota and standalone Games navigation passed. Repository63bundled routes/231HTML references and9first-batch source hashes passed. Artifact13071545790 SHA25684634df4fe9c508be4befad8a56290828f831ddd1511ebfb9757742790fe0b41 verified; inspected touch compact onboarding, expanded studies, missed-target recovery controls and desktop swap warning. Automated UI routes establish functional behavior, not human enjoyment or physical-device results."
+        "CI41275268950 at e20d2324d8c7a682efdfc313d10bfa44271c51be passed40 focused checks (21engine/19DOM), all3 base trails plus9 ecology-study routes on desktop1280x1000 and touch-emulated390x844. Packet reloads, direct swaps/read-only forecasts/undo, missed target31→39 recovery, native Escape/Enter, pause, corruption/recovery/reset/quota and standalone Games navigation passed. Repository63bundled routes/231HTML references and9first-batch source hashes passed. Artifact13071545790 SHA25684634df4fe9c508be4befad8a56290828f831ddd1511ebfb9757742790fe0b41 verified; inspected touch compact onboarding, expanded studies, missed-target recovery controls and desktop swap warning. Automated UI routes establish functional behavior, not human enjoyment or physical-device results.",
+        "CI41279124343 at22fd6d54 passed400 focused checks across15games, desktop/touch standalone and real iframe catalogue flows.66bundled routes/330assetrefs and9first-batch release source hashes passed. Artifact13073046029 SHA2561007523921558c0141ca0ba5b9e958763129af6a79ac94296b05485cf2bbc7c2 verified; desktop completed habitat, touch rearrangement and catalogue cover/search screenshots reviewed.",
+        "Pages succeeded. Live catalogue67total/66bundled loads catalog.js?v=field-album-20261101. CUA launched real iframe, completed three surveys34points, reloaded into Survey4, completed Home Meadow73points/Pollinator network confirmed, verified outer pause/resume and in-game Games return. Standalone published URL retained completed73point save and confirmed study. No Switch workspace controls or cache mismatch observed."
       ],
       "commits": [
         "7f0a21f19bc2ae8acaed1169d23bfed61d8df92a",
@@ -1461,16 +1463,17 @@
         "a7e40eb89e9c2f165d4622683583a11546690afe",
         "e20d2324d8c7a682efdfc313d10bfa44271c51be"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "d75347a231716401b095cd5f95eb344c77ad7efe"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/field-album/index.html",
       "quality": {
-        "status": "Selected pending real catalogue verification",
+        "status": "Selected, integrated and live",
         "assessment": "Distinct relaxed card drafting and habitat placement. The field pocket plans across drafts; direct swaps repair choices without redrafting. Ecology relationships offer objectives beyond dominant bee/clover score chains, and previews explain consequential tradeoffs. Original wildlife artwork and terrain patterns are readable in reviewed screenshots.",
         "knownLimits": "Three compact terrain pages, six species and six surveys each; seeds vary packets only. Study confirmations derive from the current page rather than permanent medals. Proven routes are beam-search solutions, not optimality or enjoyment evidence. Phone controls require vertical scrolling. A missed current target still shows unlock guidance even when earlier records already unlocked that trail; access remains available in Trails."
       },
       "nextSteps": [
-        "Prepare main-based promotion preserving concurrent catalogue changes; verify real iframe launch/pause/restart/Games return on desktop/touch before integration.",
-        "Inspect catalogue screenshots, publish only on passing checks and verify live saves/routes."
+        "Maintain regression coverage; no release blocker."
       ],
       "pendingSourceRefinement": {
         "commit": "edeb533554ea7b7b96e7f2070e8c9c7162130f91",
@@ -1508,7 +1511,13 @@
         "branch": "indie-three-field-promotion-20261101",
         "commit": "22fd6d54b0fc6980efc60a7af26e6009a698a77c",
         "run": 41279124343,
-        "status": "Regression running; source not on main."
+        "status": "Passed, screenshots reviewed, integrated and verified live."
+      },
+      "liveVerification": {
+        "date": "2026-11-01",
+        "commit": "d75347a231716401b095cd5f95eb344c77ad7efe",
+        "deploymentRun": 41279987508,
+        "evidence": "Pages succeeded. Live catalogue67total/66bundled loads catalog.js?v=field-album-20261101. CUA launched real iframe, completed three surveys34points, reloaded into Survey4, completed Home Meadow73points/Pollinator network confirmed, verified outer pause/resume and in-game Games return. Standalone published URL retained completed73point save and confirmed study. No Switch workspace controls or cache mismatch observed."
       }
     },
     {
@@ -1530,7 +1539,8 @@
         "DOM: opening gate, keyboard rectangle, native form shortcuts, scaled 300×200 simulated SVG coordinates, extra-pointer rejection/cancel, read-only previews, pause/dialog/trusted parent hiding, reef switching, isolated reset, corrupt-save recovery and quota failure.",
         "Both scripts pass syntax checks. 34 HTML IDs unique; 44 CSS rules parse. Script/style paths resolve in the new files/current branch tree. No Switch workspace control introduced. No full repository build from the partial workspace; no rendered browser/screenshot/native touch evidence.",
         "Corner editing refinement: all 22 tests pass (9 engine, 13 jsdom), retaining the original 17. New tests repair invalid fish-touching geometry to the 470-rope opening net, save/reload the edited haul, scale pointer dragging, restore cancelled/lost capture edits, remove corners with a triangle floor, preserve native form keys, ignore extra pointers, and clear edits on pause/dialog. Script syntax passes; 39 unique IDs and 49 CSS rules parse. No rendered evidence.",
-        "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending."
+        "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending.",
+        "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending. A390px-wide iframe with desktop pointer completed Coral Arch with pinned nets745/560/860=2165rope,0frays, and retained completion/record on reload. Phone-width screenshots inspected: readable controls, no evident clipping, vertical scrolling; not native touch."
       ],
       "commits": [
         "d2ad53aa94c282774ef03cb6fdc01eb448b1cf02",
@@ -1559,7 +1569,7 @@
         "commit": "54fd90e3cbbb549aa16ab160831c434197606146",
         "before": "Continuous drawing required many intermediate keyboard steps; concave routes around coral were awkward to plan.",
         "after": "Optional pinned corners, removable last corner and explicit closure; keyboard aim/pin/close then haul; existing closed-net editing and v1 saves retained.",
-        "validation": "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending.",
+        "validation": "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending. A390px-wide iframe with desktop pointer completed Coral Arch with pinned nets745/560/860=2165rope,0frays, and retained completion/record on reload. Phone-width screenshots inspected: readable controls, no evident clipping, vertical scrolling; not native touch.",
         "credit": "No additional improved/browserTested/integrated/live credit yet."
       }
     },
@@ -2483,12 +2493,12 @@
     }
   ],
   "nextSteps": [
-    "Finish Field Album combined catalogue CI41279124343 and inspect screenshots before main integration.",
-    "Finish Ribbon Reef pinned-corner rendered desktop/touch qualification; source54fd90e3 and26checks are not full qualification.",
-    "Preserve exactly50slots, prior collections, saves and concurrent games.26slots remain unbuilt."
+    "Continue Ribbon Reef56 qualification in rendered desktop and native-touch-emulated routes, both casting modes, third reef, loss/retry/saves/navigation.",
+    "Eight further built candidates57–64 need qualification;26slots65–90 remain unbuilt.",
+    "Preserve first/second collections, all saves, concurrent games and exactly50third-batch slots; do not pause the hourly task yet."
   ],
   "updated": "2026-11-01",
-  "latestObservedMain": "b1c8112581e17ff45c5161d5e91484296a676057",
+  "latestObservedMain": "d75347a231716401b095cd5f95eb344c77ad7efe",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3262,6 +3272,13 @@
       "date": "2026-11-01",
       "commit": "54fd90e3cbbb549aa16ab160831c434197606146",
       "summary": "Ribbon Reef corner casting implemented from rendered baseline and concave-net play,26checks; full qualification pending. Field Album catalogue promotion22fd6d54 CI41279124343 running."
+    },
+    {
+      "date": "2026-11-01",
+      "commit": "d75347a231716401b095cd5f95eb344c77ad7efe",
+      "verificationRun": 41279124343,
+      "deploymentRun": 41279987508,
+      "summary": "Field Album integrated and verified live after400focused checks across15games, desktop/touch game and catalogue regression, artifact screenshot review and live73point completed habitat/save/navigation. Totals24/15/15/15/15. Ribbon Reef corner casting54fd90e3 has26checks and rendered desktop/narrow-layout play, but remains unqualified/unlisted."
     }
   ]
 }
