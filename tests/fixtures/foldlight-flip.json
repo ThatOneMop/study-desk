@@ -1,0 +1,70 @@
+[
+  [
+    {
+      "type": "flip"
+    },
+    {
+      "side": "left",
+      "crease": 3,
+      "under": true
+    },
+    {
+      "side": "top",
+      "crease": 3
+    },
+    {
+      "side": "right",
+      "crease": 5
+    }
+  ],
+  [
+    {
+      "type": "flip"
+    },
+    {
+      "side": "bottom",
+      "crease": 3
+    },
+    {
+      "side": "right",
+      "crease": 3,
+      "under": true
+    },
+    {
+      "side": "left",
+      "crease": 2
+    },
+    {
+      "side": "top",
+      "crease": 2
+    }
+  ],
+  [
+    {
+      "type": "flip"
+    },
+    {
+      "side": "left",
+      "crease": 3
+    },
+    {
+      "side": "bottom",
+      "crease": 3
+    },
+    {
+      "side": "right",
+      "crease": 5,
+      "under": true
+    },
+    {
+      "side": "top",
+      "crease": 1,
+      "under": true
+    },
+    {
+      "side": "bottom",
+      "crease": 2,
+      "under": true
+    }
+  ]
+]

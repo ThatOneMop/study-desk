@@ -7,7 +7,8 @@ w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-b
 const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-assert.equal(catalog.length,72);
+assert.equal(catalog.length,73);
+assert(catalog.some(g=>g.id==='foldlight'),'qualified Foldlight is present');
 assert(catalog.some(g=>g.id==='seedwake'),'qualified Seedwake is present');
 assert(catalog.some(g=>g.id==='fallow-table'),'qualified Fallow Table is present');
 assert(catalog.some(g=>g.id==='rill-root'),'qualified Rill & Root is present');

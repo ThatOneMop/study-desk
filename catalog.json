@@ -1361,5 +1361,30 @@
     "thumbnail": "art/curated/seedwake.svg",
     "thumbnailAlt": "Eight flower beds around a circular sowing path, with poppy, cornflower and chamomile blossoms",
     "updated": "2026-11-02"
+  },
+  {
+    "id": "foldlight",
+    "title": "Foldlight",
+    "description": "Fold two-sided paper into layered window patterns. Compare faces and layers before committing, tuck underneath or turn the sheet over, then replay three compact puzzles for fewer moves.",
+    "icon": "◩",
+    "genre": "Puzzle + Relaxed",
+    "color": "#819da8",
+    "controls": "Choose side and crease · F folds · U tucks · T turns over · V previews · Z undoes · Touch buttons",
+    "url": "games/foldlight/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#foldlight",
+    "aliases": [
+      "paper",
+      "folding",
+      "origami",
+      "layers",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/foldlight.svg",
+    "thumbnailAlt": "Amber, lake-blue and rose paper layers fold across a dashed crease toward a small coloured window",
+    "updated": "2026-11-02"
   }
 ]
