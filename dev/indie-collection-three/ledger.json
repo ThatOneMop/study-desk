@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 21,
     "browserTested": 21,
-    "integrated": 20,
-    "live": 20
+    "integrated": 21,
+    "live": 21
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1999,13 +1999,13 @@
       "id": "foldlight",
       "title": "Foldlight",
       "coreLoop": "Reflect and turn over layered two-sided paper stacks across chosen creases, matching a window pattern's occupied panes, top colours and layer counts.",
-      "status": "qualified-selected-awaiting-catalogue-integration",
+      "status": "integrated-live",
       "source": "games/foldlight",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2026,7 +2026,8 @@
         "Whole-sheet turnover: 27 passing tests (14 engine, 13 jsdom 26.1.0), retaining original 21. Three single-turnover routes with per-action control-driven reload; exact mirroring, stack reversal/face flipping, paper conservation, involution, allowance, strict actions, undo/retry, previews, disabled unrelated controls and native/keyboard/pause/modal guards. Scripts parse; IDs, bridge order and no workspace-switch control checks pass. No rendered evidence.",
         "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit.",
         "2026-11-01 rendered planning pass: 32 focused checks pass (14 engine,18 jsdom). Original rendered campaigns completed through controls in 3/4/5 moves; first and third records reloaded. Over/under planned stack order compared in rendered browser. 390px iframe board and 24-layer inspector screenshots inspected; native Escape followed by enabled Undo verified. Added embedded same-origin Collection navigation and close-event refresh tests.",
-        "GitHub Actions 41323801913 on de26a6d70fe41bf4808adadda433ff4a1393e5b1: 32 focused checks; nine campaigns each on desktop and 390px touch-emulated Chromium (three original, three under, three turnover), exact per-pane preview comparisons and per-move save/reload; layer tracking and mismatch navigation; loss/undo/retry, native keyboard/Escape, pause, hidden confirmation, corrupt recovery, isolated reset, standalone Games and embedded collection-message navigation. Asset checks:63 bundled routes/231 references;9 first-batch release hashes verified."
+        "GitHub Actions 41323801913 on de26a6d70fe41bf4808adadda433ff4a1393e5b1: 32 focused checks; nine campaigns each on desktop and 390px touch-emulated Chromium (three original, three under, three turnover), exact per-pane preview comparisons and per-move save/reload; layer tracking and mismatch navigation; loss/undo/retry, native keyboard/Escape, pause, hidden confirmation, corrupt recovery, isolated reset, standalone Games and embedded collection-message navigation. Asset checks:63 bundled routes/231 references;9 first-batch release hashes verified.",
+        "2026-11-02 release: Actions41328967014 passed32 focused checks,18 desktop/touch-emulated campaigns, actual catalogue desktop/touch completion/pause/confirmation/Collection/Games/restart/save retention,73 catalogue launch routes, curation/credits/navigation/relaxed collection checks,72 bundled routes/354 asset references and9 first-batch release hash checks. Reviewed desktop/touch catalogue, desktop completion and touch saved-return screenshots. Pages41329183403 succeeded. Live normal route completed first pattern in3 moves, save/reload and catalogue launch/return retained record. No Switch workspace controls; catalog.js?v=foldlight-20261102 observed."
       ],
       "commits": [
         "f4672b82254e5e063573bf7cfa317f879d6b333a",
@@ -2036,8 +2037,10 @@
         "4c5263850acb2c701ae2af5f44f1e2d980bd0c6d",
         "de26a6d70fe41bf4808adadda433ff4a1393e5b1"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "b29871a0b241f7de269b94eeaa603c5bf453a688"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/foldlight/index.html",
       "quality": {
         "status": "Selected for catalogue integration testing",
         "enjoyment": "Relaxed no-clock folding with free inspection, reversible mistakes and two-sided layer reasoning; review is agent playtesting, not human enjoyment measurement.",
@@ -2048,8 +2051,7 @@
         "knownLimits": "No folding animation or audio. Long layer stacks scroll; mobile boards stack vertically. Physical touch-device testing and full embedded catalogue regression not claimed."
       },
       "nextSteps": [
-        "Add original catalogue cover and selected entry on a candidate integration branch based on fresh main; preserve all current games and saves.",
-        "Run actual embedded catalogue desktop/touch navigation and launch regressions, then promote and verify live routes."
+        "Preserve live source and saves; revisit improvements only from new feedback or evidence."
       ],
       "pendingUnderRefinement": {
         "commit": "bb255e048f6cbccea5d103460df6fe22d904c949",
@@ -2687,12 +2689,12 @@
     }
   ],
   "nextSteps": [
-    "Integrate qualified Foldlight61 with original cover and real catalogue regression, then verify live release.",
-    "Finish built candidates61–64 and implement26 distinct candidates65–90. Keep unfinished games off the catalogue.",
+    "Naturally play Thimble Fair62, identify its largest observed weakness and implement a substantial improvement before qualification.",
+    "Finish built candidates62–64 and implement26 distinct candidates65–90. Keep unfinished games off the catalogue.",
     "Preserve both earlier collections, concurrent projects and existing saves; task remains incomplete."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "059f7d64b95bca528098eed23d8f5c70914922dc",
+  "latestObservedMain": "b29871a0b241f7de269b94eeaa603c5bf453a688",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3667,6 +3669,22 @@
         "browserTested": 21,
         "integrated": 20,
         "live": 20
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Foldlight61 integrated and live with original paper cover and layer-planning upgrade;32 focused checks,18 campaigns, real catalogue desktop/touch regression,73 launch checks and live completion/save/navigation verification.",
+      "integrationCommit": "b29871a0b241f7de269b94eeaa603c5bf453a688",
+      "verificationRuns": [
+        41328967014
+      ],
+      "deploymentRun": 41329183403,
+      "totals": {
+        "built": 24,
+        "improved": 21,
+        "browserTested": 21,
+        "integrated": 21,
+        "live": 21
       }
     }
   ]
