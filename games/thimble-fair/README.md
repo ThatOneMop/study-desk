@@ -43,3 +43,11 @@ Native Give 2 / Receive 1 selectors preview the resulting basket without commitm
 28 tests pass (14 engine, 14 jsdom), including all original 21. Added tests cover conservation and costs, invalid/double trades, three exchange-inclusive routes with every action reloaded through controls, pure forecasts, pause/modal guards, undo and natural twelve-action final-auction rescue. Example exchange routes finish fairs 1/42/314 in three auctions with 5/3/6 coins; they are alternate routes, not uniformly better than original 5/4/8-coin examples. No optimality or human enjoyment claim.
 
 This is a source-informed refinement, not a rendered-qualified improvement. Rendered play and screenshot inspection must evaluate whether the exchange creates useful decisions and whether its extra controls burden mobile onboarding. The game remains unlisted.
+
+
+## Planning tray refinement
+Rendered baseline play showed that comparing lots required scrolling away from the auction and repeatedly subtracting shared thread by hand. The tray now counts useful material against all unfinished commissions, shows surplus, and enumerates feasible commission bundles without double-counting shared stock. Choose a named buy-and-make transaction to purchase and deliver together; its exact purse and remaining basket are shown before commitment. Plain purchases and manual delivery remain available. Exchanges explain which ready commission would be sacrificed.
+
+The existing v1 journal, save key, and records remain unchanged. Combined transactions are validated entirely before spending, then append ordinary purchase/craft actions. Undo reverses each individual action. No hidden solver or automatic route is used. Native dialog close restores controls after Escape; embedded Games navigation requests the parent collection.
+
+Validation: engine/DOM tests plus `tests/thimble-fair-browser.cjs` (desktop and touch Chromium). Browser qualification and publication are recorded separately in the third-batch ledger.

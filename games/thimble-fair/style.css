@@ -3,3 +3,6 @@
 .lot-title,.lot-line{display:block}
 
 .exchange{padding:16px;border:1px dashed #b9ac92;border-radius:16px;margin:24px 0;background:#f0eddf}.exchange p{font-size:14px}.exchange select{max-width:100%}
+
+
+.planning{padding:16px 18px;background:#e6ebdf;border:1px solid #b3bda5;border-radius:14px}.planning h2{font-family:Georgia,serif;font-weight:normal}.planning p{font-size:14px;margin:8px 0}.planning .planning-note{font-size:12px;color:#626b56}.bundle-options{display:grid;gap:8px}.bundle{text-align:left;display:grid;gap:5px;white-space:normal}.bundle span{font-size:13px}.usefulness{padding-top:8px;border-top:1px dashed #b8ad93;color:#4c6049}.lot .usefulness{grid-column:1/-1}#shopping-list{font-weight:bold}
