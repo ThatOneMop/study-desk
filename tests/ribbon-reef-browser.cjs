@@ -10,6 +10,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
  for(const touch of [false,true]){
   const context=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},hasTouch:touch,isMobile:touch}),page=await context.newPage(),cdp=await context.newCDPSession(page),prefix=touch?'touch':'desktop',errors=[];
   page.on('pageerror',e=>errors.push(e.message));
+  await page.addInitScript(()=>{window.inputTrace=[];for(const type of ['pointerdown','pointerup','pointercancel','click'])document.addEventListener(type,e=>{window.inputTrace.push({type,target:e.target.id,x:e.clientX,y:e.clientY,touch:e.pointerType,time:Math.round(performance.now())});window.inputTrace=window.inputTrace.slice(-30)},true)});
   const click=async id=>touch?page.locator(id).tap():page.locator(id).click(),raw=()=>page.evaluate(k=>localStorage.getItem(k),E.KEY),state=async()=>E.decode(await raw());
   const shot=async(name,id='#water')=>{await page.locator(id).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,prefix+'-'+name+'.png')});A.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no horizontal overflow')};
   const reload=async()=>{const before=await raw();await page.reload();await click('#start');A.equal(await raw(),before);A.equal(await page.locator('#casting-mode').inputValue(),'trace')};
@@ -30,7 +31,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
   async function campaign(mode){
    for(let level=0;level<3;level++){
     for(let i=0;i<3;i++){
-     const before=await raw();await draw(routes[level][i],mode);A.equal(await raw(),before,'preview never commits');A.match(await page.locator('#preview').innerText(),/Matches the order/);await shot(mode+'-reef'+level+'-net'+i);await click('#haul');A.equal(E.board(await state()).order,i+1);A.equal(E.board(await state()).frays,0);await reload();
+     const before=await raw();await draw(routes[level][i],mode);A.equal(await raw(),before,'preview never commits');A.match(await page.locator('#preview').innerText(),/Matches the order/);await shot(mode+'-reef'+level+'-net'+i);await click('#haul');await page.waitForFunction(n=>document.querySelector('#order').textContent.includes(n===3?'All orders delivered':'Order '+(n+1)+' / 3'),i+1,{timeout:3000});A.equal(E.board(await state()).order,i+1);A.equal(E.board(await state()).frays,0);await reload();
     }
     const s=await state(),b=E.board(s);A.equal(b.phase,'won');A.equal(s.records[level],b.rope);A.match(await page.locator('#condition').innerText(),new RegExp(b.rope+' rope'));await shot(mode+'-reef'+level+'-win','#result');if(level<2)await click('#next');
    }
@@ -64,6 +65,6 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
    await page.evaluate(k=>{localStorage.setItem(k,'broken');localStorage.setItem('ribbon-other-game','keep')},E.KEY);await page.reload();await click('#start');await draw(routes[0][0]);await click('#haul');A.equal(await raw(),'broken');await click('#recover');await click('#cancel');A.equal(await raw(),'broken');await click('#recover');await click('#accept');A.equal(E.board(await state()).order,1);await trips();await click('#reset');await click('#accept');A.deepEqual(await state(),E.create());A.equal(await page.evaluate(()=>localStorage.getItem('ribbon-other-game')),'keep');await shot('reset');
    await page.evaluate(()=>Storage.prototype.setItem=function(){throw Error('quota')});await draw(routes[0][0]);await click('#haul');A.match(await page.locator('#save').innerText(),/temporary/);A.match(await page.locator('#order').innerText(),/Order 2/);A.deepEqual(errors,[]);
    console.log('PASS',prefix,'3 reefs × 2 casting modes, reload each haul, earned unlocks, repair, keyboard, unpin, pause, invalid net, loss/undo/retry, native Escape, navigation, corruption/reset/quota, overflow');
-  }catch(e){await page.screenshot({path:path.join(out,prefix+'-failure.png'),fullPage:true});throw e}finally{await context.close()}
+  }catch(e){console.log('INPUT TRACE',JSON.stringify(await page.evaluate(()=>window.inputTrace)));await page.screenshot({path:path.join(out,prefix+'-failure.png'),fullPage:true});throw e}finally{await context.close()}
  }
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{if(browser)await browser.close();server.kill()});
