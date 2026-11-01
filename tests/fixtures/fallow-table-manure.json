@@ -1,0 +1,216 @@
+[
+  [
+    {
+      "type": "plant",
+      "p": 8,
+      "crop": 0
+    },
+    "end",
+    {
+      "type": "turn",
+      "p": 8
+    },
+    "end",
+    {
+      "type": "plant",
+      "p": 4,
+      "crop": 2
+    },
+    {
+      "type": "plant",
+      "p": 1,
+      "crop": 0
+    },
+    {
+      "type": "plant",
+      "p": 3,
+      "crop": 0
+    },
+    "end",
+    {
+      "type": "plant",
+      "p": 0,
+      "crop": 1
+    },
+    {
+      "type": "plant",
+      "p": 2,
+      "crop": 1
+    },
+    {
+      "type": "water",
+      "p": 4
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 1
+    },
+    {
+      "type": "harvest",
+      "p": 3
+    },
+    {
+      "type": "harvest",
+      "p": 0
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 4
+    },
+    {
+      "type": "harvest",
+      "p": 2
+    }
+  ],
+  [
+    {
+      "type": "plant",
+      "p": 8,
+      "crop": 0
+    },
+    "end",
+    {
+      "type": "turn",
+      "p": 8
+    },
+    "end",
+    {
+      "type": "plant",
+      "p": 1,
+      "crop": 2
+    },
+    {
+      "type": "plant",
+      "p": 0,
+      "crop": 0
+    },
+    {
+      "type": "plant",
+      "p": 4,
+      "crop": 0
+    },
+    "end",
+    {
+      "type": "plant",
+      "p": 2,
+      "crop": 1
+    },
+    {
+      "type": "plant",
+      "p": 3,
+      "crop": 1
+    },
+    {
+      "type": "water",
+      "p": 1
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 0
+    },
+    {
+      "type": "harvest",
+      "p": 4
+    },
+    {
+      "type": "harvest",
+      "p": 2
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 1
+    },
+    {
+      "type": "harvest",
+      "p": 3
+    },
+    {
+      "type": "plant",
+      "p": 0,
+      "crop": 1
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 0
+    }
+  ],
+  [
+    {
+      "type": "plant",
+      "p": 0,
+      "crop": 0
+    },
+    {
+      "type": "plant",
+      "p": 4,
+      "crop": 2
+    },
+    {
+      "type": "plant",
+      "p": 1,
+      "crop": 0
+    },
+    "end",
+    {
+      "type": "turn",
+      "p": 0
+    },
+    {
+      "type": "plant",
+      "p": 0,
+      "crop": 1
+    },
+    {
+      "type": "water",
+      "p": 4
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 1
+    },
+    {
+      "type": "plant",
+      "p": 3,
+      "crop": 0
+    },
+    {
+      "type": "plant",
+      "p": 1,
+      "crop": 0
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 4
+    },
+    {
+      "type": "harvest",
+      "p": 0
+    },
+    {
+      "type": "plant",
+      "p": 5,
+      "crop": 1
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 3
+    },
+    {
+      "type": "harvest",
+      "p": 5
+    },
+    "end",
+    {
+      "type": "harvest",
+      "p": 1
+    }
+  ]
+]

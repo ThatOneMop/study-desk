@@ -1310,5 +1310,30 @@
     "thumbnail": "art/curated/rill-root.svg",
     "thumbnailAlt": "A blue stream splits between terraced earth banks to water two green root beds",
     "updated": "2026-11-01"
+  },
+  {
+    "id": "fallow-table",
+    "title": "Fallow Table",
+    "description": "Grow a shared supper with crop rotation, companion shade and careful watering. Compare jobs before spending work, turn beans into soil or transplant growing crops across three compact gardens.",
+    "icon": "🌱",
+    "genre": "Farming",
+    "color": "#718763",
+    "controls": "Select beds and jobs · Arrows / 1–3 / S / H / W · Compare jobs · Undo",
+    "url": "games/fallow-table/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#fallow-table",
+    "aliases": [
+      "garden",
+      "crops",
+      "soil",
+      "relaxed",
+      "farming"
+    ],
+    "thumbnail": "art/curated/fallow-table.svg",
+    "thumbnailAlt": "Beans, carrots and golden squash growing in nine garden beds beside a supper basket",
+    "updated": "2026-11-01"
   }
 ]
