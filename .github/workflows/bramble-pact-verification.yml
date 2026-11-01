@@ -2,7 +2,7 @@ name: Bramble Pact verification
 on:
   push:
     branches: [indie-collection-three-dev, bramble-pact-release-20261102]
-    paths: ['games/bramble-pact/**', 'tests/bramble-pact-*.cjs', '.github/workflows/bramble-pact-verification.yml']
+    paths: ['catalog.json', 'index.html', 'games/bramble-pact/**', 'tests/bramble-pact-*.cjs', '.github/workflows/bramble-pact-verification.yml']
   workflow_dispatch:
 permissions:
   contents: read
