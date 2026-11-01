@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 23,
     "browserTested": 23,
-    "integrated": 22,
-    "live": 22
+    "integrated": 23,
+    "live": 23
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -2159,13 +2159,13 @@
       "id": "bramble-pact",
       "title": "Bramble Pact",
       "coreLoop": "Open-hand trick-taking harvest puzzles: follow suit, plan around changing wind trumps, deliberately lose unwanted harvests, and spend one woodland offer to fulfil exact basket promises.",
-      "status": "qualified-awaiting-catalogue-regression",
+      "status": "selected-integrated-live",
       "source": "games/bramble-pact",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2188,7 +2188,9 @@
         "No rendered browser, inspected screenshots, real touch/native dialogs, human enjoyment, qualified improvement pass, full-repository build, catalogue integration or live evidence.",
         "Invitation refinement: 31 passing tests (15 engine, 16 jsdom with real bridge simulated). Six added winning routes invite each neighbour in all three picnics; per-action UI reload, strict validity, card conservation, forecast purity/next leader, final-trick exclusion, offer cost, loss behaviour and undo checked. All 25 original tests retained. No rendered evidence.",
         "2026-11-02:35 local engine/DOM tests passed; new next-trick enumeration matches engine results across all three original plain routes, follows suit, excludes spent offers/final invitations, preserves boards and v1 journals. UI speculation/pause/invalidation/one-action commit and same-origin Games message verified. First picnic rendered win/reload and390px planner screenshots inspected. Repository CI run41340039197 passed35 focused checks, existing development-branch asset validation and nine selected first-batch integrity checks. This is not complete rendered qualification.",
-        "2026-11-02: full rendered qualification passed in GitHub Actions41344779629 at52eef04dbc6e1fe5080e9f81f74306fb55b963ad:35 engine/DOM tests,24 winning campaign executions and6 loss executions across desktop/touch-emulated Chromium; saves/reload, progression, planner purity and forecasts, loss/undo/retry, native dialogs, recovery/reset isolation, keyboard, pause and standalone/embedded navigation. Zero browser page errors or horizontal overflow. Existing dev asset check63 bundled routes/231 references and nine selected first-batch integrity checks passed. Screenshot artifact13098627749 downloaded and SHA256 verified; three representative desktop/mobile screenshots visually inspected. Actual catalogue integration remains untested."
+        "2026-11-02: full rendered qualification passed in GitHub Actions41344779629 at52eef04dbc6e1fe5080e9f81f74306fb55b963ad:35 engine/DOM tests,24 winning campaign executions and6 loss executions across desktop/touch-emulated Chromium; saves/reload, progression, planner purity and forecasts, loss/undo/retry, native dialogs, recovery/reset isolation, keyboard, pause and standalone/embedded navigation. Zero browser page errors or horizontal overflow. Existing dev asset check63 bundled routes/231 references and nine selected first-batch integrity checks passed. Screenshot artifact13098627749 downloaded and SHA256 verified; three representative desktop/mobile screenshots visually inspected. Actual catalogue integration remains untested.",
+        "2026-11-02: release CI41349679314 passed35 engine/DOM checks,24 desktop/touch winning campaign executions,6 loss routes and actual catalogue desktop/touch search/group/sort/favourite, earned completion, planner, pause/confirmation, Collection/Games, restart/save retention;75 launch routes,74 bundled routes/362 asset references and nine selected first-batch integrity checks. Artifact13101050673 SHA256fb960b30a5125a2d2125ef01372ce4c7ac4e826fe6a6abd1ddfd7e248543061c verified; touch catalogue and desktop saved-return screenshots inspected. Initial catalogue test timeout corrected to assert actual parent pause overlay rather than another game's disabled-button markup.",
+        "2026-11-02: Pages41349946969 succeeded. Direct live catalogue search/launch, first-picnic completion, next-picnic unlock, Games return/Return to Bramble Pact and standalone reload retained exact baskets and best record. Live screenshot inspected. No Switch workspace control observed; catalogue asset version refreshed. No deployment blocker."
       ],
       "commits": [
         "815a82dc73d3b5f95b1743ab60d34fb49cc1fef6",
@@ -2196,16 +2198,17 @@
         "26dd706017a1a706266a044da5ed83e582f9ce46",
         "52eef04dbc6e1fe5080e9f81f74306fb55b963ad"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "2be6f78be6c469a60593c4e4181374e4d277cda5"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bramble-pact/index.html",
       "quality": {
         "status": "Qualified; recommended for catalogue regression and integration",
         "assessment": "Distinct open-hand trick-taking harvest puzzle within the slate: deliberately losing tricks, changing wind trumps, exact baskets and one offer/invitation create useful planning choices. The rendered two-trick sketch makes lead manipulation understandable without committing exploratory moves. Desktop and narrow touch-emulated controls and text are readable; completed automated campaigns support reliability.",
         "knownLimits": "Three compact fixed six-trick puzzles, deterministic neighbours and exact previews. Finite puzzle content rather than a long campaign or adaptive opponent. No audio, physical-device test, human enjoyment study or duration claim."
       },
       "nextSteps": [
-        "Re-read current main, add the qualified game and cover to its catalogue, then run actual catalogue desktop/touch launch, collection return and existing feature regression.",
-        "Only mark integrated/live after main commit and deployed route verification. Preserve all concurrent work."
+        "Preserve released source and v1 saves; collect future feedback. No duration or human-enjoyment testing claim."
       ],
       "pendingInvitationRefinement": {
         "commit": "35af85ed98c71bfb35616c97d50ff9e854db4eff",
@@ -2738,12 +2741,12 @@
     }
   ],
   "nextSteps": [
-    "Integrate qualified Bramble Pact63 after actual catalogue desktop/touch regression against fresh main; verify deployed route.",
-    "Render and improve Bough Balance64; implement26 distinct candidates65–90.",
-    "Existing22 third-batch releases and both earlier collections preserved. Overall task incomplete; hourly schedule unchanged."
+    "Render and substantially improve Bough Balance64, then qualify and integrate it if warranted.",
+    "Implement26 remaining distinct candidates65–90; maintain exactly50 third-batch slots.",
+    "Preserve both earlier collections and23 third-batch releases. Task remains incomplete; cadence unchanged."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "4b29234b174535655c8ed03f424f162bdd03bf89",
+  "latestObservedMain": "2be6f78be6c469a60593c4e4181374e4d277cda5",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3798,6 +3801,22 @@
         "browserTested": 23,
         "integrated": 22,
         "live": 22
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Integrated and published Bramble Pact63 with original cover, cache version refresh, desktop/touch catalogue regression and live completion/save verification.",
+      "integrationCommit": "2be6f78be6c469a60593c4e4181374e4d277cda5",
+      "verificationRuns": [
+        41349679314,
+        41349946969
+      ],
+      "totals": {
+        "built": 24,
+        "improved": 23,
+        "browserTested": 23,
+        "integrated": 23,
+        "live": 23
       }
     }
   ]

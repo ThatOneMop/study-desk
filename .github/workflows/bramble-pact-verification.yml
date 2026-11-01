@@ -1,8 +1,8 @@
 name: Bramble Pact verification
 on:
   push:
-    branches: [indie-collection-three-dev]
-    paths: ['games/bramble-pact/**', 'tests/bramble-pact-*.cjs', '.github/workflows/bramble-pact-verification.yml']
+    branches: [indie-collection-three-dev, bramble-pact-release-20261102]
+    paths: ['catalog.json', 'index.html', 'games/bramble-pact/**', 'tests/bramble-pact-*.cjs', '.github/workflows/bramble-pact-verification.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,6 +22,8 @@ jobs:
           node --check games/bramble-pact/game.js
           node --test tests/bramble-pact-engine.cjs tests/bramble-pact-dom.cjs
           node tests/bramble-pact-browser.cjs
+          node tests/bramble-pact-catalog-browser.cjs
+          node tests/catalog-launch.cjs
           python tests/assets.py
           python tests/selected-indie.py
 
@@ -29,4 +31,6 @@ jobs:
         if: always()
         with:
           name: bramble-pact-browser
-          path: test-artifacts/bramble-pact/
+          path: |
+            test-artifacts/bramble-pact/
+            test-artifacts/bramble-pact-catalog/
