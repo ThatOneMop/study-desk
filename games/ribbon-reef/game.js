@@ -42,7 +42,8 @@ document.addEventListener('keydown',e=>{if(busy()||pointer!==null||e.ctrlKey||e.
 // A rapid tap after a touch drag may have its compatibility click suppressed.
 // Commit on a deliberate button release; the normal click sees an empty draft.
 let haulTouch=null;
-$('haul').addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!$('haul').disabled)haulTouch={id:e.pointerId,x:e.clientX,y:e.clientY}});
+$('haul').addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&haulTouch===null&&!$('haul').disabled)haulTouch={id:e.pointerId,x:e.clientX,y:e.clientY}});
+$('haul').addEventListener('pointermove',e=>{if(haulTouch?.id===e.pointerId&&Math.hypot(e.clientX-haulTouch.x,e.clientY-haulTouch.y)>12)haulTouch=null});
 $('haul').addEventListener('pointerup',e=>{const tap=haulTouch;haulTouch=null;if(!tap||tap.id!==e.pointerId||$('haul').disabled||Math.hypot(e.clientX-tap.x,e.clientY-tap.y)>12)return;const r=$('haul').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)return;e.preventDefault();$('haul').click()});
 for(const name of ['pointercancel','lostpointercapture'])$('haul').addEventListener(name,()=>{haulTouch=null});
 function hide(){paused=true;clear();render()}document.addEventListener('visibilitychange',()=>{if(document.hidden)hide()});window.addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='study-visibility'&&!e.data.visible)hide()});save();render();

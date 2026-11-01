@@ -26,7 +26,7 @@ test('paused confirmation cannot reset saved catches and close event restores co
 test('touch haul release commits once even without a compatibility click; drag and cancellation do not haul',()=>{
  const b=boot(),button=b.$('haul');button.getBoundingClientRect=()=>({left:0,top:0,right:160,bottom:48});
  const send=(type,x=40,y=20,id=7)=>{const e=new b.w.MouseEvent(type,{bubbles:true,cancelable:true,clientX:x,clientY:y});Object.defineProperties(e,{pointerType:{value:'touch'},pointerId:{value:id}});button.dispatchEvent(e)};
- b.draw(routes[0][0]);send('pointerdown');send('pointermove',80);send('pointerup',80);A.equal(b.saved().moves.length,0);
+ b.draw(routes[0][0]);send('pointerdown');send('pointermove',80);send('pointerup');A.equal(b.saved().moves.length,0);
  send('pointerdown');send('pointercancel');send('pointerup');A.equal(b.saved().moves.length,0);
  send('pointerdown');send('pointerup',40,70);A.equal(b.saved().moves.length,0);
  send('pointerdown');send('pointerup',40,20,8);A.equal(b.saved().moves.length,0);
