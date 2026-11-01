@@ -5,3 +5,6 @@
 #call{display:block;width:100%;min-height:44px;padding:9px;margin:6px 0 14px;font:inherit;color:#344c39;background:#fff9e7;border:1px solid #8fa17c;border-radius:8px}
 
 #hint{margin-top:14px;width:100%}#hint-note{font-size:13px;color:#4b6550}
+
+
+#range-toggle{margin-bottom:8px}.range-note{font-size:14px;color:#3c5d4e;line-height:1.5;margin:0 0 12px}#range-toggle[aria-pressed=true]{border-color:#427f99;background:#e2ece0}

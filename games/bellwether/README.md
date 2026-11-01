@@ -24,7 +24,7 @@ Unreadable data is preserved until explicit recovery. Quota/storage failures lea
 
 `node --test tests/bellwether-engine.cjs tests/bellwether-dom.cjs` (jsdom 26.1.0 required for the latter). The fixture routes were generated with breadth-first search and replayed via engine and DOM controls, with reload after each action. Shortest routes using the original walk/whistle action set are 11/9/17 steps. Quiet-enabled fixture routes also complete in 11/9/17 steps; no additional content hours are claimed. This is an automated graph result, not human play or an enjoyment score.
 
-Rendered browser access remains blocked in this work context. No screenshot inspection, real mobile touch, native focus/dialog behavior or rendered layout assessment is claimed. Keep the game unlisted until natural rendered play, a substantive observed-weakness improvement pass, and follow-up verification. In particular assess the compass tie-breaking, whether the forecast makes decisions satisfying, the easier second meadow, mobile board size and dog/sheep readability.
+Earlier source-refinement runs lacked rendered access. The 1 November range-overlay pass below now has partial natural desktop evidence; full rendered campaigns and touch qualification remain pending. Keep the game unlisted until natural rendered play, a substantive observed-weakness improvement pass, and follow-up verification. In particular assess the compass tie-breaking, whether the forecast makes decisions satisfying, the easier second meadow, mobile board size and dog/sheep readability.
 
 ## Quiet paws source refinement
 
@@ -63,3 +63,12 @@ The UI now uses `adviseAsync`, yielding to the event loop before search and afte
 Both entry points use the same generator and retain the 25,000-position budget and exact move ordering. The synchronous `advise` remains available for deterministic tests; it is no longer called by the UI. Searches snapshot the board, do not mutate saves and do not add turns. No gameplay rules, route records or save fields change.
 
 41 tests pass (21 engine, 20 jsdom 26.1.0), retaining all 35 prior checks with advice tests updated to wait for completion. New checks compare synchronous/cooperative results, demonstrate event-loop timer progress, cancellation before/during search, input snapshots, movement during a live search, late-result suppression after all context changes, competing searches and error recovery. This is functional event-loop/DOM evidence, not a rendered frame-time or native-device benchmark. Rendered performance, screenshots, natural play and the required improvement pass remain pending; the candidate remains unlisted.
+
+
+## Playtest-led range planning — 1 November 2026
+
+Natural desktop play walked north from the opening and previewed a whistle: Clover approached while Hazel merely “waits”. The interface did not explain that Hazel was five grid steps away, outside the 3–4-step whistle band. The same generic waiting text obscured quiet repositioning versus pressure.
+
+Show herding range now draws the active pressure band from the proposed dog square (1–2 for nudging, 3–4 for calling). Quiet paws suppresses the band and explains that sheep stay. The forecast gives each sheep’s distance and response, including outside/too-close range, unselected named calls and blocked/shared destinations. The map is optional, does not choose or commit moves, and does not affect saves, records or rules. Pause/dialogs hide it. A pending destination remains unchanged when the overlay is toggled. Native dialog close and embedded Games return were also aligned with the qualified shells.
+
+43 engine/DOM checks pass, retaining all41 previous checks. Added checks cover predicted-position range, unchanged forecasts/journals on toggles, quiet/named/no-response calls and pause. Natural rendered follow-up showed the whistle band, Clover approaching at3steps, Hazel waiting at5, and quiet-no-pressure feedback. Two committed moves survived reload; a named out-of-range call spent no turn. Native Escape closed retry and restored enabled controls, preserving the meadow. Screenshots inspected. No complete rendered campaign, touch-emulated/native-device, full adviser-latency or integration credit yet.
