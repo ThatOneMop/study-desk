@@ -14,10 +14,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0 playwright@1.58.2
+          node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
           node --check games/bramble-pact/game.js
           node --test tests/bramble-pact-engine.cjs tests/bramble-pact-dom.cjs
+          node tests/bramble-pact-browser.cjs
           python tests/assets.py
           python tests/selected-indie.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bramble-pact-browser
+          path: test-artifacts/bramble-pact/
