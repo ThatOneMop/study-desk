@@ -2232,7 +2232,7 @@
       "id": "bough-balance",
       "title": "Bough Balance",
       "coreLoop": "Arrange weighted paper birds across nested hanging beams; balance every local torque while whole child-beam masses load their parents. Swap and remove ornaments with exact forecasts.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-upgrade-awaiting-full-qualification",
       "source": "games/bough-balance",
       "built": true,
       "improved": false,
@@ -2245,11 +2245,13 @@
         "Nested frame/descendant mass and local torque verified independently. Legal assignment prefixes through depth three conserve unique ornament identities and total weight. Invalid actions/saves, journal limit recovery, terminal protection, hidden confirmation/recovery, native/composition keys, corrupt/quota persistence and scoped reset pass.",
         "Both production scripts parse; local assets, unique IDs, bridge-first order, accessible diagram description, root Games navigation markup and no Switch workspace controls checked.",
         "No rendered play, screenshots, real touch/native dialogs, human enjoyment, qualified improvement, full-repository build, catalogue integration or live release evidence.",
-        "Opening brass refinement: 26 tests pass; old routes 4/6/6 and all four five-action brass arrangements verified in engine and DOM. Separate brass record preserves normal best. See BOUGH_BALANCE_BRASS.md."
+        "Opening brass refinement: 26 tests pass; old routes 4/6/6 and all four five-action brass arrangements verified in engine and DOM. Separate brass record preserves normal best. See BOUGH_BALANCE_BRASS.md.",
+        "2026-11-02:30 focused tests passed locally and in CI41355006711. New load decomposition checks sum direct/child/brass mass and torque; comparison forecasts match committed placements/swaps/displacement across original routes without mutation; selection/save purity, pause and Collection message checks. Rendered upgraded nested/deep wins and reload verified;390px layout inspected. CI asset step failed on pre-existing development catalogue missing Ashwake route; missing published routes/thumbnails restored from observed main without overwriting existing files in 2bc911bc742ba9f7399313d714e7c47e8d17fbd7. Rerun pending."
       ],
       "commits": [
         "2f1e5af3e846ded34f0a862bf17730515451e970",
-        "29276ebe8746bc3ae33b20494d891a29a48892c3"
+        "29276ebe8746bc3ae33b20494d891a29a48892c3",
+        "51a63b7d5c57f3f9ceb48901da90fc1970161bd2"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -2258,8 +2260,8 @@
         "knownLimits": "Three compact fixed mobiles. Schematic stays level while meters report imbalance; no physics animation or audio. Arithmetic/forecast clarity, phone diagram readability and replay depth require rendered assessment. Brass replay is opening-only; nested progression depth remains unresolved."
       },
       "nextSteps": [
-        "Render all three puzzles on desktop/mobile and inspect screenshots, native input/dialogs, saves and navigation.",
-        "Assess actual enjoyment and implement a substantial improvement from the most important observed weakness before qualification."
+        "Finish full rendered desktop/touch qualification of hook comparison and brass replay, including recovery/reset/navigation and screenshot review.",
+        "Verify restored development catalogue assets in CI; integrate only after actual fresh-main catalogue regression."
       ],
       "pendingBrassRefinement": {
         "status": "implemented-awaiting-rendered-review",
@@ -2269,6 +2271,15 @@
         "after": "Optional one-unit brass weight at four signed arms in opening mobile. Move/remove costs one action, exact forecasts, undo and a separate brass record. Four alternate complete arrangements take five actions. Nested mobiles reject/hide the tool because no valid brass solution exists.",
         "tests": "26 tests pass (13 engine, 13 real-bridge jsdom simulation): all old campaigns, four brass wins with reload/unlock, independent record preservation, strict old/new save validation, reversible slide/removal, input/visibility guards and corrupt/quota persistence.",
         "qualification": "Not counted as a substantial rendered-led improvement; no new game or catalogue entry."
+      },
+      "pendingHookComparison": {
+        "date": "2026-11-02",
+        "commit": "51a63b7d5c57f3f9ceb48901da90fc1970161bd2",
+        "observedWeakness": "Rendered opening win and C-at-H3 placement in Two little nests: aggregate preview changed Crown and West nest without exposing contributing loads; comparing hooks required serial selection.",
+        "before": "Only current placement forecast and total mass/torque meters.",
+        "after": "Optional all-hook comparison exposes before/after pull for every beam, disturbed/restored balance, displaced/swap occupants and full completion. Choose selects only; Hang commits the existing v1 journal action. Load inspector explains direct birds, child frame-inclusive masses and signed arm products. Native dialog close rerenders; embedded Games requests Collection.",
+        "evidence": "30 engine/DOM tests passed locally and CI41355006711. Rendered second mobile win via comparison controls and deep-canopy win/reload; native Escape restored controls after close.390px iframe comparison inspected and selected H6 forecast verified. Narrow iframe is layout evidence, not touch emulation.",
+        "remaining": "Full desktop/touch campaigns, four brass routes, recovery/reset/retry/navigation regression; repository asset check after branch repair, selection and actual catalogue integration."
       }
     },
     {
@@ -2741,12 +2752,11 @@
     }
   ],
   "nextSteps": [
-    "Render and substantially improve Bough Balance64, then qualify and integrate it if warranted.",
-    "Implement26 remaining distinct candidates65–90; maintain exactly50 third-batch slots.",
-    "Preserve both earlier collections and23 third-batch releases. Task remains incomplete; cadence unchanged."
+    "Qualify Bough Balance64 comparison upgrade; repository asset rerun pending after restoring missing published route assets.",
+    "Implement26 distinct candidates65–90. Preserve23 live third-batch games and both earlier collections; task incomplete."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "2be6f78be6c469a60593c4e4181374e4d277cda5",
+  "latestObservedMain": "b2f449e1f7ac1f2ced54d4ad21b47ba7bc0f63d8",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3810,6 +3820,22 @@
       "verificationRuns": [
         41349679314,
         41349946969
+      ],
+      "totals": {
+        "built": 24,
+        "improved": 23,
+        "browserTested": 23,
+        "integrated": 23,
+        "live": 23
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Implemented Bough Balance64 hook comparisons and nested load explanations after rendered baseline;30 focused tests and nested/deep rendered wins pass. Full qualification pending. Restored missing published assets on development branch after CI caught catalogue mismatch.",
+      "implementationCommit": "51a63b7d5c57f3f9ceb48901da90fc1970161bd2",
+      "assetRepairCommit": "2bc911bc742ba9f7399313d714e7c47e8d17fbd7",
+      "verificationRuns": [
+        41355006711
       ],
       "totals": {
         "built": 24,

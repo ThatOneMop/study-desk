@@ -2,7 +2,7 @@ name: Bough Balance verification
 on:
   push:
     branches: [indie-collection-three-dev]
-    paths: ['games/bough-balance/**', 'tests/bough-balance-*', '.github/workflows/bough-balance-verification.yml']
+    paths: ['catalog.json', 'games/bough-balance/**', 'tests/bough-balance-*', '.github/workflows/bough-balance-verification.yml']
   workflow_dispatch:
 permissions:
   contents: read
