@@ -1,19 +1,18 @@
-# Ribbon Reef corner repair
+# Ribbon Reef — corner casting development pass
 
-27 October 2026. Source [`1aa2b5566a423156d1a33166fb112fab33c74735`](https://github.com/ThatOneMop/study-desk/commit/1aa2b5566a423156d1a33166fb112fab33c74735).
+1 November 2026. Candidate56 remains unpublished and not fully qualified.
 
-## Weakness and change
+## Observed baseline
+Natural managed-preview desktop play completed Sandbar Post with three keyboard-drawn rectangles:500+500+480=1480 rope,0frays. Reload after the second catch preserved Order3 and1000rope. Completion unlocked Coral Arch. Screenshots inspected: species markings, coral safety circle, protected ray, catch preview and completion were readable; the large water area requires scrolling to the haul controls. Keyboard rectangles required many intermediate arrow steps. Coral Arch introduces concave routing around coral, making continuous drawing less comfortable to plan and repair.
 
-Source inspection found that a small error in a net required redrawing the entire loop. This was not a rendered observation. Added Adjust corners: move any closed-loop vertex using a pointer handle or numbered selector plus arrow keys (Shift for fine movement), and remove unwanted vertices down to a triangle. Existing exact geometry/catch previews update before haul. Other vertices stay fixed. Pointer cancellation or lost capture restores the dragged vertex; extra pointers and blank-water drags are ignored. Pause/dialog/clear discard transient edits. Existing v1 saves and engine rules are unchanged.
+## Concrete change
+Optional Place corners casting lets the player tap each turn separately, remove the last unfinished corner and explicitly close the loop. Keyboard arrows aim without adding rope; Space pins, Backspace removes, Enter closes and a second Enter hauls. Closed nets retain existing corner adjustment. The continuous-rope mode remains available. Changing mode clears only the uncommitted drawing. No scoring, reef, save-key or v1 journal changes.
 
-## Evidence
+Also repaired the pending reset/recovery confirmation guard while paused, native dialog-close rendering, and embedded Games return through the existing collection bridge. These safeguards do not count as a separate gameplay pass.
 
-All **22 tests pass**, including all 17 original tests: nine engine and thirteen jsdom 26.1.0 tests. New cases repair a fish-touching net into the original 470-rope clean catch without retracing; verify the committed polygon survives save/reload; test scaled pointer dragging, cancelled/lost capture restoration, triangle floor on deletion, native form key ownership, fine keyboard movement, additional-pointer isolation and pause/dialog cleanup. Existing three-reef campaign, loss/undo/retry, save corruption/quota and navigation-link assertions pass.
+## Evidence and limits
+26 checks passed:9engine+17DOM, including all previous22. New tests complete all three reefs via pinned corners with exact journal/reload, preserve outlines on pointer cancellation and secondary touches, verify scaled coordinates/unpin/mode clearing, keyboard aim/close/haul and paused reset safeguards. Syntax passes.
 
-Script syntax check passes; 39 unique HTML IDs and 49 CSS rules parse. Dependencies installed outside repository. Simulated SVG bounds are not actual touch/layout evidence. No full repository build from the partial checkout.
+Natural post-change desktop play on Coral Arch pinned a nine-corner concave net around two Silver sprat, excluding the coral in its notch. Preview matched the order at745rope; haul advanced to Order2 without frays; reload retained the catch and745rope. Screenshots of the new controls and concave outline were inspected. Casting mode resets to continuous rope on reload; committed nets remain saved.
 
-## State and limits
-
-Read first-batch baseline and current third ledger; no AGENTS.md in development tree. Main observed `d77f5490e7bf4f20723e9440d7e57c02c48e72c1`; concurrent Counterweight, Tea for Ghosts, catalogue and Gummy Bay changes were preserved. Its delta from `48184d01c5f0e9e1313fa58cdac2e17c114404f0` adds no Switch workspace control. Read current quality checklist and Gummy Bay playtest report; that other game's report does not verify this branch or authorize bypassing this environment's rendering restriction. No unchanged publishing retry.
-
-Third batch remains **16/50 built, 0 improved/browser-tested/integrated/live**. Second additional round remains **6/20 rendered verified**, fourteen pending. Exactly fifty third-batch slots retained. This source refinement is pending rendered qualification and stays off the public catalogue. Need actual desktop/mobile play and screenshot inspection of handle density, finger occlusion, selector focus, concave edits, progression, loss/retry, saves and Games navigation before improvement credit or selection.
+No full rendered three-reef run, touch-emulated or physical-device test, human-enjoyment evidence, integration or live credit. Additional-round total remains15/50. Next: finish both casting modes in rendered desktop/touch tests, inspect mobile layout, loss/undo/retry, native Escape, save/reset and real launcher navigation before qualification. Consider whether later-order visibility and tighter-route replay need another game-specific improvement.
