@@ -1260,5 +1260,30 @@
     "thumbnail": "art/curated/ribbon-reef.svg",
     "thumbnailAlt": "A golden polygon net encloses silver and amber fish, leaving pink coral and a lavender ray outside",
     "updated": "2026-11-01"
+  },
+  {
+    "id": "bellwether",
+    "title": "Bellwether",
+    "description": "Bring a small flock home by choosing when to nudge, move quietly or call one sheep. Preview herding ranges, undo freely and replay three pastoral meadows for shorter routes.",
+    "icon": "🐑",
+    "genre": "Puzzle",
+    "color": "#719367",
+    "controls": "Arrow keys or direction buttons · Space previews whistle · Enter guides · Undo",
+    "url": "games/bellwether/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#bellwether",
+    "aliases": [
+      "sheep",
+      "herding",
+      "dog",
+      "pastoral",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/bellwether.svg",
+    "thumbnailAlt": "A shepherd dog guides two marked sheep through a green meadow toward a golden shelter, with dotted whistle ranges",
+    "updated": "2026-11-01"
   }
 ]
