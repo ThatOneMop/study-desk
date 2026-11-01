@@ -15,7 +15,7 @@ const root=path.join(__dirname,'..'),out=path.join(root,'test-artifacts/field-al
  await page.getByText('Trails, records & new field season',{exact:true}).click();await click('#trail'+level);await click('#accept');
  for(const route of studies.filter(r=>r.level===level)){
  if((await state()).moves.length){await click('#retry');await click('#accept')}
- await campaign(route);A.equal(E.studies(E.board(await state()).cells,level)[route.goal].met,true);A.match(await page.locator('#studies article').nth(route.goal).innerText(),/Confirmed on this page/);await shot('study-'+level+'-'+route.goal);
+ await campaign(route);A.equal(E.studies(E.board(await state()).cells,level)[route.goal].met,true);if(await page.locator('#study-panel').getAttribute('open')===null)await click('#studies-title');A.match(await page.locator('#studies article').nth(route.goal).innerText(),/Confirmed on this page/);await shot('study-'+level+'-'+route.goal);
  const before=await raw();await click('#rearrange');const cells=E.board(await state()).cells,p=cells.findIndex(s=>s!==cells[0]);await click('#plot0');A.equal(await page.locator('#source').inputValue(),'0');await click('#plot'+p);A.equal(await raw(),before);A.match(await page.locator('#studies').innerText(),/→/);await shot('swap-preview-'+level+'-'+route.goal);await click('#place');await click('#undo');A.deepEqual(E.board(await state()).cells,cells);await reload();
  }
  }
