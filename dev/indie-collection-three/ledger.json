@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 19,
     "browserTested": 19,
-    "integrated": 18,
-    "live": 18
+    "integrated": 19,
+    "live": 19
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1818,13 +1818,13 @@
       "id": "fallow-table",
       "title": "Fallow Table",
       "coreLoop": "Schedule planting, cross-watering and harvests across a small growing season; rotate crops, replenish soil with beans and use companion shade to fill a supper basket.",
-      "status": "qualified-selected-awaiting-integration",
+      "status": "integrated-live",
       "source": "games/fallow-table",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1846,7 +1846,8 @@
         "Transplanting: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining original 27. Three transplant-inclusive contracts with per-action DOM save/reload; immutable crop/growth/yield transfer, bed soil/water/history preservation, dry-night companion shade changes, strict eligibility/type guards, undo/retry and legacy routes, selector preview without saving, keyboard/native/pause/modal guards and ripe rejection. Scripts parse; asset references, unique IDs and bridge-first order pass. No rendered evidence.",
         "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
         "CI41300403660 at 355fb70104bef5e522fbe4381226f9a82eacf77c passed37 focused checks (21 engine,16 DOM), syntax,63 bundled routes/231 HTML asset references and all9 selected first-batch integrity checks. Natural CUA desktop play exposed bean harvest removing squash shade (next-night water2→1); new preview predicted it before commit, subsequent night/reload matched. Completed Kitchen garden through new job controls on day6 with8 work points, reloaded win/record, undid/recommitted winning harvest, cancelled retry with native Escape, and confirmed retry retaining record. Inspected baseline, expanded harvest comparison, winning preview and390px iframe screenshots. Narrow native Space planted exactly once.390px harness uses desktop pointer, not touch emulation. Other two rendered contracts, touch, complete loss/recovery and real catalogue integration remain pending; no human enjoyment or content-duration claim.",
-        "CI41304994507 at5026b9b2cd3463c7d9c69da216f3fce7a5e89e02 passed37 focused tests plus nine original/manure/transplant garden campaigns each on desktop1280×1000 and touch-emulated390×844 Chromium. All actions committed through real job controls with exact per-action saves/reload. Read-only previews, final victories, missed-season loss/undo/retry, native Escape, keyboard/Space, pause, hidden pending confirmation, explicit resume, embedded Collection request, standalone Games return, corrupt-save preservation/recovery and isolated reset passed.63 bundled routes/231 references, syntax and9first-batch release integrity checks passed. Artifact13082786797 SHA2560ab0e44574177b2f84d2f14d57dbcc0821744ee6ff56c890d6036979a3352464 contains54 screenshots and a test shell. Reviewed desktop-opening, touch-transplant-2-job-3 and touch-manure-2-win: readable crop/shade water comparison, comfortable commit button, intact completion/record, no horizontal overflow. Phone needs vertical scrolling. Automated reliability and agent screenshot review, not human enjoyment or physical-device certification."
+        "CI41304994507 at5026b9b2cd3463c7d9c69da216f3fce7a5e89e02 passed37 focused tests plus nine original/manure/transplant garden campaigns each on desktop1280×1000 and touch-emulated390×844 Chromium. All actions committed through real job controls with exact per-action saves/reload. Read-only previews, final victories, missed-season loss/undo/retry, native Escape, keyboard/Space, pause, hidden pending confirmation, explicit resume, embedded Collection request, standalone Games return, corrupt-save preservation/recovery and isolated reset passed.63 bundled routes/231 references, syntax and9first-batch release integrity checks passed. Artifact13082786797 SHA2560ab0e44574177b2f84d2f14d57dbcc0821744ee6ff56c890d6036979a3352464 contains54 screenshots and a test shell. Reviewed desktop-opening, touch-transplant-2-job-3 and touch-manure-2-win: readable crop/shade water comparison, comfortable commit button, intact completion/record, no horizontal overflow. Phone needs vertical scrolling. Automated reliability and agent screenshot review, not human enjoyment or physical-device certification.",
+        "Release CI41309214782 passed37 focused tests, nine garden strategies on each of desktop/touch Chromium, real catalogue search/group/sort/favourite and earned first-garden completion, pause with pending confirmation, Collection/Games return and restart/save retention. Five catalogue/shell suites passed, including71 launch routes;70 bundled routes/346 HTML references and all9 first-batch source integrity checks passed. Initial CI41308990488 passed gameplay/browser work but stopped at stale expected count69; fixed to71 with explicit Rill & Root/Fallow assertions. Original cover/catalogue, touch job preview and saved-return screenshots from that run were inspected; only regression assertions changed afterward. Final artifact13084702253 SHA256994c5a63b14d5d2c552633068d64e1750cdc3ea32f8b148b294a2f4c610e4f2e preserves63 files. Pages41309422300 succeeded. Live CUA completed Kitchen garden through comparison controls with13points, reloaded record, returned via Games, searched and launched from current catalogue, then verified embedded Games return/reopen retaining basket4/4/5 and record13. Live catalog.js?v=fallow-table-20261101 matches release; no Switch workspace button observed. Live screenshot inspected. No physical-device or human enjoyment claim."
       ],
       "commits": [
         "8120cbb8bcf19fa6d853d38dcfdcffbb0ba15393",
@@ -1857,8 +1858,10 @@
         "59bf2ffa5d8e4c3717d6eeea31e8c35cc0848300",
         "5026b9b2cd3463c7d9c69da216f3fce7a5e89e02"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "6e3b9eb9f99b8d4994d9dc6ff71834284f3840b9"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/fallow-table/index.html",
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Relaxed deliberate farming with no real-time pressure; natural first-garden play established readable food-versus-shade choices. No human enjoyment rating claimed.",
@@ -1869,8 +1872,7 @@
         "limitations": "Small authored campaign; no hours-of-content claim, physical-device certification or human enjoyment evidence. Real catalogue regression still required."
       },
       "nextSteps": [
-        "Promote selected source to a branch based on fresh main, add original cover/catalogue/credits and run embedded catalogue regression.",
-        "Only then integrate, deploy and verify live save/navigation; preserve concurrent work and all earlier releases."
+        "Preserve v1 saves and include in future catalogue regressions."
       ],
       "pendingManureRefinement": {
         "commit": "8c76be91383d2363ba845e07b52a2057c73f20eb",
@@ -1900,6 +1902,12 @@
         "after": "Optional job comparison shows work, compost, basket, soil, water, crops and bean shade before/after, plus next-night no-further-jobs versus proposed-job outcomes. Explicit commit spends work; merely selecting jobs changes neither journal nor resources. Winning and final-day jobs do not invent another night. All six jobs share the original validated rules; v1 saves retained.",
         "validation": "CI41300403660 at 355fb70104bef5e522fbe4381226f9a82eacf77c passed37 focused checks (21 engine,16 DOM), syntax,63 bundled routes/231 HTML asset references and all9 selected first-batch integrity checks. Natural CUA desktop play exposed bean harvest removing squash shade (next-night water2→1); new preview predicted it before commit, subsequent night/reload matched. Completed Kitchen garden through new job controls on day6 with8 work points, reloaded win/record, undid/recommitted winning harvest, cancelled retry with native Escape, and confirmed retry retaining record. Inspected baseline, expanded harvest comparison, winning preview and390px iframe screenshots. Narrow native Space planted exactly once.390px harness uses desktop pointer, not touch emulation. Other two rendered contracts, touch, complete loss/recovery and real catalogue integration remain pending; no human enjoyment or content-duration claim.",
         "remaining": "Qualification complete; fresh-main catalogue promotion and live verification pending."
+      },
+      "integration": {
+        "commit": "6e3b9eb9f99b8d4994d9dc6ff71834284f3840b9",
+        "verificationRun": 41309214782,
+        "pagesRun": 41309422300,
+        "validation": "Release CI41309214782 passed37 focused tests, nine garden strategies on each of desktop/touch Chromium, real catalogue search/group/sort/favourite and earned first-garden completion, pause with pending confirmation, Collection/Games return and restart/save retention. Five catalogue/shell suites passed, including71 launch routes;70 bundled routes/346 HTML references and all9 first-batch source integrity checks passed. Initial CI41308990488 passed gameplay/browser work but stopped at stale expected count69; fixed to71 with explicit Rill & Root/Fallow assertions. Original cover/catalogue, touch job preview and saved-return screenshots from that run were inspected; only regression assertions changed afterward. Final artifact13084702253 SHA256994c5a63b14d5d2c552633068d64e1750cdc3ea32f8b148b294a2f4c610e4f2e preserves63 files. Pages41309422300 succeeded. Live CUA completed Kitchen garden through comparison controls with13points, reloaded record, returned via Games, searched and launched from current catalogue, then verified embedded Games return/reopen retaining basket4/4/5 and record13. Live catalog.js?v=fallow-table-20261101 matches release; no Switch workspace button observed. Live screenshot inspected. No physical-device or human enjoyment claim."
       }
     },
     {
@@ -2623,12 +2631,12 @@
     }
   ],
   "nextSteps": [
-    "Promote selected source to a branch based on fresh main, add original cover/catalogue/credits and run embedded catalogue regression.",
-    "Only then integrate, deploy and verify live save/navigation; preserve concurrent work and all earlier releases.",
-    "Finish remaining built candidates60–64 and implement26 distinct candidates65–90; no placeholder credit."
+    "Naturally play Seedwake60 and implement a substantive observed improvement, then qualify before selecting.",
+    "Finish built candidates61–64 and implement26 distinct candidates65–90. Keep unfinished games off the catalogue.",
+    "Preserve both earlier collections, concurrent projects and existing saves; task remains incomplete."
   ],
-  "updated": "2026-11-01",
-  "latestObservedMain": "3bf083bbcfbf11ee5cadbe669b079b74a7a62d1a",
+  "updated": "2026-11-02",
+  "latestObservedMain": "6e3b9eb9f99b8d4994d9dc6ff71834284f3840b9",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3516,6 +3524,22 @@
         "browserTested": 19,
         "integrated": 18,
         "live": 18
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Fallow Table integrated/live after37 focused checks,18 browser campaigns, real catalogue tests and live completed-garden/save/navigation verification.",
+      "integrationCommit": "6e3b9eb9f99b8d4994d9dc6ff71834284f3840b9",
+      "verificationRuns": [
+        41309214782
+      ],
+      "deploymentRun": 41309422300,
+      "totals": {
+        "built": 24,
+        "improved": 19,
+        "browserTested": 19,
+        "integrated": 19,
+        "live": 19
       }
     }
   ]

@@ -1,0 +1,11 @@
+# Fallow Table integration
+
+Release commit: 6e3b9eb9f99b8d4994d9dc6ff71834284f3840b9. Published route: https://thatonemop.github.io/study-desk/games/fallow-table/index.html
+
+Release CI41309214782 passed37 focused tests, nine garden strategies on each of desktop/touch Chromium, real catalogue search/group/sort/favourite and earned first-garden completion, pause with pending confirmation, Collection/Games return and restart/save retention. Five catalogue/shell suites passed, including71 launch routes;70 bundled routes/346 HTML references and all9 first-batch source integrity checks passed. Initial CI41308990488 passed gameplay/browser work but stopped at stale expected count69; fixed to71 with explicit Rill & Root/Fallow assertions. Original cover/catalogue, touch job preview and saved-return screenshots from that run were inspected; only regression assertions changed afterward. Final artifact13084702253 SHA256994c5a63b14d5d2c552633068d64e1750cdc3ea32f8b148b294a2f4c610e4f2e preserves63 files. Pages41309422300 succeeded. Live CUA completed Kitchen garden through comparison controls with13points, reloaded record, returned via Games, searched and launched from current catalogue, then verified embedded Games return/reopen retaining basket4/4/5 and record13. Live catalog.js?v=fallow-table-20261101 matches release; no Switch workspace button observed. Live screenshot inspected. No physical-device or human enjoyment claim.
+
+Selected for its deliberate crop scheduling, food-versus-soil choices, companion shade and transplantation; the optional comparison makes these consequences visible before spending work. Original SVG cover and farming catalogue category added. Compact three-garden scope remains explicit; no duration claim.
+
+Main was reread at3bf083bbcfbf11ee5cadbe669b079b74a7a62d1a immediately before a lease-protected fast-forward. Existing catalogue entries, game sources and saves remain. No unrelated automation changes or publishing barrier.
+
+Third batch:24built /19improved /19browser-tested /19integrated /19live. Five built candidates60–64 still need qualification;26slots65–90 remain unbuilt. Exactly50slots retained. Batch2 has20additional-round improvements verified and9selected/live; first collection untouched. Next: Seedwake rendered baseline and specific improvement.
