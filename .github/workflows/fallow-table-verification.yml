@@ -1,0 +1,24 @@
+name: Fallow Table verification
+on:
+  push:
+    branches: [indie-collection-three-dev]
+    paths: ['games/fallow-table/**', 'tests/fallow-table-*.cjs', '.github/workflows/fallow-table-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/fallow-table/game.js
+          node --test tests/fallow-table-engine.cjs tests/fallow-table-dom.cjs
+          python tests/assets.py
+          python tests/selected-indie.py

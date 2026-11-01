@@ -28,8 +28,15 @@ function step(level,b,a){
  else return null;
  n.work--;return n;
 }
+function compareJob(level,b,a){
+ const after=step(level,b,a);if(!after||a==='end')return null;
+ const shade=board=>board.beds.map((bed,p)=>bed.crop?.kind===2&&near(p).some(q=>board.beds[q].crop?.kind===0));
+ const hasNight=b.day<DAYS&&!b.ended&&!won(level,b)&&!won(level,after),beforeNight=hasNight?grow(level,b):null,afterNight=hasNight?grow(level,after):null;
+ return {after,hasNight,beforeNight,afterNight,shadeBefore:shade(b),shadeAfter:shade(after)};
+}
 function board(s){let b=initial(s.level);for(const a of s.moves){b=step(s.level,b,a);if(!b)throw Error('Invalid farm journal')}return b}
 function create(){return{version:1,level:0,moves:[],records:[null,null,null]}}
 function act(s,a){const n=copy(s);if(a==='undo'){if(!n.moves.length)return{ok:false,state:s};n.moves.pop();return{ok:true,state:n}}if(a==='retry'){n.moves=[];return{ok:true,state:n}}if(a&&typeof a==='object'&&Object.keys(a).sort().join(',')==='level,type'&&a.type==='level'){if(!int(a.level,0,2)||a.level>0&&n.records[a.level-1]===null)return{ok:false,state:s};n.level=a.level;n.moves=[];return{ok:true,state:n}}if(n.moves.length>=LIMIT)return{ok:false,state:s};const b=step(s.level,board(s),a);if(!b)return{ok:false,state:s};n.moves.push(copy(a));if(won(s.level,b))n.records[s.level]=Math.max(n.records[s.level]??-1,score(b));return{ok:true,state:n}}
 function decode(raw){const s=JSON.parse(raw);if(!s||s.version!==1||!int(s.level,0,2)||!Array.isArray(s.moves)||s.moves.length>LIMIT||!Array.isArray(s.records)||s.records.length!==3||!s.records.every(x=>x===null||int(x,0,24))||s.records.some((x,i)=>i>0&&x!==null&&s.records[i-1]===null)||s.level>0&&s.records[s.level-1]===null)throw Error('Invalid save');const b=board(s);if(won(s.level,b)&&(s.records[s.level]===null||s.records[s.level]<score(b)))throw Error('Missing record');return{version:1,level:s.level,moves:copy(s.moves),records:s.records.slice()}}
-return{KEY,DAYS,WORK,LIMIT,CROPS,LEVELS,near,initial,won,score,yieldFor,grow,step,board,create,act,decode};});
+return{KEY,DAYS,WORK,LIMIT,CROPS,LEVELS,near,initial,won,score,yieldFor,grow,step,compareJob,board,create,act,decode};});
+
