@@ -1,0 +1,143 @@
+[
+  {
+    "seed": 1,
+    "moves": [
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 5
+      },
+      {
+        "type": "craft",
+        "order": 0
+      },
+      {
+        "type": "bid",
+        "lot": 2,
+        "bid": 3
+      },
+      {
+        "type": "craft",
+        "order": 1
+      },
+      {
+        "type": "bid",
+        "lot": 2,
+        "bid": 2
+      },
+      {
+        "type": "craft",
+        "order": 2
+      }
+    ],
+    "result": {
+      "round": 3,
+      "coins": 5,
+      "stock": [
+        0,
+        1,
+        0
+      ],
+      "done": [
+        true,
+        true,
+        true
+      ],
+      "last": "Berry blanket delivered. One coin returned for your next purchase."
+    }
+  },
+  {
+    "seed": 42,
+    "moves": [
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 5
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 4
+      },
+      {
+        "type": "craft",
+        "order": 0
+      },
+      {
+        "type": "craft",
+        "order": 1
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 2
+      },
+      {
+        "type": "craft",
+        "order": 2
+      }
+    ],
+    "result": {
+      "round": 3,
+      "coins": 4,
+      "stock": [
+        0,
+        0,
+        0
+      ],
+      "done": [
+        true,
+        true,
+        true
+      ],
+      "last": "Berry blanket delivered. One coin returned for your next purchase."
+    }
+  },
+  {
+    "seed": 314,
+    "moves": [
+      {
+        "type": "bid",
+        "lot": 1,
+        "bid": 1
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 3
+      },
+      {
+        "type": "craft",
+        "order": 0
+      },
+      {
+        "type": "bid",
+        "lot": 0,
+        "bid": 3
+      },
+      {
+        "type": "craft",
+        "order": 1
+      },
+      {
+        "type": "craft",
+        "order": 2
+      }
+    ],
+    "result": {
+      "round": 3,
+      "coins": 8,
+      "stock": [
+        0,
+        0,
+        1
+      ],
+      "done": [
+        true,
+        true,
+        true
+      ],
+      "last": "Berry blanket delivered. One coin returned for your next purchase."
+    }
+  }
+]

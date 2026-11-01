@@ -1386,5 +1386,30 @@
     "thumbnail": "art/curated/foldlight.svg",
     "thumbnailAlt": "Amber, lake-blue and rose paper layers fold across a dashed crease toward a small coloured window",
     "updated": "2026-11-02"
+  },
+  {
+    "id": "thimble-fair",
+    "title": "Thimble Fair",
+    "description": "Bid for thread against visible rivals, then weave three commissions from a shared basket. Compare purchase-and-make choices, trade surplus at the exchange and replay compact fairs for fewer auctions or a fuller purse.",
+    "icon": "🧵",
+    "genre": "Strategy + Relaxed",
+    "color": "#a58c69",
+    "controls": "Choose a lot and bid · 1–3 / M / B / Z · Planning tray · Touch buttons",
+    "url": "games/thimble-fair/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#thimble-fair",
+    "aliases": [
+      "thread",
+      "auction",
+      "weaving",
+      "crafting",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/thimble-fair.svg",
+    "thumbnailAlt": "Marigold, lake-blue and rose thread spools beneath a striped market awning, beside woven commissions and a small purse",
+    "updated": "2026-11-02"
   }
 ]
