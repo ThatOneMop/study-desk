@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 20,
     "browserTested": 20,
-    "integrated": 19,
-    "live": 19
+    "integrated": 20,
+    "live": 20
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1915,13 +1915,13 @@
       "id": "seedwake",
       "title": "Seedwake",
       "coreLoop": "Lift and sow whole handfuls around an eight-bed ring; bloom exact final landings into a three-species bouquet while budgeting reverse-direction gusts and preserving seeds for later requests.",
-      "status": "qualified-selected-awaiting-integration",
+      "status": "integrated-live",
       "source": "games/seedwake",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -1945,7 +1945,9 @@
         "Bloom deferral: 34 passing tests (20 engine, 14 jsdom 26.1.0), retaining previous 27. Three deferral-inclusive campaigns through controls and per-action save/reload; retained pile/no flower accounting, reserve/reverse cost combination, strict true/exact-landing guards, last-turn victory refusal, undo/replay, old route compatibility, exact previews, plan-change reset and native/pause/modal controls. Syntax, IDs, asset references and bridge-first checks pass. No rendered evidence.",
         "2026-10-28 visibility repair: combined three-game suite 104 passes (89 prior checks plus 15 new real-bridge DOM simulations). This game's pending reset/recovery, independent parent/document hiding, explicit resume, forged messages, text composition/editable controls covered. Before fix, 12/15 new checks failed across three games; after fix all pass. Engine/save format unchanged; no rendered credit.",
         "2026-11-02: 39 focused checks pass; five new planner regressions cover unsaved victory/unlocks, mid-garden anchor branching, reserve/deferral logs, planned loss/undo, pause/modal/hidden guards, corrupted-save protection. Desktop natural rendered routes completed and screenshot inspected. Full qualification pending.",
-        "CI41314769769:40 focused checks,18 desktop/touch campaign clears, navigation/save/hidden/error/layout checks; asset validation and nine first-batch release hashes pass. Initial CI41314535262 caught missing embedded Games handler; repaired in129a80b3 and rerun passes."
+        "CI41314769769:40 focused checks,18 desktop/touch campaign clears, navigation/save/hidden/error/layout checks; asset validation and nine first-batch release hashes pass. Initial CI41314535262 caught missing embedded Games handler; repaired in129a80b3 and rerun passes.",
+        "Main-based release CI41315202608 passed40 focused checks,18 desktop/touch campaign clears, actual catalogue search/group/sort/favourite, rehearsal/earned win, parent pause-confirmation, Collection/Games return, restart/save retention,72 launch routes, curation/credits/relaxed navigation, source/assets and nine first-batch hashes. Three release screenshots inspected.",
+        "Pages41315386416 succeeded. Live normal route loaded after deployment; natural four-handful rehearsal planted and record4 survived reload. Actual catalogue search/launch, Games return to Collection and reopen/Resume retained record. Catalog asset version seedwake-20261102 matches source; no Switch workspace controls. Live screenshot inspected."
       ],
       "commits": [
         "018d8c74baec589351be660fc3519352a1652ecc",
@@ -1955,8 +1957,10 @@
         "53dee6eac0ee208194923edbaab6485f58df9678",
         "129a80b3efe28d9391c45229d2321edb0727229c"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "059f7d64b95bca528098eed23d8f5c70914922dc"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/seedwake/index.html",
       "quality": {
         "status": "Selected after rendered qualification",
         "enjoyment": "Calm experimentation with consequential seed conservation; planning branches remove repeated destructive trial-and-undo.",
@@ -1967,7 +1971,7 @@
         "limits": "Agent and automated evidence, not a human enjoyment study or physical-device certification. No content-duration claim."
       },
       "nextSteps": [
-        "Integrate on fresh main-based release branch after real catalogue regression, then verify Pages and live saved route/navigation."
+        "Preserve v1 saves; revisit only for observed player issues."
       ],
       "pendingReserveRefinement": {
         "commit": "e6beab4bf5bedb9569efe379e5f65d85781e4673",
@@ -2653,12 +2657,12 @@
     }
   ],
   "nextSteps": [
-    "Integrate qualified Seedwake60 against fresh main after real catalogue regression; verify live release.",
+    "Naturally play Foldlight61, identify its largest observed weakness and implement a substantial improvement before qualification.",
     "Finish built candidates61–64 and implement26 distinct candidates65–90. Keep unfinished games off the catalogue.",
     "Preserve both earlier collections, concurrent projects and existing saves; task remains incomplete."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "6e3b9eb9f99b8d4994d9dc6ff71834284f3840b9",
+  "latestObservedMain": "059f7d64b95bca528098eed23d8f5c70914922dc",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3592,6 +3596,22 @@
         "browserTested": 20,
         "integrated": 19,
         "live": 19
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Seedwake60 integrated and live after branchable sowing rehearsal,40 focused checks,18 desktop/touch campaign clears, real catalogue regression and live win/save/navigation verification.",
+      "integrationCommit": "059f7d64b95bca528098eed23d8f5c70914922dc",
+      "verificationRuns": [
+        41315202608
+      ],
+      "deploymentRun": 41315386416,
+      "totals": {
+        "built": 24,
+        "improved": 20,
+        "browserTested": 20,
+        "integrated": 20,
+        "live": 20
       }
     }
   ]
