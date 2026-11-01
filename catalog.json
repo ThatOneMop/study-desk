@@ -1285,5 +1285,30 @@
     "thumbnail": "art/curated/bellwether.svg",
     "thumbnailAlt": "A shepherd dog guides two marked sheep through a green meadow toward a golden shelter, with dotted whistle ranges",
     "updated": "2026-11-01"
+  },
+  {
+    "id": "rill-root",
+    "title": "Rill & Root",
+    "description": "Shape a gentle stream with borrowed soil, a portable weir and a treadle pump. Rehearse earthworks before committing, water both root beds and replay three compact gardens for fewer actions.",
+    "icon": "🌱",
+    "genre": "Puzzle",
+    "color": "#769077",
+    "controls": "Select ground · Cut / Fill · C / F / W / Z · Rehearse and compare",
+    "url": "games/rill-root/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#rill-root",
+    "aliases": [
+      "soil",
+      "water",
+      "garden",
+      "relaxed",
+      "earthworks"
+    ],
+    "thumbnail": "art/curated/rill-root.svg",
+    "thumbnailAlt": "A blue stream splits between terraced earth banks to water two green root beds",
+    "updated": "2026-11-01"
   }
 ]

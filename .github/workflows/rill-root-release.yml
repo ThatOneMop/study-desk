@@ -1,0 +1,33 @@
+name: Rill Root verification
+on:
+  push:
+    branches: [rill-root-release]
+    paths: ['games/rill-root/**', 'tests/rill-root-*.cjs', '.github/workflows/rill-root-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0 playwright@1.58.2
+          node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/rill-root/game.js
+          node --test tests/rill-root-engine.cjs tests/rill-root-dom.cjs tests/rill-root-bridge.cjs
+          node tests/rill-root-browser.cjs
+          node tests/rill-root-catalog-browser.cjs
+          node tests/catalog-launch.cjs
+          python tests/assets.py
+          python tests/selected-indie.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rill-root-browser
+          path: test-artifacts/rill-root*/
