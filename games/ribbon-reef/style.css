@@ -4,3 +4,6 @@
 
 
 .casting-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0 6px}.casting-tools select{font:inherit;color:var(--paper);background:#183b45;border:1px solid var(--line);border-radius:9px;min-height:44px;padding:8px}.cast-help{color:var(--muted);font-size:14px;margin:6px 0 12px}
+
+/* A haul is an immediate tap, including directly after a continuous touch cast. */
+button,select,summary,header a{touch-action:manipulation}
