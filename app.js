@@ -132,7 +132,7 @@ $('frame').onload=()=>{
  $('frame').setAttribute('aria-busy','false');$('loadStatus').hidden=true;loadActions.hidden=true;visibility(arcade&&inPlayer&&!paused);if(arcade&&inPlayer&&!paused)$('frame').focus();
 };
 $('restartGame').onclick=restartCurrent;
-$('openGames').onclick=()=>openCollection();
+if($('openGames'))$('openGames').onclick=()=>openCollection();
 function openHash(){if(['#games','#movies','#tv'].includes(location.hash)){openCollection();window.selectEntertainment?.(location.hash.slice(1),false)}}
 window.addEventListener('hashchange',openHash);
 $('libraryBtn').onclick=()=>openCollection(true);

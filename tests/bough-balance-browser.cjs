@@ -7,7 +7,7 @@ const server=spawn('python3',['-m','http.server','8178','--bind','127.0.0.1'],{c
 (async()=>{for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promise(r=>setTimeout(r,100))}browser=await chromium.launch();
 for(const touch of [false,true]){
  const context=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},isMobile:touch,hasTouch:touch}),page=await context.newPage(),errors=[],prefix=touch?'touch':'desktop';
- page.on('pageerror',e=>errors.push(e.message));
+ page.on('pageerror',e=>errors.push(e.stack||e.message));
  const click=async id=>touch?page.locator(id).tap():page.locator(id).click(),raw=()=>page.evaluate(k=>localStorage.getItem(k),E.KEY),state=async()=>E.decode(await raw());
  async function reload(){const before=await raw();await page.reload();await page.locator('#bird-0').waitFor();A.equal(await raw(),before)}
  async function shot(name,id){await page.locator(id).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,prefix+'-'+name+'.png')});A.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'horizontal overflow')}
