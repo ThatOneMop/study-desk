@@ -1,6 +1,6 @@
 # Bellwether — range planning development pass
 
-1 November 2026. Candidate57 is qualified and selected for catalogue regression, not yet integrated/live.
+1 November 2026. Candidate57 is qualified, integrated and live as of the release recorded below.
 
 Observed weakness: after walking north and choosing a whistle, Clover’s destination was previewed but Hazel only “waits”, without range or cause. Quiet movement had a similar unexplained wait. Players had to count cells or open the long rules disclosure to understand which tool could affect a sheep.
 
@@ -23,3 +23,6 @@ Observed upgrade implementation: fb8cd528d3672fd8acf9217e000f2ce39b327ba1. Test 
 Selection: {"status":"Selected for catalogue regression","enjoyment":"Agent assessment: deliberate reversible flock planning with clear reactions and optional help; no human enjoyment study.","depth":"Nudge, quiet reposition, whole-flock and named calls create different route choices and shortest-path replay across three compact meadows.","polish":"Original pastoral SVG, readable named sheep, optional range overlay and explicit causes. Mobile vertically scrolls; controls remain readable.","reliability":"43 checks and all9 route/meadow combinations on desktop and touch-emulated Chromium; exact saves/reloads and guarded adviser.","variety":"Simultaneous animal steering distinct from fishing geometry and construction/graph/drafting games.","knownLimits":"Three authored meadows; bounded adviser cannot solve every starting position within its25000-state budget and reports uncertainty. No physical-device, duration or human enjoyment claim."}
 
 Next: actual catalogue launch/search/favourites, embedded pause/native dialog, restart, Collection/Games return and saves; then source integration and separately verified live release.
+
+
+Release: RIBBON_BELLWETHER_INTEGRATION.md records integration425044f92c98e4800c74e3a3e3b8fb2a11c0e427, passing catalogue regression and liveClovergate12step save/navigation verification. Earlier pending sections are historical development notes.

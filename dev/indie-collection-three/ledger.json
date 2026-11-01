@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 17,
     "browserTested": 17,
-    "integrated": 15,
-    "live": 15
+    "integrated": 17,
+    "live": 17
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -1525,13 +1525,13 @@
       "id": "ribbon-reef",
       "title": "Ribbon Reef",
       "coreLoop": "Draw free-form closed nets around exact fish orders, leave coral and protected rays outside, choose groups from the remaining shoal and improve total rope use.",
-      "status": "qualified-awaiting-catalogue",
+      "status": "integrated-live",
       "source": "games/ribbon-reef",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-01",
@@ -1555,7 +1555,9 @@
         "Corner editing refinement: all 22 tests pass (9 engine, 13 jsdom), retaining the original 17. New tests repair invalid fish-touching geometry to the 470-rope opening net, save/reload the edited haul, scale pointer dragging, restore cancelled/lost capture edits, remove corners with a triangle floor, preserve native form keys, ignore extra pointers, and clear edits on pause/dialog. Script syntax passes; 39 unique IDs and 49 CSS rules parse. No rendered evidence.",
         "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending.",
         "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending. A390px-wide iframe with desktop pointer completed Coral Arch with pinned nets745/560/860=2165rope,0frays, and retained completion/record on reload. Phone-width screenshots inspected: readable controls, no evident clipping, vertical scrolling; not native touch.",
-        "27 engine/DOM checks plus rendered desktop1280x1000 and touch-emulated390x844: all3 reefs × both modes, exact records1430/2108/1600, reload each haul, repair, keyboard, pause, invalid net, loss/undo/retry, Escape, navigation, corrupt/reset/quota. CI41283986102 success;58 screenshots, selected screens inspected. Natural CUA Sandbar1472rope this run; previous natural CoralArch2165. Not physical-device or human-enjoyment evidence."
+        "27 engine/DOM checks plus rendered desktop1280x1000 and touch-emulated390x844: all3 reefs × both modes, exact records1430/2108/1600, reload each haul, repair, keyboard, pause, invalid net, loss/undo/retry, Escape, navigation, corrupt/reset/quota. CI41283986102 success;58 screenshots, selected screens inspected. Natural CUA Sandbar1472rope this run; previous natural CoralArch2165. Not physical-device or human-enjoyment evidence.",
+        "Release gates green: 41285078383 full16-game regression427checks and desktop/touch; 41285613908 Bellwether43+Ribbon27 and both catalogue suites,69launchroutes, search/group/sort/favourites/pause/restart/Games and save retention, assets/credits and first-batch hashes. Combined128screens artifact13075186043 verified SHA1f67a998a43edcd0ed75d5860a452af1b47830443f02ea1daef7f1396c806507; reviewed desktop named-call, touch saved meadow, touch reef victory and filtered catalogue.",
+        "Live1Nov after Pages41285957381: actual catalogue pinned nets470+470+496 completedSandbar1436rope,0frays. Standalone reload retainedwin/record; Games returned to catalogue. No physical-touch claim."
       ],
       "commits": [
         "d2ad53aa94c282774ef03cb6fdc01eb448b1cf02",
@@ -1568,8 +1570,11 @@
         "daad73576ea6950465fa0b34bb2e13ade56b7d81",
         "f6c1534ec123c2a0bba7cf9174a1517b058df485"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "11d5ee3774e86fa4b1e7fb14bea432d685e080cf",
+        "425044f92c98e4800c74e3a3e3b8fb2a11c0e427"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/ribbon-reef/index.html",
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Agent assessment: a readable, relaxed net-planning loop with immediate catch feedback and reversible experimentation; not a human enjoyment measurement.",
@@ -1580,7 +1585,7 @@
         "knownLimits": "Three static authored reefs, nine deliveries. No physical phone testing, optimality proof, human enjoyment score or duration claim."
       },
       "nextSteps": [
-        "Run main-based real catalogue desktop/touch navigation and combined existing-game regression; publish only after success."
+        "Preserve save compatibility and include in future catalogue regression."
       ],
       "pendingCornerRefinement": {
         "commit": "1aa2b5566a423156d1a33166fb112fab33c74735",
@@ -1603,13 +1608,13 @@
       "id": "bellwether",
       "title": "Bellwether",
       "coreLoop": "Position a dog to nudge nearby sheep away, whistle distant sheep closer, and steer a simultaneous flock around rocks into a shelter gate with exact pre-move forecasts.",
-      "status": "qualified-awaiting-catalogue",
+      "status": "integrated-live",
       "source": "games/bellwether",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-01",
@@ -1635,7 +1640,9 @@
         "Cooperative adviser: 41 passing tests (21 engine, 20 jsdom 26.1.0), retaining prior 35 checks with async waits. Identical synchronous/cooperative results; timer progress; cancellation before/during search; immutable snapshots; movement while searching; stale result suppression for target/mode/pause/dialog/hide/cancel; competing searches and error recovery. JS syntax checks pass. No rendered performance evidence.",
         "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
         "43 checks pass (21 engine/22 DOM), including predicted-position ranges, read-only overlay toggles, quiet and named/no-response calls and pause. Natural desktop play completed Clover gate in12steps and Willow passage in9 via normal controls/optional adviser; first completion survived reload. Third meadow adviser correctly reports bounded uncertainty. No full third-meadow/touch/catalogue credit.",
-        "CI41285207844 passed43 focused checks and desktop1280x1000/touch-emulated390x844 Chromium campaigns: all three meadows across original, quiet and named-call routes, nine earned clears per viewport with exact per-step saves/reload. Range/explanations, keys/Escape, adviser read-only/cancel/pause/uncertainty, undo/retry/reset/recovery/quota/navigation and overflow checked. 56 screenshots; inspected touch range explanation, third-meadow named call, desktop quiet reposition and touch bounded-adviser. Artifact13075340803 SHA25614be4d891027a15e4f2ad0b1d4f4f879c9fec2cd930d31a0cc7ffd17c484533c. Automated routes are reliability evidence, not human enjoyment or physical-device testing."
+        "CI41285207844 passed43 focused checks and desktop1280x1000/touch-emulated390x844 Chromium campaigns: all three meadows across original, quiet and named-call routes, nine earned clears per viewport with exact per-step saves/reload. Range/explanations, keys/Escape, adviser read-only/cancel/pause/uncertainty, undo/retry/reset/recovery/quota/navigation and overflow checked. 56 screenshots; inspected touch range explanation, third-meadow named call, desktop quiet reposition and touch bounded-adviser. Artifact13075340803 SHA25614be4d891027a15e4f2ad0b1d4f4f879c9fec2cd930d31a0cc7ffd17c484533c. Automated routes are reliability evidence, not human enjoyment or physical-device testing.",
+        "Release gates green: 41285078383 full16-game regression427checks and desktop/touch; 41285613908 Bellwether43+Ribbon27 and both catalogue suites,69launchroutes, search/group/sort/favourites/pause/restart/Games and save retention, assets/credits and first-batch hashes. Combined128screens artifact13075186043 verified SHA1f67a998a43edcd0ed75d5860a452af1b47830443f02ea1daef7f1396c806507; reviewed desktop named-call, touch saved meadow, touch reef victory and filtered catalogue.",
+        "Live1Nov after Pages41285957381: actual catalogue named-call route completed Clovergate12steps; outer pause/resume and Restart retained completion. EmbeddedGames returned to catalogue; standalone route retained12record."
       ],
       "commits": [
         "c83cf16c1cae29e2c1987273469ef11a91c91be2",
@@ -1647,8 +1654,11 @@
         "fb8cd528d3672fd8acf9217e000f2ce39b327ba1",
         "6a70fac1be44f79db023c02a81df480cee622cae"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "11d5ee3774e86fa4b1e7fb14bea432d685e080cf",
+        "425044f92c98e4800c74e3a3e3b8fb2a11c0e427"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bellwether/index.html",
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Agent assessment: deliberate reversible flock planning with clear reactions and optional help; no human enjoyment study.",
@@ -1659,7 +1669,7 @@
         "knownLimits": "Three authored meadows; bounded adviser cannot solve every starting position within its25000-state budget and reports uncertainty. No physical-device, duration or human enjoyment claim."
       },
       "nextSteps": [
-        "Pass actual catalogue desktop/touch flow and shared launcher/asset checks before integration."
+        "Preserve save compatibility and include in future catalogue regression."
       ],
       "pendingQuietRefinement": {
         "commit": "56f433122a9298ebf22af4686e2be4b0e62f4366",
@@ -2549,12 +2559,12 @@
     }
   ],
   "nextSteps": [
-    "Publish qualified Ribbon Reef and Bellwether only after main-based catalogue regression and fresh branch checks.",
-    "Qualify remaining seven built candidates58–64, then implement26 unbuilt candidates65–90.",
-    "Preserve completed first/second batches, saves and concurrent work."
+    "Rill & Root58: implement meaningful terrain rehearsal/compare from rendered two-garden baseline, verify desktop/touch and safe saves, qualify before listing.",
+    "Improve and qualify remaining built candidates59–64; implement26new distinct slots65–90.",
+    "Preserve first20, second20and its20/20additional round; continue selected-game regressions and separate live verification. No pause until full third50complete."
   ],
   "updated": "2026-11-01",
-  "latestObservedMain": "d75347a231716401b095cd5f95eb344c77ad7efe",
+  "latestObservedMain": "425044f92c98e4800c74e3a3e3b8fb2a11c0e427",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3349,6 +3359,23 @@
         "live": 15
       },
       "next": "Main-based catalogue promotion"
+    },
+    {
+      "date": "2026-11-01",
+      "summary": "Published Ribbon Reef56 and Bellwether57 after playtest-led upgrades,470distinct focused checks,17-game browser/catalogue gates and live completions/save/navigation. Rill & Root58 baseline recorded without improvement credit.",
+      "integrationCommit": "425044f92c98e4800c74e3a3e3b8fb2a11c0e427",
+      "verificationRuns": [
+        41285078383,
+        41285613908
+      ],
+      "deploymentRun": 41285957381,
+      "totals": {
+        "built": 24,
+        "improved": 17,
+        "browserTested": 17,
+        "integrated": 17,
+        "live": 17
+      }
     }
   ]
 }
