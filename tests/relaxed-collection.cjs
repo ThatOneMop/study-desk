@@ -5,7 +5,7 @@ const change=(id,value,type='change')=>{$(id).value=value;$(id).dispatchEvent(ne
 const count=()=>d.querySelectorAll('.game').length;
 assert.equal(count(),w.GAME_CATALOG.length);assert.equal($('arcade').hidden,false);assert.equal($('studyBtn'),null);assert.equal($('playerStudy'),null);
 change('search','POKER balatro','input');assert.equal(count(),1);
-$('clearFilters').click();change('genre','Fishing');assert.equal(count(),2);
+$('clearFilters').click();change('genre','Fishing');assert.equal(count(),3);
 change('search','no matching game','input');assert(d.querySelector('.empty'));d.querySelector('.empty button').click();assert.equal(count(),w.GAME_CATALOG.length);
 change('groupBy','collection');assert.equal(d.querySelectorAll('.game-section').length,new Set(w.GAME_CATALOG.map(g=>g.group)).size);
 change('groupBy','none');change('sortGames','az');const titles=[...d.querySelectorAll('.game h3')].map(e=>e.textContent);assert.deepEqual(titles,[...titles].sort((a,b)=>a.localeCompare(b)));

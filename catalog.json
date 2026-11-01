@@ -1235,5 +1235,30 @@
     "thumbnail": "art/curated/field-album.svg",
     "thumbnailAlt": "An open field notebook with clover, a bee, reeds and a frog arranged into neighbouring habitats",
     "updated": "2026-11-01"
+  },
+  {
+    "id": "ribbon-reef",
+    "title": "Ribbon Reef",
+    "description": "Draw careful nets around exact fish orders while leaving coral and rays free. Place and adjust corners, choose your catches, then replay three compact reefs for less rope.",
+    "icon": "🐟",
+    "genre": "Puzzle + Fishing",
+    "color": "#338590",
+    "controls": "Drag a loop or tap corners · Arrows aim · Space pins · Enter closes and hauls · Undo",
+    "url": "games/ribbon-reef/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#ribbon-reef",
+    "aliases": [
+      "nets",
+      "fishing",
+      "geometry",
+      "coral",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/ribbon-reef.svg",
+    "thumbnailAlt": "A golden polygon net encloses silver and amber fish, leaving pink coral and a lavender ray outside",
+    "updated": "2026-11-01"
   }
 ]

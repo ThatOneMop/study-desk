@@ -1,12 +1,12 @@
 name: Third collection catalogue promotion
 on:
   push:
-    branches: [indie-three-promotion, indie-three-kiln-promotion-20261101, indie-three-field-promotion-20261101]
+    branches: [indie-three-promotion, indie-three-kiln-promotion-20261101, indie-three-field-promotion-20261101, indie-three-ribbon-promotion-20261101]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  field-album-catalogue:
+  ribbon-reef-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -19,6 +19,9 @@ jobs:
           node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --test tests/ribbon-reef-engine.cjs tests/ribbon-reef-dom.cjs
+          node tests/ribbon-reef-browser.cjs
+          node tests/ribbon-reef-catalog-browser.cjs
           node --test tests/field-album-engine.cjs tests/field-album-dom.cjs
           node tests/field-album-browser.cjs
           node tests/field-album-catalog-browser.cjs
@@ -79,8 +82,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: field-album-catalogue-browser
+          name: ribbon-reef-catalogue-browser
           path: |
+            test-artifacts/ribbon-reef/
+            test-artifacts/ribbon-reef-catalog/
             test-artifacts/field-album/
             test-artifacts/field-album-catalog/
             test-artifacts/stencil-studio/
