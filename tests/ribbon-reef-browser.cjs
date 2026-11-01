@@ -10,7 +10,7 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
  for(const touch of [false,true]){
   const context=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},hasTouch:touch,isMobile:touch}),page=await context.newPage(),cdp=await context.newCDPSession(page),prefix=touch?'touch':'desktop',errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  await page.addInitScript(()=>{window.inputTrace=[];for(const type of ['pointerdown','pointerup','pointercancel','click'])document.addEventListener(type,e=>{window.inputTrace.push({type,target:e.target.id,x:e.clientX,y:e.clientY,touch:e.pointerType,time:Math.round(performance.now())});window.inputTrace=window.inputTrace.slice(-30)},true)});
+  await page.addInitScript(()=>{window.inputTrace=[];for(const type of ['pointerdown','pointerup','pointercancel','click'])document.addEventListener(type,e=>{window.inputTrace.push({type,target:e.target.id,x:e.clientX,y:e.clientY,touch:e.pointerType,pointerId:e.pointerId,time:Math.round(performance.now())});window.inputTrace=window.inputTrace.slice(-30)},true)});
   const click=async id=>touch?page.locator(id).tap():page.locator(id).click(),raw=()=>page.evaluate(k=>localStorage.getItem(k),E.KEY),state=async()=>E.decode(await raw());
   const shot=async(name,id='#water')=>{await page.locator(id).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,prefix+'-'+name+'.png')});A.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no horizontal overflow')};
   const reload=async()=>{const before=await raw();await page.reload();await click('#start');A.equal(await raw(),before);A.equal(await page.locator('#casting-mode').inputValue(),'trace')};
@@ -21,8 +21,8 @@ fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.serv
     for(const p of poly){const q=at(p);if(touch)await page.touchscreen.tap(q.x,q.y);else await page.mouse.click(q.x,q.y)}
     A.ok(await page.locator('#haul').isDisabled());await click('#close-net');
    }else if(touch){
-    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{...at(poly[0]),id:1}]});
-    for(const p of poly.slice(1))await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...at(p),id:1}]});
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{...at(poly[0]),id:0}]});
+    for(const p of poly.slice(1))await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...at(p),id:0}]});
     await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
    }else{
     const q=at(poly[0]);await page.mouse.move(q.x,q.y);await page.mouse.down();for(const p of poly.slice(1)){const q=at(p);await page.mouse.move(q.x,q.y)}await page.mouse.up();
