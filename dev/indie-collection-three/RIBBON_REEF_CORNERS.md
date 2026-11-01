@@ -1,6 +1,6 @@
 # Ribbon Reef — corner casting development pass
 
-1 November 2026. Candidate56 remains unpublished and not fully qualified.
+1 November 2026. Candidate56 is qualified, integrated and live as of the release recorded below.
 
 ## Observed baseline
 Natural managed-preview desktop play completed Sandbar Post with three keyboard-drawn rectangles:500+500+480=1480 rope,0frays. Reload after the second catch preserved Order3 and1000rope. Completion unlocked Coral Arch. Screenshots inspected: species markings, coral safety circle, protected ray, catch preview and completion were readable; the large water area requires scrolling to the haul controls. Keyboard rectangles required many intermediate arrow steps. Coral Arch introduces concave routing around coral, making continuous drawing less comfortable to plan and repair.
@@ -31,3 +31,6 @@ The first rendered run exposed an ignored Haul tap immediately after a continuou
 Artifact13073673756 has58screenshots; downloaded ZIP SHA256 dd21b8f57c4be97c731567c76577b884ead81c7a7d7f29ad97c3478fa8fc9b77 matched. Inspected touch-trace-reef1-net2, touch-loss, touch-repaired-corner and desktop-pins-reef2-net1: readable species, coral exclusion, handles, loss/retry and wrapping controls. Vertical scrolling remains. This run also naturally completed Sandbar Post at1472rope (494+486+492), reloaded that completion and previewed a781rope concave Coral Arch catch; the latter uncommitted draft was cleared by development hot reload. Previous Coral Arch2165 completion remains separate evidence.
 
 Selection assessment: distinct relaxed geometric planning, meaningful group/rope choices and reversible corner controls justify catalogue testing. Three compact static reefs and exact previews limit campaign depth. No optimality, physical-device, human-enjoyment or duration claims. Third totals:24built/16improved/16browser-tested/15integrated/15live until promotion completes.
+
+
+Release: RIBBON_BELLWETHER_INTEGRATION.md records integration425044f92c98e4800c74e3a3e3b8fb2a11c0e427, passing regression and liveSandbar1436rope save/navigation verification.

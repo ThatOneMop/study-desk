@@ -1,6 +1,6 @@
 # Ribbon Reef and Bellwether — selected release
 
-1 November 2026. Source integration of candidates56 and57; live verification pending.
+1 November 2026. Candidates56 and57 are integrated and live; deployment and live play verified.
 
 ## Changes
 
@@ -16,10 +16,24 @@ Ribbon Reef: optional corner-by-corner casting and corner repair, plus a rendere
 
 ## Preservation and deployment
 
-Main reread at6c1ae99a59c909a0dd1357ec839dea49f0b7ba47; promotion is4commits ahead/0behind. Only selected games, their original covers/tests/credits, catalogue cache version and ledgers added. Unfinished candidates stay on indie-collection-three-dev. First batch20preserved; second20built/initiallyimproved/additional-round20of20verified,9selected/integrated/live. Third ledger has exactly50slots,24built/17improved/17browser-tested/17source-integrated/15live until separate verification.
+Main reread at6c1ae99a59c909a0dd1357ec839dea49f0b7ba47; promotion is4commits ahead/0behind. Only selected games, their original covers/tests/credits, catalogue cache version and ledgers added. Unfinished candidates stay on indie-collection-three-dev. First batch20preserved; second20built/initiallyimproved/additional-round20of20verified,9selected/integrated/live. Third ledger has exactly50slots,24built/17improved/17browser-tested/17source-integrated/17live after separate verification.
 
 Deployed pre-release catalogue observed catalog.js?v=field-album-20261101,66bundled, no Switch workspace controls. New source uses catalog.js?v=bellwether-20261101; cache/deployment will be checked after Pages completes. No configuration changes or stale permission-blocker retry.
 
 ## Remaining
 
 Seven built candidates58–64 need playtest-led improvements/qualification. Rill & Root baseline completed first garden2earthworks and second3actions with a weir, retained on reload; observed cut/fill water-forecast gap recorded separately.26slots65–90remainunbuilt. Do not pause the authorized ongoing task; scheduling unchanged.
+
+
+## Published result
+
+Integration commit: https://github.com/ThatOneMop/study-desk/commit/425044f92c98e4800c74e3a3e3b8fb2a11c0e427
+
+Pages run https://github.com/ThatOneMop/study-desk/actions/runs/41285957381 succeeded, including route/asset verification, Pages configuration and publication. No deployment permission barrier. Live index observed catalog.js?v=bellwether-20261101,69entries/68bundled and zero Switch workspace controls. Games, Collection and catalogue features retained.
+
+- https://thatonemop.github.io/study-desk/games/ribbon-reef/index.html — actual catalogue pinned nets470+470+496 completedSandbarPost at1436rope,0frays. Standalone route reload retained completion/record; Games returned to catalogue.
+- https://thatonemop.github.io/study-desk/games/bellwether/index.html — actual catalogue named-call route completedClovergate12steps. Live range explainedClover3steps/Hazelnotcalled. Outer pause/resume andRestart retained completion; embeddedGames returned to catalogue and standalone route retained12record.
+
+The full regression528-screen archive was also downloaded and SHA-verified. Additional inspected screens: PocketRegatta touch repaired draft and Crate&Cushion desktop rearrangement, alongside the current combined-game screenshots already listed. Full desktop/touch suites are automated Chromium; live manual inspection here used desktop pointer. Neither is a physical-device or human-enjoyment study.
+
+Source branch progress commit before release:8df46ff6c57d8ac4b6200b5a41f2e32169e116c4. Counts now24/50built and17/50improved,browser-tested,integrated,live. Seven built/unqualified and26unbuilt remain. Second batch remains20/20additional-roundcomplete with9live. This is a successful development increment, not completion of the90-game goal. Schedule unchanged.
