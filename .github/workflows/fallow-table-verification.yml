@@ -15,10 +15,17 @@ jobs:
         with:
           node-version: '22'
       - run: |
-          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0
+          npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0 playwright@1.58.2
+          node "$RUNNER_TEMP/qa/node_modules/playwright/cli.js" install --with-deps chromium
       - run: |
           export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
           node --check games/fallow-table/game.js
           node --test tests/fallow-table-engine.cjs tests/fallow-table-dom.cjs
+          node tests/fallow-table-browser.cjs
           python tests/assets.py
           python tests/selected-indie.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fallow-table-browser
+          path: test-artifacts/fallow-table/
