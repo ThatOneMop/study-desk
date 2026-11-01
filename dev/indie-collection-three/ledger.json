@@ -1735,14 +1735,16 @@
         "Treadle pump: 29 passing tests (17 engine, 12 jsdom 26.1.0), retaining original 21. Three pump-inclusive routes through controls with per-action reload; plateau and one-step rise, genuine loop trapping, over-height fallback, weir crossing, relocation/removal, undo/retry, strict validation, water/soil conservation across varied terrain, pure forecasts, markers, native selector/pause/modal guards. Both scripts parse; IDs/assets/bridge-first and no Switch workspace controls pass static checks. No rendered evidence.",
         "Embedded shortcut fix: 34 tests pass (17 engine, 12 standalone jsdom, five real-bridge/jsdom checks with simulated parent). P is reserved for embedded workspace navigation; W now pours. Regression failed before fix, passed after. Keyboard garden completion/reload, native focus/modifiers/repeats, pause/dialog and real bridge visibility suspension/resume pass. No engine or save changes; no rendered credit.",
         "2026-10-28 second visibility repair: 125 passing checks across these three games (109 existing engine/DOM/bridge checks plus 16 new bridge visibility checks). Twelve of the first fifteen new cases failed before repair. Save reset/recovery, independent parent/document hiding, explicit resume, forged messages, composition/editable text and Bellwether stale-advice cancellation checked. No rendered evidence; engines and save formats unchanged.",
-        "Natural managed-preview desktop baseline 1Nov: first garden2earthworks, second garden3actions via cut/fill+weir after an observed1/2-per-bed split and2trapped. Second completion/record survived reload; third unlocked. Screenshots inspected. Partial baseline only; no qualified improvement/browser credit."
+        "Natural managed-preview desktop baseline 1Nov: first garden2earthworks, second garden3actions via cut/fill+weir after an observed1/2-per-bed split and2trapped. Second completion/record survived reload; third unlocked. Screenshots inspected. Partial baseline only; no qualified improvement/browser credit.",
+        "38 passing local checks (17engine,16DOM,5actual-bridge/jsdom), retaining34 previous. Draft campaign commits/reloads all3gardens; original comparison, no-save/no-award preview, undo boundary, cancel/pause/modal/parent hiding and pump planning. Natural rendered desktop: third garden planned8earthworks, compared original6trapped/0caught to draft0trapped/3+3caught, committed/poured, reloaded best8; nativeEscape retry, undo and pause-discard verified. Screenshots inspected. Full mobile/touch/catalogue and repository-wide checks pending."
       ],
       "commits": [
         "c0cb277acc2f032d5b654f2619ec760130261bba",
         "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
         "b32fdd8d1d23e46028c3578860d78e64a729c4ec",
         "1cd076ff0db03a4d4aa87348db9ffcab271a8ffd",
-        "b4b67145f615b1452c60e9673fdebe6c30c9b35a"
+        "b4b67145f615b1452c60e9673fdebe6c30c9b35a",
+        "74ffa7fd09893ace0f144a2813b243280fde2c2e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -1751,8 +1753,8 @@
         "knownLimits": "Three compact authored gardens. Height-field earthwork, finite bucket and flow splitting implemented; free preview, depth, clarity and progression need rendered assessment."
       },
       "nextSteps": [
-        "Implement optional terrain rehearsal/compare from observed mismatch: cut/fill forecast only height/bucket while water routing requires a committed action; weir already previews bed outcomes.",
-        "Verify third garden, desktop/touch, save-safe draft commit/cancel, controls and full regression before qualification."
+        "Complete rendered desktop/touch regression of rehearsal, legacy soil/weir/pump campaigns, saves, controls, native dialogs and navigation.",
+        "Assess/select only after full qualification; preserve v1 journals and existing records."
       ],
       "pendingWeirRefinement": {
         "commit": "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
@@ -1779,6 +1781,15 @@
         "before": "Pending reset/recovery could commit after hiding; resume and text-composition/editable input lacked complete guards.",
         "after": "Persistent parent-hidden state and document.hidden independently block input/resume/confirmation. Returning stays paused. Composition/editable fields excluded. Bellwether retains adviser invalidation and blocks hidden entry/confirmation.",
         "verification": "Actual bridge with simulated parent and dialog stubs; real-browser and native-dialog verification pending."
+      },
+      "pendingTerrainRehearsal": {
+        "date": "2026-11-01",
+        "commit": "74ffa7fd09893ace0f144a2813b243280fde2c2e",
+        "basis": "Recorded rendered second-garden baseline: cut/fill only forecast height/bucket, unlike weir bed forecasts; side-hollow split became visible after commitment.",
+        "before": "Flow overlay only showed committed terrain; trying several soil or tool choices required changing the saved journal.",
+        "after": "Optional separate multi-action rehearsal for soil/weir/pump changes, live water/soil comparison with original, draft-only undo, discard or explicit commit. Records unchanged until a later pour; draft cleared by pause/hide/dialog and never persisted.",
+        "evidence": "38 passing local checks (17engine,16DOM,5actual-bridge/jsdom), retaining34 previous. Draft campaign commits/reloads all3gardens; original comparison, no-save/no-award preview, undo boundary, cancel/pause/modal/parent hiding and pump planning. Natural rendered desktop: third garden planned8earthworks, compared original6trapped/0caught to draft0trapped/3+3caught, committed/poured, reloaded best8; nativeEscape retry, undo and pause-discard verified. Screenshots inspected. Full mobile/touch/catalogue and repository-wide checks pending.",
+        "remaining": "Full desktop/touch browser qualification, native reset/recovery/restart/navigation, screenshot review and catalogue regression. No qualified improved/browser count yet."
       }
     },
     {
@@ -2559,9 +2570,9 @@
     }
   ],
   "nextSteps": [
-    "Rill & Root58: implement meaningful terrain rehearsal/compare from rendered two-garden baseline, verify desktop/touch and safe saves, qualify before listing.",
-    "Improve and qualify remaining built candidates59–64; implement26new distinct slots65–90.",
-    "Preserve first20, second20and its20/20additional round; continue selected-game regressions and separate live verification. No pause until full third50complete."
+    "Qualify Rill & Root terrain rehearsal implemented at 74ffa7fd09893ace0f144a2813b243280fde2c2e; do not replay the completed implementation.",
+    "Improve/qualify remaining built59–64 and implement26new distinct65–90.",
+    "Public third counts remain24built/17qualified/17integrated/17live; preserve completed first/second batches."
   ],
   "updated": "2026-11-01",
   "latestObservedMain": "425044f92c98e4800c74e3a3e3b8fb2a11c0e427",

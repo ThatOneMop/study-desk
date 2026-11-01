@@ -1,0 +1,23 @@
+name: Rill Root verification
+on:
+  push:
+    branches: [indie-collection-three-dev]
+    paths: ['games/rill-root/**', 'tests/rill-root-*.cjs', '.github/workflows/rill-root-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix "$RUNNER_TEMP/qa" jsdom@26.1.0
+      - run: |
+          export NODE_PATH="$RUNNER_TEMP/qa/node_modules"
+          node --check games/rill-root/game.js
+          node --test tests/rill-root-engine.cjs tests/rill-root-dom.cjs tests/rill-root-bridge.cjs
+          python tests/assets.py
+          python tests/selected-indie.py

@@ -62,3 +62,12 @@ Release water uses **W**, including the visible button hint and aria-keyshortcut
 34 tests pass: 17 engine, 12 standalone DOM, five bridge-integrated DOM checks. Run all three tests/rill-root-{engine,dom,bridge}.cjs files with jsdom 26.1.0 on NODE_PATH. The new harness loads the real bridge before the game with a simulated parent window and visual-timer APIs. It checks P navigation without pouring, W pouring, a keyboard-completed garden plus save/reload, native selector/button/input ownership, modifiers/repeats, pause/dialog guards and bridge visibility suspension/resume. This is DOM simulation, not a real rendered iframe, screenshot or physical-touch test. The bridge is identical on the inspected main and development heads and is not modified.
 
 The W regression test failed before the handler change and passed afterwards. This is a concrete reliability fix, not a substantive rendered-play-led improvement pass. No catalogue entry or completion count changes.
+
+
+## Terrain rehearsal — rendered development pass (1 November)
+
+Optional Rehearse earthworks keeps a separate plan for cuts, fills, weirs and pumps. Compare original terrain and basin/trapped-water amounts, undo only drafted actions, discard, or commit the whole plan. Nothing is saved or scored until commitment; release water afterwards to earn completion. Pausing, hiding or opening confirmation discards rehearsal. Rules and v1 saves unchanged.
+
+38 passing local checks (17engine,16DOM,5actual-bridge/jsdom), retaining34 previous. Draft campaign commits/reloads all3gardens; original comparison, no-save/no-award preview, undo boundary, cancel/pause/modal/parent hiding and pump planning. Natural rendered desktop: third garden planned8earthworks, compared original6trapped/0caught to draft0trapped/3+3caught, committed/poured, reloaded best8; nativeEscape retry, undo and pause-discard verified. Screenshots inspected. Full mobile/touch/catalogue and repository-wide checks pending.
+
+See dev/indie-collection-three/RILL_ROOT_REHEARSAL.md for current status; earlier rendering-blocker notes above are historical.
