@@ -2159,7 +2159,7 @@
       "id": "bramble-pact",
       "title": "Bramble Pact",
       "coreLoop": "Open-hand trick-taking harvest puzzles: follow suit, plan around changing wind trumps, deliberately lose unwanted harvests, and spend one woodland offer to fulfil exact basket promises.",
-      "status": "prototype-awaiting-rendered-playtest",
+      "status": "rendered-upgrade-awaiting-full-qualification",
       "source": "games/bramble-pact",
       "built": true,
       "improved": false,
@@ -2172,11 +2172,13 @@
         "Exhaustive legal-branch checks: 8,139 prefix visits and 3,381 complete journals, including different offer timings. Card conservation, follow-suit, bot policy, winner/harvest distinction and valid wins/losses verified. These are algorithmic paths, not separate content or human play sessions.",
         "DOM simulations verify pure exact previews, legal-card gating, keyboard/native-control/modifier/composition guards, pause/modal/parent/document visibility, bridge P reservation, Games navigation markup and unique IDs. Production and test scripts parse; local assets and bridge-first order pass.",
         "No rendered browser, inspected screenshots, real touch/native dialogs, human enjoyment, qualified improvement pass, full-repository build, catalogue integration or live evidence.",
-        "Invitation refinement: 31 passing tests (15 engine, 16 jsdom with real bridge simulated). Six added winning routes invite each neighbour in all three picnics; per-action UI reload, strict validity, card conservation, forecast purity/next leader, final-trick exclusion, offer cost, loss behaviour and undo checked. All 25 original tests retained. No rendered evidence."
+        "Invitation refinement: 31 passing tests (15 engine, 16 jsdom with real bridge simulated). Six added winning routes invite each neighbour in all three picnics; per-action UI reload, strict validity, card conservation, forecast purity/next leader, final-trick exclusion, offer cost, loss behaviour and undo checked. All 25 original tests retained. No rendered evidence.",
+        "2026-11-02:35 local engine/DOM tests passed; new next-trick enumeration matches engine results across all three original plain routes, follows suit, excludes spent offers/final invitations, preserves boards and v1 journals. UI speculation/pause/invalidation/one-action commit and same-origin Games message verified. First picnic rendered win/reload and390px planner screenshots inspected. Repository CI run41340039197 passed35 focused checks, existing development-branch asset validation and nine selected first-batch integrity checks. This is not complete rendered qualification."
       ],
       "commits": [
         "815a82dc73d3b5f95b1743ab60d34fb49cc1fef6",
-        "35af85ed98c71bfb35616c97d50ff9e854db4eff"
+        "35af85ed98c71bfb35616c97d50ff9e854db4eff",
+        "26dd706017a1a706266a044da5ed83e582f9ce46"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
@@ -2185,8 +2187,8 @@
         "knownLimits": "Three compact fixed six-trick puzzles. Exact previews and deterministic neighbours may make individual tricks too easy; longer planning, offer usefulness, readability and mobile layout need rendered assessment. No audio. No duration claim."
       },
       "nextSteps": [
-        "Render all three picnics on desktop and touch, inspect screenshots, verify gameplay, navigation, wins/losses, retry/reload and dialogs.",
-        "Implement a substantive upgrade based on the most important observed weakness before qualifying or integrating."
+        "Complete desktop/touch browser campaigns for all three picnics, including two-trick sketches and invitations; inspect screenshots.",
+        "Run repository checks and actual catalogue regression before selection/integration. Keep unpublished until qualified."
       ],
       "pendingInvitationRefinement": {
         "commit": "35af85ed98c71bfb35616c97d50ff9e854db4eff",
@@ -2194,6 +2196,15 @@
         "before": "Winning with an offer always kept the lead.",
         "after": "Before the final trick, optionally invite Wren or Moss to lead after an offered win, changing next suit/order while spending the same offer and discarding harvest. Losing leaves the actual winner leading. Default and all prior journals unchanged.",
         "remaining": "Rendered play and balance/readability assessment; no qualified improvement credit."
+      },
+      "pendingTwoTrickUpgrade": {
+        "date": "2026-11-02",
+        "commit": "26dd706017a1a706266a044da5ed83e582f9ce46",
+        "observedWeakness": "Played baseline first picnic opening Berry5 and previewed Berry6: current-trick forecast named the next leader but did not expose their led suit, legal replies or the next harvest. Longer planning required committing/undoing to discover those consequences.",
+        "before": "Only the immediate trick could be previewed; next-leader changes were text without playable follow-up comparison.",
+        "after": "Optional two-trick sketch enumerates legal next cards and available offer/invitation variants, shows all three follow-up plays and cumulative baskets, remaining needs, overflow and final promise outcome. Current play commits only the current action. Sketch changes never mutate the save; changing the first action invalidates the old follow-up. Native dialog close restores controls; embedded Games requests Collection.",
+        "evidence": "35 engine/DOM tests pass locally, retaining31 prior checks. Direct rendered first-picnic win and save/reload; compared Leaf3 loss to Wren versus Leaf6 win after Moss takes lead; verified chosen hypothetical Leaf6 was not committed when actually playing Leaf3 next. Native Escape returned enabled restart.390px iframe planner layout and card/offer selection inspected. Narrow iframe is layout evidence, not touch-emulation evidence.",
+        "remaining": "All three picnics and alternate offer/invitation paths on desktop and touch-emulated Chromium; loss/retry/reset/recovery and navigation rendered regression; inspect resulting screenshots; evaluate selection then catalogue tests. No full qualification credit yet."
       }
     },
     {
@@ -2710,9 +2721,9 @@
     }
   ],
   "nextSteps": [
-    "Naturally play Bramble Pact63, identify its largest observed weakness and implement a substantial improvement before qualification.",
-    "Finish built candidates63–64 and implement26 distinct candidates65–90; keep unfinished games off the catalogue.",
-    "Preserve both earlier collections, concurrent projects and existing saves. Task remains incomplete; hourly automation unchanged."
+    "Finish Bramble Pact63 rendered qualification for the committed two-trick planner, then compare/select and integrate if warranted.",
+    "Render and improve Bough Balance64; implement26 distinct candidates65–90.",
+    "Existing22 third-batch releases and both earlier collections preserved. Overall task incomplete; schedule unchanged."
   ],
   "updated": "2026-11-02",
   "latestObservedMain": "4b29234b174535655c8ed03f424f162bdd03bf89",
@@ -3733,6 +3744,21 @@
         41335771661
       ],
       "deploymentRun": 41335904356,
+      "totals": {
+        "built": 24,
+        "improved": 22,
+        "browserTested": 22,
+        "integrated": 22,
+        "live": 22
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "summary": "Implemented Bramble Pact63 two-trick planner after baseline rendered play;35 local tests and first-picnic win/reload/native cancellation/narrow layout verified. Full qualification and integration pending.",
+      "implementationCommit": "26dd706017a1a706266a044da5ed83e582f9ce46",
+      "verificationRuns": [
+        41340039197
+      ],
       "totals": {
         "built": 24,
         "improved": 22,
