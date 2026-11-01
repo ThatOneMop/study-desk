@@ -2244,9 +2244,10 @@
         "16 passing tests: 8 engine, 8 jsdom 26.1.0 with actual bridge source and simulated parent/dialogs. Three complete campaigns through controls with per-placement reload, sequential unlock, minimum-placement records (4/6/6), undo/retry, swap/displacement/removal, exact forecasts and no mutation during selection.",
         "Nested frame/descendant mass and local torque verified independently. Legal assignment prefixes through depth three conserve unique ornament identities and total weight. Invalid actions/saves, journal limit recovery, terminal protection, hidden confirmation/recovery, native/composition keys, corrupt/quota persistence and scoped reset pass.",
         "Both production scripts parse; local assets, unique IDs, bridge-first order, accessible diagram description, root Games navigation markup and no Switch workspace controls checked.",
-        "No rendered play, screenshots, real touch/native dialogs, human enjoyment, qualified improvement, full-repository build, catalogue integration or live release evidence.",
+        "Initial-build evidence only (superseded by the rendered checks below): No rendered play, screenshots, real touch/native dialogs, human enjoyment, qualified improvement, full-repository build, catalogue integration or live release evidence.",
         "Opening brass refinement: 26 tests pass; old routes 4/6/6 and all four five-action brass arrangements verified in engine and DOM. Separate brass record preserves normal best. See BOUGH_BALANCE_BRASS.md.",
-        "2026-11-02:30 focused tests passed locally and in CI41355006711. New load decomposition checks sum direct/child/brass mass and torque; comparison forecasts match committed placements/swaps/displacement across original routes without mutation; selection/save purity, pause and Collection message checks. Rendered upgraded nested/deep wins and reload verified;390px layout inspected. CI asset step failed on pre-existing development catalogue missing Ashwake route; missing published routes/thumbnails restored from observed main without overwriting existing files in 2bc911bc742ba9f7399313d714e7c47e8d17fbd7. Rerun pending."
+        "2026-11-02:30 focused tests passed locally and in CI41355006711. New load decomposition checks sum direct/child/brass mass and torque; comparison forecasts match committed placements/swaps/displacement across original routes without mutation; selection/save purity, pause and Collection message checks. Rendered upgraded nested/deep wins and reload verified;390px layout inspected. CI asset step failed on pre-existing development catalogue missing Ashwake route; missing published routes/thumbnails restored from observed main without overwriting existing files in 2bc911bc742ba9f7399313d714e7c47e8d17fbd7. Rerun pending.",
+        "CI 41355354337 passed on b67a19b09f90dc2ece25728ea54b7feebf7170e2: 30/30 focused tests; 74 bundled routes / 286 HTML references with no missing assets; source syntax and Freedoom structure; nine selected first-batch source hashes, bridge/catalogue links and credits. Missing published assets were restored additively from observed main in 2bc911b and shared favicon in b67a19b. Main was not edited."
       ],
       "commits": [
         "2f1e5af3e846ded34f0a862bf17730515451e970",
@@ -2261,7 +2262,7 @@
       },
       "nextSteps": [
         "Finish full rendered desktop/touch qualification of hook comparison and brass replay, including recovery/reset/navigation and screenshot review.",
-        "Verify restored development catalogue assets in CI; integrate only after actual fresh-main catalogue regression."
+        "After full rendered qualification, evaluate selection and run actual fresh-main catalogue regression before integration."
       ],
       "pendingBrassRefinement": {
         "status": "implemented-awaiting-rendered-review",
@@ -2279,7 +2280,8 @@
         "before": "Only current placement forecast and total mass/torque meters.",
         "after": "Optional all-hook comparison exposes before/after pull for every beam, disturbed/restored balance, displaced/swap occupants and full completion. Choose selects only; Hang commits the existing v1 journal action. Load inspector explains direct birds, child frame-inclusive masses and signed arm products. Native dialog close rerenders; embedded Games requests Collection.",
         "evidence": "30 engine/DOM tests passed locally and CI41355006711. Rendered second mobile win via comparison controls and deep-canopy win/reload; native Escape restored controls after close.390px iframe comparison inspected and selected H6 forecast verified. Narrow iframe is layout evidence, not touch emulation.",
-        "remaining": "Full desktop/touch campaigns, four brass routes, recovery/reset/retry/navigation regression; repository asset check after branch repair, selection and actual catalogue integration."
+        "remaining": "Full desktop/touch campaigns, four brass routes, recovery/reset/retry/navigation regression; selection and actual catalogue integration.",
+        "repositoryChecks": "CI 41355354337 passed on b67a19b09f90dc2ece25728ea54b7feebf7170e2: 30/30 focused tests; 74 bundled routes / 286 HTML references with no missing assets; source syntax and Freedoom structure; nine selected first-batch source hashes, bridge/catalogue links and credits. Missing published assets were restored additively from observed main in 2bc911b and shared favicon in b67a19b. Main was not edited."
       }
     },
     {
@@ -3844,6 +3846,12 @@
         "integrated": 23,
         "live": 23
       }
+    },
+    {
+      "date": "2026-11-02",
+      "game": "bough-balance",
+      "result": "CI 41355354337 passed on b67a19b09f90dc2ece25728ea54b7feebf7170e2: 30/30 focused tests; 74 bundled routes / 286 HTML references with no missing assets; source syntax and Freedoom structure; nine selected first-batch source hashes, bridge/catalogue links and credits. Missing published assets were restored additively from observed main in 2bc911b and shared favicon in b67a19b. Main was not edited.",
+      "countsChanged": false
     }
   ]
 }
