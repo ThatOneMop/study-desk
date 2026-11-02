@@ -7,6 +7,6 @@ for(const game of context.window.GAME_CATALOG){
 }
 for(const retired of ['2048','hextris','astray','radius-raid','dino','pacman','doom-web','micro','polytrack'])assert(!ids.has(retired),'retired credit must not be presented as active: '+retired);
 assert(!/Kodub|Official-site link only|Made by the community/.test(html),'retired catalogue copy must be absent');
-const after=html.match(/<section id="after-hours">([\s\S]*?)<\/section>/)?.[1]||'';
-assert.match(after,/Balatro-inspired/);assert.match(after,/not (?:the )?commercial Balatro/i);assert.match(after,/https:\/\/github\.com\/ThatOneMop\/Balatro/);assert.match(after,/bfbffaa3e9c2ce5d651831bcec2506e22bcc6f61/);
-console.log('PASS active credits: every catalogue anchor resolves; retired GitHub imports and PolyTrack shortcut absent; After Hours source labelled accurately');
+for(const removed of ['after-hours','underleaf','lucky-company','tidepost','lane-eight','foldlight','reefwright','nightshift-empire'])assert(!ids.has(removed),'removed game credit must be gone: '+removed);
+assert.equal(ids.size,context.window.GAME_CATALOG.filter(g=>!/#created-games$/.test(g.credits)).length+1,'one credits section per kept game plus created games');
+console.log('PASS active credits: every catalogue anchor resolves; retired GitHub imports and PolyTrack shortcut absent; removed game credits dropped');

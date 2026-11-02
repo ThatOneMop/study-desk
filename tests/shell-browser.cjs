@@ -58,7 +58,7 @@ const assert=require('node:assert/strict'),fs=require('fs');
  await page.locator('#arcadeMonday').scrollIntoViewIfNeeded();
  await page.screenshot({path:'/tmp/study-monday-mobile.png'});
  await page.setViewportSize({width:1280,height:900});
- await page.evaluate(()=>{localStorage.setItem('study-desk-theme','dark');localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['gummy-bay','autumn-drift','tidepost'],recent:['little-foundry','after-hours','gummy-bay'],plays:{'gummy-bay':6,tidepost:4,'after-hours':3,'little-foundry':2}}))});
+ await page.evaluate(()=>{localStorage.setItem('study-desk-theme','dark');localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['gummy-bay','autumn-drift','little-lake'],recent:['lost-found','creekhold','gummy-bay'],plays:{'gummy-bay':6,'little-lake':4,'creekhold':3,'lost-found':2}}))});
  await page.goto('http://127.0.0.1:8765/#games');
  await page.waitForSelector('#heroTrack h3');
  await page.evaluate(()=>scrollTo(0,0));

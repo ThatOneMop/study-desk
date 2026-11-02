@@ -16,11 +16,11 @@ filter('Favourites').focus();filter('Favourites').click();checkFocus(filter('Fav
 assert.equal(d.querySelectorAll('.game').length,1);
 d.querySelector('.fav').click();checkFocus($('search'));assert(d.querySelector('.empty').textContent.includes('No favourites'));
 d.querySelector('.empty button').click();checkFocus($('search'));assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
-launch('after-hours').click();assert.equal($('frame').title,'After Hours game');checkFocus($('frame'));
+launch('creekhold').click();assert.equal($('frame').title,'Creekhold game');checkFocus($('frame'));
 const frameWindow=$('frame').contentWindow,src=$('frame').src;
 $('pauseGame').click();checkFocus($('resumeGame'));assert.equal($('frame').inert,true);assert.equal($('frame').tabIndex,-1);
 $('frame').onload();checkFocus($('resumeGame'));
-$('libraryBtn').click();checkFocus(launch('after-hours'));assert.equal($('sessionReturn').hidden,false);
+$('libraryBtn').click();checkFocus(launch('creekhold'));assert.equal($('sessionReturn').hidden,false);
 // Return remains available even when a search hides the active tile.
 search('no such game');$('search').focus();$('frame').onload();checkFocus($('search'));
 assert.equal(d.querySelectorAll('.game').length,0);$('sessionReturn').querySelector('button').click();
@@ -35,7 +35,7 @@ $('libraryBtn').click();checkFocus($('search'));
 d.querySelector('.empty button').click();assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
 assert.equal($('genre').value,'all');assert.equal(filter('All').getAttribute('aria-pressed'),'true');
 // Only the current same-origin player can request a collection return.
-launch('after-hours').click();
+launch('creekhold').click();
 function collectionMessage(source,origin){w.dispatchEvent(new w.MessageEvent('message',{source,origin,data:{type:'study-collection'}}))}
 collectionMessage(w,'https://example.test');assert.equal($('player').hidden,false);
 collectionMessage($('frame').contentWindow,'https://untrusted.test');assert.equal($('player').hidden,false);

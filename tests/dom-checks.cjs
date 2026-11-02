@@ -8,7 +8,7 @@ function key(target,k,extra={}){target.dispatchEvent(new w.KeyboardEvent('keydow
 for(let i=0;i<3;i++)key(w,'p');assert.equal($('study').hidden,true);
 for(let i=0;i<3;i++)key(w,'p');assert.equal($('study').hidden,false);
 for(let i=0;i<3;i++)key($('question'),'p');assert.equal($('study').hidden,false);
-$('search').value=' Balatro ';$('search').dispatchEvent(new w.Event('input'));assert.equal(d.querySelectorAll('.game').length,1);assert.equal(d.querySelector('.game h3').textContent,'After Hours');
+$('search').value=' Nibs ';$('search').dispatchEvent(new w.Event('input'));assert.equal(d.querySelectorAll('.game').length,1);assert.equal(d.querySelector('.game h3').textContent,'Creekhold');
 $('search').value='';$('search').dispatchEvent(new w.Event('input'));
 d.querySelector('.fav').click();assert.equal(JSON.parse(w.localStorage.getItem('after-class-hub-v1')).favourites.length,1);
 $('edit').click();$('newDeck').click();$('question').value='Test question';$('answer').value='Test answer';$('editorForm').dispatchEvent(new w.Event('submit',{cancelable:true}));assert.equal($('cardtext').textContent,'Test question');
