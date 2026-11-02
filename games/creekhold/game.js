@@ -9,14 +9,9 @@
   const ctx = canvas.getContext('2d');
   const HOUR = 0.48;
 
-  const TUTOR = [
-    { title: 'A living river', body: 'The sources run in clear weather and stop in a dry spell. Later, a sour tide rides the same bed. Space starts and stops the clock.', check: function () { return false; } },
-    { title: 'Lay a footpath', body: 'Paths is the first group. Tap tiles from the hearth down toward the water. Nibs only build what the path can reach.', check: function (run) { return countId(run, 'path') >= 4; } },
-    { title: 'A paw pump', body: 'Choose Water, then Paw pump, on the grass edge just above the sandy shallows, touching your path. It draws from the tile beside it and will not drink sour water.', check: function (run) { return countId(run, 'pump') >= 1; } },
-    { title: 'A clay tank', body: 'Place a tank on the path. The pump fills it. Nibs drink the store, not the river.', check: function (run) { return countId(run, 'tank') >= 1; } },
-    { title: 'Hold the channel', body: 'A stick dam downstream of the pump keeps a pool when the sources sleep. Dam the whole low bed, not one tile of it.', check: function (run) { return countId(run, 'dam') >= 2; } },
-    { title: 'The clock', body: 'Press play. Watch the season chip. A dry spell is announced a day ahead. The idea tree spends what the wonder desk files.', check: function () { return false; } }
-  ];
+  const G = window.CreekholdGuide;
+  const TUTOR = G.STEPS;
+  const touchUI = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 
   let meta = E.createMeta();
   let run = null;
@@ -29,6 +24,12 @@
   let selected = null;
   let tutorStep = 0;
   let tutorOn = false;
+  let stepState = {};
+  let guideTargets = [];
+  let guideAt = 0;
+  let hadSave = false;
+  let warnMemo = {};
+  let pieceTimer = null;
   let acc = 0;
   let last = 0;
   let keys = {};
@@ -58,6 +59,7 @@
     try {
       const raw = localStorage.getItem(E.SAVE_KEY);
       if (!raw) return;
+      hadSave = true;
       const data = E.decode(raw);
       if (!data.ok) return;
       meta = data.meta;
@@ -66,12 +68,14 @@
     } catch (err) { /* ignore broken saves */ }
   }
 
-  function toast(text) {
+  function toast(text, kind, ms) {
     const el = document.createElement('div');
-    el.className = 'toast';
+    el.className = 'toast' + (kind ? ' ' + kind : '');
     el.textContent = text;
-    $('toasts').appendChild(el);
-    setTimeout(function () { el.remove(); }, 2800);
+    const box = $('toasts');
+    box.appendChild(el);
+    while (box.children.length > 3) box.firstChild.remove();
+    setTimeout(function () { el.remove(); }, ms || 2800);
   }
 
   function resize() {
@@ -130,14 +134,18 @@
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = (i + 1) + ' ' + c.name;
+      b.dataset.cat = c.id;
+      b.title = G.CAT_TIPS[c.id] || c.name;
       b.setAttribute('aria-pressed', String(c.id === cat));
-      b.addEventListener('click', function () { cat = c.id; tool = null; marks = []; renderDock(); });
+      b.addEventListener('click', function () { cat = c.id; tool = null; marks = []; renderDock(); showPieceInfo(null); });
       $('cats').appendChild(b);
     });
     $('pieces').innerHTML = '';
     const erase = document.createElement('button');
     erase.type = 'button';
     erase.innerHTML = 'Remove<small>X</small>';
+    erase.dataset.id = 'erase';
+    erase.title = 'Remove — take down a building or frame. Half its cost comes back.';
     erase.setAttribute('aria-pressed', String(tool === 'erase'));
     erase.addEventListener('click', function () { tool = tool === 'erase' ? null : 'erase'; renderDock(); });
     $('pieces').appendChild(erase);
@@ -151,15 +159,32 @@
       const cost = costLabel(def);
       b.innerHTML = def.name + '<small>' + (other ? 'Other circle' : known ? cost : (def.science || 0) + ' ideas') + '</small>';
       b.setAttribute('aria-pressed', String(tool === def.id));
+      b.dataset.id = def.id;
+      b.title = G.pieceTip(def, run);
+      b.addEventListener('pointerenter', function (ev) { if (ev.pointerType === 'mouse') showPieceInfo(def.id); });
+      b.addEventListener('pointerleave', function (ev) { if (ev.pointerType === 'mouse') showPieceInfo(tool); });
       b.addEventListener('click', function () {
-        if (!known && !other) { openTech(); return; }
+        if (!known && !other) { openTech(def.id); return; }
         tool = tool === def.id ? null : def.id;
         marks = [];
         markAt = 0;
         renderDock();
+        showPieceInfo(tool, true);
       });
       $('pieces').appendChild(b);
     });
+    applyGlow();
+  }
+
+  function showPieceInfo(id, fresh) {
+    const box = $('pieceInfo');
+    if (!box) return;
+    const def = id && E.DEF[id];
+    if (pieceTimer) { clearTimeout(pieceTimer); pieceTimer = null; }
+    if (!def || !run) { box.hidden = true; return; }
+    box.textContent = G.pieceTip(def, run);
+    box.hidden = false;
+    if (fresh || touchUI) pieceTimer = setTimeout(function () { box.hidden = true; }, 6000);
   }
 
   function costLabel(def) {
@@ -230,16 +255,6 @@
     if (run.phase === 'over' && !$('over').open) showOver();
   }
 
-  function tutorMaybe() {
-    if (!tutorOn || !run) return;
-    const step = TUTOR[tutorStep];
-    if (!step) return;
-    if (tutorStep > 0 && tutorStep < TUTOR.length - 1 && step.check(run)) {
-      tutorStep++;
-      tutorSync();
-    }
-  }
-
   function showOver() {
     setSpeed(0);
     $('overTitle').textContent = 'The colony is gone';
@@ -248,13 +263,166 @@
     save();
   }
 
-  function tutorSync() {
+  function guideCtx() {
+    return { touch: touchUI, cam: cam, faction: run ? run.faction : 'reed' };
+  }
+
+  function saveGuide() {
+    meta.guide = tutorOn ? { on: true, step: tutorStep } : null;
+    save();
+  }
+
+  function startStep() {
+    stepState = {};
     const step = TUTOR[tutorStep];
-    if (!step) { $('tutor').hidden = true; tutorOn = false; meta.tutorial = true; save(); if (run) syncHud(); return; }
+    if (step && step.start && run) step.start(run, stepState, guideCtx());
+  }
+
+  // Show the current step, moving past any that are already done.
+  function tutorSync(skipDone) {
+    let step = TUTOR[tutorStep];
+    let passed = 0;
+    while (step && run && skipDone !== false && step.kind === 'do' && step.done(run, stepState, guideCtx()) && passed < TUTOR.length) {
+      passed++;
+      tutorStep++;
+      startStep();
+      step = TUTOR[tutorStep];
+    }
+    if (!step) { finishGuide(true); return; }
     $('tutor').hidden = false;
+    document.body.classList.add('guiding');
+    $('tutorCount').textContent = 'Step ' + (tutorStep + 1) + ' of ' + TUTOR.length;
+    const dots = $('tutorDots');
+    if (dots.children.length !== TUTOR.length) {
+      dots.innerHTML = '';
+      for (let i = 0; i < TUTOR.length; i++) dots.appendChild(document.createElement('i'));
+    }
+    for (let i = 0; i < dots.children.length; i++) dots.children[i].className = i < tutorStep ? 'done' : i === tutorStep ? 'now' : '';
     $('tutorTitle').textContent = step.title;
-    $('tutorBody').textContent = step.body;
-    if (tutorStep > 0 && tutorStep < TUTOR.length - 1 && run && step.check(run)) tutorStep++;
+    $('tutorBody').textContent = step.body(guideCtx(), run);
+    const info = step.kind === 'info';
+    $('tutorNext').hidden = !(info || step.next);
+    $('tutorNext').textContent = step.next || (tutorStep === 0 ? "Let's go" : 'Next');
+    $('tutorStepSkip').hidden = info || !!step.next;
+    guideTargets = run && step.targets ? step.targets(run) : [];
+    $('tutorShow').hidden = !guideTargets.length;
+    const status = step.status && run ? step.status(run) : '';
+    $('tutorStatus').hidden = !status;
+    $('tutorStatus').textContent = status;
+    $('tutor').dataset.step = step.id;
+    applyGlow();
+    if (run) syncHud();
+  }
+
+  function guideTick(now) {
+    if (!tutorOn || !run || now - guideAt < 250) return;
+    guideAt = now;
+    const step = TUTOR[tutorStep];
+    if (!step) return;
+    if (step.kind === 'do' && step.done(run, stepState, guideCtx())) {
+      A.play('achieve');
+      toast('✓ ' + step.title, 'good');
+      tutorStep++;
+      startStep();
+      const before = tutorStep;
+      tutorSync();
+      if (tutorOn && tutorStep === before) panToTargets(false);
+      saveGuide();
+      return;
+    }
+    // Live wording: the next action can change (more logs needed, path first, and so on).
+    const body = step.body(guideCtx(), run);
+    if ($('tutorBody').textContent !== body) $('tutorBody').textContent = body;
+    guideTargets = step.targets ? step.targets(run) : [];
+    $('tutorShow').hidden = !guideTargets.length;
+    const status = step.status ? step.status(run) : '';
+    $('tutorStatus').hidden = !status;
+    if ($('tutorStatus').textContent !== status) $('tutorStatus').textContent = status;
+    applyGlow();
+  }
+
+  function applyGlow() {
+    document.querySelectorAll('.tut-glow').forEach(function (el) { el.classList.remove('tut-glow'); });
+    if (!tutorOn || !run) return;
+    const step = TUTOR[tutorStep];
+    const g = G.stepGlow(step, run);
+    if (!g) return;
+    let el = null;
+    if (g.tech && $('tech').open) el = document.querySelector('#techList [data-id="' + g.tech + '"]');
+    else if (g.speed && speed === 0) el = $('speed1');
+    else if (g.cat && cat !== g.cat) el = document.querySelector('#cats [data-cat="' + g.cat + '"]');
+    else if (g.piece && tool !== g.piece) el = document.querySelector('#pieces [data-id="' + g.piece + '"]');
+    if (el) {
+      el.classList.add('tut-glow');
+      if (el.scrollIntoView && el.closest('#cats, #pieces')) el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+  }
+
+  function panToTargets(force) {
+    if (!run || !guideTargets.length) return;
+    const v = viewSize();
+    const t = guideTargets[Math.floor(guideTargets.length / 2)];
+    const c = E.get(run, t.x, t.y);
+    const pt = R.project(t.x, t.y, c ? c.ground : 0, cam, run.w, run.h);
+    const panel = $('tutor').getBoundingClientRect();
+    const stage = canvas.getBoundingClientRect();
+    const bottom = v.h - Math.max(0, stage.bottom - panel.top) - 20;
+    const inView = pt[0] > 30 && pt[0] < v.w - 30 && pt[1] > 50 && pt[1] < bottom;
+    if (!force && inView) return;
+    R.centerOn(cam, t.x, t.y, c ? c.ground : 0, v.w, Math.max(120, bottom + 20) , run.w, run.h);
+  }
+
+  function startGuide(fromStep) {
+    if (!run) return;
+    tutorOn = true;
+    tutorStep = fromStep || 0;
+    meta.tutorial = false;
+    meta.guideOffered = true;
+    startStep();
+    tutorSync();
+    saveGuide();
+  }
+
+  function finishGuide(completed) {
+    tutorOn = false;
+    tutorStep = TUTOR.length;
+    guideTargets = [];
+    meta.tutorial = true;
+    meta.guide = null;
+    $('tutor').hidden = true;
+    document.body.classList.remove('guiding');
+    applyGlow();
+    save();
+    if (completed) toast('Tutorial complete! Press ? any time for How to play.', 'good', 4500);
+    else toast('Tutorial skipped. You can replay it from ? or the Menu.', '', 4000);
+    if (run) syncHud();
+  }
+
+  // The tutorial runs on Willow Bend. A colony there can be guided in place; anywhere else it needs a fresh practice colony.
+  function askGuide() {
+    if (run && run.phase === 'play' && run.mapId === 'willow') {
+      closeDialogs();
+      setSpeed(0);
+      startGuide(0);
+      return;
+    }
+    if (run && run.phase === 'play') {
+      $('guideConfirm').showModal();
+      return;
+    }
+    closeDialogs();
+    pickState.map = 'willow'; pickState.faction = 'reed'; pickState.diff = 'easy';
+    begin(true);
+  }
+
+  function closeDialogs() {
+    document.querySelectorAll('dialog[open]').forEach(function (d) { d.close(); });
+  }
+
+  function hintTick() {
+    if (!run) return;
+    const list = G.warnings(run, warnMemo);
+    for (let i = 0; i < list.length; i++) toast(list[i].text, list[i].kind, 7000);
   }
 
   function burst(x, y, color) {
@@ -316,9 +484,11 @@
       run: shown, cam: cam, w: v.w, h: v.h, time: now, overlay: run ? overlay : 'none',
       selected: run ? selected : null, ghost: run ? ghostAt() : null, particles: particles,
       marks: run ? marks : null,
+      guide: run && tutorOn ? guideTargets : null,
       reduce: meta.settings && meta.settings.motion === false
     });
-    if (run && now - hudAt > 200) { hudAt = now; syncHud(); }
+    if (run && now - hudAt > 200) { hudAt = now; syncHud(); hintTick(); }
+    guideTick(now);
     if (run && tool && tool !== 'erase' && now - markAt > 400) { markAt = now; refreshMarks(); }
     requestAnimationFrame(loop);
     } catch (err) {
@@ -373,7 +543,6 @@
     if (!r.ok) { if (!quiet || r.reason === 'cost') { A.play('deny'); toast(reasonText(r.reason)); } return; }
     A.play('place');
     burst(cell.x, cell.y, '#e7d3b0');
-    tutorMaybe();
     save();
     renderDock();
     syncHud();
@@ -566,7 +735,7 @@
     if (meta.settings.sound !== false) { A.setEnabled(true); A.startMusic(); }
   }
 
-  function openTech() {
+  function openTech(focusId) {
     if (!run) return;
     const aim = E.goal(run);
     $('techLead').textContent = Math.floor(run.store.science) + ' ideas. Lines show what must be known first. Tiers open after ' + E.TIER_GATE + ' studies in the ring below.';
@@ -607,12 +776,24 @@
         A.play('achieve');
         toast(def.name + ' is in the dock.');
         save();
+        if (tutorOn && TUTOR[tutorStep] && TUTOR[tutorStep].id === 'learn') {
+          $('tech').close();
+          cat = def.cat;
+          tool = def.id;
+          renderDock();
+          return;
+        }
         openTech();
         renderDock();
       });
       cols[tier].appendChild(node);
     });
     if (!$('tech').open) $('tech').showModal();
+    applyGlow();
+    if (focusId) {
+      const node = document.querySelector('#techList [data-id="' + focusId + '"]');
+      if (node && node.scrollIntoView) node.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
     requestAnimationFrame(function () {
       const board = $('techBoard');
       const svg = $('techLines');
@@ -671,7 +852,8 @@
     fill($('diffList'), [E.RULES.easy, E.RULES.normal, E.RULES.hard], 'diff', pickState.diff);
   }
 
-  function begin() {
+  function begin(guided) {
+    if (guided === true) { pickState.map = 'willow'; pickState.faction = 'reed'; pickState.diff = 'easy'; }
     run = E.startRun(meta, pickState.map, pickState.faction, pickState.diff);
     if (!run) return;
     chrome();
@@ -681,16 +863,16 @@
     cat = 'paths';
     setSpeed(0);
     acc = 0;
-    $('pick').close();
-    $('title').close();
+    closeDialogs();
+    warnMemo = {};
     resize();
     cam.zoom = viewSize().w < 520 ? 0.95 : 1.35;
     focusHearth();
     renderDock();
     syncHud();
-    tutorOn = !meta.tutorial && pickState.map === 'willow';
-    tutorStep = 0;
-    if (tutorOn) tutorSync(); else $('tutor').hidden = true;
+    meta.guideOffered = true;
+    if (guided === true || (!meta.tutorial && pickState.map === 'willow')) startGuide(0);
+    else { tutorOn = false; meta.guide = null; $('tutor').hidden = true; document.body.classList.remove('guiding'); applyGlow(); }
     save();
     toast(run.mapName + ' · ' + E.FACTIONS[run.faction].name);
   }
@@ -716,35 +898,92 @@
     save();
   }
 
+  function continueRun() {
+    if (!run) return;
+    closeDialogs();
+    setSpeed(0);
+    resize();
+    cam.zoom = viewSize().w < 520 ? 0.95 : 1.35;
+    focusHearth();
+    renderDock();
+    syncHud();
+    unlockAudio();
+    if (meta.guide && meta.guide.on && run.mapId === 'willow' && !tutorOn) {
+      tutorOn = true;
+      tutorStep = Math.max(0, Math.min(TUTOR.length - 1, meta.guide.step | 0));
+      startStep();
+      tutorSync();
+    }
+  }
+
+  function openHelp() {
+    const box = $('helpBuildings');
+    box.innerHTML = '';
+    E.CATS.forEach(function (c) {
+      const h = document.createElement('h3');
+      h.textContent = c.name;
+      box.appendChild(h);
+      const p = document.createElement('p');
+      p.className = 'small';
+      p.textContent = G.CAT_TIPS[c.id] || '';
+      box.appendChild(p);
+      const ul = document.createElement('ul');
+      ul.className = 'blist';
+      E.BUILDINGS.forEach(function (def) {
+        if (def.cat !== c.id) return;
+        const faction = run ? run.faction : null;
+        if (def.faction && faction && def.faction !== faction) return;
+        const li = document.createElement('li');
+        const b = document.createElement('b');
+        b.textContent = def.name;
+        const small = document.createElement('small');
+        const known = run ? !!run.unlocked[def.id] : !def.science;
+        small.textContent = ' ' + G.costText(def) + (def.science && !known ? ' · ' + def.science + ' ideas to learn' : '') + (def.faction && !faction ? ' · ' + E.FACTIONS[def.faction].name + ' only' : '');
+        li.appendChild(b);
+        li.appendChild(small);
+        li.appendChild(document.createTextNode(' — ' + def.blurb));
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+    });
+    $('helpTutor').textContent = tutorOn ? 'Restart the tutorial' : 'Start the tutorial';
+    if (!$('help').open) $('help').showModal();
+  }
+
   function wire() {
     $('openMenu').addEventListener('click', function () { setSpeed(0); $('pause').showModal(); });
+    $('helpTop').addEventListener('click', openHelp);
+    $('tutorialBtn').addEventListener('click', function () { unlockAudio(); askGuide(); });
+    $('tutorAgainBtn').addEventListener('click', function () { $('pause').close(); askGuide(); });
+    $('helpTutor').addEventListener('click', function () { $('help').close(); askGuide(); });
+    $('guideYes').addEventListener('click', function () { closeDialogs(); begin(true); });
+    $('guideNo').addEventListener('click', function () { $('guideConfirm').close(); });
+    $('offerHere').addEventListener('click', function () { meta.guideOffered = true; $('offer').close(); continueRun(); startGuide(0); });
+    $('offerNew').addEventListener('click', function () { meta.guideOffered = true; save(); $('offer').close(); if (run && run.phase === 'play') $('guideConfirm').showModal(); else begin(true); });
+    $('offerNo').addEventListener('click', function () { meta.guideOffered = true; save(); $('offer').close(); });
+    $('tutorShow').addEventListener('click', function () { panToTargets(true); });
+    $('tutorStepSkip').addEventListener('click', function () { tutorStep++; startStep(); tutorSync(false); panToTargets(false); saveGuide(); });
     $('overlayBtn').addEventListener('click', function () { cycleOverlay(); });
     $('playBtn').addEventListener('click', function () { fillPick(); $('title').close(); $('pick').showModal(); unlockAudio(); });
-    $('continueBtn').addEventListener('click', function () {
-      if (!run) return;
-      $('title').close();
-      setSpeed(0);
-      resize();
-      cam.zoom = viewSize().w < 520 ? 0.95 : 1.35;
-      focusHearth();
-      renderDock();
-      syncHud();
-      unlockAudio();
-    });
-    $('howBtn').addEventListener('click', function () { $('help').showModal(); });
+    $('continueBtn').addEventListener('click', continueRun);
+    $('howBtn').addEventListener('click', openHelp);
     $('startBtn').addEventListener('click', begin);
     $('pickBack').addEventListener('click', function () { $('pick').close(); $('title').showModal(); });
     $('resumeBtn').addEventListener('click', function () { $('pause').close(); setSpeed(speed || 1); });
     $('techBtn').addEventListener('click', function () { $('pause').close(); openTech(); });
     $('achieveBtn').addEventListener('click', openAchieve);
     $('settingsBtn').addEventListener('click', function () { applySettings(); $('settings').showModal(); });
-    $('helpBtn').addEventListener('click', function () { $('help').showModal(); });
+    $('helpBtn').addEventListener('click', openHelp);
     $('menuBtn').addEventListener('click', function () { $('pause').close(); setSpeed(0); save(); $('title').showModal(); $('continueBtn').hidden = !(run && run.phase === 'play'); });
     $('closeSettings').addEventListener('click', function () { readSettings(); $('settings').close(); });
     $('wipe').addEventListener('click', function () {
       localStorage.removeItem(E.SAVE_KEY);
       meta = E.createMeta();
       run = null;
+      tutorOn = false;
+      guideTargets = [];
+      $('tutor').hidden = true;
+      document.body.classList.remove('guiding');
       chrome();
       $('settings').close();
       $('pause').close();
@@ -757,10 +996,16 @@
     $('closeAchieve').addEventListener('click', function () { $('achieve').close(); });
     $('retryBtn').addEventListener('click', function () { $('over').close(); begin(); });
     $('overMaps').addEventListener('click', function () { $('over').close(); fillPick(); $('pick').showModal(); });
-    $('tutorSkip').addEventListener('click', function () { tutorOn = false; tutorStep = TUTOR.length; meta.tutorial = true; $('tutor').hidden = true; save(); syncHud(); });
-    $('tutorNext').addEventListener('click', function () { tutorStep++; tutorSync(); });
+    $('tutorSkip').addEventListener('click', function () { finishGuide(false); });
+    $('tutorNext').addEventListener('click', function () {
+      tutorStep++;
+      startStep();
+      tutorSync();
+      panToTargets(false);
+      saveGuide();
+    });
     ['0', '1', '2', '3'].forEach(function (k) {
-      $('speed' + k).addEventListener('click', function () { setSpeed(+k); unlockAudio(); });
+      $('speed' + k).addEventListener('click', function () { setSpeed(+k); unlockAudio(); applyGlow(); });
     });
     $('soundToggle').addEventListener('change', readSettings);
     $('volume').addEventListener('input', readSettings);
@@ -785,7 +1030,7 @@
     window.addEventListener('keydown', function (ev) {
       if (ev.target && ev.target.closest && ev.target.closest('input, textarea')) return;
       keys[ev.code] = true;
-      if (ev.code === 'Space') { ev.preventDefault(); setSpeed(speed === 0 ? 1 : 0); }
+      if (ev.code === 'Space') { ev.preventDefault(); setSpeed(speed === 0 ? 1 : 0); applyGlow(); }
       else if (ev.key === 'q' || ev.key === 'Q') { cam.rot = (cam.rot + 3) & 3; if (run) focusHearth(); }
       else if (ev.key === 'e' || ev.key === 'E') { cam.rot = (cam.rot + 1) & 3; if (run) focusHearth(); }
       else if (ev.key === 'Escape') {
@@ -793,11 +1038,12 @@
         // Chrome treats Escape as a close request after keydown; without this the
         // freshly opened pause dialog is closed by the same key press.
         ev.preventDefault();
-        if (tool) { tool = null; renderDock(); return; }
+        if (tool) { tool = null; renderDock(); showPieceInfo(null); return; }
         setSpeed(0);
         $('pause').showModal();
       } else if (ev.key >= '1' && ev.key <= '7') {
         cat = E.CATS[+ev.key - 1].id;
+        tool = null;
         renderDock();
       } else if (ev.key === 'v' || ev.key === 'V') setOverlay(overlay === 'water' ? 'none' : 'water');
       else if (ev.key === 'r' || ev.key === 'R') setOverlay(overlay === 'reach' ? 'none' : 'reach');
@@ -805,7 +1051,7 @@
       else if (ev.key === 'c' || ev.key === 'C') setOverlay(overlay === 'sour' ? 'none' : 'sour');
       else if (ev.key === 'x' || ev.key === 'X') { tool = tool === 'erase' ? null : 'erase'; renderDock(); }
       else if (ev.key === 't' || ev.key === 'T') openTech();
-      else if (ev.key === 'h' || ev.key === '?') $('help').showModal();
+      else if ((ev.key === 'h' || ev.key === 'H' || ev.key === '?') && !document.querySelector('dialog[open]')) openHelp();
     });
     window.addEventListener('keyup', function (ev) { keys[ev.code] = false; });
     window.addEventListener('resize', function () { resize(); if (run) focusHearth(); });
@@ -820,6 +1066,14 @@
   renderDock();
   resize();
   $('continueBtn').hidden = !(run && run.phase === 'play');
+  if (hadSave) {
+    // Returning players: New colony / Continue first, the tutorial still one tap away.
+    $('tutorialBtn').className = 'ghost';
+    $('playBtn').className = 'primary';
+    $('title').querySelector('.stack').insertBefore($('playBtn'), $('tutorialBtn'));
+    if (run && run.phase === 'play') $('title').querySelector('.stack').insertBefore($('continueBtn'), $('playBtn'));
+  }
+  $('offer').addEventListener('close', function () { if (!meta.guideOffered) { meta.guideOffered = true; save(); } });
   ['title', 'pick', 'over'].forEach(function (id) {
     $(id).addEventListener('cancel', function (ev) { ev.preventDefault(); });
   });
@@ -828,8 +1082,15 @@
     get run() { return run; },
     get meta() { return meta; },
     get cam() { return cam; },
+    get guide() { return { on: tutorOn, step: tutorStep, id: TUTOR[tutorStep] ? TUTOR[tutorStep].id : null, targets: guideTargets.slice(), glow: (document.querySelector('.tut-glow') || {}).id || ((document.querySelector('.tut-glow') || { dataset: {} }).dataset.id || (document.querySelector('.tut-glow') || { dataset: {} }).dataset.cat || null) }; },
+    get tool() { return tool; },
+    get speed() { return speed; },
     focus: focusHearth
   };
   $('title').showModal();
+  if (hadSave && !meta.guideOffered) {
+    $('offerHere').hidden = !(run && run.phase === 'play' && run.mapId === 'willow');
+    $('offer').showModal();
+  }
   requestAnimationFrame(function (t) { last = t; requestAnimationFrame(loop); });
 })();

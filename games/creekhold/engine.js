@@ -1975,6 +1975,8 @@
       seenMaps: meta.seenMaps || {},
       seenFactions: meta.seenFactions || {},
       tutorial: !!meta.tutorial,
+      guideOffered: !!meta.guideOffered,
+      guide: meta.guide && typeof meta.guide.step === 'number' ? { on: !!meta.guide.on, step: meta.guide.step } : null,
       settings: meta.settings || { sound: true, volume: 0.7, motion: true, edge: true }
     };
     return JSON.stringify({ v: VERSION, meta: copy, run: payload.run ? exportRun(payload.run) : null });

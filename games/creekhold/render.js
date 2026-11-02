@@ -589,6 +589,17 @@
           strokeTop(ctx, pt[0], pt[1], cam.zoom, topZ + 0.02, marks[m].step ? 'rgba(214, 164, 64, 0.9)' : 'rgba(80, 160, 90, 0.75)', 1.4);
         }
       }
+      if (view.guide) {
+        for (let m = 0; m < view.guide.length; m++) {
+          if (view.guide[m].x !== c.x || view.guide[m].y !== c.y) continue;
+          const pulse = view.reduce ? 0.5 : 0.5 + 0.5 * Math.sin(t / 260);
+          const gz = topZ + (c.water > 0.03 ? Math.min(c.water, 3.2) : 0) + 0.03;
+          diamond(ctx, pt[0], pt[1] - gz * TZ * cam.zoom, (TW / 2) * cam.zoom * 0.92, (TH / 2) * cam.zoom * 0.92);
+          ctx.fillStyle = 'rgba(255, 214, 92, ' + (0.28 + pulse * 0.3).toFixed(3) + ')';
+          ctx.fill();
+          strokeTop(ctx, pt[0], pt[1], cam.zoom, gz, 'rgba(255, 244, 200, ' + (0.65 + pulse * 0.35).toFixed(3) + ')', 2.2);
+        }
+      }
       if (c.tree) drawTree(ctx, pt[0], pt[1] - topZ * TZ * cam.zoom, cam.zoom, c.tree, t, run.season);
       if (c.bush) drawBush(ctx, pt[0] + 8 * cam.zoom, pt[1] - topZ * TZ * cam.zoom, cam.zoom, c.bush.fruit);
       if (c.building) drawBuilding(ctx, pt[0], pt[1], cam.zoom, c, t, c.building.progress);
