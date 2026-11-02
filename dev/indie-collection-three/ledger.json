@@ -7,8 +7,8 @@
     "built": 26,
     "improved": 26,
     "browserTested": 26,
-    "integrated": 25,
-    "live": 25
+    "integrated": 0,
+    "live": 0
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -21,9 +21,12 @@
     "pendingRenderedUpgrade": null,
     "additionalRoundSourceImplemented": 20,
     "selected": 9,
-    "integrated": 9,
-    "live": 9,
-    "report": "https://github.com/ThatOneMop/study-desk/blob/indie-collection-two-dev/dev/indie-collection-two/FINAL_REPORT.md"
+    "integrated": 0,
+    "live": 0,
+    "report": "https://github.com/ThatOneMop/study-desk/blob/indie-collection-two-dev/dev/indie-collection-two/FINAL_REPORT.md",
+    "historicalIntegrated": 9,
+    "historicalLive": 9,
+    "activeCatalogueNote": "Nine selected batch-two releases were removed by PR110. Development completion/additional-round20/20 and historical evidence are retained; no source restored."
   },
   "rules": [
     "Slots 41–90 are reserved work slots, not playable games. Unassigned slots count as zero.",
@@ -38,13 +41,13 @@
       "id": "stencil-studio",
       "title": "Stencil Studio",
       "coreLoop": "Position and rotate stencils, overlay three ink colours, and reproduce spatial print commissions with limited impressions.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/stencil-studio",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -90,7 +93,7 @@
         "47691bb8005d8d0ecd06a37ff9d8dc8e7a549c48",
         "55da1ef2ffa43989ed034413f19a3cc5b6b69bfb"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/stencil-studio/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Agent design review, not player survey",
         "enjoyment": 3.5,
@@ -102,7 +105,7 @@
         "notes": "Distinct ink-overlay puzzle with reversible planning and targeted repair within a shared operation allowance. Bed-local comparison makes mixed-channel choices legible and the larger readout supports phone use. Three short authored commissions limit depth; best-operation records and alternative repair routes provide modest replay. No audio, extended campaign, physical-device certification, full accessibility certification or content-hours claim."
       },
       "nextSteps": [
-        "Monitor regression evidence; no remaining Stencil integration/release gate. Next third-batch candidate is Moon Dial."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "c7fdaa6bb22f71405466d434b797ec145885390b",
@@ -169,20 +172,28 @@
         "status": "passed",
         "evidence": "GitHub Pages succeeded. Live catalogue has50 entries (49 bundled+1 external), finds Stencil Studio and launches it. Naturally completed Paper garden in3 operations using sea/rose/sun, unlocked Harbour flags; reopened direct game route and saw the3-operation record and completed board retained. In-game Games returns to collection even when top hash already #games; standalone Games and pause/resume work. Live catalogue/app version queries match release; no Switch workspace controls. Desktop live verification; mobile evidence is the passing Chromium touch-emulation regression, not physical-device testing."
       },
-      "testHistoryNote": "tests is chronological: earlier pending/no-rendered statements describe those earlier runs, superseded by verification and integration records."
+      "testHistoryNote": "tests is chronological: earlier pending/no-rendered statements describe those earlier runs, superseded by verification and integration records.",
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/stencil-studio/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
+      }
     },
     {
       "slot": 42,
       "id": "moon-dial",
       "title": "Moon Dial",
       "coreLoop": "Rotate coupled dials while shifting a single clutch to isolate connected components and align every hand to its target.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/moon-dial",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -220,7 +231,7 @@
         "8373de88070626b6a092037f11d38d85fe9b5269",
         "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/moon-dial/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Agent review, not player survey",
         "scale": "1–5",
@@ -232,7 +243,7 @@
         "knownLimits": "Three compact authored mechanisms and best-turn records; no failure penalty, audio, extended campaign or measured content duration. A readable but vertically long phone layout."
       },
       "nextSteps": [
-        "Moon Dial integration and release complete. Preserve compact scope and existing saves. Next candidate: Pebble Rink rendered playtest and substantive improvement."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "f641f0ebe6f76d5ac6aa7cee0a6141de96ff3e9f",
@@ -286,6 +297,14 @@
         "commit": "7b5ab86417d57b6eab7e8de7a8f8fc75d9556250",
         "status": "passed",
         "evidence": "Pages41068656055 succeeded at7b5ab86417d57b6eab7e8de7a8f8fc75d9556250. Live catalogue51 entries/50 bundled, unique Moon Dial search and original cover, moon-20261031 catalogue asset query. Embedded launch: turned A left, rehearsed another left and observed warning that C would leave its moon mark, opened B–C and committed rehearsal to restore first clock in2 turns and unlock garden chime. In-game Games returned to the filtered collection despite unchanged #games hash. Opening direct game URL retained completed board and2-turn record; live screenshot inspected. No Switch workspace controls or publication/cache barrier observed. Live evidence desktop; mobile evidence comes from passing touch-emulated Chromium CI, not a physical device."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/moon-dial/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -293,13 +312,13 @@
       "id": "pebble-rink",
       "title": "Pebble Rink",
       "coreLoop": "Aim, weight and curl three stones; use friction, banks and collisions to leave stones in scoring rings.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/pebble-rink",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -336,7 +355,7 @@
       "integrationCommits": [
         "1a873b4cb4e93c1ab489b371901c5f9a89e79462"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/pebble-rink/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Agent assessment, not player survey",
         "scale": "1–5",
@@ -348,7 +367,7 @@
         "knownLimits": "Three compact rinks and high-score replay. Optional exact forecasts reduce execution difficulty while making collision planning legible. No audio, extended campaign, physical-device testing or measured content-hours claim. Long vertical phone layout."
       },
       "nextSteps": [
-        "No remaining Pebble promotion gate. Continue Pocket Regatta rendered improvement; retain all source and save evidence."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "db3b0fa00d19be493cfe6fcea0619443497cff9f",
@@ -388,6 +407,14 @@
         "pages": "https://github.com/ThatOneMop/study-desk/actions/runs/41096718012",
         "artifact": 12995797971,
         "artifactSha256": "a0ad41b92c1435967ca56282765ebfc184984a6fb36478660f216a10d60f7f52"
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/pebble-rink/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -395,13 +422,13 @@
       "id": "pocket-regatta",
       "title": "Pocket Regatta",
       "coreLoop": "Tack a small sailboat around ordered buoys using wind direction, limited helm turns and short/full sail while avoiding grounding.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/pocket-regatta",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -436,7 +463,7 @@
       "integrationCommits": [
         "0e0549c071974f5b3ce8d7229833a719680a69c2"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/pocket-regatta/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Agent assessment, not player survey",
         "scale": "1–5",
@@ -448,7 +475,7 @@
         "knownLimits": "Three compact fixed-wind courses, solved in10/9/12moves; lower-move records and alternate routes provide modest replay. Long vertical phone layout; no audio, extended campaign, measured content-hours or physical-device claim."
       },
       "nextSteps": [
-        "Retain compact-campaign and phone-scrolling limitations; future player feedback may guide deeper progression."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "be2fd59bca2a9e07b327a86e69edcfbffb842510",
@@ -484,6 +511,14 @@
         "artifact": 13009300148,
         "artifactSha256": "fcc9f34b4ce3caba936ed5a316a0e4cfc87568ae6b7f506170724ae5c4ba04e3",
         "status": "integrated-live"
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/pocket-regatta/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -491,13 +526,13 @@
       "id": "crate-and-cushion",
       "title": "Crate & Cushion",
       "coreLoop": "Rotate and fit parcels around tray braces, cushion a telescope along shared edges and keep the heavy toolbox away before sealing.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/crate-and-cushion",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -535,7 +570,7 @@
       "integrationCommits": [
         "4689624c1cc3df8f3cd9a820fab6d6817cf79d3b"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/crate-and-cushion/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Agent assessment, not player survey",
         "scale": "1–5",
@@ -547,7 +582,7 @@
         "knownLimits": "Three compact fixed four-parcel jobs, each solvable in four placements. Optional adjacency care goals and alternate arrangements offer modest replay, not a long progression campaign. Phone layout still scrolls vertically. No loss condition, audio, measured content-hours or physical-device claim."
       },
       "nextSteps": [
-        "Retain compact three-job scope and vertical phone scrolling limitations; use future player feedback to guide deeper progression."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "38136ca8a412ad4bc3cc3e99a606b4a8ff4d8579",
@@ -589,6 +624,14 @@
         "artifact": 13019616151,
         "artifactSha256": "ed8f91153b6ee094ad01507e079420cf5c1c800beadfd2ef718ef2d49785ab06",
         "status": "integrated-live"
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/crate-and-cushion/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -596,13 +639,13 @@
       "id": "bramble-dice",
       "title": "Bramble Dice",
       "coreLoop": "Keep or reroll four dice, allocate every die to attack, guard or repair against visible enemy intents, then choose stacking equipment between woodland encounters.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/bramble-dice",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -642,14 +685,14 @@
       "integrationCommits": [
         "91155c64be71c4fced8a4c017ebe9e5ab3e0bf44"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bramble-dice/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected after rendered improvement and browser qualification",
         "assessment": "A compact, untimed tactical choice loop adds combat variety beside the five released logistics/sailing/physics games. Exact intent scouting, reserve carry, low-die and mixed-job gear create useful alternatives; plan comparison makes these understandable. Safe deterministic retries and record retention support replay.",
         "knownLimits": "Three authored encounters and two equipment clearings. Sampled complete trails are short; seed variation is not additional authored content. Phone layout requires vertical scrolling. Automated checks are not evidence of human enjoyment or real-device coverage."
       },
       "nextSteps": [
-        "Maintain save compatibility and release regression coverage. Continue next unqualified candidate Needlepath(slot47)."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "d78751b7aeca9bc882c294126ce8dbbd55b826f1",
@@ -688,20 +731,28 @@
         "tests": "32 focused tests pass (15 engine,17 DOM), including all prior 27, comparison swaps without RNG/turn changes, incomplete-plan recovery, invalidation, v1 save compatibility and hidden-shell/reset guards. Script syntax checks pass.",
         "remaining": "Integrated and live; see BRAMBLE_DICE_INTEGRATION.md."
       },
-      "selected": true
+      "selected": true,
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/bramble-dice/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
+      }
     },
     {
       "slot": 47,
       "id": "needlepath",
       "title": "Needlepath",
       "coreLoop": "Route a needle through flower pins with alternating horizontal front stitches and vertical back stitches; use optional guide pins and one costly knot to finish within the thread budget, then optimize ribbons.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/needlepath",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -729,14 +780,14 @@
       "integrationCommits": [
         "68acf01efc054a536a4f61577fde6540928a5eab"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/needlepath/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "reasons": "Relaxed deterministic embroidery routing supplies a distinct puzzle loop alongside released action, racing, dice tactics and craft games. Separate styles create useful knot tradeoffs rather than repetitive additional boards.",
         "knownLimits": "Three compact authored boards and two studies each. 31 original winning action sequences are not 31 levels. Optional advice makes completion quick; no hours or human enjoyment claim. Touch evidence is emulation, not a physical device."
       },
       "nextSteps": [
-        "Preserve this release; continue with Reedbreaker(slot48)."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "df16bfbc9a301c27b56090e4d8030cc3e72b7b00",
@@ -753,6 +804,14 @@
         "artifact": 13027379457,
         "artifactSha256": "98fe35b2f945c324782ec6576fb87272ca5a7cf6395d0afa428c6030b61db71b",
         "report": "dev/indie-collection-three/NEEDLEPATH_INTEGRATION.md"
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/needlepath/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -760,13 +819,13 @@
       "id": "reedbreaker",
       "title": "Reedbreaker",
       "coreLoop": "Walk to recover energy, bait deterministic clockwork beetles near water, then dash up to three squares to shove one off the bank while managing enemy responses and shield.",
-      "status": "selected-integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/reedbreaker",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-10-31",
@@ -805,14 +864,14 @@
       "integrationCommits": [
         "7599ac67644b7e041ab9083f0a64b68b3ce46fbf"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/reedbreaker/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "reasons": "Deterministic positional combat offers distinct spatial decisions beside Bramble Dice allocation, Needlepath route stitching, sailing, packing and printing. Five actions trade energy, position and exposure; named response previews plus reversible turns make experimentation relaxed. Multiple proven approaches include a shorter but more damaging first-bank counter route.",
         "knownLimits": "Three compact authored banks with two beetles each. Four route families are alternate tactics, not twelve levels. Modest best-turn replay; vertically scrolling phone layout; no audio, physical-device testing, human enjoyment study or content-hours claim."
       },
       "nextSteps": [
-        "No blocking Reedbreaker work. Retain three-bank scope honestly; consider richer optional tactical goals only after the remaining batch candidates are qualified."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "8bca0da32edd592e13e4a498b2e33a9ab1594eda",
@@ -862,6 +921,14 @@
         "status": "success",
         "verified": "2026-10-31",
         "evidence": "Live catalogue search and launch; five-turn first-bank win; native Escape reset dismissal and victory undo preserving record5; in-game Games returns to parent Collection; direct game URL loads saved turn4/shield3/energy1. Live assets reedbreaker-20261031; zero Switch workspace controls. Desktop/touch navigation verified in promotion CI."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/reedbreaker/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -869,13 +936,13 @@
       "id": "beepline",
       "title": "Beepline",
       "coreLoop": "Compose a short repeating flight program with forward, glide, turn and conditional Scout commands; debug its route to collect flowers and return to the hive, then optimize command count.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/beepline",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -912,7 +979,7 @@
       "integrationCommits": [
         "7280851f04cf44ecd2e387fdca9858b453661108"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/beepline/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Agent design and visual assessment",
         "enjoyment": 3.5,
@@ -924,7 +991,7 @@
         "notes": "Compact three-garden programming puzzle; normal Scout routes can be simple, while separate pollen-capacity routes and saved-loop comparison support optimization. Clear controls and failure feedback. No audio, long campaign, physical-device or content-hours claim."
       },
       "nextSteps": [
-        "Monitor regressions; next candidate Tumbleglass needs rendered-play improvement."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "882241479028fb664a192b21b05550312ba78e01",
@@ -988,6 +1055,14 @@
         "commit": "7280851f04cf44ecd2e387fdca9858b453661108",
         "status": "passed",
         "evidence": "Pages41186668161 succeeded. Live catalogue58 entries (57bundled+1external), searched and launched Beepline. Naturally completed Clover square F/F/R, kept loop, changed to F/F/L and compared hedge failure against kept completion, restored and returned through in-game Games to Collection. Direct game retained program, kept loop and shortest3 record; pause/resume, native Escape cancellation, Space step and reload retained step1. Live screenshot inspected; desktop live evidence, mobile is CI touch emulation. Catalogue script query beepline-20261031 matches release; no visible Switch workspace controls. No content-hours, human-enjoyment or physical-device claim."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/beepline/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -995,13 +1070,13 @@
       "id": "tumbleglass",
       "title": "Tumbleglass",
       "coreLoop": "Tilt a tray to slide multiple beads; matching sockets lock beads into obstacles, making settling order matter. Undo, solve and optimize tilt counts.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/tumbleglass",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-10-31",
@@ -1040,7 +1115,7 @@
         "c9eebba0c66efd8f8d8979260edb8e2d6307cb62",
         "6ac7007406ff0a3f438b23439a8f09008ee798aa"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/tumbleglass/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "enjoyment": "Agent assessment: calm spatial planning with reversible mistakes; no human enjoyment study.",
@@ -1051,7 +1126,7 @@
         "knownLimits": "No content-hour or physical-device touch claim. Emulated touch and native browser input tested."
       },
       "nextSteps": [
-        "Retain saves and technique records in future regression checks."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "a32f7119573ed337e270ac68279d41ff0219ff18",
@@ -1074,6 +1149,14 @@
         "after": "A single-use bead lift moves one bead one cell independently, including out of a locked socket. Other beads stay still; the lifted bead only locks on its own socket. Blocked actions are free. The adviser includes lifts, and UI tools are mutually exclusive selections. Existing saves replay identically.",
         "evidence": "A tray-1 dead end after clamped-down/right now finishes with left, lift bead 1 right, up, down. All three campaign fixtures finish; exhaustive graph validates advisor distances. Not every dead end is rescued.",
         "remaining": "Rendered play, screenshots, native keyboard/touch, two-tool usability and game balance assessment plus required playtest-led improvement before integration."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/tumbleglass/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1081,13 +1164,13 @@
       "id": "soundings",
       "title": "Soundings",
       "coreLoop": "Place sonar buoys, combine distances to the nearer of two hidden beacons, and choose when to spend scarce fuel on recoveries; notebook deductions narrow possible pairs.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/soundings",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-10-31",
@@ -1127,7 +1210,7 @@
         "c6d53a79b09e753d0ffb0facd5b939b06c8ae8ba",
         "2f773b6603cbfa4cd64a68e73dcc894ff1b737d2"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/soundings/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "enjoyment": "Agent assessment: calm evidence gathering, with planner-supported choices between cheap clues and stronger bearings. No human enjoyment study.",
@@ -1138,7 +1221,7 @@
         "knownLimits": "Compact campaign; best-fuel records across retries/charts are casual, not competitive. Physical touch devices untested."
       },
       "nextSteps": [
-        "Retain survey-planner evidence, v1 saves and native input/Collection guards in future regression checks."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "95bc2808de3dce9257d98bd32eef0fb5c40c6f94",
@@ -1153,6 +1236,14 @@
         "before": "Only nearest distance and two-fuel compass bearings supplied survey evidence.",
         "after": "One-fuel area sweep counts 0–2 active beacons within Manhattan radius two, combines with existing notebook clues and offers a free optional footprint preview. Old journals and no-sweep derived board shapes are preserved.",
         "remaining": "Rendered natural deduction play, screenshot inspection, native keyboard/touch/layout, footprint-versus-certainty clarity and cost/value balance; no completed improvement credit."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/soundings/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1160,13 +1251,13 @@
       "id": "moss-commons",
       "title": "Moss Commons",
       "coreLoop": "Plan connected houses, gardens, wells and paths under a finite timber budget; balance population demand, fertile plots and well adjacency to sustain a small settlement.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/moss-commons",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1205,7 +1296,7 @@
         "f985026af855ee9e58ccf4742515b919dcbe5d0e",
         "0bafbb835af7514b0a92849dcbf10e691ae81e66"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/moss-commons/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Agent design assessment, not player survey",
         "enjoyment": 3.5,
@@ -1217,7 +1308,7 @@
         "notes": "Relaxed village-layout decisions connect irrigation, orchard open-space, local services and limited timber. Conversion recovers early choices while undo offers free redesign. Three compact sites and optional neighbourhood challenges limit scope; no audio, long campaign, physical-device or content-hours claim. Selected for colony-building variety."
       },
       "nextSteps": [
-        "No outstanding Moss Commons release gate. Preserve regression coverage and saves; next candidate is Canopy Weave."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "b77478fc32b11971cb95ca2c3c4e490101a76d8e",
@@ -1253,6 +1344,14 @@
         "evidence": "Rendered garden8→orchard rescue raised food2→7, completed with1 timber, retained save/record on reload and reversed through undo. Native Escape worked. Orchard standard and irrigated second-site wins observed.38 focused checks pass. Candidate CI and desktop/touch screenshot qualification pending.",
         "remaining": "Covered by candidate qualification41197983483 and rendered/screenshot evidence; retained as historical record.",
         "status": "historical-completed-and-verified"
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/moss-commons/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1260,13 +1359,13 @@
       "id": "canopy-weave",
       "title": "Canopy Weave",
       "coreLoop": "Directly rearrange leaf knots in a connected graph so straight vines no longer cross, overlap or pass through unrelated leaves; inspect previews, undo and optimize moves.",
-      "status": "selected-integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/canopy-weave",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1301,7 +1400,7 @@
       "integrationCommits": [
         "d2331ff75e78e9290135d970e9f6911693554469"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/canopy-weave/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "enjoyment": "Clear manipulate-inspect-compare-place loop; compact constraints add spatial tradeoffs without penalties.",
@@ -1312,7 +1411,7 @@
         "knownLimits": "Short campaigns, no loss state or generated levels. Automated routes do not establish human enjoyment or content hours. Phone controls use vertical scrolling; physical devices untested."
       },
       "nextSteps": [
-        "Preserve v1 saves and include in later catalogue regression."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "6323c0ad2d22b7fff31156ed5ac4017c6e4298c6",
@@ -1329,6 +1428,14 @@
         "screenshots": "Inspected initial trellis, sunwheel before/after moves, compact reach/overstretch baseline. No mobile or complete three-trellis qualification.",
         "next": "Implement a substantive game-specific improvement to conflict diagnosis/planning based on the observed dense compact layout; fix text-selection dragging and verify naturally, then full browser qualification.",
         "credit": "Baseline only; no completed improvement/browser-tested/integration/live credit."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/canopy-weave/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1336,13 +1443,13 @@
       "id": "kiln-chorus",
       "title": "Kiln Chorus",
       "coreLoop": "Schedule a shared kiln: manage fuel and chamber heat while pieces respond at different speeds, accumulate glaze marks in distinct bands, and draw each before it overheats.",
-      "status": "selected-integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/kiln-chorus",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1384,14 +1491,14 @@
       "integrationCommits": [
         "a3ae6518560e4452736cdeb711c8f4d887c3f03e"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/kiln-chorus/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "assessment": "Agent review: thermal lag, glaze bands, shared heat, drawing order and one-use isolation provide a distinct relaxed scheduling loop. Rehearsal makes multi-step experimentation practical. Selected for manual craft variety alongside the existing graph, colony, deduction and movement games.",
         "knownLimits": "Three compact authored loads; no long campaign or duration claim. Fuel records support economical replay but best routes are not retained separately. The action list scrolls at twelve steps and pottery/actions occupy different vertical regions on phones. Touch-emulated Chromium evidence is not physical-device testing."
       },
       "nextSteps": [
-        "Preserve v1 saves and include in later catalogue regression."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "f1601ef4e23d35349772a7bb78d8628fb2184d61",
@@ -1414,6 +1521,14 @@
         "observedWeakness": "All three small authored loads finish quickly, with replay currently only a numeric fuel record. In narrow firing an immediately safe Stoke creates a delayed overheating trap on Bank; comparing future action sequences requires committing/undoing or mentally tracking temperatures, and the saved best record does not retain its route for study. After drawing, selection remains on the now-disabled draw action until another action is selected. The artwork is legible but pieces and controls occupy separate vertical screen regions. After overheating a ready piece, its card still says 'Glaze ready — draw when safe' even though the whole load is terminal; correct that feedback in the next pass.",
         "next": "Use this baseline for a substantial scheduling/replay improvement; consider a recorded firing-plan study with branchable multi-action rehearsal or additional player-chosen firing constraints, not repetitive extra loads. Verify loss/undo/retry, keyboard/touch/mobile and real catalogue navigation. No improvement credit yet.",
         "credit": "Baseline only: built remains true, improved/browserTested/integrated/live remain false."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/kiln-chorus/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1421,13 +1536,13 @@
       "id": "field-album",
       "title": "Field Album",
       "coreLoop": "Choose a habitat survey, open three wildlife cards, draft two and arrange a twelve-space field page to combine terrain matches, clover–bee links, frog plant diversity and robin solitude.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/field-album",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1466,14 +1581,14 @@
       "integrationCommits": [
         "d75347a231716401b095cd5f95eb344c77ad7efe"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/field-album/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "assessment": "Distinct relaxed card drafting and habitat placement. The field pocket plans across drafts; direct swaps repair choices without redrafting. Ecology relationships offer objectives beyond dominant bee/clover score chains, and previews explain consequential tradeoffs. Original wildlife artwork and terrain patterns are readable in reviewed screenshots.",
         "knownLimits": "Three compact terrain pages, six species and six surveys each; seeds vary packets only. Study confirmations derive from the current page rather than permanent medals. Proven routes are beam-search solutions, not optimality or enjoyment evidence. Phone controls require vertical scrolling. A missed current target still shows unlock guidance even when earlier records already unlocked that trail; access remains available in Trails."
       },
       "nextSteps": [
-        "Maintain regression coverage; no release blocker."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingSourceRefinement": {
         "commit": "edeb533554ea7b7b96e7f2070e8c9c7162130f91",
@@ -1518,6 +1633,14 @@
         "commit": "d75347a231716401b095cd5f95eb344c77ad7efe",
         "deploymentRun": 41279987508,
         "evidence": "Pages succeeded. Live catalogue67total/66bundled loads catalog.js?v=field-album-20261101. CUA launched real iframe, completed three surveys34points, reloaded into Survey4, completed Home Meadow73points/Pollinator network confirmed, verified outer pause/resume and in-game Games return. Standalone published URL retained completed73point save and confirmed study. No Switch workspace controls or cache mismatch observed."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/field-album/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1525,13 +1648,13 @@
       "id": "ribbon-reef",
       "title": "Ribbon Reef",
       "coreLoop": "Draw free-form closed nets around exact fish orders, leave coral and protected rays outside, choose groups from the remaining shoal and improve total rope use.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/ribbon-reef",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-01",
@@ -1574,7 +1697,7 @@
         "11d5ee3774e86fa4b1e7fb14bea432d685e080cf",
         "425044f92c98e4800c74e3a3e3b8fb2a11c0e427"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/ribbon-reef/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Agent assessment: a readable, relaxed net-planning loop with immediate catch feedback and reversible experimentation; not a human enjoyment measurement.",
@@ -1585,7 +1708,7 @@
         "knownLimits": "Three static authored reefs, nine deliveries. No physical phone testing, optimality proof, human enjoyment score or duration claim."
       },
       "nextSteps": [
-        "Preserve save compatibility and include in future catalogue regression."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingCornerRefinement": {
         "commit": "1aa2b5566a423156d1a33166fb112fab33c74735",
@@ -1601,6 +1724,14 @@
         "after": "Optional pinned corners, removable last corner and explicit closure; keyboard aim/pin/close then haul; existing closed-net editing and v1 saves retained.",
         "validation": "26 engine/DOM checks passed, including complete pinned routes on all three reefs and save/pointer/keyboard/pause guards. Natural rendered baseline Sandbar1480, partial reload1000; post-change Coral Arch concave two-silver catch745 retained on reload. Screenshots inspected. Full rendered desktop/touch qualification pending. A390px-wide iframe with desktop pointer completed Coral Arch with pinned nets745/560/860=2165rope,0frays, and retained completion/record on reload. Phone-width screenshots inspected: readable controls, no evident clipping, vertical scrolling; not native touch.",
         "credit": "Qualified on 1 November after full rendered desktop/touch suite and screenshot inspection."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/ribbon-reef/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1608,13 +1739,13 @@
       "id": "bellwether",
       "title": "Bellwether",
       "coreLoop": "Position a dog to nudge nearby sheep away, whistle distant sheep closer, and steer a simultaneous flock around rocks into a shelter gate with exact pre-move forecasts.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/bellwether",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-01",
@@ -1658,7 +1789,7 @@
         "11d5ee3774e86fa4b1e7fb14bea432d685e080cf",
         "425044f92c98e4800c74e3a3e3b8fb2a11c0e427"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bellwether/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Agent assessment: deliberate reversible flock planning with clear reactions and optional help; no human enjoyment study.",
@@ -1669,7 +1800,7 @@
         "knownLimits": "Three authored meadows; bounded adviser cannot solve every starting position within its25000-state budget and reports uncertainty. No physical-device, duration or human enjoyment claim."
       },
       "nextSteps": [
-        "Preserve save compatibility and include in future catalogue regression."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingQuietRefinement": {
         "commit": "56f433122a9298ebf22af4686e2be4b0e62f4366",
@@ -1713,6 +1844,14 @@
         "after": "Optional nudge/call range from proposed dog position and per-sheep wait/movement explanations; pure preview with unchanged v1 saves.",
         "evidence": "43 checks pass (21 engine/22 DOM), including predicted-position ranges, read-only overlay toggles, quiet and named/no-response calls and pause. Natural desktop play completed Clover gate in12steps and Willow passage in9 via normal controls/optional adviser; first completion survived reload. Third meadow adviser correctly reports bounded uncertainty. No full third-meadow/touch/catalogue credit.",
         "remaining": "Completed by rendered qualification above; historical source-only work is not counted as a separate qualified pass."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/bellwether/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1720,13 +1859,13 @@
       "id": "rill-root",
       "title": "Rill & Root",
       "coreLoop": "Cut and fill a height field with conserved soil to route a downhill stream, split its flow and water two root beds.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/rill-root",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-01",
@@ -1764,7 +1903,7 @@
       "integrationCommits": [
         "3bf083bbcfbf11ee5cadbe669b079b74a7a62d1a"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/rill-root/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Agent assessment: reversible soil planning and readable water consequences encourage experimentation without losing an existing layout; no human enjoyment study.",
@@ -1775,7 +1914,7 @@
         "knownLimits": "Three gardens, no claim of long campaign or physical-device testing. Embedded catalogue regression and live release still pending."
       },
       "nextSteps": [
-        "Preserve save compatibility and include in future catalogue regression."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingWeirRefinement": {
         "commit": "c6a8e38d7b7e6550e765a3b71e8002693d7f8cd3",
@@ -1811,6 +1950,14 @@
         "after": "Optional separate multi-action rehearsal for soil/weir/pump changes, live water/soil comparison with original, draft-only undo, discard or explicit commit. Records unchanged until a later pour; draft cleared by pause/hide/dialog and never persisted.",
         "evidence": "38 passing local checks (17engine,16DOM,5actual-bridge/jsdom), retaining34 previous. Draft campaign commits/reloads all3gardens; original comparison, no-save/no-award preview, undo boundary, cancel/pause/modal/parent hiding and pump planning. Natural rendered desktop: third garden planned8earthworks, compared original6trapped/0caught to draft0trapped/3+3caught, committed/poured, reloaded best8; nativeEscape retry, undo and pause-discard verified. Screenshots inspected. Full mobile/touch/catalogue qualification pending; repository checks subsequently passed. Repository CI 41287198092 at 48eac849d077ee3cf5f020894f070e6d7779a33c passed: all38 focused checks,63 bundled routes/231 HTML asset references, source syntax/Freedoom structure and nine selected first-batch routes with source hashes, links and credits. These are automated checks, not mobile/touch qualification.",
         "remaining": "Qualified by desktop/touch-emulated browser run41291596000 and inspected screenshots. Public integration pending."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/rill-root/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1818,13 +1965,13 @@
       "id": "fallow-table",
       "title": "Fallow Table",
       "coreLoop": "Schedule planting, cross-watering and harvests across a small growing season; rotate crops, replenish soil with beans and use companion shade to fill a supper basket.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/fallow-table",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "pass": 1,
@@ -1861,7 +2008,7 @@
       "integrationCommits": [
         "6e3b9eb9f99b8d4994d9dc6ff71834284f3840b9"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/fallow-table/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected for catalogue regression",
         "enjoyment": "Relaxed deliberate farming with no real-time pressure; natural first-garden play established readable food-versus-shade choices. No human enjoyment rating claimed.",
@@ -1872,7 +2019,7 @@
         "limitations": "Small authored campaign; no hours-of-content claim, physical-device certification or human enjoyment evidence. Real catalogue regression still required."
       },
       "nextSteps": [
-        "Preserve v1 saves and include in future catalogue regressions."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingManureRefinement": {
         "commit": "8c76be91383d2363ba845e07b52a2057c73f20eb",
@@ -1908,6 +2055,14 @@
         "verificationRun": 41309214782,
         "pagesRun": 41309422300,
         "validation": "Release CI41309214782 passed37 focused tests, nine garden strategies on each of desktop/touch Chromium, real catalogue search/group/sort/favourite and earned first-garden completion, pause with pending confirmation, Collection/Games return and restart/save retention. Five catalogue/shell suites passed, including71 launch routes;70 bundled routes/346 HTML references and all9 first-batch source integrity checks passed. Initial CI41308990488 passed gameplay/browser work but stopped at stale expected count69; fixed to71 with explicit Rill & Root/Fallow assertions. Original cover/catalogue, touch job preview and saved-return screenshots from that run were inspected; only regression assertions changed afterward. Final artifact13084702253 SHA256994c5a63b14d5d2c552633068d64e1750cdc3ea32f8b148b294a2f4c610e4f2e preserves63 files. Pages41309422300 succeeded. Live CUA completed Kitchen garden through comparison controls with13points, reloaded record, returned via Games, searched and launched from current catalogue, then verified embedded Games return/reopen retaining basket4/4/5 and record13. Live catalog.js?v=fallow-table-20261101 matches release; no Switch workspace button observed. Live screenshot inspected. No physical-device or human enjoyment claim."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/fallow-table/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1915,13 +2070,13 @@
       "id": "seedwake",
       "title": "Seedwake",
       "coreLoop": "Lift and sow whole handfuls around an eight-bed ring; bloom exact final landings into a three-species bouquet while budgeting reverse-direction gusts and preserving seeds for later requests.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/seedwake",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -1960,7 +2115,7 @@
       "integrationCommits": [
         "059f7d64b95bca528098eed23d8f5c70914922dc"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/seedwake/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected after rendered qualification",
         "enjoyment": "Calm experimentation with consequential seed conservation; planning branches remove repeated destructive trial-and-undo.",
@@ -1971,7 +2126,7 @@
         "limits": "Agent and automated evidence, not a human enjoyment study or physical-device certification. No content-duration claim."
       },
       "nextSteps": [
-        "Preserve v1 saves; revisit only for observed player issues."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingReserveRefinement": {
         "commit": "e6beab4bf5bedb9569efe379e5f65d85781e4673",
@@ -1992,6 +2147,14 @@
         "before": "A pending reset or corrupt-save recovery could commit while hidden, and Resume lacked a persistent hidden-state guard. Keyboard shortcuts could act during composition or editable-text input.",
         "after": "Parent hiding and document visibility independently guard actions/resume/confirmations; returning stays paused. Confirmation can be cancelled and reopened after explicit resume. Composition and editable text are excluded from shortcuts.",
         "verification": "Real bridge loaded with simulated parent and dialog stubs; rendered/native dialog verification pending."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/seedwake/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -1999,13 +2162,13 @@
       "id": "foldlight",
       "title": "Foldlight",
       "coreLoop": "Reflect and turn over layered two-sided paper stacks across chosen creases, matching a window pattern's occupied panes, top colours and layer counts.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/foldlight",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2040,7 +2203,7 @@
       "integrationCommits": [
         "b29871a0b241f7de269b94eeaa603c5bf453a688"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/foldlight/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected for catalogue integration testing",
         "enjoyment": "Relaxed no-clock folding with free inspection, reversible mistakes and two-sided layer reasoning; review is agent playtesting, not human enjoyment measurement.",
@@ -2051,7 +2214,7 @@
         "knownLimits": "No folding animation or audio. Long layer stacks scroll; mobile boards stack vertically. Physical touch-device testing and full embedded catalogue regression not claimed."
       },
       "nextSteps": [
-        "Preserve live source and saves; revisit improvements only from new feedback or evidence."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingUnderRefinement": {
         "commit": "bb255e048f6cbccea5d103460df6fe22d904c949",
@@ -2082,6 +2245,14 @@
         "testing": "32 focused checks pass (14 engine,18 jsdom). Original rendered campaigns completed through controls in 3/4/5 moves; first and third records reloaded. Over/under planned stack order compared in rendered browser. 390px iframe board and 24-layer inspector screenshots inspected; native Escape followed by enabled Undo verified. Added embedded same-origin Collection navigation and close-event refresh tests.",
         "limits": "390px iframe is narrow-layout evidence, not touch input. Full rendered under/turnover campaigns, loss/retry and recovery/visibility suite, actual catalogue navigation, full repository CI and selection pending. No qualification count increase; no human-enjoyment or duration claim.",
         "qualification": "Completed 2026-11-02 with rendered desktop/touch-emulated regression and reviewed screenshots. Actual catalogue integration remains pending."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/foldlight/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -2089,13 +2260,13 @@
       "id": "thimble-fair",
       "title": "Thimble Fair",
       "coreLoop": "Choose thread bundles against visible rival bids and alternating tie priority, fund three textile commissions through careful purchases and delivery coin refunds.",
-      "status": "integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/thimble-fair",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2126,7 +2297,7 @@
       "integrationCommits": [
         "4b29234b174535655c8ed03f424f162bdd03bf89"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/thimble-fair/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "enjoyment": "Open bids make outcomes legible; choosing useful materials and immediate coin refunds gives short, deliberate turns. Tray exposes mutually exclusive weaving choices without prescribing a route.",
@@ -2137,7 +2308,7 @@
         "knownLimits": "Compact fairs: premium routes measured at three auctions and conservative route within six purchases; procedural fair numbers vary the same small ruleset. No audio or purchase animation. No long-duration or human enjoyment claim."
       },
       "nextSteps": [
-        "No release blocker. Keep this compact game and its v1 saves intact while progressing to Bramble Pact63."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingExchangeRefinement": {
         "commit": "ec1c3e57cc6f11858c639e166f86f1213036b8b5",
@@ -2152,20 +2323,28 @@
         "after": "Parent hiding and document visibility independently guard actions/resume/confirmations; returning stays paused. Confirmation can be cancelled and reopened after explicit resume. Composition and editable text are excluded from shortcuts.",
         "verification": "Real bridge loaded with simulated parent and dialog stubs; rendered/native dialog verification pending."
       },
-      "report": "dev/indie-collection-three/THIMBLE_FAIR_INTEGRATION.md"
+      "report": "dev/indie-collection-three/THIMBLE_FAIR_INTEGRATION.md",
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/thimble-fair/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
+      }
     },
     {
       "slot": 63,
       "id": "bramble-pact",
       "title": "Bramble Pact",
       "coreLoop": "Open-hand trick-taking harvest puzzles: follow suit, plan around changing wind trumps, deliberately lose unwanted harvests, and spend one woodland offer to fulfil exact basket promises.",
-      "status": "selected-integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/bramble-pact",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2201,14 +2380,14 @@
       "integrationCommits": [
         "2be6f78be6c469a60593c4e4181374e4d277cda5"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bramble-pact/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Qualified; recommended for catalogue regression and integration",
         "assessment": "Distinct open-hand trick-taking harvest puzzle within the slate: deliberately losing tricks, changing wind trumps, exact baskets and one offer/invitation create useful planning choices. The rendered two-trick sketch makes lead manipulation understandable without committing exploratory moves. Desktop and narrow touch-emulated controls and text are readable; completed automated campaigns support reliability.",
         "knownLimits": "Three compact fixed six-trick puzzles, deterministic neighbours and exact previews. Finite puzzle content rather than a long campaign or adaptive opponent. No audio, physical-device test, human enjoyment study or duration claim."
       },
       "nextSteps": [
-        "Preserve released source and v1 saves; collect future feedback. No duration or human-enjoyment testing claim."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingInvitationRefinement": {
         "commit": "35af85ed98c71bfb35616c97d50ff9e854db4eff",
@@ -2225,6 +2404,14 @@
         "after": "Optional two-trick sketch enumerates legal next cards and available offer/invitation variants, shows all three follow-up plays and cumulative baskets, remaining needs, overflow and final promise outcome. Current play commits only the current action. Sketch changes never mutate the save; changing the first action invalidates the old follow-up. Native dialog close restores controls; embedded Games requests Collection.",
         "evidence": "35 engine/DOM tests pass locally, retaining31 prior checks. Direct rendered first-picnic win and save/reload; compared Leaf3 loss to Wren versus Leaf6 win after Moss takes lead; verified chosen hypothetical Leaf6 was not committed when actually playing Leaf3 next. Native Escape returned enabled restart.390px iframe planner layout and card/offer selection inspected. Narrow iframe is layout evidence, not touch-emulation evidence.",
         "remaining": "Qualification completed in41344779629; see improvementPasses. Catalogue regression/integration remain."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/bramble-pact/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -2232,13 +2419,13 @@
       "id": "bough-balance",
       "title": "Bough Balance",
       "coreLoop": "Arrange weighted paper birds across nested hanging beams; balance every local torque while whole child-beam masses load their parents. Swap and remove ornaments with exact forecasts.",
-      "status": "selected-integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/bough-balance",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2275,14 +2462,14 @@
       "integrationCommits": [
         "5d3f603a13f810e94def906b0960d71c3c86be83"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bough-balance/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "assessment": "Distinct relaxed nested-torque puzzle. Whole-child mass versus local pull creates multi-beam planning; hook comparisons and load breakdown make tradeoffs understandable. Brass weight adds four optional opening arrangements with an independent record. Original paper-bird graphics, readable controls/meters and reliable reversible play fit the relaxed slate.",
         "knownLimits": "Three fixed compact mobiles, brass only on opening; finite puzzle content. Schematic does not animate imbalance; phone diagram labels are small, with readable text meters/buttons as the primary controls. No audio, physical-device testing, human enjoyment study or duration claim."
       },
       "nextSteps": [
-        "Preserve released v1 saves and collect feedback; no duration or human enjoyment claim."
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
       ],
       "pendingBrassRefinement": {
         "status": "rendered-qualified",
@@ -2302,6 +2489,14 @@
         "evidence": "30 engine/DOM tests passed locally and CI41355006711. Rendered second mobile win via comparison controls and deep-canopy win/reload; native Escape restored controls after close.390px iframe comparison inspected and selected H6 forecast verified. Narrow iframe is layout evidence, not touch emulation.",
         "remaining": "Released and live verified; preserve v1 saves.",
         "repositoryChecks": "CI 41355354337 passed on b67a19b09f90dc2ece25728ea54b7feebf7170e2: 30/30 focused tests; 74 bundled routes / 286 HTML references with no missing assets; source syntax and Freedoom structure; nine selected first-batch source hashes, bridge/catalogue links and credits. Missing published assets were restored additively from observed main in 2bc911b and shared favicon in b67a19b. Main was not edited."
+      },
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/bough-balance/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
       }
     },
     {
@@ -2309,13 +2504,13 @@
       "id": "glimmer-loom",
       "title": "Glimmer Loom",
       "coreLoop": "Place and reuse a limited supply of slash/backslash mirrors to route two independent coloured rays around shades into matching edge receivers; every mirror affects either colour.",
-      "status": "selected-integrated-live",
+      "status": "qualified-retired-from-active-catalogue",
       "source": "games/glimmer-loom",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": true,
-      "live": true,
+      "integrated": false,
+      "live": false,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2349,7 +2544,7 @@
       "integrationCommits": [
         "c9b13036692fd9a63854ab24a67eb2ca54043161"
       ],
-      "publishedUrl": "https://thatonemop.github.io/study-desk/games/glimmer-loom/index.html",
+      "publishedUrl": null,
       "quality": {
         "status": "Selected, integrated and live",
         "observedWeakness": "Rendered ray paths are readable but mirror glyphs are small and partly obscured by rays. Selection is weakly indicated and orientation effects require committing then undoing. Three tiny fixed puzzles offer limited replay choices.",
@@ -2357,15 +2552,23 @@
         "assessment": "Distinct relaxed optical puzzle: shared mirrors affect both coloured routes, constrained stock requires reuse, and reversible sketches support planning without a timer. Readable original SVG optics and reliable input/save behavior justify a compact puzzle selection. Three finite authored windows; no claim of long-form content."
       },
       "nextSteps": [
-        "Preserve v1 saves and collect feedback; compact finite puzzle scope."
-      ]
+        "Preserve qualified development source and historical release evidence; do not restore to main against PR110 curation."
+      ],
+      "historicalRelease": {
+        "integrated": true,
+        "live": true,
+        "publishedUrl": "https://thatonemop.github.io/study-desk/games/glimmer-loom/index.html",
+        "withdrawnBy": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+        "pullRequest": 110,
+        "date": "2026-11-02"
+      }
     },
     {
       "slot": 66,
       "id": "mycelium-yard",
       "title": "Mycelium Yard",
       "coreLoop": "Run a six-bed mushroom business: choose one of six buyers, sequence mixed-species baskets and fresh Blue bell harvests, budget three daily jobs against rain, reinvest delivery bonuses and collect persistent buyer badges.",
-      "status": "qualified-selected-awaiting-integration",
+      "status": "qualified-release-held-by-current-curation",
       "source": "games/mycelium-yard",
       "built": true,
       "improved": true,
@@ -2408,9 +2611,8 @@
         "assessment": "Ordered mixed baskets and freshness create crop-timing and rain decisions beyond the easy sales goals. Six optional badges support distinct replay plans without increasing the ten-morning run length. Fixed phone actions and visible income/job feedback remove repeated selection-to-action scrolling. Promising relaxed strategy candidate; full browser qualification and comparative selection still required."
       },
       "nextSteps": [
-        "Integrate selected source, original cover, catalogue entry and credits on freshly read main; preserve all concurrent work.",
-        "Run real catalogue search/filter/favourite/launch, pause/Collection and save-return regressions on desktop/touch.",
-        "Verify Pages and live route; then begin slot67."
+        "Preserve the qualified game on development branch. PR110 exact14 catalogue supersedes the earlier integration assumption; do not silently add or restore games.",
+        "Continue independent development of remaining candidates; public integration scope must be reconciled before releases."
       ],
       "selection": {
         "selected": true,
@@ -2852,11 +3054,12 @@
     }
   ],
   "nextSteps": [
-    "Integrate qualified Mycelium Yard66 and verify actual catalogue/live behavior.",
-    "Implement remaining24 distinct third-batch slots67–90."
+    "Continue remaining24 candidate slots67–90 on development branch, retaining exactly50 slots.",
+    "Hold public integration until current14-game catalogue scope and new releases are reconciled. Do not restore retired titles or weaken current-main curation tests.",
+    "Keep active counts distinct from historical integrations; preserve second-batch sources and its completed additional round."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "e148ea2a0628a581c54441db8a24535f39c89e39",
+  "latestObservedMain": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -4018,6 +4221,72 @@
       "commit": "9c0e0c5a0956bf460e538da4f4c99318300e29ee",
       "run": 41403641547,
       "result": "Qualified and selected after keyboard/migration/negative-harvest/visibility/navigation checks.26 built/improved/browser-qualified;25 integrated/live. No new improvement pass counted;24 unbuilt."
+    },
+    {
+      "date": "2026-11-02",
+      "result": "Detected merged PR110 deliberate14-game curation; main preserved. Live catalogue14 and Mycelium search0 verified; Pages41407777399 successful. Added seven-test release preflight, blocked Mycelium proposal against exact14 policy. Corrected25 third-batch active integrated/live flags to0 while preserving historical evidence. No game or improvement counted.",
+      "main": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+      "retiredIds": [
+        "stencil-studio",
+        "moon-dial",
+        "pebble-rink",
+        "pocket-regatta",
+        "crate-and-cushion",
+        "bramble-dice",
+        "needlepath",
+        "reedbreaker",
+        "beepline",
+        "tumbleglass",
+        "soundings",
+        "moss-commons",
+        "canopy-weave",
+        "kiln-chorus",
+        "field-album",
+        "ribbon-reef",
+        "bellwether",
+        "rill-root",
+        "fallow-table",
+        "seedwake",
+        "foldlight",
+        "thimble-fair",
+        "bramble-pact",
+        "bough-balance",
+        "glimmer-loom"
+      ]
     }
-  ]
+  ],
+  "historicalTotals": {
+    "built": 26,
+    "improved": 26,
+    "browserTested": 26,
+    "integrated": 25,
+    "live": 25,
+    "asOf": "Before main PR110",
+    "note": "Historical integration/live accomplishments retained; active totals below reflect current catalogue."
+  },
+  "releaseGate": {
+    "status": "held-current-curation",
+    "reason": "Main PR110 explicitly enforces an exact14-game slate and removed the prior batch releases. Preserve concurrent cleanup.",
+    "main": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+    "pullRequest": "https://github.com/ThatOneMop/study-desk/pull/110",
+    "pagesRun": 41407777399,
+    "allowedIds": [
+      "gummy-bay",
+      "autumn-drift",
+      "little-lake",
+      "lost-found",
+      "moon-salvage",
+      "tiny-wilds",
+      "forge-arena",
+      "roof-runner",
+      "ashwake",
+      "winterfold",
+      "spanwright",
+      "creekhold",
+      "lanewright",
+      "harvest-protocol"
+    ],
+    "preflight": "dev/indie-collection-three/release-preflight.cjs",
+    "note": "Run preflight against freshly fetched main and use expected_sha lease. This is an opt-in development check, not a server-side GitHub branch rule."
+  }
 }

@@ -1,0 +1,57 @@
+{
+  "observedSha": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+  "expectedSha": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
+  "currentIds": [
+    "gummy-bay",
+    "autumn-drift",
+    "little-lake",
+    "lost-found",
+    "moon-salvage",
+    "tiny-wilds",
+    "forge-arena",
+    "roof-runner",
+    "ashwake",
+    "winterfold",
+    "spanwright",
+    "creekhold",
+    "lanewright",
+    "harvest-protocol"
+  ],
+  "proposedIds": [
+    "gummy-bay",
+    "autumn-drift",
+    "little-lake",
+    "lost-found",
+    "moon-salvage",
+    "tiny-wilds",
+    "forge-arena",
+    "roof-runner",
+    "ashwake",
+    "winterfold",
+    "spanwright",
+    "creekhold",
+    "lanewright",
+    "harvest-protocol",
+    "mycelium-yard"
+  ],
+  "policy": {
+    "allowedIds": [
+      "gummy-bay",
+      "autumn-drift",
+      "little-lake",
+      "lost-found",
+      "moon-salvage",
+      "tiny-wilds",
+      "forge-arena",
+      "roof-runner",
+      "ashwake",
+      "winterfold",
+      "spanwright",
+      "creekhold",
+      "lanewright",
+      "harvest-protocol"
+    ],
+    "source": "https://github.com/ThatOneMop/study-desk/pull/110",
+    "commit": "fa57730f70904ae5f15e47fe0c7e55dc28144c88"
+  }
+}
