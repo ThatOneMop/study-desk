@@ -8,7 +8,7 @@ for(let buyer=0;buyer<6;buyer++){
  for(const a of plan.actions){
   if(a.bed!==undefined){await click('#bed-'+a.bed);if(touch){const box=await p.locator('#actions').boundingBox();A.ok(box.y>=0&&box.y+box.height<=845)}}
   await click(a.type==='buyer'?'#buyer-'+a.buyer:a.type==='plant'?'#crop-'+a.kind:'#'+a.type);
-  const saved=await raw(),state=E.decode(saved);
+  const saved=await raw(),state=E.decode(saved);A.match(await p.locator('#budget').innerText(),new RegExp(state.jobs+' jobs left'));if(touch){const b=await p.locator('#log').boundingBox();A.ok(b.y>=0&&b.y+b.height<=845)}
   if(a.type==='plant'&&a.kind===1){await p.locator('#bed-'+a.bed).scrollIntoViewIfNeeded();await p.screenshot({path:path.join(out,(touch?'touch':'desktop')+'-buyer-'+buyer+'-blue.png')})}
   if(state.order.stage>beforeStage){beforeStage=state.order.stage;await p.locator('.orders').scrollIntoViewIfNeeded();await p.screenshot({path:path.join(out,(touch?'touch':'desktop')+'-buyer-'+buyer+'-basket-'+beforeStage+'.png')})}
   await p.reload();await p.locator('#bed-0').waitFor();A.equal(await raw(),saved);
