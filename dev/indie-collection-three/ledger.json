@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 27,
+    "built": 28,
     "improved": 27,
     "browserTested": 27,
     "integrated": 0,
@@ -2683,21 +2683,35 @@
     },
     {
       "slot": 68,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "bell-diver",
+      "title": "Bell Diver",
+      "coreLoop": "Plan oxygen-limited dives from a safe bell, collect weighted salvage and lost instruments, return to bank cargo, and choose tank or fin upgrades. Heavy bags cost extra air on ascent; pockets restore air and rescue drops only unbanked finds.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/bell-diver",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "Baseline CI41434407214 passed on3d3da404ea645461acbc66b4be71a903a238b64c: six engine checks and two complete rendered three-wreck expeditions in desktop1280x1000 and390x844 touch-emulated Chromium. Per-action reload, salvage banking, tank/fins purchases, instrument progression, completed-expedition replay retention, natural empty-bag oxygen rescue, abandonment/retry, native Escape, keyboard movement, pause, corrupt/quota recovery, standalone Games return and no horizontal overflow/page errors pass. Engine tests separately cover loaded rescue and bank/gear preservation, heavy ascent cost, pockets, malformed saves and capacity.74 bundled routes/286 HTML references and nine first-batch selected-source integrity checks pass. Artifact13135019593 SHA256531827e5c4b21d208d4353ae095c4d5535460ece4d4a37dc54a6ae70d28bc794 verified. Desktop first-wreck and touch third-wreck screenshots inspected."
+      ],
+      "commits": [
+        "3d3da404ea645461acbc66b4be71a903a238b64c"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline only; not selected.",
+        "observedWeakness": "A safe single-item-at-a-time route retrieves every find and instrument without using any air pocket or triggering rescue. Unlimited bell refills make cautious repeated trips dominant and dilute cargo/oxygen choices. Touch screenshot puts movement/collection controls below the full seven-row map; generic initial instructions return after reload.",
+        "knownLimits": "Three short fixed wrecks, simple geometric symbols, no audio or procedural replay. Not human enjoyment research or physical-device testing. Full shell/input qualification and substantial rendered-play improvement remain."
+      },
+      "nextSteps": [
+        "Improve oxygen/cargo decisions so larger-load route planning has a useful tradeoff over repeated safe solo pickups; preserve forgiving base saves.",
+        "Keep phone movement/collection controls and current cell information visible alongside the map; replace ambiguous bell/diver symbols with readable original art.",
+        "Rendered-test the upgrade, loss with loaded cargo, pocket use, restart/replay and saves, then qualify keyboard/bridge/hidden state before selection."
+      ]
     },
     {
       "slot": 69,
@@ -3097,10 +3111,10 @@
     }
   ],
   "nextSteps": [
-    "Implement remaining23 original candidates in slots68–90, each with rendered baseline and substantive improvement.",
-    "Switchyard Post67 is qualified reserve; Mycelium Yard66 remains selected but release-held.",
-    "Hold public integration until exact14 catalogue scope and new releases are reconciled; preserve retired source and historical release evidence.",
-    "Preserve second-batch20/20 additional round and all concurrent work."
+    "Prioritize Bell Diver68's rendered weaknesses: meaningful oxygen/cargo decisions, visible phone actions and clearer visual identity. Baseline is not an improvement pass.",
+    "Then implement remaining22 original candidates in slots69–90 with rendered baselines and substantial improvements.",
+    "Retain Switchyard Post67 as qualified reserve; Mycelium Yard66 is selected but release-held.",
+    "Public integration remains held by exact14 curation; preserve main, historical source and second-batch20/20 additional round."
   ],
   "updated": "2026-11-02",
   "latestObservedMain": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
@@ -4315,6 +4329,12 @@
       "result": "Qualified Switchyard Post67 through real-bridge desktop/touch hidden-state, save-isolation and input checks; all core-loop regression passed and screenshots inspected. Reserve selection recorded for limited depth. Third batch27 built/improved/qualified;0 active integrated/live. No new game or improvement pass counted;23 candidates remain. Main unchanged.",
       "commit": "27d5a18042f6e406f10337eeb9aa69739ed96831",
       "report": "dev/indie-collection-three/SWITCHYARD_POST_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-02",
+      "result": "Built original candidate68 Bell Diver and verified six engine checks plus two desktop/touch three-wreck expeditions. Screenshots inspected and concrete balance/control weaknesses recorded.28 built/27 improved/27 fully-qualified/0 active integrated/live. Baseline only; no new improvement counted.22 slots unbuilt. Main unchanged.",
+      "commit": "3d3da404ea645461acbc66b4be71a903a238b64c",
+      "report": "dev/indie-collection-three/BELL_DIVER_BASELINE.md"
     }
   ],
   "historicalTotals": {
