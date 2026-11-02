@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 29,
+    "built": 30,
     "improved": 29,
     "browserTested": 29,
     "integrated": 0,
@@ -2798,21 +2798,36 @@
     },
     {
       "slot": 70,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "lockwater",
+      "title": "Lockwater",
+      "coreLoop": "Operate two canal chambers: fill from a limited reservoir, drain or transfer stored water, match gate heights and clear a raised middle sill to deliver cargo uphill and sail home. Replay for lower water use and turns.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/lockwater",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "Five engine checks and six desktop1280×1000/touch-emulated390×844 rendered delivery-and-return wins passed. Each action saves/reloads exactly; earned job unlocks, water/turn records, waste-to-loss/retry, native Escape, keyboard sailing, pause, corrupt-save preservation/recovery, quota fallback, standalone Games navigation and no horizontal overflow/page errors pass. CI41488293744 at 7c96a4eb8918b8b19c15ab647013ba93300f1344 succeeded, including74 bundled routes/286 asset references, source syntax and nine first-batch release integrity checks. Initial baseline CI41488135821 also passed. Artifact13161879102 sha256:c3bd9df5a2ba599c2c9bd085a2d9bb8979b842de40c89ab88ce35153888af76e was verified; desktop-job-2 and touch-job-1 screenshots from the initial baseline were inspected. The final follow-up only corrects tutorial entry order; no claim of final-artifact screenshot inspection. Routes use3/5/4 water in11/14/13 turns; not claimed optimal for water or human enjoyment."
+      ],
+      "commits": [
+        "25808b06547b8220bba26f7ffad67fba83fc6ada",
+        "7c96a4eb8918b8b19c15ab647013ba93300f1344"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; not selected.",
+        "observedWeakness": "Tested routes never need the transfer action; three parameter-varied jobs provide limited strategic progression. Rendered phone diagram labels shrink to about8px, and reload returns generic guidance rather than the current delivery stage. Job selection discards an active delivery without confirmation. The simple lost-state threshold does not detect every possible stranded configuration.",
+        "knownLimits": "Three compact deterministic deliveries, original simple vector diagram, no audio or measured duration. No substantive improvement or complete embedded-shell qualification yet."
+      },
+      "nextSteps": [
+        "Make conserved-water routing and transfers create useful alternate choices, beyond repeating the same fill/drain sequence; test the improvement through rendered play.",
+        "Add readable phone water/gate status and context-sensitive guidance, confirm active-job changes, and detect or explain stranded states.",
+        "Complete save/input/real-bridge qualification and comparative selection before any catalogue promotion."
+      ]
     },
     {
       "slot": 71,
@@ -3176,7 +3191,8 @@
     }
   ],
   "nextSteps": [
-    "Build remaining21 original candidates in slots70–90, each with rendered baseline and substantial improvement.",
+    "Substantially improve Lockwater70 from inspected baseline: transfers need a meaningful role and phone labels/guidance need repair.",
+    "Build remaining20 original candidates in slots71–90, each with rendered baseline and substantial improvement.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4429,6 +4445,12 @@
       "result": "Qualified Brasswake69 and fixed native floor-button Space handling. Eight engine tests, fourteen rendered winning routes and new desktop/touch save/bridge/input checks pass; screenshots inspected. Reserve selection for limited progression.29 built/improved/qualified;21 unbuilt;0 active integrated/live. No new game or substantial improvement pass counted.",
       "commit": "47c07604098cfdbb25cdee3041281cf9cd80d907",
       "report": "dev/indie-collection-three/BRASSWAKE_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Built original Lockwater70 canal-lock delivery baseline. Five engine checks and six rendered delivery-return wins passed; screenshots inspected and transfer redundancy/mobile readability/stale guidance recorded.30 built/29 improved/29 qualified;20 unbuilt;0 active integrated/live. No improvement pass or release counted.",
+      "commit": "7c96a4eb8918b8b19c15ab647013ba93300f1344",
+      "report": "dev/indie-collection-three/LOCKWATER_BASELINE.md"
     }
   ],
   "historicalTotals": {
