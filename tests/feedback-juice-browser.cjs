@@ -5,27 +5,7 @@ const assert=require('node:assert/strict');
 const BASE=(process.env.BASE||'http://127.0.0.1:8765').replace(/\/$/,'');
 const w='const w=t=>new Promise(r=>setTimeout(r,t));';
 const games=[
- {id:'deep-pocket',p:'dp',hook:'DPGame'},
- {id:'queen-of-cinders',p:'qc',hook:'QCGame'},
- {id:'little-foundry',p:'lf',hook:'LFGame'},
- {id:'inkline',p:'il',hook:'ILGame'},
- {id:'pocket-expedition',p:'px',hook:'PXGame',act:`(async()=>{${w}document.getElementById('launch').click();await w(150)})()`},
- {id:'echo-vault',p:'ev',hook:'EVGame',act:`(async()=>{${w}const r=()=>EVGame.o.run;const p=r().relic;EVGame.o.run.relic=!p;await w(120);EVGame.o.run.relic=p})()`},
- {id:'glasshouse',p:'gh',hook:'GHGame',act:`(async()=>{${w}document.getElementById('pot5').click();await w(80);document.getElementById('plant').click();await w(150)})()`},
- {id:'spore-kitchen',p:'sk',hook:'SKGame',act:`(async()=>{${w}document.getElementById('seed0').click();await w(80);document.querySelector('#beds > :nth-child(1)').click();await w(150)})()`},
- {id:'bolt-and-bristle',p:'bb',hook:'BBGame',act:`(async()=>{${w}document.getElementById('test').click();await w(150)})()`},
  {id:'roof-runner',p:'rr',hook:'RRGame'},
- {id:'scrap-orbit',p:'so',hook:'SOGame'},
- {id:'last-match',p:'lm',hook:'LMGame'},
- {id:'burrow-express',p:'be',hook:'BEGame',act:`(async()=>{${w}const r=BEGame.o.run,s=r.status;r.status='running';await w(150);r.status=s})()`},
- {id:'storm-signal',p:'ss',hook:'SSGame',act:`(async()=>{${w}const r=SSGame.o.run;r.scans++;await w(150);r.scans--})()`},
- {id:'circuit-garden',p:'cg',hook:'CGGame',act:`(async()=>{${w}const r=CGGame.o.run;r.faults++;await w(150);r.faults--})()`},
- {id:'moss-market',p:'mm',hook:'MMGame',act:`(async()=>{${w}const r=MMGame.o.run;r.rejections++;await w(150);r.rejections--})()`},
- {id:'threadbound',p:'tb',hook:'TBGame'},
- {id:'rain-catcher',p:'rc',hook:'RCGame',act:`(async()=>{${w}const r=RCGame.o.run;r.received++;await w(150);r.received--})()`},
- {id:'salt-and-sail',p:'sa',hook:'SAGame',act:`(async()=>{${w}const s=SAGame.o,p=s.phase;s.phase='sailing';await w(150);s.phase=p})()`},
- {id:'static-orchard',p:'st',hook:'STGame',act:`(async()=>{${w}const r=STGame.o.run;r.harvest++;await w(150);r.harvest--})()`},
- {id:'borrowed-gravity',p:'bg',hook:'BGGame',act:`(async()=>{${w}const r=BGGame.o.run,c=r.collected[0];r.collected[0]=true;await w(150);r.collected[0]=c})()`}
 ];
 (async()=>{
  const launch={headless:true,args:['--no-sandbox']};if(process.env.CHROME_PATH)launch.executablePath=process.env.CHROME_PATH;

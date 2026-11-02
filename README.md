@@ -1,6 +1,6 @@
-# Study Desk — 67 games
+# Study Desk — 14 games
 
-The curated catalogue has 67 games: 66 bundled entries and the external Nightshift — Town Empire link. The 20 short Nightshift/Afterlight minigames have been removed from browsing; their source and saves remain intact. See `docs/curation-2026-10-29.md` for the selection and six gameplay upgrades.
+The catalogue was trimmed on 2 November 2026 to 14 bundled games: Gummy Bay, Autumn Drift, Little Lake, Lost & Found, Lost & Found on the Moon, Tiny Wilds, Forge Arena, Roof Runner, Ashwake, Winterfold, Spanwright, Creekhold, Lanewright and Harvest Protocol. Every other game, its tests and its credits were removed; they remain in git history before that date.
 
 ## Upload to GitHub Pages
 
@@ -24,31 +24,22 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-Lucky Company's optional original online-site link opens separately. Return to the Study Desk tab manually. 66 catalogue games are bundled and include the Study Desk bridge. Nightshift — Town Empire stays an external link. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+All 14 catalogue games are bundled and include the Study Desk bridge. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
 - Gummy Bay: playable build is v125 in games/gummy-bay/ (a Day 1 starter sale, a 21:00–05:00 curfew, and effect mixing on the bench). Blender sources, tests and version notes are in games/gummy-bay-dev/ and are excluded from the Pages upload. SOURCE_VERSIONS.json index 5 still records the older recovered commit 8463637b06e8a5796696998219a7684a5e69e2a0. Original gummybay-v3 mode/slot save keys are retained.
 - Little Lake: Sites v2, source 76a7e268536bc28b2598c54c04a5521dd638604b. Code actually implements 7,000 generated species and 8,000,000 generated area indices. These are procedural combinations, not millions of hand-built scenes. littleLakeV1 saves retained.
 - Autumn Drift: recovered v2 implements individual leaf collection, 5,000 generated areas and 20,000 upgrade ranks.
-- Underleaf: recovered Sites v2 colony game.
 - Lost & Found and Lost & Found on the Moon: both distinct recovered v1 games retained.
 - Tiny Wilds: recovered v2, fishing and ant colony modes.
-- After Hours: saved 50-joker poker roguelike, matching the recovered ThatOneMop/Balatro source commit bfbffaa (2026-10-16).
-- Lucky Company 3D: downloadable solo build retained. Its newer online/server project is not misrepresented as statically hosted multiplayer.
 - Forge Arena: recovered v26.2 download; internal title still says V26.1. Existing online dependencies retained, internet required.
 
-SOURCE_VERSIONS.json records recovered source commits; its indices 0–7 map to Lost & Found, Little Lake, Moon, Underleaf, Autumn Drift, Gummy Bay, Lucky Company and Tiny Wilds. Builds checked 2026-10-19. Requested features are counted as completed only when present in recovered source, not merely mentioned in chats. No other completed distinct games were recovered.
+SOURCE_VERSIONS.json records recovered source commits; its indices 0–7 map to Lost & Found, Little Lake, Moon, Underleaf, Autumn Drift, Gummy Bay, Lucky Company and Tiny Wilds (Underleaf and Lucky Company were removed on 2026-11-02). Builds checked 2026-10-19. Requested features are counted as completed only when present in recovered source, not merely mentioned in chats. No other completed distinct games were recovered.
 
-## Selected indie collection
+## Licences
 
-Tidepost, Deep Pocket, Queen of Cinders, Little Foundry, Scrap Orbit, Inkline, Pocket Expedition, Echo Vault and Glasshouse were developed as original candidates, improved, completed through agent-driven campaigns and selected for their distinct loops, requested-taste fit and test evidence. Each is a compact authored game rather than a content-hours promise. Their durable development evidence remains on the `indie-collection-dev` branch.
-
-## Archived community additions and licences
-
-The files and licence records for 2048, Hextris, Astray, Radius Raid, Chrome-style Dino, Pac-Man and 82 ABA Games microgames remain preserved, but those entries are retired from the active catalogue. `docs/retired-catalog-2026-10-20.json` retains their metadata. Forge Arena remains active and requires its existing online dependencies.
-
-Read credits.html. Preserve copyright notices, licences and source files when publishing. Hextris GPL corresponding source is in hextris-source.zip. JavaScript games retain source directly. Microgame runtime package archives retain upstream dependency source and licence notices.
+Read credits.html. Preserve copyright notices, licences and source files when publishing. JavaScript games retain source directly.
 
 ## Saves and domain changes
 
@@ -57,16 +48,3 @@ Existing game keys/formats are unchanged. All bundled games share this site's or
 ## Verification
 
 See TEST_REPORT.md for the original archive checks. Subsequent selected-game releases have separate rendered desktop/emulated-touch and catalogue evidence in their collection reports. Those checks apply to the named games and routes; they are not human enjoyment or physical-device certification.
-
-
-## Lane Eight
-
-Lane Eight is bundled at `games/lane-eight/index.html`: manage training load, earn places at six fictional clubs, plan meets and control every race with chase/overhead cameras. Career progression continues into retirement and squad coaching. Use Export career / Import career to move a save from the standalone site. Save keys remain compatible. See `docs/lane-eight.md` for implementation and verification evidence.
-
-
-## Third collection
-
-Stencil Studio is the first selected third-collection game: three compact printmaking commissions with colour mixing, selective ink repair, preview guidance and saved records. Moon Dial adds three coupled clockworks with turn rehearsal. Pebble Rink adds three tabletop curling rinks with optional collision forecasts, replay and saved club cards. Pocket Regatta, Crate & Cushion, Bramble Dice, Needlepath, Reedbreaker, Beepline and Tumbleglass are also selected. Soundings adds compact hidden-beacon deduction with evidence-only survey planning and a visible recovery reserve. Its evidence is in `dev/indie-collection-three/SOUNDINGS_INTEGRATION.md`. Moss Commons adds finite-timber settlement planning with irrigation, open-space orchards, local-service challenges and building-use conversion. Its evidence is in `dev/indie-collection-three/MOSS_COMMONS_INTEGRATION.md`. Canopy Weave adds graph untangling and compact vine packing with optional move rehearsal and named conflict inspection; evidence is in `dev/indie-collection-three/CANOPY_WEAVE_RENDERED_PASS.md`. The remaining candidates stay on indie-collection-three-dev until individually qualified. No content-duration claim.
-
-
-
