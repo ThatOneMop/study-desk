@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 25,
+    "built": 26,
     "improved": 25,
     "browserTested": 25,
     "integrated": 25,
@@ -2362,21 +2362,38 @@
     },
     {
       "slot": 66,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "mycelium-yard",
+      "title": "Mycelium Yard",
+      "coreLoop": "Run a six-bed mushroom business: allocate three daily jobs between planting species, watering, harvest timing, composting and whole-yard ventilation against a rain forecast; reinvest sales and unlock market goals.",
+      "status": "initial-playable-awaiting-improvement",
+      "source": "games/mycelium-yard",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "Seven engine tests passed locally and CI: legal three-market wins with save roundtrips, spending restrictions, pure actions, harvest income/free beds, ripe spoilage, vent cost, terminal behavior/records, invalid saves/actions.",
+        "Baseline CI41392283423 passed six rendered desktop/touch market campaigns with per-action reload, earned progression, loss/retry, Escape, pause, corrupt/quota save handling and no horizontal overflow/page errors. Repository assets and selected first-batch integrity checks passed.",
+        "CI41392413045 passed seven engine tests and six rendered desktop/390x844 touch-emulated market wins, per-action save reload, progression, loss/retry, native Escape, pause, corrupt-save preservation/recovery, quota handling, layout and repository checks. Artifact13117308332 SHA256061708d4c0ad8ae7ed1fecb8be723be054936d3a42eb6ff2b90ccd7d3086a21d verified. Desktop Honey fan growing beds and touch Rose cup beds inspected. On touch, actions sit below six beds and require repeated scrolling. Initial baseline only; not a qualified improvement or human enjoyment study."
+      ],
+      "commits": [
+        "e9d0fcd6eca6d8f672bfa784ace4e02bcedbf86b",
+        "e825f0de6e98dcf50516b640d817b3c727758087"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Initial playable; balance and differentiated progression need improvement",
+        "observedWeakness": "Baseline greedy routes score46/57/57 against14/24/34 goals. Markets two and three allow the same route; progression lacks distinct decisions. Blue bell's longer growth needs a clearer purpose next to the fast Rose cup. Rendered390px view places tools below six beds, requiring repeated scrolling between selection and action.",
+        "knownLimits": "Ten discrete mornings and three market goals; no real-time or duration claim. No audio, physical-device or human enjoyment study; full keyboard/hidden recovery/shell qualification pending."
+      },
+      "nextSteps": [
+        "Improve distinct market demands and crop economics; bring selected-bed actions closer on phones. Preserve saves and verify upgraded play naturally.",
+        "Test Blue bell and rain/rot strategy independently, keyboard and hidden confirmation/recovery; preserve existing v1 saves.",
+        "Keep unlisted until improved, qualified and selected. Preserve Numberworks separately."
+      ]
     },
     {
       "slot": 67,
@@ -2812,10 +2829,11 @@
     }
   ],
   "nextSteps": [
-    "Implement remaining25 distinct third-batch slots66–90 with rendered baseline, game-specific improvement and qualification before progressive release."
+    "Improve Mycelium Yard66 based on rendered baseline and weak progression; do not count initial tests as improvement.",
+    "Implement remaining24 distinct third-batch slots67–90."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "c9b13036692fd9a63854ab24a67eb2ca54043161",
+  "latestObservedMain": "e148ea2a0628a581c54441db8a24535f39c89e39",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3954,6 +3972,14 @@
       "run": 41385970848,
       "pagesRun": 41386119875,
       "result": "Selected Glimmer Loom released and live completion/save verified.25 built/improved/browser-tested/integrated/live;25 remain."
+    },
+    {
+      "date": "2026-11-02",
+      "game": "mycelium-yard",
+      "commit": "e9d0fcd6eca6d8f672bfa784ace4e02bcedbf86b",
+      "verificationCommit": "e825f0de6e98dcf50516b640d817b3c727758087",
+      "run": 41392413045,
+      "result": "Initial playable built and rendered baseline verified.26 built,25 improved/browser-qualified/integrated/live;24 unbuilt. No release."
     }
   ]
 }
