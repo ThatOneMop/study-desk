@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 28,
+    "built": 29,
     "improved": 28,
     "browserTested": 28,
     "integrated": 0,
@@ -2738,21 +2738,36 @@
     },
     {
       "slot": 69,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "brasswake",
+      "title": "Brasswake",
+      "coreLoop": "Advance a clockwork combat court one action at a time: dodge incoming bolts, guard to redirect them in a chosen direction into sentries, and walk to recharge a two-charge shield while managing three hearts.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/brasswake",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41463234816 passed at0ad297d330c8816d263fc33fb7c47c18c3ec1ef1: four engine tests and six rendered court wins across1280x1000 desktop and390x844 touch-emulated Chromium, with per-action reload, earned court unlocks, best-turn persistence, natural waiting-to-loss, restart, native Escape, keyboard wait/guard, pause, corrupt/quota recovery, standalone Games navigation and no horizontal overflow/page errors.74 bundled routes/286 HTML asset references and nine selected first-batch integrity checks pass. Artifact13149947448 SHA2568138e7afe7a949d84e1f56ea52c30a2e4ea868f8c05ed45e069d16d705e9b60f verified; desktop Brass choir and touch Crossfire court screenshots inspected. Tested solutions take7/7/14 turns; not claimed optimal or human enjoyment evidence. CI41463132157 failed on browser-harness syntax and is not passing evidence; corrected before the successful run."
+      ],
+      "commits": [
+        "8381669deae25dff6800a4904177df120fc5484c",
+        "0ad297d330c8816d263fc33fb7c47c18c3ec1ef1"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; not selected.",
+        "observedWeakness": "The three tested winning routes take only7/7/14 turns, with little progression beyond unlocks and best-turn replay. Overlapping hostile/friendly bolts are drawn at the same position and are difficult to distinguish. The touch screenshot shows the fixed action panel covering lower map rows until scrolling. 'Turn' button labels can be mistaken for persistent facing rather than a one-turn guard.",
+        "knownLimits": "Three small authored courts, deterministic sentry fire and no audio. No human-enjoyment study, physical-device testing or duration claim. Substantive improvement and full shell/keyboard qualification remain."
+      },
+      "nextSteps": [
+        "Add game-specific tactical choices or defense interactions that deepen redirection/positioning; do not merely add health, repeated arenas or timers.",
+        "Make multiple bolts and their next destinations distinguishable; label guard actions clearly and keep the complete phone board usable beside controls.",
+        "Rendered-test the improvement, loss/retry, saves and keyboard/touch before shell qualification and comparative selection."
+      ]
     },
     {
       "slot": 70,
@@ -3134,9 +3149,10 @@
     }
   ],
   "nextSteps": [
-    "Implement remaining22 original candidates in slots69–90, each with rendered baseline and substantive improvement.",
-    "Bell Diver68 and Mycelium Yard66 are qualified and selected but release-held; Switchyard Post67 remains a reserve.",
-    "Respect current exact14 public catalogue; preserve historical integrations, source/saves and second-batch20/20 additional round."
+    "Prioritize Brasswake69 substantive tactical/visual/control improvement based on inspected baseline; it is not a finished selection.",
+    "Build remaining21 original candidates in slots70–90, each with rendered baseline and substantial improvement.",
+    "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
+    "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
   "updated": "2026-11-03",
   "latestObservedMain": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
@@ -4369,6 +4385,12 @@
       "result": "Qualified Bell Diver68 across badge replay, old saves, loaded rescue, keyboard and actual bridge checks. Found and fixed insufficient-air final ascent banking; exact-air return remains valid. Ten engine tests and twelve rendered expeditions plus shell checks pass; screenshots inspected. Selected for future integration.28 built/improved/qualified;0 active integrated/live;22 unbuilt. No new candidate or additional substantial improvement pass counted.",
       "commit": "8888f94df34164949ad48ae7db01b51ce9dd50de",
       "report": "dev/indie-collection-three/BELL_DIVER_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Built Brasswake69 original bolt-redirection combat baseline. Four engine checks and six rendered wins pass; screenshots inspected and limited depth/overlapping bolts/mobile occlusion recorded.29 built/28 improved/28 fully-qualified/0 active integrated/live;21 unbuilt. No improvement pass or public release counted.",
+      "commit": "0ad297d330c8816d263fc33fb7c47c18c3ec1ef1",
+      "report": "dev/indie-collection-three/BRASSWAKE_BASELINE.md"
     }
   ],
   "historicalTotals": {
