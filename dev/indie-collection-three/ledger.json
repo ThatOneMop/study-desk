@@ -6,7 +6,7 @@
   "totals": {
     "built": 26,
     "improved": 26,
-    "browserTested": 25,
+    "browserTested": 26,
     "integrated": 25,
     "live": 25
   },
@@ -2365,11 +2365,11 @@
       "id": "mycelium-yard",
       "title": "Mycelium Yard",
       "coreLoop": "Run a six-bed mushroom business: choose one of six buyers, sequence mixed-species baskets and fresh Blue bell harvests, budget three daily jobs against rain, reinvest delivery bonuses and collect persistent buyer badges.",
-      "status": "improved-awaiting-full-browser-qualification",
+      "status": "qualified-selected-awaiting-integration",
       "source": "games/mycelium-yard",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -2381,34 +2381,42 @@
           "before": "A greedy fast-crop route cleared all three sales-only markets; Blue bell and rainfall decisions were optional. Phone tools followed all six beds.",
           "after": "Two selectable buyers per market request ordered species baskets with freshness limits, one-time reinvestable bonuses and six persistent delivery badges. Fresh-blue routes require rain ventilation and later watering; mixed baskets reward staggered species planning. A fixed phone action dock shows selected bed, jobs/coins, forecast risk and harvest feedback. Existing v1 crops and records migrate without retroactive badges.",
           "evidence": "CI41398713369 passed at16031393d5b4eab1bc77e32f02fb15aa110f843b:15 engine tests; six baseline sales campaigns and twelve buyer campaigns (six buyers in each desktop1280x1000 and390x844 touch-emulated Chromium context), all with per-action save reload. All six badges accumulate, and route sales are29/30/42/46/48/48. Loss/retry, Escape, pause, corrupt-save preservation/recovery, quota handling, fixed-dock budget/feedback visibility and no horizontal overflow/page errors pass.74 bundled routes/286 HTML asset references and nine selected first-batch integrity checks pass. Artifact13119514697 SHA256b69e6181bfca025cbce199d42581bd165554314f6976d0ff687a6f505f8f6f31 verified. Touch Forest chef rain-risk/Blue bell and final Evening hamper badge screenshots, plus desktop mixed-basket completion, inspected. Automated rendered play, not a human enjoyment study.",
-          "remaining": "Full keyboard, parent-hidden confirmation/recovery and standalone/shell navigation qualification before selection and public integration."
+          "remaining": "Catalogue integration on fresh main, actual launcher regression and live verification.",
+          "qualificationEvidence": "CI41403641547 passed at9c0e0c5a0956bf460e538da4f4c99318300e29ee:15 engine tests;18 desktop/touch market/buyer campaigns with per-action reload; two additional keyboard harvest routes; earned-v1 migration; late and rotted buyer rejection; native Escape; simulated document visibility; actual bridge parent-hidden confirmation/recovery rejection; unrelated-save preservation; standalone Games return and embedded Collection message. Repository source/assets and nine selected first-batch integrity checks passed. Artifact13122960021 sha256:bd4ada585ab9b3050df6227385355184f0ec403af50f4d3b3d3e33c4b9f23cd1 verified; touch keyboard-harvest focus/action dock and desktop late-harvest rejection screenshots inspected. Automated rendered testing, not a human enjoyment study. Real catalogue shell regression remains an integration check."
         }
       ],
       "tests": [
         "Seven engine tests passed locally and CI: legal three-market wins with save roundtrips, spending restrictions, pure actions, harvest income/free beds, ripe spoilage, vent cost, terminal behavior/records, invalid saves/actions.",
         "Baseline CI41392283423 passed six rendered desktop/touch market campaigns with per-action reload, earned progression, loss/retry, Escape, pause, corrupt/quota save handling and no horizontal overflow/page errors. Repository assets and selected first-batch integrity checks passed.",
         "CI41392413045 passed seven engine tests and six rendered desktop/390x844 touch-emulated market wins, per-action save reload, progression, loss/retry, native Escape, pause, corrupt-save preservation/recovery, quota handling, layout and repository checks. Artifact13117308332 SHA256061708d4c0ad8ae7ed1fecb8be723be054936d3a42eb6ff2b90ccd7d3086a21d verified. Desktop Honey fan growing beds and touch Rose cup beds inspected. On touch, actions sit below six beds and require repeated scrolling. Initial baseline only; not a qualified improvement or human enjoyment study.",
-        "CI41398713369 passed at16031393d5b4eab1bc77e32f02fb15aa110f843b:15 engine tests; six baseline sales campaigns and twelve buyer campaigns (six buyers in each desktop1280x1000 and390x844 touch-emulated Chromium context), all with per-action save reload. All six badges accumulate, and route sales are29/30/42/46/48/48. Loss/retry, Escape, pause, corrupt-save preservation/recovery, quota handling, fixed-dock budget/feedback visibility and no horizontal overflow/page errors pass.74 bundled routes/286 HTML asset references and nine selected first-batch integrity checks pass. Artifact13119514697 SHA256b69e6181bfca025cbce199d42581bd165554314f6976d0ff687a6f505f8f6f31 verified. Touch Forest chef rain-risk/Blue bell and final Evening hamper badge screenshots, plus desktop mixed-basket completion, inspected. Automated rendered play, not a human enjoyment study."
+        "CI41398713369 passed at16031393d5b4eab1bc77e32f02fb15aa110f843b:15 engine tests; six baseline sales campaigns and twelve buyer campaigns (six buyers in each desktop1280x1000 and390x844 touch-emulated Chromium context), all with per-action save reload. All six badges accumulate, and route sales are29/30/42/46/48/48. Loss/retry, Escape, pause, corrupt-save preservation/recovery, quota handling, fixed-dock budget/feedback visibility and no horizontal overflow/page errors pass.74 bundled routes/286 HTML asset references and nine selected first-batch integrity checks pass. Artifact13119514697 SHA256b69e6181bfca025cbce199d42581bd165554314f6976d0ff687a6f505f8f6f31 verified. Touch Forest chef rain-risk/Blue bell and final Evening hamper badge screenshots, plus desktop mixed-basket completion, inspected. Automated rendered play, not a human enjoyment study.",
+        "CI41403641547 passed at9c0e0c5a0956bf460e538da4f4c99318300e29ee:15 engine tests;18 desktop/touch market/buyer campaigns with per-action reload; two additional keyboard harvest routes; earned-v1 migration; late and rotted buyer rejection; native Escape; simulated document visibility; actual bridge parent-hidden confirmation/recovery rejection; unrelated-save preservation; standalone Games return and embedded Collection message. Repository source/assets and nine selected first-batch integrity checks passed. Artifact13122960021 sha256:bd4ada585ab9b3050df6227385355184f0ec403af50f4d3b3d3e33c4b9f23cd1 verified; touch keyboard-harvest focus/action dock and desktop late-harvest rejection screenshots inspected. Automated rendered testing, not a human enjoyment study. Real catalogue shell regression remains an integration check."
       ],
       "commits": [
         "e9d0fcd6eca6d8f672bfa784ace4e02bcedbf86b",
         "e825f0de6e98dcf50516b640d817b3c727758087",
         "6aab85078ce50aa54372b78764ef6ac3d818c1eb",
-        "16031393d5b4eab1bc77e32f02fb15aa110f843b"
+        "16031393d5b4eab1bc77e32f02fb15aa110f843b",
+        "9c0e0c5a0956bf460e538da4f4c99318300e29ee"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantive buyer-delivery pass implemented and rendered; full release qualification pending.",
+        "status": "Qualified and selected; not yet integrated or released.",
         "observedWeakness": "Baseline greedy routes score46/57/57 against14/24/34 goals. Markets two and three allow the same route; progression lacks distinct decisions. Blue bell's longer growth needs a clearer purpose next to the fast Rose cup. Rendered390px view places tools below six beds, requiring repeated scrolling between selection and action.",
-        "knownLimits": "Three compact ten-morning markets with deterministic weather and six optional buyer badges. Base sales targets remain forgiving and preserve old records. No audio, physical-device or human enjoyment study; keyboard/hidden recovery/shell qualification pending.",
+        "knownLimits": "Three compact ten-morning markets, deterministic weather and six optional buyer badges. Forgiving base sales targets preserve old records. No audio, physical-device or human enjoyment study. Real catalogue integration/live verification pending.",
         "assessment": "Ordered mixed baskets and freshness create crop-timing and rain decisions beyond the easy sales goals. Six optional badges support distinct replay plans without increasing the ten-morning run length. Fixed phone actions and visible income/job feedback remove repeated selection-to-action scrolling. Promising relaxed strategy candidate; full browser qualification and comparative selection still required."
       },
       "nextSteps": [
-        "Qualify keyboard controls, old-save migration in rendered browser, late/rotted delivery rejection and parent-hidden confirmation/recovery.",
-        "Verify standalone Games return and real Study Desk shell pause/Collection; assess selection, then integrate on fresh main with regression checks.",
-        "Preserve badge/sales saves, first/second batches, Gummy Bay and separate Numberworks work."
-      ]
+        "Integrate selected source, original cover, catalogue entry and credits on freshly read main; preserve all concurrent work.",
+        "Run real catalogue search/filter/favourite/launch, pause/Collection and save-return regressions on desktop/touch.",
+        "Verify Pages and live route; then begin slot67."
+      ],
+      "selection": {
+        "selected": true,
+        "reason": "Adds a compact growing-business loop with daily job allocation, reinvestment, ordered deliveries and freshness/rot decisions. Unlike Fallow Table's rotation, shade and transplant puzzles, this game focuses on staggered crop sales and buyer quality; unlike Thimble Fair's auctions, income depends on growing and harvesting. Six buyer routes add optional replay variety without increasing run length. Keyboard/touch, persistence and bridge checks pass.",
+        "limits": "Deterministic weather and short markets limit long-term depth; no measured playtime claim."
+      }
     },
     {
       "slot": 67,
@@ -2844,7 +2852,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Mycelium Yard66, select and integrate only after remaining keyboard/visibility/navigation checks.",
+    "Integrate qualified Mycelium Yard66 and verify actual catalogue/live behavior.",
     "Implement remaining24 distinct third-batch slots67–90."
   ],
   "updated": "2026-11-02",
@@ -4003,6 +4011,13 @@
       "followupCommit": "16031393d5b4eab1bc77e32f02fb15aa110f843b",
       "run": 41398713369,
       "result": "Substantive buyer-basket/freshness improvement and phone action dock completed, rendered tested and screenshots inspected.26 built/improved;25 fully browser-qualified/integrated/live. Mycelium remains unlisted;24 slots unbuilt."
+    },
+    {
+      "date": "2026-11-02",
+      "game": "mycelium-yard",
+      "commit": "9c0e0c5a0956bf460e538da4f4c99318300e29ee",
+      "run": 41403641547,
+      "result": "Qualified and selected after keyboard/migration/negative-harvest/visibility/navigation checks.26 built/improved/browser-qualified;25 integrated/live. No new improvement pass counted;24 unbuilt."
     }
   ]
 }
