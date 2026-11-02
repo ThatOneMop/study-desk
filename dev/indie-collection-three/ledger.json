@@ -4,8 +4,8 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 26,
-    "improved": 26,
+    "built": 27,
+    "improved": 27,
     "browserTested": 26,
     "integrated": 0,
     "live": 0
@@ -2622,21 +2622,57 @@
     },
     {
       "slot": 67,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
-      "improved": false,
+      "id": "switchyard-post",
+      "title": "Switchyard Post",
+      "coreLoop": "Shunt two mail wagons through run-around sidings by pushing straight or coupling one wagon to pull through corners; deliver matching platforms and return the locomotive home. Earn pull-only fragile-mail contracts with independent records.",
+      "status": "improved-awaiting-shell-qualification",
+      "source": "games/switchyard-post",
+      "built": true,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "improvementPasses": [
+        {
+          "date": "2026-11-02",
+          "commit": "3b086c85a56cbce43b224f84ef2e93463ffa7e36",
+          "followupCommits": [
+            "4ac0ff6a904d9bbe5a802fdd384353ffdd0b62d1",
+            "7f6417ae3d3852f7b8baba225d96bb771654ff75"
+          ],
+          "observedWeakness": "Rendered touch view places coupling feedback below direction/coupler controls, outside the board viewport. Three short authored yards have limited replay objectives. Engine inspection found play blocked at200 actions.",
+          "before": "Three fixed standard-mail yards with only action-count replay. Feedback falls below phone controls; every run stops accepting actions at200.",
+          "after": "Clearing each yard unlocks an optional fragile-red contract: red may only be pulled, so run-around manoeuvres replace direct pushes. The exchange contract uses a sheltered red platform reachable by pulling. Three separate fragile records/badges persist alongside unchanged standard records. Sticky board feedback names coupling and fragile handling; goals show delivery. Runs continue beyond200 actions with a bounded200-action undo window, and v1 saves migrate without invented badges.",
+          "evidence": "CI41421036287 passed eight engine checks, twelve rendered standard/fragile wins with per-action reload across desktop1280x1000 and390x844 touch-emulated Chromium, two keyboard wins, earned badges/records, v1 migration, undo/retry, native Escape, pause, corrupt/quota recovery, standalone Games return and layout. Repository checks:74 bundled routes/286 asset references and nine selected first-batch integrity checks. Artifact13129478448 sha256:fd260131411b2599cf3cf1effbf0157429f24ca7073683f286f835bda4ab9818 verified. Touch exchange shunting, touch final fragile delivery and desktop keyboard completion screenshots inspected. Automated rendered play, not human enjoyment evidence.",
+          "remaining": "Parent bridge/hidden-state, input edge-case and scoped-save qualification; comparative selection and actual catalogue launch checks remain.",
+          "followupEvidence": "Follow-up CI41421449886 passed on7f6417ae3d3852f7b8baba225d96bb771654ff75: eight engine checks, twelve desktop/touch standard/fragile wins with per-action reload, two keyboard wins, record/badge persistence, v1 migration, undo/retry, Escape, pause, corrupt/quota recovery, standalone Games return and repository asset/first-batch integrity checks. Artifact13129842620 SHA2564137fea4d34c82fad4a9d419a053cbf4a1c053bafd8e1a40e5af8523ea13722e verified. Corrected touch exchange shunting and final fragile delivery screenshots inspected: fragile rule remains visible and completed board retains contrast."
+        }
+      ],
+      "tests": [
+        "Five initial engine checks passed, covering three legal yard wins, blocked/pure actions, coupling around corners, undo/records and malformed saves.",
+        "Baseline CI41419711993 passed six rendered desktop1280x1000 and390x844 touch-emulated yard wins, final save reload, records, undo/retry, native Escape, pause, corrupt/quota recovery and layout, plus repository checks. Artifact13129511479 SHA256f2862032fc5edc37b8dc96451154a68e4f54615299eb8f3b5074ab1882cceb1a verified; desktop opening-yard and touch evening-yard shunting screenshots inspected. First CI41419106374 failed on browser-harness syntax and is not passing evidence.",
+        "CI41421036287 passed eight engine checks, twelve rendered standard/fragile wins with per-action reload across desktop1280x1000 and390x844 touch-emulated Chromium, two keyboard wins, earned badges/records, v1 migration, undo/retry, native Escape, pause, corrupt/quota recovery, standalone Games return and layout. Repository checks:74 bundled routes/286 asset references and nine selected first-batch integrity checks. Artifact13129478448 sha256:fd260131411b2599cf3cf1effbf0157429f24ca7073683f286f835bda4ab9818 verified. Touch exchange shunting, touch final fragile delivery and desktop keyboard completion screenshots inspected. Automated rendered play, not human enjoyment evidence.",
+        "Follow-up CI41421449886 passed on7f6417ae3d3852f7b8baba225d96bb771654ff75: eight engine checks, twelve desktop/touch standard/fragile wins with per-action reload, two keyboard wins, record/badge persistence, v1 migration, undo/retry, Escape, pause, corrupt/quota recovery, standalone Games return and repository asset/first-batch integrity checks. Artifact13129842620 SHA2564137fea4d34c82fad4a9d419a053cbf4a1c053bafd8e1a40e5af8523ea13722e verified. Corrected touch exchange shunting and final fragile delivery screenshots inspected: fragile rule remains visible and completed board retains contrast."
+      ],
+      "commits": [
+        "9f2198a7d62030e3035c07c7c5346fe397709e20",
+        "12630c4f26964bd94b1e21e2479aada23fc9aa03",
+        "3b086c85a56cbce43b224f84ef2e93463ffa7e36",
+        "4ac0ff6a904d9bbe5a802fdd384353ffdd0b62d1",
+        "7f6417ae3d3852f7b8baba225d96bb771654ff75"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Rendered improvement verified; full shell qualification pending.",
+        "observedWeakness": "Rendered touch view places coupling feedback below direction/coupler controls, outside the board viewport. Three short authored yards have limited replay objectives. Engine inspection found play blocked at200 actions.",
+        "knownLimits": "Three compact authored rail yards; no audio, physical-device testing, human-enjoyment study or duration claim. Real catalogue launch checks await release-scope reconciliation.",
+        "assessment": "A distinct compact shunting puzzle: pushing straight and pulling through corners create different spatial routes; optional fragile handling forces new solutions in the first two yards. The third yard's tested shortest standard route also satisfies fragile handling, so it is not counted as a new level or separate game. Clean original rail graphics, readable phone coupling feedback and saved earned records support relaxed replay. Not selected for public release yet."
+      },
+      "nextSteps": [
+        "Complete actual-bridge parent-hidden confirmation/recovery, document visibility, input-repeat/modifier and unrelated-save preservation checks; retain inspected screenshots.",
+        "Assess against existing slate and retain on development branch while current exact14 catalogue policy remains."
+      ]
     },
     {
       "slot": 68,
@@ -3054,7 +3090,8 @@
     }
   ],
   "nextSteps": [
-    "Continue remaining24 candidate slots67–90 on development branch, retaining exactly50 slots.",
+    "Complete Switchyard Post parent-bridge/hidden-state, scoped-save and input qualification; retain honest distinction between rendered improvement and full qualification.",
+    "Implement remaining23 candidate slots68–90 on development branch, retaining exactly50 slots.",
     "Hold public integration until current14-game catalogue scope and new releases are reconciled. Do not restore retired titles or weaken current-main curation tests.",
     "Keep active counts distinct from historical integrations; preserve second-batch sources and its completed additional round."
   ],
@@ -4253,6 +4290,18 @@
         "bough-balance",
         "glimmer-loom"
       ]
+    },
+    {
+      "date": "2026-11-02",
+      "result": "Built and rendered-tested original candidate67 Switchyard Post, then improved it with earned fragile-mail handling contracts, independent records/badges, sticky coupling feedback and bounded undo without a200-action play cap. Baseline CI41419711993 and final improvement CI41421449886 pass; screenshots inspected. Counts27 built/27 improved/26 fully browser-qualified/0 active integrated/0 active live. Slot67 shell qualification remains;23 slots unbuilt. Main fa57730f70904ae5f15e47fe0c7e55dc28144c88 unchanged; no public release or automation changes.",
+      "commits": [
+        "9f2198a7d62030e3035c07c7c5346fe397709e20",
+        "12630c4f26964bd94b1e21e2479aada23fc9aa03",
+        "3b086c85a56cbce43b224f84ef2e93463ffa7e36",
+        "4ac0ff6a904d9bbe5a802fdd384353ffdd0b62d1",
+        "7f6417ae3d3852f7b8baba225d96bb771654ff75"
+      ],
+      "report": "dev/indie-collection-three/SWITCHYARD_POST_PROGRESS.md"
     }
   ],
   "historicalTotals": {
