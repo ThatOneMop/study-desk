@@ -1436,5 +1436,30 @@
     "thumbnail": "art/curated/bramble-pact.svg",
     "thumbnailAlt": "Berry, acorn and leaf cards laid on a woodland table beside three harvest baskets",
     "updated": "2026-11-02"
+  },
+  {
+    "id": "bough-balance",
+    "title": "Bough Balance",
+    "description": "Hang paper birds across nested branches and balance every beam. Compare hook tradeoffs, trace each load and try optional brass-weight arrangements in three compact, untimed mobile puzzles.",
+    "icon": "🪶",
+    "genre": "Puzzle + Relaxed",
+    "color": "#798b69",
+    "controls": "1–6 select · Arrows choose hook · H hangs · Z undoes · Touch buttons",
+    "url": "games/bough-balance/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#bough-balance",
+    "aliases": [
+      "birds",
+      "balance",
+      "mobile",
+      "torque",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/bough-balance.svg",
+    "thumbnailAlt": "Folded paper birds suspended from balanced wooden branches over a soft sage background",
+    "updated": "2026-11-02"
   }
 ]
