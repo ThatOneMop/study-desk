@@ -22,6 +22,7 @@ jobs:
           node --check games/lockwater/game.js
           node --test tests/lockwater-engine.cjs
           node tests/lockwater-browser.cjs
+          node tests/lockwater-shell.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
