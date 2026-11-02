@@ -6,7 +6,7 @@
   "totals": {
     "built": 28,
     "improved": 28,
-    "browserTested": 27,
+    "browserTested": 28,
     "integrated": 0,
     "live": 0
   },
@@ -2686,11 +2686,11 @@
       "id": "bell-diver",
       "title": "Bell Diver",
       "coreLoop": "Plan oxygen-limited salvage dives, trade heavier ascent against combined-load charter rewards, use air-pocket detours and gear upgrades, bank instruments and earn six persistent recovery badges.",
-      "status": "improved-awaiting-shell-qualification",
+      "status": "qualified-selected-release-held-by-current-curation",
       "source": "games/bell-diver",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -2702,30 +2702,39 @@
           "before": "Safe single-item trips dominated the baseline, never requiring air pockets. Phone controls were below the seven-row map; diver/bell glyphs were ambiguous and reload prose ignored current state.",
           "after": "Optional Heavy recovery and Survey bundle charters require the instrument and specified salvage in one four-weight return, awarding a permanent per-wreck badge and first-success8-coin bonus. Split deliveries get ordinary salvage without the badge. Six badges survive expeditions; forgiving standard dives and v1 saves remain compatible. Fixed opaque phone controls keep oxygen, cargo, current cell, charter and ascent cost visible with the map. Original vector bell, helmet, crates, compass and bubbles replace glyphs; reload prose is state-aware.",
           "evidence": "CI41442584001 passed at59a90f33f72a0501897e2e14ac3003df69162aa8: nine engine tests, two standard and four charter rendered three-wreck expeditions across desktop1280x1000 and390x844 touch-emulated Chromium. Charter routes use full bags and air pockets; per-action reload retains state and earned badges. Baseline regression covers purchases/banking, natural empty-bag rescue, abandonment, replay retention, Escape, keyboard movement, pause, corrupt/quota recovery, standalone Games and layout. Mobile collection controls are asserted in viewport.74 bundled routes/286 asset references and nine selected first-batch source-integrity checks pass. Artifact13140978025 SHA25680b1d0c66d19b8ffe48647952e417a3830407424c5e15c3f1026a21abe2b4274 verified; corrected touch Survey bundle full-load screenshot inspected. Earlier passing CI41442140080 artifact13140241924 SHA256d79c2e002d715a4b6ce5eaef0d55bc839635b96648db85e9626b425ee91fdde1 verified; desktop Heavy recovery and touch Survey bundle screenshots inspected. Local supplemental engine replay accumulated all six badges across two expeditions with per-action decode; this is not a rendered six-badge accumulation test.",
-          "remaining": "Rendered all-six-badge accumulation/replay, loaded rescue, v1 migration, full keyboard actions, real bridge hidden-state and unrelated-save qualification remain."
+          "remaining": "Qualified and selected. Real public catalogue launch/regression and live checks remain blocked by current curation scope.",
+          "qualificationEvidence": "CI41449874237 passed on8888f94df34164949ad48ae7db01b51ce9dd50de: ten engine tests; six standard/charter baseline expeditions plus six replayed charter campaigns across desktop1280x1000 and390x844 touch-emulated Chromium. All six badges accumulate in one save; repeated heavy charters add ordinary24-coin salvage without another bonus. Rendered earned-v1 migration, loaded rescue/recollection, coin/gear persistence, explicit insufficient-air boundary fixture, keyboard movement/Space/B, native Enter, repeated/modified/composing input guards, real parent-bridge hidden restart/recovery, simulated document visibility, unrelated saves and Collection messaging pass.74 bundled routes/286 asset references and nine selected first-batch integrity checks pass. Artifact13144317076 SHA2560b730c84db3ea17fce68094cf3a0b8bc39ebf777a762ca18e1949fce68e0cabd verified. Touch six-badge completion, desktop loaded-rescue recollection and touch resumed-shell keyboard/breathing screenshots inspected. Automated rendered tests, not human enjoyment or physical-device evidence."
         }
       ],
       "tests": [
         "Baseline CI41434407214 passed on3d3da404ea645461acbc66b4be71a903a238b64c: six engine checks and two complete rendered three-wreck expeditions in desktop1280x1000 and390x844 touch-emulated Chromium. Per-action reload, salvage banking, tank/fins purchases, instrument progression, completed-expedition replay retention, natural empty-bag oxygen rescue, abandonment/retry, native Escape, keyboard movement, pause, corrupt/quota recovery, standalone Games return and no horizontal overflow/page errors pass. Engine tests separately cover loaded rescue and bank/gear preservation, heavy ascent cost, pockets, malformed saves and capacity.74 bundled routes/286 HTML references and nine first-batch selected-source integrity checks pass. Artifact13135019593 SHA256531827e5c4b21d208d4353ae095c4d5535460ece4d4a37dc54a6ae70d28bc794 verified. Desktop first-wreck and touch third-wreck screenshots inspected.",
-        "CI41442584001 passed at59a90f33f72a0501897e2e14ac3003df69162aa8: nine engine tests, two standard and four charter rendered three-wreck expeditions across desktop1280x1000 and390x844 touch-emulated Chromium. Charter routes use full bags and air pockets; per-action reload retains state and earned badges. Baseline regression covers purchases/banking, natural empty-bag rescue, abandonment, replay retention, Escape, keyboard movement, pause, corrupt/quota recovery, standalone Games and layout. Mobile collection controls are asserted in viewport.74 bundled routes/286 asset references and nine selected first-batch source-integrity checks pass. Artifact13140978025 SHA25680b1d0c66d19b8ffe48647952e417a3830407424c5e15c3f1026a21abe2b4274 verified; corrected touch Survey bundle full-load screenshot inspected. Earlier passing CI41442140080 artifact13140241924 SHA256d79c2e002d715a4b6ce5eaef0d55bc839635b96648db85e9626b425ee91fdde1 verified; desktop Heavy recovery and touch Survey bundle screenshots inspected. Local supplemental engine replay accumulated all six badges across two expeditions with per-action decode; this is not a rendered six-badge accumulation test."
+        "CI41442584001 passed at59a90f33f72a0501897e2e14ac3003df69162aa8: nine engine tests, two standard and four charter rendered three-wreck expeditions across desktop1280x1000 and390x844 touch-emulated Chromium. Charter routes use full bags and air pockets; per-action reload retains state and earned badges. Baseline regression covers purchases/banking, natural empty-bag rescue, abandonment, replay retention, Escape, keyboard movement, pause, corrupt/quota recovery, standalone Games and layout. Mobile collection controls are asserted in viewport.74 bundled routes/286 asset references and nine selected first-batch source-integrity checks pass. Artifact13140978025 SHA25680b1d0c66d19b8ffe48647952e417a3830407424c5e15c3f1026a21abe2b4274 verified; corrected touch Survey bundle full-load screenshot inspected. Earlier passing CI41442140080 artifact13140241924 SHA256d79c2e002d715a4b6ce5eaef0d55bc839635b96648db85e9626b425ee91fdde1 verified; desktop Heavy recovery and touch Survey bundle screenshots inspected. Local supplemental engine replay accumulated all six badges across two expeditions with per-action decode; this is not a rendered six-badge accumulation test.",
+        "CI41449874237 passed on8888f94df34164949ad48ae7db01b51ce9dd50de: ten engine tests; six standard/charter baseline expeditions plus six replayed charter campaigns across desktop1280x1000 and390x844 touch-emulated Chromium. All six badges accumulate in one save; repeated heavy charters add ordinary24-coin salvage without another bonus. Rendered earned-v1 migration, loaded rescue/recollection, coin/gear persistence, explicit insufficient-air boundary fixture, keyboard movement/Space/B, native Enter, repeated/modified/composing input guards, real parent-bridge hidden restart/recovery, simulated document visibility, unrelated saves and Collection messaging pass.74 bundled routes/286 asset references and nine selected first-batch integrity checks pass. Artifact13144317076 SHA2560b730c84db3ea17fce68094cf3a0b8bc39ebf777a762ca18e1949fce68e0cabd verified. Touch six-badge completion, desktop loaded-rescue recollection and touch resumed-shell keyboard/breathing screenshots inspected. Automated rendered tests, not human enjoyment or physical-device evidence."
       ],
       "commits": [
         "3d3da404ea645461acbc66b4be71a903a238b64c",
         "258a1294d847fdb59c3557192881a4a20075e0be",
-        "59a90f33f72a0501897e2e14ac3003df69162aa8"
+        "59a90f33f72a0501897e2e14ac3003df69162aa8",
+        "a2c09741317d5a561e338969150e367d47a5dbcc",
+        "8888f94df34164949ad48ae7db01b51ce9dd50de"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantive rendered improvement verified; full qualification and selection pending.",
+        "status": "Qualified and selected; not integrated or live.",
         "observedWeakness": "A safe single-item-at-a-time route retrieves every find and instrument without using any air pocket or triggering rescue. Unlimited bell refills make cautious repeated trips dominant and dilute cargo/oxygen choices. Touch screenshot puts movement/collection controls below the full seven-row map; generic initial instructions return after reload.",
         "knownLimits": "Three short fixed wrecks, simple geometric symbols, no audio or procedural replay. Not human enjoyment research or physical-device testing. Full shell/input qualification and substantial rendered-play improvement remain.",
-        "assessment": "Optional combined-load recovery gives cargo weight and air-pocket planning a purpose without removing relaxed standard trips. First-success rewards can fund equipment and six badges support alternate-route replay. Three fixed wrecks still limit depth; no duration or human-enjoyment claim."
+        "assessment": "Combined-load charters create route, ascent-cost and air-pocket choices beyond the forgiving base expedition. Equipment purchases and permanent badges support progression; clear original vector artwork and fixed phone controls pass rendered checks. This adds deliberate resource-risk exploration distinct from Deep Pocket fishing and Soundings deduction. Finite authored maps limit long-term depth."
       },
       "nextSteps": [
-        "Complete loaded-cargo rescue, rendered v1 migration, six-badge replay/duplicate-reward checks, keyboard collection/breathing and bridge-hidden save qualification.",
-        "Compare against the existing slate before selection; retain on development branch while exact14 public curation remains."
-      ]
+        "Preserve qualified source while public14-game curation remains; do not silently restore or append catalogue entries.",
+        "When release scope is reconciled, integrate against fresh main and test actual catalogue launch/navigation and live routes."
+      ],
+      "selection": {
+        "selected": true,
+        "reason": "Select as a compact resource-planning addition: unlike Switchyard Post's finite pure shunting puzzles, banking salvage and choosing equipment change later dives, while alternate full-load charters and badges support replay. It complements Mycelium Yard's crop scheduling with spatial air/cargo decisions. Readability, migration, replay and embedded-shell checks pass.",
+        "limits": "Three deterministic wrecks, six charter badges, forgiving base mode and no measured duration or human-enjoyment claim."
+      }
     },
     {
       "slot": 69,
@@ -3125,11 +3134,11 @@
     }
   ],
   "nextSteps": [
-    "Finish Bell Diver68 full browser/shell qualification and comparative selection; rendered improvement is complete.",
-    "Build remaining22 original candidates in slots69–90, each with rendered baseline and substantive improvement.",
-    "Keep public integration held by exact14 curation; preserve qualified reserves, historical releases and second-batch20/20 additional round."
+    "Implement remaining22 original candidates in slots69–90, each with rendered baseline and substantive improvement.",
+    "Bell Diver68 and Mycelium Yard66 are qualified and selected but release-held; Switchyard Post67 remains a reserve.",
+    "Respect current exact14 public catalogue; preserve historical integrations, source/saves and second-batch20/20 additional round."
   ],
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "latestObservedMain": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
   "runHistory": [
     {
@@ -4354,6 +4363,12 @@
       "result": "Substantially improved Bell Diver68 with combined-load charter decisions, six persistent badges, fixed phone actions and original vector graphics. Nine engine tests and six rendered expeditions pass; screenshots inspected.28 built/28 improved/27 fully-qualified/0 currently integrated/live.22 candidates remain unbuilt; no new candidate counted.",
       "commit": "59a90f33f72a0501897e2e14ac3003df69162aa8",
       "report": "dev/indie-collection-three/BELL_DIVER_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Qualified Bell Diver68 across badge replay, old saves, loaded rescue, keyboard and actual bridge checks. Found and fixed insufficient-air final ascent banking; exact-air return remains valid. Ten engine tests and twelve rendered expeditions plus shell checks pass; screenshots inspected. Selected for future integration.28 built/improved/qualified;0 active integrated/live;22 unbuilt. No new candidate or additional substantial improvement pass counted.",
+      "commit": "8888f94df34164949ad48ae7db01b51ce9dd50de",
+      "report": "dev/indie-collection-three/BELL_DIVER_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
