@@ -23,7 +23,16 @@ const visibility=async visible=>{await p.evaluate(v=>document.querySelector('ifr
 await visibility(false);await f.locator('#accept:disabled').waitFor();await f.locator('#accept').evaluate(el=>el.click());A.equal(await raw(),completed);
 await visibility(true);await f.locator('#cancel').click();await f.locator('#pause').click();A.equal(await raw(),completed);
 await f.locator('#cell-6').click();await f.locator('#cell-6').evaluate(el=>window.dispatchEvent(new MessageEvent('message',{source:window,origin:'https://invalid.example',data:{type:'study-visibility',visible:false}})));A.equal(await f.locator('#pause').innerText(),'Pause');
-await f.locator('#games').click();A.ok(await p.evaluate(()=>messages.some(m=>m.type==='study-collection')));
+await f.locator('#games').click();await p.waitForFunction(()=>messages.some(m=>m.type==='study-collection'));
+
+await p.evaluate(k=>localStorage.setItem(k,'unreadable-hidden'),E.KEY);
+await f.locator('#games').evaluate(()=>location.reload());await f.locator('#recover').waitFor();
+await f.locator('#cell-6').click();await f.locator('#slash').click();await f.locator('#recover').click();
+await visibility(false);await f.locator('#accept:disabled').waitFor();await f.locator('#accept').evaluate(el=>el.click());A.equal(await raw(),'unreadable-hidden');
+await visibility(true);await f.locator('#cancel').click();await f.locator('#pause').click();A.equal(await raw(),'unreadable-hidden');
+await f.locator('#recover').click();await f.locator('#accept').click();A.equal(E.decode(await raw()).moves.length,1);
+await p.evaluate(([k,v])=>localStorage.setItem(k,v),[E.KEY,completed]);
+
 await p.goto(base+'/games/glimmer-loom/index.html');await p.locator('#cell-0').waitFor();
 await p.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:true});document.dispatchEvent(new Event('visibilitychange'))});A.ok(await p.locator('#undo').isDisabled());await p.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:false});document.dispatchEvent(new Event('visibilitychange'))});A.equal(await p.locator('#pause').innerText(),'Resume');await click('#pause');A.equal(await raw(),completed);
 
