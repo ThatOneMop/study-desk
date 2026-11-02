@@ -28,6 +28,7 @@ let browser;
           const before=await state();
           await p.reload();await p.locator('#board').waitFor();
           A.deepEqual(await state(),before);
+          if(fragile)A.match(await p.locator('#coupling').innerText(),/Fragile red: pull only/);
           if(++count===8)await shot((fragile?'fragile':'standard')+'-shunting-'+level);
         }
         const won=await state();A.equal(won.won,true);records=won.records;
