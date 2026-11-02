@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 29,
-    "improved": 28,
+    "improved": 29,
     "browserTested": 28,
     "integrated": 0,
     "live": 0
@@ -2740,33 +2740,54 @@
       "slot": 69,
       "id": "brasswake",
       "title": "Brasswake",
-      "coreLoop": "Advance a clockwork combat court one action at a time: dodge incoming bolts, guard to redirect them in a chosen direction into sentries, and walk to recharge a two-charge shield while managing three hearts.",
-      "status": "initial-playable-awaiting-substantive-improvement",
+      "coreLoop": "Turn-based bolt-redirection combat: dodge or guard hostile shots, or spend both shield charges to catch one, carry it to a new lane while recharging, then fire. Earn separate unscathed and roving-shot mastery in each court.",
+      "status": "substantively-improved-awaiting-shell-qualification",
       "source": "games/brasswake",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-03",
+          "observedWeakness": "The three tested winning routes take only7/7/14 turns, with little progression beyond unlocks and best-turn replay. Overlapping hostile/friendly bolts are drawn at the same position and are difficult to distinguish. The touch screenshot shows the fixed action panel covering lower map rows until scrolling. 'Turn' button labels can be mistaken for persistent facing rather than a one-turn guard.",
+          "changes": [
+            "Added catch/carry/fire: two-charge capture holds one bolt, walking retains ammo and recharges, firing launches from the current lane; excess arrivals still hurt. This adds a positional alternative to immediate reflection.",
+            "Added two persistent mastery badges per court: unscathed victory and victory after hitting a sentry with a shot carried at least one step. Original unlocks and best turns remain intact; legacy v1 saves migrate with empty mastery.",
+            "Separated overlapping bolt groups into colored direction/count chips, renamed Turn to Guard, and put phone controls below the board so no rows are covered.",
+            "Rendered follow-up repaired missing stored-shot feedback after reload; current carried-shot state and mastery instructions now remain explicit."
+          ],
+          "implementationCommits": [
+            "c98eac2f18e9ee663f46b2215a630e2ec8910613",
+            "d6be820500ec87131210d5811ad1c409440cc8cb"
+          ],
+          "validation": "CI41470511640 at d6be820500ec87131210d5811ad1c409440cc8cb passed eight engine checks, twelve normal/roving-shot court clears across desktop1280×1000 and touch-emulated390×844 Chromium, plus two complete keyboard catch/carry/fire clears. Per-action save/reload, earned unlocks, best turns and badges across restart, natural loss/retry, Escape, pause, corrupt/quota recovery, standalone Games navigation, no page errors/horizontal overflow and a fully visible board with nonoverlapping controls passed.74 bundled routes/286 HTML references and all nine first-batch release integrity checks pass. Artifact13155195981 SHA25663da82390cd9c9d1431e03a39ce1928581aeff2b201e23a7bf14ef50e566b526 verified; touch-holding-2, desktop-holding-2 and touch-mastery-2 screenshots inspected. Original solutions7/7/14 turns; roving-shot routes8/9/15, not proven optimal. Automated play and agent visual assessment, not human enjoyment or physical-device testing."
+        }
+      ],
       "tests": [
-        "CI41463234816 passed at0ad297d330c8816d263fc33fb7c47c18c3ec1ef1: four engine tests and six rendered court wins across1280x1000 desktop and390x844 touch-emulated Chromium, with per-action reload, earned court unlocks, best-turn persistence, natural waiting-to-loss, restart, native Escape, keyboard wait/guard, pause, corrupt/quota recovery, standalone Games navigation and no horizontal overflow/page errors.74 bundled routes/286 HTML asset references and nine selected first-batch integrity checks pass. Artifact13149947448 SHA2568138e7afe7a949d84e1f56ea52c30a2e4ea868f8c05ed45e069d16d705e9b60f verified; desktop Brass choir and touch Crossfire court screenshots inspected. Tested solutions take7/7/14 turns; not claimed optimal or human enjoyment evidence. CI41463132157 failed on browser-harness syntax and is not passing evidence; corrected before the successful run."
+        "CI41463234816 passed at0ad297d330c8816d263fc33fb7c47c18c3ec1ef1: four engine tests and six rendered court wins across1280x1000 desktop and390x844 touch-emulated Chromium, with per-action reload, earned court unlocks, best-turn persistence, natural waiting-to-loss, restart, native Escape, keyboard wait/guard, pause, corrupt/quota recovery, standalone Games navigation and no horizontal overflow/page errors.74 bundled routes/286 HTML asset references and nine selected first-batch integrity checks pass. Artifact13149947448 SHA2568138e7afe7a949d84e1f56ea52c30a2e4ea868f8c05ed45e069d16d705e9b60f verified; desktop Brass choir and touch Crossfire court screenshots inspected. Tested solutions take7/7/14 turns; not claimed optimal or human enjoyment evidence. CI41463132157 failed on browser-harness syntax and is not passing evidence; corrected before the successful run.",
+        "CI41470511640 at d6be820500ec87131210d5811ad1c409440cc8cb passed eight engine checks, twelve normal/roving-shot court clears across desktop1280×1000 and touch-emulated390×844 Chromium, plus two complete keyboard catch/carry/fire clears. Per-action save/reload, earned unlocks, best turns and badges across restart, natural loss/retry, Escape, pause, corrupt/quota recovery, standalone Games navigation, no page errors/horizontal overflow and a fully visible board with nonoverlapping controls passed.74 bundled routes/286 HTML references and all nine first-batch release integrity checks pass. Artifact13155195981 SHA25663da82390cd9c9d1431e03a39ce1928581aeff2b201e23a7bf14ef50e566b526 verified; touch-holding-2, desktop-holding-2 and touch-mastery-2 screenshots inspected. Original solutions7/7/14 turns; roving-shot routes8/9/15, not proven optimal. Automated play and agent visual assessment, not human enjoyment or physical-device testing.",
+        "First improvement CI41469962152 failed a strict phone board-visibility assertion after scrollIntoViewIfNeeded; final harness explicitly centers the board, waits a frame, captures before asserting, allows one CSS pixel rounding and checks control separation. The failed run is not passing evidence. Its screenshots revealed absent stored-shot status after reload, fixed in d6be820."
       ],
       "commits": [
         "8381669deae25dff6800a4904177df120fc5484c",
-        "0ad297d330c8816d263fc33fb7c47c18c3ec1ef1"
+        "0ad297d330c8816d263fc33fb7c47c18c3ec1ef1",
+        "c98eac2f18e9ee663f46b2215a630e2ec8910613",
+        "d6be820500ec87131210d5811ad1c409440cc8cb"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline; not selected.",
-        "observedWeakness": "The three tested winning routes take only7/7/14 turns, with little progression beyond unlocks and best-turn replay. Overlapping hostile/friendly bolts are drawn at the same position and are difficult to distinguish. The touch screenshot shows the fixed action panel covering lower map rows until scrolling. 'Turn' button labels can be mistaken for persistent facing rather than a one-turn guard.",
-        "knownLimits": "Three small authored courts, deterministic sentry fire and no audio. No human-enjoyment study, physical-device testing or duration claim. Substantive improvement and full shell/keyboard qualification remain."
+        "status": "Substantially improved compact tactics candidate; full shell qualification and comparative selection pending.",
+        "observedWeakness": "Catch-and-carry adds genuine positioning and resource choices, but three deterministic small courts remain brief. Phone controls no longer cover the board; reaching the Fire row still requires vertical scrolling.",
+        "knownLimits": "No new arena padding or duration claim. No audio or human-enjoyment/physical-device study. Real parent-bridge hidden/modal actions, complete shortcut/native-button handling, rendered legacy migration and unrelated-save isolation still need qualification."
       },
       "nextSteps": [
-        "Add game-specific tactical choices or defense interactions that deepen redirection/positioning; do not merely add health, repeated arenas or timers.",
-        "Make multiple bolts and their next destinations distinguishable; label guard actions clearly and keep the complete phone board usable beside controls.",
-        "Rendered-test the improvement, loss/retry, saves and keyboard/touch before shell qualification and comparative selection."
+        "Qualify actual parent bridge visibility/pause, pending restart/recovery confirmation, full keyboard/native-button ownership and save isolation.",
+        "Verify old completed saves migrate in the rendered browser; test loss/retry while carrying and badge persistence across court changes.",
+        "Compare compact tactics depth and control comfort against selected slate before selection. Keep unlisted while current exact14 catalogue curation holds."
       ]
     },
     {
@@ -3149,7 +3170,7 @@
     }
   ],
   "nextSteps": [
-    "Prioritize Brasswake69 substantive tactical/visual/control improvement based on inspected baseline; it is not a finished selection.",
+    "Qualify Brasswake69 shell/legacy-save/keyboard edges; substantial catch-and-carry improvement is verified, but selection remains pending.",
     "Build remaining21 original candidates in slots70–90, each with rendered baseline and substantial improvement.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4391,6 +4412,12 @@
       "result": "Built Brasswake69 original bolt-redirection combat baseline. Four engine checks and six rendered wins pass; screenshots inspected and limited depth/overlapping bolts/mobile occlusion recorded.29 built/28 improved/28 fully-qualified/0 active integrated/live;21 unbuilt. No improvement pass or public release counted.",
       "commit": "0ad297d330c8816d263fc33fb7c47c18c3ec1ef1",
       "report": "dev/indie-collection-three/BRASSWAKE_BASELINE.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Brasswake69 substantially improved with catch/carry/fire, persistent mastery, readable bolts and nonoverlapping mobile controls. Eight engine checks, fourteen rendered winning routes and screenshot review pass.29 built/29 improved/28 fully-qualified/0 active integrated/live;21 unbuilt. No new candidate or public release counted; main unchanged.",
+      "commit": "d6be820500ec87131210d5811ad1c409440cc8cb",
+      "report": "dev/indie-collection-three/BRASSWAKE_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
