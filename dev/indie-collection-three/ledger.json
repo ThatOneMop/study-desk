@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 30,
+    "built": 31,
     "improved": 30,
     "browserTested": 30,
     "integrated": 0,
@@ -2855,21 +2855,35 @@
     },
     {
       "slot": 71,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "grainwright",
+      "title": "Grainwright",
+      "coreLoop": "Plane contiguous strokes along an eight-station board to match a requested profile, follow grain direction to avoid tear-out, sand rough fibres and deliver commissions; reinvest earned coins in wider planes and fine abrasive.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/grainwright",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41516236360 at 485d1a0269937a9e1afe411c9b38774e8325983a passed four engine checks and twelve rendered commission completions (six consecutive commissions in each desktop1280×1000 and touch-emulated390×844 Chromium context). Plane/abrasive upgrades were earned through delivery coins, every shaping action saved/reloaded exactly, and spoil/retry retained purchases/coins. Mixed-grain tear-out/sanding, native Space, Escape, pause, corrupt/quota recovery, standalone Games navigation and no page errors/horizontal overflow passed.74 bundled routes/286 HTML references, source syntax and nine first-batch release integrity checks passed. Artifact13175297814 sha256:dd07dee762d934fb2afe96998b33fd62655a00934b873f3a344ed0b334dbdb33 verified; touch-commission-4.png and desktop-commission-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+      ],
+      "commits": [
+        "485d1a0269937a9e1afe411c9b38774e8325983a"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; not selected.",
+        "observedWeakness": "All three upgrades can be bought within six tested deliveries; later generated profiles offer limited new goals. Safe single-station cuts remain easy and dominant for reliability. Wide strokes have no visible footprint/risk preview. Screenshots show separate wood columns rather than a convincing finished item, small phone arrows/numbers, and selection/width reset on reload.",
+        "knownLimits": "No audio, substantive improvement, full embedded-shell qualification, human enjoyment or measured playtime claim. Generated commissions are variations of one loop, not extra games or proven hours of content."
+      },
+      "nextSteps": [
+        "Deepen useful commission/tool choices and progression beyond the first three purchases; avoid merely adding levels, timers or large unlock counts.",
+        "Add rendered multi-station stroke preview and clearer connected-board/finished-object feedback while preserving grain and target readability.",
+        "Playtest the substantive upgrade, then complete real-bridge/input/save qualification and comparative selection."
+      ]
     },
     {
       "slot": 72,
@@ -3215,7 +3229,8 @@
     }
   ],
   "nextSteps": [
-    "Build remaining20 original candidates in slots71–90, each with rendered baseline and substantial improvement.",
+    "Substantially improve Grainwright71 from its inspected baseline, especially progression choices, stroke preview and finished-work feedback.",
+    "Build remaining19 original candidates in slots72–90 with rendered baseline and substantive improvement.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4486,6 +4501,12 @@
       "result": "Qualified Lockwater70, fixing cancelled job callbacks and closed-dialog acceptance. Eight engine tests, fourteen rendered clears and desktop/touch save/input/real-bridge checks passed; screenshots inspected. Reserve selection for finite depth.30 built/improved/qualified;20 unbuilt;0 active integrated/live. No new candidate or substantial improvement pass counted.",
       "commit": "4891c48791b67dc81f6bff4fb5f9d2f0560a51b6",
       "report": "dev/indie-collection-three/LOCKWATER_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Built Grainwright71 woodworking baseline with shaping/grain/sanding and earned tools. Four engine checks and twelve rendered commissions passed; screenshots inspected.31 built/30 improved/30 qualified;19 unbuilt;0 active integrated/live. No improvement pass or release counted.",
+      "commit": "485d1a0269937a9e1afe411c9b38774e8325983a",
+      "report": "dev/indie-collection-three/GRAINWRIGHT_BASELINE.md"
     }
   ],
   "historicalTotals": {
