@@ -6,7 +6,7 @@
   "totals": {
     "built": 30,
     "improved": 30,
-    "browserTested": 29,
+    "browserTested": 30,
     "integrated": 0,
     "live": 0
   },
@@ -2801,11 +2801,11 @@
       "id": "lockwater",
       "title": "Lockwater",
       "coreLoop": "Operate canal chambers with limited water to deliver cargo uphill and return home; earn single-inlet contracts that require routing water from A into B and retaining specified upper-chamber reserves, with separate water/turn records.",
-      "status": "substantively-improved-awaiting-shell-qualification",
+      "status": "qualified-reserve-held-by-current-curation",
       "source": "games/lockwater",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -2827,25 +2827,31 @@
       ],
       "tests": [
         "Five engine checks and six desktop1280×1000/touch-emulated390×844 rendered delivery-and-return wins passed. Each action saves/reloads exactly; earned job unlocks, water/turn records, waste-to-loss/retry, native Escape, keyboard sailing, pause, corrupt-save preservation/recovery, quota fallback, standalone Games navigation and no horizontal overflow/page errors pass. CI41488293744 at 7c96a4eb8918b8b19c15ab647013ba93300f1344 succeeded, including74 bundled routes/286 asset references, source syntax and nine first-batch release integrity checks. Initial baseline CI41488135821 also passed. Artifact13161879102 sha256:c3bd9df5a2ba599c2c9bd085a2d9bb8979b842de40c89ab88ce35153888af76e was verified; desktop-job-2 and touch-job-1 screenshots from the initial baseline were inspected. The final follow-up only corrects tutorial entry order; no claim of final-artifact screenshot inspection. Routes use3/5/4 water in11/14/13 turns; not claimed optimal for water or human enjoyment.",
-        "CI41497739027 at b21dc51224a51fc0f67a52a6e5e1047b25f8909d passed eight engine tests and twelve rendered clears: three standard deliveries and three single-inlet reserve contracts in each desktop1280×1000 and touch-emulated390×844 Chromium context. Contract routes require transfers and finish B at1/2/3 respectively in13/17/18 tested turns. Every action reloads exactly; separate records, earned contract unlocks, restart, native Escape, job confirmations, natural loss/retry, keyboard sail, pause, corrupt/quota saves and Games navigation pass.74 bundled routes/286 asset references, source syntax and nine first-batch release integrity checks pass. Artifact13166144931 sha256:3ed5d04a3ddaa63fac0781820885c54f85f0892689b09a31922dcebcbb882d79 verified; touch-contract-2.png and desktop-contract-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+        "CI41497739027 at b21dc51224a51fc0f67a52a6e5e1047b25f8909d passed eight engine tests and twelve rendered clears: three standard deliveries and three single-inlet reserve contracts in each desktop1280×1000 and touch-emulated390×844 Chromium context. Contract routes require transfers and finish B at1/2/3 respectively in13/17/18 tested turns. Every action reloads exactly; separate records, earned contract unlocks, restart, native Escape, job confirmations, natural loss/retry, keyboard sail, pause, corrupt/quota saves and Games navigation pass.74 bundled routes/286 asset references, source syntax and nine first-batch release integrity checks pass. Artifact13166144931 sha256:3ed5d04a3ddaa63fac0781820885c54f85f0892689b09a31922dcebcbb882d79 verified; touch-contract-2.png and desktop-contract-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing.",
+        "CI41506900466 at 4891c48791b67dc81f6bff4fb5f9d2f0560a51b6 passed eight engine tests, twelve rendered standard/contract clears and two additional complete keyboard-only contract clears across desktop1280×1000 and touch-emulated390×844 Chromium. Authentic legacy completed records migrate, contract records survive reload/mode/job changes, Space/Enter native buttons and arrow sailing agree with engine transitions, modifiers/repeat/composition do not advance, cancelled job callbacks cannot commit, and actual bridge.js blocks hidden job/recovery confirmations until return/cancel/explicit resume. Collection messages and unrelated-save isolation pass.74 bundled routes/286 HTML references, source syntax and nine first-batch release integrity checks pass. Artifact13171875647 sha256:4607941ec6a20efa23acc98a11430f46e86487370fc6dab42f3d289160a9d4fa verified; touch-qualified-record.png and desktop-shell.png inspected. Automated reliability and agent visual assessment; not human enjoyment or physical-device testing."
       ],
       "commits": [
         "25808b06547b8220bba26f7ffad67fba83fc6ada",
         "7c96a4eb8918b8b19c15ab647013ba93300f1344",
-        "b21dc51224a51fc0f67a52a6e5e1047b25f8909d"
+        "b21dc51224a51fc0f67a52a6e5e1047b25f8909d",
+        "4891c48791b67dc81f6bff4fb5f9d2f0560a51b6"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantively improved; full shell qualification and selection pending.",
+        "status": "Qualified reserve; not selected or integrated.",
         "observedWeakness": "Transfers now matter in earned contracts and phone levels are readable. Fixed three-job geometry still limits long-term depth; contract target/status can scroll above the action area, and tutorial prose remains long.",
-        "knownLimits": "No audio, procedural content, physical-device test or human enjoyment/duration claim. Exact route diagnosis is not a promise of an optimal route. Real parent-bridge/modal behavior, rendered legacy migration and save-isolation checks remain."
+        "knownLimits": "Three deterministic jobs with earned single-inlet reserve variants; lengthy tutorial and phone scrolling remain. No audio, procedural content, physical-device testing or human-enjoyment/duration claim. Real catalogue regression remains a release-time requirement.",
+        "assessment": "Single-inlet routing and retained water create distinct planning choices, with clear boat/level graphics and reliable saved replay records. The small fixed geometry and limited persistent progression are less compelling for this user's long-term progression taste than Bell Diver's equipment and Mycelium Yard's reinvestment."
       },
       "nextSteps": [
-        "Qualify actual parent bridge hidden-state and pending job/recovery confirmations; ensure cancelled callbacks cannot later commit.",
-        "Exercise rendered old-save migration, separate contract records across all job/mode changes, native keyboard ownership and unrelated-save isolation.",
-        "Compare improved compact canal puzzle against selected slate before selection; keep unlisted under current14-game curation."
-      ]
+        "Preserve qualified source and tests; no restoration to the current14-game catalogue.",
+        "Reconsider selection only if meaningful depth or comparative evidence changes; prioritize remaining20 distinct candidates."
+      ],
+      "selection": {
+        "selected": false,
+        "reason": "Keep as a compact hydraulic puzzle reserve. Transfers and reserve contracts are meaningfully different from the baseline, but three fixed jobs have limited depth and the selected slate already contains several small planning puzzles. Prefer progression-rich candidates for the remaining slots."
+      }
     },
     {
       "slot": 71,
@@ -3209,7 +3215,6 @@
     }
   ],
   "nextSteps": [
-    "Qualify Lockwater70 bridge/save/input edges and assess selection; substantive single-inlet reserve improvement is verified.",
     "Build remaining20 original candidates in slots71–90, each with rendered baseline and substantial improvement.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4475,6 +4480,12 @@
       "result": "Lockwater70 improved with earned single-inlet reserve contracts, separate records, stranded-route diagnosis, job confirmations and readable phone status. Eight engine checks and twelve rendered clears passed; screenshots inspected.30 built/30 improved/29 fully-qualified;20 unbuilt;0 active integrated/live. No new game or release counted.",
       "commit": "b21dc51224a51fc0f67a52a6e5e1047b25f8909d",
       "report": "dev/indie-collection-three/LOCKWATER_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Qualified Lockwater70, fixing cancelled job callbacks and closed-dialog acceptance. Eight engine tests, fourteen rendered clears and desktop/touch save/input/real-bridge checks passed; screenshots inspected. Reserve selection for finite depth.30 built/improved/qualified;20 unbuilt;0 active integrated/live. No new candidate or substantial improvement pass counted.",
+      "commit": "4891c48791b67dc81f6bff4fb5f9d2f0560a51b6",
+      "report": "dev/indie-collection-three/LOCKWATER_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
