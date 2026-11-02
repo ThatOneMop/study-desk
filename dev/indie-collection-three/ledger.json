@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 24,
+    "built": 25,
     "improved": 24,
     "browserTested": 24,
     "integrated": 24,
@@ -2306,21 +2306,37 @@
     },
     {
       "slot": 65,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "glimmer-loom",
+      "title": "Glimmer Loom",
+      "coreLoop": "Place and reuse a limited supply of slash/backslash mirrors to route two independent coloured rays around shades into matching edge receivers; every mirror affects either colour.",
+      "status": "initial-playable-browser-baseline",
+      "source": "games/glimmer-loom",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "8 engine tests pass locally and CI: three winning routes with per-action decode, sequential progression, stock/source/block restrictions, malformed actions/saves, terminal journal checks, undo/retry records, independent ray directions, exhaustive single placements, copy isolation and locked levels.",
+        "CI41370924033 passed six actual rendered route completions across desktop and390x844 touch-emulated Chromium, selection purity, per-placement reload, records, undo/retry, pause, native Escape, scoped reset, corrupt save preservation/recovery, storage quota handling and no horizontal overflow/page errors. Asset and first-batch selected-source integrity checks passed.",
+        "Artifact13108788074 SHA256c139a6e62c94bdcd0e3854c9b3aa0abf84e60715a0a2f6d612fa8cc3499f727f verified. Desktop second-window and touch third-window screenshots inspected. This establishes initial playable baseline, not qualified improvement or human enjoyment."
+      ],
+      "commits": [
+        "fa331158e504f65d949c593812f3acd6aa657d39"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Initial playable; improvement required",
+        "observedWeakness": "Rendered ray paths are readable but mirror glyphs are small and partly obscured by rays. Selection is weakly indicated and orientation effects require committing then undoing. Three tiny fixed puzzles offer limited replay choices.",
+        "knownLimits": "No audio/animation; three fixed authored windows, no duration claim. Physical devices, full keyboard navigation, shell visibility/security and actual catalogue not yet qualified."
+      },
+      "nextSteps": [
+        "Play unfamiliar arrangements in rendered UI; strengthen mirror selection/readability and add meaningful optical planning or replay choices based on observed weakness. Small visual repairs alone do not satisfy improvement.",
+        "Add targeted invalid-save and parent/document visibility/recovery checks, keyboard control and actual shell navigation regression; qualify after substantial improvement.",
+        "Keep unlisted until qualified and selected; preserve other games and v1 saves."
+      ]
     },
     {
       "slot": 66,
@@ -2774,8 +2790,8 @@
     }
   ],
   "nextSteps": [
-    "Implement the26 remaining distinct third-batch slots65–90, each with actual rendered playtesting, a substantive improvement and qualification before integration.",
-    "Preserve all prior releases, concurrent launcher/Gummy Bay work and save keys."
+    "Improve and qualify Glimmer Loom65 using rendered baseline; do not count initial tests as substantive improvement.",
+    "Implement remaining25 distinct third-batch slots66–90 and maintain exact50-slot ledger."
   ],
   "updated": "2026-11-02",
   "latestObservedMain": "5d3f603a13f810e94def906b0960d71c3c86be83",
@@ -3886,6 +3902,13 @@
       "releaseCommit": "5d3f603a13f810e94def906b0960d71c3c86be83",
       "result": "Release CI41365309953 passed30 focused tests,14 desktop/touch winning campaigns, actual catalogue search/group/sort/favourite, completion, pause with confirmation, Games/Collection return, restart/save retention,76 launch routes,75 bundled routes/366 asset references and nine first-batch integrity checks. Artifact13107016515 SHA25652cae3c970ad79a12fbd04ee0eb64dd1380295b838030a22f5ced109d144132c verified; touch catalogue and desktop saved-return screenshots inspected. Pages41365466208 succeeded. Direct live search/launch, four-action opening win, next-mobile unlock, Games return and standalone reload retained completion/record. Live screenshot inspected; no Switch workspace control observed. No deployment blocker.",
       "counts": "24/50 built/improved/browser-tested/integrated/live;26 unbuilt."
+    },
+    {
+      "date": "2026-11-02",
+      "game": "glimmer-loom",
+      "commit": "fa331158e504f65d949c593812f3acd6aa657d39",
+      "run": 41370924033,
+      "result": "Initial playable built and baseline tested;25 built,24 qualified/improved/browser-tested/integrated/live. No public release."
     }
   ]
 }
