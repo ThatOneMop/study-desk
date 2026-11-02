@@ -1461,5 +1461,30 @@
     "thumbnail": "art/curated/bough-balance.svg",
     "thumbnailAlt": "Folded paper birds suspended from balanced wooden branches over a soft sage background",
     "updated": "2026-11-02"
+  },
+  {
+    "id": "glimmer-loom",
+    "title": "Glimmer Loom",
+    "description": "Route two ribbons of light through shared mirrors into matching windows. Sketch a chain of changes before placing mirrors, then replay three compact optical puzzles for fewer moves.",
+    "icon": "✧",
+    "genre": "Puzzle + Relaxed",
+    "color": "#648c91",
+    "controls": "Arrows select · / and B place · Delete lifts · Z undoes · Touch buttons and ray sketch",
+    "url": "games/glimmer-loom/index.html",
+    "group": "Indie collection three",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#glimmer-loom",
+    "aliases": [
+      "light",
+      "mirrors",
+      "optics",
+      "planning",
+      "relaxed"
+    ],
+    "thumbnail": "art/curated/glimmer-loom.svg",
+    "thumbnailAlt": "Amber and blue light ribbons turn on silver mirrors toward two glowing receivers in a dark teal workshop",
+    "updated": "2026-11-02"
   }
 ]
