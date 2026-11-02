@@ -11,8 +11,8 @@ function renderPortfolio(d){
  $('career').hidden=s.project==null;$('career').disabled=busy();
  $('contract').textContent=s.project==null?'Regular work · No stroke limit':d.name+' · '+(s.goal==='clean'?'Clean seal: '+s.tear+' tear-outs (must stay at zero)':'Efficiency seal: '+s.strokes+' / '+d.budget+' strokes')+' · '+s.marks.reduce((t,m)=>t+(m&1?1:0)+(m&2?1:0),0)+' / 6 portfolio seals';
  const risk=dir=>{const cells=Array.from({length:width},(_,i)=>selected+i*dir);if(cells.some(i=>i<0||i>7))return 'outside board';const cut=cells.some(i=>s.height[i]<=d.target[i]),rough=cells.filter(i=>d.grain[i]!==dir).length;return 'stations '+cells.map(i=>i+1).join(', ')+(cut?' — would spoil board':rough?' — plane tears '+rough+'; scraper stays clean':' — clean cut')};
- $('preview').textContent='Before cutting: ← '+risk(-1)+' | → '+risk(1)+'. Plane costs 1 stroke; scraper costs 2.';
+ $('preview').hidden=s.phase!=='work';$('preview').textContent='Before cutting: ← '+risk(-1)+' | → '+risk(1)+'. Plane costs 1 stroke; scraper costs 2.';
  if(s.project!=null&&s.phase==='work'&&(s.goal==='clean'&&s.tear>0||s.goal==='efficient'&&s.strokes>d.budget))$('message').textContent='Goal missed. Replace this board to retry, or choose another commission. Your seals and tools stay.';
- if(s.project!=null&&s.phase==='won')$('message').textContent='Commission delivered. Seal recorded! Try the other goal or unlock the next design.';
+ if(s.project!=null&&s.phase==='won')$('message').textContent=s.marks.every(m=>m===3)?'Portfolio complete: all six seals earned. Replay any commission or return to regular work.':'Commission delivered. Seal recorded! Try the other goal or unlock the next design.';
 }
 $('career').onclick=()=>ask('Return to regular work? This furniture board will be replaced.',()=>go({type:'career'}));
