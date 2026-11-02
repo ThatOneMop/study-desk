@@ -60,7 +60,7 @@ let browser;
     await p.evaluate(k=>localStorage.setItem(k,'broken'),E.KEY);await p.reload();await p.locator('#recover').waitFor();
     await click('#right');A.equal(await raw(),'broken');await click('#recover');await click('#accept');A.equal((await state()).moves,1);
     await p.evaluate(()=>Storage.prototype.setItem=function(){throw Error('quota')});await click('#right');A.match(await p.locator('#save').innerText(),/temporary/);
-    await click('#games');A.ok(p.url().endsWith('/index.html#games'));
+    await click('#games');await p.waitForURL('**/index.html#games');
     A.deepEqual(errors,[]);await ctx.close();
   }
   console.log('PASS twelve standard/fragile rendered wins with per-action reload, two keyboard wins, badges, v1 migration, undo/retry, Escape, pause, corrupt/quota recovery, Games navigation and desktop/touch layout');
