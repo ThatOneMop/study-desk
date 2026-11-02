@@ -6,7 +6,7 @@
   "totals": {
     "built": 25,
     "improved": 25,
-    "browserTested": 24,
+    "browserTested": 25,
     "integrated": 24,
     "live": 24
   },
@@ -2309,11 +2309,11 @@
       "id": "glimmer-loom",
       "title": "Glimmer Loom",
       "coreLoop": "Place and reuse a limited supply of slash/backslash mirrors to route two independent coloured rays around shades into matching edge receivers; every mirror affects either colour.",
-      "status": "improved-awaiting-qualification",
+      "status": "qualified-selected-awaiting-integration",
       "source": "games/glimmer-loom",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -2325,8 +2325,9 @@
           "after": "Optional reversible multi-mirror ray sketch previews an entire legal sequence with dashed rays, per-colour exit/receiver comparisons and one-change-at-a-time application. Undo/discard never write saves. Larger mirror strokes and explicit selected coordinates clarify optics.",
           "evidence": "11 engine tests pass. CI41375678269 passed six rendered sketch-to-win routes across desktop and390x844 touch-emulated Chromium, draft save purity/undo, paused application guards, sequential application counts, final save reload, records, undo/retry, native Escape, scoped reset and corrupt/quota recovery; syntax/assets/first-batch selected-source checks pass. Artifact13111296459 SHA2561326de93d7c98e0a084a82b8f72ff2499374ac36f0f74281cdae6e2082e94a1c verified. Desktop second-window sketch, touch third-window sketch and completed board inspected.",
           "followupCommit": "239b566dc92f5ad98df7e17ba29be920723ed0be",
-          "remaining": "Full keyboard, parent/document visibility and recovery/modal qualification, actual shell navigation and selection/integration. No physical-device or human-enjoyment study.",
-          "followupEvidence": "Follow-up CI41376053910 passed on239b566dc92f5ad98df7e17ba29be920723ed0be. Artifact13111341237 SHA2568c100309a90da44c1dd4f9cf282d0bb91b79cab44195b369988a332146afeab9 verified; corrected touch sketch screenshot inspected, duplicate counters removed."
+          "remaining": "Actual catalogue integration/regression and live release.",
+          "followupEvidence": "Follow-up CI41376053910 passed on239b566dc92f5ad98df7e17ba29be920723ed0be. Artifact13111341237 SHA2568c100309a90da44c1dd4f9cf282d0bb91b79cab44195b369988a332146afeab9 verified; corrected touch sketch screenshot inspected, duplicate counters removed.",
+          "qualificationEvidence": "CI41380677100 passed at2e4082519bc668edd34d28fa517a451f2816b6e3:11 engine tests, six desktop/touch sketch campaigns plus two keyboard opening completions; final reload/records/undo/retry, keyboard focus and source skipping, B/Delete/Z, sketch-local undo, native Enter application, standalone Games route, real-bridge parent fixture Collection messaging, hidden confirmation/recovery rejection, corrupt bytes preservation, scoped reset, quota handling and simulated document visibility.74 bundled routes/286 asset references and nine first-batch integrity checks passed. Artifact13113441941 SHA256892982c2a5d44df047bf61671c0338794eb2c4c60762cbb54d773b19032abe67 verified; desktop/touch keyboard completion screenshots inspected."
         }
       ],
       "tests": [
@@ -2334,24 +2335,27 @@
         "CI41370924033 passed six actual rendered route completions across desktop and390x844 touch-emulated Chromium, selection purity, per-placement reload, records, undo/retry, pause, native Escape, scoped reset, corrupt save preservation/recovery, storage quota handling and no horizontal overflow/page errors. Asset and first-batch selected-source integrity checks passed.",
         "Artifact13108788074 SHA256c139a6e62c94bdcd0e3854c9b3aa0abf84e60715a0a2f6d612fa8cc3499f727f verified. Desktop second-window and touch third-window screenshots inspected. This establishes initial playable baseline, not qualified improvement or human enjoyment.",
         "11 engine tests pass. CI41375678269 passed six rendered sketch-to-win routes across desktop and390x844 touch-emulated Chromium, draft save purity/undo, paused application guards, sequential application counts, final save reload, records, undo/retry, native Escape, scoped reset and corrupt/quota recovery; syntax/assets/first-batch selected-source checks pass. Artifact13111296459 SHA2561326de93d7c98e0a084a82b8f72ff2499374ac36f0f74281cdae6e2082e94a1c verified. Desktop second-window sketch, touch third-window sketch and completed board inspected.",
-        "Follow-up CI41376053910 passed on239b566dc92f5ad98df7e17ba29be920723ed0be. Artifact13111341237 SHA2568c100309a90da44c1dd4f9cf282d0bb91b79cab44195b369988a332146afeab9 verified; corrected touch sketch screenshot inspected, duplicate counters removed."
+        "Follow-up CI41376053910 passed on239b566dc92f5ad98df7e17ba29be920723ed0be. Artifact13111341237 SHA2568c100309a90da44c1dd4f9cf282d0bb91b79cab44195b369988a332146afeab9 verified; corrected touch sketch screenshot inspected, duplicate counters removed.",
+        "CI41380677100 passed at2e4082519bc668edd34d28fa517a451f2816b6e3:11 engine tests, six desktop/touch sketch campaigns plus two keyboard opening completions; final reload/records/undo/retry, keyboard focus and source skipping, B/Delete/Z, sketch-local undo, native Enter application, standalone Games route, real-bridge parent fixture Collection messaging, hidden confirmation/recovery rejection, corrupt bytes preservation, scoped reset, quota handling and simulated document visibility.74 bundled routes/286 asset references and nine first-batch integrity checks passed. Artifact13113441941 SHA256892982c2a5d44df047bf61671c0338794eb2c4c60762cbb54d773b19032abe67 verified; desktop/touch keyboard completion screenshots inspected."
       ],
       "commits": [
         "fa331158e504f65d949c593812f3acd6aa657d39",
         "38c75cb2190935bf0e056fd2533b0372afae46ea",
-        "239b566dc92f5ad98df7e17ba29be920723ed0be"
+        "239b566dc92f5ad98df7e17ba29be920723ed0be",
+        "fbe738d4d8f58d0be76a9af707dead8d9b548f93",
+        "2e4082519bc668edd34d28fa517a451f2816b6e3"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantive planning improvement implemented; final qualification pending",
+        "status": "Qualified and selected for catalogue integration",
         "observedWeakness": "Rendered ray paths are readable but mirror glyphs are small and partly obscured by rays. Selection is weakly indicated and orientation effects require committing then undoing. Three tiny fixed puzzles offer limited replay choices.",
-        "knownLimits": "Three fixed compact windows; planning tool adds reversible experimentation, not additional campaign content. No audio, physical-device testing, full keyboard/shell qualification or duration claim."
+        "knownLimits": "Three compact fixed windows, no audio or physical-device/human-enjoyment study. Parent shell fixture verifies messaging; actual catalogue regression and live release remain pending.",
+        "assessment": "Distinct relaxed optical puzzle: shared mirrors affect both coloured routes, constrained stock requires reuse, and reversible sketches support planning without a timer. Readable original SVG optics and reliable input/save behavior justify a compact puzzle selection. Three finite authored windows; no claim of long-form content."
       },
       "nextSteps": [
-        "Complete keyboard and parent/document visibility/recovery/modal checks and shell navigation before qualifying.",
-        "Evaluate optional replay constraints/arrangements if the three-window slate remains too shallow; keep improvement and content claims separate.",
-        "Keep unlisted until fully qualified and selected; then integrate on fresh main, preserving v1 saves and concurrent games."
+        "Integrate on fresh main with original cover and catalogue metadata; run actual desktop/touch catalogue regression and live verification before counting integrated/live.",
+        "Preserve all other sources and v1 saves. Then build slots66–90."
       ]
     },
     {
@@ -2806,8 +2810,8 @@
     }
   ],
   "nextSteps": [
-    "Finish Glimmer Loom65 qualification and evaluate selection; ray-sketch improvement is implemented, full browser qualification pending.",
-    "Implement remaining25 distinct third-batch slots66–90 and maintain exact50-slot ledger."
+    "Integrate qualified Glimmer Loom65 on fresh main and verify catalogue/live routes.",
+    "Implement remaining25 distinct third-batch slots66–90."
   ],
   "updated": "2026-11-02",
   "latestObservedMain": "5d3f603a13f810e94def906b0960d71c3c86be83",
@@ -3933,6 +3937,14 @@
       "followupCommit": "239b566dc92f5ad98df7e17ba29be920723ed0be",
       "run": 41375678269,
       "result": "Substantive ray-sketch improvement tested and screenshots inspected.25 built/25 improved;24 fully browser-qualified/integrated/live. No public release."
+    },
+    {
+      "date": "2026-11-02",
+      "game": "glimmer-loom",
+      "commit": "fbe738d4d8f58d0be76a9af707dead8d9b548f93",
+      "verificationCommit": "2e4082519bc668edd34d28fa517a451f2816b6e3",
+      "run": 41380677100,
+      "result": "Keyboard focus and draft undo repaired;25 built/improved/browser-qualified,24 integrated/live. Selected; public catalogue untouched."
     }
   ]
 }
