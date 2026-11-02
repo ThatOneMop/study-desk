@@ -22,6 +22,7 @@ jobs:
           node --check games/grainwright/game.js
           node --test tests/grainwright-engine.cjs
           node tests/grainwright-browser.cjs
+          node tests/grainwright-shell.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
@@ -29,3 +30,4 @@ jobs:
         with:
           name: grainwright-browser
           path: test-artifacts/grainwright/
+
