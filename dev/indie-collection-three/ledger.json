@@ -7,8 +7,8 @@
     "built": 24,
     "improved": 24,
     "browserTested": 24,
-    "integrated": 23,
-    "live": 23
+    "integrated": 24,
+    "live": 24
   },
   "priorObligations": {
     "secondBatchBranch": "indie-collection-two-dev",
@@ -2232,13 +2232,13 @@
       "id": "bough-balance",
       "title": "Bough Balance",
       "coreLoop": "Arrange weighted paper birds across nested hanging beams; balance every local torque while whole child-beam masses load their parents. Swap and remove ornaments with exact forecasts.",
-      "status": "qualified-selected-awaiting-catalogue",
+      "status": "selected-integrated-live",
       "source": "games/bough-balance",
       "built": true,
       "improved": true,
       "browserTested": true,
-      "integrated": false,
-      "live": false,
+      "integrated": true,
+      "live": true,
       "improvementPasses": [
         {
           "date": "2026-11-02",
@@ -2262,7 +2262,8 @@
         "Opening brass refinement: 26 tests pass; old routes 4/6/6 and all four five-action brass arrangements verified in engine and DOM. Separate brass record preserves normal best. See BOUGH_BALANCE_BRASS.md.",
         "2026-11-02:30 focused tests passed locally and in CI41355006711. New load decomposition checks sum direct/child/brass mass and torque; comparison forecasts match committed placements/swaps/displacement across original routes without mutation; selection/save purity, pause and Collection message checks. Rendered upgraded nested/deep wins and reload verified;390px layout inspected. CI asset step failed on pre-existing development catalogue missing Ashwake route; missing published routes/thumbnails restored from observed main without overwriting existing files in 2bc911bc742ba9f7399313d714e7c47e8d17fbd7. Rerun pending.",
         "CI 41355354337 passed on b67a19b09f90dc2ece25728ea54b7feebf7170e2: 30/30 focused tests; 74 bundled routes / 286 HTML references with no missing assets; source syntax and Freedoom structure; nine selected first-batch source hashes, bridge/catalogue links and credits. Missing published assets were restored additively from observed main in 2bc911b and shared favicon in b67a19b. Main was not edited.",
-        "CI41360757041 at e93031d583fc05d11ed1ff2e4a4aa59359a83889 passed30 engine/DOM tests and14 winning routes (three original mobiles plus four brass arrangements in each desktop/390x844 touch-emulated Chromium context). Per-action reload, pure comparison selection, records, undo/retry, brass slide/remove, keyboard H/Z, native Escape, corrupt/quota persistence, isolated reset, parent visibility confirmations and root/Collection navigation pass. Asset and nine first-batch integrity checks pass. Artifact13104898335 SHA25699317559dc46de6326f8138c24ac05a2aec1c3d393f97d2084a7d6ae6528a1bf verified; desktop nested/mobile deep-canopy/brass screenshots inspected. No physical-device or human-enjoyment study."
+        "CI41360757041 at e93031d583fc05d11ed1ff2e4a4aa59359a83889 passed30 engine/DOM tests and14 winning routes (three original mobiles plus four brass arrangements in each desktop/390x844 touch-emulated Chromium context). Per-action reload, pure comparison selection, records, undo/retry, brass slide/remove, keyboard H/Z, native Escape, corrupt/quota persistence, isolated reset, parent visibility confirmations and root/Collection navigation pass. Asset and nine first-batch integrity checks pass. Artifact13104898335 SHA25699317559dc46de6326f8138c24ac05a2aec1c3d393f97d2084a7d6ae6528a1bf verified; desktop nested/mobile deep-canopy/brass screenshots inspected. No physical-device or human-enjoyment study.",
+        "Release CI41365309953 passed30 focused tests,14 desktop/touch winning campaigns, actual catalogue search/group/sort/favourite, completion, pause with confirmation, Games/Collection return, restart/save retention,76 launch routes,75 bundled routes/366 asset references and nine first-batch integrity checks. Artifact13107016515 SHA25652cae3c970ad79a12fbd04ee0eb64dd1380295b838030a22f5ced109d144132c verified; touch catalogue and desktop saved-return screenshots inspected. Pages41365466208 succeeded. Direct live search/launch, four-action opening win, next-mobile unlock, Games return and standalone reload retained completion/record. Live screenshot inspected; no Switch workspace control observed. No deployment blocker."
       ],
       "commits": [
         "2f1e5af3e846ded34f0a862bf17730515451e970",
@@ -2271,16 +2272,17 @@
         "f603126caa0fcff0b7c485b7324c769f1535d0e0",
         "e93031d583fc05d11ed1ff2e4a4aa59359a83889"
       ],
-      "integrationCommits": [],
-      "publishedUrl": null,
+      "integrationCommits": [
+        "5d3f603a13f810e94def906b0960d71c3c86be83"
+      ],
+      "publishedUrl": "https://thatonemop.github.io/study-desk/games/bough-balance/index.html",
       "quality": {
-        "status": "Qualified; selected for catalogue regression",
+        "status": "Selected, integrated and live",
         "assessment": "Distinct relaxed nested-torque puzzle. Whole-child mass versus local pull creates multi-beam planning; hook comparisons and load breakdown make tradeoffs understandable. Brass weight adds four optional opening arrangements with an independent record. Original paper-bird graphics, readable controls/meters and reliable reversible play fit the relaxed slate.",
         "knownLimits": "Three fixed compact mobiles, brass only on opening; finite puzzle content. Schematic does not animate imbalance; phone diagram labels are small, with readable text meters/buttons as the primary controls. No audio, physical-device testing, human enjoyment study or duration claim."
       },
       "nextSteps": [
-        "Integrate on a fresh main-based release branch with original cover and actual catalogue regression; verify live after publishing.",
-        "Do not copy the development launcher over main; main contains newer concurrent save-vault/theme work."
+        "Preserve released v1 saves and collect feedback; no duration or human enjoyment claim."
       ],
       "pendingBrassRefinement": {
         "status": "rendered-qualified",
@@ -2298,7 +2300,7 @@
         "before": "Only current placement forecast and total mass/torque meters.",
         "after": "Optional all-hook comparison exposes before/after pull for every beam, disturbed/restored balance, displaced/swap occupants and full completion. Choose selects only; Hang commits the existing v1 journal action. Load inspector explains direct birds, child frame-inclusive masses and signed arm products. Native dialog close rerenders; embedded Games requests Collection.",
         "evidence": "30 engine/DOM tests passed locally and CI41355006711. Rendered second mobile win via comparison controls and deep-canopy win/reload; native Escape restored controls after close.390px iframe comparison inspected and selected H6 forecast verified. Narrow iframe is layout evidence, not touch emulation.",
-        "remaining": "Qualified in41360757041; catalogue integration remains.",
+        "remaining": "Released and live verified; preserve v1 saves.",
         "repositoryChecks": "CI 41355354337 passed on b67a19b09f90dc2ece25728ea54b7feebf7170e2: 30/30 focused tests; 74 bundled routes / 286 HTML references with no missing assets; source syntax and Freedoom structure; nine selected first-batch source hashes, bridge/catalogue links and credits. Missing published assets were restored additively from observed main in 2bc911b and shared favicon in b67a19b. Main was not edited."
       }
     },
@@ -2772,11 +2774,11 @@
     }
   ],
   "nextSteps": [
-    "Integrate qualified Bough Balance after fresh-main catalogue regression; source-integrated/live remain23.",
-    "Implement26 remaining distinct third-batch slots65–90, with individual rendered improvement and qualification."
+    "Implement the26 remaining distinct third-batch slots65–90, each with actual rendered playtesting, a substantive improvement and qualification before integration.",
+    "Preserve all prior releases, concurrent launcher/Gummy Bay work and save keys."
   ],
   "updated": "2026-11-02",
-  "latestObservedMain": "b2f449e1f7ac1f2ced54d4ad21b47ba7bc0f63d8",
+  "latestObservedMain": "5d3f603a13f810e94def906b0960d71c3c86be83",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -3877,6 +3879,13 @@
       "result": "CI41360757041 at e93031d583fc05d11ed1ff2e4a4aa59359a83889 passed30 engine/DOM tests and14 winning routes (three original mobiles plus four brass arrangements in each desktop/390x844 touch-emulated Chromium context). Per-action reload, pure comparison selection, records, undo/retry, brass slide/remove, keyboard H/Z, native Escape, corrupt/quota persistence, isolated reset, parent visibility confirmations and root/Collection navigation pass. Asset and nine first-batch integrity checks pass. Artifact13104898335 SHA25699317559dc46de6326f8138c24ac05a2aec1c3d393f97d2084a7d6ae6528a1bf verified; desktop nested/mobile deep-canopy/brass screenshots inspected. No physical-device or human-enjoyment study.",
       "launcherRepair": "Removed stale Switch workspace handler/text and guarded optional openGames on dev only; main preserved.",
       "counts": "24 built/improved/browser-tested;23 integrated/live."
+    },
+    {
+      "date": "2026-11-02",
+      "game": "bough-balance",
+      "releaseCommit": "5d3f603a13f810e94def906b0960d71c3c86be83",
+      "result": "Release CI41365309953 passed30 focused tests,14 desktop/touch winning campaigns, actual catalogue search/group/sort/favourite, completion, pause with confirmation, Games/Collection return, restart/save retention,76 launch routes,75 bundled routes/366 asset references and nine first-batch integrity checks. Artifact13107016515 SHA25652cae3c970ad79a12fbd04ee0eb64dd1380295b838030a22f5ced109d144132c verified; touch catalogue and desktop saved-return screenshots inspected. Pages41365466208 succeeded. Direct live search/launch, four-action opening win, next-mobile unlock, Games return and standalone reload retained completion/record. Live screenshot inspected; no Switch workspace control observed. No deployment blocker.",
+      "counts": "24/50 built/improved/browser-tested/integrated/live;26 unbuilt."
     }
   ]
 }

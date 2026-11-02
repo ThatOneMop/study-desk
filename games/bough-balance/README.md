@@ -39,3 +39,7 @@ Rendered inspection, touch, enjoyment and meaningful playtest-led improvement re
 ## Rendered comparison pass — 2026-11-02
 
 Added load decomposition and all-hook comparison after rendered nested play exposed unclear parent pull and serial hook comparison. Pure forecasts include swaps, tray displacement, beam tradeoffs and completion; choosing only selects, Hang commits ordinary v1 actions. Native dialog close restores controls; embedded Games requests Collection.30 focused tests pass locally. Opening baseline and upgraded nested/deep-canopy completion, reload and390px layout inspected; full touch/brass/recovery/catalogue qualification remains pending. No extra puzzle count or duration claim.
+
+## Release status — 2026-11-02
+
+Qualified and released; earlier pending-status paragraphs above describe historical checkpoints. Release CI41365309953 passed30 focused tests,14 desktop/touch winning campaigns, actual catalogue search/group/sort/favourite, completion, pause with confirmation, Games/Collection return, restart/save retention,76 launch routes,75 bundled routes/366 asset references and nine first-batch integrity checks. Artifact13107016515 SHA25652cae3c970ad79a12fbd04ee0eb64dd1380295b838030a22f5ced109d144132c verified; touch catalogue and desktop saved-return screenshots inspected. Pages41365466208 succeeded. Direct live search/launch, four-action opening win, next-mobile unlock, Games return and standalone reload retained completion/record. Live screenshot inspected; no Switch workspace control observed. No deployment blocker.
