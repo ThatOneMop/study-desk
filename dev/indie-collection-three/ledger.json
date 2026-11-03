@@ -6,7 +6,7 @@
   "totals": {
     "built": 34,
     "improved": 34,
-    "browserTested": 33,
+    "browserTested": 34,
     "integrated": 0,
     "live": 0
   },
@@ -3034,11 +3034,11 @@
       "id": "kettle-thorn",
       "title": "Kettle & Thorn",
       "coreLoop": "Draw ingredients without replacement, bank leaf/blossom blend value before thorns spoil the pot, then spend earned coins on blossoms, cooling mint or thorn removal to change future draw probabilities. Store and spend mint reserve to trade brew value for safety, or bank hot brews for separate mastery seals.",
-      "status": "improved-awaiting-shell-qualification",
+      "status": "qualified-reserve-held-by-current-curation",
       "source": "games/kettle-thorn",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3060,24 +3060,30 @@
       ],
       "tests": [
         "CI41581655731 at 254fcd728347447e26792bd8eb14fda8fcb02ae2 passed four distinct engine checks and two complete rendered careers in desktop1280×1000 and touch-emulated390×844 Chromium. Each reaches a12-coin Keeper brew at pot9 in50 actions, buying blossoms and removing one thorn through earned coins. Every action survives exact-state reload. Spoiling/retry, best retention on restart, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13205577665 sha256:e0109987704afd54c4ce21ec3b11d44f0e151be9574e11feb1ae2f70b9e3d78a verified; touch-keeper.png and desktop-keeper.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing.",
-        "CI41586991987 at 90b05b357f4c183b10e5814ac6d90656fd792c2c passed seven distinct engine checks and four rendered careers: a52-action Keeper route and a59-action earned-mint Cooling route in each desktop1280×1000 and touch-emulated390×844 Chromium context. Mint purchases, reserve use, mastery, per-action reload, spoil/retry, best retention, native Space/Escape, pause, corrupt/quota saves and Games navigation pass. Legacy one-thorn data migrates in engine checks. Source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13208212046 sha256:4570a99e5953a3142fdc128387a5ad44a38e4c4d4a734fed0ebad1e5813b8e8c verified; touch-mint.png and desktop-mint.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence."
+        "CI41586991987 at 90b05b357f4c183b10e5814ac6d90656fd792c2c passed seven distinct engine checks and four rendered careers: a52-action Keeper route and a59-action earned-mint Cooling route in each desktop1280×1000 and touch-emulated390×844 Chromium context. Mint purchases, reserve use, mastery, per-action reload, spoil/retry, best retention, native Space/Escape, pause, corrupt/quota saves and Games navigation pass. Legacy one-thorn data migrates in engine checks. Source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13208212046 sha256:4570a99e5953a3142fdc128387a5ad44a38e4c4d4a734fed0ebad1e5813b8e8c verified; touch-mint.png and desktop-mint.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence.",
+        "CI41593166265 at 8f1ea52f7881d39f31040d2a1642a8c857d52f2f passed eight distinct engine checks and six rendered careers: four existing pointer/touch Keeper/Cooling routes plus two additional keyboard Cooling routes in desktop1280×1000 and touch-emulated390×844 Chromium. Every keyboard action survives exact reload, first-time bonus feedback renders, mastery/best survive restart, and legacy one-thorn saves retain bag and coins. Once-only mastery payouts pass targeted engine checks. Actual bridge hidden restart/recovery confirmations, explicit resume, Collection messaging, unrelated save isolation, pause and cancellation pass. Existing spoil/retry, corrupt/quota tests, source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13211321540 sha256:da3af9d78dc3dc5533c07eb5c9dd165702e224a863a02f6db4ffc5c3094d90a9 verified; touch-qualified.png and desktop-shell.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
       ],
       "commits": [
         "254fcd728347447e26792bd8eb14fda8fcb02ae2",
-        "90b05b357f4c183b10e5814ac6d90656fd792c2c"
+        "90b05b357f4c183b10e5814ac6d90656fd792c2c",
+        "8f1ea52f7881d39f31040d2a1642a8c857d52f2f"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantively improved; qualification and selection pending.",
-        "observedWeakness": "Fixed initial seed repeats on restart. Only four ingredient types and finite mastery remain. First-time mastery bonus is included in coin balance but omitted from the bottled-value message. Phone shop buttons wrap to several lines, though readable and reachable; secondary notes still require scrolling.",
-        "knownLimits": "Legacy one-thorn saves intentionally retain their safer bags. Full shell/keyboard-only qualification and targeted once-only mastery reward checks remain next. No broad seed balance or sustained-enjoyment evidence.",
-        "assessment": "Mint now offers an active value-versus-safety decision and two-thorn pruning retains risk for new progress. Two tested progression approaches are stronger than the baseline's unused-mint loop, but selection requires qualification and comparative judgment."
+        "status": "Qualified reserve; not selected or integrated.",
+        "observedWeakness": "Fixed initial seed repeats on restart. Four ingredients and finite mastery limit progression. Phone controls and shop labels wrap, though readable; secondary notes require scrolling. Legacy one-thorn saves deliberately retain safer bags.",
+        "knownLimits": "No broad seed balance, sustained-enjoyment or measured-duration evidence. Full real-catalogue regression remains a release-time requirement; shell qualification uses actual bridge.js in a controlled iframe host.",
+        "assessment": "Qualified reserve. Bag composition, voluntary banking and spendable mint create distinct risk decisions, but four ingredients, finite seals and a repeated starting seed limit progression/replayability. Prefer the selected Bell Diver equipment and Mycelium Yard reinvestment loops for the user's progression tastes; passing tests do not prove sustained fun."
       },
       "nextSteps": [
-        "Qualify actual embedded shell, complete keyboard brewing and legacy saves; explicitly test once-only mastery rewards and reset preservation.",
-        "Clarify reward feedback, compare long-term depth and decide selection without exposing unfinished source."
-      ]
+        "Preserve qualified source/tests and current14-game catalogue; do not expose this reserve.",
+        "Prioritize remaining16 distinct candidates; reconsider selection if depth or comparative evidence changes."
+      ],
+      "selection": {
+        "selected": false,
+        "reason": "Qualified reserve. Bag composition, voluntary banking and spendable mint create distinct risk decisions, but four ingredients, finite seals and a repeated starting seed limit progression/replayability. Prefer the selected Bell Diver equipment and Mycelium Yard reinvestment loops for the user's progression tastes; passing tests do not prove sustained fun."
+      }
     },
     {
       "slot": 75,
@@ -3369,7 +3375,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify Kettle & Thorn74 embedded shell, keyboard and mastery persistence, then compare for selection;34 built/improved,33 qualified.",
+    "Build distinct candidate75 next; Kettle & Thorn74 is qualified reserve.16 unbuilt slots75–90 remain.",
     "Build remaining16 distinct original candidates in slots75–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4707,6 +4713,12 @@
       "result": "Improved Kettle & Thorn74 with active mint reserve, risk-preserving pruning, mastery and phone shop layout. Seven engine checks/four rendered careers pass; screenshots inspected.34 built/improved,33 qualified,16 unbuilt; no release change.",
       "commit": "90b05b357f4c183b10e5814ac6d90656fd792c2c",
       "report": "dev/indie-collection-three/KETTLE_THORN_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Qualified Kettle & Thorn74 and clarified mastery bonus feedback. Eight engine checks/six rendered careers plus shell/legacy checks pass; screenshots inspected.34 built/improved/qualified,16 unbuilt; no release change.",
+      "commit": "8f1ea52f7881d39f31040d2a1642a8c857d52f2f",
+      "report": "dev/indie-collection-three/KETTLE_THORN_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
