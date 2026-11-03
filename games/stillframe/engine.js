@@ -76,6 +76,16 @@
     }
     if(!int(s.technique,0,1)||!int(s.edition,0,1000000)||!Array.isArray(s.seals)||s.seals.length!==3||s.seals.some(x=>!int(x,0,3))||!Array.isArray(s.prints)||s.prints.length>9)throw Error('Invalid composition album');
     for(const p of s.prints)if(!p||!int(p.subject,0,2)||!int(p.score,0,100)||!poses.includes(p.pose)||!int(p.position,0,4)||!int(p.aim,0,4)||!int(p.technique,0,1)||!['Portrait','Habitat','In motion','Set complete'].includes(p.brief)||typeof p.earned!=='boolean')throw Error('Invalid print');
+    if(s.prints.length>9-s.film || s.seals.some((n,i)=>n>0&&s.records[i]<80))throw Error('Inconsistent album');
+    const earned=[new Set(),new Set(),new Set()],order=['Portrait','Habitat','In motion'];
+    for(const p of s.prints){
+      if(p.score>s.records[p.subject])throw Error('Print exceeds best score');
+      if(p.earned){
+        const step=order.indexOf(p.brief);
+        if(p.score<80||step<0||step>=s.seals[p.subject]||earned[p.subject].has(step))throw Error('Invalid accepted print');
+        earned[p.subject].add(step);
+      }
+    }
     const complete=s.seals.every(x=>x===3);
     if(s.phase==='field'&&(!s.film||complete)||s.phase==='lost'&&(s.film||complete)||s.phase==='won'&&!complete)throw Error('Invalid outing state');
     return copy(s);

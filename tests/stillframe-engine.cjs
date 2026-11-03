@@ -56,3 +56,17 @@ T('malformed saves and invalid actions rejected',()=>{
   A.equal(E.act(E.create(),'technique:2'),null);A.equal(E.act(E.create(),'subject:3'),null);
 });
 module.exports={route};
+
+T('contact sheet cannot exceed spent film or best scores',()=>{
+ let s=E.create();for(const a of route()){s=E.act(s,a);if(a==='shoot')break}
+ for(const patch of [{film:9},{records:[0,0,0]},{seals:[0,0,0]},{prints:[s.prints[0],s.prints[0]],film:7}]){
+   A.throws(()=>E.decode(JSON.stringify({...s,...patch})));
+ }
+ A.deepEqual(E.decode(JSON.stringify(s)),s);
+});
+T('accepted work from earlier outings remains valid without current prints',()=>{
+ let s=E.create();for(const a of route()){s=E.act(s,a);if(a==='shoot')break}
+ s=E.act(s,'restart');A.equal(s.prints.length,0);A.equal(s.seals[0],1);
+ A.deepEqual(E.decode(JSON.stringify(s)),s);
+ for(const a of route(s))s=E.act(s,a);A.equal(s.phase,'won');A.deepEqual(E.decode(JSON.stringify(s)),s);
+});
