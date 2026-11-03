@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 36,
+    "built": 37,
     "improved": 36,
     "browserTested": 36,
     "integrated": 0,
@@ -3204,21 +3204,35 @@
     },
     {
       "slot": 77,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "stillframe",
+      "title": "Stillframe",
+      "coreLoop": "Frame moving wildlife, balance shutter speed against exposure, set focus distance and spend limited film to build a saved three-subject photograph album.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/stillframe",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41659617868 at326f1ce935e5c4abca19aaa63b259c1d98502e29 passed four engine checks and two rendered three-subject album completions in desktop1280×1000 and touch-emulated390×844 Chromium. Each route takes18 actions and three100-point photographs, leaving six film frames. Every action survives exact reload. Film exhaustion/retry, best-print retention, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13241127791 sha256:a44344f04062085f320759dde39de063d817de3b3683608a7a525d76ace37613 verified; touch-subject-1.png and desktop-subject-0.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence."
+      ],
+      "commits": [
+        "326f1ce935e5c4abca19aaa63b259c1d98502e29"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; substantial improvement and qualification pending.",
+        "observedWeakness": "Exact previews and freely adjustable framing make perfect photographs straightforward. The album is completed with three shots and18 actions; waiting has little purpose. Only three fixed subjects exist, and their settings repeat. Scene updates immediately after shooting while the previous print score remains, creating potentially confusing feedback. Original silhouettes are readable but simple; phone controls require scrolling.",
+        "assessment": "Distinct camera/exposure core compared with Field Album's card drafting and Glasshouse's breeding, but shallow progression is not catalogue-ready.",
+        "knownLimits": "Full keyboard career, actual embedded shell, completed-record replay semantics and deeper save invariants remain unqualified. No duration, broad balance or sustained-enjoyment evidence."
+      },
+      "nextSteps": [
+        "Add substantive timing/composition choices and useful progression based on the rendered baseline; clarify captured-photo versus current-preview feedback.",
+        "Then qualify keyboard, shell, saves, restart and navigation before comparative selection."
+      ]
     },
     {
       "slot": 78,
@@ -3456,8 +3470,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate77 next; Ambercut76 is qualified reserve.14 unbuilt slots77–90 remain.",
-    "Build remaining14 distinct candidates in slots77–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Stillframe77 from rendered baseline, especially timing, composition, progression and captured-print feedback.",
+    "Build remaining13 distinct candidates in slots78–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4836,6 +4850,12 @@
       "result": "Qualified Ambercut76. Added assignment confirmation, corrected conservation validation and reload of multiple-fracture losses. Nine engine checks/sixteen rendered wins plus keyboard, kit-loss, legacy and shell checks pass; screenshots inspected.36 built/improved/qualified,14 unbuilt; no release change.",
       "commit": "a364ead2eb95f90ebdfbff4c210385a044454169",
       "report": "dev/indie-collection-three/AMBERCUT_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Built Stillframe77 wildlife camera baseline. Four engine checks/two rendered three-subject albums pass; screenshots inspected.37 built,36 improved/qualified,13 unbuilt; no release change.",
+      "commit": "326f1ce935e5c4abca19aaa63b259c1d98502e29",
+      "report": "dev/indie-collection-three/STILLFRAME_BASELINE.md"
     }
   ],
   "historicalTotals": {
