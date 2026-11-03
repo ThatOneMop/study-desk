@@ -6,7 +6,7 @@
   "totals": {
     "built": 37,
     "improved": 37,
-    "browserTested": 36,
+    "browserTested": 37,
     "integrated": 0,
     "live": 0
   },
@@ -3207,11 +3207,11 @@
       "id": "stillframe",
       "title": "Stillframe",
       "coreLoop": "Observe wildlife rhythms and complete portrait, habitat and motion briefs by balancing pose, framing, exposure, focus and panning; preserve accepted work across outings and review frozen contact sheets.",
-      "status": "improved-awaiting-shell-qualification",
+      "status": "qualified-reserve",
       "source": "games/stillframe",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3236,25 +3236,27 @@
       ],
       "tests": [
         "CI41659617868 at326f1ce935e5c4abca19aaa63b259c1d98502e29 passed four engine checks and two rendered three-subject album completions in desktop1280×1000 and touch-emulated390×844 Chromium. Each route takes18 actions and three100-point photographs, leaving six film frames. Every action survives exact reload. Film exhaustion/retry, best-print retention, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13241127791 sha256:a44344f04062085f320759dde39de063d817de3b3683608a7a525d76ace37613 verified; touch-subject-1.png and desktop-subject-0.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence.",
-        "CI41671249260 at92a4f8155ef927fd903a1523e451d022fecec1cc passed six distinct engine checks and four rendered nine-brief exhibitions (two editions on desktop1280×1000/touch-emulated390×844).36 accepted photographs; first-edition exact per-action reload. Captures retain correct species/pose/composition after live changes. Wrong-pose study, film exhaustion/retry, old completed-album migration, Space/Escape, pause, corrupt/quota saves and Games navigation pass.74 bundled routes/286 asset references, syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13247618238 sha256:380e4d13c6a50167d28557442c45e233f4652fb884306dd6dc40b19421212246 verified; two final screenshots inspected. Intermediate strict viewport assertion failed at-0.5px scroll alignment, corrected to1px tolerance with exact bounds/screenshot evidence. Automated reliability/agent visual review, not human enjoyment or physical-device testing."
+        "CI41671249260 at92a4f8155ef927fd903a1523e451d022fecec1cc passed six distinct engine checks and four rendered nine-brief exhibitions (two editions on desktop1280×1000/touch-emulated390×844).36 accepted photographs; first-edition exact per-action reload. Captures retain correct species/pose/composition after live changes. Wrong-pose study, film exhaustion/retry, old completed-album migration, Space/Escape, pause, corrupt/quota saves and Games navigation pass.74 bundled routes/286 asset references, syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13247618238 sha256:380e4d13c6a50167d28557442c45e233f4652fb884306dd6dc40b19421212246 verified; two final screenshots inspected. Intermediate strict viewport assertion failed at-0.5px scroll alignment, corrected to1px tolerance with exact bounds/screenshot evidence. Automated reliability/agent visual review, not human enjoyment or physical-device testing.",
+        "CI41681052771 at971c15ec55128483383bd45c3d0238981476102a passed eight distinct engine checks and eight rendered exhibitions: four pointer/touch and four keyboard runs across desktop1280×1000 and touch-emulated390×844. Exact action/reload comparisons, alternate briefs/restart/cancel, loss/retry, legacy migration, corrupt/quota storage, native Space/Enter and Tab reachability pass. Actual bridge in a controlled same-origin iframe passes hidden restart/recovery/shoot suppression, explicit resume, Collection message and unrelated-save isolation. Mobile host viewport corrected after screenshot review; iframe innerWidth390 asserted. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13252977313 sha256:9c7a82ceaed5a244e2c5d09fbcf7532f60dc675ff89df97fe8426ca764c4e5c7 verified; desktop-keyboard-1.png and touch-shell.png inspected."
       ],
       "commits": [
         "326f1ce935e5c4abca19aaa63b259c1d98502e29",
         "bebd926a986d93d9a8b53a3a21fcb631192d3c92",
         "081df261f0894134d464f83ad007425169e137c7",
-        "92a4f8155ef927fd903a1523e451d022fecec1cc"
+        "92a4f8155ef927fd903a1523e451d022fecec1cc",
+        "ae9b4771fe7ca8aa940999a011781da80d2a75fc",
+        "971c15ec55128483383bd45c3d0238981476102a"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantively improved; full qualification and comparative selection pending.",
-        "observedWeakness": "Baseline timing/composition and ambiguous captured/live feedback addressed. Current game remains guided and deterministic: three fixed rhythms and two composition variants; explicit readiness hints reveal solutions.",
-        "assessment": "Purposeful pose/framing/panning decisions and persistent accepted work make this a clearer compact photography puzzle. Contact sheets improve feedback and replay includes alternate briefs. Do not treat the longer automated route as evidence of duration or sustained enjoyment.",
-        "knownLimits": "Full keyboard career, real embedded shell visibility/dialog/Collection lifecycle and deeper save invariants remain unqualified. No broad balance or sustained-enjoyment evidence. Original silhouettes are readable but simply animated."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Distinct and readable compact camera puzzle with purposeful pose, composition and panning choices. Reliable across the tested routes, with preserved legacy scores and accepted work. Three fixed rhythms and two brief variants constrain replayability; readiness hints largely expose solutions. Hold in reserve rather than expand the public catalogue with a shallow progression game.",
+        "knownLimits": "Automated rendered routes and agent screenshot inspection do not establish human enjoyment, physical-device support, broad balance or long content duration. Embedded tests use the real game/bridge in a controlled host, not an assertion that the current curated launcher exposes this candidate.",
+        "qualificationFix": "Reject prints exceeding spent film/best scores, inconsistent accepted briefs and duplicate accepted prints, while permitting genuine accepted work from earlier outings without current prints."
       },
       "nextSteps": [
-        "Qualify full keyboard progression, actual embedded visibility/dialog/Collection lifecycle, deeper save invariants and restart/navigation.",
-        "Compare the improved game before selecting or reserving; preserve current main curation and do not expose this unfinished qualification."
+        "Retain qualified source in reserve; revisit only if deeper photographic choices justify comparative reselection."
       ]
     },
     {
@@ -3493,7 +3495,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Stillframe77: full keyboard career, embedded shell visibility/dialog/Collection, deeper save invariants and comparative assessment.",
+    "Build distinct candidate78, then render-playtest and substantially improve it;13 slots78–90 remain unbuilt.",
     "Build remaining13 distinct candidates in slots78–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4886,6 +4888,12 @@
       "result": "Substantially improved Stillframe77 with pose/composition briefs, panning, persistent accepted work, alternate briefs and frozen contact sheets. Final CI41671249260/four rendered exhibitions pass; screenshots inspected.37 built,37 improved,36 fully qualified,13 unbuilt; no catalogue/release change.",
       "commit": "92a4f8155ef927fd903a1523e451d022fecec1cc",
       "report": "dev/indie-collection-three/STILLFRAME_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Qualified Stillframe77, tightened contact-sheet validation and verified keyboard/embedded lifecycle. Eight engine checks/eight rendered exhibitions pass; screenshots inspected. Reserve selection.37 built/improved/qualified,13 unbuilt; no release change.",
+      "commit": "971c15ec55128483383bd45c3d0238981476102a",
+      "report": "dev/indie-collection-three/STILLFRAME_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
