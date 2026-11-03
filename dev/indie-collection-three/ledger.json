@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 34,
+    "built": 35,
     "improved": 34,
     "browserTested": 34,
     "integrated": 0,
@@ -3087,21 +3087,37 @@
     },
     {
       "slot": 75,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "hollowhand",
+      "title": "Hollowhand",
+      "coreLoop": "Sequence a five-card hand using three energy, combine stored spark with attacks, guard against announced enemy intent and spend encounter rewards on deck additions or trimming across four woodland foes.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/hollowhand",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "Initial playable commit a5689da0e1c4fc2a3d71cc4f9c0f4fb9c8f7d279 passed CI41600311297: four engine checks and desktop/touch four-encounter victories. Its displayed10-turn result undercounted winning turns; corrected in the following implementation and regression run.",
+        "CI41607453268 at9650ca407c27b551e5a87d2eed134c6f319f147c passed six engine checks and two rendered four-encounter victories in desktop1280×1000 and touch-emulated390×844 Chromium. The53-action route finishes with17 health in13 turns, purchasing three Moon cleaves. Every action survives exact-state reload. Loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Independent turn counting and legacy migration at each route state pass, including idempotent repeated decoding. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13217342626 sha256:f669d5c06c246cd3b65d1df881c681bd052adbeaa84790ced22c7e2a7b1dea23 verified; desktop-won.png and touch-won.png inspected. Automated reliability and agent visual review, not human enjoyment or physical-device evidence. Full keyboard career and embedded shell qualification remain pending."
+      ],
+      "commits": [
+        "a5689da0e1c4fc2a3d71cc4f9c0f4fb9c8f7d279",
+        "9650ca407c27b551e5a87d2eed134c6f319f147c"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline only; no substantive improvement or qualification credit.",
+        "observedWeakness": "All four foes share the same repeating intent pattern and mask art. The tested route always picks Moon cleave, leaving other rewards unproven. A fixed seed, six-card pool and short four-encounter trail limit progression. On phones the hand can scroll health and intent out of view. Winning-turn undercount is now fixed.",
+        "assessment": "Distinct ordered-card combat baseline, but depth and reward balance need substantial work before comparative selection. Passing this route does not establish sustained enjoyment.",
+        "knownLimits": "No full keyboard career, all reward branch coverage, embedded shell qualification, broad balance or duration evidence."
+      },
+      "nextSteps": [
+        "Play the rendered baseline to develop distinct enemy behaviors and consequential deck choices; improve persistent phone intent readability. Implement and test a substantive upgrade before awarding improvement credit.",
+        "Qualify reward branches, keyboard career, embedded shell, saves/migration, restart and navigation after the gameplay upgrade."
+      ]
     },
     {
       "slot": 76,
@@ -3375,8 +3391,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate75 next; Kettle & Thorn74 is qualified reserve.16 unbuilt slots75–90 remain.",
-    "Build remaining16 distinct original candidates in slots75–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Hollowhand75 from its rendered baseline; its turn-record fix is not an improvement-pass credit.",
+    "Build remaining15 distinct original candidates in slots76–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4719,6 +4735,12 @@
       "result": "Qualified Kettle & Thorn74 and clarified mastery bonus feedback. Eight engine checks/six rendered careers plus shell/legacy checks pass; screenshots inspected.34 built/improved/qualified,16 unbuilt; no release change.",
       "commit": "8f1ea52f7881d39f31040d2a1642a8c857d52f2f",
       "report": "dev/indie-collection-three/KETTLE_THORN_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Reconciled previously committed Hollowhand75 baseline after prior ledger/report writes timed out. Fixed winning-turn records and migrated legacy records once while preserving deck/progress. Six engine checks and two rendered wins pass; screenshots inspected.35 built,34 improved/qualified,15 unbuilt; no release change. Substantive Hollowhand improvement pending.",
+      "commit": "9650ca407c27b551e5a87d2eed134c6f319f147c",
+      "report": "dev/indie-collection-three/HOLLOWHAND_BASELINE.md"
     }
   ],
   "historicalTotals": {
