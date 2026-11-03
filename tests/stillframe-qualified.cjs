@@ -18,7 +18,7 @@ for(const touch of [false,true]){
  // Verify actual sequential Tab navigation reaches interactive controls and Enter operates Watch.
  await p.locator('#games').focus();await p.keyboard.press('Tab');A.equal(await p.evaluate(()=>document.activeElement.id),'pause');
  await p.locator('#wait').focus();await p.keyboard.press('Enter');A.equal((await state()).tick,1);
- await p.route('**/qualification-host.html',r=>r.fulfill({contentType:'text/html',body:'<!doctype html><style>body{margin:0}iframe{width:100%;height:95vh;border:0}</style><iframe src="/games/stillframe/index.html"></iframe><script>window.messages=[];addEventListener("message",e=>{if(e.origin===location.origin)messages.push(e.data.type)});</script>'}));
+ await p.route('**/qualification-host.html',r=>r.fulfill({contentType:'text/html',body:'<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}iframe{width:100%;height:95vh;border:0}</style><iframe src="/games/stillframe/index.html"></iframe><script>window.messages=[];addEventListener("message",e=>{if(e.origin===location.origin)messages.push(e.data.type)});</script>'}));
  await p.goto(base+'/qualification-host.html');const f=await (await p.waitForSelector('iframe')).contentFrame();await f.waitForSelector('#aim button');
  const snapshot=()=>f.evaluate(k=>localStorage.getItem(k),E.KEY),visible=async v=>{await p.evaluate(v=>document.querySelector('iframe').contentWindow.postMessage({type:'study-visibility',visible:v},location.origin),v);for(let i=0;i<40;i++){if(await f.evaluate(v=>StudyBridge.paused===!v,v))return;await new Promise(r=>setTimeout(r,50))}throw Error('Bridge visibility did not settle')};
  await f.locator('#restart').click();const before=await snapshot();await visible(false);
@@ -27,7 +27,7 @@ for(const touch of [false,true]){
  await visible(false);await f.evaluate(()=>document.getElementById('shoot').click());A.equal(await snapshot(),before);await visible(true);A.ok(await f.locator('#shoot').isDisabled());await f.locator('#pause').click();
  await f.evaluate(k=>localStorage.setItem(k,'broken'),E.KEY);await f.goto(base+'/games/stillframe/index.html');await f.locator('#recover').click();await visible(false);await f.evaluate(()=>document.getElementById('accept').click());A.equal(await snapshot(),'broken');await visible(true);await f.locator('#cancel').click();await f.locator('#pause').click();await f.locator('#recover').click();await f.locator('#accept').click();E.decode(await snapshot());
  await f.locator('#games').click();await p.waitForFunction(()=>messages.includes('study-collection'));A.equal(await p.evaluate(()=>localStorage.getItem('study-desk-unrelated-qa')),'keep');
- await p.screenshot({path:path.join(out,(touch?'touch':'desktop')+'-shell.png')});A.deepEqual(errors,[]);await ctx.close();
+ A.ok(await f.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(touch)A.equal(await f.evaluate(()=>innerWidth),390);await p.screenshot({path:path.join(out,(touch?'touch':'desktop')+'-shell.png')});A.deepEqual(errors,[]);await ctx.close();
 }
 console.log('PASS four keyboard exhibitions across desktop/touch, exact per-action reload, alternate restart/cancel, Tab/Enter/Space, real bridge hidden restart/recovery/shoot, explicit resume, Collection navigation and unrelated save isolation');
 })().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{await browser?.close();server.kill()});
