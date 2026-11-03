@@ -2,3 +2,6 @@
 
 
 .forecast{position:sticky;top:0;z-index:2;background:#142827f5;border-bottom:1px solid #7c8c64;padding:6px 0}.forecast p{margin:4px 0;font-size:13px}.forecast label{font-size:13px}select{font:inherit;min-height:44px;background:#27413a;color:#f6e8bd;border:1px solid #7e9270;border-radius:6px;padding:6px}#board button.threat{outline:2px dashed #ffb479;outline-offset:-5px}#assignment{font-size:13px}.modes{display:flex;gap:6px}.modes button{font-size:13px}.forecast #forecast{color:#ffc99b}@media(max-width:600px){.forecast{position:static}#board svg{max-height:65px}#assignment{margin:6px 0}h1{font-size:28px}.tools{gap:5px}}
+/* Keep forecasts in normal flow so they never cover a selectable tile. */
+.forecast{position:static;background:#142827}#board svg{max-height:64px}
+@media(max-width:600px){header,main{padding:7px 10px}h1{font-size:24px;margin:3px 0}#board button{min-height:44px}#board svg{height:44px}#stats,#assignment,#readout{font-size:12px;margin:5px 0}.forecast p,.forecast label{font-size:12px}.modes button{font-size:12px;padding:5px}.tools button{padding:6px;font-size:12px}#message{font-size:12px;margin:7px 0;padding:7px}}
