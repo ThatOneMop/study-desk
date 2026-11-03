@@ -22,6 +22,7 @@ jobs:
           node --check games/hollowhand/game.js
           node --test tests/hollowhand-engine.cjs
           node tests/hollowhand-browser.cjs
+          node tests/hollowhand-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
@@ -29,6 +30,7 @@ jobs:
         with:
           name: hollowhand-browser
           path: test-artifacts/hollowhand/
+
 
 
 

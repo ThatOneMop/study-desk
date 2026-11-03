@@ -13,3 +13,7 @@ T('old active, reward and won turn records migrate once',()=>{let s=E.create();f
 T('defensive draw reward completes a different deck route',()=>{let s=E.create();for(const a of route('study'))s=E.act(s,a);A.equal(s.phase,'won');A.equal(s.deck.filter(x=>x==='study').length,3)});
 T('Briar reflection consumes guard and can end a reckless run',()=>{let s=E.create();s.room=1;s.turn=0;s.hand=['strike'];s.energy=3;s.guard=2;const n=E.act(s,0);A.equal(n.hp,s.hp);A.equal(n.guard,0);s.guard=0;s.hp=1;A.equal(E.act(s,0).phase,'lost')});
 T('Lantern feeding is prevented by full guard',()=>{let s=E.create();s.room=2;s.foeHp=10;s.guard=4;A.equal(E.act(s,'end').foeHp,10);s.guard=3;A.equal(E.act(s,'end').foeHp,13)});
+
+
+T('reject impossible victory and reward phases without rejecting earned saves',()=>{let s=E.create();for(const a of route())s=E.act(s,a);for(const patch of [{room:2},{hp:0},{phase:'reward'}])A.throws(()=>E.decode(JSON.stringify({...s,...patch})));A.deepEqual(E.decode(JSON.stringify(s)),s)});
+T('earned mend and trim rewards change deck and survive reload',()=>{let s=E.create();for(const a of route()){if(s.phase==='reward')break;s=E.act(s,a)}for(const reward of ['mend','trim']){const n=E.act(s,reward);A.equal(n.room,1);A.equal(n.deck.length,s.deck.length+(reward==='trim'?-1:1));A.deepEqual(E.decode(JSON.stringify(n)),n)}});
