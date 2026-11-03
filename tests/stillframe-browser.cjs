@@ -15,7 +15,14 @@ const server=spawn('python3',['-m','http.server','8212','--bind','127.0.0.1'],{c
       for(const action of route(expected)){
         if(action==='shoot'){
           A.match(await p.locator('#readiness').innerText(),/Ready/);
-          if(expected.subject===0)await screenshot('ready-'+edition+'-'+expected.seals[0]);
+          if(expected.subject===0){await screenshot('ready-'+edition+'-'+expected.seals[0]);
+            if(touch&&edition===0&&expected.seals[0]===2){
+              await p.locator('#scene').evaluate(el=>el.scrollIntoView({block:'start'}));
+              const scene=await p.locator('#scene').boundingBox(),shot=await p.locator('#shoot').boundingBox();
+              A.ok(scene.y>=0&&shot.y+shot.height<=844,'live view and shutter fit together on phone');
+              await p.screenshot({path:path.join(out,'touch-controls-viewport.png')});
+            }
+          }
         }
         await click('#'+action.replace(':','-'));expected=E.act(expected,action);A.deepEqual(await state(),expected);
         if(edition===0){const saved=await raw();await p.reload();A.equal(await raw(),saved)}
@@ -26,7 +33,7 @@ const server=spawn('python3',['-m','http.server','8212','--bind','127.0.0.1'],{c
           A.equal(await p.locator('.print-scene').last().getAttribute('data-pose'),print.pose);
         }
       }
-      A.equal((await state()).phase,'won');A.deepEqual((await state()).seals,[3,3,3]);
+      A.equal((await state()).phase,'won');A.match(await p.locator('#assignment-title').innerText(),/Exhibition complete/);A.deepEqual((await state()).seals,[3,3,3]);
       // Earlier captures must keep their own animal after switching the live subject to the moth.
       A.equal(await p.locator('.print-scene svg path').first().getAttribute('fill'),'#55a7b9');
       A.equal(await p.locator('.print-scene').nth(3).locator('path').first().getAttribute('fill'),'#b98459');
