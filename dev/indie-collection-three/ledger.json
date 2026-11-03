@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 38,
+    "built": 39,
     "improved": 38,
     "browserTested": 38,
     "integrated": 0,
@@ -3313,21 +3313,40 @@
     },
     {
       "slot": 79,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "hushwood",
+      "title": "Hushwood",
+      "coreLoop": "Read guard sightlines, cross hedge lanes one turn at a time, distract patrols with two pebble lures, recover a seed lantern and return home unseen; improve saved turn records across patrol timing variants.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/hushwood",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41718715703 at8d605004948e568c0fec4efcc0fee2c4f92e1f21 passed four distinct engine checks and six rendered recover-and-return watches: three patrol seeds each at desktop1280×1000 and touch-emulated390×844. Exact save/reload after every route action; lure expiry/reload, spotted/retry, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no page errors/horizontal overflow. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13270498657 sha256:1be0b65a0250040caa38b88ad8d26023d507521607d7961682c74ba1726dde18 verified; desktop-watch-0.png and touch-lure.png visually inspected. Baseline only; full keyboard/embedded qualification remains."
+      ],
+      "commits": [
+        "8d605004948e568c0fec4efcc0fee2c4f92e1f21"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; no substantive improvement or qualification claimed.",
+        "observedWeaknesses": [
+          "All three tested winning routes leave both pebbles unused, so the core distraction choice lacks demonstrated value.",
+          "Phone movement controls sit below a tall header/board; lures require further scrolling.",
+          "Victory status still says lantern carried—return home despite the clear victory message below.",
+          "One fixed grove with patrol timing variants limits replay; do not call those variants distinct levels."
+        ],
+        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Guard-crossing semantics, broader seed solvability, save invariants and embedded keyboard qualification remain to inspect."
+      },
+      "nextSteps": [
+        "Add a consequential stealth choice based on rendered evidence; demonstrate useful lure routes rather than merely adding more patrol seeds.",
+        "Bring touch actions nearer the board and correct terminal status; preserve the v1 save key and records.",
+        "Verify changed core loops, loss/retry, keyboard/touch, saves, hidden-frame behavior and Collection navigation before qualification/selection."
+      ]
     },
     {
       "slot": 80,
@@ -3529,8 +3548,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate79, then render-playtest and substantively improve it;12 slots79–90 remain unbuilt.",
-    "Build remaining12 distinct candidates in slots79–90 with rendered baselines and substantive improvements.",
+    "Substantively improve Hushwood79 from its rendered baseline; lure choices need demonstrated value and phone control reach needs work.",
+    "Build remaining11 distinct candidates in slots80–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4946,6 +4965,12 @@
       "result": "Qualified Liftkeeper78, repaired completion/floor save consistency and phone label. Nine engine checks/sixteen rendered dispatch wins pass; screenshots inspected. Reserve selection.38 built/improved/qualified,12 unbuilt; no catalogue or live release change.",
       "commit": "95a07f41fd6d90789f343ffce8619cd72c4500ce",
       "report": "dev/indie-collection-three/LIFTKEEPER_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Built Hushwood79 turn-based stealth baseline. Four engine checks/six rendered wins, lure use, caught/retry and save checks pass; desktop/phone screenshots inspected.39 built,38 improved/qualified,11 unbuilt. No catalogue or live release change.",
+      "commit": "8d605004948e568c0fec4efcc0fee2c4f92e1f21",
+      "report": "dev/indie-collection-three/HUSHWOOD_BASELINE.md"
     }
   ],
   "historicalTotals": {
