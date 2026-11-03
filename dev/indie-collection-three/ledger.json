@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 39,
-    "improved": 38,
+    "improved": 39,
     "browserTested": 38,
     "integrated": 0,
     "live": 0
@@ -3316,36 +3316,47 @@
       "id": "hushwood",
       "title": "Hushwood",
       "coreLoop": "Read guard sightlines, cross hedge lanes one turn at a time, distract patrols with two pebble lures, recover a seed lantern and return home unseen; improve saved turn records across patrol timing variants.",
-      "status": "initial-playable-awaiting-substantive-improvement",
+      "status": "improved-awaiting-qualification",
       "source": "games/hushwood",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-04",
+          "observedWeakness": "Baseline winning routes never used pebbles, leaving distraction strategically weak; phone actions were too far below the board.",
+          "changes": [
+            "Carried lantern adds adjacent detection around guards while retaining their forward sight. A lure suppresses glow detection for that guard, making distraction routes faster while keeping slower no-lure options.",
+            "Added persistent glow-return seals. Old in-progress saves retain legacy rules until retry, and historical records remain.",
+            "Compact phone header/board and collapsed instructions put movement and lure controls together in the viewport; correct terminal objective status."
+          ],
+          "implementationCommits": [
+            "e9ca101fcfcc060ba8567e9e2486b13658144819"
+          ],
+          "validation": "CI41727870594 at e9ca101fcfcc060ba8567e9e2486b13658144819 passed six distinct engine checks and six rendered wins across desktop1280×1000 and touch-emulated390×844, with per-action exact reload, return-trip lure use, seals, caught/retry, restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors. Engine search proves lure routes six turns shorter than no-lure routes for each of seeds0–2. Legacy rules migration preserves records. Repository74 bundled routes/286 asset references and nine selected first-batch integrity checks pass. Artifact13275587739 SHA256123711e1ece626a3abb97155594d9c15b85a05e16353f4293ccbb89298318c9d verified; touch-return-lure.png and desktop-watch-0.png inspected."
+        }
+      ],
       "tests": [
-        "CI41718715703 at8d605004948e568c0fec4efcc0fee2c4f92e1f21 passed four distinct engine checks and six rendered recover-and-return watches: three patrol seeds each at desktop1280×1000 and touch-emulated390×844. Exact save/reload after every route action; lure expiry/reload, spotted/retry, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no page errors/horizontal overflow. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13270498657 sha256:1be0b65a0250040caa38b88ad8d26023d507521607d7961682c74ba1726dde18 verified; desktop-watch-0.png and touch-lure.png visually inspected. Baseline only; full keyboard/embedded qualification remains."
+        "CI41718715703 at8d605004948e568c0fec4efcc0fee2c4f92e1f21 passed four distinct engine checks and six rendered recover-and-return watches: three patrol seeds each at desktop1280×1000 and touch-emulated390×844. Exact save/reload after every route action; lure expiry/reload, spotted/retry, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no page errors/horizontal overflow. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13270498657 sha256:1be0b65a0250040caa38b88ad8d26023d507521607d7961682c74ba1726dde18 verified; desktop-watch-0.png and touch-lure.png visually inspected. Baseline only; full keyboard/embedded qualification remains.",
+        "CI41727870594 at e9ca101fcfcc060ba8567e9e2486b13658144819 passed six distinct engine checks and six rendered wins across desktop1280×1000 and touch-emulated390×844, with per-action exact reload, return-trip lure use, seals, caught/retry, restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors. Engine search proves lure routes six turns shorter than no-lure routes for each of seeds0–2. Legacy rules migration preserves records. Repository74 bundled routes/286 asset references and nine selected first-batch integrity checks pass. Artifact13275587739 SHA256123711e1ece626a3abb97155594d9c15b85a05e16353f4293ccbb89298318c9d verified; touch-return-lure.png and desktop-watch-0.png inspected."
       ],
       "commits": [
-        "8d605004948e568c0fec4efcc0fee2c4f92e1f21"
+        "8d605004948e568c0fec4efcc0fee2c4f92e1f21",
+        "e9ca101fcfcc060ba8567e9e2486b13658144819"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline; no substantive improvement or qualification claimed.",
-        "observedWeaknesses": [
-          "All three tested winning routes leave both pebbles unused, so the core distraction choice lacks demonstrated value.",
-          "Phone movement controls sit below a tall header/board; lures require further scrolling.",
-          "Victory status still says lantern carried—return home despite the clear victory message below.",
-          "One fixed grove with patrol timing variants limits replay; do not call those variants distinct levels."
-        ],
-        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Guard-crossing semantics, broader seed solvability, save invariants and embedded keyboard qualification remain to inspect."
+        "status": "Substantively improved; qualification and selection pending.",
+        "assessment": "Outbound route planning and glowing-lantern return now differ. Six-turn lure advantage on tested watches demonstrates a useful choice rather than cosmetic resource counters. One fixed grove still limits depth.",
+        "knownLimits": "Automated routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Historical best records span old/new rules; seals distinguish new-rule completion. Need full keyboard/embedded qualification, broader seed solvability, collision and save invariants."
       },
       "nextSteps": [
-        "Add a consequential stealth choice based on rendered evidence; demonstrate useful lure routes rather than merely adding more patrol seeds.",
-        "Bring touch actions nearer the board and correct terminal status; preserve the v1 save key and records.",
-        "Verify changed core loops, loss/retry, keyboard/touch, saves, hidden-frame behavior and Collection navigation before qualification/selection."
+        "Qualify keyboard/embedded controls, hidden confirmations, save invariants and more patrol seeds; inspect guard crossing semantics.",
+        "Evaluate for selection after qualification, preserving current main curation."
       ]
     },
     {
@@ -3548,7 +3559,7 @@
     }
   ],
   "nextSteps": [
-    "Substantively improve Hushwood79 from its rendered baseline; lure choices need demonstrated value and phone control reach needs work.",
+    "Qualify improved Hushwood79 with full keyboard/embedded and save coverage, then evaluate selection.",
     "Build remaining11 distinct candidates in slots80–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4971,6 +4982,12 @@
       "result": "Built Hushwood79 turn-based stealth baseline. Four engine checks/six rendered wins, lure use, caught/retry and save checks pass; desktop/phone screenshots inspected.39 built,38 improved/qualified,11 unbuilt. No catalogue or live release change.",
       "commit": "8d605004948e568c0fec4efcc0fee2c4f92e1f21",
       "report": "dev/indie-collection-three/HUSHWOOD_BASELINE.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Improved Hushwood79 with lantern-glow return stealth, meaningful lure shortcuts, seals and compact phone controls. Six engine checks/six rendered wins pass; screenshots inspected.39 built/improved,38 qualified,11 unbuilt; no catalogue/live change.",
+      "commit": "e9ca101fcfcc060ba8567e9e2486b13658144819",
+      "report": "dev/indie-collection-three/HUSHWOOD_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
