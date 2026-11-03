@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 37,
-    "improved": 36,
+    "improved": 37,
     "browserTested": 36,
     "integrated": 0,
     "live": 0
@@ -3206,32 +3206,55 @@
       "slot": 77,
       "id": "stillframe",
       "title": "Stillframe",
-      "coreLoop": "Frame moving wildlife, balance shutter speed against exposure, set focus distance and spend limited film to build a saved three-subject photograph album.",
-      "status": "initial-playable-awaiting-substantive-improvement",
+      "coreLoop": "Observe wildlife rhythms and complete portrait, habitat and motion briefs by balancing pose, framing, exposure, focus and panning; preserve accepted work across outings and review frozen contact sheets.",
+      "status": "improved-awaiting-shell-qualification",
       "source": "games/stillframe",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-04",
+          "observedWeakness": "Rendered baseline completed in three shots/18 actions; waiting served little purpose, repeated settings solved the album, and live scene changes confused captured scores.",
+          "changes": [
+            "Three game-specific treatments per animal: pose-sensitive centered portraits, resting habitat compositions and travelling/panning shots with leading room.",
+            "Following trades moving-subject sharpness for stationary blur; watch advances a predictable rhythm without a real-time timer or film cost.",
+            "Accepted briefs persist through loss/retry; completed exhibitions open alternate pose/composition briefs and preserve best scores.",
+            "Frozen contact sheets separate captured species/pose/framing/quality from the LIVE scene; v1 saves migrate under the original key.",
+            "Rendered screenshot refinement moved shutter/watch beside the viewfinder controls and repaired terminal instructions."
+          ],
+          "implementationCommits": [
+            "bebd926a986d93d9a8b53a3a21fcb631192d3c92",
+            "081df261f0894134d464f83ad007425169e137c7"
+          ],
+          "validationCommit": "92a4f8155ef927fd903a1523e451d022fecec1cc",
+          "validation": "CI41671249260 passed six distinct engine checks, four rendered exhibitions/36 accepted captures across desktop/touch, exact first-edition per-action reload, migration, loss/retry, pause and storage/navigation checks. Final artifact13247618238 sha256:380e4d13c6a50167d28557442c45e233f4652fb884306dd6dc40b19421212246 verified; touch-controls-viewport.png and desktop-exhibition-1.png inspected. Full keyboard and embedded shell remain pending."
+        }
+      ],
       "tests": [
-        "CI41659617868 at326f1ce935e5c4abca19aaa63b259c1d98502e29 passed four engine checks and two rendered three-subject album completions in desktop1280×1000 and touch-emulated390×844 Chromium. Each route takes18 actions and three100-point photographs, leaving six film frames. Every action survives exact reload. Film exhaustion/retry, best-print retention, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13241127791 sha256:a44344f04062085f320759dde39de063d817de3b3683608a7a525d76ace37613 verified; touch-subject-1.png and desktop-subject-0.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence."
+        "CI41659617868 at326f1ce935e5c4abca19aaa63b259c1d98502e29 passed four engine checks and two rendered three-subject album completions in desktop1280×1000 and touch-emulated390×844 Chromium. Each route takes18 actions and three100-point photographs, leaving six film frames. Every action survives exact reload. Film exhaustion/retry, best-print retention, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13241127791 sha256:a44344f04062085f320759dde39de063d817de3b3683608a7a525d76ace37613 verified; touch-subject-1.png and desktop-subject-0.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence.",
+        "CI41671249260 at92a4f8155ef927fd903a1523e451d022fecec1cc passed six distinct engine checks and four rendered nine-brief exhibitions (two editions on desktop1280×1000/touch-emulated390×844).36 accepted photographs; first-edition exact per-action reload. Captures retain correct species/pose/composition after live changes. Wrong-pose study, film exhaustion/retry, old completed-album migration, Space/Escape, pause, corrupt/quota saves and Games navigation pass.74 bundled routes/286 asset references, syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13247618238 sha256:380e4d13c6a50167d28557442c45e233f4652fb884306dd6dc40b19421212246 verified; two final screenshots inspected. Intermediate strict viewport assertion failed at-0.5px scroll alignment, corrected to1px tolerance with exact bounds/screenshot evidence. Automated reliability/agent visual review, not human enjoyment or physical-device testing."
       ],
       "commits": [
-        "326f1ce935e5c4abca19aaa63b259c1d98502e29"
+        "326f1ce935e5c4abca19aaa63b259c1d98502e29",
+        "bebd926a986d93d9a8b53a3a21fcb631192d3c92",
+        "081df261f0894134d464f83ad007425169e137c7",
+        "92a4f8155ef927fd903a1523e451d022fecec1cc"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline; substantial improvement and qualification pending.",
-        "observedWeakness": "Exact previews and freely adjustable framing make perfect photographs straightforward. The album is completed with three shots and18 actions; waiting has little purpose. Only three fixed subjects exist, and their settings repeat. Scene updates immediately after shooting while the previous print score remains, creating potentially confusing feedback. Original silhouettes are readable but simple; phone controls require scrolling.",
-        "assessment": "Distinct camera/exposure core compared with Field Album's card drafting and Glasshouse's breeding, but shallow progression is not catalogue-ready.",
-        "knownLimits": "Full keyboard career, actual embedded shell, completed-record replay semantics and deeper save invariants remain unqualified. No duration, broad balance or sustained-enjoyment evidence."
+        "status": "Substantively improved; full qualification and comparative selection pending.",
+        "observedWeakness": "Baseline timing/composition and ambiguous captured/live feedback addressed. Current game remains guided and deterministic: three fixed rhythms and two composition variants; explicit readiness hints reveal solutions.",
+        "assessment": "Purposeful pose/framing/panning decisions and persistent accepted work make this a clearer compact photography puzzle. Contact sheets improve feedback and replay includes alternate briefs. Do not treat the longer automated route as evidence of duration or sustained enjoyment.",
+        "knownLimits": "Full keyboard career, real embedded shell visibility/dialog/Collection lifecycle and deeper save invariants remain unqualified. No broad balance or sustained-enjoyment evidence. Original silhouettes are readable but simply animated."
       },
       "nextSteps": [
-        "Add substantive timing/composition choices and useful progression based on the rendered baseline; clarify captured-photo versus current-preview feedback.",
-        "Then qualify keyboard, shell, saves, restart and navigation before comparative selection."
+        "Qualify full keyboard progression, actual embedded visibility/dialog/Collection lifecycle, deeper save invariants and restart/navigation.",
+        "Compare the improved game before selecting or reserving; preserve current main curation and do not expose this unfinished qualification."
       ]
     },
     {
@@ -3470,7 +3493,7 @@
     }
   ],
   "nextSteps": [
-    "Substantially improve Stillframe77 from rendered baseline, especially timing, composition, progression and captured-print feedback.",
+    "Qualify improved Stillframe77: full keyboard career, embedded shell visibility/dialog/Collection, deeper save invariants and comparative assessment.",
     "Build remaining13 distinct candidates in slots78–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4856,6 +4879,13 @@
       "result": "Built Stillframe77 wildlife camera baseline. Four engine checks/two rendered three-subject albums pass; screenshots inspected.37 built,36 improved/qualified,13 unbuilt; no release change.",
       "commit": "326f1ce935e5c4abca19aaa63b259c1d98502e29",
       "report": "dev/indie-collection-three/STILLFRAME_BASELINE.md"
+    },
+    {
+      "date": "2026-11-04",
+      "timestampUtc": "2026-11-03T16:11:00Z",
+      "result": "Substantially improved Stillframe77 with pose/composition briefs, panning, persistent accepted work, alternate briefs and frozen contact sheets. Final CI41671249260/four rendered exhibitions pass; screenshots inspected.37 built,37 improved,36 fully qualified,13 unbuilt; no catalogue/release change.",
+      "commit": "92a4f8155ef927fd903a1523e451d022fecec1cc",
+      "report": "dev/indie-collection-three/STILLFRAME_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
