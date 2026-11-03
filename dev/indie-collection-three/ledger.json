@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 32,
-    "improved": 31,
+    "improved": 32,
     "browserTested": 31,
     "integrated": 0,
     "live": 0
@@ -2917,32 +2917,52 @@
       "slot": 72,
       "id": "cinderwatch",
       "title": "Cinderwatch",
-      "coreLoop": "Read a repeating wind forecast, cut brush into fuel breaks, douse fires with limited water and protect cabins until all fire fronts burn out; preserve forest for saved records and earn clearing unlocks.",
-      "status": "initial-playable-awaiting-substantive-improvement",
+      "coreLoop": "Read a repeating wind forecast, cut brush into fuel breaks, douse fires with limited water and protect cabins until all fire fronts burn out; preserve forest for saved records and earn clearing unlocks. Earn woodland-steward assignments that forbid cutting and protect marked groves; soak brush preventively, schedule refills and inspect exact action forecasts.",
+      "status": "substantially-improved-awaiting-shell-qualification",
       "source": "games/cinderwatch",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-03",
+          "observedWeakness": "Tested containment routes take only3/5/4 turns and never need refill. Three fixed clearings and forest records provide shallow progression. Wind direction is readable but next threatened tiles are not marked, and reload resets tile selection. On desktop, scrolling the board into view can put the wind forecast above the viewport. No animation/audio or sustained-enjoyment evidence.",
+          "changes": [
+            "Added earned woodland-steward assignments with protected groves, forbidden cutting and separate saved records.",
+            "Added preventive brush soaking, spending water before ignition; tested steward routes require refill decisions in two clearings.",
+            "Added exact selectable-action forecasts, marked threatened tiles and grove symbols, and persistent tile/preview preferences.",
+            "Rendered review removed an occluding sticky forecast and compacted phone board/controls. Legacy records migrate into standard mode."
+          ],
+          "implementationCommits": [
+            "8200ecf7eeb3a95e1c9aba38a9537f269076fd82",
+            "2baee68396b54a97f71c0e5316b1fc0af652f465"
+          ],
+          "validation": "CI41550006639 at 2baee68396b54a97f71c0e5316b1fc0af652f465 passed seven distinct engine checks and twelve rendered wins: three standard clearings and three earned steward assignments in each desktop1280×1000 and touch-emulated390×844 Chromium context. Tested steward routes begin with preventive soaking and finish in4/5/6 actions; the latter two use refill. Forecasted action states match rendered outcomes, danger outlines render, selection/preview preferences and saves survive reload, separate records/unlocks persist, and cabin loss/retry, native Space/Escape, pause, corrupt/quota save handling and Games navigation pass without page errors or horizontal overflow.74 bundled routes/286 HTML references, source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13190522608 sha256:b1bed9d6c9fadb53dc0aa25fb429e47f9359ea4462d66e8fdcd65585331838b7 verified; touch-forecast-2.png and desktop-forecast-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+        }
+      ],
       "tests": [
-        "CI41543119130 at 3d99f503489a1a38b87cfcc1d54ae5fbf76922d0 passed four engine checks and six rendered containment wins (three clearings each in desktop1280×1000 and touch-emulated390×844 Chromium). Exact per-action reload, earned clearing unlocks/forest records, unattended cabin loss/retry, native Space, Escape, pause, corrupt-save preservation/recovery, quota fallback, standalone Games navigation and no page errors/horizontal overflow pass.74 bundled routes/286 HTML references, source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13188210038 sha256:ecba39210e520576f142568ace30636e5e84828f396cdcf08da86faa9ec4d39f verified; touch-clearing-2.png and desktop-clearing-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+        "CI41543119130 at 3d99f503489a1a38b87cfcc1d54ae5fbf76922d0 passed four engine checks and six rendered containment wins (three clearings each in desktop1280×1000 and touch-emulated390×844 Chromium). Exact per-action reload, earned clearing unlocks/forest records, unattended cabin loss/retry, native Space, Escape, pause, corrupt-save preservation/recovery, quota fallback, standalone Games navigation and no page errors/horizontal overflow pass.74 bundled routes/286 HTML references, source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13188210038 sha256:ecba39210e520576f142568ace30636e5e84828f396cdcf08da86faa9ec4d39f verified; touch-clearing-2.png and desktop-clearing-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing.",
+        "CI41550006639 at 2baee68396b54a97f71c0e5316b1fc0af652f465 passed seven distinct engine checks and twelve rendered wins: three standard clearings and three earned steward assignments in each desktop1280×1000 and touch-emulated390×844 Chromium context. Tested steward routes begin with preventive soaking and finish in4/5/6 actions; the latter two use refill. Forecasted action states match rendered outcomes, danger outlines render, selection/preview preferences and saves survive reload, separate records/unlocks persist, and cabin loss/retry, native Space/Escape, pause, corrupt/quota save handling and Games navigation pass without page errors or horizontal overflow.74 bundled routes/286 HTML references, source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13190522608 sha256:b1bed9d6c9fadb53dc0aa25fb429e47f9359ea4462d66e8fdcd65585331838b7 verified; touch-forecast-2.png and desktop-forecast-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
       ],
       "commits": [
-        "3d99f503489a1a38b87cfcc1d54ae5fbf76922d0"
+        "3d99f503489a1a38b87cfcc1d54ae5fbf76922d0",
+        "8200ecf7eeb3a95e1c9aba38a9537f269076fd82",
+        "2baee68396b54a97f71c0e5316b1fc0af652f465"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline; not improved, qualified or selected.",
-        "observedWeakness": "Tested containment routes take only3/5/4 turns and never need refill. Three fixed clearings and forest records provide shallow progression. Wind direction is readable but next threatened tiles are not marked, and reload resets tile selection. On desktop, scrolling the board into view can put the wind forecast above the viewport. No animation/audio or sustained-enjoyment evidence.",
-        "knownLimits": "Three deterministic clearings; no measured playtime, physical-device or human-enjoyment claim. Full embedded-shell qualification pending."
+        "status": "Substantive improvement rendered and verified; not yet fully qualified or selected.",
+        "observedWeakness": "Three fixed layouts remain short despite stewardship choices. Phone Wait and some secondary controls may require scrolling; desktop controls sit beneath the board. Wet-grove art uses the same water symbol as extinguished terrain. No audio/animation or sustained-enjoyment evidence.",
+        "knownLimits": "Full embedded bridge, hidden dialogs, input ownership, rendered legacy migration/save isolation and comparative selection remain pending."
       },
       "nextSteps": [
-        "Deepen resource/terrain decisions so refill and forest preservation create real competing choices; avoid simply adding repetitive clearings or timed survival counts.",
-        "Add visible fire-front forecasts and persistent selection; keep wind/readout alongside the active board.",
-        "Render and test substantive upgrade, then qualify embedded bridge/saves/input and compare for selection."
+        "Qualify actual embedded bridge/hidden dialogs, keyboard ownership, rendered legacy migration and save isolation.",
+        "Test grove loss/retry and mode cancellation naturally in the browser; assess reserve versus selection.",
+        "Preserve current14-game curation and continue remaining18 distinct candidates."
       ]
     },
     {
@@ -3271,7 +3291,7 @@
     }
   ],
   "nextSteps": [
-    "Substantially improve Cinderwatch72 from its inspected baseline: resource decisions, forest-preservation goals and fire-front forecasts.",
+    "Finish Cinderwatch72 shell/input/save qualification and comparative selection after its substantive rendered improvement.",
     "Build remaining18 original candidates in slots73–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4567,6 +4587,12 @@
       "result": "Built Cinderwatch72 wind-driven fire-containment baseline. Four engine checks and six rendered wins pass; screenshots inspected.32 built/31 improved/31 qualified;18 unbuilt;0 active integrated/live.",
       "commit": "3d99f503489a1a38b87cfcc1d54ae5fbf76922d0",
       "report": "dev/indie-collection-three/CINDERWATCH_BASELINE.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Improved Cinderwatch72 with earned stewardship, protected groves, preventive soaking/refill decisions and exact forecasts. Seven engine checks/twelve rendered wins pass; final screenshots inspected.32 built/32 improved/31 qualified;18 unbuilt;0 active integrated/live.",
+      "commit": "2baee68396b54a97f71c0e5316b1fc0af652f465",
+      "report": "dev/indie-collection-three/CINDERWATCH_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
