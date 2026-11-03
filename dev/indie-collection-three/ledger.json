@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 36,
-    "improved": 35,
+    "improved": 36,
     "browserTested": 35,
     "integrated": 0,
     "live": 0
@@ -3148,31 +3148,49 @@
       "id": "ambercut",
       "title": "Ambercut",
       "coreLoop": "Excavate layered five-by-five trays with cross-shaped chisel cuts and safe single-square brushing; reveal fossil traces, avoid collateral fractures, lift complete specimens and optimize saved preservation records.",
-      "status": "initial-playable-awaiting-substantive-improvement",
+      "status": "improved-awaiting-shell-qualification",
       "source": "games/ambercut",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-03",
+          "observedWeakness": "A simple early-cross then brushing route comfortably wins all three fixed trays. Limited tool tradeoffs and repeated layouts constrain progression. Fossil tiles repeat a generic glyph rather than forming convincing specimen art. Desktop tray fills much of the viewport; phone guide and records require scrolling.",
+          "changes": [
+            "Added horizontal/vertical three-cell slice footprints, creating alternatives to cross cuts near fragile traces and protected rock.",
+            "Earned conservation assignments require untouched marked corner rock and no fractures for three persistent seals.",
+            "Original connected fern/shell/wing SVG artwork replaces repeated glyphs; desktop tray is more compact and tool controls use two columns.",
+            "Legacy saves migrate with records and excavation intact, without granting unearned seals."
+          ],
+          "implementationCommits": [
+            "560735017837fc403294416dd05b4f0841b938c1"
+          ],
+          "validation": "CI41640434850 at560735017837fc403294416dd05b4f0841b938c1 passed seven engine checks and twelve rendered tray wins: three normal and three earned conservation assignments in each desktop1280×1000 and touch-emulated390×844 Chromium context. Conservation routes use33,35 and32 strokes and earn all three seals without fractures or corner disturbance. Exact every-action reload, fracture loss/retry, record retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Legacy migration and seal persistence pass engine checks. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13232133246 sha256:b004401e85c9c6fb424e8e8064092f6dafede4916d10eff74647b5e54008d3e3 verified; touch-conservation-1.png and desktop-conservation-0.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device evidence."
+        }
+      ],
       "tests": [
-        "CI41632282501 at f8deb1f9c42b489a39aae263fef8766e7f3509c6 passed four engine checks and six rendered tray wins: all three trays in desktop1280×1000 and touch-emulated390×844 Chromium. Safe visible-depth routes used32,37 and30 strokes with zero fractures; every action survived exact reload. Fracture loss/retry, records across next/reset, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation passed without page errors or horizontal overflow. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13229335589 sha256:9eee4f433629f49e5e705bafa97a2d4e63645a67c808040e46b377c23cf4979d verified; touch-site-1.png and desktop-site-0.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence."
+        "CI41632282501 at f8deb1f9c42b489a39aae263fef8766e7f3509c6 passed four engine checks and six rendered tray wins: all three trays in desktop1280×1000 and touch-emulated390×844 Chromium. Safe visible-depth routes used32,37 and30 strokes with zero fractures; every action survived exact reload. Fracture loss/retry, records across next/reset, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation passed without page errors or horizontal overflow. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13229335589 sha256:9eee4f433629f49e5e705bafa97a2d4e63645a67c808040e46b377c23cf4979d verified; touch-site-1.png and desktop-site-0.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence.",
+        "CI41640434850 at560735017837fc403294416dd05b4f0841b938c1 passed seven engine checks and twelve rendered tray wins: three normal and three earned conservation assignments in each desktop1280×1000 and touch-emulated390×844 Chromium context. Conservation routes use33,35 and32 strokes and earn all three seals without fractures or corner disturbance. Exact every-action reload, fracture loss/retry, record retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Legacy migration and seal persistence pass engine checks. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13232133246 sha256:b004401e85c9c6fb424e8e8064092f6dafede4916d10eff74647b5e54008d3e3 verified; touch-conservation-1.png and desktop-conservation-0.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device evidence."
       ],
       "commits": [
-        "f8deb1f9c42b489a39aae263fef8766e7f3509c6"
+        "f8deb1f9c42b489a39aae263fef8766e7f3509c6",
+        "560735017837fc403294416dd05b4f0841b938c1"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline only; improvement and qualification pending.",
-        "observedWeakness": "A simple early-cross then brushing route comfortably wins all three fixed trays. Limited tool tradeoffs and repeated layouts constrain progression. Fossil tiles repeat a generic glyph rather than forming convincing specimen art. Desktop tray fills much of the viewport; phone guide and records require scrolling.",
-        "assessment": "Distinct spatial collateral-cutting loop with usable saved progression, but not ready for catalogue selection. Needs meaningful excavation choices and connected specimen art.",
-        "knownLimits": "Full keyboard career, actual embedded shell and kit-exhaustion browser cases remain unqualified. No measured duration, broad balance or enjoyment evidence."
+        "status": "Substantive improvement verified; qualification and selection pending.",
+        "observedWeakness": "Three fixed layouts and ample stroke budgets still limit replay depth. Conservation can be solved with safe narrow cuts and brushing; broader reward/balance evidence remains absent. Phone completion details sit below the tray.",
+        "knownLimits": "Full keyboard career, actual embedded shell and kit-exhaustion browser checks remain pending. Starting a conservation assignment currently resets the current tray directly; add confirmation before qualification. Strengthen conservation phase/save invariants in qualification.",
+        "assessment": "Directional footprints and preserving surrounding rock create meaningful spatial choices; connected artwork makes the reveal clearer. Improvement is real but no long-duration or sustained-enjoyment claim is justified."
       },
       "nextSteps": [
-        "Implement a substantial rendered-play-driven upgrade to excavation decisions and specimen art, preserving existing records.",
-        "Then qualify keyboard career, embedded shell, save edge cases and navigation before comparative selection."
+        "Qualify keyboard careers, actual embedded bridge, old saves, kit exhaustion and conservation phase invariants; confirm assignment starts before replacing the current tray.",
+        "Then compare for selection while preserving the existing curated catalogue."
       ]
     },
     {
@@ -3429,7 +3447,7 @@
     }
   ],
   "nextSteps": [
-    "Substantially improve Ambercut76 from its rendered baseline; preserve its records.",
+    "Qualify Ambercut76 including assignment confirmation, conservation saves, keyboard career and embedded shell before selection.",
     "Build remaining14 distinct candidates in slots77–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4797,6 +4815,12 @@
       "result": "Built Ambercut76 excavation baseline. Four engine checks and six rendered tray wins pass; screenshots inspected.36 built,35 improved/qualified,14 unbuilt; no catalogue or live change.",
       "commit": "f8deb1f9c42b489a39aae263fef8766e7f3509c6",
       "report": "dev/indie-collection-three/AMBERCUT_BASELINE.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Improved Ambercut76 with directional slices, earned conservation assignments/seals and connected specimen art. Seven engine checks/twelve rendered tray wins pass; screenshots inspected.36 built/improved,35 qualified,14 unbuilt; no release change.",
+      "commit": "560735017837fc403294416dd05b4f0841b938c1",
+      "report": "dev/indie-collection-three/AMBERCUT_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
