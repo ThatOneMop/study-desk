@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 33,
+    "built": 34,
     "improved": 33,
     "browserTested": 33,
     "integrated": 0,
@@ -3031,21 +3031,36 @@
     },
     {
       "slot": 74,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "kettle-thorn",
+      "title": "Kettle & Thorn",
+      "coreLoop": "Draw ingredients without replacement, bank leaf/blossom blend value before thorns spoil the pot, then spend earned coins on blossoms, cooling mint or thorn removal to change future draw probabilities.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/kettle-thorn",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41581655731 at 254fcd728347447e26792bd8eb14fda8fcb02ae2 passed four distinct engine checks and two complete rendered careers in desktop1280×1000 and touch-emulated390×844 Chromium. Each reaches a12-coin Keeper brew at pot9 in50 actions, buying blossoms and removing one thorn through earned coins. Every action survives exact-state reload. Spoiling/retry, best retention on restart, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13205577665 sha256:e0109987704afd54c4ce21ec3b11d44f0e151be9574e11feb1ae2f70b9e3d78a verified; touch-keeper.png and desktop-keeper.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+      ],
+      "commits": [
+        "254fcd728347447e26792bd8eb14fda8fcb02ae2"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; substantive improvement and qualification pending.",
+        "observedWeakness": "The tested50-action route reaches the highest seal in nine pots without buying mint. Source review shows removing down to one thorn eliminates bust risk altogether, weakening draw-or-bank choices. Fixed initial seed repeats on restart. Screenshot review shows a readable pot and controls but shop appears low on phones; no active draw odds or immediate upgrade comparison.",
+        "knownLimits": "Four ingredient types, three score seals, no additional challenge system, simple CSS/glyph art, no audio. No full shell qualification or sustained-enjoyment evidence.",
+        "assessment": "Distinct bag-composition and push-your-luck loop, unlike Tea for Ghosts flavour matching or Spore Kitchen crop/recipe scheduling. Not ready for selection while risk and upgrade balance remain shallow."
+      },
+      "nextSteps": [
+        "Perform substantive improvement focused on preserving risk and making cooling/value upgrades genuine alternatives; do not pad score thresholds.",
+        "Improve phone shop access and decision feedback; preserve saves and seeded draw continuity.",
+        "Then qualify shell, complete keyboard routes and safe legacy migration before selection."
+      ]
     },
     {
       "slot": 75,
@@ -3337,8 +3352,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate74 next; Brine Ledger73 is qualified reserve.17 unbuilt slots74–90 remain.",
-    "Build remaining17 distinct original candidates in slots74–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Kettle & Thorn74 from its rendered baseline; then qualify and compare.34 built,33 improved/qualified.",
+    "Build remaining16 distinct original candidates in slots75–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4663,6 +4678,12 @@
       "result": "Qualified Brine Ledger73; reject delivery records without earned seal. Eight engine checks and six rendered manifest deliveries plus shell/legacy checks pass; screenshots inspected.33 built/improved/qualified,17 unbuilt; no release change.",
       "commit": "4f4dff7d7853561d45ceca63da69440f0457dd53",
       "report": "dev/indie-collection-three/BRINE_LEDGER_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Built Kettle & Thorn74 bag-building baseline; four engine checks and two rendered Keeper careers pass; screenshots inspected.34 built,33 improved/qualified,16 unbuilt; no release change.",
+      "commit": "254fcd728347447e26792bd8eb14fda8fcb02ae2",
+      "report": "dev/indie-collection-three/KETTLE_THORN_BASELINE.md"
     }
   ],
   "historicalTotals": {
