@@ -6,12 +6,12 @@ for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promi
 browser=await chromium.launch();
 for(const touch of [false,true]){
  const ctx=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:1000},hasTouch:touch,isMobile:touch}),p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
- const raw=()=>p.evaluate(k=>localStorage.getItem(k),E.KEY),state=async()=>E.decode(await raw()),key=async id=>{await p.locator('#'+id).focus();await p.keyboard.press('Space')};
+ const raw=()=>p.evaluate(k=>localStorage.getItem(k),E.KEY),state=async()=>E.decode(await raw()),key=async id=>{await p.locator('#'+id).focus();await p.keyboard.press('Space');await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))))};
  await p.goto(base+'/games/ambercut/index.html');await p.evaluate(()=>localStorage.setItem('study-desk-unrelated-qa','keep'));
  let s=E.create();for(const a of route()){await key(typeof a==='number'?'cell-'+a:a);s=E.act(s,a);A.deepEqual(await state(),s);const saved=await raw();await p.reload();A.equal(await raw(),saved)}
  const legacy=JSON.parse(JSON.stringify(s));delete legacy.commission;delete legacy.seals;
  await p.evaluate(([k,v])=>localStorage.setItem(k,v),[E.KEY,JSON.stringify(legacy)]);await p.reload();A.deepEqual(await state(),s);await p.reload();A.deepEqual(await state(),s);
- await key('commission');await p.keyboard.press('Escape');A.deepEqual(await state(),s);await key('commission');await key('accept');s=E.act(s,'commission');
+ await key('commission');await p.keyboard.press('Escape');await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));A.deepEqual(await state(),s);await key('commission');await key('accept');s=E.act(s,'commission');
  for(const a of conservation()){await key(typeof a==='number'?'cell-'+a:a);s=E.act(s,a);A.deepEqual(await state(),s);const saved=await raw();await p.reload();A.equal(await raw(),saved)}
  A.ok(s.seals[0]);await p.locator('#board').scrollIntoViewIfNeeded();await p.screenshot({path:path.join(out,(touch?'touch':'desktop')+'-qualified.png')});
  await key('next');await key('brush');
