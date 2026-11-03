@@ -6,7 +6,7 @@
   "totals": {
     "built": 38,
     "improved": 38,
-    "browserTested": 37,
+    "browserTested": 38,
     "integrated": 0,
     "live": 0
   },
@@ -3264,11 +3264,11 @@
       "id": "liftkeeper",
       "title": "Liftkeeper",
       "coreLoop": "Collect and combine freight in a capacity-limited elevator, choose a ground-level counterweight, trade ascent energy against regenerative descents, deliver matching floors and return home while minimizing movement and service calls.",
-      "status": "improved-awaiting-shell-qualification",
+      "status": "qualified-reserve",
       "source": "games/liftkeeper",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3290,23 +3290,25 @@
       ],
       "tests": [
         "CI41690040013 atefe71c84817ceae83e852bce8142bd72bcc7e345 passed four distinct engine checks and six rendered dispatch wins (three each at desktop1280×1000/touch-emulated390×844). Every route action reloads exactly. All three manifests solve without engineer calls; service recovery, records/restart, Space/Escape, pause, corrupt/quota storage and Games navigation pass without page errors or horizontal overflow. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13256282701 sha256:2d73c232b825c0340d7bb811d6e3931b3aa0343eed0d1e6b191758dcde707b23 verified; final touch-dispatch-2.png inspected. Earlier CI41689589062 artifact13255498844 also verified and desktop-dispatch-0.png/touch-dispatch-2.png inspected, prompting cabin-label wrapping fix.",
-        "CI41700373198 atdec66edee84c3541df9ad935c4bb791d25a73a2c passed seven distinct engine checks and twelve rendered dispatches: ordinary and earned low-power contracts across desktop1280×1000 and touch-emulated390×844. Every route action survives exact reload. Service recovery, records/restart, native Space/Escape, pause, corrupt/quota storage and Games navigation pass without page errors or horizontal overflow. Search finds low-power solutions using5,4,5 tonne counterweights and proves no solution with the default3 tonne counter under these contract rules. Legacy saves retain records and gain empty seals. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13263366330 sha256:51c19d24ef6d46de26518590d11153e6e609b25f7d00bf8177638a5b4766ddb3 verified; desktop-contract-1.png and touch-contract-2.png inspected."
+        "CI41700373198 atdec66edee84c3541df9ad935c4bb791d25a73a2c passed seven distinct engine checks and twelve rendered dispatches: ordinary and earned low-power contracts across desktop1280×1000 and touch-emulated390×844. Every route action survives exact reload. Service recovery, records/restart, native Space/Escape, pause, corrupt/quota storage and Games navigation pass without page errors or horizontal overflow. Search finds low-power solutions using5,4,5 tonne counterweights and proves no solution with the default3 tonne counter under these contract rules. Legacy saves retain records and gain empty seals. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13263366330 sha256:51c19d24ef6d46de26518590d11153e6e609b25f7d00bf8177638a5b4766ddb3 verified; desktop-contract-1.png and touch-contract-2.png inspected.",
+        "CI41708756217 at95a07f41fd6d90789f343ffce8619cd72c4500ce passed nine distinct engine checks, twelve ordinary/low-power pointer and touch dispatch wins plus four keyboard wins (ordinary and earned contract on desktop1280×1000 and touch-emulated390×844). Per-action reload comparisons pass; legacy records migrate; stranded low-power restart retains seals; Tab/Enter/Space and cancellation work. Actual bridge in a same-origin iframe verifies hidden restart/standard/charter/recovery confirmations and movement cannot write, explicit resume, Collection messaging and unrelated-save isolation. Embedded phone width390/no horizontal overflow asserted. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13266241800 sha256:f5c6599783e0cc334460dc4f52f2e139ba2f412fa79c2a382dc76dc00c0aea13 verified; desktop-keyboard.png and touch-shell.png inspected."
       ],
       "commits": [
         "7c70b74f9bdcee945fef33d48a3b3a37a9e1aca1",
         "efe71c84817ceae83e852bce8142bd72bcc7e345",
-        "dec66edee84c3541df9ad935c4bb791d25a73a2c"
+        "dec66edee84c3541df9ad935c4bb791d25a73a2c",
+        "95a07f41fd6d90789f343ffce8619cd72c4500ce"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantively improved; qualification and selection pending.",
-        "assessment": "Counterweight/cargo planning is now consequential and earned contracts provide distinct replay goals. Solutions require5,4,5 tonne choices instead of the unchanged baseline3. Remains a compact deterministic three-manifest puzzle, not a deep progression game.",
-        "knownLimits": "Full keyboard career, actual embedded visibility/dialog/Collection lifecycle and deeper save invariants pending. Phone ground-floor label crowds the narrower tower column and needs a readability cleanup. No human-enjoyment, physical-device or content-duration evidence."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Distinct load scheduling and regenerative elevator loop. Low-power contracts make counterweight selection consequential, and readable forecasts/confirmations support relaxed planning. Three fixed manifests and compact contract variants still limit progression and replay diversity; reserve rather than promote on test counts alone.",
+        "qualificationFixes": "Reject unreachable floor/move combinations and missing completion score/seal evidence. Preserve legitimate legacy saves. Shorten ground label to fit phone tower and fix contract text spacing.",
+        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Embedded qualification uses real game/bridge in a controlled host; it does not claim a current public launcher entry."
       },
       "nextSteps": [
-        "Qualify keyboard careers, earned-contract and ordinary-mode confirmations under embedded visibility, save invariants, restart and Collection navigation.",
-        "Fix crowded phone ground-floor label, then compare improved candidate for selection without overriding current catalogue curation."
+        "Retain qualified source in reserve; reconsider only if deeper load/counterweight choices warrant selection."
       ]
     },
     {
@@ -3527,7 +3529,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Liftkeeper78: keyboard careers, embedded confirmations, save invariants, narrow ground label and comparative assessment.",
+    "Build distinct candidate79, then render-playtest and substantively improve it;12 slots79–90 remain unbuilt.",
     "Build remaining12 distinct candidates in slots79–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4938,6 +4940,12 @@
       "result": "Substantially improved Liftkeeper78 with earned low-power contracts, necessary counterweight choices, persistent seals and accurate regeneration. Seven engine checks/twelve rendered dispatches pass; screenshots inspected.38 built/improved,37 qualified,12 unbuilt; no release change.",
       "commit": "dec66edee84c3541df9ad935c4bb791d25a73a2c",
       "report": "dev/indie-collection-three/LIFTKEEPER_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Qualified Liftkeeper78, repaired completion/floor save consistency and phone label. Nine engine checks/sixteen rendered dispatch wins pass; screenshots inspected. Reserve selection.38 built/improved/qualified,12 unbuilt; no catalogue or live release change.",
+      "commit": "95a07f41fd6d90789f343ffce8619cd72c4500ce",
+      "report": "dev/indie-collection-three/LIFTKEEPER_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
