@@ -6,7 +6,7 @@
   "totals": {
     "built": 33,
     "improved": 33,
-    "browserTested": 32,
+    "browserTested": 33,
     "integrated": 0,
     "live": 0
   },
@@ -2976,11 +2976,11 @@
       "id": "brine-ledger",
       "title": "Brine Ledger",
       "coreLoop": "Buy salt, cloth and timber where cheap, budget passage and hold space, choose selling ports, fulfil shipping charters and reinvest earnings in a larger hold or cheaper sail. Earn mixed-cargo manifests, choose small parcels or hold-gated bulk freight, source across ports and preserve delivery records.",
-      "status": "improved-awaiting-shell-qualification",
+      "status": "qualified-reserve-held-by-current-curation",
       "source": "games/brine-ledger",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3003,25 +3003,31 @@
       ],
       "tests": [
         "CI41564009774 at d2adf84f58563a8b2a9d3c27663d0b666cfcd502 passed four distinct engine checks and two rendered three-charter trading careers in desktop1280×1000 and touch-emulated390×844 Chromium. Each career earns sail and hold upgrades in21 actions; every action survives exact-state reload. Cash exhaustion/restart, best-worth retention, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13197993358 sha256:da748a1abfa7fea3c37db4d81295913110e1c2bba46aad37c157ec7393b93cfd verified; desktop-voyage-12.png and touch-voyage-21.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing.",
-        "CI41569675986 at f2c22be6a750eefdd60dcdb2c10bffb37935af7d passed seven distinct engine checks and desktop1280×1000/touch-emulated390×844 Chromium routes. Each context completes the original charter/upgrade career plus a new three-charter route, one small manifest and one bulk manifest sourced at two ports. Delivery counts and rotating offers persist on reload; cancellation, earned hold gate, old-save defaults, restart, cash exhaustion, Space/Escape, pause, corrupt/quota saves and Games navigation pass. Source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13200328063 sha256:01432e7be3a5c08577cd4671fc16e2fe706fb4a23f3de77121ae4410ed6730dc verified; touch-manifests.png and desktop-bulk-delivered.png inspected. Automated reliability and agent visual assessment, not physical-device tests or human enjoyment evidence."
+        "CI41569675986 at f2c22be6a750eefdd60dcdb2c10bffb37935af7d passed seven distinct engine checks and desktop1280×1000/touch-emulated390×844 Chromium routes. Each context completes the original charter/upgrade career plus a new three-charter route, one small manifest and one bulk manifest sourced at two ports. Delivery counts and rotating offers persist on reload; cancellation, earned hold gate, old-save defaults, restart, cash exhaustion, Space/Escape, pause, corrupt/quota saves and Games navigation pass. Source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13200328063 sha256:01432e7be3a5c08577cd4671fc16e2fe706fb4a23f3de77121ae4410ed6730dc verified; touch-manifests.png and desktop-bulk-delivered.png inspected. Automated reliability and agent visual assessment, not physical-device tests or human enjoyment evidence.",
+        "CI41575624680 at 4f4dff7d7853561d45ceca63da69440f0457dd53 passed eight distinct engine checks, four pointer/touch manifest deliveries and two additional keyboard manifest deliveries in desktop1280×1000 and touch-emulated390×844 Chromium. Original charter/upgrade careers also pass. Legacy coins/charters migrate, active manifests and every keyboard action survive reload, pause feedback and cancellation behave correctly. The actual bridge blocks hidden restart/recovery confirmation, requires explicit resume, posts Collection navigation and preserves an unrelated save. Corrupt/quota fallback, cash exhaustion/restart, source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13202783619 sha256:561ed32ab410db4919de1dbfb7a6e989bb072d149ff1c09cc908744447be6e33 verified; touch-qualified.png and desktop-shell.png inspected. Automated reliability and agent visual review, not physical-device testing or human enjoyment evidence."
       ],
       "commits": [
         "d2adf84f58563a8b2a9d3c27663d0b666cfcd502",
         "e0ecc1c680c1d1684a1334f38abc32be7796ea5f",
-        "f2c22be6a750eefdd60dcdb2c10bffb37935af7d"
+        "f2c22be6a750eefdd60dcdb2c10bffb37935af7d",
+        "4f4dff7d7853561d45ceca63da69440f0457dd53"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Improved; full shell qualification and selection pending.",
+        "status": "Qualified reserve; not selected or integrated.",
         "observedWeakness": "Markets still have unlimited stock and predictable prices. Manifests rotate only three goods among three ports, with two fixed load/payment templates; not deep economic simulation. Upgrades are finite. Phone secondary sections still require scrolling, and low-funds warning appears after spending rather than predicting reserve loss.",
-        "knownLimits": "Embedded shell/hidden confirmation and complete keyboard-only qualification remain pending. No sustained enjoyment, physical-device or measured playtime evidence.",
-        "assessment": "A substantive upgrade from single-good one-shot charters to mixed cargo, capacity choice and multi-port sourcing. Reliability evidence supports the new loop; long-term enjoyment remains unproven."
+        "knownLimits": "Only three ports/goods and two manifest templates; no audio, measured playtime or human-enjoyment evidence. Secondary sections require phone scrolling. Full real-catalogue regression remains a release-time requirement; qualification uses the actual bridge in a controlled iframe host.",
+        "assessment": "Qualified reserve. Mixed cargo and multi-port sourcing offer useful trading choices with readable controls, but three goods, predictable unlimited-stock markets, two manifest templates and only two upgrades limit depth. Prefer Bell Diver equipment progression and Mycelium Yard reinvestment for the user's progression tastes. Reliability does not establish sustained fun."
       },
       "nextSteps": [
-        "Qualify actual embedded shell, hidden confirmations, complete keyboard-only manifest route and active legacy/save edge cases.",
-        "Assess whether manifest decisions justify selection against the stronger progression candidates; preserve current catalogue."
-      ]
+        "Preserve qualified source/tests and current14-game catalogue; do not expose this reserve.",
+        "Prioritize remaining17 distinct candidates; reconsider selection only with deeper progression and comparative evidence."
+      ],
+      "selection": {
+        "selected": false,
+        "reason": "Qualified reserve. Mixed cargo and multi-port sourcing offer useful trading choices with readable controls, but three goods, predictable unlimited-stock markets, two manifest templates and only two upgrades limit depth. Prefer Bell Diver equipment progression and Mycelium Yard reinvestment for the user's progression tastes. Reliability does not establish sustained fun."
+      }
     },
     {
       "slot": 74,
@@ -3331,7 +3337,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify Brine Ledger73 embedded shell, saves and keyboard routes, then compare for selection;33 built/improved,32 qualified.",
+    "Build distinct candidate74 next; Brine Ledger73 is qualified reserve.17 unbuilt slots74–90 remain.",
     "Build remaining17 distinct original candidates in slots74–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4651,6 +4657,12 @@
       "result": "Improved Brine Ledger73 with earned mixed-cargo manifests, bulk sourcing and compact phone trading. Seven engine checks and four rendered manifest deliveries pass alongside original careers.33 built/improved,32 qualified,17 unbuilt; no release change.",
       "commit": "f2c22be6a750eefdd60dcdb2c10bffb37935af7d",
       "report": "dev/indie-collection-three/BRINE_LEDGER_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Qualified Brine Ledger73; reject delivery records without earned seal. Eight engine checks and six rendered manifest deliveries plus shell/legacy checks pass; screenshots inspected.33 built/improved/qualified,17 unbuilt; no release change.",
+      "commit": "4f4dff7d7853561d45ceca63da69440f0457dd53",
+      "report": "dev/indie-collection-three/BRINE_LEDGER_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
