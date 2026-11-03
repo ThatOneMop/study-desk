@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 35,
+    "built": 36,
     "improved": 35,
     "browserTested": 35,
     "integrated": 0,
@@ -3145,21 +3145,35 @@
     },
     {
       "slot": 76,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "ambercut",
+      "title": "Ambercut",
+      "coreLoop": "Excavate layered five-by-five trays with cross-shaped chisel cuts and safe single-square brushing; reveal fossil traces, avoid collateral fractures, lift complete specimens and optimize saved preservation records.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/ambercut",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41632282501 at f8deb1f9c42b489a39aae263fef8766e7f3509c6 passed four engine checks and six rendered tray wins: all three trays in desktop1280×1000 and touch-emulated390×844 Chromium. Safe visible-depth routes used32,37 and30 strokes with zero fractures; every action survived exact reload. Fracture loss/retry, records across next/reset, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation passed without page errors or horizontal overflow. Repository syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13229335589 sha256:9eee4f433629f49e5e705bafa97a2d4e63645a67c808040e46b377c23cf4979d verified; touch-site-1.png and desktop-site-0.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence."
+      ],
+      "commits": [
+        "f8deb1f9c42b489a39aae263fef8766e7f3509c6"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline only; improvement and qualification pending.",
+        "observedWeakness": "A simple early-cross then brushing route comfortably wins all three fixed trays. Limited tool tradeoffs and repeated layouts constrain progression. Fossil tiles repeat a generic glyph rather than forming convincing specimen art. Desktop tray fills much of the viewport; phone guide and records require scrolling.",
+        "assessment": "Distinct spatial collateral-cutting loop with usable saved progression, but not ready for catalogue selection. Needs meaningful excavation choices and connected specimen art.",
+        "knownLimits": "Full keyboard career, actual embedded shell and kit-exhaustion browser cases remain unqualified. No measured duration, broad balance or enjoyment evidence."
+      },
+      "nextSteps": [
+        "Implement a substantial rendered-play-driven upgrade to excavation decisions and specimen art, preserving existing records.",
+        "Then qualify keyboard career, embedded shell, save edge cases and navigation before comparative selection."
+      ]
     },
     {
       "slot": 77,
@@ -3415,8 +3429,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate76 next; Hollowhand75 is a qualified reserve.15 unbuilt slots76–90 remain.",
-    "Build remaining15 distinct original candidates in slots76–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Ambercut76 from its rendered baseline; preserve its records.",
+    "Build remaining14 distinct candidates in slots77–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4777,6 +4791,12 @@
       "result": "Qualified Hollowhand75 and fixed impossible victory/reward save phases. Eleven engine checks and six rendered victories plus shell/legacy checks pass; screenshots inspected.35 built/improved/qualified,15 unbuilt; no release change.",
       "commit": "fcb90ff81274c250c6735aa4b1b4961ef957e54e",
       "report": "dev/indie-collection-three/HOLLOWHAND_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Built Ambercut76 excavation baseline. Four engine checks and six rendered tray wins pass; screenshots inspected.36 built,35 improved/qualified,14 unbuilt; no catalogue or live change.",
+      "commit": "f8deb1f9c42b489a39aae263fef8766e7f3509c6",
+      "report": "dev/indie-collection-three/AMBERCUT_BASELINE.md"
     }
   ],
   "historicalTotals": {
