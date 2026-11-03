@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 37,
+    "built": 38,
     "improved": 37,
     "browserTested": 37,
     "integrated": 0,
@@ -3261,21 +3261,36 @@
     },
     {
       "slot": 78,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "liftkeeper",
+      "title": "Liftkeeper",
+      "coreLoop": "Collect and combine freight in a capacity-limited elevator, choose a ground-level counterweight, trade ascent energy against regenerative descents, deliver matching floors and return home while minimizing movement and service calls.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/liftkeeper",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41690040013 atefe71c84817ceae83e852bce8142bd72bcc7e345 passed four distinct engine checks and six rendered dispatch wins (three each at desktop1280×1000/touch-emulated390×844). Every route action reloads exactly. All three manifests solve without engineer calls; service recovery, records/restart, Space/Escape, pause, corrupt/quota storage and Games navigation pass without page errors or horizontal overflow. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13256282701 sha256:2d73c232b825c0340d7bb811d6e3931b3aa0343eed0d1e6b191758dcde707b23 verified; final touch-dispatch-2.png inspected. Earlier CI41689589062 artifact13255498844 also verified and desktop-dispatch-0.png/touch-dispatch-2.png inspected, prompting cabin-label wrapping fix."
+      ],
+      "commits": [
+        "7c70b74f9bdcee945fef33d48a3b3a37a9e1aca1",
+        "efe71c84817ceae83e852bce8142bd72bcc7e345"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline only; improvement and qualification pending.",
+        "observedWeakness": "All three short solutions retain the default counterweight; its adjustment is not yet a meaningful necessity. Manifests finish in14,12,14 actions (8,6,8 floor moves) without engineer calls. Parking and tradeoffs are underused. Recovery text reports theoretical gain even when battery capacity clips it. Tower artwork is clear but static.",
+        "assessment": "Distinct regenerative elevator/load scheduling loop versus sailing, static torque balance or locomotive shunting. Baseline is too shallow for catalogue selection; build meaningful counterweight/cargo choices rather than repeated manifests.",
+        "knownLimits": "Full keyboard careers, embedded shell, deeper save invariants, long-term progression and broader balance remain unqualified. No human-enjoyment or content-duration evidence."
+      },
+      "nextSteps": [
+        "Substantially improve from rendered baseline: make counterweight/cargo planning necessary, deepen useful progression and report actual recovered charge.",
+        "Then qualify keyboard, embedded visibility/dialog/Collection lifecycle, saves/restart and compare for selection."
+      ]
     },
     {
       "slot": 79,
@@ -3495,8 +3510,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate78, then render-playtest and substantially improve it;13 slots78–90 remain unbuilt.",
-    "Build remaining13 distinct candidates in slots78–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Liftkeeper78 from rendered baseline; counterweight choice, cargo staging, progression and actual charge feedback need work.",
+    "Build remaining12 distinct candidates in slots79–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4894,6 +4909,12 @@
       "result": "Qualified Stillframe77, tightened contact-sheet validation and verified keyboard/embedded lifecycle. Eight engine checks/eight rendered exhibitions pass; screenshots inspected. Reserve selection.37 built/improved/qualified,13 unbuilt; no release change.",
       "commit": "971c15ec55128483383bd45c3d0238981476102a",
       "report": "dev/indie-collection-three/STILLFRAME_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Built Liftkeeper78 regenerative freight-elevator baseline; four engine checks/six rendered dispatch wins pass, screenshots inspected and phone cabin text refined.38 built,37 improved/qualified,12 unbuilt; no catalogue or live release change.",
+      "commit": "efe71c84817ceae83e852bce8142bd72bcc7e345",
+      "report": "dev/indie-collection-three/LIFTKEEPER_BASELINE.md"
     }
   ],
   "historicalTotals": {
