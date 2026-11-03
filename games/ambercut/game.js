@@ -19,7 +19,9 @@ $('restart').disabled=busy();$('pause').textContent=paused?'Resume':'Pause';$('p
 if(focus&&$(focus)&&!$(focus).disabled)$(focus).focus({preventScroll:true})}
 function mark(i){document.querySelectorAll('.tile').forEach((b,j)=>b.classList.toggle('preview',E.footprint(s,i).includes(j)))}
 for(const id of ['brush','chisel','row','column','next','commission'])$(id).onclick=()=>go(id);
+$('commission').onclick=()=>ask('Replace this tray with a conservation assignment? Saved scores and seals stay.',()=>go('commission'));
 function ask(text,fn){if(busy())return;pending=fn;$('question').textContent=text;$('confirm').showModal();render()}$('restart').onclick=()=>ask('Reset this tray? Your specimen records stay.',()=>go('restart'));$('recover').onclick=()=>ask('Replace the unreadable save with this session?',()=>{blocked=false;save();render()});$('cancel').onclick=()=>{pending=null;$('confirm').close();render()};$('confirm').addEventListener('cancel',()=>pending=null);$('confirm').addEventListener('close',render);$('accept').onclick=()=>{if(paused||hidden||document.hidden||!$('confirm').open)return;const fn=pending;pending=null;$('confirm').close();fn?.()};$('pause').onclick=()=>{if(hidden||document.hidden||$('confirm').open)return;paused=!paused;render()};$('games').onclick=e=>{if(parent!==window){e.preventDefault();parent.postMessage({type:'study-collection'},location.origin)}};window.addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='study-visibility'&&typeof e.data.visible==='boolean'){hidden=!e.data.visible;if(hidden)paused=true;render()}});document.addEventListener('visibilitychange',()=>{if(document.hidden)paused=true;render()});save();render();
+
 
 
 

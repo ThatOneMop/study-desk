@@ -22,6 +22,7 @@ jobs:
           node --check games/ambercut/game.js
           node --test tests/ambercut-engine.cjs
           node tests/ambercut-browser.cjs
+          node tests/ambercut-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
@@ -29,6 +30,7 @@ jobs:
         with:
           name: ambercut-browser
           path: test-artifacts/ambercut/
+
 
 
 

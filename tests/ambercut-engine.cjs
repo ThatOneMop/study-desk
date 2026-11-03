@@ -13,3 +13,7 @@ T('three conservation plans preserve matrix and earn persistent seals',()=>{let 
 T('conservation unlock and corner damage are enforced',()=>{A.equal(E.act(E.create(),'commission'),null);let s=E.act(E.create([60,null,null]),'commission');s=E.act(s,0);A.equal(s.phase,'lost');A.deepEqual(E.decode(JSON.stringify(s)),s)});
 T('legacy saves retain excavation and records without granting seals',()=>{const old=E.create([60,null,null]);delete old.commission;delete old.seals;const n=E.decode(JSON.stringify(old));A.deepEqual(n.records,old.records);A.deepEqual(n.depth,old.depth);A.deepEqual(n.seals,[false,false,false]);A.deepEqual(E.decode(JSON.stringify(n)),n)});
 module.exports.conservation=conservation;
+
+
+T('conservation saves reject disturbed active matrix and unearned unlocks',()=>{const s=E.create([60,null,null],0,[false,false,false],true);s.depth[0]--;A.throws(()=>E.decode(JSON.stringify(s)));A.throws(()=>E.decode(JSON.stringify(E.create(undefined,0,undefined,true))));A.throws(()=>E.decode(JSON.stringify(E.create(undefined,0,[true,false,false]))))});
+T('large collateral fracture losses remain reloadable',()=>{let s=E.create();s.depth=s.depth.map((d,i)=>E.fossils[0].includes(i)?1:d);s=E.act(s,17);A.ok(s.damage.length>=3);A.equal(s.phase,'lost');A.deepEqual(E.decode(JSON.stringify(s)),s)});
