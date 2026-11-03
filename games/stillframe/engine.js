@@ -1,0 +1,12 @@
+(function(r,f){const e=f();if(typeof module==='object')module.exports=e;else r.Stillframe=e})(globalThis,()=>{'use strict';
+const KEY='study-desk-stillframe-v1',subjects=[{name:'Kingfisher',light:3,speed:2,depth:1,colour:'#56a6ae'},{name:'Red deer',light:2,speed:0,depth:2,colour:'#b7865c'},{name:'Luna moth',light:1,speed:1,depth:0,colour:'#d9db9b'}],paths=[[0,1,3,4,2],[4,3,2,1,0],[2,4,3,0,1]];
+const copy=s=>JSON.parse(JSON.stringify(s));function create(records=[0,0,0]){return{v:1,subject:0,tick:0,aim:2,shutter:1,aperture:1,focus:1,film:9,records:[...records],phase:'field',last:'Follow the subject. Frame, focus, then expose.'}}
+const position=s=>paths[s.subject][s.tick%5];
+function preview(s){const t=subjects[s.subject],exposure=t.light+s.aperture-s.shutter,error=Math.abs(exposure-2),framed=Math.abs(position(s)-s.aim)<=1;return{framed,exposure,score:framed?Math.max(0,100-error*20-Math.abs(s.focus-t.depth)*25-Math.max(0,t.speed-s.shutter)*25-Math.abs(position(s)-s.aim)*15):0}}
+function act(s,a){if(a==='restart')return create(s.records);if(s.phase!=='field')return null;const n=copy(s);if(a==='wait'){n.tick++;n.last='A quiet moment passes.'}
+else if(a==='shoot'){const p=preview(s);n.film--;n.records[s.subject]=Math.max(n.records[s.subject],p.score);n.last=p.framed?'Print developed: '+p.score+'/100.':'The subject slipped out of the frame.';n.tick++;if(n.records.every(x=>x>=80)){n.phase='won';n.last='Field album complete. Three exhibition-quality photographs.'}else if(!n.film){n.phase='lost';n.last='Film spent. Your best photographs stay for the next outing.'}}
+else if(typeof a==='string'&&/^(subject|aim|shutter|aperture|focus):[0-4]$/.test(a)){const[k,v]=a.split(':'),value=+v;if(value>(k==='aim'?4:2))return null;n[k]=value}
+else return null;return n}
+function decode(raw){const s=JSON.parse(raw),int=(x,a,b)=>Number.isSafeInteger(x)&&x>=a&&x<=b;if(!s||s.v!==1||!int(s.subject,0,2)||!int(s.tick,0,1000000)||!int(s.aim,0,4)||!int(s.shutter,0,2)||!int(s.aperture,0,2)||!int(s.focus,0,2)||!int(s.film,0,9)||!Array.isArray(s.records)||s.records.length!==3||s.records.some(x=>!int(x,0,100))||!['field','won','lost'].includes(s.phase)||typeof s.last!=='string')throw Error('Invalid camera save');if(s.phase==='field'&&!s.film||s.phase==='lost'&&s.film||s.phase==='won'&&!s.records.every(x=>x>=80))throw Error('Invalid outing state');return copy(s)}
+return{KEY,subjects,position,create,preview,act,decode};
+});
