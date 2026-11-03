@@ -19,8 +19,9 @@ const server=spawn('python3',['-m','http.server','8212','--bind','127.0.0.1'],{c
             if(touch&&edition===0&&expected.seals[0]===2){
               await p.locator('#scene').evaluate(el=>el.scrollIntoView({block:'start'}));
               const scene=await p.locator('#scene').boundingBox(),shot=await p.locator('#shoot').boundingBox();
-              A.ok(scene.y>=0&&shot.y+shot.height<=844,'live view and shutter fit together on phone');
               await p.screenshot({path:path.join(out,'touch-controls-viewport.png')});
+              console.log('Phone control bounds',JSON.stringify({scene,shot}));
+              A.ok(scene.y>=-1&&scene.y+scene.height<=844&&shot.y>=0&&shot.y+shot.height<=844,'live view and shutter fit together on phone (1px scroll rounding): '+JSON.stringify({scene,shot}));
             }
           }
         }
