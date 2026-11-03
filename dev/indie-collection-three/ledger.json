@@ -6,7 +6,7 @@
   "totals": {
     "built": 35,
     "improved": 35,
-    "browserTested": 34,
+    "browserTested": 35,
     "integrated": 0,
     "live": 0
   },
@@ -3090,11 +3090,11 @@
       "id": "hollowhand",
       "title": "Hollowhand",
       "coreLoop": "Sequence a five-card hand using three energy, combine stored spark with attacks, guard against announced enemy intent and spend encounter rewards on deck additions or trimming across four woodland foes.",
-      "status": "improved-awaiting-shell-qualification",
+      "status": "qualified-reserve-held-by-current-curation",
       "source": "games/hollowhand",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3117,25 +3117,31 @@
       "tests": [
         "Initial playable commit a5689da0e1c4fc2a3d71cc4f9c0f4fb9c8f7d279 passed CI41600311297: four engine checks and desktop/touch four-encounter victories. Its displayed10-turn result undercounted winning turns; corrected in the following implementation and regression run.",
         "CI41607453268 at9650ca407c27b551e5a87d2eed134c6f319f147c passed six engine checks and two rendered four-encounter victories in desktop1280×1000 and touch-emulated390×844 Chromium. The53-action route finishes with17 health in13 turns, purchasing three Moon cleaves. Every action survives exact-state reload. Loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Independent turn counting and legacy migration at each route state pass, including idempotent repeated decoding. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13217342626 sha256:f669d5c06c246cd3b65d1df881c681bd052adbeaa84790ced22c7e2a7b1dea23 verified; desktop-won.png and touch-won.png inspected. Automated reliability and agent visual review, not human enjoyment or physical-device evidence. Full keyboard career and embedded shell qualification remain pending.",
-        "CI41615710092 at efd4de587bb49195743ec11e961bf6277bac3b5e passed nine distinct engine checks and four rendered wins: Moon cleave (52 actions/13 turns/18 health) and Read the wind (98 actions/21 turns/18 health) in each desktop1280×1000 and touch-emulated390×844 Chromium context. Exact every-action save/reload, loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Engine checks cover guarded/lethal reflection, prevented Lantern healing and legacy turn migration. Repository syntax/Freedoom and nine first-batch integrity checks pass. Artifact13220722811 sha256:de5224c6c26e6ce45d9165cd008371e6255881fdae496a250e90e9c6ca8013c1 verified; touch-study-room-2.png and desktop-cleave-room-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+        "CI41615710092 at efd4de587bb49195743ec11e961bf6277bac3b5e passed nine distinct engine checks and four rendered wins: Moon cleave (52 actions/13 turns/18 health) and Read the wind (98 actions/21 turns/18 health) in each desktop1280×1000 and touch-emulated390×844 Chromium context. Exact every-action save/reload, loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Engine checks cover guarded/lethal reflection, prevented Lantern healing and legacy turn migration. Repository syntax/Freedoom and nine first-batch integrity checks pass. Artifact13220722811 sha256:de5224c6c26e6ce45d9165cd008371e6255881fdae496a250e90e9c6ca8013c1 verified; touch-study-room-2.png and desktop-cleave-room-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing.",
+        "CI41624810945 at fcb90ff81274c250c6735aa4b1b4961ef957e54e passed eleven distinct engine checks and six rendered victories: four existing pointer/touch cleave/study routes and two additional keyboard study-deck careers in desktop1280×1000 and touch-emulated390×844 Chromium. Every keyboard action survives exact reload. Earned mend/trim reward branches, legacy victory migration/repeated reload, restart best retention, actual bridge hidden restart/recovery confirmations, explicit resume, Collection messages and unrelated-save isolation pass. Prior loss/retry, corrupt/quota saves and pause checks pass. Source syntax/Freedoom structure and nine first-batch integrity checks pass. Artifact13224154618 sha256:69cd4701c8f411bfd97a5c73bf8c2d9217089ccd6fbd353986ddf61c757f53cf verified; touch-qualified.png and desktop-shell.png inspected. Automated reliability and agent visual assessment, not physical-device testing or human enjoyment evidence."
       ],
       "commits": [
         "a5689da0e1c4fc2a3d71cc4f9c0f4fb9c8f7d279",
         "9650ca407c27b551e5a87d2eed134c6f319f147c",
-        "efd4de587bb49195743ec11e961bf6277bac3b5e"
+        "efd4de587bb49195743ec11e961bf6277bac3b5e",
+        "fcb90ff81274c250c6735aa4b1b4961ef957e54e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantive improvement verified; qualification and selection pending.",
+        "status": "Qualified reserve; not selected or integrated.",
         "observedWeakness": "Four fixed encounters, a repeated starting seed and six cards still constrain depth. Draw deck takes21 turns against13 for the cleave route, so competitive reward balance is not established. Sticky mobile panel retains intent but occupies vertical space.",
-        "knownLimits": "Full keyboard career, actual embedded bridge and alternative mend/trim reward coverage remain pending. No broad seed balance, measured duration or human enjoyment evidence.",
-        "assessment": "Enemy-specific retaliation and healing make guard timing consequential; two earned deck routes now win. Improvement is meaningful but does not establish long-term progression."
+        "knownLimits": "No broad seed balance, sustained-enjoyment or measured-duration evidence. Mend/trim were verified as earned branches, not full all-mend/all-trim winning careers. Embedded qualification uses actual bridge.js in a controlled iframe host; complete real-catalogue regression is a release-time requirement.",
+        "assessment": "Qualified reserve. Enemy-specific guard timing and attack order are useful choices, but four fixed encounters, six cards and a repeated starting seed limit progression and replayability. The study route wins more slowly than cleave; balanced reward strategies are not established. Prefer Bell Diver's equipment progression and Mycelium Yard's reinvestment choices for the selected slate."
       },
       "nextSteps": [
-        "Qualify full keyboard career, actual embedded bridge, legacy saves, reward alternatives and restart/navigation before comparative selection.",
-        "Preserve current curated catalogue; no release until existing scope gate is reconciled."
-      ]
+        "Preserve qualified source/tests and existing14-game catalogue; keep this candidate in reserve.",
+        "Build remaining15 distinct candidates; revisit selection only with stronger depth or comparative evidence."
+      ],
+      "selection": {
+        "selected": false,
+        "reason": "Qualified reserve. Enemy-specific guard timing and attack order are useful choices, but four fixed encounters, six cards and a repeated starting seed limit progression and replayability. The study route wins more slowly than cleave; balanced reward strategies are not established. Prefer Bell Diver's equipment progression and Mycelium Yard's reinvestment choices for the selected slate."
+      }
     },
     {
       "slot": 76,
@@ -3409,7 +3415,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify Hollowhand75 keyboard career, reward alternatives, legacy saves and actual embedded shell before selection.",
+    "Build distinct candidate76 next; Hollowhand75 is a qualified reserve.15 unbuilt slots76–90 remain.",
     "Build remaining15 distinct original candidates in slots76–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4765,6 +4771,12 @@
       "result": "Improved Hollowhand75 with enemy retaliation/feeding/armor cycles, defensive draw rewards and sticky mobile combat status. Nine engine checks/four rendered wins pass; screenshots inspected.35 built/improved,34 qualified,15 unbuilt; no release change.",
       "commit": "efd4de587bb49195743ec11e961bf6277bac3b5e",
       "report": "dev/indie-collection-three/HOLLOWHAND_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Qualified Hollowhand75 and fixed impossible victory/reward save phases. Eleven engine checks and six rendered victories plus shell/legacy checks pass; screenshots inspected.35 built/improved/qualified,15 unbuilt; no release change.",
+      "commit": "fcb90ff81274c250c6735aa4b1b4961ef957e54e",
+      "report": "dev/indie-collection-three/HOLLOWHAND_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
