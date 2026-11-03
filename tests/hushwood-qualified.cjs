@@ -22,7 +22,7 @@ for(const touch of [false,true]){
  A.ok(await f.locator('#accept').isDisabled());await f.evaluate(()=>document.getElementById('accept').click());A.equal(await snapshot(),before);
  await visible(true);A.ok(await f.locator('#accept').isDisabled());await f.locator('#cancel').click();await f.locator('#pause').click();A.equal(await snapshot(),before);
  }
- const before=await snapshot();await visible(false);await f.evaluate(()=>document.getElementById('up').click());A.equal(await snapshot(),before);await visible(true);A.ok(await f.locator('#up').isDisabled());await f.locator('#pause').click();
+ const before=await snapshot();await visible(false);await f.evaluate(()=>document.getElementById('right').click());A.equal(await snapshot(),before);await visible(true);A.ok(await f.locator('#right').isDisabled());await f.locator('#pause').click();
  await f.evaluate(k=>localStorage.setItem(k,'broken'),E.KEY);await f.goto(base+'/games/hushwood/index.html');await f.locator('#recover').click();await visible(false);await f.evaluate(()=>document.getElementById('accept').click());A.equal(await snapshot(),'broken');await visible(true);await f.locator('#cancel').click();await f.locator('#pause').click();await f.locator('#recover').click();await f.locator('#accept').click();E.decode(await snapshot());
  await f.locator('#games').click();await p.waitForFunction(()=>messages.includes('study-collection'));A.equal(await p.evaluate(()=>localStorage.getItem('study-desk-unrelated-qa')),'keep');
  A.ok(await f.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(touch)A.equal(await f.evaluate(()=>innerWidth),390);await p.screenshot({path:path.join(out,(touch?'touch':'desktop')+'-shell.png')});A.deepEqual(errors,[]);await ctx.close();
