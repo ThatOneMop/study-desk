@@ -11,3 +11,19 @@ T('earned contracts need a counterweight choice and preserve seals',()=>{for(let
 T('charter requires earned record, forbids service and locks counter after departure',()=>{A.equal(E.act(E.create(),'charter'),null);let s=E.act(E.create(0,[8,null,null]),'charter');A.equal(E.act(s,'service'),null);s=E.act(s,'up');A.equal(E.act(s,'counter:5'),null)});
 T('actual regeneration clips to battery capacity and legacy records migrate',()=>{let s=E.create();s=E.act(s,'counter:6');A.equal(E.forecast(s,1).delta,0);A.equal(E.forecast(s,1).potential,3);const old=E.create(0,[8,null,null]);delete old.charter;delete old.seals;A.deepEqual(E.decode(JSON.stringify(old)),E.create(0,[8,null,null]))});
 module.exports.contract=contract;
+
+T('unreachable floors and missing completion evidence are rejected',()=>{
+ for(const p of [{floor:1,moves:0},{floor:0,moves:1}])A.throws(()=>E.decode(JSON.stringify({...E.create(),...p})));
+ let s=E.create();for(const a of route())s=E.act(s,a);
+ A.throws(()=>E.decode(JSON.stringify({...s,records:[null,null,null]})));
+ let n=E.act(s,'charter');for(const a of contract(0))n=E.act(n,a);
+ A.throws(()=>E.decode(JSON.stringify({...n,seals:[false,false,false]})));
+ A.deepEqual(E.decode(JSON.stringify(n)),n);
+});
+T('stranded low-power run can restart without losing earned progress',()=>{
+ let s=E.act(E.create(0,[8,null,null],[true,false,false]),'charter');
+ s=E.act(s,'counter:1');s=E.act(s,'crate:0');
+ A.equal(E.act(s,'up'),null);A.equal(E.act(s,'down'),null);A.equal(E.act(s,'service'),null);
+ s=E.act(s,'restart');A.equal(s.counter,3);A.equal(s.charge,4);A.ok(s.seals[0]);
+ A.deepEqual(E.decode(JSON.stringify(s)),s);
+});

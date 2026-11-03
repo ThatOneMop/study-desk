@@ -22,6 +22,7 @@ jobs:
           node --check games/liftkeeper/game.js
           node --test tests/liftkeeper-engine.cjs
           node tests/liftkeeper-browser.cjs
+          node tests/liftkeeper-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
