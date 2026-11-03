@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 32,
+    "built": 33,
     "improved": 32,
     "browserTested": 32,
     "integrated": 0,
@@ -2973,21 +2973,36 @@
     },
     {
       "slot": 73,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "brine-ledger",
+      "title": "Brine Ledger",
+      "coreLoop": "Buy salt, cloth and timber where cheap, budget passage and hold space, choose selling ports, fulfil shipping charters and reinvest earnings in a larger hold or cheaper sail.",
+      "status": "initial-playable-awaiting-substantive-improvement",
+      "source": "games/brine-ledger",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41564009774 at d2adf84f58563a8b2a9d3c27663d0b666cfcd502 passed four distinct engine checks and two rendered three-charter trading careers in desktop1280×1000 and touch-emulated390×844 Chromium. Each career earns sail and hold upgrades in21 actions; every action survives exact-state reload. Cash exhaustion/restart, best-worth retention, native Space/Escape, pause, corrupt-save preservation/recovery, quota fallback and standalone Games navigation pass without page errors or horizontal overflow. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13197993358 sha256:da748a1abfa7fea3c37db4d81295913110e1c2bba46aad37c157ec7393b93cfd verified; desktop-voyage-12.png and touch-voyage-21.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+      ],
+      "commits": [
+        "d2adf84f58563a8b2a9d3c27663d0b666cfcd502"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; improvement and full qualification pending.",
+        "observedWeakness": "Three fixed charters complete in12 actions; both upgrades are earned by21 tested actions. Unlimited stock and predictable price cycles permit repeated profit routes without changing demand. Upgrades can consume passage reserves. Phone port cards are readable but market, charters and upgrades require vertical scrolling; desktop charters fall below the first viewport.",
+        "knownLimits": "Three ports, three goods and one charter set. No full shell/legacy-save qualification yet, no audio, no measured playtime or human-enjoyment evidence.",
+        "assessment": "Distinct from Moss Market negotiated barter and Pocket Expedition found-cargo exploration: this baseline trades purchased goods for coins across priced routes. Its reinvestment fits progression tastes, but decision depth must improve before selection."
+      },
+      "nextSteps": [
+        "Play the baseline and add a substantive economic-choice/progression improvement; prioritize changing demand or competing charter choices over repetitive content counts.",
+        "Improve passage-reserve feedback and access to cargo/charter information on phones, preserving the existing save key.",
+        "Then qualify shell navigation, saves/restart and complete keyboard/touch careers before comparative selection."
+      ]
     },
     {
       "slot": 74,
@@ -3297,8 +3312,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate73 next; Cinderwatch72 is qualified reserve.18 unbuilt slots73–90 remain.",
-    "Build remaining18 original candidates in slots73–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Brine Ledger73 from its rendered baseline, then fully qualify and compare it.",
+    "Build remaining17 distinct original candidates in slots74–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -4605,6 +4620,12 @@
       "result": "Qualified Cinderwatch72 and rejected inconsistent active saves with burning protected groves. Eight engine checks/14 rendered wins and shell/save checks pass; screenshots inspected.32 built/improved/qualified,18 unbuilt; no integration/live change.",
       "commit": "ed5b8d172c4143a0fe4e882de70032fac5a18d54",
       "report": "dev/indie-collection-three/CINDERWATCH_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Built Brine Ledger73 baseline: four engine checks and two rendered careers with earned upgrades, reload and recovery checks pass; screenshots inspected.33 built,32 improved/qualified,17 unbuilt; no integration/live change.",
+      "commit": "d2adf84f58563a8b2a9d3c27663d0b666cfcd502",
+      "report": "dev/indie-collection-three/BRINE_LEDGER_BASELINE.md"
     }
   ],
   "historicalTotals": {
