@@ -1,8 +1,39 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Harvest Protocol | Study Desk</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101f18;color:#e9f5de;font:14px system-ui,-apple-system,sans-serif}button,textarea{font:inherit}button{cursor:pointer;border:1px solid #729568;background:#2e5340;color:#eaffda;border-radius:9px;padding:9px 12px;font-weight:600}button:disabled{opacity:.42;cursor:default}button:hover:not(:disabled){background:#456a4c}button:focus-visible,textarea:focus-visible{outline:3px solid #e9ce6a}#shell{display:grid;grid-template-columns:minmax(0,1fr) 345px;grid-template-rows:56px minmax(0,1fr);height:100dvh;width:100vw}header{grid-column:1/-1;background:#102b20;display:flex;align-items:center;justify-content:space-between;padding:7px 14px;gap:12px;border-bottom:1px solid #537451;z-index:3}header b{font-size:20px}header small{color:#b9ceae;display:block;font-size:10px;letter-spacing:1.1px}#world{position:relative;min-width:0;min-height:0;overflow:hidden;background:#a1c3ca}canvas{display:block;width:100%;height:100%;touch-action:none}#hud{position:absolute;top:13px;left:13px;right:13px;display:flex;gap:7px;flex-wrap:wrap;pointer-events:none}#hud span{background:#163b30e8;padding:8px 11px;border:1px solid #719d77;border-radius:11px;box-shadow:0 4px 18px #1c3b2a55}#hud b{color:#fff1a8}#worldTip{position:absolute;bottom:16px;left:16px;background:#153a30e9;border-radius:9px;padding:8px 11px;color:#e9f5d8}#toast{position:absolute;top:70px;left:50%;transform:translateX(-50%);pointer-events:none;background:#173f2beF;padding:12px 18px;border-radius:14px;font-weight:800;color:#f8e598;opacity:0;transition:opacity .3s;text-align:center}#sidebar{background:#162b22;border-left:1px solid #46664c;overflow-y:auto;min-height:0;overscroll-behavior:contain}section{padding:14px;border-bottom:1px solid #355541}h2{font-size:16px;margin:0 0 9px;color:#e9f7d3}p{line-height:1.45;color:#c3d6bc;margin:8px 0}.lesson{background:#294735;border-left:4px solid #c4dc7b;border-radius:8px;padding:12px}textarea{display:block;width:100%;height:180px;resize:vertical;background:#071711;color:#bce9c8;border:1px solid #679375;border-radius:9px;padding:11px;font:14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:2}.actions,.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.primary{background:#c1e28d;color:#132915;border-color:#e0f4a7}.console{background:#081c14;min-height:72px;max-height:130px;overflow-y:auto;border:1px solid #345542;color:#b8dcca;padding:10px;border-radius:9px;white-space:pre-wrap;font:12px/1.5 monospace}#shop{display:grid;grid-template-columns:1fr 1fr;gap:7px}#shop button{text-align:left;font-size:12px;min-height:59px}#shop small{display:block;font-size:11px;color:#b8d6ac;font-weight:400;margin-top:4px}#status{color:#d7f0bd;font-weight:600}#error{color:#ffbfb6}#tabbar{display:none}#sidebar [data-panel]{display:block}#guide{font-size:12px}#worldTip{font-size:12px}#saveMsg{font-size:11px;color:#bfd7ac}@media(max-width:760px){#shell{grid-template-columns:1fr;grid-template-rows:48px minmax(0,1fr) 39%;}header b{font-size:16px}header small{font-size:8px}header button{padding:6px 8px;font-size:12px}#world{grid-row:2}#sidebar{grid-row:3;border-left:0;border-top:2px solid #72946e}#tabbar{display:flex;position:sticky;top:0;z-index:5;background:#193d2b;gap:4px;padding:5px}#tabbar button{flex:1;padding:5px;font-size:12px}#sidebar [data-panel]{display:none}#sidebar [data-panel].selected{display:block}#hud{top:8px;left:8px;right:8px;gap:4px;font-size:11px}#hud span{padding:5px 7px}#worldTip{bottom:6px;left:8px;padding:5px 7px;font-size:10px}.lesson{padding:8px}textarea{height:120px}section{padding:9px}#shop{grid-template-columns:1fr 1fr}}
+</style><style id="immersive-layout">
+#shell{display:block;position:relative;width:100vw;height:100dvh;overflow:hidden}
+header{position:absolute;top:12px;left:12px;right:auto;z-index:10;border:1px solid #aac9ad4d;border-radius:15px;background:#102b20b8;backdrop-filter:blur(15px);max-width:calc(100vw - 24px)}
+header small{font-size:9px}
+#world{position:absolute;inset:0;width:100%;height:100%;background:#8eb7aa}
+#field{width:100%;height:100%}
+#hud{top:15px;left:auto;right:15px;max-width:48%;justify-content:flex-end}
+#hud span{background:#123d2dbb;backdrop-filter:blur(10px)}
+#sidebar{position:absolute;right:14px;top:95px;bottom:14px;width:min(360px,calc(100vw - 28px));z-index:8;background:#132e24b8;backdrop-filter:blur(17px);border:1px solid #8fb69b55;border-radius:16px;box-shadow:0 12px 36px #0b251b55;overflow:hidden;display:flex;flex-direction:column}
+#tabbar{display:flex!important;flex-shrink:0;padding:9px;background:#1f3b2bc9;gap:6px}
+#tabbar button{flex:1;font-size:12px;padding:9px 5px}
+#sidebar [data-panel]{display:none!important;overflow:auto;flex:1;min-height:0}
+#sidebar [data-panel].selected{display:block!important}
+#sidebar.hidden{display:none}
+#code{height:clamp(145px,28dvh,320px)}
+#sidebar section{padding:13px}
+#worldTip{left:14px;bottom:15px;right:auto;max-width:calc(100% - 30px)}
+#quickControls{position:absolute;z-index:11;bottom:15px;right:15px;display:flex;gap:7px}
+#quickControls button{background:#143c2cce;backdrop-filter:blur(12px);border:1px solid #a9d3a770;min-width:72px}
+#quickControls button[aria-pressed="true"]{background:#afdb8d;color:#122717}
+#cameraHint{display:none}
+@media(max-width:760px){
+header{top:8px;left:8px;padding:6px 8px}
+header b{font-size:14px}header small{display:none}
+#hud{top:64px;left:8px;right:8px;max-width:none;justify-content:center}
+#sidebar{top:130px;right:8px;left:8px;bottom:60px;width:auto;max-height:none}
+#sidebar.hidden{display:none}
+#quickControls{right:8px;bottom:8px}
+#quickControls button{padding:9px;font-size:12px}
+#worldTip{bottom:51px;left:8px;font-size:10px;pointer-events:none}
+}
 </style></head><body><div id="shell"><header><div><small>STUDY DESK · ORIGINAL PROGRAMMING FARM</small><b>🌾 Harvest Protocol</b></div><div class="actions" style="margin:0"><button id="save">Save</button><button id="reset">New farm</button></div></header>
-<div id="world"><canvas id="field" aria-label="Isometric farm showing programmable drones and crops"></canvas><div id="hud"><span>🌾 <b id="hay">0</b></span><span>🥕 <b id="carrots">0</b></span><span>🎃 <b id="pumpkins">0</b></span><span>Fields <b id="size">1×1</b></span><span>Drones <b id="count">1</b></span></div><div id="toast"></div><div id="worldTip">Drag to pan · Scroll or pinch to zoom · ▶ Run your code</div></div>
+<div id="world"><canvas id="field" aria-label="Isometric farm showing programmable drones and crops"></canvas><div id="hud"><span>🌾 <b id="hay">0</b></span><span>🥕 <b id="carrots">0</b></span><span>🎃 <b id="pumpkins">0</b></span><span>Fields <b id="size">1×1</b></span><span>Drones <b id="count">1</b></span></div><div id="toast"></div><div id="quickControls"><button id="toggleCode" aria-pressed="false">⌨ Code (C)</button><button id="toggleShop">🌱 Research</button><button id="toggleGoals">🎯 Goals</button></div><div id="worldTip">Drag to pan · Scroll or pinch to zoom · ▶ Run your code</div></div>
 <aside id="sidebar"><nav id="tabbar"><button data-tab="code">💻 Code</button><button data-tab="upgrades">🌱 Upgrades</button><button data-tab="goals">🎯 Goals</button></nav>
 <div data-panel="code" class="selected"><section><h2 id="step">Lesson 1: First harvest</h2><div class="lesson"><p id="lesson"></p></div><p><label for="code">Your drone programme</label></p><textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off">harvest()</textarea><div class="actions"><button id="run" class="primary">▶ Run</button><button id="stop">■ Stop</button><button id="example">Example</button><button id="auto">↻ Auto: Off</button></div><p>Speed <input id="speed" type="range" min="1" max="10" value="5" aria-label="Drone speed"></p><p id="status" role="status">Ready.</p><p id="error" role="alert"></p></section><section><h2>Console</h2><div id="log" class="console"></div><h2 style="margin-top:12px">Commands</h2><p id="guide"></p></section></div>
 <div data-panel="upgrades"><section><h2>Research and expansion</h2><p>Spend your harvest to unlock loops, more land, new crops, and a second drone.</p><div id="shop"></div><p id="saveMsg">Progress is saved on this device.</p></section></div>
@@ -52,7 +83,7 @@ $('run').onclick=async()=>{if(running)return;let commands;try{commands=compile($
 const canvas=$('field'),ctx=canvas.getContext('2d');let W=1,H=1,DPR=1;
 function resize(){DPR=Math.min(devicePixelRatio||1,2);const box=canvas.getBoundingClientRect();W=Math.max(1,box.width);H=Math.max(1,box.height);canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0)}new ResizeObserver(resize).observe(canvas);resize();
 canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag)return;pan.x+=e.clientX-drag.x;pan.y+=e.clientY-drag.y;drag={x:e.clientX,y:e.clientY}});canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.55,Math.min(2,zoom-e.deltaY*.001))},{passive:false});
-function iso(x,z,y=0){const unit=Math.min(W/Math.max(3,game.size+2),H/Math.max(3,game.size+2))*zoom;return [W*.5+pan.x+(x-z)*unit*.66,H*.49+pan.y+(x+z)*unit*.32-y*unit,unit]}
+function iso(x,z,y=0){const unit=Math.min(W/Math.max(3,game.size+2),H/Math.max(3,game.size+2))*zoom;return [W*.5+pan.x+(x-z)*unit*.66,H*.43+pan.y+(x+z)*unit*.39-y*unit,unit]}
 function polygon(points,fill,stroke){ctx.beginPath();ctx.moveTo(...points[0]);for(let i=1;i<points.length;i++)ctx.lineTo(...points[i]);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.lineWidth=1.2;ctx.strokeStyle=stroke;ctx.stroke()}}
 function ellipse(x,y,rx,ry,color){ctx.beginPath();ctx.ellipse(x,y,Math.max(1,rx),Math.max(1,ry),0,0,Math.PI*2);ctx.fillStyle=color;ctx.fill()}
 function burst(x,z,kind){const colors={wheat:'#ffe187',carrot:'#ff9e52',pumpkin:'#ffc05f'};for(let i=0;i<15;i++)particles.push({x,z,vx:(Math.random()-.5)*1.3,vz:(Math.random()-.5)*1.3,up:.1+Math.random()*.6,life:1,color:colors[kind]})}
@@ -63,7 +94,7 @@ function draw(ts){requestAnimationFrame(draw);const dt=Math.min(.05,(ts-lastTick
  const size=game.size,half=(size-1)/2;
  const corners=[iso(-half-.6,-half-.6),iso(half+.6,-half-.6),iso(half+.6,half+.6),iso(-half-.6,half+.6)];
  polygon(corners.map(p=>p.slice(0,2)),'#648849','#496b3b');
- for(let sum=0;sum<size*2-1;sum++)for(let x=0;x<size;x++){const z=sum-x;if(z<0||z>=size)continue;const f=game.fields[z*size+x],xx=x-half,zz=z-half;const [cx,cy,u]=iso(xx,zz);const rx=u*.66,ry=u*.32;
+ for(let sum=0;sum<size*2-1;sum++)for(let x=0;x<size;x++){const z=sum-x;if(z<0||z>=size)continue;const f=game.fields[z*size+x],xx=x-half,zz=z-half;const [cx,cy,u]=iso(xx,zz);const rx=u*.66,ry=u*.39;
  polygon([[cx,cy-ry],[cx+rx,cy],[cx,cy+ry],[cx-rx,cy]],(x+z)%2?'#6e4b30':'#795436','#382d21');
  for(let j=-2;j<=2;j++){const [px,py]=iso(xx+j*.13,zz-j*.11);ellipse(px,py+2,Math.max(1,u*.12),Math.max(1,u*.025),'#94683b')}
  const count=f.kind==='wheat'?9:f.kind==='carrot'?5:3;
@@ -83,4 +114,15 @@ requestAnimationFrame(draw);
 setInterval(()=>{let grow=false;for(const f of game.fields)if(f.kind&&f.age<1){f.age=Math.min(1,f.age+.1);grow=true}if(grow)refresh()},900);
 document.addEventListener('visibilitychange',()=>{if(document.hidden){autoplay=false;clearTimeout(autoTimer);$('auto').textContent='↻ Auto: Off';persist()}});
 window.addEventListener('pagehide',persist);
-refresh();note('Welcome! Your first wheat crop is ready. Type harvest() and press Run.');</script></body></html>
+refresh();note('Welcome! Your first wheat crop is ready. Type harvest() and press Run.');</script><script>
+(function(){
+ const sidebar=document.getElementById('sidebar'),buttons=Array.from(document.querySelectorAll('#tabbar button'));
+ function show(panel){const active=!sidebar.classList.contains('hidden')&&document.querySelector('[data-panel="'+panel+'"]')?.classList.contains('selected');sidebar.classList.toggle('hidden',active);if(!active){for(const el of document.querySelectorAll('[data-panel]'))el.classList.toggle('selected',el.dataset.panel===panel)}document.getElementById('toggleCode').setAttribute('aria-pressed',String(!sidebar.classList.contains('hidden')&&panel==='code'))}
+ sidebar.classList.add('hidden');
+ document.getElementById('toggleCode').addEventListener('click',()=>show('code'));
+ document.getElementById('toggleShop').addEventListener('click',()=>show('upgrades'));
+ document.getElementById('toggleGoals').addEventListener('click',()=>show('goals'));
+ document.addEventListener('keydown',e=>{if(e.key.toLowerCase()!=='c'||e.repeat||e.ctrlKey||e.altKey||e.metaKey)return;if(e.target.matches('input,textarea,[contenteditable="true"]'))return;e.preventDefault();show('code')});
+ buttons.forEach(b=>b.addEventListener('click',()=>{sidebar.classList.remove('hidden');document.getElementById('toggleCode').setAttribute('aria-pressed',String(b.dataset.tab==='code'))}));
+})();
+</script></body></html>
