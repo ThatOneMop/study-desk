@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 35,
-    "improved": 34,
+    "improved": 35,
     "browserTested": 34,
     "integrated": 0,
     "live": 0
@@ -3090,33 +3090,51 @@
       "id": "hollowhand",
       "title": "Hollowhand",
       "coreLoop": "Sequence a five-card hand using three energy, combine stored spark with attacks, guard against announced enemy intent and spend encounter rewards on deck additions or trimming across four woodland foes.",
-      "status": "initial-playable-awaiting-substantive-improvement",
+      "status": "improved-awaiting-shell-qualification",
       "source": "games/hollowhand",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-03",
+          "observedWeakness": "All four foes share the same repeating intent pattern and mask art. The tested route always picks Moon cleave, leaving other rewards unproven. A fixed seed, six-card pool and short four-encounter trail limit progression. On phones the hand can scroll health and intent out of view. Winning-turn undercount is now fixed.",
+          "changes": [
+            "Briar stance reflects attacks and consumes guard, including finishing blows; planning card order now protects against retaliation.",
+            "Lantern heals only when its attack penetrates guard; Crown alternates exposed and armored heavy-strike turns.",
+            "Read the wind now grants two guard as well as drawing two cards; verified a complete earned draw-deck route.",
+            "Distinct foe mask silhouettes and sticky mobile health/intent panel with explicit enemy behavior onboarding."
+          ],
+          "implementationCommits": [
+            "efd4de587bb49195743ec11e961bf6277bac3b5e"
+          ],
+          "validation": "CI41615710092 at efd4de587bb49195743ec11e961bf6277bac3b5e passed nine distinct engine checks and four rendered wins: Moon cleave (52 actions/13 turns/18 health) and Read the wind (98 actions/21 turns/18 health) in each desktop1280×1000 and touch-emulated390×844 Chromium context. Exact every-action save/reload, loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Engine checks cover guarded/lethal reflection, prevented Lantern healing and legacy turn migration. Repository syntax/Freedoom and nine first-batch integrity checks pass. Artifact13220722811 sha256:de5224c6c26e6ce45d9165cd008371e6255881fdae496a250e90e9c6ca8013c1 verified; touch-study-room-2.png and desktop-cleave-room-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
+        }
+      ],
       "tests": [
         "Initial playable commit a5689da0e1c4fc2a3d71cc4f9c0f4fb9c8f7d279 passed CI41600311297: four engine checks and desktop/touch four-encounter victories. Its displayed10-turn result undercounted winning turns; corrected in the following implementation and regression run.",
-        "CI41607453268 at9650ca407c27b551e5a87d2eed134c6f319f147c passed six engine checks and two rendered four-encounter victories in desktop1280×1000 and touch-emulated390×844 Chromium. The53-action route finishes with17 health in13 turns, purchasing three Moon cleaves. Every action survives exact-state reload. Loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Independent turn counting and legacy migration at each route state pass, including idempotent repeated decoding. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13217342626 sha256:f669d5c06c246cd3b65d1df881c681bd052adbeaa84790ced22c7e2a7b1dea23 verified; desktop-won.png and touch-won.png inspected. Automated reliability and agent visual review, not human enjoyment or physical-device evidence. Full keyboard career and embedded shell qualification remain pending."
+        "CI41607453268 at9650ca407c27b551e5a87d2eed134c6f319f147c passed six engine checks and two rendered four-encounter victories in desktop1280×1000 and touch-emulated390×844 Chromium. The53-action route finishes with17 health in13 turns, purchasing three Moon cleaves. Every action survives exact-state reload. Loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Independent turn counting and legacy migration at each route state pass, including idempotent repeated decoding. Source syntax/Freedoom structure and nine first-batch release integrity checks pass. Artifact13217342626 sha256:f669d5c06c246cd3b65d1df881c681bd052adbeaa84790ced22c7e2a7b1dea23 verified; desktop-won.png and touch-won.png inspected. Automated reliability and agent visual review, not human enjoyment or physical-device evidence. Full keyboard career and embedded shell qualification remain pending.",
+        "CI41615710092 at efd4de587bb49195743ec11e961bf6277bac3b5e passed nine distinct engine checks and four rendered wins: Moon cleave (52 actions/13 turns/18 health) and Read the wind (98 actions/21 turns/18 health) in each desktop1280×1000 and touch-emulated390×844 Chromium context. Exact every-action save/reload, loss/retry, best retention, native Space/Escape, pause, corrupt/quota saves and standalone Games navigation pass. Engine checks cover guarded/lethal reflection, prevented Lantern healing and legacy turn migration. Repository syntax/Freedoom and nine first-batch integrity checks pass. Artifact13220722811 sha256:de5224c6c26e6ce45d9165cd008371e6255881fdae496a250e90e9c6ca8013c1 verified; touch-study-room-2.png and desktop-cleave-room-1.png inspected. Automated reliability and agent visual assessment, not human enjoyment or physical-device testing."
       ],
       "commits": [
         "a5689da0e1c4fc2a3d71cc4f9c0f4fb9c8f7d279",
-        "9650ca407c27b551e5a87d2eed134c6f319f147c"
+        "9650ca407c27b551e5a87d2eed134c6f319f147c",
+        "efd4de587bb49195743ec11e961bf6277bac3b5e"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline only; no substantive improvement or qualification credit.",
-        "observedWeakness": "All four foes share the same repeating intent pattern and mask art. The tested route always picks Moon cleave, leaving other rewards unproven. A fixed seed, six-card pool and short four-encounter trail limit progression. On phones the hand can scroll health and intent out of view. Winning-turn undercount is now fixed.",
-        "assessment": "Distinct ordered-card combat baseline, but depth and reward balance need substantial work before comparative selection. Passing this route does not establish sustained enjoyment.",
-        "knownLimits": "No full keyboard career, all reward branch coverage, embedded shell qualification, broad balance or duration evidence."
+        "status": "Substantive improvement verified; qualification and selection pending.",
+        "observedWeakness": "Four fixed encounters, a repeated starting seed and six cards still constrain depth. Draw deck takes21 turns against13 for the cleave route, so competitive reward balance is not established. Sticky mobile panel retains intent but occupies vertical space.",
+        "knownLimits": "Full keyboard career, actual embedded bridge and alternative mend/trim reward coverage remain pending. No broad seed balance, measured duration or human enjoyment evidence.",
+        "assessment": "Enemy-specific retaliation and healing make guard timing consequential; two earned deck routes now win. Improvement is meaningful but does not establish long-term progression."
       },
       "nextSteps": [
-        "Play the rendered baseline to develop distinct enemy behaviors and consequential deck choices; improve persistent phone intent readability. Implement and test a substantive upgrade before awarding improvement credit.",
-        "Qualify reward branches, keyboard career, embedded shell, saves/migration, restart and navigation after the gameplay upgrade."
+        "Qualify full keyboard career, actual embedded bridge, legacy saves, reward alternatives and restart/navigation before comparative selection.",
+        "Preserve current curated catalogue; no release until existing scope gate is reconciled."
       ]
     },
     {
@@ -3391,7 +3409,7 @@
     }
   ],
   "nextSteps": [
-    "Substantially improve Hollowhand75 from its rendered baseline; its turn-record fix is not an improvement-pass credit.",
+    "Qualify Hollowhand75 keyboard career, reward alternatives, legacy saves and actual embedded shell before selection.",
     "Build remaining15 distinct original candidates in slots76–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -4741,6 +4759,12 @@
       "result": "Reconciled previously committed Hollowhand75 baseline after prior ledger/report writes timed out. Fixed winning-turn records and migrated legacy records once while preserving deck/progress. Six engine checks and two rendered wins pass; screenshots inspected.35 built,34 improved/qualified,15 unbuilt; no release change. Substantive Hollowhand improvement pending.",
       "commit": "9650ca407c27b551e5a87d2eed134c6f319f147c",
       "report": "dev/indie-collection-three/HOLLOWHAND_BASELINE.md"
+    },
+    {
+      "date": "2026-11-03",
+      "result": "Improved Hollowhand75 with enemy retaliation/feeding/armor cycles, defensive draw rewards and sticky mobile combat status. Nine engine checks/four rendered wins pass; screenshots inspected.35 built/improved,34 qualified,15 unbuilt; no release change.",
+      "commit": "efd4de587bb49195743ec11e961bf6277bac3b5e",
+      "report": "dev/indie-collection-three/HOLLOWHAND_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
