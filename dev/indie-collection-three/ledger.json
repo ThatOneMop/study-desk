@@ -6,7 +6,7 @@
   "totals": {
     "built": 44,
     "improved": 44,
-    "browserTested": 43,
+    "browserTested": 44,
     "integrated": 0,
     "live": 0
   },
@@ -3589,11 +3589,11 @@
       "id": "scree-rider",
       "title": "Scree Rider",
       "coreLoop": "Plan a mountain-bike descent by accumulating sideways lean, managing speed through bends, carrying momentum over gaps and braking for roots; forecast each section before committing.",
-      "status": "improved-awaiting-qualification",
+      "status": "qualified-reserve",
       "source": "games/scree-rider",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3616,23 +3616,26 @@
       ],
       "tests": [
         "CI41835060669 at209ee061b91b2b9f65c14822bdd5fe8c95ac2983 passed four engine checks and six rendered clean descents at desktop1280×1000 and touch-emulated390×844. Exact per-action state,72 section reloads, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13325820545 SHA2561156fb8490663fc2dd87d1f7283734dfe2beb4d052eec55cd6c72aab24a82a30 downloaded/verified; desktop-trail-0.png, touch-trail-0.png and touch-complete-2.png opened and inspected.",
-        "CI41843195550 atb93d9ce988015a63903aec9001e803eee2e35b10 passed seven engine checks and fourteen rendered main/earned-alternate/bridge descents at desktop1280×1000 and touch-emulated390×844. Exact per-action state,144 section reloads, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Gameplay-identical preceding CI41842930545 passed twelve rendered descents; artifact13329293254 SHA2569d866ebf1cecd9cff4f33fe10ec3507046222f1fb73904d5dd3a771e3beac2fd downloaded/verified, desktop-alternate-0.png and touch-alternate-1.png opened and inspected."
+        "CI41843195550 atb93d9ce988015a63903aec9001e803eee2e35b10 passed seven engine checks and fourteen rendered main/earned-alternate/bridge descents at desktop1280×1000 and touch-emulated390×844. Exact per-action state,144 section reloads, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Gameplay-identical preceding CI41842930545 passed twelve rendered descents; artifact13329293254 SHA2569d866ebf1cecd9cff4f33fe10ec3507046222f1fb73904d5dd3a771e3beac2fd downloaded/verified, desktop-alternate-0.png and touch-alternate-1.png opened and inspected.",
+        "CI41853573427 at6c51c34ea3c35ebee65e7cb13129105fcaa2a6c4 passed nine engine checks, fourteen pointer/touch descents and six full-keyboard descents, including explicit speed1 and speed2 gap-bridge crossings. Per-action reload, records/restart, loss/retry, Tab/Enter/Space/Escape, real bridge hidden restart/recovery/ride controls, explicit resume, Collection messages, unrelated-save isolation, corrupt/quota storage and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13335733497 SHA2560d05172ae8b6f2c750907aba165e9052f26ea62b60eb1ddffdb339e43f4fa5b5 downloaded/verified; desktop-keyboard-2.png and touch-shell.png opened and inspected."
       ],
       "commits": [
         "209ee061b91b2b9f65c14822bdd5fe8c95ac2983",
         "684ee2c26e98d0882d14a1fb73415549586c056c",
-        "b93d9ce988015a63903aec9001e803eee2e35b10"
+        "b93d9ce988015a63903aec9001e803eee2e35b10",
+        "6c51c34ea3c35ebee65e7cb13129105fcaa2a6c4"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantially improved; qualification and selection pending.",
-        "assessment": "Earned narrow lines add approach planning and speed-retention tradeoffs. Terrain and landing targets are visible. Three fixed trails still limit depth; no duration or human-enjoyment claim.",
-        "knownLimits": "Automated rendered routes use pointer/touch-emulated controls with keyboard activation checks, not full keyboard-only or physical-device qualification. Full embedded lifecycle, stronger save consistency and explicit speed1/2 gap-bridge verification remain. The rendered bridge route crossed at speed3."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Earned narrow lines add useful approach planning, speed retention and recovery choices. Plain terrain markers and exact forecasts remain readable. Three fixed trails and a single unlock per trail limit progression/replay variety; keep in reserve for final comparison.",
+        "qualificationFixes": "Reject impossible starting positions/speed/damage, inconsistent time/section histories, implausibly short records, missing completion records and invalid lost-bike recovery state. Preserve legitimate legacy, crash, completion and slow-bridge saves. Correct the post-finish unlock message.",
+        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Embedded tests use the actual game/bridge in a controlled host, not a public catalogue entry. Save checks enforce necessary constraints, not proof of every action history."
       },
       "nextSteps": [
-        "Qualify full keyboard routes, embedded visibility/navigation, save consistency and explicit slow gap-bridge crossings.",
-        "Assess whether improved fixed tracks offer enough replay depth for selection; do not integrate before qualification."
+        "Retain qualified reserve for final slate comparison; deeper route variety would strengthen selection.",
+        "Build distinct candidate85 next; six unbuilt slots85–90 remain."
       ]
     },
     {
@@ -3745,7 +3748,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Scree Rider84; full keyboard/embedded/save consistency and explicit slow-bridge checks remain.",
+    "Build distinct candidate85, then render and substantially improve it; six unbuilt slots85–90 remain.",
     "Build remaining6 distinct candidates85–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5264,6 +5267,12 @@
       "result": "Substantially improved Scree Rider84 with earned alternate lines, visible terrain and clearer onboarding. Seven engine checks/fourteen rendered descents pass; screenshots inspected.44 built/improved,43 qualified,6 unbuilt; no public release.",
       "commit": "b93d9ce988015a63903aec9001e803eee2e35b10",
       "report": "dev/indie-collection-three/SCREE_RIDER_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Qualified Scree Rider84 as reserve after save-history checks and corrected finish guidance. Nine engine checks/twenty rendered descents and embedded lifecycle checks pass; screenshots inspected.44 built/improved/qualified,6 unbuilt; no public release.",
+      "commit": "6c51c34ea3c35ebee65e7cb13129105fcaa2a6c4",
+      "report": "dev/indie-collection-three/SCREE_RIDER_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
