@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 47,
-    "improved": 46,
+    "improved": 47,
     "browserTested": 46,
     "integrated": 0,
     "live": 0
@@ -3753,33 +3753,51 @@
       "id": "spore-loom",
       "title": "Spore Loom",
       "coreLoop": "Plant spores around starter cells, advance simultaneous neighbour-based growth, and shape the resulting colony to match a target; replant to revise and improve saved planting records.",
-      "status": "baseline-playable",
+      "status": "improved-awaiting-qualification",
       "source": "games/spore-loom",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-05",
+          "observedWeakness": "Rendered baseline had decisions only during planting; subsequent growth was automatic advancement through three small fixed targets.",
+          "changes": [
+            "Earned tending mode begins with a disturbed colony and permits one live-spore transplant between generations; all three require intervention to reach their target.",
+            "Choose timing, source and destination; next-generation dashed previews and selected-spore outline make consequences legible.",
+            "Persist tending seals separately from planting records; replant restores transplant availability, confirmed return to planting preserves progress.",
+            "Migrate legacy saves with planting-mode defaults and clarify tending start/retry guidance."
+          ],
+          "implementationCommits": [
+            "1ca3c4184cdd97cd21c25ced44b4c08fc249e663",
+            "fa3aa21b4336c2470eaa70e856dd7f88747d17b0"
+          ],
+          "validation": "CI41931289646 atfa3aa21b4336c2470eaa70e856dd7f88747d17b0 passed six engine checks and twelve rendered planting/tending solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload includes selected spores and completed transplants; unlocks, seals, confirmed return to planting, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13371018247 SHA256eec73cc1e1ea8ed36760ee6612f35bb0344765805297b69a733ac29062c4dc91 downloaded/verified; desktop-selected-1.png and touch-tending-2.png opened and inspected. Initial upgrade CI41931140597 also passed before start/retry guidance refinement."
+        }
+      ],
       "tests": [
-        "CI41921519708 at79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d passed four engine checks and six rendered colony solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload, growth/target progression, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13367985561 SHA2564c34fbbd5bb43a9e56704a433f112909ab15e4c008b73cf4c084933022e82fbe downloaded/verified; touch-won-1.png inspected. Earlier CI41921200328 passed; artifact13365869555 SHA2569b8ae1176d8d0f10c3db3741a453a270f33d9a34b91d1c0a89a429147c15cb5d verified; desktop-growth-2.png and touch-won-1.png inspected, prompting clearer empty soil and corrected save wording. These minor baseline repairs do not count as a substantive improvement pass."
+        "CI41921519708 at79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d passed four engine checks and six rendered colony solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload, growth/target progression, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13367985561 SHA2564c34fbbd5bb43a9e56704a433f112909ab15e4c008b73cf4c084933022e82fbe downloaded/verified; touch-won-1.png inspected. Earlier CI41921200328 passed; artifact13365869555 SHA2569b8ae1176d8d0f10c3db3741a453a270f33d9a34b91d1c0a89a429147c15cb5d verified; desktop-growth-2.png and touch-won-1.png inspected, prompting clearer empty soil and corrected save wording. These minor baseline repairs do not count as a substantive improvement pass.",
+        "CI41931289646 atfa3aa21b4336c2470eaa70e856dd7f88747d17b0 passed six engine checks and twelve rendered planting/tending solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload includes selected spores and completed transplants; unlocks, seals, confirmed return to planting, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13371018247 SHA256eec73cc1e1ea8ed36760ee6612f35bb0344765805297b69a733ac29062c4dc91 downloaded/verified; desktop-selected-1.png and touch-tending-2.png opened and inspected. Initial upgrade CI41931140597 also passed before start/retry guidance refinement."
       ],
       "commits": [
         "ebd0d792e180fc92c417164f56607c70f46a98fc",
-        "79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d"
+        "79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d",
+        "1ca3c4184cdd97cd21c25ced44b4c08fc249e663",
+        "fa3aa21b4336c2470eaa70e856dd7f88747d17b0"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Rendered baseline; improvement and qualification pending.",
-        "assessment": "Distinct simultaneous cellular-growth puzzle, with a stable pattern, oscillator and travelling colony. Neighbour counts and target rings support prediction. Three fixed small plots currently limit progression and replay depth.",
-        "observedWeakness": "After planting, grow is the only progression choice; the initial small campaign needs meaningful tending or environmental decisions. Rendered baseline also revealed dim-mushroom empty cells and stale save wording, corrected without counting this cosmetic repair as a substantive pass.",
-        "knownLimits": "Automated render checks and screenshot inspection are not human enjoyment or duration evidence. Complete keyboard-only/embedded qualification and stronger save consistency remain pending."
+        "status": "Substantively improved; qualification and selection pending.",
+        "assessment": "Transplant timing and destination alter downstream births/deaths and are required by each disturbed colony. Three fixed target shapes still limit long-term depth.",
+        "knownLimits": "Full keyboard-only solutions, embedded lifecycle/navigation and stronger save-history consistency are pending. Automated routes and screenshots are not human enjoyment, physical-device or duration evidence."
       },
       "nextSteps": [
-        "Implement a substantive game-specific improvement based on the rendered baseline, especially useful mid-growth or environmental choices.",
-        "Qualify full keyboard, embedded lifecycle/navigation, save consistency and selection.",
-        "Build distinct candidates88–90."
+        "Qualify full keyboard, embedded lifecycle/navigation and save history consistency, then evaluate selection.",
+        "Build remaining distinct candidates88–90; preserve current catalogue."
       ]
     },
     {
@@ -3838,7 +3856,7 @@
     }
   ],
   "nextSteps": [
-    "Substantively improve and qualify Spore Loom87; three unbuilt slots88–90 remain.",
+    "Qualify improved Spore Loom87; three unbuilt slots88–90 remain.",
     "Build remaining3 distinct candidates88–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5405,6 +5423,12 @@
       "result": "Built Spore Loom87 cellular-growth planting baseline. Four engine checks/six rendered solutions pass; screenshots inspected and empty-soil/save feedback corrected.47 built,46 improved/qualified,3 unbuilt; no public release.",
       "commit": "79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d",
       "report": "dev/indie-collection-three/SPORE_LOOM_BASELINE.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Substantially improved Spore Loom87 with earned timed-transplant restorations, next-growth previews, saved seals and mode guidance. Six engine checks/twelve rendered solutions pass; screenshots inspected.47 built/improved,46 qualified,3 unbuilt; no public release.",
+      "commit": "fa3aa21b4336c2470eaa70e856dd7f88747d17b0",
+      "report": "dev/indie-collection-three/SPORE_LOOM_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
