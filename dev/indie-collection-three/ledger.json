@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 42,
-    "improved": 41,
+    "improved": 42,
     "browserTested": 41,
     "integrated": 0,
     "live": 0
@@ -3478,33 +3478,49 @@
       "id": "warren-watch",
       "title": "Warren Watch",
       "coreLoop": "Allocate a shared ant workforce among foraging, brood nursing, digging and defence; prepare for visible weather and raids, expand food capacity, hatch workers and provision a daughter colony.",
-      "status": "built-awaiting-improvement",
+      "status": "improved-awaiting-qualification",
       "source": "games/warren-watch",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-04",
+          "observedWeakness": "Baseline chambers only enlarged capacity, the same greedy policy won each start, and repeated assignment/tall phone instructions added friction.",
+          "changes": [
+            "Choose pantry, bastion or nursery fittings, one per room at four soil each; reduce upkeep by two, effective threat by two, or required nurses by one respectively.",
+            "Fitting costs compete with digging the next room; different pairs free different workers. Fittings persist until restart.",
+            "Repeat prior jobs then adjust, or clear assignments. Compact phone cards, collapse detailed instructions and keep outcome preview visible.",
+            "Migrate legacy v1 saves with empty fittings and previous-job fields while preserving colony state and records."
+          ],
+          "implementationCommits": [
+            "afa2b0a22788101cbafd02c74ec03f902bcd4751"
+          ],
+          "validation": "CI41790095038 at afa2b0a22788101cbafd02c74ec03f902bcd4751 passed six engine checks and twelve rendered wins: three ordinary starts and three specialization pairs at desktop1280×1000/touch-emulated390×844. Exact state assertions, per-day/fitting reload, repeat/clear, records/restart, loss/retry, Space/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13303111881 SHA256faa447a2f8994c50552b063b818d5fe0eddf721eb8febc171ff4e07625f8c0c7 verified; desktop-fitted-pantry.png and touch-fitted-nursery.png opened and inspected."
+        }
+      ],
       "tests": [
-        "CI41784253180 at e353626130347502e4c4c7b0be4437ae8cdf153c passed four engine checks and six rendered colony wins (three forecast starts at desktop1280×1000 and touch-emulated390×844), legal allocations, brood growth, chamber construction, per-action state assertions/per-day reload, records/restart, loss/retry, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13299979364 SHA256c2745859522ba0fb6fce9c82ebc6ddaf3a24055c25cada3f141f800e0c991424 downloaded/verified; desktop-colony-1.png and touch-colony-2.png opened and inspected. Earlier passing CI41783873954 artifact13300302305 SHA256b50b3127759110d945c98e5059f0d584f8022979372eae5094dbae9eeae255af inspected; misleading chamber/ant art corrected afterward."
+        "CI41784253180 at e353626130347502e4c4c7b0be4437ae8cdf153c passed four engine checks and six rendered colony wins (three forecast starts at desktop1280×1000 and touch-emulated390×844), legal allocations, brood growth, chamber construction, per-action state assertions/per-day reload, records/restart, loss/retry, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13299979364 SHA256c2745859522ba0fb6fce9c82ebc6ddaf3a24055c25cada3f141f800e0c991424 downloaded/verified; desktop-colony-1.png and touch-colony-2.png opened and inspected. Earlier passing CI41783873954 artifact13300302305 SHA256b50b3127759110d945c98e5059f0d584f8022979372eae5094dbae9eeae255af inspected; misleading chamber/ant art corrected afterward.",
+        "CI41790095038 at afa2b0a22788101cbafd02c74ec03f902bcd4751 passed six engine checks and twelve rendered wins: three ordinary starts and three specialization pairs at desktop1280×1000/touch-emulated390×844. Exact state assertions, per-day/fitting reload, repeat/clear, records/restart, loss/retry, Space/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13303111881 SHA256faa447a2f8994c50552b063b818d5fe0eddf721eb8febc171ff4e07625f8c0c7 verified; desktop-fitted-pantry.png and touch-fitted-nursery.png opened and inspected."
       ],
       "commits": [
         "ff9dd1d14fc891170fd185d72433377e397a24bc",
-        "e353626130347502e4c4c7b0be4437ae8cdf153c"
+        "e353626130347502e4c4c7b0be4437ae8cdf153c",
+        "afa2b0a22788101cbafd02c74ec03f902bcd4751"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline; substantive improvement and full qualification pending.",
-        "assessment": "A complete colony loop with coupled food/upkeep, two-day brood care, excavation and forecast defence. Baseline routes for three rendered starts all finish in six days using the same greedy allocation policy. Four starts rotate one weather cycle, so replay choice is still shallow.",
-        "observedWeakness": "Rendered desktop/phone runs show repeated +/- allocations; mobile controls and open instructions create a tall page. Chamber purchases currently add capacity/brood size without choosing a colony strategy. First screenshots placed food in a dark chamber and ants outside their room; corrected functional chamber art in the baseline feedback commit, not counted as the substantive improvement.",
-        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. No measured long campaign. Full keyboard routes, embedded bridge lifecycle and stronger save-state consistency still need qualification."
+        "status": "Substantially improved; full qualification pending.",
+        "assessment": "Chamber investment adds workforce choices and resource opportunity costs. Three tested pairs finish the fourth clearing in seven days; ordinary routes finish in six. Fittings provide flexibility but are optional and not proven optimal for speed. One rotating weather cycle still limits replay depth.",
+        "knownLimits": "Automated rendered routes and inspected screenshots are not human enjoyment, physical-device or duration evidence. Full keyboard routes, embedded lifecycle and stronger save consistency remain to qualify."
       },
       "nextSteps": [
-        "Perform a substantive rendered-play improvement: add mutually useful chamber specializations or brood/resource tradeoffs that change work allocation, rather than more rotated starts.",
-        "Improve repeated worker assignment and compact phone decision feedback. Preserve existing v1 saves and ordinary completion records.",
-        "Render the changed loop and then qualify full keyboard/embedded lifecycle, storage consistency and replay before selection."
+        "Qualify complete keyboard play, actual bridge/Collection lifecycle, hidden action/confirmation/recovery guards and stronger save consistency.",
+        "Assess reserve versus selection honestly given compact weather/progression depth; do not add catalogue entry before qualification."
       ]
     },
     {
@@ -3653,13 +3669,13 @@
     }
   ],
   "nextSteps": [
-    "Substantially improve and qualify Warren Watch82 from its rendered baseline; do not count its cutaway fix as the improvement pass.",
-    "Build remaining8 distinct candidates in slots83–90 with rendered baselines and substantive improvements.",
-    "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
-    "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
+    "Fully qualify improved Warren Watch82 before selection.",
+    "Build remaining8 distinct candidates83–90 with rendered baselines and substantial improvements.",
+    "Reconcile release preflight with fresh main:15 curated games including Packworks; do not restore removed entries or overwrite concurrent work.",
+    "Preserve batch-two20/20 additional improvements and concurrent sources/saves."
   ],
   "updated": "2026-11-04",
-  "latestObservedMain": "e2ba9d1a221da8cdb3180a7f372a54743f6c52c2",
+  "latestObservedMain": "16b3b1658812a90c885fab83d3af419557d8b59b",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -5130,6 +5146,12 @@
       "result": "Built Warren Watch82 ant-colony allocation baseline; four engine checks and six rendered colony wins pass. Inspected desktop/phone screenshots and corrected misleading cutaway art.42 built,41 improved/qualified,8 unbuilt; no catalogue or live release change.",
       "commit": "e353626130347502e4c4c7b0be4437ae8cdf153c",
       "report": "dev/indie-collection-three/WARREN_WATCH_BASELINE.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Improved Warren Watch82 with chamber specializations, repeat/clear assignments and compact phone feedback. Six engine checks/twelve rendered wins pass; screenshots inspected.42 built/improved,41 qualified,8 unbuilt. Preserved concurrent Packworks release/cache update; no public release.",
+      "commit": "afa2b0a22788101cbafd02c74ec03f902bcd4751",
+      "report": "dev/indie-collection-three/WARREN_WATCH_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
@@ -5142,8 +5164,8 @@
     "note": "Historical integration/live accomplishments retained; active totals below reflect current catalogue."
   },
   "releaseGate": {
-    "status": "held-current-curation",
-    "reason": "Main PR110 explicitly enforces an exact14-game slate and removed the prior batch releases. Preserve concurrent cleanup.",
+    "status": "needs-current-curation-reconciliation",
+    "reason": "Main now contains15 games including concurrent Packworks. Preserve current curated selection; prior exact14 assumptions/preflight need reconciliation before any release.",
     "main": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
     "pullRequest": "https://github.com/ThatOneMop/study-desk/pull/110",
     "pagesRun": 41407777399,
@@ -5164,6 +5186,24 @@
       "harvest-protocol"
     ],
     "preflight": "dev/indie-collection-three/release-preflight.cjs",
-    "note": "Run preflight against freshly fetched main and use expected_sha lease. This is an opt-in development check, not a server-side GitHub branch rule."
+    "note": "Run preflight against freshly fetched main and use expected_sha lease. This is an opt-in development check, not a server-side GitHub branch rule.",
+    "observedMain": "1fb19a215b0f9f0b91d5f469011f4c48e771fb59",
+    "observedAllowedIds": [
+      "gummy-bay",
+      "autumn-drift",
+      "little-lake",
+      "lost-found",
+      "moon-salvage",
+      "tiny-wilds",
+      "forge-arena",
+      "roof-runner",
+      "ashwake",
+      "winterfold",
+      "spanwright",
+      "creekhold",
+      "lanewright",
+      "harvest-protocol",
+      "packworks"
+    ]
   }
 }
