@@ -1,4 +1,4 @@
-# Study Desk — 14 games
+# Study Desk — 16 games
 
 The catalogue was trimmed on 2 November 2026 to 14 bundled games: Gummy Bay, Autumn Drift, Little Lake, Lost & Found, Lost & Found on the Moon, Tiny Wilds, Forge Arena, Roof Runner, Ashwake, Winterfold, Spanwright, Creekhold, Lanewright and Harvest Protocol. Every other game, its tests and its credits were removed; they remain in git history before that date.
 
@@ -24,7 +24,7 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 14 catalogue games are bundled and include the Study Desk bridge. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+All 16 catalogue games are bundled and include the Study Desk bridge. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 
@@ -48,3 +48,7 @@ Existing game keys/formats are unchanged. All bundled games share this site's or
 ## Verification
 
 See TEST_REPORT.md for the original archive checks. Subsequent selected-game releases have separate rendered desktop/emulated-touch and catalogue evidence in their collection reports. Those checks apply to the named games and routes; they are not human enjoyment or physical-device certification.
+
+## Numberworks — 4 November 2026
+
+Added at the user’s explicit request, preserving the curated games and concurrent Packworks work. Numberworks has a plain factory view, continuous conveyor packets, gap-aware tutorial, five permanent production ranks, 24 commissions and six multi-number projects. Original optional Blender sprites are bundled. Saves keep `numberworks.campaign.v1` and `numberworks.sandbox.v1`. To transfer an existing save from the standalone Site, export it in Workshop, then import it here; browser storage cannot cross origins automatically.

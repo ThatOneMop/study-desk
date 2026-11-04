@@ -274,5 +274,51 @@
       "automation",
       "farming"
     ]
+  },
+  {
+    "id": "numberworks",
+    "title": "Numberworks",
+    "description": "Build a mathematical factory: smooth conveyors, guided construction, permanent factory ranks and demanding multi-number projects.",
+    "icon": "＋",
+    "genre": "Factory + Strategy",
+    "color": "#568267",
+    "url": "games/numberworks/index.html",
+    "group": "Your games",
+    "controls": "Drag belts · E extractor · R rotate · Arrows + Enter build · Space pause · H home",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#numberworks",
+    "thumbnail": "art/curated/numberworks.svg",
+    "thumbnailAlt": "Two conveyor streams meet in an arithmetic machine",
+    "updated": "2026-11-04",
+    "aliases": [
+      "Beltmatic",
+      "maths",
+      "production",
+      "automation"
+    ]
+  },
+  {
+    "id": "packworks",
+    "title": "Packworks",
+    "description": "Crack open original pixel-art booster packs, uncover 120 collectible cards in five variants, sell duplicates and build an automated card factory.",
+    "icon": "🃏",
+    "genre": "Cards + Incremental",
+    "color": "#81618e",
+    "url": "games/packworks/index.html",
+    "group": "Your games",
+    "controls": "Click/tap to open a pack · Next card or Reveal all · Buy upgrades · Collect sets · Automate",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#created-games",
+    "aliases": [
+      "Crack the Pack",
+      "pack opening",
+      "collecting",
+      "cards",
+      "incremental"
+    ]
   }
 ]
