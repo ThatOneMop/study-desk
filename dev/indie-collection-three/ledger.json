@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 46,
+    "built": 47,
     "improved": 46,
     "browserTested": 46,
     "integrated": 0,
@@ -3750,21 +3750,37 @@
     },
     {
       "slot": 87,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "spore-loom",
+      "title": "Spore Loom",
+      "coreLoop": "Plant spores around starter cells, advance simultaneous neighbour-based growth, and shape the resulting colony to match a target; replant to revise and improve saved planting records.",
+      "status": "baseline-playable",
+      "source": "games/spore-loom",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41921519708 at79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d passed four engine checks and six rendered colony solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload, growth/target progression, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13367985561 SHA2564c34fbbd5bb43a9e56704a433f112909ab15e4c008b73cf4c084933022e82fbe downloaded/verified; touch-won-1.png inspected. Earlier CI41921200328 passed; artifact13365869555 SHA2569b8ae1176d8d0f10c3db3741a453a270f33d9a34b91d1c0a89a429147c15cb5d verified; desktop-growth-2.png and touch-won-1.png inspected, prompting clearer empty soil and corrected save wording. These minor baseline repairs do not count as a substantive improvement pass."
+      ],
+      "commits": [
+        "ebd0d792e180fc92c417164f56607c70f46a98fc",
+        "79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Rendered baseline; improvement and qualification pending.",
+        "assessment": "Distinct simultaneous cellular-growth puzzle, with a stable pattern, oscillator and travelling colony. Neighbour counts and target rings support prediction. Three fixed small plots currently limit progression and replay depth.",
+        "observedWeakness": "After planting, grow is the only progression choice; the initial small campaign needs meaningful tending or environmental decisions. Rendered baseline also revealed dim-mushroom empty cells and stale save wording, corrected without counting this cosmetic repair as a substantive pass.",
+        "knownLimits": "Automated render checks and screenshot inspection are not human enjoyment or duration evidence. Complete keyboard-only/embedded qualification and stronger save consistency remain pending."
+      },
+      "nextSteps": [
+        "Implement a substantive game-specific improvement based on the rendered baseline, especially useful mid-growth or environmental choices.",
+        "Qualify full keyboard, embedded lifecycle/navigation, save consistency and selection.",
+        "Build distinct candidates88–90."
+      ]
     },
     {
       "slot": 88,
@@ -3822,8 +3838,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate87 next; four unbuilt slots87–90 remain. Echo Orchard86 is qualified reserve.",
-    "Build remaining4 distinct candidates87–90 with rendered baselines and substantive improvements.",
+    "Substantively improve and qualify Spore Loom87; three unbuilt slots88–90 remain.",
+    "Build remaining3 distinct candidates88–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
@@ -5383,6 +5399,12 @@
       "result": "Qualified Echo Orchard86 as reserve after replay-history and completion-save validation fixes. Eight engine checks/twenty-four rendered solutions and embedded lifecycle checks pass; screenshots inspected.46 built/improved/qualified,4 unbuilt; no catalogue/live release change.",
       "commit": "f2381839d0a0f619cb37d07c0521bd2c3ae541e5",
       "report": "dev/indie-collection-three/ECHO_ORCHARD_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Built Spore Loom87 cellular-growth planting baseline. Four engine checks/six rendered solutions pass; screenshots inspected and empty-soil/save feedback corrected.47 built,46 improved/qualified,3 unbuilt; no public release.",
+      "commit": "79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d",
+      "report": "dev/indie-collection-three/SPORE_LOOM_BASELINE.md"
     }
   ],
   "historicalTotals": {
