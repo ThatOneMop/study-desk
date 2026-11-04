@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 42,
+    "built": 43,
     "improved": 42,
     "browserTested": 42,
     "integrated": 0,
@@ -3529,21 +3529,36 @@
     },
     {
       "slot": 83,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "stillwater-dyehouse",
+      "title": "Stillwater Dyehouse",
+      "coreLoop": "Dose finite pigments into three different-capacity pots, transfer measured portions while retaining mixture proportions, deliver exact two-cup cloth recipes and conserve leftovers instead of wasting dye.",
+      "status": "built-awaiting-improvement",
+      "source": "games/stillwater-dyehouse",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41812161353 at102bfef4ac91df144062aae51fd91e0522f67d23 passed four engine checks and six rendered three-cloth palettes at desktop1280×1000/touch-emulated390×844. Measured mixture transfers, exact per-action reload, records/restart, waste/loss/retry, rinse confirmation, Space/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Final artifact13311479868 SHA256603fd96a67fdeaaa5ac5940fc1f1e1ac28719df65e59df267869145fb1f94410 verified; touch-mix-1.png inspected. Earlier passing CI41811914375 artifact13312702486 SHA25683177c1fb5b1d2a31dc94dc7e1002fd335ee893f434fcf3f41c87d83f488bbcc verified; desktop-mix-0.png and touch-mix-1.png inspected; save-status wording corrected afterward."
+      ],
+      "commits": [
+        "c1a97e7f0636cd152137f409c9f83962a2a42f04",
+        "102bfef4ac91df144062aae51fd91e0522f67d23"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; substantive improvement and qualification pending.",
+        "assessment": "Working fluid-conservation loop with exact mixture ratios, measured transfer, constrained storage, waste failure and records. Initial equal-parts recipes can be fulfilled directly without transfers, so current depth is insufficient for selection.",
+        "observedWeakness": "Rendered routes exercise transfers but baseline orders do not require them. Palettes only change order sequence. Phone page remains long with detailed instructions open. Numeric proportions are readable; dye colour is a stylized display, not a physical pigment model.",
+        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Full keyboard/embedded lifecycle and stronger conservation/save consistency remain unqualified."
+      },
+      "nextSteps": [
+        "Make blending essential through useful leftover-reuse orders, fractional ratios or vessel constraints; do not merely add reordered equal-part recipes.",
+        "Improve compact phone flow and target/current colour feedback, render the changed core loop, then qualify full keyboard, bridge lifecycle and save consistency."
+      ]
     },
     {
       "slot": 84,
@@ -3673,10 +3688,10 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate83, render its baseline, then perform an observed substantive improvement.",
-    "Build remaining8 distinct candidates83–90 with rendered baselines and substantial improvements.",
-    "Reconcile release preflight with fresh main:15 curated games including Packworks; do not restore removed entries or overwrite concurrent work.",
-    "Preserve batch-two20/20 additional improvements and concurrent sources/saves."
+    "Substantially improve Stillwater Dyehouse83 using its observed baseline weakness, then qualify it.",
+    "Build remaining7 distinct candidates84–90 with rendered baselines and substantive improvements.",
+    "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
+    "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
   "updated": "2026-11-04",
   "latestObservedMain": "16b3b1658812a90c885fab83d3af419557d8b59b",
@@ -5162,6 +5177,12 @@
       "result": "Qualified Warren Watch82 as reserve; fixed lethal-starvation revival, save consistency and phone assignment row. Eight engine checks/sixteen rendered wins pass; screenshots inspected.42 built/improved/qualified,8 unbuilt; no catalogue/live change.",
       "commit": "652c48d3049581aa5ea3f3a878ebce669e18aa06",
       "report": "dev/indie-collection-three/WARREN_WATCH_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Built Stillwater Dyehouse83 measured-pigment baseline. Four engine checks/six rendered three-cloth palettes pass; screenshots inspected and save-status label corrected.43 built,42 improved/qualified,7 unbuilt; no public release.",
+      "commit": "102bfef4ac91df144062aae51fd91e0522f67d23",
+      "report": "dev/indie-collection-three/STILLWATER_DYEHOUSE_BASELINE.md"
     }
   ],
   "historicalTotals": {
