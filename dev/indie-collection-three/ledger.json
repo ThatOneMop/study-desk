@@ -6,7 +6,7 @@
   "totals": {
     "built": 46,
     "improved": 46,
-    "browserTested": 45,
+    "browserTested": 46,
     "integrated": 0,
     "live": 0
   },
@@ -3699,11 +3699,11 @@
       "id": "echo-orchard",
       "title": "Echo Orchard",
       "coreLoop": "Record footsteps and replay two echoes to open leaf gates. Earned Duets retrace routes, turning recorded waits and path length into gate-timing choices.",
-      "status": "improved-awaiting-qualification",
+      "status": "qualified-reserve",
       "source": "games/echo-orchard",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3726,24 +3726,26 @@
       ],
       "tests": [
         "CI41892617485 at8a51203a81057c6d306eb175eef3ec9563e69ec8 completed successfully: four engine checks and six rendered desktop1280×1000/touch-emulated390×844 orchard solutions, exact per-action reload, echo/plate/gate progression, erase/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games, no overflow/page errors. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13354179157 SHA256a3b23627c2dc92a94c5c933611ed50c5a5d4f365d0d9c94e530239cf2c336e3b verified; desktop-echo-0.png and touch-won-2.png inspected.",
-        "Final CI41902937782 at564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7 passed six engine checks and twelve rendered gentle/Duet solutions on desktop1280×1000 and touch-emulated390×844. Exact per-action reload, Duet unlocks/seals, return-to-gentle, erase/restart, records, native Space/Enter/Escape and arrow movement, pause, corrupt/quota storage, Games navigation, same-row movement buttons and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13359377133 SHA256f9b7b2c0af4c283ed283b8560e6eb89a337cc067726a4b5664cbacc1289c0907 downloaded/verified; touch-duet-won-2.png inspected to confirm corrected phone row, active-mode goal and Duet best score. Earlier upgrade artifact13359426354 was also verified and desktop/phone screenshots inspected."
+        "Final CI41902937782 at564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7 passed six engine checks and twelve rendered gentle/Duet solutions on desktop1280×1000 and touch-emulated390×844. Exact per-action reload, Duet unlocks/seals, return-to-gentle, erase/restart, records, native Space/Enter/Escape and arrow movement, pause, corrupt/quota storage, Games navigation, same-row movement buttons and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13359377133 SHA256f9b7b2c0af4c283ed283b8560e6eb89a337cc067726a4b5664cbacc1289c0907 downloaded/verified; touch-duet-won-2.png inspected to confirm corrected phone row, active-mode goal and Duet best score. Earlier upgrade artifact13359426354 was also verified and desktop/phone screenshots inspected.",
+        "CI41911648809 atf2381839d0a0f619cb37d07c0521bd2c3ae541e5 passed eight engine checks, twelve pointer/touch gentle/Duet solutions and twelve full-keyboard solutions. Exact per-action reload, seals/records, erase/restart/return-gentle, Arrow/W/I and Tab/Enter/Space/Escape, real bridge hidden restart/gentle/recovery/actions, explicit resume, Collection messages, unrelated save isolation, corrupt/quota storage and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13362298319 SHA25605a8430c7681ae8c49aabc7617067b50c7b7c1c4112a5b1e59590332323466be downloaded/verified; desktop-keyboard-2.png and touch-shell.png opened and inspected."
       ],
       "commits": [
         "8a51203a81057c6d306eb175eef3ec9563e69ec8",
         "9f914d8f501f1728d386e51865dac9fac1d4099c",
-        "564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7"
+        "564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7",
+        "f2381839d0a0f619cb37d07c0521bd2c3ae541e5"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantially improved; full qualification and selection pending.",
-        "assessment": "Retracing gates change the normal solution and make recorded plate dwell useful. Three fixed layouts still share two-gate topology; compare after qualification.",
-        "knownLimits": "Automated rendered paths and inspected screenshots are not human-enjoyment or physical-device evidence. Full keyboard-only routes, embedded lifecycle and stronger save consistency remain pending."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Retracing echoes and recorded waits make timing a useful planning choice. Three fixed gardens still share two-gate topology, limiting depth and replay variety; retain for final slate comparison.",
+        "qualificationFixes": "Validate recording starts, adjacent footsteps, pre-step gates, no post-exit actions, tick/trail/current position, minimum accumulated moves, completion record and earned seals. Preserve legitimate erased history and legacy gentle saves.",
+        "knownLimits": "Automated rendered routes and inspected screenshots are not human enjoyment, physical-device or duration evidence. Embedded tests use the real bridge in a controlled host. Save checks validate necessary history constraints; erased history cannot be reconstructed."
       },
       "nextSteps": [
-        "Qualify full keyboard-only routes, embedded bridge/confirmation/recovery/Collection behavior and save path/tick/completion consistency.",
-        "Evaluate for final slate selection; preserve current main curation.",
-        "Build remaining distinct candidates87–90."
+        "Retain as qualified reserve for final slate comparison.",
+        "Build distinct candidate87 next; four unbuilt slots87–90 remain."
       ]
     },
     {
@@ -3820,7 +3822,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Echo Orchard86; four unbuilt slots87–90 remain.",
+    "Build distinct candidate87 next; four unbuilt slots87–90 remain. Echo Orchard86 is qualified reserve.",
     "Build remaining4 distinct candidates87–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5375,6 +5377,12 @@
       "result": "Resolved Echo Orchard86 baseline CI and substantially improved it with earned retracing Duets, recorded plate dwell, gate forecasts, saved seals and keyboard/phone controls. Six engine checks/twelve rendered solutions pass; screenshots inspected.46 built/improved,45 qualified,4 unbuilt; no public release.",
       "commit": "564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7",
       "report": "dev/indie-collection-three/ECHO_ORCHARD_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Qualified Echo Orchard86 as reserve after replay-history and completion-save validation fixes. Eight engine checks/twenty-four rendered solutions and embedded lifecycle checks pass; screenshots inspected.46 built/improved/qualified,4 unbuilt; no catalogue/live release change.",
+      "commit": "f2381839d0a0f619cb37d07c0521bd2c3ae541e5",
+      "report": "dev/indie-collection-three/ECHO_ORCHARD_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
