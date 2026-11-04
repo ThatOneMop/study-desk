@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 41,
-    "improved": 40,
+    "improved": 41,
     "browserTested": 40,
     "integrated": 0,
     "live": 0
@@ -3421,31 +3421,48 @@
       "id": "skyhook",
       "title": "Skyhook",
       "coreLoop": "Move a crane trolley, retract or lower its swinging cargo to clear a warehouse roof, align with the berth and release gently; recover returned loads and optimize persistent shift handling scores.",
-      "status": "built-awaiting-improvement",
+      "status": "improved-awaiting-qualification",
       "source": "games/skyhook",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-04",
+          "observedWeakness": "Rendered baseline required many discrete clicks followed by passive settling; only berth positions varied, and low frame cadence slowed the physics.",
+          "changes": [
+            "Hold trolley/cable buttons for repeated movement while retaining discrete taps and keyboard activation.",
+            "Add once-per-load tag-line assist which reduces angle and angular speed at a two-point cost.",
+            "Earn precision manifests after ordinary completion: glass, cabinet and machine cargo use different cable ranges, landing tolerances and movement impulses; earn separate persistent seals.",
+            "Integrate elapsed time in bounded substeps, migrate legacy saves, display cargo limits and ordinary/precision best records."
+          ],
+          "implementationCommits": [
+            "7e138572c8003dcb74030f8371f3f31e530866e7"
+          ],
+          "validation": "CI41771232010 at7e138572c8003dcb74030f8371f3f31e530866e7 passed seven engine checks and eighteen rendered deliveries: ordinary, earned precision and replayed ordinary shifts at desktop1280×1000 and touch-emulated390×844. Six precision deliveries exercise distinct cable/sway/placement constraints and tag-line consumption; separate seals persist across reload/restart. Pointer hold/release, rough release/retry, confirmation cancel/restart, records/new shift, pause, Space and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13294917584 SHA25674da110b5163afc9bb32d53c20fbb637c1850b3b86ef182cd948113ec13a6cac downloaded/verified; desktop-precision-0.png and touch-precision-1.png opened and inspected."
+        }
+      ],
       "tests": [
-        "CI41765352567 at e5792ee908c59c84126ce1c96825f1ef262fabc2 passes four engine checks and six rendered deliveries (three at desktop1280×1000, three at touch-emulated390×844), rough release/retry, confirmation cancel/restart, delivery saves/reload, records/new shift, pause, Space and no overflow/page errors. Repository74 routes/286 asset references and nine selected first-batch integrity checks pass. Artifact13293145490 SHA2568057b4a198baededaa0f722acdb1bcc4edbc684a28f61dc1fa94cff0e675dbe5 downloaded/verified; desktop-load-0.png and touch-load-2.png opened and inspected."
+        "CI41765352567 at e5792ee908c59c84126ce1c96825f1ef262fabc2 passes four engine checks and six rendered deliveries (three at desktop1280×1000, three at touch-emulated390×844), rough release/retry, confirmation cancel/restart, delivery saves/reload, records/new shift, pause, Space and no overflow/page errors. Repository74 routes/286 asset references and nine selected first-batch integrity checks pass. Artifact13293145490 SHA2568057b4a198baededaa0f722acdb1bcc4edbc684a28f61dc1fa94cff0e675dbe5 downloaded/verified; desktop-load-0.png and touch-load-2.png opened and inspected.",
+        "CI41771232010 at7e138572c8003dcb74030f8371f3f31e530866e7 passed seven engine checks and eighteen rendered deliveries: ordinary, earned precision and replayed ordinary shifts at desktop1280×1000 and touch-emulated390×844. Six precision deliveries exercise distinct cable/sway/placement constraints and tag-line consumption; separate seals persist across reload/restart. Pointer hold/release, rough release/retry, confirmation cancel/restart, records/new shift, pause, Space and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13294917584 SHA25674da110b5163afc9bb32d53c20fbb637c1850b3b86ef182cd948113ec13a6cac downloaded/verified; desktop-precision-0.png and touch-precision-1.png opened and inspected."
       ],
       "commits": [
         "c0c60162612a8fbefc7bec65482bc8b365504fee",
-        "e5792ee908c59c84126ce1c96825f1ef262fabc2"
+        "e5792ee908c59c84126ce1c96825f1ef262fabc2",
+        "7e138572c8003dcb74030f8371f3f31e530866e7"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline; substantive improvement and qualification pending.",
-        "assessment": "Original pendulum cargo handling differs from packing and elevator candidates. Readable harbour graphics and touch controls support deliveries, but repeated trolley clicks followed by passive settling dominate play. Berth variations alone offer shallow replayability.",
-        "knownLimits": "Motion dt is clamped, so low-frame-rate preview can slow physics substantially; fix with bounded accumulated substeps. Ready guide uses instantaneous velocity/alignment; better prediction and active damping are improvement targets. Best records are saved but need visible comparison. Full keyboard/bridge/recovery/navigation testing remains. Automated routes and screenshot inspection are not human enjoyment, physical-device or duration evidence."
+        "status": "Substantively improved; full qualification pending.",
+        "assessment": "Hold controls reduce tapping; tag-line assistance trades handling score for less settling. Precision manifests require different lowering routes and gentler placement, with separate earned records. One warehouse and three cargo profiles still constrain replay depth.",
+        "knownLimits": "Automated rendered routes and screenshot inspection are not human enjoyment, physical-device or duration evidence. Motion processes at most one second per frame; long stalls intentionally discard excess elapsed time. Cargo profiles share the same crate artwork/collision envelope; names describe handling constraints, not accurate dimensions or mass simulation. Hidden hold cancellation, full keyboard/bridge/recovery/navigation and stronger save consistency require qualification. Predictive landing/clearance visualization remains limited to current alignment."
       },
       "nextSteps": [
-        "Substantially improve active handling choices: comfortable hold controls, meaningful braking/rope tradeoffs or varied cargo requirements, predicted clearance/landing feedback and visible best records. Fix low-frame-rate time integration; render-test before claiming improvement.",
-        "Then qualify saves, keyboard, hidden confirmations, recovery and actual bridge/navigation."
+        "Qualify full keyboard and embedded shell routes, hidden pointer-hold cancellation, mode/restart/recovery confirmations, save consistency and Games navigation before selection."
       ]
     },
     {
@@ -3612,7 +3629,7 @@
     }
   ],
   "nextSteps": [
-    "Improve Skyhook81 based on rendered baseline (repeated clicks/passive waiting, frame-rate dependence, shallow berth-only variations), then qualify;9 unbuilt slots82–90 remain.",
+    "Qualify improved Skyhook81, then assess selection;9 unbuilt slots82–90 remain.",
     "Build remaining9 distinct candidates in slots82–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -5071,6 +5088,12 @@
       "result": "Built Skyhook81 pendulum crane-handling baseline. Four engine checks/six rendered deliveries pass; screenshots inspected. Drift feedback added after observed roof contact.41 built,40 improved/qualified,9 unbuilt; no release change.",
       "commit": "e5792ee908c59c84126ce1c96825f1ef262fabc2",
       "report": "dev/indie-collection-three/SKYHOOK_BASELINE.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Substantially improved Skyhook81 with earned precision manifests, tag-line assist, hold controls, persistent seals and bounded elapsed-time physics. Seven engine checks/eighteen rendered deliveries pass; screenshots inspected.41 built/improved,40 qualified,9 unbuilt; no release change.",
+      "commit": "7e138572c8003dcb74030f8371f3f31e530866e7",
+      "report": "dev/indie-collection-three/SKYHOOK_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
