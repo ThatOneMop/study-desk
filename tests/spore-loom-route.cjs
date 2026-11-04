@@ -1,1 +1,1 @@
-module.exports=level=>[[7,11,12],[12,13],[10,11,12]][level].map(i=>'cell-'+i).concat(Array([3,3,4][level]).fill('grow'));
+module.exports=(level,mode='plant')=>mode==='tend'?[['grow','cell-7','cell-0','grow','grow'],['grow','grow','cell-14','cell-11','grow'],['grow','cell-8','cell-5','grow','grow','grow']][level]:[[7,11,12],[12,13],[10,11,12]][level].map(i=>'cell-'+i).concat(Array([3,3,4][level]).fill('grow'));
