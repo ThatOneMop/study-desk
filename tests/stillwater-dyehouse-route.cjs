@@ -1,0 +1,1 @@
+const E=require('../games/stillwater-dyehouse/engine');module.exports=function route(palette=0){const a=[];for(let order=0;order<3;order++){a.push('select:0');E.recipes[(palette+order)%3].forEach((x,i)=>{if(x)a.push('dose:'+i)});if(order===0)a.push('measure:1','pour:2','pour:2','select:2');if(order===1)a.push('measure:2','pour:1','select:1');a.push('deliver')}return a};
