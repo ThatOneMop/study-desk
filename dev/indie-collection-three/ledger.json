@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 45,
-    "improved": 44,
+    "improved": 45,
     "browserTested": 44,
     "integrated": 0,
     "live": 0
@@ -3643,33 +3643,52 @@
       "id": "shuttle-grove",
       "title": "Shuttle Grove",
       "coreLoop": "Place badminton shots across a six-square opponent court, trade clear/drop/smash flight time against stamina, travel to telegraphed returns and win rallies through reach and placement.",
-      "status": "built-awaiting-improvement",
+      "status": "improved-awaiting-qualification",
       "source": "games/shuttle-grove",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-05",
+          "observedWeakness": "Baseline rendered matches all succumbed to repeated clear-to-corner/smash-to-opposite-corner points. Opponents stayed at landing squares and had nearly identical stamina; court feedback lacked own-square numbers and trajectories.",
+          "changes": [
+            "Opponents pay movement stamina and recover centrally after clears/drops. Distinct energy/rest profiles and score-dependent shot cycles differentiate matches.",
+            "The last scoring square is anticipated with extra reach on subsequent points, so repeating the baseline pattern no longer wins a match.",
+            "Choose Hold or paid Recover centre after each return, trading stamina against position for the incoming shot.",
+            "Earn persistent clean-match badges; preserve legacy saves/records through defaults.",
+            "Add own-court numbers, trajectory, selected landing outline, recovery/scouting feedback, and correct per-opponent stamina capacity."
+          ],
+          "implementationCommits": [
+            "b89622555b6de2ec8a30c147580ac9cf48482b65",
+            "43701582c16226e28ccc8442e7299a523b829e69"
+          ],
+          "validation": "CI41874306533 at43701582c16226e28ccc8442e7299a523b829e69 passed six engine checks and six rendered adaptive matches at desktop1280×1000/touch-emulated390×844. Recovery choices, persistent clean badges, exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13346955424 SHA256693254c0fd34c1557cebe84c3086de33cbac2c3e230fd90bbc379526bd1b3423 downloaded/verified; touch-won-2.png inspected after correcting opponent stamina capacity. Earlier CI41873756191 passed; artifact13346610717 SHA256e9226cde1df52ddf08ecc5156e7037705eac153a54661179bf970d25d5c51539 verified; desktop-rally-0.png and touch-won-2.png inspected."
+        }
+      ],
       "tests": [
-        "CI41863790657 atc4ee2fa509c98a229302308dcae3723dd97c665a logs show four engine checks and six rendered desktop1280×1000/touch-emulated390×844 matches passing. Exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13341316759 SHA2566ab8549ea8e7b35bf50beb8241d161ef175190b05100d3511e937e05fba63144 downloaded/verified; touch-rally-1.png opened and inspected. Earlier CI41863192097 also passed; artifact13341501606 SHA256bb7a138c341b1a8f974a61a27e38c82fb0427e3aed0821bcdca85121227ec587 verified; desktop-rally-0.png and touch-rally-1.png inspected, prompting save-wording and active-rally screenshot corrections."
+        "CI41863790657 atc4ee2fa509c98a229302308dcae3723dd97c665a logs show four engine checks and six rendered desktop1280×1000/touch-emulated390×844 matches passing. Exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13341316759 SHA2566ab8549ea8e7b35bf50beb8241d161ef175190b05100d3511e937e05fba63144 downloaded/verified; touch-rally-1.png opened and inspected. Earlier CI41863192097 also passed; artifact13341501606 SHA256bb7a138c341b1a8f974a61a27e38c82fb0427e3aed0821bcdca85121227ec587 verified; desktop-rally-0.png and touch-rally-1.png inspected, prompting save-wording and active-rally screenshot corrections.",
+        "CI41874306533 at43701582c16226e28ccc8442e7299a523b829e69 passed six engine checks and six rendered adaptive matches at desktop1280×1000/touch-emulated390×844. Recovery choices, persistent clean badges, exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13346955424 SHA256693254c0fd34c1557cebe84c3086de33cbac2c3e230fd90bbc379526bd1b3423 downloaded/verified; touch-won-2.png inspected after correcting opponent stamina capacity. Earlier CI41873756191 passed; artifact13346610717 SHA256e9226cde1df52ddf08ecc5156e7037705eac153a54661179bf970d25d5c51539 verified; desktop-rally-0.png and touch-won-2.png inspected."
       ],
       "commits": [
         "485bca3b7ac197f89762717e2a69b07d49df20fe",
-        "c4ee2fa509c98a229302308dcae3723dd97c665a"
+        "c4ee2fa509c98a229302308dcae3723dd97c665a",
+        "b89622555b6de2ec8a30c147580ac9cf48482b65",
+        "43701582c16226e28ccc8442e7299a523b829e69"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline; not qualified or selected.",
-        "assessment": "Distinct tactical sports loop with clear reach/stamina forecasts and persistent match records. However, the same two-shot clear/smash pattern beats all three opponents because point resets and deterministic reply placement do not adapt. This is a short baseline, not yet worthwhile replay depth.",
-        "observedWeakness": "Rendered matches confirm identical winning sequences and limited opponent differentiation. Court and controls are readable, but return trajectory/own-court numbering could be clearer.",
-        "knownLimits": "Automated rendered matches and screenshot inspection are not human enjoyment, physical-device testing or duration evidence. Full keyboard-only/embedded lifecycle and stronger save consistency remain qualification work."
+        "status": "Substantially improved; qualification/selection pending.",
+        "assessment": "Defensive recentering, stamina pressure, paid player recovery and scouting break the universal baseline match solution. Routes now vary by rival and point; clean badges add a persistent objective. Still a small deterministic six-square sports game, requiring final qualification and comparison.",
+        "knownLimits": "Automated rendered matches and screenshot inspection are not human enjoyment, physical-device or duration evidence. Full keyboard-only routes, embedded lifecycle and deeper save consistency remain. Historical best-return records are preserved despite changed rules."
       },
       "nextSteps": [
-        "Perform a substantive rendered-play improvement: adaptive defensive recovery/positioning and meaningful opponent progression should prevent the repeated two-shot exploit without simply inflating match length.",
-        "Improve trajectory and own-court feedback, then re-play wins/losses and inspect screenshots.",
-        "Complete keyboard-only, embedded lifecycle, safe-save qualification and slate comparison before integration."
+        "Qualify full keyboard routes, real bridge hidden actions/navigation, and save consistency including scouted square/seals/legacy records.",
+        "Evaluate the improved tactical matches against the slate before any catalogue integration."
       ]
     },
     {
@@ -3764,7 +3783,7 @@
     }
   ],
   "nextSteps": [
-    "Improve Shuttle Grove85 from its rendered baseline before qualification; repeated two-shot wins are the priority weakness.",
+    "Qualify improved Shuttle Grove85, then evaluate selection; five unbuilt slots86–90 remain.",
     "Build remaining5 distinct candidates86–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5295,6 +5314,12 @@
       "result": "Built Shuttle Grove85 tactical badminton baseline. Four engine checks/six rendered matches pass; inspected screenshots and corrected save wording.45 built,44 improved/qualified,5 unbuilt; no public release.",
       "commit": "c4ee2fa509c98a229302308dcae3723dd97c665a",
       "report": "dev/indie-collection-three/SHUTTLE_GROVE_BASELINE.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Substantially improved Shuttle Grove85 with defensive recovery, scoring-square anticipation, stance choices, opponent stamina profiles and clean badges. Six engine checks/six rendered matches pass; screenshots inspected.45 built/improved,44 qualified,5 unbuilt; no public release.",
+      "commit": "43701582c16226e28ccc8442e7299a523b829e69",
+      "report": "dev/indie-collection-three/SHUTTLE_GROVE_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
