@@ -22,6 +22,7 @@ jobs:
           node --check games/skyhook/game.js
           node --test tests/skyhook-engine.cjs
           node tests/skyhook-browser.cjs
+          node tests/skyhook-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
