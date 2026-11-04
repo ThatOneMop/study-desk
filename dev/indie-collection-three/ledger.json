@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 44,
+    "built": 45,
     "improved": 44,
     "browserTested": 44,
     "integrated": 0,
@@ -3640,21 +3640,37 @@
     },
     {
       "slot": 85,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "shuttle-grove",
+      "title": "Shuttle Grove",
+      "coreLoop": "Place badminton shots across a six-square opponent court, trade clear/drop/smash flight time against stamina, travel to telegraphed returns and win rallies through reach and placement.",
+      "status": "built-awaiting-improvement",
+      "source": "games/shuttle-grove",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41863790657 atc4ee2fa509c98a229302308dcae3723dd97c665a logs show four engine checks and six rendered desktop1280×1000/touch-emulated390×844 matches passing. Exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13341316759 SHA2566ab8549ea8e7b35bf50beb8241d161ef175190b05100d3511e937e05fba63144 downloaded/verified; touch-rally-1.png opened and inspected. Earlier CI41863192097 also passed; artifact13341501606 SHA256bb7a138c341b1a8f974a61a27e38c82fb0427e3aed0821bcdca85121227ec587 verified; desktop-rally-0.png and touch-rally-1.png inspected, prompting save-wording and active-rally screenshot corrections."
+      ],
+      "commits": [
+        "485bca3b7ac197f89762717e2a69b07d49df20fe",
+        "c4ee2fa509c98a229302308dcae3723dd97c665a"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; not qualified or selected.",
+        "assessment": "Distinct tactical sports loop with clear reach/stamina forecasts and persistent match records. However, the same two-shot clear/smash pattern beats all three opponents because point resets and deterministic reply placement do not adapt. This is a short baseline, not yet worthwhile replay depth.",
+        "observedWeakness": "Rendered matches confirm identical winning sequences and limited opponent differentiation. Court and controls are readable, but return trajectory/own-court numbering could be clearer.",
+        "knownLimits": "Automated rendered matches and screenshot inspection are not human enjoyment, physical-device testing or duration evidence. Full keyboard-only/embedded lifecycle and stronger save consistency remain qualification work."
+      },
+      "nextSteps": [
+        "Perform a substantive rendered-play improvement: adaptive defensive recovery/positioning and meaningful opponent progression should prevent the repeated two-shot exploit without simply inflating match length.",
+        "Improve trajectory and own-court feedback, then re-play wins/losses and inspect screenshots.",
+        "Complete keyboard-only, embedded lifecycle, safe-save qualification and slate comparison before integration."
+      ]
     },
     {
       "slot": 86,
@@ -3748,8 +3764,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate85, then render and substantially improve it; six unbuilt slots85–90 remain.",
-    "Build remaining6 distinct candidates85–90 with rendered baselines and substantive improvements.",
+    "Improve Shuttle Grove85 from its rendered baseline before qualification; repeated two-shot wins are the priority weakness.",
+    "Build remaining5 distinct candidates86–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
@@ -5273,6 +5289,12 @@
       "result": "Qualified Scree Rider84 as reserve after save-history checks and corrected finish guidance. Nine engine checks/twenty rendered descents and embedded lifecycle checks pass; screenshots inspected.44 built/improved/qualified,6 unbuilt; no public release.",
       "commit": "6c51c34ea3c35ebee65e7cb13129105fcaa2a6c4",
       "report": "dev/indie-collection-three/SCREE_RIDER_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Built Shuttle Grove85 tactical badminton baseline. Four engine checks/six rendered matches pass; inspected screenshots and corrected save wording.45 built,44 improved/qualified,5 unbuilt; no public release.",
+      "commit": "c4ee2fa509c98a229302308dcae3723dd97c665a",
+      "report": "dev/indie-collection-three/SHUTTLE_GROVE_BASELINE.md"
     }
   ],
   "historicalTotals": {
