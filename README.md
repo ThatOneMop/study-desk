@@ -24,7 +24,11 @@ Press P three times within one second, to move between study and games. The game
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 16 catalogue games are bundled and include the Study Desk bridge. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
+All 16 catalogue games are bundled and include the Study Desk bridge.
+
+## Arcade
+
+The Arcade shelf and filter list third-party HTML5 games embedded unchanged from GameMonetize's public embed links. Each one has a wrapper page at `arcade/<id>/` with fullscreen and back buttons and developer credit, and a section in credits.html. They need internet and show the catalogue's ads. GameDistribution games are prepared but switched off in `arcade-config.js`; see docs/arcade-gamedistribution.md. To regenerate the Arcade data, pages and credits, run `python3 tools/arcade/build.py .`. Real-browser fullscreen, pointer-lock and audio behaviour still varies by game and device.
 
 ## Recovered versions and implemented features
 

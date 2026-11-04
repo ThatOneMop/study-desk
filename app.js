@@ -44,7 +44,8 @@ const starter=[['Science','What is a force?','A push or pull that can change an 
 let cards=loadJson(KEY,starter,valid);
 let deckNames=loadJson(DECK_KEY,[],validDecks);deckNames=[...new Set([...deckNames,...cards.map(c=>c.deck)])];
 let deck=deckNames[0]||'My deck',index=0,flipped=false,order=[],arcade=false,playing=null,inPlayer=false,paused=false,hits=[],filter='All',tag='All';
-const games=window.GAME_CATALOG;
+function arcadeGdEnabled(){const c=window.ARCADE_CONFIG||{};return c.gdEnabled===true&&typeof c.gdPublisherId==='string'&&c.gdPublisherId.trim()!==''}
+const games=arcadeGdEnabled()&&Array.isArray(window.ARCADE_GD_CATALOG)?window.GAME_CATALOG.concat(window.ARCADE_GD_CATALOG):window.GAME_CATALOG;
 let hub=loadJson(HUB_KEY,{},v=>v&&typeof v==='object'&&!Array.isArray(v)&&['favourites','recent'].every(key=>v[key]===undefined||(Array.isArray(v[key])&&v[key].every(id=>typeof id==='string'&&id.length<=100))));
 // Keep retired IDs so preferences survive reversible catalogue changes.
 for(const key of ['favourites','recent'])hub[key]=Array.isArray(hub[key])?[...new Set(hub[key].filter(id=>typeof id==='string'&&id.length<=100))].slice(0,1000):[];
@@ -101,11 +102,11 @@ function drawGames(){
  for(const g of list){
   const groupName=groupMode==='genre'?g.genre:groupMode==='collection'?g.group:'All games';
   if(!sections.has(groupName)){const section=el('section',undefined,'game-section'),heading=el('h2',groupName),items=el('div',undefined,'grid');heading.append(el('small',String(list.filter(item=>(groupMode==='genre'?item.genre:groupMode==='collection'?item.group:'All games')===groupName).length)));section.append(heading,items);grid.append(section);sections.set(groupName,items)}
-  const tile=el('article',undefined,'game'),art=el('div',undefined,'art');art.style.setProperty('--shade',g.color);if(g.thumbnail){const img=el('img');img.src=g.thumbnail;img.alt=g.thumbnailAlt||g.title+' gameplay';img.loading='lazy';img.width=320;img.height=160;art.append(img)}else{art.textContent=g.icon;art.setAttribute('aria-hidden','true')}
+  const tile=el('article',undefined,'game'),art=el('div',undefined,'art');art.style.setProperty('--shade',g.color);if(g.thumbnail){const img=el('img');img.src=g.thumbnail;img.alt=g.thumbnailAlt||g.title+' gameplay';img.loading='lazy';img.width=320;img.height=160;if(g.type==='arcade'){img.className='photo';img.referrerPolicy='no-referrer'}art.append(img)}else{art.textContent=g.icon;art.setAttribute('aria-hidden','true')}
   const fav=button(hub.favourites.includes(g.id)?'★':'☆',()=>{hub.favourites=hub.favourites.includes(g.id)?hub.favourites.filter(x=>x!==g.id):[...hub.favourites,g.id];storeJson(HUB_KEY,hub);drawGames();focusGame(g.id,'favourite')},'fav');fav.dataset.game=g.id;fav.dataset.action='favourite';fav.setAttribute('aria-label','Favourite '+g.title);fav.setAttribute('aria-pressed',String(hub.favourites.includes(g.id)));
-  const body=el('div',undefined,'game-content');body.append(el('div',g.genre+' · '+g.group,'eyebrow'),el('h3',g.title),el('p',g.description));const badges=el('div',undefined,'badges');for(const label of [g.type==='external'?'Official-site link':'Bundled',g.internet?'Internet required':'Local assets'])if(label)badges.append(el('span',label));
+  const body=el('div',undefined,'game-content');body.append(el('div',g.genre+' · '+g.group,'eyebrow'),el('h3',g.title),el('p',g.description));const badges=el('div',undefined,'badges');for(const label of [g.type==='external'?'Official-site link':g.type==='arcade'?'Arcade · '+g.source:'Bundled',g.internet?'Internet required':'Local assets',g.type==='arcade'?'Has ads':''])if(label)badges.append(el('span',label));
   const details=el('details');details.append(el('summary','Controls & details'),el('p',g.controls+' · '+g.multiplayer));details.append(badges);const launch=button(g.type==='external'?'Open official site ↗':playing===g.id?'Return to game →':'Play game →',()=>play(g));launch.dataset.game=g.id;launch.dataset.action='play';launch.setAttribute('aria-label',(playing===g.id?'Return to ':'Play ')+g.title);body.append(details,launch);
-  const credits=el('a','Credits & source ↗');credits.href=g.credits;credits.target='_blank';credits.rel='noopener';details.append(credits);tile.append(art,fav,body);sections.get(groupName).append(tile);
+  const credits=el('a','Credits & source ↗');credits.href=g.credits;credits.target='_blank';credits.rel='noopener';details.append(credits);if(g.type==='arcade'){const by=el('p','By '+g.developer+' · via '+g.source+'. Ads are shown inside the game.','arcade-credit');details.append(by)}tile.append(art,fav,body);sections.get(groupName).append(tile);
  }
 }
 function visibility(visible){$('frame').contentWindow?.postMessage({type:'study-visibility',visible:visible&&!document.hidden},location.origin)}
@@ -143,7 +144,7 @@ window.addEventListener('message',e=>{if(e.source!==$('frame').contentWindow||e.
 window.addEventListener('keydown',e=>{if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
 function weekMonday(date=new Date()){const monday=new Date(date.getFullYear(),date.getMonth(),date.getDate());const day=monday.getDay()||7;monday.setDate(monday.getDate()-(day-1));monday.setHours(0,0,0,0);return monday}
 function mondayPick(date=new Date()){
- const bundled=games.filter(g=>g.type!=='external').sort((a,b)=>a.id.localeCompare(b.id));
+ const bundled=games.filter(g=>g.type==='bundled').sort((a,b)=>a.id.localeCompare(b.id));
  if(!bundled.length)return null;
  const days=Math.round((weekMonday(date).getTime()-new Date(2024,0,1).getTime())/86400000);
  return bundled[((Math.floor(days/7)%bundled.length)+bundled.length)%bundled.length];
@@ -231,7 +232,7 @@ function reviewSaveImport(changes){
   openModal(dialog);try{cancel.focus()}catch{}
  });
 }
-function gameTagList(g){return [g.type==='external'?'Official site':'Bundled',g.internet?'Needs internet':'Offline']}
+function gameTagList(g){return [g.type==='external'?'Official site':g.type==='arcade'?'Arcade':'Bundled',g.internet?'Needs internet':'Offline']}
 function tagMatch(g){return tag==='All'||gameTagList(g).includes(tag)}
 function storefrontHome(){return filter==='All'&&$('genre').value==='all'&&tag==='All'&&!$('search').value.trim()}
 function reduceMotion(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch{return false}}
@@ -261,7 +262,7 @@ function heroSlides(){
  const slides=[],gummy=games.find(g=>g.id==='gummy-bay'),monday=mondayPick();
  if(gummy)slides.push({game:gummy,kicker:'Featured'});
  if(monday&&(!gummy||monday.id!==gummy.id))slides.push({game:monday,kicker:'Monday pick'});
- const extra=games.find(g=>g.type!=='external'&&!slides.some(slide=>slide.game.id===g.id));
+ const extra=games.find(g=>g.type==='bundled'&&!slides.some(slide=>slide.game.id===g.id));
  if(extra)slides.push({game:extra,kicker:'On the desk'});
  return slides;
 }
@@ -312,11 +313,12 @@ function layoutStore(){
  const home=storefrontHome();
  if($('heroCarousel'))$('heroCarousel').hidden=!home;
  if($('arcadeMonday'))$('arcadeMonday').hidden=!home||$('arcadeMonday').dataset.ready!=='true';
- if(!home){for(const id of ['continuePlaying','trendingRow','newRow','favouriteShelf'])if($(id))$(id).hidden=true;syncChips();syncHeroMotion();return}
+ if(!home){for(const id of ['continuePlaying','trendingRow','newRow','favouriteShelf','arcadeShelf'])if($(id))$(id).hidden=true;syncChips();syncHeroMotion();return}
  const byId=id=>games.find(game=>game.id===id);
  fillShelf($('continuePlaying'),$('continueRow'),hub.recent.map(byId).filter(Boolean).slice(0,12),'Continue playing');
  fillShelf($('trendingRow'),$('trendingCards'),Object.entries(hub.plays).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(([id])=>byId(id)).filter(Boolean).slice(0,12),'Trending');
  fillShelf($('newRow'),$('newCards'),['harvest-protocol','creekhold','ashwake','autumn-drift','little-lake','roof-runner'].map(byId).filter(Boolean),'Recently improved');
+ fillShelf($('arcadeShelf'),$('arcadeRow'),games.filter(g=>g.group==='Arcade'),'Arcade:');
  fillShelf($('favouriteShelf'),$('favouriteRow'),hub.favourites.map(byId).filter(Boolean).slice(0,12),'Favourite');
  const opened=Object.values(hub.plays).reduce((sum,n)=>sum+n,0);
  if($('deskStats'))$('deskStats').textContent=opened?opened+' '+(opened===1?'session':'sessions')+' opened on this device':'No sessions on this device yet';
@@ -335,7 +337,7 @@ function buildGenreChips(){
 }
 function buildTagChips(){
  const row=$('tagFilters');if(!row)return;row.replaceChildren();
- for(const name of ['All','Bundled','Offline','Needs internet']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
+ for(const name of ['All','Bundled','Arcade','Offline','Needs internet']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
 }
 const THEME_KEY='study-desk-theme',SOUND_KEY='study-desk-sound';
 function applyTheme(theme){
@@ -357,7 +359,7 @@ function wireDesk(){
  soundOn=savedSound==='off'?false:savedSound==='on'?true:!reduceMotion();paintSound();
  if($('soundToggle'))$('soundToggle').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem(SOUND_KEY,soundOn?'on':'off')}catch{}paintSound();if(soundOn)playTone(520,.06,.04)};
  for(const id of ['themeStudy','themeArcade'])if($(id))$(id).onclick=()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
- if($('randomGame'))$('randomGame').onclick=()=>{const bundled=games.filter(g=>g.type!=='external');if(bundled.length)play(bundled[Math.floor(Math.random()*bundled.length)])};
+ if($('randomGame'))$('randomGame').onclick=()=>{const bundled=games.filter(g=>g.type==='bundled');if(bundled.length)play(bundled[Math.floor(Math.random()*bundled.length)])};
  const carousel=$('heroCarousel');
  if(carousel){
   carousel.addEventListener('mouseenter',()=>{heroHover=true;queueHero()});

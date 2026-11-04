@@ -13,7 +13,8 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 KEEP = {
     "gummy-bay", "autumn-drift", "little-lake", "lost-found", "moon-salvage", "tiny-wilds", "forge-arena",
-    "roof-runner", "ashwake", "winterfold", "spanwright", "creekhold", "lanewright", "harvest-protocol", "packworks", "numberworks",
+    "roof-runner", "ashwake", "winterfold", "spanwright", "creekhold", "lanewright", "harvest-protocol",
+    "packworks", "numberworks",
 }
 # Folders under games/ that are not catalogue entries but must stay.
 SUPPORT = {"gummy-bay-dev"}
@@ -31,16 +32,33 @@ class Parser(HTMLParser):
 
 
 catalog = json.loads((ROOT / "catalog.json").read_text())
+# Arcade entries are third-party catalogue games (GameMonetize) wrapped in arcade/<id>/ pages.
+arcade = [entry for entry in catalog if entry.get("type") == "arcade"]
+own = [entry for entry in catalog if entry.get("type") != "arcade"]
 ids = [entry["id"] for entry in catalog]
-assert len(ids) == len(set(ids)) == len(KEEP), ids
-assert set(ids) == KEEP, set(ids) ^ KEEP
+assert len(ids) == len(set(ids)), ids
+assert {entry["id"] for entry in own} == KEEP, {entry["id"] for entry in own} ^ KEEP
+assert len(catalog) == len(KEEP) + len(arcade)
+assert arcade, "expected live Arcade games"
 
 js = (ROOT / "catalog.js").read_text()
 assert js.startswith("window.GAME_CATALOG = ")
 assert json.loads(js.split("=", 1)[1].strip().rstrip(";")) == catalog, "catalog.js and catalog.json differ"
 
 credits = (ROOT / "credits.html").read_text()
+for entry in arcade:
+    assert entry["group"] == "Arcade" and entry["source"] == "GameMonetize", entry["id"]
+    assert entry["embed"].startswith("https://html5.gamemonetize.co/"), entry["id"]
+    assert entry["url"] == f"arcade/{entry['id']}/index.html", entry["id"]
+    assert entry["thumbnail"].startswith("https://img.gamemonetize.com/"), entry["id"]
+    page = (ROOT / entry["url"]).read_text()
+    assert "../../bridge.js" in page and "../../arcade-config.js" in page, entry["id"]
+    assert entry["embed"] in page, entry["id"]
+    assert f'id="{entry["credits"].split("#", 1)[1]}"' in credits, entry["id"]
+
 for entry in catalog:
+    if entry["type"] == "arcade":
+        continue
     assert entry["type"] == "bundled", entry["id"]
     assert entry["url"] == f"games/{entry['id']}/index.html", entry["id"]
     page = ROOT / entry["url"]
@@ -59,7 +77,7 @@ for loose in (ROOT / "games").iterdir():
     assert loose.is_dir(), f"unexpected file in games/: {loose.name}"
 
 sections = set(re.findall(r'<section id="([a-z0-9-]+)"', credits))
-assert sections <= KEEP | {"created-games"}, sections - KEEP
+assert sections <= KEEP | {"created-games", "arcade", "arcade-gamedistribution"} | {f"arcade-{e['id']}" for e in arcade}, sections - KEEP
 
 hub = "\n".join((ROOT / name).read_text() for name in ("index.html", "app.js", "community.html", "community.js"))
 for link in re.findall(r"games/([a-z0-9-]+)/", hub):
@@ -69,4 +87,4 @@ for path in ("app.js", "bridge.js", "catalog.js"):
     result = subprocess.run(["node", "--check", str(ROOT / path)], capture_output=True)
     assert result.returncode == 0, result.stderr.decode()
 
-print(f"PASS kept catalogue integrity: {len(KEEP)} bundled routes, bridge, credits, catalog.js/json match, no removed folders or links")
+print(f"PASS kept catalogue integrity: {len(KEEP)} bundled routes + {len(arcade)} live Arcade games, bridge, credits, catalog.js/json match, no removed folders or links")

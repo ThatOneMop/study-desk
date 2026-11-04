@@ -8,17 +8,20 @@ const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-gam
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
 const KEEP=["ashwake", "autumn-drift", "creekhold", "forge-arena", "gummy-bay", "harvest-protocol", "lanewright", "little-lake", "lost-found", "moon-salvage", "numberworks", "packworks", "roof-runner", "spanwright", "tiny-wilds", "winterfold"];
-assert.equal(catalog.length,16);
-assert.deepEqual(catalog.map(g=>g.id).sort(),KEEP,'exactly the kept games are listed');
+const arcade=catalog.filter(g=>g.type==='arcade');
+assert(arcade.length>=4,'live Arcade games are listed');
+assert(arcade.every(g=>g.group==='Arcade'&&g.source==='GameMonetize'&&/^https:\/\/html5\.gamemonetize\.co\//.test(g.embed)));
+assert.equal(catalog.length,KEEP.length+arcade.length,'own games + live arcade games');
+assert.deepEqual(catalog.filter(g=>g.type!=='arcade').map(g=>g.id).sort(),KEEP,'exactly the kept games are listed');
 assert(catalog.every(g=>!['Nightshift','Afterlight'].includes(g.group)));
-assert(catalog.every(g=>['bundled','external'].includes(g.type)));
+assert(catalog.every(g=>['bundled','external','arcade'].includes(g.type)));
 assert(catalog.filter(g=>g.type==='external').every(g=>/^https:\/\//.test(g.url)));
 assert(!d.querySelector('#playerStudy, #studyBtn'));
 assert(!/switch workspace/i.test(d.body.textContent));
-assert(catalog.every(g=>g.type==='bundled'),'no external links remain');
+assert(catalog.every(g=>g.type!=='external'),'no external links remain');
 assert.equal(new Set(catalog.map(g=>g.id)).size,catalog.length);
 assert.equal($('openGames'),null,'study area has no swap-to-games button');assert.equal($('switch'),null,'study area has no Browse games entry');assert(!/Browse \d+ games|Games · \d+/.test($('study').textContent),'study area never advertises the game count');
-assert.equal($('includedCount').textContent,catalog.filter(g=>g.type==='bundled').length+' games included here');
+assert.equal($('includedCount').textContent,catalog.filter(g=>g.type!=='external').length+' games included here');
 assert(!d.body.textContent.includes('100 games'));
 assert(!d.body.textContent.includes('Community classics'));
 function filter(name){[...$('filters').children].find(b=>b.textContent===name).click()}
