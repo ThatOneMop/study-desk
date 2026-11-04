@@ -1,5 +1,5 @@
 'use strict';const E=Dyehouse,$=id=>document.getElementById(id);let s=E.create(),paused=false,hidden=false,blocked=false,pending=null;try{const raw=localStorage.getItem(E.KEY);if(raw)s=E.decode(raw)}catch{blocked=true}const busy=()=>paused||hidden||document.hidden||$('confirm').open;
-function save(){if(blocked){$('save').textContent='Unreadable dyehouse save preserved. Recover explicitly to replace it.';return}try{localStorage.setItem(E.KEY,JSON.stringify(s));$('save').textContent='Colony saved on this browser.'}catch{$('save').textContent='Storage unavailable; temporary session.'}}
+function save(){if(blocked){$('save').textContent='Unreadable dyehouse save preserved. Recover explicitly to replace it.';return}try{localStorage.setItem(E.KEY,JSON.stringify(s));$('save').textContent='Dyehouse saved on this browser.'}catch{$('save').textContent='Storage unavailable; temporary session.'}}
 function go(a){if(busy())return;const n=E.act(s,a);if(!n)return;s=n;save();render()}
 function colour(p){const v=E.volume(p);if(v<1e-8)return '#ede6db';const rgb=[[190,75,102],[75,76,166],[220,177,65]];return 'rgb('+[0,1,2].map(i=>Math.round(p.reduce((a,x,k)=>a+x*rgb[k][i],0)/v)).join(',')+')'}
 function button(id,label,a){const b=document.createElement('button');b.id=id;b.textContent=label;b.disabled=busy()||!E.act(s,a);b.onclick=()=>go(a);return b}
