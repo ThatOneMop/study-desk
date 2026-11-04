@@ -7,3 +7,5 @@
 #side,#main{margin-top:10px}#linehelp,.quick{font-size:14px;line-height:1.4}#linehelp{background:#faf2cf;border-radius:8px;padding:10px}#trail svg g{transition:transform .22s ease-out}@media(prefers-reduced-motion:reduce){#trail svg g{transition:none}}
 
 #court svg{width:100%;display:block;max-height:280px}#aims{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}button[aria-pressed=true]{background:#3d6154;color:white}#aims button{font-size:14px;padding:8px}#preview{position:static}
+
+#tactics{font-size:14px;background:#e3e7d2;padding:10px;border-radius:10px}.build:has(#hold){margin-top:10px}
