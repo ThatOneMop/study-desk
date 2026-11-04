@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 46,
-    "improved": 45,
+    "improved": 46,
     "browserTested": 45,
     "integrated": 0,
     "live": 0
@@ -3698,34 +3698,52 @@
       "slot": 86,
       "id": "echo-orchard",
       "title": "Echo Orchard",
-      "coreLoop": "Record footsteps, rewind to the entrance and let up to two echoes replay those routes and hold leaf plates, opening gates so the player can cross the orchard.",
-      "status": "built-awaiting-rendered-baseline",
+      "coreLoop": "Record footsteps and replay two echoes to open leaf gates. Earned Duets retrace routes, turning recorded waits and path length into gate-timing choices.",
+      "status": "improved-awaiting-qualification",
       "source": "games/echo-orchard",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-05",
+          "observedWeakness": "Rendered baseline staged two permanently parked echoes on plates in every layout; timing stopped mattering after setup. Phone Down button wrapped to a separate row.",
+          "changes": [
+            "Earned Duet mode retraces saved routes forward and backward, requiring different timed movements; recorded plate waits widen gate openings.",
+            "Eight-beat gate forecast and echo footprint positions show the rhythm; mode-specific help and best score.",
+            "Persistent Duet seals and separate records, gentle-return recovery, legacy save defaults.",
+            "Arrow/W/I/U controls and five-button phone movement row."
+          ],
+          "implementationCommits": [
+            "9f914d8f501f1728d386e51865dac9fac1d4099c",
+            "564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7"
+          ],
+          "validation": "Final CI41902937782 at564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7 passed six engine checks and twelve rendered gentle/Duet solutions on desktop1280×1000 and touch-emulated390×844. Exact per-action reload, Duet unlocks/seals, return-to-gentle, erase/restart, records, native Space/Enter/Escape and arrow movement, pause, corrupt/quota storage, Games navigation, same-row movement buttons and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13359377133 SHA256f9b7b2c0af4c283ed283b8560e6eb89a337cc067726a4b5664cbacc1289c0907 downloaded/verified; touch-duet-won-2.png inspected to confirm corrected phone row, active-mode goal and Duet best score. Earlier upgrade artifact13359426354 was also verified and desktop/phone screenshots inspected."
+        }
+      ],
       "tests": [
-        "Four local Node engine checks pass: normal-action solutions for three orchards, immutable state and save roundtrip, echo replay/end holding/rewind, gate timing, erase/restart/slot limits and malformed saves. Solver routes use22/19/22 movement steps; these are automated engine solutions, not rendered or enjoyment evidence.",
-        "GitHub workflow41892617485 at8a51203a81057c6d306eb175eef3ec9563e69ec8 was still in dependency setup (Playwright/Chromium installation) on the latest observed job126793731897. Browser checks and repository asset checks remain unverified for this commit. No artifacts were available; job-log fetch returned404 BlobNotFound while the job was unfinished. Do not count browser qualification or improvement."
+        "CI41892617485 at8a51203a81057c6d306eb175eef3ec9563e69ec8 completed successfully: four engine checks and six rendered desktop1280×1000/touch-emulated390×844 orchard solutions, exact per-action reload, echo/plate/gate progression, erase/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games, no overflow/page errors. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13354179157 SHA256a3b23627c2dc92a94c5c933611ed50c5a5d4f365d0d9c94e530239cf2c336e3b verified; desktop-echo-0.png and touch-won-2.png inspected.",
+        "Final CI41902937782 at564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7 passed six engine checks and twelve rendered gentle/Duet solutions on desktop1280×1000 and touch-emulated390×844. Exact per-action reload, Duet unlocks/seals, return-to-gentle, erase/restart, records, native Space/Enter/Escape and arrow movement, pause, corrupt/quota storage, Games navigation, same-row movement buttons and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13359377133 SHA256f9b7b2c0af4c283ed283b8560e6eb89a337cc067726a4b5664cbacc1289c0907 downloaded/verified; touch-duet-won-2.png inspected to confirm corrected phone row, active-mode goal and Duet best score. Earlier upgrade artifact13359426354 was also verified and desktop/phone screenshots inspected."
       ],
       "commits": [
-        "8a51203a81057c6d306eb175eef3ec9563e69ec8"
+        "8a51203a81057c6d306eb175eef3ec9563e69ec8",
+        "9f914d8f501f1728d386e51865dac9fac1d4099c",
+        "564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Implemented baseline awaiting rendered testing; not qualified or selected.",
-        "assessment": "Distinct recording/replay mechanic with two simultaneous echoes, turn-based gate timing and reversible echo removal. Three layouts currently share the same two-plate staging pattern, limiting depth. Visual/control quality is not yet verified in a rendered browser.",
-        "observedWeakness": "Engine solutions all stage plate A, then plate B, then exit. A substantive improvement should introduce meaningful replay timing or route choices rather than more copies of this sequence.",
-        "knownLimits": "No rendered screenshot inspection or browser progression/save/navigation evidence exists yet for86. No duration or human-enjoyment claim."
+        "status": "Substantially improved; full qualification and selection pending.",
+        "assessment": "Retracing gates change the normal solution and make recorded plate dwell useful. Three fixed layouts still share two-gate topology; compare after qualification.",
+        "knownLimits": "Automated rendered paths and inspected screenshots are not human-enjoyment or physical-device evidence. Full keyboard-only routes, embedded lifecycle and stronger save consistency remain pending."
       },
       "nextSteps": [
-        "First inspect workflow41892617485 completion/logs/artifacts; fix failures and inspect desktop/touch screenshots before counting a rendered baseline.",
-        "Then implement a substantive game-specific improvement based on rendered play, particularly replay timing/route choices.",
-        "Complete keyboard-only, embedded lifecycle, save consistency and selection evaluation before catalogue integration."
+        "Qualify full keyboard-only routes, embedded bridge/confirmation/recovery/Collection behavior and save path/tick/completion consistency.",
+        "Evaluate for final slate selection; preserve current main curation.",
+        "Build remaining distinct candidates87–90."
       ]
     },
     {
@@ -3802,13 +3820,13 @@
     }
   ],
   "nextSteps": [
-    "Finish Echo Orchard86 rendered baseline verification (workflow41892617485), then substantively improve and qualify it; four unbuilt slots87–90 remain.",
+    "Qualify improved Echo Orchard86; four unbuilt slots87–90 remain.",
     "Build remaining4 distinct candidates87–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
   "updated": "2026-11-05",
-  "latestObservedMain": "16b3b1658812a90c885fab83d3af419557d8b59b",
+  "latestObservedMain": "f6164b75b93c4a323a7c8dfedd5f3711f7719437",
   "runHistory": [
     {
       "date": "2026-10-25",
@@ -5351,6 +5369,12 @@
       "result": "Implemented Echo Orchard86 recording/replay puzzle. Four local engine checks pass. Browser workflow still in dependency setup with no artifacts; rendered baseline, improvement and qualification pending.46 built,45 improved/qualified,4 unbuilt; no public release.",
       "commit": "8a51203a81057c6d306eb175eef3ec9563e69ec8",
       "report": "dev/indie-collection-three/ECHO_ORCHARD_BASELINE.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Resolved Echo Orchard86 baseline CI and substantially improved it with earned retracing Duets, recorded plate dwell, gate forecasts, saved seals and keyboard/phone controls. Six engine checks/twelve rendered solutions pass; screenshots inspected.46 built/improved,45 qualified,4 unbuilt; no public release.",
+      "commit": "564ee3d0ebac7de18ce604af7ddeb84ba51b1ee7",
+      "report": "dev/indie-collection-three/ECHO_ORCHARD_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
@@ -5364,7 +5388,7 @@
   },
   "releaseGate": {
     "status": "needs-current-curation-reconciliation",
-    "reason": "Main now contains15 games including concurrent Packworks. Preserve current curated selection; prior exact14 assumptions/preflight need reconciliation before any release.",
+    "reason": "Main includes concurrent Packworks and Arcade PR111; reconcile preflight against fresh catalogue before any release. Preserve current selection and do not count third-party Arcade imports among original candidates.",
     "main": "fa57730f70904ae5f15e47fe0c7e55dc28144c88",
     "pullRequest": "https://github.com/ThatOneMop/study-desk/pull/110",
     "pagesRun": 41407777399,
@@ -5386,7 +5410,7 @@
     ],
     "preflight": "dev/indie-collection-three/release-preflight.cjs",
     "note": "Run preflight against freshly fetched main and use expected_sha lease. This is an opt-in development check, not a server-side GitHub branch rule.",
-    "observedMain": "1fb19a215b0f9f0b91d5f469011f4c48e771fb59",
+    "observedMain": "f6164b75b93c4a323a7c8dfedd5f3711f7719437",
     "observedAllowedIds": [
       "gummy-bay",
       "autumn-drift",
