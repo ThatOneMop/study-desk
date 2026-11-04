@@ -22,6 +22,7 @@ jobs:
           node --check games/echo-orchard/game.js
           node --test tests/echo-orchard-engine.cjs
           node tests/echo-orchard-browser.cjs
+          node tests/echo-orchard-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
