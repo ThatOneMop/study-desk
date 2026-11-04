@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 45,
+    "built": 46,
     "improved": 45,
     "browserTested": 45,
     "integrated": 0,
@@ -3696,21 +3696,37 @@
     },
     {
       "slot": 86,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "echo-orchard",
+      "title": "Echo Orchard",
+      "coreLoop": "Record footsteps, rewind to the entrance and let up to two echoes replay those routes and hold leaf plates, opening gates so the player can cross the orchard.",
+      "status": "built-awaiting-rendered-baseline",
+      "source": "games/echo-orchard",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "Four local Node engine checks pass: normal-action solutions for three orchards, immutable state and save roundtrip, echo replay/end holding/rewind, gate timing, erase/restart/slot limits and malformed saves. Solver routes use22/19/22 movement steps; these are automated engine solutions, not rendered or enjoyment evidence.",
+        "GitHub workflow41892617485 at8a51203a81057c6d306eb175eef3ec9563e69ec8 was still in dependency setup (Playwright/Chromium installation) on the latest observed job126793731897. Browser checks and repository asset checks remain unverified for this commit. No artifacts were available; job-log fetch returned404 BlobNotFound while the job was unfinished. Do not count browser qualification or improvement."
+      ],
+      "commits": [
+        "8a51203a81057c6d306eb175eef3ec9563e69ec8"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Implemented baseline awaiting rendered testing; not qualified or selected.",
+        "assessment": "Distinct recording/replay mechanic with two simultaneous echoes, turn-based gate timing and reversible echo removal. Three layouts currently share the same two-plate staging pattern, limiting depth. Visual/control quality is not yet verified in a rendered browser.",
+        "observedWeakness": "Engine solutions all stage plate A, then plate B, then exit. A substantive improvement should introduce meaningful replay timing or route choices rather than more copies of this sequence.",
+        "knownLimits": "No rendered screenshot inspection or browser progression/save/navigation evidence exists yet for86. No duration or human-enjoyment claim."
+      },
+      "nextSteps": [
+        "First inspect workflow41892617485 completion/logs/artifacts; fix failures and inspect desktop/touch screenshots before counting a rendered baseline.",
+        "Then implement a substantive game-specific improvement based on rendered play, particularly replay timing/route choices.",
+        "Complete keyboard-only, embedded lifecycle, save consistency and selection evaluation before catalogue integration."
+      ]
     },
     {
       "slot": 87,
@@ -3786,8 +3802,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate86, then render and substantially improve it; five unbuilt slots86–90 remain.",
-    "Build remaining5 distinct candidates86–90 with rendered baselines and substantive improvements.",
+    "Finish Echo Orchard86 rendered baseline verification (workflow41892617485), then substantively improve and qualify it; four unbuilt slots87–90 remain.",
+    "Build remaining4 distinct candidates87–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
@@ -5329,6 +5345,12 @@
       "result": "Qualified Shuttle Grove85 as reserve after save-history and shot-name validation fixes. Eight engine checks/twelve rendered matches and embedded lifecycle checks pass; screenshots inspected.45 built/improved/qualified,5 unbuilt; no public release.",
       "commit": "1d54b26c4dff2acb8bc304704b1f9dccf9e59524",
       "report": "dev/indie-collection-three/SHUTTLE_GROVE_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Implemented Echo Orchard86 recording/replay puzzle. Four local engine checks pass. Browser workflow still in dependency setup with no artifacts; rendered baseline, improvement and qualification pending.46 built,45 improved/qualified,4 unbuilt; no public release.",
+      "commit": "8a51203a81057c6d306eb175eef3ec9563e69ec8",
+      "report": "dev/indie-collection-three/ECHO_ORCHARD_BASELINE.md"
     }
   ],
   "historicalTotals": {
