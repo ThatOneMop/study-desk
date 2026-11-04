@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 40,
+    "built": 41,
     "improved": 40,
     "browserTested": 40,
     "integrated": 0,
@@ -3418,21 +3418,35 @@
     },
     {
       "slot": 81,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "skyhook",
+      "title": "Skyhook",
+      "coreLoop": "Move a crane trolley, retract or lower its swinging cargo to clear a warehouse roof, align with the berth and release gently; recover returned loads and optimize persistent shift handling scores.",
+      "status": "built-awaiting-improvement",
+      "source": "games/skyhook",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41765352567 at e5792ee908c59c84126ce1c96825f1ef262fabc2 passes four engine checks and six rendered deliveries (three at desktop1280×1000, three at touch-emulated390×844), rough release/retry, confirmation cancel/restart, delivery saves/reload, records/new shift, pause, Space and no overflow/page errors. Repository74 routes/286 asset references and nine selected first-batch integrity checks pass. Artifact13293145490 SHA2568057b4a198baededaa0f722acdb1bcc4edbc684a28f61dc1fa94cff0e675dbe5 downloaded/verified; desktop-load-0.png and touch-load-2.png opened and inspected."
+      ],
+      "commits": [
+        "c0c60162612a8fbefc7bec65482bc8b365504fee",
+        "e5792ee908c59c84126ce1c96825f1ef262fabc2"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; substantive improvement and qualification pending.",
+        "assessment": "Original pendulum cargo handling differs from packing and elevator candidates. Readable harbour graphics and touch controls support deliveries, but repeated trolley clicks followed by passive settling dominate play. Berth variations alone offer shallow replayability.",
+        "knownLimits": "Motion dt is clamped, so low-frame-rate preview can slow physics substantially; fix with bounded accumulated substeps. Ready guide uses instantaneous velocity/alignment; better prediction and active damping are improvement targets. Best records are saved but need visible comparison. Full keyboard/bridge/recovery/navigation testing remains. Automated routes and screenshot inspection are not human enjoyment, physical-device or duration evidence."
+      },
+      "nextSteps": [
+        "Substantially improve active handling choices: comfortable hold controls, meaningful braking/rope tradeoffs or varied cargo requirements, predicted clearance/landing feedback and visible best records. Fix low-frame-rate time integration; render-test before claiming improvement.",
+        "Then qualify saves, keyboard, hidden confirmations, recovery and actual bridge/navigation."
+      ]
     },
     {
       "slot": 82,
@@ -3598,8 +3612,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate81, render its baseline and implement a substantive observed improvement;10 unbuilt slots81–90 remain.",
-    "Build remaining10 distinct candidates in slots81–90 with rendered baselines and substantive improvements.",
+    "Improve Skyhook81 based on rendered baseline (repeated clicks/passive waiting, frame-rate dependence, shallow berth-only variations), then qualify;9 unbuilt slots82–90 remain.",
+    "Build remaining9 distinct candidates in slots82–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -5051,6 +5065,12 @@
       "result": "Qualified Rootstock80 as reserve; strengthened save consistency and verified keyboard breeding, phone carousel and embedded confirmation/recovery guards. Eight engine checks and sixteen rendered deliveries pass; final screenshots inspected.40 built/improved/qualified,10 unbuilt; no release change.",
       "commit": "49879106ca0b40bd555037335cf0044cb0ba82ff",
       "report": "dev/indie-collection-three/ROOTSTOCK_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Built Skyhook81 pendulum crane-handling baseline. Four engine checks/six rendered deliveries pass; screenshots inspected. Drift feedback added after observed roof contact.41 built,40 improved/qualified,9 unbuilt; no release change.",
+      "commit": "e5792ee908c59c84126ce1c96825f1ef262fabc2",
+      "report": "dev/indie-collection-three/SKYHOOK_BASELINE.md"
     }
   ],
   "historicalTotals": {
