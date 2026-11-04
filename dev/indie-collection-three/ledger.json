@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 40,
-    "improved": 39,
+    "improved": 40,
     "browserTested": 39,
     "integrated": 0,
     "live": 0
@@ -3367,35 +3367,49 @@
       "id": "rootstock",
       "title": "Rootstock",
       "coreLoop": "Choose two parent trees and a recombination point, inspect complementary offspring, retain seedlings in a six-pot nursery and prune unneeded stock to breed exact trait requests while preserving cultivar discoveries.",
-      "status": "initial-playable-awaiting-substantive-improvement",
+      "status": "improved-awaiting-qualification",
       "source": "games/rootstock",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-04",
+          "observedWeakness": "Rendered baseline routes took one or two crosses, never needed pruning, and phone users scrolled through a tall stack of visually identical trees.",
+          "changes": [
+            "Earn paired orchards after ordinary delivery; retain both requested and opposite trait cultivars together, with separate persistent seals.",
+            "First two tested paired routes require four crosses and two parent-pruning decisions while keeping needed breeding lines available.",
+            "Add trait-dependent SVG tree height, canopy/fruit colours and fruit size, plus a visual discovery album.",
+            "Use horizontal phone nursery cards and compact bench, preserve horizontal scroll, and label ordinary/paired records correctly; confirm mode transitions and migrate legacy saves."
+          ],
+          "implementationCommits": [
+            "f1a048bf88ca85ccf69bf80431960acd009b9a81",
+            "65323beded6c8758fc0f6466089151a84bb279e2"
+          ],
+          "validation": "CI41751250289 at65323beded6c8758fc0f6466089151a84bb279e2 passed six distinct engine checks and twelve rendered deliveries: ordinary and earned paired requests across desktop1280×1000/touch-emulated390×844. Per-action exact reload, parent/crossover/offspring choices, required pruning in first two paired routes, discard, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Final artifact13285799142 SHA256db7e0c72011b7fecdf559192bd3dec364f696b1909a79380a9238801dcf0f9d4 verified and touch-paired-1.png inspected. Earlier successful CI41750990176 artifact13285923556 SHA256416713553210b23501e86c1a40b527a9dfa6610fe042b6cb248797af17bbf688 verified; desktop-paired-0.png/touch-paired-1.png inspection prompted score-label and scroll-preservation fixes."
+        }
+      ],
       "tests": [
-        "CI41743467255 at002c835dec0250550cb991f6f346d9a495d11773 passed four distinct engine checks and six rendered deliveries (three orders each at desktop1280×1000 and touch-emulated390×844). Exact per-action save/reload, parent/crossover/offspring selection, pruning, discard, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13282591819 SHA256abdd0b45ec13dd39232e9e852b85a751765082eff9556ae90e5ac5b53b064531 verified; desktop-order-0.png and touch-order-1.png opened and inspected."
+        "CI41743467255 at002c835dec0250550cb991f6f346d9a495d11773 passed four distinct engine checks and six rendered deliveries (three orders each at desktop1280×1000 and touch-emulated390×844). Exact per-action save/reload, parent/crossover/offspring selection, pruning, discard, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13282591819 SHA256abdd0b45ec13dd39232e9e852b85a751765082eff9556ae90e5ac5b53b064531 verified; desktop-order-0.png and touch-order-1.png opened and inspected.",
+        "CI41751250289 at65323beded6c8758fc0f6466089151a84bb279e2 passed six distinct engine checks and twelve rendered deliveries: ordinary and earned paired requests across desktop1280×1000/touch-emulated390×844. Per-action exact reload, parent/crossover/offspring choices, required pruning in first two paired routes, discard, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Final artifact13285799142 SHA256db7e0c72011b7fecdf559192bd3dec364f696b1909a79380a9238801dcf0f9d4 verified and touch-paired-1.png inspected. Earlier successful CI41750990176 artifact13285923556 SHA256416713553210b23501e86c1a40b527a9dfa6610fe042b6cb248797af17bbf688 verified; desktop-paired-0.png/touch-paired-1.png inspection prompted score-label and scroll-preservation fixes."
       ],
       "commits": [
-        "002c835dec0250550cb991f6f346d9a495d11773"
+        "002c835dec0250550cb991f6f346d9a495d11773",
+        "f1a048bf88ca85ccf69bf80431960acd009b9a81",
+        "65323beded6c8758fc0f6466089151a84bb279e2"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Playable baseline, not improved or qualified.",
-        "observedWeaknesses": [
-          "Initial requests take only one or two crosses; ordinary solutions do not require pruning, so nursery capacity has weak strategic pressure.",
-          "Phone layout requires excessive travel between parent cards and offspring/crossover controls.",
-          "All trees share the same silhouette despite different traits; album is only a discovery count."
-        ],
-        "knownLimits": "Stylized deterministic trait recombination, not a botanical simulation. Three fixed requests; no duration or human-enjoyment claim. Baseline has no loss phase; pruning can lose useful parent traits, and confirmed restart recovers starting stock while preserving discoveries. Full keyboard/embedded qualification and stronger save validation remain."
+        "status": "Substantively improved; full qualification pending.",
+        "assessment": "Paired stock retention introduces useful breeding-line and nursery-space choices beyond the short baseline. Artwork now communicates four traits and the phone bench follows one horizontal row rather than six stacked cards. Three fixed ordinary/paired request pairs still limit replay depth.",
+        "knownLimits": "Automated routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Full keyboard/embedded tests, carousel interaction regression and stronger paired-save consistency checks remain. No selection or live release claimed."
       },
       "nextSteps": [
-        "Create meaningful multi-generation breeding choices and useful persistent discovery progression based on baseline observations.",
-        "Make visual tree traits distinct and reduce phone parent/bench travel; preserve existing saves.",
-        "Re-test changed mechanics, pruning/restart, saves, keyboard/touch and embedded navigation before selection."
+        "Qualify keyboard/embedded confirmations, horizontal nursery controls, paired-save consistency and legacy migration; then evaluate selection."
       ]
     },
     {
@@ -3580,7 +3594,7 @@
     }
   ],
   "nextSteps": [
-    "Substantively improve Rootstock80 from rendered baseline; short requests, weak nursery pressure and phone travel are priorities.",
+    "Qualify improved Rootstock80, then assess selection;10 unbuilt slots81–90 remain.",
     "Build remaining10 distinct candidates in slots81–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -5021,6 +5035,12 @@
       "result": "Built Rootstock80 orchard recombination baseline. Four engine checks/six rendered deliveries pass; screenshots inspected.40 built,39 improved/qualified,10 unbuilt. No catalogue/live changes.",
       "commit": "002c835dec0250550cb991f6f346d9a495d11773",
       "report": "dev/indie-collection-three/ROOTSTOCK_BASELINE.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Substantially improved Rootstock80 with earned paired orchards, meaningful nursery pruning, persistent seals and trait art/phone layout. Six engine checks/twelve rendered deliveries pass; screenshots inspected.40 built/improved,39 qualified,10 unbuilt; no release change.",
+      "commit": "65323beded6c8758fc0f6466089151a84bb279e2",
+      "report": "dev/indie-collection-three/ROOTSTOCK_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
