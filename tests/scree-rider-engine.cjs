@@ -6,3 +6,5 @@ T('Reject malformed and inconsistent saves without mutating raw data',()=>{for(c
 
 T('Earned alternate lines create faster clean routes, with narrow approach risks',()=>{for(let trail=0;trail<3;trail++){let s=E.create(trail,{[trail]:47});const actions=route(trail,true);A.ok(actions.includes('side'));for(const a of actions)s=E.decode(JSON.stringify(E.act(s,a)));A.equal(s.phase,'won');A.equal(s.health,3);A.ok(s.time<47);console.log('Alternate',trail,s.time)}A.equal(E.act(E.create(),'side'),null);const s=E.act(E.create(0,{0:47}),'side');A.match(E.project(s).reason,/narrow/)});
 T('Legacy saves retain records and default to main trail',()=>{const s=E.create(0,{0:47});delete s.line;A.equal(E.decode(JSON.stringify(s)).line,'main');A.deepEqual(E.decode(JSON.stringify(s)).records,{0:47});A.throws(()=>E.decode(JSON.stringify({...E.create(),line:'side'})))});
+
+T('Gap bridge offers a clean low-speed recovery route',()=>{let s=E.create(0,{0:47}),bridge=false;for(const a of route(0,true,true)){if(a==='ride'&&s.line==='side'&&E.trails[0][1][s.section][1]==='gap')bridge=true;s=E.act(s,a)}A.ok(bridge);A.equal(s.phase,'won');A.equal(s.health,3)});
