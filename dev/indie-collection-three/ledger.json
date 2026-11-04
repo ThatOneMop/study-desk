@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 41,
+    "built": 42,
     "improved": 41,
     "browserTested": 41,
     "integrated": 0,
@@ -3475,21 +3475,37 @@
     },
     {
       "slot": 82,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "warren-watch",
+      "title": "Warren Watch",
+      "coreLoop": "Allocate a shared ant workforce among foraging, brood nursing, digging and defence; prepare for visible weather and raids, expand food capacity, hatch workers and provision a daughter colony.",
+      "status": "built-awaiting-improvement",
+      "source": "games/warren-watch",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41784253180 at e353626130347502e4c4c7b0be4437ae8cdf153c passed four engine checks and six rendered colony wins (three forecast starts at desktop1280×1000 and touch-emulated390×844), legal allocations, brood growth, chamber construction, per-action state assertions/per-day reload, records/restart, loss/retry, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13299979364 SHA256c2745859522ba0fb6fce9c82ebc6ddaf3a24055c25cada3f141f800e0c991424 downloaded/verified; desktop-colony-1.png and touch-colony-2.png opened and inspected. Earlier passing CI41783873954 artifact13300302305 SHA256b50b3127759110d945c98e5059f0d584f8022979372eae5094dbae9eeae255af inspected; misleading chamber/ant art corrected afterward."
+      ],
+      "commits": [
+        "ff9dd1d14fc891170fd185d72433377e397a24bc",
+        "e353626130347502e4c4c7b0be4437ae8cdf153c"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Playable baseline; substantive improvement and full qualification pending.",
+        "assessment": "A complete colony loop with coupled food/upkeep, two-day brood care, excavation and forecast defence. Baseline routes for three rendered starts all finish in six days using the same greedy allocation policy. Four starts rotate one weather cycle, so replay choice is still shallow.",
+        "observedWeakness": "Rendered desktop/phone runs show repeated +/- allocations; mobile controls and open instructions create a tall page. Chamber purchases currently add capacity/brood size without choosing a colony strategy. First screenshots placed food in a dark chamber and ants outside their room; corrected functional chamber art in the baseline feedback commit, not counted as the substantive improvement.",
+        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. No measured long campaign. Full keyboard routes, embedded bridge lifecycle and stronger save-state consistency still need qualification."
+      },
+      "nextSteps": [
+        "Perform a substantive rendered-play improvement: add mutually useful chamber specializations or brood/resource tradeoffs that change work allocation, rather than more rotated starts.",
+        "Improve repeated worker assignment and compact phone decision feedback. Preserve existing v1 saves and ordinary completion records.",
+        "Render the changed loop and then qualify full keyboard/embedded lifecycle, storage consistency and replay before selection."
+      ]
     },
     {
       "slot": 83,
@@ -3637,8 +3653,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate82, render its baseline and perform a substantive observed improvement;9 unbuilt slots82–90 remain.",
-    "Build remaining9 distinct candidates in slots82–90 with rendered baselines and substantive improvements.",
+    "Substantially improve and qualify Warren Watch82 from its rendered baseline; do not count its cutaway fix as the improvement pass.",
+    "Build remaining8 distinct candidates in slots83–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
   ],
@@ -5108,6 +5124,12 @@
       "result": "Qualified Skyhook81 as reserve after save consistency and synchronous hidden-hold fixes. Nine engine checks/thirty rendered deliveries and bridge/recovery tests pass; screenshots inspected.41 built/improved/qualified,9 unbuilt; no release change.",
       "commit": "467928f5c49bfc99949162e36113cca3a0b44414",
       "report": "dev/indie-collection-three/SKYHOOK_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Built Warren Watch82 ant-colony allocation baseline; four engine checks and six rendered colony wins pass. Inspected desktop/phone screenshots and corrected misleading cutaway art.42 built,41 improved/qualified,8 unbuilt; no catalogue or live release change.",
+      "commit": "e353626130347502e4c4c7b0be4437ae8cdf153c",
+      "report": "dev/indie-collection-three/WARREN_WATCH_BASELINE.md"
     }
   ],
   "historicalTotals": {
