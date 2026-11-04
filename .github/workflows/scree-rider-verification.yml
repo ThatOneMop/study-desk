@@ -22,6 +22,7 @@ jobs:
           node --check games/scree-rider/game.js
           node --test tests/scree-rider-engine.cjs
           node tests/scree-rider-browser.cjs
+          node tests/scree-rider-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
