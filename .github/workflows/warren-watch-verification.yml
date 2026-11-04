@@ -22,6 +22,7 @@ jobs:
           node --check games/warren-watch/game.js
           node --test tests/warren-watch-engine.cjs
           node tests/warren-watch-browser.cjs
+          node tests/warren-watch-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
