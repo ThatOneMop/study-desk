@@ -6,7 +6,7 @@
   "totals": {
     "built": 43,
     "improved": 43,
-    "browserTested": 42,
+    "browserTested": 43,
     "integrated": 0,
     "live": 0
   },
@@ -3532,11 +3532,11 @@
       "id": "stillwater-dyehouse",
       "title": "Stillwater Dyehouse",
       "coreLoop": "Dose finite pigments into three different-capacity pots, transfer measured portions while retaining mixture proportions, deliver exact two-cup cloth recipes and conserve leftovers instead of wasting dye.",
-      "status": "improved-awaiting-qualification",
+      "status": "qualified-reserve",
       "source": "games/stillwater-dyehouse",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3560,25 +3560,28 @@
       ],
       "tests": [
         "CI41812161353 at102bfef4ac91df144062aae51fd91e0522f67d23 passed four engine checks and six rendered three-cloth palettes at desktop1280×1000/touch-emulated390×844. Measured mixture transfers, exact per-action reload, records/restart, waste/loss/retry, rinse confirmation, Space/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Final artifact13311479868 SHA256603fd96a67fdeaaa5ac5940fc1f1e1ac28719df65e59df267869145fb1f94410 verified; touch-mix-1.png inspected. Earlier passing CI41811914375 artifact13312702486 SHA25683177c1fb5b1d2a31dc94dc7e1002fd335ee893f434fcf3f41c87d83f488bbcc verified; desktop-mix-0.png and touch-mix-1.png inspected; save-status wording corrected afterward.",
-        "CI41818676233 atf6e419ae488bba407b8d0fc1f70d2456e4750de4 passed six engine checks and twelve rendered ordinary/silk three-cloth palettes at desktop1280×1000 and touch-emulated390×844. Earned unlocks, separate persistent seals, measured mixture transfers, exact per-action reload, records/restart, waste/loss/retry, rinse confirmation, Space/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13316126167 SHA2569b93893ebe016393f4a75d33fbe5b5508531ddfa871d6b814cf1c0a9db120184 verified; touch-silk-blend-1.png inspected. Earlier passing runs41818061520 and41818365567 artifacts13315458077 SHA2568772ea6dd1b0cf8c42361dfe175fb3dce0f94e74f5be3235ab8da8ef8814f479 and13314579833 SHA2568de1d0a829b2bae5ad5b924a056a9cf5afc4852b065d923838686bacf98113d5 verified; desktop-silk-0.png, touch-silk-1.png and touch-silk-blend-1.png inspected, prompting percentage/banner/dipping-jar feedback corrections."
+        "CI41818676233 atf6e419ae488bba407b8d0fc1f70d2456e4750de4 passed six engine checks and twelve rendered ordinary/silk three-cloth palettes at desktop1280×1000 and touch-emulated390×844. Earned unlocks, separate persistent seals, measured mixture transfers, exact per-action reload, records/restart, waste/loss/retry, rinse confirmation, Space/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13316126167 SHA2569b93893ebe016393f4a75d33fbe5b5508531ddfa871d6b814cf1c0a9db120184 verified; touch-silk-blend-1.png inspected. Earlier passing runs41818061520 and41818365567 artifacts13315458077 SHA2568772ea6dd1b0cf8c42361dfe175fb3dce0f94e74f5be3235ab8da8ef8814f479 and13314579833 SHA2568de1d0a829b2bae5ad5b924a056a9cf5afc4852b065d923838686bacf98113d5 verified; desktop-silk-0.png, touch-silk-1.png and touch-silk-blend-1.png inspected, prompting percentage/banner/dipping-jar feedback corrections.",
+        "CI41825280628 at1db6d38430cf6655dc8c19e566a477770bf22538 passed eight engine checks, twelve pointer/touch ordinary/silk palette completions and four full-keyboard completions. Exact per-action reload, separate records/seals, waste/loss/retry, rinse confirmation, Tab/Enter/Space/Escape, real bridge hidden mode/rinse/restart/recovery/actions, explicit resume, Collection messages, unrelated-save isolation, corrupt/quota storage and no overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13319510560 SHA256edf8afb58b936db51b07f5366800f72468128207f7cc8b53aefd1dc1230896f6 downloaded/verified; desktop-keyboard-true.png and touch-shell.png opened and inspected."
       ],
       "commits": [
         "c1a97e7f0636cd152137f409c9f83962a2a42f04",
         "102bfef4ac91df144062aae51fd91e0522f67d23",
         "d4a0e40feccb55680dde72d7356c3f6c86725d30",
         "8d6dd192a067853ceb8d72791fc5f8030e413e4e",
-        "f6e419ae488bba407b8d0fc1f70d2456e4750de4"
+        "f6e419ae488bba407b8d0fc1f70d2456e4750de4",
+        "1db6d38430cf6655dc8c19e566a477770bf22538"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantially improved; full qualification pending.",
-        "assessment": "Silk commissions make measured transfers and leftover enrichment central to the loop, with an earned progression step and separate records. Three palette variants rotate pigment roles rather than provide three different campaign structures; overall depth is still compact.",
-        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device coverage or measured long duration. Full keyboard/embedded lifecycle, detailed conservation/save consistency and release selection remain pending."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Earned silk commissions require fractional mixing, transfer to a constrained dipping jar and preserving half-batches. Swatches and precise percentages make the operations readable. Three palettes rotate pigment roles through the same fixed sequence, limiting replay depth; retain in reserve.",
+        "qualificationFixes": "Reject created/missing total dye, excess individual pigment after accounting for delivered cloth, inconsistent order/phase/loss, insufficient action history and unearned completion records. Valid legacy, fractional, rinsed and lost saves continue to decode.",
+        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Embedded tests use the real game/bridge in a controlled host rather than a public catalogue entry. Conservation checks validate necessary constraints, not every possible action history."
       },
       "nextSteps": [
-        "Qualify complete keyboard routes, real bridge/Collection lifecycle, hidden mode/restart/rinse/recovery actions and conservation/save consistency.",
-        "Assess reserve versus selection honestly given the fixed three-step silk structure."
+        "Retain qualified reserve; revisit selection only if broader commission choices add worthwhile replay depth.",
+        "Build distinct candidate84 next; seven unbuilt slots84–90 remain."
       ]
     },
     {
@@ -3709,7 +3712,7 @@
     }
   ],
   "nextSteps": [
-    "Fully qualify improved Stillwater Dyehouse83 before selection; seven unbuilt slots84–90 remain.",
+    "Build distinct candidate84, render its baseline and perform a substantive observed improvement; seven unbuilt slots84–90 remain.",
     "Build remaining7 distinct candidates84–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5210,6 +5213,12 @@
       "result": "Substantially improved Stillwater Dyehouse83 with earned silk commissions, necessary transfers/leftover enrichment, seals, swatches and clearer phone feedback. Six engine checks/twelve rendered palettes pass; screenshots inspected.43 built/improved,42 qualified,7 unbuilt; no public release.",
       "commit": "f6e419ae488bba407b8d0fc1f70d2456e4750de4",
       "report": "dev/indie-collection-three/STILLWATER_DYEHOUSE_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Qualified Stillwater Dyehouse83 as reserve after conservation/progress save fixes. Eight engine checks/sixteen rendered palettes and embedded lifecycle checks pass; screenshots inspected.43 built/improved/qualified,7 unbuilt; no public release.",
+      "commit": "1db6d38430cf6655dc8c19e566a477770bf22538",
+      "report": "dev/indie-collection-three/STILLWATER_DYEHOUSE_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
