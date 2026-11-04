@@ -6,7 +6,7 @@
   "totals": {
     "built": 40,
     "improved": 40,
-    "browserTested": 39,
+    "browserTested": 40,
     "integrated": 0,
     "live": 0
   },
@@ -3367,11 +3367,11 @@
       "id": "rootstock",
       "title": "Rootstock",
       "coreLoop": "Choose two parent trees and a recombination point, inspect complementary offspring, retain seedlings in a six-pot nursery and prune unneeded stock to breed exact trait requests while preserving cultivar discoveries.",
-      "status": "improved-awaiting-qualification",
+      "status": "qualified-reserve",
       "source": "games/rootstock",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3394,22 +3394,26 @@
       ],
       "tests": [
         "CI41743467255 at002c835dec0250550cb991f6f346d9a495d11773 passed four distinct engine checks and six rendered deliveries (three orders each at desktop1280×1000 and touch-emulated390×844). Exact per-action save/reload, parent/crossover/offspring selection, pruning, discard, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13282591819 SHA256abdd0b45ec13dd39232e9e852b85a751765082eff9556ae90e5ac5b53b064531 verified; desktop-order-0.png and touch-order-1.png opened and inspected.",
-        "CI41751250289 at65323beded6c8758fc0f6466089151a84bb279e2 passed six distinct engine checks and twelve rendered deliveries: ordinary and earned paired requests across desktop1280×1000/touch-emulated390×844. Per-action exact reload, parent/crossover/offspring choices, required pruning in first two paired routes, discard, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Final artifact13285799142 SHA256db7e0c72011b7fecdf559192bd3dec364f696b1909a79380a9238801dcf0f9d4 verified and touch-paired-1.png inspected. Earlier successful CI41750990176 artifact13285923556 SHA256416713553210b23501e86c1a40b527a9dfa6610fe042b6cb248797af17bbf688 verified; desktop-paired-0.png/touch-paired-1.png inspection prompted score-label and scroll-preservation fixes."
+        "CI41751250289 at65323beded6c8758fc0f6466089151a84bb279e2 passed six distinct engine checks and twelve rendered deliveries: ordinary and earned paired requests across desktop1280×1000/touch-emulated390×844. Per-action exact reload, parent/crossover/offspring choices, required pruning in first two paired routes, discard, records/restart, Space/Escape, pause, corrupt/quota storage, Games navigation and no horizontal overflow/page errors pass. Repository74 routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Final artifact13285799142 SHA256db7e0c72011b7fecdf559192bd3dec364f696b1909a79380a9238801dcf0f9d4 verified and touch-paired-1.png inspected. Earlier successful CI41750990176 artifact13285923556 SHA256416713553210b23501e86c1a40b527a9dfa6610fe042b6cb248797af17bbf688 verified; desktop-paired-0.png/touch-paired-1.png inspection prompted score-label and scroll-preservation fixes.",
+        "CI41758598239 at49879106ca0b40bd555037335cf0044cb0ba82ff passed eight engine checks, twelve ordinary/paired pointer/touch rendered deliveries and four full keyboard ordinary/paired deliveries. Exact per-action save/reload, pruning/discard, records/seals/restart, keyboard Tab/Enter/Space/Escape, phone carousel scroll retention, real bridge hidden restart/mode/recovery/action guards, explicit resume, Collection messaging, unrelated save isolation, corrupt/quota recovery and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom structure and nine selected first-batch integrity checks pass. Artifact13289022343 (16 images), SHA256c954a17bf54a8c28cce89cd7b37c49b095a2cc5f4f05cf0623de01e4974f5d6c verified; desktop-keyboard.png and touch-shell.png opened and inspected."
       ],
       "commits": [
         "002c835dec0250550cb991f6f346d9a495d11773",
         "f1a048bf88ca85ccf69bf80431960acd009b9a81",
-        "65323beded6c8758fc0f6466089151a84bb279e2"
+        "65323beded6c8758fc0f6466089151a84bb279e2",
+        "ca10a6d554006705e7a2511d0e234426892e93f9",
+        "49879106ca0b40bd555037335cf0044cb0ba82ff"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantively improved; full qualification pending.",
-        "assessment": "Paired stock retention introduces useful breeding-line and nursery-space choices beyond the short baseline. Artwork now communicates four traits and the phone bench follows one horizontal row rather than six stacked cards. Three fixed ordinary/paired request pairs still limit replay depth.",
-        "knownLimits": "Automated routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Full keyboard/embedded tests, carousel interaction regression and stronger paired-save consistency checks remain. No selection or live release claimed."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Earned paired orchards require keeping complementary breeding lines alive while pruning within six pots. Distinct trait art and a horizontal phone nursery improve readability and handling. Three fixed ordinary/paired request pairs limit replay depth, so retain in reserve.",
+        "qualificationFixes": "Reject inconsistent paired unlocks/seals, lost starter discoveries, impossible planted stock versus crosses, zero completion records, pending offspring without a cross or with identical parents, and completion records exceeding current crosses. Legitimate legacy saves remain supported; retry restores breeding stock while retaining album and records.",
+        "knownLimits": "Automated routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Three fixed request pairs are not a large campaign. Embedded qualification uses the real game/bridge in a controlled host, not a current public catalogue entry. Trait recombination is a stylized puzzle, not a botanical simulation."
       },
       "nextSteps": [
-        "Qualify keyboard/embedded confirmations, horizontal nursery controls, paired-save consistency and legacy migration; then evaluate selection."
+        "Retain qualified reserve; revisit selection only if deeper request variety adds worthwhile choices. Build slot81 next."
       ]
     },
     {
@@ -3594,7 +3598,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Rootstock80, then assess selection;10 unbuilt slots81–90 remain.",
+    "Build distinct candidate81, render its baseline and implement a substantive observed improvement;10 unbuilt slots81–90 remain.",
     "Build remaining10 distinct candidates in slots81–90 with rendered baselines and substantive improvements.",
     "Bell Diver68 and Mycelium Yard66 remain qualified selections awaiting release-scope reconciliation; preserve exact14 current catalogue and historical sources.",
     "Preserve second-batch20/20 additional improvements and concurrent Numberworks/Gummy Bay/requested-GitHub-games work."
@@ -5041,6 +5045,12 @@
       "result": "Substantially improved Rootstock80 with earned paired orchards, meaningful nursery pruning, persistent seals and trait art/phone layout. Six engine checks/twelve rendered deliveries pass; screenshots inspected.40 built/improved,39 qualified,10 unbuilt; no release change.",
       "commit": "65323beded6c8758fc0f6466089151a84bb279e2",
       "report": "dev/indie-collection-three/ROOTSTOCK_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-04",
+      "result": "Qualified Rootstock80 as reserve; strengthened save consistency and verified keyboard breeding, phone carousel and embedded confirmation/recovery guards. Eight engine checks and sixteen rendered deliveries pass; final screenshots inspected.40 built/improved/qualified,10 unbuilt; no release change.",
+      "commit": "49879106ca0b40bd555037335cf0044cb0ba82ff",
+      "report": "dev/indie-collection-three/ROOTSTOCK_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
