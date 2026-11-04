@@ -6,7 +6,7 @@
   "totals": {
     "built": 45,
     "improved": 45,
-    "browserTested": 44,
+    "browserTested": 45,
     "integrated": 0,
     "live": 0
   },
@@ -3643,11 +3643,11 @@
       "id": "shuttle-grove",
       "title": "Shuttle Grove",
       "coreLoop": "Place badminton shots across a six-square opponent court, trade clear/drop/smash flight time against stamina, travel to telegraphed returns and win rallies through reach and placement.",
-      "status": "improved-awaiting-qualification",
+      "status": "qualified-reserve",
       "source": "games/shuttle-grove",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3671,24 +3671,27 @@
       ],
       "tests": [
         "CI41863790657 atc4ee2fa509c98a229302308dcae3723dd97c665a logs show four engine checks and six rendered desktop1280×1000/touch-emulated390×844 matches passing. Exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13341316759 SHA2566ab8549ea8e7b35bf50beb8241d161ef175190b05100d3511e937e05fba63144 downloaded/verified; touch-rally-1.png opened and inspected. Earlier CI41863192097 also passed; artifact13341501606 SHA256bb7a138c341b1a8f974a61a27e38c82fb0427e3aed0821bcdca85121227ec587 verified; desktop-rally-0.png and touch-rally-1.png inspected, prompting save-wording and active-rally screenshot corrections.",
-        "CI41874306533 at43701582c16226e28ccc8442e7299a523b829e69 passed six engine checks and six rendered adaptive matches at desktop1280×1000/touch-emulated390×844. Recovery choices, persistent clean badges, exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13346955424 SHA256693254c0fd34c1557cebe84c3086de33cbac2c3e230fd90bbc379526bd1b3423 downloaded/verified; touch-won-2.png inspected after correcting opponent stamina capacity. Earlier CI41873756191 passed; artifact13346610717 SHA256e9226cde1df52ddf08ecc5156e7037705eac153a54661179bf970d25d5c51539 verified; desktop-rally-0.png and touch-won-2.png inspected."
+        "CI41874306533 at43701582c16226e28ccc8442e7299a523b829e69 passed six engine checks and six rendered adaptive matches at desktop1280×1000/touch-emulated390×844. Recovery choices, persistent clean badges, exact per-action reload, records/restart, loss/retry, Space/Enter/Escape, pause, corrupt/quota storage, Games and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13346955424 SHA256693254c0fd34c1557cebe84c3086de33cbac2c3e230fd90bbc379526bd1b3423 downloaded/verified; touch-won-2.png inspected after correcting opponent stamina capacity. Earlier CI41873756191 passed; artifact13346610717 SHA256e9226cde1df52ddf08ecc5156e7037705eac153a54661179bf970d25d5c51539 verified; desktop-rally-0.png and touch-won-2.png inspected.",
+        "CI41883137540 at1d54b26c4dff2acb8bc304704b1f9dccf9e59524 passed eight engine checks, six pointer/touch matches and six full-keyboard matches. Per-action reload, badge/record persistence, loss/retry, restart, Tab/Enter/Space/Escape, real bridge hidden restart/recovery/hit controls, explicit resume, Collection messages, unrelated-save isolation, corrupt/quota storage and no overflow/page errors pass. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks pass. Artifact13348849478 SHA256ac8d4176c6b4318b7647176f8562d97f4014d985e27682130e8227c27e5732f1 downloaded/verified; desktop-keyboard-2.png and touch-shell.png opened and inspected."
       ],
       "commits": [
         "485bca3b7ac197f89762717e2a69b07d49df20fe",
         "c4ee2fa509c98a229302308dcae3723dd97c665a",
         "b89622555b6de2ec8a30c147580ac9cf48482b65",
-        "43701582c16226e28ccc8442e7299a523b829e69"
+        "43701582c16226e28ccc8442e7299a523b829e69",
+        "1d54b26c4dff2acb8bc304704b1f9dccf9e59524"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantially improved; qualification/selection pending.",
-        "assessment": "Defensive recentering, stamina pressure, paid player recovery and scouting break the universal baseline match solution. Routes now vary by rival and point; clean badges add a persistent objective. Still a small deterministic six-square sports game, requiring final qualification and comparison.",
-        "knownLimits": "Automated rendered matches and screenshot inspection are not human enjoyment, physical-device or duration evidence. Full keyboard-only routes, embedded lifecycle and deeper save consistency remain. Historical best-return records are preserved despite changed rules."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Recovery stances, defensive recentering, stamina profiles and anticipation make placement matter and break the baseline universal match solution. Three fixed opponents on one six-square court still limit replay variety and progression. Retain for final slate comparison.",
+        "qualificationFixes": "Reject inherited-object shot names, impossible starting positions and score/rally histories, simultaneous wins/losses, missing or inconsistent completion records and scouting before a scored point. Preserve legitimate losses and old completed saves including legacy stamina values.",
+        "knownLimits": "Automated rendered routes and agent screenshot inspection are not human enjoyment, physical-device or duration evidence. Embedded qualification uses the actual game and bridge in a controlled host rather than a live catalogue entry. Save checks enforce necessary constraints, not proof of every action history."
       },
       "nextSteps": [
-        "Qualify full keyboard routes, real bridge hidden actions/navigation, and save consistency including scouted square/seals/legacy records.",
-        "Evaluate the improved tactical matches against the slate before any catalogue integration."
+        "Retain qualified reserve for final selection comparison.",
+        "Build distinct candidate86 next; five unbuilt slots86–90 remain."
       ]
     },
     {
@@ -3783,7 +3786,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Shuttle Grove85, then evaluate selection; five unbuilt slots86–90 remain.",
+    "Build distinct candidate86, then render and substantially improve it; five unbuilt slots86–90 remain.",
     "Build remaining5 distinct candidates86–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5320,6 +5323,12 @@
       "result": "Substantially improved Shuttle Grove85 with defensive recovery, scoring-square anticipation, stance choices, opponent stamina profiles and clean badges. Six engine checks/six rendered matches pass; screenshots inspected.45 built/improved,44 qualified,5 unbuilt; no public release.",
       "commit": "43701582c16226e28ccc8442e7299a523b829e69",
       "report": "dev/indie-collection-three/SHUTTLE_GROVE_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Qualified Shuttle Grove85 as reserve after save-history and shot-name validation fixes. Eight engine checks/twelve rendered matches and embedded lifecycle checks pass; screenshots inspected.45 built/improved/qualified,5 unbuilt; no public release.",
+      "commit": "1d54b26c4dff2acb8bc304704b1f9dccf9e59524",
+      "report": "dev/indie-collection-three/SHUTTLE_GROVE_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
