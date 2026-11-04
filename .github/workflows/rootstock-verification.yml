@@ -22,6 +22,7 @@ jobs:
           node --check games/rootstock/game.js
           node --test tests/rootstock-engine.cjs
           node tests/rootstock-browser.cjs
+          node tests/rootstock-qualified.cjs
           python tests/assets.py
           python tests/selected-indie.py
       - uses: actions/upload-artifact@v4
