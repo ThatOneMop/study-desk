@@ -5,7 +5,7 @@
   "required": 50,
   "totals": {
     "built": 50,
-    "improved": 49,
+    "improved": 50,
     "browserTested": 49,
     "integrated": 0,
     "live": 0
@@ -3930,35 +3930,52 @@
       "id": "chalkstep",
       "title": "Chalkstep",
       "coreLoop": "Move four individual limbs between reachable holds, maintain body support, spend grip on hand moves and reposition feet for one-use resting ledges before topping out.",
-      "status": "baseline-playable",
+      "status": "improved-awaiting-full-qualification",
       "source": "games/chalkstep",
       "built": true,
-      "improved": false,
+      "improved": true,
       "browserTested": false,
       "integrated": false,
       "live": false,
-      "improvementPasses": [],
+      "improvementPasses": [
+        {
+          "pass": 1,
+          "date": "2026-11-05",
+          "observedWeakness": "All three rendered baseline walls permitted the same 11-action route and any balanced resting ledge.",
+          "before": "Uniform hand costs and unrestricted balanced rests made route planning shallow.",
+          "after": "Earned marked routes require two hand checkpoints, rest only at foot heights 1 and 3, charge two grip for three-step hand reaches and preserve separate completion seals. Original records and legacy saves remain available.",
+          "implementationCommits": [
+            "113cb52a803fa3b2b030725bea4109095310ab13",
+            "1b0bde59f2824b8e921af5e8ff6e59f2c1e91f96"
+          ],
+          "validation": "CI 41991210014 at 113cb52a803fa3b2b030725bea4109095310ab13 passed six engine checks and twelve rendered climbs (three open and three marked on desktop 1280×1000 and touch-emulated 390×844). Verified hand checkpoints, grip costs, restricted one-use rests, mode confirmation, exact per-move reload, separate seals, original records/retry, exhaustion/foot recovery, Space/Enter/Escape, pause, corrupt/quota handling, Games navigation and no page errors/overflow. Repository assets, source syntax/Freedoom structure and nine first-batch integrity checks passed. Artifact 13398551277 SHA256 f8020b6a6a073c2ed6fbccfcd9d97ebacf2e8becd859cefef69b5ae83fba640f verified. Inspected touch-marked-start-2 and desktop-marked-win-1: visible stars, limb labels, readable wrapped instructions and 2/2 completion with saved seals. Phone requires scrolling. Inspection found general help omitted marked-rule exceptions; corrected in 1b0bde59f2824b8e921af5e8ff6e59f2c1e91f96. Automated routes and agent visual assessment are not human enjoyment or physical-device evidence."
+        }
+      ],
       "tests": [
-        "CI41984458692 atafab1e724664176aed79cc269bea7aec56b80a19 passed four engine checks and six rendered wall climbs across desktop1280×1000 and touch-emulated390×844. Tested normal limb/hold controls, exact per-move reload, grip exhaustion, foot repositioning to recover, one-use rest ledges, saved records/retry, Space/Enter/Escape, pause, corrupt-save preservation/recovery, quota fallback, Games navigation and no page errors/overflow. Repository asset checks, source syntax/Freedoom structure and all nine selected first-batch integrity checks passed. Artifact13395357294 downloaded and SHA256 verified:8d4ab77d875d1c7965f1fe8ad24144dd4e00c17e1292ebd1ceb6827e3c59dde5. Inspected touch-rest-2 and desktop-won-1: readable occupied limb labels and bright reachable holds, visible climber, wrapped onboarding, grip restoration and saved completion. Phone requires scrolling. Automated rendered routes and agent visual assessment are not human enjoyment or physical-device evidence."
+        "CI41984458692 atafab1e724664176aed79cc269bea7aec56b80a19 passed four engine checks and six rendered wall climbs across desktop1280×1000 and touch-emulated390×844. Tested normal limb/hold controls, exact per-move reload, grip exhaustion, foot repositioning to recover, one-use rest ledges, saved records/retry, Space/Enter/Escape, pause, corrupt-save preservation/recovery, quota fallback, Games navigation and no page errors/overflow. Repository asset checks, source syntax/Freedoom structure and all nine selected first-batch integrity checks passed. Artifact13395357294 downloaded and SHA256 verified:8d4ab77d875d1c7965f1fe8ad24144dd4e00c17e1292ebd1ceb6827e3c59dde5. Inspected touch-rest-2 and desktop-won-1: readable occupied limb labels and bright reachable holds, visible climber, wrapped onboarding, grip restoration and saved completion. Phone requires scrolling. Automated rendered routes and agent visual assessment are not human enjoyment or physical-device evidence.",
+        "CI 41991210014 at 113cb52a803fa3b2b030725bea4109095310ab13 passed six engine checks and twelve rendered climbs (three open and three marked on desktop 1280×1000 and touch-emulated 390×844). Verified hand checkpoints, grip costs, restricted one-use rests, mode confirmation, exact per-move reload, separate seals, original records/retry, exhaustion/foot recovery, Space/Enter/Escape, pause, corrupt/quota handling, Games navigation and no page errors/overflow. Repository assets, source syntax/Freedoom structure and nine first-batch integrity checks passed. Artifact 13398551277 SHA256 f8020b6a6a073c2ed6fbccfcd9d97ebacf2e8becd859cefef69b5ae83fba640f verified. Inspected touch-marked-start-2 and desktop-marked-win-1: visible stars, limb labels, readable wrapped instructions and 2/2 completion with saved seals. Phone requires scrolling. Inspection found general help omitted marked-rule exceptions; corrected in 1b0bde59f2824b8e921af5e8ff6e59f2c1e91f96. Automated routes and agent visual assessment are not human enjoyment or physical-device evidence.",
+        "Help correction verification: CI 41991901174 at 1b0bde59f2824b8e921af5e8ff6e59f2c1e91f96 passed the same six engine checks, twelve rendered climbs and repository checks. Artifact 13398048896 SHA256 e17503aeedc3e93d1c0a868130697ef6b5da3a1903d06c50e7a3c899005c8210 verified; touch-marked-start-2 inspected again with correct grip/rest/checkpoint exceptions, readable wrapping and no overlap."
       ],
       "commits": [
-        "afab1e724664176aed79cc269bea7aec56b80a19"
+        "afab1e724664176aed79cc269bea7aec56b80a19",
+        "113cb52a803fa3b2b030725bea4109095310ab13",
+        "1b0bde59f2824b8e921af5e8ff6e59f2c1e91f96"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Baseline only; substantive improvement and full qualification pending",
-        "assessment": "Distinct four-limb placement/grip-rest loop. Three layouts currently permit the same11-action movement pattern, limiting route choices.",
-        "limitations": "No full keyboard campaign or embedded qualification yet; save consistency needs stronger checks. No human enjoyment, physical-device or duration claim."
+        "status": "Substantial improvement verified; full qualification pending",
+        "assessment": "Earned route choices require checkpoint, grip and rest planning; three compact walls remain a scope limitation.",
+        "limitations": "Full keyboard campaigns, embedded lifecycle and stronger save consistency checks remain. No human enjoyment, physical-device or duration claim."
       },
       "nextSteps": [
-        "Deepen route/resting decisions based on rendered baseline; do not add repetitive walls.",
-        "Qualify keyboard campaigns, embedded lifecycle/navigation and saves before final slate comparison."
+        "Qualify full keyboard campaigns and real host iframe lifecycle/navigation. Reject impossible body spans/hand-foot ordering, duplicate or impossible rests, unearned marked mode/seals, inconsistent win state and unsafe move/record numbers while preserving valid v1 saves.",
+        "Compare the complete slate and integrate selected tested winners against fresh main, preserving catalogue curation."
       ]
     }
   ],
   "nextSteps": [
-    "Substantially improve Chalkstep90 from rendered baseline, then fully qualify it. All50 slots are now built; this is not task completion.",
+    "Fully qualify improved Chalkstep90. All 50 slots are built and substantially improved; 49 are fully qualified. Final comparison and integration remain.",
     "Compare complete slate, perform targeted final polish, reconcile current curated catalogue/preflight and integrate selected tested winners; distinguish source release from live.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5579,6 +5596,12 @@
       "result": "Built Chalkstep90 four-limb climbing baseline. Four engine checks/six rendered climbs pass; screenshots inspected.50 built,49 improved/qualified,0 unbuilt; final improvement/qualification and selection/integration still pending. No public release.",
       "commit": "afab1e724664176aed79cc269bea7aec56b80a19",
       "report": "dev/indie-collection-three/CHALKSTEP_BASELINE.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Improved Chalkstep90 with earned hand checkpoints, varied reach costs, restricted rests and separate saved seals. Six engine checks/twelve rendered climbs passed; screenshots inspected and help corrected. 50 built/improved,49 qualified,0 active integrated/live. Final qualification and slate selection/integration remain.",
+      "commit": "113cb52a803fa3b2b030725bea4109095310ab13",
+      "report": "dev/indie-collection-three/CHALKSTEP_IMPROVEMENT.md"
     }
   ],
   "historicalTotals": {
