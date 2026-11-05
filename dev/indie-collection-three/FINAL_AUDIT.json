@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-05",
+  "branches": {
+    "first": "c03682dc435ecdaacd94966273d789dd90e9f7b1",
+    "second": "6d3e347cb3b3fc630cdccfccdeb09e7c9f121225",
+    "third": "adbed9ba9ae620681e5d3fd9595f481478338ce2",
+    "main": "8f8773e9db653e943e828c04f67a12c852fde45e"
+  },
+  "candidateCounts": [
+    20,
+    20,
+    50
+  ],
+  "uniqueIds": 90,
+  "sourcePagesFound": 90,
+  "secondAdditionalVerified": 20,
+  "third": {
+    "built": 50,
+    "improved": 50,
+    "browserTested": 50,
+    "integrated": 2,
+    "live": 2
+  },
+  "priorMainFiles": 1040,
+  "unchangedPriorMainFiles": 1034,
+  "changedPriorMainPaths": [
+    "catalog.js",
+    "catalog.json",
+    "credits.html",
+    "index.html",
+    "tests/curation-regression.cjs",
+    "tests/selected-indie.py"
+  ],
+  "errors": []
+}

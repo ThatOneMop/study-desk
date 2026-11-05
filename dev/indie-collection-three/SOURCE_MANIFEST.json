@@ -1,0 +1,2294 @@
+[
+  {
+    "batch": 1,
+    "slot": 1,
+    "id": "tidepost",
+    "source": "dev/indie-collection/tidepost/",
+    "files": [
+      {
+        "path": "dev/indie-collection/tidepost/engine.js",
+        "gitBlobSha": "f8e3e50c510f1202295a67ea51c95eb51a6eae82"
+      },
+      {
+        "path": "dev/indie-collection/tidepost/game.js",
+        "gitBlobSha": "b6499330cdc2569145243d2d62797dab69ac7ff2"
+      },
+      {
+        "path": "dev/indie-collection/tidepost/index.html",
+        "gitBlobSha": "4ff8cba456f43c83d73557d537650a61ab06f682"
+      },
+      {
+        "path": "dev/indie-collection/tidepost/style.css",
+        "gitBlobSha": "5ee9f892912b71b2923b5ff3ea376c5d611c1a67"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 2,
+    "id": "spore-kitchen",
+    "source": "dev/indie-collection/spore-kitchen/",
+    "files": [
+      {
+        "path": "dev/indie-collection/spore-kitchen/engine.js",
+        "gitBlobSha": "a7fa84d839231be4e4b256af370db2ba93f51f27"
+      },
+      {
+        "path": "dev/indie-collection/spore-kitchen/game.js",
+        "gitBlobSha": "fd4f45e8ae11b36ab393c22d5ea8b783b318abdc"
+      },
+      {
+        "path": "dev/indie-collection/spore-kitchen/index.html",
+        "gitBlobSha": "5d0d4cd26f04f67f3041eb050f8f87f2cdc36e49"
+      },
+      {
+        "path": "dev/indie-collection/spore-kitchen/style.css",
+        "gitBlobSha": "4bfb45c8438ee3884bf14bf546e004281092e56e"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 3,
+    "id": "bolt-and-bristle",
+    "source": "dev/indie-collection/bolt-and-bristle/",
+    "files": [
+      {
+        "path": "dev/indie-collection/bolt-and-bristle/engine.js",
+        "gitBlobSha": "58a855e0911aa4e5b872d45110ca198aca417183"
+      },
+      {
+        "path": "dev/indie-collection/bolt-and-bristle/game.js",
+        "gitBlobSha": "2410a78265349d81265faa2f126a36e4b8b04979"
+      },
+      {
+        "path": "dev/indie-collection/bolt-and-bristle/index.html",
+        "gitBlobSha": "8aeeb76172a6bfdf3405197f36746517d125ea85"
+      },
+      {
+        "path": "dev/indie-collection/bolt-and-bristle/style.css",
+        "gitBlobSha": "c709d0600ad49a49d34717ba0e8b72ec572ed3ea"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 4,
+    "id": "queen-of-cinders",
+    "source": "dev/indie-collection/queen-of-cinders/",
+    "files": [
+      {
+        "path": "dev/indie-collection/queen-of-cinders/engine.js",
+        "gitBlobSha": "84e00183faa28af9b96edeb813b11a917cf6a22f"
+      },
+      {
+        "path": "dev/indie-collection/queen-of-cinders/game.js",
+        "gitBlobSha": "9a2ca2cb6d10c18af723e92681b52c8bc4163f89"
+      },
+      {
+        "path": "dev/indie-collection/queen-of-cinders/index.html",
+        "gitBlobSha": "f01458f4d9e9e0c6d5df50c0dcfad2a23aaa6d92"
+      },
+      {
+        "path": "dev/indie-collection/queen-of-cinders/style.css",
+        "gitBlobSha": "f5a8353c50bc9386b413d68fe647fe3a9e96f2cb"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 5,
+    "id": "inkline",
+    "source": "dev/indie-collection/inkline/",
+    "files": [
+      {
+        "path": "dev/indie-collection/inkline/engine.js",
+        "gitBlobSha": "52774ea59caab783b4943179966a999e30e83189"
+      },
+      {
+        "path": "dev/indie-collection/inkline/game.js",
+        "gitBlobSha": "b16be3b26c5bdd32c41f3c70672f13e7a4b9c716"
+      },
+      {
+        "path": "dev/indie-collection/inkline/index.html",
+        "gitBlobSha": "05f6bf64fefd553c135994fdf7616a52cbb07da8"
+      },
+      {
+        "path": "dev/indie-collection/inkline/style.css",
+        "gitBlobSha": "a4ec7bca9d7d01b579d5036b730a40473a5ff787"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 6,
+    "id": "deep-pocket",
+    "source": "dev/indie-collection/deep-pocket/",
+    "files": [
+      {
+        "path": "dev/indie-collection/deep-pocket/engine.js",
+        "gitBlobSha": "ad8fac8d4c54f16769ae871d548c1816c06763ce"
+      },
+      {
+        "path": "dev/indie-collection/deep-pocket/game.js",
+        "gitBlobSha": "ecdc8ea51994d9a6d5c1674d532d09ec2a375797"
+      },
+      {
+        "path": "dev/indie-collection/deep-pocket/index.html",
+        "gitBlobSha": "89cc9e3100c027f9c4b8829c104cf81469661ae1"
+      },
+      {
+        "path": "dev/indie-collection/deep-pocket/style.css",
+        "gitBlobSha": "c333c343aca806c697971b8a3d71f5a6d46a1573"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 7,
+    "id": "roof-runner",
+    "source": "dev/indie-collection/roof-runner/",
+    "files": [
+      {
+        "path": "dev/indie-collection/roof-runner/engine.js",
+        "gitBlobSha": "207f5a0362b1fa918a40746b169a1eb6a3f1b663"
+      },
+      {
+        "path": "dev/indie-collection/roof-runner/game.js",
+        "gitBlobSha": "aa26733952398cb82c19c840894bda477c69b455"
+      },
+      {
+        "path": "dev/indie-collection/roof-runner/index.html",
+        "gitBlobSha": "05dec24249beb5929de2a34c5c583c4cb8d3d78a"
+      },
+      {
+        "path": "dev/indie-collection/roof-runner/style.css",
+        "gitBlobSha": "d9f7d119f21b25c7d35de5656ff05ee2878414d3"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 8,
+    "id": "scrap-orbit",
+    "source": "dev/indie-collection/scrap-orbit/",
+    "files": [
+      {
+        "path": "dev/indie-collection/scrap-orbit/engine.js",
+        "gitBlobSha": "11162e0a5c655babada4a5c69de66eee7686d28d"
+      },
+      {
+        "path": "dev/indie-collection/scrap-orbit/game.js",
+        "gitBlobSha": "c12c8a991620dc6ad6bcbab5c67997a8c4a72801"
+      },
+      {
+        "path": "dev/indie-collection/scrap-orbit/index.html",
+        "gitBlobSha": "34ce74081d5eb40a482397d0ec41cf39358c01fa"
+      },
+      {
+        "path": "dev/indie-collection/scrap-orbit/style.css",
+        "gitBlobSha": "1ac34fb3ecb1ffd1e2e9f9d7fc0109d0da406eb9"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 9,
+    "id": "stone-song",
+    "source": "dev/indie-collection/stone-song/",
+    "files": [
+      {
+        "path": "dev/indie-collection/stone-song/engine.js",
+        "gitBlobSha": "a48e1677adf69edb646a35d7292b4ca9b0237bf8"
+      },
+      {
+        "path": "dev/indie-collection/stone-song/game.js",
+        "gitBlobSha": "1a3353a7b903e37447648d3bc50dde7801888a19"
+      },
+      {
+        "path": "dev/indie-collection/stone-song/index.html",
+        "gitBlobSha": "e966d0207d5cb1d960491e17827d4aba63c2cbc5"
+      },
+      {
+        "path": "dev/indie-collection/stone-song/style.css",
+        "gitBlobSha": "6241e1ae139a1002e4df5e6c3493c4829eb32e9f"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 10,
+    "id": "last-match",
+    "source": "dev/indie-collection/last-match/",
+    "files": [
+      {
+        "path": "dev/indie-collection/last-match/engine.js",
+        "gitBlobSha": "1c9034571b13040f6793c67b3d4b3a40fd45cc23"
+      },
+      {
+        "path": "dev/indie-collection/last-match/game.js",
+        "gitBlobSha": "6493516b25f4c3fc944e281c784efe3870cb8ece"
+      },
+      {
+        "path": "dev/indie-collection/last-match/index.html",
+        "gitBlobSha": "8aa856f135c0b978ee651d1a7a5310edfaf52bbb"
+      },
+      {
+        "path": "dev/indie-collection/last-match/style.css",
+        "gitBlobSha": "4070ec8128abe14ad8e452dba3c0129911ab5fd8"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 11,
+    "id": "glasshouse",
+    "source": "dev/indie-collection/glasshouse/",
+    "files": [
+      {
+        "path": "dev/indie-collection/glasshouse/engine.js",
+        "gitBlobSha": "d02f8a67ea2eeda3df56703d5286c90ceb5835e7"
+      },
+      {
+        "path": "dev/indie-collection/glasshouse/game.js",
+        "gitBlobSha": "d659cb737fb5d995c6535d7bb6f72275b3a3d84d"
+      },
+      {
+        "path": "dev/indie-collection/glasshouse/index.html",
+        "gitBlobSha": "d3d8f469b9b0409d21a08527661df3d2b615a203"
+      },
+      {
+        "path": "dev/indie-collection/glasshouse/style.css",
+        "gitBlobSha": "53445bb2fa273416b24d40e9d654d6e5a362dfe4"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 12,
+    "id": "burrow-express",
+    "source": "dev/indie-collection/burrow-express/",
+    "files": [
+      {
+        "path": "dev/indie-collection/burrow-express/engine.js",
+        "gitBlobSha": "abab72da716e186aea24a17745336449663244a8"
+      },
+      {
+        "path": "dev/indie-collection/burrow-express/game.js",
+        "gitBlobSha": "44b939a8995a041148190bd7be30641a846ce96e"
+      },
+      {
+        "path": "dev/indie-collection/burrow-express/index.html",
+        "gitBlobSha": "8f9c66d56a2dfb13ee88e4e84c028425bfefd344"
+      },
+      {
+        "path": "dev/indie-collection/burrow-express/style.css",
+        "gitBlobSha": "42f0bed5a530ab219d3e50114dc35bf2628b4aea"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 13,
+    "id": "little-foundry",
+    "source": "dev/indie-collection/little-foundry/",
+    "files": [
+      {
+        "path": "dev/indie-collection/little-foundry/engine.js",
+        "gitBlobSha": "6dec094ba9d766659e3a39eadc2c9355d9d6ebb5"
+      },
+      {
+        "path": "dev/indie-collection/little-foundry/game.js",
+        "gitBlobSha": "ea44cd9b4470623670c8a22ef0170c5e6d090c25"
+      },
+      {
+        "path": "dev/indie-collection/little-foundry/index.html",
+        "gitBlobSha": "be730c6b51ea8aae0552e238436b78f382745555"
+      },
+      {
+        "path": "dev/indie-collection/little-foundry/style.css",
+        "gitBlobSha": "62cf7a3d5522b68b105e663c45071abc4b8ecae1"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 14,
+    "id": "storm-signal",
+    "source": "dev/indie-collection/storm-signal/",
+    "files": [
+      {
+        "path": "dev/indie-collection/storm-signal/engine.js",
+        "gitBlobSha": "ed9e73c5f39d3f40d81306ff8769bace87b05ecc"
+      },
+      {
+        "path": "dev/indie-collection/storm-signal/game.js",
+        "gitBlobSha": "d09d9a39af66dce17332e3a4f6ea2017a539e12a"
+      },
+      {
+        "path": "dev/indie-collection/storm-signal/index.html",
+        "gitBlobSha": "7b7a8d91e38e43fa5afa3f2d7aaeb09ec2b9fafd"
+      },
+      {
+        "path": "dev/indie-collection/storm-signal/style.css",
+        "gitBlobSha": "cf56ae003b92f385c6085085b9ed3004d890d985"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 15,
+    "id": "circuit-garden",
+    "source": "dev/indie-collection/circuit-garden/",
+    "files": [
+      {
+        "path": "dev/indie-collection/circuit-garden/engine.js",
+        "gitBlobSha": "41fad2baa121a9200187b44256d35e04c04e41af"
+      },
+      {
+        "path": "dev/indie-collection/circuit-garden/game.js",
+        "gitBlobSha": "c0e5ea7c32327346fc29034640ca2d57e2c8d297"
+      },
+      {
+        "path": "dev/indie-collection/circuit-garden/index.html",
+        "gitBlobSha": "19a9ef651082c1d608a5ffa212091c2d62097d06"
+      },
+      {
+        "path": "dev/indie-collection/circuit-garden/style.css",
+        "gitBlobSha": "d64df6deb1a5344ac3ddc8375ba550e77d97983a"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 16,
+    "id": "pocket-expedition",
+    "source": "dev/indie-collection/pocket-expedition/",
+    "files": [
+      {
+        "path": "dev/indie-collection/pocket-expedition/engine.js",
+        "gitBlobSha": "1fa4ee60a58b3c945d5aeaea344a1feda4f829f0"
+      },
+      {
+        "path": "dev/indie-collection/pocket-expedition/game.js",
+        "gitBlobSha": "ee6feb20b9ab3d717f0d294bf31f13c8b7832a97"
+      },
+      {
+        "path": "dev/indie-collection/pocket-expedition/index.html",
+        "gitBlobSha": "87a759711f37128b0e92dcb4bae5c78fc8b61ca2"
+      },
+      {
+        "path": "dev/indie-collection/pocket-expedition/style.css",
+        "gitBlobSha": "7d3522714a351e25e9c7aeeb97cfa72746abd786"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 17,
+    "id": "moss-market",
+    "source": "dev/indie-collection/moss-market/",
+    "files": [
+      {
+        "path": "dev/indie-collection/moss-market/engine.js",
+        "gitBlobSha": "1aee6715107c547229d3fa17e4493bdfcbdbded2"
+      },
+      {
+        "path": "dev/indie-collection/moss-market/game.js",
+        "gitBlobSha": "d0b63811d1dffe6160cdec2662c23ed6de309434"
+      },
+      {
+        "path": "dev/indie-collection/moss-market/index.html",
+        "gitBlobSha": "08c0c36606f10c21ae0dad46e518ca3a73b256d2"
+      },
+      {
+        "path": "dev/indie-collection/moss-market/style.css",
+        "gitBlobSha": "d3facb716dedf29d6bf551b48cf91d208d12de36"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 18,
+    "id": "threadbound",
+    "source": "dev/indie-collection/threadbound/",
+    "files": [
+      {
+        "path": "dev/indie-collection/threadbound/engine.js",
+        "gitBlobSha": "508e6db311e667accb3bf06b6316a48f4b0ca06e"
+      },
+      {
+        "path": "dev/indie-collection/threadbound/game.js",
+        "gitBlobSha": "ac00bd3f59cfe5a9dd6eb632b6dbdf870e4fd41e"
+      },
+      {
+        "path": "dev/indie-collection/threadbound/index.html",
+        "gitBlobSha": "752576859810f10f606a19dd61de3c9f1016753f"
+      },
+      {
+        "path": "dev/indie-collection/threadbound/style.css",
+        "gitBlobSha": "d4d925dfecfcd8d8aba32ce3efeef11acd048b30"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 19,
+    "id": "rain-catcher",
+    "source": "dev/indie-collection/rain-catcher/",
+    "files": [
+      {
+        "path": "dev/indie-collection/rain-catcher/engine.js",
+        "gitBlobSha": "198b202f3e565d6d1787eb514c6606ee9bfc91f9"
+      },
+      {
+        "path": "dev/indie-collection/rain-catcher/game.js",
+        "gitBlobSha": "851f537b0e733c5b3e91496de3c898c5ec94c156"
+      },
+      {
+        "path": "dev/indie-collection/rain-catcher/index.html",
+        "gitBlobSha": "ca2f31152852e081c8849d131e8860a6de3f8ac8"
+      },
+      {
+        "path": "dev/indie-collection/rain-catcher/style.css",
+        "gitBlobSha": "47c1b697fbc52b5a2dd85671a3082a38ced404af"
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "slot": 20,
+    "id": "echo-vault",
+    "source": "dev/indie-collection/echo-vault/",
+    "files": [
+      {
+        "path": "dev/indie-collection/echo-vault/engine.js",
+        "gitBlobSha": "d27355c984939cb5fcaaac4bdd10f4922fef8a65"
+      },
+      {
+        "path": "dev/indie-collection/echo-vault/game.js",
+        "gitBlobSha": "755c79deb1feb7e49adeaf88d1bd5750d1683cc2"
+      },
+      {
+        "path": "dev/indie-collection/echo-vault/index.html",
+        "gitBlobSha": "74ff5666607c8fa102152a41df0103f2e47071d6"
+      },
+      {
+        "path": "dev/indie-collection/echo-vault/style.css",
+        "gitBlobSha": "89132b93995d49acd5bfad8a55dd2051db47d704"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 21,
+    "id": "reefwright",
+    "source": "games/reefwright",
+    "files": [
+      {
+        "path": "games/reefwright/engine.js",
+        "gitBlobSha": "819f03cbe6ee5c4c0811169c1fa5ed96ab47b3c1"
+      },
+      {
+        "path": "games/reefwright/game.js",
+        "gitBlobSha": "0eade598b363572f8142df00ee21cd0ec48f4e1c"
+      },
+      {
+        "path": "games/reefwright/index.html",
+        "gitBlobSha": "202ff99a9b1555bd1d1913ef4a898d07ef5d7bd5"
+      },
+      {
+        "path": "games/reefwright/style.css",
+        "gitBlobSha": "f19c6d21b8f490f0cab392c84acfcba1618b6553"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 22,
+    "id": "counterweight",
+    "source": "games/counterweight",
+    "files": [
+      {
+        "path": "games/counterweight/engine.js",
+        "gitBlobSha": "73d2b9ff51ce6029c6e772677aa58c9617fe6a38"
+      },
+      {
+        "path": "games/counterweight/game.js",
+        "gitBlobSha": "da259e94512b7bf1a18ba7625e22e00968f253ae"
+      },
+      {
+        "path": "games/counterweight/index.html",
+        "gitBlobSha": "d0658ded655df3169f0712b16dbe9a78e0c9b131"
+      },
+      {
+        "path": "games/counterweight/style.css",
+        "gitBlobSha": "cf99e220b64d58e82bcd8ab568bb49b03a8edded"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 23,
+    "id": "lanternwake",
+    "source": "games/lanternwake",
+    "files": [
+      {
+        "path": "games/lanternwake/README.md",
+        "gitBlobSha": "8f4bbf67699875a47291584220e1887ce59e1164"
+      },
+      {
+        "path": "games/lanternwake/engine.js",
+        "gitBlobSha": "33c79929c491927cc1c2353f99ad43e7410b4a0e"
+      },
+      {
+        "path": "games/lanternwake/game.js",
+        "gitBlobSha": "c202df5c5504abc92fa34d0447d83a1efc110cbc"
+      },
+      {
+        "path": "games/lanternwake/index.html",
+        "gitBlobSha": "025245f80a90bbb354c65bb7c77bcf748d8b3ee7"
+      },
+      {
+        "path": "games/lanternwake/style.css",
+        "gitBlobSha": "0f0d08eb42913f809f3f75cd05df7137b49c72e0"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 24,
+    "id": "copper-cadence",
+    "source": "games/copper-cadence",
+    "files": [
+      {
+        "path": "games/copper-cadence/engine.js",
+        "gitBlobSha": "1153a13adff55983b741f7e29d52a96140e1efaf"
+      },
+      {
+        "path": "games/copper-cadence/game.js",
+        "gitBlobSha": "63e8edc8fbdf47100ea7fa06648ef29db5b40ce2"
+      },
+      {
+        "path": "games/copper-cadence/index.html",
+        "gitBlobSha": "0d506f0011b26c2bdcb3d337115c02153c8a1c8b"
+      },
+      {
+        "path": "games/copper-cadence/style.css",
+        "gitBlobSha": "62472cfc0ee69376b3fc294db457e1e027b5bf07"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 25,
+    "id": "hollow-keeper",
+    "source": "games/hollow-keeper",
+    "files": [
+      {
+        "path": "games/hollow-keeper/engine.js",
+        "gitBlobSha": "4ff332727b2b9130914f5cf044fa156fbafa7387"
+      },
+      {
+        "path": "games/hollow-keeper/game.js",
+        "gitBlobSha": "2a7607bce87d242435622c665fd836c87267775b"
+      },
+      {
+        "path": "games/hollow-keeper/index.html",
+        "gitBlobSha": "325d8621044ae6d5adc5bb3005483d63823b5ae4"
+      },
+      {
+        "path": "games/hollow-keeper/style.css",
+        "gitBlobSha": "443ced2b3610d6680aa53ee3b148bc419329a7e3"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 26,
+    "id": "paper-odyssey",
+    "source": "games/paper-odyssey",
+    "files": [
+      {
+        "path": "games/paper-odyssey/engine.js",
+        "gitBlobSha": "7a3448c69f64b55e4087894dcaf4c9ebb850c90f"
+      },
+      {
+        "path": "games/paper-odyssey/game.js",
+        "gitBlobSha": "b34424457abc5ea0d69be116e8b6a17d7e54b5ba"
+      },
+      {
+        "path": "games/paper-odyssey/index.html",
+        "gitBlobSha": "4438c3688ce29a3efcb65d852183f53e48da517d"
+      },
+      {
+        "path": "games/paper-odyssey/style.css",
+        "gitBlobSha": "43010b084ee42f0204f7427448057869d4791f41"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 27,
+    "id": "ratchet-run",
+    "source": "games/ratchet-run",
+    "files": [
+      {
+        "path": "games/ratchet-run/engine.js",
+        "gitBlobSha": "4bb66f4020f5f1da0073bf6cf073819f30d60b8b"
+      },
+      {
+        "path": "games/ratchet-run/game.js",
+        "gitBlobSha": "1111569fded85b2007e6ce46fd2eed25d38e65b1"
+      },
+      {
+        "path": "games/ratchet-run/index.html",
+        "gitBlobSha": "c62581403bfff48638afc05b59d0067019668fab"
+      },
+      {
+        "path": "games/ratchet-run/style.css",
+        "gitBlobSha": "cc9dde3242a76f4bffd91ac8d6fc8aae06a07f3e"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 28,
+    "id": "wellward",
+    "source": "games/wellward",
+    "files": [
+      {
+        "path": "games/wellward/engine.js",
+        "gitBlobSha": "7b2be6f0fd74bb35f017cff73aff42a2568f6d46"
+      },
+      {
+        "path": "games/wellward/game.js",
+        "gitBlobSha": "eada7964c5b1448c8294f830f92af408317dbac0"
+      },
+      {
+        "path": "games/wellward/index.html",
+        "gitBlobSha": "b4b80cceef9bc99b9db02c69b2230424fed9c6d5"
+      },
+      {
+        "path": "games/wellward/style.css",
+        "gitBlobSha": "4ee928cc26377576e5e90195504454c76d67c71b"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 29,
+    "id": "salt-and-sail",
+    "source": "games/salt-and-sail",
+    "files": [
+      {
+        "path": "games/salt-and-sail/engine.js",
+        "gitBlobSha": "b73c6214f190ff2255269514497111534df5d6fe"
+      },
+      {
+        "path": "games/salt-and-sail/game.js",
+        "gitBlobSha": "11dd82e3e6cee3f0cdf87ad54693f77b0e6d47d5"
+      },
+      {
+        "path": "games/salt-and-sail/index.html",
+        "gitBlobSha": "aa4026868a432e7ef1989b56a8a58246e7655728"
+      },
+      {
+        "path": "games/salt-and-sail/style.css",
+        "gitBlobSha": "184b7a48aa728142708f8a6d67dfebe915fb4bd7"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 30,
+    "id": "pocket-palaeo",
+    "source": "games/pocket-palaeo",
+    "files": [
+      {
+        "path": "games/pocket-palaeo/engine.js",
+        "gitBlobSha": "14f04ee0181111219b0c5a6a82c6ec326a962dd2"
+      },
+      {
+        "path": "games/pocket-palaeo/game.js",
+        "gitBlobSha": "6af453dd4fa10b980eb33ce1b36891f4211eb6b8"
+      },
+      {
+        "path": "games/pocket-palaeo/index.html",
+        "gitBlobSha": "767aaa51d65ed95aa24ed3f3f76de15bf289dae7"
+      },
+      {
+        "path": "games/pocket-palaeo/style.css",
+        "gitBlobSha": "a5ae9c41311b33dfe9c922ce4fc0bb7199e55dcf"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 31,
+    "id": "static-orchard",
+    "source": "games/static-orchard",
+    "files": [
+      {
+        "path": "games/static-orchard/engine.js",
+        "gitBlobSha": "f67db581d49261e8d3c52bca3bb48972f344a78d"
+      },
+      {
+        "path": "games/static-orchard/game.js",
+        "gitBlobSha": "0aec4a782ac3cfa3e84d6baf11bf11eed9221c99"
+      },
+      {
+        "path": "games/static-orchard/index.html",
+        "gitBlobSha": "9f7675b5570622dcf68c3dc3c6efd9490a6d3953"
+      },
+      {
+        "path": "games/static-orchard/style.css",
+        "gitBlobSha": "524d83a5a56a87a7a188700250b6b8a78db3cc3a"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 32,
+    "id": "borrowed-gravity",
+    "source": "games/borrowed-gravity",
+    "files": [
+      {
+        "path": "games/borrowed-gravity/engine.js",
+        "gitBlobSha": "2766f28a5b49c5fe92c9ee3fd975af1cd0bbee00"
+      },
+      {
+        "path": "games/borrowed-gravity/game.js",
+        "gitBlobSha": "db5c20e9096403bc02f1e8174626ff6c4db92e38"
+      },
+      {
+        "path": "games/borrowed-gravity/index.html",
+        "gitBlobSha": "03f83cc5a35adbc9087b79decfb4cf93f668ec8b"
+      },
+      {
+        "path": "games/borrowed-gravity/style.css",
+        "gitBlobSha": "58d39686a7318d9c088192381d93aacb47534a6a"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 33,
+    "id": "tea-for-ghosts",
+    "source": "games/tea-for-ghosts",
+    "files": [
+      {
+        "path": "games/tea-for-ghosts/engine.js",
+        "gitBlobSha": "b7e5712cd080657f09097a87f7f7e32afd264081"
+      },
+      {
+        "path": "games/tea-for-ghosts/game.js",
+        "gitBlobSha": "ef0f68018bea79a9682ee8a0a2e95931af85706e"
+      },
+      {
+        "path": "games/tea-for-ghosts/index.html",
+        "gitBlobSha": "0986d3830ca5f31e0b3f564b6d5220639226f0b2"
+      },
+      {
+        "path": "games/tea-for-ghosts/style.css",
+        "gitBlobSha": "125f68dee8e07ef7ee5666165ea32bf280873bb0"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 34,
+    "id": "cairn-and-cord",
+    "source": "games/cairn-and-cord",
+    "files": [
+      {
+        "path": "games/cairn-and-cord/engine.js",
+        "gitBlobSha": "58b801f5f45436d143440d09caddd61871eb805a"
+      },
+      {
+        "path": "games/cairn-and-cord/game.js",
+        "gitBlobSha": "bf56cb0743f5ac9413e099ddb99f668b7964da7d"
+      },
+      {
+        "path": "games/cairn-and-cord/index.html",
+        "gitBlobSha": "521956f1684b7fb62ef1bc50204505931bfbeabf"
+      },
+      {
+        "path": "games/cairn-and-cord/style.css",
+        "gitBlobSha": "e711a37178dae5217844222852d729d090388813"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 35,
+    "id": "murmuration",
+    "source": "games/murmuration",
+    "files": [
+      {
+        "path": "games/murmuration/engine.js",
+        "gitBlobSha": "d424806774f611be30e055a225885a73114c22a8"
+      },
+      {
+        "path": "games/murmuration/game.js",
+        "gitBlobSha": "61b23c17f555d5fb9ea4df9d4be18d40d5fb0ef8"
+      },
+      {
+        "path": "games/murmuration/index.html",
+        "gitBlobSha": "09ec2b84e6b27ba50ea8d645f9978cfe2d4f9f7b"
+      },
+      {
+        "path": "games/murmuration/style.css",
+        "gitBlobSha": "d10f06c3deff6cbcd3a37034370731e3fd6718fa"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 36,
+    "id": "night-clerk",
+    "source": "games/night-clerk",
+    "files": [
+      {
+        "path": "games/night-clerk/engine.js",
+        "gitBlobSha": "888374c29baf382a40f8454a9a59da2d3e031edd"
+      },
+      {
+        "path": "games/night-clerk/game.js",
+        "gitBlobSha": "9940dd1072c29125a563eaf5379fec23fb11905a"
+      },
+      {
+        "path": "games/night-clerk/index.html",
+        "gitBlobSha": "20bc2ade7185a7402ea151bb29e56c033004d0a1"
+      },
+      {
+        "path": "games/night-clerk/style.css",
+        "gitBlobSha": "a5650807c5fc9f3a9bfd89863be55f1aad0274cd"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 37,
+    "id": "clockwork-tide",
+    "source": "games/clockwork-tide",
+    "files": [
+      {
+        "path": "games/clockwork-tide/engine.js",
+        "gitBlobSha": "a0bc80881e401478d48a565e99412e24b79a0435"
+      },
+      {
+        "path": "games/clockwork-tide/game.js",
+        "gitBlobSha": "cf916bcb41309105c546afe0c441a78df0e29e7a"
+      },
+      {
+        "path": "games/clockwork-tide/index.html",
+        "gitBlobSha": "4081f96b3a518890e78cb2df5eaf53cb1648ce75"
+      },
+      {
+        "path": "games/clockwork-tide/style.css",
+        "gitBlobSha": "0fdce558dbacff43907e84fea9e750896a2c5120"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 38,
+    "id": "ember-parcel",
+    "source": "games/ember-parcel",
+    "files": [
+      {
+        "path": "games/ember-parcel/engine.js",
+        "gitBlobSha": "0eb171fdf4f2560e715b9498b2334d7666081a6a"
+      },
+      {
+        "path": "games/ember-parcel/game.js",
+        "gitBlobSha": "62750d55ebcb1905ebfc4da2adc78066ab4f8a7c"
+      },
+      {
+        "path": "games/ember-parcel/index.html",
+        "gitBlobSha": "b4956a3c45e79b19bab81dab6f92d4728b6dbaa0"
+      },
+      {
+        "path": "games/ember-parcel/style.css",
+        "gitBlobSha": "93fca1396a464f7cf2b0d1404677a15a95ec478a"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 39,
+    "id": "windup-wrestling",
+    "source": "games/windup-wrestling",
+    "files": [
+      {
+        "path": "games/windup-wrestling/engine.js",
+        "gitBlobSha": "25a832aa74617cb992314d6eaee342cee54d2ddf"
+      },
+      {
+        "path": "games/windup-wrestling/game.js",
+        "gitBlobSha": "22f05e4ae0d030d6d618ab0d5be9c30fdf07f361"
+      },
+      {
+        "path": "games/windup-wrestling/index.html",
+        "gitBlobSha": "4332fb01a984f8e7363cb6ef2198975b8d2b55b8"
+      },
+      {
+        "path": "games/windup-wrestling/style.css",
+        "gitBlobSha": "cb633890120c28cd6a18175396a62bef8cef26e5"
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "slot": 40,
+    "id": "last-lighthouse",
+    "source": "games/last-lighthouse",
+    "files": [
+      {
+        "path": "games/last-lighthouse/engine.js",
+        "gitBlobSha": "1109169804f612441a7118c5a7c9d27c5e1f4e1b"
+      },
+      {
+        "path": "games/last-lighthouse/game.js",
+        "gitBlobSha": "3d596b12eeada1c70989cd51079110099357c1d5"
+      },
+      {
+        "path": "games/last-lighthouse/index.html",
+        "gitBlobSha": "98aa6e09cd2b1592048d2978641fea13385923c0"
+      },
+      {
+        "path": "games/last-lighthouse/style.css",
+        "gitBlobSha": "4c504273c329f14c94fbb9eb1f1cd40bef1d13d8"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 41,
+    "id": "stencil-studio",
+    "source": "games/stencil-studio",
+    "files": [
+      {
+        "path": "games/stencil-studio/README.md",
+        "gitBlobSha": "2501f5e25acc0bbc841c03cc1fff3bae0eade526"
+      },
+      {
+        "path": "games/stencil-studio/engine.js",
+        "gitBlobSha": "2d1d3d71479836855993fe4e847a32d0ffdf838e"
+      },
+      {
+        "path": "games/stencil-studio/game.js",
+        "gitBlobSha": "fc4e71b42c689cd7023384669c71c91e42a783e6"
+      },
+      {
+        "path": "games/stencil-studio/index.html",
+        "gitBlobSha": "b34d509354b76aaeb8705e6f0affdccdf07e4441"
+      },
+      {
+        "path": "games/stencil-studio/style.css",
+        "gitBlobSha": "9dc56c5e818072a7a2006fb77bd63f00792740b2"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 42,
+    "id": "moon-dial",
+    "source": "games/moon-dial",
+    "files": [
+      {
+        "path": "games/moon-dial/engine.js",
+        "gitBlobSha": "4b57bdf7edb8aac5daa6a8dbf4f52c1144cfae60"
+      },
+      {
+        "path": "games/moon-dial/game.js",
+        "gitBlobSha": "bc3649265a5b80935d81b9e35cbefcee4294b749"
+      },
+      {
+        "path": "games/moon-dial/index.html",
+        "gitBlobSha": "d91d71f8961b0c571a1e87517e1464d979cb9814"
+      },
+      {
+        "path": "games/moon-dial/style.css",
+        "gitBlobSha": "7e8502d130ca36bcdcce42243429f2e189896526"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 43,
+    "id": "pebble-rink",
+    "source": "games/pebble-rink",
+    "files": [
+      {
+        "path": "games/pebble-rink/engine.js",
+        "gitBlobSha": "b60f7f0baad746df864b9457b517b88fbc46cc5d"
+      },
+      {
+        "path": "games/pebble-rink/game.js",
+        "gitBlobSha": "c902bb3bd38c82da256fd8550b3ea1ba7ce9c3d3"
+      },
+      {
+        "path": "games/pebble-rink/index.html",
+        "gitBlobSha": "dd9c4d71db03d9124e0b32bba93bee72145cda50"
+      },
+      {
+        "path": "games/pebble-rink/style.css",
+        "gitBlobSha": "04d4ba1214520f2a60a61d98bf6bc2e8a57e8d9e"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 44,
+    "id": "pocket-regatta",
+    "source": "games/pocket-regatta",
+    "files": [
+      {
+        "path": "games/pocket-regatta/engine.js",
+        "gitBlobSha": "a9f185e86daa798399099b76cd4c71397ec0ef6f"
+      },
+      {
+        "path": "games/pocket-regatta/game.js",
+        "gitBlobSha": "a3ef19c3de867a87b39062a9f370026bd044cbb2"
+      },
+      {
+        "path": "games/pocket-regatta/index.html",
+        "gitBlobSha": "6976181d84ebd5856dd509b7ae0ea3a9ac6a2390"
+      },
+      {
+        "path": "games/pocket-regatta/style.css",
+        "gitBlobSha": "899fe0fed1c177bb1f8cc54f2ab2feee9ec82b58"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 45,
+    "id": "crate-and-cushion",
+    "source": "games/crate-and-cushion",
+    "files": [
+      {
+        "path": "games/crate-and-cushion/engine.js",
+        "gitBlobSha": "a0534615b27c91e74e265f8661787fdf6027f448"
+      },
+      {
+        "path": "games/crate-and-cushion/game.js",
+        "gitBlobSha": "872fd763202b8312f23e96415caa01d1c11a7151"
+      },
+      {
+        "path": "games/crate-and-cushion/index.html",
+        "gitBlobSha": "8498c21388aa9df799002bde939a5926251127bd"
+      },
+      {
+        "path": "games/crate-and-cushion/style.css",
+        "gitBlobSha": "40c4cda015d061032fdbbe9fa10a4194c96cecf0"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 46,
+    "id": "bramble-dice",
+    "source": "games/bramble-dice",
+    "files": [
+      {
+        "path": "games/bramble-dice/README.md",
+        "gitBlobSha": "c6644c03971bf0453c9c9b55813099c96827a8f5"
+      },
+      {
+        "path": "games/bramble-dice/engine.js",
+        "gitBlobSha": "77bf651ea1da4ee9854075152990490e5795a444"
+      },
+      {
+        "path": "games/bramble-dice/game.js",
+        "gitBlobSha": "ff3a44523aa4a8176cb295ab4be27b5df6a0bdf9"
+      },
+      {
+        "path": "games/bramble-dice/index.html",
+        "gitBlobSha": "5915a77cfd96c1b4f5884150fa3528ef7f746880"
+      },
+      {
+        "path": "games/bramble-dice/style.css",
+        "gitBlobSha": "16b0502dbe97d52217a00d3fbb0cd5e4f737e792"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 47,
+    "id": "needlepath",
+    "source": "games/needlepath",
+    "files": [
+      {
+        "path": "games/needlepath/README.md",
+        "gitBlobSha": "6c6fd1ce7fe242c16b6c8088e1d69fac1f561124"
+      },
+      {
+        "path": "games/needlepath/engine.js",
+        "gitBlobSha": "48f71a95f8225d9222f1f1b98aa251a4641e2cbb"
+      },
+      {
+        "path": "games/needlepath/game.js",
+        "gitBlobSha": "014a84e4ed407f56fcc6ea37c9d032fe98637cd3"
+      },
+      {
+        "path": "games/needlepath/index.html",
+        "gitBlobSha": "bf10331da751cdc984c2a28fde788c1e8af97180"
+      },
+      {
+        "path": "games/needlepath/style.css",
+        "gitBlobSha": "05ed58bd3b1c41fd03ecce79e3cbbc2dc5289565"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 48,
+    "id": "reedbreaker",
+    "source": "games/reedbreaker",
+    "files": [
+      {
+        "path": "games/reedbreaker/README.md",
+        "gitBlobSha": "c573773ba421dbb8fd4af8ed1ad20c0bd58469e6"
+      },
+      {
+        "path": "games/reedbreaker/engine.js",
+        "gitBlobSha": "ff665e9c8bdc53ea8c135773a44fd13e472b4ef5"
+      },
+      {
+        "path": "games/reedbreaker/game.js",
+        "gitBlobSha": "4f6f6deb26d51679f34a97815fd5f7cd0d829bc0"
+      },
+      {
+        "path": "games/reedbreaker/index.html",
+        "gitBlobSha": "d0356dd04fa3278525eba83ac6681e8097bf54a5"
+      },
+      {
+        "path": "games/reedbreaker/style.css",
+        "gitBlobSha": "2677b92b761e68c0e832bf6df18133c0595b7459"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 49,
+    "id": "beepline",
+    "source": "games/beepline",
+    "files": [
+      {
+        "path": "games/beepline/README.md",
+        "gitBlobSha": "3c35d956341e00b550d0309047f44196fcd409a0"
+      },
+      {
+        "path": "games/beepline/engine.js",
+        "gitBlobSha": "060f8829f3781aa45eeee6e237049f7ee3f89be8"
+      },
+      {
+        "path": "games/beepline/game.js",
+        "gitBlobSha": "4afc3b3f08aa50408c7dd8d4e05527a6857ef386"
+      },
+      {
+        "path": "games/beepline/index.html",
+        "gitBlobSha": "62e50c7bb02416b94e4ca049f3dce81ecea1a3e7"
+      },
+      {
+        "path": "games/beepline/style.css",
+        "gitBlobSha": "9b9a8a130c336004ccfd4948a28639d2a64ea9d3"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 50,
+    "id": "tumbleglass",
+    "source": "games/tumbleglass",
+    "files": [
+      {
+        "path": "games/tumbleglass/README.md",
+        "gitBlobSha": "e683324fab6fe80823b42314bf22a5609b2cffeb"
+      },
+      {
+        "path": "games/tumbleglass/engine.js",
+        "gitBlobSha": "36dc06d3881f3cdbb7e4a9acae4ccd82bda8dedc"
+      },
+      {
+        "path": "games/tumbleglass/game.js",
+        "gitBlobSha": "0dc99b390cfcb071c3015f7de22a94cab59c06e5"
+      },
+      {
+        "path": "games/tumbleglass/index.html",
+        "gitBlobSha": "d1d0a07624382e08eb194dc48aa365aae1030549"
+      },
+      {
+        "path": "games/tumbleglass/style.css",
+        "gitBlobSha": "e31aceaaa783fcd9f0f13c1a126a3bcfb8d52b24"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 51,
+    "id": "soundings",
+    "source": "games/soundings",
+    "files": [
+      {
+        "path": "games/soundings/README.md",
+        "gitBlobSha": "f8e44603d0d33e496636aaec615294ec2a32f6f8"
+      },
+      {
+        "path": "games/soundings/engine.js",
+        "gitBlobSha": "89afbf9d401a16d4bd590a0c963f8ad81bc3a4f4"
+      },
+      {
+        "path": "games/soundings/game.js",
+        "gitBlobSha": "776d94705e9aa1f89d04745a3a55c4bc334fe038"
+      },
+      {
+        "path": "games/soundings/index.html",
+        "gitBlobSha": "ea17dc4e489c30aaa1dde054ece584e695107f30"
+      },
+      {
+        "path": "games/soundings/style.css",
+        "gitBlobSha": "8765b077c16e8398da12e39ac01cdd816921203f"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 52,
+    "id": "moss-commons",
+    "source": "games/moss-commons",
+    "files": [
+      {
+        "path": "games/moss-commons/README.md",
+        "gitBlobSha": "665deb8872a9d5ef98417ba65bd2a14084695658"
+      },
+      {
+        "path": "games/moss-commons/engine.js",
+        "gitBlobSha": "92cb0a95c1634f799f3e9576ce03326b2f4df536"
+      },
+      {
+        "path": "games/moss-commons/game.js",
+        "gitBlobSha": "01106816481be0f2d761d43c7ffe57623d233d22"
+      },
+      {
+        "path": "games/moss-commons/index.html",
+        "gitBlobSha": "27f27d353659dc17f1b84b0764471f5fad621eb5"
+      },
+      {
+        "path": "games/moss-commons/style.css",
+        "gitBlobSha": "3f7b4ae4fea1ec4df80f3dca9d359c433e9dfa72"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 53,
+    "id": "canopy-weave",
+    "source": "games/canopy-weave",
+    "files": [
+      {
+        "path": "games/canopy-weave/README.md",
+        "gitBlobSha": "502d1cfdb643a63827be03bf717dd7b1378bf56f"
+      },
+      {
+        "path": "games/canopy-weave/engine.js",
+        "gitBlobSha": "c2f9c6b4daa428d26c9c7c2d1081e2d2ba576560"
+      },
+      {
+        "path": "games/canopy-weave/game.js",
+        "gitBlobSha": "bc3996456554eee2199b54c70afc7d42e82781dc"
+      },
+      {
+        "path": "games/canopy-weave/index.html",
+        "gitBlobSha": "ce9be27d4cec4c5a7e7099e141c2b288dc4eb72f"
+      },
+      {
+        "path": "games/canopy-weave/style.css",
+        "gitBlobSha": "a39976703ba724b240ad9050fe1d6b09a6a0caab"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 54,
+    "id": "kiln-chorus",
+    "source": "games/kiln-chorus",
+    "files": [
+      {
+        "path": "games/kiln-chorus/README.md",
+        "gitBlobSha": "fab11e01b21da549ad0c2591d4459ec3b37563fb"
+      },
+      {
+        "path": "games/kiln-chorus/engine.js",
+        "gitBlobSha": "32c1979c4ae3bfa73c1930ed40cc0dfab9f2a68a"
+      },
+      {
+        "path": "games/kiln-chorus/game.js",
+        "gitBlobSha": "ac9e492233552078b8dbf12f8ef3a97e3db14914"
+      },
+      {
+        "path": "games/kiln-chorus/index.html",
+        "gitBlobSha": "d10ea32ba7d89cf0a25bbdb710d19f10e6022589"
+      },
+      {
+        "path": "games/kiln-chorus/style.css",
+        "gitBlobSha": "6084a77b66e0934eb3784f94fb63c4c6a1284808"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 55,
+    "id": "field-album",
+    "source": "games/field-album",
+    "files": [
+      {
+        "path": "games/field-album/README.md",
+        "gitBlobSha": "c1abea73ab9bd00dc0d781159fbd509f2cc6a4b2"
+      },
+      {
+        "path": "games/field-album/engine.js",
+        "gitBlobSha": "c8af429dd025923b52b3dbaf57d13d63deaa95ed"
+      },
+      {
+        "path": "games/field-album/game.js",
+        "gitBlobSha": "ecdebe3f9d79a1f5fffc9ffde6c234f1eb700270"
+      },
+      {
+        "path": "games/field-album/index.html",
+        "gitBlobSha": "1b9bda44650b345eb313869e10589453a4a6a43b"
+      },
+      {
+        "path": "games/field-album/style.css",
+        "gitBlobSha": "3a8d16bfebd8befaaab9790285e3044871e378be"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 56,
+    "id": "ribbon-reef",
+    "source": "games/ribbon-reef",
+    "files": [
+      {
+        "path": "games/ribbon-reef/README.md",
+        "gitBlobSha": "a98f778bb9b8240b275b53065bfc181a2f946a46"
+      },
+      {
+        "path": "games/ribbon-reef/engine.js",
+        "gitBlobSha": "a0363bf1ea11027c3295366a46626dd3a0b9c8b7"
+      },
+      {
+        "path": "games/ribbon-reef/game.js",
+        "gitBlobSha": "fc73288a9ecdaa36b1dc9d05cfa7a137df200ac1"
+      },
+      {
+        "path": "games/ribbon-reef/index.html",
+        "gitBlobSha": "e5fb4ef12ee6af35b92ce1ad4d3db3ab8e756ff9"
+      },
+      {
+        "path": "games/ribbon-reef/style.css",
+        "gitBlobSha": "b7e1f40ce6ad93e857e816a4eeb4352234eeb0fb"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 57,
+    "id": "bellwether",
+    "source": "games/bellwether",
+    "files": [
+      {
+        "path": "games/bellwether/README.md",
+        "gitBlobSha": "67483f035e23721b39641be403e4f10daf0a6cb1"
+      },
+      {
+        "path": "games/bellwether/engine.js",
+        "gitBlobSha": "70a0e3a98e1efd4f163312e2b323d3dc146e0214"
+      },
+      {
+        "path": "games/bellwether/game.js",
+        "gitBlobSha": "0c26cc8b77f29a46475dbb40f930f0b3d6294884"
+      },
+      {
+        "path": "games/bellwether/index.html",
+        "gitBlobSha": "534ad5c80a4971e5658fe38db337261e60be63c2"
+      },
+      {
+        "path": "games/bellwether/style.css",
+        "gitBlobSha": "86031f14f953ce44e65519b797cae1ebfdfea99d"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 58,
+    "id": "rill-root",
+    "source": "games/rill-root",
+    "files": [
+      {
+        "path": "games/rill-root/README.md",
+        "gitBlobSha": "8c44a76042249fca68d4157ab0a73dbca5cdf32c"
+      },
+      {
+        "path": "games/rill-root/engine.js",
+        "gitBlobSha": "d7238f098732ca59bee8afdc3b3171870d448bae"
+      },
+      {
+        "path": "games/rill-root/game.js",
+        "gitBlobSha": "d450de4c9d01774ae63f432061fc057d527fd90c"
+      },
+      {
+        "path": "games/rill-root/index.html",
+        "gitBlobSha": "65a2354d740c671a5a65fc9a71edd681ffd7a8c6"
+      },
+      {
+        "path": "games/rill-root/style.css",
+        "gitBlobSha": "3ea61a036a3dab055ed38c65e1038300cc7ab20b"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 59,
+    "id": "fallow-table",
+    "source": "games/fallow-table",
+    "files": [
+      {
+        "path": "games/fallow-table/README.md",
+        "gitBlobSha": "fb87c792ef3bc281d20bc9972594e846d0f82f27"
+      },
+      {
+        "path": "games/fallow-table/engine.js",
+        "gitBlobSha": "f73fe935ed34f7454d42c4b35ae5f1ffc1c5a215"
+      },
+      {
+        "path": "games/fallow-table/game.js",
+        "gitBlobSha": "30eed396fcbc82ee60cc38fcbfea137574a36147"
+      },
+      {
+        "path": "games/fallow-table/index.html",
+        "gitBlobSha": "cbb3d909fafdf05ebb8c031268dce706ceb46f88"
+      },
+      {
+        "path": "games/fallow-table/style.css",
+        "gitBlobSha": "500064443ec1543dc3f20f9d475e164bd96e2fed"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 60,
+    "id": "seedwake",
+    "source": "games/seedwake",
+    "files": [
+      {
+        "path": "games/seedwake/README.md",
+        "gitBlobSha": "4111d828fafd98aeeac189b29a235ea003900003"
+      },
+      {
+        "path": "games/seedwake/engine.js",
+        "gitBlobSha": "9672129e8af0bfc816ae5593031d1c52cb16f622"
+      },
+      {
+        "path": "games/seedwake/game.js",
+        "gitBlobSha": "b1a67439b0bd8e8f7e7a93ea32f97ed0cc94d173"
+      },
+      {
+        "path": "games/seedwake/index.html",
+        "gitBlobSha": "3a2df61138ad57abd3e89da53f3144135d640036"
+      },
+      {
+        "path": "games/seedwake/style.css",
+        "gitBlobSha": "3b4282196a77551f5b02d3e1d90e6024e09c5487"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 61,
+    "id": "foldlight",
+    "source": "games/foldlight",
+    "files": [
+      {
+        "path": "games/foldlight/README.md",
+        "gitBlobSha": "bc087805852a67c6219d24806acf473a8d8a988d"
+      },
+      {
+        "path": "games/foldlight/engine.js",
+        "gitBlobSha": "d2637b6c16d7c1222177ca2266c02ebb7b6f9e3f"
+      },
+      {
+        "path": "games/foldlight/game.js",
+        "gitBlobSha": "adb7e95e1f6cf23a90ef91204f62d5a87a0123a6"
+      },
+      {
+        "path": "games/foldlight/index.html",
+        "gitBlobSha": "6127c31aa9a8ed3f204851a13b164c1041b3e050"
+      },
+      {
+        "path": "games/foldlight/style.css",
+        "gitBlobSha": "740d437bedc9d0ebc30ac68f202c943cb4199c3e"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 62,
+    "id": "thimble-fair",
+    "source": "games/thimble-fair",
+    "files": [
+      {
+        "path": "games/thimble-fair/README.md",
+        "gitBlobSha": "18b669b678f175955ac5b4cdde4d5539fc852a39"
+      },
+      {
+        "path": "games/thimble-fair/engine.js",
+        "gitBlobSha": "1bdb6c4b3ecc2cc76c5d519231ba9d6cce8283e2"
+      },
+      {
+        "path": "games/thimble-fair/game.js",
+        "gitBlobSha": "2330499498d3cbbc94c2b6b3d0adc4e33a09d963"
+      },
+      {
+        "path": "games/thimble-fair/index.html",
+        "gitBlobSha": "f09f831c24b80ee23900f0287d58f3d3c2398b06"
+      },
+      {
+        "path": "games/thimble-fair/style.css",
+        "gitBlobSha": "12f4074e193efcc73a0151082ded1d93a67edf43"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 63,
+    "id": "bramble-pact",
+    "source": "games/bramble-pact",
+    "files": [
+      {
+        "path": "games/bramble-pact/README.md",
+        "gitBlobSha": "ac623e0cdcaba30d13c9562cafe6dcf29e04df86"
+      },
+      {
+        "path": "games/bramble-pact/engine.js",
+        "gitBlobSha": "053df06765d25968713f54227c31a50b9ce11f34"
+      },
+      {
+        "path": "games/bramble-pact/game.js",
+        "gitBlobSha": "04626eeb37015d3178ebc5e437940c2f5fed4abe"
+      },
+      {
+        "path": "games/bramble-pact/index.html",
+        "gitBlobSha": "8afb8558c2bcadcab603eb038b364502247a1ae8"
+      },
+      {
+        "path": "games/bramble-pact/style.css",
+        "gitBlobSha": "03c768fc99ae1de55e916dcea8be95be282d0cac"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 64,
+    "id": "bough-balance",
+    "source": "games/bough-balance",
+    "files": [
+      {
+        "path": "games/bough-balance/README.md",
+        "gitBlobSha": "50363e5f2d6a781c9f6186e5d86ccdc4eb527319"
+      },
+      {
+        "path": "games/bough-balance/engine.js",
+        "gitBlobSha": "f4e683e93832d7ea0f6b48c3d0e94a6003698035"
+      },
+      {
+        "path": "games/bough-balance/game.js",
+        "gitBlobSha": "82ec400e73caa997e885b3a0b63edc9f0694fbc9"
+      },
+      {
+        "path": "games/bough-balance/index.html",
+        "gitBlobSha": "9eec49a44f71180fe445203a5da9aa2d3ded91e2"
+      },
+      {
+        "path": "games/bough-balance/style.css",
+        "gitBlobSha": "4e958091624a1c2842cd716a9d2b855e11f8023f"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 65,
+    "id": "glimmer-loom",
+    "source": "games/glimmer-loom",
+    "files": [
+      {
+        "path": "games/glimmer-loom/README.md",
+        "gitBlobSha": "b57a87ac733b809e355bcb67d75609fc1c3e7adc"
+      },
+      {
+        "path": "games/glimmer-loom/engine.js",
+        "gitBlobSha": "22cce51517660daeeb6cb841951edbe3f0a77b93"
+      },
+      {
+        "path": "games/glimmer-loom/game.js",
+        "gitBlobSha": "96c01ba184fe2e0c4ca94d809d8884190c701044"
+      },
+      {
+        "path": "games/glimmer-loom/index.html",
+        "gitBlobSha": "db29c44f301d2d3477869887c03bc9c857f23e6b"
+      },
+      {
+        "path": "games/glimmer-loom/style.css",
+        "gitBlobSha": "383ffe7275b6ecc735a11571119bfe71d3be9a03"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 66,
+    "id": "mycelium-yard",
+    "source": "games/mycelium-yard",
+    "files": [
+      {
+        "path": "games/mycelium-yard/README.md",
+        "gitBlobSha": "ce68f0375c83e1f18c1c4871b1bc5fb11c63f506"
+      },
+      {
+        "path": "games/mycelium-yard/engine.js",
+        "gitBlobSha": "54bf6cc7fd7e53c9576abb9f47926f0affde15d3"
+      },
+      {
+        "path": "games/mycelium-yard/game.js",
+        "gitBlobSha": "d70c062ebfcf88056e4e11a9e72bdf8744921d81"
+      },
+      {
+        "path": "games/mycelium-yard/index.html",
+        "gitBlobSha": "1343a0c4820c1c16f036a10799708e5583d334d6"
+      },
+      {
+        "path": "games/mycelium-yard/style.css",
+        "gitBlobSha": "dccf45aea8a49787cbb857605aa276d790016a90"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 67,
+    "id": "switchyard-post",
+    "source": "games/switchyard-post",
+    "files": [
+      {
+        "path": "games/switchyard-post/engine.js",
+        "gitBlobSha": "d299259dd9db7614280c1044ed3ca5b8d38a184d"
+      },
+      {
+        "path": "games/switchyard-post/game.js",
+        "gitBlobSha": "17243298f0c54ba41ef03de8ce10139210224854"
+      },
+      {
+        "path": "games/switchyard-post/index.html",
+        "gitBlobSha": "1f4e480d25ded329d506d5e1244c10d8934f4307"
+      },
+      {
+        "path": "games/switchyard-post/style.css",
+        "gitBlobSha": "976730d797bc657af8375987c93eee5acc3d6087"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 68,
+    "id": "bell-diver",
+    "source": "games/bell-diver",
+    "files": [
+      {
+        "path": "games/bell-diver/engine.js",
+        "gitBlobSha": "a81f339696b695fe225cac1811d170159177cdeb"
+      },
+      {
+        "path": "games/bell-diver/game.js",
+        "gitBlobSha": "c1b1e6a78259ee23e05f257043f05753aaaaae90"
+      },
+      {
+        "path": "games/bell-diver/index.html",
+        "gitBlobSha": "f2e079bbdcf1d334504237f01c583a65a6b3c017"
+      },
+      {
+        "path": "games/bell-diver/style.css",
+        "gitBlobSha": "8dcfe3758628b669239a6fc8a5161f543e9db7a4"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 69,
+    "id": "brasswake",
+    "source": "games/brasswake",
+    "files": [
+      {
+        "path": "games/brasswake/engine.js",
+        "gitBlobSha": "c0550a825429d10c2c3a82314c17ddeae9e44791"
+      },
+      {
+        "path": "games/brasswake/game.js",
+        "gitBlobSha": "8e00ad2a3582f6c49a06f1ea608c4b6ebf423527"
+      },
+      {
+        "path": "games/brasswake/index.html",
+        "gitBlobSha": "406ab9761c2496d3f25e07e7242b4d172935aad6"
+      },
+      {
+        "path": "games/brasswake/style.css",
+        "gitBlobSha": "55f3b5e2cb96b3ed7adf16fe94d33bd6323aa3fc"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 70,
+    "id": "lockwater",
+    "source": "games/lockwater",
+    "files": [
+      {
+        "path": "games/lockwater/engine.js",
+        "gitBlobSha": "d23e609c2958c9f99111387d12d4e65606bb1c54"
+      },
+      {
+        "path": "games/lockwater/game.js",
+        "gitBlobSha": "f69308c4bf4ed68ca0cde59bccb324a1ad9def77"
+      },
+      {
+        "path": "games/lockwater/index.html",
+        "gitBlobSha": "10104d88d596ab8733d30c1f45884453af07eb00"
+      },
+      {
+        "path": "games/lockwater/style.css",
+        "gitBlobSha": "57be25ff4f469305292dfe0b71efb4b0c5f21de9"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 71,
+    "id": "grainwright",
+    "source": "games/grainwright",
+    "files": [
+      {
+        "path": "games/grainwright/engine.js",
+        "gitBlobSha": "ab0a1c5f7277fd83ed89422057c51c9c3d4e180e"
+      },
+      {
+        "path": "games/grainwright/game.js",
+        "gitBlobSha": "fe51773a32435ae4bae7007a92aa47a3a18ae736"
+      },
+      {
+        "path": "games/grainwright/index.html",
+        "gitBlobSha": "d6e1acf04be035ec55c4a4c8d899476a2dc44748"
+      },
+      {
+        "path": "games/grainwright/style.css",
+        "gitBlobSha": "71e936bf62a01a159284583bf8072f781dbce9fe"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 72,
+    "id": "cinderwatch",
+    "source": "games/cinderwatch",
+    "files": [
+      {
+        "path": "games/cinderwatch/engine.js",
+        "gitBlobSha": "1bd6fbe37a193077458390f5e86f3b1fa68a3e64"
+      },
+      {
+        "path": "games/cinderwatch/game.js",
+        "gitBlobSha": "02c1ae305741345dee0c0f4a2ffbe24147356fcb"
+      },
+      {
+        "path": "games/cinderwatch/index.html",
+        "gitBlobSha": "5184099b4b37a293cacf0e50cf988cd6a4da9a14"
+      },
+      {
+        "path": "games/cinderwatch/style.css",
+        "gitBlobSha": "b637594396731ed03723310fb09ac1ffe8bc41b5"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 73,
+    "id": "brine-ledger",
+    "source": "games/brine-ledger",
+    "files": [
+      {
+        "path": "games/brine-ledger/engine.js",
+        "gitBlobSha": "54a38b323be58fbf1988a92cd8c7ad6d61f9afc0"
+      },
+      {
+        "path": "games/brine-ledger/game.js",
+        "gitBlobSha": "4f8804ab0e2cc859ba1977f774bee528a7343891"
+      },
+      {
+        "path": "games/brine-ledger/index.html",
+        "gitBlobSha": "866be58703599a404320ef0a20d8f89efdbaa157"
+      },
+      {
+        "path": "games/brine-ledger/style.css",
+        "gitBlobSha": "da9240fa4f37ad112ec26159baa6c3507f76884f"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 74,
+    "id": "kettle-thorn",
+    "source": "games/kettle-thorn",
+    "files": [
+      {
+        "path": "games/kettle-thorn/engine.js",
+        "gitBlobSha": "ce0240953c6d7b6f9b1204cd6f354323bb4963fd"
+      },
+      {
+        "path": "games/kettle-thorn/game.js",
+        "gitBlobSha": "ca1aecdcebc132264cc3354be28dbbfa84ea3645"
+      },
+      {
+        "path": "games/kettle-thorn/index.html",
+        "gitBlobSha": "d37de64eaebf02133e7e69dc620538f51aedd7cb"
+      },
+      {
+        "path": "games/kettle-thorn/style.css",
+        "gitBlobSha": "2a0671bd8c66d53bb6caf1d49d2bda78e31e9651"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 75,
+    "id": "hollowhand",
+    "source": "games/hollowhand",
+    "files": [
+      {
+        "path": "games/hollowhand/engine.js",
+        "gitBlobSha": "764112608bf56d8c95381a09523ce046dffb15a2"
+      },
+      {
+        "path": "games/hollowhand/game.js",
+        "gitBlobSha": "59bc97d2120099adbb5c19d56838fa6698df63c8"
+      },
+      {
+        "path": "games/hollowhand/index.html",
+        "gitBlobSha": "825c805f4d2b90336749904cd1f07d2a4299ab83"
+      },
+      {
+        "path": "games/hollowhand/style.css",
+        "gitBlobSha": "35f54797fa05d0b92faaee950a0b035643eb7004"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 76,
+    "id": "ambercut",
+    "source": "games/ambercut",
+    "files": [
+      {
+        "path": "games/ambercut/engine.js",
+        "gitBlobSha": "92ee6dffabe61e7c63628a4892ed1b887a875ec4"
+      },
+      {
+        "path": "games/ambercut/game.js",
+        "gitBlobSha": "3f8bbb2459187d74f762ac33b9a6d0d214e83907"
+      },
+      {
+        "path": "games/ambercut/index.html",
+        "gitBlobSha": "647a25cded1bea01b61ccf416c37e4cee68253ac"
+      },
+      {
+        "path": "games/ambercut/style.css",
+        "gitBlobSha": "7c0b7541fd0364fea1149be0cc6949a53f635115"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 77,
+    "id": "stillframe",
+    "source": "games/stillframe",
+    "files": [
+      {
+        "path": "games/stillframe/engine.js",
+        "gitBlobSha": "4b0c618e7e031c4d5c93945686ddf04f430760e2"
+      },
+      {
+        "path": "games/stillframe/game.js",
+        "gitBlobSha": "6bd6c7f2d241ef220a6fa396807a434bcf64a27c"
+      },
+      {
+        "path": "games/stillframe/index.html",
+        "gitBlobSha": "7ae0d5b410ca8501a19df478ebf4a577123a35bf"
+      },
+      {
+        "path": "games/stillframe/style.css",
+        "gitBlobSha": "518866d758dc4f7b7af74ce4ce6c745116014524"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 78,
+    "id": "liftkeeper",
+    "source": "games/liftkeeper",
+    "files": [
+      {
+        "path": "games/liftkeeper/engine.js",
+        "gitBlobSha": "954105c3e686e9daafd411a2d420b27c467f265e"
+      },
+      {
+        "path": "games/liftkeeper/game.js",
+        "gitBlobSha": "3eae3fc12d816c669c53220d849e7983ec526d4a"
+      },
+      {
+        "path": "games/liftkeeper/index.html",
+        "gitBlobSha": "9b6f6be4fbe404f84ae6164250eeec77d64deb9e"
+      },
+      {
+        "path": "games/liftkeeper/style.css",
+        "gitBlobSha": "d162331b48288f150184a5d0ae88403495481f2d"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 79,
+    "id": "hushwood",
+    "source": "games/hushwood",
+    "files": [
+      {
+        "path": "games/hushwood/engine.js",
+        "gitBlobSha": "c41c9e2e6d4d491682e5ed56295cd2b7abefb2b3"
+      },
+      {
+        "path": "games/hushwood/game.js",
+        "gitBlobSha": "4fbd9336e57c006033f3c3728c6313773e8dd02a"
+      },
+      {
+        "path": "games/hushwood/index.html",
+        "gitBlobSha": "970f17320d08cda44257dd16555d0917996f5481"
+      },
+      {
+        "path": "games/hushwood/style.css",
+        "gitBlobSha": "1c96e58ed0d06acb8cf833e0677f131413a9164a"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 80,
+    "id": "rootstock",
+    "source": "games/rootstock",
+    "files": [
+      {
+        "path": "games/rootstock/engine.js",
+        "gitBlobSha": "ba434a67d34caca958eb1851ac12324f4ab3440f"
+      },
+      {
+        "path": "games/rootstock/game.js",
+        "gitBlobSha": "c4b367c39c0960df16308a3c8d22438faadb19e6"
+      },
+      {
+        "path": "games/rootstock/index.html",
+        "gitBlobSha": "0a593a490edcf563e7fdaafa0a849df98b3c601e"
+      },
+      {
+        "path": "games/rootstock/style.css",
+        "gitBlobSha": "ef51a052f749974eacad28a8542134d51f84bf6b"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 81,
+    "id": "skyhook",
+    "source": "games/skyhook",
+    "files": [
+      {
+        "path": "games/skyhook/CREDITS.md",
+        "gitBlobSha": "a1804821791c62de4b70c5d306b808ba8b6864cf"
+      },
+      {
+        "path": "games/skyhook/engine.js",
+        "gitBlobSha": "47a1148343f7009f06c064a2d361fbc6a4a2d3c7"
+      },
+      {
+        "path": "games/skyhook/game.js",
+        "gitBlobSha": "e1d001dc24d1dd7d1eecfaeb04a0ea7479c5db36"
+      },
+      {
+        "path": "games/skyhook/index.html",
+        "gitBlobSha": "fe6d646e4f8f7cbbdfa8091063062df49336cf18"
+      },
+      {
+        "path": "games/skyhook/style.css",
+        "gitBlobSha": "855ba7fcd26b7c5b8f777f8a23a807d95699f072"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 82,
+    "id": "warren-watch",
+    "source": "games/warren-watch",
+    "files": [
+      {
+        "path": "games/warren-watch/CREDITS.md",
+        "gitBlobSha": "c34be790be2b04359eddc637b896f39d92ec723d"
+      },
+      {
+        "path": "games/warren-watch/engine.js",
+        "gitBlobSha": "3792128eacb5b9e24f6e878d96392feaa85a78f5"
+      },
+      {
+        "path": "games/warren-watch/game.js",
+        "gitBlobSha": "911b6c0ee96195e672cf79ec8b0ccd351306d8dd"
+      },
+      {
+        "path": "games/warren-watch/index.html",
+        "gitBlobSha": "5a3710ff3b7526657cfabc08cb02c4ab2a5e8f2c"
+      },
+      {
+        "path": "games/warren-watch/style.css",
+        "gitBlobSha": "aaeddbe2dfc6a8a3e0057890616f7633ea8315e1"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 83,
+    "id": "stillwater-dyehouse",
+    "source": "games/stillwater-dyehouse",
+    "files": [
+      {
+        "path": "games/stillwater-dyehouse/CREDITS.md",
+        "gitBlobSha": "c7d79580bd84c05f9111f6b4f632f3ece7da2e8e"
+      },
+      {
+        "path": "games/stillwater-dyehouse/engine.js",
+        "gitBlobSha": "79445d09b44602a82917124d6f18da09b0db032c"
+      },
+      {
+        "path": "games/stillwater-dyehouse/game.js",
+        "gitBlobSha": "1bf875fd83af674398ca8cdd850a60ace564c050"
+      },
+      {
+        "path": "games/stillwater-dyehouse/index.html",
+        "gitBlobSha": "306ba20e442ee7fbe897d98868863072f66813ee"
+      },
+      {
+        "path": "games/stillwater-dyehouse/style.css",
+        "gitBlobSha": "6a6eeb317c01951085c88c45895d7d95020ba7c4"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 84,
+    "id": "scree-rider",
+    "source": "games/scree-rider",
+    "files": [
+      {
+        "path": "games/scree-rider/CREDITS.md",
+        "gitBlobSha": "9003ef320afbd0a85588a4de9042af02cec710e3"
+      },
+      {
+        "path": "games/scree-rider/engine.js",
+        "gitBlobSha": "5da53fccaedfe2dfc25c0db1243d12381ecd29de"
+      },
+      {
+        "path": "games/scree-rider/game.js",
+        "gitBlobSha": "f3b190091ceb116b88ace8ad25a485ea9646d60f"
+      },
+      {
+        "path": "games/scree-rider/index.html",
+        "gitBlobSha": "22f9aa222548b37464dc8bcaf52177ca80cd1c8a"
+      },
+      {
+        "path": "games/scree-rider/style.css",
+        "gitBlobSha": "3afe8f0a1a6ce2009aa19671bdd6867e26ff2c0e"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 85,
+    "id": "shuttle-grove",
+    "source": "games/shuttle-grove",
+    "files": [
+      {
+        "path": "games/shuttle-grove/CREDITS.md",
+        "gitBlobSha": "c966042c781ca579d7c5ee0d533ab7aeb0c4117a"
+      },
+      {
+        "path": "games/shuttle-grove/engine.js",
+        "gitBlobSha": "b35207c3c3a414915595f86b80c5311aca418694"
+      },
+      {
+        "path": "games/shuttle-grove/game.js",
+        "gitBlobSha": "63f36de122d451be6344682625442704f3f4596f"
+      },
+      {
+        "path": "games/shuttle-grove/index.html",
+        "gitBlobSha": "e929ce2255c789f2d1c642845f10a72c56448eab"
+      },
+      {
+        "path": "games/shuttle-grove/style.css",
+        "gitBlobSha": "2cb0ececd6b9e25c25007880033032c30ef6f6a5"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 86,
+    "id": "echo-orchard",
+    "source": "games/echo-orchard",
+    "files": [
+      {
+        "path": "games/echo-orchard/CREDITS.md",
+        "gitBlobSha": "741955afe069034cf1d42ea2f1c5b8d7a06c768f"
+      },
+      {
+        "path": "games/echo-orchard/engine.js",
+        "gitBlobSha": "1a6aa7d42528661e2eaa3c46aa1e8d6c1af9f816"
+      },
+      {
+        "path": "games/echo-orchard/game.js",
+        "gitBlobSha": "d5f844c3a1e58ce50c78e2633db171a55c09a958"
+      },
+      {
+        "path": "games/echo-orchard/index.html",
+        "gitBlobSha": "e01fe33b1668871d2bb903cd8f46dc4af73ed144"
+      },
+      {
+        "path": "games/echo-orchard/style.css",
+        "gitBlobSha": "ecaab83c8588fadc463da96bbcf78b15177199a6"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 87,
+    "id": "spore-loom",
+    "source": "games/spore-loom",
+    "files": [
+      {
+        "path": "games/spore-loom/CREDITS.md",
+        "gitBlobSha": "fe5be08f36e19cb140f15c4532b5d8d8f1c0234c"
+      },
+      {
+        "path": "games/spore-loom/engine.js",
+        "gitBlobSha": "c5ad4464f018876dd014780c5b49c6536a069cb7"
+      },
+      {
+        "path": "games/spore-loom/game.js",
+        "gitBlobSha": "f4553d2a67feac51e42ad7645f9833e13b61a4e1"
+      },
+      {
+        "path": "games/spore-loom/index.html",
+        "gitBlobSha": "dc40e2e89ecb9e8b6e620850fc06a5cd1ec11c41"
+      },
+      {
+        "path": "games/spore-loom/style.css",
+        "gitBlobSha": "88cb2188ac05f1ab768d3c7fc14dc5a1afe972c4"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 88,
+    "id": "reed-convoy",
+    "source": "games/reed-convoy",
+    "files": [
+      {
+        "path": "games/reed-convoy/CREDITS.md",
+        "gitBlobSha": "7826dccfe9282ab5a2d45e75f177cdfb1d9f8d0a"
+      },
+      {
+        "path": "games/reed-convoy/engine.js",
+        "gitBlobSha": "adb3390c18a8ab5926125d483af96f56bc24c2f7"
+      },
+      {
+        "path": "games/reed-convoy/game.js",
+        "gitBlobSha": "4fdc95997a3536e064692f05ae41db479b8b0ab1"
+      },
+      {
+        "path": "games/reed-convoy/index.html",
+        "gitBlobSha": "42d05b4e3181963c65e045e88a08a77a340692bc"
+      },
+      {
+        "path": "games/reed-convoy/style.css",
+        "gitBlobSha": "b8ff83bdd0c526784c2895f49be37978b9cec982"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 89,
+    "id": "cairnfall",
+    "source": "games/cairnfall",
+    "files": [
+      {
+        "path": "games/cairnfall/CREDITS.md",
+        "gitBlobSha": "028e81a17992b6845f2305da8d42e745f145b562"
+      },
+      {
+        "path": "games/cairnfall/engine.js",
+        "gitBlobSha": "ac535a1327f12f3da9c40f7d8955e13f789ff3ac"
+      },
+      {
+        "path": "games/cairnfall/game.js",
+        "gitBlobSha": "3091f52128aedfa95562f62ff5cfe09290699ab6"
+      },
+      {
+        "path": "games/cairnfall/index.html",
+        "gitBlobSha": "d3b11533fb84a1c547ef2d94236c059ed69d635c"
+      },
+      {
+        "path": "games/cairnfall/style.css",
+        "gitBlobSha": "303a60de5a35400824ebe5aab5adb014fe6d88c1"
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "slot": 90,
+    "id": "chalkstep",
+    "source": "games/chalkstep",
+    "files": [
+      {
+        "path": "games/chalkstep/CREDITS.md",
+        "gitBlobSha": "7ae91f288ce835b02217f590aeb0e52481327d81"
+      },
+      {
+        "path": "games/chalkstep/engine.js",
+        "gitBlobSha": "53d5f191a39a1be0dd681f687559e3d09e54ffe2"
+      },
+      {
+        "path": "games/chalkstep/game.js",
+        "gitBlobSha": "ef9a4e1a26f99b0548046b8237ab819dc8c4d591"
+      },
+      {
+        "path": "games/chalkstep/index.html",
+        "gitBlobSha": "497110031d9836d41dbae5fa31bbf5741f6b0afa"
+      },
+      {
+        "path": "games/chalkstep/style.css",
+        "gitBlobSha": "c9d9f7d7e3254dedb3041f1ac64b64e33aef8340"
+      }
+    ]
+  }
+]

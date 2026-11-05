@@ -4232,8 +4232,8 @@
     }
   ],
   "nextSteps": [
-    "Complete final cross-batch evidence/source-preservation audit and final report; then pause the existing automation.",
-    "Do not restore retired catalogue entries. All50 third-batch candidates are built/improved/qualified; the selected pair is integrated and live."
+    "Task complete; pause its automation. Preserve all source branches and current catalogue.",
+    "Future changes require fresh-main review; independent player/physical-device/accessibility feedback remains optional follow-up, not claimed evidence."
   ],
   "updated": "2026-11-05",
   "latestObservedMain": "8f8773e9db653e943e828c04f67a12c852fde45e",
@@ -5869,6 +5869,11 @@
       "result": "Reviewed all50 candidate decisions; selected and integrated Mycelium Yard66/Bell Diver68 from fresh main. Both gameplay suites and real launcher checks pass; screenshots inspected.50 built/improved/qualified,2 integrated,live pending. Pages deployment and actual live desktop/touch launcher verified;2 live.",
       "commit": "8f8773e9db653e943e828c04f67a12c852fde45e",
       "report": "dev/indie-collection-three/FINAL_SELECTION.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Final cross-batch audit passed: exact20/20/50 candidates,90 unique IDs/source pages,393 source files,20/20 second additional records,50 third qualifications,1034 unchanged prior main files. Selected pair live and deployment verified. Completion report saved; task ready to pause.",
+      "report": "dev/indie-collection-three/FINAL_REPORT.md"
     }
   ],
   "historicalTotals": {
@@ -5954,5 +5959,19 @@
       "bell-diver"
     ],
     "liveVerificationRun": 42008273894
+  },
+  "completion": {
+    "date": "2026-11-05",
+    "status": "complete",
+    "report": "dev/indie-collection-three/FINAL_REPORT.md",
+    "totalAcrossBatches": 90,
+    "thirdBuilt": 50,
+    "thirdImproved": 50,
+    "thirdQualified": 50,
+    "thirdActiveIntegrated": 2,
+    "thirdActiveLive": 2,
+    "secondAdditionalVerified": 20,
+    "deploymentBarrier": null,
+    "automationAction": "Pause only this completed task after saving report"
   }
 }
