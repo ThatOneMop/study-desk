@@ -6,7 +6,7 @@
   "totals": {
     "built": 47,
     "improved": 47,
-    "browserTested": 46,
+    "browserTested": 47,
     "integrated": 0,
     "live": 0
   },
@@ -3753,11 +3753,11 @@
       "id": "spore-loom",
       "title": "Spore Loom",
       "coreLoop": "Plant spores around starter cells, advance simultaneous neighbour-based growth, and shape the resulting colony to match a target; replant to revise and improve saved planting records.",
-      "status": "improved-awaiting-qualification",
+      "status": "qualified-reserve",
       "source": "games/spore-loom",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3780,24 +3780,27 @@
       ],
       "tests": [
         "CI41921519708 at79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d passed four engine checks and six rendered colony solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload, growth/target progression, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13367985561 SHA2564c34fbbd5bb43a9e56704a433f112909ab15e4c008b73cf4c084933022e82fbe downloaded/verified; touch-won-1.png inspected. Earlier CI41921200328 passed; artifact13365869555 SHA2569b8ae1176d8d0f10c3db3741a453a270f33d9a34b91d1c0a89a429147c15cb5d verified; desktop-growth-2.png and touch-won-1.png inspected, prompting clearer empty soil and corrected save wording. These minor baseline repairs do not count as a substantive improvement pass.",
-        "CI41931289646 atfa3aa21b4336c2470eaa70e856dd7f88747d17b0 passed six engine checks and twelve rendered planting/tending solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload includes selected spores and completed transplants; unlocks, seals, confirmed return to planting, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13371018247 SHA256eec73cc1e1ea8ed36760ee6612f35bb0344765805297b69a733ac29062c4dc91 downloaded/verified; desktop-selected-1.png and touch-tending-2.png opened and inspected. Initial upgrade CI41931140597 also passed before start/retry guidance refinement."
+        "CI41931289646 atfa3aa21b4336c2470eaa70e856dd7f88747d17b0 passed six engine checks and twelve rendered planting/tending solutions at desktop1280×1000/touch-emulated390×844. Exact per-action reload includes selected spores and completed transplants; unlocks, seals, confirmed return to planting, lifting/replant/missed/restart, records, Space/Enter/Escape, pause, corrupt/quota storage, Games navigation and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13371018247 SHA256eec73cc1e1ea8ed36760ee6612f35bb0344765805297b69a733ac29062c4dc91 downloaded/verified; desktop-selected-1.png and touch-tending-2.png opened and inspected. Initial upgrade CI41931140597 also passed before start/retry guidance refinement.",
+        "CI41938433584 at424b8a5bfcc9481a0f7e72a5a0ef27ee9ac4d1a7 passed eight engine checks, twelve pointer/touch planting/tending solutions and twelve full-keyboard solutions. Exact per-action reload, seal/record persistence, lifting/replant/missed/restart, Tab/Enter/Space/Escape, real bridge hidden restart/return-to-planting/recovery/growth controls, explicit resume, Collection messages, unrelated save isolation, corrupt/quota storage and no overflow/page errors passed. Repository74 bundled routes/286 asset references, syntax/Freedoom and nine selected first-batch integrity checks passed. Artifact13374568602 SHA256dfbfd574dab83d8f7b997941f53817b725cec2b6923b8e4f31f4042cd1efddc9 downloaded/verified; desktop-keyboard-2.png and touch-shell.png opened and inspected."
       ],
       "commits": [
         "ebd0d792e180fc92c417164f56607c70f46a98fc",
         "79e18a11b99fb2b1c1ebcdf7a2b461a0a967a98d",
         "1ca3c4184cdd97cd21c25ced44b4c08fc249e663",
-        "fa3aa21b4336c2470eaa70e856dd7f88747d17b0"
+        "fa3aa21b4336c2470eaa70e856dd7f88747d17b0",
+        "424b8a5bfcc9481a0f7e72a5a0ef27ee9ac4d1a7"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantively improved; qualification and selection pending.",
-        "assessment": "Transplant timing and destination alter downstream births/deaths and are required by each disturbed colony. Three fixed target shapes still limit long-term depth.",
-        "knownLimits": "Full keyboard-only solutions, embedded lifecycle/navigation and stronger save-history consistency are pending. Automated routes and screenshots are not human enjoyment, physical-device or duration evidence."
+        "status": "Qualified reserve; not selected for catalogue.",
+        "assessment": "Transplant timing, source and destination affect downstream growth, with previews supporting deliberate choices. Three fixed target shapes still limit depth and replay variety; retain for final slate comparison.",
+        "qualificationFixes": "Reconstruct growth from planting/disturbed start and transplant provenance; validate board, phase, selection lifecycle, earned seals and completion record. Preserve legitimate missed attempts, retries and legacy saves.",
+        "knownLimits": "Automated routes and inspected screenshots are not human enjoyment, physical-device or duration evidence. Embedded tests use the real game/bridge in a controlled host rather than a live entry."
       },
       "nextSteps": [
-        "Qualify full keyboard, embedded lifecycle/navigation and save history consistency, then evaluate selection.",
-        "Build remaining distinct candidates88–90; preserve current catalogue."
+        "Retain as qualified reserve for final comparison.",
+        "Build distinct candidate88 next; three unbuilt slots88–90 remain."
       ]
     },
     {
@@ -3856,7 +3859,7 @@
     }
   ],
   "nextSteps": [
-    "Qualify improved Spore Loom87; three unbuilt slots88–90 remain.",
+    "Build distinct candidate88 next; three unbuilt slots88–90 remain. Spore Loom87 is qualified reserve.",
     "Build remaining3 distinct candidates88–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5429,6 +5432,12 @@
       "result": "Substantially improved Spore Loom87 with earned timed-transplant restorations, next-growth previews, saved seals and mode guidance. Six engine checks/twelve rendered solutions pass; screenshots inspected.47 built/improved,46 qualified,3 unbuilt; no public release.",
       "commit": "fa3aa21b4336c2470eaa70e856dd7f88747d17b0",
       "report": "dev/indie-collection-three/SPORE_LOOM_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Qualified Spore Loom87 as reserve after growth-history and transplant/completion-save validation. Eight engine checks/twenty-four rendered solutions and embedded lifecycle checks pass; screenshots inspected.47 built/improved/qualified,3 unbuilt; no public release.",
+      "commit": "424b8a5bfcc9481a0f7e72a5a0ef27ee9ac4d1a7",
+      "report": "dev/indie-collection-three/SPORE_LOOM_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
