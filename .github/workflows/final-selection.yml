@@ -22,8 +22,9 @@ jobs:
           python tests/selected-indie.py
           python tests/assets.py
           node tests/final-selection-launcher.cjs
+          STUDY_DESK_URL=https://thatonemop.github.io/study-desk node tests/final-selection-launcher.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: final-selection
-          path: test-artifacts/final-selection/
+          path: test-artifacts/final-selection*/

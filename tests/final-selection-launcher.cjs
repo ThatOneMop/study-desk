@@ -1,5 +1,5 @@
 const {chromium}=require('playwright'),A=require('node:assert/strict'),fs=require('node:fs'),{spawn}=require('node:child_process');
-const base='http://127.0.0.1:8230',out='test-artifacts/final-selection';fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','8230','--bind','127.0.0.1'],{stdio:'ignore'});let browser;
+const base=process.env.STUDY_DESK_URL||'http://127.0.0.1:8230',out='test-artifacts/final-selection'+(process.env.STUDY_DESK_URL?'-live':'');fs.mkdirSync(out,{recursive:true});const server=spawn('python3',['-m','http.server','8230','--bind','127.0.0.1'],{stdio:'ignore'});let browser;
 (async()=>{for(let i=0;i<50;i++){try{if((await fetch(base)).ok)break}catch{}await new Promise(r=>setTimeout(r,100))}browser=await chromium.launch();
 for(const touch of [false,true]){const ctx=await browser.newContext({viewport:touch?{width:390,height:844}:{width:1280,height:900},hasTouch:touch,isMobile:touch}),p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(base+'/index.html#games');await p.evaluate(()=>localStorage.setItem('retired-save-qa','preserved'));
 for(const [id,title,action] of [['mycelium-yard','Mycelium Yard','night'],['bell-diver','Bell Diver','down']]){
