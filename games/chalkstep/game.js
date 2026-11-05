@@ -1,0 +1,21 @@
+'use strict';const E=Chalkstep,$=id=>document.getElementById(id);let s=E.create(),paused=false,hidden=false,blocked=false,pending=null;try{const raw=localStorage.getItem(E.KEY);if(raw)s=E.decode(raw)}catch{blocked=true}const busy=()=>paused||hidden||document.hidden||$('confirm').open;
+function save(){if(blocked){$('save').textContent='Unreadable climb save preserved. Recover explicitly to replace it.';return}try{localStorage.setItem(E.KEY,JSON.stringify(s));$('save').textContent='Climb saved on this browser.'}catch{$('save').textContent='Storage unavailable; temporary session.'}}
+function go(a){if(busy())return;const n=E.act(s,a);if(!n)return;s=n;save();render()}
+
+
+let selected='LH';const actions=['rest','next'];
+function render(){const focus=document.activeElement?.id,points=s.pos.map(p=>[E.x(p)*60+30,(6-E.y(p))*60+30]),cx=points.reduce((v,p)=>v+p[0],0)/4,cy=points.reduce((v,p)=>v+p[1],0)/4;let svg='<svg viewBox="0 0 300 420" aria-hidden="true"><path d="M20 10L70 110 45 220 90 330 60 410M230 0L195 100 240 210 200 320 245 420" fill="none" stroke="#b59e83" stroke-width="2"/>';
+for(let i=0;i<4;i++)svg+='<path d="M'+cx+' '+cy+'L'+points[i][0]+' '+points[i][1]+'" stroke="'+(i<2?'#a65a38':'#354c62')+'" stroke-width="8" stroke-linecap="round"/>';
+svg+='<circle cx="'+cx+'" cy="'+(cy-18)+'" r="12" fill="#c47648"/><path d="M'+cx+' '+(cy-5)+'v25" stroke="#536b68" stroke-width="16" stroke-linecap="round"/></svg>';
+$('board').innerHTML=svg;
+for(const p of E.holds(s.level)){const b=document.createElement('button'),i=s.pos.indexOf(p);b.id='hold-'+p;b.className='hold'+(i>=0?' occupied':'');b.style.left=(E.x(p)*20+10)+'%';b.style.top=((6-E.y(p))*100/7+100/14)+'%';b.textContent=i>=0?E.limbs[i]:p+1;b.setAttribute('aria-label','Hold '+(p+1)+(i>=0?', occupied by '+E.limbs[i]:', height '+E.y(p)));b.disabled=busy()||!E.move(s,selected,p);b.onclick=()=>go(selected+'-'+p);$('board').appendChild(b)}
+for(const limb of E.limbs){$('pick-'+limb).setAttribute('aria-pressed',String(selected===limb));$('pick-'+limb).disabled=busy()}
+$('stats').textContent=E.walls[s.level].name+' · Grip '+s.grip+'/4 · Moves '+s.moves;
+$('selected').textContent='Moving '+({LH:'left hand',RH:'right hand',LF:'left foot',RF:'right foot'}[selected])+'. Bright holds are reachable. Hands cost 1 grip; feet are free.';
+$('message').textContent=paused?'Paused.':s.last;for(const id of actions)$(id).disabled=busy()||!E.act(s,id);
+$('records').textContent='Best climb '+(s.records[s.level]??'—')+' · Walls topped '+Object.keys(s.records).length+'/3';
+$('restart').disabled=busy();$('pause').textContent=paused?'Resume':'Pause';$('pause').disabled=hidden||document.hidden||$('confirm').open;$('accept').disabled=paused||hidden||document.hidden;$('recover').hidden=!blocked;
+if(focus&&$(focus))$(focus).focus({preventScroll:true});
+}for(const id of actions)$(id).onclick=()=>go(id);for(const limb of E.limbs)$('pick-'+limb).onclick=()=>{if(busy())return;selected=limb;render()};
+function ask(text,fn){if(busy())return;pending=fn;$('question').textContent=text;$('confirm').showModal();render()}$('restart').onclick=()=>ask('Restart this wall? Completed records stay.',()=>go('restart'));$('recover').onclick=()=>ask('Replace the unreadable save with this session?',()=>{blocked=false;save();render()});$('cancel').onclick=()=>{pending=null;$('confirm').close();render()};$('confirm').addEventListener('cancel',()=>pending=null);$('confirm').addEventListener('close',render);$('accept').onclick=()=>{if(paused||hidden||document.hidden||!$('confirm').open)return;const fn=pending;pending=null;$('confirm').close();fn?.()};$('pause').onclick=()=>{if(hidden||document.hidden||$('confirm').open)return;paused=!paused;render()};$('games').onclick=e=>{if(parent!==window){e.preventDefault();parent.postMessage({type:'study-collection'},location.origin)}};window.addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='study-visibility'&&typeof e.data.visible==='boolean'){hidden=!e.data.visible;if(hidden)paused=true;render()}});document.addEventListener('visibilitychange',()=>{if(document.hidden)paused=true;render()});save();render();
+
