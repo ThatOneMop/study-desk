@@ -6,7 +6,7 @@
   "totals": {
     "built": 48,
     "improved": 48,
-    "browserTested": 47,
+    "browserTested": 48,
     "integrated": 0,
     "live": 0
   },
@@ -3808,11 +3808,11 @@
       "id": "reed-convoy",
       "title": "Reed Convoy",
       "coreLoop": "Steer a tug whose trailing boats occupy its recent route; picking up crates lengthens the convoy, while returning HOME and unloading shortens it.",
-      "status": "improved-awaiting-full-qualification",
+      "status": "qualified-reserve",
       "source": "games/reed-convoy",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3830,22 +3830,38 @@
       ],
       "tests": [
         "CI41946394586 at a81c40f832d46994221df5f94b3e2c5e8fedb2db passed four engine checks and six rendered deliveries (three waterways each at desktop1280×1000 and touch-emulated390×844). Verified exact save/reload after each normal action, convoy growth/tail movement/unloading, partial banking, records, restart cancellation/confirmation, Space/arrows/Escape, pause, corrupt-save preservation/recovery, quota fallback, Games navigation, no overflow or page errors. Asset checks passed74 bundled routes/286 references, syntax/Freedoom checks and all nine selected first-batch integrity checks. Artifact13378239894 SHA25690a56c610a13097652f025a9a625701701b3eaa8b2712ad2d0782c93b8510397 downloaded and verified. Inspected desktop-loaded-1 and touch-won-2: five-boat loaded convoy and HOME are legible, phone completion/records and controls fit without horizontal clipping; phone requires vertical scrolling.",
-        "CI41952373995 passed six engine checks and twelve rendered deliveries (open and shallow routes on desktop1280×1000 and touch-emulated390×844), mandatory partial unloading, mode confirmation/cancel, separate saved seals, exact per-action reload, records/restart, Space/arrows/Escape, pause, corrupt/quota saves and Games navigation. No page errors or horizontal overflow. Repository checks passed74 bundled routes/286 references, source syntax/Freedoom structure and nine selected first-batch integrity checks. Artifact13381512118 was downloaded and SHA256 verified:866053f2aee17e7377b3fdff70cefd4b9cad8c220b8f9989ab2e773731d9f89c. Inspected desktop-shallows-0 and touch-shallows-2: approach limits, completed routes and separate seals are visible; full-size guidance wraps without clipping. Phone requires vertical scrolling. Automated rendered testing and agent visual inspection are not human enjoyment or physical-device evidence."
+        "CI41952373995 passed six engine checks and twelve rendered deliveries (open and shallow routes on desktop1280×1000 and touch-emulated390×844), mandatory partial unloading, mode confirmation/cancel, separate saved seals, exact per-action reload, records/restart, Space/arrows/Escape, pause, corrupt/quota saves and Games navigation. No page errors or horizontal overflow. Repository checks passed74 bundled routes/286 references, source syntax/Freedoom structure and nine selected first-batch integrity checks. Artifact13381512118 was downloaded and SHA256 verified:866053f2aee17e7377b3fdff70cefd4b9cad8c220b8f9989ab2e773731d9f89c. Inspected desktop-shallows-0 and touch-shallows-2: approach limits, completed routes and separate seals are visible; full-size guidance wraps without clipping. Phone requires vertical scrolling. Automated rendered testing and agent visual inspection are not human enjoyment or physical-device evidence.",
+        "CI41959102610 at ae50d3a7091bbc672d3a6ad06fbd8cf87fb3d80f passed eight engine checks and24 rendered deliveries: twelve button/touch open/shallow routes and twelve complete keyboard open/shallow routes, exact save/reload after every action, mandatory partial banking, separate records/seals, restart/mode confirmation, Tab/Enter/Space/Escape, corrupt/quota handling, real bridge hidden actions/restart/mode/recovery guards, explicit resume, Collection navigation and unrelated save isolation. No page errors/overflow. Repository assets/source syntax/Freedoom structure and all nine selected first-batch integrity checks passed. Artifact13384855839 downloaded and SHA256 verified:6a34fe2dfedab844bbd04115af6af296029b943dfa3ecb7a1734d0ff981cd7e7. Inspected touch-keyboard-2 and desktop-shell: legible route limits, completed records and seals, responsive controls and embedded layout. Phone requires scrolling. Automated evidence is not human enjoyment or physical-device certification."
       ],
       "commits": [
         "a81c40f832d46994221df5f94b3e2c5e8fedb2db",
-        "2d872e31d7218771a30a6480c6a3bec386cef6a2"
+        "2d872e31d7218771a30a6480c6a3bec386cef6a2",
+        "ae50d3a7091bbc672d3a6ad06fbd8cf87fb3d80f"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Substantive improvement verified; full qualification pending",
-        "assessment": "Distinct linked-body routing with earned load constraints now requiring partial banking. Three authored waterways still limit depth.",
-        "limitations": "No full keyboard-only campaign or embedded lifecycle qualification yet; save/body/history consistency needs strengthening. No human enjoyment, physical-device or duration claim."
+        "status": "Qualified reserve; agent design review, not player survey",
+        "enjoyment": 3,
+        "depth": 2.5,
+        "polish": 3,
+        "reliability": 4,
+        "variety": 4,
+        "scale": "1–5",
+        "notes": "Reserve: distinct linked-body load planning and relaxed play, but three fixed waterways limit sustained progression. Compare after all50 candidates are finished; do not restore removed catalogue entries. Oversized loads may require restart, explained by full-size guidance. No human enjoyment, physical-device, full accessibility or duration claim."
       },
       "nextSteps": [
-        "Qualify keyboard-only campaigns, embedded lifecycle/navigation and stronger save consistency before slate comparison."
-      ]
+        "Keep qualified source in reserve for final slate comparison; no public integration yet."
+      ],
+      "selected": false,
+      "selectionReason": "Reserve: distinct linked-body load planning and relaxed play, but three fixed waterways limit sustained progression. Compare after all50 candidates are finished; do not restore removed catalogue entries.",
+      "verification": {
+        "commit": "ae50d3a7091bbc672d3a6ad06fbd8cf87fb3d80f",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41959102610",
+        "artifact": 13384855839,
+        "artifactSha256": "6a34fe2dfedab844bbd04115af6af296029b943dfa3ecb7a1734d0ff981cd7e7",
+        "status": "passed"
+      }
     },
     {
       "slot": 89,
@@ -3885,7 +3901,7 @@
     }
   ],
   "nextSteps": [
-    "Fully qualify Reed Convoy88: keyboard-only campaigns, embedded lifecycle/navigation and stronger save consistency. Two unbuilt slots89–90 remain.",
+    "Build distinct candidate89 next; two unbuilt slots89–90 remain. Reed Convoy88 is qualified reserve.",
     "Build remaining2 distinct candidates89–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5476,6 +5492,12 @@
       "result": "Substantially improved Reed Convoy88 with earned shallow routes, mandatory partial banking and persistent seals. Six engine checks/twelve rendered deliveries pass; screenshots inspected.48 built/improved,47 qualified,2 unbuilt; no public release.",
       "commit": "2d872e31d7218771a30a6480c6a3bec386cef6a2",
       "report": "dev/indie-collection-three/REED_CONVOY_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Qualified Reed Convoy88 as reserve after convoy/cargo/completion-save validation. Eight engine checks/twenty-four rendered deliveries and embedded lifecycle checks pass; screenshots inspected.48 built/improved/qualified,2 unbuilt; no public release.",
+      "commit": "ae50d3a7091bbc672d3a6ad06fbd8cf87fb3d80f",
+      "report": "dev/indie-collection-three/REED_CONVOY_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
