@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 48,
+    "built": 49,
     "improved": 48,
     "browserTested": 48,
     "integrated": 0,
@@ -3865,21 +3865,34 @@
     },
     {
       "slot": 89,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "cairnfall",
+      "title": "Cairnfall",
+      "coreLoop": "Rotate and place linked stone pairs; clear orthogonal groups of four, use gravity to build multiplied chain reactions, and reach quarry targets before finite bags or stack height run out.",
+      "status": "baseline-playable",
+      "source": "games/cairnfall",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41964962622 at adc5c90613093c6c99ec291b90f46be48a2f89b4 passed four engine checks and six rendered quarry wins across desktop1280×1000 and touch-emulated390×844. Normal visible controls exercised placement, rotation, two-wave clears, per-action exact save/reload, next/records, deliberate overflow loss/reload/retry, Space/arrows/Escape, pause, corrupt-save preservation/recovery, quota fallback, Games navigation and no page errors/overflow. Repository asset references, source syntax/Freedoom structure and nine selected first-batch integrity checks passed. Artifact13387625178 downloaded and SHA256 verified:0f0b86f88da64dc2e8e581cf020ae865d2c58707ec8a3371b603110c10c24597. Inspected touch-stack-2 and desktop-won-1: legible letter-marked stones, translucent landing preview, wrapping instructions, completion/records and intact controls. Phone uses vertical scrolling. Automated rendered routes and agent screenshot review are not human enjoyment or physical-device evidence."
+      ],
+      "commits": [
+        "adc5c90613093c6c99ec291b90f46be48a2f89b4"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Baseline only; improvement and full qualification pending",
+        "assessment": "Distinct falling-pair cascade construction with visible queue and landing ghosts. Three fixed bags and instantaneous cascade resolution limit replay depth and chain readability.",
+        "limitations": "No full keyboard-only or embedded qualification yet; save consistency needs stronger checks. No human enjoyment or duration claim."
+      },
+      "nextSteps": [
+        "Improve cascade readability or strategic replay choices from the rendered baseline.",
+        "Qualify complete keyboard routes, embedded lifecycle and stronger save consistency before selection."
+      ]
     },
     {
       "slot": 90,
@@ -3901,8 +3914,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate89 next; two unbuilt slots89–90 remain. Reed Convoy88 is qualified reserve.",
-    "Build remaining2 distinct candidates89–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Cairnfall89 from rendered baseline, then fully qualify. One unbuilt slot90 remains.",
+    "Build remaining distinct candidate90 with rendered baseline and substantive improvement.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
@@ -5498,6 +5511,12 @@
       "result": "Qualified Reed Convoy88 as reserve after convoy/cargo/completion-save validation. Eight engine checks/twenty-four rendered deliveries and embedded lifecycle checks pass; screenshots inspected.48 built/improved/qualified,2 unbuilt; no public release.",
       "commit": "ae50d3a7091bbc672d3a6ad06fbd8cf87fb3d80f",
       "report": "dev/indie-collection-three/REED_CONVOY_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Built Cairnfall89 linked-stone cascade puzzle. Four engine checks/six rendered wins pass; screenshots inspected.49 built,48 improved/qualified,1 unbuilt; no public release.",
+      "commit": "adc5c90613093c6c99ec291b90f46be48a2f89b4",
+      "report": "dev/indie-collection-three/CAIRNFALL_BASELINE.md"
     }
   ],
   "historicalTotals": {
