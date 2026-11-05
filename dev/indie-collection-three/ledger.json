@@ -6,7 +6,7 @@
   "totals": {
     "built": 49,
     "improved": 49,
-    "browserTested": 48,
+    "browserTested": 49,
     "integrated": 0,
     "live": 0
   },
@@ -3868,11 +3868,11 @@
       "id": "cairnfall",
       "title": "Cairnfall",
       "coreLoop": "Rotate and place linked stone pairs; clear orthogonal groups of four, use gravity to build multiplied chain reactions, and reach quarry targets before finite bags or stack height run out.",
-      "status": "improved-awaiting-full-qualification",
+      "status": "qualified-reserve",
       "source": "games/cairnfall",
       "built": true,
       "improved": true,
-      "browserTested": false,
+      "browserTested": true,
       "integrated": false,
       "live": false,
       "improvementPasses": [
@@ -3891,23 +3891,39 @@
       ],
       "tests": [
         "CI41964962622 at adc5c90613093c6c99ec291b90f46be48a2f89b4 passed four engine checks and six rendered quarry wins across desktop1280×1000 and touch-emulated390×844. Normal visible controls exercised placement, rotation, two-wave clears, per-action exact save/reload, next/records, deliberate overflow loss/reload/retry, Space/arrows/Escape, pause, corrupt-save preservation/recovery, quota fallback, Games navigation and no page errors/overflow. Repository asset references, source syntax/Freedoom structure and nine selected first-batch integrity checks passed. Artifact13387625178 downloaded and SHA256 verified:0f0b86f88da64dc2e8e581cf020ae865d2c58707ec8a3371b603110c10c24597. Inspected touch-stack-2 and desktop-won-1: legible letter-marked stones, translucent landing preview, wrapping instructions, completion/records and intact controls. Phone uses vertical scrolling. Automated rendered routes and agent screenshot review are not human enjoyment or physical-device evidence.",
-        "Final CI41971886248 at93d8b42149b77bf33a218fe59a3aaa64883f1d7c passed six engine checks and twelve rendered quarry wins: original and exchanged-pair routes on desktop1280×1000 and touch-emulated390×844. Verified spending/restoring exchange charges, per-drop restriction, exact multiwave forecasts, per-action saves/reloads, records, loss/retry, Space/arrows/Escape, pause, corrupt/quota saves, Games navigation and no overflow/page errors. Repository asset checks, source syntax/Freedoom structure and nine selected first-batch integrity checks passed. Artifact13389439993 downloaded and SHA256 verified:0034d2344f03b9f7567b59562f268a538ee4d119c88da39f36f3c5715e853740. Inspected touch-chain-plan-2 and desktop-exchange-win-2: two-wave +14 forecast wraps clearly, committed result matches, score36 record and charge count remain readable. Phone requires scrolling. First CI41971728667 failed before browser launch because Array.map supplied its index to the route helper's new optional state parameter; corrected in93d8b42149b77bf33a218fe59a3aaa64883f1d7c. Automated testing/agent inspection is not human enjoyment or physical-device evidence."
+        "Final CI41971886248 at93d8b42149b77bf33a218fe59a3aaa64883f1d7c passed six engine checks and twelve rendered quarry wins: original and exchanged-pair routes on desktop1280×1000 and touch-emulated390×844. Verified spending/restoring exchange charges, per-drop restriction, exact multiwave forecasts, per-action saves/reloads, records, loss/retry, Space/arrows/Escape, pause, corrupt/quota saves, Games navigation and no overflow/page errors. Repository asset checks, source syntax/Freedoom structure and nine selected first-batch integrity checks passed. Artifact13389439993 downloaded and SHA256 verified:0034d2344f03b9f7567b59562f268a538ee4d119c88da39f36f3c5715e853740. Inspected touch-chain-plan-2 and desktop-exchange-win-2: two-wave +14 forecast wraps clearly, committed result matches, score36 record and charge count remain readable. Phone requires scrolling. First CI41971728667 failed before browser launch because Array.map supplied its index to the route helper's new optional state parameter; corrected in93d8b42149b77bf33a218fe59a3aaa64883f1d7c. Automated testing/agent inspection is not human enjoyment or physical-device evidence.",
+        "CI41977550611 at0a642ce7baeaf49906c4393e9a9921e1f8d19e28 passed eight engine checks and24 rendered quarry wins: twelve button/touch original/exchange runs and twelve complete keyboard original/exchange runs. Exact per-action reloads, chain forecasts, charge spending/recovery, records, loss/retry, Tab/Space/Enter/Escape, corrupt/quota saves, real bridge hidden restart/recovery/actions, explicit resume, Collection navigation and unrelated save isolation passed. No page errors/overflow. Repository asset checks, source syntax/Freedoom structure and all nine selected first-batch integrity checks passed. Artifact13392646123 downloaded and SHA256 verified:2f6f699af854177629e71fd2564f6d759c7c24a952cd52596f624c8b4595309d. Inspected touch-keyboard-2 and desktop-shell: legible wrapped cascade result, score36 record, all three restored sites, landing ghosts and intact embedded controls. Phone uses vertical scrolling. Automated tests and agent screenshot inspection are not human enjoyment or physical-device evidence."
       ],
       "commits": [
         "adc5c90613093c6c99ec291b90f46be48a2f89b4",
         "ed733c4a93816462b78d827b48a57fcdd048aff9",
-        "93d8b42149b77bf33a218fe59a3aaa64883f1d7c"
+        "93d8b42149b77bf33a218fe59a3aaa64883f1d7c",
+        "0a642ce7baeaf49906c4393e9a9921e1f8d19e28"
       ],
       "integrationCommits": [],
       "publishedUrl": null,
       "quality": {
-        "status": "Improvement verified; full qualification pending",
-        "assessment": "Pair exchanges add sequencing choices and chain-earned resources; forecasts explain planned cascades. Three fixed bags still limit depth.",
-        "limitations": "No full keyboard-only or embedded qualification yet; save consistency needs stronger checks. No human enjoyment or duration claim."
+        "status": "Qualified reserve; agent design assessment, not player survey",
+        "enjoyment": 3.5,
+        "depth": 2.5,
+        "polish": 3,
+        "reliability": 4,
+        "variety": 4,
+        "scale": "1–5",
+        "notes": "Reserve: distinct gravity-chain placement and exchange resource, but three fixed bags limit sustained progression. Compare complete50-candidate slate before public integration. Instantly resolved cascades lack animation. No duration/physical-device/full accessibility claim."
       },
       "nextSteps": [
-        "Fully qualify keyboard-only campaigns, embedded lifecycle/navigation and stronger save consistency before slate comparison."
-      ]
+        "Keep qualified source in reserve for final slate comparison; no public integration yet."
+      ],
+      "selected": false,
+      "selectionReason": "Reserve: distinct gravity-chain placement and exchange resource, but three fixed bags limit sustained progression. Compare complete50-candidate slate before public integration.",
+      "verification": {
+        "commit": "0a642ce7baeaf49906c4393e9a9921e1f8d19e28",
+        "ci": "https://github.com/ThatOneMop/study-desk/actions/runs/41977550611",
+        "artifact": 13392646123,
+        "artifactSha256": "2f6f699af854177629e71fd2564f6d759c7c24a952cd52596f624c8b4595309d",
+        "status": "passed"
+      }
     },
     {
       "slot": 90,
@@ -3929,7 +3945,7 @@
     }
   ],
   "nextSteps": [
-    "Fully qualify Cairnfall89; then build remaining slot90. Reconcile release selection only after current slate comparison.",
+    "Build distinct final candidate90, improve and qualify it. Cairnfall89 is qualified reserve.",
     "Build remaining distinct candidate90 with rendered baseline and substantive improvement.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
@@ -5538,6 +5554,12 @@
       "result": "Substantially improved Cairnfall89 with strategic pair exchanges, chain-earned charges and exact cascade forecasts. Six engine checks/twelve rendered wins pass after test-helper correction; screenshots inspected.49 built/improved,48 qualified,1 unbuilt; no public release.",
       "commit": "93d8b42149b77bf33a218fe59a3aaa64883f1d7c",
       "report": "dev/indie-collection-three/CAIRNFALL_IMPROVEMENT.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Qualified Cairnfall89 as reserve after board/conservation/phase-save validation. Eight engine checks/twenty-four rendered wins and embedded lifecycle checks pass; screenshots inspected.49 built/improved/qualified,1 unbuilt; no public release.",
+      "commit": "0a642ce7baeaf49906c4393e9a9921e1f8d19e28",
+      "report": "dev/indie-collection-three/CAIRNFALL_QUALIFICATION.md"
     }
   ],
   "historicalTotals": {
