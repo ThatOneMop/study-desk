@@ -918,5 +918,39 @@
       "gamemonetize",
       "fix games"
     ]
+  },
+  {
+    "id": "mycelium-yard",
+    "title": "Mycelium Yard",
+    "genre": "Business",
+    "description": "Grow mushrooms, reinvest sales and fulfil fresh mixed baskets across three compact markets.",
+    "controls": "Tap beds and actions · 1–6 select · H harvest · W water · V vent · N end day",
+    "color": "#9c7469",
+    "group": "Your games",
+    "url": "games/mycelium-yard/index.html",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#mycelium-yard",
+    "thumbnail": "art/curated/mycelium-yard.svg",
+    "thumbnailAlt": "Mycelium Yard original illustration",
+    "updated": "2026-11-05"
+  },
+  {
+    "id": "bell-diver",
+    "title": "Bell Diver",
+    "genre": "Exploration",
+    "description": "Plan salvage dives, bank cargo and upgrade equipment across three compact wrecks.",
+    "controls": "Arrows swim · Space collect · B breathe · Touch map or buttons",
+    "color": "#518a98",
+    "group": "Your games",
+    "url": "games/bell-diver/index.html",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#bell-diver",
+    "thumbnail": "art/curated/bell-diver.svg",
+    "thumbnailAlt": "Bell Diver original illustration",
+    "updated": "2026-11-05"
   }
 ]
