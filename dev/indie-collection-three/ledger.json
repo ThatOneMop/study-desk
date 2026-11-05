@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 49,
+    "built": 50,
     "improved": 49,
     "browserTested": 49,
     "integrated": 0,
@@ -3927,26 +3927,39 @@
     },
     {
       "slot": 90,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "chalkstep",
+      "title": "Chalkstep",
+      "coreLoop": "Move four individual limbs between reachable holds, maintain body support, spend grip on hand moves and reposition feet for one-use resting ledges before topping out.",
+      "status": "baseline-playable",
+      "source": "games/chalkstep",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41984458692 atafab1e724664176aed79cc269bea7aec56b80a19 passed four engine checks and six rendered wall climbs across desktop1280×1000 and touch-emulated390×844. Tested normal limb/hold controls, exact per-move reload, grip exhaustion, foot repositioning to recover, one-use rest ledges, saved records/retry, Space/Enter/Escape, pause, corrupt-save preservation/recovery, quota fallback, Games navigation and no page errors/overflow. Repository asset checks, source syntax/Freedoom structure and all nine selected first-batch integrity checks passed. Artifact13395357294 downloaded and SHA256 verified:8d4ab77d875d1c7965f1fe8ad24144dd4e00c17e1292ebd1ceb6827e3c59dde5. Inspected touch-rest-2 and desktop-won-1: readable occupied limb labels and bright reachable holds, visible climber, wrapped onboarding, grip restoration and saved completion. Phone requires scrolling. Automated rendered routes and agent visual assessment are not human enjoyment or physical-device evidence."
+      ],
+      "commits": [
+        "afab1e724664176aed79cc269bea7aec56b80a19"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Baseline only; substantive improvement and full qualification pending",
+        "assessment": "Distinct four-limb placement/grip-rest loop. Three layouts currently permit the same11-action movement pattern, limiting route choices.",
+        "limitations": "No full keyboard campaign or embedded qualification yet; save consistency needs stronger checks. No human enjoyment, physical-device or duration claim."
+      },
+      "nextSteps": [
+        "Deepen route/resting decisions based on rendered baseline; do not add repetitive walls.",
+        "Qualify keyboard campaigns, embedded lifecycle/navigation and saves before final slate comparison."
+      ]
     }
   ],
   "nextSteps": [
-    "Build distinct final candidate90, improve and qualify it. Cairnfall89 is qualified reserve.",
-    "Build remaining distinct candidate90 with rendered baseline and substantive improvement.",
+    "Substantially improve Chalkstep90 from rendered baseline, then fully qualify it. All50 slots are now built; this is not task completion.",
+    "Compare complete slate, perform targeted final polish, reconcile current curated catalogue/preflight and integrate selected tested winners; distinguish source release from live.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
@@ -5560,6 +5573,12 @@
       "result": "Qualified Cairnfall89 as reserve after board/conservation/phase-save validation. Eight engine checks/twenty-four rendered wins and embedded lifecycle checks pass; screenshots inspected.49 built/improved/qualified,1 unbuilt; no public release.",
       "commit": "0a642ce7baeaf49906c4393e9a9921e1f8d19e28",
       "report": "dev/indie-collection-three/CAIRNFALL_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Built Chalkstep90 four-limb climbing baseline. Four engine checks/six rendered climbs pass; screenshots inspected.50 built,49 improved/qualified,0 unbuilt; final improvement/qualification and selection/integration still pending. No public release.",
+      "commit": "afab1e724664176aed79cc269bea7aec56b80a19",
+      "report": "dev/indie-collection-three/CHALKSTEP_BASELINE.md"
     }
   ],
   "historicalTotals": {
