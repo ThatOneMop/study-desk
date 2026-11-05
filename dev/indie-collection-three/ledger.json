@@ -4,7 +4,7 @@
   "requested": "2026-10-24",
   "required": 50,
   "totals": {
-    "built": 47,
+    "built": 48,
     "improved": 47,
     "browserTested": 47,
     "integrated": 0,
@@ -3805,21 +3805,34 @@
     },
     {
       "slot": 88,
-      "id": null,
-      "title": null,
-      "coreLoop": null,
-      "status": "unassigned",
-      "source": null,
-      "built": false,
+      "id": "reed-convoy",
+      "title": "Reed Convoy",
+      "coreLoop": "Steer a tug whose trailing boats occupy its recent route; picking up crates lengthens the convoy, while returning HOME and unloading shortens it.",
+      "status": "baseline-playable",
+      "source": "games/reed-convoy",
+      "built": true,
       "improved": false,
       "browserTested": false,
       "integrated": false,
       "live": false,
       "improvementPasses": [],
-      "tests": [],
-      "commits": [],
+      "tests": [
+        "CI41946394586 at a81c40f832d46994221df5f94b3e2c5e8fedb2db passed four engine checks and six rendered deliveries (three waterways each at desktop1280×1000 and touch-emulated390×844). Verified exact save/reload after each normal action, convoy growth/tail movement/unloading, partial banking, records, restart cancellation/confirmation, Space/arrows/Escape, pause, corrupt-save preservation/recovery, quota fallback, Games navigation, no overflow or page errors. Asset checks passed74 bundled routes/286 references, syntax/Freedoom checks and all nine selected first-batch integrity checks. Artifact13378239894 SHA25690a56c610a13097652f025a9a625701701b3eaa8b2712ad2d0782c93b8510397 downloaded and verified. Inspected desktop-loaded-1 and touch-won-2: five-boat loaded convoy and HOME are legible, phone completion/records and controls fit without horizontal clipping; phone requires vertical scrolling."
+      ],
+      "commits": [
+        "a81c40f832d46994221df5f94b3e2c5e8fedb2db"
+      ],
       "integrationCommits": [],
-      "publishedUrl": null
+      "publishedUrl": null,
+      "quality": {
+        "status": "Baseline only; substantive improvement and full qualification pending",
+        "assessment": "Distinct variable-length body routing with safe partial unloading. Three small fixed waterways are currently solvable in a single full haul, so partial banking lacks a strong strategic role.",
+        "limitations": "No full keyboard-only campaign or embedded lifecycle qualification yet; save/body/history consistency needs strengthening. No human enjoyment, physical-device or duration claim."
+      },
+      "nextSteps": [
+        "Make partial-load and route choices strategically meaningful based on rendered baseline.",
+        "Qualify keyboard-only routes, embedded lifecycle/navigation and save consistency before slate comparison."
+      ]
     },
     {
       "slot": 89,
@@ -3859,8 +3872,8 @@
     }
   ],
   "nextSteps": [
-    "Build distinct candidate88 next; three unbuilt slots88–90 remain. Spore Loom87 is qualified reserve.",
-    "Build remaining3 distinct candidates88–90 with rendered baselines and substantive improvements.",
+    "Substantially improve Reed Convoy88 from its rendered baseline, then fully qualify it. Two unbuilt slots89–90 remain.",
+    "Build remaining2 distinct candidates89–90 with rendered baselines and substantive improvements.",
     "Reconcile release preflight with fresh main and preserve concurrent Numberworks/Packworks/Gummy Bay work; no unqualified entries.",
     "Preserve batch-two20/20 additional improvements and all historical source/saves."
   ],
@@ -5438,6 +5451,12 @@
       "result": "Qualified Spore Loom87 as reserve after growth-history and transplant/completion-save validation. Eight engine checks/twenty-four rendered solutions and embedded lifecycle checks pass; screenshots inspected.47 built/improved/qualified,3 unbuilt; no public release.",
       "commit": "424b8a5bfcc9481a0f7e72a5a0ef27ee9ac4d1a7",
       "report": "dev/indie-collection-three/SPORE_LOOM_QUALIFICATION.md"
+    },
+    {
+      "date": "2026-11-05",
+      "result": "Built Reed Convoy88 linked-convoy delivery baseline. Four engine checks/six rendered deliveries pass; screenshots inspected.48 built,47 improved/qualified,2 unbuilt; no public release.",
+      "commit": "a81c40f832d46994221df5f94b3e2c5e8fedb2db",
+      "report": "dev/indie-collection-three/REED_CONVOY_BASELINE.md"
     }
   ],
   "historicalTotals": {
