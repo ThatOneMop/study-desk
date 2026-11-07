@@ -42,14 +42,41 @@ function persist(){if(!state)return;try{localStorage.setItem(KEY,JSON.stringify(
 function loadSave(){try{return Outbreak.restore(JSON.parse(localStorage.getItem(KEY)||'null'));}catch{return null;}}
 function scenarioMeta(id){return Outbreak.SCENARIOS.find(item=>item.id===id);}
 function setState(next,announce){
+  const prev=state;
   state=next;selected=state.lands[selected]?selected:'hearthlow';
   refresh();persist();
-  if(announce)say(state.log[0]||'');
+  if(announce&&prev){const note=monthNotes(prev,next);say(note);showPulse(note);}
+  else if(announce)say(state.log[0]||'');
   if(state.won||state.lost){playing=false;$('play').setAttribute('aria-pressed','false');$('play').textContent='Watch';showEnd();}
+}
+function monthNotes(prev,next){
+  const lines=[];
+  if(next.owned.length>prev.owned.length){const id=next.owned.find(item=>!prev.owned.includes(item));lines.push(Outbreak.upgradeById(id).name+' is now affecting spread.');}
+  Outbreak.LANDS.forEach(land=>{
+    const before=prev.lands[land.id],after=next.lands[land.id];
+    if(!before.established&&after.established)lines.push(land.name+' is newly established.');
+    else if(!before.foothold&&after.foothold)lines.push(land.name+' is newly infected.');
+  });
+  const awareness=Math.round((next.talk-prev.talk)*100),cure=Math.round((next.effort-prev.effort)*100);
+  lines.push('Awareness '+(awareness>=0?'+':'')+awareness+'%. Cure pressure '+(cure>=0?'+':'')+cure+'%.');
+  if(next.won)lines.push(state.log[0]);
+  if(next.lost)lines.push('Cure pressure filled before the objective.');
+  return lines.join(' ');
+}
+function showPulse(text){
+  const pulse=$('pulse');pulse.hidden=false;pulse.textContent=text;
+  clearTimeout(showPulse.timer);showPulse.timer=setTimeout(()=>{pulse.hidden=true;},3400);
+}
+function objectiveLine(current){
+  const done=Outbreak.establishedCount(current);
+  if(current.scenario==='quiet')return 'Quiet Circuit '+Math.min(done,8)+'/8 established · awareness '+Math.round(current.talk*100)+'% (limit 50%)';
+  if(current.scenario==='twin')return 'Twin Lights · Lantern Isles '+(current.lands.lantern.established?'established':'open')+' · Farwhistle '+(current.lands.farwhistle.established?'established':'open');
+  if(current.scenario==='hearth')return 'Hearthhold '+current.hearthStreak+'/8 heavy months in Hearthlow';
+  return 'World Spread '+done+'/14 lands established';
 }
 function showEnd(){
   $('endTitle').textContent=state.won?'The infection holds.':'Cure pressure wins.';
-  $('endText').textContent=(state.log[0]||'')+' Month '+state.month+'.';
+  $('endText').textContent=objectiveLine(state)+'. Month '+state.month+'. Awareness '+Math.round(state.talk*100)+'%. Cure pressure '+Math.round(state.effort*100)+'%. '+(state.log[0]||'');
   $('end').hidden=false;
 }
 function refresh(){
@@ -64,6 +91,7 @@ function refresh(){
   const mark=Math.round(cell.mark*100);
   const status=cell.established?'Established infection':cell.foothold?'Foothold':mark>5?'Infected':'Not infected';
   $('landText').textContent=land.blurb+' Infection '+mark+'%. '+status+'. '+(land.kind==='isle'?'Island. ':'')+openLanes(land.id);
+  $('objective').textContent=objectiveLine(state);
   const buttons=$('landButtons');buttons.replaceChildren();
   Outbreak.LANDS.forEach(item=>{
     const button=document.createElement('button');
@@ -105,9 +133,10 @@ function renderTree(){
         button.type='button';button.className='node '+mode;button.dataset.upgrade=item.id;
         button.setAttribute('aria-pressed',String(previewId===item.id));
         const needs=(item.requires||[]).map(req=>Outbreak.upgradeById(req).name);
-        const detail=mode==='owned'?'Owned. '+item.text:mode==='locked'?'Locked. Needs '+needs.join(' and ')+'.':mode==='pricey'?item.cost+' points needed. '+item.text:item.cost+' point'+(item.cost>1?'s':'')+'. '+item.text;
-        button.innerHTML='<b>'+item.name+'</b><small>'+detail+'</small>';
+        const short=mode==='owned'?'Owned':mode==='locked'?'Needs '+needs.join(' + '):mode==='pricey'?item.cost+' pts needed':item.cost+' pt'+(item.cost>1?'s':'');
+        button.innerHTML=glyph(item.id)+'<span><b>'+item.name+'</b><small>'+short+'</small></span>';
         button.onclick=()=>selectUpgrade(item.id);
+        if(column.childElementCount){const joint=document.createElement('i');joint.className='joint';joint.setAttribute('aria-hidden','true');column.append(joint);}
         column.append(button);
       });
       cols.append(column);
@@ -120,11 +149,15 @@ function renderTree(){
   $('buyUpgrade').disabled=mode!=='ready';
   $('buyUpgrade').textContent=chosen&&mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
 }
+function glyph(id){
+  const paths={footpaths:'M3 16c4-7 8-7 12 0M8 16v4M16 16v4',carts:'M4 15h12l2-6H7M7 18a2 2 0 104 0M14 18a2 2 0 104 0',harbors:'M4 16h16M6 16V8h4v8M14 16v-5h4v5',ferries:'M3 15h14l2 3H5zM8 15V9h6v6',sky:'M3 14l8-6 8 6M8 14v4M14 14v4',tailwinds:'M4 16c3-6 6-6 8 0M12 16c2-5 4-5 6 0',season:'M12 4v16M4 12h16M6 6l12 12M18 6L6 18',echo:'M6 14a6 6 0 0112 0M9 14a3 3 0 016 0',soft:'M6 14c2-4 4-4 6 0s4 4 6 0',dim:'M5 16h14M8 12h8M10 8h4',borrowed:'M12 5v8M8 9l4-4 4 4M6 18h12',ports:'M4 17h16M8 17V8l4 3 4-3v9',greyskies:'M6 16h12M8 12h8M7 8c2-2 8-2 10 0',still:'M4 14c2 2 4 2 6 0s4-2 6 0 4 2 4 0',memory:'M6 6h12v12H6zM9 10h6M9 14h4',maps:'M5 7l5-2 5 2 4-1v12l-4 1-5-2-5 2z',roots:'M12 4v8M12 12c-4 2-6 6-6 8M12 12c4 2 6 6 6 8',second:'M6 16c2-8 10-8 12 0M8 16h8',stones:'M6 16l3-8h6l3 8z',stories:'M6 5h10v14H6zM8 9h6M8 13h4',ember:'M12 18c4 0 6-3 4-7-2 2-4 1-4-3-3 3-6 5-6 8 0 2 2 2 6 2z',rhythm:'M4 14c2-4 4 4 6 0s4 4 6 0 4 4 4 0',wide:'M4 16l8-8 8 8M8 16v3M16 16v3',lasting:'M7 12l3 3 7-8'};
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(paths[id]||'M5 12h14')+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
 function selectUpgrade(id){
   previewId=id;
   document.querySelectorAll('#tree .node').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.upgrade===id)));
   const chosen=Outbreak.upgradeById(id),mode=upgradeState(chosen);
-  $('treePreview').textContent=chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(req=>Outbreak.upgradeById(req).name).join(' and ')+'.':'');
+  $('treePreview').textContent=chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready to buy. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(req=>Outbreak.upgradeById(req).name).join(' and ')+'.':'');
   $('buyUpgrade').disabled=mode!=='ready';
   $('buyUpgrade').textContent=mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
 }
@@ -175,8 +208,13 @@ function sea(){
   [[120,210,26],[430,250,14],[790,240,22]].forEach(([x,y,r])=>{ctx.beginPath();ctx.ellipse(x,y,r,r*0.45,-0.4,0,7);ctx.stroke();});
 }
 function trace(poly){
+  const n=poly.length;
   ctx.beginPath();
-  poly.forEach((point,index)=>{if(index)ctx.lineTo(point[0],point[1]);else ctx.moveTo(point[0],point[1]);});
+  for(let i=0;i<n;i++){
+    const p0=poly[(i-1+n)%n],p1=poly[i],p2=poly[(i+1)%n],p3=poly[(i+2)%n];
+    if(i===0)ctx.moveTo(p1[0],p1[1]);
+    ctx.bezierCurveTo(p1[0]+(p2[0]-p0[0])/7,p1[1]+(p2[1]-p0[1])/7,p2[0]-(p3[0]-p1[0])/7,p2[1]-(p3[1]-p1[1])/7,p2[0],p2[1]);
+  }
   ctx.closePath();
 }
 function inside(poly,x,y){
@@ -187,8 +225,21 @@ function inside(poly,x,y){
   }
   return hit;
 }
+function organic(poly){
+  let cx=0,cy=0;
+  poly.forEach(point=>{cx+=point[0];cy+=point[1];});
+  cx/=poly.length;cy/=poly.length;
+  const out=[],n=poly.length;
+  for(let i=0;i<n;i++){
+    const a=poly[i],b=poly[(i+1)%n];
+    out.push(a);
+    const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=mx-cx,dy=my-cy,len=Math.hypot(dx,dy)||1,bulge=8+((i*11)%10);
+    out.push([mx+dx/len*bulge,my+dy/len*bulge]);
+  }
+  return out;
+}
 function territory(land){
-  const poly=TERRITORY[land.id],cell=cellOf(land),mark=cell.mark||0;
+  const poly=organic(TERRITORY[land.id]),cell=cellOf(land),mark=cell.mark||0;
   const base=land.kind==='isle'?'#d9c7a4':land.kind==='coast'?'#c9d3ae':land.id==='cinder'||land.id==='velvet'?'#d2c29a':'#b7c99a';
   ctx.save();
   ctx.shadowColor='#06202688';ctx.shadowBlur=12;ctx.shadowOffsetY=6;
@@ -206,18 +257,9 @@ function territory(land){
   detail(land);
   ctx.restore();
   trace(poly);
-  ctx.lineWidth=land.id===selected?3.5:1.6;
-  ctx.strokeStyle=land.id===selected?'#f6e7b2':'#1d3b34';
-  ctx.stroke();
-  ctx.lineWidth=3;ctx.strokeStyle='rgba(214,236,232,.35)';
-  ctx.beginPath();
-  poly.forEach((point,index)=>{
-    const next=poly[(index+1)%poly.length];
-    const mx=(point[0]+next[0])/2+ (point[1]-next[1])*0.04;
-    const my=(point[1]+next[1])/2+ (next[0]-point[0])*0.04;
-    if(index===0)ctx.moveTo(point[0],point[1]);
-    ctx.quadraticCurveTo(mx,my,next[0],next[1]);
-  });
+  ctx.lineWidth=8;ctx.strokeStyle='rgba(214,236,232,.34)';ctx.stroke();
+  ctx.lineWidth=land.id===selected?3.5:1.7;
+  ctx.strokeStyle=land.id===selected?'#f6e7b2':'#1a332c';
   ctx.stroke();
 }
 function detail(land){
@@ -241,7 +283,8 @@ function route(link){
   ctx.save();
   ctx.lineWidth=open?link.kind==='land'?4:3:1.4;
   ctx.strokeStyle=open?colors[link.kind]:'rgba(255,255,255,.28)';
-  if(!open)ctx.setLineDash([5,8]);
+  ctx.setLineDash(open?[12,8]:[4,7]);
+  ctx.lineDashOffset=-clock*(open?28:0);
   ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.quadraticCurveTo((a.x+b.x)/2,(a.y+b.y)/2+lift,b.x,b.y);ctx.stroke();
   ctx.restore();
   if(!open||!state)return;
@@ -266,7 +309,8 @@ function capital(land){
   if(cell.established){ctx.strokeStyle='#f0d78a';ctx.lineWidth=2;ctx.beginPath();ctx.arc(land.x,land.y,11+Math.sin(clock*3)*.6,0,7);ctx.stroke();}
 }
 function label(land){
-  const cell=cellOf(land),at=LABEL_AT[land.id]||[land.x,land.y+28];
+  const cell=cellOf(land),spot=LABEL_AT[land.id]||[land.x,land.y-30];
+  const at=[Math.max(70,Math.min(930,spot[0])),Math.max(78,Math.min(560,spot[1]))];
   const name=land.name,pct=Math.round((cell.mark||0)*100)+'%';
   const status=cell.established?'Established':cell.foothold?'Foothold':(cell.mark||0)>0.05?'Infected':'Clear';
   ctx.font='600 15px system-ui,sans-serif';ctx.textAlign='center';
@@ -285,7 +329,7 @@ function mix(a,b,t){
   return '#'+pa.map((v,i)=>Math.round(v+(pb[i]-v)*t).toString(16).padStart(2,'0')).join('');
 }
 function nearest(x,y){
-  const hit=Outbreak.LANDS.find(land=>inside(TERRITORY[land.id],x,y));
+  const hit=Outbreak.LANDS.find(land=>inside(organic(TERRITORY[land.id]),x,y));
   if(hit)return hit.id;
   let best=null,dist=56;
   Outbreak.LANDS.forEach(land=>{const d=Math.hypot(land.x-x,land.y-y);if(d<dist){dist=d;best=land.id;}});
