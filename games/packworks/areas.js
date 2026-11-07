@@ -63,12 +63,12 @@
       { done: typesIn(seen, 2) >= 8, text: 'Deep Sea cards ' + typesIn(seen, 2) + '/8' }
     ];
     if (target === 4) return [
-      { done: completedSets(seen, 4) >= 2, text: 'Completed sets ' + completedSets(seen, 4) + '/2' },
+      { done: typesIn(seen, 3) >= 12, text: 'Clockwork cards ' + typesIn(seen, 3) + '/12' },
       { done: bestVariant(seen, 4) >= 3, text: bestVariant(seen, 4) >= 3 ? 'A Starlit or Mythic card is in the book' : 'Find a Starlit or Mythic card' }
     ];
     if (target === 5) return [
-      { done: completedSets(seen, 5) >= 3, text: 'Completed sets ' + completedSets(seen, 5) + '/3' },
-      { done: setComplete(seen, 2), text: 'Finish the Deep Sea set ' + typesIn(seen, 2) + '/20' }
+      { done: completedSets(seen, 4) >= 3, text: 'Three finished sets ' + completedSets(seen, 4) + '/3' },
+      { done: typesIn(seen, 4) >= 10, text: 'Cosmos cards ' + typesIn(seen, 4) + '/10' }
     ];
     return [];
   }
@@ -76,6 +76,13 @@
     if (target <= 0) return true;
     if (target >= SETS.length) return false;
     return linesFor(target, seen, opened).every(line => line.done);
+  }
+  function freshShelves(before, save) {
+    const next = reconcile(save);
+    const start = clampArea(before);
+    const gained = [];
+    for (let area = start + 1; area <= next; area++) gained.push(area);
+    return { area: next, gained };
   }
   function reconcile(save) {
     const seen = save && save.seen || {};
@@ -105,5 +112,5 @@
   }
   function openNames(area) { return SETS.slice(0, clampArea(area) + 1); }
 
-  return { SETS, REWARDS, BLURBS, typesIn, setComplete, completedSets, highestSeen, linesFor, canOpen, reconcile, status, rollId, openNames, clampArea };
+  return { SETS, REWARDS, BLURBS, typesIn, setComplete, completedSets, highestSeen, linesFor, canOpen, reconcile, freshShelves, status, rollId, openNames, clampArea };
 });
