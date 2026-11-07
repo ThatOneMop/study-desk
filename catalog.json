@@ -354,5 +354,29 @@
     "thumbnail": "art/curated/bell-diver.svg",
     "thumbnailAlt": "Bell Diver original illustration",
     "updated": "2026-11-05"
+  },
+  {
+    "id": "outbreak-atlas",
+    "title": "Outbreak Atlas",
+    "description": "Spread a fictional mark across 14 invented lands. Choose Drift or Root, open sea or sky lanes, and outlast the counter-effort.",
+    "icon": "🗺️",
+    "genre": "Strategy",
+    "color": "#1c6472",
+    "url": "games/outbreak-atlas/index.html",
+    "group": "Your games",
+    "controls": "Click or tap a land · Arrows select · N advances a month · Buttons buy upgrades",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "credits": "credits.html#outbreak-atlas",
+    "thumbnail": "art/curated/outbreak-atlas.svg",
+    "thumbnailAlt": "A teal atlas with three islands and a coral mark spreading from a home harbor",
+    "updated": "2026-11-07",
+    "aliases": [
+      "plague",
+      "strategy",
+      "map",
+      "spread"
+    ]
   }
 ]
