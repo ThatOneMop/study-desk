@@ -1,9 +1,11 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict');
+const {unlockShell}=require('./gate-fixture.cjs');
 function openGamesHub(win){win.history.replaceState(null,'','#games');win.dispatchEvent(new win.HashChangeEvent('hashchange'))}
 const root=__dirname+'/../';
 const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id);
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
+(async()=>{await unlockShell(w);
 const launch=id=>[...d.querySelectorAll('button[data-action="play"]')].find(b=>b.dataset.game===id);
 const filter=name=>[...$('filters').children].find(b=>b.textContent===name);
 function checkFocus(element){assert.equal(d.activeElement,element)}
@@ -43,4 +45,5 @@ const currentFrame=$('frame').contentWindow;
 collectionMessage(currentFrame,'https://example.test');assert.equal($('arcade').hidden,false);assert.equal($('player').hidden,true);assert.equal($('frame').contentWindow,currentFrame);
 console.log('PASS launcher: browse vs PPP, preserved iframe session, return through empty filters, named controls, focus restoration, paused keyboard isolation, late-load focus guards.');
 w.close();
+})().catch(error=>{console.error(error);process.exit(1)});
 

@@ -1,6 +1,7 @@
 // Disabling regression: GameMonetize cannot be reached from search, filters, random, or play,
 // and a direct wrapper page does not request GameMonetize embeds or covers.
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict'),path=require('path');
+const {unlockShell}=require('./gate-fixture.cjs');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const HOST=/html5\.gamemonetize\.co|img\.gamemonetize\.com/i;
 const index=read('index.html');
@@ -29,14 +30,16 @@ function boot(extra={}){
   w.eval(read('arcade/gamemonetize.js'));
   w.eval(read('arcade/gamedistribution.js'));
   w.eval(read('app.js'));
-  return {w,d,loads,$:id=>d.getElementById(id),gm:JSON.parse(JSON.stringify(w.ARCADE_GM_CATALOG)),gd:JSON.parse(JSON.stringify(w.ARCADE_GD_CATALOG))};
+  return {w,d,loads,$:id=>d.getElementById(id),gm:JSON.parse(JSON.stringify(w.ARCADE_GM_CATALOG)),gd:JSON.parse(JSON.stringify(w.ARCADE_GD_CATALOG)),ready:unlockShell(w)};
 }
 function remoteAttrs(d){
   return [...d.querySelectorAll('*')].flatMap(el=>['src','href'].map(name=>el.getAttribute(name)).filter(Boolean)).filter(value=>HOST.test(value));
 }
 function shown(d){return [...d.querySelectorAll('#games .game h3, #arcadeRow .capsule-title, #continueRow .capsule-title, #trendingCards .capsule-title, #favouriteRow .capsule-title')].map(node=>node.textContent)}
 
+(async()=>{
 const g=boot({storage:{'after-class-hub-v1':JSON.stringify({favourites:['buggy-blast','creekhold'],recent:['panda-run','autumn-drift'],plays:{'buggy-blast':4,'little-lake':2}})}});
+await g.ready;
 const {w,d,$,gm,gd}=g;
 assert.equal(w.ARCADE_CONFIG.gmEnabled,false);
 assert.equal(w.ARCADE_CONFIG.gdEnabled,false);
@@ -109,4 +112,4 @@ const gdPage=openPage(gd[0].id,{gmEnabled:false,gdEnabled:false,gdPublisherId:''
 assert.equal(gdPage.doc.querySelectorAll('iframe').length,0,'GameDistribution stays off');
 assert(!HOST.test(gdPage.doc.body.innerHTML));
 console.log('PASS arcade disabled: 23 GameMonetize games absent from search, filters, random and play; no embed or cover request by default');
-process.exit(0);
+})().catch(error=>{console.error(error);process.exit(1)});

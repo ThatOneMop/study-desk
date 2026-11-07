@@ -1,6 +1,7 @@
 // Arcade providers stay hidden until their own switches are on.
 // GameMonetize needs gmEnabled === true. GameDistribution also needs a publisher ID.
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict'),path=require('path');
+const {unlockShell}=require('./gate-fixture.cjs');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const catalog=JSON.parse(read('catalog.json'));
 const sandbox=new JSDOM('',{runScripts:'outside-only'}).window;
@@ -14,31 +15,33 @@ assert(gm.every(g=>g.source==='GameMonetize'&&g.embed.startsWith('https://html5.
 assert(gd.every(g=>g.id.startsWith('gd-')&&g.source==='GameDistribution'&&/^[0-9a-f]{32}$/.test(g.gdGameId)&&g.url===`arcade/${g.id}/index.html`));
 assert(!catalog.some(g=>g.source==='GameMonetize'||g.source==='GameDistribution'||g.type==='arcade'),'no provider game in the public catalogue');
 
-function hub(config){
+async function hub(config){
   const dom=new JSDOM(read('index.html'),{url:'https://example.test/#games',runScripts:'outside-only',pretendToBeVisual:true});
   const w=dom.window;w.eval(read('catalog.js'));w.eval(`window.ARCADE_CONFIG=${JSON.stringify(config)}`);
-  w.eval(read('arcade/gamemonetize.js'));w.eval(read('arcade/gamedistribution.js'));w.eval(read('app.js'));return w;
+  w.eval(read('arcade/gamemonetize.js'));w.eval(read('arcade/gamedistribution.js'));w.eval(read('app.js'));
+  await unlockShell(w);return w;
 }
 function titles(w){return [...w.document.querySelectorAll('#games .game h3')].map(h=>h.textContent)}
 function filterTitles(w,name){const button=[...w.document.getElementById('filters').children].find(b=>b.textContent===name);assert(button,name+' filter');button.click();return titles(w)}
 
 const OFF={gmEnabled:false,gdEnabled:false,gdPublisherId:''};
-let w=hub(OFF);
+(async()=>{
+let w=await hub(OFF);
 assert(![...w.document.getElementById('filters').children].some(b=>b.textContent==='Arcade'),'no Arcade filter while both providers are off');
 for(const g of gm.concat(gd))assert(!titles(w).includes(g.title),g.title+' must be hidden');
 assert.equal(w.document.getElementById('arcadeShelf').hidden,true,'empty Arcade shelf stays hidden');
 
-w=hub({gmEnabled:'true',gdEnabled:false,gdPublisherId:''});
+w=await hub({gmEnabled:'true',gdEnabled:false,gdPublisherId:''});
 assert(!titles(w).some(title=>gm.some(g=>g.title===title)),'a non-boolean gmEnabled does not publish GameMonetize');
-w=hub({gmEnabled:false,gdEnabled:true,gdPublisherId:'  '});
-assert.deepEqual(filterTitles(w,'All').sort(),titles(hub(OFF)).sort(),'GameDistribution without a publisher ID stays hidden');
+w=await hub({gmEnabled:false,gdEnabled:true,gdPublisherId:'  '});
+assert.deepEqual(filterTitles(w,'All').sort(),titles(await hub(OFF)).sort(),'GameDistribution without a publisher ID stays hidden');
 
-w=hub({gmEnabled:true,gdEnabled:false,gdPublisherId:''});
+w=await hub({gmEnabled:true,gdEnabled:false,gdPublisherId:''});
 const gmTitles=filterTitles(w,'Arcade');
 assert.deepEqual(gmTitles.sort(),gm.map(g=>g.title).sort(),'gmEnabled shows exactly the GameMonetize games');
 assert(gd.every(g=>!titles(w).includes(g.title)),'turning GameMonetize on does not enable GameDistribution');
 
-w=hub({gmEnabled:false,gdEnabled:true,gdPublisherId:'test-publisher'});
+w=await hub({gmEnabled:false,gdEnabled:true,gdPublisherId:'test-publisher'});
 const gdTitles=filterTitles(w,'Arcade');
 assert.deepEqual(gdTitles.sort(),gd.map(g=>g.title).sort(),'publisher switch shows exactly the GameDistribution games');
 assert(gm.every(g=>!titles(w).includes(g.title)),'turning GameDistribution on does not enable GameMonetize');
@@ -70,3 +73,4 @@ assert(credits.includes('id="arcade-gamemonetize"'));assert(credits.includes('id
 assert(!gm.some(g=>credits.includes(`id="arcade-${g.id}"`)),'hidden GameMonetize games are not separate live credit sections');
 console.log(`PASS arcade: ${gm.length} GameMonetize and ${gd.length} GameDistribution games hidden until their own switches; public catalogue unchanged`);
 process.exit(0);
+})().catch(error=>{console.error(error);process.exit(1)});

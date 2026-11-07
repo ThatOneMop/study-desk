@@ -1,10 +1,12 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict');
+const {unlockShell}=require('./gate-fixture.cjs');
 function openGamesHub(win){win.history.replaceState(null,'','#games');win.dispatchEvent(new win.HashChangeEvent('hashchange'))}
 const root=__dirname+'/../';
 const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id);
 let approved=false,prompts=[];w.confirm=message=>{prompts.push(message);return approved};
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
+(async()=>{await unlockShell(w);
 const launch=id=>[...d.querySelectorAll('button[data-action="play"]')].find(b=>b.dataset.game===id);
 openGamesHub(w);launch('creekhold').click();assert.equal(prompts.length,0,'first launch needs no confirmation');
 const session=$('frame').contentWindow,src=$('frame').src;
@@ -29,3 +31,4 @@ assert.equal(JSON.parse(w.localStorage.getItem('after-class-hub-v1')).recent[0],
 for(const [key,value] of Object.entries(saves))assert.equal(w.localStorage.getItem(key),value,'switch never deletes stored progress');
 console.log('PASS switching: initial/same-game prompt-free, named warning, cancelled iframe/session/focus/pause/history preserved, approved switch, stored saves untouched');
 w.close();
+})().catch(error=>{console.error(error);process.exit(1)});

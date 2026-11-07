@@ -1,4 +1,5 @@
 const assert=require('node:assert/strict'),fs=require('fs'),{JSDOM}=require('jsdom');
+const {unlockShell}=require('./gate-fixture.cjs');
 const root=__dirname+'/../';
 function boot(entries={},confirm=()=>true){
  const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/',runScripts:'outside-only',pretendToBeVisual:true});
@@ -29,16 +30,19 @@ async function choose(g,payload,size){
  assert.notEqual(pick(sunday).id,pick(monday).id,'the pick changes on Monday');
  assert.notEqual(pick(nextSunday).id,pick(nextMonday).id,'the next Monday chooses again');
  for(let i=0;i<120;i++){const game=pick(new Date(2026,0,5+i*7));assert.equal(game.type,'bundled');assert.equal(game.id,pick(new Date(2026,0,5+i*7)).id)}
- assert.equal(g.$('studyMondayTitle').textContent,'Monday pick');
- assert.equal(g.$('studyMonday').getAttribute('aria-labelledby'),'studyMondayTitle');
- assert.match(g.$('studyMondayText').textContent,new RegExp('Week of .*\\. '+pick(new Date()).title));
- assert.equal(g.$('studyMondayPlay').textContent,'Play Monday pick: '+pick(new Date()).title);
- assert.equal(g.$('studyMondayPlay').getAttribute('aria-describedby'),'studyMondayText');
- assert.equal(g.$('arcadeMondayPlay').textContent,g.$('studyMondayPlay').textContent);
- g.$('studyMondayPlay').click();
- assert.equal(g.$('player').hidden,false);
- assert.equal(g.$('frame').getAttribute('src'),pick(new Date()).url);
- assert.equal(g.$('playing').textContent,pick(new Date()).title);
+assert.equal(g.$('studyMonday'),null,'the study page has no Monday pick');
+assert(!/monday pick|play monday/i.test(g.$('study').textContent));
+assert.equal(g.$('arcadeMonday').getAttribute('aria-labelledby'),'arcadeMondayTitle');
+assert.match(g.$('arcadeMondayText').textContent,new RegExp('Week of .*\\. '+pick(new Date()).title));
+assert.equal(g.$('arcadeMondayPlay').textContent,'Play Monday pick: '+pick(new Date()).title);
+assert.equal(g.$('arcadeMondayPlay').getAttribute('aria-describedby'),'arcadeMondayText');
+g.$('arcadeMondayPlay').click();
+assert.equal(g.$('frame').getAttribute('src'),null,'the weekly game does not load before the PIN');
+assert.equal(g.$('pinGate').open,true);
+await unlockShell(g.w);
+assert.equal(g.$('player').hidden,false);
+assert.equal(g.$('frame').getAttribute('src'),pick(new Date()).url);
+assert.equal(g.$('playing').textContent,pick(new Date()).title);
  g.close();
 
  g=boot({'littleLakeV1':'{not json','keep-me':'stay'});

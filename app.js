@@ -44,6 +44,8 @@ const starter=[['Science','What is a force?','A push or pull that can change an 
 let cards=loadJson(KEY,starter,valid);
 let deckNames=loadJson(DECK_KEY,[],validDecks);deckNames=[...new Set([...deckNames,...cards.map(c=>c.deck)])];
 let deck=deckNames[0]||'My deck',index=0,flipped=false,order=[],arcade=false,playing=null,inPlayer=false,paused=false,hits=[],filter='All',tag='All';
+let gamesUnlocked=false,gateBusy=false,pendingGate=null;
+window.studyGamesUnlocked=()=>gamesUnlocked;
 function arcadeGmEnabled(){const c=window.ARCADE_CONFIG||{};return c.gmEnabled===true}
 function arcadeGdEnabled(){const c=window.ARCADE_CONFIG||{};return c.gdEnabled===true&&typeof c.gdPublisherId==='string'&&c.gdPublisherId.trim()!==''}
 function providerEntries(allow,entries){return allow&&Array.isArray(entries)?entries:[]}
@@ -93,6 +95,8 @@ const sessionReturn=el('div',undefined,'session-return');sessionReturn.id='sessi
 function drawFilters(){const focused=$('filters').contains(document.activeElement)?document.activeElement.textContent:null,groups=[...new Set(games.map(g=>g.group))];$('filters').replaceChildren();for(const name of ['All',...(groups.length>1?groups:[]),'Favourites','Recently played']){const b=button(name,()=>{filter=name;drawGames()},name===filter?'active':'');b.setAttribute('aria-pressed',String(name===filter));$('filters').append(b);if(name===focused)b.focus()}}
 function focusGame(id,action='play'){const target=[...$('games').querySelectorAll('button[data-game]')].find(b=>b.dataset.game===id&&b.dataset.action===action);(target||$('search')).focus()}
 function drawGames(){
+ if(!gamesUnlocked)return;
+ if(!drawGames.hero){drawGames.hero=true;renderHero()}
  const sessionFocused=sessionReturn.contains(document.activeElement),active=games.find(g=>g.id===playing);sessionReturn.replaceChildren();sessionReturn.hidden=!active;if(active){const back=button('Return to '+active.title+' →',()=>play(active));sessionReturn.append(el('span','Your current session stays open while you browse.'),back);if(sessionFocused)back.focus()}
  drawFilters();$('gameCount').textContent=games.length+' games';$('includedCount').textContent=games.filter(g=>g.type!=='external').length+' games included here';const grid=$('games');grid.replaceChildren();const term=$('search').value.trim().toLowerCase(),genre=$('genre').value;
  let list=games.filter(g=>term.split(/\s+/).every(word=>(g.title+' '+g.description+' '+g.genre+' '+g.group+' '+(g.aliases||[]).join(' ')).toLowerCase().includes(word))&&(genre==='all'||g.genre===genre)&&tagMatch(g)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
@@ -114,18 +118,42 @@ function drawGames(){
 function visibility(visible){$('frame').contentWindow?.postMessage({type:'study-visibility',visible:visible&&!document.hidden},location.origin)}
 document.addEventListener('visibilitychange',()=>{visibility(arcade&&inPlayer&&!paused);if(document.hidden)releaseFullscreen()});
 function releaseFullscreen(){try{$('frame').contentDocument?.exitPointerLock?.();if($('frame').contentDocument?.fullscreenElement)$('frame').contentDocument.exitFullscreen?.().catch(()=>{})}catch{}document.exitPointerLock?.();if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{})}
-function show(){if($('editor').open)$('editor').close();$('study').hidden=arcade;$('arcade').hidden=!arcade||inPlayer;$('player').hidden=!arcade||!inPlayer;document.body.classList.toggle('playing',arcade&&inPlayer);document.title='Study Desk';visibility(arcade&&inPlayer&&!paused);$('pauseCover').hidden=!paused;$('pauseGame').textContent=paused?'Resume':'Pause';$('frame').inert=paused;$('frame').tabIndex=paused?-1:0;if(!arcade||!inPlayer||paused)releaseFullscreen();if(!arcade)$('card').focus();else if(inPlayer)$(paused?'resumeGame':'frame').focus();else $('search').focus({preventScroll:true})}
-function toggle(){arcade=!arcade;show();if(arcade&&!inPlayer)drawGames()}
-function openCollection(returnToGame=false){window.selectEntertainment?.('games',false);arcade=true;inPlayer=false;show();drawGames();if(returnToGame&&playing)focusGame(playing)}
+function clearFrame(){clearTimeout(loadingTimer);currentLoad=null;loadAttempt++;const frame=$('frame');if(!frame)return;frame.removeAttribute('src');frame.setAttribute('aria-busy','false');if($('loadStatus'))$('loadStatus').hidden=true}
+function concealCollection(){if($('games'))$('games').replaceChildren();if($('heroTrack'))$('heroTrack').replaceChildren();if($('heroDots'))$('heroDots').replaceChildren();drawGames.hero=false}
+function show(){
+ if(!gamesUnlocked){
+  arcade=false;inPlayer=false;
+  if($('editor')?.open)$('editor').close();
+  $('study').hidden=false;$('arcade').hidden=true;$('player').hidden=true;
+  document.body.classList.remove('playing');document.title='Study Desk';visibility(false);
+  if($('pauseCover'))$('pauseCover').hidden=true;
+  if($('frame')?.getAttribute('src'))clearFrame();
+  concealCollection();
+  if(!$('pinGate')?.open)$('card').focus();
+  return;
+ }
+ if($('editor').open)$('editor').close();
+ const showPlayer=arcade&&inPlayer;
+ $('study').hidden=arcade;$('arcade').hidden=!arcade||showPlayer;$('player').hidden=!showPlayer;
+ document.body.classList.toggle('playing',showPlayer);document.title='Study Desk';
+ visibility(showPlayer&&!paused);$('pauseCover').hidden=!paused;$('pauseGame').textContent=paused?'Resume':'Pause';
+ $('frame').inert=paused;$('frame').tabIndex=paused||!showPlayer?-1:0;
+ if(!showPlayer||paused)releaseFullscreen();
+ if(!arcade)$('card').focus();else if(showPlayer)$(paused?'resumeGame':'frame').focus();else if(!$('pinGate')?.open)$('search').focus({preventScroll:true});
+}
+function toggle(){if(!gamesUnlocked){showPinGate(()=>{arcade=true;inPlayer=false;show();drawGames()});return}arcade=!arcade;show();if(arcade&&!inPlayer)drawGames()}
+function openCollection(returnToGame=false){if(!gamesUnlocked){showPinGate(()=>openCollection(returnToGame));return}window.selectEntertainment?.('games',false);if($('gameCollection'))$('gameCollection').hidden=false;arcade=true;inPlayer=false;show();drawGames();if(returnToGame&&playing)focusGame(playing)}
 function record(g,countPlay){hub.recent=[g.id,...hub.recent.filter(x=>x!==g.id)].slice(0,20);if(countPlay){hub.plays=cleanPlays(hub.plays);hub.plays[g.id]=Math.min(1000000,(hub.plays[g.id]||0)+1)}storeJson(HUB_KEY,hub)}
 let loadingTimer,loadAttempt=0,currentLoad=null;
 const loadMessage=el('span'),loadActions=el('div',undefined,'load-actions'),retryLoad=button('Retry game',()=>restartCurrent()),loadCollection=button('Back to collection',()=>openCollection(true));
 loadMessage.id='loadMessage';loadActions.id='loadActions';retryLoad.id='retryLoad';loadCollection.id='loadCollection';loadActions.append(retryLoad,loadCollection);loadActions.hidden=true;$('loadStatus').replaceChildren(loadMessage,loadActions);
 function launchWarning(message,moveFocus=true){const focused=$('frame')===document.activeElement;$('loadStatus').hidden=false;loadMessage.textContent=message;loadActions.hidden=false;$('frame').setAttribute('aria-busy','false');if(moveFocus&&focused&&arcade&&inPlayer&&!paused)retryLoad.focus();}
-function beginLoad(g){clearTimeout(loadingTimer);const attempt=++loadAttempt;currentLoad={game:g,url:new URL(g.url,location.href),attempt,settled:false};$('loadStatus').hidden=false;loadActions.hidden=true;loadMessage.textContent='Loading '+g.title+'…';$('frame').setAttribute('aria-busy','true');loadingTimer=setTimeout(()=>{if(currentLoad?.attempt===attempt&&!currentLoad.settled)launchWarning(g.title+' is taking longer than expected. You can keep waiting, retry, or return to the collection.',false)},15000);$('frame').src=g.url;}
+function beginLoad(g){if(!gamesUnlocked)return;clearTimeout(loadingTimer);const attempt=++loadAttempt;currentLoad={game:g,url:new URL(g.url,location.href),attempt,settled:false};$('loadStatus').hidden=false;loadActions.hidden=true;loadMessage.textContent='Loading '+g.title+'…';$('frame').setAttribute('aria-busy','true');loadingTimer=setTimeout(()=>{if(currentLoad?.attempt===attempt&&!currentLoad.settled)launchWarning(g.title+' is taking longer than expected. You can keep waiting, retry, or return to the collection.',false)},15000);$('frame').src=g.url;}
 function restartCurrent(){const g=games.find(g=>g.id===playing);if(g&&confirm('Reload this game? Unsaved progress may be lost. Saved progress is not deleted.')){paused=false;beginLoad(g);show()}}
 function gamePath(url){return url.pathname.replace(/\/index\.html$/,'/')}
 function play(g){
+ if(!g)return;
+ if(!gamesUnlocked){showPinGate(()=>play(g));return}
  const currentGame=games.find(game=>game.id===playing);
  if(g.type!=='external'&&currentGame&&playing!==g.id&&!confirm('Switch from '+currentGame.title+' to '+g.title+'? This closes the current session. Unsaved progress may be lost. Saved progress is not deleted.'))return;
  record(g,playing!==g.id);if(g.type==='external'){window.open(g.url,'_blank','noopener');toast(g.title+' opens separately. Return to this tab to use Study Desk; PPP cannot control the other tab.');drawGames();return}if(playing!==g.id){visibility(false);beginLoad(g);playing=g.id;paused=false}$('frame').title=g.title+' game';$('playing').textContent=g.title;$('gameHelp').textContent=g.controls+' · PPP returns to study (P is reserved)';arcade=true;inPlayer=true;show()
@@ -138,12 +166,12 @@ $('frame').onload=()=>{
  $('frame').setAttribute('aria-busy','false');$('loadStatus').hidden=true;loadActions.hidden=true;visibility(arcade&&inPlayer&&!paused);if(arcade&&inPlayer&&!paused)$('frame').focus();
 };
 $('restartGame').onclick=restartCurrent;
-function openHash(){if(['#games','#movies','#tv'].includes(location.hash)){openCollection();window.selectEntertainment?.(location.hash.slice(1),false)}}
+function openHash(){if(!['#games','#movies','#tv'].includes(location.hash))return;const go=()=>{openCollection();window.selectEntertainment?.(location.hash.slice(1),false)};if(!gamesUnlocked){showPinGate(go);return}go()}
 window.addEventListener('hashchange',openHash);
 $('libraryBtn').onclick=()=>openCollection(true);
 $('pauseGame').onclick=()=>{paused=!paused;show()};$('resumeGame').onclick=()=>{paused=false;show()};$('search').oninput=drawGames;$('genre').onchange=drawGames;$('groupBy').onchange=drawGames;$('sortGames').onchange=drawGames;$('clearFilters').onclick=()=>{$('search').value='';$('genre').value='all';$('groupBy').value='genre';$('sortGames').value='collection';filter='All';tag='All';drawGames();$('search').focus()};
-window.addEventListener('message',e=>{if(e.source!==$('frame').contentWindow||e.origin!==location.origin)return;if(e.data?.type==='study-toggle')toggle();else if(e.data?.type==='study-collection')openCollection(true)});
-window.addEventListener('keydown',e=>{if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
+window.addEventListener('message',e=>{if(e.source!==$('frame').contentWindow||e.origin!==location.origin)return;if(e.data?.type==='study-toggle'){if(!gamesUnlocked){showPinGate(()=>toggle());return}toggle()}else if(e.data?.type==='study-collection'){if(!gamesUnlocked){showPinGate(()=>openCollection(true));return}openCollection(true)}});
+window.addEventListener('keydown',e=>{if($('pinGate')?.open)return;if(e.repeat||e.isComposing||e.ctrlKey||e.altKey||e.metaKey||e.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;const now=performance.now();if(e.key.toLowerCase()==='p'){hits=hits.filter(t=>now-t<=1000);hits.push(now);if(hits.length===3){hits=[];e.preventDefault();toggle()}return}hits=[];if(arcade||$('editor').open)return;if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();$('card').click()}if(e.key==='ArrowRight')advance();if(e.key==='ArrowLeft')advance(-1)},true);
 function weekMonday(date=new Date()){const monday=new Date(date.getFullYear(),date.getMonth(),date.getDate());const day=monday.getDay()||7;monday.setDate(monday.getDate()-(day-1));monday.setHours(0,0,0,0);return monday}
 function mondayPick(date=new Date()){
  const bundled=games.filter(g=>g.type==='bundled').sort((a,b)=>a.id.localeCompare(b.id));
@@ -162,7 +190,7 @@ function renderMondayPick(sectionId,textId,buttonId){
  button.setAttribute('aria-describedby',textId);
  button.onclick=()=>play(game);
 }
-function renderMondayPicks(){renderMondayPick('studyMonday','studyMondayText','studyMondayPlay');renderMondayPick('arcadeMonday','arcadeMondayText','arcadeMondayPlay')}
+function renderMondayPicks(){renderMondayPick('arcadeMonday','arcadeMondayText','arcadeMondayPlay')}
 const SAVE_VAULT_LIMIT=12000000;
 function storageEntries(){
  const entries=[];
@@ -355,6 +383,84 @@ function playTone(freq,duration,gainValue){
  if(!soundOn)return;const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
  try{audioCtx=audioCtx||new AudioCtx();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime,osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(gainValue,now);gain.gain.exponentialRampToValueAtTime(0.001,now+duration);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now);osc.stop(now+duration)}catch{}
 }
+function bytesFromBase64(text){
+ if(typeof text!=='string'||!/^[A-Za-z0-9+/]+={0,2}$/.test(text)||text.length%4!==0)throw Error('encoding');
+ const raw=atob(text),out=new Uint8Array(raw.length);
+ for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);
+ return out;
+}
+function sameBytes(a,b){if(!a||!b||a.length!==b.length)return false;let diff=0;for(let i=0;i<a.length;i++)diff|=a[i]^b[i];return diff===0}
+async function verifierMatches(secret){
+ const cfg=window.ACCESS_VERIFIERS,record=cfg?.credentials?.gamesPin;
+ if(!cfg||cfg.version!==1||cfg.algorithm!=='PBKDF2'||cfg.hash!=='SHA-256'||cfg.iterations!==600000||cfg.keyLengthBytes!==32||cfg.encoding!=='base64')return false;
+ if(!record||typeof record.salt!=='string'||typeof record.verifier!=='string'||!crypto?.subtle)return false;
+ let salt,expected;
+ try{salt=bytesFromBase64(record.salt);expected=bytesFromBase64(record.verifier)}catch{return false}
+ if(salt.length!==16||expected.length!==32)return false;
+ const material=await crypto.subtle.importKey('raw',new TextEncoder().encode(secret),'PBKDF2',false,['deriveBits']);
+ const bits=new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt,iterations:600000},material,256));
+ return sameBytes(bits,expected);
+}
+function pinFail(){const input=$('pinInput');input.value='';input.setAttribute('aria-invalid','true');$('pinError').hidden=false;$('pinError').textContent='That PIN is not right.';try{input.focus()}catch{}}
+function showPinGate(next){
+ if(gamesUnlocked){if(next)next();return}
+ if(next)pendingGate=next;
+ arcade=false;inPlayer=false;
+ $('study').hidden=false;$('arcade').hidden=true;$('player').hidden=true;
+ document.body.classList.remove('playing');visibility(false);
+ if($('frame')?.getAttribute('src'))clearFrame();
+ concealCollection();
+ $('pinError').hidden=true;$('pinStatus').textContent='';$('pinInput').value='';$('pinInput').removeAttribute('aria-invalid');
+ openModal($('pinGate'));
+ try{$('pinInput').focus()}catch{}
+}
+function leavePin(){
+ pendingGate=null;closeModal($('pinGate'));$('pinInput').value='';$('pinError').hidden=true;$('pinStatus').textContent='';
+ if(['#games','#movies','#tv'].includes(location.hash))history.replaceState(null,'',location.pathname+location.search);
+ arcade=false;inPlayer=false;show();
+}
+function lockDesk(){
+ gamesUnlocked=false;pendingGate=null;gateBusy=false;
+ arcade=false;inPlayer=false;paused=false;playing=null;
+ if($('pinInput'))$('pinInput').value='';
+ if($('pinUnlock'))$('pinUnlock').disabled=false;
+ closeModal($('pinGate'));
+ if($('search'))$('search').value='';
+ show();
+}
+async function submitPin(){
+ if(gateBusy)return;
+ const input=$('pinInput'),value=input.value;
+ input.value='';
+ $('pinError').hidden=true;
+ if(!/^\d{6,}$/.test(value)){pinFail();return}
+ gateBusy=true;$('pinUnlock').disabled=true;$('pinStatus').textContent='Checking…';input.setAttribute('aria-busy','true');
+ let ok=false;
+ try{ok=await verifierMatches(value)}catch{ok=false}
+ gateBusy=false;$('pinUnlock').disabled=false;$('pinStatus').textContent='';input.removeAttribute('aria-busy');
+ if(!ok){pinFail();return}
+ input.removeAttribute('aria-invalid');
+ gamesUnlocked=true;closeModal($('pinGate'));
+ const next=pendingGate;pendingGate=null;
+ if(next)next();else{arcade=true;inPlayer=false;show();drawGames()}
+}
+function trapDialog(dialog,event){
+ if(event.key!=='Tab'||!dialog.open)return;
+ const nodes=[...dialog.querySelectorAll('button:not([disabled]),input:not([disabled])')];
+ if(!nodes.length)return;
+ const first=nodes[0],last=nodes[nodes.length-1];
+ if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+}
+function wirePinGate(){
+ $('pinForm').onsubmit=event=>{event.preventDefault();submitPin()};
+ $('pinBack').onclick=leavePin;
+ $('lockGames').onclick=lockDesk;
+ $('lockFromPlayer').onclick=lockDesk;
+ const dialog=$('pinGate');
+ dialog.addEventListener('cancel',event=>{event.preventDefault();leavePin()});
+ dialog.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();leavePin()}trapDialog(dialog,event)});
+}
 function wireDesk(){
  applyTheme(savedTheme());
  let savedSound=null;try{savedSound=localStorage.getItem(SOUND_KEY)}catch{}
@@ -384,6 +490,6 @@ function wireDesk(){
 }
 for(const id of ['exportSaves','exportSavesArcade'])$(id).onclick=exportAllSaves;
 for(const id of ['importSaves','importSavesArcade'])$(id).onchange=async e=>{try{await importAllSaves(e.target.files?.[0])}catch{setVaultStatus('That file is not a Study Desk save backup.');toast('That file is not a Study Desk save backup.')}finally{e.target.value=''}};
-buildGenreChips();buildTagChips();renderHero();wireDesk();
-reset();drawGames();renderMondayPicks();openHash();refreshStorageNotices();
+buildGenreChips();buildTagChips();wireDesk();wirePinGate();
+reset();renderMondayPicks();openHash();refreshStorageNotices();
 

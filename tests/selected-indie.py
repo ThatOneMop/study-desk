@@ -91,7 +91,16 @@ hub = "\n".join((ROOT / name).read_text() for name in ("index.html", "app.js", "
 for link in re.findall(r"games/([a-z0-9-]+)/", hub):
     assert link in KEEP, f"link to removed game {link}"
 
-for path in ("app.js", "bridge.js", "catalog.js", "arcade-config.js", "arcade/gamemonetize.js", "arcade/gamedistribution.js"):
+index = (ROOT / "index.html").read_text()
+assert 'id="studyMonday"' not in index
+assert "access-verifiers.js" in index
+verifiers = json.loads((ROOT / "access-verifiers.js").read_text().split("=", 1)[1].strip().rstrip(";"))
+assert verifiers["algorithm"] == "PBKDF2" and verifiers["iterations"] == 600000
+assert set(verifiers["credentials"]) == {"gamesPin"}
+import base64
+pin = verifiers["credentials"]["gamesPin"]
+assert len(base64.b64decode(pin["salt"])) == 16 and len(base64.b64decode(pin["verifier"])) == 32
+for path in ("app.js", "bridge.js", "catalog.js", "arcade-config.js", "arcade/gamemonetize.js", "arcade/gamedistribution.js", "access-verifiers.js"):
     result = subprocess.run(["node", "--check", str(ROOT / path)], capture_output=True)
     assert result.returncode == 0, result.stderr.decode()
 

@@ -1,6 +1,8 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict');
+const {unlockShell}=require('./gate-fixture.cjs');
 const root=__dirname+'/../',dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/#games',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window,d=w.document,$=id=>d.getElementById(id);
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
+(async()=>{await unlockShell(w);
 const change=(id,value,type='change')=>{$(id).value=value;$(id).dispatchEvent(new w.Event(type))};
 const count=()=>d.querySelectorAll('.game').length;
 assert.equal(count(),w.GAME_CATALOG.length);assert.equal($('arcade').hidden,false);assert.equal($('studyBtn'),null);assert.equal($('playerStudy'),null);
@@ -16,3 +18,4 @@ d.querySelector('[data-game="autumn-drift"][data-action="play"]').click();assert
 change('groupBy','none');change('sortGames','recent');assert.equal(d.querySelector('.game h3').textContent,'Autumn Drift');
 assert.equal($('frame').getAttribute('src'),'games/autumn-drift/index.html');
 console.log('PASS relaxed collection: keyword search, genre, grouping, sorting, favourites, reset, removed workspace controls, game launch and preserved session.');w.close();
+})().catch(error=>{console.error(error);process.exit(1)});

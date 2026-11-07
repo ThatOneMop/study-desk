@@ -1,4 +1,5 @@
 const fs=require('fs'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
+const {unlockShell}=require('./gate-fixture.cjs');
 function openGamesHub(win){win.history.replaceState(null,'','#games');win.dispatchEvent(new win.HashChangeEvent('hashchange'))}
 const root=__dirname+'/../',dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id),timeouts=[],cleared=[];
@@ -6,6 +7,7 @@ const nativeTimeout=w.setTimeout.bind(w),nativeClear=w.clearTimeout.bind(w);
 w.setTimeout=(fn,ms,...args)=>{if(ms===15000){const id=10000+timeouts.length;timeouts.push({fn,id});return id;}return nativeTimeout(fn,ms,...args)};
 w.clearTimeout=id=>{cleared.push(id);nativeClear(id)};
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
+(async()=>{await unlockShell(w);
 const frame=$('frame'),launch=id=>d.querySelector(`[data-action="play"][data-game="${id}"]`).click();
 frame.onload();assert.equal($('loadStatus').hidden,true);
 openGamesHub(w);launch('creekhold');assert.equal(frame.getAttribute('aria-busy'),'true');
@@ -27,3 +29,4 @@ delete frame.contentWindow;
 assert.equal(JSON.parse(w.localStorage.getItem('after-class-hub-v1')).recent[0],'creekhold');
 console.log('PASS loading: missing bridge, timeout, cancel/retry, successful recovery, stale event/timer isolation, directory route, inactive/paused focus, safe inspection failure; no save deletion.');
 w.close();
+})().catch(error=>{console.error(error);process.exit(1)});

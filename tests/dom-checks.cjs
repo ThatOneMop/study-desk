@@ -1,11 +1,13 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('assert');
+const {unlockShell}=require('./gate-fixture.cjs');
 const root=__dirname+'/../';
 const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/repo/',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id);w.confirm=()=>true;w.prompt=()=> 'New deck';w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
 w.eval(fs.readFileSync(root+'catalog.js','utf8'));w.eval(fs.readFileSync(root+'app.js','utf8'));
-assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);assert.equal($('study').hidden,false);
+assert.equal($('studyMonday'),null);assert.equal(d.querySelectorAll('.game').length,0);assert.equal($('study').hidden,false);assert.equal($('frame').getAttribute('src'),null);
 function key(target,k,extra={}){target.dispatchEvent(new w.KeyboardEvent('keydown',{key:k,bubbles:true,...extra}))}
-for(let i=0;i<3;i++)key(w,'p');assert.equal($('study').hidden,true);
+for(let i=0;i<3;i++)key(w,'p');assert.equal($('pinGate').open,true);assert.equal($('study').hidden,false);assert.equal($('frame').getAttribute('src'),null);
+(async()=>{await unlockShell(w);assert.equal($('study').hidden,true);assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
 for(let i=0;i<3;i++)key(w,'p');assert.equal($('study').hidden,false);
 for(let i=0;i<3;i++)key($('question'),'p');assert.equal($('study').hidden,false);
 $('search').value=' Nibs ';$('search').dispatchEvent(new w.Event('input'));assert.equal(d.querySelectorAll('.game').length,1);assert.equal(d.querySelector('.game h3').textContent,'Creekhold');
@@ -21,3 +23,4 @@ function visible(v){f.dispatchEvent(new f.MessageEvent('message',{source:w,origi
 let released=0;f.document.addEventListener('keyup',()=>released++);f.document.dispatchEvent(new f.KeyboardEvent('keydown',{key:'w',code:'KeyW',bubbles:true}));
 let ran=false;f.setTimeout(()=>ran=true,40);visible(false);assert(f.StudyBridge.paused);assert(released>0);const before=f.performance.now();
 setTimeout(()=>{assert.equal(ran,false);assert.equal(f.performance.now(),before);visible(true);assert(!f.StudyBridge.paused);assert(f.performance.now()-before<20);setTimeout(()=>{assert(ran);console.log('PASS bridge: held-key release, timer suspension/resume, frozen clock/no large resume jump');w.close()},65)},75);
+})().catch(error=>{console.error(error);process.exit(1)});

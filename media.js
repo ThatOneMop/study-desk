@@ -31,6 +31,7 @@
  }
  function resetFilters(){byId('mediaSearch').value='';byId('mediaGenre').value='all';byId('mediaRating').value='all';byId('mediaSort').value='featured'}
  window.selectEntertainment=(next,focus=true)=>{
+  if(window.studyGamesUnlocked && !window.studyGamesUnlocked())return;
   if(!['games','movies','tv'].includes(next))return;
   const changed=next!==section;section=next;
   byId('gameCollection').hidden=section!=='games';byId('mediaCollection').hidden=section==='games';
@@ -50,5 +51,5 @@
  byId('mediaSearch').oninput=render;
  for(const name of ['mediaGenre','mediaRating','mediaSort'])byId(name).onchange=render;
  byId('mediaReset').onclick=()=>{resetFilters();render();byId('mediaSearch').focus()};
- if(['#movies','#tv'].includes(location.hash))window.selectEntertainment(location.hash.slice(1));
+ if(['#movies','#tv'].includes(location.hash)&&(!window.studyGamesUnlocked||window.studyGamesUnlocked()))window.selectEntertainment(location.hash.slice(1));
 })();
