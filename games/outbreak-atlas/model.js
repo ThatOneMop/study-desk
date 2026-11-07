@@ -6,20 +6,20 @@
 })(typeof globalThis === 'undefined' ? this : globalThis, function () {
   'use strict';
   const LANDS = [
-    { id: 'hearthlow', name: 'Hearthlow', x: 230, y: 330, kind: 'hub', blurb: 'A round market town and the usual starting hearth.' },
-    { id: 'bramble', name: 'Bramble Reach', x: 350, y: 250, kind: 'land', blurb: 'Hedgerows and footpaths.' },
-    { id: 'mothfen', name: 'Mothfen', x: 160, y: 240, kind: 'land', blurb: 'Soft ground and short roads.' },
-    { id: 'glassmere', name: 'Glassmere', x: 300, y: 155, kind: 'coast', blurb: 'A bright lake with a harbor.' },
-    { id: 'northwind', name: 'Northwind Shelf', x: 190, y: 100, kind: 'coast', blurb: 'High docks and a sky field.' },
-    { id: 'redkettle', name: 'Redkettle', x: 250, y: 450, kind: 'land', blurb: 'Kilns, carts, and a south road.' },
-    { id: 'cinder', name: 'Cinder Steppe', x: 470, y: 300, kind: 'land', blurb: 'Open ground between the two main lands.' },
-    { id: 'pale', name: 'Pale Harbor', x: 430, y: 145, kind: 'coast', blurb: 'The northern sea gate.' },
-    { id: 'velvet', name: 'Velvet Dunes', x: 560, y: 400, kind: 'land', blurb: 'Slow roads across warm sand.' },
-    { id: 'orchard', name: 'High Orchard', x: 650, y: 490, kind: 'land', blurb: 'Terraces above the south coast.' },
-    { id: 'sable', name: 'Sable Crossing', x: 710, y: 300, kind: 'coast', blurb: 'A dark-water ferry town.' },
-    { id: 'lantern', name: 'Lantern Isles', x: 90, y: 150, kind: 'isle', blurb: 'An island with both a sea lane and a sky lane.' },
-    { id: 'spire', name: 'Quiet Spire', x: 860, y: 450, kind: 'isle', blurb: 'A far island with both a sea lane and a sky lane.' },
-    { id: 'farwhistle', name: 'Farwhistle', x: 900, y: 150, kind: 'isle', blurb: 'The farthest island. Sea or sky can reach it.' }
+    { id: 'hearthlow', name: 'Hearthlow', x: 330, y: 250, kind: 'hub', blurb: 'Market country where the infection starts.' },
+    { id: 'bramble', name: 'Bramble Reach', x: 500, y: 230, kind: 'land', blurb: 'Hedgerows and inland roads.' },
+    { id: 'mothfen', name: 'Mothfen', x: 175, y: 240, kind: 'land', blurb: 'Marsh country with short roads.' },
+    { id: 'glassmere', name: 'Glassmere', x: 470, y: 115, kind: 'coast', blurb: 'A lake coast with a harbor.' },
+    { id: 'northwind', name: 'Northwind Shelf', x: 270, y: 95, kind: 'coast', blurb: 'Northern docks and a sky field.' },
+    { id: 'redkettle', name: 'Redkettle', x: 230, y: 410, kind: 'land', blurb: 'Kiln country on the south road.' },
+    { id: 'cinder', name: 'Cinder Steppe', x: 450, y: 370, kind: 'land', blurb: 'Dry steppe between the coasts.' },
+    { id: 'pale', name: 'Pale Harbor', x: 680, y: 120, kind: 'coast', blurb: 'The northern sea gate.' },
+    { id: 'velvet', name: 'Velvet Dunes', x: 390, y: 490, kind: 'land', blurb: 'Dune country with slow roads.' },
+    { id: 'orchard', name: 'High Orchard', x: 590, y: 490, kind: 'land', blurb: 'Terraces above the south coast.' },
+    { id: 'sable', name: 'Sable Crossing', x: 680, y: 330, kind: 'coast', blurb: 'The eastern ferry coast.' },
+    { id: 'lantern', name: 'Lantern Isles', x: 78, y: 125, kind: 'isle', blurb: 'An island with a sea lane and a sky lane.' },
+    { id: 'spire', name: 'Quiet Spire', x: 880, y: 470, kind: 'isle', blurb: 'A southeastern island with a sea lane and a sky lane.' },
+    { id: 'farwhistle', name: 'Farwhistle', x: 890, y: 95, kind: 'isle', blurb: 'The farthest island. Sea or sky can reach it.' }
   ];
   const LINKS = [
     ['hearthlow', 'bramble', 'land'], ['hearthlow', 'mothfen', 'land'], ['hearthlow', 'redkettle', 'land'],
@@ -31,41 +31,41 @@
     ['northwind', 'lantern', 'air'], ['orchard', 'spire', 'air'], ['spire', 'farwhistle', 'air'], ['northwind', 'farwhistle', 'air']
   ].map(([a, b, kind]) => ({ a, b, kind }));
   const UPGRADES = [
-    { id: 'footpaths', branch: 'tide', name: 'Footpaths', cost: 1, text: 'Land links carry the mark a little farther.' },
-    { id: 'carts', branch: 'tide', name: 'Market carts', cost: 1, requires: ['footpaths'], text: 'Land links carry it farther still.' },
-    { id: 'harbors', branch: 'tide', name: 'Harbor threads', cost: 1, text: 'Opens every sea lane. Either this or Sky threads can reach every island.' },
-    { id: 'ferries', branch: 'tide', name: 'Night ferries', cost: 2, requires: ['harbors'], text: 'Open sea lanes run fuller.' },
-    { id: 'sky', branch: 'tide', name: 'Sky threads', cost: 1, text: 'Opens every sky lane. Either this or Harbor threads can reach every island.' },
-    { id: 'tailwinds', branch: 'tide', name: 'Tailwinds', cost: 2, requires: ['sky'], text: 'Open sky lanes run fuller.' },
-    { id: 'season', branch: 'tide', name: 'Busy season', cost: 2, requires: ['carts'], text: 'Every open link carries more.' },
-    { id: 'echo', branch: 'tide', name: 'Echo hop', cost: 2, requires: ['season'], text: 'A lively land sometimes sparks a neighbor a little extra.' },
-    { id: 'soft', branch: 'veil', name: 'Soft names', cost: 1, text: 'People talk about the mark less.' },
-    { id: 'dim', branch: 'veil', name: 'Dim signals', cost: 1, requires: ['soft'], text: 'The talk stays quieter.' },
-    { id: 'borrowed', branch: 'veil', name: 'Borrowed quiet', cost: 2, requires: ['dim'], text: 'Each month, a little of the talk fades.' },
-    { id: 'ports', branch: 'veil', name: 'Unremarkable ports', cost: 1, text: 'Sea crossings add less talk.' },
-    { id: 'greyskies', branch: 'veil', name: 'Grey skies', cost: 1, text: 'Sky crossings add less talk.' },
-    { id: 'still', branch: 'veil', name: 'Still water', cost: 2, requires: ['borrowed'], text: 'The counter-effort grows more slowly.' },
-    { id: 'memory', branch: 'veil', name: 'Long memory', cost: 2, requires: ['still'], text: 'Root shrugs off more of the counter-effort.' },
-    { id: 'maps', branch: 'veil', name: 'Forgotten maps', cost: 2, requires: ['ports', 'greyskies'], text: 'Islands add less talk.' },
-    { id: 'roots', branch: 'hold', name: 'Deep roots', cost: 1, text: 'A strong mark is harder to wash down.' },
-    { id: 'second', branch: 'hold', name: 'Second season', cost: 1, requires: ['roots'], text: 'A strong mark keeps growing.' },
-    { id: 'stones', branch: 'hold', name: 'Warm stones', cost: 2, requires: ['second'], text: 'The counter-effort pushes less.' },
-    { id: 'stories', branch: 'hold', name: 'Shared stories', cost: 1, text: 'Establishing a land returns an extra point.' },
-    { id: 'ember', branch: 'hold', name: 'Low ember', cost: 1, text: 'Drift grows faster once people have noticed it.' },
-    { id: 'rhythm', branch: 'hold', name: 'Counter-rhythm', cost: 2, requires: ['stones'], text: 'The counter-effort no longer washes the mark down.' },
-    { id: 'wide', branch: 'hold', name: 'Wide hearth', cost: 1, text: 'Hearthlow grows faster.' },
-    { id: 'lasting', branch: 'hold', name: 'Lasting mark', cost: 2, requires: ['rhythm'], text: 'Established lands barely slip.' }
+    { id: 'footpaths', branch: 'tide', name: 'Footpaths', cost: 1, text: 'Infection spreads farther along land routes.' },
+    { id: 'carts', branch: 'tide', name: 'Market carts', cost: 1, requires: ['footpaths'], text: 'Land routes spread infection farther still.' },
+    { id: 'harbors', branch: 'tide', name: 'Harbor threads', cost: 1, text: 'Opens every sea route. Either this or Sky threads can reach every island.' },
+    { id: 'ferries', branch: 'tide', name: 'Night ferries', cost: 2, requires: ['harbors'], text: 'Open sea routes spread infection faster.' },
+    { id: 'sky', branch: 'tide', name: 'Sky threads', cost: 1, text: 'Opens every sky route. Either this or Harbor threads can reach every island.' },
+    { id: 'tailwinds', branch: 'tide', name: 'Tailwinds', cost: 2, requires: ['sky'], text: 'Open sky routes spread infection faster.' },
+    { id: 'season', branch: 'tide', name: 'Busy season', cost: 2, requires: ['carts'], text: 'Every open route spreads infection faster.' },
+    { id: 'echo', branch: 'tide', name: 'Echo hop', cost: 2, requires: ['season'], text: 'A heavily infected land sometimes seeds a neighbor.' },
+    { id: 'soft', branch: 'veil', name: 'Soft names', cost: 1, text: 'The infection raises less awareness.' },
+    { id: 'dim', branch: 'veil', name: 'Dim signals', cost: 1, requires: ['soft'], text: 'Awareness rises even more slowly.' },
+    { id: 'borrowed', branch: 'veil', name: 'Borrowed quiet', cost: 2, requires: ['dim'], text: 'A little awareness fades each month.' },
+    { id: 'ports', branch: 'veil', name: 'Unremarkable ports', cost: 1, text: 'Sea crossings raise less awareness.' },
+    { id: 'greyskies', branch: 'veil', name: 'Grey skies', cost: 1, text: 'Sky crossings raise less awareness.' },
+    { id: 'still', branch: 'veil', name: 'Still water', cost: 2, requires: ['borrowed'], text: 'Cure pressure grows more slowly.' },
+    { id: 'memory', branch: 'veil', name: 'Long memory', cost: 2, requires: ['still'], text: 'Root resists more of the cure pressure.' },
+    { id: 'maps', branch: 'veil', name: 'Forgotten maps', cost: 2, requires: ['ports', 'greyskies'], text: 'Infected islands raise less awareness.' },
+    { id: 'roots', branch: 'hold', name: 'Deep roots', cost: 1, text: 'A strong infection is harder for cure pressure to shrink.' },
+    { id: 'second', branch: 'hold', name: 'Second season', cost: 1, requires: ['roots'], text: 'A strong infection keeps spreading inside its land.' },
+    { id: 'stones', branch: 'hold', name: 'Warm stones', cost: 2, requires: ['second'], text: 'Cure pressure pushes less hard.' },
+    { id: 'stories', branch: 'hold', name: 'Shared stories', cost: 1, text: 'Establishing infection in a land returns an extra point.' },
+    { id: 'ember', branch: 'hold', name: 'Low ember', cost: 1, text: 'Drift spreads faster once awareness is up.' },
+    { id: 'rhythm', branch: 'hold', name: 'Counter-rhythm', cost: 2, requires: ['stones'], text: 'Cure pressure no longer shrinks infection.' },
+    { id: 'wide', branch: 'hold', name: 'Wide hearth', cost: 1, text: 'Infection grows faster in Hearthlow.' },
+    { id: 'lasting', branch: 'hold', name: 'Lasting mark', cost: 2, requires: ['rhythm'], text: 'Established infection barely slips.' }
   ];
   const SCENARIOS = [
-    { id: 'world', name: 'World Spread', text: 'Establish the mark in all 14 lands before the counter-effort fills.' },
-    { id: 'quiet', name: 'Quiet Circuit', text: 'Establish 8 lands while the talk is still at half or below.' },
-    { id: 'twin', name: 'Twin Lights', text: 'Establish both Lantern Isles and Farwhistle. Sea or sky can reach them.' },
-    { id: 'hearth', name: 'Hearthhold', text: 'Keep Hearthlow strong for 8 months in a row.' },
-    { id: 'calm', name: 'Calm Atlas', text: 'A relaxed sandbox of World Spread. Choose how firmly the counter-effort pushes.' }
+    { id: 'world', name: 'World Spread', text: 'Establish the infection in all 14 lands before cure pressure fills.' },
+    { id: 'quiet', name: 'Quiet Circuit', text: 'Establish infection in 8 lands while awareness stays at half or below.' },
+    { id: 'twin', name: 'Twin Lights', text: 'Establish infection in both Lantern Isles and Farwhistle. Sea or sky can reach them.' },
+    { id: 'hearth', name: 'Hearthhold', text: 'Keep Hearthlow heavily infected for 8 months in a row.' },
+    { id: 'calm', name: 'Calm Atlas', text: 'A relaxed sandbox of World Spread. Choose how hard cure pressure pushes.' }
   ];
   const ARCHETYPES = {
-    drift: { name: 'Drift', grow: 0.1, notice: 0.12, text: 'Fast and easy to notice. Good at crossing open links.' },
-    root: { name: 'Root', grow: 0.075, notice: 0.038, text: 'Slower and quieter. The counter-effort has less to answer.' }
+    drift: { name: 'Drift', grow: 0.1, notice: 0.12, text: 'Fast infection that raises awareness quickly and crosses open routes.' },
+    root: { name: 'Root', grow: 0.075, notice: 0.038, text: 'Slower infection that stays quiet, so cure pressure builds more slowly.' }
   };
   const PRESSURES = { calm: 0.7, breezy: 1, brisk: 1.28 };
 
@@ -100,7 +100,7 @@
     return {
       version: 1, seed: (opts.seed >>> 0) || 1, rng: (opts.seed >>> 0) || 1,
       scenario, archetype, pressure, month: 0, points: 2, owned: [], lands,
-      talk: 0.04, effort: 0, hearthStreak: 0, won: false, lost: false, log: ['Hearthlow already carries a small mark.']
+      talk: 0.04, effort: 0, hearthStreak: 0, won: false, lost: false, log: ['Hearthlow already has a small infection.']
     };
   }
   function mods(state) {
@@ -186,9 +186,9 @@
     LANDS.forEach(land => {
       const cell = next.lands[land.id];
       const before = state.lands[land.id];
-      if (!cell.foothold && cell.mark >= 0.3) { cell.foothold = true; next.points += 1; notes.push(land.name + ' has a foothold.'); }
-      if (!cell.established && cell.mark >= 0.62) { cell.established = true; next.points += owns(next, 'stories') ? 2 : 1; notes.push(land.name + ' is established.'); }
-      else if (cell.mark - before.mark > 0.05) notes.push(land.name + ' is spreading.');
+      if (!cell.foothold && cell.mark >= 0.3) { cell.foothold = true; next.points += 1; notes.push('Infection has a foothold in ' + land.name + '.'); }
+      if (!cell.established && cell.mark >= 0.62) { cell.established = true; next.points += owns(next, 'stories') ? 2 : 1; notes.push('Infection is established in ' + land.name + '.'); }
+      else if (cell.mark - before.mark > 0.05) notes.push('Infection is spreading in ' + land.name + '.');
     });
     if (next.lands.hearthlow.mark >= 0.75) next.hearthStreak += 1;
     else next.hearthStreak = 0;
@@ -196,13 +196,13 @@
     next.won = checkWin(next);
     next.lost = !next.won && next.effort >= 1;
     if (next.won) notes.unshift(winText(next));
-    else if (next.lost) notes.unshift('The counter-effort covered the map. This story ends.');
-    else notes.unshift('Month ' + next.month + '. Talk ' + Math.round(next.talk * 100) + '%. Counter-effort ' + Math.round(next.effort * 100) + '%.');
+    else if (next.lost) notes.unshift('Cure pressure covered the map. This story ends.');
+    else notes.unshift('Month ' + next.month + '. Awareness ' + Math.round(next.talk * 100) + '%. Cure pressure ' + Math.round(next.effort * 100) + '%.');
     next.log = notes.slice(0, 5);
     return next;
   }
   function winText(state) {
-    const names = { world: 'Every land carries the mark.', quiet: 'Eight lands are established, and the talk is still low.', twin: 'Lantern Isles and Farwhistle both shine.', hearth: 'Hearthlow held for eight months.', calm: 'The calm atlas is complete.' };
+    const names = { world: 'Infection is established in every land.', quiet: 'Eight lands are established, and awareness is still low.', twin: 'Infection is established in Lantern Isles and Farwhistle.', hearth: 'Hearthlow stayed heavily infected for eight months.', calm: 'The calm atlas is fully infected.' };
     return names[state.scenario] || names.world;
   }
   function buy(state, id) {
@@ -224,9 +224,9 @@
     const lines = [];
     LANDS.forEach(land => {
       const delta = preview.lands[land.id].mark - state.lands[land.id].mark;
-      if (delta > 0.03) lines.push(land.name + ' outlook +' + Math.round(delta * 100) + '%');
+      if (delta > 0.03) lines.push(land.name + ' infection +' + Math.round(delta * 100) + '%');
     });
-    lines.push('Talk outlook ' + Math.round(preview.talk * 100) + '%. Counter-effort outlook ' + Math.round(preview.effort * 100) + '%.');
+    lines.push('Awareness ' + Math.round(preview.talk * 100) + '%. Cure pressure ' + Math.round(preview.effort * 100) + '%.');
     const closed = [];
     LINKS.forEach(link => {
       if (linkOpen(state, link)) return;

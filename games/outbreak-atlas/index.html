@@ -23,19 +23,19 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
 .meter{min-width:116px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 10px}
 .meter small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c9ddd6}
 .meter strong{font:20px Georgia,serif}
-.sheet{position:fixed;top:92px;right:16px;width:min(360px,calc(100% - 32px));max-height:calc(100% - 180px);overflow:auto;background:var(--card);border:1px solid #e6c56a55;border-radius:18px;padding:14px 14px 16px;backdrop-filter:blur(8px)}
+.sheet{position:fixed;top:92px;right:16px;width:min(340px,calc(100% - 32px));max-height:calc(100% - 120px);display:flex;flex-direction:column;overflow:hidden;background:var(--card);border:1px solid #e6c56a55;border-radius:18px;padding:14px 14px 12px;backdrop-filter:blur(8px)}
 .sheet h2{margin:0 0 4px;font:italic 26px Georgia,serif}
 .sheet .quiet{color:#d5e4dc;font-size:13px}
-.lands{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.lands{display:flex;flex-wrap:nowrap;gap:6px;margin:8px 0;overflow-x:auto;padding-bottom:4px}
 .lands button,.branch button{border-radius:12px;text-align:left}
 .lands button[aria-pressed="true"]{background:#e6c56a;color:#1b2a24}
 .outlook{margin:8px 0;padding:8px 10px;border-left:3px solid var(--gold);background:#ffffff10}
 .outlook li{margin:3px 0}
-.branches{display:grid;gap:8px}
+.branches{display:grid;gap:8px;overflow:auto;min-height:0;flex:1}
 .branch{border-top:1px solid var(--line);padding-top:8px}
 .branch h3{margin:0 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 .branch button{width:100%;margin:0 0 6px;background:#173f48}
-.dock{position:fixed;left:16px;bottom:14px;display:flex;gap:8px;flex-wrap:wrap;max-width:calc(100% - 400px)}
+.dock{position:fixed;left:16px;bottom:14px;display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;max-width:calc(100% - 400px)}
 .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0d242bcc;padding:18px}
 .overlay[hidden],.banner[hidden],.sheet[hidden],.dock[hidden]{display:none}
 .card{width:min(760px,100%);max-height:92vh;overflow:auto;background:#143942;border:1px solid #e6c56a66;border-radius:22px;padding:22px;box-shadow:0 24px 80px #041014cc}
@@ -49,9 +49,12 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @media(max-width:800px){
   .brand h1{font-size:26px}
-  .sheet{top:auto;bottom:128px;right:10px;left:10px;width:auto;max-height:38vh}
-  .dock{max-width:none;left:10px;right:10px}
-  .meters{display:none}
+  .hud{flex-wrap:wrap;gap:6px}
+  .meters{display:flex;margin-left:0;width:100%}
+  .meter{min-width:0;flex:1;padding:6px 8px}
+  .meter strong{font-size:16px}
+  .sheet{top:auto;bottom:72px;right:10px;left:10px;width:auto;max-height:46vh}
+  .dock{left:10px;right:10px;max-width:none}
 }
 </style>
 </head>
@@ -59,10 +62,10 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
 <canvas id="map" tabindex="0" aria-label="Animated atlas. Arrow keys change the selected land. The buttons beside the map do the same."></canvas>
 <header class="hud">
   <div class="brand"><h1>Outbreak Atlas</h1><p id="eyebrow">A made-up mark on a made-up map</p></div>
-  <div class="meters" aria-hidden="true">
+  <div class="meters">
     <div class="meter"><small>Month</small><strong id="month">0</strong></div>
-    <div class="meter"><small>Talk</small><strong id="talk">0%</strong></div>
-    <div class="meter"><small>Counter-effort</small><strong id="effort">0%</strong></div>
+    <div class="meter"><small>Awareness</small><strong id="talk">0%</strong></div>
+    <div class="meter"><small>Cure pressure</small><strong id="effort">0%</strong></div>
     <div class="meter"><small>Points</small><strong id="points">0</strong></div>
   </div>
 </header>
@@ -70,7 +73,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
   <h2 id="landName">Hearthlow</h2>
   <p class="quiet" id="landText"></p>
   <div class="lands" id="landButtons" role="list" aria-label="Lands"></div>
-  <div class="outlook"><b>Outlook</b><ul id="outlook"></ul></div>
+  <div class="outlook" id="outlookBox"><b>Outlook</b><ul id="outlook"></ul></div>
   <div class="branches" id="branches"></div>
 </aside>
 <div class="dock" id="dock" hidden>
@@ -82,14 +85,14 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
 <div class="overlay" id="title">
   <div class="card">
     <p class="quiet">NO REAL PLACES. NO REAL ILLNESS.</p>
-    <h2>A mark crosses the water.</h2>
-    <p>Choose a story, a temperament, and how firmly the counter-effort pushes back. You never play the counter-effort. Land links are already open. Every island can be reached by sea or by sky.</p>
+    <h2>Infection crosses the water.</h2>
+    <p>Choose a story, Drift or Root, and how hard cure pressure pushes back. You never play the cure. Land routes are already open. Every island can be reached by sea or by sky.</p>
     <div class="choices" id="scenarios" role="list" aria-label="Stories"></div>
     <div class="row" role="group" aria-label="Temperament">
       <button type="button" id="pickDrift" aria-pressed="true">Drift · fast, noticeable</button>
       <button type="button" id="pickRoot">Root · slow, quiet</button>
     </div>
-    <div class="row" role="group" aria-label="Counter-effort" style="margin-top:8px">
+    <div class="row" role="group" aria-label="Cure pressure" style="margin-top:8px">
       <button type="button" data-pressure="calm">Calm</button>
       <button type="button" data-pressure="breezy" aria-pressed="true">Breezy</button>
       <button type="button" data-pressure="brisk">Brisk</button>
@@ -103,11 +106,11 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
 </div>
 <div class="overlay" id="help" hidden>
   <div class="card">
-    <h2>How the mark travels</h2>
-    <p>Each month the mark grows where it already lives, then crosses open links. Land links are always open. Harbor threads open every sea lane. Sky threads open every sky lane. Buying either one can reach every island, so an island is never a dead end.</p>
-    <p>Drift moves faster and gets people talking. Root moves slower and stays quieter. Talk feeds the counter-effort. If that meter fills, the story ends. You cannot play as the counter-effort.</p>
-    <p>A foothold and an established land each give points. Spend them on Tide, Veil, or Hold. You cannot buy every upgrade. The outlook guesses the next month; it is not a promise.</p>
-    <p>Quiet Circuit wants 8 established lands while talk is still half or lower. Twin Lights wants Lantern Isles and Farwhistle. Hearthhold wants Hearthlow strong for 8 months. World Spread and Calm Atlas want all 14 lands.</p>
+    <h2>How infection spreads</h2>
+    <p>Each month infection grows where it already lives, then spreads along open routes. Land routes are always open. Harbor threads open every sea route. Sky threads open every sky route. Buying either one can reach every island, so an island is never a dead end.</p>
+    <p>Drift spreads faster and raises awareness quickly. Root spreads slower and stays quiet. Awareness feeds cure pressure. If cure pressure fills, the story ends. You cannot play as the cure.</p>
+    <p>A foothold and an established infection each give points. Spend them on Tide, Veil, or Hold. You cannot buy every upgrade. The outlook guesses the next month; it is not a promise.</p>
+    <p>Quiet Circuit wants infection established in 8 lands while awareness is still half or lower. Twin Lights wants Lantern Isles and Farwhistle. Hearthhold wants Hearthlow heavily infected for 8 months. World Spread and Calm Atlas want all 14 lands.</p>
     <button type="button" id="closeHelp">Back to the map</button>
   </div>
 </div>
