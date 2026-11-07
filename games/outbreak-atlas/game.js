@@ -74,23 +74,65 @@ function refresh(){
   });
   const look=$('outlook');look.replaceChildren();
   Outbreak.forecast(state).lines.forEach(line=>{const li=document.createElement('li');li.textContent=line;look.append(li);});
-  const wrap=$('branches');wrap.replaceChildren();
+  renderTree();
+}
+const LAYOUT={
+  tide:[['footpaths','carts','season','echo'],['harbors','ferries'],['sky','tailwinds']],
+  veil:[['soft','dim','borrowed','still','memory'],['ports','maps'],['greyskies']],
+  hold:[['roots','second','stones','rhythm','lasting'],['stories','ember','wide']]
+};
+let previewId=null;
+function upgradeState(item){
+  if(!state)return 'locked';
+  if(state.owned.includes(item.id))return 'owned';
+  if((item.requires||[]).some(id=>!state.owned.includes(id)))return 'locked';
+  if(state.points<item.cost||state.won||state.lost)return 'pricey';
+  return 'ready';
+}
+function renderTree(){
+  const root=$('tree');if(!root||!state)return;
+  root.replaceChildren();
   branches.forEach(([id,title])=>{
-    const block=document.createElement('section');block.className='branch';
-    const heading=document.createElement('h3');heading.textContent=title;block.append(heading);
-    Outbreak.UPGRADES.filter(item=>item.branch===id).forEach(item=>{
-      const result=Outbreak.buy(state,item.id);
-      const button=document.createElement('button');
-      button.type='button';
-      button.textContent=item.name+' · '+item.cost+'p';
-      button.title=item.text;
-      button.disabled=state.owned.includes(item.id)||!result.ok;
-      if(state.owned.includes(item.id))button.textContent=item.name+' · taken';
-      button.onclick=()=>{const bought=Outbreak.buy(state,item.id);if(bought.ok){say(bought.reason);setState(bought.state);}else say(bought.reason);};
-      block.append(button);
+    const section=document.createElement('section');section.className='grow';
+    const heading=document.createElement('h3');heading.textContent=title+' · '+(id==='tide'?'spread':id==='veil'?'stealth':'persistence');
+    section.append(heading);
+    const cols=document.createElement('div');cols.className='cols';
+    LAYOUT[id].forEach(chain=>{
+      const column=document.createElement('div');column.className='chain';
+      chain.forEach(upgradeId=>{
+        const item=Outbreak.upgradeById(upgradeId),mode=upgradeState(item);
+        const button=document.createElement('button');
+        button.type='button';button.className='node '+mode;button.dataset.upgrade=item.id;
+        button.setAttribute('aria-pressed',String(previewId===item.id));
+        const needs=(item.requires||[]).map(req=>Outbreak.upgradeById(req).name);
+        const detail=mode==='owned'?'Owned. '+item.text:mode==='locked'?'Locked. Needs '+needs.join(' and ')+'.':mode==='pricey'?item.cost+' points needed. '+item.text:item.cost+' point'+(item.cost>1?'s':'')+'. '+item.text;
+        button.innerHTML='<b>'+item.name+'</b><small>'+detail+'</small>';
+        button.onclick=()=>selectUpgrade(item.id);
+        column.append(button);
+      });
+      cols.append(column);
     });
-    wrap.append(block);
+    section.append(cols);root.append(section);
   });
+  const chosen=previewId&&Outbreak.upgradeById(previewId);
+  const mode=chosen?upgradeState(chosen):'';
+  $('treePreview').textContent=chosen?(chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(id=>Outbreak.upgradeById(id).name).join(' and ')+'.':'')):'Select an upgrade to see its cost and exact effect.';
+  $('buyUpgrade').disabled=mode!=='ready';
+  $('buyUpgrade').textContent=chosen&&mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
+}
+function selectUpgrade(id){
+  previewId=id;
+  document.querySelectorAll('#tree .node').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.upgrade===id)));
+  const chosen=Outbreak.upgradeById(id),mode=upgradeState(chosen);
+  $('treePreview').textContent=chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(req=>Outbreak.upgradeById(req).name).join(' and ')+'.':'');
+  $('buyUpgrade').disabled=mode!=='ready';
+  $('buyUpgrade').textContent=mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
+}
+function purchaseUpgrade(){
+  if(!previewId)return;
+  const bought=Outbreak.buy(state,previewId);
+  say(bought.reason||bought.state&&bought.state.log[0]);
+  if(bought.ok)setState(bought.state);
 }
 function openLanes(id){
   const names={land:'land',sea:'sea',air:'sky'};
@@ -129,6 +171,8 @@ function sea(){
   }
   ctx.fillStyle='rgba(244,239,226,.45)';ctx.font='italic 22px Georgia,serif';ctx.textAlign='left';
   ctx.fillText('The Amberwater',40,46);
+  ctx.strokeStyle='rgba(186,214,196,.28)';
+  [[120,210,26],[430,250,14],[790,240,22]].forEach(([x,y,r])=>{ctx.beginPath();ctx.ellipse(x,y,r,r*0.45,-0.4,0,7);ctx.stroke();});
 }
 function trace(poly){
   ctx.beginPath();
@@ -150,20 +194,16 @@ function territory(land){
   ctx.shadowColor='#06202688';ctx.shadowBlur=12;ctx.shadowOffsetY=6;
   trace(poly);ctx.fillStyle='#0b242acc';ctx.fill();
   ctx.shadowColor='transparent';
-  trace(poly);ctx.fillStyle=base;ctx.fill();
+  trace(poly);  ctx.fillStyle=mix(base,mark>0.62?'#8d3140':'#c4513a',Math.min(0.9,mark*1.05));ctx.fill();
   ctx.clip();
   if(mark>0.02){
-    const radius=18+mark*150;
-    const wash=ctx.createRadialGradient(land.x,land.y,6,land.x,land.y,radius);
-    wash.addColorStop(0,mix('#f3d2a4','#7c2432',Math.min(1,mark)));
-    wash.addColorStop(.45,'rgba(196,78,58,'+(0.25+mark*0.7)+')');
-    wash.addColorStop(1,'rgba(196,78,58,0)');
+    const radius=30+mark*120;
+    const wash=ctx.createRadialGradient(land.x,land.y,8,land.x,land.y,radius);
+    wash.addColorStop(0,'rgba(255,214,170,'+(0.35+mark*0.4)+')');
+    wash.addColorStop(1,'rgba(255,214,170,0)');
     ctx.fillStyle=wash;ctx.fillRect(land.x-radius,land.y-radius,radius*2,radius*2);
-    const pulse=(clock*0.35)%1;
-    ctx.strokeStyle='rgba(255,228,196,'+(0.35*(1-pulse))+')';ctx.lineWidth=2;
-    ctx.beginPath();ctx.arc(land.x,land.y,10+pulse*radius*0.7,0,7);ctx.stroke();
   }
-  detail(land,poly);
+  detail(land);
   ctx.restore();
   trace(poly);
   ctx.lineWidth=land.id===selected?3.5:1.6;
@@ -180,19 +220,18 @@ function territory(land){
   });
   ctx.stroke();
 }
-function detail(land,poly){
-  ctx.strokeStyle='rgba(40,70,48,.35)';ctx.lineWidth=1;
-  for(let i=0;i<4;i++){
-    const point=poly[(i*2+1)%poly.length];
-    ctx.beginPath();ctx.moveTo(point[0],point[1]);ctx.lineTo(land.x+(point[0]-land.x)*0.35,land.y+(point[1]-land.y)*0.35);ctx.stroke();
-  }
-  ctx.fillStyle='rgba(36,78,62,.45)';
-  for(let i=0;i<6;i++){
-    const t=(i+1)/(7);
-    const x=land.x+Math.cos(i*1.7)*18,y=land.y+Math.sin(i*1.3)*12;
-    ctx.fillRect(x,y,2,land.kind==='coast'?5:3);
-    if(land.kind!=='coast')ctx.fillRect(x+3,y-2,2,4);
-  }
+function detail(land){
+  ctx.save();ctx.translate(land.x,land.y);ctx.strokeStyle='rgba(32,62,46,.55)';ctx.fillStyle='rgba(32,62,46,.55)';ctx.lineWidth=1.25;
+  if(land.id==='mothfen'){for(let i=-2;i<=2;i++){ctx.beginPath();ctx.moveTo(-28,i*8);ctx.lineTo(28,i*8+6);ctx.stroke();}}
+  else if(land.id==='velvet'){for(let i=-1;i<=1;i++){ctx.beginPath();ctx.arc(i*16,8,12,Math.PI,0);ctx.stroke();}}
+  else if(land.id==='cinder'){for(let i=0;i<8;i++)ctx.fillRect(-20+(i%4)*12,-8+Math.floor(i/4)*12,2,2);}
+  else if(land.id==='orchard'){for(let i=-2;i<=2;i++){ctx.fillRect(-26,i*7,22,2);ctx.fillRect(6,i*7,16,2);}}
+  else if(land.id==='redkettle'){ctx.fillRect(-8,-8,7,7);ctx.fillRect(6,-4,6,6);ctx.fillRect(-2,6,5,5);}
+  else if(land.id==='glassmere'){ctx.beginPath();ctx.ellipse(0,-6,26,14,0,0,7);ctx.stroke();}
+  else if(land.id==='hearthlow'){ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(8,-2);ctx.lineTo(-8,-2);ctx.fill();ctx.fillRect(-5,-2,10,8);}
+  else if(land.kind==='coast'||land.kind==='isle'){ctx.beginPath();ctx.moveTo(-16,6);ctx.lineTo(18,-4);ctx.stroke();ctx.fillRect(10,-8,3,10);}
+  else {for(let i=0;i<5;i++){const x=-16+i*8,y=(i%2)*6-4;ctx.fillRect(x,y,2,6);ctx.fillRect(x+2,y-2,2,3);}}
+  ctx.restore();
 }
 function cellOf(land){return state?state.lands[land.id]:{mark:land.id==='hearthlow'?0.16:0,established:false,foothold:false};}
 function route(link){
@@ -253,7 +292,7 @@ function nearest(x,y){
   return best;
 }
 function boot(next){
-  state=next;selected='hearthlow';$('title').hidden=true;$('help').hidden=true;$('end').hidden=true;$('sheet').hidden=false;$('dock').hidden=false;
+  state=next;selected='hearthlow';previewId=null;$('title').hidden=true;$('help').hidden=true;$('growth').hidden=true;$('end').hidden=true;$('sheet').hidden=false;$('dock').hidden=false;
   refresh();persist();say(scenarioMeta(state.scenario).text);map.focus();
 }
 function startNew(){
@@ -278,6 +317,9 @@ function bind(){
   if(saved){$('resume').hidden=false;$('resume').onclick=()=>boot(saved);}
   $('next').onclick=stepOnce;
   $('play').onclick=()=>{playing=!playing;$('play').setAttribute('aria-pressed',String(playing));$('play').textContent=playing?'Pause':'Watch';};
+  $('growthBtn').onclick=()=>{$('growth').hidden=false;document.querySelector('#tree .node')?.focus();};
+  $('closeGrowth').onclick=()=>{$('growth').hidden=true;map.focus();};
+  $('buyUpgrade').onclick=purchaseUpgrade;
   $('rules').onclick=()=>$('help').hidden=false;
   $('closeHelp').onclick=()=>{$('help').hidden=true;map.focus();};
   $('again').onclick=()=>{$('title').hidden=false;$('end').hidden=true;playing=false;};
@@ -290,7 +332,7 @@ function bind(){
   });
   addEventListener('keydown',event=>{
     if(['INPUT','TEXTAREA'].includes(event.target.tagName))return;
-    if(!$('title').hidden||!$('help').hidden){if(event.key==='Escape')$('help').hidden=true;return;}
+    if(!$('title').hidden||!$('help').hidden||!$('growth').hidden){if(event.key==='Escape'){$('help').hidden=true;$('growth').hidden=true;}return;}
     const index=Outbreak.LANDS.findIndex(land=>land.id===selected);
     if(event.key==='ArrowRight'||event.key==='ArrowDown'){event.preventDefault();selected=Outbreak.LANDS[(index+1)%Outbreak.LANDS.length].id;refresh();}
     if(event.key==='ArrowLeft'||event.key==='ArrowUp'){event.preventDefault();selected=Outbreak.LANDS[(index+Outbreak.LANDS.length-1)%Outbreak.LANDS.length].id;refresh();}

@@ -33,12 +33,24 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
 .outlook li{margin:3px 0}
 .branches{display:grid;gap:8px;overflow:auto;min-height:0;flex:1}
 .branch{border-top:1px solid var(--line);padding-top:8px}
-.branch h3{margin:0 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-.branch button{width:100%;margin:0 0 6px;background:#173f48}
+.grow{margin-top:14px}
+.grow h3{margin:0 0 8px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.chain{display:flex;flex-direction:column;gap:16px}
+.chain .node{position:relative;min-height:64px;text-align:left;border-radius:14px;font-size:15px}
+.chain .node small{display:block;font-size:13px;line-height:1.35;font-weight:500}
+.chain .node.owned{background:#e6c56a;color:#1b2a24}
+.chain .node.ready{border-color:#e6c56a}
+.chain .node.pricey{border-style:dashed}
+.chain .node.locked{opacity:.6}
+.chain .node + .node:before{content:'';position:absolute;left:22px;top:-16px;width:2px;height:16px;background:#e6c56a}
+#treePreview{min-height:3.2em}
+#buyUpgrade{background:#e6c56a;color:#1b2a24;margin-bottom:8px}
 .dock{position:fixed;left:16px;bottom:14px;display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;max-width:calc(100% - 400px)}
 .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0d242bcc;padding:18px}
 .overlay[hidden],.banner[hidden],.sheet[hidden],.dock[hidden]{display:none}
 .card{width:min(760px,100%);max-height:92vh;overflow:auto;background:#143942;border:1px solid #e6c56a66;border-radius:22px;padding:22px;box-shadow:0 24px 80px #041014cc}
+.tree-card{width:min(1080px,100%)}
 .card h2{margin:0;font:italic 42px Georgia,serif}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:12px 0}
 .choices button{border-radius:14px;min-height:72px}
@@ -77,6 +89,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
   <div class="branches" id="branches"></div>
 </aside>
 <div class="dock" id="dock" hidden>
+  <button id="growthBtn" type="button">Growth</button>
   <button id="next" type="button">Next month</button>
   <button id="play" type="button" aria-pressed="false">Watch</button>
   <button id="rules" type="button">Rules</button>
@@ -102,6 +115,14 @@ canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
       <button type="button" id="begin" style="background:#e6c56a;color:#1b2a24">Begin the story</button>
       <button type="button" id="resume" hidden>Continue saved story</button>
     </div>
+  </div>
+</div>
+<div class="overlay" id="growth" hidden>
+  <div class="card tree-card">
+    <div class="row"><h2>Growth</h2><button type="button" id="closeGrowth">Back to the map</button></div>
+    <p id="treePreview">Select an upgrade to see its cost and exact effect.</p>
+    <button type="button" id="buyUpgrade" disabled>Buy selected upgrade</button>
+    <div id="tree"></div>
   </div>
 </div>
 <div class="overlay" id="help" hidden>
