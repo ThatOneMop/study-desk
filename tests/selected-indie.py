@@ -32,29 +32,37 @@ class Parser(HTMLParser):
 
 
 catalog = json.loads((ROOT / "catalog.json").read_text())
-# Arcade entries are third-party catalogue games (GameMonetize) wrapped in arcade/<id>/ pages.
-arcade = [entry for entry in catalog if entry.get("type") == "arcade"]
-own = [entry for entry in catalog if entry.get("type") != "arcade"]
+# GameMonetize stays prepared beside the catalogue, not in the public list, while gmEnabled is false.
+prepared = json.loads((ROOT / "arcade" / "gamemonetize.js").read_text().split("window.ARCADE_GM_CATALOG = ", 1)[1].strip().rstrip(";"))
+own = catalog
 ids = [entry["id"] for entry in catalog]
 assert len(ids) == len(set(ids)), ids
 assert {entry["id"] for entry in own} == KEEP, {entry["id"] for entry in own} ^ KEEP
-assert len(catalog) == len(KEEP) + len(arcade)
-assert arcade, "expected live Arcade games"
+assert len(catalog) == len(KEEP)
+assert not any(entry.get("type") == "arcade" or entry.get("source") in {"GameMonetize", "GameDistribution"} for entry in catalog)
+assert "gamemonetize" not in (ROOT / "catalog.js").read_text().lower()
+config = (ROOT / "arcade-config.js").read_text()
+assert "gmEnabled: false" in config and "gdEnabled: false" in config
+assert len(prepared) == 23, len(prepared)
 
 js = (ROOT / "catalog.js").read_text()
 assert js.startswith("window.GAME_CATALOG = ")
 assert json.loads(js.split("=", 1)[1].strip().rstrip(";")) == catalog, "catalog.js and catalog.json differ"
 
 credits = (ROOT / "credits.html").read_text()
-for entry in arcade:
+assert 'id="arcade-gamemonetize"' in credits and 'id="arcade-gamedistribution"' in credits
+for entry in prepared:
     assert entry["group"] == "Arcade" and entry["source"] == "GameMonetize", entry["id"]
     assert entry["embed"].startswith("https://html5.gamemonetize.co/"), entry["id"]
     assert entry["url"] == f"arcade/{entry['id']}/index.html", entry["id"]
     assert entry["thumbnail"].startswith("https://img.gamemonetize.com/"), entry["id"]
+    assert entry["credits"] == "credits.html#arcade-gamemonetize", entry["id"]
     page = (ROOT / entry["url"]).read_text()
     assert "../../bridge.js" in page and "../../arcade-config.js" in page, entry["id"]
     assert entry["embed"] in page, entry["id"]
-    assert f'id="{entry["credits"].split("#", 1)[1]}"' in credits, entry["id"]
+    assert "<iframe" not in page.lower(), entry["id"]
+    assert "gmEnabled" in page, entry["id"]
+    assert f'id="arcade-{entry["id"]}"' not in credits, entry["id"]
 
 for entry in catalog:
     if entry["type"] == "arcade":
@@ -77,14 +85,14 @@ for loose in (ROOT / "games").iterdir():
     assert loose.is_dir(), f"unexpected file in games/: {loose.name}"
 
 sections = set(re.findall(r'<section id="([a-z0-9-]+)"', credits))
-assert sections <= KEEP | {"created-games", "arcade", "arcade-gamedistribution"} | {f"arcade-{e['id']}" for e in arcade}, sections - KEEP
+assert sections <= KEEP | {"created-games", "arcade", "arcade-gamemonetize", "arcade-gamedistribution"}, sections - KEEP
 
 hub = "\n".join((ROOT / name).read_text() for name in ("index.html", "app.js", "community.html", "community.js"))
 for link in re.findall(r"games/([a-z0-9-]+)/", hub):
     assert link in KEEP, f"link to removed game {link}"
 
-for path in ("app.js", "bridge.js", "catalog.js"):
+for path in ("app.js", "bridge.js", "catalog.js", "arcade-config.js", "arcade/gamemonetize.js", "arcade/gamedistribution.js"):
     result = subprocess.run(["node", "--check", str(ROOT / path)], capture_output=True)
     assert result.returncode == 0, result.stderr.decode()
 
-print(f"PASS kept catalogue integrity: {len(KEEP)} bundled routes + {len(arcade)} live Arcade games, bridge, credits, catalog.js/json match, no removed folders or links")
+print(f"PASS kept catalogue integrity: {len(KEEP)} bundled routes, {len(prepared)} GameMonetize games prepared but not public, bridge, credits, catalog.js/json match, no removed folders or links")

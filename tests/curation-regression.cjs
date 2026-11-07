@@ -8,10 +8,10 @@ const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-gam
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
 const KEEP=["ashwake", "autumn-drift", "bell-diver", "creekhold", "forge-arena", "gummy-bay", "harvest-protocol", "lanewright", "little-lake", "lost-found", "moon-salvage", "mycelium-yard", "numberworks", "packworks", "roof-runner", "spanwright", "tiny-wilds", "winterfold"];
-const arcade=catalog.filter(g=>g.type==='arcade');
-assert(arcade.length>=4,'live Arcade games are listed');
-assert(arcade.every(g=>g.group==='Arcade'&&g.source==='GameMonetize'&&/^https:\/\/html5\.gamemonetize\.co\//.test(g.embed)));
-assert.equal(catalog.length,KEEP.length+arcade.length,'own games + live arcade games');
+const arcade=catalog.filter(g=>g.type==='arcade'||g.source==='GameMonetize'||g.source==='GameDistribution');
+assert.equal(arcade.length,0,'Arcade providers are not in the public catalogue');
+assert(!JSON.stringify(catalog).match(/gamemonetize|gamedistribution/i),'public catalogue has no provider hosts');
+assert.equal(catalog.length,KEEP.length+arcade.length,'own games only while Arcade providers are switched off');
 assert.deepEqual(catalog.filter(g=>g.type!=='arcade').map(g=>g.id).sort(),KEEP,'exactly the kept games are listed');
 assert(catalog.every(g=>!['Nightshift','Afterlight'].includes(g.group)));
 assert(catalog.every(g=>['bundled','external','arcade'].includes(g.type)));
