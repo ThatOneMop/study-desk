@@ -1,7 +1,7 @@
 """Generate Study Desk Arcade data, game pages and the Arcade part of credits.html.
 Run from the repo root: python3 tools/arcade/build.py .
 Data: gamemonetize.json (public GameMonetize feed records) and gdmeta.json (GameDistribution game pages)."""
-import json, sys, html
+import json, sys, html, re
 from pathlib import Path
 ROOT = Path(sys.argv[1])
 A = Path(__file__).resolve().parent
@@ -84,16 +84,15 @@ GD = [
 COLORS = {"Flying":"#2e7fb5","Runner":"#3d8a46","Racing":"#b5672e","Platformer":"#7a5bb0","Sports":"#3d8a46","Puzzle":"#4f6fa8","Idle":"#a78a2e","Arcade":"#b54f6b","Action":"#8a4b3d","Classic":"#4b7a7a"}
 
 _js = (ROOT/"catalog.js").read_text(); catalog = json.loads(_js.split("=", 1)[1].strip().rstrip(";"))
-catalog = [g for g in catalog if g.get('group') != 'Arcade']
+catalog = [g for g in catalog if g.get('group') != 'Arcade' and g.get('source') not in ('GameMonetize', 'GameDistribution')]
 live = []
 for id_, title, genre, icon, color, dev, desc, controls, mp in GM:
     g = gm[title]
     live.append({"id": id_, "title": title, "description": desc, "icon": icon, "genre": genre, "color": color,
         "url": f"arcade/{id_}/index.html", "group": "Arcade", "controls": controls, "type": "arcade", "internet": True,
-        "multiplayer": mp, "credits": "credits.html#arcade-" + id_, "thumbnail": g['thumb'], "thumbnailAlt": title + " cover art",
+        "multiplayer": mp, "credits": "credits.html#arcade-gamemonetize", "thumbnail": g['thumb'], "thumbnailAlt": title + " cover art",
         "developer": dev, "source": "GameMonetize", "sourcePage": g.get('page') or f"https://gamemonetize.com/{id_}-game", "embed": g['url'],
         "aliases": ["arcade", "gamemonetize", dev.lower()]})
-catalog += live
 (ROOT/'catalog.json').write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n")
 (ROOT/'catalog.js').write_text("window.GAME_CATALOG = " + json.dumps(catalog, ensure_ascii=False, separators=(',', ':')) + ";\n")
 
@@ -107,6 +106,10 @@ for slug, genre, icon, desc in GD:
         "developer": m['company'], "source": "GameDistribution", "sourcePage": f"https://gamedistribution.com/games/{slug}/",
         "gdGameId": m['md5'], "aliases": ["arcade", "gamedistribution", m['company'].lower()]})
 (ROOT/'arcade').mkdir(exist_ok=True)
+(ROOT/'arcade'/'gamemonetize.js').write_text(
+    "/* GameMonetize Arcade entries. NOT shown or embedded unless arcade-config.js sets gmEnabled to true.\n"
+    "   Pages, descriptions and embed addresses stay here so the switch is reversible. */\n"
+    "window.ARCADE_GM_CATALOG = " + json.dumps(live, ensure_ascii=False, indent=1) + ";\n")
 (ROOT/'arcade'/'gamedistribution.js').write_text(
     "/* GameDistribution Arcade entries. NOT shown or embedded unless arcade-config.js enables them\n"
     "   with an approved publisher ID. See docs/arcade-gamedistribution.md. */\n"
@@ -123,22 +126,26 @@ def page(g, kind):
 for g in live: page(g, 'gm')
 for g in gdlist: page(g, 'gd')
 
-# Arcade part of credits.html: everything from <section id="arcade"> to </main> is regenerated.
-def credit(g):
-    return (f'<section id="arcade-{g["id"]}"><h2>{html.escape(g["title"])}</h2><p>By {html.escape(g["developer"].rstrip("."))}. '
-        f'Embedded from <a href="{g["sourcePage"]}">GameMonetize</a> using its public embed link ({g["embed"]}). '
-        'All rights belong to the developer. Ads inside the game are served by GameMonetize.</p></section>')
+# Arcade part of credits.html is regenerated. Later non-arcade sections (before </main>) stay.
+def listed(games):
+    return "".join(f'<li><a href="{g["sourcePage"]}">{html.escape(g["title"])}</a> by {html.escape(g["developer"])}</li>' for g in games)
 intro = ('<section id="arcade"><h2>Arcade (third-party games)</h2><p>Arcade games are not part of Study Desk. They are made and owned by '
-    'their developers and are embedded unchanged from free HTML5 game catalogues that offer embed codes to websites. Study Desk does not '
-    'host or modify their files; cover images are loaded from the catalogue. These games need internet, keep their own saves, and show '
-    'advertising from the catalogue inside the game.</p></section>')
+    'their developers. GameMonetize and GameDistribution entries are prepared but switched off, so they are not shown or embedded. '
+    'Study Desk does not host their files. All rights belong to their developers.</p></section>')
+gmsec = (f'<section id="arcade-gamemonetize"><h2>GameMonetize games (switched off)</h2><p>These {len(live)} games are prepared '
+    'but are not shown or embedded while gmEnabled is not true in arcade-config.js. Their pages do not load GameMonetize. '
+    'All rights belong to their developers.</p><ul>' + listed(live) + '</ul></section>')
 gdsec = (f'<section id="arcade-gamedistribution"><h2>GameDistribution games (switched off)</h2><p>These {len(gdlist)} games are prepared '
     'but are not shown or embedded until the site has an approved GameDistribution publisher account (see docs/arcade-gamedistribution.md). '
-    'All rights belong to their developers.</p><ul>'
-    + "".join(f'<li><a href="{g["sourcePage"]}">{html.escape(g["title"])}</a> by {html.escape(g["developer"])}</li>' for g in gdlist)
-    + '</ul></section>')
+    'All rights belong to their developers.</p><ul>' + listed(gdlist) + '</ul></section>')
 cr = (ROOT/'credits.html').read_text()
-end = cr.index('</main>'); start = cr.find('<section id="arcade">')
+start = cr.find('<section id="arcade">')
+end = cr.index('</main>')
 if start < 0: start = end
-(ROOT/'credits.html').write_text(cr[:start] + intro + "".join(credit(g) for g in live) + gdsec + cr[end:])
-print(len(catalog), 'catalog entries;', len(live), 'live arcade;', len(gdlist), 'GD gated')
+else:
+    for match in re.finditer(r'<section id="([^"]+)"', cr):
+        if match.start() > start and not match.group(1).startswith('arcade'):
+            end = match.start()
+            break
+(ROOT/'credits.html').write_text(cr[:start] + intro + gmsec + gdsec + cr[end:])
+print(len(catalog), 'public catalog entries;', len(live), 'GameMonetize gated;', len(gdlist), 'GD gated')

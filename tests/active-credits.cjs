@@ -8,5 +8,5 @@ for(const game of context.window.GAME_CATALOG){
 for(const retired of ['2048','hextris','astray','radius-raid','dino','pacman','doom-web','micro','polytrack'])assert(!ids.has(retired),'retired credit must not be presented as active: '+retired);
 assert(!/Kodub|Official-site link only|Made by the community/.test(html),'retired catalogue copy must be absent');
 for(const removed of ['after-hours','underleaf','lucky-company','tidepost','lane-eight','foldlight','reefwright','nightshift-empire'])assert(!ids.has(removed),'removed game credit must be gone: '+removed);
-assert.equal(ids.size,context.window.GAME_CATALOG.filter(g=>!/#created-games$/.test(g.credits)).length+1+['arcade','arcade-gamedistribution'].filter(id=>ids.has(id)).length,'one credits section per kept game plus created games and the Arcade intro/GameDistribution list');
+assert.equal(ids.size,context.window.GAME_CATALOG.filter(g=>!/#created-games$/.test(g.credits)).length+1+['arcade','arcade-gamemonetize','arcade-gamedistribution'].filter(id=>ids.has(id)).length,'one credits section per kept game plus created games and the switched-off Arcade lists');
 console.log('PASS active credits: every catalogue anchor resolves; retired GitHub imports and PolyTrack shortcut absent; removed game credits dropped');

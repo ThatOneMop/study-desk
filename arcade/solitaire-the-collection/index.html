@@ -36,15 +36,18 @@
 <script>
 (()=>{'use strict';
 const g=JSON.parse(document.getElementById('game-data').textContent),stage=document.getElementById('stage'),kind=stage.dataset.kind;
-const credit=document.getElementById('credit');
-credit.append('by '+g.developer+' · via ');const link=document.createElement('a');link.href=g.sourcePage;link.target='_blank';link.rel='noopener';link.textContent=g.source;credit.append(link,' · ads are shown by the game');
-const cfg=window.ARCADE_CONFIG||{};
+const credit=document.getElementById('credit'),cfg=window.ARCADE_CONFIG||{};
+const gmOn=kind==='gm'&&cfg.gmEnabled===true;
+const gdOn=kind==='gd'&&cfg.gdEnabled===true&&typeof cfg.gdPublisherId==='string'&&cfg.gdPublisherId.trim();
+credit.append('by '+g.developer+' · via ');
+if(kind==='gm'&&!gmOn)credit.append('GameMonetize · switched off');
+else{const link=document.createElement('a');link.href=g.sourcePage;link.target='_blank';link.rel='noopener';link.textContent=g.source;credit.append(link,' · ads are shown by the game')}
 function frame(src){const f=document.createElement('iframe');f.src=src;f.title=g.title+' game';f.allow='autoplay; fullscreen; gamepad; accelerometer; gyroscope';f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');stage.append(f);return f}
-function off(msg){const box=document.createElement('div');box.className='off';const img=document.createElement('img');img.src=g.thumbnail;img.alt='';const p=document.createElement('p');p.textContent=msg;box.append(img,p);stage.append(box)}
-if(kind==='gm'){frame(g.embed)}
-else if(cfg.gdEnabled===true&&typeof cfg.gdPublisherId==='string'&&cfg.gdPublisherId.trim()){
- frame('https://html5.gamedistribution.com/'+encodeURIComponent(g.gdGameId)+'/?gd_sdk_referrer_url='+encodeURIComponent(location.href.split('#')[0]))}
-else off(g.title+' is not switched on yet. It needs an approved GameDistribution publisher account first.');
+function off(msg,thumb){const box=document.createElement('div');box.className='off';if(thumb){const img=document.createElement('img');img.src=g.thumbnail;img.alt='';box.append(img)}const p=document.createElement('p');p.textContent=msg;box.append(p);stage.append(box)}
+if(gmOn)frame(g.embed);
+else if(kind==='gm')off(g.title+' is switched off. GameMonetize is not loaded.');
+else if(gdOn)frame('https://html5.gamedistribution.com/'+encodeURIComponent(g.gdGameId)+'/?gd_sdk_referrer_url='+encodeURIComponent(location.href.split('#')[0]));
+else off(g.title+' is not switched on yet. It needs an approved GameDistribution publisher account first.',true);
 document.getElementById('back').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
  if(window.parent!==window){try{window.parent.postMessage({type:'study-collection'},location.origin);return}catch{}}
  location.href='../../index.html#games'};

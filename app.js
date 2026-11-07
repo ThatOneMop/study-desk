@@ -44,8 +44,10 @@ const starter=[['Science','What is a force?','A push or pull that can change an 
 let cards=loadJson(KEY,starter,valid);
 let deckNames=loadJson(DECK_KEY,[],validDecks);deckNames=[...new Set([...deckNames,...cards.map(c=>c.deck)])];
 let deck=deckNames[0]||'My deck',index=0,flipped=false,order=[],arcade=false,playing=null,inPlayer=false,paused=false,hits=[],filter='All',tag='All';
+function arcadeGmEnabled(){const c=window.ARCADE_CONFIG||{};return c.gmEnabled===true}
 function arcadeGdEnabled(){const c=window.ARCADE_CONFIG||{};return c.gdEnabled===true&&typeof c.gdPublisherId==='string'&&c.gdPublisherId.trim()!==''}
-const games=arcadeGdEnabled()&&Array.isArray(window.ARCADE_GD_CATALOG)?window.GAME_CATALOG.concat(window.ARCADE_GD_CATALOG):window.GAME_CATALOG;
+function providerEntries(allow,entries){return allow&&Array.isArray(entries)?entries:[]}
+const games=window.GAME_CATALOG.filter(g=>g&&g.source!=='GameMonetize'&&g.source!=='GameDistribution').concat(providerEntries(arcadeGmEnabled(),window.ARCADE_GM_CATALOG),providerEntries(arcadeGdEnabled(),window.ARCADE_GD_CATALOG));
 let hub=loadJson(HUB_KEY,{},v=>v&&typeof v==='object'&&!Array.isArray(v)&&['favourites','recent'].every(key=>v[key]===undefined||(Array.isArray(v[key])&&v[key].every(id=>typeof id==='string'&&id.length<=100))));
 // Keep retired IDs so preferences survive reversible catalogue changes.
 for(const key of ['favourites','recent'])hub[key]=Array.isArray(hub[key])?[...new Set(hub[key].filter(id=>typeof id==='string'&&id.length<=100))].slice(0,1000):[];
@@ -97,7 +99,7 @@ function drawGames(){
  layoutStore();
  if($('sortGames').value==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
  if(filter==='Recently played'||$('sortGames').value==='recent')list.sort((a,b)=>(hub.recent.includes(a.id)?hub.recent.indexOf(a.id):Infinity)-(hub.recent.includes(b.id)?hub.recent.indexOf(b.id):Infinity));$('resultsCount').textContent=list.length+' shown';
- if(!list.length){const empty=el('div',undefined,'empty');empty.append(el('p',filter==='Favourites'?'No favourites match these filters. Use a star on a game to save it here.':filter==='Recently played'?'No recently played games match these filters.':'No games match these filters.'),button('Clear filters',()=>{$('search').value='';$('genre').value='all';filter='All';tag='All';drawGames();$('search').focus()}));grid.append(empty);return}
+ if(!list.length){const empty=el('div',undefined,'empty'),arcadeOff=tag==='Arcade'&&!games.some(g=>g.type==='arcade');empty.append(el('p',filter==='Favourites'?'No favourites match these filters. Use a star on a game to save it here.':filter==='Recently played'?'No recently played games match these filters.':arcadeOff?'Arcade is empty right now. Bundled games are still in All.':'No games match these filters.'),button('Clear filters',()=>{$('search').value='';$('genre').value='all';filter='All';tag='All';drawGames();$('search').focus()}));grid.append(empty);return}
  const sections=new Map(),groupMode=$('groupBy').value;
  for(const g of list){
   const groupName=groupMode==='genre'?g.genre:groupMode==='collection'?g.group:'All games';
