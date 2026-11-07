@@ -1,4 +1,5 @@
 const assert=require('node:assert/strict'),fs=require('fs'),{JSDOM}=require('jsdom');
+const {unlockShell}=require('./gate-fixture.cjs');
 const root=__dirname+'/../';
 function boot(entries={}){
  const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'https://example.test/#games',runScripts:'outside-only',pretendToBeVisual:true});
@@ -8,10 +9,12 @@ function boot(entries={}){
  for(const [key,value] of Object.entries(entries))w.localStorage.setItem(key,value);
  w.eval(fs.readFileSync(root+'catalog.js','utf8'));
  w.eval(fs.readFileSync(root+'app.js','utf8'));
- return {w,d,$,close:()=>w.close()};
+ return {w,d,$,close:()=>w.close(),ready:unlockShell(w)};
 }
 const hub={favourites:['autumn-drift','retired-fav'],recent:['creekhold','retired-recent'],plays:{'little-lake':3}};
+(async()=>{
 const g=boot({'after-class-hub-v1':JSON.stringify(hub)});
+await g.ready;
 const {w,d,$}=g;
 assert.equal($('heroTrack').querySelector('h3').textContent,'Gummy Bay');
 assert.equal($('heroCarousel').getAttribute('aria-roledescription'),'carousel');
@@ -75,3 +78,4 @@ assert.ok(w.GAME_CATALOG.some(game=>game.type==='bundled'&&game.url===$('frame')
 assert.notEqual(before,'ignored');
 g.close();
 console.log('PASS storefront: Gummy Bay carousel, continue, trending, new, favourites, tags, theme, sound, and random game.');
+})().catch(error=>{console.error(error);process.exit(1)});

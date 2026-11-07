@@ -14,13 +14,17 @@ For local use, run `python -m http.server 8000` in this folder and visit http://
 
 Study opens first. Create, edit and delete cards and decks in Create cards. Flip, shuffle, navigate, and mark mastered or review again. Export/import JSON backups; old array exports and new version-2 exports are supported. Imports append without overwriting cards. Empty decks are retained. Storage failures show a warning; keep an export before closing the tab. Original study-desk-v1 card storage is preserved.
 
-Monday pick chooses one bundled game for the calendar week, starting each Monday, on the study page and the game collection. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves lists each key that will change, replaces only those keys after confirmation, then reloads. Identical keys are left alone. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
+Monday pick chooses one bundled game for the calendar week, starting each Monday, inside the game collection after it is unlocked. The study page does not show it. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves lists each key that will change, replaces only those keys after confirmation, then reloads. Identical keys are left alone. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
 
 The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, six freshly improved games, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
 
+## Games lock
+
+The study page has no games button, thumbnail, or Monday pick. P three times opens a PIN dialog; the right PIN shows the collection. Lock or a refresh returns to study and clears the player without deleting saves. This is a casual screen lock, not private hosting. See docs/casual-gates.md.
+
 ## Switching
 
-Press P three times within one second, to move between study and games. The games screens have no workspace-switch buttons. Text fields, held-key repeats and modifier shortcuts are excluded. Plain P is reserved inside bundled games to avoid triggering their native P actions during the sequence; use the toolbar Pause button or in-game menu instead.
+Press P three times within one second, to move between study and games. The first time in a tab, that gesture opens the PIN dialog instead. The games screens have no workspace-switch buttons. Text fields, held-key repeats and modifier shortcuts are excluded. Plain P is reserved inside bundled games to avoid triggering their native P actions during the sequence; use the toolbar Pause button or in-game menu instead.
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 

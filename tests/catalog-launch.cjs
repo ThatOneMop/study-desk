@@ -1,10 +1,12 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('assert'),path=require('path');
+const {unlockShell}=require('./gate-fixture.cjs');
 function openGamesHub(win){win.history.replaceState(null,'','#games');win.dispatchEvent(new win.HashChangeEvent('hashchange'))}
 const root=path.resolve(__dirname,'..');
 const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'https://example.test/#games',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,$=id=>d.getElementById(id);w.confirm=()=>true;let external;w.open=url=>{external=url};
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 function ppp(){for(let i=0;i<3;i++)w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'p',bubbles:true}))}
+(async()=>{await unlockShell(w);
 assert(!$('arcade').hidden);assert($('study').hidden);assert.equal(d.querySelectorAll('.game').length,w.GAME_CATALOG.length);
 for(const g of w.GAME_CATALOG){
  const launch=[...d.querySelectorAll('button[data-action="play"]')].find(button=>button.dataset.game===g.id);assert(launch,'launch button for '+g.title);launch.click();
@@ -18,3 +20,4 @@ for(const g of w.GAME_CATALOG){
  openGamesHub(w);assert(!$('arcade').hidden);assert($('player').hidden);
 }
 console.log('PASS: #games opens collection; '+w.GAME_CATALOG.length+' launch routes, pause/resume, PPP study return and #games hub return (no study-area games button). Does not execute game engines.');w.close();
+})().catch(error=>{console.error(error);process.exit(1)});

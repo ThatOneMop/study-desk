@@ -1,4 +1,5 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict'),path=require('path');
+const {unlockShell}=require('./gate-fixture.cjs');
 const root=path.resolve(__dirname,'..');
 const catalog=JSON.parse(fs.readFileSync(root+'/catalog.json','utf8'));
 const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'https://example.test/#games',runScripts:'outside-only',pretendToBeVisual:true});
@@ -6,6 +7,7 @@ const w=dom.window,d=w.document,$=id=>d.getElementById(id);
 w.localStorage.setItem('after-class-hub-v1',JSON.stringify({favourites:['micro-bmath','creekhold'],recent:['polytrack','creekhold']}));
 const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-game-save',save);
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
+(async()=>{await unlockShell(w);
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
 const KEEP=["ashwake", "autumn-drift", "bell-diver", "creekhold", "forge-arena", "gummy-bay", "harvest-protocol", "lanewright", "little-lake", "lost-found", "moon-salvage", "mycelium-yard", "numberworks", "packworks", "roof-runner", "spanwright", "tiny-wilds", "winterfold"];
 const arcade=catalog.filter(g=>g.type==='arcade'||g.source==='GameMonetize'||g.source==='GameDistribution');
@@ -44,6 +46,7 @@ assert(saved.favourites.includes('micro-bmath'));assert(saved.recent.includes('p
 assert.equal(w.localStorage.getItem('retired-game-save'),save);
 console.log('PASS curation: exact active catalogue, dynamic counts, aliases/filters, retired preferences/saves preserved, background pause and manual pause retained.');
 w.close();
+})().catch(error=>{console.error(error);process.exit(1)});
 
 
 
