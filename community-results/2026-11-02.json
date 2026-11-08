@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "week": "2026-11-02",
+  "week_end": "2026-11-08",
+  "timezone": "Australia/Sydney",
+  "window": {
+    "start_inclusive": "2026-11-01T13:00:00Z",
+    "end_exclusive": "2026-11-08T13:00:00Z"
+  },
+  "status": "completed_no_winners",
+  "repository": "ThatOneMop/study-desk",
+  "reviewed_commit": "3cf2486f0790dcdbb3daf12f6ce4bfecd495fa90",
+  "issue_ids": [],
+  "requests": [],
+  "eligible_vote_count": 0,
+  "winners": [],
+  "additions": [],
+  "upstream_commit": null,
+  "upstream_licence": null,
+  "integration_commit": null,
+  "integration_status": "not_applicable_no_voted_requests",
+  "audit": {
+    "issues_pages_fetched": 3,
+    "issues_page_size": 100,
+    "items_per_page": [
+      100,
+      18,
+      0
+    ],
+    "items_returned": 118,
+    "pull_requests_excluded": 117,
+    "matching_requests": 0,
+    "reaction_pages_fetched": 0,
+    "reaction_note": "No matching request issues; no reaction pages to fetch.",
+    "prior_result_records": 2,
+    "catalogue_entries": 19,
+    "ranking": "Unique voter IDs per duplicate-grouped game; +1 created within the window only; votes descending, earliest request creation, then issue number.",
+    "title_prefix": "[Game request 2026-11-02]"
+  },
+  "pages": {
+    "run_id": 42428032242,
+    "url": "https://github.com/ThatOneMop/study-desk/actions/runs/42428032242",
+    "status": "success",
+    "scope": "Latest completed Pages run for reviewed_commit before this results-only commit."
+  }
+}
