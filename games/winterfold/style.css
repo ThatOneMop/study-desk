@@ -28,7 +28,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e0b15a; outline-offs
 .brand { padding: 16px 16px 8px; text-align: center; }
 .brand svg { width: 148px; height: auto; }
 .brand h1 { font-family: var(--serif); font-weight: 600; font-size: 28px; margin: 4px 0 0; letter-spacing: -0.03em; }
-.brand h1 span { color: #c4473a; }
+.brand h1 i { color: #c4473a; font-style: italic; }
 .ribbon { display: inline-block; background: #c4473a; color: white; font-size: 10px; letter-spacing: 0.16em; padding: 3px 8px; border-radius: 2px; margin-top: 2px; }
 .hill-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 14px 10px; border-bottom: 1px solid var(--line); }
 .hill-row strong { font-size: 13px; letter-spacing: 0.04em; }
@@ -36,6 +36,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e0b15a; outline-offs
 .diamonds { color: #1f8f4e; letter-spacing: 2px; font-size: 12px; }
 .key-scroll { overflow: auto; padding: 8px 12px 12px; flex: 1; }
 .key-scroll h2 { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 12px 4px 6px; font-weight: 650; }
+.morning-line { margin: 4px 4px 8px; font-size: 12.5px; line-height: 1.35; color: #3c463f; }
 .rowline { display: flex; align-items: center; gap: 8px; padding: 3px 4px; font-size: 13px; border-radius: 6px; }
 .rowline i { width: 18px; text-align: center; font-style: normal; }
 .rowline b { margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 650; }
@@ -149,21 +150,28 @@ dialog::backdrop { background: rgba(36, 40, 38, 0.28); }
 label.chk { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
 
 @media (max-width: 800px) {
-  #key { display: none; width: min(280px, 86vw); top: 142px; bottom: auto; max-height: calc(100% - 300px); z-index: 6; }
+  #key { display: none; width: min(300px, 92vw); top: 162px; left: 8px; bottom: auto; max-height: calc(100% - 280px); z-index: 6; }
   #key.open { display: flex; }
-  #keyToggle { display: block; }
-  #topbar { top: 12px; bottom: auto; left: 108px; right: 8px; max-width: none; transform: none; border-radius: 14px; flex-wrap: wrap; justify-content: flex-end; gap: 6px; padding: 6px; }
+  #keyToggle { display: block; top: 114px; left: 8px; }
+  #topbar {
+    top: 6px; left: 6px; right: 6px; max-width: none; transform: none;
+    border-radius: 14px; flex-wrap: wrap; justify-content: space-between;
+    gap: 4px 8px; padding: 6px 8px; overflow: visible;
+  }
+  .stat { flex: 1 1 22%; min-width: 0; }
   .stat small { font-size: 8px; }
-  .stat b { font-size: 12px; }
+  .stat b { font-size: 13px; }
   .stat svg { width: 13px; height: 13px; }
+  .speeds { flex: 1 1 100%; justify-content: flex-end; margin: 0; }
+  .speeds button { width: 36px; height: 30px; }
   #dock { bottom: 8px; left: 8px; right: 8px; transform: none; max-width: none; overflow: hidden; gap: 3px; padding: 4px; }
   #dock button { flex: 1 1 0; min-width: 0; padding: 7px 2px 5px; }
   #dock button small { font-size: 9px; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #dock button b { font-size: 12px; }
   #hands { top: auto; bottom: 78px; right: 8px; transform: none; flex-direction: row; }
-  #hint { top: 70px; max-width: calc(100% - 24px); }
+  #hint { top: 114px; left: 112px; right: 8px; transform: none; max-width: none; }
   #tutorial { max-width: calc(100% - 20px); bottom: 150px; }
-  #liftKinds { bottom: 140px; }
+  #liftKinds { bottom: 140px; max-width: calc(100% - 16px); flex-wrap: wrap; justify-content: center; }
   .scale { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

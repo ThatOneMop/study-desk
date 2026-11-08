@@ -154,10 +154,13 @@
           }
           const grain = (hash(ix, iy, m.seed) - 0.5) * 14;
           const light = 0.32 + shade * 0.95;
+          const edge = Math.min(ix, iy, gw - 1 - ix, gh - 1 - iy);
+          const fade = edge >= 7 ? 1 : Math.max(0, edge) / 7;
           const o = (iy * gw + ix) * 4;
-          data[o] = Math.max(0, Math.min(255, r * light + grain));
-          data[o + 1] = Math.max(0, Math.min(255, g * light + grain));
-          data[o + 2] = Math.max(0, Math.min(255, b * light + grain * 0.6));
+          const pr = 228, pg = 222, pb = 206;
+          data[o] = Math.max(0, Math.min(255, (r * light + grain) * fade + pr * (1 - fade)));
+          data[o + 1] = Math.max(0, Math.min(255, (g * light + grain) * fade + pg * (1 - fade)));
+          data[o + 2] = Math.max(0, Math.min(255, (b * light + grain * 0.6) * fade + pb * (1 - fade)));
           data[o + 3] = 255;
         }
       }
@@ -220,29 +223,93 @@
       for (const c of m.cliffs || []) drawStones(tctx, c.x, c.y, c.r, 7, '#8d877c', '#3e3a34', sx);
       for (const rock of m.rocks || []) drawStones(tctx, rock.x, rock.y, rock.r, 5, '#c8c2b6', '#4a463e', sx);
       const seen = new Set();
-      const stepTrees = m.id === 'lark' ? 24 : 20;
-      for (let y = 12; y < E.MAP_H; y += stepTrees) {
-        for (let x = 12; x < E.MAP_W; x += 22) {
+      const stepTrees = m.id === 'lark' ? 16 : 14;
+      for (let y = 16; y < E.MAP_H - 16; y += stepTrees) {
+        for (let x = 16; x < E.MAP_W - 16; x += 15) {
           if (!E.forestAt(run, x, y)) continue;
-          if (run.pois.some(p => Math.hypot(p.x - x, p.y - y) < 28)) continue;
-          const jx = x + (hash(x, y, 2) - 0.5) * 14;
-          const jy = y + (hash(x, y, 3) - 0.5) * 14;
-          const id = Math.floor(jx / 16) + ',' + Math.floor(jy / 16);
+          if (run.pois.some(p => Math.hypot(p.x - x, p.y - y) < 30)) continue;
+          const jx = x + (hash(x, y, 2) - 0.5) * 10;
+          const jy = y + (hash(x, y, 3) - 0.5) * 10;
+          const id = Math.floor(jx / 12) + ',' + Math.floor(jy / 12);
           if (seen.has(id)) continue;
           seen.add(id);
-          const cluster = 2 + Math.floor(hash(x, y, 12) * 3);
+          const cluster = 3 + Math.floor(hash(x, y, 12) * 3);
           for (let n = 0; n < cluster; n++) {
-            const s = 18 + hash(x + n, y, 8) * 14;
-            const ox = (hash(x, y + n, 14) - 0.5) * 10;
-            const oy = (hash(x + n, y, 15) - 0.5) * 8;
+            const s = 15 + hash(x + n, y, 8) * 16;
+            const ox = (hash(x, y + n, 14) - 0.5) * 11;
+            const oy = (hash(x + n, y, 15) - 0.5) * 9;
             const sprite = pines[Math.floor(hash(x, y + n, 6) * pines.length)];
             tctx.drawImage(sprite, jx + ox - s * 0.5, jy + oy - s * 1.2, s, s * 1.35);
           }
         }
       }
+      for (const poi of run.pois) if (poi.kind === 'station') drawTown(tctx, poi.x, poi.y, m.seed);
       tctx.restore();
     }
 
+    function drawTown(ctx, sx, sy, seed) {
+      ctx.save();
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = 'rgba(120,96,70,0.45)';
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(sx, sy + 46);
+      ctx.quadraticCurveTo(sx - 18, sy + 78, sx - 8, sy + 118);
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(90,74,54,0.35)';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(sx - 36, sy + 92);
+      ctx.lineTo(sx + 48, sy + 98);
+      ctx.stroke();
+      const houses = [
+        [-58, 56, 26, 16, '#8d3a36'],
+        [-34, 74, 28, 16, '#31507a'],
+        [16, 58, 24, 15, '#8d3a36'],
+        [34, 78, 22, 14, '#6a4630'],
+        [-18, 96, 34, 18, '#6e3034'],
+        [22, 100, 20, 13, '#31507a'],
+        [-48, 104, 18, 12, '#6a4630']
+      ];
+      houses.forEach((house, i) => {
+        const [ox, oy, w, h, roof] = house;
+        const x = sx + ox, y = sy + oy;
+        ctx.fillStyle = '#f7f1e6';
+        ctx.strokeStyle = '#2c2924';
+        ctx.lineWidth = 1.25;
+        ctx.fillRect(x, y, w, h);
+        ctx.strokeRect(x, y, w, h);
+        ctx.beginPath();
+        ctx.moveTo(x - 2, y + 0.5);
+        ctx.lineTo(x + w / 2, y - 9);
+        ctx.lineTo(x + w + 2, y + 0.5);
+        ctx.closePath();
+        ctx.fillStyle = roof;
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#d5e6ee';
+        ctx.fillRect(x + 4, y + 5, 5, 4);
+        if (i % 3 === 0) {
+          ctx.strokeStyle = '#5c5146';
+          ctx.beginPath();
+          ctx.moveTo(x + w * 0.72, y - 2);
+          ctx.lineTo(x + w * 0.72, y - 8);
+          ctx.stroke();
+        }
+      });
+      ctx.fillStyle = 'rgba(70,90,70,0.9)';
+      for (let i = 0; i < 5; i++) {
+        const tx = sx - 70 + hash(seed, i, 4) * 20;
+        const ty = sy + 58 + i * 12;
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(tx - 5, ty + 8);
+        ctx.lineTo(tx + 5, ty + 8);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
     function poly(ctx, cam, pts) {
       ctx.beginPath();
       pts.forEach((p, i) => {
@@ -428,6 +495,7 @@
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(angle || 0);
+      ctx.scale(1.38, 1.38);
       const bob = Math.sin(time * 8 + x) * 1.1;
       ctx.translate(0, bob);
       ctx.fillStyle = 'rgba(40,40,30,0.18)';
@@ -493,8 +561,20 @@
       const drawW = terrain.width * (cam.zoom / bakedPpm);
       const drawH = terrain.height * (cam.zoom / bakedPpm);
       ctx.save();
+      ctx.shadowColor = 'rgba(40,36,28,0.2)';
+      ctx.shadowBlur = 14;
+      ctx.shadowOffsetY = 5;
+      ctx.fillStyle = '#efe8da';
+      ctx.fillRect(origin.x, origin.y, drawW, drawH);
+      ctx.shadowColor = 'transparent';
       ctx.imageSmoothingEnabled = Math.abs(cam.zoom * dpr - bakedPpm) > 0.25;
       ctx.drawImage(terrain, origin.x, origin.y, drawW, drawH);
+      ctx.strokeStyle = 'rgba(55,48,38,0.55)';
+      ctx.lineWidth = 2.5;
+      ctx.strokeRect(origin.x + 0.5, origin.y + 0.5, Math.max(0, drawW - 1), Math.max(0, drawH - 1));
+      ctx.strokeStyle = 'rgba(255,252,246,0.85)';
+      ctx.lineWidth = 1.2;
+      ctx.strokeRect(origin.x + 4, origin.y + 4, Math.max(0, drawW - 8), Math.max(0, drawH - 8));
       ctx.restore();
       const hour = E.clockHours(run);
       const warm = hour < 10 ? 0.05 : hour > 16 ? 0.12 : 0.03;
@@ -519,7 +599,7 @@
       const queueIndex = new Map();
       for (const skier of run.skiers) {
         if (skier.state === 'ride') continue;
-        let x = 0, y = 0, angle = 0, known = false;
+        let x = 0, y = 0, angle = 0, known = false, queueCount = 0;
         if (skier.state === 'ski') {
           const p = run.pistes.find(pp => pp.id === skier.edge);
           if (p) {
@@ -543,10 +623,11 @@
             const len = Math.hypot(dx, dy) || 1;
             const ux = dx / len, uy = dy / len, px = -uy, py = ux;
             const col = slot % 3, row = Math.floor(slot / 3);
-            x = lift.x1 + ux * (16 + row * 13) + px * (col - 1) * 11;
-            y = lift.y1 + uy * (16 + row * 13) + py * (col - 1) * 11;
+            x = lift.x1 + ux * (18 + row * 16) + px * (col - 1) * 14;
+            y = lift.y1 + uy * (18 + row * 16) + py * (col - 1) * 14;
             angle = Math.atan2(uy, ux);
             known = true;
+            if (slot === 0) queueCount = lift.queue.length;
           }
         }
         if (!known && skier.node && nodes.get(skier.node)) {
@@ -560,6 +641,17 @@
         if (!known) continue;
         const s = project(cam, x, y);
         drawSkier(ctx, s.x, s.y, skier, extras.time, angle);
+        if (queueCount >= 3) {
+          ctx.save();
+          ctx.font = '700 12px "Avenir Next", "Segoe UI", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#fffdf8';
+          ctx.strokeStyle = '#24302c';
+          ctx.lineWidth = 3;
+          ctx.strokeText(String(queueCount), s.x, s.y - 26);
+          ctx.fillText(String(queueCount), s.x, s.y - 26);
+          ctx.restore();
+        }
       }
 
       for (const poi of run.pois) {
@@ -598,7 +690,13 @@
         ctx.fillStyle = '#2c2922';
         ctx.font = '700 13px "Iowan Old Style", Palatino, Georgia, serif';
         ctx.textAlign = 'center';
-        ctx.fillText(E.altitude(run, poi) + ' m', s.x, s.y + 32);
+        ctx.fillText(E.altitude(run, poi) + ' m', s.x, s.y + 34);
+        if (wants) {
+          ctx.font = '700 11px "Avenir Next", "Segoe UI", sans-serif';
+          ctx.fillStyle = '#8a3d24';
+          const label = poi.kind === 'snowpark' ? 'snow park' : poi.kind;
+          ctx.fillText(label, s.x, s.y - 28);
+        }
       }
 
       for (const c of run.cannons) {

@@ -110,10 +110,71 @@ assert.equal(back.meta.cleared.lark, 4);
 assert.equal(E.decode('{').ok, false);
 assert.equal(E.decode('{"version":1}').ok, false);
 
+// A careful Lark keeps every guest moving through the first medal.
+run = E.startRun(E.createMeta(), 'lark', 'run');
+assert.match(E.morningBrief(run), /Day 1/);
+function poi(id) { return run.pois.find(p => p.id === id); }
+assert.equal(E.commitStroke(run, stroke(poi('su'), poi('st'))).ok, true);
+assert.equal(E.commitLift(run, poi('st'), poi('su'), 'chair').ok, true);
+playDay(run);
+assert.equal(run.phase, 'dawn', run.reason);
+assert.match(E.morningBrief(run), /viewpoint/);
+assert.equal(E.chooseCard(run, run.cards.findIndex(c => c.id === 'slope')).ok, true);
+assert.equal(E.commitLift(run, poi('su'), poi('view'), 'chair').ok, true);
+assert.equal(E.commitStroke(run, stroke(poi('view'), poi('su'))).color, 'green');
+playDay(run);
+assert.equal(run.phase, 'dawn', 'day 2 ' + run.reason);
+assert.match(E.morningBrief(run), /cafe/);
+assert.equal(E.chooseCard(run, run.cards.findIndex(c => c.id === 'slope')).ok, true);
+assert.equal(E.commitStroke(run, stroke(poi('su'), poi('cafe'))).ok, true);
+assert.equal(E.commitStroke(run, stroke(poi('cafe'), poi('st'))).ok, true);
+playDay(run);
+assert.equal(run.phase, 'dawn', 'day 3 ' + run.reason);
+assert.equal(E.chooseCard(run, run.cards.findIndex(c => c.id === 'slope')).ok, true);
+assert.equal(E.commitStroke(run, stroke(poi('cafe'), poi('rescue'))).ok, true);
+assert.equal(E.commitStroke(run, stroke(poi('rescue'), poi('st'))).ok, true);
+playDay(run);
+assert.equal(run.phase, 'dawn', 'day 4 ' + run.reason);
+assert.equal(run.day, 5);
+assert(run.score > 1000, 'four linked mornings score');
+
+const copperMeta = E.createMeta();
+copperMeta.cleared.lark = 4;
+const copper = E.startRun(copperMeta, 'copper', 'run');
+const cSu = copper.pois.find(p => p.id === 'su');
+const cSt = copper.pois.find(p => p.id === 'st');
+assert.equal(E.commitStroke(copper, stroke(cSu, cSt)).ok, true);
+assert.equal(E.commitLift(copper, cSt, cSu, 'chair').ok, true);
+playDay(copper);
+assert.equal(copper.phase, 'dawn');
+assert.equal(E.chooseCard(copper, Math.max(0, copper.cards.findIndex(c => c.id === 'slope'))).ok, true);
+const su2 = copper.pois.find(p => p.id === 'su2');
+const home = E.previewStroke(copper, stroke(su2, cSu));
+assert.equal(home.ok, true, home.reason);
+assert.ok(home.len < 200, 'second summit is one slope card away');
+assert.equal(E.previewLift(copper, cSu, su2, 'chair').ok, true);
+assert.match(E.morningBrief(copper), /summit/);
+
+const oldSave = JSON.stringify({
+  version: 1, id: 'winterfold', title: 'Winterfold',
+  meta: { version: 1, sound: true, tutorial: true, seen: true, best: { lark: { score: 40, days: 2, closed: 1 } }, medals: {}, board: [], cleared: { lark: 2 } },
+  run: {
+    version: 1, mountainId: 'lark', mode: 'run', phase: 'play', day: 2, clock: 3, speed: 1,
+    score: 40, completed: 1, pois: [{ id: 'st', kind: 'station', x: 420, y: 545, born: 1 }, { id: 'su', kind: 'summit', x: 520, y: 400, born: 1 }],
+    pistes: [], lifts: [], cannons: [], joints: [], cleared: {}, resources: { slope: 80, lift: 2, cannon: 4, trees: 20, upgrade: 4 },
+    nextId: 3, rerolls: 1, weekMark: 1, cards: [], schedule: [], spawnIndex: 0, sandbox: false, reason: '', skiers: []
+  }
+});
+const old = E.decode(oldSave);
+assert.equal(old.ok, true);
+assert.equal(old.run.day, 2);
+assert.equal(old.run.pois[0].x, 420);
+assert.equal(old.meta.best.lark.score, 40);
+
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'catalog.json'), 'utf8'));
 const entry = catalog.find(g => g.id === 'winterfold');
 assert(entry, 'catalogue entry');
 assert.equal(entry.url, 'games/winterfold/index.html');
 assert(fs.readFileSync(path.join(root, 'credits.html'), 'utf8').includes('id="winterfold"'));
 
-console.log('PASS winterfold: opening green run and chair clear day 1, an empty hill closes at dusk, colours and unlocks hold, save round-trips');
+console.log('PASS winterfold: opening day clears, four Lark mornings stay open, Copper\'s second summit is one card away, old saves still load');

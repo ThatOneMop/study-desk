@@ -11,9 +11,9 @@
   const RANK = { trail: 0, green: 1, blue: 2, red: 3, black: 4 };
   const COLOURS = ['trail', 'green', 'blue', 'red', 'black'];
   const LIFT_TYPES = {
-    tow: { id: 'tow', name: 'Ski lift', cost: 1, seats: 4, speed: 22, max: 190, ground: true },
-    chair: { id: 'chair', name: 'Chair', cost: 1, seats: 8, speed: 34, max: 360, ground: false },
-    cabin: { id: 'cabin', name: 'Cabin', cost: 2, seats: 16, speed: 48, max: 620, ground: false }
+    tow: { id: 'tow', name: 'Ski lift', cost: 1, seats: 3, speed: 20, max: 190, ground: true },
+    chair: { id: 'chair', name: 'Chair', cost: 1, seats: 5, speed: 30, max: 360, ground: false },
+    cabin: { id: 'cabin', name: 'Cabin', cost: 2, seats: 10, speed: 42, max: 620, ground: false }
   };
   const PISTE_SPEED = { trail: 20, green: 32, blue: 44, red: 58, black: 72 };
   const KINDS = ['station', 'summit', 'viewpoint', 'rescue', 'snowpark', 'cafe', 'restaurant', 'refuge'];
@@ -44,8 +44,8 @@
         { day: 2, poi: { id: 'view', kind: 'viewpoint', x: 640, y: 340 } },
         { day: 3, poi: { id: 'cafe', kind: 'cafe', x: 400, y: 470 } },
         { day: 4, poi: { id: 'rescue', kind: 'rescue', x: 480, y: 480 } },
-        { day: 5, poi: { id: 'refuge', kind: 'refuge', x: 700, y: 400 } },
-        { day: 6, poi: { id: 'park', kind: 'snowpark', x: 600, y: 470 } },
+        { day: 5, poi: { id: 'refuge', kind: 'refuge', x: 500, y: 280 } },
+        { day: 6, poi: { id: 'park', kind: 'snowpark', x: 340, y: 490 } },
         { day: 8, poi: { id: 'st2', kind: 'station', x: 250, y: 560 } }
       ]
     },
@@ -59,7 +59,13 @@
         { x: 0.68, y: 0.28, h: 74, s: 0.22 },
         { x: 0.48, y: 0.72, h: 18, s: 0.30 }
       ],
-      glades: [{ x1: 380, y1: 560, x2: 340, y2: 400, w: 48 }],
+      glades: [
+        { x1: 380, y1: 560, x2: 340, y2: 400, w: 48 },
+        { x1: 220, y1: 364, x2: 300, y2: 450, w: 32 },
+        { x1: 300, y1: 450, x2: 420, y2: 480, w: 30 },
+        { x1: 420, y1: 480, x2: 500, y2: 470, w: 28 },
+        { x1: 220, y1: 364, x2: 100, y2: 350, w: 32 }
+      ],
       rocks: [{ x: 560, y: 360, r: 34 }, { x: 180, y: 420, r: 22 }],
       rivers: [], cliffs: [{ x: 470, y: 390, r: 30 }], fences: [],
       demand: d => 12 + (d - 1) * 5, skill: 0,
@@ -68,11 +74,11 @@
         { id: 'su', kind: 'summit', x: 340, y: 420 }
       ],
       later: [
-        { day: 2, poi: { id: 'su2', kind: 'summit', x: 680, y: 240 } },
-        { day: 3, poi: { id: 'cafe', kind: 'cafe', x: 560, y: 640 } },
-        { day: 4, poi: { id: 'view', kind: 'viewpoint', x: 520, y: 300 } },
-        { day: 5, poi: { id: 'rescue', kind: 'rescue', x: 180, y: 420 } },
-        { day: 7, poi: { id: 'refuge', kind: 'refuge', x: 640, y: 420 } }
+        { day: 2, poi: { id: 'su2', kind: 'summit', x: 220, y: 364 } },
+        { day: 3, poi: { id: 'cafe', kind: 'cafe', x: 420, y: 480 } },
+        { day: 4, poi: { id: 'view', kind: 'viewpoint', x: 300, y: 450 } },
+        { day: 5, poi: { id: 'rescue', kind: 'rescue', x: 500, y: 470 } },
+        { day: 7, poi: { id: 'refuge', kind: 'refuge', x: 100, y: 350 } }
       ]
     },
     {
@@ -85,7 +91,15 @@
         { x: 0.72, y: 0.30, h: 96, s: 0.22 },
         { x: 0.50, y: 0.78, h: 16, s: 0.28 }
       ],
-      glades: [{ x1: 240, y1: 580, x2: 250, y2: 380, w: 42 }],
+      glades: [
+        { x1: 240, y1: 580, x2: 250, y2: 380, w: 42 },
+        { x1: 250, y1: 400, x2: 362, y2: 346, w: 30 },
+        { x1: 250, y1: 400, x2: 140, y2: 340, w: 30 },
+        { x1: 140, y1: 340, x2: 170, y2: 470, w: 28 },
+        { x1: 250, y1: 400, x2: 280, y2: 500, w: 30 },
+        { x1: 280, y1: 500, x2: 240, y2: 560, w: 26 },
+        { x1: 362, y1: 346, x2: 450, y2: 430, w: 28 }
+      ],
       rocks: [{ x: 400, y: 300, r: 26 }],
       rivers: [{ pts: [[500, 400], [680, 450], [860, 420], [980, 470]], w: 18 }],
       cliffs: [{ x: 620, y: 360, r: 28 }], fences: [],
@@ -95,12 +109,12 @@
         { id: 'su', kind: 'summit', x: 250, y: 400 }
       ],
       later: [
-        { day: 2, poi: { id: 'view', kind: 'viewpoint', x: 470, y: 300 } },
-        { day: 3, poi: { id: 'rescue', kind: 'rescue', x: 700, y: 560 } },
-        { day: 4, poi: { id: 'su2', kind: 'summit', x: 740, y: 250 } },
-        { day: 5, poi: { id: 'cafe', kind: 'cafe', x: 560, y: 580 } },
-        { day: 6, poi: { id: 'refuge', kind: 'refuge', x: 400, y: 220 } },
-        { day: 8, poi: { id: 'park', kind: 'snowpark', x: 640, y: 420 } }
+        { day: 2, poi: { id: 'view', kind: 'viewpoint', x: 362, y: 346 } },
+        { day: 3, poi: { id: 'rescue', kind: 'rescue', x: 170, y: 470 } },
+        { day: 4, poi: { id: 'su2', kind: 'summit', x: 140, y: 340 } },
+        { day: 5, poi: { id: 'cafe', kind: 'cafe', x: 280, y: 500 } },
+        { day: 6, poi: { id: 'refuge', kind: 'refuge', x: 450, y: 430 } },
+        { day: 8, poi: { id: 'park', kind: 'snowpark', x: 140, y: 500 } }
       ]
     },
     {
@@ -324,7 +338,7 @@
   }
 
   function freshResources() { return { slope: 200, lift: 4, cannon: 4, trees: 20, upgrade: 4 }; }
-  function cardPool(day, salt) {
+  function cardPool(day, salt, resources) {
     const bag = [
       { id: 'lift', title: 'Lift', detail: '+4 lift tokens', grant: { lift: 4 }, w: 3 },
       { id: 'slope', title: 'Slope', detail: '+200 m of ribbon', grant: { slope: 200 }, w: 3 },
@@ -340,6 +354,13 @@
       let choice = bag[0];
       for (const b of bag) { acc += b.w / sum; if (roll <= acc) { choice = b; break; } }
       if (!picked.some(p => p.id === choice.id)) picked.push({ id: choice.id, title: choice.title, detail: choice.detail, grant: choice.grant });
+    }
+    // A new stop you cannot reach with the ribbon in hand should always have a slope card to refuse.
+    if (resources && resources.slope < 160 && !picked.some(p => p.id === 'slope')) {
+      const slope = bag.find(b => b.id === 'slope');
+      const replace = ['cannon', 'trees', 'upgrade', 'lift'].find(id => picked.some(p => p.id === id));
+      const idx = replace ? picked.findIndex(p => p.id === replace) : picked.length - 1;
+      picked[idx] = { id: slope.id, title: slope.title, detail: slope.detail, grant: slope.grant };
     }
     return picked;
   }
@@ -362,7 +383,7 @@
     const newest = run.pois.filter(p => p.kind !== 'station').slice(-1)[0];
     const list = [];
     for (let i = 0; i < n; i++) {
-      const t = DAY_LEN * (0.08 + 0.52 * (i + 0.5) / n);
+      const t = DAY_LEN * (0.07 + 0.40 * (i + 0.5) / n);
       let shape = shapes[Math.floor(hash(run.day, i, 3) * shapes.length) % shapes.length];
       if (newest && hash(run.day, i, 8) < 0.45) shape = newest.kind;
       list.push({ t, skill: skillOf(run.day, run.mountain.skill, i), shape });
@@ -377,14 +398,25 @@
     if (run.mountain.endless) {
       const kinds = ['viewpoint', 'cafe', 'rescue', 'refuge', 'snowpark', 'restaurant', 'summit', 'station'];
       const kind = kinds[(run.day - 1) % kinds.length];
-      for (let k = 0; k < 12; k++) {
+      const anchors = run.pois.length ? run.pois : [{ x: 480, y: 380 }];
+      for (let k = 0; k < 28; k++) {
+        const anchor = anchors[Math.floor(hash(run.day, k, 20) * anchors.length) % anchors.length];
         const ang = hash(run.day, k, 21) * Math.PI * 2;
-        const rad = 160 + hash(run.day, k, 22) * 220;
-        const x = clamp(480 + Math.cos(ang) * rad, 80, 920);
-        const y = clamp(380 + Math.sin(ang) * rad * 0.72, 80, 640);
-        if (run.pois.some(p => Math.hypot(p.x - x, p.y - y) < 90)) continue;
+        const rad = 110 + hash(run.day, k, 22) * 55;
+        const x = clamp(anchor.x + Math.cos(ang) * rad, 80, 920);
+        const y = clamp(anchor.y + Math.sin(ang) * rad * 0.86, 80, 640);
+        if (run.pois.some(p => Math.hypot(p.x - x, p.y - y) < 84)) continue;
         if (groundBlock(run, x, y)) continue;
-        if (!snowAt(run, x, y) && kind !== 'cafe') continue;
+        if (!snowAt(run, x, y)) continue;
+        const d = Math.hypot(anchor.x - x, anchor.y - y) || 1;
+        const grade = Math.abs(height(run.mountain, x, y) - height(run.mountain, anchor.x, anchor.y)) / d;
+        if (grade < 0.05 || grade > 0.18) continue;
+        let trees = 0;
+        for (let s = 0; s <= 8; s++) {
+          const t = s / 8;
+          if (forestAt(run, x + (anchor.x - x) * t, y + (anchor.y - y) * t)) trees++;
+        }
+        if (trees > 3) continue;
         addPoi(run, { id: 'p' + run.day + '_' + k, kind, x, y });
         return;
       }
@@ -843,9 +875,15 @@
     return findPath(run, fromId, goal);
   }
   function stationNodes(run) { return run.pois.filter(p => p.kind === 'station'); }
+  // Guests start at a station only when a lift or a run leaves it. A new station
+  // you have not linked yet stays a place to finish, and does not trap a crowd.
+  function liveStations(run) {
+    const ready = stationNodes(run).filter(st => outgoing(run, st.id).length > 0);
+    return ready.length ? ready : stationNodes(run).slice(0, 1);
+  }
 
   function spawnSkier(run, spec, i) {
-    const stations = stationNodes(run);
+    const stations = liveStations(run);
     const home = stations[i % stations.length];
     const skier = {
       id: 's' + run.nextId++, shape: spec.shape, skill: spec.skill,
@@ -944,7 +982,46 @@
     return hh + 'H' + String(mm).padStart(2, '0');
   }
   function guests(run) {
-    return { out: run.skiers.length, total: run.schedule.length };
+    const total = (run.schedule || []).length;
+    const out = run.skiers.length;
+    return { out, total, home: Math.max(0, (run.spawnIndex || 0) - out) };
+  }
+  function morningBrief(run) {
+    const names = {
+      station: 'station', summit: 'summit', viewpoint: 'viewpoint', rescue: 'rescue hut',
+      snowpark: 'snow park', cafe: 'cafe', restaurant: 'restaurant', refuge: 'refuge'
+    };
+    const fresh = (run.pois || []).filter(p => p.born === run.day && run.day > 1);
+    const crowd = (run.schedule && run.schedule.length) || Math.round(run.mountain.demand(run.day));
+    if (!fresh.length) return 'Day ' + run.day + ' sends ' + crowd + ' guests up the hill you already built.';
+    const stop = fresh[0];
+    const place = names[stop.kind] || 'stop';
+    const metres = Math.round(height(run.mountain, stop.x, stop.y));
+    if (stop.kind === 'station') return 'Day ' + run.day + ' opens another station at ' + metres + ' m. ' + crowd + ' guests can finish there if a run reaches it.';
+    const hint = gentleLine(run, stop);
+    const base = 'Day ' + run.day + ' opens a ' + place + ' at ' + metres + ' m. ' + crowd + ' guests will ask for it.';
+    return hint ? base + ' ' + hint : base + ' Draw a gentle way down, and a lift that can reach the top of that line.';
+  }
+  function gentleLine(run, poi) {
+    const names = { station: 'station', summit: 'summit', viewpoint: 'viewpoint', rescue: 'rescue hut', snowpark: 'snow park', cafe: 'cafe', restaurant: 'restaurant', refuge: 'refuge' };
+    let best = null;
+    for (const other of run.pois) {
+      if (other.id === poi.id) continue;
+      const hp = height(run.mountain, poi.x, poi.y);
+      const ho = height(run.mountain, other.x, other.y);
+      const from = hp >= ho ? poi : other;
+      const to = hp >= ho ? other : poi;
+      const pts = [];
+      for (let i = 0; i <= 8; i++) pts.push({ x: from.x + (to.x - from.x) * i / 8, y: from.y + (to.y - from.y) * i / 8 });
+      const prev = previewStroke(run, pts);
+      if (prev.color !== 'green' && prev.color !== 'trail') continue;
+      if (prev.reason && /cliff|steep|Rock|creek|snow/i.test(prev.reason)) continue;
+      const d = Math.hypot(poi.x - other.x, poi.y - other.y);
+      if (!best || d < best.d) best = { other, d, color: prev.color, len: prev.len || d };
+    }
+    if (!best) return '';
+    const way = names[best.other.kind] || 'stop';
+    return 'A ' + best.color + ' line toward the ' + way + ' is about ' + Math.round(best.len) + ' m.';
   }
   function capacity(run) {
     let cap = 14;
@@ -967,7 +1044,7 @@
       run.phase = 'play';
       return;
     }
-    run.cards = cardPool(run.day, run.mountain.seed);
+    run.cards = cardPool(run.day, run.mountain.seed, run.resources);
     run.phase = 'dawn';
     run.speed = 0;
   }
@@ -986,7 +1063,7 @@
     if (run.phase !== 'dawn') return { ok: false, reason: 'Reroll during the morning drop.' };
     if (run.rerolls < 1) return { ok: false, reason: 'The next shuffle arrives next week.' };
     run.rerolls -= 1;
-    run.cards = cardPool(run.day, run.mountain.seed + 50 + run.day);
+    run.cards = cardPool(run.day, run.mountain.seed + 50 + run.day, run.resources);
     return { ok: true };
   }
   function tick(run, realDt) {
@@ -1098,7 +1175,7 @@
     mountainById, height, naturalForest, forestAt, snowAt, groundBlock, passage,
     createMeta, unlocked, startRun, previewStroke, commitStroke, previewLift, commitLift,
     placeCannon, cutAt, upgradeAt, eraseAt, undo, redo, tick, setSpeed, chooseCard, reroll,
-    counts, connected, altitude, guests, capacity, clockHours, formatClock, recordResult, starsFor,
+    counts, connected, altitude, guests, capacity, morningBrief, clockHours, formatClock, recordResult, starsFor,
     encode, decode, classify, sectionGrade, polyLength, allows, pathToShape, pathHome, nodesOf
   };
 });

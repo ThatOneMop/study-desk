@@ -67,9 +67,9 @@
       minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
       maxX = Math.max(maxX, p.x); maxY = Math.max(maxY, p.y);
     }
-    const pad = 150;
+    const pad = 120;
     minX -= pad; minY -= pad; maxX += pad; maxY += pad;
-    cam.zoom = Math.max(0.55, Math.min(w / (maxX - minX), h / (maxY - minY)) * 0.82);
+    cam.zoom = Math.max(0.62, Math.min(w / (maxX - minX), h / (maxY - minY)) * 0.96);
     cam.x = (minX + maxX) / 2;
     cam.y = (minY + maxY) / 2;
   }
@@ -98,16 +98,28 @@
     $('money').textContent = Math.round(run.money || 0);
     const g = E.guests(run);
     const cap = E.capacity(run);
-    $('guests').textContent = String(g.out);
+    $('guests').textContent = g.out + '/' + g.total;
     $('capacity').textContent = g.out + '/' + cap;
     $('capacity').classList.toggle('warn', g.out > cap);
+    const morning = $('morningLine');
+    if (morning) morning.textContent = E.morningBrief(run);
     if (run.speed > 0 && $('hint').textContent.startsWith('Paused')) $('hint').textContent = 'Guests are moving. Empty the hill before 18:00.';
+    const freshStop = run.phase === 'play' && !run.sandbox
+      ? run.pois.find(p => p.born === run.day && p.kind !== 'station' && !E.connected(run, p))
+      : null;
+    const longestLine = run.lifts.reduce((m, l) => Math.max(m, (l.queue || []).length), 0);
     const stuck = run.phase === 'play' && !run.sandbox ? run.skiers.filter(k => k.state === 'stuck') : [];
     if (stuck.length) {
       const want = POI_LABEL[stuck[0].shape] ? POI_LABEL[stuck[0].shape].toLowerCase() : 'stop';
       const msg = stuck.length + (stuck.length === 1 ? ' guest is' : ' guests are') + ' stuck. Link the ' + want + ' before 18:00 or the hill closes.';
       if ($('hint').textContent !== msg) $('hint').textContent = msg;
       $('hint').classList.add('warn');
+    } else if (freshStop && !drawing) {
+      $('hint').classList.remove('warn');
+      $('hint').textContent = E.morningBrief(run);
+    } else if (longestLine >= 4 && run.speed > 0 && !drawing) {
+      $('hint').classList.remove('warn');
+      $('hint').textContent = 'A lift line has ' + longestLine + ' guests. Upgrade it for more seats, or open another way up.';
     } else if ($('hint').classList.contains('warn')) {
       $('hint').classList.remove('warn');
       $('hint').textContent = 'Everyone has a way round again.';
@@ -186,6 +198,7 @@
   function showDraft() {
     if (!run || run.phase !== 'dawn') return;
     $('draftDay').textContent = 'Day ' + run.day;
+    $('draftNote').textContent = E.morningBrief(run);
     $('rerollNote').textContent = run.rerolls > 0 ? 'One shuffle left this week.' : 'The next shuffle arrives next week.';
     $('reroll').disabled = run.rerolls < 1;
     const box = $('draftCards');
