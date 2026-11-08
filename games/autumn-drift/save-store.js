@@ -13,10 +13,12 @@
   if(s.garden!==null){
    const g=s.garden;
    if(!object(g)||g.area!==s.area||!number(g.total,1,900,true)||!number(g.collected,0,g.total,true)||!Array.isArray(g.leaves)||g.leaves.length>900||g.leaves.length+g.collected!==g.total||typeof g.completed!=='boolean'||g.completed!==(g.leaves.length===0))throw Error('Invalid garden');
+   const legacyGate=!Object.hasOwn(g,'basket')||g.legacyGate===true;
+   const whole=(v,max)=>{if(v===undefined)return 0;if(!number(v,0,max,true))throw Error('Invalid garden');return v};
    const ids=new Set(),leaves=g.leaves.map(l=>{
-    if(!object(l)||!number(l.id,0,899,true)||ids.has(l.id)||!number(l.x,0,1200)||!number(l.y,0,800)||!number(l.a,-100,100)||!number(l.s,1,100)||!number(l.max,1,3500,true)||!number(l.hp,1,l.max,true)||typeof l.rare!=='boolean'||typeof l.c!=='string'||!/^#[0-9a-f]{6}$/i.test(l.c))throw Error('Invalid leaf');
-    ids.add(l.id);return {id:l.id,x:l.x,y:l.y,a:l.a,s:l.s,c:l.c,hp:l.hp,max:l.max,rare:l.rare};
-   });s.garden={area:g.area,total:g.total,collected:g.collected,completed:g.completed,leaves};
+    if(!object(l)||!number(l.id,0,899,true)||ids.has(l.id)||!number(l.x,0,1200)||!number(l.y,0,800)||!number(l.a,-100,100)||!number(l.s,1,100)||!number(l.max,1,3500,true)||!number(l.hp,1,l.max,true)||typeof l.rare!=='boolean'||typeof l.c!=='string'||!/^#[0-9a-f]{6}$/i.test(l.c)||(l.rooted!==undefined&&typeof l.rooted!=='boolean'))throw Error('Invalid leaf');
+    ids.add(l.id);return {id:l.id,x:l.x,y:l.y,a:l.a,s:l.s,c:l.c,hp:l.hp,max:l.max,rare:l.rare,rooted:l.rooted===true};
+   });s.garden={area:g.area,total:g.total,collected:g.collected,completed:g.completed,leaves,basket:whole(g.basket,g.total),rootedGot:whole(g.rootedGot,g.total),legacyGate};
   }return s;
  }
  function json(raw){if(typeof raw!=='string'||raw.length>LIMIT)throw Error('Save too large');return JSON.parse(raw)}
