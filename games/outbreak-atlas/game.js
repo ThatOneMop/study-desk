@@ -146,8 +146,16 @@ function renderTree(){
   const chosen=previewId&&Outbreak.upgradeById(previewId);
   const mode=chosen?upgradeState(chosen):'';
   $('treePreview').textContent=chosen?(chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(id=>Outbreak.upgradeById(id).name).join(' and ')+'.':'')):'Select an upgrade to see its cost and exact effect.';
+  showUpgradeForecast(chosen,mode);
   $('buyUpgrade').disabled=mode!=='ready';
   $('buyUpgrade').textContent=chosen&&mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
+}
+function showUpgradeForecast(chosen,mode){
+  if(!chosen||mode!=='ready')return;
+  const delta=Outbreak.upgradePreview(state,chosen.id,selected);
+  if(!delta)return;
+  const signed=n=>(n>=0?'+':'')+n.toFixed(2)+' percentage points';
+  $('treePreview').textContent+=' Next-month difference if bought now: average infection '+signed(delta.spread)+', awareness '+signed(delta.awareness)+', cure pressure '+signed(delta.pressure)+'. '+Outbreak.landById(selected).name+' infection '+signed(delta.selected)+'. Later months and threshold rewards can differ.';
 }
 function glyph(id){
   const paths={footpaths:'M3 16c4-7 8-7 12 0M8 16v4M16 16v4',carts:'M4 15h12l2-6H7M7 18a2 2 0 104 0M14 18a2 2 0 104 0',harbors:'M4 16h16M6 16V8h4v8M14 16v-5h4v5',ferries:'M3 15h14l2 3H5zM8 15V9h6v6',sky:'M3 14l8-6 8 6M8 14v4M14 14v4',tailwinds:'M4 16c3-6 6-6 8 0M12 16c2-5 4-5 6 0',season:'M12 4v16M4 12h16M6 6l12 12M18 6L6 18',echo:'M6 14a6 6 0 0112 0M9 14a3 3 0 016 0',soft:'M6 14c2-4 4-4 6 0s4 4 6 0',dim:'M5 16h14M8 12h8M10 8h4',borrowed:'M12 5v8M8 9l4-4 4 4M6 18h12',ports:'M4 17h16M8 17V8l4 3 4-3v9',greyskies:'M6 16h12M8 12h8M7 8c2-2 8-2 10 0',still:'M4 14c2 2 4 2 6 0s4-2 6 0 4 2 4 0',memory:'M6 6h12v12H6zM9 10h6M9 14h4',maps:'M5 7l5-2 5 2 4-1v12l-4 1-5-2-5 2z',roots:'M12 4v8M12 12c-4 2-6 6-6 8M12 12c4 2 6 6 6 8',second:'M6 16c2-8 10-8 12 0M8 16h8',stones:'M6 16l3-8h6l3 8z',stories:'M6 5h10v14H6zM8 9h6M8 13h4',ember:'M12 18c4 0 6-3 4-7-2 2-4 1-4-3-3 3-6 5-6 8 0 2 2 2 6 2z',rhythm:'M4 14c2-4 4 4 6 0s4 4 6 0 4 4 4 0',wide:'M4 16l8-8 8 8M8 16v3M16 16v3',lasting:'M7 12l3 3 7-8'};
@@ -158,6 +166,7 @@ function selectUpgrade(id){
   document.querySelectorAll('#tree .node').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.upgrade===id)));
   const chosen=Outbreak.upgradeById(id),mode=upgradeState(chosen);
   $('treePreview').textContent=chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready to buy. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(req=>Outbreak.upgradeById(req).name).join(' and ')+'.':'');
+  showUpgradeForecast(chosen,mode);
   $('buyUpgrade').disabled=mode!=='ready';
   $('buyUpgrade').textContent=mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
 }

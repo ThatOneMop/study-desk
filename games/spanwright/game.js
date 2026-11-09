@@ -45,6 +45,13 @@
     try { localStorage.setItem(E.SAVE_KEY, E.encode({ meta: meta })); } catch (err) {}
   }
 
+  function saveDesign() {
+    if (!session) return;
+    if (session.level.sandbox) meta.sandbox = E.exportDesign(session);
+    else meta.drafts[session.level.id] = E.exportDesign(session);
+    saveMeta();
+  }
+
   function show(next) {
     screen = next;
     ['title', 'map', 'achievements', 'play'].forEach(id => { $(id).hidden = id !== next; });
@@ -209,7 +216,7 @@
     range.max = beam.mat === 'hydraulic' ? '1.5' : '1.4';
     range.step = '0.01';
     range.value = String(beam.scale || 1);
-    range.addEventListener('input', () => { E.setScale(session, beam.id, parseFloat(range.value)); setStatus(beam.mat === 'hydraulic' ? 'Piston set to ' + Math.round(beam.scale * 100) + '%.' : 'Coil set.'); });
+    range.addEventListener('input', () => { E.setScale(session, beam.id, parseFloat(range.value)); saveDesign(); setStatus(beam.mat === 'hydraulic' ? 'Piston set to ' + Math.round(beam.scale * 100) + '%.' : 'Coil set.'); });
     label.append(range);
     box.append(label);
     if (beam.mat === 'hydraulic') {
@@ -220,7 +227,7 @@
         const on = !!(beam.phaseOn && beam.phaseOn[phase.id]);
         btn.textContent = phase.label + (on ? ' · armed' : ' · quiet');
         btn.setAttribute('aria-pressed', String(on));
-        btn.addEventListener('click', () => { E.togglePhase(session, beam.id, phase.id); updateInspector(); audio.play('ui'); });
+        btn.addEventListener('click', () => { E.togglePhase(session, beam.id, phase.id); saveDesign(); updateInspector(); audio.play('ui'); });
         box.append(btn);
       });
     }
@@ -236,7 +243,7 @@
           const on = !!(splitItem.open && splitItem.open[phase.id]);
           btn.setAttribute('aria-pressed', String(on));
           btn.textContent = 'Hinge ' + n + ' · ' + (phase.label || phase.id) + (on ? ' · opens' : ' · holds');
-          btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); updateInspector(); });
+          btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); saveDesign(); updateInspector(); });
           box.append(btn);
         });
       });
@@ -288,18 +295,19 @@
     if (tool === 'erase') {
       const hit = E.deleteAt(session, x1, y1);
       setStatus(hit.ok ? 'Lifted out.' : hit.reason);
-      if (hit.ok) audio.play('delete');
+      if (hit.ok) { audio.play('delete'); saveDesign(); updateHud(); }
       return;
     }
     if (tool === 'split') {
       const hit = E.splitJoint(session, x1, y1);
       setStatus(hit.ok ? 'Hinge seated. Arm it on the phases where it should open.' : hit.reason);
-      if (hit.ok) { session.selected = null; audio.play('steel'); updateInspector(); }
+      if (hit.ok) { session.selected = null; audio.play('steel'); saveDesign(); updateHud(); }
       return;
     }
     if (tool === 'anchor') {
       const hit = E.addAnchor(session, x1, y1);
       setStatus(hit.ok ? 'Bolt seated.' : hit.reason);
+      if (hit.ok) { saveDesign(); updateHud(); }
       return;
     }
     const hit = E.placeBeam(session, tool, x0, y0, x1, y1, { sideA: side, sideB: side });
@@ -525,7 +533,7 @@
     $('pauseBtn').addEventListener('click', () => { $('pause').hidden = false; $('resumeBtn').focus(); });
     $('resumeBtn').addEventListener('click', () => { $('pause').hidden = true; $('scene').focus(); });
     $('retryBtn').addEventListener('click', () => { if (session.sim) E.rebuild(session); $('pause').hidden = true; updateHud(); });
-    $('quitBtn').addEventListener('click', () => { closeVeils(); if (session && !session.level.sandbox) { meta.drafts[session.level.id] = E.exportDesign(session); saveMeta(); } show('map'); });
+    $('quitBtn').addEventListener('click', () => { closeVeils(); if (session && !session.sim) saveDesign(); show('map'); });
     $('pauseSettings').addEventListener('click', openSettings);
     $('settingsClose').addEventListener('click', () => { $('settings').hidden = true; });
     $('infoBtn').addEventListener('click', () => {
@@ -552,8 +560,8 @@
       setStatus('The crossing is in motion.');
       tutorialProgress('play');
     });
-    $('undoBtn').addEventListener('click', () => { if (session && E.undo(session)) { audio.play('ui'); updateHud(); } });
-    $('redoBtn').addEventListener('click', () => { if (session && E.redo(session)) { audio.play('ui'); updateHud(); } });
+    $('undoBtn').addEventListener('click', () => { if (session && E.undo(session)) { audio.play('ui'); saveDesign(); updateHud(); } });
+    $('redoBtn').addEventListener('click', () => { if (session && E.redo(session)) { audio.play('ui'); saveDesign(); updateHud(); } });
     $('cancelBtn').addEventListener('click', () => { anchor = null; ghost = null; setStatus('Member cancelled.'); audio.play('ui'); });
     $('stressBtn').addEventListener('click', () => {
       const on = $('stressBtn').getAttribute('aria-pressed') !== 'true';
@@ -631,8 +639,12 @@
       if (mat) { tool = mat.id; buildTools(); return; }
       if (ev.key === 'h' || ev.key === 'H') { tool = 'split'; buildTools(); }
       if (ev.key === 'x' || ev.key === 'X') { tool = 'erase'; buildTools(); }
-      if (ev.key === 'z' && !ev.metaKey && !ev.ctrlKey) { E.undo(session); updateHud(); }
-      if (ev.key === 'Z' && ev.shiftKey) E.redo(session);
+      if (ev.key.toLowerCase() === 'z' || ev.key.toLowerCase() === 'y') {
+        ev.preventDefault();
+        if ((ev.key.toLowerCase() === 'y' || ev.shiftKey) ? E.redo(session) : E.undo(session)) { saveDesign(); updateHud(); }
+        return;
+      }
+      if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
       if (ev.key === ' ') { ev.preventDefault(); $('playBtn').click(); }
       if (ev.key === 't' || ev.key === 'T') $('stressBtn').click();
       if (ev.key === 'r' || ev.key === 'R') { if (session.sim) E.rebuild(session); }

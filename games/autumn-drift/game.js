@@ -102,9 +102,25 @@ function selectLeaf(key){
  }
  keyboardLeaf=current.id;pointer={x:current.x,y:current.y};announceLeaf();
 }
+// Match pointer sweeping for players using a keyboard: successive pushes still
+// obey leaf weight, friction, the rake unlock, and rooted-leaf restrictions.
+function sweepSelected(){
+ if(!running||completed)return false;
+ if(mode==='hand'||save.ranks[2]<5){toast('Equip a garden rake (tool rank 5) to sweep.');return false}
+ selectLeaf();const l=leaves.find(item=>item.id===keyboardLeaf);
+ if(!l)return false;
+ if(l.rooted){toast('This leaf is rooted. Pick it with Enter first.');announceLeaf();return false}
+ const s=stats();if(clock-lastPick<s.cooldown)return false;
+ const b=bin(),dx=b.x-l.x,dy=b.y-l.y,d=Math.hypot(dx,dy)||1;
+ const mobility=1/(1+Math.max(0,l.max/s.power-1)*.7),speed=Math.min(720,d*3.2)*mobility;
+ l.vx=dx/d*speed;l.vy=dy/d*speed;lastPick=clock;dirtySave=true;rustle();
+ $('leafStatus').textContent='Sweeping leaf '+(l.id+1)+' toward the basket. Press B again for another push.';
+ return true;
+}
 canvas.addEventListener('focus',()=>{if(running)selectLeaf()});
 canvas.addEventListener('keydown',e=>{
  if(!running||e.ctrlKey||e.altKey||e.metaKey||e.isComposing)return;
+ if(e.key.toLowerCase()==='b'){e.preventDefault();if(!e.repeat)sweepSelected();return}
  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key)){e.preventDefault();selectLeaf(e.key);return}
  if(e.key==='Enter'||e.code==='Space'||e.key===' '){
   e.preventDefault();if(e.repeat)return;

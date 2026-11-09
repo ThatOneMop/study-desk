@@ -1,6 +1,10 @@
-# Study Desk — 16 games
+# Study Desk — 21 games
 
-The catalogue was trimmed on 2 November 2026 to 14 bundled games: Gummy Bay, Autumn Drift, Little Lake, Lost & Found, Lost & Found on the Moon, Tiny Wilds, Forge Arena, Roof Runner, Ashwake, Winterfold, Spanwright, Creekhold, Lanewright and Harvest Protocol. Every other game, its tests and its credits were removed; they remain in git history before that date.
+The current catalogue contains 21 bundled games. The 10 November 2026 update improves all 19 existing games and adds Prism Post and Orbit Orchard. The earlier catalogue trim and retired games remain in git history.
+
+## Collection update — 10 November 2026
+
+All 19 existing games received targeted control, save, navigation or planning improvements. Prism Post adds eight mirror-routing puzzles with undo, hints and saved delivery stamps. Orbit Orchard adds three arcade harvest seasons with touch/keyboard orbit controls and saved best scores. See [the update report](docs/collection-2026-11-10.md) for per-game changes and verification limits.
 
 ## Upload to GitHub Pages
 
@@ -16,7 +20,7 @@ Study opens first. Create, edit and delete cards and decks in Create cards. Flip
 
 Monday pick chooses one bundled game for the calendar week, starting each Monday, inside the game collection after it is unlocked. The study page does not show it. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves lists each key that will change, replaces only those keys after confirmation, then reloads. Identical keys are left alone. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
 
-The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, six freshly improved games, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
+The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, recently added and improved games, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
 
 ## Games lock
 
@@ -28,7 +32,7 @@ Press P three times within one second, to move between study and games. The firs
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 16 catalogue games are bundled and include the Study Desk bridge.
+All 21 catalogue games are bundled and include the Study Desk bridge.
 
 ## Arcade
 

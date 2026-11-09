@@ -16,7 +16,18 @@ function act(s,a){if(!a)return null;if(s.won){if(a.type!=='retry')return null;re
  else if(a.type==='retry'){n.pos=2;n.air=maxAir(n);n.cargo=[];n.usedAir=[];}
  else return null;return n;
 }
+// Least-air route to the bell with the current load. Pockets are deliberately
+// excluded: this is a conservative direct-return budget, not a rescue promise.
+function returnRoute(s){
+ const dist=Array(35).fill(Infinity),paths=Array(35),done=new Set(),rocks=layouts[s.level].rocks;
+ dist[s.pos]=0;paths[s.pos]=[];
+ while(done.size<35){let p=-1;for(let i=0;i<35;i++)if(!done.has(i)&&Number.isFinite(dist[i])&&(p<0||dist[i]<dist[p]))p=i;
+  if(p<0)break;if(p===2)return {air:dist[p],path:paths[p],safe:s.air>=dist[p]};done.add(p);
+  for(const [dir,d]of Object.entries(DIRS)){const n=p+d;if(n<0||n>=35||!adjacent(p,n)||rocks.includes(n))continue;const air=dist[p]+cost(s,dir);if(air<dist[n]){dist[n]=air;paths[n]=[...paths[p],{pos:n,dir}]}}
+ }
+ return null;
+}
 function decode(raw){const s=JSON.parse(raw),int=(v,a,b)=>Number.isSafeInteger(v)&&v>=a&&v<=b,unique=(v,a,b)=>Array.isArray(v)&&new Set(v).size===v.length&&v.every(x=>int(x,a,b));
  if(s?.v===1){s.v=2;s.charter=-1;s.badges=[]}
  if(!s||s.v!==2||!int(s.charter,-1,1)||!unique(s.badges,0,5)||!int(s.level,0,2)||!int(s.pos,0,34)||layouts[s.level].rocks.includes(s.pos)||!int(s.tank,0,2)||!int(s.fins,0,1)||!int(s.air,1,maxAir(s))||!int(s.coins,0,1000000)||!int(s.expeditions,0,1000000)||!int(s.dives,0,1000000)||!int(s.rescues,0,1000000)||!unique(s.cargo,0,4)||!unique(s.banked,0,4)||s.cargo.some(i=>s.banked.includes(i))||weight(s)>4||!unique(s.usedAir,0,34)||s.usedAir.some(p=>!layouts[s.level].air.includes(p))||!Array.isArray(s.records)||s.records.length!==3||s.records.some((x,i)=>typeof x!=='boolean'||x&&i>0&&!s.records[i-1]||i>s.level&&x)||s.level>0&&!s.records[s.level-1]||s.records[s.level]!==s.banked.includes(4)||s.won!==s.records.every(Boolean)||s.pos===2&&(s.cargo.length||s.air!==maxAir(s)||s.usedAir.length))throw Error('Invalid dive save');return JSON.parse(JSON.stringify(s));}
-return{KEY,DIRS,NAMES,layouts,requests,charterName,create,maxAir,weight,cost,adjacent,act,decode};});
+return{KEY,DIRS,NAMES,layouts,requests,charterName,create,maxAir,weight,cost,adjacent,act,returnRoute,decode};});

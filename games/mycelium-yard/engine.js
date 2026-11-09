@@ -69,4 +69,5 @@ function decode(raw){
  if(!Array.isArray(s.badges)||s.badges.length!==6||s.badges.some(x=>typeof x!=='boolean')||!o||!int(o.buyer,-1,5)||o.buyer>=0&&Math.floor(o.buyer/2)!==s.level||!int(o.stage,0,2)||typeof o.locked!=='boolean'||!Array.isArray(o.delivered)||o.delivered.length!==3||o.delivered.some((v,i)=>!int(v,0,o.buyer<0||o.stage===2?0:BUYERS[o.buyer].baskets[o.stage][i]))||o.buyer<0&&(o.stage||o.locked)||!o.locked&&(o.stage||o.delivered.some(Boolean))||o.stage===2&&!s.badges[o.buyer])throw Error('Invalid buyer save');
  return JSON.parse(JSON.stringify(s));
 }
-return{KEY,CROPS,WEATHER,GOALS,BUYERS,create,act,decode};});
+function forecast(s){if(s.ended)return [];const next=act(s,{type:'night'});return s.beds.map((b,i)=>{const n=next.beds[i];if(b.kind<0)return 'Empty';if(n.kind<0)return b.rot+(b.water+WEATHER[s.day]>3?1:0)>=2?'Lost to rot':'Spoils tonight';const messages=[];if(n.rot>b.rot)messages.push('Gains rot');if(n.growth>b.growth)messages.push(n.growth===CROPS[n.kind].time?'Ready tomorrow':'Grows to '+n.growth+'/'+CROPS[n.kind].time);else if(b.growth<CROPS[b.kind].time)messages.push('Too dry to grow');else messages.push('Ripe '+n.ripe+'/3 evenings');messages.push('Water '+n.water);return messages.join(' · ')})}
+return{KEY,CROPS,WEATHER,GOALS,BUYERS,create,act,decode,forecast};});

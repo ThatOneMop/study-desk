@@ -347,7 +347,7 @@ function layoutStore(){
  const byId=id=>games.find(game=>game.id===id);
  fillShelf($('continuePlaying'),$('continueRow'),hub.recent.map(byId).filter(Boolean).slice(0,12),'Continue playing');
  fillShelf($('trendingRow'),$('trendingCards'),Object.entries(hub.plays).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(([id])=>byId(id)).filter(Boolean).slice(0,12),'Trending');
- fillShelf($('newRow'),$('newCards'),['outbreak-atlas','harvest-protocol','creekhold','ashwake','autumn-drift','little-lake'].map(byId).filter(Boolean),'Recently improved');
+ fillShelf($('newRow'),$('newCards'),games.filter(g=>g.updated).sort((a,b)=>String(b.added||'').localeCompare(String(a.added||''))||b.updated.localeCompare(a.updated)||a.title.localeCompare(b.title)).slice(0,8),'Recently improved');
  fillShelf($('arcadeShelf'),$('arcadeRow'),games.filter(g=>g.group==='Arcade'),'Arcade:');
  fillShelf($('favouriteShelf'),$('favouriteRow'),hub.favourites.map(byId).filter(Boolean).slice(0,12),'Favourite');
  const opened=Object.values(hub.plays).reduce((sum,n)=>sum+n,0);

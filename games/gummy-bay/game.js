@@ -102,7 +102,7 @@ import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=137';
 import {CITY_SHELLS} from './city-shells.mjs?v=133';
 import {createStaticBatcher} from './static-batch.mjs?v=139';
 import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
-import {stationReadiness} from './station-readiness.mjs?v=28';
+import {stationReadiness} from './station-readiness.mjs?v=swarm1';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
 import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=134';
@@ -1905,7 +1905,7 @@ const readinessLabel=new THREE.Sprite(new THREE.SpriteMaterial({map:readinessTex
 readinessLabel.scale.set(3.2,3.2/6,1);readinessLabel.visible=false;scene.add(readinessLabel);
 let readinessKey='';
 const readinessUI=updateUI;updateUI=function(){
- readinessUI();refreshCrewPanel();refreshCustomerPanel();refreshApproachPanel();const info=near&&(near.type==='staffboard'?{text:s.helpers.crafter?'Gummy maker · '+workerStatus('crafter'):'Workshop roster · assignments and status',ready:true}:stationReadiness(near.type,s));
+ readinessUI();refreshCrewPanel();refreshCustomerPanel();refreshApproachPanel();const info=near&&(near.type==='staffboard'?{text:s.helpers.crafter?'Gummy maker · '+workerStatus('crafter'):'Workshop roster · assignments and status',ready:true}:stationReadiness(near.type,s,near.i));
  readinessLabel.visible=!!(active&&!panel&&!work&&!stationTask&&info);
  if(!readinessLabel.visible)return;
  readinessLabel.position.set(near.x,2.25,near.z);

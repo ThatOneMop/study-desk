@@ -71,6 +71,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e0b15a; outline-offs
   display: flex; flex-direction: column; gap: 6px; padding: 6px; border-radius: 12px;
 }
 #hands button { width: 42px; height: 42px; border-radius: 8px; background: #f7f4ee; font-size: 16px; }
+#hands #undoBtn, #hands #redoBtn { width: 64px; font-size: 12px; }
+#hands button:disabled { opacity: 0.45; cursor: default; }
 #hands button[aria-pressed="true"] { background: var(--blue); color: white; }
 
 #dock {

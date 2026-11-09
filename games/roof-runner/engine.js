@@ -24,6 +24,7 @@
   const c=l.checkpoint;if(!s.checkpoint&&s.ground&&Math.abs(s.x-c[0])<45&&Math.abs(s.y+30-c[1])<3){s.checkpoint=true;s.message='Mid-route flag reached. Falls now return here.'}
   if(s.y>550||l.vents.some(v=>ventActive(s,v)&&s.x+18>v[0]-16&&s.x<v[0]+16&&s.y+30>v[1]-57&&s.y<v[1]))return fail(o);
   if(input.deliver)deliver(o);return true}
+ function recall(o){if(o.run.status!=='active'||o.run.falls>=7)return false;fail(o);o.run.message='Recalled to the flag. Parcels kept; '+(8-o.run.falls)+' recoveries remain.';return true}
  function retry(o){o.run=fresh(o.run.index);return true}
  function next(o,index){if(!['complete','lost'].includes(o.run.status)||!int(index,0,4)||index>0&&!o.profile.best[index-1])return false;o.run=fresh(index);return true}
  function valid(o){try{const s=o.run,p=o.profile;if(o.version!==1||!s||!p||!int(s.index,0,4)||!['ready','active','lost','complete'].includes(s.status)||!num(s.x,0,levels[s.index].width-20)||!num(s.y,-200,551)||!num(s.vx,-600,600)||!num(s.vy,-500,700)||!int(s.dash,0,10)||!int(s.ticks,0,216000)||!int(s.falls,0,8)||!int(s.stars,0,3)||![-1,1].includes(s.facing)||typeof s.message!=='string'||s.message.length>500)return false;
@@ -34,5 +35,5 @@
  function encode(o){return JSON.stringify(o)}function decode(raw){try{if(typeof raw!=='string'||raw.length>10000)return null;const o=JSON.parse(raw);if(!valid(o))return null;o.run.coyote??=o.run.ground?6:0;o.run.buffer??=0;return o}catch{return null}}
  // Side roofs sit within the baseline jump's 96px rise. No upgrade is required.
  for(const l of levels)for(const p of l.platforms.filter(p=>p[1]<300)){const below=l.platforms.find(q=>q!==p&&p[0]>=q[0]&&p[0]+p[2]<=q[0]+q[2]);if(below){const delta=below[1]-80-p[1];p[1]+=delta;for(const parcel of l.parcels)if(parcel[0]>=p[0]&&parcel[0]<=p[0]+p[2]&&parcel[1]<p[1])parcel[1]+=delta}}
- return{levels,clone,fresh,create,step,ventActive,nearGoal,deliver,retry,next,valid,encode,decode};
+ return{levels,clone,fresh,create,step,ventActive,nearGoal,deliver,recall,retry,next,valid,encode,decode};
 });

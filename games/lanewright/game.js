@@ -202,6 +202,8 @@
 
   function refreshHud() {
     if (!run) return;
+    $('undoBtn').disabled = !run.undo.length;
+    $('redoBtn').disabled = !run.redo.length;
     const cal = E.calendar(run);
     $('cityName').textContent = run.city.name;
     $('when').textContent = cal.day + ' · Week ' + cal.week;
@@ -598,8 +600,12 @@
       speed = speed === 0 ? 1 : 0;
       return;
     }
-    if (key === 'z' && !e.shiftKey) { if (E.undo(run)) { save(); setStatus(''); } return; }
-    if (key === 'y' || (key === 'z' && e.shiftKey)) { if (E.redo(run)) save(); return; }
+    if (key === 'z' || key === 'y') {
+      e.preventDefault();
+      changeHistory(key === 'y' || e.shiftKey);
+      return;
+    }
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (key === 'x') { hand = hand === 'erase' ? 'draw' : 'erase'; refreshTools(); return; }
     if (key === 'd') { hand = 'draw'; refreshTools(); return; }
     if (key === 'm') { hand = 'pan'; refreshTools(); return; }
@@ -639,7 +645,17 @@
   for (const n of [0, 1, 2, 3]) {
     $('speed' + n).addEventListener('click', () => { speed = n; audio.resume(); });
   }
-  $('undoBtn').addEventListener('click', () => { if (run && E.undo(run)) { save(); setStatus(''); } });
+  function changeHistory(redo) {
+    if (!run || anyDialog() || $('play').hidden) return;
+    drawChain = null;
+    preview = null;
+    if (!(redo ? E.redo(run) : E.undo(run))) return;
+    save();
+    setStatus(redo ? 'Road edit restored.' : 'Road edit undone.');
+    refreshHud();
+  }
+  $('undoBtn').addEventListener('click', () => changeHistory(false));
+  $('redoBtn').addEventListener('click', () => changeHistory(true));
   $('fitBtn').addEventListener('click', () => fit(true));
   $('pauseBtn').addEventListener('click', () => { if (run) show('pause'); });
   $('resumeBtn').addEventListener('click', () => hide('pause'));

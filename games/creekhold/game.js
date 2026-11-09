@@ -36,6 +36,7 @@
   let pointers = new Map();
   let pinch = null;
   let moved = 0;
+  let multiGesture = false;
   let particles = [];
   let audioOn = false;
   let hudAt = 0;
@@ -660,10 +661,10 @@
   function onPointerDown(ev) {
     canvas.setPointerCapture(ev.pointerId);
     pointers.set(ev.pointerId, localPoint(ev));
-    moved = 0;
+    if (pointers.size === 1) { moved = 0; multiGesture = false; }
     painting = null;
     if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
-    if (ev.button === 0 && run && tool && PAINT[tool]) {
+    if (pointers.size === 1 && ev.button === 0 && run && tool && PAINT[tool]) {
       if (ev.pointerType === 'mouse') {
         painting = { done: {}, count: 0 };
         paintAt(localPoint(ev));
@@ -677,6 +678,9 @@
       }
     }
     if (pointers.size === 2) {
+      multiGesture = true;
+      painting = null;
+      if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
       const pts = Array.from(pointers.values());
       pinch = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), zoom: cam.zoom };
     }
@@ -717,7 +721,7 @@
   function onPointerUp(ev) {
     if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; }
     if (painting) { pointers.delete(ev.pointerId); painting = null; return; }
-    const wasTap = moved < 8 && pointers.size <= 1;
+    const wasTap = ev.type !== 'pointercancel' && !multiGesture && moved < 8 && pointers.size <= 1;
     pointers.delete(ev.pointerId);
     if (pointers.size < 2) pinch = null;
     if (wasTap && run) {

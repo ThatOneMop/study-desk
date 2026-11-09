@@ -29,7 +29,8 @@ assert.match($('continueRow').querySelector('button').getAttribute('aria-label')
 assert.equal($('trendingRow').hidden,false);
 assert.match($('trendingCards').textContent,/Little Lake/);
 assert.equal($('newRow').hidden,false);
-assert.match($('newCards').querySelector('.capsule-title').textContent,/Harvest Protocol/);
+const fresh=w.GAME_CATALOG.filter(g=>g.updated).sort((a,b)=>String(b.added||'').localeCompare(String(a.added||''))||b.updated.localeCompare(a.updated)||a.title.localeCompare(b.title)).slice(0,8);
+assert.deepEqual([...$('newCards').querySelectorAll('.capsule-title')].map(n=>n.textContent),Array.from(fresh,g=>g.title));
 assert.equal($('favouriteShelf').hidden,false);
 assert.match($('favouriteRow').textContent,/Autumn Drift/);
 assert.equal($('favouriteRow').querySelector('.game'),null);

@@ -283,6 +283,7 @@ function sync(){
   setText('runEmbers',run.embers+' embers');
   setText('rank','Light '+p.level);
   setText('relics',run.weapons.map(w=>A.WEAPONS[w.id].name+' '+w.level).join(' · '));
+  const bell=run.enemies.find(e=>!e.dead&&(e.kind==='warden'||e.kind==='hollow'));$('bellWatch').hidden=!bell;if(bell){setText('bellName',(bell.kind==='warden'?'Bell Warden':'Hollow Bell')+' · '+Math.ceil(100*Math.max(0,bell.hp)/bell.max)+'%');$('bellFill').style.width=(100*Math.max(0,bell.hp)/bell.max)+'%';const dx=bell.x-p.x,dy=bell.y-p.y,dirs=['E','SE','S','SW','W','NW','N','NE'],dir=dirs[(Math.round(Math.atan2(dy,dx)/(Math.PI/4))+8)%8];setText('bellBearing',dir+' · '+Math.round(Math.hypot(dx,dy))+' paces from your lantern');}
   const tip=coach();$('coach').hidden=!tip;setText('coach',tip);
   const banner=run.banner&&run.banner.life>0?run.banner.text:'';$('banner').hidden=!banner;setText('banner',banner);
   const key=phase==='level'&&run.draft?run.draft.map(c=>c.kind+c.id+c.level).join('|'):'';

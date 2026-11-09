@@ -237,6 +237,19 @@
     lines.push('Outlook, not a promise.');
     return { lines: lines.slice(0, 6), closed };
   }
+  // Compare one seeded month with and without a purchase, without changing saves.
+  function upgradePreview(state,id,selected) {
+    const purchase=buy(state,id);
+    if(!purchase.ok)return null;
+    const before=step(state),after=step(purchase.state);
+    const total=s=>LANDS.reduce((n,land)=>n+s.lands[land.id].mark,0)/LANDS.length;
+    return {
+      spread:(total(after)-total(before))*100,
+      awareness:(after.talk-before.talk)*100,
+      pressure:(after.effort-before.effort)*100,
+      selected:after.lands[selected]?(after.lands[selected].mark-before.lands[selected].mark)*100:0
+    };
+  }
   function reachable(state) {
     const seen = { hearthlow: true };
     let moved = true;
@@ -269,5 +282,5 @@
     });
     return next;
   }
-  return { LANDS, LINKS, UPGRADES, SCENARIOS, ARCHETYPES, PRESSURES, create, step, buy, forecast, reachable, restore, linkOpen, establishedCount, landById, upgradeById };
+  return { LANDS, LINKS, UPGRADES, SCENARIOS, ARCHETYPES, PRESSURES, create, step, buy, forecast, upgradePreview, reachable, restore, linkOpen, establishedCount, landById, upgradeById };
 });
