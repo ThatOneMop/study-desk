@@ -237,6 +237,15 @@
     lines.push('Outlook, not a promise.');
     return { lines: lines.slice(0, 6), closed };
   }
+  function compareUpgrade(state, id) {
+    const purchase = buy(state, id);
+    if (!purchase.ok) return '';
+    const before = step(state), after = step(purchase.state);
+    const total = s => LANDS.reduce((sum, land) => sum + s.lands[land.id].mark, 0);
+    const diff = n => (n >= 0 ? '+' : '') + (n * 100).toFixed(1);
+    const routes = reachable(purchase.state).length - reachable(state).length;
+    return 'Next-month comparison: total spread ' + diff(total(after) - total(before)) + ' percentage points across the atlas; awareness ' + diff(after.talk - before.talk) + '; cure pressure ' + diff(after.effort - before.effort) + '.' + (routes ? ' Opens routes to ' + routes + ' more lands.' : '') + ' Preview uses the current seeded story.';
+  }
   function reachable(state) {
     const seen = { hearthlow: true };
     let moved = true;
@@ -269,5 +278,5 @@
     });
     return next;
   }
-  return { LANDS, LINKS, UPGRADES, SCENARIOS, ARCHETYPES, PRESSURES, create, step, buy, forecast, reachable, restore, linkOpen, establishedCount, landById, upgradeById };
+  return { LANDS, LINKS, UPGRADES, SCENARIOS, ARCHETYPES, PRESSURES, create, step, buy, forecast, compareUpgrade, reachable, restore, linkOpen, establishedCount, landById, upgradeById };
 });

@@ -1,4 +1,4 @@
-# Study Desk — 32 games
+# Study Desk — 34 games
 
 A flashcard workspace and a bundled browser-game collection. The catalogue now includes 19 improved existing games, eight new original variants and five games preserved from the concurrent Sites release added on 10 November 2026.
 
@@ -28,7 +28,7 @@ Press P three times within one second, to move between study and games. The firs
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 32 catalogue games are bundled and include the Study Desk bridge.
+All 34 catalogue games are bundled and include the Study Desk bridge.
 
 ## Arcade
 
@@ -70,3 +70,11 @@ Gummy Bay continues to fill the small-town management role, and Packworks covers
 All 19 existing games received targeted gameplay or usability changes. The release checks cover local routes/assets, catalogue parity, credits, shell launch/pause/switching, and deterministic game regressions. Rendered browser QA was unavailable in the managed Sites environment because its required browser tool was not exposed.
 
 The concurrent Sites release is retained too: Orbital Drop, Lanebound, Chaos Court, generated Pocket Golf and Corebreaker. The independently built extraction game is named Orbital Surveyor; the nine-hole course is Pocket Golf · Nine Greens. Their live routes and save keys remain separate.
+
+## Collection polish — 10 November 2026
+
+Six agents improved all 32 existing games and added two original games, bringing the collection to 34. Loadline offers six budget-constrained bridge delivery challenges with material choice, support braces and buckling. Deep Shift adds a mining expedition loop with oxygen, banked ore and permanent rig upgrades. Both are locally bundled and require no external game service.
+
+The sci-fi extraction games now offer tactical shockwaves and relay supplies; lane games have siege waves; random sports have new moves, rally records and defensive improvements; golf has more precise aiming. Factory, management, exploration and cosy games received targeted usability and gameplay refinements. Winterfold now preserves passengers riding lifts across saves and repairs older exports that discarded passenger manifests. Existing save keys remain in use.
+
+See `docs/collection-polish-2026-11-10.md` for each game's changes and validation limits. Run `node tests/swarm-polish.cjs` with jsdom 26 available via `NODE_PATH` for the collection and new regressions. No test packages are needed to host the site. Rendered browser QA was unavailable in this managed environment; deterministic engine/DOM tests do not establish visual quality or physical-device support.

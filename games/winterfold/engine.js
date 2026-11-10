@@ -1134,7 +1134,7 @@
     return {
       version: 1, mountainId: run.mountainId, mode: run.mode, phase: run.phase, day: run.day,
       clock: run.clock, speed: 0, score: run.score, money: run.money || 0, completed: run.completed,
-      pois: run.pois, pistes: run.pistes, lifts: run.lifts.map(l => ({ ...l, queue: [], riders: [] })),
+      pois: run.pois, pistes: run.pistes, lifts: run.lifts.map(l => ({ ...l, queue: l.queue.slice(), riders: l.riders.map(r => ({ ...r })) })),
       cannons: run.cannons, joints: run.joints, cleared: run.cleared, resources: run.resources,
       nextId: run.nextId, rerolls: run.rerolls, weekMark: run.weekMark, cards: run.cards,
       schedule: run.schedule, spawnIndex: run.spawnIndex, sandbox: run.sandbox, reason: run.reason,
@@ -1149,6 +1149,16 @@
       lifts: (data.lifts || []).map(l => ({ queue: [], riders: [], ...l })),
       pistes: (data.pistes || []).map(p => ({ riders: 0, ...p }))
     };
+    // Older exports discarded lift manifests while keeping skiers aboard. Rebuild
+    // them from skier state; retain saved trip progress when a manifest exists.
+    for (const l of run.lifts) {
+      const aboard = run.skiers.filter(s => s.state === 'ride' && s.edge === l.id);
+      l.riders = aboard.map(s => {
+        const saved = l.riders.find(r => r.id === s.id);
+        return { id: s.id, t: saved && Number.isFinite(saved.t) ? Math.max(0, Math.min(0.999, saved.t)) : 0 };
+      });
+      l.queue = run.skiers.filter(s => s.state === 'queue' && s.edge === l.id).map(s => s.id);
+    }
     if (run.phase === 'play') run.speed = 0;
     if (typeof run.money !== 'number') run.money = run.score || 0;
     return run;

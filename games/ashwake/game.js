@@ -97,6 +97,7 @@ function takeEvents(list){
   else if(e.type==='hurt'){flash=0.28;if(!reduced)shake=Math.min(18,shake+11);audio.play('hurt');}
   else if(e.type==='shot')audio.play('shot');
   else if(e.type==='gem')audio.play('gem');
+  else if(e.type==='mend'){burst(e.x,e.y,'#b5f5bd',12,90);floatText(e.x,e.y-18,'+'+Math.round(e.n)+' wick','#b5f5bd');audio.play('gem');}
   else if(e.type==='ember'){audio.play('gem');floatText(e.x,e.y,'ember','#ffd27a');}
   else if(e.type==='level'){if(!reduced)shake=Math.min(14,shake+5);audio.play('level');}
   else if(e.type==='boss'||e.type==='bossdead'){if(!reduced)shake=16;audio.play('boss');}

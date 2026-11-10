@@ -12,3 +12,5 @@ Original, dependency-free, solo 2D lane tactics game. Three lanes have allied/en
 Win counter: `lanebound.wins.v1`. Storage failure does not block play. Includes the Study Desk bridge. This is a compact solo browser interpretation of lane combat, not a full Dota clone, online multiplayer or long-form campaign. Audio is not implemented.
 
 Validation from repository root: `node --test tests/lanebound-engine.cjs`; shared bridge/DOM smoke: `NODE_PATH=<jsdom modules> node tests/orbital-shell.cjs`. A simulated lane-push strategy was verified to win; this is mechanical validation, not a claim of broad human playtesting.
+
+Every third wave sends a cannon down each lane for both teams. The larger, gold-ringed unit moves slowly and deals double damage to towers and cores: escort your siege wave and intercept the enemy’s.

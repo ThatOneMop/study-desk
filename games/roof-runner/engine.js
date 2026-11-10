@@ -11,6 +11,7 @@
  function fresh(index){return{index,status:'ready',x:50,y:370,vx:0,vy:0,ground:true,airDash:true,dash:0,coyote:6,buffer:0,facing:1,ticks:0,falls:0,parcels:[false,false,false],checkpoint:false,jumpHeld:false,dashHeld:false,stars:0,message:'Ready at the flag. Move to begin. E or Deliver posts the letter.'}}
  function create(){return{version:1,profile:{best:[0,0,0,0,0],times:[null,null,null,null,null]},run:fresh(0)}}
  function ventActive(s,v){return(s.ticks+v[2])%210<90}
+ function ventWarning(s,v){return(s.ticks+v[2])%210>=180}
  function nearGoal(s){const g=levels[s.index].goal;return Math.abs(s.x+10-g[0])<50&&Math.abs(s.y+30-g[1])<20&&s.ground}
  function fail(o){const s=o.run;s.falls++;s.vx=0;s.vy=0;s.dash=0;s.coyote=6;s.buffer=0;s.airDash=true;s.jumpHeld=false;s.dashHeld=false;if(s.falls>=8){s.status='lost';s.message='The letter bag needs repairs. Retry this route; earlier medals are safe.'}else{s.message='Back to the flag. Parcels kept; '+(8-s.falls)+' recoveries remain.'}const p=s.checkpoint?levels[s.index].checkpoint:[50,400];s.x=p[0];s.y=p[1]-30;s.ground=true;return true}
  function deliver(o){const s=o.run;if(s.status!=='active'&&s.status!=='ready'||!nearGoal(s))return false;s.status='complete';s.stars=1+(s.parcels.every(Boolean)?1:0)+(s.falls===0?1:0);o.profile.best[s.index]=Math.max(o.profile.best[s.index],s.stars);const time=Math.max(1,s.ticks);o.profile.times[s.index]=o.profile.times[s.index]===null?time:Math.min(time,o.profile.times[s.index]);s.message='Letter delivered! '+s.stars+' medals. Optional: all parcels and a fall-free route. Your best result is kept.';return true}
@@ -35,5 +36,5 @@
  function encode(o){return JSON.stringify(o)}function decode(raw){try{if(typeof raw!=='string'||raw.length>10000)return null;const o=JSON.parse(raw);if(!valid(o))return null;o.run.coyote??=o.run.ground?6:0;o.run.buffer??=0;return o}catch{return null}}
  // Side roofs sit within the baseline jump's 96px rise. No upgrade is required.
  for(const l of levels)for(const p of l.platforms.filter(p=>p[1]<300)){const below=l.platforms.find(q=>q!==p&&p[0]>=q[0]&&p[0]+p[2]<=q[0]+q[2]);if(below){const delta=below[1]-80-p[1];p[1]+=delta;for(const parcel of l.parcels)if(parcel[0]>=p[0]&&parcel[0]<=p[0]+p[2]&&parcel[1]<p[1])parcel[1]+=delta}}
- return{levels,clone,fresh,create,step,ventActive,nearGoal,deliver,recall,retry,next,valid,encode,decode};
+ return{levels,clone,fresh,create,step,ventActive,ventWarning,nearGoal,deliver,recall,retry,next,valid,encode,decode};
 });

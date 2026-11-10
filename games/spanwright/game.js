@@ -446,7 +446,7 @@
     const ok = session.sim.result === 'success';
     $('resultKicker').textContent = ok ? 'Across' : 'Not this time';
     $('resultTitle').textContent = ok ? session.level.name : 'The span gave way';
-    $('resultBody').textContent = E.reasonText(session.sim) + ' ' + money(g.spent) + ' of ' + money(g.budget) + (g.peak > 1 ? '. Something went past its limit.' : '. Peak load ' + Math.round(g.peak * 100) + '%.');
+    $('resultBody').textContent = E.reasonText(session.sim) + ' ' + money(g.spent) + ' of ' + money(g.budget) + (g.peak > 1 ? '. Something went past its limit.' : '. Peak load ' + Math.round(g.peak * 100) + '%.') + (ok ? '' : ' ' + E.failureAdvice(session));
     $('resultStars').textContent = stars(g.stars || 0);
     $('result').hidden = false;
     if (fresh.length) setStatus('Noted in the book: ' + fresh.map(id => E.ACHIEVEMENTS.find(a => a.id === id).name).join(', '));

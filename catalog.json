@@ -731,5 +731,61 @@
     "thumbnailAlt": "Corebreaker original cover illustration",
     "added": "2026-11-10",
     "updated": "2026-11-10"
+  },
+  {
+    "id": "loadline",
+    "title": "Loadline",
+    "genre": "Puzzle + Physics",
+    "icon": "🚚",
+    "color": "#dcad61",
+    "description": "Build budget bridges, brace weak spans and get six increasingly heavy deliveries safely across.",
+    "controls": "Tap segments to build · 1–5 tools · Arrows select · Enter builds · B brace · Space tests · Esc pauses",
+    "aliases": [
+      "bridge",
+      "engineering",
+      "physics",
+      "Real Civil Engineer",
+      "RCE",
+      "Poly Bridge"
+    ],
+    "url": "games/loadline/index.html",
+    "group": "Your games",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#loadline",
+    "thumbnail": "art/curated/loadline.svg",
+    "thumbnailAlt": "Original Loadline cover illustration",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
+  },
+  {
+    "id": "deep-shift",
+    "title": "Deep Shift",
+    "genre": "Mining + Roguelite",
+    "icon": "💎",
+    "color": "#5cbaa8",
+    "description": "Mine deeper for rare ore, manage oxygen and return your haul to upgrade the next expedition.",
+    "controls": "WASD / arrows move and drill · Space scans · E emergency lift · Esc pauses · Hold touch arrows",
+    "aliases": [
+      "mining",
+      "roguelite",
+      "Skoottie",
+      "CRACK",
+      "upgrades",
+      "digging"
+    ],
+    "url": "games/deep-shift/index.html",
+    "group": "Your games",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#deep-shift",
+    "thumbnail": "art/curated/deep-shift.svg",
+    "thumbnailAlt": "Original Deep Shift cover illustration",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
   }
 ]

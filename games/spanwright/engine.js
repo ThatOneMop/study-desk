@@ -1259,6 +1259,25 @@ function updateBoats(session) {
     }
   }
 
+  // Diagnose the first broken member in construction coordinates, even after physics moves it.
+  function failureAdvice(session) {
+    const sim = session.sim;
+    if (!sim || sim.result === 'success') return '';
+    const beam = session.beams.find(b => b.id === sim.firstBreak);
+    if (beam) {
+      let nodes = session.nodes;
+      try { if (session.backup) nodes = JSON.parse(session.backup).nodes || nodes; } catch (_) {}
+      const a = nodes.find(n => n.id === beam.a), b = nodes.find(n => n.id === beam.b);
+      const location = a && b ? ' near (' + ((a.x+b.x)/2).toFixed(1) + ', ' + ((a.y+b.y)/2).toFixed(1) + ')' : '';
+      return 'First break: ' + MATERIALS[beam.mat].name + location + '. Add a triangle to share that load, shorten the member, or try a stronger material.';
+    }
+    if (['ledger','under'].includes(sim.why)) return 'Trim redundant members or substitute cheaper materials, then test the crossing again.';
+    if (sim.why === 'tip') return 'Smooth road joints and brace the road deck to keep the wheels level.';
+    if (sim.why === 'miss') return 'Route the road through every required marker before reaching the flag.';
+    if (sim.why === 'time') return 'Check gaps and steep climbs that stop the vehicle before adding more supports.';
+    return 'Check that the road reaches the far bank and brace its unsupported joints with triangles.';
+  }
+
   function substep(session) {
     const sim = session.sim;
     if (sim.mode !== 'run') return;
@@ -1537,7 +1556,7 @@ function updateBoats(session) {
     splitJoint, toggleSplitPhase, setScale, togglePhase, markUndo, undo, redo,
     exportDesign, importDesign, setSandboxVehicle, addSandboxVehicle, setSandboxBoat, addAnchor,
     beginSim, tick, beginReplay, tickReplay, seekReplay, rebuild, setSpeed,
-    award, noteReplay, encode, decode, grade, reasonText, stressBand,
+    award, noteReplay, encode, decode, grade, reasonText, failureAdvice, stressBand,
     yardLevel, nodeById, beamById, splitFor, recompute
   };
 });

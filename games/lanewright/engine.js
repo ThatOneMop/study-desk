@@ -1314,7 +1314,7 @@ function stepCars(run, dt) {
     for (const d of run.buildings) {
       if (d.role !== 'dest' || d.color !== house.color) continue;
       const open = d.pins - d.claimed;
-      if (d.timer <= 0 && open < 0.45) continue;
+      if (open < 0.45) continue;
       const path = pathBetween(run, house, d);
       if (!path || path.length < 2) continue;
       options.push({ d: d, path: path, open: open });
@@ -1323,6 +1323,8 @@ function stepCars(run, dt) {
       const at = a.d.timer > 0 ? 1 : 0;
       const bt = b.d.timer > 0 ? 1 : 0;
       if (at !== bt) return bt - at;
+      // Among threatened destinations, serve the ring closest to filling first.
+      if (at && Math.abs(b.d.timer - a.d.timer) > 0.05) return b.d.timer - a.d.timer;
       if (Math.abs(b.d.pins - a.d.pins) > 0.2) return b.d.pins - a.d.pins;
       return a.path.length - b.path.length;
     });

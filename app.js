@@ -349,7 +349,7 @@ function layoutStore(){
  const byId=id=>games.find(game=>game.id===id);
  fillShelf($('continuePlaying'),$('continueRow'),hub.recent.map(byId).filter(Boolean).slice(0,12),'Continue playing');
  fillShelf($('trendingRow'),$('trendingCards'),Object.entries(hub.plays).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(([id])=>byId(id)).filter(Boolean).slice(0,12),'Trending');
- fillShelf($('newRow'),$('newCards'),games.filter(g=>g.added).sort((a,b)=>b.added.localeCompare(a.added)).slice(0,13),'New game:');
+ fillShelf($('newRow'),$('newCards'),games.filter(g=>g.added).sort((a,b)=>b.added.localeCompare(a.added)||a.title.localeCompare(b.title)),'New game:');
  fillShelf($('improvedRow'),$('improvedCards'),games.filter(g=>g.updated&&!g.added).sort((a,b)=>b.updated.localeCompare(a.updated)||a.title.localeCompare(b.title)).slice(0,19),'Improved game:');
  fillShelf($('arcadeShelf'),$('arcadeRow'),games.filter(g=>g.group==='Arcade'),'Arcade:');
  fillShelf($('favouriteShelf'),$('favouriteRow'),hub.favourites.map(byId).filter(Boolean).slice(0,12),'Favourite');

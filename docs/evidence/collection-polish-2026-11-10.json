@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-10",
+  "catalogueGames": 34,
+  "existingGamesImproved": 32,
+  "verification": "Node engine and jsdom DOM simulations; canvas stubbed; no rendered browser QA",
+  "suites": [
+    {
+      "suite": "tests/collection-expansion.cjs",
+      "exit": 0,
+      "seconds": 27.0,
+      "output": "PASS storefront: Gummy Bay carousel, continue, trending, new, favourites, tags, theme, sound, and random game.\nPASS: #games opens collection; 34 launch routes, pause/resume, PPP study return and #games hub return (no study-area games button). Does not execute game engines.\nPASS curation: exact active catalogue, dynamic counts, aliases/filters, retired preferences/saves preserved, background pause and manual pause retained.\nOrbital Surveyor: movement, shield regeneration, dodge protection, auto-aim damage/reward, core recovery, extraction, progression save and loss passed.\nLanefall: paired waves, movement, healing cooldown, protected bases, tower reward, gold purchases, hero respawn, victory save and 90-second simulation passed.\nImported Orbital Drop: movement, dash, upgrades, shields, relays, extraction, terminal freeze, dead-threat contact regression, pause and exactly-once save passed.\nLanebound: three-lane waves, hero variant, purchases, normal respawn, dead-level and dead-shop regressions, terminal freeze, pause and exactly-once victory save passed.\nCorebreaker: seam damage, purchases, all 60 sectors, twelve cores, record/save round-trip, malformed save rejection, pause and completion inhibition passed.\nChaos Court: all sports score and restart rallies; pause restores keyboard control; all five ball sizes score in both goals; crossbar, match result, saved completion and CPU smoke checks passed.\nPocket Golf generated: 900 deterministic valid holes, bounded settling, anti-double-strike, cup capture, keyboard aim, putt focus, nine-hole progression and saved-best checks passed.\nbasket: launch, scored physics, pause, five-point match, records and two-player controls passed\nvolley: launch, scored physics, pause, five-point match, records and two-player controls passed\nsoccer: launch, scored physics, pause, five-point match, records and two-player controls passed\ngolf: launch, shot counting, wind settling, pause, nine-hole capture/progression and best-record persistence passed\ngolf: saved round resumes at the rested ball with its stroke count\nPegworks: pause, physical peg hits, upgrades, record, restart and six-shift victories across 10 fixed perk seeds passed.\nDemolition Yard: five solvable contracts, support cascades, free empty clicks, pause, practice and records passed.\nRoof Runner: checkpoint recall, parcel retention, save round-trip and recovery limit passed\nAshwake: pause/resume, all non-play transitions, Escape repeat and lost-pointer input release passed\nForge Arena: blur pause, frozen update, repeat-key guard and cancelled fire passed\nHarvest Protocol: real programme pause/resume, completion, stop and reset cancellation passed\nOutbreak Atlas: overlay/focus pause and latest-save continuation passed\nPASS Numberworks: rejected edits preserve redo and held Space is stable\nPASS Numberworks: project cancellation confirms first and preserves factory/commissions\nPASS Winterfold: modal clock, cancelled/two-finger/lost-capture gestures, blur save/pause\nPASS Winterfold: unreadable saves survive temporary play and declined/failed wipes\nPASS Spanwright: construction undo/redo persist through reload and blur pauses\nPASS Spanwright: 30/60/120 Hz simulate the same elapsed time\nPASS Creekhold: modal and repeat shortcuts cannot alter simulation, blur pauses\nPASS Lanewright: held pause and Ctrl+Z behave safely, blur saves and pauses\nPASS Packworks: variant/search/duplicate filters, shelf-safe fusion and reveal reset\nPASS cozy collection: route planner, evening forecast, keyboard basket, cast-safe pause, discovery filter, matching haul quote and competing-save protection\nPASS collection expansion: 20 behavioural regression suites\n"
+    },
+    {
+      "suite": "tests/gameplay-upgrades.cjs",
+      "exit": 0,
+      "seconds": 1.1,
+      "output": "PASS gameplay upgrades: once-only Little Lake contract rewards and lures; Ashwake relic redraws including paused reload; Autumn Drift milestones and rank caps.\n"
+    },
+    {
+      "suite": "tests/action-polish.cjs",
+      "exit": 0,
+      "seconds": 0.8,
+      "output": "Action polish: shockwave damage/projectiles/cooldown/pause, relay supplies/XP/manual fire, elite healing/save, vent warning, frame-independent repair, farming wait/grammar passed.\n"
+    },
+    {
+      "suite": "tests/strategy-polish.cjs",
+      "exit": 0,
+      "seconds": 0.8,
+      "output": "Strategy polish: seeded upgrade previews, population-aware reserves, current and legacy lift saves, siege-wave cadence, claimed-pin dispatch passed.\n"
+    },
+    {
+      "suite": "tests/sports-polish.cjs",
+      "exit": 0,
+      "seconds": 0.7,
+      "output": "Sports polish: possession turnover, low kicks and spikes, alternating rally persistence, backboard rebound, and non-mutating physical golf prediction passed.\n"
+    },
+    {
+      "suite": "tests/cozy-polish.cjs",
+      "exit": 0,
+      "seconds": 0.9,
+      "output": "PASS cozy polish: journal lure/filter, stable dispatch radar, route step, batch harvest, selective meals and last-leaf locator.\n"
+    },
+    {
+      "suite": "tests/builder-polish.cjs",
+      "exit": 0,
+      "seconds": 1.1,
+      "output": "PASS builder polish: prediction, budget undo, tactical vent/cooldown, rare-card protections, bottleneck cycling, first-break diagnosis and order-aware production.\n"
+    },
+    {
+      "suite": "tests/new-games-polish.cjs",
+      "exit": 0,
+      "seconds": 0.1,
+      "output": "New games: six affordable bridge contracts, crossing/buckling/edit refunds; mining/drill hardness, gas, scan, full return, emergency lift, permanent upgrades, loss, save validation, and real generated-mine quota route passed.\n"
+    },
+    {
+      "suite": "tests/swarm-hub.cjs",
+      "exit": 0,
+      "seconds": 1.0,
+      "output": "PASS swarm hub: gated launch, metadata shelves, newest sort, local two-player filtering/search and preserved saves.\n"
+    },
+    {
+      "suite": "tests/arcade-disabled.cjs",
+      "exit": 0,
+      "seconds": 16.7,
+      "output": "PASS arcade disabled: 23 GameMonetize games absent from search, filters, random and play; no embed or cover request by default\n"
+    },
+    {
+      "suite": "tests/shell-picks-and-saves.cjs",
+      "exit": 0,
+      "seconds": 1.2,
+      "output": "PASS Monday pick and save vault: weekly boundary, bundled choice, exact export, separate card backup, rejection, cancel, rollback, and confirmed import\n"
+    },
+    {
+      "suite": "tests/study-import.cjs",
+      "exit": 0,
+      "seconds": 1.1,
+      "output": "PASS Study import: deck/file bounds, malformed metadata, all-or-nothing preparation, conflict warning, safe fields, mastery and legacy arrays\n"
+    },
+    {
+      "suite": "tests/study-storage.cjs",
+      "exit": 0,
+      "seconds": 1.8,
+      "output": "PASS Study storage: unreadable/invalid data preserved, grouped study writes blocked, preferences isolated, normal/empty saves retained, unavailable read/write warnings and exact raw export initiation\n"
+    }
+  ],
+  "additionalPassed": [
+    "tests/new-games-ui.cjs",
+    "python3 tests/assets.py (34 routes, 141 HTML references)",
+    "python3 tests/selected-indie.py",
+    "Changed/new JavaScript syntax and git diff --check"
+  ]
+}

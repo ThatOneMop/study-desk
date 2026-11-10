@@ -151,6 +151,7 @@ function renderTree(){
   const chosen=previewId&&Outbreak.upgradeById(previewId);
   const mode=chosen?upgradeState(chosen):'';
   $('treePreview').textContent=chosen?(chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(id=>Outbreak.upgradeById(id).name).join(' and ')+'.':'')):'Select an upgrade to see its cost and exact effect.';
+  if(chosen&&mode==='ready')$('treePreview').textContent+=' '+Outbreak.compareUpgrade(state,chosen.id);
   $('buyUpgrade').disabled=mode!=='ready';
   $('buyUpgrade').textContent=chosen&&mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
 }
@@ -163,6 +164,7 @@ function selectUpgrade(id){
   document.querySelectorAll('#tree .node').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.upgrade===id)));
   const chosen=Outbreak.upgradeById(id),mode=upgradeState(chosen);
   $('treePreview').textContent=chosen.name+' · '+(mode==='owned'?'Owned. ':mode==='locked'?'Locked. ':mode==='pricey'?'Not enough points. ':'Ready to buy. ')+chosen.text+(chosen.requires&&chosen.requires.length?' Requires '+chosen.requires.map(req=>Outbreak.upgradeById(req).name).join(' and ')+'.':'');
+  if(chosen&&mode==='ready')$('treePreview').textContent+=' '+Outbreak.compareUpgrade(state,chosen.id);
   $('buyUpgrade').disabled=mode!=='ready';
   $('buyUpgrade').textContent=mode==='ready'?'Buy '+chosen.name:'Buy selected upgrade';
 }

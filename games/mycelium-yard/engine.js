@@ -15,6 +15,7 @@ const empty=()=>({kind:-1,growth:0,water:0,rot:0,ripe:0});
 const order=()=>({buyer:-1,stage:0,delivered:[0,0,0],locked:false});
 const create=(level=0,records=[null,null,null],badges=Array(6).fill(false))=>({v:1,level,day:0,jobs:3,coins:8,sales:0,harvests:[0,0,0],beds:Array.from({length:6},empty),records:records.slice(),badges:badges.slice(),order:order(),ended:false,log:'Choose a buyer for a delivery challenge, then plant your first beds.'});
 function act(s,a){
+ if(a?.type==='harvest-ready'){if(s.ended||!s.jobs)return null;const ready=s.beds.map((b,i)=>({b,i})).filter(({b})=>b.kind>=0&&b.growth===CROPS[b.kind].time).sort((a,b)=>b.b.ripe-a.b.ripe||b.b.rot-a.b.rot||a.i-b.i);let result=s,count=0;for(const {i} of ready){if(!result.jobs)break;const next=act(result,{type:'harvest',bed:i});if(next){result=next;count++}}if(!count)return null;result.log='Harvested '+count+' ripe beds, oldest first. '+result.log;return result}
  if(!a||typeof a!=='object'||!['buyer','plant','water','harvest','compost','vent','night'].includes(a.type)||s.ended)return null;
  const n=JSON.parse(JSON.stringify(s));n.order??=order();n.badges??=Array(6).fill(false);
  if(a.type==='buyer'){

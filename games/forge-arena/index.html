@@ -1467,7 +1467,7 @@ init();
       this.effects.push({type:'muzzle',x:mx,y:my,z:mz,t:.1,color:w.class==='CLOSE'?hexRGB2('#ffad76'):w.class==='SNIPER'?hexRGB2('#d2e2ff'):friendly}); if(u.player) this.screenKick=(this.screenKick||0)+(w.class==='HEAVY'||w.class==='ARTILLERY'?0.6:0.28);
       if(u.player&&this.tutorial&&this.trainingStep===2){ this.trainingStep++; this.updateCoach(); }
     }
-    update(dt){ for(const u of this.units){ if(u.overdriveT) u.overdriveT=Math.max(0,u.overdriveT-dt); if(u.vanguardT) u.vanguardT=Math.max(0,u.vanguardT-dt); if(u.phaseT) u.phaseT=Math.max(0,u.phaseT-dt); if(u.repairAuraT){ u.repairAuraT=Math.max(0,u.repairAuraT-dt); if(u.repairAuraT>0 && Math.random()<0.35){ this.effects.push({type:'pulse',x:u.x,y:1.2,z:u.z,t:.22,color:hexRGB2('#74ffd2')}); for(const ally of this.units) if(ally.alive&&ally.team===u.team&&Math.hypot(ally.x-u.x,ally.z-u.z)<12) ally.hp=Math.min(ally.maxHp,ally.hp+ally.maxHp*.012); } } } this.screenKick=Math.max(0,(this.screenKick||0)-dt*2.2); super.update(dt); }
+    update(dt){ for(const u of this.units){ if(u.overdriveT) u.overdriveT=Math.max(0,u.overdriveT-dt); if(u.vanguardT) u.vanguardT=Math.max(0,u.vanguardT-dt); if(u.phaseT) u.phaseT=Math.max(0,u.phaseT-dt); if(u.repairAuraT){ const active=Math.min(u.repairAuraT,Math.max(0,dt)); u.repairAuraT=Math.max(0,u.repairAuraT-active); if(u.alive&&active>0){ u.repairPulse=(u.repairPulse||0)-active; if(u.repairPulse<=0){this.effects.push({type:'pulse',x:u.x,y:1.2,z:u.z,t:.22,color:hexRGB2('#74ffd2')});u.repairPulse=.12;} for(const ally of this.units) if(ally.alive&&ally.team===u.team&&Math.hypot(ally.x-u.x,ally.z-u.z)<12) ally.hp=Math.min(ally.maxHp,ally.hp+ally.maxHp*.06*active); } } } this.screenKick=Math.max(0,(this.screenKick||0)-dt*2.2); super.update(dt); }
     damageUnit(u,dmg,attacker,w){ const scaled=u.vanguardT>0?dmg*.68:u.phaseT>0?dmg*.88:dmg; super.damageUnit(u,scaled,attacker,w); if(attacker?.player && u.alive) this.hitConfirm=.18; }
     updateShots(dt){
       const impacts=[];
@@ -1997,7 +1997,7 @@ var hexRGB2 = window.hexRGB2;
     const rear=rearAttack(u,attacker),modified=rear?dmg*1.24:dmg,before=u.hp;super.damageUnit(u,modified,attacker,w);
     if(rear&&attacker?.player&&u.hp<before){const banner=$('#v24BattleBanner');if(banner){banner.textContent='REAR ARMOR HIT';banner.classList.add('show');clearTimeout(banner._rearT);banner._rearT=setTimeout(()=>banner.classList.remove('show'),650)}}
   }
-  activateAbility(u,manual=false){const before=u.hp;const result=super.activateAbility(u,manual);if(u.mech.ability.kind==='REPAIR'&&result)this.healing+=Math.max(0,u.hp-before);return result;}
+  activateAbility(u,manual=false){const nearby=this.units.filter(a=>a.alive&&a.team===u.team&&Math.hypot(a.x-u.x,a.z-u.z)<12),before=nearby.map(a=>a.hp);const result=super.activateAbility(u,manual);if(u.mech.ability.kind==='REPAIR'&&result){u.repairAuraT=2;this.healing=Number(this.healing)||0;for(let i=0;i<nearby.length;i++)this.healing+=Math.max(0,nearby[i].hp-before[i]);}return result;}
   weaponSignature(items,u,w,side){
     const yaw=u.aim||u.angle,lat=side*1.78*(u.mech.role==='TANK'?1.22:1),p=this.transform(u,lat,2.85,-.1,yaw),glow=u.team?hexRGB2('#ff756d'):hexRGB2('#65f4ee'),steel=hexRGB2('#6b8092'),dark=hexRGB2('#142332');
     const seed=[...String(w.id)].reduce((a,ch)=>a+ch.charCodeAt(0),0),variant=seed%4;

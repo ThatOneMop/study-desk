@@ -1661,6 +1661,13 @@
     run.meta.best[key] = { days: Math.max(prev.days, days), pop: pop };
   }
 
+  // Stored reserves only: deliberately excludes uncertain future production and travel delays.
+  function reserveDays(run) {
+    const demand = living(run).reduce(function (n, nib) { return n + (nib.kit ? 0.55 : 1); }, 0) * run.rules.consume;
+    return { water: demand ? run.store.water / (demand * 2.85 * 24 / 66) : Infinity,
+      food: demand ? foodTotal(run) / (demand * 2.35 * 24 / 70) : Infinity };
+  }
+
   function alerts(run) {
     const out = [];
     const left = Math.max(0, seasonLenHours(run) - run.seasonHour);
@@ -1669,8 +1676,9 @@
       out.push(nextHazard(run) === 'badtide' ? 'Sour tide within a day' : 'Dry spell within a day');
     } else if (run.season === 'drought') out.push('Dry spell — sources are still');
     else if (run.season === 'badtide') out.push('Sour tide — keep it out of the tanks');
-    if (run.store.water < 8) out.push('Stored water is low');
-    if (foodTotal(run) < 8) out.push('The larder is thin');
+    const reserves = reserveDays(run);
+    if (reserves.water < 2) out.push('Stored water: about ' + reserves.water.toFixed(1) + ' days at current population, before production');
+    if (reserves.food < 2) out.push('Stored food: about ' + reserves.food.toFixed(1) + ' days at current population, before production');
     if (living(run).some(function (n) { return n.thirst < 18 && !n.kit; })) out.push('A nib is parched');
     if (living(run).some(function (n) { return n.contaminated > 2; })) out.push('A nib waded in sour water');
     const spare = beds(run) - living(run).length;
@@ -2039,6 +2047,7 @@
     totalWater: totalWater,
     snapshot: snapshot,
     alerts: alerts,
+    reserveDays: reserveDays,
     wellbeing: wellbeing,
     avgWell: avgWell,
     cellInfo: cellInfo,
