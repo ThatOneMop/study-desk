@@ -1,0 +1,11 @@
+/* Run: NODE_PATH=<test workspace>/node_modules node games/lanefall/self-test.cjs */
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{JSDOM}=require('jsdom');
+const root=__dirname,dom=new JSDOM(fs.readFileSync(path.join(root,'index.html'),'utf8'),{url:'https://study.test/games/lanefall/',runScripts:'outside-only'}),w=dom.window;
+w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(o,k)=>o[k]||(()=>{})});let frame;w.requestAnimationFrame=fn=>{frame=fn;return 1};w.eval(fs.readFileSync(path.join(root,'game.js'),'utf8'));const game=w.LanefallTest;frame(16);frame(32);
+function step(seconds){for(let n=0;n<seconds/.04;n++)game.step(.04)}
+game.start();assert.equal(game.state,'playing');step(1.1);assert.equal(game.units.length,8,'both teams must spawn their opening wave');const oldX=game.hero.x;game.keys.add('KeyD');step(1);game.keys.clear();assert(game.hero.x>oldX+140,'movement must respond to held keys');
+game.hero.hp=100;game.cast('heal');const healed=game.hero.hp;assert(healed>200);game.cast('heal');assert.equal(game.hero.hp,healed,'cooldown must prevent repeated healing');assert(game.cooldowns.heal>12);
+const base=game.structures[3],tower=game.structures[2];game.damage(base,1000);assert.equal(base.hp,1600,'tower must protect its citadel');game.damage(tower,2000);assert.equal(tower.hp,0);assert(game.gold>=200,'taking a tower grants economy');const before=game.gold;game.buy(0);assert.equal(game.upgrades[0],1);assert(game.gold<before,'shop upgrade must spend gold');
+game.damage(game.hero,1000);assert.equal(game.hero.hp,0);step(8.1);assert(game.hero.hp>0,'keeper must respawn after defeat');game.damage(base,2000);assert.equal(game.state,'won');game.damage(game.structures[0],2000);assert.equal(game.state,'won','late damage must not overwrite a completed match');assert.equal(JSON.parse(w.localStorage.getItem('lanefall.v1')).wins,1,'victory must save');
+game.start();game.keys.add('KeyJ');for(let i=0;i<2250;i++){if(i%175===0)game.cast('pulse');if(i%350===0)game.cast('heal');game.step(.04)}assert(Number.isFinite(game.hero.x));assert(game.units.length<100,'wave population remains bounded');
+console.log('Lanefall: paired waves, movement, healing cooldown, protected bases, tower reward, gold purchases, hero respawn, victory save and 90-second simulation passed.');dom.window.close();

@@ -1,0 +1,19 @@
+const assert=require('node:assert/strict'),fs=require('fs'),{JSDOM}=require('jsdom');
+(async()=>{
+const dom=new JSDOM(fs.readFileSync(__dirname+'/index.html','utf8'),{url:'https://test.example/games/harvest-protocol/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
+const timers=[];w.setTimeout=fn=>(timers.push(fn),timers.length);w.clearTimeout=()=>{};w.setInterval=()=>1;w.requestAnimationFrame=()=>1;w.ResizeObserver=class{observe(){}};w.HTMLCanvasElement.prototype.getContext=()=>({setTransform(){}});w.confirm=()=>true;
+const script=w.document.querySelector('script:not([src])');w.eval(script.textContent+'\nwindow.__farmTest={compile,get game(){return game},get running(){return running},get paused(){return programmePaused}};');
+const $=id=>w.document.getElementById(id),next=async()=>{const fn=timers.shift();if(fn)fn();await Promise.resolve();await Promise.resolve();};
+w.__farmTest.game.unlocks.push('loops');$('code').value='repeat 4:\n  do_a_flip()';
+let done=false;const programme=$('run').onclick().then(()=>done=true);
+assert.equal(w.__farmTest.running,true);$('pauseProgramme').click();assert.equal(w.__farmTest.paused,true);
+await next();await next();assert.equal(done,false,'programme waits while paused');assert.equal($('pauseProgramme').getAttribute('aria-pressed'),'true');
+$('pauseProgramme').click();for(let i=0;i<30&&!done;i++)await next();await programme;
+assert.equal(w.__farmTest.running,false);assert.match($('status').textContent,/4 commands/);assert.equal($('pauseProgramme').disabled,true);
+$('code').value='repeat 10:\n  do_a_flip()';const interrupted=$('run').onclick();assert.equal(w.__farmTest.running,true);
+$('reset').click();const newFarm=w.__farmTest.game;assert.equal(w.__farmTest.running,false);assert.equal(newFarm.hay,0);
+for(let i=0;i<10;i++)await next();await interrupted;assert.equal(w.__farmTest.game,newFarm);assert.equal(newFarm.challengeLevel,0,'cancelled old job cannot reward a replacement farm');
+$('code').value='do_a_flip()';const backgroundJob=$('run').onclick();w.document.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert.equal(w.__farmTest.paused,true);$('stop').click();for(let i=0;i<10;i++)await next();await backgroundJob;
+assert.equal($('run').disabled,false);assert.equal(w.__farmTest.running,false);
+dom.window.close();console.log('Harvest Protocol: real programme pause/resume, completion, stop and reset cancellation passed');
+})().catch(e=>{console.error(e);process.exitCode=1});

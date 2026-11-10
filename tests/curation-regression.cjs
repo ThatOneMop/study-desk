@@ -9,7 +9,7 @@ const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-gam
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 (async()=>{await unlockShell(w);
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-const KEEP=["ashwake", "autumn-drift", "bell-diver", "creekhold", "forge-arena", "gummy-bay", "harvest-protocol", "lanewright", "little-lake", "lost-found", "moon-salvage", "mycelium-yard", "numberworks", "outbreak-atlas", "packworks", "roof-runner", "spanwright", "tiny-wilds", "winterfold"];
+const KEEP=["ashwake", "autumn-drift", "basket-chaos", "bell-diver", "creekhold", "demolition-yard", "forge-arena", "gummy-bay", "harvest-protocol", "lanefall", "lanewright", "little-lake", "lost-found", "moon-salvage", "mycelium-yard", "numberworks", "orbital-drop", "outbreak-atlas", "packworks", "pegworks", "pocket-golf", "roof-runner", "soccer-chaos", "spanwright", "tiny-wilds", "volley-chaos", "winterfold"];
 const arcade=catalog.filter(g=>g.type==='arcade'||g.source==='GameMonetize'||g.source==='GameDistribution');
 assert.equal(arcade.length,0,'Arcade providers are not in the public catalogue');
 assert(!JSON.stringify(catalog).match(/gamemonetize|gamedistribution/i),'public catalogue has no provider hosts');

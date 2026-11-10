@@ -60,6 +60,11 @@ function act(s,a){
  }
  n.jobs--;return n;
 }
+// Preview exactly the same evening rules without changing the current market.
+function forecast(s){
+ if(s.ended)return s.beds.map(()=> 'Market closed');const after=act(s,{type:'night'});
+ return s.beds.map((bed,i)=>{const next=after.beds[i];if(bed.kind<0)return 'Empty';if(next.kind<0)return bed.ripe>=2?'Spoils tonight':'Lost to rot tonight';if(next.rot>bed.rot)return 'Rot +1 tonight';if(next.growth>bed.growth)return next.growth===CROPS[bed.kind].time?'Ready tomorrow':'Growth +1 tonight';if(bed.growth===CROPS[bed.kind].time)return 'Ripe evening '+next.ripe+' / 2';return 'No growth: needs water';});
+}
 function decode(raw){
  const s=JSON.parse(raw),int=(v,a,b)=>Number.isInteger(v)&&v>=a&&v<=b;
  if(!s||s.v!==1||!int(s.level,0,2)||!int(s.day,0,10)||!int(s.jobs,0,3)||!int(s.coins,0,1000)||!int(s.sales,0,1000)||typeof s.ended!=='boolean'||s.ended!==(s.day===10)||!Array.isArray(s.records)||s.records.length!==3||s.records.some((v,i)=>v!==null&&(!int(v,GOALS[i],1000)||i>0&&s.records[i-1]===null))||s.level>0&&s.records[s.level-1]===null||!Array.isArray(s.harvests)||s.harvests.length!==3||s.harvests.some(v=>!int(v,0,30))||!Array.isArray(s.beds)||s.beds.length!==6||s.beds.some(b=>!b||!int(b.kind,-1,2)||!int(b.growth,0,b.kind<0?0:CROPS[b.kind].time)||!int(b.water,0,3)||!int(b.rot,0,1)||!int(b.ripe,0,2)||b.kind<0&&(b.water||b.rot||b.ripe))||typeof s.log!=='string'||s.log.length>250)throw Error('Invalid save');
@@ -69,4 +74,4 @@ function decode(raw){
  if(!Array.isArray(s.badges)||s.badges.length!==6||s.badges.some(x=>typeof x!=='boolean')||!o||!int(o.buyer,-1,5)||o.buyer>=0&&Math.floor(o.buyer/2)!==s.level||!int(o.stage,0,2)||typeof o.locked!=='boolean'||!Array.isArray(o.delivered)||o.delivered.length!==3||o.delivered.some((v,i)=>!int(v,0,o.buyer<0||o.stage===2?0:BUYERS[o.buyer].baskets[o.stage][i]))||o.buyer<0&&(o.stage||o.locked)||!o.locked&&(o.stage||o.delivered.some(Boolean))||o.stage===2&&!s.badges[o.buyer])throw Error('Invalid buyer save');
  return JSON.parse(JSON.stringify(s));
 }
-return{KEY,CROPS,WEATHER,GOALS,BUYERS,create,act,decode};});
+return{KEY,CROPS,WEATHER,GOALS,BUYERS,create,act,forecast,decode};});

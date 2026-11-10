@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),fs=require('fs'),{JSDOM}=require('jsdom');
+const dom=new JSDOM(fs.readFileSync(__dirname+'/index.html','utf8'),{url:'https://test.example/games/outbreak-atlas/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
+let watch;w.requestAnimationFrame=()=>1;w.setTimeout=()=>1;w.setInterval=fn=>(watch=fn,1);w.HTMLCanvasElement.prototype.getContext=()=>({});
+w.eval(fs.readFileSync(__dirname+'/model.js','utf8'));w.eval(fs.readFileSync(__dirname+'/game.js','utf8'));
+const $=id=>w.document.getElementById(id),saved=()=>JSON.parse(w.localStorage.getItem('outbreak-atlas-v1'));
+$('begin').click();$('play').click();watch();const month=saved().month;assert.equal(month,1);
+$('growthBtn').click();watch();assert.equal(saved().month,month,'growth choices pause Watch');assert.equal($('play').getAttribute('aria-pressed'),'false');
+$('closeGrowth').click();watch();assert.equal(saved().month,month,'closing overlay requires deliberate resume');
+$('play').click();watch();const latest=saved().month;assert.equal(latest,month+1);
+$('rules').click();watch();assert.equal(saved().month,latest,'rules pause Watch');$('closeHelp').click();
+$('play').click();w.dispatchEvent(new w.Event('blur'));watch();assert.equal(saved().month,latest,'leaving window pauses Watch');
+$('again').click();assert.equal($('resume').hidden,false);$('resume').click();assert.equal(saved().month,latest,'Continue loads the latest story, not the initial snapshot');
+dom.window.close();console.log('Outbreak Atlas: overlay/focus pause and latest-save continuation passed');

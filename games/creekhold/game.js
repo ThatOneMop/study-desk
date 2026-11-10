@@ -1028,8 +1028,11 @@
       cam.zoom = next;
     }, { passive: false });
     window.addEventListener('keydown', function (ev) {
-      if (ev.target && ev.target.closest && ev.target.closest('input, textarea')) return;
+      if (ev.isComposing || ev.ctrlKey || ev.metaKey || ev.altKey || (ev.target && ev.target.closest && ev.target.closest('input, textarea, select, [contenteditable=true]'))) return;
+      if (document.querySelector('dialog[open]')) return;
+      if (ev.code === 'Space' && ev.target && ev.target.closest && ev.target.closest('button,a')) return;
       keys[ev.code] = true;
+      if (ev.repeat && !['KeyW','KeyA','KeyS','KeyD','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(ev.code)) { if (ev.code === 'Space') ev.preventDefault(); return; }
       if (ev.code === 'Space') { ev.preventDefault(); setSpeed(speed === 0 ? 1 : 0); applyGlow(); }
       else if (ev.key === 'q' || ev.key === 'Q') { cam.rot = (cam.rot + 3) & 3; if (run) focusHearth(); }
       else if (ev.key === 'e' || ev.key === 'E') { cam.rot = (cam.rot + 1) & 3; if (run) focusHearth(); }
@@ -1055,7 +1058,12 @@
     });
     window.addEventListener('keyup', function (ev) { keys[ev.code] = false; });
     window.addEventListener('resize', function () { resize(); if (run) focusHearth(); });
-    document.addEventListener('visibilitychange', function () { if (document.hidden) save(); });
+    function suspendColony() {
+      keys = {}; pointers.clear(); pinch = null; hover = null;
+      acc = 0; last = 0; setSpeed(0); save();
+    }
+    window.addEventListener('blur', suspendColony);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) suspendColony(); });
     window.addEventListener('pagehide', save);
     setInterval(save, 20000);
   }

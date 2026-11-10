@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');
+const E=require('./engine.js');
+const state=E.create();
+assert.equal(E.recall(state),false,'ready route cannot spend a recovery');
+E.step(state,{right:true});state.run.checkpoint=true;state.run.parcels[0]=true;
+state.run.x=1000;state.run.y=470;
+assert.equal(E.recall(state),true);
+assert.equal(state.run.falls,1);assert.equal(state.run.x,E.levels[0].checkpoint[0]);
+assert.equal(state.run.parcels[0],true,'recall keeps collected parcels');
+assert.equal(E.valid(state),true);assert(E.decode(E.encode(state)));
+for(let i=1;i<8;i++)E.recall(state);
+assert.equal(state.run.status,'lost');assert.equal(state.run.falls,8);
+assert.equal(E.recall(state),false,'ended route cannot keep spending recoveries');
+assert.equal(E.valid(state),true);
+console.log('Roof Runner: checkpoint recall, parcel retention, save round-trip and recovery limit passed');

@@ -29,7 +29,17 @@ assert.match($('continueRow').querySelector('button').getAttribute('aria-label')
 assert.equal($('trendingRow').hidden,false);
 assert.match($('trendingCards').textContent,/Little Lake/);
 assert.equal($('newRow').hidden,false);
-assert.match($('newCards').querySelector('.capsule-title').textContent,/Harvest Protocol/);
+assert.equal($('newCards').querySelectorAll('.capsule').length,8);
+assert.match($('newCards').textContent,/Orbital Drop/);
+assert.equal($('improvedCards').querySelectorAll('.capsule').length,19);
+d.querySelector('#tagFilters button[data-tag="New games"]').click();
+assert.equal(d.querySelectorAll('.game').length,8);
+assert.equal($('improvedRow').hidden,true);
+$('search').value='helldivers';$('search').dispatchEvent(new w.Event('input'));
+assert.equal(d.querySelectorAll('.game').length,1);
+assert.match(d.querySelector('.game h3').textContent,/Orbital Drop/);
+$('search').value='';
+d.querySelector('#tagFilters button[data-tag="All"]').click();
 assert.equal($('favouriteShelf').hidden,false);
 assert.match($('favouriteRow').textContent,/Autumn Drift/);
 assert.equal($('favouriteRow').querySelector('.game'),null);

@@ -1,0 +1,40 @@
+'use strict';
+const A=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{JSDOM}=require('jsdom');
+const root=path.resolve(__dirname,'..'),B=require('./engine.js'),M=require('../mycelium-yard/engine.js'),H=require('../moon-salvage/haul-planner.js');
+// Every authored water cell has a valid load-aware route; following it spends the advertised air.
+for(let level=0;level<3;level++)for(let pos=0;pos<35;pos++)if(!B.layouts[level].rocks.includes(pos))for(const heavy of [false,true])for(const fins of [0,1]){
+ const s={...B.create(),level,pos,cargo:heavy?[1,4]:[],fins},before=JSON.stringify(s),r=B.homeRoute(s);if(!r){const seen=new Set([pos]),queue=[pos];while(queue.length){const p=queue.shift();for(const delta of Object.values(B.DIRS)){const n=p+delta;if(n>=0&&n<35&&B.adjacent(p,n)&&!B.layouts[level].rocks.includes(n)&&!seen.has(n)){seen.add(n);queue.push(n)}}}A.equal(seen.has(2),false,'null route only for unreachable water');continue}let p=pos,cost=0;for(const d of r.steps){const next=p+B.DIRS[d];A.ok(B.adjacent(p,next));A.ok(!B.layouts[level].rocks.includes(next));p=next;cost+=B.cost(s,d)}A.equal(p,2);A.equal(cost,r.cost);A.equal(JSON.stringify(s),before);
+}
+let market=M.create(),before=JSON.stringify(market);A.deepEqual(M.forecast(market),Array(6).fill('Empty'));A.equal(JSON.stringify(market),before);
+market.beds[0]={kind:0,growth:1,water:1,rot:0,ripe:0};A.equal(M.forecast(market)[0],'Ready tomorrow');market.beds[0]={kind:0,growth:2,water:0,rot:0,ripe:2};A.equal(M.forecast(market)[0],'Spoils tonight');market.day=3;market.beds[0]={kind:0,growth:1,water:2,rot:1,ripe:0};A.equal(M.forecast(market)[0],'Lost to rot tonight');
+const types=[['sock',7],['toaster',15]];A.deepEqual(H.quote([],0,types),{count:0,base:0,multiplier:1,value:0,orderHit:false});A.equal(H.quote([{t:0},{t:1}],0,types).value,30);A.equal(H.quote(Array(15).fill({t:1}),-1,types).multiplier,2);
+function boot(id,api){
+ const base=path.join(root,id),html=fs.readFileSync(path.join(base,'index.html'),'utf8'),dom=new JSDOM(html,{url:'https://example.test/games/'+id+'/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
+ w.requestAnimationFrame=()=>1;w.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','')};w.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open');this.dispatchEvent(new w.Event('close'))};const param={setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}};const audioNode=()=>({gain:{...param},frequency:{...param},connect(){},disconnect(){},start(){},stop(){}});w.AudioContext=class{constructor(){this.currentTime=0;this.destination={};this.sampleRate=44100}createOscillator(){return audioNode()}createGain(){return audioNode()}createBiquadFilter(){return audioNode()}createBuffer(c,n){return{getChannelData:()=>new Float32Array(n)}}createBufferSource(){return audioNode()}resume(){}};w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:(_,k)=>/Gradient/.test(k)?()=>({addColorStop(){}}):k==='measureText'?()=>({width:20}):()=>{}});w.HTMLCanvasElement.prototype.setPointerCapture=()=>{};
+ for(const script of w.document.scripts){const src=script.getAttribute('src');if(src){if(src.includes('bridge.js'))continue;w.eval(fs.readFileSync(path.join(base,src.split('?')[0]),'utf8')+(src.split('?')[0]==='game.js'?'\n'+(api||''):''));}else if(script.textContent.trim())w.eval(script.textContent+'\n'+(api||''));}
+ return{dom,w,d:w.document,$:id=>w.document.getElementById(id)};
+}
+{
+ const {dom,w,$}=boot('autumn-drift','window.qa={prepare(rooted=false){save.ranks[2]=5;mode="best";leaves=[{id:0,x:620,y:410,hp:1,max:1,a:0,s:9,c:"#d48b37",rooted}];total=1;collected=0;completed=false;keyboardLeaf=null;},step(){sweepSelected(1/60);stepLeaves(1/60)},get count(){return collected},get sweeping(){return keyboardSweep}};');
+ $('start').click();w.qa.prepare();$('game').dispatchEvent(new w.KeyboardEvent('keydown',{code:'KeyB',key:'b',bubbles:true,cancelable:true}));A.equal(w.qa.sweeping,true);for(let i=0;i<500&&w.qa.count===0;i++)w.qa.step();A.equal(w.qa.count,1,'keyboard rake reaches basket through normal leaf simulation');w.qa.prepare(true);$('game').dispatchEvent(new w.KeyboardEvent('keydown',{code:'KeyB',key:'b',bubbles:true,cancelable:true}));A.equal(w.qa.sweeping,false,'rooted leaf cannot bypass picking');dom.window.close();
+}
+{
+ const {dom,w,$}=boot('little-lake','window.qa={begin,frame,pauseLake,get paused(){return lakePaused},get state(){return state},get timer(){return timer},cast:castAt};');
+ w.qa.begin();w.qa.cast();A.equal(w.qa.state,'waiting');const timer=w.qa.timer;w.qa.pauseLake(true);w.qa.frame(1000);A.equal(w.qa.timer,timer,'paused fishing preserves bite timer');w.qa.pauseLake(false);w.qa.frame(1100);A.ok(w.qa.timer<timer);w.dispatchEvent(new w.Event('blur'));A.equal(w.qa.paused,true,'focus loss pauses an active cast');A.match($('status').textContent,/Paused/);dom.window.close();
+}
+{
+ const {dom,w,$}=boot('lost-found','window.qa={get state(){return state},heard,nearest};');w.qa.state.found=[1];$('discover').click();A.equal(w.qa.heard({id:1}),false);A.equal(w.qa.heard({id:2}),true);A.equal(w.qa.heard({id:-1}),false);$('discover').click();A.equal(w.qa.heard({id:1}),true);A.equal($('discover').getAttribute('aria-pressed'),'false');dom.window.close();
+}
+{
+ const {dom,w,$}=boot('moon-salvage','window.qa={get state(){return state},get items(){return items},step,sell,get p(){return p}};');$('start').click();const q=w.qa;for(const i of q.items)i.sold=true;Object.assign(q.items[0],{sold:false,x:0,y:0,t:0});Object.assign(q.items[1],{sold:false,x:10,y:0,t:1});q.state.order=0;q.p.x=0;q.p.y=0;q.step(.01);const quote=H.quote(q.items.filter(i=>!i.sold),0,types).value;A.match($('haulManifest').textContent,new RegExp(quote+' cr'));const cash=q.state.cash;q.sell();A.equal(q.state.cash-cash,quote,'haul manifest matches actual order/combo payout');dom.window.close();
+}
+{
+ const {dom,w,$}=boot('bell-diver','window.qa={exhaust(){s=E.create();s.pos=32;s.air=1;s.cargo=[4];s.usedAir=E.layouts[0].air.slice();render()}};');w.qa.exhaust();A.match($('homeRoute').textContent,/no unused air pockets remain/);A.doesNotMatch($('homeRoute').textContent,/use an air pocket/);dom.window.close();
+}
+{
+ const {dom,w,$}=boot('mycelium-yard','window.qa={prepare(){s=E.create();s.beds[0]={kind:0,growth:2,water:0,rot:0,ripe:2};render()},get day(){return s.day}};');w.qa.prepare();$('night').click();A.equal($('confirm').open,true,'risky evening asks before spending the day');A.equal(w.qa.day,0);$('cancel').click();A.equal(w.qa.day,0);$('night').click();$('accept').click();A.equal(w.qa.day,1,'confirmed evening applies exactly once');dom.window.close();
+}
+{
+ const {dom,w,$}=boot('tiny-wilds','window.qa={closeTitle,togglePause,step,get paused(){return paused},get colonyTime(){return Q.time},ants(){switchGame("ants")}};');w.qa.closeTitle();w.qa.ants();const t=w.qa.colonyTime;w.dispatchEvent(new w.Event('blur'));A.equal(w.qa.paused,true);w.qa.step(1);A.equal(w.qa.colonyTime,t,'focus loss freezes colony production');w.dispatchEvent(new w.KeyboardEvent('keydown',{code:'Escape',key:'Escape'}));A.equal(w.qa.paused,false);w.qa.step(1);A.ok(w.qa.colonyTime>t,'explicit resume restores production');dom.window.close();
+}
+(async()=>{const {createSaveGuard}=await import('../gummy-bay/save-guard.mjs');const data=new Map([['slot','old']]),storage={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},a=createSaveGuard(storage),b=createSaveGuard(storage);A.equal(a.open('slot'),'old');b.open('slot');A.equal(a.write('slot','first'),true);A.equal(b.write('slot','stale'),false);A.equal(data.get('slot'),'first');A.equal(b.blocked('slot'),true);b.open('slot');A.equal(b.write('slot','continued'),true);A.equal(data.get('slot'),'continued');console.log('PASS cozy collection: route planner, evening forecast, keyboard basket, cast-safe pause, discovery filter, matching haul quote and competing-save protection');})().catch(e=>{console.error(e);process.exitCode=1});

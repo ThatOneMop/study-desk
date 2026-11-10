@@ -299,10 +299,11 @@
   function endPointer(ev) {
     const active = pointers.get(ev.pointerId);
     pointers.delete(ev.pointerId);
+    if (ev.type === 'pointercancel') { drawing = null; save(); return; }
     if (!drawing || pointers.size) return;
     const pts = drawing.pts;
     drawing = null;
-    if (hand !== 'draw' || !run) return;
+    if (hand !== 'draw' || !run) { if (run) save(); return; }
     if (tool === 'slope' && pts.length > 1) apply(E.commitStroke(run, pts));
     if (tool === 'lift' && pts.length > 1) apply(E.commitLift(run, pts[0], pts[pts.length - 1], liftType));
     refresh();
@@ -320,10 +321,19 @@
   }, { passive: false });
 
   document.addEventListener('keydown', ev => {
-    if (ev.target && ev.target.closest && ev.target.closest('input,textarea')) return;
+    if (ev.isComposing || (ev.target && ev.target.closest && ev.target.closest('input,textarea,select,[contenteditable=true]'))) return;
     const key = ev.key.toLowerCase();
-    if ((ev.metaKey || ev.ctrlKey) && key === 'z') { ev.preventDefault(); if (run && E.undo(run)) { audio.click(); refresh(); renderer.invalidate(); } return; }
-    if ((ev.metaKey || ev.ctrlKey) && key === 'y') { ev.preventDefault(); if (run && E.redo(run)) refresh(); return; }
+    if (document.querySelector('dialog[open]')) {
+      if (key === 'escape') {
+        if ($('guide').open) hide('guide');
+        else if ($('settingsDlg').open) hide('settingsDlg');
+      }
+      return;
+    }
+    if (ev.repeat) { if (key === ' ') ev.preventDefault(); return; }
+    if (key === ' ' && ev.target && ev.target.closest && ev.target.closest('button,a')) return;
+    if ((ev.metaKey || ev.ctrlKey) && key === 'z') { ev.preventDefault(); if (run && (ev.shiftKey ? E.redo(run) : E.undo(run))) { audio.click(); refresh(); renderer.invalidate(); save(); } return; }
+    if ((ev.metaKey || ev.ctrlKey) && key === 'y') { ev.preventDefault(); if (run && E.redo(run)) { refresh(); renderer.invalidate(); save(); } return; }
     if (key === ' ') { ev.preventDefault(); if (run && run.phase === 'play') setSpeed(run.speed ? 0 : 1); return; }
     if (key === 'q') setSpeed(Math.max(0, (run && run.speed) - (run && run.speed === 4 ? 2 : 1)));
     if (key === 'e') setSpeed(run && run.speed === 0 ? 1 : run && run.speed === 1 ? 2 : 4);
@@ -392,7 +402,7 @@
   function loop(now) {
     const dt = Math.min(0.05, (now - last) / 1000 || 0);
     last = now;
-    if (run && run.phase === 'play') {
+    if (run && run.phase === 'play' && !document.hidden && !document.querySelector('dialog[open]')) {
       const before = run.day;
       E.tick(run, dt);
       if (run.phase === 'play' && run.day !== before) save();
@@ -430,6 +440,13 @@
   }
 
   for (const id of ['home', 'levels', 'draft', 'result', 'guide', 'settingsDlg']) $(id).addEventListener('cancel', ev => ev.preventDefault());
+  function suspendHill() {
+    drawing = null; pointers.clear(); last = 0;
+    if (run && run.phase === 'play') { setSpeed(0); save(); }
+  }
+  window.addEventListener('blur', suspendHill);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) suspendHill(); });
+  window.addEventListener('pagehide', save);
   paintLists();
   load();
   audio.setEnabled(meta.sound !== false);

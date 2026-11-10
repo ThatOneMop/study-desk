@@ -566,7 +566,7 @@
       save();
     }
     panning = null;
-    if (drawChain) commitChain();
+    if (drawChain && e.type !== 'pointercancel') commitChain();
     drawChain = null;
     preview = null;
   }
@@ -583,6 +583,7 @@
   window.addEventListener('keydown', e => {
     if (e.target && e.target.closest && e.target.closest('input, textarea, select')) return;
     const key = e.key.toLowerCase();
+    if (e.isComposing || e.altKey) return;
     if (e.key === 'Escape') {
       if ($('help').open) { hide('help'); return; }
       if ($('settings').open) { hide('settings'); return; }
@@ -592,6 +593,9 @@
       return;
     }
     if (anyDialog() || !run || $('play').hidden) return;
+    if ((e.ctrlKey || e.metaKey) && !['z', 'y'].includes(key)) return;
+    if (['z', 'y'].includes(key) && (e.ctrlKey || e.metaKey)) e.preventDefault();
+    if (e.repeat && !key.startsWith('arrow') && !['a','w','s'].includes(key)) { if (key === ' ') e.preventDefault(); return; }
     if (key === ' ' || e.code === 'Space') {
       if (e.target && e.target.closest && e.target.closest('button, a')) return;
       e.preventDefault();
@@ -731,6 +735,14 @@
     else paintTut();
   });
 
+  function suspendCity() {
+    if (erasing && run) E.endUndo(run);
+    erasing = false; drawChain = null; preview = null; pointers.clear(); panning = null; pinch = null;
+    if (run && !$('play').hidden) { speed = 0; save(); setStatus('City paused. Choose a speed to continue.'); }
+  }
+  window.addEventListener('blur', suspendCity);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) suspendCity(); });
+  window.addEventListener('pagehide', save);
   window.addEventListener('resize', () => { if (run && !$('play').hidden) fit(false); });
   document.addEventListener('pointerdown', () => audio.resume(), { once: false });
 

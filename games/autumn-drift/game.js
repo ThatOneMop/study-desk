@@ -84,7 +84,12 @@ canvas.onpointerup=canvas.onpointercancel=()=>{down=false;pointerVel={x:0,y:0}};
 
 
 // Keyboard picking uses the same pick(), cooldown, tools and rewards as a tap.
-let keyboardLeaf=null;
+let keyboardLeaf=null,keyboardSweep=false;
+function sweepSelected(dt){
+ const leaf=leaves.find(l=>l.id===keyboardLeaf);if(!leaf||leaf.rooted||mode==='hand'||save.ranks[2]<5){keyboardSweep=false;return}
+ const b=bin(),dx=b.x-leaf.x,dy=b.y-leaf.y,d=Math.hypot(dx,dy),speed=Math.min(155,d*4);leaf.vx=d?dx/d*speed:0;leaf.vy=d?dy/d*speed:0;pointer={x:leaf.x,y:leaf.y};
+}
+canvas.addEventListener('keyup',e=>{if(e.code==='KeyB')keyboardSweep=false});canvas.addEventListener('blur',()=>keyboardSweep=false);
 function announceLeaf(){
  const l=leaves.find(item=>item.id===keyboardLeaf);
  $('leafStatus').textContent=!leaves.length?'Garden cleared. Open Areas to continue.':l?(l.rooted?'Rooted leaf ':l.rare?'Golden leaf ':'Leaf ')+(l.id+1)+'. '+Math.ceil(l.hp)+' health. '+leaves.length+' leaves remain.':'Use arrow keys to select a leaf.';
@@ -105,6 +110,7 @@ function selectLeaf(key){
 canvas.addEventListener('focus',()=>{if(running)selectLeaf()});
 canvas.addEventListener('keydown',e=>{
  if(!running||e.ctrlKey||e.altKey||e.metaKey||e.isComposing)return;
+ if(e.code==='KeyB'){e.preventDefault();if(e.repeat)return;keyboardSweep=false;selectLeaf();const leaf=leaves.find(l=>l.id===keyboardLeaf);if(save.ranks[2]<5||mode==='hand')toast('Equip the rake (tool rank 5) to sweep into the basket.');else if(leaf?.rooted)toast('Rooted leaves need picking first.');else keyboardSweep=true;return}
  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key)){e.preventDefault();selectLeaf(e.key);return}
  if(e.key==='Enter'||e.code==='Space'||e.key===' '){
   e.preventDefault();if(e.repeat)return;
@@ -121,7 +127,7 @@ addEventListener('keydown',e=>{
  const buttons=panelButtons(id),first=buttons[0],last=buttons[buttons.length-1],active=document.activeElement;
  if(!buttons.includes(active)||(e.shiftKey&&active===first)||(!e.shiftKey&&active===last)){e.preventDefault();(e.shiftKey?last:first)?.focus()}
 });
-function closePanels(){if($('intro').style.display!=='none')return;recovery.cancel();$('helpPanel').style.display='none';$('savesPanel').style.display='none';$('shop').style.display='none';$('complete').style.display='none';running=true;down=false;canvas.focus()}
+function closePanels(){if($('intro').style.display!=='none')return;recovery.cancel();$('helpPanel').style.display='none';$('savesPanel').style.display='none';$('shop').style.display='none';$('complete').style.display='none';running=true;down=false;keyboardSweep=false;canvas.focus()}
 $('start').onclick=()=>{$('intro').style.display='none';running=true;canvas.focus();try{if(localStorage.getItem('autumnDriftSound')!=='0'){sound=true;$('sound').textContent='Sound on';soundInit()}}catch{}if(migrated)toast('Your previous acorns have been carried over.')};$('sound').onclick=()=>{sound=!sound;$('sound').textContent=sound?'Sound on':'Sound off';try{localStorage.setItem('autumnDriftSound',sound?'1':'0')}catch{}if(sound)soundInit();else setBlowSound(0)};$('toolBtn').onclick=()=>{mode=mode==='hand'?'best':'hand';updateUI()};
 const tracks=['Hand strength','Hand reach','Tools & equipment','Leaf appraisal'];
 function effect(i,n){return i===0?`${1+n} picking power`:i===1?`${(18+Math.log2(n+1)*7).toFixed(1)} px reach`:i===2?`${toolName(n)} · ${1+Math.floor(Math.sqrt(n)*1.8)} leaves/action`:`×${(1+n*.12).toFixed(2)} leaf income`}
@@ -230,7 +236,7 @@ function tool(x,y,kind,t){x=snap(x);y=snap(y);if(kind===0){px(x-8,y-28,16,16,'#e
  else if(kind===1){px(x-2,y-44,4,30,'#8a6236');px(x-14,y-16,28,4,'#cfcfc4');for(let i=0;i<4;i++)px(x-12+i*8,y-12,4,6,'#cfcfc4')}
  else{px(x-16,y-30,22,14,'#d9733f');px(x-16,y-30,22,4,'#f19a62');px(x+6,y-26,14,6,'#5d6672');px(x-12,y-16,6,8,'#3a3a40');if(blowing>0&&Math.sin(t*40)>0)px(x+20,y-26,4,6,'#ffffffaa')}}
 function ambient(){const evening=[6,12,16].includes(save.area%20);if(evening){ctx.fillStyle='#161f5825';ctx.fillRect(0,0,1200,800)}for(let i=0;i<18;i++){const x=145+(i*173+Math.sin(clock*.16+i)*40)%915,y=250+(i*89)%420+Math.cos(clock*.3+i)*15;const a=(.22+.18*Math.sin(clock*1.5+i));ctx.fillStyle=evening?'rgba(255,232,148,'+a+')':'rgba(255,244,199,'+(a*.35)+')';ctx.fillRect(snap(x),snap(y),U,U);if(evening){ctx.fillStyle='rgba(255,211,110,'+(a*.14)+')';ctx.fillRect(snap(x)-U,snap(y)-U,U*3,U*3)}}}
-function render(t){let dt=Math.min((t-last)/1000||.016,.035);last=t;clock+=dt;const frameStats=stats();if(running&&down){if(frameStats.hold)pick();blow(frameStats,dt);pointerVel.x*=.85;pointerVel.y*=.85}else blowing=0;if(running)stepLeaves(dt);setBlowSound(running&&down?blowing:0);
+function render(t){let dt=Math.min((t-last)/1000||.016,.035);last=t;clock+=dt;const frameStats=stats();if(running&&down){if(frameStats.hold)pick();blow(frameStats,dt);pointerVel.x*=.85;pointerVel.y*=.85}else blowing=0;if(running&&keyboardSweep)sweepSelected(dt);if(running)stepLeaves(dt);else keyboardSweep=false;setBlowSound(running&&down?blowing:0);
  if(uiDirty){uiDirty=false;updateUI()}if(dirtySave&&clock-lastSaveAt>.6){dirtySave=false;lastSaveAt=clock;persist()}
  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.imageSmoothingEnabled=false;ctx.fillStyle='#263a30';ctx.fillRect(0,0,W,H);ctx.translate(ox,oy);ctx.scale(scale,scale);if(shake>0){ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);shake=Math.max(0,shake-dt*30)}paintBackground();ambient();
  hover=null;let nearest=Infinity;for(let l of leaves){let d=Math.hypot(l.x-pointer.x,l.y-pointer.y);if(d<frameStats.reach+l.s&&d<nearest){hover=l;nearest=d}leafShadow(l.x,l.y,l.s,l.a)}

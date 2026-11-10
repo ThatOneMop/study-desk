@@ -16,7 +16,14 @@ function act(s,a){if(!a)return null;if(s.won){if(a.type!=='retry')return null;re
  else if(a.type==='retry'){n.pos=2;n.air=maxAir(n);n.cargo=[];n.usedAir=[];}
  else return null;return n;
 }
+// Minimum-air route with the current load. Air pockets are optional and never spent by the planner.
+function homeRoute(s){
+ const rocks=layouts[s.level].rocks,dist=Array(35).fill(Infinity),paths=Array(35).fill(null),open=[s.pos];dist[s.pos]=0;paths[s.pos]=[];
+ while(open.length){open.sort((a,b)=>dist[a]-dist[b]);const p=open.shift();if(p===2)return{cost:dist[p],steps:paths[p],first:paths[p][0]||null};
+  for(const [dir,delta] of Object.entries(DIRS)){const next=p+delta;if(next<0||next>=35||!adjacent(p,next)||rocks.includes(next))continue;const air=dist[p]+cost(s,dir);if(air<dist[next]){dist[next]=air;paths[next]=paths[p].concat(dir);if(!open.includes(next))open.push(next)}}
+ }return null;
+}
 function decode(raw){const s=JSON.parse(raw),int=(v,a,b)=>Number.isSafeInteger(v)&&v>=a&&v<=b,unique=(v,a,b)=>Array.isArray(v)&&new Set(v).size===v.length&&v.every(x=>int(x,a,b));
  if(s?.v===1){s.v=2;s.charter=-1;s.badges=[]}
  if(!s||s.v!==2||!int(s.charter,-1,1)||!unique(s.badges,0,5)||!int(s.level,0,2)||!int(s.pos,0,34)||layouts[s.level].rocks.includes(s.pos)||!int(s.tank,0,2)||!int(s.fins,0,1)||!int(s.air,1,maxAir(s))||!int(s.coins,0,1000000)||!int(s.expeditions,0,1000000)||!int(s.dives,0,1000000)||!int(s.rescues,0,1000000)||!unique(s.cargo,0,4)||!unique(s.banked,0,4)||s.cargo.some(i=>s.banked.includes(i))||weight(s)>4||!unique(s.usedAir,0,34)||s.usedAir.some(p=>!layouts[s.level].air.includes(p))||!Array.isArray(s.records)||s.records.length!==3||s.records.some((x,i)=>typeof x!=='boolean'||x&&i>0&&!s.records[i-1]||i>s.level&&x)||s.level>0&&!s.records[s.level-1]||s.records[s.level]!==s.banked.includes(4)||s.won!==s.records.every(Boolean)||s.pos===2&&(s.cargo.length||s.air!==maxAir(s)||s.usedAir.length))throw Error('Invalid dive save');return JSON.parse(JSON.stringify(s));}
-return{KEY,DIRS,NAMES,layouts,requests,charterName,create,maxAir,weight,cost,adjacent,act,decode};});
+return{KEY,DIRS,NAMES,layouts,requests,charterName,create,maxAir,weight,cost,adjacent,homeRoute,act,decode};});

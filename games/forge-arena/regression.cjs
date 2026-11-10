@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict'),fs=require('fs'),{JSDOM}=require('jsdom');
+const html=fs.readFileSync(__dirname+'/index.html','utf8'),dom=new JSDOM(html,{url:'https://test.example/games/forge-arena/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
+let frame;w.requestAnimationFrame=fn=>(frame=fn,1);w.setTimeout=()=>1;
+const e={running:true,keys:new Set(['KeyW']),mouse:{left:true,right:true},update(){this.steps=(this.steps||0)+1},damageUnit(){},time:90};w.battleEngine=e;
+w.document.getElementById('battle').classList.remove('hidden');
+w.eval(w.document.getElementById('fx27-pause-feedback').textContent);frame();
+w.dispatchEvent(new w.Event('blur'));assert.equal(w.ForgePause.paused,true);assert.equal(e.keys.size,0);assert.equal(e.mouse.left,false);
+e.update(.1);assert.equal(e.steps,undefined,'pause freezes simulation');
+w.dispatchEvent(new w.KeyboardEvent('keydown',{code:'Escape',repeat:true,bubbles:true}));assert.equal(w.ForgePause.paused,true,'held Escape cannot oscillate pause');
+w.document.getElementById('fxResume').click();e.update(.1);assert.equal(e.steps,1);
+e.mouse.left=e.mouse.right=true;w.document.querySelector('[data-fire]').dispatchEvent(new w.Event('pointercancel'));assert.equal(e.mouse.left,false);assert.equal(e.mouse.right,false);
+dom.window.close();console.log('Forge Arena: blur pause, frozen update, repeat-key guard and cancelled fire passed');

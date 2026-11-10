@@ -1,6 +1,6 @@
-# Study Desk — 16 games
+# Study Desk — 27 games
 
-The catalogue was trimmed on 2 November 2026 to 14 bundled games: Gummy Bay, Autumn Drift, Little Lake, Lost & Found, Lost & Found on the Moon, Tiny Wilds, Forge Arena, Roof Runner, Ashwake, Winterfold, Spanwright, Creekhold, Lanewright and Harvest Protocol. Every other game, its tests and its credits were removed; they remain in git history before that date.
+A flashcard workspace and a bundled browser-game collection. The catalogue now includes 19 improved existing games and eight new original games added on 10 November 2026.
 
 ## Upload to GitHub Pages
 
@@ -16,7 +16,7 @@ Study opens first. Create, edit and delete cards and decks in Create cards. Flip
 
 Monday pick chooses one bundled game for the calendar week, starting each Monday, inside the game collection after it is unlocked. The study page does not show it. Export all saves downloads every local save on this origin as `study-desk-saves.json`. Import all saves lists each key that will change, replaces only those keys after confirmation, then reloads. Identical keys are left alone. Keys missing from the file stay. Card export still downloads the open flashcard collection, including temporary edits. The all-saves file contains stored values only.
 
-The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, six freshly improved games, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
+The game collection is a storefront on this device: a featured carousel led by Gummy Bay, then continue playing, the Monday pick, games opened most often here, new games and freshly improved games, genres, and favourites. Search and the collection filters narrow that same catalogue. Random game, sound, and the light or dark theme stay in this browser. Study remains its own section.
 
 ## Games lock
 
@@ -28,7 +28,7 @@ Press P three times within one second, to move between study and games. The firs
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 16 catalogue games are bundled and include the Study Desk bridge.
+All 27 catalogue games are bundled and include the Study Desk bridge.
 
 ## Arcade
 
@@ -60,3 +60,11 @@ See TEST_REPORT.md for the original archive checks. Subsequent selected-game rel
 ## Numberworks — 4 November 2026
 
 Added at the user’s explicit request, preserving the curated games and concurrent Packworks work. Numberworks has a plain factory view, continuous conveyor packets, gap-aware tutorial, five permanent production ranks, 24 commissions and six multi-number projects. Original optional Blender sprites are bundled. Saves keep `numberworks.campaign.v1` and `numberworks.sandbox.v1`. To transfer an existing save from the standalone Site, export it in Workshop, then import it here; browser storage cannot cross origins automatically.
+
+## Collection expansion — 10 November 2026
+
+Eight original games are included: Orbital Drop (sci-fi extraction), Lanefall (hero-and-lane strategy), Basket Chaos, Volley Chaos, Soccer Chaos, Pocket Golf, Pegworks (peg-board roguelike), and Demolition Yard (controlled collapses). These are compact browser games, with original code and artwork, rather than ports of the commercial reference games. The sports games offer a bot or two players sharing one device. New games have local assets and need no external game service.
+
+Gummy Bay continues to fill the small-town management role, and Packworks covers card-pack collecting. The New games and Updated tags, dedicated shelves, and reference-name search aliases help find the expanded collection. Existing game save keys are retained. New-game progress stays on this website origin; export all saves to transfer it.
+
+All 19 existing games received targeted gameplay or usability changes. The release checks cover local routes/assets, catalogue parity, credits, shell launch/pause/switching, and deterministic game regressions. Rendered browser QA was unavailable in the managed Sites environment because its required browser tool was not exposed.

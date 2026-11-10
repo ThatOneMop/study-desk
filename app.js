@@ -262,7 +262,7 @@ function reviewSaveImport(changes){
   openModal(dialog);try{cancel.focus()}catch{}
  });
 }
-function gameTagList(g){return [g.type==='external'?'Official site':g.type==='arcade'?'Arcade':'Bundled',g.internet?'Needs internet':'Offline']}
+function gameTagList(g){return [g.type==='external'?'Official site':g.type==='arcade'?'Arcade':'Bundled',g.internet?'Needs internet':'Offline',g.added?'New games':null,g.updated?'Updated':null].filter(Boolean)}
 function tagMatch(g){return tag==='All'||gameTagList(g).includes(tag)}
 function storefrontHome(){return filter==='All'&&$('genre').value==='all'&&tag==='All'&&!$('search').value.trim()}
 function reduceMotion(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch{return false}}
@@ -343,11 +343,12 @@ function layoutStore(){
  const home=storefrontHome();
  if($('heroCarousel'))$('heroCarousel').hidden=!home;
  if($('arcadeMonday'))$('arcadeMonday').hidden=!home||$('arcadeMonday').dataset.ready!=='true';
- if(!home){for(const id of ['continuePlaying','trendingRow','newRow','favouriteShelf','arcadeShelf'])if($(id))$(id).hidden=true;syncChips();syncHeroMotion();return}
+ if(!home){for(const id of ['continuePlaying','trendingRow','newRow','improvedRow','favouriteShelf','arcadeShelf'])if($(id))$(id).hidden=true;syncChips();syncHeroMotion();return}
  const byId=id=>games.find(game=>game.id===id);
  fillShelf($('continuePlaying'),$('continueRow'),hub.recent.map(byId).filter(Boolean).slice(0,12),'Continue playing');
  fillShelf($('trendingRow'),$('trendingCards'),Object.entries(hub.plays).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(([id])=>byId(id)).filter(Boolean).slice(0,12),'Trending');
- fillShelf($('newRow'),$('newCards'),['outbreak-atlas','harvest-protocol','creekhold','ashwake','autumn-drift','little-lake'].map(byId).filter(Boolean),'Recently improved');
+ fillShelf($('newRow'),$('newCards'),games.filter(g=>g.added).sort((a,b)=>b.added.localeCompare(a.added)).slice(0,8),'New game:');
+ fillShelf($('improvedRow'),$('improvedCards'),games.filter(g=>g.updated&&!g.added).sort((a,b)=>b.updated.localeCompare(a.updated)||a.title.localeCompare(b.title)).slice(0,19),'Improved game:');
  fillShelf($('arcadeShelf'),$('arcadeRow'),games.filter(g=>g.group==='Arcade'),'Arcade:');
  fillShelf($('favouriteShelf'),$('favouriteRow'),hub.favourites.map(byId).filter(Boolean).slice(0,12),'Favourite');
  const opened=Object.values(hub.plays).reduce((sum,n)=>sum+n,0);
@@ -367,7 +368,7 @@ function buildGenreChips(){
 }
 function buildTagChips(){
  const row=$('tagFilters');if(!row)return;row.replaceChildren();
- for(const name of ['All','Bundled','Arcade','Offline','Needs internet']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
+ for(const name of ['All','New games','Updated','Bundled','Arcade','Offline','Needs internet']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
 }
 const THEME_KEY='study-desk-theme',SOUND_KEY='study-desk-sound';
 function applyTheme(theme){

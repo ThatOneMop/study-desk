@@ -43,8 +43,9 @@ await g.ready;
 const {w,d,$,gm,gd}=g;
 assert.equal(w.ARCADE_CONFIG.gmEnabled,false);
 assert.equal(w.ARCADE_CONFIG.gdEnabled,false);
-assert.equal(w.GAME_CATALOG.filter(game=>game.type==='bundled').length,18);
-assert.equal(d.querySelectorAll('.game').length,18,'only bundled games are listed');
+const bundled=w.GAME_CATALOG.filter(game=>game.type==='bundled');
+assert.equal(bundled.length,27);
+assert.equal(d.querySelectorAll('.game').length,bundled.length,'only bundled games are listed');
 assert.equal($('arcadeShelf').hidden,true);
 assert(![...$('filters').children].some(button=>button.textContent==='Arcade'));
 for(const game of gm.concat(gd)){
@@ -70,16 +71,19 @@ assert.equal(d.querySelectorAll('.game').length,0);
 assert.match(d.querySelector('.empty').textContent,/Arcade is empty right now/);
 assert.equal($('arcadeShelf').hidden,true);
 d.querySelector('.empty button').click();
-assert.equal(d.querySelectorAll('.game').length,18,'clearing the empty Arcade filter restores bundled games');
+assert.equal(d.querySelectorAll('.game').length,bundled.length,'clearing the empty Arcade filter restores bundled games');
 assert.equal($('search').value,'');
 
+const beforeRandom=JSON.parse(w.localStorage.getItem('after-class-hub-v1'));
+assert(beforeRandom.favourites.includes('buggy-blast')&&beforeRandom.recent.includes('panda-run'),'disabled ids survive loading and filtering');
 const urls=new Set();
-let n=0;w.Math.random=()=>((n++)%18)/18;
-for(let i=0;i<36;i++){$('randomGame').click();const src=$('frame').getAttribute('src');urls.add(src);assert(src.startsWith('games/'),src);assert(!src.includes('arcade'));assert(!HOST.test(src))}
-assert.equal(urls.size,18,'random cycles bundled games only');
+let n=0;w.Math.random=()=>((n++)%bundled.length)/bundled.length;
+for(let i=0;i<bundled.length*2;i++){$('randomGame').click();const src=$('frame').getAttribute('src');urls.add(src);assert(src.startsWith('games/'),src);assert(!src.includes('arcade'));assert(!HOST.test(src))}
+assert.equal(urls.size,bundled.length,'random cycles bundled games only');
 assert(!shown(d).some(title=>gm.concat(gd).some(game=>game.title===title)));
 const saved=JSON.parse(w.localStorage.getItem('after-class-hub-v1'));
-assert(saved.favourites.includes('buggy-blast')&&saved.recent.includes('panda-run'),'disabled ids stay in saved preferences');
+assert(saved.favourites.includes('buggy-blast'),'disabled favourites stay in saved preferences');
+assert(saved.recent.length<=24,'recent history keeps its existing 24-session bound');
 assert.equal(saved.plays['buggy-blast'],4,'opening bundled games does not rewrite a disabled play count');
 assert(![...d.querySelectorAll('[data-game]')].some(button=>button.dataset.game==='buggy-blast'||button.dataset.game==='panda-run'));
 
