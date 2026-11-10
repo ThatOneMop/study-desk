@@ -31,6 +31,8 @@
   let pointers = new Map();
   let toastTimer = 0;
   let noted = '';
+  let auditedStop = null;
+  let auditMessage = '';
 
   function load() {
     try {
@@ -126,6 +128,7 @@
       $('hint').classList.remove('warn');
       $('hint').textContent = 'Everyone has a way round again.';
     }
+    if (auditMessage && run.speed === 0) $('hint').textContent = auditMessage;
     const res = run.resources;
     $('stockSlope').textContent = Math.floor(res.slope) + ' m';
     $('stockLift').textContent = res.lift;
@@ -143,6 +146,7 @@
   }
   function apply(result) {
     if (!result) return;
+    auditMessage = '';
     if (result.ok) {
       audio.draw();
       if (result.color) $('hint').textContent = SLOPE_LABEL[result.color] + ' run drawn.';
@@ -153,10 +157,11 @@
     refresh();
     save();
   }
-  function setTool(next) { tool = next; if (hand === 'move') hand = 'draw'; refresh(); }
+  function setTool(next) { auditMessage = ''; tool = next; if (hand === 'move') hand = 'draw'; refresh(); }
   function setHand(next) { hand = next; refresh(); }
   function setSpeed(speed) {
     if (!run || run.phase !== 'play') return;
+    if (speed > 0) auditMessage = '';
     E.setSpeed(run, speed);
     refresh();
   }
@@ -164,6 +169,7 @@
     const started = E.startRun(meta, id, mode);
     if (!started) { toast('That hill is still locked.'); return; }
     run = started;
+    auditMessage = ''; auditedStop = null;
     noted = '';
     sandbox = mode === 'sandbox';
     fit();
@@ -346,6 +352,29 @@
       else if (run && run.phase === 'play') setSpeed(0);
     }
   });
+
+  $('auditBtn').onclick = () => {
+    if (!run || document.querySelector('dialog[open]')) return;
+    setSpeed(0);
+    drawing = null;
+    const issues = E.routeAudit(run);
+    if (!issues.length) {
+      auditedStop = null;
+      auditMessage = 'Every stop is reachable and has a way home for its arriving guests.';
+      $('hint').textContent = auditMessage;
+      toast(auditMessage);
+      return;
+    }
+    const next = (issues.findIndex(p => p.id === auditedStop) + 1) % issues.length;
+    const p = issues[next];
+    auditedStop = p.id;
+    cam.x = p.x; cam.y = p.y;
+    const message = (next + 1) + '/' + issues.length + ' · ' + POI_LABEL[p.kind] + ': ' +
+      (p.issue === 'return' ? p.skills.map(k => SLOPE_LABEL[k]).join(', ') + ' guests can arrive but cannot return. Draw a suitable downhill way to a station.' : 'No station can reach this stop. Build an outward lift or run.');
+    auditMessage = message;
+    $('hint').textContent = message;
+    toast(message);
+  };
 
   function changeHistory(redo) {
     if (!run || document.querySelector('dialog[open]')) return;

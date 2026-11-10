@@ -77,7 +77,8 @@ assert.equal($('search').value,'');
 const beforeRandom=JSON.parse(w.localStorage.getItem('after-class-hub-v1'));
 assert(beforeRandom.favourites.includes('buggy-blast')&&beforeRandom.recent.includes('panda-run'),'filtering preserves disabled preferences');
 const urls=new Set();
-let n=0;w.Math.random=()=>((n++)%bundledCount)/bundledCount;
+// Sample the center of each random-selection bucket to avoid float boundary rounding.
+let n=0;w.Math.random=()=>(((n++)%bundledCount)+0.5)/bundledCount;
 for(let i=0;i<bundledCount*2;i++){$('randomGame').click();const src=$('frame').getAttribute('src');urls.add(src);assert(src.startsWith('games/'),src);assert(!src.includes('arcade'));assert(!HOST.test(src))}
 assert.equal(urls.size,bundledCount,'random cycles bundled games only');
 assert(!shown(d).some(title=>gm.concat(gd).some(game=>game.title===title)));

@@ -7,7 +7,15 @@ const routes=[
  {name:'Paper lanterns',path:[[0,0],[6,0],[6,6],[2,6],[2,2],[4,2],[4,4]],targets:[[4,0],[4,6],[2,4],[4,4]]},
  {name:'Switchback',path:[[0,2],[2,2],[2,0],[6,0],[6,6],[1,6],[1,4],[4,4]],targets:[[4,0],[6,3],[3,6],[4,4]]},
  {name:'Night mail',path:[[0,5],[5,5],[5,1],[1,1],[1,3],[3,3],[3,0]],targets:[[3,5],[5,3],[3,1],[2,3],[3,0]]},
- {name:'Last light',path:[[0,6],[6,6],[6,0],[1,0],[1,4],[4,4],[4,2],[2,2]],targets:[[3,6],[6,3],[3,0],[1,2],[3,4],[2,2]]}
+ {name:'Last light',path:[[0,6],[6,6],[6,0],[1,0],[1,4],[4,4],[4,2],[2,2]],targets:[[3,6],[6,3],[3,0],[1,2],[3,4],[2,2]]},
+ {name:'Night shift: alley lights',path:[[0,0],[6,0],[6,6],[1,6],[1,2],[4,2],[4,4],[2,4]],targets:[[3,0],[6,3],[3,6],[1,3],[3,2],[4,3],[2,4]]},
+ {name:'Night shift: copper square',path:[[0,6],[6,6],[6,1],[1,1],[1,4],[4,4],[4,2],[2,2]],targets:[[3,6],[6,3],[3,1],[1,2],[2,4],[4,3],[2,2]]},
+ {name:'Night shift: zigzag quay',path:[[0,1],[5,1],[5,3],[2,3],[2,5],[6,5],[6,0],[3,0]],targets:[[2,1],[5,2],[3,3],[2,4],[4,5],[6,2],[3,0]]},
+ {name:'Night shift: glass gardens',path:[[0,5],[6,5],[6,0],[1,0],[1,3],[4,3],[4,1],[2,1]],targets:[[3,5],[6,2],[3,0],[1,1],[2,3],[4,2],[2,1]]},
+ {name:'Night shift: lantern ladder',path:[[0,6],[2,6],[2,4],[5,4],[5,2],[3,2],[3,0],[6,0]],targets:[[1,6],[2,5],[3,4],[5,3],[4,2],[3,1],[6,0]]},
+ {name:'Night shift: riverside run',path:[[0,0],[2,0],[2,2],[5,2],[5,4],[1,4],[1,6],[4,6]],targets:[[1,0],[2,1],[3,2],[5,3],[3,4],[1,5],[4,6]]},
+ {name:'Night shift: spiral post',path:[[0,6],[6,6],[6,0],[0,0],[0,4],[4,4],[4,2],[2,2],[2,3]],targets:[[3,6],[6,3],[3,0],[0,2],[2,4],[4,3],[3,2],[2,3]]},
+ {name:'Night shift: first dawn',path:[[0,0],[6,0],[6,6],[0,6],[0,2],[4,2],[4,4],[2,4],[2,3]],targets:[[3,0],[6,3],[3,6],[0,4],[2,2],[4,3],[3,4],[2,3]]}
 ];
 const vec=(a,b)=>[Math.sign(b[0]-a[0]),Math.sign(b[1]-a[1])];
 function level(i){const r=routes[i], mirrors=[];for(let k=1;k<r.path.length-1;k++){const p=r.path[k],a=vec(r.path[k-1],p),b=vec(p,r.path[k+1]);const solution=(-a[1]===b[0]&&-a[0]===b[1])?'/':'\\';mirrors.push({x:p[0],y:p[1],solution,value:k%3===0?solution:solution==='/'?'\\':'/'});}return {name:r.name,start:r.path[0],mirrors,targets:r.targets.map(p=>p.slice())};}

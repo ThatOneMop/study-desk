@@ -24,8 +24,10 @@ assert.equal(JSON.parse(w.localStorage.getItem('autumn-drift-v2')).garden.collec
 g.advance();key('Enter',{repeat:true});key('Enter',{ctrlKey:true});key('Enter',{isComposing:true});assert.equal(g.count,1,'repeat/composition/modifier guards');
 g.fixture([leaf(8,100,100,3),leaf(9,300,100)]);key('Home');g.advance();key('Enter');assert.equal(g.leaves[0].hp,2,'normal tool damage, no one-hit bypass');assert.equal(g.count,0);assert.match($('leafStatus').textContent,/2 health/);
 $('shopBtn').click();g.advance();key('Enter');assert.equal(g.leaves[0].hp,2,'shop blocks garden input');
-assert.equal(d.activeElement,$('closeShop'),'shop focuses its first enabled action');
-$('closeShop').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));assert.equal(d.activeElement,$('closeShop'),'Tab stays in open menu');
+const firstShop=$('shop').querySelector('button:not(:disabled)');
+assert.equal(d.activeElement,firstShop,'shop focuses its first enabled action, including an optional garden request');
+firstShop.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}));assert.equal(d.activeElement,$('closeShop'),'Shift+Tab wraps to the last shop action');
+$('closeShop').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));assert.equal(d.activeElement,firstShop,'Tab wraps to the first shop action');
 $('closeShop').click();assert.equal(d.activeElement,c);assert(g.running);
 key('Home');g.advance();key('Enter');g.advance();key('Enter');assert.equal(g.count,1);assert.equal(g.leaves.length,1);
 g.advance();key('Enter');assert.equal(g.leaves.length,0);assert.match($('leafStatus').textContent,/Garden cleared/);key('Home');key('ArrowRight');key('Enter');assert.equal(g.leaves.length,0,'empty garden remains safe');

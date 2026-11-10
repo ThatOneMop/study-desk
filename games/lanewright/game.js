@@ -35,6 +35,8 @@
   let launched = null;
   let wipeArmed = false;
   let framed = false;
+  let auditedShop = null;
+  let auditHighlight = null;
 
   function load() {
     try {
@@ -319,6 +321,7 @@
       return;
     }
     run = next;
+    auditedShop = null; auditHighlight = null;
     launched = { cityId: cityId, mode: mode, opts: opts || {} };
     speed = 1;
     userCam = false;
@@ -402,7 +405,9 @@
   }
 
   function highlight() {
-    if (tut !== 1 || !run) return null;
+    if (!run) return null;
+    if (auditHighlight) return auditHighlight;
+    if (tut !== 1) return null;
     const ids = new Set();
     for (const b of run.buildings) if (b.color === 'coral') ids.add(b.id);
     return ids;
@@ -656,7 +661,24 @@
   }
   $('undoBtn').addEventListener('click', () => changeHistory(false));
   $('redoBtn').addEventListener('click', () => changeHistory(true));
-  $('fitBtn').addEventListener('click', () => fit(true));
+  $('auditBtn').addEventListener('click', () => {
+    if (!run || anyDialog() || $('play').hidden) return;
+    speed = 0;
+    drawChain = null; preview = null;
+    const report = E.serviceAudit(run);
+    if (!report.length) { setStatus('No shops have opened yet.'); return; }
+    const index = (report.findIndex(s => s.id === auditedShop) + 1) % report.length;
+    const shop = report[index];
+    auditedShop = shop.id;
+    auditHighlight = new Set([shop.id]);
+    const house = run.buildings.find(h => h.role === 'house' && h.color === shop.color);
+    if (house) auditHighlight.add(house.id);
+    cam.x = shop.x; cam.y = shop.y; userCam = true; clampCam();
+    setStatus((index + 1) + '/' + report.length + ' · ' + shop.color + ' shop: ' + shop.pins + ' waiting. ' +
+      (!shop.hasHouse ? 'Wait for a matching house to open.' : !shop.connected ? 'Link a highlighted matching house to this shop.' : shop.timer > 0 ? 'A route exists but the ring is growing. Add capacity or a shorter route.' : 'A route exists. Keep a direct lane clear as demand grows.') + ' Clock paused; inspect again for the next shop.');
+    refreshHud();
+  });
+  $('fitBtn').addEventListener('click', () => { auditHighlight = null; fit(true); });
   $('pauseBtn').addEventListener('click', () => { if (run) show('pause'); });
   $('resumeBtn').addEventListener('click', () => hide('pause'));
   $('pauseHelp').addEventListener('click', () => show('help'));

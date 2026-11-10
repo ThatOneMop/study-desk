@@ -1,3 +1,4 @@
+import {commissionAction,commissionHTML} from './notebook-commissions.mjs?v=1';
 import {chooseParcel,parcelVelocity,PARCEL_NOTES} from './parcel-handling.mjs?v=120';
 import {createParcelFinish} from './parcel-finish.mjs?v=120';
 import {focusScore,chooseInteraction} from './interaction-focus.mjs?v=117';
@@ -5735,3 +5736,14 @@ try{
  const chronLoad=load;load=function(...args){const r=chronLoad(...args);s.chronicle=normalizeChronicle(s.chronicle);return r;};
  window.__chronicle={facts:chronFacts,state:()=>JSON.parse(JSON.stringify(ensureChron())),step:()=>{const step=stepChronicle(ensureChron(),chronFacts());s.chronicle=step.story;chronNames(unlockNames(step.events));chronDistricts();return step.events.map(e=>e.type+':'+(e.id||''));},districts:()=>openDistricts(ensureChron(),chronFacts())};
 }catch(e){console.warn('Bay chronicle unavailable',e);}
+
+// Notebook jobs belong to the host's shared business. Guest menus are read-only.
+const commissionMenu=menu;menu=function(which,data){commissionMenu(which,data);if(which==='journal'&&panel==='journal')$('modal').insertAdjacentHTML('beforeend',commissionHTML({...s,__commissionGuest:net.role==='guest'},esc));};window.menu=menu;
+window.bayCommission=function(id,kind){
+ if(!active||work||net.role==='guest'||processingRemote||panel!=='journal'||ensurePolice().search)return;
+ const result=commissionAction(s,id,kind);if(!result.ok){toast(result.reason);return;}
+ s.notebookCommissions={...(s.notebookCommissions||{}),[id]:result.entry};
+ s.cash+=result.cash;s.xp+=result.xp;save();
+ toast(kind==='accept'?'Commission accepted. Progress starts now.':'Commission complete · +'+cash(result.cash)+' · +'+result.xp+' XP');
+ menu('journal');
+};

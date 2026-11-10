@@ -968,6 +968,29 @@
     $('tutorShow').addEventListener('click', function () { panToTargets(true); });
     $('tutorStepSkip').addEventListener('click', function () { tutorStep++; startStep(); tutorSync(false); panToTargets(false); saveGuide(); });
     $('overlayBtn').addEventListener('click', function () { cycleOverlay(); });
+    $('reserveBtn').addEventListener('click', function () {
+      if (!run) return;
+      setSpeed(0);
+      selected = null;
+      const p = E.reservePlan(run), box = $('inspect');
+      box.hidden = false;
+      $('inspectName').textContent = 'Hazard reserve plan';
+      $('inspectBody').textContent = (p.hours / 24).toFixed(1) + ' days of ' + p.hazard + ' for ' + p.population + ' nibs: budget ' + p.water + ' water and ' + p.food + ' food. ' +
+        'Short by ' + p.waterShort + ' water and ' + p.foodShort + ' food. Water capacity: ' + p.capacity + '. ' +
+        'Baseline at current needs; future production, kits growing and new nibs are excluded. Keep a buffer.';
+      const actions = $('inspectActions');
+      actions.replaceChildren();
+      [['tank', 'Add water storage'], ['pump', 'Add clean-water supply'], ['forager', 'Add food gathering']].forEach(function (item) {
+        const b = document.createElement('button');
+        b.type = 'button'; b.textContent = item[1]; b.disabled = !run.unlocked[item[0]];
+        b.addEventListener('click', function () {
+          tool = item[0]; cat = E.DEF[tool].cat;
+          renderDock(); showPieceInfo(tool); box.hidden = true;
+          toast('Place ' + E.DEF[tool].name + ' on a reachable tile.');
+        });
+        actions.appendChild(b);
+      });
+    });
     $('playBtn').addEventListener('click', function () { fillPick(); $('title').close(); $('pick').showModal(); unlockAudio(); });
     $('continueBtn').addEventListener('click', continueRun);
     $('howBtn').addEventListener('click', openHelp);

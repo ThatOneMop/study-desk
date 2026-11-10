@@ -536,6 +536,20 @@
     $('quitBtn').addEventListener('click', () => { closeVeils(); if (session && !session.sim) saveDesign(); show('map'); });
     $('pauseSettings').addEventListener('click', openSettings);
     $('settingsClose').addEventListener('click', () => { $('settings').hidden = true; });
+    $('surveyBtn').addEventListener('click', () => {
+      if (!session) return;
+      if (session.sim) { setStatus('Rebuild before surveying the design.'); return; }
+      const report = E.survey(session);
+      if (report.frontier) {
+        cursor = report.frontier;
+        cam.x = cursor.x; cam.y = cursor.y;
+      }
+      anchor = null; ghost = null;
+      const ledger = report.reserve >= 0 ? money(report.reserve) + ' remains.' : money(-report.reserve) + ' over budget.';
+      setStatus((report.connected ? 'Road joins both banks. ' : 'Road stops at the survey pin. Continue with road from here. ') + ledger +
+        (report.supports ? ' Run the cart to test the braces and moving phases.' : ' No separate braces yet; continuity does not prove strength.'));
+      $('scene').focus();
+    });
     $('infoBtn').addEventListener('click', () => {
       const level = session.level;
       $('infoKicker').textContent = level.world;

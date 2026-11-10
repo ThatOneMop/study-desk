@@ -1,10 +1,10 @@
-# Study Desk — 21 games
+# Study Desk — 23 games
 
-The current catalogue contains 21 bundled games. The 10 November 2026 update improves all 19 existing games and adds Prism Post and Orbit Orchard. The earlier catalogue trim and retired games remain in git history.
+The current catalogue contains 23 bundled games. The 10 November 2026 update improves all 19 existing games and adds Prism Post and Orbit Orchard. A second pass adds Tidal Switch and Ember Keeper, new optional challenges and strategic choices across the existing collection. The earlier catalogue trim and retired games remain in git history.
 
 ## Collection update — 10 November 2026
 
-All 19 existing games received targeted control, save, navigation or planning improvements. Prism Post adds eight mirror-routing puzzles with undo, hints and saved delivery stamps. Orbit Orchard adds three arcade harvest seasons with touch/keyboard orbit controls and saved best scores. See [the update report](docs/collection-2026-11-10.md) for per-game changes and verification limits.
+All 19 existing games received targeted control, save, navigation or planning improvements. Prism Post adds sixteen mirror-routing puzzles with undo, hints and saved delivery stamps. Orbit Orchard adds three arcade harvest seasons with touch/keyboard orbit controls and saved best scores. See [the update report](docs/collection-2026-11-10.md) for per-game changes and verification limits.
 
 ## Upload to GitHub Pages
 
@@ -32,7 +32,7 @@ Press P three times within one second, to move between study and games. The firs
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 21 catalogue games are bundled and include the Study Desk bridge.
+All 23 catalogue games are bundled and include the Study Desk bridge.
 
 ## Arcade
 

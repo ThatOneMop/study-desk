@@ -1530,6 +1530,31 @@ function updateBoats(session) {
     return 'high';
   }
 
+  // A topology check, separate from the load-bearing simulation.
+  function survey(session) {
+    const anchors = session.level.anchors || [];
+    const start = anchors[0], end = anchors[1];
+    const startNode = start && session.nodes.find(n => Math.hypot(n.x - start.x, n.y - start.y) < 0.05);
+    const endNodes = end ? session.nodes.filter(n => Math.hypot(n.x - end.x, n.y - end.y) < 0.05) : [];
+    const seen = new Set(startNode ? [startNode.id] : []), queue = startNode ? [startNode.id] : [];
+    while (queue.length) {
+      const id = queue.shift();
+      const links = session.beams.filter(b => b.mat === 'road' && (b.a === id || b.b === id)).map(b => b.a === id ? b.b : b.a);
+      for (const split of session.splits) {
+        if (split.a === id) links.push(split.b);
+        if (split.b === id) links.push(split.a);
+      }
+      for (const other of links) if (!seen.has(other)) { seen.add(other); queue.push(other); }
+    }
+    const connected = endNodes.some(n => seen.has(n.id));
+    const frontier = session.nodes.filter(n => seen.has(n.id)).sort((a, b) =>
+      Math.hypot(a.x - (end ? end.x : 0), a.y - (end ? end.y : 0)) - Math.hypot(b.x - (end ? end.x : 0), b.y - (end ? end.y : 0)))[0] || start || null;
+    return { connected, frontier: frontier ? { x: frontier.x, y: frontier.y } : null,
+      roadMembers: session.beams.filter(b => b.mat === 'road').length,
+      reserve: Math.round(session.level.budget - session.spent),
+      supports: session.beams.filter(b => b.mat !== 'road').length };
+  }
+
   return {
     SAVE_KEY, G, FRAME, MATERIALS, VEHICLES, WORLDS, ACHIEVEMENTS, LEVELS,
     defaultMeta, normalize, worldUnlocked, levelUnlocked, groundY,
@@ -1537,7 +1562,7 @@ function updateBoats(session) {
     splitJoint, toggleSplitPhase, setScale, togglePhase, markUndo, undo, redo,
     exportDesign, importDesign, setSandboxVehicle, addSandboxVehicle, setSandboxBoat, addAnchor,
     beginSim, tick, beginReplay, tickReplay, seekReplay, rebuild, setSpeed,
-    award, noteReplay, encode, decode, grade, reasonText, stressBand,
+    award, noteReplay, encode, decode, grade, reasonText, stressBand, survey,
     yardLevel, nodeById, beamById, splitFor, recompute
   };
 });

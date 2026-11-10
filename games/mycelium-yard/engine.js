@@ -13,18 +13,18 @@ const BUYERS=[
 ];
 const empty=()=>({kind:-1,growth:0,water:0,rot:0,ripe:0});
 const order=()=>({buyer:-1,stage:0,delivered:[0,0,0],locked:false});
-const create=(level=0,records=[null,null,null],badges=Array(6).fill(false))=>({v:1,level,day:0,jobs:3,coins:8,sales:0,harvests:[0,0,0],beds:Array.from({length:6},empty),records:records.slice(),badges:badges.slice(),order:order(),ended:false,log:'Choose a buyer for a delivery challenge, then plant your first beds.'});
+const create=(level=0,records=[null,null,null],badges=Array(6).fill(false))=>({v:1,level,day:0,jobs:3,coins:8,sales:0,harvests:[0,0,0],drained:Array(6).fill(false),beds:Array.from({length:6},empty),records:records.slice(),badges:badges.slice(),order:order(),ended:false,log:'Choose a buyer for a delivery challenge, then plant your first beds.'});
 function act(s,a){
- if(!a||typeof a!=='object'||!['buyer','plant','water','harvest','compost','vent','night'].includes(a.type)||s.ended)return null;
- const n=JSON.parse(JSON.stringify(s));n.order??=order();n.badges??=Array(6).fill(false);
+ if(!a||typeof a!=='object'||!['buyer','plant','water','harvest','compost','drain','vent','night'].includes(a.type)||s.ended)return null;
+ const n=JSON.parse(JSON.stringify(s));n.drained??=Array(6).fill(false);n.order??=order();n.badges??=Array(6).fill(false);
  if(a.type==='buyer'){
   if(!Number.isInteger(a.buyer)||Math.floor(a.buyer/2)!==s.level||a.buyer<0||a.buyer>=6||n.order.locked||a.buyer===n.order.buyer)return null;
   n.order={...order(),buyer:a.buyer};n.log='Serving '+BUYERS[a.buyer].name+'. Choice locks at your next harvest. Choosing costs no job.';return n;
  }
  if(a.type==='night'){
   n.day++;let events=[];
-  for(const b of n.beds){
-   if(b.kind<0)continue;const wet=b.water+WEATHER[s.day];b.water=Math.min(3,wet);if(wet>3)b.rot++;
+  for(const [i,b] of n.beds.entries()){
+   if(b.kind<0)continue;const wet=b.water+WEATHER[s.day];b.water=Math.min(3,wet);if(wet>3&&!n.drained[i])b.rot++;
    if(b.rot>=2){Object.assign(b,empty());events.push('A waterlogged bed was lost.');continue}
    if(b.growth>=CROPS[b.kind].time){b.ripe++;if(b.ripe>=3){Object.assign(b,empty());events.push('A ripe bed spoiled.')}continue}
    if(b.water>0){b.water--;b.growth++}
@@ -38,6 +38,7 @@ function act(s,a){
   if(!n.beds.some(b=>b.kind>=0&&b.water>0))return null;for(const b of n.beds)if(b.kind>=0)b.water=Math.max(0,b.water-2);n.log='Opened the roof: every planted bed loses two moisture.';
  }else{
   if(!Number.isInteger(a.bed)||a.bed<0||a.bed>=6)return null;const b=n.beds[a.bed];
+  if(a.type==='drain'){if(n.drained[a.bed]||n.coins<4)return null;n.coins-=4;n.drained[a.bed]=true;n.log='Fitted drainage to bed '+(a.bed+1)+'. Future excess rain cannot add rot.';}
   if(a.type==='plant'){
    if(b.kind!==-1||!Number.isInteger(a.kind)||a.kind<0||a.kind>Math.min(2,n.level+1)||n.coins<CROPS[a.kind].cost)return null;
    n.coins-=CROPS[a.kind].cost;Object.assign(b,{kind:a.kind,growth:0,water:2,rot:0,ripe:0});n.log='Planted '+CROPS[a.kind].name+'. Two moisture included.';
@@ -63,11 +64,12 @@ function act(s,a){
 function decode(raw){
  const s=JSON.parse(raw),int=(v,a,b)=>Number.isInteger(v)&&v>=a&&v<=b;
  if(!s||s.v!==1||!int(s.level,0,2)||!int(s.day,0,10)||!int(s.jobs,0,3)||!int(s.coins,0,1000)||!int(s.sales,0,1000)||typeof s.ended!=='boolean'||s.ended!==(s.day===10)||!Array.isArray(s.records)||s.records.length!==3||s.records.some((v,i)=>v!==null&&(!int(v,GOALS[i],1000)||i>0&&s.records[i-1]===null))||s.level>0&&s.records[s.level-1]===null||!Array.isArray(s.harvests)||s.harvests.length!==3||s.harvests.some(v=>!int(v,0,30))||!Array.isArray(s.beds)||s.beds.length!==6||s.beds.some(b=>!b||!int(b.kind,-1,2)||!int(b.growth,0,b.kind<0?0:CROPS[b.kind].time)||!int(b.water,0,3)||!int(b.rot,0,1)||!int(b.ripe,0,2)||b.kind<0&&(b.water||b.rot||b.ripe))||typeof s.log!=='string'||s.log.length>250)throw Error('Invalid save');
+ if(s.drained===undefined)s.drained=Array(6).fill(false);if(!Array.isArray(s.drained)||s.drained.length!==6||s.drained.some(v=>typeof v!=='boolean'))throw Error('Invalid drainage save');
  // Old v1 crops, money and records survive. No past harvest earns a new badge.
  if(!Object.hasOwn(s,'order'))s.order=order();if(!Object.hasOwn(s,'badges'))s.badges=Array(6).fill(false);
  const o=s.order;
  if(!Array.isArray(s.badges)||s.badges.length!==6||s.badges.some(x=>typeof x!=='boolean')||!o||!int(o.buyer,-1,5)||o.buyer>=0&&Math.floor(o.buyer/2)!==s.level||!int(o.stage,0,2)||typeof o.locked!=='boolean'||!Array.isArray(o.delivered)||o.delivered.length!==3||o.delivered.some((v,i)=>!int(v,0,o.buyer<0||o.stage===2?0:BUYERS[o.buyer].baskets[o.stage][i]))||o.buyer<0&&(o.stage||o.locked)||!o.locked&&(o.stage||o.delivered.some(Boolean))||o.stage===2&&!s.badges[o.buyer])throw Error('Invalid buyer save');
  return JSON.parse(JSON.stringify(s));
 }
-function forecast(s){if(s.ended)return [];const next=act(s,{type:'night'});return s.beds.map((b,i)=>{const n=next.beds[i];if(b.kind<0)return 'Empty';if(n.kind<0)return b.rot+(b.water+WEATHER[s.day]>3?1:0)>=2?'Lost to rot':'Spoils tonight';const messages=[];if(n.rot>b.rot)messages.push('Gains rot');if(n.growth>b.growth)messages.push(n.growth===CROPS[n.kind].time?'Ready tomorrow':'Grows to '+n.growth+'/'+CROPS[n.kind].time);else if(b.growth<CROPS[b.kind].time)messages.push('Too dry to grow');else messages.push('Ripe '+n.ripe+'/3 evenings');messages.push('Water '+n.water);return messages.join(' · ')})}
+function forecast(s){if(s.ended)return [];const next=act(s,{type:'night'});return s.beds.map((b,i)=>{const n=next.beds[i];if(b.kind<0)return 'Empty';if(n.kind<0)return b.rot+(b.water+WEATHER[s.day]>3&&!s.drained?.[i]?1:0)>=2?'Lost to rot':'Spoils tonight';const messages=[];if(n.rot>b.rot)messages.push('Gains rot');if(n.growth>b.growth)messages.push(n.growth===CROPS[n.kind].time?'Ready tomorrow':'Grows to '+n.growth+'/'+CROPS[n.kind].time);else if(b.growth<CROPS[b.kind].time)messages.push('Too dry to grow');else messages.push('Ripe '+n.ripe+'/3 evenings');messages.push('Water '+n.water);return messages.join(' · ')})}
 return{KEY,CROPS,WEATHER,GOALS,BUYERS,create,act,decode,forecast};});

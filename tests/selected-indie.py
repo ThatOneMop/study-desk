@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 KEEP = {
     "gummy-bay", "autumn-drift", "little-lake", "lost-found", "moon-salvage", "tiny-wilds", "forge-arena",
     "roof-runner", "ashwake", "winterfold", "spanwright", "creekhold", "lanewright", "harvest-protocol",
-    "packworks", "numberworks", "outbreak-atlas", "mycelium-yard", "bell-diver", "prism-post", "orbit-orchard",
+    "packworks", "numberworks", "outbreak-atlas", "mycelium-yard", "bell-diver", "prism-post", "orbit-orchard", "tidal-switch", "ember-keeper",
 }
 # Folders under games/ that are not catalogue entries but must stay.
 SUPPORT = {"gummy-bay-dev"}

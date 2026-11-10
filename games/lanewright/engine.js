@@ -1732,6 +1732,17 @@ function stepCars(run, dt) {
 
   function toolLabel(id) { return TOOL_NAME[id] || id; }
 
+  function serviceAudit(run) {
+    const houses = run.buildings.filter(b => b.role === 'house');
+    return run.buildings.filter(b => b.role === 'dest').map(shop => {
+      const matching = houses.filter(h => h.color === shop.color);
+      const connected = matching.some(h => linked(run, h.id, shop.id));
+      return { id: shop.id, x: shop.cx + 0.5, y: shop.cy + 0.5, color: shop.color,
+        connected, hasHouse: matching.length > 0, pins: shop.pins || 0, timer: shop.timer || 0,
+        house: matching.length ? { x: matching[0].cx + 0.5, y: matching[0].cy + 0.5 } : null };
+    }).sort((a, b) => b.timer - a.timer || Number(a.connected) - Number(b.connected) || b.pins - a.pins);
+  }
+
   return {
     SAVE_KEY: SAVE_KEY,
     WEEK: WEEK,
@@ -1755,6 +1766,7 @@ function stepCars(run, dt) {
     placeLight: placeLight,
     connectBuildings: connectBuildings,
     linked: linked,
+    serviceAudit: serviceAudit,
     beginUndo: beginUndo,
     endUndo: endUndo,
     undo: undo,

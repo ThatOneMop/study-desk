@@ -20,7 +20,7 @@ function open(id,sources,expose){
  dom.window.close();
 }
 {
- const dom=open('little-lake',['progression.js','inline:main'],`window.gameTest={get save(){return save},compare(assist){save.reelAssist=assist;started=true;state='reel';prog=.5;pos=.33;held=false;timer=0;last=0;modal=false;frame(16);return prog}};`);
+ const dom=open('little-lake',['progression.js','research.js','inline:main'],`window.gameTest={get save(){return save},compare(assist){save.reelAssist=assist;started=true;state='reel';prog=.5;pos=.33;held=false;timer=0;last=0;modal=false;frame(16);return prog}};`);
  const w=dom.window,d=w.document,t=w.gameTest;d.getElementById('tackle').click();assert.equal(d.getElementById('reelAssist').getAttribute('aria-pressed'),'false');d.getElementById('reelAssist').click();
  assert.equal(d.getElementById('reelAssist').getAttribute('aria-pressed'),'true');assert.equal(JSON.parse(w.localStorage.getItem('littleLakeV1')).reelAssist,true,'assist uses the existing save');
  assert(t.compare(false)<.5,'normal precision zone is retained');assert(t.compare(true)>.5,'assist widens the actual catch zone');dom.window.close();

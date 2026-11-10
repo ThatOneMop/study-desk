@@ -60,7 +60,7 @@ function monthNotes(prev,next){
   const awareness=Math.round((next.talk-prev.talk)*100),cure=Math.round((next.effort-prev.effort)*100);
   lines.push('Awareness '+(awareness>=0?'+':'')+awareness+'%. Cure pressure '+(cure>=0?'+':'')+cure+'%.');
   if(next.won)lines.push(state.log[0]);
-  if(next.lost)lines.push('Cure pressure filled before the objective.');
+  if(next.lost)lines.push(next.log[0]);
   return lines.join(' ');
 }
 function showPulse(text){
@@ -70,12 +70,13 @@ function showPulse(text){
 function objectiveLine(current){
   const done=Outbreak.establishedCount(current);
   if(current.scenario==='quiet')return 'Quiet Circuit '+Math.min(done,8)+'/8 established · awareness '+Math.round(current.talk*100)+'% (limit 50%)';
+  if(current.scenario==='islands')return 'Island Sprint '+['lantern','spire','farwhistle'].filter(id=>current.lands[id].established).length+'/3 islands · '+Math.max(0,24-current.month)+' months left';
   if(current.scenario==='twin')return 'Twin Lights · Lantern Isles '+(current.lands.lantern.established?'established':'open')+' · Farwhistle '+(current.lands.farwhistle.established?'established':'open');
   if(current.scenario==='hearth')return 'Hearthhold '+current.hearthStreak+'/8 heavy months in Hearthlow';
   return 'World Spread '+done+'/14 lands established';
 }
 function showEnd(){
-  $('endTitle').textContent=state.won?'The infection holds.':'Cure pressure wins.';
+  $('endTitle').textContent=state.won?'The infection holds.':state.scenario==='islands'&&state.month>=24?'The island charter closes.':'Cure pressure wins.';
   $('endText').textContent=objectiveLine(state)+'. Month '+state.month+'. Awareness '+Math.round(state.talk*100)+'%. Cure pressure '+Math.round(state.effort*100)+'%. '+(state.log[0]||'');
   $('end').hidden=false;
 }

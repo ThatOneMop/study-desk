@@ -20,4 +20,4 @@ s=O.create();s.spawn=10;s.angle=0;for(let n=0;n<3;n++){s.items=[{angle:0,r:.785,
 s=O.create();s.time=39.99;s.spawn=10;O.step(s,.05);assert.equal(s.state,'lost');
 s=O.create();s.spawn=10;O.step(s,.05,1);assert(O.distance(s.angle,-Math.PI/2)>0);assert(O.distance(.01,O.TAU-.01)<.03);
 s.target=0;for(let i=0;i<10;i++)O.step(s,.05);assert(O.distance(s.angle,0)<.001);
-console.log('PASS new games: all 8 authored puzzles solvable, three arcade seasons, catch/miss/thorn/timeout/steering loops');
+console.log('PASS new games: all authored puzzles solvable, three arcade seasons, catch/miss/thorn/timeout/steering loops');

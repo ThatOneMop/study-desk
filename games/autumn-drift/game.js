@@ -3,7 +3,7 @@ const canvas=document.querySelector('canvas'),$=s=>document.getElementById(s),MA
 let ctx=canvas.getContext('2d');
 const biomes=['Back Garden','Amber Orchard','Copperwood','Fern Hollow','Cottage Lane','Silver Birch','Maple Meadow','Mossy Ruins','Lakeside','Harvest Fields','Cedar Valley','Rosewood','Frosted Grove','Sunset Park','Wildwood','Golden Hills','Moonlit Glade','Scarlet Woods','Ancient Oaks','Autumn Sanctuary'];
 const saveStore=AutumnSaves.create({getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value),removeItem:key=>localStorage.removeItem(key)});
-let save=saveStore.load(),migrated=saveStore.migrated,basket=0,rootedGot=0,legacyGate=false;
+let save=saveStore.load(),migrated=saveStore.migrated,basket=0,rootedGot=0,legacyGate=false,gardenRequest=null;
 let W,H,scale,ox,oy,leaves=[],particles=[],running=false,down=false,completed=false,total=0,collected=0,clock=0,last=0,sound=false,audio,noise,lastRustle=0,toastTimer,lastPick=-10,pointer={x:600,y:400},hover=null,mode='best';
 const palette=['#d48b37','#e8b64b','#b44c29','#d56932','#f2c960','#8e4830','#d99c55'];
 const fmt=n=>Math.floor(n).toLocaleString();function rand(a,b){return a+Math.random()*(b-a)}
@@ -18,7 +18,7 @@ function nextMilestone(){return [Math.ceil(total/3),Math.ceil(total*2/3),total].
 function cost(track,rank=save.ranks[track]){return Math.ceil([12,18,28,22][track]+Math.pow(rank+1,1.28)*[5,5,7,6][track])}
 function toolName(rank=save.ranks[2]){return rank>=500?'Cyclone collector':rank>=100?'Leaf vacuum':rank>=20?'Leaf grabber':rank>=5?'Garden rake':rank>=1?'Picking gloves':'Bare hand'}
 function stats(){let [h,r,t,v]=save.ranks;return{power:1+h,reach:18+Math.log2(r+1)*7,amount:mode==='hand'?1:1+Math.floor(Math.sqrt(t)*1.8),value:1+v*.12,cooldown:Math.max(.045,.24/(1+Math.log2(t+1)*.32)),hold:mode!=='hand'&&t>=20}}
-function currentGarden(){return {...save,garden:{area:save.area,leaves,collected,total,completed,basket,rootedGot,legacyGate}}}
+function currentGarden(){return {...save,garden:{area:save.area,leaves,collected,total,completed,basket,rootedGot,legacyGate,request:gardenRequest}}}
 function saveStatus(){
  const messages={ready:'Autosaving on this device. Export a copy to keep it separately.',invalid:'The loaded save is invalid and has been preserved. This is a temporary garden; autosaving is paused. Download the loaded save before leaving.',conflict:'Another tab changed this save. Autosaving is paused to protect that copy. Export your current garden before reloading.',unavailable:'Saving is unavailable. Export your current garden before closing this tab.'};
  $('saveStatus').textContent=messages[saveStore.status];$('saveHint').textContent=saveStore.status==='ready'?'Autosaves on this device':'Saving paused — open Saves';$('exportLoaded').hidden=saveStore.originalRaw===null;
@@ -36,8 +36,28 @@ $('exportPrevious').onclick=()=>{try{const text=saveStore.readBackup();if(text==
 $('closeSaves').onclick=()=>closePanels();
 function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;W=innerWidth;H=innerHeight;scale=Math.min(W/1200,H/800);ox=(W-1200*scale)/2;oy=(H-800*scale)/2}addEventListener('resize',resize);resize();
 function bin(){return{x:960,y:605,r:44}}
-function loadGarden(restore=false){let r=rng(save.area*9157+save.clears*13+77);total=areaCount(save.area);collected=0;completed=false;leaves=[];particles=[];combo=0;comboT=-9;for(let i=0;i<total;i++){let a=r()*6.28,x=155+r()*880,y=225+r()*447;if((save.area%3)===1){x=220+(i%4)*210+Math.cos(a)*r()*80;y=420+Math.sin(a)*r()*185}leaves.push({id:i,x,y,a,s:9+r()*6,c:palette[(Math.floor(r()*7)+save.area)%7],hp:health(save.area),max:health(save.area),rare:r()<.035});}if(!(restore&&save.garden?.area===save.area)&&leaves.length){leaves[0].x=620;leaves[0].y=410}if(restore&&save.garden?.area===save.area){({leaves,collected,total,completed,basket,rootedGot,legacyGate}=save.garden);basket=basket||0;rootedGot=rootedGot||0;legacyGate=legacyGate===true}else{basket=0;rootedGot=0;legacyGate=false;let rootedLeft=rootedNeed(save.area);for(const l of leaves){if(!rootedLeft||l.rare)continue;l.rooted=true;l.max=Math.max(l.max,2);l.hp=l.max;rootedLeft--}if(rootedLeft)for(const l of leaves){if(!rootedLeft||l.rooted)continue;l.rooted=true;l.max=Math.max(l.max,2);l.hp=l.max;rootedLeft--}}updateUI()}
+function loadGarden(restore=false){let r=rng(save.area*9157+save.clears*13+77);total=areaCount(save.area);collected=0;completed=false;leaves=[];particles=[];combo=0;comboT=-9;for(let i=0;i<total;i++){let a=r()*6.28,x=155+r()*880,y=225+r()*447;if((save.area%3)===1){x=220+(i%4)*210+Math.cos(a)*r()*80;y=420+Math.sin(a)*r()*185}leaves.push({id:i,x,y,a,s:9+r()*6,c:palette[(Math.floor(r()*7)+save.area)%7],hp:health(save.area),max:health(save.area),rare:r()<.035});}if(!(restore&&save.garden?.area===save.area)&&leaves.length){leaves[0].x=620;leaves[0].y=410}if(restore&&save.garden?.area===save.area){({leaves,collected,total,completed,basket,rootedGot,legacyGate}=save.garden);basket=basket||0;rootedGot=rootedGot||0;legacyGate=legacyGate===true;gardenRequest=save.garden.request||null}else{gardenRequest=null;basket=0;rootedGot=0;legacyGate=false;let rootedLeft=rootedNeed(save.area);for(const l of leaves){if(!rootedLeft||l.rare)continue;l.rooted=true;l.max=Math.max(l.max,2);l.hp=l.max;rootedLeft--}if(rootedLeft)for(const l of leaves){if(!rootedLeft||l.rooted)continue;l.rooted=true;l.max=Math.max(l.max,2);l.hp=l.max;rootedLeft--}}updateUI()}
 function toast(msg){$('toast').textContent=msg;$('toast').style.opacity=1;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.opacity=0,2300)}
+function requestGoal(kind){return kind==='basket'?6:Math.min(12,total)}
+function requestReward(kind){return Math.ceil(value(save.area)*total*(kind==='basket'?.7:.4))}
+function chooseGardenRequest(kind){
+ if(gardenRequest||!['hand','basket'].includes(kind)||(kind==='basket'&&save.ranks[2]<5))return false;
+ // A request is a goal for the remaining leaves, never a retroactive payout.
+ const eligible=leaves.filter(l=>kind!=='basket'||!l.rooted).length;
+ if(eligible<requestGoal(kind)){toast('Reseed the garden for enough leaves to take that request.');return false}
+ gardenRequest={kind,progress:0,claimed:false};persist();shop();return true;
+}
+function requestPanel(){
+ const node=$('gardenRequest');if(!node)return;
+ if(!gardenRequest){node.innerHTML='<b>A request from next door</b><p>Choose one optional job for this fall of leaves. Rewards are extra acorns; you can still open the next area without it.</p><button id="requestHand">Pick '+requestGoal('hand')+' leaves · +'+fmt(requestReward('hand'))+'</button> <button id="requestBasket" '+(save.ranks[2]<5?'disabled':'')+'>Basket 6 · +'+fmt(requestReward('basket'))+'</button>';$('requestHand').onclick=()=>chooseGardenRequest('hand');$('requestBasket').onclick=()=>chooseGardenRequest('basket');return}
+ const r=gardenRequest;node.innerHTML='<b>'+(r.kind==='basket'?'Basket delivery':'Careful picking')+'</b><p>'+Math.min(r.progress,requestGoal(r.kind))+' / '+requestGoal(r.kind)+' leaves · '+(r.claimed?'Reward collected ✓':fmt(requestReward(r.kind))+' extra acorns on completion')+'</p>';
+}
+function noteGardenRequest(how){
+ const r=gardenRequest;if(!r||r.claimed||(r.kind==='basket'?how!=='basket':how!=='pick'))return 0;
+ r.progress++;if(r.progress<requestGoal(r.kind))return 0;
+ r.claimed=true;const reward=requestReward(r.kind);save.money+=reward;
+ toast('Neighbour request complete! +'+fmt(reward)+' acorns.');floaters.push({x:600,y:300,text:'REQUEST +'+fmt(reward),life:1.8,c:'#ffe7a0',big:true});return reward;
+}
 function rootedNeed(area){return area<1?0:Math.min(8,area<3?area:3+Math.floor((area-3)/8))}
 function basketNeed(area){return Math.min(12,3+Math.floor(area/6))}
 function gateView(){
@@ -51,7 +71,7 @@ function gateView(){
  const unmet=lines.filter(line=>!line.done);
  return {lines,ready:unmet.length===0,summary:unmet.length?unmet.map(line=>line.text).join(' · '):'Ready'};
 }
-function updateUI(){let s=stats(),gate=gateView();$('money').textContent=fmt(save.money);$('day').textContent=`AREA ${save.area+1} / 5,000 · ${areaName(save.area).toUpperCase()}`;$('progress').style.width=collected/total*100+'%';$('instruction').textContent=`${collected} / ${total} picked · ${s.hold?'Hold to grab & blow':save.ranks[2]>=5&&mode!=='hand'?'Click to pick · drag to sweep':'Click each leaf · rake unlocks sweeping'} · ${mode==='hand'?'Bare hand':toolName()}`;$('travelBtn').textContent=gate.ready&&save.area===save.unlocked&&save.unlocked<MAX-1?'Next area →':'Areas';$('toolBtn').textContent=mode==='hand'?'Hand':toolName();$('gardenGoal').textContent=gate.ready&&save.area===save.unlocked?'Next garden can open.':'Still sealed · '+gate.summary;$('tally').textContent=`Next reward: ${collected} / ${nextMilestone()} leaves · ${fmt(save.ranks.reduce((a,b)=>a+b,0))} / 20,000 ranks · ${gate.summary}`}
+function updateUI(){let s=stats(),gate=gateView();$('money').textContent=fmt(save.money);$('day').textContent=`AREA ${save.area+1} / 5,000 · ${areaName(save.area).toUpperCase()}`;$('progress').style.width=collected/total*100+'%';$('instruction').textContent=`${collected} / ${total} picked · ${s.hold?'Hold to grab & blow':save.ranks[2]>=5&&mode!=='hand'?'Click to pick · drag to sweep':'Click each leaf · rake unlocks sweeping'} · ${mode==='hand'?'Bare hand':toolName()}`;$('travelBtn').textContent=gate.ready&&save.area===save.unlocked&&save.unlocked<MAX-1?'Next area →':'Areas';$('toolBtn').textContent=mode==='hand'?'Hand':toolName();$('gardenGoal').textContent=gate.ready&&save.area===save.unlocked?'Next garden can open.':'Still sealed · '+gate.summary;if(gardenRequest)$('gardenGoal').textContent+=' · Request '+Math.min(gardenRequest.progress,requestGoal(gardenRequest.kind))+'/'+requestGoal(gardenRequest.kind)+(gardenRequest.claimed?' ✓':'');$('tally').textContent=`Next reward: ${collected} / ${nextMilestone()} leaves · ${fmt(save.ranks.reduce((a,b)=>a+b,0))} / 20,000 ranks · ${gate.summary}`}
 // ---- Leaf handling: picking (click/keyboard) and blowing (hold & drag), Leaf Blower style.
 let floaters=[],flyers=[],combo=0,comboT=-9,dirtySave=false,lastSaveAt=0,uiDirty=false,shake=0,lastPointer=null,pointerVel={x:0,y:0},blowing=0,gustPuffs=[];
 function hudTarget(){try{const r=$('money').getBoundingClientRect();if(r&&r.width)return{x:(r.left+r.width/2-ox)/scale,y:(r.top+r.height/2-oy)/scale}}catch{}return{x:1000,y:40}}
@@ -62,6 +82,7 @@ function collectLeaf(l,how){const s=stats();const i=leaves.indexOf(l);if(i<0)ret
  flyers.push({x:l.x,y:l.y,sx:l.x,sy:l.y,t:0,c:l.rare?'#ffe178':l.c,a:l.a});
  floaters.push({x:l.x,y:l.y-10,text:'+'+fmt(gain)+(how==='basket'?' x2':''),life:1,c:l.rare?'#ffe178':'#fff3cf'});
  if(total>=12&&[Math.ceil(total/3),Math.ceil(total*2/3)].includes(collected)){const reward=Math.ceil(total*.22)*value(save.area);save.money+=reward;floaters.push({x:600,y:265,text:'GARDEN MILESTONE +'+fmt(reward),life:1.8,c:'#ffe7a0',big:true});chime();toast('Garden milestone! +'+fmt(reward)+' acorns. Keep going or choose an upgrade.')}
+ noteGardenRequest(how);
  if(l.rare){shake=Math.max(shake,6);chime(1.5);toast('Golden leaf! +'+fmt(gain)+' acorns')}else pop(how==='basket'?1.3:1+Math.min(1,combo*.04));
  return gain}
 function checkCleared(){if(!leaves.length&&!completed){completed=true;let bonus=areaCount(save.area)*value(save.area);save.money+=bonus;chime(1);setTimeout(()=>chime(1.5),160);shake=8;floaters.push({x:600,y:420,text:'GARDEN CLEARED! +'+fmt(bonus),life:2.2,c:'#ffe7a0',big:true});for(let j=0;j<60;j++)particles.push({x:600+rand(-200,200),y:440,vx:rand(-120,120),vy:rand(-260,-80),life:1.6,c:palette[j%7]});toast('Garden cleared! +'+fmt(bonus)+' bonus · Open Areas to continue')}}
@@ -142,7 +163,7 @@ $('start').onclick=()=>{$('intro').style.display='none';running=true;canvas.focu
 const tracks=['Hand strength','Hand reach','Tools & equipment','Leaf appraisal'];
 function effect(i,n){return i===0?`${1+n} picking power`:i===1?`${(18+Math.log2(n+1)*7).toFixed(1)} px reach`:i===2?`${toolName(n)} · ${1+Math.floor(Math.sqrt(n)*1.8)} leaves/action`:`×${(1+n*.12).toFixed(2)} leaf income`}
 function buy(i){let n=save.ranks[i];if(n>=MAX||n>=rankCap()||save.money<cost(i))return false;save.money-=cost(i);save.ranks[i]++;persist();updateUI();return true}
-function shop(){running=false;down=false;$('upgrades').innerHTML='';tracks.forEach((title,i)=>{let n=save.ranks[i],row=document.createElement('div');row.className='row';let text=document.createElement('div');text.innerHTML=`<b>${title} <small>${fmt(n)} / 5,000</small></b><small>${effect(i,n)}<br>Next: ${n===MAX?'Complete':effect(i,n+1)}</small>`;let btn=document.createElement('button');btn.textContent=n===MAX?'Maxed':n>=rankCap()?`Area ${Math.floor(n/5)+1}`:fmt(cost(i))+' acorns';btn.disabled=n===MAX||n>=rankCap()||save.money<cost(i);btn.onclick=()=>{if(buy(i)){chime();shop()}};row.append(text,btn);$('upgrades').append(row)});$('shop').style.display='flex';focusPanel('shop')}
+function shop(){running=false;down=false;requestPanel();$('upgrades').innerHTML='';tracks.forEach((title,i)=>{let n=save.ranks[i],row=document.createElement('div');row.className='row';let text=document.createElement('div');text.innerHTML=`<b>${title} <small>${fmt(n)} / 5,000</small></b><small>${effect(i,n)}<br>Next: ${n===MAX?'Complete':effect(i,n+1)}</small>`;let btn=document.createElement('button');btn.textContent=n===MAX?'Maxed':n>=rankCap()?`Area ${Math.floor(n/5)+1}`:fmt(cost(i))+' acorns';btn.disabled=n===MAX||n>=rankCap()||save.money<cost(i);btn.onclick=()=>{if(buy(i)){chime();shop()}};row.append(text,btn);$('upgrades').append(row)});$('shop').style.display='flex';focusPanel('shop')}
 $('shopBtn').onclick=()=>{if($('intro').style.display==='none'){$('complete').style.display='none';shop()}};$('closeShop').onclick=closePanels;$('helpBtn').onclick=()=>{if($('intro').style.display!=='none')return;running=false;down=false;$('shop').style.display='none';$('complete').style.display='none';$('helpPanel').style.display='flex';focusPanel('helpPanel')};$('closeHelp').onclick=closePanels;addEventListener('keydown',e=>{if(e.key==='Escape')closePanels()});
 function canUnlock(){return save.area===save.unlocked&&save.unlocked<MAX-1&&gateView().ready}
 function unlock(){if(!canUnlock())return false;save.money-=fee(save.area);save.unlocked++;save.area=save.unlocked;loadGarden();persist();closePanels();return true}

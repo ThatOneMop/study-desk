@@ -42,6 +42,8 @@ const CONTRACTS = [
  [99991,128,'The general machine','Try 100000 − 9. Graduate, then keep building.','endless']
 ];
 const PROJECTS=[
+ {id:'signed',name:'The signed workshop',unlock:9,needs:{'-1':18,0:18,1:18},maxOps:4,brief:'Deliver negative, zero and positive streams using no more than four arithmetic machines at any point. Cancel and retry if your peak exceeds the budget.'},
+ {id:'remainders',name:'Nothing wasted',unlock:12,needs:{2:24,3:24,0:24},maxOps:3,brief:'Deliver quotients and remainders, including zero, with at most three arithmetic machines. Both divider outlets can be useful products.'},
  {id:'twins',name:'Two lines, one factory',unlock:3,needs:{2:18,3:18},brief:'Keep two different numbers arriving. Share supply or build independent lines.'},
  {id:'squares',name:'The square works',unlock:9,needs:{9:24,16:24,25:24},brief:'Build a family of squares. Reuse intermediate numbers and balance the splitters.'},
  {id:'offset',name:'Odd jobs',unlock:11,needs:{17:24,19:24,23:24},brief:'Nearby primes reward a common base with small adjustments.'},
@@ -61,7 +63,7 @@ function advanceRank(s){const p=rankProgress(s);if(!p?.ready)return false;s.care
 function career(){return{active:null,completed:{},vouchers:0,rank:0};}
 function startProject(s,id){const p=PROJECTS.find(p=>p.id===id);if(!p||(!s.sandbox&&s.level<p.unlock)||s.career.active)return false;s.career.active={id,started:s.time,delivered:{},pieces:s.buildings.length,ops:s.buildings.filter(n=>OPS.includes(n.type)).length};return true;}
 function cancelProject(s){s.career.active=null;}
-function projectDelivery(s,v){const a=s.career.active;if(!a)return;const p=PROJECTS.find(p=>p.id===a.id);if(!p.needs[v])return;a.delivered[v]=(a.delivered[v]||0)+1;if(Object.entries(p.needs).every(([v,n])=>(a.delivered[v]||0)>=n)){const previous=s.career.completed[p.id],record={seconds:Math.max(.05,s.time-a.started),pieces:a.pieces,ops:a.ops};if(!previous)s.career.vouchers+=2;s.career.completed[p.id]=previous?{seconds:Math.min(previous.seconds,record.seconds),pieces:Math.min(previous.pieces,record.pieces),ops:Math.min(previous.ops,record.ops)}:record;s.career.active=null;s.events.push({kind:'project',text:p.name+' completed'+(!previous?' · 2 research vouchers earned':' · personal bests updated')});}}
+function projectDelivery(s,v){const a=s.career.active;if(!a)return;const p=PROJECTS.find(p=>p.id===a.id);if(!p.needs[v])return;a.delivered[v]=(a.delivered[v]||0)+1;if((!p.maxOps||a.ops<=p.maxOps)&&Object.entries(p.needs).every(([v,n])=>(a.delivered[v]||0)>=n)){const previous=s.career.completed[p.id],record={seconds:Math.max(.05,s.time-a.started),pieces:a.pieces,ops:a.ops};if(!previous)s.career.vouchers+=2;s.career.completed[p.id]=previous?{seconds:Math.min(previous.seconds,record.seconds),pieces:Math.min(previous.pieces,record.pieces),ops:Math.min(previous.ops,record.ops)}:record;s.career.active=null;s.events.push({kind:'project',text:p.name+' completed'+(!previous?' · 2 research vouchers earned':' · personal bests updated')});}}
 function useVoucher(s,type){if(s.career.vouchers<1||!unlocked(s,type)||!upgradeCost(s,type))return false;s.career.vouchers--;s.upgrades[type]++;return true;}
 function lesson(s){
  if(s.sandbox)return null;
