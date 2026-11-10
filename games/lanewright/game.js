@@ -84,7 +84,7 @@
     if (d && d.open) d.close();
   }
   function anyDialog() {
-    return ['pause', 'settings', 'upgrade', 'result', 'help'].some(id => $(id).open);
+    return ['pause', 'settings', 'upgrade', 'result', 'help', 'shop'].some(id => $(id).open);
   }
 
   function screenOf(section) {
@@ -93,6 +93,7 @@
       hide('pause');
       hide('upgrade');
       hide('result');
+      hide('shop');
     }
   }
 
@@ -105,7 +106,7 @@
     const city = run.city;
     const portrait = view.h > view.w * 1.15;
     if (portrait) {
-      const top = 112;
+      const top = 132;
       const bot = 86;
       const availH = Math.max(80, view.h - top - bot);
       cam.z = Math.max(40, Math.min(56, (view.w - 10) / 8.4));
@@ -113,7 +114,7 @@
       cam.y = city.rows / 2 - ((top + availH / 2) - view.h / 2) / cam.z;
     } else {
       const narrow = view.w < 720;
-      const top = narrow ? 96 : 72;
+      const top = narrow ? 116 : 72;
       const bot = narrow ? 70 : 84;
       const availW = Math.max(80, view.w - (narrow ? 4 : 28));
       const availH = Math.max(80, view.h - top - bot);
@@ -200,12 +201,58 @@
       : 'Tunnels are not a separate tool. Drawing a road across a hill spends one. You have ' + n + '.');
   }
 
+  // Connectivity only changes when the graph or the building count does, so
+  // the per-house served check is cached across frames.
+  let serve = null;
+  let serveKey = '';
+  function serveNow() {
+    if (!run) return null;
+    const key = run.graphRev + ':' + run.buildings.length;
+    if (serveKey !== key) { serve = E.serveInfo(run); serveKey = key; }
+    return serve;
+  }
+
+  function colourName(id) { return id ? id.charAt(0).toUpperCase() + id.slice(1) : ''; }
+
+  let legendHtml = null;
+  function renderLegend() {
+    const el = $('legend');
+    if (!el) return;
+    if (!run || run.phase !== 'play') { if (legendHtml !== '') { el.innerHTML = ''; legendHtml = ''; } return; }
+    const info = serveNow();
+    if (!info) { if (legendHtml !== '') { el.innerHTML = ''; legendHtml = ''; } return; }
+    const threat = {};
+    for (const b of run.buildings) {
+      if (b.role === 'dest' && b.timer > 0.2) threat[b.color] = Math.max(threat[b.color] || 0, b.timer);
+    }
+    const rows = info.legend.filter(g => g.houses + g.shops > 0);
+    const html = rows.map(g => {
+      const col = E.COLOR[g.color] || E.COLOR.coral;
+      const hot = (threat[g.color] || 0) > 0.2;
+      const open = g.unserved > 0;
+      const note = open ? g.unserved + ' need' + (g.unserved === 1 ? 's' : '') + ' a lane'
+        : hot ? 'ring filling' : g.shops + ' shop' + (g.shops === 1 ? '' : 's');
+      return '<span class="key' + (open ? ' open' : '') + (hot ? ' hot' : '') + '">'
+        + '<i style="background:' + col.fill + '"></i>' + colourName(g.color)
+        + '<em>' + note + '</em></span>';
+    }).join('');
+    if (html !== legendHtml) { el.innerHTML = html; legendHtml = html; }
+  }
+
   function refreshHud() {
     if (!run) return;
     const cal = E.calendar(run);
+    const clk = E.clockOf(run);
+    const na = E.nightAmount(run);
+    const rush = E.rushMul(run) > 1.25;
     $('cityName').textContent = run.city.name;
     $('when').textContent = cal.day + ' · Week ' + cal.week;
+    $('clockTime').textContent = clk.label + (na > 0.5 ? ' ☾' : ' ☀');
+    $('clockPill').className = 'pill' + (na > 0.5 ? ' night' : '') + (rush && na < 0.5 ? ' rush' : '');
+    $('clockPill').title = rush ? 'Rush hour — demand is climbing' : (na > 0.5 ? 'Night — headlights on' : 'The day clock');
     $('score').textContent = String(run.score);
+    $('credits').textContent = String(run.credits || 0);
+    $('creditsPill').className = 'pill' + ((run.credits || 0) >= 2 ? ' ready' : '');
     $('roads').textContent = run.mode === 'sketch' ? '∞' : String(run.stock.road);
     const mod = run.mod && run.mode !== 'endless' && run.mode !== 'sketch';
     $('modPill').hidden = !mod;
@@ -216,6 +263,7 @@
     const into = (run.time - run.weekIndex * E.WEEK) / E.WEEK;
     $('weekfill').style.width = Math.max(0, Math.min(1, into)) * 100 + '%';
     refreshTools();
+    renderLegend();
     $('status').textContent = status;
   }
 
@@ -346,6 +394,28 @@
     canvas.focus();
   }
 
+  function renderShop() {
+    if (!run) return;
+    const credits = run.credits || 0;
+    $('shopNote').textContent = credits + ' credit' + (credits === 1 ? '' : 's') + ' banked · you hold '
+      + (run.stock.light || 0) + ' light, ' + (run.stock.roundabout || 0) + ' circle, '
+      + (run.stock.motorway || 0) + ' motorway, ' + run.stock.road + ' road tiles.';
+    $('shopItems').innerHTML = E.CREDIT_ORDER.map(key => {
+      const c = E.COSTS[key];
+      const afford = credits >= c.cost;
+      const have = key === 'road' ? run.stock.road : (run.stock[key] || 0);
+      return '<button type="button" class="choice" data-buy="' + key + '"' + (afford ? '' : ' disabled') + '>'
+        + '<b>' + c.name + '</b><span>' + c.blurb + '</span>'
+        + '<em>' + c.cost + ' credits · have ' + have + '</em></button>';
+    }).join('');
+  }
+
+  function openShop() {
+    if (!run || $('shop').open) return;
+    renderShop();
+    show('shop');
+  }
+
   function openUpgrade() {
     if (!run || run.phase !== 'upgrade' || $('upgrade').open) return;
     const cal = E.calendar(run);
@@ -369,6 +439,8 @@
     $('resultBody').textContent = run.reason || 'The city stopped.';
     $('resultScore').textContent = String(run.score);
     $('resultWeek').textContent = String(E.currentWeek(run));
+    $('resultRoad').textContent = String(run.longestRoad || run.segs.length || 0);
+    $('resultDay').textContent = String(run.bestDayTrips || 0);
     $('resultBest').textContent = String(E.bestOn(meta, run.cityId, run.mode === 'sketch' ? 'sketch' : run.mode));
     $('resultLife').textContent = String(meta.lifetime || 0);
     $('resultAwards').textContent = granted.length
@@ -394,6 +466,7 @@
       else if (ev.type === 'spawn' || ev.type === 'promote') audio.pop();
       else if (ev.type === 'warn' && !warned) { warned = true; audio.warn(); }
       else if (ev.type === 'over') audio.over();
+      else if (ev.type === 'buy') audio.upgrade();
       else if (ev.type === 'saved') setStatus('The ring faded.');
     }
     run.events.length = 0;
@@ -431,6 +504,8 @@
         colorblind: !!meta.settings.colorblind,
         motion: !!meta.settings.motion,
         highlight: highlight(),
+        nightAmount: E.nightAmount(run),
+        unserved: (serveNow() || {}).unserved || null,
         now: now
       });
       refreshHud();
@@ -588,6 +663,7 @@
     if (e.key === 'Escape') {
       if ($('help').open) { hide('help'); return; }
       if ($('settings').open) { hide('settings'); return; }
+      if ($('shop').open) { hide('shop'); return; }
       if ($('pause').open) { hide('pause'); return; }
       if ($('upgrade').open || $('result').open) return;
       if (run && !$('play').hidden) { show('pause'); e.preventDefault(); }
@@ -612,6 +688,7 @@
     if (key === '4') { explainCrossing('tunnel'); return; }
     const tools = { '1': 'road', '2': 'motorway', '5': 'roundabout', '6': 'light' };
     if (tools[key]) { tool = tools[key]; hand = 'draw'; refreshTools(); return; }
+    if (key === 'b') { openShop(); return; }
     if (key === 'q' || key === '[') { speed = Math.max(0, speed - 1); return; }
     if (key === 'e' || key === ']') { speed = Math.min(3, speed === 0 ? 1 : speed + 1); return; }
     const pan = 1.2;
@@ -647,6 +724,17 @@
   $('undoBtn').addEventListener('click', () => { if (run && E.undo(run)) { save(); setStatus(''); } });
   $('fitBtn').addEventListener('click', () => fit(true));
   $('pauseBtn').addEventListener('click', () => { if (run) show('pause'); });
+  $('shopBtn').addEventListener('click', () => { if (run) { audio.resume(); openShop(); } });
+  $('shopClose').addEventListener('click', () => hide('shop'));
+  $('shopItems').addEventListener('click', e => {
+    const btn = e.target.closest('[data-buy]');
+    if (!btn || btn.disabled || !run) return;
+    const res = E.buy(run, btn.getAttribute('data-buy'));
+    if (res.ok) { audio.place(); save(); setStatus(res.card ? res.card.label + ' bought.' : ''); }
+    else if (res.reason) setStatus(res.reason);
+    renderShop();
+    refreshHud();
+  });
   $('resumeBtn').addEventListener('click', () => hide('pause'));
   $('pauseHelp').addEventListener('click', () => show('help'));
   $('pauseSettings').addEventListener('click', () => { syncSettings(); show('settings'); });
