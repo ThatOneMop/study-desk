@@ -2,7 +2,7 @@
 
 The Arcade has two kinds of third-party games:
 
-- **23 GameMonetize games** are prepared and **switched off** (`gmEnabled: false` in `arcade-config.js`) because those embed hosts are not working. They are not listed or loaded. Their pages, descriptions and embed addresses stay in `arcade/gamemonetize.js` and `arcade/<id>/`. Set `gmEnabled` to exactly `true` to show them again. That does not turn GameDistribution on.
+- **23 GameMonetize games** are **on** (`gmEnabled: true` in `arcade-config.js`). They are ad-supported, made and owned by their developers, and are listed and embedded on the site. Their pages, descriptions and embed addresses stay in `arcade/gamemonetize.js` and `arcade/<id>/`. Setting `gmEnabled` to anything other than exactly `true` hides them again. That does not turn GameDistribution on.
 - **45 GameDistribution (GD) games** are fully wired up but **switched off**. GD only licenses its games to publishers with an approved account (see their Publisher Game License Agreement: https://static.gamedistribution.com/terms/publisher.html). While switched off, they are not listed anywhere on the site and their pages create no iframe. They only show a "not switched on yet" card.
 
 The prepared data is in `arcade/gamedistribution.js`, and there is one page per game in `arcade/gd-<slug>/index.html`. `tests/arcade.cjs` checks that they stay hidden while the switch is off.

@@ -129,12 +129,23 @@ for g in gdlist: page(g, 'gd')
 # Arcade part of credits.html is regenerated. Later non-arcade sections (before </main>) stay.
 def listed(games):
     return "".join(f'<li><a href="{g["sourcePage"]}">{html.escape(g["title"])}</a> by {html.escape(g["developer"])}</li>' for g in games)
-intro = ('<section id="arcade"><h2>Arcade (third-party games)</h2><p>Arcade games are not part of Study Desk. They are made and owned by '
-    'their developers. GameMonetize and GameDistribution entries are prepared but switched off, so they are not shown or embedded. '
-    'Study Desk does not host their files. All rights belong to their developers.</p></section>')
-gmsec = (f'<section id="arcade-gamemonetize"><h2>GameMonetize games (switched off)</h2><p>These {len(live)} games are prepared '
-    'but are not shown or embedded while gmEnabled is not true in arcade-config.js. Their pages do not load GameMonetize. '
-    'All rights belong to their developers.</p><ul>' + listed(live) + '</ul></section>')
+cfg = (ROOT/'arcade-config.js').read_text()
+gm_on = bool(re.search(r'gmEnabled:\s*true\b', cfg))
+if gm_on:
+    intro = ('<section id="arcade"><h2>Arcade (third-party games)</h2><p>Arcade games are not part of Study Desk. They are made and owned by '
+        'their developers. The 23 GameMonetize games are on and ad-supported, made and owned by their developers. '
+        'GameDistribution entries are prepared but switched off, so they are not shown or embedded. '
+        'Study Desk does not host their files. All rights belong to their developers.</p></section>')
+    gmsec = (f'<section id="arcade-gamemonetize"><h2>GameMonetize games</h2><p>These {len(live)} GameMonetize games are on and ad-supported, '
+        'made and owned by their developers. Study Desk does not host their files. All rights belong to their developers.</p><ul>'
+        + listed(live) + '</ul></section>')
+else:
+    intro = ('<section id="arcade"><h2>Arcade (third-party games)</h2><p>Arcade games are not part of Study Desk. They are made and owned by '
+        'their developers. GameMonetize and GameDistribution entries are prepared but switched off, so they are not shown or embedded. '
+        'Study Desk does not host their files. All rights belong to their developers.</p></section>')
+    gmsec = (f'<section id="arcade-gamemonetize"><h2>GameMonetize games (switched off)</h2><p>These {len(live)} games are prepared '
+        'but are not shown or embedded while gmEnabled is not true in arcade-config.js. Their pages do not load GameMonetize. '
+        'All rights belong to their developers.</p><ul>' + listed(live) + '</ul></section>')
 gdsec = (f'<section id="arcade-gamedistribution"><h2>GameDistribution games (switched off)</h2><p>These {len(gdlist)} games are prepared '
     'but are not shown or embedded until the site has an approved GameDistribution publisher account (see docs/arcade-gamedistribution.md). '
     'All rights belong to their developers.</p><ul>' + listed(gdlist) + '</ul></section>')
@@ -148,4 +159,4 @@ else:
             end = match.start()
             break
 (ROOT/'credits.html').write_text(cr[:start] + intro + gmsec + gdsec + cr[end:])
-print(len(catalog), 'public catalog entries;', len(live), 'GameMonetize gated;', len(gdlist), 'GD gated')
+print(f"{len(catalog)} public catalog entries; {len(live)} GameMonetize {'on' if gm_on else 'gated'}; {len(gdlist)} GD gated")

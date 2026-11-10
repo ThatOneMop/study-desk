@@ -32,7 +32,7 @@ All 34 catalogue games are bundled and include the Study Desk bridge.
 
 ## Arcade
 
-Arcade providers are prepared and switched off. The 23 GameMonetize games stay in `arcade/gamemonetize.js` and `arcade/<id>/` with their descriptions, credits and embed addresses, and the GameDistribution games stay in `arcade/gamedistribution.js`. Neither provider is listed, searchable, or loaded while its switch is off. `arcade-config.js` has `gmEnabled: false` because the GameMonetize hosts are not working, and `gdEnabled: false` until a publisher account is approved (see docs/arcade-gamedistribution.md). Setting `gmEnabled` to `true` shows the GameMonetize games again. With both off, the Arcade shelf stays hidden and the Arcade tag says the shelf is empty. Bundled games, study tools and saves are unchanged. To regenerate the Arcade data, pages and credits, run `python3 tools/arcade/build.py .`.
+The 23 GameMonetize games are on and ad-supported. They are made and owned by their developers, and Study Desk does not host their files. Their catalogue entries, pages, descriptions and embed addresses stay in `arcade/gamemonetize.js` and `arcade/<id>/`. `arcade-config.js` has `gmEnabled: true`, so they are listed, searchable and loaded in an embed. GameDistribution games stay in `arcade/gamedistribution.js` and remain switched off (`gdEnabled: false`, empty `gdPublisherId`) until a publisher account is approved (see docs/arcade-gamedistribution.md). Bundled games, study tools and saves are unchanged. To regenerate the Arcade data, pages and credits, run `python3 tools/arcade/build.py .`.
 
 ## Recovered versions and implemented features
 
