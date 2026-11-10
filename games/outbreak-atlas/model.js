@@ -59,6 +59,7 @@
   const SCENARIOS = [
     { id: 'world', name: 'World Spread', text: 'Establish the infection in all 14 lands before cure pressure fills.' },
     { id: 'quiet', name: 'Quiet Circuit', text: 'Establish infection in 8 lands while awareness stays at half or below.' },
+    { id: 'islands', name: 'Island Sprint', text: 'Establish all three islands by the end of month 24, before cure pressure fills. Choose sea or sky routes early.' },
     { id: 'twin', name: 'Twin Lights', text: 'Establish infection in both Lantern Isles and Farwhistle. Sea or sky can reach them.' },
     { id: 'hearth', name: 'Hearthhold', text: 'Keep Hearthlow heavily infected for 8 months in a row.' },
     { id: 'calm', name: 'Calm Atlas', text: 'A relaxed sandbox of World Spread. Choose how hard cure pressure pushes.' }
@@ -124,6 +125,7 @@
   }
   function checkWin(state) {
     if (state.scenario === 'quiet') return establishedCount(state) >= 8 && state.talk <= 0.5;
+    if (state.scenario === 'islands') return ['lantern','spire','farwhistle'].every(id=>state.lands[id].established)&&state.month<=24;
     if (state.scenario === 'twin') return state.lands.lantern.established && state.lands.farwhistle.established;
     if (state.scenario === 'hearth') return state.hearthStreak >= 8;
     return establishedCount(state) === LANDS.length;
@@ -194,15 +196,15 @@
     else next.hearthStreak = 0;
     next.month += 1;
     next.won = checkWin(next);
-    next.lost = !next.won && next.effort >= 1;
+    next.lost = !next.won && (next.effort >= 1 || next.scenario === 'islands' && next.month >= 24);
     if (next.won) notes.unshift(winText(next));
-    else if (next.lost) notes.unshift('Cure pressure covered the map. This story ends.');
+    else if (next.lost) notes.unshift(next.scenario==='islands'&&next.month>=24?'The island charter closed after month 24. Start again and open transport earlier.':'Cure pressure covered the map. This story ends.');
     else notes.unshift('Month ' + next.month + '. Awareness ' + Math.round(next.talk * 100) + '%. Cure pressure ' + Math.round(next.effort * 100) + '%.');
     next.log = notes.slice(0, 5);
     return next;
   }
   function winText(state) {
-    const names = { world: 'Infection is established in every land.', quiet: 'Eight lands are established, and awareness is still low.', twin: 'Infection is established in Lantern Isles and Farwhistle.', hearth: 'Hearthlow stayed heavily infected for eight months.', calm: 'The calm atlas is fully infected.' };
+    const names = { islands: 'All three islands established within the island charter.', world: 'Infection is established in every land.', quiet: 'Eight lands are established, and awareness is still low.', twin: 'Infection is established in Lantern Isles and Farwhistle.', hearth: 'Hearthlow stayed heavily infected for eight months.', calm: 'The calm atlas is fully infected.' };
     return names[state.scenario] || names.world;
   }
   function buy(state, id) {
@@ -237,6 +239,19 @@
     lines.push('Outlook, not a promise.');
     return { lines: lines.slice(0, 6), closed };
   }
+  // Compare one seeded month with and without a purchase, without changing saves.
+  function upgradePreview(state,id,selected) {
+    const purchase=buy(state,id);
+    if(!purchase.ok)return null;
+    const before=step(state),after=step(purchase.state);
+    const total=s=>LANDS.reduce((n,land)=>n+s.lands[land.id].mark,0)/LANDS.length;
+    return {
+      spread:(total(after)-total(before))*100,
+      awareness:(after.talk-before.talk)*100,
+      pressure:(after.effort-before.effort)*100,
+      selected:after.lands[selected]?(after.lands[selected].mark-before.lands[selected].mark)*100:0
+    };
+  }
   function reachable(state) {
     const seen = { hearthlow: true };
     let moved = true;
@@ -269,5 +284,5 @@
     });
     return next;
   }
-  return { LANDS, LINKS, UPGRADES, SCENARIOS, ARCHETYPES, PRESSURES, create, step, buy, forecast, reachable, restore, linkOpen, establishedCount, landById, upgradeById };
+  return { LANDS, LINKS, UPGRADES, SCENARIOS, ARCHETYPES, PRESSURES, create, step, buy, forecast, upgradePreview, reachable, restore, linkOpen, establishedCount, landById, upgradeById };
 });

@@ -2011,6 +2011,20 @@
     return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
   }
 
+  // Baseline stock budget: no future production, migration, births or growth.
+  function reservePlan(run) {
+    const hours = run.season === 'temperate' ? hazardDays(run) * 24 : Math.max(0, seasonLenHours(run) - run.seasonHour);
+    let water = 0, food = 0;
+    for (const nib of living(run)) {
+      const k = (nib.kit ? 0.55 : 1) * run.rules.consume;
+      water += Math.ceil(Math.max(0, 2.85 * k * hours - (nib.thirst - 34)) / 66);
+      food += Math.ceil(Math.max(0, 2.35 * k * hours - (nib.hunger - 30)) / 70);
+    }
+    return { hours, water, food, waterShort: Math.max(0, Math.ceil(water - run.store.water)),
+      foodShort: Math.max(0, Math.ceil(food - foodTotal(run))), capacity: waterCap(run),
+      hazard: nextHazard(run), population: living(run).length };
+  }
+
   return {
     SAVE_KEY: SAVE_KEY,
     VERSION: VERSION,
@@ -2029,7 +2043,7 @@
     setGate: setGate,
     setPaused: setPaused,
     unlock: unlock, tierOpen: tierOpen, tierProgress: tierProgress, TIER_GATE: TIER_GATE,
-    preview: preview, goal: goal, treeStock: treeStock,
+    preview: preview, goal: goal, treeStock: treeStock, reservePlan: reservePlan,
     finishAll: finishAll,
     living: living,
     adults: adults,

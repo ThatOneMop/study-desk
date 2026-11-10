@@ -1,3 +1,4 @@
+import {commissionAction,commissionHTML} from './notebook-commissions.mjs?v=1';
 import {chooseParcel,parcelVelocity,PARCEL_NOTES} from './parcel-handling.mjs?v=120';
 import {createParcelFinish} from './parcel-finish.mjs?v=120';
 import {focusScore,chooseInteraction} from './interaction-focus.mjs?v=117';
@@ -102,7 +103,7 @@ import {createArcadeUI,POSTER_ART} from './arcade-ui.mjs?v=137';
 import {CITY_SHELLS} from './city-shells.mjs?v=133';
 import {createStaticBatcher} from './static-batch.mjs?v=139';
 import {recipeOutcome,mixedPrice,stirOutcome,stirBucket,stirLabel,saleConsequences,revealSummary,newMixSeed,isBad,riskBonus,resolvedAdds} from './mix-risk.mjs?v=130';
-import {stationReadiness} from './station-readiness.mjs?v=28';
+import {stationReadiness} from './station-readiness.mjs?v=swarm1';
 import {stockDisplay} from './stock-display.mjs?v=28';
 import {gestureCredit,sealPosition,sealReady,taskInstruction,workSurfaceMotion} from './tactile-work.mjs?v=27';
 import {createBenchSession,BENCH_KIND,ensureCraftQuality,growQuality,hasGrowScore,blendQuality,packScore,listedQuality,complaintHits,playBenchCue} from './bench-mode.mjs?v=134';
@@ -1905,7 +1906,7 @@ const readinessLabel=new THREE.Sprite(new THREE.SpriteMaterial({map:readinessTex
 readinessLabel.scale.set(3.2,3.2/6,1);readinessLabel.visible=false;scene.add(readinessLabel);
 let readinessKey='';
 const readinessUI=updateUI;updateUI=function(){
- readinessUI();refreshCrewPanel();refreshCustomerPanel();refreshApproachPanel();const info=near&&(near.type==='staffboard'?{text:s.helpers.crafter?'Gummy maker · '+workerStatus('crafter'):'Workshop roster · assignments and status',ready:true}:stationReadiness(near.type,s));
+ readinessUI();refreshCrewPanel();refreshCustomerPanel();refreshApproachPanel();const info=near&&(near.type==='staffboard'?{text:s.helpers.crafter?'Gummy maker · '+workerStatus('crafter'):'Workshop roster · assignments and status',ready:true}:stationReadiness(near.type,s,near.i));
  readinessLabel.visible=!!(active&&!panel&&!work&&!stationTask&&info);
  if(!readinessLabel.visible)return;
  readinessLabel.position.set(near.x,2.25,near.z);
@@ -5735,3 +5736,14 @@ try{
  const chronLoad=load;load=function(...args){const r=chronLoad(...args);s.chronicle=normalizeChronicle(s.chronicle);return r;};
  window.__chronicle={facts:chronFacts,state:()=>JSON.parse(JSON.stringify(ensureChron())),step:()=>{const step=stepChronicle(ensureChron(),chronFacts());s.chronicle=step.story;chronNames(unlockNames(step.events));chronDistricts();return step.events.map(e=>e.type+':'+(e.id||''));},districts:()=>openDistricts(ensureChron(),chronFacts())};
 }catch(e){console.warn('Bay chronicle unavailable',e);}
+
+// Notebook jobs belong to the host's shared business. Guest menus are read-only.
+const commissionMenu=menu;menu=function(which,data){commissionMenu(which,data);if(which==='journal'&&panel==='journal')$('modal').insertAdjacentHTML('beforeend',commissionHTML({...s,__commissionGuest:net.role==='guest'},esc));};window.menu=menu;
+window.bayCommission=function(id,kind){
+ if(!active||work||net.role==='guest'||processingRemote||panel!=='journal'||ensurePolice().search)return;
+ const result=commissionAction(s,id,kind);if(!result.ok){toast(result.reason);return;}
+ s.notebookCommissions={...(s.notebookCommissions||{}),[id]:result.entry};
+ s.cash+=result.cash;s.xp+=result.xp;save();
+ toast(kind==='accept'?'Commission accepted. Progress starts now.':'Commission complete · +'+cash(result.cash)+' · +'+result.xp+' XP');
+ menu('journal');
+};

@@ -219,7 +219,7 @@
     range.max = beam.mat === 'hydraulic' ? '1.5' : '1.4';
     range.step = '0.01';
     range.value = String(beam.scale || 1);
-    range.addEventListener('input', () => { E.setScale(session, beam.id, parseFloat(range.value)); setStatus(beam.mat === 'hydraulic' ? 'Piston set to ' + Math.round(beam.scale * 100) + '%.' : 'Coil set.'); });
+    range.addEventListener('input', () => { E.setScale(session, beam.id, parseFloat(range.value)); saveDraft(); setStatus(beam.mat === 'hydraulic' ? 'Piston set to ' + Math.round(beam.scale * 100) + '%.' : 'Coil set.'); });
     label.append(range);
     box.append(label);
     if (beam.mat === 'hydraulic') {
@@ -230,7 +230,7 @@
         const on = !!(beam.phaseOn && beam.phaseOn[phase.id]);
         btn.textContent = phase.label + (on ? ' · armed' : ' · quiet');
         btn.setAttribute('aria-pressed', String(on));
-        btn.addEventListener('click', () => { E.togglePhase(session, beam.id, phase.id); updateInspector(); audio.play('ui'); });
+        btn.addEventListener('click', () => { E.togglePhase(session, beam.id, phase.id); saveDraft(); updateInspector(); audio.play('ui'); });
         box.append(btn);
       });
     }
@@ -246,7 +246,7 @@
           const on = !!(splitItem.open && splitItem.open[phase.id]);
           btn.setAttribute('aria-pressed', String(on));
           btn.textContent = 'Hinge ' + n + ' · ' + (phase.label || phase.id) + (on ? ' · opens' : ' · holds');
-          btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); updateInspector(); });
+          btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); saveDraft(); updateInspector(); });
           box.append(btn);
         });
       });
@@ -304,13 +304,13 @@
     if (tool === 'split') {
       const hit = E.splitJoint(session, x1, y1);
       setStatus(hit.ok ? 'Hinge seated. Arm it on the phases where it should open.' : hit.reason);
-      if (hit.ok) { session.selected = null; audio.play('steel'); updateInspector(); saveDraft(); }
+      if (hit.ok) { session.selected = null; audio.play('steel'); saveDraft(); updateHud(); }
       return;
     }
     if (tool === 'anchor') {
       const hit = E.addAnchor(session, x1, y1);
       setStatus(hit.ok ? 'Bolt seated.' : hit.reason);
-      if (hit.ok) saveDraft();
+      if (hit.ok) { saveDraft(); updateHud(); }
       return;
     }
     const hit = E.placeBeam(session, tool, x0, y0, x1, y1, { sideA: side, sideB: side });
@@ -541,6 +541,20 @@
     $('quitBtn').addEventListener('click', () => { closeVeils(); if (session) saveDraft(); show('map'); });
     $('pauseSettings').addEventListener('click', openSettings);
     $('settingsClose').addEventListener('click', () => { $('settings').hidden = true; });
+    $('surveyBtn').addEventListener('click', () => {
+      if (!session) return;
+      if (session.sim) { setStatus('Rebuild before surveying the design.'); return; }
+      const report = E.survey(session);
+      if (report.frontier) {
+        cursor = report.frontier;
+        cam.x = cursor.x; cam.y = cursor.y;
+      }
+      anchor = null; ghost = null;
+      const ledger = report.reserve >= 0 ? money(report.reserve) + ' remains.' : money(-report.reserve) + ' over budget.';
+      setStatus((report.connected ? 'Road joins both banks. ' : 'Road stops at the survey pin. Continue with road from here. ') + ledger +
+        (report.supports ? ' Run the cart to test the braces and moving phases.' : ' No separate braces yet; continuity does not prove strength.'));
+      $('scene').focus();
+    });
     $('infoBtn').addEventListener('click', () => {
       const level = session.level;
       $('infoKicker').textContent = level.world;
@@ -565,8 +579,8 @@
       setStatus('The crossing is in motion.');
       tutorialProgress('play');
     });
-    $('undoBtn').addEventListener('click', () => { if (session && E.undo(session)) { audio.play('ui'); updateHud(); saveDraft(); } });
-    $('redoBtn').addEventListener('click', () => { if (session && E.redo(session)) { audio.play('ui'); updateHud(); saveDraft(); } });
+    $('undoBtn').addEventListener('click', () => { if (session && E.undo(session)) { audio.play('ui'); saveDraft(); updateHud(); } });
+    $('redoBtn').addEventListener('click', () => { if (session && E.redo(session)) { audio.play('ui'); saveDraft(); updateHud(); } });
     $('cancelBtn').addEventListener('click', () => { anchor = null; ghost = null; setStatus('Member cancelled.'); audio.play('ui'); });
     $('stressBtn').addEventListener('click', () => {
       const on = $('stressBtn').getAttribute('aria-pressed') !== 'true';
@@ -644,8 +658,12 @@
       if (mat) { tool = mat.id; buildTools(); return; }
       if (ev.key === 'h' || ev.key === 'H') { tool = 'split'; buildTools(); }
       if (ev.key === 'x' || ev.key === 'X') { tool = 'erase'; buildTools(); }
-      if (ev.key === 'z' && !ev.metaKey && !ev.ctrlKey) { if (E.undo(session)) saveDraft(); updateHud(); }
-      if (ev.key === 'Z' && ev.shiftKey) { if (E.redo(session)) saveDraft(); updateHud(); }
+      if (ev.key.toLowerCase() === 'z' || ev.key.toLowerCase() === 'y') {
+        ev.preventDefault();
+        if ((ev.key.toLowerCase() === 'y' || ev.shiftKey) ? E.redo(session) : E.undo(session)) { saveDraft(); updateHud(); }
+        return;
+      }
+      if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
       if (ev.key === ' ') { ev.preventDefault(); $('playBtn').click(); }
       if (ev.key === 't' || ev.key === 'T') $('stressBtn').click();
       if (ev.key === 'r' || ev.key === 'R') { if (session.sim) E.rebuild(session); }

@@ -4,6 +4,8 @@ name: Build and publish Study Desk
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,7 +15,27 @@ concurrency:
   group: study-desk-pages
   cancel-in-progress: false
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install development-only DOM test dependency
+        run: npm install --prefix "$RUNNER_TEMP/study-desk-tests" jsdom@26
+      - name: Verify collection engines, saves and interfaces
+        run: NODE_PATH="$RUNNER_TEMP/study-desk-tests/node_modules" python3 tools/test-engines.py
+      - name: Verify routes, assets and generated Arcade wrappers
+        run: |
+          python3 tests/assets.py
+          python3 tests/selected-indie.py
+          python3 tests/arcade-build-parity.py
   publish:
+    if: github.event_name != 'pull_request'
+    needs: verify
     runs-on: ubuntu-latest
     environment:
       name: github-pages

@@ -31,7 +31,7 @@ function domGame(name,probe,scripts=[]){
  return {w,d:w.document,$:id=>w.document.getElementById(id),close:()=>w.close()};
 }
 {
- const g=domGame('little-lake','\nwindow.test={get save(){return save},get state(){return state},castAt,catchFish,tackle,closePanel,setCatch(id){current=id;clean=true},setReady(){started=true;state="idle"},draw};',['progression.js']),p=g.w.test;
+ const g=domGame('little-lake','\nwindow.test={get save(){return save},get state(){return state},castAt,catchFish,tackle,closePanel,setCatch(id){current=id;clean=true},setReady(){started=true;state="idle"},draw};',['progression.js','research.js']),p=g.w.test;
  p.setReady();g.$('tackle').click();assert(g.d.querySelectorAll('[data-lure]').length===3);g.d.querySelector('[data-lure="deep"]').click();assert.equal(p.save.lure,'deep');assert.match(g.$('tripSummary').textContent,/Deep-water/);p.closePanel();p.castAt();assert.equal(p.state,'waiting');
  for(let i=0;i<6;i++){p.setCatch(i%3);p.catchFish()};assert.equal(p.save.money,275);assert(p.save.charter.claimed.every(Boolean));assert.equal(p.save.bag.length,6);p.tackle();assert(!g.$('newTrip').disabled);g.$('newTrip').click();assert.equal(p.save.charter.round,1);assert.equal(p.save.money,275);p.draw();g.close();
 }

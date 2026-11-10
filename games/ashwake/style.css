@@ -67,3 +67,7 @@ dialog h2{font:34px/1.1 Georgia,serif;margin:0 0 8px}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
 #cards .relic-sigil{display:block;font:48px Georgia;color:#f2bf70;text-shadow:0 0 24px #e68a4155;margin:7px 0 16px}#cards .relic-role{display:block;color:#cbae92;font-size:10px;letter-spacing:2px;margin-bottom:10px}#cards button[data-kind="passive"] .relic-sigil{color:#add1c7;text-shadow:0 0 24px #73bda355}#cards button[data-kind="breath"] .relic-sigil{color:#e1a4a6}#redraw{margin-top:20px}
+
+#bellWatch{margin:8px auto;padding:8px 12px;background:#100d1ee6;border:1px solid #cfb48a66;border-radius:8px;width:min(340px,85vw);font-size:12px;text-align:center}#bellWatch .bar{height:7px;margin:5px 0;background:#302239}#bellFill{display:block;height:100%;background:#dfb77a;transition:width .12s}#bellBearing{color:#ddd1b9}
+
+#flareBtn{position:absolute;bottom:18px;right:18px;z-index:4;background:#502a27;border-color:#e2a66c}#flareBtn:disabled{opacity:.5}

@@ -41,10 +41,11 @@ function shown(d){return [...d.querySelectorAll('#games .game h3, #arcadeRow .ca
 const g=boot({storage:{'after-class-hub-v1':JSON.stringify({favourites:['buggy-blast','creekhold'],recent:['panda-run','autumn-drift'],plays:{'buggy-blast':4,'little-lake':2}})}});
 await g.ready;
 const {w,d,$,gm,gd}=g;
+const bundledCount=JSON.parse(read('catalog.json')).length;
 assert.equal(w.ARCADE_CONFIG.gmEnabled,false);
 assert.equal(w.ARCADE_CONFIG.gdEnabled,false);
-assert.equal(w.GAME_CATALOG.filter(game=>game.type==='bundled').length,18);
-assert.equal(d.querySelectorAll('.game').length,18,'only bundled games are listed');
+assert.equal(w.GAME_CATALOG.filter(game=>game.type==='bundled').length,bundledCount);
+assert.equal(d.querySelectorAll('.game').length,bundledCount,'only bundled games are listed');
 assert.equal($('arcadeShelf').hidden,true);
 assert(![...$('filters').children].some(button=>button.textContent==='Arcade'));
 for(const game of gm.concat(gd)){
@@ -70,16 +71,20 @@ assert.equal(d.querySelectorAll('.game').length,0);
 assert.match(d.querySelector('.empty').textContent,/Arcade is empty right now/);
 assert.equal($('arcadeShelf').hidden,true);
 d.querySelector('.empty button').click();
-assert.equal(d.querySelectorAll('.game').length,18,'clearing the empty Arcade filter restores bundled games');
+assert.equal(d.querySelectorAll('.game').length,bundledCount,'clearing the empty Arcade filter restores bundled games');
 assert.equal($('search').value,'');
 
+const beforeRandom=JSON.parse(w.localStorage.getItem('after-class-hub-v1'));
+assert(beforeRandom.favourites.includes('buggy-blast')&&beforeRandom.recent.includes('panda-run'),'filtering preserves disabled preferences');
 const urls=new Set();
-let n=0;w.Math.random=()=>((n++)%18)/18;
-for(let i=0;i<36;i++){$('randomGame').click();const src=$('frame').getAttribute('src');urls.add(src);assert(src.startsWith('games/'),src);assert(!src.includes('arcade'));assert(!HOST.test(src))}
-assert.equal(urls.size,18,'random cycles bundled games only');
+// Sample the center of each random-selection bucket to avoid float boundary rounding.
+let n=0;w.Math.random=()=>(((n++)%bundledCount)+0.5)/bundledCount;
+for(let i=0;i<bundledCount*2;i++){$('randomGame').click();const src=$('frame').getAttribute('src');urls.add(src);assert(src.startsWith('games/'),src);assert(!src.includes('arcade'));assert(!HOST.test(src))}
+assert.equal(urls.size,bundledCount,'random cycles bundled games only');
 assert(!shown(d).some(title=>gm.concat(gd).some(game=>game.title===title)));
 const saved=JSON.parse(w.localStorage.getItem('after-class-hub-v1'));
-assert(saved.favourites.includes('buggy-blast')&&saved.recent.includes('panda-run'),'disabled ids stay in saved preferences');
+assert(saved.favourites.includes('buggy-blast'),'disabled favourites remain after playing bundled games');
+assert(saved.recent.length<=20,'recent sessions retain their normal bounded history');
 assert.equal(saved.plays['buggy-blast'],4,'opening bundled games does not rewrite a disabled play count');
 assert(![...d.querySelectorAll('[data-game]')].some(button=>button.dataset.game==='buggy-blast'||button.dataset.game==='panda-run'));
 

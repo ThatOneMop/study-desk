@@ -16,7 +16,7 @@ function fish(value){
 function queen(value){
   if(!plain(value)){return false}
   const array=(v,length,check)=>Array.isArray(v)&&v.length===length&&v.every(check);
-  return optional(value,'nectar',v=>number(v))&&optional(value,'roles',v=>array(v,4,n=>integer(n,0,1000000)))&&optional(value,'stock',v=>array(v,4,n=>number(n)))&&optional(value,'pantry',v=>array(v,4,n=>number(n)))&&optional(value,'fed',v=>number(v))&&optional(value,'level',v=>integer(v,1,1000000))&&optional(value,'dna',v=>integer(v,0,1000000))&&optional(value,'talents',v=>array(v,3,n=>integer(n,0,1000000)))&&optional(value,'evolutions',v=>Array.isArray(v)&&v.length<=10000)&&optional(value,'speed',v=>integer(v,0,1000000))&&optional(value,'auto',v=>typeof v==='boolean')&&optional(value,'time',v=>number(v))&&optional(value,'eggs',v=>integer(v,0,1000000));
+  return optional(value,'nectar',v=>number(v))&&optional(value,'roles',v=>array(v,4,n=>integer(n,0,1000000)))&&optional(value,'stock',v=>array(v,4,n=>number(n)))&&optional(value,'pantry',v=>array(v,4,n=>number(n)))&&optional(value,'fed',v=>number(v))&&optional(value,'level',v=>integer(v,1,1000000))&&optional(value,'dna',v=>integer(v,0,1000000))&&optional(value,'talents',v=>array(v,3,n=>integer(n,0,1000000)))&&optional(value,'evolutions',v=>Array.isArray(v)&&v.length<=10000)&&optional(value,'speed',v=>integer(v,0,1000000))&&optional(value,'auto',v=>typeof v==='boolean')&&optional(value,'time',v=>number(v))&&optional(value,'eggs',v=>integer(v,0,1000000))&&optional(value,'banquets',v=>integer(v,0,1000000))&&optional(value,'menu',v=>integer(v,0,2));
 }
 function decode(raw){
   if(raw===null){return {ok:true,data:{}}}

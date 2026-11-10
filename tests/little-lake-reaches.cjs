@@ -155,6 +155,7 @@ function dom(storage) {
   domWindow.HTMLCanvasElement.prototype.getContext = () => new Proxy({}, { get: (_, key) => key === 'createLinearGradient' || key === 'createRadialGradient' ? () => ({ addColorStop() {} }) : () => {} });
   if (storage) domWindow.localStorage.setItem('littleLakeV1', JSON.stringify(storage));
   domWindow.eval(fs.readFileSync(path.join(root, 'games/little-lake/progression.js'), 'utf8'));
+  domWindow.eval(fs.readFileSync(path.join(root, 'games/little-lake/research.js'), 'utf8'));
   const inline = [...domWindow.document.querySelectorAll('script:not([src])')].map(script => script.textContent).join('\n');
   domWindow.eval(inline + '\nwindow.__lake={get save(){return save},get zone(){return zone},hintText,fish,speciesDetails};');
   return domWindow;

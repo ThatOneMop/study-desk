@@ -35,6 +35,8 @@
   let launched = null;
   let wipeArmed = false;
   let framed = false;
+  let auditedShop = null;
+  let auditHighlight = null;
 
   function load() {
     try {
@@ -202,6 +204,8 @@
 
   function refreshHud() {
     if (!run) return;
+    $('undoBtn').disabled = !run.undo.length;
+    $('redoBtn').disabled = !run.redo.length;
     const cal = E.calendar(run);
     $('cityName').textContent = run.city.name;
     $('when').textContent = cal.day + ' · Week ' + cal.week;
@@ -317,6 +321,7 @@
       return;
     }
     run = next;
+    auditedShop = null; auditHighlight = null;
     launched = { cityId: cityId, mode: mode, opts: opts || {} };
     speed = 1;
     userCam = false;
@@ -400,7 +405,9 @@
   }
 
   function highlight() {
-    if (tut !== 1 || !run) return null;
+    if (!run) return null;
+    if (auditHighlight) return auditHighlight;
+    if (tut !== 1) return null;
     const ids = new Set();
     for (const b of run.buildings) if (b.color === 'coral') ids.add(b.id);
     return ids;
@@ -583,8 +590,8 @@
 
   window.addEventListener('keydown', e => {
     if (e.target && e.target.closest && e.target.closest('input, textarea, select')) return;
-    if (e.altKey || e.metaKey || e.ctrlKey) return;
     const key = e.key.toLowerCase();
+    if (e.altKey || ((e.metaKey || e.ctrlKey) && key !== 'z' && key !== 'y')) return;
     if (e.key === 'Escape') {
       if ($('help').open) { hide('help'); return; }
       if ($('settings').open) { hide('settings'); return; }
@@ -600,8 +607,12 @@
       speed = speed === 0 ? 1 : 0;
       return;
     }
-    if (key === 'z' && !e.shiftKey) { if (E.undo(run)) { save(); setStatus(''); } return; }
-    if (key === 'y' || (key === 'z' && e.shiftKey)) { if (E.redo(run)) save(); return; }
+    if (key === 'z' || key === 'y') {
+      e.preventDefault();
+      changeHistory(key === 'y' || e.shiftKey);
+      return;
+    }
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (key === 'x') { hand = hand === 'erase' ? 'draw' : 'erase'; refreshTools(); return; }
     if (key === 'd') { hand = 'draw'; refreshTools(); return; }
     if (key === 'm') { hand = 'pan'; refreshTools(); return; }
@@ -641,8 +652,35 @@
   for (const n of [0, 1, 2, 3]) {
     $('speed' + n).addEventListener('click', () => { speed = n; audio.resume(); });
   }
-  $('undoBtn').addEventListener('click', () => { if (run && E.undo(run)) { save(); setStatus(''); } });
-  $('fitBtn').addEventListener('click', () => fit(true));
+  function changeHistory(redo) {
+    if (!run || anyDialog() || $('play').hidden) return;
+    drawChain = null;
+    preview = null;
+    if (!(redo ? E.redo(run) : E.undo(run))) return;
+    save();
+    setStatus(redo ? 'Road edit restored.' : 'Road edit undone.');
+    refreshHud();
+  }
+  $('undoBtn').addEventListener('click', () => changeHistory(false));
+  $('redoBtn').addEventListener('click', () => changeHistory(true));
+  $('auditBtn').addEventListener('click', () => {
+    if (!run || anyDialog() || $('play').hidden) return;
+    speed = 0;
+    drawChain = null; preview = null;
+    const report = E.serviceAudit(run);
+    if (!report.length) { setStatus('No shops have opened yet.'); return; }
+    const index = (report.findIndex(s => s.id === auditedShop) + 1) % report.length;
+    const shop = report[index];
+    auditedShop = shop.id;
+    auditHighlight = new Set([shop.id]);
+    const house = run.buildings.find(h => h.role === 'house' && h.color === shop.color);
+    if (house) auditHighlight.add(house.id);
+    cam.x = shop.x; cam.y = shop.y; userCam = true; clampCam();
+    setStatus((index + 1) + '/' + report.length + ' · ' + shop.color + ' shop: ' + shop.pins + ' waiting. ' +
+      (!shop.hasHouse ? 'Wait for a matching house to open.' : !shop.connected ? 'Link a highlighted matching house to this shop.' : shop.timer > 0 ? 'A route exists but the ring is growing. Add capacity or a shorter route.' : 'A route exists. Keep a direct lane clear as demand grows.') + ' Clock paused; inspect again for the next shop.');
+    refreshHud();
+  });
+  $('fitBtn').addEventListener('click', () => { auditHighlight = null; fit(true); });
   $('pauseBtn').addEventListener('click', () => { if (run) show('pause'); });
   $('resumeBtn').addEventListener('click', () => hide('pause'));
   $('pauseHelp').addEventListener('click', () => show('help'));

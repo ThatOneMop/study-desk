@@ -267,7 +267,7 @@ function sync(){
  $('title').hidden=!!run;
  $('hud').hidden=!run;
  $('pauseBtn').hidden=!run||phase==='pause'||phase==='dead'||phase==='dawn';
- $('stick').hidden=!run||phase!=='play';
+ $('stick').hidden=!run||phase!=='play';$('flareBtn').hidden=!run||phase!=='play';$('flareBtn').disabled=!run||run.redraws<=0;setText('flareBtn','Flare · F · '+(run?.redraws??0)+' charges');
  $('level').hidden=phase!=='level';$('redraw').disabled=phase!=='level'||run.redraws<=0;setText('redraw','Redraw relics · '+(run?.redraws??0)+' left');
  $('pause').hidden=phase!=='pause';
  $('result').hidden=!(settled&&run);
@@ -284,6 +284,7 @@ function sync(){
   setText('runEmbers',run.embers+' embers');
   setText('rank','Light '+p.level);
   setText('relics',run.weapons.map(w=>A.WEAPONS[w.id].name+' '+w.level).join(' · '));
+  const bell=run.enemies.find(e=>!e.dead&&(e.kind==='warden'||e.kind==='hollow'));$('bellWatch').hidden=!bell;if(bell){setText('bellName',(bell.kind==='warden'?'Bell Warden':'Hollow Bell')+' · '+Math.ceil(100*Math.max(0,bell.hp)/bell.max)+'%');$('bellFill').style.width=(100*Math.max(0,bell.hp)/bell.max)+'%';const dx=bell.x-p.x,dy=bell.y-p.y,dirs=['E','SE','S','SW','W','NW','N','NE'],dir=dirs[(Math.round(Math.atan2(dy,dx)/(Math.PI/4))+8)%8];setText('bellBearing',dir+' · '+Math.round(Math.hypot(dx,dy))+' paces from your lantern');}
   const tip=coach();$('coach').hidden=!tip;setText('coach',tip);
   const banner=run.banner&&run.banner.life>0?run.banner.text:'';$('banner').hidden=!banner;setText('banner',banner);
   const key=phase==='level'&&run.draft?run.draft.map(c=>c.kind+c.id+c.level).join('|'):'';
@@ -325,6 +326,8 @@ function sync(){
  for(const mark of A.ACHIEVEMENTS){const li=document.createElement('li');li.textContent=(meta.achievements[mark.id]?'◆ ':'○ ')+mark.name+' — '+mark.detail;li.className=meta.achievements[mark.id]?'earned':'';$('achievements').append(li);}}
  if(performance.now()>toastUntil)$('toast').hidden=true;
 }
+function castFlare(){if(!playing())return;const result=A.flare(run);if(!result.ok){toast(result.reason);return}takeEvents(run.events);save();sync();canvas.focus()}
+$('flareBtn').onclick=castFlare;
 function redrawRelics(){if(!run||run.phase!=='level')return;const result=A.redraw(run);if(!result.ok){toast(result.reason);return}audio.play('pick');shown='';save();sync();$('cards').querySelector('button')?.focus()}
 $('redraw').onclick=redrawRelics;
 function pick(index){if(!run||run.phase!=='level')return;const chosen=A.choose(run,index);if(!chosen.ok){toast(chosen.reason);return;}audio.play('pick');shown='';save();sync();}
@@ -404,7 +407,7 @@ $('confirmYes').onclick=()=>{const fn=confirmFn;confirmFn=null;$('confirm').clos
 document.addEventListener('keydown',e=>{
  if(e.target.closest?.('input,textarea,select')||e.metaKey||e.ctrlKey||e.altKey)return;
  if(uiBlocks()&&e.key!=='Escape')return;
- const key=e.key.toLowerCase();
+ const key=e.key.toLowerCase();if(key==='f'&&!e.repeat&&playing()){e.preventDefault();castFlare();return;}
  if(key==='r'&&run?.phase==='level'&&!e.repeat){e.preventDefault();redrawRelics();return;}if(key==='escape'){e.preventDefault();if(e.repeat)return;keys.clear();pointer.active=false;stickVec.active=false;stickId=null;$('nub').style.transform='';if($('tutorial').open){$('tutorial').close();return;}if($('confirm').open){$('confirm').close();return;}if(!run)return;if(run.phase==='pause')A.resume(run);else if(run.phase==='play'||run.phase==='level')A.pause(run);save();sync();return;}
  if(!run&&(key==='enter')&&e.target===document.body){begin('warden');return;}
  if(run?.phase==='level'&&!e.repeat&&['1','2','3'].includes(key)){e.preventDefault();pick(Number(key)-1);return;}

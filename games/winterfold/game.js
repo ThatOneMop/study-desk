@@ -31,6 +31,8 @@
   let pointers = new Map();
   let toastTimer = 0;
   let noted = '';
+  let auditedStop = null;
+  let auditMessage = '';
   let saveBlocked = false;
 
   function load() {
@@ -85,6 +87,8 @@
   }
   function refresh() {
     if (!run) return;
+    $('undoBtn').disabled = !run.undo.length || run.phase === 'over';
+    $('redoBtn').disabled = !run.redo.length || run.phase === 'over';
     const c = E.counts(run);
     for (const k of E.KINDS) { const el = document.querySelector('[data-poi="' + k + '"]'); if (el) el.textContent = c.poi[k] || 0; }
     for (const k of E.COLOURS) { const el = document.querySelector('[data-slope="' + k + '"]'); if (el) el.textContent = c.slopes[k] || 0; }
@@ -126,6 +130,7 @@
       $('hint').classList.remove('warn');
       $('hint').textContent = 'Everyone has a way round again.';
     }
+    if (auditMessage && run.speed === 0) $('hint').textContent = auditMessage;
     const res = run.resources;
     $('stockSlope').textContent = Math.floor(res.slope) + ' m';
     $('stockLift').textContent = res.lift;
@@ -133,7 +138,7 @@
     $('stockTrees').textContent = res.trees;
     $('stockUpgrade').textContent = res.upgrade;
     for (const btn of document.querySelectorAll('#dock button')) btn.setAttribute('aria-pressed', String(btn.dataset.tool === tool));
-    for (const btn of document.querySelectorAll('#hands button')) btn.setAttribute('aria-pressed', String(btn.dataset.hand === hand));
+    for (const btn of document.querySelectorAll('#hands [data-hand]')) btn.setAttribute('aria-pressed', String(btn.dataset.hand === hand));
     for (const btn of document.querySelectorAll('#liftKinds button')) btn.setAttribute('aria-pressed', String(btn.dataset.lift === liftType));
     $('liftKinds').hidden = tool !== 'lift';
     for (const speed of [0, 1, 2, 4]) {
@@ -143,6 +148,7 @@
   }
   function apply(result) {
     if (!result) return;
+    auditMessage = '';
     if (result.ok) {
       audio.draw();
       if (result.color) $('hint').textContent = SLOPE_LABEL[result.color] + ' run drawn.';
@@ -153,10 +159,11 @@
     refresh();
     save();
   }
-  function setTool(next) { tool = next; if (hand === 'move') hand = 'draw'; refresh(); }
+  function setTool(next) { auditMessage = ''; tool = next; if (hand === 'move') hand = 'draw'; refresh(); }
   function setHand(next) { hand = next; refresh(); }
   function setSpeed(speed) {
     if (!run || run.phase !== 'play') return;
+    if (speed > 0) auditMessage = '';
     E.setSpeed(run, speed);
     refresh();
   }
@@ -164,6 +171,7 @@
     const started = E.startRun(meta, id, mode);
     if (!started) { toast('That hill is still locked.'); return; }
     run = started;
+    auditMessage = ''; auditedStop = null;
     noted = '';
     sandbox = mode === 'sandbox';
     fit();
@@ -329,8 +337,11 @@
   document.addEventListener('keydown', ev => {
     if (ev.target && ev.target.closest && ev.target.closest('input,textarea')) return;
     const key = ev.key.toLowerCase();
-    if ((ev.metaKey || ev.ctrlKey) && key === 'z') { ev.preventDefault(); if (run && E.undo(run)) { audio.click(); refresh(); renderer.invalidate(); } return; }
-    if ((ev.metaKey || ev.ctrlKey) && key === 'y') { ev.preventDefault(); if (run && E.redo(run)) refresh(); return; }
+    if ((ev.metaKey || ev.ctrlKey) && (key === 'z' || key === 'y')) {
+      ev.preventDefault();
+      changeHistory(key === 'y' || ev.shiftKey);
+      return;
+    }
     if (key === ' ') { ev.preventDefault(); if (run && run.phase === 'play') setSpeed(run.speed ? 0 : 1); return; }
     if (key === 'q') setSpeed(Math.max(0, (run && run.speed) - (run && run.speed === 4 ? 2 : 1)));
     if (key === 'e') setSpeed(run && run.speed === 0 ? 1 : run && run.speed === 1 ? 2 : 4);
@@ -349,8 +360,44 @@
     }
   });
 
+  $('auditBtn').onclick = () => {
+    if (!run || document.querySelector('dialog[open]')) return;
+    setSpeed(0);
+    drawing = null;
+    const issues = E.routeAudit(run);
+    if (!issues.length) {
+      auditedStop = null;
+      auditMessage = 'Every stop is reachable and has a way home for its arriving guests.';
+      $('hint').textContent = auditMessage;
+      toast(auditMessage);
+      return;
+    }
+    const next = (issues.findIndex(p => p.id === auditedStop) + 1) % issues.length;
+    const p = issues[next];
+    auditedStop = p.id;
+    cam.x = p.x; cam.y = p.y;
+    const message = (next + 1) + '/' + issues.length + ' · ' + POI_LABEL[p.kind] + ': ' +
+      (p.issue === 'return' ? p.skills.map(k => SLOPE_LABEL[k]).join(', ') + ' guests can arrive but cannot return. Draw a suitable downhill way to a station.' : 'No station can reach this stop. Build an outward lift or run.');
+    auditMessage = message;
+    $('hint').textContent = message;
+    toast(message);
+  };
+
+  function changeHistory(redo) {
+    if (!run || document.querySelector('dialog[open]')) return;
+    drawing = null;
+    if (!(redo ? E.redo(run) : E.undo(run))) return;
+    audio.click();
+    renderer.invalidate();
+    refresh();
+    save();
+    toast(redo ? 'Build restored.' : 'Build undone.');
+  }
+  $('undoBtn').onclick = () => changeHistory(false);
+  $('redoBtn').onclick = () => changeHistory(true);
+
   document.querySelectorAll('#dock button').forEach(btn => btn.onclick = () => { setTool(btn.dataset.tool); audio.click(); });
-  document.querySelectorAll('#hands button').forEach(btn => btn.onclick = () => { setHand(btn.dataset.hand); audio.click(); });
+  document.querySelectorAll('#hands [data-hand]').forEach(btn => btn.onclick = () => { setHand(btn.dataset.hand); audio.click(); });
   document.querySelectorAll('#liftKinds button').forEach(btn => btn.onclick = () => { liftType = btn.dataset.lift; refresh(); audio.click(); });
   $('speed0').onclick = () => setSpeed(0);
   $('speed1').onclick = () => setSpeed(1);

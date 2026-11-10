@@ -9,6 +9,7 @@
 </head>
 <body data-phase="boot">
 <canvas id="view" tabindex="0" aria-label="Ashwake orchard. Walk with W A S D or the arrow keys. Hold on the orchard or use the move stick. The lantern fires by itself. Escape pauses. Keys 1, 2 and 3 choose a relic."></canvas>
+<button id="flareBtn" type="button" hidden>Flare · F</button>
 <button id="pauseBtn" type="button" hidden>Pause</button>
 <div id="hud" hidden>
   <div id="meters">
@@ -16,7 +17,7 @@
     <div class="bar xp"><i id="xpFill"></i><span id="xpText">Cinders</span></div>
   </div>
   <p id="readout"><span id="night">Night 1</span><span id="clock">0:00</span><span id="kills">0 moths</span><span id="runEmbers">0 embers</span><span id="rank">Light 1</span></p>
-  <p id="relics"></p>
+  <p id="relics"></p><div id="bellWatch" hidden><span id="bellName"></span><div class="bar"><i id="bellFill"></i></div><span id="bellBearing"></span></div>
   <p id="coach" hidden></p>
   <p id="banner" hidden></p>
 </div>
@@ -57,7 +58,7 @@
     <p class="eyebrow">The orchard offers</p>
     <h2 id="levelTitle">Choose one relic</h2>
     <p>The other two fade. Press 1, 2 or 3, or tap a card.</p>
-    <div id="cards"></div><button id="redraw" type="button">Redraw relics · 2 left</button><p>Two redraws per watch. Save one for a difficult build. Press R to redraw.</p>
+    <div id="cards"></div><button id="redraw" type="button">Redraw relics · 2 left</button><p>Two shared charges per watch: redraw an offer, or press F during play for an emergency flare. A flare burns nearby moths, clears nearby bolts and guards your wick briefly. Press R to redraw.</p>
   </div>
 </section>
 <section id="pause" hidden role="dialog" aria-modal="true" aria-labelledby="pauseTitle">

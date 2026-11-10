@@ -1170,12 +1170,35 @@
     return { ok: true, meta, run };
   }
 
+  // Inspect actual directed, skill-limited routes without moving any guest.
+  function routeAudit(run) {
+    if (!run) return [];
+    const stations = stationNodes(run), issues = [];
+    for (const p of run.pois) {
+      if (p.kind === 'station') continue;
+      const trapped = [], reachable = [];
+      for (const skill of ['green', 'blue', 'red', 'black']) {
+        const goal = n => n.id === p.id;
+        goal.skill = skill;
+        if (stations.some(st => findPath(run, st.id, goal) !== null)) {
+          reachable.push(skill);
+          if (pathHome(run, p.id, skill) === null) trapped.push(skill);
+        }
+      }
+      if (trapped.length || !reachable.length) issues.push({
+        id: p.id, x: p.x, y: p.y, kind: p.kind,
+        issue: trapped.length ? 'return' : 'outward', skills: trapped
+      });
+    }
+    return issues.sort((a, b) => (a.issue === 'return' ? 0 : 1) - (b.issue === 'return' ? 0 : 1));
+  }
+
   return {
     SAVE_KEY, MAP_W, MAP_H, SNAP, DAY_LEN, OPEN_H, CLOSE_H, COLOURS, LIFT_TYPES, KINDS, MOUNTAINS, RANK,
     mountainById, height, naturalForest, forestAt, snowAt, groundBlock, passage,
     createMeta, unlocked, startRun, previewStroke, commitStroke, previewLift, commitLift,
     placeCannon, cutAt, upgradeAt, eraseAt, undo, redo, tick, setSpeed, chooseCard, reroll,
-    counts, connected, altitude, guests, capacity, morningBrief, clockHours, formatClock, recordResult, starsFor,
+    counts, connected, altitude, guests, capacity, morningBrief, routeAudit, clockHours, formatClock, recordResult, starsFor,
     encode, decode, classify, sectionGrade, polyLength, allows, pathToShape, pathHome, nodesOf
   };
 });

@@ -29,7 +29,8 @@ assert.match($('continueRow').querySelector('button').getAttribute('aria-label')
 assert.equal($('trendingRow').hidden,false);
 assert.match($('trendingCards').textContent,/Little Lake/);
 assert.equal($('newRow').hidden,false);
-assert.equal($('newCards').querySelectorAll('.capsule-title').length,5);
+const added=w.GAME_CATALOG.filter(g=>g.added==='2026-11-10');
+assert.deepEqual([...$('newCards').querySelectorAll('.capsule-title')].map(n=>n.textContent),Array.from(added,g=>g.title).sort((a,b)=>a.localeCompare(b)));
 assert.equal($('improvedRow').hidden,false);
 assert.equal($('favouriteShelf').hidden,false);
 assert.match($('favouriteRow').textContent,/Autumn Drift/);
