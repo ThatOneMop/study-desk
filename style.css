@@ -188,3 +188,27 @@ html[data-theme=dark] .gate-dialog [role=alert]{color:#ffb4a8}
 
 .capsule-art:has(img){padding:0;overflow:hidden}.capsule-art img{width:100%;height:100%;object-fit:cover;display:block}.hero-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .art img.photo,.capsule-art img[src^="https:"]{object-fit:cover;image-rendering:auto}.arcade-credit{font-size:11px;margin:8px 0 0}
+
+/* Mobile polish pass (11 Nov 2026): phone header, touch targets, hero swipe, long-name safety. */
+/* A long user-entered deck name or heading must never widen the page on a phone. */
+.study-layout>section,.study-layout>aside{min-width:0}
+#decktitle,.row>h2,.row>span{min-width:0;overflow-wrap:anywhere}
+
+/* Study header on phones: brand keeps its own line, the two actions share the row below. */
+@media (max-width:600px){
+#study header{gap:10px 12px}
+#study header .brand{flex:1 1 100%}
+#study header button{flex:1 1 auto;white-space:nowrap}
+#themeStudy{margin-left:0;margin-right:0}
+}
+
+/* Storefront hero: let a finger swipe the featured slides, snapping one slide at a time. */
+@media (max-width:900px),(pointer:coarse){
+.hero-viewport{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.hero-viewport::-webkit-scrollbar{display:none}
+.hero-slide{scroll-snap-align:start;scroll-snap-stop:always}
+}
+@media (prefers-reduced-motion:reduce){
+.hero-viewport{scroll-behavior:auto}
+.hero-track{transition:none!important}
+}

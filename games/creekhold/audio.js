@@ -81,6 +81,7 @@
     else if (kind === 'gear') tone(880, 0.07, 'square', 0.04);
     else if (kind === 'achieve') { tone(523, 0.1, 'triangle', 0.06); tone(784, 0.18, 'sine', 0.05); }
     else if (kind === 'drought') noise(0.5, 0.05);
+    else if (kind === 'flood') noise(0.7, 0.06);
     else if (kind === 'sour') tone(98, 0.4, 'sawtooth', 0.03);
     else if (kind === 'clear') tone(392, 0.2, 'sine', 0.05);
   }

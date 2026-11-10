@@ -1,10 +1,13 @@
 <!doctype html>
 <html lang="en">
-<head><script src="../../bridge.js"></script>
+<head>
+<script src="../../bridge.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#44cbc7">
-<title>Forge Arena V26.1 — Research-First Rebuild</title>
+<title>Forge Arena V26.2 — Arena Combat</title>
+<meta name="description" content="Forge Arena — a 5v5 mech arena shooter: build a squad in the Hangar, capture uplinks in Control Point Clash, and climb League Divisions. Fully playable offline in the browser.">
+<meta name="application-name" content="Forge Arena">
 <style>
 :root{
   --ink:#17253a;--ink2:#2e3d54;--muted:#68788e;--paper:#eef7f8;--glass:#d9f3f2;
@@ -325,7 +328,7 @@ function renderLoginGrid(){const grid=$('#loginGrid');grid.innerHTML='';for(let 
 function renderProgress(){updateHeader();$('#divisionEmblem').textContent=profile.division;$('#progressDivision').textContent=`Division ${profile.division}`;$('#divisionCopy').textContent=profile.division===1?'League Division complete. Season ranking is next.':`Earn Ranking Points to climb from Division ${profile.division} toward Division 1.`;$('#rpBar').style.width=`${(profile.rp%250)/250*100}%`;$('#progressLevel').textContent=`Level ${profile.level}`;$('#xpBar').style.width=`${profile.xp/xpForLevel(profile.level)*100}%`;const ms=$('#milestones');ms.innerHTML='';for(let i=0;i<10;i++){ms.innerHTML+=`<div class="milestone ${i<profile.level?'done':''}"><span>${i+1}</span><b>${i===0?'START':i===2?'BAY 2':i===4?'TDM':i===6?'BAY 3':i===8?'ELITE':'REWARD'}</b></div>`}$('#pathFill').style.width=`${clamp((profile.level-1)/9*100,0,100)}%`;}
 function renderProfile(){updateHeader();const s=profile.stats;$('#profileStats').innerHTML=[['COMMANDER',profile.name],['LEVEL',profile.level],['DIVISION',profile.division],['MATCHES',s.matches],['WINS',s.wins],['ELIMINATIONS',s.kills],['CAPTURES',s.captures],['BEST MATCH',s.bestKills],['SQUAD POWER',fmt(squadPower())]].map(x=>`<div class="profile-stat"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');}
 const tutorialSteps=[
- {title:'Welcome, Commander',body:'Forge Arena starts small on purpose. You have one mech, one active bay and starter weapons. The Academy teaches the complete game loop before standard battles unlock.',list:['Inspect your first build','Learn every command tab','Complete a guided battle against easy bots'],note:'V18 preserves your Academy save, so the broken V16 save cannot interfere.',view:'hangar'},
+ {title:'Welcome, Commander',body:'Forge Arena starts small on purpose. You have one mech, one active bay and starter weapons. The Academy teaches the complete game loop before standard battles unlock.',list:['Inspect your first build','Learn every command tab','Complete a guided battle against easy bots'],note:'Your saved commander profile carries over automatically between sessions.',view:'hangar'},
  {title:'Command Bar & Currencies',body:'The top bar shows Commander Level, Division and three currencies. Credits handle standard purchases and levels, Alloy unlocks advanced gear, and Cores are reserved for rare development.',list:['XP advances Commander Level','Ranking Points determine Division','Currencies and progress are saved in your browser'],note:'Teal identifies navigation and allies, coral identifies Battle and danger, violet marks live operations, and gold marks progression.',view:'hangar',focus:'[data-tour="profile"]'},
  {title:'The Full Hangar',body:'All five combat bays stay visible. You begin with Bay 1 only; the remaining bays are goals you purchase in order as your account grows.',list:['Click Vector to inspect its build','Click a locked bay to see its price','Squad Power includes every active bay'],note:'A full Hangar should feel earned, not handed to a new commander.',view:'hangar',focus:'[data-tour="lineup"]'},
  {title:'Build Inspection & Level Up',body:'Selecting a mech opens a focused build view. Here you see chassis level, HP, speed, energy, both weapons, blueprints and paint.',list:['Mech levels increase durability','Weapon levels improve damage','Upgrades require Credits plus item-specific Blueprints'],note:'Use FULL HANGAR to return to the complete five-bay view.',view:'hangar',action:'OPEN VECTOR BUILD'},
@@ -333,7 +336,7 @@ const tutorialSteps=[
  {title:'Tier Advancement',body:'Gear Hub technology is arranged into eight sequential tiers. Acquiring and developing gear earns Tier Stars for advancement.',list:['Begin in Tier 1','Earn stars by building useful equipment','Unlock later tiers one at a time'],note:'Progress is visible instead of placing every advanced item in front of a beginner.',view:'gear'},
  {title:'Progress Path & Divisions',body:'Battles award XP and Ranking Points. XP advances your account and feature path; Ranking Points move you through permanent League Divisions 10 to 1.',list:['Wins grant the strongest RP gains','Personal performance contributes rewards','Later modes unlock as your account develops'],note:'Check the Progress tab whenever you want to see the next major unlock.',view:'progress'},
  {title:'Objectives, Login & Battle Orders',body:'The Objectives tab contains login rewards, Daily Missions and temporary Battle Orders. These systems provide Credits, Alloy, Cores and Blueprints.',list:['Daily progress resets on the local day','Battle Orders are harder and expire','Claim finished rewards from the Objectives tab'],note:'Violet cards identify active missions; gold highlights major progression rewards.',view:'objectives'},
- {title:'Profile & Account Details',body:'The Profile tab records level, Division, matches, wins, eliminations, captures, best performance and Squad Power. It also contains profile maintenance controls.',list:['Rename the commander','Review long-term statistics','Reset only when you intentionally want a fresh start'],note:'Your V16 browser save remains separate from this V18 profile.',view:'profile'},
+ {title:'Profile & Account Details',body:'The Profile tab records level, Division, matches, wins, eliminations, captures, best performance and Squad Power. It also contains profile maintenance controls.',list:['Rename the commander','Review long-term statistics','Reset only when you intentionally want a fresh start'],note:'Your commander profile is stored locally in this browser.',view:'profile'},
  {title:'Guided Combat Training',body:'You will now enter a real Academy match against deliberately easy bots. Live prompts teach movement, torso aiming, both weapon mounts, Vector Jump, capture zones and eliminations.',list:['WASD moves the mech','Mouse aims the chassis','Click/Q and Right-click/E fire','Space activates the ability'],note:'Completing the exercise unlocks normal Control battles and starter rewards.',view:'hangar',action:'START TRAINING MATCH'},
  {title:'Academy Graduation',body:'Control mode is unlocked. Continue building the Hangar, advancing the Gear Hub, completing objectives and climbing Divisions.',list:['Earn resources in battles','Purchase Bay 2 when ready','Add different tactical roles instead of five identical builds'],note:'The Academy can be replayed from the Tutorial tab at any time.',view:'hangar'}
 ];
@@ -568,7 +571,7 @@ class BattleEngine3D{
 
 
 function returnHangar(){battleEngine?.stop();battleEngine=null;$('#battle').classList.add('hidden');$('#results').classList.add('hidden');document.body.dataset.state='hangar';showScreen('hangar');updateHeader();if(profile.tutorial.trainingComplete&&!profile.tutorial.complete){tutorialStep=tutorialSteps.length-1;openTutorial(tutorialStep)}}
-function bindUI(){$$('[data-nav]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.nav)));$('#tutorialNav').onclick=()=>openTutorial(0);$('#battleButton').onclick=openModes;$('#inspectActive').onclick=()=>openInspect(selectedBay);$('#backHangar').onclick=()=>{$('#hangarInspect').classList.add('hidden');$('#hangarOverview').classList.remove('hidden');renderHangar()};$('#claimLogin').onclick=claimLogin;$('#claimLogin2').onclick=claimLogin;$('#tutorialBack').onclick=()=>{if(tutorialStep>0){tutorialStep--;openTutorial(tutorialStep)}};$('#tutorialNext').onclick=tutorialNext;$('#tutorialSkip').onclick=()=>{closeTutorial();toast('Tutorial paused. Open it from the top navigation.')};$('#closeModes').onclick=()=>$('#modeModal').classList.add('hidden');$('#deployMode').onclick=()=>startBattle(selectedMode,false);$('#battleExit').onclick=()=>{if(confirm('Leave this battle?'))returnHangar()};$('#resultContinue').onclick=()=>{returnHangar();if(profile.tutorial.trainingComplete&&!profile.tutorial.complete)openTutorial(tutorialSteps.length-1)};$('#renameProfile').onclick=()=>{const n=prompt('Commander name:',profile.name);if(n){profile.name=n.trim().slice(0,20)||profile.name;saveProfile();renderProfile();updateHeader()}};$('#newProfile').onclick=()=>{if(confirm('Create a fresh V19 commander? The current save will be replaced.')){profile=defaultProfile();saveProfile();location.reload()}};$('#switchProfile').onclick=()=>toast('Profile switching is being rebuilt after the 3D combat migration.');$('#resetProfile').onclick=()=>{if(confirm('Reset this V19 profile completely?')){localStorage.removeItem(STORAGE);location.reload()}};$$('[data-fire]').forEach(b=>{b.onpointerdown=()=>{if(!battleEngine)return;if(b.dataset.fire==='ability')battleEngine.useAbility();else battleEngine.mouse[b.dataset.fire==='left'?'left':'right']=true};b.onpointerup=()=>{if(battleEngine&&b.dataset.fire!=='ability')battleEngine.mouse[b.dataset.fire==='left'?'left':'right']=false}})}
+function bindUI(){$$('[data-nav]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.nav)));$('#tutorialNav').onclick=()=>openTutorial(0);$('#battleButton').onclick=openModes;$('#inspectActive').onclick=()=>openInspect(selectedBay);$('#backHangar').onclick=()=>{$('#hangarInspect').classList.add('hidden');$('#hangarOverview').classList.remove('hidden');renderHangar()};$('#claimLogin').onclick=claimLogin;$('#claimLogin2').onclick=claimLogin;$('#tutorialBack').onclick=()=>{if(tutorialStep>0){tutorialStep--;openTutorial(tutorialStep)}};$('#tutorialNext').onclick=tutorialNext;$('#tutorialSkip').onclick=()=>{closeTutorial();toast('Tutorial paused. Open it from the top navigation.')};$('#closeModes').onclick=()=>$('#modeModal').classList.add('hidden');$('#deployMode').onclick=()=>startBattle(selectedMode,false);$('#battleExit').onclick=()=>{if(confirm('Leave this battle?'))returnHangar()};$('#resultContinue').onclick=()=>{returnHangar();if(profile.tutorial.trainingComplete&&!profile.tutorial.complete)openTutorial(tutorialSteps.length-1)};$('#renameProfile').onclick=()=>{const n=prompt('Commander name:',profile.name);if(n){profile.name=n.trim().slice(0,20)||profile.name;saveProfile();renderProfile();updateHeader()}};$('#newProfile').onclick=()=>{if(confirm('Create a fresh V26.2 commander? The current save will be replaced.')){profile=defaultProfile();saveProfile();location.reload()}};$('#switchProfile').onclick=()=>toast('Profile switching is being rebuilt after the 3D combat migration.');$('#resetProfile').onclick=()=>{if(confirm('Reset this V26.2 profile completely?')){localStorage.removeItem(STORAGE);location.reload()}};$$('[data-fire]').forEach(b=>{b.onpointerdown=()=>{if(!battleEngine)return;if(b.dataset.fire==='ability')battleEngine.useAbility();else battleEngine.mouse[b.dataset.fire==='left'?'left':'right']=true};b.onpointerup=()=>{if(battleEngine&&b.dataset.fire!=='ability')battleEngine.mouse[b.dataset.fire==='left'?'left':'right']=false}})}
 function init(){bindUI();$('#errorReturn').onclick=()=>{$('#globalError').classList.add('hidden');returnHangar()};$('#errorReload').onclick=()=>location.reload();addEventListener('error',event=>{if(document.body.dataset.state==='battle'){document.body.dataset.state='battle-error';$('#errorTitle').textContent='Arena runtime error';$('#errorText').textContent=String(event.error?.stack||event.message||'Unknown runtime error');$('#globalError').classList.remove('hidden')}});addEventListener('unhandledrejection',event=>{if(document.body.dataset.state==='battle'){document.body.dataset.state='battle-error';$('#errorTitle').textContent='Arena promise error';$('#errorText').textContent=String(event.reason?.stack||event.reason||'Unknown promise error');$('#globalError').classList.remove('hidden')}});updateHeader();showScreen('hangar');renderHangar();document.body.dataset.state='hangar';const params=new URLSearchParams(location.search);if(params.has('autotest'))setTimeout(()=>startBattle('TRAINING',true),400);else if(params.has('autonormal'))setTimeout(()=>startBattle('CONTROL',false),400);else if(params.has('inspect'))setTimeout(()=>openInspect(0),250);else if(!params.has('skipintro')&&!profile.tutorial.complete)setTimeout(()=>openTutorial(profile.tutorial.step||0),500)}
 init();
 </script>
@@ -863,7 +866,7 @@ init();
  }
  
  if(document.body.dataset.state==='hangar' || !$('#hangarOverview').classList.contains('hidden')) renderHangar();
- if($('#newProfile')) $('#newProfile').onclick=()=>{if(confirm('Create a fresh V20 commander? The current save will be replaced.')){profile=defaultProfile();saveProfile();location.reload()}};
+ if($('#newProfile')) $('#newProfile').onclick=()=>{if(confirm('Create a fresh V26.2 commander? The current save will be replaced.')){profile=defaultProfile();saveProfile();location.reload()}};
 })();
 </script>
 
@@ -1159,7 +1162,7 @@ init();
  // refresh current screen with upgraded renders
  if(document.body.dataset.state==='hangar' || !$('#hangarOverview').classList.contains('hidden')) renderHangar();
  if(currentScreen==='progress') renderProgress(); if(currentScreen==='profile') renderProfile(); if(currentScreen==='objectives') renderObjectives();
- if($('#newProfile')) $('#newProfile').onclick=()=>{ if(confirm('Create a fresh V21 commander? The current save will be replaced.')){ profile=defaultProfile(); saveProfile(); location.reload(); } };
+ if($('#newProfile')) $('#newProfile').onclick=()=>{ if(confirm('Create a fresh V26.2 commander? The current save will be replaced.')){ profile=defaultProfile(); saveProfile(); location.reload(); } };
 })();
 </script>
 
@@ -2421,4 +2424,51 @@ function releaseFire(){if(engine?.mouse){engine.mouse.left=false;engine.mouse.ri
 for(const fire of document.querySelectorAll('[data-fire]')){fire.addEventListener('pointerdown',e=>{if(paused){e.preventDefault();e.stopImmediatePropagation();return}try{fire.setPointerCapture(e.pointerId)}catch{}},true);fire.addEventListener('pointercancel',releaseFire);fire.addEventListener('lostpointercapture',releaseFire);}
 menu.addEventListener('keydown',e=>{if(e.key!=='Tab')return;e.preventDefault();(document.activeElement===q('#fxResume')?q('#fxLeave'):q('#fxResume')).focus()});
 requestAnimationFrame(watch)})();
-</script></body></html>
+</script>
+<style id="fa-juice-style">
+#faJuice{position:absolute;inset:0;pointer-events:none;z-index:8;overflow:hidden}
+#faLowHp{position:absolute;inset:0;opacity:0;transition:opacity .25s;box-shadow:inset 0 0 150px 46px rgba(224,32,48,.82);animation:faPulse 1.05s ease-in-out infinite}
+@keyframes faPulse{0%,100%{filter:brightness(.92)}50%{filter:brightness(1.4)}}
+.weapon-hud.fa-ammo-low{animation:faAmmoPulse .55s steps(2,end) infinite}
+@keyframes faAmmoPulse{0%{border-color:rgba(255,92,92,.95);box-shadow:0 0 0 1px rgba(255,92,92,.5),0 8px 24px rgba(0,0,0,.22)}100%{border-color:rgba(255,92,92,.12);box-shadow:0 8px 24px rgba(0,0,0,.22)}}
+.fa-banner{position:absolute;left:50%;top:24%;transform:translateX(-50%);padding:10px 22px;font:1000 19px/1 system-ui;letter-spacing:.15em;color:#fff;background:linear-gradient(90deg,rgba(26,201,193,.95),rgba(16,118,150,.95));border:2px solid rgba(255,255,255,.82);box-shadow:0 12px 30px #0006;opacity:0;transition:opacity .18s;white-space:nowrap}
+.fa-banner.show{opacity:1}
+.fa-banner.lost{background:linear-gradient(90deg,rgba(232,72,82,.95),rgba(150,28,44,.95))}
+@media(max-width:680px){.fa-banner{font-size:14px;padding:8px 14px}}
+</style>
+<script id="fa-combat-juice">
+(function(){
+ const q=s=>document.querySelector(s);
+ let layer=null,low=null,banner=null,lastOwners=null;
+ function visible(){const b=q('#battle');return b&&!b.classList.contains('hidden')}
+ function ensure(){const root=q('#battle');if(!root)return false;if(!layer){layer=document.createElement('div');layer.id='faJuice';low=document.createElement('div');low.id='faLowHp';layer.appendChild(low);banner=document.createElement('div');banner.className='fa-banner';layer.appendChild(banner);root.appendChild(layer)}return true}
+ function flash(text,lost){if(!banner)return;banner.textContent=text;banner.classList.toggle('lost',!!lost);banner.classList.add('show');clearTimeout(flash.t);flash.t=setTimeout(()=>banner.classList.remove('show'),1500)}
+ function wrap(e){if(!e||e.__faJuice)return;e.__faJuice=true;const up=e.update;let freeze=0,lastKills=e.kills||0;
+  e.update=function(dt){if((this.kills||0)>lastKills){freeze=5;lastKills=this.kills;this.camShake=Math.min(1.2,(this.camShake||0)+.4)}if(freeze>0){freeze--;return}return up.call(this,dt)}}
+ function tick(){
+  const e=(()=>{try{return battleEngine}catch(err){return (window.ForgePause&&window.ForgePause.engine)||null}})();
+  if(e&&e.player&&e.running&&visible()&&ensure()){wrap(e);
+   const p=e.player,ratio=p.maxHp?Math.max(0,p.hp/p.maxHp):1;
+   if(p.alive&&ratio<.35)low.style.opacity=String(Math.min(.95,(.35-ratio)/.35+.22));else low.style.opacity='0';
+   // low-ammo weapon panel pulse (reads the HUD the engine already updates)
+   for(const [sel,w] of [['#leftAmmo',p.left],['#rightAmmo',p.right]]){
+     const el=q(sel),hud=el&&el.closest('.weapon-hud');if(!hud||!w)continue;
+     const t=(el.textContent||'').trim(),mag=Math.max(1,w.magazine||1);
+     hud.classList.toggle('fa-ammo-low',/^\d+$/.test(t)&&+t<=Math.max(2,Math.ceil(mag*.25)));
+   }
+   // control-point ownership flips -> banner
+   if(e.points&&e.points.length){
+     const owners=e.points.map(pt=>pt.owner);
+     if(lastOwners&&owners.length===lastOwners.length){
+       for(let i=0;i<owners.length;i++){if(owners[i]!==lastOwners[i]){if(owners[i]===0)flash('UPLINK '+e.points[i].id+' SECURED',false);else if(owners[i]===1)flash('UPLINK '+e.points[i].id+' LOST',true);}}
+     }
+     lastOwners=owners;
+   }
+  }else{if(low)low.style.opacity='0';lastOwners=null}
+  requestAnimationFrame(tick);
+ }
+ requestAnimationFrame(tick);
+})();
+</script>
+
+</body></html>

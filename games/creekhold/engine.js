@@ -60,7 +60,11 @@
     { id: 'fire', name: 'Story fire', cat: 'comfort', cost: { logs: 6 }, work: 1.8, leisure: true, decor: 1, tier: 1, science: 10, blurb: 'Idle nibs sit here and come away brighter.' },
     { id: 'pool', name: 'Splash pool', cat: 'comfort', cost: { logs: 4, planks: 2 }, work: 1.8, leisure: true, decor: 1, tier: 2, science: 16, blurb: 'A clean dip. Lifts the mood of whoever comes by.' },
     { id: 'arch', name: 'Blossom arch', cat: 'comfort', cost: { logs: 2, planks: 3 }, work: 1.6, decor: 2, faction: 'reed', tier: 2, science: 18, blurb: 'Reed Circle ornament. Quiet, and it counts double.' },
-    { id: 'bell', name: 'Shift bell', cat: 'comfort', cost: { planks: 4, gears: 1 }, work: 1.6, decor: 2, faction: 'cog', tier: 2, science: 18, blurb: 'Cog Lodge ornament. The day has an edge, and the square looks finished.' }
+    { id: 'bell', name: 'Shift bell', cat: 'comfort', cost: { planks: 4, gears: 1 }, work: 1.6, decor: 2, faction: 'cog', tier: 2, science: 18, blurb: 'Cog Lodge ornament. The day has an edge, and the square looks finished.' },
+
+    { id: 'granary', name: 'Granary', cat: 'food', cost: { yield: 8 }, work: 2.4, foodStore: 90, icon: '🌾', tier: 0, science: 0, blurb: 'Raised on stilts and sealed against damp. Keeps 90 more food safe for a dry spell.' },
+    { id: 'sluice', name: 'Sluice works', cat: 'water', cost: { yield: 12 }, work: 2.8, sluice: true, icon: '≋', tier: 0, science: 0, blurb: 'Boarded channel walls. Every pump on the bend lifts water far faster.' },
+    { id: 'lanternpost', name: 'Lantern post', cat: 'comfort', cost: { yield: 6 }, work: 1.8, nightWork: true, decor: 1, icon: '✦', tier: 0, science: 0, blurb: 'A tall lamp on the square. Nibs keep working through the dark hours instead of sleeping.' }
   ];
 
   const DEF = {};
@@ -266,6 +270,15 @@
     }
   }
 
+  function countBuilt(run, id) {
+    let n = 0;
+    for (let i = 0; i < run.cells.length; i++) {
+      const b = run.cells[i].building;
+      if (b && b.id === id && b.progress >= 1 && !b.paused) n++;
+    }
+    return n;
+  }
+
   function logCap(run) {
     let n = 90;
     eachBuilding(run, function (c, d) { if (d.storage && d.storage.logs) n += d.storage.logs; });
@@ -286,7 +299,11 @@
     eachBuilding(run, function (c, d) { if (d.tank) n += d.tank; });
     return n;
   }
-  function foodCap(run) { return 120; }
+  function foodCap(run) {
+    let n = 120;
+    eachBuilding(run, function (c, d) { if (d.foodStore) n += d.foodStore; });
+    return n;
+  }
 
   function beds(run) {
     let n = 0;
@@ -726,7 +743,8 @@
 
   function hazardKind(run) {
     if (run.cycle <= 1) return 'drought';
-    if (run.cycle >= run.rules.badFrom && run.cycle % 2 === 0) return 'badtide';
+    // Sour tides are rarer than dry spells: only every third hazard, once they start.
+    if (run.cycle >= run.rules.badFrom && run.cycle % 3 === 0) return 'badtide';
     return 'drought';
   }
 
@@ -748,6 +766,7 @@
       } else {
         if (run.season === 'drought' && living(run).length >= 4) grant(run, 'dry-lived');
         if (run.season === 'badtide' && living(run).length >= 4) grant(run, 'sour-lived');
+        if (living(run).length >= 4) run.store.yield = (run.store.yield || 0) + 6;
         run.season = 'temperate';
         run.cycle += 1;
         flipped.push('temperate');
@@ -801,7 +820,8 @@
       for (let i = 0; i < run.cells.length; i++) {
         const c = run.cells[i];
         if (run.season !== 'drought') {
-          if (c.source) addFluid(c, c.source * hdt, run.season === 'badtide' ? badtideLevel(run) : 0);
+          const swell = run.season === 'temperate' ? 1.5 : 1;
+          if (c.source) addFluid(c, c.source * hdt * swell, run.season === 'badtide' ? badtideLevel(run) : 0);
           if (c.badSource) addFluid(c, c.badSource * hdt, 1);
         }
       }
@@ -1052,7 +1072,7 @@
       const nib = people[i];
       if (nib.thirst < 34 && run.store.water >= 1) { nib.mode = 'drink'; nib.phase = null; continue; }
       if (nib.hunger < 30 && foodTotal(run) >= 1) { nib.mode = 'eat'; nib.phase = null; continue; }
-      if (isNight(run) || nib.sleep < 16) { nib.mode = 'sleep'; continue; }
+      if ((isNight(run) && !run.nightWork) || nib.sleep < 16) { nib.mode = 'sleep'; continue; }
       if (nib.mode === 'build' && nib.site) {
         const c = get(run, nib.site.x, nib.site.y);
         if (c && c.building && c.building.progress < 1) continue;
@@ -1289,7 +1309,8 @@
       }
       if (!src) return;
       const room = waterCap(run) - run.store.water;
-      const amt = Math.max(0, Math.min(src.water * 0.5, d.pump * dt * e * scale, room));
+      const lift = 1 + 0.6 * (run.sluice || 0);
+      const amt = Math.max(0, Math.min(src.water * 0.5, d.pump * lift * dt * e * scale, room));
       if (amt > 0) {
         src.water -= amt;
         run.store.water += amt;
@@ -1446,6 +1467,10 @@
       if (d.hive && foodTotal(run) < foodCap(run)) run.store.meal += 0.12 * dt;
       if (d.porter) run.porter = true;
     });
+    // Yield: a modest dividend for a colony that is up and running, spent on the three upgrades.
+    run.store.yield = (run.store.yield || 0) + dt * 0.08 * (1 + living(run).length * 0.08);
+    run.nightWork = countBuilt(run, 'lanternpost') > 0;
+    run.sluice = countBuilt(run, 'sluice');
     run.haulerBoost = adults(run).some(function (n) {
       if (n.mode !== 'work' || !n.job) return false;
       const c = get(run, n.job.x, n.job.y);
@@ -1679,6 +1704,7 @@
     const reserves = reserveDays(run);
     if (reserves.water < 2) out.push('Stored water: about ' + reserves.water.toFixed(1) + ' days at current population, before production');
     if (reserves.food < 2) out.push('Stored food: about ' + reserves.food.toFixed(1) + ' days at current population, before production');
+    if (run.season === 'drought' && reserves.food < 1.5) out.push('Famine — the pantry will not outlast this dry spell');
     if (living(run).some(function (n) { return n.thirst < 18 && !n.kit; })) out.push('A nib is parched');
     if (living(run).some(function (n) { return n.contaminated > 2; })) out.push('A nib waded in sour water');
     const spare = beds(run) - living(run).length;
@@ -1728,6 +1754,29 @@
     }
     review(run);
     if (Math.floor(run.hour) !== Math.floor(run.hour - dt)) noteBest(run);
+    // Trail markers: faint footprints where nibs have walked, faded over the day.
+    if (!run.trails) run.trails = [];
+    for (let i = run.trails.length - 1; i >= 0; i--) {
+      run.trails[i].life -= dt * 0.06;
+      if (run.trails[i].life <= 0) run.trails.splice(i, 1);
+    }
+    const walkers = living(run);
+    for (let i = 0; i < walkers.length; i++) {
+      const n = walkers[i];
+      if (n.mode === 'sleep') continue;
+      const gx = Math.round(n.x), gy = Math.round(n.y);
+      if (n._tx === gx && n._ty === gy) continue;
+      n._tx = gx; n._ty = gy;
+      run.trails.push({ x: n.x, y: n.y, life: 1 });
+    }
+    if (run.trails.length > 160) run.trails.splice(0, run.trails.length - 160);
+    // The wet river swells: raise a flood banner when the channel runs high.
+    if (run.season === 'temperate' && run.hour - (run.floodAt || -99) > 30) {
+      for (let i = 0; i < run.cells.length; i++) {
+        const c = run.cells[i];
+        if (c.source && c.water > 2.0) { run.floodAt = run.hour; pushEvent(run, 'flood', c.x, c.y); break; }
+      }
+    }
     run.nibs = run.nibs.filter(function (n) { return !n.dead; });
   }
 
@@ -1800,7 +1849,7 @@
       cycle: 1,
       store: {
         logs: rules.logs, planks: rules.planks, gears: rules.gears,
-        water: rules.water, science: 0,
+        water: rules.water, science: 0, yield: 0,
         berry: rules.food, carrot: 0, spud: 0, meal: 0
       },
       unlocked: startingUnlocks(faction),
@@ -1971,6 +2020,7 @@
     });
     run.meta = meta || run.meta;
     run.netDirty = true;
+    run.trails = [];
     rebuild(run);
     return run;
   }
@@ -2010,7 +2060,7 @@
   function seasonLabel(run) {
     if (run.season === 'drought') return 'Dry spell';
     if (run.season === 'badtide') return 'Sour tide';
-    return 'Clear water';
+    return 'Wet season';
   }
 
   function clockLabel(run) {
@@ -2042,6 +2092,7 @@
     living: living,
     adults: adults,
     foodTotal: foodTotal,
+    foodCap: foodCap,
     waterCap: waterCap,
     beds: beds,
     totalWater: totalWater,
@@ -2052,6 +2103,7 @@
     avgWell: avgWell,
     cellInfo: cellInfo,
     get: get,
+    countBuilt: countBuilt,
     seasonLabel: seasonLabel,
     clockLabel: clockLabel,
     nextHazard: nextHazard,

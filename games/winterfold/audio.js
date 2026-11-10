@@ -5,7 +5,7 @@
   else root.WinterfoldAudio = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  let ctx, enabled = true, wind = null;
+  let ctx, enabled = true, wind = null, windGain = null, volume = 0.7;
   function ac() {
     if (!ctx) {
       const C = window.AudioContext || window.webkitAudioContext;
@@ -21,8 +21,9 @@
     const g = c.createGain();
     g.connect(c.destination);
     const now = c.currentTime;
+    const p = Math.max(0.0001, peak * volume);
     g.gain.setValueAtTime(0.0001, now);
-    g.gain.exponentialRampToValueAtTime(peak, now + 0.02);
+    g.gain.exponentialRampToValueAtTime(p, now + 0.02);
     g.gain.exponentialRampToValueAtTime(0.0001, now + duration);
     return { c, g, now };
   }
@@ -53,7 +54,9 @@
     src.start(e.now);
   }
   return {
-    setEnabled(v) { enabled = !!v; if (!enabled && wind) { try { wind.stop(); } catch (e) {} wind = null; } },
+    setEnabled(v) { enabled = !!v; if (!enabled && wind) { try { wind.stop(); } catch (e) {} wind = null; windGain = null; } },
+    setVolume(v) { volume = Math.max(0, Math.min(1, Number(v) || 0)); if (windGain) { try { windGain.gain.value = 0.012 * volume; } catch (e) {} } },
+    getVolume() { return volume; },
     unlock() { ac(); },
     click() { tone(640, 0.07, 'triangle', 0.04); },
     draw() { noise(0.18, 0.03, 1400); tone(520, 0.12, 'sine', 0.03); },
@@ -81,6 +84,7 @@
       g.connect(c.destination);
       src.start();
       wind = src;
+      windGain = g;
     }
   };
 });

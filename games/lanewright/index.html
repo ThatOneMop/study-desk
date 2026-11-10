@@ -61,7 +61,9 @@
     <div id="weekbar" aria-hidden="true"><i id="weekfill"></i></div>
     <header id="hud" aria-label="City status">
       <div class="pill"><small id="cityName">City</small><b id="when">Mon · Week 1</b></div>
+      <div class="pill" id="clockPill"><small>Clock</small><b id="clockTime">06:00</b></div>
       <div class="pill"><small>Trips</small><b id="score">0</b></div>
+      <div class="pill" id="creditsPill"><small>Credits</small><b id="credits">0</b></div>
       <div class="pill"><small>Roads</small><b id="roads">0</b></div>
       <div class="pill" id="modPill" hidden><small>Today</small><b id="modName">Clear</b></div>
       <div class="speeds" role="group" aria-label="Clock">
@@ -70,9 +72,11 @@
         <button type="button" id="speed2" aria-pressed="false" title="Faster">▶▶</button>
         <button type="button" id="speed3" aria-pressed="false" title="Fastest">▶▶▶</button>
       </div>
+      <button type="button" id="shopBtn" class="ghost" title="Spend road credits">Shop</button>
       <button type="button" id="undoBtn" class="ghost" title="Undo">Undo</button>
       <button type="button" id="fitBtn" class="ghost" title="Fit the city">Fit</button>
       <button type="button" id="pauseBtn" class="ghost">Pause</button>
+      <div id="legend" aria-hidden="true"></div>
     </header>
     <p id="status" role="status"></p>
     <div id="tutorial" hidden>
@@ -141,6 +145,8 @@
     <div class="statgrid">
       <div>Trips <b id="resultScore">0</b></div>
       <div>Week <b id="resultWeek">1</b></div>
+      <div>Longest road <b id="resultRoad">0</b></div>
+      <div>Best day <b id="resultDay">0</b></div>
       <div>Best here <b id="resultBest">0</b></div>
       <div>All trips <b id="resultLife">0</b></div>
     </div>
@@ -152,14 +158,27 @@
     </div>
   </div>
 </dialog>
+<dialog id="shop">
+  <div class="card wide">
+    <p class="kicker">Road credits</p>
+    <h2>Spend credits</h2>
+    <p>Every trip banks one credit. Turn credits into tools whenever you like.</p>
+    <div id="shopItems" class="choices"></div>
+    <p class="fine" id="shopNote"></p>
+    <div class="actions">
+      <button type="button" id="shopClose" class="primary">Done</button>
+    </div>
+  </div>
+</dialog>
 <dialog id="help">
   <div class="card wide">
     <h2>How the lanes work</h2>
     <p>Houses are circles and hold two cars. Shops are squares. A car only collects a pin from a shop of the same colour, then drives home. Each pin is one trip.</p>
+    <p>Each day has a clock. Demand rises at the morning and evening rush, and the roads run dark at night with headlights on. A legend under the map names each colour in play; red dots mean a house has no reachable shop yet. Every trip banks a road credit: open Shop to spend credits on road tiles, a traffic light, a roundabout, or a motorway.</p>
     <p>A square shop can hold seven pins. A round shop, ten. Past that, a ring starts. If the ring completes, the city stops. Cars already out prefer a shop whose ring is running. Bringing the pins back under the cap lets the ring fade.</p>
     <p>Drag along the grid to spend road tiles. Diagonals are allowed. Right-drag, or Erase, lifts a tile back into the pile. Bridge and Tunnel are counters, not tools: a crossing spends one on its own when the road meets water or a hill. A motorway is a fast raised thread that hops roads and water, not hills. A circle keeps a junction moving. A light lets one axis through at a time.</p>
     <p>Sunday pauses the week and offers two supplies. Daily and weekly lanes share a seed for that day or that week. The sketchbook never runs out and never stops.</p>
-    <p>Keys: 1 road, 2 motorway, 3 bridge count, 4 tunnel count, 5 circle, 6 light, X erase, Z undo, Y redo, Space pauses the clock, Esc opens this pause, arrows pan, minus and plus zoom. On a phone the map starts zoomed in: drag empty ground to pan, pinch to zoom. Erase lifts a tile.</p>
+    <p>Keys: 1 road, 2 motorway, 3 bridge count, 4 tunnel count, 5 circle, 6 light, X erase, Z undo, Y redo, B shop, Space pauses the clock, Esc opens this pause, arrows pan, minus and plus zoom. On a phone the map starts zoomed in: drag empty ground to pan, pinch to zoom. Erase lifts a tile.</p>
     <button type="button" id="helpClose" class="primary">Back</button>
   </div>
 </dialog>

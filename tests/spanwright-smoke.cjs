@@ -8,7 +8,7 @@ const html = fs.readFileSync(path.join(root, 'games/spanwright/index.html'), 'ut
 const css = fs.readFileSync(path.join(root, 'games/spanwright/style.css'), 'utf8');
 
 assert.equal(E.SAVE_KEY, 'study-desk-spanwright-v1');
-assert.equal(E.LEVELS.length, 36);
+assert.equal(E.LEVELS.length, 39);
 assert(html.includes('../../bridge.js'));
 assert(html.includes('href="../../index.html#games"'));
 assert(html.includes('Spanwright'));
@@ -44,6 +44,9 @@ const meta = E.defaultMeta();
 assert.equal(E.levelUnlocked(meta, 'willow-1'), true);
 assert.equal(E.levelUnlocked(meta, 'willow-2'), false);
 assert.equal(E.worldUnlocked(meta, 'copper'), false);
+assert.equal(E.worldUnlocked(meta, 'longwater'), false);
+assert.deepEqual(E.LEVELS.filter(l => l.world === 'longwater').map(l => l.id), ['longwater-1', 'longwater-2', 'longwater-3']);
+assert.equal(E.levelUnlocked(meta, 'longwater-1'), false);
 
 const opening = E.startLevel(meta, 'willow-1');
 assert.equal(E.placeBeam(opening, 'road', 7, 6, 9, 6).ok, true);
@@ -152,4 +155,4 @@ assert(fs.readFileSync(path.join(root, 'credits.html'), 'utf8').includes('id="sp
 assert(fs.existsSync(path.join(root, 'games/spanwright/CREDITS.md')));
 assert(fs.existsSync(path.join(root, 'docs/spanwright-research.md')));
 
-console.log('PASS spanwright: 36 crossings, a cart homes, a piston lift clears a barge, a flat deck collapses, rope slacks, saves round-trip');
+console.log('PASS spanwright: 39 crossings, a cart homes, a piston lift clears a barge, a flat deck collapses, rope slacks, saves round-trip');

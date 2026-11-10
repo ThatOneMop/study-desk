@@ -22,6 +22,7 @@
       <span class="chip"><small>Planks</small><b id="planks">0</b></span>
       <span class="chip"><small>Gears</small><b id="gears">0</b></span>
       <span class="chip"><small>Ideas</small><b id="ideas">0</b></span>
+      <span class="chip" id="yieldChip"><small>Yield</small><b id="yield">0</b></span>
       <div id="controls">
       <button type="button" id="overlayBtn" class="iconbtn" title="Overlay: none (V water, R reach, G power, C sour)" aria-pressed="false">View</button>
       <button type="button" id="helpTop" class="iconbtn" title="How to play (H)" aria-label="How to play">?</button>
@@ -46,6 +47,7 @@
         <canvas id="popGraph" width="96" height="32" aria-label="Population over recent days"></canvas>
       </div>
       <div id="toasts"></div>
+      <div id="banner" hidden role="status"></div>
       <aside id="inspect" hidden>
         <h2 id="inspectName">Tile</h2>
         <p id="inspectBody"></p>
@@ -198,14 +200,24 @@
         </ul>
       </details>
       <details>
-        <summary>Seasons: clear water, dry spells and sour tides</summary>
+        <summary>Seasons: wet water, dry spells and sour tides</summary>
         <p>The <b>Season</b> chip shows what the river is doing and how many days are left.</p>
         <ul>
-          <li><b>Clear water</b> — the river flows. Pump and store as much as you can.</li>
+          <li><b>Wet season</b> (blue chip) — the river swells and runs fast. Pump and store as much as you can, and watch for the occasional flood banner when the channel runs high. Sour tides are rarer in wet years.</li>
           <li><b>Dry spell</b> (orange chip) — the river stops and slowly drains away. Nibs drink only from your tanks, plus whatever a pump can still draw from the pool behind your dam. Each dry spell is a little longer than the last.</li>
-          <li><b>Sour tide</b> — later on, the river sometimes turns brown and sour. Pumps will not drink it and nibs who wade in it get sick. Shut sluice gates to keep it away from your pool and fields.</li>
+          <li><b>Sour tide</b> — now and then the river turns brown and sour. Pumps will not drink it and nibs who wade in it get sick. Shut sluice gates to keep it away from your pool and fields.</li>
         </ul>
         <p>You get a warning about a day before each change. Build tanks and a dam before the first dry spell. On Gentle it starts on day 7; harder tempers bring it sooner.</p>
+      </details>
+      <details>
+        <summary>Yield and upgrades</summary>
+        <p>A running colony earns <b>Yield</b> (top bar) each day — more the larger and happier it is, and a lump sum every time you ride out a dry spell or sour tide. Spend it on three upgrades, found among the Food, Water and Comfort buildings:</p>
+        <ul>
+          <li><b>Granary</b> (Food) — 90 more food kept safe, so a long dry spell cannot empty the larder.</li>
+          <li><b>Sluice works</b> (Water) — every pump on the bend lifts water far faster. Fills your tanks before the river sleeps.</li>
+          <li><b>Lantern post</b> (Comfort) — nibs keep working through the dark hours instead of sleeping. More gets built each night.</li>
+        </ul>
+        <p>Yield is not used for ordinary buildings, so spending it is a real choice: store, refill, or work the night.</p>
       </details>
       <details>
         <summary>Keeping nibs happy and alive</summary>

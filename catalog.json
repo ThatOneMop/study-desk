@@ -843,5 +843,32 @@
     ],
     "added": "2026-11-10",
     "updated": "2026-11-10"
+  },
+  {
+    "id": "loop-circuit",
+    "title": "Loop Circuit",
+    "description": "A side-scrolling moto-trials physics slice. Wheelie, lean and land on two wheels across four hand-built circuits and chase medal times.",
+    "icon": "🏍",
+    "genre": "Trials + Physics",
+    "color": "#d07a4a",
+    "url": "games/loop-circuit/index.html",
+    "group": "Your games",
+    "controls": "Up/W or hold canvas throttle · Down/S brake · Left/Right or A/D lean · R retry · Esc pauses · Touch buttons",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#loop-circuit",
+    "aliases": [
+      "moto",
+      "bike",
+      "trials",
+      "physics",
+      "moto x3m",
+      "school",
+      "time trial"
+    ],
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
   }
 ]

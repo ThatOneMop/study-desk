@@ -102,6 +102,68 @@ THE SOFTWARE.
         { t: 'pit', x: 5540, w: 80 },
         { t: 'spike', x: 5820 }
       ]
+    },
+    {
+      name: 'Neon Deep', blurb: 'Triples, back-to-back gaps and long blocks. The grid turns electric.',
+      color: '#3a2fbf', sky: ['#070d1f', '#12204a'], accent: '#39f6e8',
+      length: 7000, checkpoints: [1300, 2800, 4200, 5600],
+      melody: { lead: [7, null, 9, 11, null, 9, 7, null, 4, null, 7, null, 9, 11, 12, null], bass: [0, 5, 7, 3] },
+      obstacles: [
+        { t: 'spike', x: 640 },
+        { t: 'spike', x: 900 }, { t: 'spike', x: 940 },
+        { t: 'block', x: 1240, y: 340, w: 120, h: 60 },
+        { t: 'spike', x: 1560 },
+        { t: 'spike', x: 1820 }, { t: 'spike', x: 1860 },
+        { t: 'pit', x: 2120, w: 80 },
+        { t: 'spike', x: 2420 },
+        { t: 'spike', x: 2680 }, { t: 'spike', x: 2720 },
+        { t: 'block', x: 3060, y: 340, w: 160, h: 60 },
+        { t: 'spike', x: 3380 },
+        { t: 'spike', x: 3640 }, { t: 'spike', x: 3680 },
+        { t: 'pit', x: 3940, w: 80 },
+        { t: 'spike', x: 4240 },
+        { t: 'spike', x: 4500 }, { t: 'spike', x: 4540 },
+        { t: 'block', x: 4880, y: 340, w: 160, h: 60 },
+        { t: 'spike', x: 5200 },
+        { t: 'spike', x: 5460 }, { t: 'spike', x: 5500 },
+        { t: 'pit', x: 5760, w: 80 },
+        { t: 'spike', x: 6060 },
+        { t: 'spike', x: 6320 }, { t: 'spike', x: 6360 },
+        { t: 'spike', x: 6700 }
+      ]
+    },
+    {
+      name: 'Sunset Sprint', blurb: 'The long haul. Wide gaps, late triples and one false step ends it.',
+      color: '#d94f2b', sky: ['#2a0f2e', '#8a2f4a'], accent: '#ff8a5c',
+      length: 8000, checkpoints: [1400, 3000, 4600, 6200],
+      melody: { lead: [12, 9, 12, 14, null, 12, 9, 7, 5, 7, 9, 12, 11, 9, 7, null], bass: [0, -2, 5, 7] },
+      obstacles: [
+        { t: 'spike', x: 600 },
+        { t: 'spike', x: 860 }, { t: 'spike', x: 900 },
+        { t: 'pit', x: 1180, w: 80 },
+        { t: 'spike', x: 1480 },
+        { t: 'block', x: 1740, y: 340, w: 100, h: 60 },
+        { t: 'spike', x: 2040 },
+        { t: 'spike', x: 2300 }, { t: 'spike', x: 2340 },
+        { t: 'spike', x: 2680 },
+        { t: 'pit', x: 2980, w: 80 },
+        { t: 'spike', x: 3280 },
+        { t: 'block', x: 3540, y: 340, w: 160, h: 60 },
+        { t: 'spike', x: 3860 },
+        { t: 'spike', x: 4120 }, { t: 'spike', x: 4160 },
+        { t: 'pit', x: 4420, w: 80 },
+        { t: 'spike', x: 4720 },
+        { t: 'spike', x: 4980 }, { t: 'spike', x: 5020 },
+        { t: 'block', x: 5360, y: 340, w: 160, h: 60 },
+        { t: 'spike', x: 5680 },
+        { t: 'pit', x: 5960, w: 80 },
+        { t: 'spike', x: 6260 },
+        { t: 'spike', x: 6520 }, { t: 'spike', x: 6560 },
+        { t: 'block', x: 6880, y: 340, w: 160, h: 60 },
+        { t: 'spike', x: 7200 },
+        { t: 'spike', x: 7460 }, { t: 'spike', x: 7500 },
+        { t: 'spike', x: 7800 }
+      ]
     }
   ];
 
@@ -236,21 +298,33 @@ THE SOFTWARE.
   }
 
   // ---- Save profile -------------------------------------------------------
+  // Version 1 saves are forward-compatible: best/deaths/practise/bestTime are
+  // stored per level and may be shorter than levelCount (older saves built when
+  // fewer levels existed). decodeProfile pads any missing tail so a save made
+  // before levels 4-5 shipped keeps every recorded best, death marker and
+  // practise toggle instead of being rejected.
+  const eachLevel = (v) => Array.from({ length: levelCount }, () => v);
+
   function createProfile() {
-    return { version: 1, best: [0, 0, 0], deaths: [[], [], []], practise: [false, false, false], sound: true };
+    return { version: 1, best: eachLevel(0), deaths: eachLevel(null).map(() => []), practise: eachLevel(false), bestTime: eachLevel(null), sound: true };
   }
 
   function isInt(v, a, b) { return Number.isInteger(v) && v >= a && v <= b; }
 
+  function validBestTime(v) { return v === null || (typeof v === 'number' && Number.isFinite(v) && v > 0); }
+
   function validProfile(p) {
     try {
       if (!p || p.version !== 1) return false;
-      if (!Array.isArray(p.best) || p.best.length !== levelCount || !p.best.every((v) => isInt(v, 0, 100))) return false;
-      if (!Array.isArray(p.deaths) || p.deaths.length !== levelCount) return false;
+      if (!Array.isArray(p.best) || p.best.length < 1 || p.best.length > levelCount || !p.best.every((v) => isInt(v, 0, 100))) return false;
+      if (!Array.isArray(p.deaths) || p.deaths.length !== p.best.length) return false;
       for (const arr of p.deaths) {
         if (!Array.isArray(arr) || arr.length > 120 || !arr.every((v) => typeof v === 'number' && Number.isFinite(v) && v >= 0)) return false;
       }
-      if (!Array.isArray(p.practise) || p.practise.length !== levelCount || !p.practise.every((v) => typeof v === 'boolean')) return false;
+      if (!Array.isArray(p.practise) || p.practise.length !== p.best.length || !p.practise.every((v) => typeof v === 'boolean')) return false;
+      if (p.bestTime !== undefined) {
+        if (!Array.isArray(p.bestTime) || p.bestTime.length !== p.best.length || !p.bestTime.every(validBestTime)) return false;
+      }
       if (typeof p.sound !== 'boolean') return false;
       return true;
     } catch { return false; }
@@ -263,6 +337,13 @@ THE SOFTWARE.
       if (typeof raw !== 'string' || raw.length > 60000) return null;
       const p = JSON.parse(raw);
       if (!validProfile(p)) return null;
+      // Migrate / pad arrays up to the live level count (older saves may be shorter).
+      const n = levelCount;
+      while (p.best.length < n) p.best.push(0);
+      while (p.deaths.length < n) p.deaths.push([]);
+      while (p.practise.length < n) p.practise.push(false);
+      if (!Array.isArray(p.bestTime)) p.bestTime = [];
+      while (p.bestTime.length < n) p.bestTime.push(null);
       // Trim stored markers defensively.
       p.deaths = p.deaths.map((a) => a.slice(-120));
       return p;

@@ -403,25 +403,37 @@
         ctx.stroke();
       }
     }
+    function cableCurve(a, b, time, preview) {
+      const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy) || 1;
+      const px = -dy / len, py = dx / len;
+      const amp = preview ? 0 : Math.min(6, len * 0.02);
+      const pt = (t) => {
+        const off = Math.sin(t * Math.PI * 3 + time * 1.6) * amp * Math.sin(t * Math.PI);
+        return { x: a.x + dx * t + px * off, y: a.y + dy * t + py * off };
+      };
+      const pts = [];
+      for (let i = 0; i <= 14; i++) pts.push(pt(i / 14));
+      return { pts, len, ux: dx / len, uy: dy / len, px, py, pt };
+    }
     function drawCable(ctx, a, b, type, time, preview, riders) {
+      const curve = cableCurve(a, b, time, preview);
       ctx.save();
       ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
       ctx.strokeStyle = preview ? 'rgba(70,74,78,0.55)' : '#5c6166';
       ctx.lineWidth = preview ? 4 : 5.5;
       ctx.setLineDash(preview ? [8, 6] : []);
       ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
+      curve.pts.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
       ctx.stroke();
       ctx.setLineDash([]);
       ctx.strokeStyle = 'rgba(255,255,255,0.35)';
       ctx.lineWidth = 1.4;
       ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
+      curve.pts.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
       ctx.stroke();
-      const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy) || 1;
-      const ux = dx / len, uy = dy / len;
+      const dx = b.x - a.x, dy = b.y - a.y, len = curve.len;
+      const ux = curve.ux, uy = curve.uy;
       if (!preview) {
         const towers = Math.max(2, Math.min(6, Math.round(len / 90)));
         for (let i = 1; i < towers; i++) {
@@ -445,18 +457,19 @@
       const used = new Set();
       for (let i = 0; i < n; i++) {
         const t = ((time * speed) + i / n) % 1;
-        const x = a.x + dx * t, y = a.y + dy * t;
+        const p = curve.pt(t);
         let person = null;
         riders.forEach((r, idx) => {
           if (used.has(idx) || person) return;
           const dt = Math.min(Math.abs(r.t - t), 1 - Math.abs(r.t - t));
           if (dt < 0.55 / n) { person = r; used.add(idx); }
         });
-        drawBadge(ctx, x, y, type, person);
+        drawBadge(ctx, p.x, p.y, type, person);
       }
       riders.forEach((r, idx) => {
         if (used.has(idx)) return;
-        drawBadge(ctx, a.x + dx * r.t, a.y + dy * r.t, type, r);
+        const p = curve.pt(r.t);
+        drawBadge(ctx, p.x, p.y, type, r);
       });
       ctx.restore();
     }
@@ -495,6 +508,7 @@
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(angle || 0);
+      if (skier.wipe > 0) ctx.rotate(1.05); // tipped over on the ice
       ctx.scale(1.38, 1.38);
       const bob = Math.sin(time * 8 + x) * 1.1;
       ctx.translate(0, bob);
@@ -714,15 +728,99 @@
         ctx.fillRect(s.x - 4, s.y - 3, 8, 6);
       }
 
+      // Ice glints in the hollows — the spots where guests come unstuck.
+      ctx.save();
+      for (let y = 20; y < E.MAP_H - 20; y += 44) {
+        for (let x = 20; x < E.MAP_W - 20; x += 44) {
+          if (!E.iceAt(run, x, y)) continue;
+          const s = project(cam, x, y);
+          if (s.x < -20 || s.x > viewW + 20 || s.y < -20 || s.y > viewH + 20) continue;
+          const r = 11 * cam.zoom;
+          ctx.globalAlpha = 0.55;
+          ctx.fillStyle = '#bfe0ea';
+          ctx.strokeStyle = 'rgba(120,170,190,0.85)';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y - r); ctx.lineTo(s.x + r * 0.7, s.y); ctx.lineTo(s.x, s.y + r); ctx.lineTo(s.x - r * 0.7, s.y);
+          ctx.closePath(); ctx.fill(); ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+      ctx.restore();
+
+      // Lodges: the buildings guests walk out of each morning.
+      for (const lodge of run.lodges || []) {
+        const s = project(cam, lodge.x, lodge.y);
+        ctx.save();
+        ctx.translate(s.x, s.y);
+        const w = 22 + (lodge.level || 0) * 3;
+        ctx.fillStyle = '#f7f1e6';
+        ctx.strokeStyle = '#2c2924';
+        ctx.lineWidth = 1.4;
+        ctx.fillRect(-w / 2, -8, w, 14);
+        ctx.strokeRect(-w / 2, -8, w, 14);
+        ctx.beginPath();
+        ctx.moveTo(-w / 2 - 3, -8);
+        ctx.lineTo(0, -18);
+        ctx.lineTo(w / 2 + 3, -8);
+        ctx.closePath();
+        ctx.fillStyle = '#8d3a36';
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Snow puffs where a guest came unstuck on the ice.
+      for (const puff of run.puffs || []) {
+        const s = project(cam, puff.x, puff.y);
+        const k = 1 - puff.life;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, puff.life) * 0.85;
+        ctx.fillStyle = '#ffffff';
+        for (let i = 0; i < 7; i++) {
+          const ang = (i / 7) * Math.PI * 2 + puff.seed;
+          const rr = (6 + k * 22) * cam.zoom;
+          ctx.beginPath();
+          ctx.arc(s.x + Math.cos(ang) * rr, s.y + Math.sin(ang) * rr * 0.7, Math.max(1.2, (4 - k * 1.8) * cam.zoom), 0, 7);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      // A clear night over the fold.
+      if (run.weatherKind === 'aurora') {
+        ctx.save();
+        const t = extras.time;
+        for (let band = 0; band < 3; band++) {
+          ctx.beginPath();
+          ctx.globalAlpha = 0.18 - band * 0.04;
+          ctx.fillStyle = band % 2 ? '#8ef0c8' : '#7ec8f0';
+          const base = 46 + band * 40;
+          ctx.moveTo(0, base);
+          for (let x = 0; x <= viewW; x += 22) {
+            const y = base + Math.sin(x * 0.01 + t * 0.5 + band) * 20 + Math.sin(x * 0.031 - t * 0.7) * 7;
+            ctx.lineTo(x, y);
+          }
+          ctx.lineTo(viewW, 0);
+          ctx.lineTo(0, 0);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
       if (!extras.reduce) {
-        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        const heavy = run.weatherKind === 'snow';
+        const spd = heavy ? 4.5 : 1;
+        ctx.fillStyle = '#ffffff';
         for (const f of flakes) {
-          f.y += f.v * 0.004;
-          f.x += 0.0004;
-          if (f.y > 1) f.y = 0;
-          if (f.x > 1) f.x = 0;
-          ctx.globalAlpha = f.o;
-          ctx.fillRect(f.x * viewW, f.y * viewH, f.s, f.s);
+          f.y += f.v * 0.004 * spd;
+          f.x += 0.0004 * (heavy ? 3 : 1);
+          if (f.y > 1) f.y -= 1;
+          if (f.x > 1) f.x -= 1;
+          ctx.globalAlpha = Math.min(1, f.o * (heavy ? 1.25 : 1));
+          if (heavy) ctx.fillRect(f.x * viewW, f.y * viewH, 1.5, 4.5);
+          else ctx.fillRect(f.x * viewW, f.y * viewH, f.s, f.s);
         }
         ctx.globalAlpha = 1;
       }
