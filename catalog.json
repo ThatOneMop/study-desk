@@ -840,5 +840,32 @@
     "credits": "credits.html#gleam-leap",
     "added": "2026-11-10",
     "updated": "2026-11-10"
+  },
+  {
+    "id": "loop-circuit",
+    "title": "Loop Circuit",
+    "genre": "Trials + Physics",
+    "icon": "🏍️",
+    "color": "#d07a4a",
+    "description": "A side-scrolling moto-trials physics slice. Wheelie, lean and land on two wheels across four hand-built circuits and chase medal times.",
+    "controls": "Up/W or hold canvas throttle · Down/S brake · Left/Right or A/D lean · R retry · Esc pauses · Touch buttons",
+    "aliases": [
+      "moto",
+      "bike",
+      "trials",
+      "physics",
+      "moto x3m",
+      "school",
+      "time trial"
+    ],
+    "url": "games/loop-circuit/index.html",
+    "group": "Your games",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#loop-circuit",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
   }
 ]
