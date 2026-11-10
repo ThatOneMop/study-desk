@@ -787,5 +787,32 @@
     "thumbnailAlt": "Original Deep Shift cover illustration",
     "added": "2026-11-10",
     "updated": "2026-11-10"
+  },
+  {
+    "id": "downhole",
+    "title": "Downhole",
+    "genre": "Mining + Digging",
+    "icon": "⛏",
+    "color": "#c9a24d",
+    "description": "A 3D digging-and-selling mine. Tunnel down for copper, silver, gold and void crystal, haul your pack to the shack and upgrade your gear to go deeper.",
+    "controls": "WASD move · Mouse look (click to lock) · Hold left click dig · E shack on the surface · Space jetpack (once bought) · Esc menu",
+    "aliases": [
+      "digging",
+      "mining",
+      "3d",
+      "hole",
+      "ore",
+      "upgrade",
+      "dig"
+    ],
+    "url": "games/downhole/index.html",
+    "group": "Your games",
+    "type": "bundled",
+    "internet": "One CDN script (Three.js) when the page loads; nothing else leaves the browser",
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#downhole",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
   }
 ]
