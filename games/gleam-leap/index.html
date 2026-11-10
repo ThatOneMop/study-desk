@@ -8,7 +8,7 @@
   <div id="levelList" class="level-grid" aria-label="Choose a run"></div>
 </section>
 <section id="play" hidden>
-  <div class="hud"><span id="hudLevel">—</span><span id="hudPct">0%</span></div>
+  <div class="hud"><span id="hudLevel">—</span><span id="hudTime">0.00s</span><span id="hudPct">0%</span></div>
   <div class="track" aria-hidden="true"><i id="bar"></i><div id="marks"></div></div>
   <div class="stage">
     <canvas id="canvas" width="960" height="500" tabindex="0" aria-label="Gleam Leap. The square runs on its own. Press Space, click or tap to leap. Escape pauses. R restarts."></canvas>
@@ -20,6 +20,7 @@
 <details id="help" open><summary>How to play</summary>
 <p><b>Space</b>, <b>W</b>, <b>↑</b>, click or tap leaps. <b>Hold</b> to keep leaping the instant you land — buffered jumps and coyote time forgive a slightly early or late press. <b>Esc</b> pauses, <b>R</b> restarts the run, <b>Levels</b> returns to the menu.</p>
 <p>One touch of a spike, a block's face or a gap ends the run instantly, and it restarts straight away — your best distance is already saved. Red <b>✕</b> marks show where you have fallen before. Progress is your farthest distance as a percentage, saved per level in this browser.</p>
+<p><b>Speedrun timer.</b> Every run is timed. Finish a level without practise mode and your fastest time is saved next to your best percentage on the level card. Chase it.</p>
 <p><b>Practise mode</b> (toggle on any level card) adds checkpoints, so a fall returns you to the last one instead of the start. Everything — the music, the art and the levels — is original and drawn in the browser; no third-party assets are used.</p>
 </details>
 <p id="debug" hidden></p>

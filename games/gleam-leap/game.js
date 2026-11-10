@@ -130,6 +130,15 @@ THE SOFTWARE.
   let particles = [], trail = [];
   let deathHandled = false, wonHandled = false, savedBest = 0;
 
+  // Speedrun clock: milliseconds -> "12.34s" / "1:05.67" (— when unset).
+  function fmtTime(ms) {
+    if (ms === null || ms === undefined) return '—';
+    const s = ms / 1000;
+    const m = Math.floor(s / 60);
+    const rem = s - m * 60;
+    return (m > 0 ? m + ':' + rem.toFixed(2).padStart(5, '0') : rem.toFixed(2) + 's');
+  }
+
   function setView(v) { view = v; $('menu').hidden = v !== 'menu'; $('play').hidden = v === 'menu'; }
   function toMenu() {
     paused = false; run = null; musicStarted = false;
@@ -142,7 +151,7 @@ THE SOFTWARE.
       return '<article class="card" style="--c:' + lv.color + ';--a:' + lv.accent + '">' +
         '<div class="card-head"><span class="card-num">' + (i + 1) + '</span><h3>' + lv.name + '</h3></div>' +
         '<p>' + lv.blurb + '</p>' +
-        '<div class="card-stat"><span>Best <b>' + best + '%</b></span><span>Deaths <b>' + deaths + '</b></span></div>' +
+        '<div class="card-stat"><span>Best <b>' + best + '%</b></span><span>Time <b>' + fmtTime(profile.bestTime[i]) + '</b></span><span>Deaths <b>' + deaths + '</b></span></div>' +
         '<div class="card-actions">' +
         '<button class="play" data-level="' + i + '">' + (best >= 100 ? 'Replay' : best > 0 ? 'Continue' : 'Play') + '</button>' +
         '<button class="practice' + (profile.practise[i] ? ' on' : '') + '" data-practice="' + i + '" aria-pressed="' + profile.practise[i] + '">Practise' + (profile.practise[i] ? ' ✓' : '') + '</button>' +
@@ -169,9 +178,22 @@ THE SOFTWARE.
     E.step(run, inp || {});
     if (wasReady && run.mode === 'run') { musicStarted = false; }
     if (run.jumped) { squash = 0.74; jumpSound(); }
-    else if (!wasGround && run.ground) { squash = 1.16; } // landing squash
+    else if (!wasGround && run.ground) { squash = 1.16; spawnDust(run.x + E.SIZE / 2, run.y + E.SIZE); } // landing squash + dust
     if (run.mode === 'dead' && !deathHandled) onDeath();
     if (run.mode === 'won' && !wonHandled) onWin();
+  }
+
+  // A soft kick of dust where the square meets the ground — sells the landing.
+  function spawnDust(cx, gy) {
+    const acc = E.levels[run.level].accent;
+    for (let i = 0; i < 9; i++) {
+      const dir = Math.random() < 0.5 ? -1 : 1;
+      particles.push({
+        x: cx, y: gy - 2,
+        vx: dir * (20 + Math.random() * 90), vy: -(10 + Math.random() * 70),
+        life: 0.28 + Math.random() * 0.22, max: 0.5, c: Math.random() < 0.5 ? acc : '#cfe8e3'
+      });
+    }
   }
 
   function onDeath() {
@@ -191,6 +213,11 @@ THE SOFTWARE.
     wonHandled = true; wonDelay = 0.4;
     winSound();
     profile.best[run.level] = 100;
+    // Speedrun best: fastest clean-shell completion, ignored in practise mode.
+    if (!run.practise) {
+      const ms = Math.round(run.time * 1000), prev = profile.bestTime[run.level];
+      if (prev === null || prev === undefined || ms < prev) profile.bestTime[run.level] = ms;
+    }
     saveProfile();
     for (let i = 0; i < 40; i++) {
       const a = Math.random() * Math.PI * 2, sp = 40 + Math.random() * 200;
@@ -199,7 +226,7 @@ THE SOFTWARE.
   }
 
   // ---- HUD / overlay ------------------------------------------------------
-  let hudPct = -1, hudLevel = -1, hudMarks = '';
+  let hudPct = -1, hudLevel = -1, hudMarks = '', hudTime = '';
   function updateHud() {
     if (!run) return;
     const lv = E.levels[run.level], pct = E.progress(run);
@@ -212,6 +239,8 @@ THE SOFTWARE.
       hudMarks = '';
     }
     if (pct !== hudPct) { hudPct = pct; $('hudPct').textContent = pct + '%'; $('bar').style.width = pct + '%'; }
+    const t = fmtTime(Math.round(run.time * 1000));
+    if (t !== hudTime) { hudTime = t; $('hudTime').textContent = t; }
     const marks = profile.deaths[run.level].map((x) => '<i style="left:' + (x / lv.length * 100).toFixed(2) + '%"></i>').join('');
     if (marks !== hudMarks) { hudMarks = marks; $('marks').innerHTML = marks; }
   }
@@ -223,7 +252,10 @@ THE SOFTWARE.
     if (run.mode === 'ready') { ov.hidden = false; $('ovTitle').textContent = 'Ready'; $('ovText').textContent = 'Tap, click or press Space to leap. Hold to jump again the moment you land.'; $('ovBtn').hidden = false; $('ovBtn').textContent = 'Leap'; return; }
     if (run.mode === 'won') {
       ov.hidden = false; $('ovTitle').textContent = 'Gleam reached!';
-      $('ovText').textContent = E.levels[run.level].name + ' cleared. Deaths this run: ' + run.deaths + '. ' + (run.level < E.levels.length - 1 ? 'The next run is waiting.' : 'All three runs cleared. Replay for a clean line.');
+      const lv = E.levels[run.level], bt = profile.bestTime[run.level];
+      const timeTxt = run.practise ? '' : ' Time ' + fmtTime(Math.round(run.time * 1000)) + (bt !== null && bt !== undefined ? ' — best ' + fmtTime(bt) + '.' : '.');
+      const next = run.level < E.levels.length - 1 ? 'The next run is waiting.' : 'Every run cleared. Now chase a faster time.';
+      $('ovText').textContent = lv.name + ' cleared.' + timeTxt + ' Deaths this run: ' + run.deaths + '. ' + next;
       $('ovBtn').hidden = false;
       $('ovBtn').textContent = run.level < E.levels.length - 1 ? 'Next run' : 'Levels';
       return;
@@ -292,8 +324,13 @@ THE SOFTWARE.
   function drawGround(lv) {
     ctx.fillStyle = mix(lv.sky[1], '#000000', 0.7);
     ctx.fillRect(0, E.GROUND_Y, W, H - E.GROUND_Y);
-    ctx.fillStyle = hexA(lv.accent, 0.5 + pulse * 0.5);
-    ctx.fillRect(0, E.GROUND_Y, W, 4);
+    // Beat pulse on the ground line: the bar breathes and throws a soft glow.
+    const glow = 0.4 + pulse * 0.6;
+    const rg = ctx.createLinearGradient(0, E.GROUND_Y - 30, 0, E.GROUND_Y);
+    rg.addColorStop(0, hexA(lv.accent, 0)); rg.addColorStop(1, hexA(lv.accent, 0.16 * (0.4 + pulse)));
+    ctx.fillStyle = rg; ctx.fillRect(0, E.GROUND_Y - 30, W, 30);
+    ctx.fillStyle = hexA(lv.accent, glow);
+    ctx.fillRect(0, E.GROUND_Y, W, 3 + pulse * 4);
     // Pits carve the ground away.
     for (const o of lv.obstacles) {
       if (o.t !== 'pit') continue;
@@ -305,13 +342,20 @@ THE SOFTWARE.
   }
 
   function drawDeathMarkers(lv) {
+    const arr = profile.deaths[run ? run.level : 0];
+    const now = performance.now() / 1000;
     ctx.font = 'bold 16px system-ui'; ctx.textAlign = 'center';
-    for (const dx of profile.deaths[run ? run.level : 0]) {
-      const x = dx - camX + 20;
+    ctx.shadowColor = 'rgba(255,90,90,0.75)'; ctx.shadowBlur = 9;
+    for (let k = 0; k < arr.length; k++) {
+      const x = arr[k] - camX + 20;
       if (x < -20 || x > W + 20) continue;
-      ctx.fillStyle = 'rgba(255,120,120,0.5)';
-      ctx.fillText('✕', x, E.GROUND_Y - 14);
+      const phase = arr[k] * 0.013 + k * 0.7;
+      const a = 0.32 + 0.24 * (0.5 + 0.5 * Math.sin(now * 1.6 + phase));
+      const lift = 2.2 * Math.sin(now * 1.6 + phase);
+      ctx.fillStyle = 'rgba(255,120,120,' + a.toFixed(3) + ')';
+      ctx.fillText('✕', x, E.GROUND_Y - 14 + lift);
     }
+    ctx.shadowBlur = 0;
   }
 
   function drawFinish(lv) {
@@ -603,9 +647,14 @@ THE SOFTWARE.
     // Clean run on the real loop.
     window.GLEAP.start(0, false);
     const played = window.GLEAP.simulate(25, true);
+    // New levels through the shipped shell + speedrun best-time recording.
+    window.GLEAP.start(3, false);
+    const neon = window.GLEAP.simulate(30, true);
+    window.GLEAP.start(4, false);
+    const sunset = window.GLEAP.simulate(35, true);
     const el = $('debug');
     el.hidden = false;
-    el.textContent += ' GLEAP_DRIVE ' + JSON.stringify({ started: started, afterCrash: afterCrash, afterPractise: afterPractise, played: played }) +
+    el.textContent += ' GLEAP_DRIVE ' + JSON.stringify({ started: started, afterCrash: afterCrash, afterPractise: afterPractise, played: played, neon: neon, sunset: sunset }) +
       ' profile=' + JSON.stringify(window.GLEAP.profile());
     window.__GLEAP_DRIVEN = true;
   }

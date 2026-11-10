@@ -10,7 +10,7 @@ button:hover{background:#35765c}button:focus-visible,canvas:focus-visible{outlin
 .card{border:1px solid #d7ddcd;border-radius:16px;padding:18px;background:#fff;box-shadow:0 8px 22px #1c543b0d;border-top:4px solid var(--c)}
 .card-head{display:flex;align-items:center;gap:12px}.card-num{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--c);color:#fff;font-weight:700;font-size:14px}
 .card h3{margin:0;font-size:20px;letter-spacing:-.4px}.card p{color:#5b7166;font-size:13px;line-height:1.55;min-height:60px;margin:12px 0}
-.card-stat{display:flex;gap:18px;font-size:11px;letter-spacing:1px;color:#6b8175;margin-bottom:14px}.card-stat b{font-size:16px;color:#173f36;letter-spacing:0}
+.card-stat{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;letter-spacing:1px;color:#6b8175;margin-bottom:14px}.card-stat b{font-size:16px;color:#173f36;letter-spacing:0}
 .card-actions{display:flex;gap:10px}.card-actions .play{flex:1}.practice{background:#e6ead9;color:#2c5344}.practice.on{background:var(--a,#ffd166);color:#3a2c07}
 #play .hud{display:flex;justify-content:space-between;font-size:12px;letter-spacing:2px;color:#4a6157;font-weight:700;padding:6px 2px}
 .track{position:relative;height:8px;border-radius:6px;background:#dfe3d4;overflow:hidden;margin-bottom:12px}
