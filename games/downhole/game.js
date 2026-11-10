@@ -5,6 +5,8 @@ const NX = 32, NZ = 32, NY = 64, TOP = NY - 1; /* block y: [y,y+1), grass at y=T
 const SAVE_KEY = 'downhole-v1', SET_KEY = 'downhole-settings-v1';
 const $ = (s) => document.querySelector(s);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+/* Fire an SFX only when the audio module loaded — keeps the game running if audio.js is blocked. */
+const sfx = (name) => { if (typeof DHaudio !== 'undefined' && DHaudio && DHaudio.sfx && typeof DHaudio.sfx[name] === 'function') DHaudio.sfx[name](); };
 
 /* ---------- deterministic world ---------- */
 function hash3(x, y, z) {
@@ -330,6 +332,7 @@ function onEDown() {
 function onEUp() { winching = false; winchGoal = null; }
 /* pick the highest column within a small radius so the winch lands you on the rim, not back down the shaft */
 function startWinch() {
+  sfx('winch');
   const bx = Math.floor(player.pos.x), bz = Math.floor(player.pos.z);
   let best = null;
   for (let dx = -4; dx <= 4; dx++) for (let dz = -4; dz <= 4; dz++) {
@@ -343,6 +346,7 @@ function startWinch() {
   if (goalY <= player.pos.y + 0.05) { toast('Already at the surface.'); return; }
   winchGoal = { x: best.x + 0.5, y: goalY, z: best.z + 0.5 };
   winching = true;
+  sfx('winch');
 }
 const cargoText = () => Object.entries(S.pack).filter(([, n]) => n).map(([k, n]) => `${n} ${k}`).join(', ');
 function openShop() {
@@ -396,7 +400,7 @@ $('#shopClose').onclick = () => { $('#shop').hidden = true; enterPlay(); };
 
 /* ---------- health / death ---------- */
 function caveIn() {
-  DHaudio.sfx.crack();
+  sfx('rumble'); sfx('crack');
   const safe = S.up.boots >= 2;
   toast(safe ? 'The roof groans — cave-in! Your boots hold.' : 'The roof groans — cave-in! (-15 HP)');
   if (!safe) hurt(15);
@@ -451,7 +455,7 @@ function checkGoals() {
       S.goals.done[g.id] = 1;
       S.money += g.reward;
       toast(`Contract complete — ${g.text} (+$${g.reward})`);
-      DHaudio.sfx.sell();
+      sfx('goal');
       changed = true;
     }
   }
@@ -569,15 +573,21 @@ function physics(dt) {
   }
 }
 
-let hudT = 0;
+let hudT = 0, depthT = 0;
 function frame(tReq) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, (tReq - (frame.last || tReq)) / 1000 || 0.016);
   frame.last = tReq;
   if (mode === 'play') {
     physics(dt); digTick(dt);
-    S.playSec += dt; hudT += dt;
+    S.playSec += dt; hudT += dt; depthT += dt;
     if (hudT > 0.25) { hudT = 0; updateHUD(); checkGoals(); updateGoalsHUD(); }
+    /* depth ambience — throttled to ~0.5s and only when the whole-block depth changes */
+    if (depthT > 0.5) {
+      depthT = 0;
+      const d = Math.max(0, Math.round(TOP + 1 - player.pos.y));
+      if (d !== frame.lastDepth) { frame.lastDepth = d; if (typeof DHaudio !== 'undefined' && DHaudio && typeof DHaudio.setDepth === 'function') DHaudio.setDepth(d); }
+    }
     if (S.playSec - (frame.savedAt || 0) > 20) { frame.savedAt = S.playSec; save(); }
   }
   const eye = player.pos.clone().add(new THREE.Vector3(0, 0.8, 0));
