@@ -17,7 +17,8 @@
     hive: '#e6c85a', grill: '#a84832', lumber: '#6d8a3e', forester: '#4f7a3a',
     saw: '#b08968', mill: '#a06a42', gears: '#c0a15a', inventor: '#7d6ea8',
     yard: '#a68455', warehouse: '#8d7352', hauler: '#6a7d8a', porter: '#b9a48a',
-    lantern: '#f0d78a', fire: '#e07a3a', pool: '#5eb0c0', arch: '#d4a0b8', bell: '#d7c36a'
+    lantern: '#f0d78a', fire: '#e07a3a', pool: '#5eb0c0', arch: '#d4a0b8', bell: '#d7c36a',
+    granary: '#c9a45a', sluice: '#5a94a0', lanternpost: '#f0cf6a'
   };
 
   function rotOf(x, y, rot, w, h) {
@@ -617,6 +618,16 @@
       drawBuilding(ctx, pt[0], pt[1], cam.zoom, { x: g.x, y: g.y, ground: z, floors: cell ? cell.floors : 0, levee: 0, building: { id: g.id, progress: 1 } }, t, 1);
       ctx.globalAlpha = 1;
     }
+    const trails = run.trails || [];
+    for (let i = 0; i < trails.length; i++) {
+      const tr = trails[i];
+      const tp = project(tr.x, tr.y, 0.05, cam, run.w, run.h);
+      if (tp[0] < -20 || tp[1] < -20 || tp[0] > w + 20 || tp[1] > h + 20) continue;
+      ctx.fillStyle = 'rgba(96, 74, 48,' + (0.24 * tr.life).toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.arc(tp[0], tp[1], 1.5 * cam.zoom, 0, 7);
+      ctx.fill();
+    }
     const nibs = (run.nibs || []).filter(function (n) { return !n.dead; });
     nibs.sort(function (a, b) { return (a.x + a.y) - (b.x + b.y); });
     for (let i = 0; i < nibs.length; i++) {
@@ -637,6 +648,15 @@
     if (hour >= 20 || hour < 5) {
       ctx.fillStyle = 'rgba(10, 16, 32, 0.28)';
       ctx.fillRect(0, 0, w, h);
+    } else if (!view.reduce) {
+      // Warm dawn and dusk wash over the bend.
+      const dawn = hour >= 5 && hour < 7 ? 1 - Math.abs(hour - 6) : 0;
+      const dusk = hour >= 17 && hour < 20 ? 1 - Math.abs(hour - 18.5) / 1.5 : 0;
+      const amt = Math.max(0, Math.min(1, Math.max(dawn, dusk)));
+      if (amt > 0.02) {
+        ctx.fillStyle = 'rgba(240, 150, 80,' + (0.13 * amt).toFixed(3) + ')';
+        ctx.fillRect(0, 0, w, h);
+      }
     }
   }
 

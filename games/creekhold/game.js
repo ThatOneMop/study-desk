@@ -78,6 +78,16 @@
     setTimeout(function () { el.remove(); }, ms || 2800);
   }
 
+  function showBanner(text, kind, ms) {
+    const el = $('banner');
+    if (!el) return;
+    el.hidden = false;
+    el.className = 'banner' + (kind ? ' ' + kind : '');
+    el.textContent = text;
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.hidden = true; }, ms || 3800);
+  }
+
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const rect = canvas.getBoundingClientRect();
@@ -157,7 +167,8 @@
       const known = run && run.unlocked[def.id];
       b.disabled = !run || !!other;
       const cost = costLabel(def);
-      b.innerHTML = def.name + '<small>' + (other ? 'Other circle' : known ? cost : (def.science || 0) + ' ideas') + '</small>';
+      const label = (def.icon ? def.icon + ' ' : '') + def.name;
+      b.innerHTML = label + '<small>' + (other ? 'Other circle' : known ? cost : (def.science || 0) + ' ideas') + '</small>';
       b.setAttribute('aria-pressed', String(tool === def.id));
       b.dataset.id = def.id;
       b.title = G.pieceTip(def, run);
@@ -206,6 +217,9 @@
     $('mood').textContent = String(Math.round(E.avgWell(run)));
     $('water').textContent = Math.floor(run.store.water) + '/' + E.waterCap(run);
     $('food').textContent = String(Math.floor(E.foodTotal(run)));
+    const foodRes = E.reserveDays(run).food;
+    $('food').parentNode.className = 'chip' + (foodRes < 2 ? (foodRes < 1.2 ? ' bad' : ' warn') : '');
+    $('yield').textContent = String(Math.floor(run.store.yield || 0));
     $('logs').textContent = String(Math.floor(run.store.logs));
     $('planks').textContent = String(Math.floor(run.store.planks));
     $('gears').textContent = String(Math.floor(run.store.gears));
@@ -447,7 +461,12 @@
       else if (e.type === 'born') { A.play('born'); toast('A kit is at the hearth'); }
       else if (e.type === 'died') A.play('died');
       else if (e.type === 'gear') A.play('gear');
-      else if (e.type === 'season') toast(E.seasonLabel(run));
+      else if (e.type === 'flood') { A.play('flood'); showBanner('The river swells — a flood runs down the bend', 'warn'); burst(e.x, e.y, '#8fd0dd'); }
+      else if (e.type === 'season') {
+        const kind = run.season === 'badtide' ? 'bad' : run.season === 'drought' ? 'warn' : 'good';
+        showBanner(E.seasonLabel(run), kind);
+        toast(E.seasonLabel(run));
+      }
     }
   }
 
