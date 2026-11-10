@@ -128,7 +128,7 @@
     buildTools();
     closeVeils();
     show('play');
-    $('stressBtn').setAttribute('aria-pressed', 'false');
+    $('stressBtn').setAttribute('aria-pressed', String(!!meta.settings.stress));
     audio.startMusic();
     setStatus(session.level.brief);
     updateTutorial();
@@ -168,7 +168,8 @@
       const mat = E.MATERIALS[id];
       const label = mat ? mat.name : (id === 'split' ? 'Hinge' : id === 'erase' ? 'Lift out' : 'Bolt');
       const key = mat ? mat.key : (id === 'split' ? 'H' : id === 'erase' ? 'X' : 'B');
-      btn.innerHTML = '<small>' + key + '</small>' + label;
+      const cost = mat ? '<em>' + money(mat.cost) + '/m</em>' : '';
+      btn.innerHTML = '<small>' + key + '</small>' + label + cost;
       btn.setAttribute('aria-pressed', String(tool === id));
       btn.addEventListener('click', () => { tool = id; anchor = null; buildTools(); audio.play('ui'); });
       bar.append(btn);
@@ -189,8 +190,9 @@
     $('levelName').textContent = session.level.name;
     const spent = session.spent || 0;
     const budget = session.level.budget;
-    $('budgetText').textContent = money(spent) + ' / ' + money(budget);
-    $('budgetPill').classList.toggle('warn', spent > budget);
+    const left = budget - spent;
+    $('budgetText').textContent = money(spent) + ' / ' + money(budget) + ' · ' + (left >= 0 ? money(left) + ' left' : money(-left) + ' over');
+    $('budgetPill').classList.toggle('warn', left < 0);
     const sim = session.sim;
     const peak = sim ? Math.round((sim.liveStrain || sim.peakStrain || 0) * 100) : 0;
     $('stressText').textContent = sim && (sim.mode === 'run' || sim.mode === 'replay') ? (peak > 100 ? 'Snapping' : peak + '%') : 'Quiet';
@@ -574,6 +576,8 @@
     $('stressBtn').addEventListener('click', () => {
       const on = $('stressBtn').getAttribute('aria-pressed') !== 'true';
       $('stressBtn').setAttribute('aria-pressed', String(on));
+      meta.settings.stress = on;
+      saveMeta();
       if (session.sim) session.sim.stress = on;
     });
     $('rebuildBtn').addEventListener('click', () => { E.rebuild(session); $('result').hidden = true; updateHud(); });
@@ -700,5 +704,41 @@
   audio.setVolumes(meta.settings);
   show('title');
   requestAnimationFrame(tick);
-  window.Spanwright = { get meta() { return meta; }, get session() { return session; }, get cam() { return cam; }, start: start };
+  // Debug hook: state() reads the live session, run() drives the sim headlessly.
+  function swState() {
+    const sim = session && session.sim;
+    return {
+      screen: screen,
+      level: session ? session.level.id : null,
+      spent: session ? session.spent : null,
+      budget: session ? session.level.budget : null,
+      remaining: session ? Math.round((session.level.budget - session.spent) * 100) / 100 : null,
+      beams: session ? session.beams.length : 0,
+      sim: sim ? {
+        mode: sim.mode, t: Math.round(sim.t * 100) / 100, result: sim.result, why: sim.why,
+        breaks: sim.breaks, peak: Math.round((sim.peakStrain || 0) * 100) / 100,
+        stars: sim.grade ? sim.grade.stars : 0
+      } : null
+    };
+  }
+  function swRun(seconds) {
+    if (!session) return { ok: false, reason: 'no session' };
+    if (session.sim) E.rebuild(session);
+    const started = E.beginSim(session);
+    if (!started.ok) return { ok: false, reason: started.reason };
+    const steps = Math.round((seconds || session.level.timeLimit || 20) / E.FRAME);
+    for (let i = 0; i < steps && session.sim.mode === 'run'; i++) E.tick(session);
+    const sim = session.sim;
+    return { ok: true, result: sim.result, why: sim.why, breaks: sim.breaks, peak: sim.peakStrain, grade: sim.grade };
+  }
+  window.SW = {
+    state: swState,
+    run: swRun,
+    start: start,
+    engine: E,
+    get meta() { return meta; },
+    get session() { return session; },
+    get cam() { return cam; }
+  };
+  window.Spanwright = window.SW;
 })();

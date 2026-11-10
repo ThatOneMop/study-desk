@@ -42,7 +42,8 @@
     { id: 'tide', name: 'Tide Gate', kicker: 'Chapter 3', line: 'Barges keep a timetable. The leaf has to as well.' },
     { id: 'hollow', name: 'Bramble Hollow', kicker: 'Chapter 4', line: 'Hang the road, or let a coil take the blow.' },
     { id: 'lantern', name: 'Lantern Mile', kicker: 'Chapter 5', line: 'Markers in the dark, and more than one vehicle.' },
-    { id: 'second', name: 'Second Measuring', kicker: 'Chapter 6', line: 'Stricter contracts on familiar water.' }
+    { id: 'second', name: 'Second Measuring', kicker: 'Chapter 6', line: 'Stricter contracts on familiar water.' },
+    { id: 'longwater', name: 'Long Water', kicker: 'Chapter 7', line: 'The widest cuts yet, and the heaviest loads.' }
   ];
 
   const ACHIEVEMENTS = [
@@ -64,6 +65,7 @@
     { id: 'world-hollow', name: 'Hollow sealed', detail: 'Clear every contract in Bramble Hollow.' },
     { id: 'world-lantern', name: 'Lantern sealed', detail: 'Clear every contract in Lantern Mile.' },
     { id: 'world-second', name: 'Second sealed', detail: 'Clear every contract in Second Measuring.' },
+    { id: 'world-longwater', name: 'Long Water sealed', detail: 'Clear every contract in Long Water.' },
     { id: 'county-seal', name: 'County seal', detail: 'Earn a star on every contract.' },
     { id: 'brass-book', name: 'Brass book', detail: 'Earn three stars on every contract.' }
   ];
@@ -241,7 +243,11 @@
         { id: 'B', t: 4.6, label: 'Van', spawn: ['v1'] },
         { id: 'C', t: 10, label: 'Wagon', spawn: ['v2'] }
       ]
-    })
+    }),
+
+    makeLevel({ id: 'longwater-1', world: 'longwater', name: 'The Wide Cut', gap: 10, budget: 11800, materials: ['road', 'wood', 'steel'], vehicles: [{ id: 'v1', type: 'van' }], brief: 'The widest ten metres yet. A flat plank settles; brace the whole deck with wood triangles and a steel chord.', dress: 37, waterY: 2.0 }),
+    makeLevel({ id: 'longwater-2', world: 'longwater', name: 'Bare Steel', gap: 12, budget: 19000, materials: ['road', 'steel'], vehicles: [{ id: 'v1', type: 'dray' }], brief: 'No timber on this contract. Every triangle is steel, and the dray is heavy enough to fold a bare road.', dress: 38, waterY: 2.0 }),
+    makeLevel({ id: 'longwater-3', world: 'longwater', name: 'Cistern Crossing', gap: 14, budget: 27000, materials: ['road', 'wood', 'steel'], piers: [[15, 3]], vehicles: [{ id: 'v1', type: 'cistern' }], brief: 'Fourteen metres and a full cistern. The midstream pier takes one side; truss both openings or the deck drops into the water.', dress: 39, waterY: 2.0 })
   ];
 
   function yardLevel() {

@@ -66,7 +66,7 @@ const S = {
   money: 0, hp: 100, pack: {}, ach: {},
   up: { pick: 1, lamp: 1, pack: 1, jet: 0, boots: 0, winch: 0 },
   goals: { idx: 0, done: {} }, sold: {}, earned: 0,
-  playSec: 0
+  playSec: 0, best: 0, deepOne: 0
 };
 const UP = {
   pick: { name: 'Pickaxe', max: 5, base: 1, cost: [60, 220, 650, 1500], desc: lv => `Dig power ${[1, 2, 3, 4.5, 6][lv - 1]} — bites through harder rock` },
@@ -122,7 +122,7 @@ function saveSettings() { try { localStorage.setItem(SET_KEY, JSON.stringify(set
 function save() {
   const data = {
     v: 1, money: S.money, hp: S.hp, pack: S.pack, ach: S.ach, up: S.up, playSec: Math.round(S.playSec),
-    best: S.best || 0, ms: S.ms || {},
+    best: S.best || 0, ms: S.ms || {}, deepOne: S.deepOne || 0,
     goals: S.goals, sold: S.sold, earned: S.earned || 0,
     top: Array.from(world.top).map(t => t - (TOP)).join(',') /* offset so bedrock columns compress as small ints */
   };
@@ -138,7 +138,7 @@ function load() {
   S.goals = d.goals && typeof d.goals.done === 'object' ? { idx: 0, done: d.goals.done } : { idx: 0, done: {} };
   S.sold = d.sold || {}; S.earned = d.earned || 0;
   S.playSec = d.playSec || 0;
-  S.best = d.best || 0; S.ms = d.ms || {};
+  S.best = d.best || 0; S.ms = d.ms || {}; S.deepOne = d.deepOne || 0;
   player.winchFuel = winchMax();
   if (typeof d.top === 'string') {
     d.top.split(',').forEach((v, i) => { if (i < world.top.length) world.top[i] = clamp(TOP + (+v || 0), 0, TOP); });
@@ -155,6 +155,8 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0b1210);
 scene.fog = new THREE.Fog(0x0b1210, 8, 26);
 const camera = new THREE.PerspectiveCamera(72, 1, 0.05, 400);
+const BASE_FOV = 72;
+let fovKick = 0;
 
 scene.add(new THREE.HemisphereLight(0x9fb8a5, 0x1a211c, 0.5));
 const lamp = new THREE.PointLight(0xffd9a0, 1.6, 20, 1.6);
@@ -214,6 +216,49 @@ const shack = new THREE.Group();
 }
 shack.position.set(4.5, TOP + 1, 4.5);
 scene.add(shack);
+
+/* ---------- juice: camera shake + block-break particles ---------- */
+let shakeMag = 0, shakeT = 0, shakeDur = 1;
+function shakeCam(mag, ms) { shakeDur = Math.max(0.001, ms / 1000); shakeT = shakeDur; shakeMag = Math.max(shakeMag, mag); }
+
+function particleTex() {
+  const c = document.createElement('canvas'); c.width = c.height = 16;
+  const g = c.getContext('2d');
+  const grd = g.createRadialGradient(8, 8, 0, 8, 8, 8);
+  grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = grd; g.fillRect(0, 0, 16, 16);
+  return new THREE.CanvasTexture(c);
+}
+const PMAX = 16, pTex = particleTex(), particles = [];
+for (let i = 0; i < PMAX; i++) {
+  const m = new THREE.SpriteMaterial({ map: pTex, transparent: true, depthWrite: false, opacity: 0 });
+  const sp = new THREE.Sprite(m); sp.visible = false; sp.scale.setScalar(0.2);
+  scene.add(sp);
+  particles.push({ sp, m, vel: new THREE.Vector3(), life: 0, max: 1 });
+}
+let pIdx = 0;
+function burst(x, y, z, color, n) {
+  const c = new THREE.Color(color).multiplyScalar(1.15);
+  for (let i = 0; i < n; i++) {
+    const p = particles[pIdx++ % PMAX];
+    p.sp.position.set(x + (Math.random() - 0.5) * 0.7, y + (Math.random() - 0.5) * 0.7, z + (Math.random() - 0.5) * 0.7);
+    p.vel.set((Math.random() - 0.5) * 3.2, Math.random() * 3 + 1.4, (Math.random() - 0.5) * 3.2);
+    p.life = p.max = 0.45 + Math.random() * 0.35;
+    p.m.color.copy(c); p.m.opacity = 1;
+    p.sp.scale.setScalar(0.1 + Math.random() * 0.12);
+    p.sp.visible = true;
+  }
+}
+function particlesTick(dt) {
+  for (const p of particles) {
+    if (!p.sp.visible) continue;
+    p.life -= dt;
+    if (p.life <= 0) { p.sp.visible = false; p.m.opacity = 0; continue; }
+    p.vel.y -= 17 * dt;
+    p.sp.position.addScaledVector(p.vel, dt);
+    p.m.opacity = Math.max(0, p.life / p.max);
+  }
+}
 
 /* ---------- player ---------- */
 const player = {
@@ -277,6 +322,22 @@ function aimTarget() {
   return null;
 }
 function digReset() { dig = null; $('#digRing').hidden = true; }
+/* best-depth tracking + the one-off bedrock moment */
+function noteDepth(d) {
+  if (d > (S.best || 0)) {
+    S.best = d;
+    for (const [m, line] of MILESTONES) {
+      if (d >= m && !((S.ms || (S.ms = {}))[m])) { S.ms[m] = 1; toast(line); DHaudio.sfx.ach(); break; }
+    }
+    updateHUD(); saveSoon();
+  }
+  if (!S.deepOne && d >= 63) {
+    S.deepOne = 1;
+    toast('You have reached the bottom of the world — bedrock. You are a DEEP ONE.');
+    sfx('ach'); shakeCam(0.3, 320);
+    updateHUD(); save();
+  }
+}
 function digTick(dt) {
   const hit = aimTarget();
   if (!hit) { digReset(); $('#hint').textContent = ''; return; }
@@ -296,6 +357,8 @@ function digTick(dt) {
     dig.t = 0;
     world.top[idx(dig.x, dig.z)] = Math.max(0, hit.y - 1);
     rebuildBlocks();
+    shakeCam(0.15, 90);
+    burst(dig.x + 0.5, hit.y + 0.5, dig.z + 0.5, blockColor(dig.x, hit.y, dig.z, info), 10);
     const packTotal = Object.values(S.pack).reduce((a, b) => a + b, 0);
     if (info.ore) {
       if (packTotal < packCap()) { S.pack[info.ore] = (S.pack[info.ore] || 0) + 1; DHaudio.sfx.pickup(); ach(info.ore); }
@@ -305,12 +368,7 @@ function digTick(dt) {
     const d = depthOf(hit.y);
     if (d > 15 && hash3(dig.x * 3 + 7, hit.y * 5 + 1, dig.z * 7 + 3) < 0.03) caveIn();
     if (d >= 10) ach('deep10'); if (d >= 30) ach('deep30'); if (d >= 46) ach('crystal');
-    if (d > (S.best || 0)) {
-      S.best = d;
-      for (const [m, line] of MILESTONES) {
-        if (d >= m && !((S.ms || (S.ms = {}))[m])) { S.ms[m] = 1; toast(line); DHaudio.sfx.ach(); break; }
-      }
-    }
+    noteDepth(d);
     saveSoon();
     checkGoals();
   } else if (Math.random() < dt * 8) DHaudio.sfx.dig();
@@ -401,6 +459,7 @@ $('#shopClose').onclick = () => { $('#shop').hidden = true; enterPlay(); };
 /* ---------- health / death ---------- */
 function caveIn() {
   sfx('rumble'); sfx('crack');
+  shakeCam(0.35, 340);
   const safe = S.up.boots >= 2;
   toast(safe ? 'The roof groans — cave-in! Your boots hold.' : 'The roof groans — cave-in! (-15 HP)');
   if (!safe) hurt(15);
@@ -443,9 +502,15 @@ goalsPanel.innerHTML = '<h2>Contracts</h2><ul id="goalList"></ul><p class="sub">
 document.body.appendChild(goalsPanel);
 goalsPanel.querySelector('.close').onclick = () => { goalsPanel.hidden = true; };
 const hudGoal = document.createElement('div');
-hudGoal.id = 'hudGoal'; hudGoal.className = 'stat top-left'; hudGoal.style.top = '112px';
-hudGoal.innerHTML = '<span class="sub" id="hudGoalText"></span>';
+hudGoal.id = 'hudGoal'; hudGoal.className = 'stat top-left'; hudGoal.style.top = '150px';
+hudGoal.innerHTML = '<span class="sub" id="hudGoalText"></span><span class="sub" id="hudBestText"></span>';
 $('#hud').appendChild(hudGoal);
+/* permanent bedrock badge, shown next to the depth readout once earned */
+const deepBadge = document.createElement('span');
+deepBadge.id = 'hudDeepOne'; deepBadge.textContent = 'DEEP ONE'; deepBadge.hidden = true;
+deepBadge.style.cssText = 'display:inline-block;margin-left:8px;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.06em;background:#c8a24a;color:#1a1206;vertical-align:middle';
+$('#hudDepth').style.display = 'inline-block';
+$('#hudDepth').after(deepBadge);
 
 function checkGoals() {
   let changed = false;
@@ -463,7 +528,8 @@ function checkGoals() {
 }
 function updateGoalsHUD() {
   const cur = currentGoal();
-  const el = $('#hudGoalText'); if (el) el.textContent = cur ? `Contract: ${cur.text}` : 'Contracts: all complete';
+  const el = $('#hudGoalText'); if (el) el.textContent = cur ? `Contract: ${cur.text} · $${cur.reward}` : 'Contracts: all complete — nice dig.';
+  const bt = $('#hudBestText'); if (bt) bt.textContent = `Best depth ${S.best || 0}`;
   const ul = $('#goalList'); if (!ul) return;
   ul.innerHTML = '';
   for (const g of GOALS) {
@@ -485,6 +551,7 @@ function toggleGoals() {
 function updateHUD() {
   const depth = Math.max(0, Math.round(TOP + 1 - player.pos.y));
   $('#hudDepth').textContent = depth === 0 ? 'Surface' : `${depth} deep`;
+  deepBadge.hidden = !S.deepOne;
   const packTotal = Object.values(S.pack).reduce((a, b) => a + b, 0);
   $('#hudOre').textContent = cargoText() || 'no ore yet';
   $('#hudMoney').textContent = `$${S.money}`;
@@ -573,19 +640,21 @@ function physics(dt) {
   }
 }
 
-let hudT = 0, depthT = 0;
+let hudT = 0, depthT = 0, frameCount = 0;
 function frame(tReq) {
   requestAnimationFrame(frame);
+  frameCount++;
   const dt = Math.min(0.05, (tReq - (frame.last || tReq)) / 1000 || 0.016);
   frame.last = tReq;
   if (mode === 'play') {
-    physics(dt); digTick(dt);
+    physics(dt); digTick(dt); particlesTick(dt);
     S.playSec += dt; hudT += dt; depthT += dt;
     if (hudT > 0.25) { hudT = 0; updateHUD(); checkGoals(); updateGoalsHUD(); }
     /* depth ambience — throttled to ~0.5s and only when the whole-block depth changes */
     if (depthT > 0.5) {
       depthT = 0;
       const d = Math.max(0, Math.round(TOP + 1 - player.pos.y));
+      noteDepth(d); /* catches the bedrock floor you stand on, which digging alone cannot reach */
       if (d !== frame.lastDepth) { frame.lastDepth = d; if (typeof DHaudio !== 'undefined' && DHaudio && typeof DHaudio.setDepth === 'function') DHaudio.setDepth(d); }
     }
     if (S.playSec - (frame.savedAt || 0) > 20) { frame.savedAt = S.playSec; save(); }
@@ -593,6 +662,21 @@ function frame(tReq) {
   const eye = player.pos.clone().add(new THREE.Vector3(0, 0.8, 0));
   camera.position.copy(eye);
   camera.rotation.set(player.pitch, player.yaw, 0, 'YXZ');
+  if (shakeT > 0) {
+    shakeT = Math.max(0, shakeT - dt);
+    const a = shakeMag * (shakeT / shakeDur);
+    camera.position.x += (Math.random() * 2 - 1) * a;
+    camera.position.y += (Math.random() * 2 - 1) * a;
+    camera.position.z += (Math.random() * 2 - 1) * a;
+    camera.rotation.z += (Math.random() * 2 - 1) * a * 0.4;
+    if (shakeT === 0) shakeMag = 0;
+  }
+  /* FOV kick when falling fast */
+  const fallSpeed = Math.max(0, -player.vel.y);
+  const wantKick = fallSpeed > 12 ? clamp((fallSpeed - 12) * 1.4, 0, 12) : 0;
+  fovKick += (wantKick - fovKick) * Math.min(1, dt * 9);
+  const wantFov = BASE_FOV + fovKick;
+  if (Math.abs(camera.fov - wantFov) > 0.02) { camera.fov = wantFov; camera.updateProjectionMatrix(); }
   lamp.position.copy(eye);
   lamp.distance = lampR();
   const d = Math.max(1, TOP + 1 - player.pos.y);
@@ -616,7 +700,7 @@ $('#btnContinue').onclick = () => { if (load()) { rebuildBlocks(); enterPlay(); 
 $('#btnNew').onclick = () => {
   if (hasSave() && !confirm('Start a new mine? Current save is replaced.')) return;
   try { localStorage.removeItem(SAVE_KEY); } catch (e) {}
-  Object.assign(S, { money: 0, hp: 100, pack: {}, ach: {}, up: { pick: 1, lamp: 1, pack: 1, jet: 0, boots: 0, winch: 0 }, goals: { idx: 0, done: {} }, sold: {}, earned: 0, playSec: 0 });
+  Object.assign(S, { money: 0, hp: 100, pack: {}, ach: {}, up: { pick: 1, lamp: 1, pack: 1, jet: 0, boots: 0, winch: 0 }, goals: { idx: 0, done: {} }, sold: {}, earned: 0, playSec: 0, best: 0, deepOne: 0, ms: {} });
   player.winchFuel = 0;
   for (let i = 0; i < world.top.length; i++) world.top[i] = TOP;
   player.pos.set(16.5, TOP + 1, 16.5); player.vel.set(0, 0, 0);
@@ -665,7 +749,7 @@ requestAnimationFrame(frame);
 
 /* debug hooks for headless playtests */
 window.DH = {
-  state: () => ({ mode, money: S.money, hp: S.hp, pack: S.pack, up: { ...S.up }, depth: Math.round(TOP + 1 - player.pos.y), pos: player.pos.toArray(), topSum: world.top.reduce((a, b) => a + b, 0) }),
+  state: () => ({ mode, money: S.money, hp: S.hp, pack: S.pack, up: { ...S.up }, depth: Math.round(TOP + 1 - player.pos.y), best: S.best || 0, deepOne: !!S.deepOne, frames: frameCount, pos: player.pos.toArray(), topSum: world.top.reduce((a, b) => a + b, 0) }),
   dig: (x, z) => { world.top[idx(clamp(x, 0, NX - 1) | 0, clamp(z, 0, NZ - 1) | 0)] = Math.max(0, world.top[idx(x | 0, z | 0)] - 1); rebuildBlocks(); },
   teleport: (x, y, z) => player.pos.set(x, y, z),
   give: (k, n) => { S.pack[k] = (S.pack[k] || 0) + n; updateHUD(); },
@@ -673,6 +757,8 @@ window.DH = {
   winch: () => ({ owned: S.up.winch, speed: winchSpeed(), fuel: +player.winchFuel.toFixed(2), max: winchMax(), climbing: winching, goal: winchGoal }),
   startWinch: (on) => { if (on === false) { winching = false; winchGoal = null; } else startWinch(); },
   caveIn: () => caveIn(),
+  deep: (d) => noteDepth(d),
+  shake: (mag, ms) => shakeCam(mag, ms),
   money: (n) => { S.money = n | 0; updateHUD(); },
   buy: (key) => { const spec = UP[key], lv = S.up[key]; if (!spec || lv >= spec.max) return false; S.money -= upCost(key); S.up[key] = lv + 1; if (key === 'winch') { player.winchFuel = winchMax(); ach('winch'); } save(); updateHUD(); checkGoals(); return true; },
   checkGoals, toggleGoals,

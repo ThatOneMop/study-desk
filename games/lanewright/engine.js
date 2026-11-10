@@ -51,6 +51,14 @@
     { id: 'thin', name: 'Thin budget', pin: 1, roads: 0.72 },
     { id: 'festival', name: 'Festival weekend', pin: 1.32, roads: 1.12 }
   ];
+  // Credits are banked one per completed trip and spent on tools between trips.
+  const COSTS = {
+    road: { cost: 2, amount: 6, name: 'Six road tiles', blurb: 'A short top-up for the pile.' },
+    light: { cost: 3, amount: 1, name: 'Traffic light', blurb: 'A junction takes turns, one axis at a time.' },
+    roundabout: { cost: 4, amount: 1, name: 'Roundabout', blurb: 'Cars barely pause. It needs open ground.' },
+    motorway: { cost: 6, amount: 1, name: 'Motorway', blurb: 'A fast thread from point to point. Hills still stop it.' }
+  };
+  const CREDIT_ORDER = ['road', 'light', 'roundabout', 'motorway'];
 
   function paintTerrain(cols, rows, paints) {
     const terrain = [];
@@ -444,6 +452,7 @@ function spawnEvery(week) {
       best: {},
       achievements: [],
       lifetime: 0,
+      bestDayTrips: 0,
       tutorialDone: false,
       dailyPosted: {},
       weeklyBest: {}
@@ -474,6 +483,40 @@ function spawnEvery(week) {
     const dayIndex = Math.min(6, Math.floor((run.time - run.weekIndex * WEEK) / DAY));
     return { week: week, dayIndex: dayIndex, day: DAYS[Math.max(0, dayIndex)] };
   }
+
+  // A real clock inside the day: the week is seven 24-hour days of 20 time units,
+  // each beginning at 06:00 so a run opens in daylight and ends in the night.
+  function clockOf(run) {
+    const wk = run.time - run.weekIndex * WEEK;
+    const dayIndex = Math.max(0, Math.min(6, Math.floor(wk / DAY)));
+    const inDay = Math.max(0, Math.min(0.99999, (wk - dayIndex * DAY) / DAY));
+    const hour = (inDay * 24 + 6) % 24;
+    const hh = Math.floor(hour);
+    const mm = Math.floor((hour - hh) * 60);
+    return { dayIndex: dayIndex, day: DAYS[dayIndex], hour: hour, hh: hh, mm: mm, label: pad(hh) + ':' + pad(mm) };
+  }
+
+  // How dark it is, 0 at midday and 1 deep at night, eased through dusk and dawn.
+  function nightAmount(run) {
+    const h = clockOf(run).hour;
+    if (h >= 21 || h < 5) return 1;
+    if (h >= 19) return (h - 19) / 2;
+    if (h < 7) return (7 - h) / 2;
+    return 0;
+  }
+
+  function isNight(run) { return nightAmount(run) > 0.5; }
+
+  // Two daily rush waves: the morning commute and the evening one.
+  function rushMul(run) {
+    const h = clockOf(run).hour;
+    const morning = Math.exp(-Math.pow((h - 8.5) / 1.15, 2));
+    const evening = Math.exp(-Math.pow((h - 17.5) / 1.35, 2));
+    return 1 + Math.max(morning, evening) * 0.7;
+  }
+
+  // Half strength at the edges of a rush, full at its peak, for pin pressure.
+  function rushBump(run) { return 1 + (rushMul(run) - 1) * 0.5; }
 
   function graceMul(run) {
     if (run.time < 10) return 0.4;
@@ -1225,6 +1268,7 @@ function edgeSpeed(edge) {
         dest.pins = Math.max(0, dest.pins - 1);
         if (dest.timer > 0) dest.timer = Math.max(0, dest.timer - 0.18);
         run.score += 1;
+        run.credits = (run.credits || 0) + 1;
         pushEvent(run, 'trip', { id: dest.id, color: dest.color, x: dest.cx + 0.5, y: dest.cy + 0.5 });
         run.floaters.push({ x: dest.cx + 0.5, y: dest.cy + 0.15, age: 0, text: '+1' });
         if (run.floaters.length > 16) run.floaters.shift();
@@ -1364,7 +1408,7 @@ function stepCars(run, dt) {
         d.promoteAt = Infinity;
         pushEvent(run, 'promote', { id: d.id, color: d.color });
       }
-      const rate = pinRate(week, d.shape) * mul;
+      const rate = pinRate(week, d.shape) * mul * rushBump(run);
       d.pins += rate * dt;
       if (d.pins > d.limit) {
         d.timer += dt / TIMER;
@@ -1400,13 +1444,19 @@ function stepCars(run, dt) {
     run.nextSpawn -= dt;
     if (run.nextSpawn <= 0) {
       spawnBuilding(run);
-      run.nextSpawn = spawnEvery(currentWeek(run));
+      run.nextSpawn = spawnEvery(currentWeek(run)) / rushBump(run);
     }
     stepCars(run, dt);
     dispatch(run);
     updatePins(run, dt);
     for (const f of run.floaters) f.age += dt;
     run.floaters = run.floaters.filter(f => f.age < 0.9);
+    // Track the run's own bests for the closing screen.
+    const di = Math.min(6, Math.floor((run.time - run.weekIndex * WEEK) / DAY));
+    if (run._dayIndex !== di) { run._dayIndex = di; run._dayStart = run.score; }
+    const dayTrips = run.score - (run._dayStart || 0);
+    if (dayTrips > (run.bestDayTrips || 0)) run.bestDayTrips = dayTrips;
+    if (run.segs.length > (run.longestRoad || 0)) run.longestRoad = run.segs.length;
   }
 
   function makeOffer(run) {
@@ -1479,6 +1529,45 @@ function stepCars(run, dt) {
     return { ok: true, card: card };
   }
 
+  function buy(run, key) {
+    const c = COSTS[key];
+    if (!c) return { ok: false, reason: 'No such supply.' };
+    if (!run || run.phase !== 'play') return { ok: false, reason: 'Not now.' };
+    if (sketch(run)) return { ok: false, reason: 'The sketchbook needs nothing.' };
+    if ((run.credits || 0) < c.cost) return { ok: false, reason: 'Not enough credits yet.' };
+    return withUndo(run, () => {
+      run.credits -= c.cost;
+      run.stock[key] = (run.stock[key] || 0) + c.amount;
+      run.placed[key] = true;
+      pushEvent(run, 'buy', { key: key });
+      return { ok: true, key: key, cost: c.cost, card: { label: c.name, detail: c.blurb } };
+    });
+  }
+
+  // Which houses have no reachable shop of their own colour, plus a per-colour tally.
+  // Connectivity only changes when the graph does, so callers can cache on graphRev.
+  function serveInfo(run) {
+    const groups = new Map();
+    for (const b of run.buildings) {
+      let g = groups.get(b.color);
+      if (!g) { g = { color: b.color, houses: [], shops: [] }; groups.set(b.color, g); }
+      if (b.role === 'house') g.houses.push(b); else g.shops.push(b);
+    }
+    const unserved = new Set();
+    const legend = [];
+    for (const g of groups.values()) {
+      let open = 0;
+      for (const h of g.houses) {
+        let ok = false;
+        for (const s of g.shops) { if (linked(run, h.id, s.id)) { ok = true; break; } }
+        if (!ok) { unserved.add(h.id); open++; }
+      }
+      legend.push({ color: g.color, houses: g.houses.length, shops: g.shops.length, unserved: open });
+    }
+    legend.sort((a, b) => b.unserved - a.unserved || b.houses - a.houses);
+    return { unserved: unserved, legend: legend };
+  }
+
   function tick(run, dt) {
     if (!run || !(dt > 0) || run.phase !== 'play') return run;
     let left = dt;
@@ -1509,6 +1598,7 @@ function stepCars(run, dt) {
       meta.lifetime = (meta.lifetime || 0) + add;
       run.banked = run.score;
     }
+    if ((run.bestDayTrips || 0) > (meta.bestDayTrips || 0)) meta.bestDayTrips = run.bestDayTrips;
     if (!meta.best[run.cityId]) meta.best[run.cityId] = { endless: 0, daily: 0, weekly: 0, sketch: 0 };
     const slot = meta.best[run.cityId];
     const mode = run.mode === 'sketch' ? 'sketch' : run.mode;
@@ -1577,6 +1667,11 @@ function stepCars(run, dt) {
       time: 0,
       weekIndex: 0,
       score: 0,
+      credits: 0,
+      longestRoad: 0,
+      bestDayTrips: 0,
+      dayStart: 0,
+      _dayIndex: 0,
       banked: 0,
       weekMark: 0,
       sundayNote: '',
@@ -1634,6 +1729,10 @@ function stepCars(run, dt) {
       time: run.time,
       weekIndex: run.weekIndex,
       score: run.score,
+      credits: run.credits || 0,
+      longestRoad: run.longestRoad || 0,
+      bestDayTrips: run.bestDayTrips || 0,
+      dayStart: run.dayStart || 0,
       banked: run.banked,
       weekMark: run.weekMark || 0,
       sundayNote: run.sundayNote || '',
@@ -1674,6 +1773,11 @@ function stepCars(run, dt) {
       time: data.time || 0,
       weekIndex: data.weekIndex || 0,
       score: data.score || 0,
+      credits: data.credits || 0,
+      longestRoad: data.longestRoad || 0,
+      bestDayTrips: data.bestDayTrips || 0,
+      dayStart: data.dayStart || 0,
+      _dayIndex: 0,
       banked: data.banked || 0,
       weekMark: data.weekMark || 0,
       sundayNote: data.sundayNote || '',
@@ -1721,6 +1825,7 @@ function stepCars(run, dt) {
     meta.best = data.meta.best && typeof data.meta.best === 'object' ? data.meta.best : {};
     meta.achievements = Array.isArray(data.meta.achievements) ? data.meta.achievements.slice() : [];
     meta.lifetime = data.meta.lifetime || 0;
+    meta.bestDayTrips = data.meta.bestDayTrips || 0;
     meta.tutorialDone = !!data.meta.tutorialDone;
     meta.dailyPosted = data.meta.dailyPosted && typeof data.meta.dailyPosted === 'object' ? data.meta.dailyPosted : {};
     meta.weeklyBest = data.meta.weeklyBest && typeof data.meta.weeklyBest === 'object' ? data.meta.weeklyBest : {};
@@ -1743,6 +1848,8 @@ function stepCars(run, dt) {
     CITIES: CITIES,
     ACHIEVEMENTS: ACHIEVEMENTS,
     MODS: MODS,
+    COSTS: COSTS,
+    CREDIT_ORDER: CREDIT_ORDER,
     cityById: cityById,
     createMeta: createMeta,
     unlocked: unlocked,
@@ -1762,8 +1869,14 @@ function stepCars(run, dt) {
     undo: undo,
     redo: redo,
     chooseUpgrade: chooseUpgrade,
+    buy: buy,
+    serveInfo: serveInfo,
     pinRate: pinRate,
     calendar: calendar,
+    clockOf: clockOf,
+    nightAmount: nightAmount,
+    isNight: isNight,
+    rushMul: rushMul,
     currentWeek: currentWeek,
     bank: bank,
     encode: encode,

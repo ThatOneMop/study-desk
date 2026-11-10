@@ -9,14 +9,19 @@ function numberMap(value,maxKey,maxEntries){
   const entries=Object.entries(value);
   return entries.length<=maxEntries&&entries.every(([key,count])=>/^(0|[1-9]\d*)$/.test(key)&&integer(+key,0,maxKey)&&integer(count,0,Number.MAX_SAFE_INTEGER));
 }
+function floatMap(value,maxKey,maxEntries){
+  if(!plain(value)){return false}
+  const entries=Object.entries(value);
+  return entries.length<=maxEntries&&entries.every(([key,count])=>/^(0|[1-9]\d*)$/.test(key)&&integer(+key,0,maxKey)&&number(count));
+}
 function fish(value){
   if(!plain(value)){return false}
-  return optional(value,'coins',v=>number(v))&&optional(value,'catches',v=>integer(v))&&optional(value,'rod',v=>integer(v,0,10000))&&optional(value,'lure',v=>integer(v,0,10000))&&optional(value,'water',v=>integer(v,0,99))&&optional(value,'unlocked',v=>integer(v,1,100))&&optional(value,'book',v=>numberMap(v,99999,100000))&&optional(value,'visits',v=>numberMap(v,99,100))&&optional(value,'best',v=>number(v));
+  return optional(value,'coins',v=>number(v))&&optional(value,'catches',v=>integer(v))&&optional(value,'rod',v=>integer(v,0,10000))&&optional(value,'lure',v=>integer(v,0,10000))&&optional(value,'water',v=>integer(v,0,99))&&optional(value,'unlocked',v=>integer(v,1,100))&&optional(value,'book',v=>numberMap(v,99999,100000))&&optional(value,'visits',v=>numberMap(v,99,100))&&optional(value,'best',v=>number(v))&&optional(value,'bestByWater',v=>floatMap(v,99,100));
 }
 function queen(value){
   if(!plain(value)){return false}
   const array=(v,length,check)=>Array.isArray(v)&&v.length===length&&v.every(check);
-  return optional(value,'nectar',v=>number(v))&&optional(value,'roles',v=>array(v,4,n=>integer(n,0,1000000)))&&optional(value,'stock',v=>array(v,4,n=>number(n)))&&optional(value,'pantry',v=>array(v,4,n=>number(n)))&&optional(value,'fed',v=>number(v))&&optional(value,'level',v=>integer(v,1,1000000))&&optional(value,'dna',v=>integer(v,0,1000000))&&optional(value,'talents',v=>array(v,3,n=>integer(n,0,1000000)))&&optional(value,'evolutions',v=>Array.isArray(v)&&v.length<=10000)&&optional(value,'speed',v=>integer(v,0,1000000))&&optional(value,'auto',v=>typeof v==='boolean')&&optional(value,'time',v=>number(v))&&optional(value,'eggs',v=>integer(v,0,1000000));
+  return optional(value,'nectar',v=>number(v))&&optional(value,'roles',v=>array(v,4,n=>integer(n,0,1000000)))&&optional(value,'stock',v=>array(v,4,n=>number(n)))&&optional(value,'pantry',v=>array(v,4,n=>number(n)))&&optional(value,'fed',v=>number(v))&&optional(value,'level',v=>integer(v,1,1000000))&&optional(value,'dna',v=>integer(v,0,1000000))&&optional(value,'talents',v=>array(v,3,n=>integer(n,0,1000000)))&&optional(value,'evolutions',v=>Array.isArray(v)&&v.length<=10000)&&optional(value,'speed',v=>integer(v,0,1000000))&&optional(value,'auto',v=>typeof v==='boolean')&&optional(value,'time',v=>number(v))&&optional(value,'eggs',v=>integer(v,0,1000000))&&optional(value,'chamber',v=>integer(v,1,3));
 }
 function decode(raw){
   if(raw===null){return {ok:true,data:{}}}

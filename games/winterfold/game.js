@@ -32,6 +32,7 @@
   let toastTimer = 0;
   let noted = '';
   let saveBlocked = false;
+  let lastWeather = '';
 
   function load() {
     try {
@@ -98,6 +99,18 @@
     $('day').textContent = String(run.day);
     $('score').textContent = Math.round(run.score);
     $('money').textContent = Math.round(run.money || 0);
+    const mood = E.happiness(run);
+    $('mood').textContent = mood + '%';
+    $('moodStat').classList.toggle('warn', mood < 55);
+    const wk = E.weatherKind(run);
+    $('weather').textContent = wk === 'snow' ? '❄ Heavy snow' : wk === 'aurora' ? '✦ Aurora night' : 'Clear';
+    $('weather').className = 'weather ' + wk;
+    $('lodgeCount').textContent = (run.lodges || []).length;
+    const money = run.money || 0;
+    for (const [id, cost] of [['buyLift', E.SHOP.lift], ['buyLodge', E.SHOP.lodge], ['buyTune', E.SHOP.tune]]) {
+      const btn = $(id);
+      if (btn) btn.disabled = !run.sandbox && money < cost;
+    }
     const g = E.guests(run);
     const cap = E.capacity(run);
     $('guests').textContent = g.out + '/' + g.total;
@@ -165,6 +178,7 @@
     if (!started) { toast('That hill is still locked.'); return; }
     run = started;
     noted = '';
+    lastWeather = '';
     sandbox = mode === 'sandbox';
     fit();
     hide('home'); hide('levels');
@@ -201,6 +215,15 @@
     if (!run || run.phase !== 'dawn') return;
     $('draftDay').textContent = 'Day ' + run.day;
     $('draftNote').textContent = E.morningBrief(run);
+    const rep = run.lastReport;
+    const repEl = $('dayReport');
+    if (rep && rep.day === run.day - 1) {
+      const happy = rep.happy == null ? '—' : rep.happy + '%';
+      repEl.innerHTML = `<b>Day ${rep.day} report card</b>`
+        + `<span>${rep.guests} guests · ${rep.trips} lift trips · $${rep.income} taken</span>`
+        + `<span>${rep.wipeouts} wipeout${rep.wipeouts === 1 ? '' : 's'} · mood ${happy} · ${rep.score} points</span>`;
+      repEl.hidden = false;
+    } else repEl.hidden = true;
     $('rerollNote').textContent = run.rerolls > 0 ? 'One shuffle left this week.' : 'The next shuffle arrives next week.';
     $('reroll').disabled = run.rerolls < 1;
     const box = $('draftCards');
@@ -374,9 +397,11 @@
     fillLevels();
     show('levels');
   };
-  $('openSettings').onclick = () => { $('soundToggle').checked = meta.sound !== false; show('settingsDlg'); };
+  $('openSettings').onclick = () => { $('soundToggle').checked = meta.sound !== false; $('vol').value = Math.round((meta.volume == null ? 0.7 : meta.volume) * 100); show('settingsDlg'); };
   $('closeSettings').onclick = () => hide('settingsDlg');
   $('soundToggle').onchange = () => { meta.sound = $('soundToggle').checked; audio.setEnabled(meta.sound); save(); };
+  $('vol').oninput = () => audio.setVolume($('vol').value / 100);
+  $('vol').onchange = () => { meta.volume = Number($('vol').value) / 100; audio.setVolume(meta.volume); save(); };
   $('wipe').onclick = () => {
     if (!confirm('Clear Winterfold progress and medals? This cannot be undone.')) return;
     try { localStorage.removeItem(E.SAVE_KEY); } catch (err) { toast('Storage unavailable. Save was not cleared.'); return; }
@@ -399,6 +424,17 @@
     if (!res.ok) return toast(res.reason);
     showDraft();
   };
+  function shopAction(fn) {
+    if (!run) return;
+    const res = fn(run);
+    if (!res.ok) { audio.error(); toast(res.reason); return; }
+    audio.lift();
+    if (res.reason) toast(res.reason);
+    refresh(); save();
+  }
+  $('buyLift').onclick = () => shopAction(E.buyLift);
+  $('buyLodge').onclick = () => shopAction(E.buyLodge);
+  $('buyTune').onclick = () => shopAction(E.tuneLifts);
   $('tutSkip').onclick = () => { $('tutorial').hidden = true; meta.tutorial = true; save(); };
   $('tutNext').onclick = () => {
     if (tut >= TUTORIAL.length - 1) { $('tutorial').hidden = true; meta.tutorial = true; save(); }
@@ -412,6 +448,15 @@
       const before = run.day;
       E.tick(run, dt);
       if (run.phase === 'play' && run.day !== before) save();
+    }
+    if (run && run.weatherKind !== lastWeather) {
+      const prev = lastWeather;
+      lastWeather = run.weatherKind;
+      if (run.phase === 'play') {
+        if (run.weatherKind === 'snow') { audio.error(); toast('❄ Heavy snow — the whole hill slows.'); }
+        else if (run.weatherKind === 'aurora') { audio.dawn(); toast('✦ Clear night — the aurora lifts ticket income by half.'); }
+        else if (prev && prev !== 'clear') toast('The sky clears.');
+      }
     }
     if (run && run.phase === 'dawn' && noted !== 'dawn-' + run.day) {
       noted = 'dawn-' + run.day;
@@ -456,6 +501,8 @@
   paintLists();
   load();
   audio.setEnabled(meta.sound !== false);
+  audio.setVolume(meta.volume == null ? 0.7 : meta.volume);
+  $('vol').value = Math.round((meta.volume == null ? 0.7 : meta.volume) * 100);
   $('soundToggle').checked = meta.sound !== false;
   $('continueBtn').hidden = !run;
   window.addEventListener('resize', () => fit());
@@ -464,5 +511,5 @@
   if (run) { hide('home'); refresh(); }
   else show('home');
   requestAnimationFrame(loop);
-  window.Winterfold = { get run() { return run; }, get meta() { return meta; }, bootHill, E };
+  window.Winterfold = { get run() { return run; }, get meta() { return meta; }, bootHill, E, get renderer() { return renderer; }, get cam() { return cam; } };
 })();

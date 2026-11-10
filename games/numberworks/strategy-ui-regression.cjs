@@ -31,6 +31,20 @@ function boot(id,entries={}){
  console.log('PASS Numberworks: project cancellation confirms first and preserves factory/commissions');
 }
 {
+ const b=boot('numberworks'),w=b.w;b.run('closePanel();openContracts()');
+ const cards=w.document.querySelectorAll('#panel-body [data-accept]');assert.equal(cards.length,5,'the rush contract board shows five orders');
+ const id=b.run('E.contractBoard(state)[0].id'),val=b.run('E.contractBoard(state)[0].value'),cnt=b.run('E.contractBoard(state)[0].count');
+ w.document.querySelector(`#panel-body [data-accept="${id}"]`).click();
+ assert.equal(b.run('state.contracts.accepted'),id,'accepting a contract activates it');
+ assert.equal(w.document.getElementById('contract-pin').hidden,false,'an active contract is pinned in the HUD');
+ b.run(`for(let i=0;i<${cnt};i++)E.receive(state,${val})`);
+ assert.equal(b.run('state.contracts.accepted'),null,'finishing the order clears the active contract');
+ assert(b.run(`state.bank[${val}]`)>=cnt,'the multiplier reward banks research credit');
+ assert.equal(b.run(`state.contracts.list.find(c=>c.id===${id}).done`),true,'the order is marked delivered');
+ b.close();
+ console.log('PASS Numberworks: rush contract board accepts, tracks and rewards an order');
+}
+{
  const b=boot('winterfold');b.w.Winterfold.bootHill('lark','sandbox');const run=b.w.Winterfold.run;run.phase='play';run.speed=1;
  b.frame(1000);const before=run.clock;b.w.document.getElementById('guide').showModal();b.frame(1050);b.frame(1100);assert.equal(run.clock,before,'the field guide freezes the simulation');
  b.key(' ');assert.equal(run.speed,1,'Space inside a dialog cannot change the game clock');b.w.document.getElementById('guide').close();b.frame(1150);assert(run.clock>before,'closing the guide restores the chosen speed');
