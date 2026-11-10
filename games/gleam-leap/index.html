@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1e2a"><title>Gleam Leap · One square, one beat</title><link rel="stylesheet" href="style.css"></head><body>
+<header><a href="../../index.html">← Study Desk</a><span>GLEAM LEAP · ORIGINAL RHYTHM RUNNER</span></header>
+<main>
+<section id="menu">
+  <div class="intro"><p class="eyebrow">ONE SQUARE. ONE BEAT. KEEP THE LIGHT ALIVE.</p><h1>Gleam Leap<span>◆</span></h1><p class="pitch">Tap to leap. Hold to leap again the moment you land.<br>One touch and the run restarts — nothing is lost.</p></div>
+  <div class="menu-bar"><button id="soundBtn" aria-pressed="true">Sound: on</button><p class="hint">Practise mode drops checkpoints so you can drill the hard part.</p></div>
+  <div id="levelList" class="level-grid" aria-label="Choose a run"></div>
+</section>
+<section id="play" hidden>
+  <div class="hud"><span id="hudLevel">—</span><span id="hudPct">0%</span></div>
+  <div class="track" aria-hidden="true"><i id="bar"></i><div id="marks"></div></div>
+  <div class="stage">
+    <canvas id="canvas" width="960" height="500" tabindex="0" aria-label="Gleam Leap. The square runs on its own. Press Space, click or tap to leap. Escape pauses. R restarts."></canvas>
+    <div id="overlay"><h2 id="ovTitle">Ready</h2><p id="ovText">Tap, click or press Space to leap.</p><button id="ovBtn">Leap</button></div>
+  </div>
+  <div class="toolbar"><button id="pauseBtn">Pause</button><button id="restartBtn">Restart (R)</button><button id="menuBtn">Levels</button><button id="jumpBtn" class="touch-jump" aria-label="Jump">Leap ⤒</button></div>
+</section>
+<p id="storage" role="alert" hidden></p>
+<details id="help" open><summary>How to play</summary>
+<p><b>Space</b>, <b>W</b>, <b>↑</b>, click or tap leaps. <b>Hold</b> to keep leaping the instant you land — buffered jumps and coyote time forgive a slightly early or late press. <b>Esc</b> pauses, <b>R</b> restarts the run, <b>Levels</b> returns to the menu.</p>
+<p>One touch of a spike, a block's face or a gap ends the run instantly, and it restarts straight away — your best distance is already saved. Red <b>✕</b> marks show where you have fallen before. Progress is your farthest distance as a percentage, saved per level in this browser.</p>
+<p><b>Practise mode</b> (toggle on any level card) adds checkpoints, so a fall returns you to the last one instead of the start. Everything — the music, the art and the levels — is original and drawn in the browser; no third-party assets are used.</p>
+</details>
+<p id="debug" hidden></p>
+</main>
+<script src="../../bridge.js"></script>
+<script src="engine.js"></script>
+<script src="game.js"></script>
+</body></html>
