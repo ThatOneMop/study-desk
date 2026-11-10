@@ -814,5 +814,31 @@
     "credits": "credits.html#downhole",
     "added": "2026-11-10",
     "updated": "2026-11-10"
+  },
+  {
+    "id": "gleam-leap",
+    "title": "Gleam Leap",
+    "genre": "Rhythm Runner",
+    "icon": "◆",
+    "color": "#5ec8b0",
+    "description": "A one-button beat-synced runner. Jump spikes, blocks and pits across three hand-built levels, chase 100% and leave your death markers along the way.",
+    "controls": "Click / Space / tap jump · R retries · P practise mode · Esc pauses",
+    "aliases": [
+      "geometry dash",
+      "runner",
+      "rhythm",
+      "platformer",
+      "school",
+      "one button"
+    ],
+    "url": "games/gleam-leap/index.html",
+    "group": "Your games",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#gleam-leap",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
   }
 ]
