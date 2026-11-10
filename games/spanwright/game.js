@@ -30,6 +30,7 @@
   let inspectorKey = '';
   const speeds = [1, 2, 4];
   let speedIndex = 0;
+  let simAccumulator = 0;
 
   function loadMeta() {
     try {
@@ -115,6 +116,7 @@
   function start(id) {
     session = E.startLevel(meta, id);
     if (!session) return;
+    simAccumulator = 0;
     tool = session.level.materials[0];
     anchor = null;
     ghost = null;
@@ -458,11 +460,15 @@
     last = now;
     if (screen === 'play' && session && !paused() && session.sim && session.sim.mode === 'run') {
       const n = session.sim.speed || 1;
-      for (let i = 0; i < n; i++) E.tick(session);
+      simAccumulator += dt * n;
+      while (simAccumulator + 1e-9 >= E.FRAME && session.sim.mode === 'run') {
+        E.tick(session); simAccumulator -= E.FRAME;
+      }
       consumeEvents();
     } else if (screen === 'play' && session && session.sim && session.sim.mode === 'replay' && !paused()) {
       E.tickReplay(session, dt);
     }
+    if (!session || !session.sim || session.sim.mode !== 'run' || paused()) simAccumulator = 0;
     particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy -= dt * 2; p.life -= dt; });
     particles = particles.filter(p => p.life > 0);
     cam.shake *= 0.86;
@@ -555,6 +561,7 @@
       if (session.sim) E.rebuild(session);
       const started = E.beginSim(session);
       if (!started.ok) { setStatus(started.reason); return; }
+      simAccumulator = 0;
       audio.play('play');
       $('result').hidden = true;
       anchor = null; ghost = null;

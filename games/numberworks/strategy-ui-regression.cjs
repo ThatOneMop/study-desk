@@ -2,9 +2,10 @@
 // Run with NODE_PATH pointing to a workspace containing jsdom.
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const {JSDOM}=require('jsdom'),root=path.resolve(__dirname,'../..');
-function boot(id){
+function boot(id,entries={}){
  const dir=path.join(root,'games',id),html=fs.readFileSync(path.join(dir,'index.html'),'utf8');
  const dom=new JSDOM(html,{url:'https://study.test/games/'+id+'/index.html',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window,context=dom.getInternalVMContext();
+ for(const [key,value] of Object.entries(entries))w.localStorage.setItem(key,value);
  let frames=[];w.requestAnimationFrame=fn=>(frames.push(fn),frames.length);w.cancelAnimationFrame=()=>{};
  w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});w.confirm=()=>true;w.alert=()=>{};
  w.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','')};w.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open');this.dispatchEvent(new w.Event('close'))};
@@ -24,19 +25,38 @@ function boot(id){
  console.log('PASS Numberworks: rejected edits preserve redo and held Space is stable');
 }
 {
+ const b=boot('numberworks'),w=b.w;b.run("closePanel();state.level=3;E.startProject(state,'twins');E.receive(state,2);openProjects()");const before=b.run('JSON.stringify(state.career.active)'),floor=b.run('JSON.stringify(E.layout(state))');
+ w.document.getElementById('project-cancel').click();assert(w.document.getElementById('confirm-dialog').open);assert.equal(b.run('JSON.stringify(state.career.active)'),before,'opening confirmation keeps the active project');w.document.getElementById('cancel-confirm').click();assert.equal(b.run('JSON.stringify(state.career.active)'),before,'cancelling the dialog keeps project deliveries');
+ w.document.getElementById('project-cancel').click();w.document.getElementById('accept-confirm').click();assert.equal(b.run('state.career.active'),null);assert.equal(b.run('JSON.stringify(E.layout(state))'),floor);assert.equal(b.run('state.delivered[2]'),1);b.close();
+ console.log('PASS Numberworks: project cancellation confirms first and preserves factory/commissions');
+}
+{
  const b=boot('winterfold');b.w.Winterfold.bootHill('lark','sandbox');const run=b.w.Winterfold.run;run.phase='play';run.speed=1;
  b.frame(1000);const before=run.clock;b.w.document.getElementById('guide').showModal();b.frame(1050);b.frame(1100);assert.equal(run.clock,before,'the field guide freezes the simulation');
  b.key(' ');assert.equal(run.speed,1,'Space inside a dialog cannot change the game clock');b.w.document.getElementById('guide').close();b.frame(1150);assert(run.clock>before,'closing the guide restores the chosen speed');
  let commits=0;const commit=b.w.Winterfold.E.commitStroke;b.w.Winterfold.E.commitStroke=(...args)=>{commits++;return commit(...args)};const map=b.w.document.getElementById('map');
  for(const type of ['pointerdown','pointermove','pointercancel']){const e=new b.w.MouseEvent(type,{clientX:type==='pointerdown'?100:250,clientY:type==='pointerdown'?100:250,bubbles:true});Object.defineProperty(e,'pointerId',{value:1});map.dispatchEvent(e)}assert.equal(commits,0,'a cancelled touch cannot construct a slope');
+ const pointer=(type,x,y,id)=>{const e=new b.w.MouseEvent(type,{clientX:x,clientY:y,bubbles:true});Object.defineProperty(e,'pointerId',{value:id});map.dispatchEvent(e)};
+ pointer('pointerdown',100,100,1);pointer('pointermove',250,250,1);pointer('pointerdown',500,500,2);pointer('pointermove',550,550,2);pointer('pointerup',550,550,2);pointer('pointerup',250,250,1);assert.equal(commits,0,'two-finger panning must not commit a partial slope');
+ pointer('pointerdown',100,100,3);pointer('pointermove',250,250,3);pointer('lostpointercapture',250,250,3);pointer('pointerup',250,250,3);assert.equal(commits,0,'lost capture cancels a route, including a later stale pointerup');
  b.w.dispatchEvent(new b.w.Event('blur'));assert.equal(run.speed,0,'leaving the window pauses the hill');assert(b.w.localStorage.getItem(b.w.Winterfold.E.SAVE_KEY));b.close();
- console.log('PASS Winterfold: guide pauses the clock, modal shortcuts are isolated, blur saves and pauses');
+ console.log('PASS Winterfold: modal clock, cancelled/two-finger/lost-capture gestures, blur save/pause');
+}
+{
+ const E=require('../winterfold/engine.js'),bad='{unreadable hill',b=boot('winterfold',{[E.SAVE_KEY]:bad}),w=b.w;w.Winterfold.bootHill('lark','sandbox');w.dispatchEvent(new w.Event('pagehide'));assert.equal(w.localStorage.getItem(E.SAVE_KEY),bad,'temporary play cannot replace an unreadable save');
+ w.confirm=()=>false;w.document.getElementById('wipe').click();assert.equal(w.localStorage.getItem(E.SAVE_KEY),bad,'declining wipe preserves original data');const remove=w.Storage.prototype.removeItem;w.confirm=()=>true;w.Storage.prototype.removeItem=()=>{throw Error('blocked')};w.document.getElementById('wipe').click();assert.equal(w.localStorage.getItem(E.SAVE_KEY),bad,'failed storage removal preserves recovery lock');
+ w.Storage.prototype.removeItem=remove;w.document.getElementById('wipe').click();assert.equal(w.localStorage.getItem(E.SAVE_KEY),null);w.Winterfold.bootHill('lark','sandbox');assert(E.decode(w.localStorage.getItem(E.SAVE_KEY)).ok,'explicit successful wipe permits new saves');b.close();
+ console.log('PASS Winterfold: unreadable saves survive temporary play and declined/failed wipes');
 }
 {
  const b=boot('spanwright'),w=b.w;w.Spanwright.start('willow-1');const scene=w.document.getElementById('scene');b.key('ArrowRight',{},scene);b.key('Enter',{},scene);b.key('ArrowRight',{},scene);b.key('Enter',{},scene);
  assert.equal(w.Spanwright.session.beams.length,1);w.document.getElementById('undoBtn').click();const decoded=w.SpanEngine.decode(w.localStorage.getItem(w.SpanEngine.SAVE_KEY));assert(decoded.ok);assert.equal(decoded.meta.drafts['willow-1'].beams.length,0,'undo is persisted immediately');
  const e=b.key('z',{ctrlKey:true,shiftKey:true},scene);assert(e.defaultPrevented);assert.equal(w.Spanwright.session.beams.length,1);const saved=w.SpanEngine.decode(w.localStorage.getItem(w.SpanEngine.SAVE_KEY));assert.equal(saved.meta.drafts['willow-1'].beams.length,1,'keyboard redo is persisted');const originalDesign=JSON.stringify(w.SpanEngine.exportDesign(w.Spanwright.session));w.document.getElementById('playBtn').click();assert(w.Spanwright.session.backup);const joint=w.Spanwright.session.nodes.find(n=>!n.pin);assert(joint);joint.y-=.75;w.dispatchEvent(new w.Event('blur'));assert.equal(w.document.getElementById('pause').hidden,false);const midRun=w.SpanEngine.decode(w.localStorage.getItem(w.SpanEngine.SAVE_KEY));assert.equal(JSON.stringify(midRun.meta.drafts['willow-1']),originalDesign,'mid-test autosave must preserve the unbent construction');b.close();
  console.log('PASS Spanwright: construction undo/redo persist through reload and blur pauses');
+}
+{
+ function simulationAt(hz){const b=boot('spanwright'),w=b.w;w.Spanwright.start('willow-1');const s=w.Spanwright.session;for(let x=7;x<13;x+=2)assert(w.SpanEngine.placeBeam(s,'road',x,6,x+2,6).ok);b.frame(1000);w.document.getElementById('playBtn').click();for(let i=1;i<=hz/2;i++)b.frame(1000+i*1000/hz);const time=s.sim.t;assert.equal(s.sim.mode,'run');b.close();return time}
+ const times=[30,60,120].map(simulationAt);for(const time of times)assert(Math.abs(time-.5)<1e-8,'half a real second simulates half a second at each refresh rate');assert(Math.max(...times)-Math.min(...times)<1e-8);console.log('PASS Spanwright: 30/60/120 Hz simulate the same elapsed time');
 }
 {
  const b=boot('creekhold'),w=b.w;const before=w.Creekhold.cam.rot;b.key('q',{code:'KeyQ'});assert.equal(w.Creekhold.cam.rot,before,'modal shortcuts must not rotate the board');assert.equal(w.Creekhold.speed,0);b.key(' ',{code:'Space'});assert.equal(w.Creekhold.speed,0,'modal Space cannot change speed');w.document.getElementById('title').close();b.key(' ',{code:'Space'});assert.equal(w.Creekhold.speed,1);b.key(' ',{code:'Space',repeat:true});assert.equal(w.Creekhold.speed,1);w.dispatchEvent(new w.Event('blur'));assert.equal(w.Creekhold.speed,0);b.close();

@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 KEEP = {
     "gummy-bay", "autumn-drift", "little-lake", "lost-found", "moon-salvage", "tiny-wilds", "forge-arena",
     "roof-runner", "ashwake", "winterfold", "spanwright", "creekhold", "lanewright", "harvest-protocol",
+    "orbital-surveyor", "pocket-golf-nine", "lanebound", "chaos-court", "corebreaker",
     "packworks", "numberworks", "outbreak-atlas", "mycelium-yard", "bell-diver",
     "orbital-drop", "lanefall", "basket-chaos", "volley-chaos", "soccer-chaos", "pocket-golf", "pegworks", "demolition-yard",
 }

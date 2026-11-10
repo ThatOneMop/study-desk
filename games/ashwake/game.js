@@ -406,7 +406,7 @@ document.addEventListener('keydown',e=>{
  if(e.target.closest?.('input,textarea,select')||e.metaKey||e.ctrlKey||e.altKey)return;
  if(uiBlocks()&&e.key!=='Escape')return;
  const key=e.key.toLowerCase();
- if(key==='r'&&run?.phase==='level'&&!e.repeat){e.preventDefault();redrawRelics();return;}if(key==='escape'){e.preventDefault();if($('tutorial').open){$('tutorial').close();return;}if($('confirm').open){$('confirm').close();return;}if(!run)return;if(run.phase==='pause')A.resume(run);else if(run.phase==='play'||run.phase==='level')A.pause(run);save();sync();return;}
+ if(key==='r'&&run?.phase==='level'&&!e.repeat){e.preventDefault();redrawRelics();return;}if(key==='escape'){e.preventDefault();if(e.repeat)return;clearInput();if($('tutorial').open){$('tutorial').close();return;}if($('confirm').open){$('confirm').close();return;}if(!run)return;if(run.phase==='pause')A.resume(run);else if(run.phase==='play'||run.phase==='level')A.pause(run);save();sync();return;}
  if(!run&&(key==='enter')&&e.target===document.body){begin('warden');return;}
  if(run?.phase==='level'&&!e.repeat&&['1','2','3'].includes(key)){e.preventDefault();pick(Number(key)-1);return;}
  if(key==='m'&&!e.repeat){toggleSound();return;}

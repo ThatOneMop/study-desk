@@ -44,7 +44,7 @@ const {w,d,$,gm,gd}=g;
 assert.equal(w.ARCADE_CONFIG.gmEnabled,false);
 assert.equal(w.ARCADE_CONFIG.gdEnabled,false);
 const bundled=w.GAME_CATALOG.filter(game=>game.type==='bundled');
-assert.equal(bundled.length,27);
+assert.equal(bundled.length,32);
 assert.equal(d.querySelectorAll('.game').length,bundled.length,'only bundled games are listed');
 assert.equal($('arcadeShelf').hidden,true);
 assert(![...$('filters').children].some(button=>button.textContent==='Arcade'));

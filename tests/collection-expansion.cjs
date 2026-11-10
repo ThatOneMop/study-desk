@@ -6,7 +6,9 @@ const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const suites=[
  'tests/storefront.cjs','tests/catalog-launch.cjs','tests/curation-regression.cjs',
- 'games/orbital-drop/self-test.cjs','games/lanefall/self-test.cjs',
+ 'games/orbital-surveyor/self-test.cjs','games/lanefall/self-test.cjs',
+ 'games/orbital-drop/self-test.cjs','games/lanebound/self-test.cjs','games/corebreaker/self-test.cjs',
+ 'games/chaos-court/self-test.cjs','games/pocket-golf/self-test.cjs',
  'games/basket-chaos/self-test.cjs','games/pegworks/test.cjs','games/demolition-yard/test.cjs',
  'games/roof-runner/regression.cjs','games/ashwake/regression.cjs',
  'games/forge-arena/regression.cjs','games/harvest-protocol/regression.cjs',

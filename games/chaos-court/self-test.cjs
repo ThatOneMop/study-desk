@@ -1,0 +1,16 @@
+// NODE_PATH=<jsdom installation>/node_modules node games/chaos-court/self-test.cjs
+const fs=require('node:fs'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
+const dom=new JSDOM(fs.readFileSync(`${__dirname}/index.html`,'utf8'),{url:'https://study.test/',runScripts:'outside-only'}),w=dom.window;
+let frame;w.__STUDY_DESK_TEST__=true;w.Math.random=()=>.1;w.requestAnimationFrame=f=>(frame=f,1);w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({createLinearGradient:()=>({addColorStop(){}})},{get:(o,k)=>k in o?o[k]:()=>{}});w.eval(fs.readFileSync(`${__dirname}/game.js`,'utf8'));
+const api=w.ChaosCourtTest,$=id=>w.document.getElementById(id);function advance(seconds){for(let i=0;i<seconds*120;i++)api.step(1/120)}function match(sport,opponent='local'){$('sport').value=sport;$('opponent').value=opponent;$('start').click();advance(1.5);}
+for(const sport of ['basketball','volleyball','soccer']){
+ match(sport);if(sport==='basketball')api.setBall({x:890,y:284,vx:0,vy:140});if(sport==='volleyball')api.setBall({x:100,y:486,vx:0,vy:140});if(sport==='soccer')api.setBall({x:960,y:450,vx:100,vy:0});advance(.04);assert.equal(api.snapshot().score[sport==='volleyball'?1:0],1,`${sport} scores a ball entering its target`);advance(3.5);assert.ok(api.snapshot().roundDelay<=0,'a new rally begins after the point');
+ $('pause').focus();$('pause').click();const before=JSON.stringify(api.snapshot().ball);advance(.5);assert.equal(JSON.stringify(api.snapshot().ball),before,'pause freezes the ball');$('pause').focus();$('pause').click();assert.equal(w.document.activeElement,$('court'),'resume restores keyboard controls');const x=api.snapshot().players[0].x;$('court').dispatchEvent(new w.KeyboardEvent('keydown',{key:'d',bubbles:true}));advance(.1);$('court').dispatchEvent(new w.KeyboardEvent('keyup',{key:'d',bubbles:true}));assert.ok(api.snapshot().players[0].x>x);frame(16);
+}
+// Every ball size must enter either goal at a slow pace. The large-ball round
+// previously reflected at the world wall before reaching the scoring threshold.
+for(let modifier=0;modifier<5;modifier++)for(const team of [0,1]){match('soccer');api.setModifier(modifier);const r=[18,18,29,17,19][modifier];api.setBall({x:team?26+r:974-r,y:475,vx:team?-60:60,vy:0,r});advance(.04);assert.equal(api.snapshot().score[team],1,`modifier ${modifier} should allow a slow goal for team ${team}`);}
+match('soccer');api.setBall({x:960,y:390,vx:100,vy:0,r:29});advance(.04);assert.equal(api.snapshot().score[0],0,'a ball above the crossbar does not score');
+match('basketball');for(let point=0;point<5;point++){api.setBall({x:890,y:284,vx:0,vy:140});advance(.04);if(point<4)advance(3.5);}assert.equal(api.snapshot().winner,0);assert.equal(api.snapshot().running,false);assert.equal(w.localStorage.getItem('chaos-court.matches'),'1');
+match('soccer','ai');assert.equal($('coralTouch').style.display,'none');advance(12);assert.ok(api.snapshot().players.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)));
+console.log('Chaos Court: all sports score and restart rallies; pause restores keyboard control; all five ball sizes score in both goals; crossbar, match result, saved completion and CPU smoke checks passed.');dom.window.close();
