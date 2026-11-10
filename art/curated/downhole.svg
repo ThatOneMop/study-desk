@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-label="DOWNHOLE — mine shaft cross-section with glowing ore veins">
+  <defs>
+    <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6f5940"/>
+      <stop offset="0.3" stop-color="#5a4a38"/>
+      <stop offset="0.31" stop-color="#4a4a48"/>
+      <stop offset="0.62" stop-color="#3c4542"/>
+      <stop offset="0.63" stop-color="#2b3634"/>
+      <stop offset="1" stop-color="#161e1c"/>
+    </linearGradient>
+    <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a100e"/>
+      <stop offset="1" stop-color="#030605"/>
+    </linearGradient>
+    <radialGradient id="gCu"><stop stop-color="#ff9a3c" stop-opacity=".85"/><stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gAg"><stop stop-color="#dfe7f2" stop-opacity=".8"/><stop offset="1" stop-color="#dfe7f2" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gAu"><stop stop-color="#ffd24a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd24a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gCr"><stop stop-color="#7ee8fa" stop-opacity=".9"/><stop offset="1" stop-color="#7ee8fa" stop-opacity="0"/></radialGradient>
+    <radialGradient id="lamp"><stop stop-color="#ffcf7a" stop-opacity=".7"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="vig"><stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>
+  </defs>
+
+  <rect width="720" height="400" fill="url(#rock)"/>
+
+  <!-- strata seams -->
+  <g fill="none" stroke="#000" stroke-opacity=".22" stroke-width="3">
+    <path d="M0 96Q180 88 360 98T720 92"/>
+    <path d="M0 168Q200 160 400 172T720 164"/>
+    <path d="M0 244Q180 236 380 248T720 240"/>
+    <path d="M0 318Q200 310 400 322T720 314"/>
+  </g>
+  <g fill="none" stroke="#f4e6c4" stroke-opacity=".05" stroke-width="2">
+    <path d="M0 104Q180 96 360 106T720 100"/>
+    <path d="M0 252Q180 244 380 256T720 248"/>
+  </g>
+
+  <!-- ore vein tendrils -->
+  <g fill="none" stroke="#d8892f" stroke-opacity=".5" stroke-width="3" stroke-linecap="round">
+    <path d="M132 140L96 118M196 128l30-24M150 190l-26 30M212 178l40 20"/>
+  </g>
+  <g fill="none" stroke="#dfe7f2" stroke-opacity=".45" stroke-width="3" stroke-linecap="round">
+    <path d="M512 132L486 106M582 128l28-22M540 176l-18 30M598 172l36 18"/>
+  </g>
+  <g fill="none" stroke="#ffd24a" stroke-opacity=".5" stroke-width="3" stroke-linecap="round">
+    <path d="M168 292l-30-22M232 288l30-20M200 340l-22 26M244 336l34 18"/>
+  </g>
+  <g fill="none" stroke="#7ee8fa" stroke-opacity=".55" stroke-width="3" stroke-linecap="round">
+    <path d="M512 296l-28-20M576 292l28-18M544 344l-20 24M586 340l32 18"/>
+  </g>
+
+  <!-- copper -->
+  <circle cx="172" cy="152" r="52" fill="url(#gCu)"/>
+  <path d="M150 152l16-16 12 8 14-8 10 16-10 12 6 16-18 4-14-10-16 6-8-16z" fill="#cf7f2c"/>
+  <path d="M158 150l12-8 6 12-12 8z" fill="#f0a952"/>
+  <path d="M186 168l8-6 4 8-8 6z" fill="#f0b968"/>
+  <circle cx="146" cy="176" r="3" fill="#f0a952"/>
+  <circle cx="206" cy="146" r="3.4" fill="#f0a952"/>
+
+  <!-- silver -->
+  <circle cx="546" cy="140" r="50" fill="url(#gAg)"/>
+  <path d="M524 142l16-16 12 8 14-8 10 16-10 12 6 16-18 4-14-10-16 6-8-16z" fill="#cfd4dc"/>
+  <path d="M532 140l12-8 6 12-12 8z" fill="#eef2f6"/>
+  <path d="M560 158l8-6 4 8-8 6z" fill="#f6f9fc"/>
+  <circle cx="520" cy="164" r="3" fill="#eef2f6"/>
+  <circle cx="580" cy="134" r="3.4" fill="#eef2f6"/>
+
+  <!-- gold -->
+  <circle cx="202" cy="300" r="54" fill="url(#gAu)"/>
+  <path d="M180 302l16-16 12 8 14-8 10 16-10 12 6 16-18 4-14-10-16 6-8-16z" fill="#f0c419"/>
+  <path d="M188 300l12-8 6 12-12 8z" fill="#ffe37a"/>
+  <path d="M216 318l8-6 4 8-8 6z" fill="#ffe98f"/>
+  <circle cx="176" cy="326" r="3.2" fill="#ffe37a"/>
+  <circle cx="238" cy="296" r="3.6" fill="#ffe37a"/>
+
+  <!-- void crystal (angular) -->
+  <circle cx="540" cy="300" r="56" fill="url(#gCr)"/>
+  <path d="M516 304l20-26 14 14 18-18 10 22-14 12 8 20-22 6-16-12-20 6z" fill="#7ee8fa"/>
+  <path d="M524 302l14-16 8 12-14 10z" fill="#cdfaff"/>
+  <path d="M556 320l10-8 4 10-10 6z" fill="#e6feff"/>
+  <circle cx="512" cy="330" r="3.2" fill="#cdfaff"/>
+  <circle cx="584" cy="294" r="3.6" fill="#cdfaff"/>
+
+  <!-- mine shaft cross-section -->
+  <path d="M330 0H392L378 400H344Z" fill="url(#shaft)"/>
+  <path d="M330 0L344 400M392 0L378 400" fill="none" stroke="#c9a24d" stroke-opacity=".28" stroke-width="2"/>
+  <g stroke="#7a6440" stroke-width="3">
+    <path d="M350 0V400M374 0V400"/>
+  </g>
+  <g stroke="#6b5a3e" stroke-width="4">
+    <path d="M350 44H374M350 92H374M350 140H374M350 188H374M350 236H374M350 284H374M350 332H374M350 380H374"/>
+  </g>
+  <ellipse cx="361" cy="382" rx="66" ry="52" fill="url(#lamp)"/>
+
+  <rect width="720" height="400" fill="url(#vig)"/>
+
+  <text x="36" y="62" fill="#f1e5c6" font-family="sans-serif" font-weight="800" font-size="38" letter-spacing="5">DOWNHOLE</text>
+  <text x="38" y="92" fill="#9fc3bd" font-family="sans-serif" font-size="12" letter-spacing="3">STUDY DESK ORIGINAL</text>
+</svg>
