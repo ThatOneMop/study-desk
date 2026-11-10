@@ -38,6 +38,13 @@
       <div id="liftList"></div>
       <h2>Other</h2>
       <div class="rowline"><i>❄</i> Snow cannon <b id="cannonBuilt">0</b></div>
+      <h2>Resort</h2>
+      <div class="rowline"><i>⌂</i> Lodges <b id="lodgeCount">0</b></div>
+      <div class="shop">
+        <button type="button" id="buyLift"><b>New lift</b><small id="costLift">$140 · +1 lift</small></button>
+        <button type="button" id="buyLodge"><b>Build lodge</b><small id="costLodge">$220 · +5 guests</small></button>
+        <button type="button" id="buyTune"><b>Service lifts</b><small id="costTune">$130 · faster</small></button>
+      </div>
     </div>
     <div class="key-actions">
       <button id="openSettings" class="primary" type="button">Settings</button>
@@ -51,6 +58,8 @@
     <span class="stat"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.5 V11.5 M6.2 6.2 H9.2 a1.6 1.6 0 0 1 0 3.2 H6.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span><small>Money</small><b id="money">0</b></span></span>
     <span class="stat"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="4.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 13.2 C4 9.8 6 8.4 8 8.4 S12 9.8 12.5 13.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span><small>Guests</small><b id="guests">0</b></span></span>
     <span class="stat"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 H14 M4 12 V8 M8 12 V5 M12 12 V7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span><small>Capacity</small><b id="capacity">0/14</b></span></span>
+    <span class="stat" id="moodStat"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="5.8" cy="6.4" r="0.9" fill="currentColor"/><circle cx="10.2" cy="6.4" r="0.9" fill="currentColor"/><path d="M5 10 C6.4 11.6 9.6 11.6 11 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span><small>Mood</small><b id="mood">100%</b></span></span>
+    <span id="weather" class="weather" aria-live="polite">Clear</span>
     <div class="speeds" role="group" aria-label="Clock">
       <button type="button" id="speed0" aria-pressed="true" title="Pause">❚❚</button>
       <button type="button" id="speed1" aria-pressed="false" title="Play">▶</button>
@@ -113,6 +122,7 @@
       <div class="ribbon">MORNING</div>
       <h2 id="draftDay">Day 2</h2>
       <p id="draftNote">Pick one supply drop. The new place on the map is already waiting.</p>
+      <div id="dayReport" class="report" hidden></div>
       <div class="cards" id="draftCards"></div>
       <p id="rerollNote"></p>
       <button type="button" id="reroll" class="ghost">Shuffle the cards</button>
@@ -142,6 +152,7 @@
       <p>Guests are little shapes. A triangle is looking for a summit, a diamond for a viewpoint, and so on. They only ski runs up to their own colour. Green guests cannot take a blue, red, or black pitch. Lifts carry everyone uphill. Each morning names a gentle line toward the new stop.</p>
       <p>They must be back at a station by 18:00. If anyone is still out, the day is over. Each morning you pick one refill: lifts, ribbon, upgrades, cannons, or tree cuts. New stops flash until a line ends near them.</p>
       <p>Surface lifts need a clear path. Chairs cross trees. Cabins can cross a cliff. Cannons lay snow on bare ground. Cut trees one clump at a time. Upgrade a busy lift, a groomed run, or a cannon.</p>
+      <p>Guests pay a ticket every time a lift carries them up. Spend that money in the Resort panel: a new lift, a lodge that draws more guests, or a service that makes every lift faster. Guests lose heart in long queues and on the ice patches (look for the blue glints) — watch the mood. Heavy snow slows the whole hill; a clear night brings the aurora and richer tickets. Each morning a report card shows how the last day went.</p>
       <p>Keys: 1–5 tools, M move, D draw, X erase, Q and E change the clock, Space pauses, Ctrl+Z undoes a build. Sandbox turns the stocks and the dusk rule off.</p>
       <button type="button" id="closeGuide" class="primary">Back to the hill</button>
     </div>
@@ -150,6 +161,7 @@
     <div class="card">
       <h2>Settings</h2>
       <label class="chk"><input type="checkbox" id="soundToggle" checked> Sound</label>
+      <label class="chk vol"><span>Volume</span><input type="range" id="vol" min="0" max="100" value="70"></label>
       <p>Progress stays on this device. Replacing an unreadable save only clears Winterfold.</p>
       <div class="stack">
         <button type="button" id="closeSettings" class="primary">Done</button>

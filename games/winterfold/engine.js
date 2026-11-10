@@ -17,6 +17,12 @@
   };
   const PISTE_SPEED = { trail: 20, green: 32, blue: 44, red: 58, black: 72 };
   const KINDS = ['station', 'summit', 'viewpoint', 'rescue', 'snowpark', 'cafe', 'restaurant', 'refuge'];
+  // A ticket is paid once per lift ride up the hill. Skill pays a premium.
+  const TICKET = { tow: 4, chair: 6, cabin: 9 };
+  const SKILL_PAY = { green: 1, blue: 1.3, red: 1.7, black: 2.2 };
+  const LODGE_DEMAND = 5;              // extra guests a lodge brings each morning
+  const SHOP = { lift: 140, lodge: 220, tune: 130 };
+  const SNOW_SLOW = 0.72;              // heavy snow runs the whole hill (and the clock) at 0.72x
 
   const MOUNTAINS = [
     {
@@ -378,7 +384,7 @@
     return kinds.length ? kinds : ['summit'];
   }
   function buildSchedule(run) {
-    const n = Math.round(run.mountain.demand(run.day));
+    const n = Math.round(run.mountain.demand(run.day)) + lodgeDemand(run);
     const shapes = shapeChoices(run);
     const newest = run.pois.filter(p => p.kind !== 'station').slice(-1)[0];
     const list = [];
@@ -425,9 +431,44 @@
     for (const item of run.mountain.later) if (item.day === run.day) addPoi(run, item.poi);
   }
 
+  // Ice gathers in shallow hollows. Deterministic, so a lane of ice is a real
+  // feature of the hill, not a surprise only some players meet.
+  function iceAt(run, x, y) {
+    const m = run.mountain;
+    const h = height(m, x, y);
+    if (h < m.snowLine + 6) return false;
+    const gx = Math.floor(x / 26), gy = Math.floor(y / 26);
+    return hash(gx, gy, m.seed + 61) > 0.86;
+  }
+  function lodgeDemand(run) {
+    let n = 0;
+    for (const l of run.lodges || []) n += LODGE_DEMAND * (1 + (l.level || 0) * 0.5);
+    return Math.round(n);
+  }
+  // Weather is seeded per day so a morning can be read off the map before it
+  // arrives: heavy snow slows the whole hill, a clear night pays better.
+  function buildWeather(day, seed) {
+    const events = [];
+    if (hash(day, 1, 71) < 0.45) {
+      const start = 16 + hash(day, 2, 72) * 26;
+      const dur = 15 + hash(day, 3, 73) * 13;
+      events.push({ kind: 'snow', start, end: Math.min(DAY_LEN - 2, start + dur), note: 'Heavy snow is falling. The whole hill slows.' });
+    }
+    if (!events.length && hash(day, 4, 74) < 0.55) {
+      events.push({ kind: 'aurora', start: DAY_LEN * 0.76, end: DAY_LEN, note: 'A clear night. The aurora is up — ticket income is up half again.' });
+    }
+    return events;
+  }
+  function activeWeather(run) {
+    for (const e of run.weather || []) if (run.clock >= e.start && run.clock < e.end) return e;
+    return null;
+  }
+  function weatherKind(run) { const e = activeWeather(run); return e ? e.kind : 'clear'; }
+  function incomeMul(run) { return weatherKind(run) === 'aurora' ? 1.5 : 1; }
+
   function createMeta() {
     return {
-      version: 1, sound: true, tutorial: false, seen: false,
+      version: 1, sound: true, volume: 0.7, tutorial: false, seen: false,
       best: {}, medals: {}, board: [], cleared: {}
     };
   }
@@ -448,9 +489,13 @@
       pistes: [], lifts: [], cannons: [], joints: [],
       cleared: {}, resources: sandbox ? { slope: 9999, lift: 9999, cannon: 9999, trees: 9999, upgrade: 9999 } : freshResources(),
       skiers: [], schedule: [], spawnIndex: 0, nextId: 1,
+      lodges: [], weather: [], weatherKind: 'clear', reports: [], puffs: [],
+      income: 0, trips: 0, wipeouts: 0, happySum: 0, happyCount: 0,
+      dayStats: { trips: 0, income: 0, wipeouts: 0, score: 0 },
       cards: [], rerolls: 1, weekMark: 1, undo: [], redo: [],
       reason: '', sandbox
     };
+    run.weather = buildWeather(run.day, m.seed);
     run.schedule = buildSchedule(run);
     return run;
   }
@@ -884,10 +929,17 @@
 
   function spawnSkier(run, spec, i) {
     const stations = liveStations(run);
-    const home = stations[i % stations.length];
+    let home = stations[i % stations.length];
+    // A lodge sits at a station; guests walk out of it onto the same node.
+    if ((run.lodges || []).length) {
+      const lodge = run.lodges[i % run.lodges.length];
+      const st = stations.find(s => s.id === lodge.station);
+      if (st) home = st;
+    }
     const skier = {
       id: 's' + run.nextId++, shape: spec.shape, skill: spec.skill,
-      state: 'think', node: home.id, edge: null, t: 0, visited: false, progress: 0
+      state: 'think', node: home.id, edge: null, t: 0, visited: false, progress: 0,
+      mood: 100, wipe: 0, wipes: 0, iceT: 0
     };
     run.skiers.push(skier);
     assign(run, skier);
@@ -922,16 +974,30 @@
     skier.node = nodeId;
     skier.edge = null;
     const node = nodesOf(run).get(nodeId);
-    if (!skier.visited && node && node.kind === skier.shape) skier.visited = true;
+    if (!skier.visited && node && node.kind === skier.shape) { skier.visited = true; skier.mood = Math.min(100, skier.mood + 10); }
     if (skier.visited && node && node.kind === 'station') {
       skier.state = 'done';
       const mult = { green: 1, blue: 1.35, red: 1.8, black: 2.4 }[skier.skill];
       const gain = Math.round((14 + 8) * mult * (1 + 0.08 * (run.day - 1)));
       run.score += gain;
       run.money = (run.money || 0) + gain;
+      run.happySum = (run.happySum || 0) + Math.round(skier.mood);
+      run.happyCount = (run.happyCount || 0) + 1;
       return;
     }
     assign(run, skier);
+  }
+  function pointAlong(pts, u) {
+    const d = cumDist(pts);
+    return pointAt(pts, d, clamp(u, 0, 1) * d[d.length - 1]);
+  }
+  function wipeout(run, skier, x, y) {
+    skier.wipes = (skier.wipes || 0) + 1;
+    skier.wipe = 0.55;
+    skier.mood = Math.max(0, skier.mood - 22);
+    run.wipeouts = (run.wipeouts || 0) + 1;
+    if (run.dayStats) run.dayStats.wipeouts += 1;
+    run.puffs.push({ x, y, life: 1, seed: (skier.wipes * 7 + run.day) % 100 });
   }
   function moveSkiers(run, dt) {
     for (const l of run.lifts) {
@@ -949,10 +1015,18 @@
         const skier = run.skiers.find(s => s.id === id);
         if (!skier || skier.state === 'done') continue;
         skier.state = 'ride';
+        skier.mood = Math.min(100, skier.mood + 6);
         l.riders.push({ id, t: 0 });
+        // A ticket is paid as the guest boards the lift for the climb.
+        const pay = Math.round(TICKET[l.type] * (SKILL_PAY[skier.skill] || 1) * incomeMul(run));
+        run.money = (run.money || 0) + pay;
+        run.income = (run.income || 0) + pay;
+        run.trips = (run.trips || 0) + 1;
+        if (run.dayStats) { run.dayStats.trips += 1; run.dayStats.income += pay; }
       }
     }
     for (const skier of run.skiers) {
+      if (skier.wipe > 0) skier.wipe = Math.max(0, skier.wipe - dt);
       if (skier.repath && skier.state !== 'ride' && skier.state !== 'done') {
         skier.repath = false;
         if (skier.state === 'queue') {
@@ -962,14 +1036,34 @@
         leavePiste(run, skier);
         assign(run, skier);
       }
+      if (skier.state === 'queue') {
+        const lift = run.lifts.find(l => l.queue.includes(skier.id));
+        // Standing in a long line is what spoils a morning.
+        if (lift && lift.queue.length > liftSeats(lift) * 2) skier.mood = Math.max(0, skier.mood - dt * 3.5);
+        continue;
+      }
       if (skier.state !== 'ski') continue;
       const p = run.pistes.find(x => x.id === skier.edge);
       if (!p) { skier.state = 'stuck'; continue; }
       const crowd = 1 + Math.max(0, (p.riders || 1) - 1) * 0.12;
-      skier.t += dt * pisteSpeed(p) / crowd / Math.max(16, p.length);
+      const step = dt * pisteSpeed(p) / crowd / Math.max(16, p.length);
+      if (skier.wipe > 0) { skier.t += step * 0.35; continue; }
+      const here = pointAlong(p.pts, skier.t);
+      const cell = Math.floor(here.x / 26) + ',' + Math.floor(here.y / 26);
+      if (cell !== skier.iceCell) {
+        skier.iceCell = cell;
+        if (iceAt(run, here.x, here.y) && hash(skier.wipes + 3, Math.round(here.x) + Math.round(here.y), 91) < 0.14) {
+          wipeout(run, skier, here.x, here.y);
+          skier.t += step * 0.35;
+          continue;
+        }
+      }
+      skier.t += step;
       if (skier.t >= 1) arriveNode(run, skier, p.to);
     }
     run.skiers = run.skiers.filter(s => s.state !== 'done');
+    for (const puff of run.puffs) puff.life -= dt * 1.6;
+    run.puffs = run.puffs.filter(p => p.life > 0);
   }
 
   function clockHours(run) {
@@ -1027,9 +1121,68 @@
     let cap = 14;
     for (const lift of run.lifts) cap += liftSeats(lift);
     cap += Math.min(18, run.pistes.length * 3);
+    cap += (run.lodges || []).length * 8;
     return cap;
   }
+  // Average mood of everyone still on the hill. A full hill of happy guests is
+  // the whole point, so this is the number the resort lives or dies by.
+  function happiness(run) {
+    const out = run.skiers.filter(s => s.state !== 'done');
+    if (!out.length) return run.happyCount ? Math.round(run.happySum / run.happyCount) : 100;
+    let sum = 0;
+    for (const s of out) sum += (typeof s.mood === 'number' ? s.mood : 100);
+    return Math.round(sum / out.length);
+  }
+  function pay(run, cost) {
+    if (run.sandbox) return true;
+    if ((run.money || 0) < cost) return false;
+    run.money -= cost;
+    return true;
+  }
+  function buyLift(run) {
+    if (run.phase === 'over') return { ok: false, reason: 'The hill is closed.' };
+    if (!pay(run, SHOP.lift)) return { ok: false, reason: 'A lift costs $' + SHOP.lift + '. You have $' + Math.round(run.money || 0) + '.' };
+    run.resources.lift += 1;
+    return { ok: true, reason: 'A lift token is in the yard.' };
+  }
+  function buyLodge(run) {
+    if (run.phase === 'over') return { ok: false, reason: 'The hill is closed.' };
+    const stations = stationNodes(run);
+    if (!stations.length) return { ok: false, reason: 'Build a station first.' };
+    if (!pay(run, SHOP.lodge)) return { ok: false, reason: 'A lodge costs $' + SHOP.lodge + '. You have $' + Math.round(run.money || 0) + '.' };
+    // Put the new lodge at the quietest station.
+    let best = stations[0], bestN = Infinity;
+    for (const st of stations) {
+      const n = (run.lodges || []).filter(l => l.station === st.id).length;
+      if (n < bestN) { bestN = n; best = st; }
+    }
+    const lodge = { id: 'g' + run.nextId++, station: best.id, x: best.x, y: best.y + 30, level: 0 };
+    run.lodges.push(lodge);
+    run.schedule = buildSchedule(run);
+    return { ok: true, reason: 'A new lodge opens at ' + run.mountain.name + '. More guests tomorrow.' };
+  }
+  function tuneLifts(run) {
+    if (run.phase === 'over') return { ok: false, reason: 'The hill is closed.' };
+    const upgradable = run.lifts.filter(l => l.level < 3);
+    if (!upgradable.length) return { ok: false, reason: 'Every lift is already as fast as it gets.' };
+    if (!pay(run, SHOP.tune)) return { ok: false, reason: 'A service costs $' + SHOP.tune + '. You have $' + Math.round(run.money || 0) + '.' };
+    for (const l of upgradable) l.level += 1;
+    for (const s of run.skiers) s.repath = true;
+    return { ok: true, reason: 'Every lift runs a little faster.' };
+  }
   function openDawn(run) {
+    // Close out the day with a report card before the morning begins.
+    const ds = run.dayStats || { trips: 0, income: 0, wipeouts: 0, score: 0 };
+    const happy = run.happyCount ? Math.round(run.happySum / run.happyCount) : null;
+    run.reports = (run.reports || []);
+    run.reports.push({
+      day: run.day, guests: (run.schedule || []).length, trips: ds.trips,
+      income: ds.income, wipeouts: ds.wipeouts, score: Math.round(run.score - (ds.score || 0)), happy
+    });
+    if (run.reports.length > 12) run.reports.shift();
+    run.lastReport = run.reports[run.reports.length - 1];
+    run.dayStats = { trips: 0, income: 0, wipeouts: 0, score: run.score };
+    run.happySum = 0; run.happyCount = 0; run.puffs = [];
     run.completed = run.day;
     run.day += 1;
     run.clock = 0;
@@ -1037,6 +1190,7 @@
     run.skiers = [];
     for (const l of run.lifts) { l.queue = []; l.riders = []; }
     for (const p of run.pistes) p.riders = 0;
+    run.weather = buildWeather(run.day, run.mountain.seed);
     spawnScheduledPoi(run);
     if (run.day >= run.weekMark + 7) { run.rerolls = Math.min(1, run.rerolls + 1); run.weekMark = run.day; if (run.rerolls < 1) run.rerolls = 1; }
     if (run.sandbox) {
@@ -1068,7 +1222,11 @@
   }
   function tick(run, realDt) {
     if (!run || run.phase !== 'play') return run;
-    const dt = Math.min(0.05, Math.max(0, realDt)) * (run.speed || 0);
+    run.weatherKind = weatherKind(run);
+    // Heavy snow runs the whole hill — and the clock with it — at a slower rate,
+    // so the day simply takes longer to play out, never shorter.
+    const slow = run.weatherKind === 'snow' ? SNOW_SLOW : 1;
+    const dt = Math.min(0.05, Math.max(0, realDt)) * (run.speed || 0) * slow;
     if (dt <= 0) return run;
     run.clock += dt;
     while (run.spawnIndex < run.schedule.length && run.schedule[run.spawnIndex].t <= run.clock) {
@@ -1138,6 +1296,8 @@
       cannons: run.cannons, joints: run.joints, cleared: run.cleared, resources: run.resources,
       nextId: run.nextId, rerolls: run.rerolls, weekMark: run.weekMark, cards: run.cards,
       schedule: run.schedule, spawnIndex: run.spawnIndex, sandbox: run.sandbox, reason: run.reason,
+      lodges: run.lodges || [], reports: run.reports || [], income: run.income || 0, trips: run.trips || 0,
+      wipeouts: run.wipeouts || 0, dayStats: run.dayStats || { trips: 0, income: 0, wipeouts: 0, score: run.score },
       skiers: (run.skiers || []).filter(s => s.state !== 'done').map(s => ({ ...s, repath: true }))
     };
   }
@@ -1149,6 +1309,15 @@
       lifts: (data.lifts || []).map(l => ({ queue: [], riders: [], ...l })),
       pistes: (data.pistes || []).map(p => ({ riders: 0, ...p }))
     };
+    run.skiers = (run.skiers || []).map(s => ({ mood: 100, wipe: 0, wipes: 0, iceT: 0, ...s }));
+    run.lodges = run.lodges || [];
+    run.reports = run.reports || [];
+    run.weather = (run.weather && run.weather.length) ? run.weather : buildWeather(run.day, m.seed);
+    run.dayStats = run.dayStats || { trips: 0, income: 0, wipeouts: 0, score: run.score || 0 };
+    run.puffs = [];
+    if (typeof run.income !== 'number') run.income = 0;
+    if (typeof run.trips !== 'number') run.trips = 0;
+    if (typeof run.wipeouts !== 'number') run.wipeouts = 0;
     // Older exports discarded lift manifests while keeping skiers aboard. Rebuild
     // them from skier state; retain saved trip progress when a manifest exists.
     for (const l of run.lifts) {
@@ -1186,6 +1355,7 @@
     createMeta, unlocked, startRun, previewStroke, commitStroke, previewLift, commitLift,
     placeCannon, cutAt, upgradeAt, eraseAt, undo, redo, tick, setSpeed, chooseCard, reroll,
     counts, connected, altitude, guests, capacity, morningBrief, clockHours, formatClock, recordResult, starsFor,
-    encode, decode, classify, sectionGrade, polyLength, allows, pathToShape, pathHome, nodesOf
+    happiness, weatherKind, activeWeather, buildWeather, incomeMul, iceAt, lodgeDemand, buyLift, buyLodge, tuneLifts,
+    SHOP, TICKET, encode, decode, classify, sectionGrade, polyLength, allows, pathToShape, pathHome, nodesOf
   };
 });
