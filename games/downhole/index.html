@@ -12,26 +12,44 @@
 
   <div id="hud" hidden>
     <div class="crosshair" aria-hidden="true"></div>
-    <div class="stat top-left"><b id="hudDepth">Surface</b><span id="hudOre" class="sub"></span></div>
-    <div class="stat top-right"><b id="hudMoney">$0</b><span id="hudPack" class="sub"></span></div>
+
+    <div class="stat top-left">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 8.5Q12 3 20 8.5"/><path d="M12 8V21"/></svg>
+      <b id="hudDepth">Surface</b>
+      <span id="hudOre" class="sub"></span>
+    </div>
+
+    <div class="stat top-right">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.2v9.6"/><path d="M14.6 9.6c-1-1.1-4.9-1.3-4.9 1.1 0 2.6 5 1.4 5 4 0 2.4-4 2.1-4.9 1"/></svg>
+      <b id="hudMoney">$0</b>
+      <span id="hudPack" class="sub"></span>
+    </div>
+
     <div id="hudHp" class="hp"><i id="hpFill"></i><span>HP</span></div>
-    <div class="stat top-left" style="top:76px"><span class="sub">Dig a staircase on your way down so you can walk back up to sell.</span></div>
+
+    <div class="stat top-left tip" style="top:100px"><span class="sub">Dig a staircase on your way down so you can walk back up to sell.</span></div>
+
     <div id="digRing" class="dig-ring" hidden><i id="digFill"></i></div>
     <div id="hint" class="hint"></div>
     <div id="toasts" aria-live="polite"></div>
   </div>
 
-  <div id="title" class="overlay">
-    <h1>Down<i>hole</i></h1>
-    <p class="tag">An original digging-and-selling mine. Dig deep, haul ore, upgrade, go deeper.</p>
-    <div class="menu">
-      <button id="btnContinue" class="primary" hidden>Continue</button>
-      <button id="btnNew">New mine</button>
-      <button id="btnHow">How to play</button>
-      <button id="btnAch">Achievements</button>
-      <button id="btnSettings">Settings</button>
+  <div id="title" class="overlay title-screen">
+    <div class="title-sky" aria-hidden="true"></div>
+    <div class="shaft" aria-hidden="true"></div>
+    <div class="dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="title-inner">
+      <h1>Down<i>hole</i></h1>
+      <p class="tag">An original digging-and-selling mine. Dig deep, haul ore, upgrade, go deeper.</p>
+      <div class="menu">
+        <button id="btnContinue" class="primary" hidden>Continue</button>
+        <button id="btnNew">New mine</button>
+        <button id="btnHow">How to play</button>
+        <button id="btnAch">Achievements</button>
+        <button id="btnSettings">Settings</button>
+      </div>
+      <p class="foot">Original game · Three.js (MIT) · sounds synthesised in-browser · no external assets</p>
     </div>
-    <p class="foot">Original game · Three.js (MIT) · sounds synthesised in-browser · no external assets</p>
   </div>
 
   <div id="howto" class="overlay panel" hidden>
