@@ -150,6 +150,7 @@
     drawVehicles(ctx, w, h, session, cam, time);
     drawGhost(ctx, w, h, session, cam, opts);
     drawParticles(ctx, cam, w, h, fx);
+    if (opts.stress) drawStressLegend(ctx, w, h);
     if (opts.shake) {
       /* shake is applied by the camera before draw */
     }
@@ -160,6 +161,33 @@
       ctx.fillStyle = vig;
       ctx.fillRect(0, 0, w, h);
     }
+  }
+
+  function drawStressLegend(ctx, w, h) {
+    const rows = [['quiet', 0.2], ['working', 0.6], ['at limit', 0.95]];
+    const bw = 138, bh = 24 + rows.length * 17;
+    const x = 12, y = h - bh - 12;
+    ctx.save();
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = 'rgba(18,24,30,.72)';
+    roundRect(ctx, x, y, bw, bh, 6);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(244,232,208,.35)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = '#f2e6cc';
+    ctx.font = '11px Palatino, Georgia, serif';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Stress', x + 10, y + 12);
+    rows.forEach((r, i) => {
+      const ry = y + 28 + i * 17;
+      ctx.fillStyle = stressColor(r[1], false);
+      roundRect(ctx, x + 10, ry - 5, 14, 10, 2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(242,230,204,.92)';
+      ctx.fillText(r[0], x + 30, ry);
+    });
+    ctx.restore();
   }
 
   function drawBanks(ctx, w, h, session, cam, theme) {
