@@ -18,6 +18,20 @@ const ORES = {
   gold: { value: 60, color: 0xf0c419, glow: 0x8a6a0a },
   crystal: { value: 150, color: 0x7ee8fa, glow: 0x1c6f7e }
 };
+/* depth milestone lines, every 5 blocks of personal-best depth */
+const MILESTONES = [
+  [5, 'Depth 5 — topsoil. Copper lives down here.'],
+  [10, 'Depth 10 — the soil turns to stone.'],
+  [15, 'Depth 15 — it is getting dark. Mind the lamp.'],
+  [20, 'Depth 20 — silver country.'],
+  [25, 'Depth 25 — the walls are colder now.'],
+  [30, 'Depth 30 — gold country. Bring a bigger pack.'],
+  [38, 'Depth 38 — the stone fights back. Better pickaxe?'],
+  [42, 'Depth 42 — you can hear the shaft breathing.'],
+  [46, 'Depth 46 — void crystal depth. She glows.'],
+  [55, 'Depth 55 — nothing should glow this far down.'],
+  [63, 'Depth 63 — bedrock floor. You have dug the world.']
+];
 const MATS = {
   grass: { color: 0x5d8a4a, top: 0x6fae57 },
   dirt: { color: 0x7a5a3a, hardness: 1 },
@@ -86,6 +100,7 @@ function saveSettings() { try { localStorage.setItem(SET_KEY, JSON.stringify(set
 function save() {
   const data = {
     v: 1, money: S.money, hp: S.hp, pack: S.pack, ach: S.ach, up: S.up, playSec: Math.round(S.playSec),
+    best: S.best || 0, ms: S.ms || {},
     top: Array.from(world.top).map(t => t - (TOP)).join(',') /* offset so bedrock columns compress as small ints */
   };
   try { localStorage.setItem(SAVE_KEY, JSON.stringify(data)); return true; }
@@ -98,6 +113,7 @@ function load() {
   S.money = d.money | 0; S.hp = d.hp ?? 100;
   S.pack = d.pack || {}; S.ach = d.ach || {}; S.up = Object.assign({ pick: 1, lamp: 1, pack: 1, jet: 0, boots: 0 }, d.up);
   S.playSec = d.playSec || 0;
+  S.best = d.best || 0; S.ms = d.ms || {};
   if (typeof d.top === 'string') {
     d.top.split(',').forEach((v, i) => { if (i < world.top.length) world.top[i] = clamp(TOP + (+v || 0), 0, TOP); });
   }
@@ -127,7 +143,7 @@ scene.add(blocks);
 const dummy = new THREE.Object3D(), tint = new THREE.Color();
 
 function blockColor(x, y, z, info) {
-  if (info.ore) return ORES[info.ore].color;
+  if (info.ore) return new THREE.Color(ORES[info.ore].color).multiplyScalar(1.55 + hash3(z, x, y) * 0.25);
   const base = new THREE.Color(MATS[info.mat].color);
   if (info.mat === 'grass' && y === TOP) base.set(MATS.grass.top);
   const v = 0.9 + hash3(x * 5 + 1, y, z * 3) * 0.18;
@@ -260,6 +276,12 @@ function digTick(dt) {
     if (hash3(dig.x, hit.y, dig.z) > 0.7) setTimeout(() => DHaudio.sfx.crack(), 90);
     const d = depthOf(hit.y);
     if (d >= 10) ach('deep10'); if (d >= 30) ach('deep30'); if (d >= 46) ach('crystal');
+    if (d > (S.best || 0)) {
+      S.best = d;
+      for (const [m, line] of MILESTONES) {
+        if (d >= m && !((S.ms || (S.ms = {}))[m])) { S.ms[m] = 1; toast(line); DHaudio.sfx.ach(); break; }
+      }
+    }
     saveSoon();
   } else if (Math.random() < dt * 8) DHaudio.sfx.dig();
 }
