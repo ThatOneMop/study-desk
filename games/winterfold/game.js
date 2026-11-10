@@ -302,7 +302,7 @@
   function endPointer(ev) {
     if (!pointers.has(ev.pointerId)) return;
     pointers.delete(ev.pointerId);
-    if (ev.type !== 'pointerup') { drawing = null; refresh(); save(); return; }
+    if (ev.type !== 'pointerup') { drawing = null; refresh(); if (hand === 'erase' && run) save(); return; }
     if (!drawing || pointers.size) return;
     const pts = drawing.pts;
     drawing = null;

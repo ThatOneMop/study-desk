@@ -5,7 +5,7 @@ const e={running:true,keys:new Set(['KeyW']),mouse:{left:true,right:true},update
 w.document.getElementById('battle').classList.remove('hidden');
 w.eval(w.document.getElementById('fx27-pause-feedback').textContent);frame();
 w.dispatchEvent(new w.Event('blur'));assert.equal(w.ForgePause.paused,true);assert.equal(e.keys.size,0);assert.equal(e.mouse.left,false);
-e.update(.1);assert.equal(e.steps,undefined,'pause freezes simulation');
+e.update(.1);assert.equal(e.steps,undefined,'pause freezes simulation');let passedP=false;w.addEventListener('keydown',event=>{if(event.code==='KeyP')passedP=true});w.document.querySelector('canvas').dispatchEvent(new w.KeyboardEvent('keydown',{code:'KeyP',bubbles:true}));assert.equal(passedP,true,'plain P stays available to the Study Desk bridge while paused');
 w.dispatchEvent(new w.KeyboardEvent('keydown',{code:'Escape',repeat:true,bubbles:true}));assert.equal(w.ForgePause.paused,true,'held Escape cannot oscillate pause');
 w.document.getElementById('fxResume').click();e.update(.1);assert.equal(e.steps,1);
 e.mouse.left=e.mouse.right=true;w.document.querySelector('[data-fire]').dispatchEvent(new w.Event('pointercancel'));assert.equal(e.mouse.left,false);assert.equal(e.mouse.right,false);

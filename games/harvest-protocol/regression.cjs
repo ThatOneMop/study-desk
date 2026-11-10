@@ -4,9 +4,10 @@ const dom=new JSDOM(fs.readFileSync(__dirname+'/index.html','utf8'),{url:'https:
 const timers=[];w.setTimeout=fn=>(timers.push(fn),timers.length);w.clearTimeout=()=>{};w.setInterval=()=>1;w.requestAnimationFrame=()=>1;w.ResizeObserver=class{observe(){}};w.HTMLCanvasElement.prototype.getContext=()=>({setTransform(){}});w.confirm=()=>true;
 const script=w.document.querySelector('script:not([src])');w.eval(script.textContent+'\nwindow.__farmTest={compile,get game(){return game},get running(){return running},get paused(){return programmePaused}};');
 const $=id=>w.document.getElementById(id),next=async()=>{const fn=timers.shift();if(fn)fn();await Promise.resolve();await Promise.resolve();};
+$('code').value='repeat 4:\n';$('code').setSelectionRange(10,10);$('code').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));assert.equal($('code').value,'repeat 4:\n  ','editor Tab inserts a valid two-space indent');
 w.__farmTest.game.unlocks.push('loops');$('code').value='repeat 4:\n  do_a_flip()';
 let done=false;const programme=$('run').onclick().then(()=>done=true);
-assert.equal(w.__farmTest.running,true);$('pauseProgramme').click();assert.equal(w.__farmTest.paused,true);
+assert.equal(w.__farmTest.running,true);assert.match($('status').textContent,/Command 1 \/ 4/,'live programme progress is preserved');$('pauseProgramme').click();assert.equal(w.__farmTest.paused,true);
 await next();await next();assert.equal(done,false,'programme waits while paused');assert.equal($('pauseProgramme').getAttribute('aria-pressed'),'true');
 $('pauseProgramme').click();for(let i=0;i<30&&!done;i++)await next();await programme;
 assert.equal(w.__farmTest.running,false);assert.match($('status').textContent,/4 commands/);assert.equal($('pauseProgramme').disabled,true);

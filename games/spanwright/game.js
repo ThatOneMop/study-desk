@@ -46,7 +46,7 @@
     try { localStorage.setItem(E.SAVE_KEY, E.encode({ meta: meta })); } catch (err) {}
   }
 
-  function saveDesign() {
+  function saveDraft() {
     if (!session) return;
     // Physics moves live joints. Keep the construction snapshot, not a bent test frame.
     const designSession = session.backup ? Object.assign({}, session, JSON.parse(session.backup)) : session;
@@ -220,7 +220,7 @@
     range.max = beam.mat === 'hydraulic' ? '1.5' : '1.4';
     range.step = '0.01';
     range.value = String(beam.scale || 1);
-    range.addEventListener('input', () => { E.setScale(session, beam.id, parseFloat(range.value)); saveDesign(); setStatus(beam.mat === 'hydraulic' ? 'Piston set to ' + Math.round(beam.scale * 100) + '%.' : 'Coil set.'); });
+    range.addEventListener('input', () => { E.setScale(session, beam.id, parseFloat(range.value)); saveDraft(); setStatus(beam.mat === 'hydraulic' ? 'Piston set to ' + Math.round(beam.scale * 100) + '%.' : 'Coil set.'); });
     label.append(range);
     box.append(label);
     if (beam.mat === 'hydraulic') {
@@ -231,7 +231,7 @@
         const on = !!(beam.phaseOn && beam.phaseOn[phase.id]);
         btn.textContent = phase.label + (on ? ' · armed' : ' · quiet');
         btn.setAttribute('aria-pressed', String(on));
-        btn.addEventListener('click', () => { E.togglePhase(session, beam.id, phase.id); saveDesign(); updateInspector(); audio.play('ui'); });
+        btn.addEventListener('click', () => { E.togglePhase(session, beam.id, phase.id); saveDraft(); updateInspector(); audio.play('ui'); });
         box.append(btn);
       });
     }
@@ -247,7 +247,7 @@
           const on = !!(splitItem.open && splitItem.open[phase.id]);
           btn.setAttribute('aria-pressed', String(on));
           btn.textContent = 'Hinge ' + n + ' · ' + (phase.label || phase.id) + (on ? ' · opens' : ' · holds');
-          btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); saveDesign(); updateInspector(); });
+          btn.addEventListener('click', () => { E.toggleSplitPhase(session, splitItem.a, phase.id); saveDraft(); updateInspector(); });
           box.append(btn);
         });
       });
@@ -299,19 +299,19 @@
     if (tool === 'erase') {
       const hit = E.deleteAt(session, x1, y1);
       setStatus(hit.ok ? 'Lifted out.' : hit.reason);
-      if (hit.ok) { audio.play('delete'); saveDesign(); updateHud(); }
+      if (hit.ok) { audio.play('delete'); saveDraft(); updateHud(); }
       return;
     }
     if (tool === 'split') {
       const hit = E.splitJoint(session, x1, y1);
       setStatus(hit.ok ? 'Hinge seated. Arm it on the phases where it should open.' : hit.reason);
-      if (hit.ok) { session.selected = null; audio.play('steel'); saveDesign(); updateInspector(); }
+      if (hit.ok) { session.selected = null; audio.play('steel'); saveDraft(); updateInspector(); }
       return;
     }
     if (tool === 'anchor') {
       const hit = E.addAnchor(session, x1, y1);
       setStatus(hit.ok ? 'Bolt seated.' : hit.reason);
-      if (hit.ok) saveDesign();
+      if (hit.ok) saveDraft();
       return;
     }
     const hit = E.placeBeam(session, tool, x0, y0, x1, y1, { sideA: side, sideB: side });
@@ -326,7 +326,7 @@
     setStatus(E.MATERIALS[tool].name + ' · ' + hit.len.toFixed(1) + ' m · ' + money(hit.cost));
     updateHud();
     tutorialProgress('beam');
-    saveDesign();
+    saveDraft();
   }
 
   function burst(x, y, color, n) {
@@ -441,7 +441,7 @@
 
   function onResult() {
     const fresh = E.award(meta, session);
-    saveDesign();
+    saveDraft();
     const g = session.sim.grade;
     const ok = session.sim.result === 'success';
     $('resultKicker').textContent = ok ? 'Across' : 'Not this time';
@@ -540,7 +540,7 @@
     $('pauseBtn').addEventListener('click', () => { $('pause').hidden = false; $('resumeBtn').focus(); });
     $('resumeBtn').addEventListener('click', () => { $('pause').hidden = true; $('scene').focus(); });
     $('retryBtn').addEventListener('click', () => { if (session.sim) E.rebuild(session); $('pause').hidden = true; updateHud(); });
-    $('quitBtn').addEventListener('click', () => { closeVeils(); saveDesign(); show('map'); });
+    $('quitBtn').addEventListener('click', () => { closeVeils(); saveDraft(); show('map'); });
     $('pauseSettings').addEventListener('click', openSettings);
     $('settingsClose').addEventListener('click', () => { $('settings').hidden = true; });
     $('infoBtn').addEventListener('click', () => {
@@ -568,8 +568,8 @@
       setStatus('The crossing is in motion.');
       tutorialProgress('play');
     });
-    $('undoBtn').addEventListener('click', () => { if (session && E.undo(session)) { audio.play('ui'); saveDesign(); updateHud(); } });
-    $('redoBtn').addEventListener('click', () => { if (session && E.redo(session)) { audio.play('ui'); saveDesign(); updateHud(); } });
+    $('undoBtn').addEventListener('click', () => { if (session && E.undo(session)) { audio.play('ui'); saveDraft(); updateHud(); } });
+    $('redoBtn').addEventListener('click', () => { if (session && E.redo(session)) { audio.play('ui'); saveDraft(); updateHud(); } });
     $('cancelBtn').addEventListener('click', () => { anchor = null; ghost = null; setStatus('Member cancelled.'); audio.play('ui'); });
     $('stressBtn').addEventListener('click', () => {
       const on = $('stressBtn').getAttribute('aria-pressed') !== 'true';
@@ -645,7 +645,7 @@
       if ((ev.ctrlKey || ev.metaKey) && (key === 'z' || key === 'y')) {
         if (screen !== 'play' || !session) return;
         ev.preventDefault();
-        if (!ev.repeat && (key === 'y' || ev.shiftKey ? E.redo(session) : E.undo(session))) { saveDesign(); updateHud(); }
+        if (!ev.repeat && (key === 'y' || ev.shiftKey ? E.redo(session) : E.undo(session))) { saveDraft(); updateHud(); }
         return;
       }
       if (ev.ctrlKey || ev.metaKey || ev.altKey || ev.isComposing) return;
@@ -657,8 +657,8 @@
       if (mat) { tool = mat.id; buildTools(); return; }
       if (ev.key === 'h' || ev.key === 'H') { tool = 'split'; buildTools(); }
       if (ev.key === 'x' || ev.key === 'X') { tool = 'erase'; buildTools(); }
-      if (ev.key === 'z' && !ev.metaKey && !ev.ctrlKey) { if (E.undo(session)) saveDesign(); updateHud(); }
-      if (ev.key === 'Z' && ev.shiftKey) { if (E.redo(session)) saveDesign(); }
+      if (ev.key === 'z' && !ev.metaKey && !ev.ctrlKey) { if (E.undo(session)) saveDraft(); updateHud(); }
+      if (ev.key === 'Z' && ev.shiftKey) { if (E.redo(session)) saveDraft(); updateHud(); }
       if (ev.key === ' ') { ev.preventDefault(); $('playBtn').click(); }
       if (ev.key === 't' || ev.key === 'T') $('stressBtn').click();
       if (ev.key === 'r' || ev.key === 'R') { if (session.sim) E.rebuild(session); }
@@ -688,11 +688,11 @@
     window.addEventListener('keyup', ev => { keys[ev.key] = false; });
     function suspendWorks() {
       keys = {}; pointers.clear(); anchor = null; ghost = null; pinching = null; panning = null;
-      if (screen === 'play' && session) { saveDesign(); if ($('result').hidden) $('pause').hidden = false; }
+      if (screen === 'play' && session) { saveDraft(); if ($('result').hidden) $('pause').hidden = false; }
     }
     window.addEventListener('blur', suspendWorks);
     document.addEventListener('visibilitychange', () => { if (document.hidden) suspendWorks(); });
-    window.addEventListener('pagehide', saveDesign);
+    window.addEventListener('pagehide', saveDraft);
     window.addEventListener('resize', resize);
   }
 

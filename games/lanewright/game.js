@@ -567,6 +567,7 @@
     }
     panning = null;
     if (drawChain && e.type !== 'pointercancel') commitChain();
+    else if (drawChain) setStatus('Road cancelled. No tiles spent.');
     drawChain = null;
     preview = null;
   }

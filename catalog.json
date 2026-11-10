@@ -465,7 +465,8 @@
     "thumbnail": "art/curated/basket-chaos.svg",
     "thumbnailAlt": "Original Basket Chaos cover illustration",
     "added": "2026-11-10",
-    "updated": "2026-11-10"
+    "updated": "2026-11-10",
+    "localMultiplayer": true
   },
   {
     "id": "volley-chaos",
@@ -491,7 +492,8 @@
     "thumbnail": "art/curated/volley-chaos.svg",
     "thumbnailAlt": "Original Volley Chaos cover illustration",
     "added": "2026-11-10",
-    "updated": "2026-11-10"
+    "updated": "2026-11-10",
+    "localMultiplayer": true
   },
   {
     "id": "soccer-chaos",
@@ -517,7 +519,8 @@
     "thumbnail": "art/curated/soccer-chaos.svg",
     "thumbnailAlt": "Original Soccer Chaos cover illustration",
     "added": "2026-11-10",
-    "updated": "2026-11-10"
+    "updated": "2026-11-10",
+    "localMultiplayer": true
   },
   {
     "id": "pocket-golf-nine",

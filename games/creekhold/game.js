@@ -535,7 +535,7 @@
     if (!run || !cell) return;
     if (tool === 'erase') {
       const r = E.demolish(run, cell.x, cell.y);
-      if (!r.ok) A.play('deny'); else { A.play('place'); save(); }
+      if (!r.ok) { A.play('deny'); toast(reasonText(r.reason)); } else { A.play('place'); save(); renderDock(); syncHud(); }
       return;
     }
     if (!tool) { selectCell(cell); return; }

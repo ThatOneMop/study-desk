@@ -65,7 +65,7 @@ Added at the user’s explicit request, preserving the curated games and concurr
 
 Eight original games are included: Orbital Surveyor (sci-fi extraction), Lanefall (hero-and-lane strategy), Basket Chaos, Volley Chaos, Soccer Chaos, Pocket Golf · Nine Greens, Pegworks (peg-board roguelike), and Demolition Yard (controlled collapses). These are compact browser games, with original code and artwork, rather than ports of the commercial reference games. The sports games offer a bot or two players sharing one device. New games have local assets and need no external game service.
 
-Gummy Bay continues to fill the small-town management role, and Packworks covers card-pack collecting. The New games and Updated tags, dedicated shelves, and reference-name search aliases help find the expanded collection. Existing game save keys are retained. New-game progress stays on this website origin; export all saves to transfer it.
+Gummy Bay continues to fill the small-town management role, and Packworks covers card-pack collecting. The New games, Updated and Local two-player tags, newest-first sorting, dedicated shelves, and reference-name search aliases help find the expanded collection. Existing game save keys are retained. New-game progress stays on this website origin; export all saves to transfer it.
 
 All 19 existing games received targeted gameplay or usability changes. The release checks cover local routes/assets, catalogue parity, credits, shell launch/pause/switching, and deterministic game regressions. Rendered browser QA was unavailable in the managed Sites environment because its required browser tool was not exposed.
 

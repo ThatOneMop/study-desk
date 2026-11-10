@@ -2,6 +2,8 @@
 // already exist. This module does not change suspicion, searches or saves.
 // Armed status is read only when the simulation sets police.armed === true.
 
+import {CURFEW_START} from './resident-life.mjs';
+
 const DAYS=Object.freeze(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);
 const SHORT=Object.freeze(['Mon','Tue','Wed','Thu','Fri','Sat','Sun']);
 const CARDINALS=Object.freeze([[0,'N'],[45,'NE'],[90,'E'],[135,'SE'],[180,'S'],[225,'SW'],[270,'W'],[315,'NW']]);
@@ -46,7 +48,8 @@ export function phoneBadges(state={}){
 export function curfewCue(day,time){
  const safeDay=Number.isFinite(day)&&day>=1?Math.floor(day):1;
  const minute=Number.isFinite(time)?time:0;
- if(minute>=1230&&minute<1232)return Object.freeze({id:'curfew',day:safeDay,text:'Curfew. Police pay closer attention after 20:30.'});
+ if(minute>=CURFEW_START-30&&minute<CURFEW_START)return Object.freeze({id:'curfew-warning',day:safeDay,text:'Curfew starts at 21:00. Finish deliveries or head home before patrols tighten.'});
+ if(minute>=CURFEW_START)return Object.freeze({id:'curfew',day:safeDay,text:'Curfew is active until 05:00. Police pay closer attention now.'});
  if(safeDay>1&&minute>=240&&minute<242)return Object.freeze({id:'sleep',day:safeDay,text:'You should sleep. A bed at home takes you to morning.'});
  return null;
 }

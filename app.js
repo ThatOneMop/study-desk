@@ -99,8 +99,9 @@ function drawGames(){
  if(!drawGames.hero){drawGames.hero=true;renderHero()}
  const sessionFocused=sessionReturn.contains(document.activeElement),active=games.find(g=>g.id===playing);sessionReturn.replaceChildren();sessionReturn.hidden=!active;if(active){const back=button('Return to '+active.title+' →',()=>play(active));sessionReturn.append(el('span','Your current session stays open while you browse.'),back);if(sessionFocused)back.focus()}
  drawFilters();$('gameCount').textContent=games.length+' games';$('includedCount').textContent=games.filter(g=>g.type!=='external').length+' games included here';const grid=$('games');grid.replaceChildren();const term=$('search').value.trim().toLowerCase(),genre=$('genre').value;
- let list=games.filter(g=>term.split(/\s+/).every(word=>(g.title+' '+g.description+' '+g.genre+' '+g.group+' '+(g.aliases||[]).join(' ')).toLowerCase().includes(word))&&(genre==='all'||g.genre===genre)&&tagMatch(g)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
+ let list=games.filter(g=>term.split(/\s+/).every(word=>(g.title+' '+g.description+' '+g.genre+' '+g.group+' '+(g.aliases||[]).join(' ')+' '+gameTagList(g).join(' ')).toLowerCase().includes(word))&&(genre==='all'||g.genre===genre)&&tagMatch(g)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
  layoutStore();
+ if($('sortGames').value==='newest')list.sort((a,b)=>Number(!!b.added)-Number(!!a.added)||(b.added||b.updated||'').localeCompare(a.added||a.updated||'')||a.title.localeCompare(b.title));
  if($('sortGames').value==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
  if(filter==='Recently played'||$('sortGames').value==='recent')list.sort((a,b)=>(hub.recent.includes(a.id)?hub.recent.indexOf(a.id):Infinity)-(hub.recent.includes(b.id)?hub.recent.indexOf(b.id):Infinity));$('resultsCount').textContent=list.length+' shown';
  if(!list.length){const empty=el('div',undefined,'empty'),arcadeOff=tag==='Arcade'&&!games.some(g=>g.type==='arcade');empty.append(el('p',filter==='Favourites'?'No favourites match these filters. Use a star on a game to save it here.':filter==='Recently played'?'No recently played games match these filters.':arcadeOff?'Arcade is empty right now. Bundled games are still in All.':'No games match these filters.'),button('Clear filters',()=>{$('search').value='';$('genre').value='all';filter='All';tag='All';drawGames();$('search').focus()}));grid.append(empty);return}
@@ -262,7 +263,8 @@ function reviewSaveImport(changes){
   openModal(dialog);try{cancel.focus()}catch{}
  });
 }
-function gameTagList(g){return [g.type==='external'?'Official site':g.type==='arcade'?'Arcade':'Bundled',g.internet?'Needs internet':'Offline',g.added?'New games':null,g.updated?'Updated':null].filter(Boolean)}
+function isLocalTwoPlayer(g){return g.localMultiplayer===true}
+function gameTagList(g){return [g.type==='external'?'Official site':g.type==='arcade'?'Arcade':'Bundled',g.internet?'Needs internet':'Offline',g.added?'New games':null,g.updated?'Updated':null,isLocalTwoPlayer(g)?'Local two-player':null].filter(Boolean)}
 function tagMatch(g){return tag==='All'||gameTagList(g).includes(tag)}
 function storefrontHome(){return filter==='All'&&$('genre').value==='all'&&tag==='All'&&!$('search').value.trim()}
 function reduceMotion(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch{return false}}
@@ -368,7 +370,7 @@ function buildGenreChips(){
 }
 function buildTagChips(){
  const row=$('tagFilters');if(!row)return;row.replaceChildren();
- for(const name of ['All','New games','Updated','Bundled','Arcade','Offline','Needs internet']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
+ for(const name of ['All','New games','Updated','Local two-player','Bundled','Arcade','Offline','Needs internet']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
 }
 const THEME_KEY='study-desk-theme',SOUND_KEY='study-desk-sound';
 function applyTheme(theme){
