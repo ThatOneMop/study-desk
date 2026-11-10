@@ -1,4 +1,6 @@
-# Study Desk — 16 games
+# Study Desk — 24 games
+
+The catalogue now contains 24 bundled entries, including five new original games added on 10 November 2026. See [the release report](docs/swarm-release-2026-11-10.md).
 
 The catalogue was trimmed on 2 November 2026 to 14 bundled games: Gummy Bay, Autumn Drift, Little Lake, Lost & Found, Lost & Found on the Moon, Tiny Wilds, Forge Arena, Roof Runner, Ashwake, Winterfold, Spanwright, Creekhold, Lanewright and Harvest Protocol. Every other game, its tests and its credits were removed; they remain in git history before that date.
 
@@ -28,7 +30,7 @@ Press P three times within one second, to move between study and games. The firs
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 16 catalogue games are bundled and include the Study Desk bridge.
+All 24 catalogue games are bundled and include the Study Desk bridge.
 
 ## Arcade
 

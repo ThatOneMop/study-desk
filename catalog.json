@@ -12,7 +12,8 @@
     "type": "bundled",
     "internet": false,
     "multiplayer": "Optional peer-to-peer co-op needs internet and reachable peers; no relay is supplied. Live multiplayer remains unverified.",
-    "credits": "credits.html#gummy-bay"
+    "credits": "credits.html#gummy-bay",
+    "updated": "2026-11-10"
   },
   {
     "id": "autumn-drift",
@@ -30,7 +31,7 @@
     "credits": "credits.html#autumn-drift",
     "thumbnail": "art/curated/autumn-drift.svg",
     "thumbnailAlt": "Autumn Drift cover illustration",
-    "updated": "2026-10-29"
+    "updated": "2026-11-10"
   },
   {
     "id": "little-lake",
@@ -48,7 +49,7 @@
     "credits": "credits.html#little-lake",
     "thumbnail": "art/curated/little-lake.svg",
     "thumbnailAlt": "Little Lake cover illustration",
-    "updated": "2026-10-29"
+    "updated": "2026-11-10"
   },
   {
     "id": "lost-found",
@@ -63,7 +64,8 @@
     "type": "bundled",
     "internet": false,
     "multiplayer": "Single player",
-    "credits": "credits.html#lost-found"
+    "credits": "credits.html#lost-found",
+    "updated": "2026-11-10"
   },
   {
     "id": "moon-salvage",
@@ -78,7 +80,8 @@
     "type": "bundled",
     "internet": false,
     "multiplayer": "Single player",
-    "credits": "credits.html#moon-salvage"
+    "credits": "credits.html#moon-salvage",
+    "updated": "2026-11-10"
   },
   {
     "id": "tiny-wilds",
@@ -93,7 +96,8 @@
     "type": "bundled",
     "internet": false,
     "multiplayer": "Single player",
-    "credits": "credits.html#tiny-wilds"
+    "credits": "credits.html#tiny-wilds",
+    "updated": "2026-11-10"
   },
   {
     "id": "forge-arena",
@@ -108,7 +112,8 @@
     "type": "bundled",
     "internet": true,
     "multiplayer": "Single player",
-    "credits": "credits.html#forge-arena"
+    "credits": "credits.html#forge-arena",
+    "updated": "2026-11-10"
   },
   {
     "id": "roof-runner",
@@ -123,7 +128,8 @@
     "type": "bundled",
     "internet": false,
     "multiplayer": "Single player",
-    "credits": "credits.html#created-games"
+    "credits": "credits.html#created-games",
+    "updated": "2026-11-10"
   },
   {
     "id": "ashwake",
@@ -147,7 +153,7 @@
     ],
     "thumbnail": "art/curated/ashwake.svg",
     "thumbnailAlt": "Ashwake cover illustration",
-    "updated": "2026-10-29"
+    "updated": "2026-11-10"
   },
   {
     "id": "winterfold",
@@ -173,7 +179,7 @@
     ],
     "thumbnail": "art/curated/winterfold.svg",
     "thumbnailAlt": "Winterfold cover illustration of coloured runs on a paper mountain",
-    "updated": "2026-10-29"
+    "updated": "2026-11-10"
   },
   {
     "id": "spanwright",
@@ -198,7 +204,7 @@
     ],
     "thumbnail": "art/curated/spanwright.svg",
     "thumbnailAlt": "A timber truss over a teal river with a small cart on the near bank",
-    "updated": "2026-10-31"
+    "updated": "2026-11-10"
   },
   {
     "id": "creekhold",
@@ -225,7 +231,7 @@
     ],
     "thumbnail": "art/curated/creekhold.svg",
     "thumbnailAlt": "A teal river held by a timber dam, with lodges, a pump, and two nibs on the bank",
-    "updated": "2026-10-31"
+    "updated": "2026-11-10"
   },
   {
     "id": "lanewright",
@@ -251,7 +257,7 @@
     ],
     "thumbnail": "art/curated/lanewright.svg",
     "thumbnailAlt": "Lanewright cover of a pale road between coloured houses and a blue shop, crossing a river",
-    "updated": "2026-10-31"
+    "updated": "2026-11-10"
   },
   {
     "id": "harvest-protocol",
@@ -273,7 +279,8 @@
       "coding",
       "automation",
       "farming"
-    ]
+    ],
+    "updated": "2026-11-10"
   },
   {
     "id": "numberworks",
@@ -291,7 +298,7 @@
     "credits": "credits.html#numberworks",
     "thumbnail": "art/curated/numberworks.svg",
     "thumbnailAlt": "Two conveyor streams meet in an arithmetic machine",
-    "updated": "2026-11-04",
+    "updated": "2026-11-10",
     "aliases": [
       "Beltmatic",
       "maths",
@@ -319,7 +326,8 @@
       "collecting",
       "cards",
       "incremental"
-    ]
+    ],
+    "updated": "2026-11-10"
   },
   {
     "id": "mycelium-yard",
@@ -336,7 +344,7 @@
     "credits": "credits.html#mycelium-yard",
     "thumbnail": "art/curated/mycelium-yard.svg",
     "thumbnailAlt": "Mycelium Yard original illustration",
-    "updated": "2026-11-05"
+    "updated": "2026-11-10"
   },
   {
     "id": "bell-diver",
@@ -353,7 +361,7 @@
     "credits": "credits.html#bell-diver",
     "thumbnail": "art/curated/bell-diver.svg",
     "thumbnailAlt": "Bell Diver original illustration",
-    "updated": "2026-11-05"
+    "updated": "2026-11-10"
   },
   {
     "id": "outbreak-atlas",
@@ -371,12 +379,144 @@
     "credits": "credits.html#outbreak-atlas",
     "thumbnail": "art/curated/outbreak-atlas.svg",
     "thumbnailAlt": "A teal atlas with three islands and a coral mark spreading from a home harbor",
-    "updated": "2026-11-07",
+    "updated": "2026-11-10",
     "aliases": [
       "plague",
       "strategy",
       "map",
       "spread"
     ]
+  },
+  {
+    "id": "orbital-drop",
+    "title": "Orbital Drop",
+    "genre": "Action",
+    "icon": "🚀",
+    "color": "#377d87",
+    "description": "Extract under pressure: complete field objectives, fight alien waves and upgrade an original sci-fi loadout.",
+    "controls": "WASD / arrows move · Auto-fire or aim with mouse · Space dash · Q shockwave · Touch pad",
+    "aliases": [
+      "Halo",
+      "Helldivers",
+      "extraction",
+      "shooter"
+    ],
+    "group": "Your games",
+    "url": "games/orbital-drop/index.html",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#orbital-drop",
+    "thumbnail": "art/curated/orbital-drop.svg",
+    "thumbnailAlt": "Orbital Drop original cover illustration",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
+  },
+  {
+    "id": "lanebound",
+    "title": "Lanebound",
+    "genre": "Strategy",
+    "icon": "⚔️",
+    "color": "#6471a3",
+    "description": "Lead a hero down the lane, support your creeps and break the enemy defences in a compact solo MOBA.",
+    "controls": "WASD / arrows move · Auto-attack · Q pulse · E mend · Space dash · Buy near home core",
+    "aliases": [
+      "Dota 2",
+      "MOBA",
+      "hero",
+      "lane"
+    ],
+    "group": "Your games",
+    "url": "games/lanebound/index.html",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#lanebound",
+    "thumbnail": "art/curated/lanebound.svg",
+    "thumbnailAlt": "Lanebound original cover illustration",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
+  },
+  {
+    "id": "chaos-court",
+    "title": "Chaos Court",
+    "genre": "Sports",
+    "icon": "🏀",
+    "color": "#cb874b",
+    "description": "Basketball, volleyball and soccer with lively physics, changing round conditions and a bot or a friend.",
+    "controls": "Keyboard or touch · Choose solo or two players in the game",
+    "aliases": [
+      "basket random",
+      "volley random",
+      "soccer random",
+      "basketball",
+      "volleyball",
+      "football"
+    ],
+    "group": "Your games",
+    "url": "games/chaos-court/index.html",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Solo or local two-player on one device",
+    "localMultiplayer": true,
+    "credits": "credits.html#chaos-court",
+    "thumbnail": "art/curated/chaos-court.svg",
+    "thumbnailAlt": "Chaos Court original cover illustration",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
+  },
+  {
+    "id": "pocket-golf",
+    "title": "Pocket Golf",
+    "genre": "Sports",
+    "icon": "⛳",
+    "color": "#4d9776",
+    "description": "Line up a shot, judge the power and chase par across generated miniature golf holes.",
+    "controls": "Aim and set shot power · Keyboard and touch controls in game",
+    "aliases": [
+      "golf",
+      "Normal Golf Game",
+      "random golf"
+    ],
+    "group": "Your games",
+    "url": "games/pocket-golf/index.html",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#pocket-golf",
+    "thumbnail": "art/curated/pocket-golf.svg",
+    "thumbnailAlt": "Pocket Golf original cover illustration",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
+  },
+  {
+    "id": "corebreaker",
+    "title": "Corebreaker",
+    "genre": "Incremental",
+    "icon": "☄️",
+    "color": "#9d729a",
+    "description": "Break apart an asteroid, discover its layers and invest your haul in stronger tools and automation.",
+    "controls": "Click/tap weak seams · Space / J / K strike · Upgrade rig · Pause and export saves",
+    "aliases": [
+      "CRACK",
+      "mining",
+      "clicker",
+      "incremental",
+      "Skoottie"
+    ],
+    "group": "Your games",
+    "url": "games/corebreaker/index.html",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Solo or shared local keyboard: J and K strike the same asteroid",
+    "localMultiplayer": true,
+    "credits": "credits.html#corebreaker",
+    "thumbnail": "art/curated/corebreaker.svg",
+    "thumbnailAlt": "Corebreaker original cover illustration",
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
   }
 ]

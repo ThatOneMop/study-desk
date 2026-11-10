@@ -566,7 +566,8 @@
       save();
     }
     panning = null;
-    if (drawChain) commitChain();
+    if (drawChain && e.type !== 'pointercancel') commitChain();
+    else if (drawChain) setStatus('Road cancelled. No tiles spent.');
     drawChain = null;
     preview = null;
   }
@@ -582,6 +583,7 @@
 
   window.addEventListener('keydown', e => {
     if (e.target && e.target.closest && e.target.closest('input, textarea, select')) return;
+    if (e.altKey || e.metaKey || e.ctrlKey) return;
     const key = e.key.toLowerCase();
     if (e.key === 'Escape') {
       if ($('help').open) { hide('help'); return; }

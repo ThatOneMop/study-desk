@@ -535,7 +535,7 @@
     if (!run || !cell) return;
     if (tool === 'erase') {
       const r = E.demolish(run, cell.x, cell.y);
-      if (!r.ok) A.play('deny'); else { A.play('place'); save(); }
+      if (!r.ok) { A.play('deny'); toast(reasonText(r.reason)); } else { A.play('place'); save(); renderDock(); syncHud(); }
       return;
     }
     if (!tool) { selectCell(cell); return; }
@@ -1028,7 +1028,9 @@
       cam.zoom = next;
     }, { passive: false });
     window.addEventListener('keydown', function (ev) {
-      if (ev.target && ev.target.closest && ev.target.closest('input, textarea')) return;
+      if (ev.target && ev.target.closest && ev.target.closest('input, textarea, select, [contenteditable]')) return;
+      if (ev.ctrlKey || ev.metaKey || ev.altKey || document.querySelector('dialog[open]')) return;
+      if (ev.code === 'Space' && ev.target.closest && ev.target.closest('button, a')) return;
       keys[ev.code] = true;
       if (ev.code === 'Space') { ev.preventDefault(); setSpeed(speed === 0 ? 1 : 0); applyGlow(); }
       else if (ev.key === 'q' || ev.key === 'Q') { cam.rot = (cam.rot + 3) & 3; if (run) focusHearth(); }
@@ -1055,7 +1057,8 @@
     });
     window.addEventListener('keyup', function (ev) { keys[ev.code] = false; });
     window.addEventListener('resize', function () { resize(); if (run) focusHearth(); });
-    document.addEventListener('visibilitychange', function () { if (document.hidden) save(); });
+    window.addEventListener('blur', function () { keys = {}; });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) { keys = {}; setSpeed(0); save(); } });
     window.addEventListener('pagehide', save);
     setInterval(save, 20000);
   }
