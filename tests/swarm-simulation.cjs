@@ -5,8 +5,8 @@ test('Bell Diver return guide navigates all wrecks with light/heavy cargo and bo
  for(let level=0;level<3;level++)for(let pos=0;pos<35;pos++)for(const fins of [0,1])for(const cargo of [[],[0,1]]){
   if(E.layouts[level].rocks.includes(pos))continue;
   const s={...E.create(),level,pos,fins,cargo,air:34,tank:2};
-  const before=JSON.stringify(s),route=E.returnRoute(s);if(level===2&&pos===10){assert.equal(route,null);continue;}assert.ok(route);assert.equal(JSON.stringify(s),before);
-  let p=pos,air=0;for(const step of route.path){assert.equal(p+E.DIRS[step.dir],step.pos);assert.ok(E.adjacent(p,step.pos));assert.ok(!E.layouts[level].rocks.includes(step.pos));air+=E.cost(s,step.dir);p=step.pos;}
+  const before=JSON.stringify(s),route=E.returnRoute(s);if(level===2&&pos===10){assert.equal(route.air,Infinity);assert.equal(route.safe,false);assert.deepEqual(route.path,[]);continue;}assert.ok(route);assert.equal(JSON.stringify(s),before);
+  let p=pos,air=0;for(const pos of route.path){const dir=Object.keys(E.DIRS).find(d=>p+E.DIRS[d]===pos);assert.ok(E.adjacent(p,pos));assert.ok(!E.layouts[level].rocks.includes(pos));air+=E.cost(s,dir);p=pos;}
   assert.equal(p,2);assert.equal(air,route.air);
   assert.equal(E.returnRoute({...s,air:Math.max(0,air-1)}).safe,air===0);
   assert.equal(E.returnRoute({...s,air}).safe,true);
@@ -45,6 +45,8 @@ test('Bell Diver UI updates the direct-return warning and trail with cargo',()=>
  assert.match(w.document.getElementById('returnInfo').textContent,/needs 2 air; you have 1/);
  assert.ok(w.document.getElementById('returnInfo').classList.contains('low-air'));
  assert.ok(w.document.getElementById('cell-2').classList.contains('home-route'));
+ assert.ok(w.document.getElementById('cell-2').classList.contains('homeward'));
+ assert.match(w.document.getElementById('load').textContent,/LOW AIR: home needs 2 air/);
  w.document.getElementById('up').click();
  assert.match(w.document.getElementById('returnInfo').textContent,/At the bell/);
  assert.equal(JSON.parse(w.localStorage.getItem(E.KEY)).rescues,1);

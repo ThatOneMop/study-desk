@@ -261,6 +261,7 @@ function coach(){
  return'Two bells. The Warden first, then the Hollow Bell. Dawn comes after the second.';
 }
 function sync(){
+ if(run?.phase!=='play'){keys.clear();pointer.active=false;stickVec.active=false;stickId=null;$('nub').style.transform='';}
  const phase=run?.phase||'title';
  document.body.dataset.phase=phase;
  $('title').hidden=!!run;
@@ -407,7 +408,7 @@ document.addEventListener('keydown',e=>{
  if(e.target.closest?.('input,textarea,select')||e.metaKey||e.ctrlKey||e.altKey)return;
  if(uiBlocks()&&e.key!=='Escape')return;
  const key=e.key.toLowerCase();if(key==='f'&&!e.repeat&&playing()){e.preventDefault();castFlare();return;}
- if(key==='r'&&run?.phase==='level'&&!e.repeat){e.preventDefault();redrawRelics();return;}if(key==='escape'){e.preventDefault();if($('tutorial').open){$('tutorial').close();return;}if($('confirm').open){$('confirm').close();return;}if(!run)return;if(run.phase==='pause')A.resume(run);else if(run.phase==='play'||run.phase==='level')A.pause(run);save();sync();return;}
+ if(key==='r'&&run?.phase==='level'&&!e.repeat){e.preventDefault();redrawRelics();return;}if(key==='escape'){e.preventDefault();if(e.repeat)return;keys.clear();pointer.active=false;stickVec.active=false;stickId=null;$('nub').style.transform='';if($('tutorial').open){$('tutorial').close();return;}if($('confirm').open){$('confirm').close();return;}if(!run)return;if(run.phase==='pause')A.resume(run);else if(run.phase==='play'||run.phase==='level')A.pause(run);save();sync();return;}
  if(!run&&(key==='enter')&&e.target===document.body){begin('warden');return;}
  if(run?.phase==='level'&&!e.repeat&&['1','2','3'].includes(key)){e.preventDefault();pick(Number(key)-1);return;}
  if(key==='m'&&!e.repeat){toggleSound();return;}
@@ -421,13 +422,14 @@ canvas.addEventListener('pointerdown',e=>{if(e.button>0||!playing())return;point
 canvas.addEventListener('pointermove',e=>{if(pointer.active)pointerVector(e);});
 canvas.addEventListener('pointerup',()=>{pointer.active=false;});
 canvas.addEventListener('pointercancel',()=>{pointer.active=false;});
+canvas.addEventListener('lostpointercapture',()=>{pointer.active=false;});
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
 const stick=$('stick');
 function moveStick(e){const r=stick.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),m=Math.hypot(dx,dy)||1,limit=42,s=Math.min(limit,m);stickVec.active=true;stickVec.x=(dx/m)*(s/limit);stickVec.y=(dy/m)*(s/limit);$('nub').style.transform=`translate(${dx/m*s}px,${dy/m*s}px)`;}
 stick.addEventListener('pointerdown',e=>{e.preventDefault();if(!playing())return;stickId=e.pointerId;stick.setPointerCapture?.(e.pointerId);moveStick(e);audio.unlock();});
 stick.addEventListener('pointermove',e=>{if(e.pointerId===stickId)moveStick(e);});
 function endStick(e){if(e.pointerId!==stickId)return;stickId=null;stickVec.active=false;$('nub').style.transform='';}
-stick.addEventListener('pointerup',endStick);stick.addEventListener('pointercancel',endStick);
+stick.addEventListener('pointerup',endStick);stick.addEventListener('pointercancel',endStick);stick.addEventListener('lostpointercapture',endStick);
 document.addEventListener('pointerdown',()=>audio.unlock(),{once:true});
 
 load();syncSound();if(blocked)$('recover').hidden=false;sync();document.body.dataset.ready='yes';requestAnimationFrame(frame);

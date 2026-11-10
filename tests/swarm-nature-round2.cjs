@@ -57,3 +57,19 @@ const autumnProbe=`window.test={get state(){return save},get request(){return ga
  const saved=w.localStorage.getItem('lostFound_v1');dom.window.close();dom=boot('lost-found',['inline'],probe,{'lostFound_v1':saved});t=dom.window.test;assert.equal(t.state.requests[0],3);t.state.area=1;t.ui();assert.equal(t.returnOrder().ids[0],5,'each coast has its own three requests');dom.window.close();
  console.log('PASS Lost & Found returns: nine coast-specific requests, exact inventory, premium reward, retained journal, one-time completion and reload.');
 }
+// Concurrent main improvements must coexist with the new objectives after merging.
+{
+ const dom=boot('autumn-drift',['save-store.js','recovery.js','game.js'],autumnProbe),w=dom.window,t=w.test,d=w.document;
+ d.getElementById('start').click();t.chooseGardenRequest('hand');t.collect();d.getElementById('travelBtn').click();const money=t.state.money,clears=t.state.clears;
+ let confirmations=0;w.confirm=()=>{confirmations++;return false};d.getElementById('reseed').click();assert.equal(confirmations,1);assert.equal(t.request.progress,1,'cancelled reseed preserves commission progress');assert.equal(t.state.clears,clears);
+ w.confirm=()=>true;d.getElementById('reseed').click();assert.equal(t.request,null,'accepted fresh garden resets optional commission');assert.equal(t.state.money,money,'reseed preserves earned acorns');assert.equal(t.state.clears,clears+1);dom.window.close();
+}
+{
+ const dom=boot('little-lake',['progression.js','research.js','inline'],`window.test={get keys(){return keys},get held(){return held},hold(){held=true}};`),w=dom.window,t=w.test,b=w.document.querySelector('[data-key="d"]');let captured=null;
+ b.setPointerCapture=id=>captured=id;b.onpointerdown({preventDefault(){},pointerId:42});assert.equal(captured,42,'movement captures its active pointer');assert(t.keys.d);t.hold();w.dispatchEvent(new w.Event('pointercancel'));assert.equal(Object.keys(t.keys).length,0);assert(!t.held,'pointer cancellation clears movement and reeling');assert(w.LakeResearch,'research module remains loaded');dom.window.close();
+}
+{
+ const dom=boot('lost-found',['inline'],`window.test={state,closeTitle,ui};`),w=dom.window,t=w.test;t.closeTitle();t.state.bag=[0,1];t.state.found=[0,1];t.ui();
+ w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'r',repeat:true}));assert.equal(t.state.bag.length,2,'held sell key does not repeat');w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'r'}));assert.equal(t.state.bag.length,0);assert.equal(t.state.money,17);assert.deepEqual(Array.from(t.state.found),[0,1],'R-to-sell keeps journal discoveries');assert(w.document.getElementById('pinpointBtn'));assert(w.document.getElementById('returnsPanel'));dom.window.close();
+}
+console.log('PASS concurrent nature integration: reseed confirmation protects commissions, captured/cancelled Lake input retains research, R sells with pinpoint/returns intact.');

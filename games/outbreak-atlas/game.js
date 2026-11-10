@@ -82,6 +82,7 @@ function showEnd(){
 }
 function refresh(){
   if(!state)return;
+  const focusId=document.activeElement?.id,focusUpgrade=document.activeElement?.dataset?.upgrade;
   const land=Outbreak.landById(selected),cell=state.lands[selected];
   $('month').textContent=String(state.month);
   $('talk').textContent=Math.round(state.talk*100)+'%';
@@ -96,7 +97,9 @@ function refresh(){
   const buttons=$('landButtons');buttons.replaceChildren();
   Outbreak.LANDS.forEach(item=>{
     const button=document.createElement('button');
-    button.type='button';button.textContent=item.name;
+    button.type='button';button.id='land-'+item.id;
+    const data=state.lands[item.id];
+    button.textContent=item.name+' · '+Math.round(data.mark*100)+'%'+(data.established?' ✓':'');
     button.setAttribute('aria-pressed',String(item.id===selected));
     button.onclick=()=>{selected=item.id;refresh();};
     buttons.append(button);
@@ -104,6 +107,8 @@ function refresh(){
   const look=$('outlook');look.replaceChildren();
   Outbreak.forecast(state).lines.forEach(line=>{const li=document.createElement('li');li.textContent=line;look.append(li);});
   renderTree();
+  if(focusUpgrade)document.querySelector('[data-upgrade="'+focusUpgrade+'"]')?.focus();
+  else if(focusId)$(focusId)?.focus();
 }
 const LAYOUT={
   tide:[['footpaths','carts','season','echo'],['harbors','ferries'],['sky','tailwinds']],
@@ -393,7 +398,8 @@ function bind(){
     if((event.key==='n'||event.key==='N')&&!event.repeat)stepOnce();
     if(event.key==='Escape'){$('help').hidden=true;$('end').hidden=true;}
   });
-  setInterval(()=>{if(playing)stepOnce();},900);
+  setInterval(()=>{if(playing && !document.hidden && $('title').hidden && $('help').hidden && $('growth').hidden)stepOnce();},900);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;$('play').setAttribute('aria-pressed','false');$('play').textContent='Watch';persist();}});
   addEventListener('resize',resize);resize();
   requestAnimationFrame(paint);
 }

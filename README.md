@@ -1,6 +1,6 @@
-# Study Desk — 23 games
+# Study Desk — 28 games
 
-The current catalogue contains 23 bundled games. The 10 November 2026 update improves all 19 existing games and adds Prism Post and Orbit Orchard. A second pass adds Tidal Switch and Ember Keeper, new optional challenges and strategic choices across the existing collection. The earlier catalogue trim and retired games remain in git history.
+The current catalogue contains 28 bundled games. The 10 November 2026 update improves all 19 existing games and adds Prism Post and Orbit Orchard. A second pass adds Tidal Switch and Ember Keeper, new optional challenges and strategic choices across the existing collection. The concurrent main release also adds Orbital Drop, Lanebound, Chaos Court, Pocket Golf and Corebreaker; both sets of improvements are retained. See [its release report](docs/swarm-release-2026-11-10.md). The earlier catalogue trim and retired games remain in git history.
 
 ## Collection update — 10 November 2026
 
@@ -32,7 +32,7 @@ Press P three times within one second, to move between study and games. The firs
 
 The current iframe stays loaded when switching to study or the collection. Opening a different game unloads the previous one, so use that game's save feature first. The bridge pauses animation frames, timers and tracked audio, releases held keys, requests exit from pointer lock/fullscreen, and freezes its simulation clock to prevent a large resume jump. Some games may additionally open their own pause menu after losing focus. Browser audio autoplay rules can require a click to resume sound. Workers, networking and third-party simulation clocks are not guaranteed to pause; this is not a multiplayer suspension system.
 
-All 23 catalogue games are bundled and include the Study Desk bridge.
+All 28 catalogue games are bundled and include the Study Desk bridge.
 
 ## Arcade
 

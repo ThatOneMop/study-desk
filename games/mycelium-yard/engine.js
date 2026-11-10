@@ -72,4 +72,16 @@ function decode(raw){
  return JSON.parse(JSON.stringify(s));
 }
 function forecast(s){if(s.ended)return [];const next=act(s,{type:'night'});return s.beds.map((b,i)=>{const n=next.beds[i];if(b.kind<0)return 'Empty';if(n.kind<0)return b.rot+(b.water+WEATHER[s.day]>3&&!s.drained?.[i]?1:0)>=2?'Lost to rot':'Spoils tonight';const messages=[];if(n.rot>b.rot)messages.push('Gains rot');if(n.growth>b.growth)messages.push(n.growth===CROPS[n.kind].time?'Ready tomorrow':'Grows to '+n.growth+'/'+CROPS[n.kind].time);else if(b.growth<CROPS[b.kind].time)messages.push('Too dry to grow');else messages.push('Ripe '+n.ripe+'/3 evenings');messages.push('Water '+n.water);return messages.join(' · ')})}
-return{KEY,CROPS,WEATHER,GOALS,BUYERS,create,act,decode,forecast};});
+function outlook(s) {
+ if(s.ended)return 'Market finished. Replay for another buyer badge or a higher sales record.';
+ const ready=s.beds.filter(b=>b.kind>=0&&b.growth===CROPS[b.kind].time);
+ const spoiling=ready.filter(b=>b.ripe>=2).length;
+ const danger=s.beds.filter((b,i)=>b.kind>=0&&!s.drained?.[i]&&b.water+WEATHER[s.day]>3).length;
+ if(spoiling)return spoiling+' ripe bed'+(spoiling===1?'':'s')+' will spoil tonight. Harvest before ending the day.';
+ if(danger)return danger+' bed'+(danger===1?'':'s')+' will gain rot tonight. Harvest or vent first.';
+ if(ready.length)return ready.length+' bed'+(ready.length===1?' is':'s are')+' ready to sell. Harvest while fresh for the best price.';
+ if(s.day===9)return 'Last morning: harvest ready crops before the market closes. New seeds cannot mature in time.';
+ if(!s.jobs)return 'All jobs used. End the day to grow crops and restore three jobs.';
+ return 'Moisture forecast is safe tonight. '+s.jobs+' job'+(s.jobs===1?'':'s')+' available before evening.';
+}
+return{KEY,CROPS,WEATHER,GOALS,BUYERS,create,act,decode,forecast,outlook};});

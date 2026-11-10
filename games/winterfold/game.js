@@ -33,18 +33,20 @@
   let noted = '';
   let auditedStop = null;
   let auditMessage = '';
+  let saveBlocked = false;
 
   function load() {
     try {
       const raw = localStorage.getItem(E.SAVE_KEY);
       if (!raw) return;
       const decoded = E.decode(raw);
-      if (!decoded.ok) { $('hint').textContent = 'The saved hill could not be read. It is still stored.'; return; }
+      if (!decoded.ok) { saveBlocked = true; $('hint').textContent = 'The saved hill could not be read. It is still stored.'; return; }
       meta = decoded.meta;
       if (decoded.run && decoded.run.phase !== 'over') run = decoded.run;
-    } catch (err) { $('hint').textContent = 'The saved hill could not be read.'; }
+    } catch (err) { saveBlocked = true; $('hint').textContent = 'The saved hill could not be read. It is preserved; this session is temporary.'; }
   }
   function save() {
+    if (saveBlocked) { toast('Original save preserved. This hill is temporary until you clear the save in Settings.'); return; }
     try { localStorage.setItem(E.SAVE_KEY, E.encode({ meta, run })); }
     catch (err) { toast('Could not save on this device.'); }
   }
@@ -269,6 +271,7 @@
     canvas.setPointerCapture(ev.pointerId);
     const w = pointerWorld(ev);
     pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY, wx: w.x, wy: w.y });
+    if (pointers.size > 1) drawing = null; // A two-finger pan must never spend a route token.
     if (pointers.size === 1 && hand !== 'move') {
       drawing = { pts: [w], cut: tool === 'cut' };
       if (tool === 'cannon' && hand === 'draw') apply(E.placeCannon(run, w.x, w.y));
@@ -305,8 +308,9 @@
     pointers.set(ev.pointerId, prev);
   });
   function endPointer(ev) {
-    const active = pointers.get(ev.pointerId);
+    if (!pointers.has(ev.pointerId)) return;
     pointers.delete(ev.pointerId);
+    if (ev.type !== 'pointerup') { drawing = null; refresh(); return; }
     if (!drawing || pointers.size) return;
     const pts = drawing.pts;
     drawing = null;
@@ -317,6 +321,9 @@
   }
   canvas.addEventListener('pointerup', endPointer);
   canvas.addEventListener('pointercancel', endPointer);
+  canvas.addEventListener('lostpointercapture', endPointer);
+  window.addEventListener('blur', () => { pointers.clear(); drawing = null; if (run?.phase === 'play') { setSpeed(0); save(); } });
+  window.addEventListener('pagehide', save);
   canvas.addEventListener('wheel', ev => {
     if (!run) return;
     ev.preventDefault();
@@ -411,7 +418,9 @@
   $('closeSettings').onclick = () => hide('settingsDlg');
   $('soundToggle').onchange = () => { meta.sound = $('soundToggle').checked; audio.setEnabled(meta.sound); save(); };
   $('wipe').onclick = () => {
-    localStorage.removeItem(E.SAVE_KEY);
+    if (!confirm('Clear Winterfold progress and medals? This cannot be undone.')) return;
+    try { localStorage.removeItem(E.SAVE_KEY); } catch { toast('Storage unavailable. Save was not cleared.'); return; }
+    saveBlocked = false;
     meta = E.createMeta();
     run = null;
     hide('settingsDlg');
@@ -439,7 +448,7 @@
   function loop(now) {
     const dt = Math.min(0.05, (now - last) / 1000 || 0);
     last = now;
-    if (run && run.phase === 'play') {
+    if (run && run.phase === 'play' && !document.hidden && !document.querySelector('dialog[open]') && !window.StudyBridge?.paused) {
       const before = run.day;
       E.tick(run, dt);
       if (run.phase === 'play' && run.day !== before) save();

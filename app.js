@@ -99,8 +99,9 @@ function drawGames(){
  if(!drawGames.hero){drawGames.hero=true;renderHero()}
  const sessionFocused=sessionReturn.contains(document.activeElement),active=games.find(g=>g.id===playing);sessionReturn.replaceChildren();sessionReturn.hidden=!active;if(active){const back=button('Return to '+active.title+' →',()=>play(active));sessionReturn.append(el('span','Your current session stays open while you browse.'),back);if(sessionFocused)back.focus()}
  drawFilters();$('gameCount').textContent=games.length+' games';$('includedCount').textContent=games.filter(g=>g.type!=='external').length+' games included here';const grid=$('games');grid.replaceChildren();const term=$('search').value.trim().toLowerCase(),genre=$('genre').value;
- let list=games.filter(g=>term.split(/\s+/).every(word=>(g.title+' '+g.description+' '+g.genre+' '+g.group+' '+(g.aliases||[]).join(' ')).toLowerCase().includes(word))&&(genre==='all'||g.genre===genre)&&tagMatch(g)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
+ let list=games.filter(g=>term.split(/\s+/).every(word=>(g.title+' '+g.description+' '+g.genre+' '+g.group+' '+(g.aliases||[]).join(' ')+' '+gameTagList(g).join(' ')).toLowerCase().includes(word))&&(genre==='all'||g.genre===genre)&&tagMatch(g)&&(filter==='All'||g.group===filter||(filter==='Favourites'&&hub.favourites.includes(g.id))||(filter==='Recently played'&&hub.recent.includes(g.id))));
  layoutStore();
+ if($('sortGames').value==='newest')list.sort((a,b)=>catalogDate(b,'added')-catalogDate(a,'added')||catalogDate(b,'updated')-catalogDate(a,'updated')||a.title.localeCompare(b.title));
  if($('sortGames').value==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
  if(filter==='Recently played'||$('sortGames').value==='recent')list.sort((a,b)=>(hub.recent.includes(a.id)?hub.recent.indexOf(a.id):Infinity)-(hub.recent.includes(b.id)?hub.recent.indexOf(b.id):Infinity));$('resultsCount').textContent=list.length+' shown';
  if(!list.length){const empty=el('div',undefined,'empty'),arcadeOff=tag==='Arcade'&&!games.some(g=>g.type==='arcade');empty.append(el('p',filter==='Favourites'?'No favourites match these filters. Use a star on a game to save it here.':filter==='Recently played'?'No recently played games match these filters.':arcadeOff?'Arcade is empty right now. Bundled games are still in All.':'No games match these filters.'),button('Clear filters',()=>{$('search').value='';$('genre').value='all';filter='All';tag='All';drawGames();$('search').focus()}));grid.append(empty);return}
@@ -262,7 +263,9 @@ function reviewSaveImport(changes){
   openModal(dialog);try{cancel.focus()}catch{}
  });
 }
-function gameTagList(g){return [g.type==='external'?'Official site':g.type==='arcade'?'Arcade':'Bundled',g.internet?'Needs internet':'Offline']}
+function catalogDate(game,field){const value=game[field];return typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)?Date.parse(value)||0:0}
+function isLocalTwoPlayer(g){return g.localMultiplayer===true||(Array.isArray(g.tags)&&g.tags.includes('Local two-player'))||/\blocal\b.*\b(?:two[ -]player|2[ -]player|multiplayer|co-op)\b|\b(?:two[ -]player|2[ -]player)\b.*\blocal\b/i.test(g.multiplayer||'')}
+function gameTagList(g){return [g.type==='external'?'Official site':g.type==='arcade'?'Arcade':'Bundled',g.internet?'Needs internet':'Offline',...(isLocalTwoPlayer(g)?['Local two-player']:[])]}
 function tagMatch(g){return tag==='All'||gameTagList(g).includes(tag)}
 function storefrontHome(){return filter==='All'&&$('genre').value==='all'&&tag==='All'&&!$('search').value.trim()}
 function reduceMotion(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch{return false}}
@@ -343,11 +346,15 @@ function layoutStore(){
  const home=storefrontHome();
  if($('heroCarousel'))$('heroCarousel').hidden=!home;
  if($('arcadeMonday'))$('arcadeMonday').hidden=!home||$('arcadeMonday').dataset.ready!=='true';
- if(!home){for(const id of ['continuePlaying','trendingRow','newRow','favouriteShelf','arcadeShelf'])if($(id))$(id).hidden=true;syncChips();syncHeroMotion();return}
+ if(!home){for(const id of ['continuePlaying','trendingRow','newRow','improvedRow','favouriteShelf','arcadeShelf'])if($(id))$(id).hidden=true;syncChips();syncHeroMotion();return}
  const byId=id=>games.find(game=>game.id===id);
  fillShelf($('continuePlaying'),$('continueRow'),hub.recent.map(byId).filter(Boolean).slice(0,12),'Continue playing');
  fillShelf($('trendingRow'),$('trendingCards'),Object.entries(hub.plays).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(([id])=>byId(id)).filter(Boolean).slice(0,12),'Trending');
- fillShelf($('newRow'),$('newCards'),games.filter(g=>g.updated).sort((a,b)=>String(b.added||'').localeCompare(String(a.added||''))||b.updated.localeCompare(a.updated)||a.title.localeCompare(b.title)).slice(0,8),'Recently improved');
+ const added=games.filter(g=>catalogDate(g,'added')).sort((a,b)=>catalogDate(b,'added')-catalogDate(a,'added')||a.title.localeCompare(b.title));
+ const newestDate=added.length?catalogDate(added[0],'added'):0;
+ fillShelf($('newRow'),$('newCards'),added.filter(g=>catalogDate(g,'added')===newestDate).slice(0,12),'New on the desk:');
+ const improved=games.filter(g=>catalogDate(g,'updated')>catalogDate(g,'added')).sort((a,b)=>catalogDate(b,'updated')-catalogDate(a,'updated')||a.title.localeCompare(b.title));
+ fillShelf($('improvedRow'),$('improvedCards'),improved.slice(0,12),'Recently improved:');
  fillShelf($('arcadeShelf'),$('arcadeRow'),games.filter(g=>g.group==='Arcade'),'Arcade:');
  fillShelf($('favouriteShelf'),$('favouriteRow'),hub.favourites.map(byId).filter(Boolean).slice(0,12),'Favourite');
  const opened=Object.values(hub.plays).reduce((sum,n)=>sum+n,0);
@@ -367,7 +374,7 @@ function buildGenreChips(){
 }
 function buildTagChips(){
  const row=$('tagFilters');if(!row)return;row.replaceChildren();
- for(const name of ['All','Bundled','Arcade','Offline','Needs internet']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
+ for(const name of ['All','Bundled','Arcade','Offline','Needs internet','Local two-player']){const chip=button(name,()=>{tag=name;drawGames()});chip.dataset.tag=name;row.append(chip)}
 }
 const THEME_KEY='study-desk-theme',SOUND_KEY='study-desk-sound';
 function applyTheme(theme){

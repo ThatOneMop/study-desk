@@ -100,8 +100,13 @@ const mainland = O.LANDS.filter(land => land.kind !== 'isle').map(land => land.i
   const saved = JSON.parse(w.localStorage.getItem('outbreak-atlas-v1'));
   assert.equal(saved.version, 1);
   w.document.getElementById('next').click();
+  const landButton = w.document.getElementById('land-hearthlow');
+  assert.match(landButton.textContent, /Hearthlow.*%/);
+  landButton.focus();
+  w.document.getElementById('next').click();
+  assert.equal(w.document.activeElement.id, 'land-hearthlow', 'monthly refresh retains keyboard focus');
   const after = JSON.parse(w.localStorage.getItem('outbreak-atlas-v1'));
-  assert.equal(after.month, 1);
+  assert.equal(after.month, 2);
   assert.equal(after.lands.lantern.mark, 0);
   w.close();
 }

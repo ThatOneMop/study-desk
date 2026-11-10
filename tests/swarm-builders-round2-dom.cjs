@@ -111,6 +111,13 @@ function game(id, scripts) {
   assert.match(g.$('status').textContent, /ring is growing/);
   g.$('auditBtn').click();
   assert.match(g.$('status').textContent, /Link a highlighted matching house/);
+  const roads = r.segs.length;
+  w.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'z', ctrlKey: true, bubbles: true, cancelable: true }));
+  assert.equal(r.segs.length, 0, 'intentional Ctrl+Z still undoes roads');
+  w.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Z', ctrlKey: true, shiftKey: true, bubbles: true, cancelable: true }));
+  assert.equal(r.segs.length, roads, 'Ctrl+Shift+Z restores roads');
+  w.dispatchEvent(new w.KeyboardEvent('keydown', { key: ' ', code: 'Space', ctrlKey: true, bubbles: true, cancelable: true }));
+  assert.equal(w.Lanewright.speed, 0, 'other browser modifier shortcuts cannot change the clock');
   g.close();
   console.log('PASS Lanewright detects missing service, prioritises rings, pauses and cycles actionable shop inspections');
 }

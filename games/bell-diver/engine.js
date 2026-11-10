@@ -16,16 +16,18 @@ function act(s,a){if(!a)return null;if(s.won){if(a.type!=='retry')return null;re
  else if(a.type==='retry'){n.pos=2;n.air=maxAir(n);n.cargo=[];n.usedAir=[];}
  else return null;return n;
 }
-// Least-air route to the bell with the current load. Pockets are deliberately
-// excluded: this is a conservative direct-return budget, not a rescue promise.
+// Minimum swim-air route home at the current bag weight. Air-pocket refills
+// are deliberately excluded so the estimate never promises an unsafe return.
 function returnRoute(s){
- const dist=Array(35).fill(Infinity),paths=Array(35),done=new Set(),rocks=layouts[s.level].rocks;
- dist[s.pos]=0;paths[s.pos]=[];
- while(done.size<35){let p=-1;for(let i=0;i<35;i++)if(!done.has(i)&&Number.isFinite(dist[i])&&(p<0||dist[i]<dist[p]))p=i;
-  if(p<0)break;if(p===2)return {air:dist[p],path:paths[p],safe:s.air>=dist[p]};done.add(p);
-  for(const [dir,d]of Object.entries(DIRS)){const n=p+d;if(n<0||n>=35||!adjacent(p,n)||rocks.includes(n))continue;const air=dist[p]+cost(s,dir);if(air<dist[n]){dist[n]=air;paths[n]=[...paths[p],{pos:n,dir}]}}
+ const map=layouts[s.level],dist=Array(35).fill(Infinity),paths=Array(35);dist[s.pos]=0;paths[s.pos]=[];
+ const open=new Set([s.pos]);
+ while(open.size){const p=[...open].sort((a,b)=>dist[a]-dist[b])[0];open.delete(p);
+  if(p===2)return {air:dist[p],path:paths[p],safe:s.air>=dist[p]};
+  for(const [dir,delta] of Object.entries(DIRS)){const q=p+delta;if(q<0||q>=35||!adjacent(p,q)||map.rocks.includes(q))continue;
+   const d=dist[p]+cost(s,dir);if(d<dist[q]){dist[q]=d;paths[q]=[...paths[p],q];open.add(q)}
+  }
  }
- return null;
+ return {air:Infinity,path:[],safe:false};
 }
 function decode(raw){const s=JSON.parse(raw),int=(v,a,b)=>Number.isSafeInteger(v)&&v>=a&&v<=b,unique=(v,a,b)=>Array.isArray(v)&&new Set(v).size===v.length&&v.every(x=>int(x,a,b));
  if(s?.v===1){s.v=2;s.charter=-1;s.badges=[]}

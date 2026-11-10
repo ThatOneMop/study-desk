@@ -33,7 +33,7 @@ Both games work offline after loading their local assets and include the Study D
 | Bell Diver | Least-air return route, return-air budget and low-air warning. |
 | Outbreak Atlas | Seeded next-month upgrade comparisons before spending points. |
 
-The collection's recently improved shelf now uses catalogue dates, prioritizes new additions and shows up to eight games.
+The final collection uses catalogue dates for separate new and recently improved shelves, with no duplicate entries between those shelves.
 
 ## Verification
 
@@ -74,3 +74,11 @@ The follow-up expands the collection to 23 games. **Tidal Switch** has six mail-
 | Orbit Orchard | Timed harvest pulse widens the basket and wards thorns, with a six-second recharge. |
 
 New `swarm-*-round2*.cjs` tests cover the added choices, migration, rewards and UI behavior. `tools/test-engines.py` runs all non-browser Node test scripts, and the existing Pages workflow now runs verification on pull requests and before publication. All 58 engine/DOM scripts passed, including a rerun after correcting a floating-point boundary in the random-selection test. Asset/catalogue checks, Arcade parity, workflow YAML and 72 changed/new script syntax checks passed. This second pass did not run browser tests because the supported managed preview tool remains unavailable.
+
+## Reconciliation with the concurrent main release
+
+Main received a separate 19-to-24-game release while this branch was in development. This branch merges that release and retains its five games: Orbital Drop, Lanebound, Chaos Court, Pocket Golf and Corebreaker. The combined catalogue has **28 games**. That release's notes remain in `docs/swarm-release-2026-11-10.md`.
+
+Conflicts were reconciled per game, preserving both sets of changes. This includes reset isolation in Harvest Protocol and Packworks, save recovery and timing fixes in the builders, curfew cues in Gummy Bay, input cancellation and pause behavior, and the local two-player filter and newest sorting. Bell Diver uses one numeric-cell return-route API for both the full trail and next-step highlight. New regression coverage checks cross-feature behavior, stale controls in the merged games, and Corebreaker's upgrade keyboard focus.
+
+Final asset checks cover all 28 routes and 127 HTML asset references, with no missing references. All 75 combined engine/DOM test scripts passed, including both releases’ regression suites and the merge-specific input/focus checks. Merged JavaScript syntax and whitespace checks passed. This reconciliation did not run browser tests.
