@@ -9,7 +9,7 @@ const save='{"example":"retired save kept"}';w.localStorage.setItem('retired-gam
 w.eval(fs.readFileSync(root+'/catalog.js','utf8'));w.eval(fs.readFileSync(root+'/app.js','utf8'));
 (async()=>{await unlockShell(w);
 assert.deepEqual(JSON.parse(JSON.stringify(w.GAME_CATALOG)),catalog);
-const KEEP=["ashwake", "autumn-drift", "basket-chaos", "bell-diver", "chaos-court", "corebreaker", "creekhold", "demolition-yard", "forge-arena", "gummy-bay", "harvest-protocol", "lanebound", "lanefall", "lanewright", "little-lake", "lost-found", "moon-salvage", "mycelium-yard", "numberworks", "orbital-drop", "orbital-surveyor", "outbreak-atlas", "packworks", "pegworks", "pocket-golf", "pocket-golf-nine", "roof-runner", "soccer-chaos", "spanwright", "tiny-wilds", "volley-chaos", "winterfold", "loadline", "deep-shift", "downhole", "gleam-leap"].sort();
+const KEEP=["ashwake", "autumn-drift", "basket-chaos", "bell-diver", "chaos-court", "corebreaker", "creekhold", "deep-shift", "demolition-yard", "downhole", "forge-arena", "gleam-leap", "gummy-bay", "harvest-protocol", "lanebound", "lanefall", "lanewright", "little-lake", "loadline", "loop-circuit", "lost-found", "moon-salvage", "mycelium-yard", "numberworks", "orbital-drop", "orbital-surveyor", "outbreak-atlas", "packworks", "pegworks", "pocket-golf", "pocket-golf-nine", "roof-runner", "soccer-chaos", "spanwright", "tiny-wilds", "volley-chaos", "winterfold"].sort();
 const arcade=catalog.filter(g=>g.type==='arcade'||g.source==='GameMonetize'||g.source==='GameDistribution');
 assert.equal(arcade.length,0,'Arcade providers are not in the public catalogue');
 assert(!JSON.stringify(catalog).match(/gamemonetize|gamedistribution/i),'public catalogue has no provider hosts');
