@@ -1,5 +1,6 @@
-// Disabling regression: GameMonetize cannot be reached from search, filters, random, or play,
-// and a direct wrapper page does not request GameMonetize embeds or covers.
+// Disabling regression: when the GameMonetize switch is off, games cannot be reached from
+// search, filters, random, or play, and a direct wrapper page does not request embeds or covers.
+// This suite injects the off config so the committed default can stay on.
 const {JSDOM}=require('jsdom'),fs=require('fs'),assert=require('node:assert/strict'),path=require('path');
 const {unlockShell}=require('./gate-fixture.cjs');
 const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
@@ -26,7 +27,7 @@ function boot(extra={}){
   };
   if(extra.storage)for(const [key,value] of Object.entries(extra.storage))w.localStorage.setItem(key,value);
   w.eval(read('catalog.js'));
-  w.eval(read('arcade-config.js'));
+  w.eval(`window.ARCADE_CONFIG=${JSON.stringify(extra.config||{gmEnabled:false,gdEnabled:false,gdPublisherId:''})}`);
   w.eval(read('arcade/gamemonetize.js'));
   w.eval(read('arcade/gamedistribution.js'));
   w.eval(read('app.js'));
@@ -41,7 +42,7 @@ function shown(d){return [...d.querySelectorAll('#games .game h3, #arcadeRow .ca
 const g=boot({storage:{'after-class-hub-v1':JSON.stringify({favourites:['buggy-blast','creekhold'],recent:['panda-run','autumn-drift'],plays:{'buggy-blast':4,'little-lake':2}})}});
 await g.ready;
 const {w,d,$,gm,gd}=g;
-assert.equal(w.ARCADE_CONFIG.gmEnabled,false);
+assert.equal(w.ARCADE_CONFIG.gmEnabled,false,'this suite forces the off switch');
 assert.equal(w.ARCADE_CONFIG.gdEnabled,false);
 const bundled=w.GAME_CATALOG.filter(game=>game.type==='bundled');
 assert.equal(bundled.length,36);
@@ -115,5 +116,5 @@ assert.equal(enabled.doc.querySelector('iframe').src,gm[0].embed,'the switch sti
 const gdPage=openPage(gd[0].id,{gmEnabled:false,gdEnabled:false,gdPublisherId:''});
 assert.equal(gdPage.doc.querySelectorAll('iframe').length,0,'GameDistribution stays off');
 assert(!HOST.test(gdPage.doc.body.innerHTML));
-console.log('PASS arcade disabled: 23 GameMonetize games absent from search, filters, random and play; no embed or cover request by default');
+console.log('PASS arcade disabled: when the switch is off, 23 GameMonetize games are absent from search, filters, random and play; no embed or cover request');
 })().catch(error=>{console.error(error);process.exit(1)});

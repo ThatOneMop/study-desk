@@ -34,7 +34,7 @@ class Parser(HTMLParser):
 
 
 catalog = json.loads((ROOT / "catalog.json").read_text())
-# GameMonetize stays prepared beside the catalogue, not in the public list, while gmEnabled is false.
+# GameMonetize stays in arcade/gamemonetize.js, not in the public catalogue file. The live list uses gmEnabled.
 prepared = json.loads((ROOT / "arcade" / "gamemonetize.js").read_text().split("window.ARCADE_GM_CATALOG = ", 1)[1].strip().rstrip(";"))
 own = catalog
 ids = [entry["id"] for entry in catalog]
@@ -44,7 +44,7 @@ assert len(catalog) == len(KEEP)
 assert not any(entry.get("type") == "arcade" or entry.get("source") in {"GameMonetize", "GameDistribution"} for entry in catalog)
 assert "gamemonetize" not in (ROOT / "catalog.js").read_text().lower()
 config = (ROOT / "arcade-config.js").read_text()
-assert "gmEnabled: false" in config and "gdEnabled: false" in config
+assert "gmEnabled: true" in config and "gdEnabled: false" in config
 assert len(prepared) == 23, len(prepared)
 
 js = (ROOT / "catalog.js").read_text()
@@ -106,4 +106,4 @@ for path in ("app.js", "bridge.js", "catalog.js", "arcade-config.js", "arcade/ga
     result = subprocess.run(["node", "--check", str(ROOT / path)], capture_output=True)
     assert result.returncode == 0, result.stderr.decode()
 
-print(f"PASS kept catalogue integrity: {len(KEEP)} bundled routes, {len(prepared)} GameMonetize games prepared but not public, bridge, credits, catalog.js/json match, no removed folders or links")
+print(f"PASS kept catalogue integrity: {len(KEEP)} bundled routes, {len(prepared)} GameMonetize games enabled beside the public catalogue, bridge, credits, catalog.js/json match, no removed folders or links")

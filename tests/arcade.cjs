@@ -10,7 +10,7 @@ const gm=JSON.parse(JSON.stringify(sandbox.ARCADE_GM_CATALOG));
 const gd=JSON.parse(JSON.stringify(sandbox.ARCADE_GD_CATALOG));
 assert.equal(gm.length,23,'23 GameMonetize games stay prepared');
 assert.equal(gd.length,45,'45 GameDistribution games are prepared');
-assert.deepEqual({...sandbox.ARCADE_CONFIG},{gmEnabled:false,gdEnabled:false,gdPublisherId:''},'both Arcade providers are switched off by default');
+assert.deepEqual({...sandbox.ARCADE_CONFIG},{gmEnabled:true,gdEnabled:false,gdPublisherId:''},'GameMonetize is on by default; GameDistribution stays off');
 assert(gm.every(g=>g.source==='GameMonetize'&&g.embed.startsWith('https://html5.gamemonetize.co/')&&g.url===`arcade/${g.id}/index.html`));
 assert(gd.every(g=>g.id.startsWith('gd-')&&g.source==='GameDistribution'&&/^[0-9a-f]{32}$/.test(g.gdGameId)&&g.url===`arcade/${g.id}/index.html`));
 assert(!catalog.some(g=>g.source==='GameMonetize'||g.source==='GameDistribution'||g.type==='arcade'),'no provider game in the public catalogue');
@@ -30,6 +30,13 @@ let w=await hub(OFF);
 assert(![...w.document.getElementById('filters').children].some(b=>b.textContent==='Arcade'),'no Arcade filter while both providers are off');
 for(const g of gm.concat(gd))assert(!titles(w).includes(g.title),g.title+' must be hidden');
 assert.equal(w.document.getElementById('arcadeShelf').hidden,true,'empty Arcade shelf stays hidden');
+
+w=await hub(sandbox.ARCADE_CONFIG);
+assert.equal(w.document.getElementById('arcadeShelf').hidden,false,'Arcade shelf is visible when GameMonetize is on');
+assert.equal(w.document.getElementById('arcadeRow').querySelectorAll('.capsule').length,gm.length,'Arcade shelf lists every GameMonetize game');
+const defaultGm=filterTitles(w,'Arcade');
+assert.deepEqual(defaultGm.sort(),gm.map(g=>g.title).sort(),'committed config publishes the GameMonetize games');
+assert(gd.every(g=>!titles(w).includes(g.title)),'committed config does not enable GameDistribution');
 
 w=await hub({gmEnabled:'true',gdEnabled:false,gdPublisherId:''});
 assert(!titles(w).some(title=>gm.some(g=>g.title===title)),'a non-boolean gmEnabled does not publish GameMonetize');
@@ -71,6 +78,6 @@ assert(gdOn&&gdOn.src.startsWith(`https://html5.gamedistribution.com/${gd[0].gdG
 const credits=read('credits.html');
 assert(credits.includes('id="arcade-gamemonetize"'));assert(credits.includes('id="arcade-gamedistribution"'));
 assert(!gm.some(g=>credits.includes(`id="arcade-${g.id}"`)),'hidden GameMonetize games are not separate live credit sections');
-console.log(`PASS arcade: ${gm.length} GameMonetize and ${gd.length} GameDistribution games hidden until their own switches; public catalogue unchanged`);
+console.log(`PASS arcade: default config shows ${gm.length} GameMonetize games, hides ${gd.length} GameDistribution games; public catalogue file unchanged`);
 process.exit(0);
 })().catch(error=>{console.error(error);process.exit(1)});
