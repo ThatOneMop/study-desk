@@ -155,6 +155,36 @@ assert.ok(home.len < 200, 'second summit is one slope card away');
 assert.equal(E.previewLift(copper, cSu, su2, 'chair').ok, true);
 assert.match(E.morningBrief(copper), /summit/);
 
+// Guests pay a ticket each lift ride; lodges bring more of them; every morning
+// closes with a report card; the weather is announced per day.
+const econ = E.startRun(E.createMeta(), 'lark', 'run');
+const eSt = econ.pois.find(p => p.id === 'st');
+const eSu = econ.pois.find(p => p.id === 'su');
+assert.equal(E.commitStroke(econ, stroke(eSu, eSt)).ok, true);
+assert.equal(E.commitLift(econ, eSt, eSu, 'chair').ok, true);
+assert(Array.isArray(econ.weather));
+const baseDemand = econ.schedule.length;
+econ.money = 1000;
+assert.equal(E.buyLodge(econ).ok, true);
+assert.equal(econ.lodges.length, 1);
+assert(econ.schedule.length > baseDemand, 'a lodge brings more guests');
+assert.equal(E.buyLift(econ).ok, true);
+assert.equal(econ.resources.lift, 4);
+assert.equal(E.tuneLifts(econ).ok, true);
+assert.equal(E.buyLodge(econ).ok, true);
+assert.equal(econ.lodges.length, 2);
+playDay(econ);
+assert.equal(econ.phase, 'dawn', econ.reason);
+assert(econ.income > 0, 'guests paid tickets');
+assert(econ.trips > 0, 'guests rode the lifts');
+assert.equal(econ.reports.length, 1);
+assert.equal(econ.reports[0].day, 1);
+assert(typeof econ.reports[0].income === 'number');
+assert(typeof E.happiness(econ) === 'number');
+assert(['snow', 'aurora', 'clear'].includes(E.weatherKind(econ)));
+assert.equal(typeof E.iceAt(econ, 500, 400), 'boolean');
+assert.equal(typeof E.incomeMul(econ), 'number');
+
 const oldSave = JSON.stringify({
   version: 1, id: 'winterfold', title: 'Winterfold',
   meta: { version: 1, sound: true, tutorial: true, seen: true, best: { lark: { score: 40, days: 2, closed: 1 } }, medals: {}, board: [], cleared: { lark: 2 } },
