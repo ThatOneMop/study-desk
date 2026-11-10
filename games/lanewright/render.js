@@ -15,6 +15,7 @@
     let chains = [];
     const headings = new Map();
     const pops = new Map();
+    const trails = new Map();
 
     function resize() {
       dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -275,6 +276,27 @@
         ctx.beginPath();
         ctx.arc(-z * 0.1, -z * 0.08, z * 0.11, 0, 7);
         ctx.fill();
+        // Queue dots: one per car still waiting at home. Red when the colour
+        // has no reachable shop, so unmet demand is visible before it fails.
+        const waiting = (opt.idleByHouse && opt.idleByHouse.get(b.id)) || 0;
+        const bad = opt.unserved && opt.unserved.has(b.id);
+        if (waiting > 0) {
+          const dr = Math.max(2.4, z * 0.1);
+          const span = dr * 1.35;
+          const startX = -(waiting - 1) * span / 2;
+          for (let i = 0; i < waiting; i++) {
+            const pulse = bad && !opt.motion ? 0.55 + 0.45 * Math.sin(now / 150 + i) : 1;
+            ctx.fillStyle = bad ? 'rgba(206,60,48,' + pulse + ')' : 'rgba(255,255,255,0.95)';
+            ctx.beginPath();
+            ctx.arc(startX + i * span, z * 0.62, dr, 0, 7);
+            ctx.fill();
+            if (bad) {
+              ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+              ctx.lineWidth = Math.max(1, z * 0.02);
+              ctx.stroke();
+            }
+          }
+        }
       } else {
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(-z * 0.2, -z * 0.2, z * 0.4, z * 0.4, z * 0.08);
@@ -437,6 +459,27 @@
       const col = opt.colors[car.color] || opt.colors.coral;
       const w = cam.z * 0.5;
       const hgt = cam.z * 0.28;
+      // A short fading trail behind each car, so movement reads at a glance.
+      let tr = trails.get(car.id);
+      if (!tr) { tr = []; trails.set(car.id, tr); }
+      tr.push({ x: pose.x, y: pose.y });
+      if (tr.length > 9) tr.shift();
+      if (!opt.motion && tr.length > 2) {
+        ctx.save();
+        ctx.lineCap = 'round';
+        for (let i = 1; i < tr.length; i++) {
+          const a = toScreen(cam, tr[i - 1].x, tr[i - 1].y);
+          const b = toScreen(cam, tr[i].x, tr[i].y);
+          const f = i / tr.length;
+          ctx.strokeStyle = 'rgba(255,255,255,' + (0.06 + 0.2 * f) + ')';
+          ctx.lineWidth = cam.z * 0.2 * f;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
       ctx.save();
       ctx.translate(p.x, p.y + cam.z * 0.03);
       ctx.fillStyle = 'rgba(40,36,28,0.16)';
@@ -460,6 +503,29 @@
       if (opt.colorblind) {
         ctx.fillStyle = 'rgba(255,255,255,0.9)';
         ctx.fillRect(-w * 0.28, -1, 3, 2);
+      }
+      if (opt.nightAmount > 0.05) {
+        const na = opt.nightAmount;
+        // Headlight cone forward, tail lamps behind. Drawn in car space.
+        const gx = w * 0.5;
+        const glow = ctx.createRadialGradient(gx, 0, 0, gx, 0, w * 2.4);
+        glow.addColorStop(0, 'rgba(255,246,206,' + (0.55 * na) + ')');
+        glow.addColorStop(1, 'rgba(255,246,206,0)');
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.arc(gx, 0, w * 2.4, -0.55, 0.55);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,236,170,' + (0.95 * na) + ')';
+        ctx.beginPath();
+        ctx.arc(gx - 1, -hgt * 0.28, Math.max(1.4, hgt * 0.14), 0, 7);
+        ctx.arc(gx - 1, hgt * 0.28, Math.max(1.4, hgt * 0.14), 0, 7);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(214,64,48,' + (0.9 * na) + ')';
+        ctx.beginPath();
+        ctx.arc(-w * 0.48, 0, Math.max(1.2, hgt * 0.12), 0, 7);
+        ctx.fill();
       }
       ctx.restore();
     }
@@ -740,6 +806,11 @@
         ctx.fill();
       }
 
+      const idleByHouse = new Map();
+      for (const car of run.cars) {
+        if (car.state === 'idle') idleByHouse.set(car.houseId, (idleByHouse.get(car.houseId) || 0) + 1);
+      }
+      opt.idleByHouse = idleByHouse;
       for (const b of run.buildings) drawBuilding(run, cam, b, opt, now);
 
       const groundCars = [];
@@ -753,9 +824,25 @@
       for (const m of run.motors) drawMotor(cam, m);
       for (const car of skyCars) drawCar(run, cam, car, opt, now);
 
+      // Night settles over the city as a cool wash; lights and headlights cut it.
+      const na = opt.nightAmount || 0;
+      if (na > 0) {
+        ctx.fillStyle = 'rgba(26,34,64,' + (0.34 * na) + ')';
+        ctx.fillRect(0, 0, viewW, viewH);
+      }
+
       for (const light of run.lights) {
         const p = toScreen(cam, light.x, light.y);
         const phase = Math.floor(run.time / 3.4) % 2;
+        if (na > 0.05) {
+          const lamp = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, z * 1.6);
+          lamp.addColorStop(0, 'rgba(255,238,180,' + (0.5 * na) + ')');
+          lamp.addColorStop(1, 'rgba(255,238,180,0)');
+          ctx.fillStyle = lamp;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, z * 1.6, 0, 7);
+          ctx.fill();
+        }
         ctx.fillStyle = '#2c3330';
         ctx.beginPath();
         ctx.arc(p.x, p.y, Math.max(5, z * 0.12), 0, 7);
