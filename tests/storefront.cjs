@@ -29,11 +29,11 @@ assert.match($('continueRow').querySelector('button').getAttribute('aria-label')
 assert.equal($('trendingRow').hidden,false);
 assert.match($('trendingCards').textContent,/Little Lake/);
 assert.equal($('newRow').hidden,false);
-assert.equal($('newCards').querySelectorAll('.capsule').length,15);
+assert.equal($('newCards').querySelectorAll('.capsule').length,17);
 assert.match($('newCards').textContent,/Orbital Surveyor/);
 assert.equal($('improvedCards').querySelectorAll('.capsule').length,19);
 d.querySelector('#tagFilters button[data-tag="New games"]').click();
-assert.equal(d.querySelectorAll('.game').length,15);
+assert.equal(d.querySelectorAll('.game').length,17);
 assert.equal($('improvedRow').hidden,true);
 $('search').value='surveyor';$('search').dispatchEvent(new w.Event('input'));
 assert.equal(d.querySelectorAll('.game').length,1);

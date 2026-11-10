@@ -787,5 +787,61 @@
     "thumbnailAlt": "Original Deep Shift cover illustration",
     "added": "2026-11-10",
     "updated": "2026-11-10"
+  },
+  {
+    "id": "downhole",
+    "title": "Downhole",
+    "description": "A 3D digging-and-selling mine. Tunnel down for copper, silver, gold and void crystal, haul your pack to the shack and upgrade your gear to go deeper.",
+    "icon": "⛏",
+    "genre": "Mining + Digging",
+    "color": "#c9a24d",
+    "url": "games/downhole/index.html",
+    "group": "Your games",
+    "controls": "WASD move · Click canvas to look · Hold left click dig · E shack on the surface · Space jetpack once bought · Esc menu",
+    "type": "bundled",
+    "internet": "One CDN script (Three.js) when the page loads; nothing else leaves the browser",
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#downhole",
+    "thumbnail": "art/curated/downhole.svg",
+    "thumbnailAlt": "Downhole cover illustration — mine shaft cross-section with glowing ore veins",
+    "aliases": [
+      "digging",
+      "mining",
+      "3d",
+      "hole",
+      "ore",
+      "upgrade",
+      "dig",
+      "Skoottie"
+    ],
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
+  },
+  {
+    "id": "gleam-leap",
+    "title": "Gleam Leap",
+    "description": "A one-button beat-synced runner. Jump spikes, blocks and pits across three hand-built levels, chase 100% and leave your death markers along the way.",
+    "icon": "◆",
+    "genre": "Rhythm Runner",
+    "color": "#5ec8b0",
+    "url": "games/gleam-leap/index.html",
+    "group": "Your games",
+    "controls": "Click / Space / tap jump · R retries · P practise mode · Esc pauses",
+    "type": "bundled",
+    "internet": false,
+    "multiplayer": "Single player",
+    "localMultiplayer": false,
+    "credits": "credits.html#gleam-leap",
+    "aliases": [
+      "geometry dash",
+      "runner",
+      "rhythm",
+      "platformer",
+      "school",
+      "one button"
+    ],
+    "added": "2026-11-10",
+    "updated": "2026-11-10"
   }
 ]

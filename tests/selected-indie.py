@@ -16,7 +16,7 @@ KEEP = {
     "roof-runner", "ashwake", "winterfold", "spanwright", "creekhold", "lanewright", "harvest-protocol",
     "orbital-surveyor", "pocket-golf-nine", "lanebound", "chaos-court", "corebreaker",
     "packworks", "numberworks", "outbreak-atlas", "mycelium-yard", "bell-diver",
-    "orbital-drop", "lanefall", "basket-chaos", "volley-chaos", "soccer-chaos", "pocket-golf", "pegworks", "demolition-yard", "loadline", "deep-shift",
+    "orbital-drop", "lanefall", "basket-chaos", "volley-chaos", "soccer-chaos", "pocket-golf", "pegworks", "demolition-yard", "loadline", "deep-shift", "downhole", "gleam-leap",
 }
 # Folders under games/ that are not catalogue entries but must stay.
 SUPPORT = {"gummy-bay-dev"}
