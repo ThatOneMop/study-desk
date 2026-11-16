@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07080d">
+  <title>Anaheim 1 — race start</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="stage">
+    <canvas id="view" aria-label="Supercross start cinematic"></canvas>
+    <div class="bars" aria-hidden="true"><i></i><i></i></div>
+    <div id="lower" hidden>
+      <b id="lower-k"></b>
+      <span id="lower-l"></span>
+    </div>
+    <div id="titlecard" hidden>
+      <p>BASED ON</p>
+      <h2>ANAHEIM 1</h2>
+      <p>Angel Stadium · 10 January 2026</p>
+      <p class="fine">Original real-time recreation from published layout notes. Not a broadcast.</p>
+    </div>
+    <div id="splash">
+      <p class="eyebrow">REAL-TIME START</p>
+      <h1>Anaheim <i>1</i></h1>
+      <p>Angel Stadium, 10 January 2026. A two-minute gate drop, built in the browser. The dirt, the lights, and the first turn.</p>
+      <button id="play" type="button">Play the start</button>
+      <p class="fine">Sound is an original Web Audio score written for this page. It starts with the button. No photos are included.</p>
+    </div>
+    <div id="controls">
+      <button id="replay" type="button">Replay</button>
+      <button id="skip" type="button">Skip</button>
+      <button id="mute" type="button" aria-pressed="false">Sound on</button>
+      <button id="races" type="button" aria-expanded="false">Races</button>
+    </div>
+  </div>
+  <aside id="panel" aria-label="Race tracker">
+    <header>
+      <div>
+        <p class="eyebrow">AS OF <span id="asof"></span></p>
+        <h2>Who to cheer</h2>
+      </div>
+      <button id="close-panel" type="button">Close</button>
+    </header>
+    <div id="tabs" role="tablist"></div>
+    <div id="sheet"></div>
+  </aside>
+  <script src="data.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js",
+      "three/addons/": "./vendor/addons/"
+    }
+  }
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
