@@ -1,20 +1,7 @@
 /* Sourced race notes for the showcase tracker. Opinion scores are computed in the page. */
 window.SX_DATA = {
   asOf: "16 November 2026",
-  timelineSeconds: 124,
-  track: {
-    name: "Anaheim 1",
-    round: "Round 1 of the 2026 Monster Energy AMA Supercross Championship",
-    when: "10 January 2026",
-    where: "Angel Stadium, Anaheim, California",
-    note: "Original browser geometry. It follows published descriptions of that night's layout: a left-hand first turn, two rhythm lanes off the start, whoops into a three-jump section, a jump lane along the third-base side, a right-hand sand sweeper, and an over/under after the finish. It is not a survey and it does not use official art.",
-    sources: [
-      { title: "Racer X: what the Anaheim 1 layout looked like (8 Jan 2026)", url: "https://racerxonline.com/2026/01/08/what-does-the-anaheim-1-supercross-layout-look-like" },
-      { title: "MX Performance Magazine: 2026 Anaheim 1 preview", url: "https://www.mxpmag.com/2026-anaheim-1-supercross-preview/" },
-      { title: "Racer X: live notes from Anaheim 1 (10 Jan 2026)", url: "https://racerxonline.com/2026/01/10/live-written-updates-and-results-from-anaheim-1" },
-      { title: "Supercross Live: Yamaha animated track map, Anaheim 1 (9 Jan 2026)", url: "https://www.supercrosslive.com/news/yamaha-animated-track-map-anaheim-1-3/" }
-    ]
-  },
+  site: "Gateboard",
   series: [
     {
       id: "supercross",
