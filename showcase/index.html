@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1c2433">
+  <title>Bellows Gate</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+      <rect width="64" height="64" rx="14" fill="#2a3344"/>
+      <path d="M10 46h44M18 46V30l14-10 14 10v16" fill="none" stroke="#f4ecdf" stroke-width="3"/>
+      <path d="M28 46V34h8v12" fill="#e25b2a"/>
+      <circle cx="40" cy="22" r="4" fill="#e7b34a"/>
+    </svg>
+    <div class="brand">
+      <h1>Bellows <i>Gate</i></h1>
+      <p>One evening at Wick &amp; Anvil. Keep the hearth lit.</p>
+    </div>
+    <span class="spacer"></span>
+    <button id="howBtn" type="button">How this was built</button>
+    <button id="pauseBtn" type="button" disabled>Pause</button>
+    <button id="gateBtn" type="button">Open the gate</button>
+  </header>
+  <div id="stage">
+    <canvas id="yard" aria-label="Forge yard"></canvas>
+    <p id="note" role="status"></p>
+  </div>
+  <footer id="dock">
+    <div class="meters" aria-label="Evening status">
+      <div class="meter"><small>Embers</small><b id="embers">10</b></div>
+      <div class="meter"><small>Sparks</small><b id="sparks">155</b></div>
+      <div class="meter"><small>Wave</small><b id="wave">0/6</b></div>
+    </div>
+    <div id="tools" role="group" aria-label="Tools"></div>
+  </footer>
+
+  <dialog id="start">
+    <div class="card">
+      <div class="ribbon">ONE EVENING</div>
+      <h2>Mind the hearth</h2>
+      <p>Sootlings have opinions and a footpath. Set a puff fan, a quench bucket, or a trip hammer on the pale stones, then open the gate.</p>
+      <p>They only have to reach the fire. You only have to stop them.</p>
+      <div class="row"><button id="play" class="primary" type="button">Tend the yard</button></div>
+    </div>
+  </dialog>
+  <dialog id="end">
+    <div class="card">
+      <div class="ribbon" id="endRibbon">DUSK</div>
+      <h2 id="endTitle">The hearth held</h2>
+      <p id="endBody"></p>
+      <div class="row">
+        <button id="again" class="primary" type="button">Try the evening again</button>
+        <button id="endHow" class="ghost" type="button">How this was built</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="how">
+    <div class="card wide">
+      <div class="ribbon">SHOW PIECE</div>
+      <h2>How this was built</h2>
+      <p>Bellows Gate is an original one-level defence, drawn for this page. It borrows the mood of a forge yard from the Study Desk collection and none of its saves, names, or catalogue entries.</p>
+      <p>An AI coding assistant drafted the rules and the paper-forge drawing, then checked them: a tiny script proves an empty yard loses and a planned yard can hold, and a headless browser walked the start, a win, a loss, and the phone layout.</p>
+      <ul class="plain">
+        <li>Keys 1, 2, and 3 pick a tool. Click or tap a pale stone to set it.</li>
+        <li>Space pauses once the gate is open.</li>
+        <li>This page is not linked from the study list.</li>
+      </ul>
+      <div class="row"><button id="closeHow" class="primary" type="button">Back to the yard</button></div>
+    </div>
+  </dialog>
+  <script src="game.js"></script>
+  <script src="view.js"></script>
+</body>
+</html>
